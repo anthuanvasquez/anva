@@ -1,0 +1,53 @@
+/* Header Wrapper */
+.site-header {
+	position: relative;
+}
+
+/* Group Header */
+.header-top {
+	margin-bottom: $padding;
+	padding: $padding 0;
+}
+
+/* Logo */
+.site-branding {
+	float: left;
+	
+	.logo {
+		display: block;
+		@if $lt-ie9 {
+			width: 200px;
+		} @else {
+			max-width: 200px;
+		}
+	}
+}
+
+.site-addon {
+	position: absolute;
+	right: 0;
+	top: 15%;
+}
+
+/* Search */
+.search-form {
+	border: 1px solid #ccc;
+
+	label {
+		display: inline;
+	}
+
+	.search-field {
+		border: 0;
+		float: left;
+		height: 33px;
+		width: 80%;
+	}
+
+	.search-submit {
+		height: 33px;
+		margin: 0;
+		border-radius: 0;
+		width: 20%; 
+	}
+}

@@ -1,0 +1,51 @@
+/*
+	WordPress Styles
+	========================================================================== */
+
+.aligncenter {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.alignleft {
+	float: left;
+	margin: 0 10px 5px 0;
+	text-align: left;
+}
+
+.alignright {
+	float: right;
+	margin: 0 0 5px 10px;
+	text-align: right;
+}
+
+.wp-caption {
+	margin: 0 auto $padding;
+	max-width: 100%;
+	overflow: hidden;
+	position: relative;
+	a {
+		display: block;
+	}
+	img {
+		display: block;
+		height: auto! important;
+		padding: em(5px);
+		width: auto! important;
+		margin: 0 auto !important;
+		text-align: center;
+	}
+}
+
+.wp-caption-text {
+	margin: em(5px) 0;
+	text-align: center;
+	font-size: em(14px);
+	line-height: 1.4;
+}
+
+@import "comments";
+@import "gallery";
+@import "shortcodes";
+@import "widgets";

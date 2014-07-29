@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Widgets
+   ========================================================================== */
+
+.widget {
+	margin: 0 0 $padding;
+	ul {
+		list-style: none;
+		padding: 0;
+	}
+}
+
+.widget-title {
+	color: $base-font-color;
+	display: block;
+	font-size: $widget-heading-font-size;
+	margin: 0 0 .5em;
+	text-transform: uppercase;
+	@include font-stack-headers;
+}
+
+
+.widget_search {
+	.search-field {
+		width: 100%;
+	}
+	.search-submit {
+		display: none;
+	}
+}

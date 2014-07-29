@@ -1,0 +1,303 @@
+/* ==========================================================================
+	 Media Queries
+	 ========================================================================== */
+
+// ------------------------------------------------
+// Susy + Breakpoint
+
+@import "all/plugins/susy";
+@import "all/plugins/breakpoint";
+
+// Settings
+// ------------------------------------------------
+@import "all/functions";
+@import "all/variables";
+@import "all/mixins";
+
+// Conatiner classes
+@mixin container-class() {
+	.container {
+		@content;
+	}
+}
+
+@include container-class() {
+	@include container();
+	width: auto; // reset width
+}
+
+/*
+ * Large Devices 979px
+ */
+@include susy-breakpoint($desktop-and-below, $desktop-layout) {
+
+	/* Layout */
+	@include container-class() {
+		@include pad(15px);
+		@include container();
+	}
+
+	.content-area {
+		@include span(8);
+	}
+
+	.widget-area {
+		@include span(4 last);
+	}
+	
+	/* Header */
+	.site-branding {
+		float: none;
+		text-align: center;
+		
+		.logo {
+			margin: 0 auto;
+		}
+	}
+
+	.site-addon {
+		position: static;
+		right: 0;
+		top: 0;
+		text-align: center;
+		margin: 40px auto 0;
+	}
+
+	.site-navigation {
+		float: none;
+		text-align: center;
+	}
+	
+	.search-form {
+		margin: auto;
+		max-width: 380px;
+	}
+
+}
+
+/*
+ * Medium Mobile Devices 767px
+ */
+@include susy-breakpoint($tablet-and-below, $tablet-layout) {
+
+	/* Layout */
+	@include container-class() {
+		@include container();
+	}
+
+	.content-area,
+	.widget-area {
+		float: none;
+		margin-right: 0; 
+		width: 100%;
+	}
+
+	.content-area {
+		margin-bottom: $padding;
+		&.right {
+			float: none;
+			width: 100%;
+		}
+	}
+	
+	.widget-area {
+		&.left {
+			float: none;
+			width: 100%;
+		}
+	}
+
+	/* Header */
+	.site-branding {
+		margin: $padding 0;
+	}
+	
+	/* Navigation */
+	.off_canvas_navigation {
+		
+		#off-canvas-button,
+		.off-canvas-navigation {
+			display: block;
+		}
+		
+		.mobile-navigation,
+		.site-navigation {
+			display: none;
+		}
+	}
+	
+	
+	.toggle_navigation {
+		
+		#off-canvas-button,
+		.off-canvas-navigation {
+			display: none;
+		}
+		
+		.mobile-navigation {
+			display: block;
+		}
+
+		.site-navigation {
+			display: none;
+		}
+	}	
+
+	$right: 10px;
+	$top: 12px;
+
+	ul.navigation-menu {
+	
+		> li {
+			border-top: 1px solid rgba($skin-color-3, .4);
+			display: block;
+			float: none;
+			margin-left: 0px;
+						
+			> a {
+				padding: 10px 10px;
+				text-align: left;
+				text-transform: uppercase;
+				
+				&:after {
+					@include font-stack-icon;
+					content: "\f054";
+					position: absolute;
+					right: $right;
+					top: $top;
+					color: #fff;
+				}
+
+			}
+
+			> ul.sub-menu {
+				border: 0;
+				display: none;
+				margin: 0;
+				opacity: 1;
+				position: relative;				
+				width: auto;
+				visibility: visible;
+				
+				li {
+					 > ul.sub-menu {
+						background: rgba($skin-color-0, .6);
+						display: none;
+						opacity: 1;
+						left: 0;
+						visibility: visible;
+						position: relative;
+						width: auto;
+					}
+				}
+			}				
+		}
+	}
+
+	ul.navigation-menu {
+		li {
+			&.menu-item-has-children > a {
+				&:after {
+					@include font-stack-icon;
+					content: "\f067";
+					position: absolute;
+					top: $top;
+					right: $right;
+					display: block;
+					/* Reset */
+					bottom: auto;
+					border: 0;
+					left: auto;
+					height: auto;
+					width: auto;
+				}
+				&.is-active {
+					&:after {
+						@include font-stack-icon;
+						content: "\f068";
+						position: absolute;
+						top: $top;
+						right: $right;
+						display: block;
+						/* Reset */
+						bottom: auto;
+						border: 0;
+						left: auto;
+						height: auto;
+						width: auto;
+					}
+				}
+			}
+		}
+	}
+
+	/* Change Class Name */
+	ul.sub-menu {
+		&.is-active {
+			display: block !important;
+		}
+	}
+
+	/* Footer */
+	.site-footer {
+		margin: $padding auto 0;
+	}
+
+	.footer-widget {
+		.widget {
+			margin: 0 0 $padding;
+			width: 100%;
+		}
+	}
+
+	/* Grid Columns */
+	.row-fluid,
+	.entry-content {
+		[class*="column-"] {
+			display: block;
+			float: none;
+			margin-right: 0;
+			margin-bottom: $padding;
+			width: 100%;
+		}
+	}
+
+}
+
+/*
+ * Small Mobiles Devices or Landscape - 568px
+ */
+@include susy-breakpoint($tablet-only, $tablet-layout) {
+	
+	/* Slider */
+	.flex-control-nav {
+		display: none;
+	}
+
+}
+
+/*
+ * Small Mobile Devices in Landscape 479px
+ */
+@include susy-breakpoint($phone-and-below, $phone-layout) {
+	
+	/* Layout */
+	@include container-class() {
+		@include container();
+	}
+
+	/* Header */
+	.site-branding {
+		margin: 10px auto $padding;
+	}
+
+}
+
+/*
+ * Small Mobile Devices 319px
+ */
+@include susy-breakpoint($phone-only, $phone-layout) {
+	
+	// Nothing here
+
+}

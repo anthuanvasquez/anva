@@ -1,0 +1,11 @@
+/* Gallery */
+.gallery {
+	img {
+		border: 0 !important;
+		border-radius: 2px;
+		transition: all .2s linear;
+		&:hover {
+			opacity: .6;
+		}
+	}
+}

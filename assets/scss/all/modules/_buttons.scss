@@ -1,0 +1,32 @@
+/*
+ * Default Button Styles
+ */
+.button,
+button,
+input[type="button"],
+input[type="submit"] {
+	background-color: $button-background-color;
+	border: 1px solid darken($button-background-color, 8%);
+	color: $button-font-color;
+	cursor: pointer;
+	@include inline-block();
+	font-size: $button-font-size;
+	font-weight: $button-font-weight;
+	padding: $button-padding;
+	position: relative;
+	text-align: center;
+	text-shadow: 1px 1px 1px rgba(black, .4); 
+	text-decoration: none;
+	white-space: nowrap;
+	-webkit-font-smoothing: antialiased;
+	box-shadow: 0 4px 0 inset darken($button-background-color, 18%);
+	border-radius: $button-border-radius;
+	transition: background .1s linear;
+	&:hover {
+		background-color: darken($button-background-color, 10%);
+		color: $button-font-color;
+	}
+	&:active {
+		top: 1px;
+	}
+}

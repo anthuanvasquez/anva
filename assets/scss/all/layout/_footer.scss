@@ -1,0 +1,55 @@
+/* =Footer
+----------------------------------------------- */
+
+.site-footer {
+	padding: $padding 0;
+}
+
+.footer-inner {
+	font-size: $footer-font-size;
+	a {
+		color: $skin-color-0;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	ul {
+		@include reset-list();
+	}
+}
+
+/* Footer Widget Area */
+.footer-widget {
+	margin: 0 auto $padding;
+	
+	.widget {
+		background-color: transparent;
+		border: 0;
+		margin-bottom: $padding;
+		a {
+			color: $link-color;
+		}
+	}
+	.widget-title {
+		color: $footer-font-color;
+	}
+}
+
+/* Footer Copyright */
+.footer-sub-content {
+	clear: both;
+	p {
+		margin: 0;
+	}
+}
+
+#gotop {
+	font-size: 48px;
+	position: fixed;
+	bottom: 10px;
+	right: $padding;
+	opacity: .6;
+	&:hover {
+		opacity: 1;
+	}
+}

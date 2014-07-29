@@ -1,0 +1,124 @@
+$icon-sprite-base-class: ".social" !default;
+$icon-sprite-dimensions: 32px !default;
+
+@mixin spritesheet-position($x: 0, $y: 0, $width: 0, $height: 0) {
+	background-position: $x $y;
+	// background-size: 64px 64px;
+	width: $width;
+	height: $height;
+}
+
+.social-media {
+	list-style: none;
+	margin: 10px 0;
+	padding-left: 0;
+	li {
+		display: inline-block;
+		margin: 0 0 0 5px;
+		*display: inline;
+		*zoom: 1;
+		a {
+			display: block;
+			height: $icon-sprite-dimensions;
+			width: $icon-sprite-dimensions;
+		}
+	}
+}
+
+// Include 32x32 icons
+@mixin spritesheet-icon-32($dimensions: 32px) {
+	.social-digg {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 0;
+	}
+
+	.social-dribbble {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -32px;
+	}
+
+	.social-facebook {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -64px;
+	}
+
+	.social-gplus {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -96px;
+	}
+
+	.social-instagram {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -128px;
+	}
+
+	.social-linkedin {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -160px;
+	}
+
+	.social-pinterest {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -192px;
+	}
+
+	.social-rss {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -224px;
+	}
+
+	.social-twitter {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -256px;
+	}
+
+	.social-vimeo {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -288px;
+	}
+
+	.social-youtube {
+		width: $dimensions;
+		height: $dimensions;
+		background-position: 0 -320px;
+	}
+}
+
+// Style icons
+
+.social-style-color {
+	#{$icon-sprite-base-class} {
+		background-image: url('../images/social-media-color-32x32.png');
+		background-repeat: no-repeat;
+		display: block;
+	}
+	@include spritesheet-icon-32();
+}
+
+.social-style-gray {
+	#{$icon-sprite-base-class} {
+		background-image: url('../images/social-media-gray-32x32.png');
+		background-repeat: no-repeat;
+		display: block;
+	}
+	@include spritesheet-icon-32();
+}
+
+.social-style-black {
+	#{$icon-sprite-base-class} {
+		background-image: url('../images/social-media-black-32x32.png');
+		background-repeat: no-repeat;
+		display: block;
+	}
+	@include spritesheet-icon-32();
+}

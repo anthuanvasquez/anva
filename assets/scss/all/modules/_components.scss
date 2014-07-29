@@ -1,0 +1,77 @@
+/*
+ * Typography
+ */
+
+.size-2x {
+	font-size: 120%;
+}
+
+.size-3x {
+	font-size: 150;
+}
+
+.size-4x {
+	font-size: 180%;
+}
+
+.fixed {
+	font-family: $fixed-font-family;
+	font-size: $fixed-font-size;
+	line-height: $fixed-line-height;
+}
+
+.quiet {
+	font-color: $quiet-color;
+}
+
+.loud {
+	font-color: $loud-color;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.bold {
+	font-weight: 700;
+}
+
+.block-margins {
+	margin: 1em 0;
+}
+
+.unordered-list {
+	list-style-type: disc;
+}
+
+.ordered-list {
+	list-style: decimal;
+}
+
+.reset-list {
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+.float-left  {
+	float: left;
+	margin-right: 1em;
+}
+
+.float-right {
+	float: right;
+	margin-left: 1em;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+.text-right {
+	text-align: right !important;
+}

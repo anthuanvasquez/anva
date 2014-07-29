@@ -1,0 +1,148 @@
+// Responsive
+// ------------------------------------------------
+$responsive: true !default;
+$boxed: true !default;
+
+// Cross Browser Support Settings
+// ------------------------------------------------
+$lt-ie9: true !default;
+
+// Normalize Browser Support Settings
+// ------------------------------------------------
+$browser-minimum-versions: (
+	'chrome':  null,
+	'firefox': null,
+	'ie':      '8',
+	'safari':  null,
+	'opera':   null
+) !global;
+
+// Compass Vertical Rhythm Settings
+// ------------------------------------------------
+$relative-font-sizing : false;
+$base-font-size: 12px;
+$base-line-height: 18px;
+$rhythm-font-unit: "px";
+$round-to-nearest-half-line: true;
+
+// Colour Palette
+// ------------------------------------------------
+$skin-color-0: #2ACBF5;
+$skin-color-1: #cccccc;
+$skin-color-2: #02C1F3;
+$skin-color-3: #999999;
+$skin-color-4: #111111;
+
+$container-background-color: #fff;
+$base-background-color: #fff;
+$link-color: #3498db;
+$link-hover-color: saturate($link-color, 20%);
+$quiet-color: #ccc;
+$loud-color: #000;
+
+// Font Stacks
+$open-sans: 'Open Sans', sans-serif;
+$helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$geo-times: Georgia, Times, 'Times New Roman', serif;
+$monospace: Menlo, Monaco, Courier, MonoSpace, Consolas;
+$icon-font: 'FontAwesome';
+
+// Font Settings
+// ------------------------------------------------
+$base-font-color: #333;
+$base-font-family: $helvetica;
+$base-font-weight: 400;
+
+$code-font-family: $monospace;
+
+$heading-font-color: #333;
+$heading-font-family: $helvetica;
+$heading-font-line-height: 1.1;
+$heading-font-weight: 400;
+
+$icon-font-family: $icon-font;
+
+$menu-font-size: 14px;
+$menu-font-family: $helvetica;
+$menu-sub-font-size: 14px;
+
+$font-weight: normal;
+
+$fixed-font-family: $monospace;
+$fixed-font-size: 12px;
+$fixed-line-height: 18px;
+
+$footer-font-color: #333;
+$footer-font-size: 12px;
+$footer-heading-font-size: 14px;
+
+$widget-heading-font-size: 14px;
+
+// Font Heading Settings
+// ------------------------------------------------
+$h1: 24px !default;
+$h2: 22px !default;
+$h3: 18px !default;
+$h4: 16px !default;
+$h5: 14px !default;
+$h6: 12px !default;
+
+// Buttons Settings
+// ------------------------------------------------
+$button-background-color: $skin-color-0;
+$button-border-radius: 2px;
+$button-padding: 5px 14px; 
+$button-font-color: #fff;
+$button-font-size: 12px;
+$button-font-weight: bold;
+
+// Notifications
+// ------------------------------------------------
+$color-success: #468847;
+$color-error: #b94a48;
+$color-block: #c09853;
+$color-info: #3a87ad;
+
+// ------------------------------------------------
+// Susy 2 Grid Settings
+$container-style: magic;
+$container-width: 980px;
+$total-columns: 12;
+$column-width: 60px;
+$gutter-width: 20px;
+$grid-padding: 20px;
+
+$susy: (
+	columns: $total-columns,
+	gutters: $gutter-width / $column-width,
+	column-width: $column-width,
+	container: $container-width,
+	math: if( $container-style == magic, fluid, $container-style ),
+	global-box-sizing: border-box,
+	use-custom: (
+		rem: false
+	)
+);
+
+// ------------------------------------------------
+// Breakpoints Settings
+$phone-only: 319px;
+$phone-and-below: 479px;
+$tablet-only: 568px;
+$tablet-and-below: 767px;
+$desktop-and-below: 979px;
+
+$phone-layout: 4;
+$tablet-layout: 8;
+$desktop-layout: 12;
+
+$breakpoint-default-feature: max-width;
+$breakpoint-no-queries: false;
+$breakpoint-no-query-fallbacks: true;
+$breakpoint-base-font-size: $base-font-size;
+
+// ------------------------------------------------
+// Others
+$border-radius: 6px;
+$max-width: 980px;
+$padding: 20px;

@@ -1,0 +1,53 @@
+/* ==========================================================================
+	 Layout
+	 ========================================================================== */
+
+// Container
+.container {
+	box-shadow: 0 0 2px #ccc;
+	position: relative;
+	@include container-width($container-width, $padding);
+}
+
+// Group content
+.site-content {
+	margin: $padding 0;
+	position: relative;
+}
+
+// Content column
+.content-area {
+	@include span(8);
+	&.right {
+		@include span(8 last);
+		margin-right: 0;
+	}
+}
+
+// Sidebar column
+.widget-area {
+	@include span(4 last);
+	&.left {
+		@include span(4);
+	}
+}
+
+// Group main content
+.site-main {
+	margin: 0;
+}
+
+// Featured slider
+.featured-container {
+	margin: 0 0 $padding;
+}
+
+// Blog columns
+.blog-two-columns {
+	.post {
+		@include span(6);
+		&:nth-child(2n) {
+			@include last;
+		}
+	}
+}
