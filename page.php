@@ -9,8 +9,11 @@
 				<?php get_template_part( 'content', 'page' ); ?>
 
 				<?php
-					if ( comments_open() || '0' != get_comments_number() ) :
-						comments_template();
+					$single_comment = tm_get_option( 'single_comment' );
+					if ( 1 == $single_comment ) :
+						if ( comments_open() || '0' != get_comments_number() ) :
+							comments_template();
+						endif;
 					endif;
 				?>
 
