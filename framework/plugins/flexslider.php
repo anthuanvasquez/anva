@@ -157,7 +157,7 @@ function flexslider_rotator( $slug ) {
 			}
 			
 
-			if ( '1' != $data ) {
+			if ( '1' == $data ) {
 
 				$html .= '<div class="slide-data">';				
 				
@@ -273,7 +273,7 @@ function flexslider_metabox_1() {
 		<input type="checkbox" name="slider_excerpt" value="1" <?php checked( $slider_excerpt, 1, true ); ?>>
 	</p>
 
-	<p><strong>Ocultar Contenido:</strong></p>
+	<p><strong>Mostrar Contenido:</strong></p>
 	<p>		
 		<input type="hidden" name="slider_data" value="0">
 		<input type="checkbox" name="slider_data" value="1" <?php checked( $slider_data, 1, true ); ?>>
