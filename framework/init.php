@@ -23,6 +23,7 @@ include_once( get_template_directory() . '/framework/includes/widgets.php' );
 include_once( get_template_directory() . '/framework/includes/shortcodes.php' );
 include_once( get_template_directory() . '/framework/includes/login.php' );
 include_once( get_template_directory() . '/framework/plugins/flexslider.php' );
+include_once( get_template_directory() . '/framework/plugins/woocommerce-config.php' );
 
 /**
  * Theme Settings Admin
