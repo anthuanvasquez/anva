@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Load framework
+ * @since 1.5.0
+ */
 include_once( get_template_directory() . '/framework/init.php' );
 
 /**
