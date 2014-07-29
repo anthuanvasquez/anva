@@ -23,6 +23,7 @@ function tm_setup() {
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'comment-list', 'search-form', 'comment-form' ) );
+	add_theme_support( 'woocommerce' ); // include Woocommerce Support
 
 	// Hook actions
 	add_action( 'init', 'tm_register_menus' );
