@@ -136,10 +136,10 @@ function flexslider_rotator( $slug ) {
 		
 		while ( have_posts() ) { the_post();
 		
-			$url = get_post_meta( get_the_ID(), "_slider_link_url", true );
-			$title = get_post_meta( get_the_ID(), "_slider_title", true );
-			$excerpt = get_post_meta( get_the_ID(), "_slider_excerpt", true );
-			$data = get_post_meta( get_the_ID(), "_slider_data", true );
+			$url 		= get_post_meta( get_the_ID(), "_slider_link_url", true );
+			$title 		= get_post_meta( get_the_ID(), "_slider_title", true );
+			$excerpt 	= get_post_meta( get_the_ID(), "_slider_excerpt", true );
+			$data 		= get_post_meta( get_the_ID(), "_slider_data", true );
 
 			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array('echo' => false) ) . '" >';
 			
@@ -157,7 +157,7 @@ function flexslider_rotator( $slug ) {
 			}
 			
 
-			if ( $data != '1' ) {
+			if ( '1' != $data ) {
 
 				$html .= '<div class="slide-data">';				
 				
