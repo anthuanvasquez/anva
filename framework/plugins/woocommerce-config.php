@@ -6,6 +6,11 @@
  *
  */
 
+add_action( 'wp_enqueue_scripts', 'wc_load_scripts' ); 
+function wc_load_scripts() {
+	wp_enqueue_style( 'woocommerce-mod', get_template_directory_uri() . '/assets/css/woocommerce-mod.css' );
+}
+
 // Change number of related products on product page
 // Set your own value for 'posts_per_page'
 // -----------------------------------------------
