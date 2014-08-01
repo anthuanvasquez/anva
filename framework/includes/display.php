@@ -1,5 +1,17 @@
 <?php
 
+function tm_layout_before_default() {
+	?>
+	<div class="wrapper">
+	<?php
+}
+
+function tm_layout_after_default() {
+	?>
+	</div>
+	<?php
+}
+
 function tm_ie_browser_message() {
 	?>
 	<!--[if lt IE 9]><p class="browsehappy"><?php _e('Estas utilizando un navegador obsoleto. Actualiza tu navegador para mejorar tu experiencia.', TM_THEME_DOMAIN); ?></p><![endif]-->
