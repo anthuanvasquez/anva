@@ -2,6 +2,7 @@
 
 // Hook Shortcodes
 function tm_shortcodes_setup() {
+	
 	add_shortcode( 'dropcap', 'dropcap_func' );
 	add_shortcode( 'button', 'button_func' );
 	add_shortcode( 'toggle', 'toggle_func' );
@@ -23,6 +24,7 @@ function tm_shortcodes_setup() {
 
 	add_shortcode( 'column_one', 'column_one_func' );
 	add_shortcode( 'column_one_last', 'column_one_last_func' );
+	
 }
 add_filter( 'after_setup_theme', 'tm_shortcodes_setup'  );
 
@@ -126,6 +128,7 @@ function button_func($atts, $content) {
 
 /* Columns 6 */
 function column_six_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -136,6 +139,7 @@ function column_six_func($atts, $content) {
 }
 
 function column_six_last_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -147,6 +151,7 @@ function column_six_last_func($atts, $content) {
 
 /* Columns 4 */
 function column_four_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -157,6 +162,7 @@ function column_four_func($atts, $content) {
 }
 
 function column_four_last_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -168,6 +174,7 @@ function column_four_last_func($atts, $content) {
 
 /* Columns 3 */
 function column_three_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -178,6 +185,7 @@ function column_three_func($atts, $content) {
 }
 
 function column_three_last_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -189,6 +197,7 @@ function column_three_last_func($atts, $content) {
 
 /* Columns 2 */
 function column_two_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -199,6 +208,7 @@ function column_two_func($atts, $content) {
 }
 
 function column_two_last_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -210,6 +220,7 @@ function column_two_last_func($atts, $content) {
 
 /* Columns 1 */
 function column_one_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -220,6 +231,7 @@ function column_one_func($atts, $content) {
 }
 
 function column_one_last_func($atts, $content) {
+	$content = wpautop( trim( $content ) );
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'class' => '',
@@ -230,9 +242,8 @@ function column_one_last_func($atts, $content) {
 }
 
 function toggle_func( $atts, $content ) {
-
-	$content = wpautop(trim($content));
-
+	$content = wpautop( trim( $content ) );
+	// Extract short code attr
 	extract(shortcode_atts(array(
 			'title' => __('Click para Abrir', TM_THEME_DOMAIN ),
 			'color' => ''
