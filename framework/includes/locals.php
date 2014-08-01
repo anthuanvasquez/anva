@@ -35,7 +35,7 @@ function tm_get_text_locals() {
 		'captcha_equalto'						=> __( 'No es la repuesta correcta.', $domain ),
 		'submit' 										=> __( 'Enviar Mensaje', $domain ),
 		'submit_message'						=> __( 'Gracias, su email fue enviado con &eacute;xito.', $domain ),
-		'submit_erorr'							=> __( '<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que los campos marcados con * no est&eacute;n en blanco.', $domain ),
+		'submit_error'							=> __( '<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que no haya campos en blanco.', $domain ),
 		'footer_copyright'					=> __( 'Todos los Derechos Reservados.' , $domain ),
 		'footer_text'								=> __( 'Diseño y Programación Web por:', $domain ),
 
