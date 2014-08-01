@@ -12,7 +12,7 @@
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php get_template_part( 'content', 'page' ); ?>
-			<?php get_template_part( 'includes/form', 'contact' ); ?>
+			<?php get_template_part( 'framework/includes/form', 'contact' ); ?>
 		<?php endwhile; ?>
 
 		</div><!-- .site-main (end) -->
