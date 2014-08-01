@@ -4,6 +4,7 @@
 
 // Container
 .container {
+	background-color: $container-background-color;
 	box-shadow: 0 0 2px #ccc;
 	position: relative;
 	@include container-width($container-width, $padding);

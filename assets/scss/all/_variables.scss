@@ -20,7 +20,7 @@ $browser-minimum-versions: (
 // Compass Vertical Rhythm Settings
 // ------------------------------------------------
 $relative-font-sizing : false;
-$base-font-size: 12px;
+$base-font-size: 13px;
 $base-line-height: 18px;
 $rhythm-font-unit: "px";
 $round-to-nearest-half-line: true;
@@ -32,15 +32,15 @@ $color-1: #cccccc;
 $color-2: #02C1F3;
 $color-3: #999999;
 $color-4: #111111;
-
 $container-background-color: #fff;
-$base-background-color: #fff;
+$base-background-color: #f2f2f2;
 $link-color: #3498db;
 $link-hover-color: saturate($link-color, 20%);
 $quiet-color: #ccc;
 $loud-color: #000;
 
 // Font Stacks
+// ------------------------------------------------
 $open-sans: 'Open Sans', sans-serif;
 $helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $geo-times: Georgia, Times, 'Times New Roman', serif;
@@ -52,38 +52,28 @@ $icon-font: 'FontAwesome';
 $base-font-color: #333;
 $base-font-family: $helvetica;
 $base-font-weight: 400;
-
 $code-font-family: $monospace;
-
 $heading-font-color: #333;
 $heading-font-family: $helvetica;
 $heading-font-line-height: 1.1;
-$heading-font-weight: 400;
-
+$heading-font-weight: 700;
 $icon-font-family: $icon-font;
-
 $menu-font-size: 14px;
 $sub-menu-font-size: 14px;
 $menu-font-family: $helvetica;
-
-
-$font-weight: normal;
-
 $fixed-font-family: $monospace;
-$fixed-font-size: 12px;
+$fixed-font-size: 13px;
 $fixed-line-height: 18px;
-
 $footer-font-color: #333;
-$footer-font-size: 12px;
+$footer-font-size: 13px;
+$footer-heading-font-size: 18px;
 $footer-heading-font-color: #333;
-$footer-heading-font-size: 14px;
-
 $widget-heading-font-color: #333;
-$widget-heading-font-size: 14px;
+$widget-heading-font-size: 18px;
 
 // Font Heading Settings
 // ------------------------------------------------
-$h1: 24px !default;
+$h1: 26px !default;
 $h2: 22px !default;
 $h3: 18px !default;
 $h4: 16px !default;

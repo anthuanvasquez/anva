@@ -15,13 +15,13 @@
 	display: block;
 	font-size: $widget-heading-font-size;
 	margin: 0 0 .5em;
-	text-transform: uppercase;
 	@include font-stack-headers;
 }
 
 
 .widget_search {
 	.search-field {
+		float: none;
 		width: 100%;
 	}
 	.search-submit {

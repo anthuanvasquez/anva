@@ -41,7 +41,6 @@ h3.comment-reply-title {
 
 /* Author Nickname */
 .fn {
-	font-size: 16px;
 	font-style: normal;
 	@include font-stack-headers;
 }
@@ -104,6 +103,9 @@ h3.comment-reply-title {
 		display: block;
 		font-weight: 700;
 		margin: 10px 0 2px;
+	}
+	.form-submit {
+		text-align: right;
 	}
 }
 

@@ -3,7 +3,8 @@
 	 ========================================================================== */
 
 /* Links */
-a, .link {
+a,
+.link {
 	color: $link-color;
 	&:hover {
 		color: lighten($link-color, 10%);
