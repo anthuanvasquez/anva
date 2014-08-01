@@ -20,9 +20,9 @@
 	</footer><!-- .footer-container -->
 </div><!-- #container -->
 
-<?php tm_layout_after(); ?>
-
 <?php wp_footer(); ?>
+
+<?php tm_layout_after(); ?>
 
 </body>
 </html>
