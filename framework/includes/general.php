@@ -35,6 +35,14 @@ function tm_register_sidebars() {
 	register_sidebar(
 		tm_get_widget_args( 'footer-sidebar', 'footer_sidebar_title', 'footer_sidebar_desc' )
 	);
+	
+	register_sidebar(
+		tm_get_widget_args( 'shop-sidebar', 'shop_sidebar_title', 'shop_sidebar_desc' )
+	);
+	
+	register_sidebar(
+		tm_get_widget_args( 'product-sidebar', 'product_sidebar_title', 'product_sidebar_desc' )
+	);
 
 }
 

@@ -15,6 +15,19 @@ function wc_load_scripts() {
 	}
 }
 
+add_action( 'widgets_init', 'wc_register_sidebars' );
+function wc_register_sidebars() {
+	if ( class_exists( 'Woocommerce' ) ) {
+		register_sidebar(
+			tm_get_widget_args( 'shop-sidebar', 'shop_sidebar_title', 'shop_sidebar_desc' )
+		);
+		
+		register_sidebar(
+			tm_get_widget_args( 'product-sidebar', 'product_sidebar_title', 'product_sidebar_desc' )
+		);
+	}
+}
+
 /*
  * Change number of related products on product page
  * Set your own value for 'posts_per_page'
