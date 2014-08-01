@@ -12,7 +12,7 @@
 				</div>
 				
 				<div class="footer-sub-content">
-					<p><strong><?php bloginfo( 'name' ); ?></strong>. &copy; <?php echo date('Y'); ?> <?php echo tm_get_local( 'footer_copyright' ); ?> <?php echo tm_get_local( 'footer_text' ); ?> <a href="<?php echo esc_url( 'http://3mentes.com/'); ?>">3mentes.</a></p>	
+					<?php do_action( 'tm_footer_text' ); ?>
 				</div>
 
 			</div>
