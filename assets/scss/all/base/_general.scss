@@ -3,7 +3,17 @@
    ========================================================================== */
 
 @include establish-baseline;   
-@include border-box-sizing;
+//@include border-box-sizing;
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 
 html {
 	color: $base-font-color;

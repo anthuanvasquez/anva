@@ -1,18 +1,15 @@
 /*
  * Default Button Styles
  */
-.button,
-button,
-input[type="button"],
-input[type="submit"] {
+@include group-buttons() {
 	background-color: $button-background-color;
-	border: 1px solid darken($button-background-color, 8%);
+	border: $button-border-width solid darken($button-background-color, 8%);
 	color: $button-font-color;
 	cursor: pointer;
 	@include inline-block();
 	font-size: $button-font-size;
 	font-weight: $button-font-weight;
-	padding: $button-padding;
+	padding: $button-padding-box;
 	position: relative;
 	text-align: center;
 	text-shadow: 1px 1px 1px rgba(black, .4); 

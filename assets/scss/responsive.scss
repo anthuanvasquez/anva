@@ -149,7 +149,7 @@
 	ul.navigation-menu {
 	
 		> li {
-			border-top: 1px solid rgba($skin-color-3, .4);
+			border-top: 1px solid rgba($color-3, .4);
 			display: block;
 			float: none;
 			margin-left: 0px;
@@ -181,7 +181,7 @@
 				
 				li {
 					 > ul.sub-menu {
-						background: rgba($skin-color-0, .6);
+						background: rgba($color-0, .6);
 						display: none;
 						opacity: 1;
 						left: 0;

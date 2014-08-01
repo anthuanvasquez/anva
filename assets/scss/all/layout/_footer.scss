@@ -2,13 +2,10 @@
 ----------------------------------------------- */
 
 .site-footer {
-	padding: $padding 0;
-}
-
-.footer-inner {
 	font-size: $footer-font-size;
+	padding: $padding 0;
 	a {
-		color: $skin-color-0;
+		color: $color-0;
 		&:hover {
 			text-decoration: underline;
 		}
@@ -31,7 +28,8 @@
 		}
 	}
 	.widget-title {
-		color: $footer-font-color;
+		color: $footer-heading-font-color;
+		font-size: $footer-heading-font-size;
 	}
 }
 

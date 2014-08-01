@@ -55,7 +55,7 @@ h6, .h6 {
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+#{headings()} {
 	color: $heading-font-color;
 	line-height: $heading-font-line-height;
 	@include font-stack-headers;

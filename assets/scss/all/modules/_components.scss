@@ -75,3 +75,41 @@
 .text-right {
 	text-align: right !important;
 }
+
+/*
+ * Notifications
+ */
+ 
+.alert {
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	font-weight: bold;
+	margin-bottom: $padding;
+	padding: 8px 15px;
+	text-shadow: 0 1px 0 rgba(white, .5);
+	border-radius: $border-radius;
+}
+
+.alert-block {
+	color: $color-block;
+	background-color: lighten($color-block, 35%);
+	border-color: lighten($color-block, 35%);
+}
+
+.alert-error {
+	color: $color-error;
+	background-color: lighten($color-error, 40%);
+	border-color: lighten($color-error, 35%);
+}
+
+.alert-success {
+	color: $color-success;
+	background-color: lighten($color-success, 40%);
+	border-color: lighten($color-success, 35%);
+}
+
+.alert-info {
+	color: $color-info;
+	background-color: lighten($color-info, 40%);
+	border-color: lighten($color-info, 35%);
+}

@@ -17,9 +17,9 @@ body.login {
 // Footer links
 .login #backtoblog a,
 .login #nav a {
-	color: $skin-color-0;
+	color: $color-0;
 	&:hover {
-		color: saturate($skin-color-0, 5%);
+		color: saturate($color-0, 5%);
 	}
 }
 
@@ -33,10 +33,10 @@ body.login {
 	font-weight: bold;
 	text-align: center;
 	a {
-		color: $skin-color-0;
+		color: $color-0;
 		text-decoration: none;
 		&:hover {
-			color: saturate($skin-color-0, 5%);
+			color: saturate($color-0, 5%);
 		}
 	}
 }
@@ -104,9 +104,9 @@ body.login {
 
 // Buttons
 .wp-core-ui .button-primary {
-	background: $skin-color-0;
-	border-color: $skin-color-0;
-	box-shadow: 0px 1px 0px rgba($skin-color-0, 0.5) inset, 0px 1px 0px rgba(0, 0, 0, 0.15);
+	background: $color-0;
+	border-color: $color-0;
+	box-shadow: 0px 1px 0px rgba($color-0, 0.5) inset, 0px 1px 0px rgba(0, 0, 0, 0.15);
 	color: #fff;
 	text-decoration: none;
 	text-shadow: none;
@@ -116,9 +116,9 @@ body.login {
 .wp-core-ui .button-primary.hover,
 .wp-core-ui .button-primary:focus,
 .wp-core-ui .button-primary:hover {
-	background: $skin-color-0;
-	border-color: $skin-color-0;
-	box-shadow: 0px 1px 0px rgba($skin-color-0, 0.6) inset;
+	background: $color-0;
+	border-color: $color-0;
+	box-shadow: 0px 1px 0px rgba($color-0, 0.6) inset;
 	color: #fff;
 	text-shadow: none;
 }

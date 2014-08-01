@@ -10,7 +10,7 @@
  */
 add_action( 'wp_enqueue_scripts', 'wc_load_scripts' ); 
 function wc_load_scripts() {
-	if ( class_exists('Woocommerce' ) ) {
+	if ( class_exists( 'Woocommerce' ) ) {
 		wp_enqueue_style( 'woocommerce-mod', get_template_directory_uri() . '/assets/css/woocommerce-mod.css' );
 	}
 }

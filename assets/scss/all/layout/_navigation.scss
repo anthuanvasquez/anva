@@ -11,7 +11,7 @@ $off-canvas: 21em;
 
 .off-canvas-navigation {
 	display: none;
-	background-color: $skin-color-0;
+	background-color: $color-0;
 	height: 100%;
 	left: -21em;
 	position: absolute;
@@ -32,7 +32,7 @@ $off-canvas: 21em;
 }
 
 .site-navigation {
-	background-color: $skin-color-2;
+	background-color: $color-2;
 	position: relative;
 }
 
@@ -47,7 +47,7 @@ ul.navigation-menu {
 	width: 100%;
 	> li {
 		float: left;
-		border-right: 1px solid lighten($skin-color-0, 5%); 
+		border-right: 1px solid lighten($color-0, 5%); 
 		position: relative;
 		
 		> a {
@@ -65,7 +65,7 @@ ul.navigation-menu {
 		&.current-menu-item,
 		&.current_page_item {
 			> a {
-				background-color: $skin-color-0;				
+				background-color: $color-0;				
 				color: #fff;
 			}
 		}
@@ -89,12 +89,12 @@ ul.navigation-menu {
 				&:hover,
 				&.current-menu-item,
 				&.current_page_item {
-					background: rgba($skin-color-0, .1);
+					background: rgba($color-0, .1);
 				}
 
 				a {
 					display: block;
-					font-size: $menu-sub-font-size;
+					font-size: $sub-menu-font-size;
 					padding: 10px;
 					text-align: left;
 				}
@@ -110,14 +110,12 @@ ul.navigation-menu {
 	}
 }
 
-ul.navigation-menu li:hover > ul.sub-menu,
-ul.navigation-menu li > ul.sub-menu:hover {
+ul.navigation-menu li:hover > ul.sub-menu {
 	opacity: 1;
 	visibility: visible;
 }
 
-ul.navigation-menu li ul.sub-menu li:hover ul.sub-menu,
-ul.navigation-menu li ul.sub-menu li ul:hover {
+ul.navigation-menu li ul.sub-menu li:hover ul.sub-menu {
 	opacity: 1;
 	visibility: visible;
 }
@@ -128,7 +126,7 @@ ul.navigation-menu li ul.sub-menu li ul:hover {
 }
 
 .toggle-button {
-	background-color: $skin-color-0;
+	background-color: $color-0;
 	color: #fff;
 	font-size: 18px;	
 	padding: 10px;

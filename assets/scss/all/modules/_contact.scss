@@ -1,21 +1,6 @@
 /* =Contact Form
 ----------------------------------------------- */
 
-@mixin group-inputs() {
-	input[type="text"],
-	input[type="datetime"],
-	input[type="date"],
-	input[type="tel"],
-	input[type="email"],
-	input[type="url"],
-	input[type="number"],
-	input[type="tel"],
-	select,
-	textarea {
-		@content;
-	}
-}
-
 .contact-form {
 
 	div {
@@ -35,7 +20,7 @@
 		margin: 0 0 2px 0;
 		padding: 8px;
 		&:focus {
-			border-color: $skin-color-0;
+			border-color: $color-0;
 		}
 	}
 
@@ -72,7 +57,7 @@
 			width: 100%;
 			border-radius: 3px;
 			&:focus {
-				border-color: $skin-color-0;
+				border-color: $color-0;
 			}
 		}
 	}

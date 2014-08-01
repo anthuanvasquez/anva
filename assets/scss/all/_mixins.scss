@@ -52,6 +52,52 @@
 	}
 }
 
+@mixin group-inputs() {
+	input[type="text"],
+	input[type="datetime"],
+	input[type="date"],
+	input[type="tel"],
+	input[type="email"],
+	input[type="url"],
+	input[type="number"],
+	input[type="password"],
+	input[type="search"],
+	select,
+	textarea {
+		@content;
+	}
+}
+
+@mixin group-buttons() {
+	a.button,
+	.button,
+	button,
+	button.button,
+	input.button,
+	input[type="button"],
+	input[type="submit"],
+	input[type="reset"]	{
+		@content;
+	}
+}
+
+// Products Box
+@mixin woocommerce-product( $border: 1px solid #ccc, $pad: 0 0 25px, $height: 360px, $trans: true ) {
+	border-bottom: $border;
+	margin-bottom: $padding;
+	height: $height;
+	padding: $pad;
+	position: relative;
+	@include box-sizing(border-box);
+	@if $trans {
+		@include transition(border .2s ease);
+	}
+		
+	&:hover {
+		border-color: $color-0;
+	}
+}
+
 // Animation
 @mixin animation($animation) {
 	-webkit-animation-name: $animation;

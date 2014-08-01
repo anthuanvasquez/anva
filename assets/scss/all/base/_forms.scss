@@ -2,23 +2,9 @@
 ----------------------------------------------- */
 
 /*
- * Allow only vertical resizing of textareas.
- */
-textarea {
-	resize: vertical;
-}
-
-/*
  * color style for Inputs Text
  */
-input[type="datetime"],
-input[type="email"],
-input[type="password"],
-input[type="search"],
-input[type="text"],
-input[type="url"],
-select,
-textarea {
+@include group-inputs() {
 	border: 1px solid #c9c9c9;
 	color: #2a2a2a;
 	font-size: $base-font-size;
@@ -37,4 +23,11 @@ input[type="radio"] {
 	padding: 0;
 	position: relative;
 	top: 3px;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+textarea {
+	resize: vertical;
 }

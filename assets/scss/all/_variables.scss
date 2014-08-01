@@ -27,11 +27,11 @@ $round-to-nearest-half-line: true;
 
 // Colour Palette
 // ------------------------------------------------
-$skin-color-0: #2ACBF5;
-$skin-color-1: #cccccc;
-$skin-color-2: #02C1F3;
-$skin-color-3: #999999;
-$skin-color-4: #111111;
+$color-0: #2ACBF5;
+$color-1: #cccccc;
+$color-2: #02C1F3;
+$color-3: #999999;
+$color-4: #111111;
 
 $container-background-color: #fff;
 $base-background-color: #fff;
@@ -63,8 +63,9 @@ $heading-font-weight: 400;
 $icon-font-family: $icon-font;
 
 $menu-font-size: 14px;
+$sub-menu-font-size: 14px;
 $menu-font-family: $helvetica;
-$menu-sub-font-size: 14px;
+
 
 $font-weight: normal;
 
@@ -74,8 +75,10 @@ $fixed-line-height: 18px;
 
 $footer-font-color: #333;
 $footer-font-size: 12px;
+$footer-heading-font-color: #333;
 $footer-heading-font-size: 14px;
 
+$widget-heading-font-color: #333;
 $widget-heading-font-size: 14px;
 
 // Font Heading Settings
@@ -89,12 +92,13 @@ $h6: 12px !default;
 
 // Buttons Settings
 // ------------------------------------------------
-$button-background-color: $skin-color-0;
+$button-background-color: $color-0;
 $button-border-radius: 2px;
-$button-padding: 5px 14px; 
+$button-border-width: 1px;
 $button-font-color: #fff;
 $button-font-size: 12px;
 $button-font-weight: bold;
+$button-padding-box: 5px 14px; 
 
 // Notifications
 // ------------------------------------------------
