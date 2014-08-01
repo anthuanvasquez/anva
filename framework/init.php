@@ -37,7 +37,9 @@ if ( is_admin() ) {
 add_action( 'wp_head', 'tm_apple_touch_icon' );
 add_action( 'wp_head', 'tm_custom_css' );
 add_action( 'wp_head', 'tm_navigation' );
-add_action( 'tm_layout_before', 'tm_ie_browser_message' );
 add_action( 'tm_header_addon', 'tm_site_search' );
 add_action( 'tm_header_addon', 'tm_social_icons' );
 add_action( 'tm_header_logo', 'tm_header_logo_default' );
+add_action( 'tm_layout_before', 'tm_layout_before_default' );
+add_action( 'tm_layout_after', 'tm_layout_after_default' );
+add_action( 'tm_layout_before', 'tm_ie_browser_message' );
