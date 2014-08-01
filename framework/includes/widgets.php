@@ -120,7 +120,7 @@ class Custom_Services extends WP_Widget {
 		/* Text */
 		echo '<div class="textwidget">';
 			if ( 'true' == $autop ) {				
-				echo $autop;
+				echo wpautop($text);
 			} else {
 				echo $text;
 			}
