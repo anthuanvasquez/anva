@@ -115,7 +115,7 @@ ul.navigation-menu li:hover > ul.sub-menu {
 	visibility: visible;
 }
 
-ul.navigation-menu li ul.sub-menu li:hover ul.sub-menu {
+ul.navigation-menu li ul.sub-menu li:hover > ul.sub-menu {
 	opacity: 1;
 	visibility: visible;
 }
