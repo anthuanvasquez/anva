@@ -81,28 +81,28 @@
 	<form id="contactform" class="contact-form" method="post" action="<?php the_permalink(); ?>#contactform">
 
 		<div class="form-name">
-			<label for="cname" class="control-label"><?php echo tm_get_local( 'name' ); ?></label>
+			<label for="cname" class="control-label"><?php echo tm_get_local( 'name' ); ?>:</label>
 			<input type="text" placeholder="<?php echo tm_get_local( 'name_place' ); ?>" name="cname" class="full-width requiredField" value="<?php if ( isset($_POST['cname'] ) ) echo esc_attr( $name ); ?>">
 		</div>
 		
 		<div class="form-email">
-			<label for="cemail" class="control-label"><?php echo tm_get_local( 'email' ); ?></label>
+			<label for="cemail" class="control-label"><?php echo tm_get_local( 'email' ); ?>:</label>
 			<input type="email" placeholder="<?php _e('Correo Electr&oacute;nico', TM_THEME_DOMAIN); ?>" name="cemail" class="full-width requiredField" value="<?php if(isset($_POST['cemail'])) echo esc_attr( $email );?>">
 		</div>
 
 		<div class="form-subject">						
-			<label for="csubject" class="control-label"><?php echo tm_get_local( 'subject' ); ?></label>
+			<label for="csubject" class="control-label"><?php echo tm_get_local( 'subject' ); ?>:</label>
 			<input id="subject" type="text" placeholder="<?php echo tm_get_local( 'subject' ); ?>" name="csubject" class="full-width requiredField" value="<?php if ( isset($_POST['csubject'] ) ) echo esc_attr( $subject ); ?>">
 		</div>
 		
 		<div class="form-comments">
-			<label for="cmessage" class="control-label"><?php echo tm_get_local( 'message' ); ?></label>
+			<label for="cmessage" class="control-label"><?php echo tm_get_local( 'message' ); ?>:</label>
 			<textarea id="message" name="cmessage" class="full-width" placeholder="<?php echo tm_get_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $message ); ?></textarea>
 		</div>
 		
 		<div class="form-captcha">
-			<label for="captcha" class="control-label"><?php echo $a . ' + '. $b . ' = ?'; ?></label>
-			<input type="text" name="ccaptcha" placeholder="<?php echo tm_get_local( 'captcha_place' ); ?>" class="full-width requiredField" value="<?php if(isset($_POST['ccaptcha'])) echo $_POST['captcha'];?>">
+			<label for="captcha" class="control-label"><?php echo $a . ' + '. $b . ' = ?'; ?>:</label>
+			<input type="text" name="ccaptcha" placeholder="<?php echo tm_get_local( 'captcha_place' ); ?>" class="full-width requiredField" value="<?php if(isset($_POST['ccaptcha'])) echo $_POST['ccaptcha'];?>">
 			<input type="hidden" id="answer" name="canswer" value="<?php echo esc_attr( $answer ); ?>">
 		</div>
 		
