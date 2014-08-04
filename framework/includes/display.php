@@ -14,7 +14,7 @@ function tm_layout_after_default() {
 
 function tm_ie_browser_message() {
 	?>
-	<p class="browsehappy"><?php _e('Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="http://browsehappy.com/">mejorar tu experiencia.</a>', TM_THEME_DOMAIN); ?></p>
+	<!--[if lt IE 9]><p class="browsehappy"><?php _e('Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="http://browsehappy.com/">mejorar tu experiencia.</a>', TM_THEME_DOMAIN); ?></p><![endif]-->
 	<?php
 }
 
