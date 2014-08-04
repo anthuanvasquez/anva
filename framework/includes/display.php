@@ -58,22 +58,16 @@ function tm_custom_css() {
 }
 
 function tm_footer_text_default() {
-	
-	$text = array(
-		'<strong>' . get_bloginfo( 'name' ) . '</strong>' . ' &copy; ',
-		date( 'Y' ) . ' ',
-		tm_get_local( 'footer_copyright' ),
-		tm_get_local( 'footer_text' ),
-		'<a href="'. esc_url( 'http://3mentes.com/') .'">3mentes.</a>'
-	);	
-
 	?><p>
 	<?php
-	echo $text[0];
-	echo $text[1];
-	echo $text[2];
-	echo $text[3];
-	echo $text[4];
+	$string = '<strong>%s</strong> &copy; %d %s %s %s';
+	$name = get_bloginfo( 'name' );
+	$date = date( 'Y' );
+	$copyright = tm_get_local( 'footer_copyright' );
+	$text = tm_get_local( 'footer_text' );
+	$author = '<a href="'. esc_url( 'http://3mentes.com/') .'">3mentes.</a>';
+
+	echo sprintf( $string, $name, $date, $copyright, $text, $author );
 	?></p>
 	<?php
 }
