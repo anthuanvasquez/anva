@@ -8,6 +8,10 @@
 		list-style: none;
 		padding: 0;
 	}
+
+	p:last-child {
+		margin: 0;
+	}
 }
 
 .widget-title {
