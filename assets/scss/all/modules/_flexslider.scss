@@ -32,8 +32,13 @@
 /* FlexSlider Necessary Styles
  * ------------------------------ */
 .flexslider {
+	height: auto;
 	margin: 0;
 	padding: 0;
+	&.loading {
+		background: #fff url('../images/ajax-loader.gif') no-repeat center center;
+		height: 300px;
+	}
 }
 
 .flexslider .slides > li {
@@ -245,24 +250,6 @@ html[xmlns] .slides {
 .flex-control-thumbs .flex-active {
 	opacity: 1;
 	cursor: default;
-}
-
-/* Media Queries
- * ------------------------------ */
-@media screen and (max-width: 860px) {
-
-	.flex-direction-nav .flex-prev {
-		display: none;
-		opacity: 0;
-		left: 10px;
-	}
-
-	.flex-direction-nav .flex-next {
-		display: none;
-		opacity: 0;
-		right: 10px;
-	}
-
 }
 
 .flexslider li div.slide {

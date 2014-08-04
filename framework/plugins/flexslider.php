@@ -1,5 +1,6 @@
 <?php
 
+
 add_action( 'after_setup_theme', 'flexslider_setup' );
 
 function flexslider_rotators() {
@@ -12,7 +13,12 @@ function flexslider_rotators() {
 			animation: Modernizr.touch ? 'slide' : 'fade',
 			animationSpeed: Modernizr.touch ? 400 : 1000,
 			controlNav: true,
-			directionNav: true
+			directionNav: true,
+			prevText: '',
+			nextText: '',
+			start: function(slider) {
+				slider.removeClass('loading');
+			}
 	");
 	
 	$args['gallery'] = array(
@@ -43,34 +49,34 @@ function flexslider_setup() {
 function flexslider_setup_init() {
 	// 'SLIDES' POST TYPE
 	$labels = array(
-		'name' 					=> __( 'Slideshows', TM_THEME_DOMAIN ),
-		'singular_name' 		=> __( 'Slide', TM_THEME_DOMAIN ),
-		'all_items' 			=> __( 'Todos los Slides', TM_THEME_DOMAIN ),
-		'add_new' 				=> __( 'A&ntilde;adir Nuevo Slide', TM_THEME_DOMAIN ),
-		'add_new_item' 			=> __( 'A&ntilde;adir Nuevo Slide', TM_THEME_DOMAIN ),
-		'edit_item' 			=> __( 'Editar Slide', TM_THEME_DOMAIN ),
-		'new_item' 				=> __( 'Nuevo Slide', TM_THEME_DOMAIN ),
-		'view_item' 			=> __( 'Ver Slide', TM_THEME_DOMAIN ),
-		'search_items' 			=> __( 'Buscar Slides', TM_THEME_DOMAIN ),
-		'not_found' 			=> __( 'Slide no Encontrado', TM_THEME_DOMAIN ),
-		'not_found_in_trash' 	=> __( 'No se Encontraron Slides en la Papelera', TM_THEME_DOMAIN ),
-		'parent_item_colon' 	=> '' );
+		'name' 									=> __( 'Slideshows', TM_THEME_DOMAIN ),
+		'singular_name' 				=> __( 'Slide', TM_THEME_DOMAIN ),
+		'all_items' 						=> __( 'Todos los Slides', TM_THEME_DOMAIN ),
+		'add_new' 							=> __( 'A&ntilde;adir Nuevo Slide', TM_THEME_DOMAIN ),
+		'add_new_item' 					=> __( 'A&ntilde;adir Nuevo Slide', TM_THEME_DOMAIN ),
+		'edit_item' 						=> __( 'Editar Slide', TM_THEME_DOMAIN ),
+		'new_item' 							=> __( 'Nuevo Slide', TM_THEME_DOMAIN ),
+		'view_item' 						=> __( 'Ver Slide', TM_THEME_DOMAIN ),
+		'search_items' 					=> __( 'Buscar Slides', TM_THEME_DOMAIN ),
+		'not_found' 						=> __( 'Slide no Encontrado', TM_THEME_DOMAIN ),
+		'not_found_in_trash' 		=> __( 'No se Encontraron Slides en la Papelera', TM_THEME_DOMAIN ),
+		'parent_item_colon' 		=> '' );
 	
 	$args = array(
-		'labels'               => $labels,
-		'public'               => true,
-		'publicly_queryable'   => true,
-		'_builtin'             => false,
-		'show_ui'              => true, 
-		'query_var'            => true,
-		'rewrite'              => apply_filters( 'flexslider_post_type_rewite', array( "slug" => "slideshows" )),
-		'capability_type'      => 'post',
-		'hierarchical'         => false,
-		'menu_position'        => 26.6,
-		'supports'             => array( 'title', 'thumbnail', 'excerpt', 'page-attributes' ),
-		'taxonomies'           => array(),
-		'has_archive'          => true,
-		'show_in_nav_menus'    => false
+		'labels'               	=> $labels,
+		'public'               	=> true,
+		'publicly_queryable'   	=> true,
+		'_builtin'             	=> false,
+		'show_ui'              	=> true, 
+		'query_var'            	=> true,
+		'rewrite'              	=> apply_filters( 'flexslider_post_type_rewite', array( "slug" => "slideshows" )),
+		'capability_type'      	=> 'post',
+		'hierarchical'         	=> false,
+		'menu_position'        	=> 26.6,
+		'supports'             	=> array( 'title', 'thumbnail', 'excerpt', 'page-attributes' ),
+		'taxonomies'           	=> array(),
+		'has_archive'          	=> true,
+		'show_in_nav_menus'    	=> false
 	);
 	register_post_type( 'slideshows', $args );
 }
@@ -115,12 +121,11 @@ function flexslider_rotator( $slug ) {
 	);
 	
 	// IF ATTACHMENTS WE NEED THE POST PARENT
-	if( $slug == "attachments" ) {
+	if ( $slug == "attachments" ) {
 		$query_args['post_type'] = 'attachment';
 		$query_args['post_parent'] = get_the_ID();
 		$query_args['post_status'] = 'inherit';
 		$query_args['post_mime_type'] = 'image';
-
 		unset( $query_args['meta_value'] );
 		unset( $query_args['meta_key'] );
 	}
@@ -198,9 +203,10 @@ function flexslider_rotator( $slug ) {
 		// INIT THE ROTATOR
 		$html .= '<script>';
 		$html .= 'jQuery(document).ready(function() {';
+		$html .= "jQuery('#flexslider_{$slug}').addClass('loading');";
 		$html .= "jQuery('#flexslider_{$slug}').flexslider({";
 			
-		if(isset($rotators[ $slug ]['options']) AND $rotators[ $slug ]['options'] != "") { 
+		if ( isset($rotators[ $slug ]['options']) && $rotators[ $slug ]['options'] != "" ) { 
 			$html .= $rotators[ $slug ]['options'];
 		} else {
 			$html .="prevText: '', nextText: '',";
