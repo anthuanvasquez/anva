@@ -64,11 +64,11 @@ function tm_post_nav() {
 	}
 	?>
 	<nav class="navigation post-navigation" role="navigation">
-		<h1 class="screen-reader-text"><?php _e( 'Post navigation', '_s' ); ?></h1>
+		<h1 class="screen-reader-text"><?php _e( 'Navegaci&oacute;n', 'tm' ); ?></h1>
 		<div class="nav-links">
 			<?php
-				previous_post_link( '<div class="nav-previous">%link</div>', _x( '<span class="meta-nav">&larr;</span> %title', 'Previous post link', '_s' ) );
-				next_post_link( '<div class="nav-next">%link</div>', _x( '%title <span class="meta-nav">&rarr;</span>', 'Next post link', '_s' ) );
+				previous_post_link( '<div class="nav-previous">%link</div>', _x( '<span class="meta-nav">&larr;</span> %title', 'Anterior', 'tm' ) );
+				next_post_link( '<div class="nav-next">%link</div>', _x( '%title <span class="meta-nav">&rarr;</span>', 'Siguiente', 'tm' ) );
 			?>
 		</div><!-- .nav-links -->
 	</nav><!-- .navigation -->
@@ -88,7 +88,7 @@ function tm_posted_on() {
 		esc_html( get_the_modified_date() )
 	);
 
-	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', '_s' ),
+	printf( __( '<span class="posted-on">Publicado en %1$s</span><span class="byline"> por %2$s</span>', '_s' ),
 		sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
 			esc_url( get_permalink() ),
 			$time_string
@@ -186,37 +186,40 @@ function tm_pagination( $query = '' ) {
 }
 
 function tm_num_pagination( $pages = '', $range = 2 ) {
-     $showitems = ($range * 2)+1;  
+	
+	$showitems = ( $range * 2) + 1;  
+	
+	global $paged;
+	
+	if ( empty( $paged ) ) $paged = 1;
 
-     global $paged;
-     if(empty($paged)) $paged = 1;
+	if ( $pages == '' ) {
+		global $wp_query;
+		$pages = $wp_query->max_num_pages;
+		if ( ! $pages ) {
+			$pages = 1;
+		}
+	}
+	
+	if ( 1 != $pages ) {
+		echo "<div class='pagination'>";
+			if ( $paged > 2 && $paged > $range + 1 && $showitems < $pages )
+				echo "<a href='".get_pagenum_link(1)."'>&laquo;</a>";
+			
+			if ( $paged > 1 && $showitems < $pages )
+				echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo;</a>";
 
-     if($pages == '')
-     {
-         global $wp_query;
-         $pages = $wp_query->max_num_pages;
-         if(!$pages)
-         {
-             $pages = 1;
-         }
-     }   
+			for ( $i = 1; $i <= $pages; $i++ ) {
+				if ( 1 != $pages &&( !($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems ) ) {
+					echo ($paged == $i) ? "<span class='current'>".$i."</span>" : "<a href='".get_pagenum_link( $i )."' class='inactive' >".$i."</a>";
+				}
+			}
 
-     if(1 != $pages)
-     {
-         echo "<div class='pagination'>";
-         if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo;</a>";
-         if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo;</a>";
-
-         for ($i=1; $i <= $pages; $i++)
-         {
-             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
-             {
-                 echo ($paged == $i)? "<span class='current'>".$i."</span>":"<a href='".get_pagenum_link($i)."' class='inactive' >".$i."</a>";
-             }
-         }
-
-         if ($paged < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a>";  
-         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>&raquo;</a>";
-         echo "</div>\n";
-     }
+			if ( $paged < $pages && $showitems < $pages )
+				echo "<a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a>";  
+			
+			if ( $paged < $pages - 1 &&  $paged+$range - 1 < $pages && $showitems < $pages )
+				echo "<a href='".get_pagenum_link( $pages )."'>&raquo;</a>";
+		echo "</div>\n";
+	}
 }
