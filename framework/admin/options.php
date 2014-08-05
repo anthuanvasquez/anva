@@ -148,15 +148,6 @@ $options = array(
 	),
 
 	array(
-		"name" 		=> "WhatsApp",  
-		"desc" 		=> __("Introduzca la URL de su pagina de contacto.", TM_THEME_DOMAIN),  
-		"id" 			=> "social_whatsapp",
-		"type" 		=> "text",
-		"std" 		=> "#",
-		"tab"			=> "layout"
-	),
-
-	array(
 		"type" 		=> "close",
 		"tab"			=> "layout"
 	),
