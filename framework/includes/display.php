@@ -72,6 +72,12 @@ function tm_footer_text_default() {
 	<?php
 }
 
+function tm_breadcrumbs() {
+	if ( function_exists( 'yoast_breadcrumb' ) ) {
+		yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
+	}
+}
+
 function tm_navigation() {	
 	$nav = tm_get_option( 'navigation' );
 	switch( $nav ) :
