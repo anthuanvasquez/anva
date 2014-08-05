@@ -4,9 +4,13 @@
 	<div class="content-area">
 		<div class="site-main" role="main">
 
+			<?php tm_post_before(); ?>
+
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php get_template_part( 'content', 'page' ); ?>
+			
+			<?php tm_post_after(); ?>
 
 				<?php
 					$single_comment = tm_get_option( 'single_comment' );
