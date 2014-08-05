@@ -138,7 +138,7 @@ ul.navigation-menu li ul.sub-menu li:hover > ul.sub-menu {
 
 /* Breadcrumbs, support WordPress SEO by Yoast */
 #breadcrumbs {
-	color: #7E8B8C;
-	margin: 0 0 $padding;
-	padding: 5px 8px;
+	color:$base-font-color;
+	margin: 0 0 15px;
+	padding: 0;
 }
