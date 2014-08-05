@@ -1,20 +1,20 @@
 <?php
 
 /**
- * 3Mentes WordPress Base Template
+ * 3Mentes WordPress Framework
  * Admin Options Page
  *
  * @author		Anthuan Vasquez
  * @copyright	Copyright (c) 3Mentes
- * @link		http://anthuanvasquez.webcindario.com
- * @package		3Mentes WordPress Base Template
+ * @link			http://anthuanvasquez.net
+ * @package		3Mentes WordPress Framework
  */
 
  // Use options framework?
  
 // Constants
-define( 'TM_ADMIN_NAME', 'Anva Framework' );
-define( 'TM_ADMIN_VERSION', '1.1.0' );
+define( 'TM_ADMIN_NAME', '3Mentes WordPress Framework' );
+define( 'TM_ADMIN_VERSION', '1.0.0' );
 
 // Default options
 include_once( get_template_directory() . '/framework/admin/options.php' );
