@@ -45,7 +45,7 @@
 			
 			$email_subject 	= '[Contacto - '. $subject .'] De '. $name;
 			$email_body 		= "Nombre: $name\n\nEmail: $email\n\nMensaje: $message";
-			$headers 				= 'De: '. $name .' <'. $emailTo .'>' . "\r\n" . 'Reply-To: ' . $email;
+			$headers 				= 'De: '. $name .' <'. $email_to .'>' . "\r\n" . 'Reply-To: ' . $email;
 
 			wp_mail( $email_to, $email_subject, $email_body, $headers );
 			$email_sent = true;
@@ -123,7 +123,10 @@ jQuery(document).ready(function(){
 				required: true,
 				email: true
 			},
-			cmessage: "required",
+			cmessage: {
+				required: true,
+				minlength: 10
+			},
 			ccaptcha: {
 				required: true,
 				number: true,
@@ -137,7 +140,10 @@ jQuery(document).ready(function(){
 				required: "<?php echo tm_get_local( 'email_required' ); ?>",
 				email: "<?php echo tm_get_local( 'email_error' );  ?>"
 			},
-			cmessage: "<?php echo tm_get_local( 'message_required' ); ?>",
+			cmessage: {
+				required: "<?php echo tm_get_local( 'message_required' ); ?>",
+				minlength: "<?php echo tm_get_local( 'message_min' ); ?>"
+			},
 			ccaptcha: {
 				required: "<?php echo tm_get_local( 'captcha_required' ); ?>",
 				number: "<?php echo tm_get_local( 'captcha_number' ); ?>",
