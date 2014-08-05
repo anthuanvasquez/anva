@@ -69,8 +69,8 @@
 }
 
 @mixin group-buttons() {
-	a.button,
 	.button,
+	a.button,
 	button,
 	button.button,
 	input.button,
@@ -103,6 +103,7 @@
 	-webkit-animation-name: $animation;
 	-moz-animation-name: $animation;
 	-ms-animation-name: $animation;
+	-o-animation-name: $animation;
 	animation-name: $animation;
 }
 
@@ -133,6 +134,9 @@
 	-ms-animation-duration: #{$duration}s;
 	-ms-animation-delay: #{$delay}s;
 	-ms-animation-iteration-count: $count;
+	-o-animation-duration: #{$duration}s;
+	-o-animation-delay: #{$delay}s;
+	-o-animation-iteration-count: $count;
 	animation-duration: #{$duration}s;
 	animation-delay: #{$delay}s;
 	animation-iteration-count: $count;
