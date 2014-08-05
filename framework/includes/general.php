@@ -14,8 +14,8 @@ function tm_theme_texdomain() {
 function tm_register_menus() {
 	/* Register Menus */
 	register_nav_menus( array(
-		'primary' 	=> __( 'Menú Primario', TM_THEME_DOMAIN ),
-		'secondary' => __( 'Menú Secundario', TM_THEME_DOMAIN ),
+		'primary' 	=> __( 'Men&acute; Primario', TM_THEME_DOMAIN ),
+		'secondary' => __( 'Men&acute; Secundario', TM_THEME_DOMAIN ),
 	) );
 }
 
