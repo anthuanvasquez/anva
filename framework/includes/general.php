@@ -92,7 +92,7 @@ function tm_post_link_attr( $output ) {
 	return str_replace('<a href=', '<a '. $class .' href=', $output);
 }
 
-/*
+/**
  * Add cutoms image sizes.
  * @since 1.4.2
  */
@@ -102,3 +102,23 @@ function tm_add_image_size() {
 	add_image_size( 'thumbnail_blog_small', 150, 150, true );
 	add_image_size( 'thumbnail_slideshow', 980, 350, true );
 }
+
+/**
+ * Change the default mail from.
+ * @since 1.5.0
+ */
+function tm_wp_mail_from( $original_email_address ) {
+	$email = get_option( 'admin_email' );
+	return $email;
+}
+add_filter( 'wp_mail_from', 'tm_wp_mail_from' );
+
+/**
+ * Change the default from name.
+ * @since 1.5.0
+ */
+function tm_wp_mail_from_name( $original_email_from ) {
+	$name = get_bloginfo( 'name' );
+	return $name;
+}
+add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
