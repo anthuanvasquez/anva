@@ -73,8 +73,11 @@ function tm_footer_text_default() {
 }
 
 function tm_breadcrumbs() {
-	if ( function_exists( 'yoast_breadcrumb' ) ) {
-		yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
+	$single_breadcrumb = tm_get_option( 'single_breadcrumb' );
+	if ( 1 == $single_breadcrumb ) {
+		if ( function_exists( 'yoast_breadcrumb' ) ) {
+			yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
+		}
 	}
 }
 
