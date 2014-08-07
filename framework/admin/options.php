@@ -202,6 +202,19 @@ $options = array(
 	),
 
 	array(
+		"name" 		=> "Mostrar breadcrumbs?",  
+		"desc" 		=> __("Seleccione si desea ocultar o mostrar los breadcrumbs.", TM_THEME_DOMAIN),  
+		"id" 			=> "single_breadcrumb",
+		"type" 		=> "radio",
+		"std" 		=> "1",
+		"options" => array(
+			"1" => "Mostrar breadcrumbs.",
+			"0" => "Ocultar breadcrumbs."
+		),
+		"tab"			=> "content"
+	),
+
+	array(
 		"type" 		=> "close",
 		"tab"			=> "content"
 	),
