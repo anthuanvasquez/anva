@@ -135,7 +135,7 @@ function tm_search_filter( $query ) {
 	);
 
 	if ( ! $query->is_admin && $query->is_search ) {
-		$query->set( 'post_type', apply_filters( 'tm_search_filter_post_types', $post_types );
+		$query->set( 'post_type', apply_filters( 'tm_search_filter_post_types', $post_types ) );
 	}
 	
 	return $query;
