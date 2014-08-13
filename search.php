@@ -8,7 +8,11 @@
 
 				<header class="page-header">
 					<h1 class="page-title">
-						<?php esc_html_e('Resultados de busqueda para: ', TM_THEME_DOMAIN) . '<span>' . get_search_query() . '</span>'; ?>
+						<?php
+							$string = __( 'Resultados de busqueda para: %s', TM_THEME_DOMAIN );
+							$query =  get_search_query();
+							echo sprintf( $string, $query );
+						?>
 					</h1>
 				</header><!-- .page-header -->
 				
