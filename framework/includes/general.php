@@ -124,7 +124,7 @@ function tm_wp_mail_from_name( $original_email_from ) {
 add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
 
 /**
- * Change the default from name.
+ * Include post types in seach page
  * @since 1.5.1
  */
 function tm_search_filter( $query ) {
