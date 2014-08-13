@@ -122,3 +122,22 @@ function tm_wp_mail_from_name( $original_email_from ) {
 	return $name;
 }
 add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
+
+/**
+ * Change the default from name.
+ * @since 1.5.1
+ */
+function tm_search_filter( $query ) {
+
+	$post_types = array(
+		'post',
+		'page'
+	);
+
+	if ( ! $query->is_admin && $query->is_search ) {
+		$query->set( 'post_type', apply_filters( 'tm_search_filter_post_types', $post_types );
+	}
+	
+	return $query;
+}
+add_filter( 'pre_get_posts', 'tm_search_filter' );
