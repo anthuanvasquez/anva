@@ -164,7 +164,11 @@ function tm_social_media() {
 }
 
 function tm_site_search() {
-	get_search_form( true );
+	if ( class_exists( 'Woocommerce' ) ) :
+		get_product_search_form();
+	else :
+		get_search_form( true );
+	endif;
 }
 
 function tm_pagination( $query = '' ) {
