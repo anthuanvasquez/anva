@@ -93,7 +93,7 @@ function tm_post_link_attr( $output ) {
 }
 
 /**
- * Add cutoms image sizes.
+ * Add customs image sizes.
  * @since 1.4.2
  */
 function tm_add_image_size() {
