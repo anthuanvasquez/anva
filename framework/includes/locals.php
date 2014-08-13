@@ -41,14 +41,16 @@ function tm_get_text_locals() {
 		'footer_text'							=> __( 'Diseño y Programación Web por:', $domain ),
 
 		// Admin texts
-		'main_sidebar_title'			=> __( 'Sidebar', $domain ),
+		'main_sidebar_title'			=> __( 'Principal', $domain ),
 		'main_sidebar_desc'				=> __( 'Area de widgets principal.', $domain ),
-		'home_sidebar_title'			=> __( 'Home Sidebar', $domain ),
+		'home_sidebar_title'			=> __( 'Portada', $domain ),
 		'home_sidebar_desc'				=> __( 'Area de widgets en la portada.', $domain ),
-		'shop_sidebar_title'			=> __( 'Shop Sidebar', $domain ),
-		'shop_sidebar_desc'				=> __( 'Area de widgets para la tienda de products.', $domain ),
-		'product_sidebar_title'		=> __( 'Product Sidebar', $domain ),
-		'product_sidebar_desc'		=> __( 'Area de widgets para los productos.', $domain )
+		'footer_sidebar_title'		=> __( 'Footer', $domain ),
+		'footer_sidebar_desc'			=> __( 'Area de widgets en footer.', $domain ),
+		'shop_sidebar_title'			=> __( 'Tienda', $domain ),
+		'shop_sidebar_desc'				=> __( 'Area de widgets para la tienda de los productos.', $domain ),
+		'product_sidebar_title'		=> __( 'Productos', $domain ),
+		'product_sidebar_desc'		=> __( 'Area de widgets para los productos individuales.', $domain )
 
 	);
 
