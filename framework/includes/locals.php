@@ -46,11 +46,11 @@ function tm_get_text_locals() {
 		'home_sidebar_title'			=> __( 'Portada', $domain ),
 		'home_sidebar_desc'				=> __( 'Area de widgets en la portada.', $domain ),
 		'footer_sidebar_title'		=> __( 'Footer', $domain ),
-		'footer_sidebar_desc'			=> __( 'Area de widgets en footer.', $domain ),
+		'footer_sidebar_desc'			=> __( 'Area de widgets en el footer.', $domain ),
 		'shop_sidebar_title'			=> __( 'Tienda', $domain ),
-		'shop_sidebar_desc'				=> __( 'Area de widgets para la tienda de los productos.', $domain ),
+		'shop_sidebar_desc'				=> __( 'Area de widgets para la tienda de los productos de woocommerce.', $domain ),
 		'product_sidebar_title'		=> __( 'Productos', $domain ),
-		'product_sidebar_desc'		=> __( 'Area de widgets para los productos individuales.', $domain )
+		'product_sidebar_desc'		=> __( 'Area de widgets para los productos individuales de woocommerce.', $domain )
 
 	);
 
