@@ -25,8 +25,8 @@ $icon-sprite-dimensions: 32px !default;
 	}
 }
 
-// Include 32x32 icons
-@mixin spritesheet-icon-32($dimensions: 32px) {
+// Include 32x32 icons by default
+@mixin spritesheet-icon($dimensions: 32px) {
 	.social-digg {
 		width: $dimensions;
 		height: $dimensions;
@@ -36,61 +36,61 @@ $icon-sprite-dimensions: 32px !default;
 	.social-dribbble {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -32px;
+		background-position: 0 (-$dimensions);
 	}
 
 	.social-facebook {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -64px;
+		background-position: 0 (-$dimensions)*2;
 	}
 
 	.social-gplus {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -96px;
+		background-position: 0 (-$dimensions)*3;
 	}
 
 	.social-instagram {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -128px;
+		background-position: 0 (-$dimensions)*4;
 	}
 
 	.social-linkedin {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -160px;
+		background-position: 0 (-$dimensions)*5;
 	}
 
 	.social-pinterest {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -192px;
+		background-position: 0 (-$dimensions)*6;
 	}
 
 	.social-rss {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -224px;
+		background-position: 0 (-$dimensions)*7;
 	}
 
 	.social-twitter {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -256px;
+		background-position: 0 (-$dimensions)*8;
 	}
 
 	.social-vimeo {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -288px;
+		background-position: 0 (-$dimensions)*9;
 	}
 
 	.social-youtube {
 		width: $dimensions;
 		height: $dimensions;
-		background-position: 0 -320px;
+		background-position: 0 (-$dimensions)*10;
 	}
 }
 
@@ -102,7 +102,7 @@ $icon-sprite-dimensions: 32px !default;
 		background-repeat: no-repeat;
 		display: block;
 	}
-	@include spritesheet-icon-32();
+	@include spritesheet-icon();
 }
 
 .social-style-gray {
@@ -111,7 +111,7 @@ $icon-sprite-dimensions: 32px !default;
 		background-repeat: no-repeat;
 		display: block;
 	}
-	@include spritesheet-icon-32();
+	@include spritesheet-icon();
 }
 
 .social-style-black {
@@ -120,5 +120,5 @@ $icon-sprite-dimensions: 32px !default;
 		background-repeat: no-repeat;
 		display: block;
 	}
-	@include spritesheet-icon-32();
+	@include spritesheet-icon();
 }

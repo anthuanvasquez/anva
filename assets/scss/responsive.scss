@@ -14,13 +14,6 @@
 @import "all/variables";
 @import "all/mixins";
 
-// Conatiner classes
-@mixin container-class() {
-	.container {
-		@content;
-	}
-}
-
 @include container-class() {
 	@include container();
 	width: auto; // reset width
@@ -75,9 +68,10 @@
 
 }
 
-// Flexslider Media Queries
-// -----------------------------------
-@media screen and (max-width: 860px) {
+/*
+ * Medium Mobile Devices 860px
+ */
+@include susy-breakpoint(860px, $tablet-layout) {
 
 	.flex-direction-nav .flex-prev {
 		display: none;
@@ -105,23 +99,19 @@
 
 	.content-area,
 	.widget-area {
-		float: none;
-		margin-right: 0; 
-		width: 100%;
+		@include reset-float();
 	}
 
 	.content-area {
 		margin-bottom: $padding;
 		&.right {
-			float: none;
-			width: 100%;
+			@include reset-float( none, true );
 		}
 	}
 	
 	.widget-area {
 		&.left {
-			float: none;
-			width: 100%;
+			@include reset-float( none, true );
 		}
 	}
 
@@ -270,6 +260,7 @@
 
 	/* Grid Columns */
 	.row-fluid,
+	.grid-columns,
 	.entry-content {
 		[class*="column-"] {
 			display: block;

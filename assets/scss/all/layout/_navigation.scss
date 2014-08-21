@@ -54,10 +54,10 @@ ul.navigation-menu {
 			color: #fff;
 			display: block;
 			font-size: $menu-font-size;
-			font-weight: 300;
+			font-weight: $menu-font-weight;
 			padding: 15px 18px;
 			text-align: center;
-			text-shadow: 1px 1px 1px #111;
+			text-shadow: $menu-text-shadow;
 			text-transform: uppercase;
 		}
 		

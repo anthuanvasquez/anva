@@ -31,27 +31,49 @@
 @mixin container-width( $width, $pad ) {
 	margin-left: auto;
 	margin-right: auto;
-	width: $width;
 	padding-left: $pad;
 	padding-right: $pad;
+	width: $width;
 }
 
-// Reset List ex. ul, ol
+// Reset list ex. ul, ol
 @mixin reset-list() {
 	list-style: none;
 	margin: 0;
 	padding-left: 0;
 }
 
-@mixin inline-block() {
-	display: inline-block;
-	@if $lt-ie9 {
-		/* IE7/8 Hack */
-		*display: inline;
-		*zoom: 1;
+// Reset float elements 
+@mixin reset-float( $margin: right, $width: true ) {
+	float: none;
+	
+	@if $margin == 'right' {
+		margin-right: 0;
+	} @else if $margin  == 'left' {
+		margin-left: 0;
+	}
+	
+	@if $width {
+		width: 100%;
 	}
 }
 
+// Display elements to inline-block
+@mixin inline-block() {
+	display: inline-block;
+	/* IE7/8 Hack */
+	*display: inline;
+	*zoom: 1;
+}
+
+// Conatiner classes
+@mixin container-class() {
+	.container {
+		@content;
+	}
+}
+
+// Group inputs
 @mixin group-inputs() {
 	input[type="text"],
 	input[type="datetime"],
@@ -68,6 +90,7 @@
 	}
 }
 
+// Group buttons
 @mixin group-buttons() {
 	.button,
 	a.button,
@@ -81,7 +104,7 @@
 	}
 }
 
-// Products Box
+// Woocommerce products box
 @mixin woocommerce-product( $border: 1px solid #ccc, $pad: 0 0 25px, $height: 360px, $trans: true ) {
 	border-bottom: $border;
 	margin-bottom: $padding;

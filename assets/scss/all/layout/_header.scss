@@ -15,12 +15,9 @@
 	
 	.logo {
 		display: block;
-		@if $lt-ie9 {
-			width: 200px;
-		} @else {
-			max-width: 200px;
-		}
+		max-width: 200px;
 	}
+	
 }
 
 .site-addon {

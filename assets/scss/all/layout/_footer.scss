@@ -2,43 +2,48 @@
 ----------------------------------------------- */
 
 .site-footer {
+	color: $footer-font-color;
 	font-size: $footer-font-size;
-	padding: $padding 0;
+	padding: 0 0 $padding;
+
 	a {
-		color: $color-0;
+		color: $footer-link-color;
 		&:hover {
 			text-decoration: underline;
 		}
 	}
+
 	ul {
 		@include reset-list();
 	}
+
 }
 
 /* Footer Widget Area */
 .footer-widget {
-	margin: 0 auto $padding;
+	margin: 0 auto;
 	
 	.widget {
 		background-color: transparent;
 		border: 0;
 		margin-bottom: $padding;
-		a {
-			color: $link-color;
-		}
 	}
+
 	.widget-title {
 		color: $footer-heading-font-color;
 		font-size: $footer-heading-font-size;
 	}
+
 }
 
 /* Footer Copyright */
 .footer-sub-content {
 	clear: both;
+
 	p {
 		margin: 0;
 	}
+
 }
 
 #gotop {
@@ -47,7 +52,9 @@
 	bottom: 10px;
 	right: $padding;
 	opacity: .6;
+
 	&:hover {
 		opacity: 1;
 	}
+	
 }
