@@ -34,9 +34,6 @@ if ( is_admin() ) {
 }
 
 // Initial hooks
-add_filter( 'wp_mail_from', 'tm_wp_mail_from' );
-add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
-add_filter( 'pre_get_posts', 'tm_search_filter' );
 add_action( 'wp_head', 'tm_apple_touch_icon' );
 add_action( 'wp_head', 'tm_custom_css' );
 add_action( 'wp_head', 'tm_navigation' );
