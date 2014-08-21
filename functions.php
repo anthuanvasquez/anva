@@ -52,7 +52,7 @@ function tm_setup() {
 	add_filter( 'wp_title', 'tm_wp_title', 10, 2 );
 	add_filter( 'wp_mail_from', 'tm_wp_mail_from' );
 	add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
-	add_filter( 'pre_get_posts', 'tm_search_filter' )
+	add_filter( 'pre_get_posts', 'tm_search_filter' );
 
 }
 add_action( 'after_setup_theme', 'tm_setup' );
