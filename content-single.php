@@ -4,7 +4,7 @@
 		<div class="entry-meta">
 			<?php
 				$single_meta = tm_get_option( 'single_meta' );
-				if( 1 == $single_meta ) :
+				if ( 1 == $single_meta ) :
 					tm_posted_on();
 				endif;
 			?>
