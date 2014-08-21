@@ -50,5 +50,9 @@ function tm_setup() {
 	add_filter( 'body_class', 'tm_body_classes' );
 	add_filter( 'body_class', 'tm_browser_class' );
 	add_filter( 'wp_title', 'tm_wp_title', 10, 2 );
+	add_filter( 'wp_mail_from', 'tm_wp_mail_from' );
+	add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
+	add_filter( 'pre_get_posts', 'tm_search_filter' )
+
 }
 add_action( 'after_setup_theme', 'tm_setup' );
