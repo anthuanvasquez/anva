@@ -14,8 +14,8 @@ function tm_theme_texdomain() {
 function tm_register_menus() {
 	/* Register Menus */
 	register_nav_menus( array(
-		'primary' 	=> __( 'Men&acute; Primario', TM_THEME_DOMAIN ),
-		'secondary' => __( 'Men&acute; Secundario', TM_THEME_DOMAIN ),
+		'primary' 	=> __( 'Menu Primario', TM_THEME_DOMAIN ),
+		'secondary' => __( 'Menu Secundario', TM_THEME_DOMAIN ),
 	) );
 }
 
@@ -111,7 +111,6 @@ function tm_wp_mail_from( $original_email_address ) {
 	$email = get_option( 'admin_email' );
 	return $email;
 }
-add_filter( 'wp_mail_from', 'tm_wp_mail_from' );
 
 /**
  * Change the default from name.
@@ -121,10 +120,9 @@ function tm_wp_mail_from_name( $original_email_from ) {
 	$name = get_bloginfo( 'name' );
 	return $name;
 }
-add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
 
 /**
- * Include post types in seach page
+ * Include post types in search page
  * @since 1.5.1
  */
 function tm_search_filter( $query ) {
@@ -140,4 +138,3 @@ function tm_search_filter( $query ) {
 	
 	return $query;
 }
-add_filter( 'pre_get_posts', 'tm_search_filter' );
