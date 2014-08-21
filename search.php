@@ -35,4 +35,5 @@
 	<?php get_sidebar(); ?>
 	
 </div><!-- .grid-columns (end) -->
+
 <?php get_footer(); ?>
