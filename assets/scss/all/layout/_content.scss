@@ -2,17 +2,20 @@
 	 Layout
 	 ========================================================================== */
 
+@include container-class() {
+	@include container-width($container-width, $padding);
+}
+
 // Container
 .container {
 	background-color: $container-background-color;
 	box-shadow: 0 0 2px #ccc;
 	position: relative;
-	@include container-width($container-width, $padding);
 }
 
 // Group content
 .site-content {
-	margin: $padding 0;
+	margin: $padding 0 0;
 	position: relative;
 }
 
@@ -35,7 +38,7 @@
 
 // Group main content
 .site-main {
-	margin: 0;
+	margin: 0 0 $padding;
 }
 
 // Featured slider
@@ -43,7 +46,7 @@
 	margin: 0 0 $padding;
 }
 
-// Blog columns
+// Blog 2 columns
 .blog-two-columns {
 	.post {
 		@include span(6);
