@@ -96,6 +96,18 @@
 	@include container-class() {
 		@include container();
 	}
+	
+	// Set order in columns
+	.grid-columns {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		box-orient: vertical;
+	}
 
 	.content-area,
 	.widget-area {
@@ -104,15 +116,23 @@
 
 	.content-area {
 		margin-bottom: $padding;
+
 		&.right {
 			@include reset-float( none, true );
+			-webkit-order: 1;
+			order: 1;
 		}
+
 	}
 	
 	.widget-area {
+
 		&.left {
 			@include reset-float( none, true );
+			-webkit-order: 2;
+			order: 2;
 		}
+
 	}
 
 	/* Header */
@@ -157,6 +177,7 @@
 	ul.navigation-menu {
 	
 		> li {
+			border-right: 0;
 			border-top: 1px solid rgba($color-3, .4);
 			display: block;
 			float: none;
@@ -178,7 +199,7 @@
 
 			}
 
-			> ul.sub-menu {
+			ul.sub-menu {
 				border: 0;
 				display: none;
 				margin: 0;
@@ -188,8 +209,7 @@
 				visibility: visible;
 				
 				li {
-					 > ul.sub-menu {
-						background: rgba($color-0, .6);
+					 ul.sub-menu {
 						display: none;
 						opacity: 1;
 						left: 0;
@@ -227,7 +247,6 @@
 						top: $top;
 						right: $right;
 						display: block;
-						/* Reset */
 						bottom: auto;
 						border: 0;
 						left: auto;

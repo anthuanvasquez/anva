@@ -81,35 +81,35 @@
  */
  
 .alert {
-	background-color: #fcf8e3;
-	border: 1px solid #fbeed5;
-	font-weight: bold;
-	margin-bottom: $padding;
-	padding: 8px 15px;
-	text-shadow: 0 1px 0 rgba(white, .5);
+	background-color: #F7F3D5;
+	border: 1px solid #D7CD82;
 	border-radius: $border-radius;
+	color: #95712F;
+	padding: 8px 15px;
+	@include leader(0);
+	@include trailer(1);
 }
 
 .alert-block {
-	color: $color-block;
-	background-color: lighten($color-block, 35%);
-	border-color: lighten($color-block, 35%);
+	color: #95712F;
+	background: #F7F3D5;
+	border-color: #D7CD82;
 }
 
 .alert-error {
-	color: $color-error;
-	background-color: lighten($color-error, 40%);
-	border-color: lighten($color-error, 35%);
+	color: #B3302A;
+	background: #ECC7C4;
+	border-color: #BD8080;
 }
 
 .alert-success {
-	color: $color-success;
-	background-color: lighten($color-success, 40%);
-	border-color: lighten($color-success, 35%);
+	color: #587051;
+	background: #DCF2D5;
+	border-color: #AECCA4;
 }
 
 .alert-info {
-	color: $color-info;
-	background-color: lighten($color-info, 40%);
-	border-color: lighten($color-info, 35%);
+	color: #447EAE;
+	background: #CCE7F5;
+	border-color: #7DBBDF;
 }

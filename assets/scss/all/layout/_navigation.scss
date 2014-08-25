@@ -1,6 +1,7 @@
 /* =Navigation
 ----------------------------------------------- */
 $off-canvas: 21em;
+
 #off-canvas-button {
 	display: none;
 	position: absolute;
@@ -23,20 +24,22 @@ $off-canvas: 21em;
 	}
 }
 
-.js-ready #container {
-	left: 0;
-	transition: left .2s ease;
-	&.is-active {
-		left: $off-canvas;
+.js-ready {
+	#container {
+		left: 0;
+		transition: left .2s ease;
+		&.is-active {
+			left: $off-canvas;
+		}
 	}
 }
 
-.site-navigation {
+nav.site-navigation {
 	background-color: $color-2;
 	position: relative;
 }
 
-.navigation-container {
+div.navigation-container {
 	display: block;
 	position: relative;
 	width: 100%;
@@ -72,20 +75,27 @@ ul.navigation-menu {
 		
 		ul.sub-menu {
 			background-color: #fff;
+			border: 1px solid rgba(#ccc, .4);
 			margin: 48px 0 0;
 			padding: 0;
 			opacity: 0;
 			position: absolute;
 			top: 0;
-			visibility: hidden;		
+			visibility: hidden;
 			width: 200px;
 			z-index: 999;
 			transition: opacity .2s ease;
 
+
 			> li {
+				border-bottom: 1px solid rgba(#ccc, .4);
 				display: block;
-				float: none;
 				position: relative;
+				
+				&:last-child {
+					border-bottom: 0;
+				}
+
 				&:hover,
 				&.current-menu-item,
 				&.current_page_item {

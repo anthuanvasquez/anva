@@ -45,13 +45,3 @@
 .featured-container {
 	margin: 0 0 $padding;
 }
-
-// Blog 2 columns
-.blog-two-columns {
-	.post {
-		@include span(6);
-		&:nth-child(2n) {
-			@include last;
-		}
-	}
-}

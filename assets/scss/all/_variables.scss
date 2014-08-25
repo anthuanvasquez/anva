@@ -47,7 +47,7 @@ $geo-times: Georgia, Times, 'Times New Roman', serif;
 $monospace: Menlo, Monaco, Courier, MonoSpace, Consolas;
 $icon-font: 'FontAwesome';
 
-// Font Settings
+// Font And Others Settings
 // ------------------------------------------------
 $base-font-color: #333;
 $base-font-family: $helvetica;
@@ -58,6 +58,7 @@ $heading-font-family: $helvetica;
 $heading-font-line-height: 1.1;
 $heading-font-weight: 700;
 $icon-font-family: $icon-font;
+$logo-size: 200px;
 $menu-font-size: 14px;
 $menu-font-weight: bold;
 $menu-text-shadow: 1px 1px 1px rgba(#111, .4);
@@ -94,13 +95,6 @@ $button-font-weight: bold;
 $button-padding-box: 10px 15px;
 $button-box-shadow: 0 4px 0 inset darken($button-background-color, 18%);
 $button-text-shadow: 1px 1px 1px rgba(black, .4);
-
-// Notifications
-// ------------------------------------------------
-$color-success: #468847;
-$color-error: #b94a48;
-$color-block: #c09853;
-$color-info: #3a87ad;
 
 // ------------------------------------------------
 // Susy 2 Grid Settings

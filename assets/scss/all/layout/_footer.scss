@@ -1,5 +1,6 @@
-/* =Footer
------------------------------------------------ */
+/* ==========================================================================
+	 Footer
+	 ========================================================================== */
 
 .site-footer {
 	color: $footer-font-color;
@@ -36,7 +37,9 @@
 
 }
 
-/* Footer Copyright */
+/*
+ * Footer Copyright
+ */
 .footer-sub-content {
 	clear: both;
 
@@ -46,6 +49,9 @@
 
 }
 
+/*
+ * Go Top
+ */
 #gotop {
 	font-size: 48px;
 	position: fixed;

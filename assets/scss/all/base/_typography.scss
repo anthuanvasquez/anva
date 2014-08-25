@@ -2,7 +2,9 @@
 	 Typography
 	 ========================================================================== */
 
-/* Links */
+/*
+ * Links
+ */
 a,
 .link {
 	color: $link-color;
@@ -11,14 +13,18 @@ a,
 	}
 }
 
-/* Lists */
+/*
+ * Lists
+ */
 ul, ol {
 	@include leader(0);
 	@include trailer(1);
 	padding-left: rhythm(1.5);
 }
 
-/* Fix font headings size */
+/*
+ * Fix font headings size
+ */
 h1, .h1 {
 	font-size: $h1;
 	@include leader(0);
@@ -55,7 +61,9 @@ h6, .h6 {
 	@include trailer(1, $h6);
 }
 
-/* Headings */
+/*
+ * Headings
+ */
 #{headings()} {
 	color: $heading-font-color;
 	line-height: $heading-font-line-height;
@@ -69,7 +77,9 @@ h6, .h6 {
 	}
 }
 
-/* Paragraphs */
+/*
+ * Paragraphs
+ */
 blockquote,
 pre {
 	@include leader(0);
@@ -81,7 +91,9 @@ p {
 	@include trailer(1);
 }
 
-/* Code */
+/*
+ * Code
+ */
 code,
 kbd,
 pre,

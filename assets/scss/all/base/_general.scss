@@ -3,7 +3,7 @@
    ========================================================================== */
 
 @include establish-baseline;   
-//@include border-box-sizing;
+// @include border-box-sizing;
 
 html {
   box-sizing: border-box;
@@ -35,28 +35,39 @@ textarea {
   color: $base-font-color;
 }
 
-/* Remove underline on links */
+/*
+ * Remove underline on links
+ */
 a {
 	text-decoration: none;
 }
 
-/* Fix ul and ol list in article tags */
+/*
+ * Fix ul and ol list in article tags
+ */
 article {
-	ul, ul ul, ol ul {
+	
+	ul, ol ul, ul ul {
 		list-style: disc;
 	}
+	
 	ol, ul ol, ol ol {
 		list-style: decimal;
 	}
+
 }
 
-/* Fluid Images */
+/*
+ * Fluid Images
+ */
 img {
 	max-width: 100%;
 	height: auto;
 }
 
-/* Blockquotes */
+/*
+ * Blockquotes
+ */
 blockquote {
 	background-color: #ddd;
 	font-style: italic;
