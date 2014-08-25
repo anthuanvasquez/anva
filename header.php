@@ -94,7 +94,7 @@
 	
 	<?php if ( is_front_page() ) : ?>
 		<div id="featured" class="featured-container">
-			<div class="featured-inner">
+			<div class="site-featured">
 				<?php
 					if ( function_exists( 'flexslider_rotator' ) ) {
 						echo flexslider_rotator( 'homepage' );
