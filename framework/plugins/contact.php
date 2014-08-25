@@ -74,6 +74,7 @@
 			$_POST['cmessage'],
 			$_POST['ccaptcha']
 		);
+		
 	else :
 		if ( isset( $hasError ) ) :
 			echo '<div class="alert alert-error">'. tm_get_local( 'submit_error' ) .'</div>';
