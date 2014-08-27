@@ -1,17 +1,5 @@
 <?php
 
-function tm_layout_before_default() {
-	?>
-	<div class="wrapper">
-	<?php
-}
-
-function tm_layout_after_default() {
-	?>
-	</div>
-	<?php
-}
-
 function tm_ie_browser_message() {
 	?>
 	<!--[if lt IE 9]><p class="browsehappy"><?php _e('Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="http://browsehappy.com/">mejorar tu experiencia.</a>', TM_THEME_DOMAIN); ?></p><![endif]-->
@@ -72,13 +60,45 @@ function tm_footer_text_default() {
 	<?php
 }
 
+function tm_layout_before_default() {
+	?>
+	<div id="wrapper">
+	<?php
+}
+
+function tm_layout_after_default() {
+	?>
+	</div>
+	<?php
+}
+
 function tm_breadcrumbs() {
 	$single_breadcrumb = tm_get_option( 'single_breadcrumb' );
 	if ( 1 == $single_breadcrumb ) {
 		if ( function_exists( 'yoast_breadcrumb' ) ) {
-			yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
+			?>
+			<div id="breadcrumbs">
+				<div class="site-breadcrumns">
+					<?php yoast_breadcrumb( '<p>', '</p>' ); ?>
+				</div>
+			</div><!-- #breadcrumbs (end) -->
+			<?php
 		}
 	}
+}
+
+function tm_content_before_default() {
+	?>
+	<div id="content" class="content-container">
+		<div class="site-content">
+	<?php
+}
+
+function tm_content_after_default() {
+	?>
+			</div><!-- .site-content (end) -->
+	</div><!-- #content (end) -->
+	<?php
 }
 
 function tm_navigation() {	
