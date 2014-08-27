@@ -23,7 +23,8 @@ include_once( TM_THEME_FRAMEWORK . '/includes/general.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/widgets.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/shortcodes.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/login.php' );
-include_once( TM_THEME_FRAMEWORK . '/plugins/flexslider.php' );
+include_once( TM_THEME_FRAMEWORK . '/plugins/contact-email.php' );
+include_once( TM_THEME_FRAMEWORK . '/plugins/slideshows.php' );
 include_once( TM_THEME_FRAMEWORK . '/plugins/woocommerce-config.php' );
 
 /**
