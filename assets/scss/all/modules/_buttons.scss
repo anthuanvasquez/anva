@@ -20,6 +20,8 @@
 	text-align: center;
 	text-shadow: $button-text-shadow; 
 	text-decoration: none;
+	user-select: none;
+	vertical-align: middle;
 	white-space: nowrap;
 	transition: background .1s linear;
 	-webkit-font-smoothing: antialiased;
