@@ -1,12 +1,11 @@
+// Settings
+// ------------------------------------------------
+@import "all/functions";
+@import "all/variables";
+@import "all/mixins";
+
 $icon-sprite-base-class: ".social" !default;
 $icon-sprite-dimensions: 32px !default;
-
-@mixin spritesheet-position($x: 0, $y: 0, $width: 0, $height: 0) {
-	background-position: $x $y;
-	// background-size: 64px 64px;
-	width: $width;
-	height: $height;
-}
 
 .social-media {
 	list-style: none;
@@ -22,75 +21,6 @@ $icon-sprite-dimensions: 32px !default;
 			height: $icon-sprite-dimensions;
 			width: $icon-sprite-dimensions;
 		}
-	}
-}
-
-// Include 32x32 icons by default
-@mixin spritesheet-icon($dimensions: 32px) {
-	.social-digg {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 0;
-	}
-
-	.social-dribbble {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions);
-	}
-
-	.social-facebook {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*2;
-	}
-
-	.social-gplus {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*3;
-	}
-
-	.social-instagram {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*4;
-	}
-
-	.social-linkedin {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*5;
-	}
-
-	.social-pinterest {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*6;
-	}
-
-	.social-rss {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*7;
-	}
-
-	.social-twitter {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*8;
-	}
-
-	.social-vimeo {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*9;
-	}
-
-	.social-youtube {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*10;
 	}
 }
 
