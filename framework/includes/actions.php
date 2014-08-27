@@ -16,6 +16,14 @@ function tm_layout_after() {
 	do_action( 'tm_layout_after' );
 }
 
+function tm_content_before() {
+	do_action( 'tm_content_before' );
+}
+
+function tm_content_after() {
+	do_action( 'tm_content_after' );
+}
+
 function tm_post_before() {
 	do_action( 'tm_post_before' );
 }
