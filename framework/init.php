@@ -69,4 +69,6 @@ add_action( 'tm_footer_text', 'tm_footer_text_default' );
 add_action( 'tm_layout_before', 'tm_layout_before_default' );
 add_action( 'tm_layout_after', 'tm_layout_after_default' );
 add_action( 'tm_layout_before', 'tm_ie_browser_message' );
-add_action( 'tm_post_before', 'tm_breadcrumbs' );
+add_action( 'tm_content_before', 'tm_breadcrumbs' );
+add_action( 'tm_content_before', 'tm_content_before_default' );
+add_action( 'tm_content_after', 'tm_content_after_default' );
