@@ -8,11 +8,11 @@
 
 <div class="grid-columns row-fluid">
 	<div class="content-area">
-		<div class="site-main" role="main">
+		<div class="site-main blog-2-cols" role="main">
 			<?php
 				// First, initialize how many posts to render per page
 				$number = get_option( 'posts_per_page' );
-				$count = 0;
+				
 				// Next, get the current page
 				$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
@@ -34,16 +34,8 @@
 					
 				if ( $the_query->have_posts() ) :
 					
-					while ($the_query->have_posts()) : $the_query->the_post();
-						
+					while ( $the_query->have_posts()) : $the_query->the_post();						
 						get_template_part( 'content', 'post' );
-						
-						if ( $count % 2 === 0 ) :
-							echo '<div class="clear"></div>';
-						endif;
-
-						$count++;
-
 					endwhile;
 					
 					tm_num_pagination($the_query->max_num_pages);
