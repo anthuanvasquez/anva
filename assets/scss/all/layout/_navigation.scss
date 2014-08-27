@@ -36,6 +36,7 @@ $off-canvas: 21em;
 
 nav.site-navigation {
 	background-color: $color-2;
+	border-radius: 3px;
 	position: relative;
 }
 
@@ -146,9 +147,20 @@ ul.navigation-menu li ul.sub-menu li:hover > ul.sub-menu {
 	}
 }
 
-/* Breadcrumbs, support WordPress SEO by Yoast */
+/*
+ * Breadcrumbs, support WordPress SEO by Yoast
+ */
 #breadcrumbs {
-	color:$base-font-color;
-	margin: 0 0 15px;
+	color: $base-font-color;
+	margin: 15px 0;
 	padding: 0;
+
+	p {
+		margin: 0;
+	}
+
+	.breadcrumb_last {
+		color: #999;
+	}
+
 }
