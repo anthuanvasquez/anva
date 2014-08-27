@@ -51,7 +51,7 @@ ul.navigation-menu {
 	width: 100%;
 	> li {
 		float: left;
-		border-right: 1px solid lighten($color-0, 5%); 
+		border-right: 1px solid darken($color-0, 10%); 
 		position: relative;
 		
 		> a {
@@ -65,6 +65,13 @@ ul.navigation-menu {
 			text-transform: uppercase;
 		}
 		
+
+		&:first-child {
+			> a {
+				border-radius: 4px 0 0 4px;
+			}
+		}
+
 		&:hover,
 		&.current-menu-item,
 		&.current_page_item {

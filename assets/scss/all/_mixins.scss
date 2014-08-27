@@ -68,7 +68,11 @@
 
 // Conatiner classes
 @mixin container-class() {
-	.container {
+	.site-header,
+	.site-featured,
+	.site-breadcrumbs,
+	.site-content,
+	.site-footer {
 		@content;
 	}
 }

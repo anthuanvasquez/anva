@@ -78,7 +78,7 @@ function tm_breadcrumbs() {
 		if ( function_exists( 'yoast_breadcrumb' ) ) {
 			?>
 			<div id="breadcrumbs">
-				<div class="site-breadcrumns">
+				<div class="site-breadcrumbs">
 					<?php yoast_breadcrumb( '<p>', '</p>' ); ?>
 				</div>
 			</div><!-- #breadcrumbs (end) -->

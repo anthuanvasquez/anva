@@ -7,9 +7,10 @@
 }
 
 // Container
-.container {
-	background-color: $container-background-color;
-	box-shadow: 0 0 2px #ccc;
+#container {
+	background: $container-background-color;
+	margin: 0 auto;
+	max-width: $max-width;
 	position: relative;
 }
 
