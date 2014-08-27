@@ -1,14 +1,23 @@
 <?php
 
+// SETUP ACTIONS
+function tm_slideshows_setup() {
+	add_action( 'init', 'tm_slideshows_setup_init' );
+	add_action( 'admin_head', 'tm_slideshows_admin_icon' );	
+	add_action( 'add_meta_boxes', 'tm_slideshows_create_slide_metaboxes' );
+	add_action( 'save_post', 'tm_slideshows_save_meta', 1, 2 );
+	add_filter( 'manage_edit-slideshows_columns', 'tm_slideshows_columns' );
+	add_action( 'manage_slideshows_posts_custom_column', 'tm_slideshows_add_columns' );
+	add_shortcode( 'slideshows', 'tm_slideshows_shortcode' );
+}
+add_action( 'after_setup_theme', 'tm_slideshows_setup' );
 
-add_action( 'after_setup_theme', 'flexslider_setup' );
-
-function flexslider_rotators() {
+function tm_slideshows() {
 	
 	$args = array();
 
 	$args['homepage'] = array(
-		'size' => 'thumbnail_slideshow',
+		'size' 		=> 'thumbnail_slideshow',
 		'options' => "
 			animation: Modernizr.touch ? 'slide' : 'fade',
 			animationSpeed: Modernizr.touch ? 400 : 1000,
@@ -31,22 +40,11 @@ function flexslider_rotators() {
 		'hide_slide_data' => true
 	);
 	
-	return apply_filters( 'flexslider_rotators', $args );
-}
-
-// SETUP ACTIONS
-function flexslider_setup() {
-	add_action( 'init', 'flexslider_setup_init' );
-	add_action( 'admin_head', 'flexslider_admin_icon' );	
-	add_action( 'add_meta_boxes', 'flexslider_create_slide_metaboxes' );
-	add_action( 'save_post', 'flexslider_save_meta', 1, 2 );
-	add_filter( 'manage_edit-slideshows_columns', 'flexslider_columns' );
-	add_action( 'manage_slideshows_posts_custom_column', 'flexslider_add_columns' );
-	add_shortcode( 'flexslider', 'flexslider_shortcode' );
+	return apply_filters( 'tm_slideshows', $args );
 }
 
 // INIT
-function flexslider_setup_init() {
+function tm_slideshows_setup_init() {
 	// 'SLIDES' POST TYPE
 	$labels = array(
 		'name' 									=> __( 'Slideshows', TM_THEME_DOMAIN ),
@@ -69,7 +67,7 @@ function flexslider_setup_init() {
 		'_builtin'             	=> false,
 		'show_ui'              	=> true, 
 		'query_var'            	=> true,
-		'rewrite'              	=> apply_filters( 'flexslider_post_type_rewite', array( "slug" => "slideshows" )),
+		'rewrite'              	=> apply_filters( 'tm_slideshows_post_type_rewite', array( "slug" => "slideshows" )),
 		'capability_type'      	=> 'post',
 		'hierarchical'         	=> false,
 		'menu_position'        	=> 26.6,
@@ -83,15 +81,15 @@ function flexslider_setup_init() {
 
 
 // ADMIN: WIDGET ICONS
-function flexslider_admin_icon() {
+function tm_slideshows_admin_icon() {
 	echo '<style>#adminmenu #menu-posts-slideshows div.wp-menu-image:before { content: "\f233"; }</style>';	
 }
 
 // SHOW ROTATOR
-function flexslider_rotator( $slug ) {
+function tm_slideshows_slides( $slug ) {
 	
 	// GET ALL ROTATORS
-	$rotators = flexslider_rotators();
+	$rotators = tm_slideshows();
 	
 	// SET IMAGE SIZE: size
 	$image_size = isset($rotators[ $slug ]['size']) ? $rotators[ $slug ]['size'] : 'large';
@@ -132,7 +130,7 @@ function flexslider_rotator( $slug ) {
 	
 	$html = "";
 	
-	query_posts( apply_filters( 'flexslider_query_post_args', $query_args) );
+	query_posts( apply_filters( 'tm_slideshows_query_post_args', $query_args) );
 
 	if ( have_posts() ) {
 		$html .= '<div id="flexslider_' . $slug . '_wrapper" class="flexslider-wrapper">';
@@ -192,13 +190,13 @@ function flexslider_rotator( $slug ) {
 				
 			}
 	
-			$html .= '</div><!-- #slide-' . get_the_ID() . ' -->';
+			$html .= '</div><!-- #slide-' . get_the_ID() . ' (end) -->';
 			$html .= '</li>';
 		}
 
 		$html .= '</ul>';
-		$html .= '</div><!-- #flexslider_' . $slug . ' -->';
-		$html .= '</div><!-- #flexslider_' . $slug . '_wrapper -->';
+		$html .= '</div><!-- #flexslider_' . $slug . ' (end) -->';
+		$html .= '</div><!-- #flexslider_' . $slug . '_wrapper (end) -->';
 		
 		// INIT THE ROTATOR
 		$html .= '<script>';
@@ -224,7 +222,7 @@ function flexslider_rotator( $slug ) {
 }
 
 // ADMIN META BOX
-function flexslider_create_slide_metaboxes() {
+function tm_slideshows_create_slide_metaboxes() {
     add_meta_box(
 		'flexslider_metabox_1',
 		__( 'Slide Settings', 'flexslider-hg' ),
@@ -234,10 +232,11 @@ function flexslider_create_slide_metaboxes() {
 	);
 }
 
-function flexslider_metabox_1() {
+function tm_slideshows_metabox_1() {
+	
 	global $post;	
     
-	$rotators 				= flexslider_rotators();
+	$rotators 				= tm_slideshows();
 	$slider_id		 		= get_post_meta( $post->ID, '_slider_id', true );
 	$slider_link_url 	= get_post_meta( $post->ID, '_slider_link_url', true );
 	$slider_title			= get_post_meta( $post->ID, '_slider_title', true ); 
@@ -290,7 +289,7 @@ function flexslider_metabox_1() {
 }
 
 // SAVE THE EXTRA GOODS FROM THE SLIDE
-function flexslider_save_meta( $post_id, $post ) {
+function tm_slideshows_save_meta( $post_id, $post ) {
 	
 	if ( isset( $_POST['slider_link_url'] ) ) {
 		update_post_meta( $post_id, '_slider_link_url', strip_tags( $_POST['slider_link_url'] ) );
@@ -315,7 +314,7 @@ function flexslider_save_meta( $post_id, $post ) {
 }
 
 // ADMIN COLUMNS
-function flexslider_columns( $columns ) {
+function tm_slideshows_columns( $columns ) {
 	$columns = array(
 		'cb'       => '<input type="checkbox" />',
 		'image'    => __( 'Image', TM_THEME_DOMAIN ),
@@ -328,7 +327,8 @@ function flexslider_columns( $columns ) {
 	return $columns;
 }
 
-function flexslider_add_columns( $column ) {
+function tm_slideshows_add_columns( $column ) {
+	
 	global $post;
 	
 	$edit_link = get_edit_post_link( $post->ID );
@@ -340,10 +340,12 @@ function flexslider_add_columns( $column ) {
 }
 
 // SHORTCODE
-function flexslider_shortcode($atts, $content = null) {
-	$slug = isset($atts['slug']) ? $atts['slug'] : "attachments";
+function tm_slideshows_shortcode($atts, $content = null) {
+	
+	$slug = isset( $atts['slug'] ) ? $atts['slug'] : "attachments";
+	
 	if( ! $slug ) {
-		return apply_filters( 'flexslider_empty_shortcode', "Slide: Por favor incluye un 'slug' como parámetro e.j. [flexslider slug=homepage]" );
+		return apply_filters( 'tm_slideshows_empty_shortcode', "Slide: Por favor incluye un 'slug' como parámetro e.j. [slideshows slug=homepage]" );
 	}
-	return flexslider_rotator( $slug );
+	return tm_slideshows( $slug );
 }
