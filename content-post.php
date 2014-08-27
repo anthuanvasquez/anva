@@ -49,8 +49,6 @@
 		echo $output;
 		?>
 		
-		
-
 		<div class="entry-summary">
 			<?php the_excerpt(); ?>
 			<a class="button" href="<?php the_permalink(); ?>">
