@@ -50,6 +50,7 @@
 	
 	<header id="header" class="header-container" role="banner">
 		<div class="site-header">
+			
 			<div class="header-top group">				
 				<div class="site-branding">
 					<?php tm_header_logo(); ?>
@@ -71,7 +72,7 @@
 
 				<nav id="primary-nav" class="site-navigation horizontal-navigation group" role="navigation">
 					<?php
-						if( has_nav_menu( 'primary' ) ) {
+						if ( has_nav_menu( 'primary' ) ) {
 							wp_nav_menu( array( 
 								'theme_location'  => 'primary',
 								'container'       => 'div',
@@ -86,7 +87,7 @@
 							echo tm_get_local( 'menu_nav_off' );
 						}
 					?>
-				</nav>
+				</nav><!-- #primary-nav (end) -->
 				
 			</div>
 		</div><!-- .site-header (end) -->
@@ -96,13 +97,12 @@
 		<div id="featured" class="featured-container">
 			<div class="site-featured">
 				<?php
-					if ( function_exists( 'flexslider_rotator' ) ) {
-						echo flexslider_rotator( 'homepage' );
+					if ( function_exists( 'tm_slideshows_slides' ) ) {
+						echo tm_slideshows_slides( 'homepage' );
 					}
 				?>
-			</div><!-- .featured-inner (end) -->
+			</div><!-- .site-featured (end) -->
 		</div><!-- #featured (end) -->
 	<?php endif; ?>
 
-	<div id="content" class="content-container">
-		<div class="site-content">
+	<?php tm_content_before(); ?>
