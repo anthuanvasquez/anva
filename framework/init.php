@@ -7,23 +7,24 @@
 $theme_settings = get_option( 'tm_theme_settings' );
 
 define( 'TM_THEME_PATH', get_template_directory() );
+define( 'TM_THEME_FRAMEWORK', get_template_directory() . '/framework' );
 define( 'TM_THEME_URL', get_template_directory_uri() );
 define( 'TM_THEME_LOGO', get_template_directory_uri() . '/assets/images/logo.png' );
 define( 'TM_THEME_DOMAIN', 'tm' );
 define( 'TM_THEME_SETTINGS', serialize( $theme_settings ) );
 
 // Inlclude files
-include_once( get_template_directory() . '/framework/includes/actions.php' );
-include_once( get_template_directory() . '/framework/includes/display.php' );
-include_once( get_template_directory() . '/framework/includes/helpers.php' );
-include_once( get_template_directory() . '/framework/includes/locals.php' );
-include_once( get_template_directory() . '/framework/includes/parts.php' );
-include_once( get_template_directory() . '/framework/includes/general.php' );
-include_once( get_template_directory() . '/framework/includes/widgets.php' );
-include_once( get_template_directory() . '/framework/includes/shortcodes.php' );
-include_once( get_template_directory() . '/framework/includes/login.php' );
-include_once( get_template_directory() . '/framework/plugins/flexslider.php' );
-include_once( get_template_directory() . '/framework/plugins/woocommerce-config.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/actions.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/display.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/helpers.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/locals.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/parts.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/general.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/widgets.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/shortcodes.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/login.php' );
+include_once( TM_THEME_FRAMEWORK . '/plugins/flexslider.php' );
+include_once( TM_THEME_FRAMEWORK . '/plugins/woocommerce-config.php' );
 
 /**
  * Theme Settings Admin
