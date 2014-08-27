@@ -227,3 +227,103 @@ function tm_num_pagination( $pages = '', $range = 2 ) {
 		echo "</div>\n";
 	}
 }
+
+function tm_contact_form() {
+	
+	global $email_sended_message;
+
+	// Set random values to set random questions
+	$a = rand(1, 9);
+	$b = rand(1, 9);
+	$s = $a + $b;
+	$answer = $s;
+	
+	?>
+	<div class="contact-form-container">
+		
+		<?php if ( ! empty( $email_sended_message ) ) : ?>
+			<div id="email_message" class="alert alert-block"><?php echo $email_sended_message; ?></div>
+		<?php endif; ?>
+
+		<form id="contactform" class="contact-form" method="post" action="<?php the_permalink(); ?>#contactform">
+
+			<div class="form-name">
+				<label for="cname" class="control-label"><?php echo tm_get_local( 'name' ); ?>:</label>
+				<input id="name" type="text" placeholder="<?php echo tm_get_local( 'name_place' ); ?>" name="cname" class="full-width requiredField" value="<?php if ( isset( $_POST['cname'] ) ) echo esc_attr( $_POST['cname'] ); ?>">
+			</div>
+			
+			<div class="form-email">
+				<label for="cemail" class="control-label"><?php echo tm_get_local( 'email' ); ?>:</label>
+				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', TM_THEME_DOMAIN); ?>" name="cemail" class="full-width requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
+			</div>
+
+			<div class="form-subject">						
+				<label for="csubject" class="control-label"><?php echo tm_get_local( 'subject' ); ?>:</label>
+				<input id="subject" type="text" placeholder="<?php echo tm_get_local( 'subject' ); ?>" name="csubject" class="full-width requiredField" value="<?php if ( isset( $_POST['csubject'] ) ) echo esc_attr( $_POST['csubject'] ); ?>">
+			</div>
+			
+			<div class="form-comments">
+				<label for="cmessage" class="control-label"><?php echo tm_get_local( 'message' ); ?>:</label>
+				<textarea id="message" name="cmessage" class="full-width" placeholder="<?php echo tm_get_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $_POST['cmessage'] ); ?></textarea>
+			</div>
+			
+			<div class="form-captcha">
+				<label for="captcha" class="control-label"><?php echo $a . ' + '. $b . ' = ?'; ?>:</label>
+				<input type="text" name="ccaptcha" placeholder="<?php echo tm_get_local( 'captcha_place' ); ?>" class="full-width requiredField" value="<?php if ( isset( $_POST['ccaptcha'] ) ) echo $_POST['ccaptcha'];?>">
+				<input type="hidden" id="answer" name="canswer" value="<?php echo esc_attr( $answer ); ?>">
+			</div>
+			
+			<div class="form-submit">
+				<input type="hidden" id="submitted" name="contact-submission" value="1">
+				<input id="submit-contact-form" type="submit" class="button button--contact" value="<?php echo tm_get_local( 'submit' ); ?>">
+			</div>
+		</form>
+	</div><!-- .contact-form-wrapper -->
+
+	<script>
+	jQuery(document).ready(function(){ 
+		
+		setTimeout(function(){
+			jQuery("#email_message").fadeOut("slow");
+		}, 3000);
+		
+		jQuery('#contactform').validate({
+			rules: {
+				cname: "required",
+				csubject: "required",
+				cemail: {
+					required: true,
+					email: true
+				},
+				cmessage: {
+					required: true,
+					minlength: 10
+				},
+				ccaptcha: {
+					required: true,
+					number: true,
+					equalTo: "#answer"
+				}
+			},
+			messages: {			
+				cname: "<?php echo tm_get_local( 'name_required' ); ?>",
+				csubject: "<?php echo tm_get_local( 'subject_required' ); ?>",
+				cemail: {
+					required: "<?php echo tm_get_local( 'email_required' ); ?>",
+					email: "<?php echo tm_get_local( 'email_error' );  ?>"
+				},
+				cmessage: {
+					required: "<?php echo tm_get_local( 'message_required' ); ?>",
+					minlength: "<?php echo tm_get_local( 'message_min' ); ?>"
+				},
+				ccaptcha: {
+					required: "<?php echo tm_get_local( 'captcha_required' ); ?>",
+					number: "<?php echo tm_get_local( 'captcha_number' ); ?>",
+					equalTo: "<?php echo tm_get_local( 'captcha_equalto' );  ?>"
+				}
+			}
+		});
+	});
+	</script>
+	<?php
+}
