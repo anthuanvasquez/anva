@@ -1,5 +1,4 @@
-		</div><!-- #content -->
-	</div><!-- .content-container -->
+	<?php tm_content_after(); ?>
 	
 	<footer id="footer" class="footer-container" role="contentinfo">
 		<div class="site-footer">
@@ -17,8 +16,9 @@
 
 			</div>
 		</div>
-	</footer><!-- .footer-container -->
-</div><!-- #container -->
+	</footer><!-- #footer (end) -->
+
+</div><!-- #container (end) -->
 
 <?php wp_footer(); ?>
 
