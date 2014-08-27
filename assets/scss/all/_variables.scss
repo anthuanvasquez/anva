@@ -77,8 +77,8 @@ $widget-heading-font-size: 18px;
 
 // Font Heading Settings
 // ------------------------------------------------
-$h1: 26px !default;
-$h2: 22px !default;
+$h1: 27px !default;
+$h2: 24px !default;
 $h3: 18px !default;
 $h4: 16px !default;
 $h5: 14px !default;
@@ -87,14 +87,14 @@ $h6: 12px !default;
 // Buttons Settings
 // ------------------------------------------------
 $button-background-color: $color-0;
-$button-border-radius: 2px;
+$button-border-radius: 4px;
 $button-border: 1px solid darken($button-background-color, 8%);
 $button-font-color: #fff;
-$button-font-size: $base-font-size;
-$button-font-weight: bold;
-$button-padding-box: 10px 15px;
-$button-box-shadow: 0 4px 0 inset darken($button-background-color, 18%);
-$button-text-shadow: 1px 1px 1px rgba(black, .4);
+$button-font-size: 14px;
+$button-font-weight: normal;
+$button-padding-box: 6px 12px;
+$button-box-shadow: none;
+$button-text-shadow: none;
 
 // ------------------------------------------------
 // Susy 2 Grid Settings
