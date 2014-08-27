@@ -45,3 +45,18 @@
 .featured-container {
 	margin: 0 0 $padding;
 }
+
+.blog-2-cols {
+	
+	article.post {
+		@include span(6);
+
+		&:nth-child(2n) {
+			margin-right: 0;
+			&:after {
+				clear: left;
+			}
+		}
+	}
+
+}
