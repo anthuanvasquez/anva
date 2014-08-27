@@ -11,7 +11,7 @@
 		<div class="site-main" role="main">
 			<?php
 				// First, initialize how many posts to render per page
-				$number = 1;
+				$number = get_option( 'posts_per_page' );
 
 				// Next, get the current page
 				$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
