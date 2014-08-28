@@ -43,28 +43,32 @@
  * Search
  */
 form {
+	&.search-form,
 	&#searchform {
-		border: 1px solid #ccc;
 
 		label {
 			display: inline;
 		}
-
+		
+		button,
 		input {
-
+			
+			&.search-field,
 			&#s {
-				border: 0;
+				border: 1px solid #ccc;
+				border-radius: 4px 0 0 4px;
 				float: left;
 				height: 33px;
 				width: 80%;
 			}
-
+			
+			&.search-submit,
 			&#searchsubmit {
+				border-radius: 0 4px 4px 0;
 				height: 33px;
 				line-height: 33px;
 				padding: 0;
 				margin: 0;
-				border-radius: 0;
 				width: 20%; 
 			}
 

@@ -56,14 +56,17 @@
 		margin: 40px auto 0;
 	}
 
-	.site-navigation {
+	nav.site-navigation {
 		float: none;
 		text-align: center;
 	}
-	
-	.search-form {
-		margin: auto;
-		max-width: 380px;
+
+	form {
+		&.search-form,
+		&#searchform {
+			margin: 0 auto;
+			width: 70%;
+		}
 	}
 
 }
