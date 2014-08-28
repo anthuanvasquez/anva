@@ -47,7 +47,7 @@ class Custom_Social_Media extends WP_Widget {
 
 	/* Update Data for Widgets */
 	function update( $new_instance, $old_instance ) {
-		$instance 					= $old_instance;
+		$instance 							= $old_instance;
 		$instance['title'] 			= $new_instance['title'];
 		$instance['text'] 			= $new_instance['text'];
 		$instance['autop'] 			= $new_instance['autop'];
