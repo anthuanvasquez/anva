@@ -206,7 +206,7 @@ function tm_num_pagination( $pages = '', $range = 2 ) {
 	}
 	
 	if ( 1 != $pages ) {
-		echo "<div class='pagination'>";
+		echo "<div class='pagination group'>";
 			if ( $paged > 2 && $paged > $range + 1 && $showitems < $pages )
 				echo "<a href='".get_pagenum_link(1)."'>&laquo;</a>";
 			
