@@ -20,6 +20,11 @@
 
 }
 
+.footer-inner {
+	border-top: 1px solid #eee;
+	padding: $padding*2 0 $padding;
+}
+
 /* Footer Widget Area */
 .footer-widget {
 	margin: 0 auto;
@@ -41,6 +46,8 @@
  * Footer Copyright
  */
 .footer-sub-content {
+	border-top: 1px solid #eee;
+	padding-top: $padding;
 	clear: both;
 
 	p {
