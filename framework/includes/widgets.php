@@ -101,7 +101,7 @@ class Custom_Services extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' => 'widget_services',
-			'description' => 'Muestra servicios o un texto personalizado con una imagen y una descripci&oacute;n.'
+			'description' => 'Muestra servicios o un texto personalizado con una imagen y una descripcion.'
 		);
 
 		$this->WP_Widget('Custom_Services', 'Custom Services', $widget_ops);
@@ -122,12 +122,12 @@ class Custom_Services extends WP_Widget {
 
 		/* Image */
 		if ( ! empty( $image ) )
-			echo '<div class="service__icon"><img src="'. $image .'" alt="'. $title .'" /></div>';
+			echo '<div class="service-image"><img src="'. $image .'" alt="'. $title .'" /></div>';
 
  		/* Title */
 		if ( ! empty( $title ) ) {
 			if ( ! empty( $link ) )
-				echo $before_title . '<a href="'. esc_url( $link ) .'">' . $title . '</a>' . $after_title;
+				echo $before_title . '<a class="service-link" href="'. esc_url( $link ) .'">' . $title . '</a>' . $after_title;
 			else
 				echo $before_title . $title . $after_title;
  		}
