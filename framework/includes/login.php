@@ -24,7 +24,7 @@ function tm_login_stylesheet() {
  * @since 1.4.2
  */
 function tm_login_logo_url() {
-	return get_bloginfo( 'url' );
+	return home_url( '/' );
 }
 
 /**

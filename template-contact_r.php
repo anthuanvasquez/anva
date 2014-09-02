@@ -1,6 +1,6 @@
 <?php
 /*
- Template Name: Contact Us Right Sidebar
+ Template Name: Contact Us
  */
 ?>
 

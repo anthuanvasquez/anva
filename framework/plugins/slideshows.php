@@ -344,8 +344,10 @@ function tm_slideshows_shortcode($atts, $content = null) {
 	
 	$slug = isset( $atts['slug'] ) ? $atts['slug'] : "attachments";
 	
-	if( ! $slug ) {
-		return apply_filters( 'tm_slideshows_empty_shortcode', "Slide: Por favor incluye un 'slug' como parámetro e.j. [slideshows slug=homepage]" );
+	$string = 'Por favor incluye un slug como parametro e.j. [slideshows slug=homepage]';
+	
+	if ( ! $slug ) {
+		return apply_filters( 'tm_slideshows_empty_shortcode', $string );
 	}
 	return tm_slideshows( $slug );
 }

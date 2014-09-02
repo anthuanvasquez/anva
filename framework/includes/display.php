@@ -1,8 +1,11 @@
 <?php
 
 function tm_ie_browser_message() {
+	$string = __( 'Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="%s">mejorar tu experiencia</a>.', TM_THEME_DOMAIN );
+	$url = esc_url( 'http://browsehappy.com/' );
+
 	?>
-	<!--[if lt IE 9]><p class="browsehappy"><?php _e('Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="http://browsehappy.com/">mejorar tu experiencia.</a>', TM_THEME_DOMAIN); ?></p><![endif]-->
+	<!--[if lt IE 9]><p class="browsehappy"><?php echo sprintf( $string, $url ); ?></p><![endif]-->
 	<?php
 }
 

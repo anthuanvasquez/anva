@@ -1,28 +1,22 @@
 @charset "utf-8";
-// ------------------------------------------------
 // Compass
 // Need it ?
 
-// ------------------------------------------------
 // Susy
 @import "plugins/susy";
 
 // Settings
-// ------------------------------------------------
 @import "theme/functions";
 @import "theme/variables";
 @import "theme/mixins";
-@import "theme/fonts";
 
 // Base
-// ------------------------------------------------
 @import "theme/base/normalize";
 @import "theme/base/general";
 @import "theme/base/forms";
 @import "theme/base/typography";
 
 // Layout
-// ------------------------------------------------
 @import "theme/layout/content";
 @import "theme/layout/header";
 @import "theme/layout/navigation";
@@ -30,20 +24,17 @@
 @import "theme/layout/footer";
 
 // WordPress
-// ------------------------------------------------
-@import "theme/wordpress/wp";
+@import "theme/wordpress/wordpress";
 
 // Modules
-// ------------------------------------------------
 @import "theme/modules/buttons";
 @import "theme/modules/contact";
 @import "theme/modules/grids";
 @import "theme/modules/helpers";
 @import "theme/modules/components";
 @import "theme/modules/animations";
-@import "theme/modules/flexslider";
+@import "theme/modules/slideshows";
 @import "theme/modules/spritesheets";
 
 // Global State Classes
-// ------------------------------------------------
 @import "theme/state";

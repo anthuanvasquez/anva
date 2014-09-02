@@ -8,6 +8,8 @@
  * @package		3Mentes WordPress Base Template
  */
  
+$domain = TM_THEME_DOMAIN;
+
 // Options Array
 $options = array(
 
@@ -20,7 +22,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Logo",  
-		"desc" 		=> __("Introduzca la URL del logo que desea mostrar.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL del logo que desea mostrar.", $domain),  
 		"id" 			=> "logo",
 		"type" 		=> "image",
 		"std" 		=> TM_THEME_LOGO,
@@ -29,7 +31,7 @@ $options = array(
 
 	array(
 		"name" 		=> "CSS Personalizado",
-		"desc" 		=> __("Si necesitas realizar algunos cambios menores con estilos CSS, puedes ponerlos aqui para anular los estilos por omision del tema. Sin embargo, si vas a hacer muchos cambios de estilos CSS, lo mejor seria crear un archivo adicional de CSS o crear un Child Theme.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Si necesitas realizar algunos cambios menores con estilos CSS, puedes ponerlos aqui para anular los estilos por omision del tema. Sin embargo, si vas a hacer muchos cambios de estilos CSS, lo mejor seria crear un archivo adicional de CSS o crear un Child Theme.", $domain),  
 		"id" 			=> "custom_css",
 		"type" 		=> "textarea",
 		"std" 		=> "",
@@ -44,13 +46,13 @@ $options = array(
 	array(
 		"type" 		=> "open",
 		"title"		=> "Social Media",
-		"msg"			=> __("These settings will only apply to vewing single posts. This means that any settings you set here will not effect any posts that appear in a post list or post grid.", TM_THEME_DOMAIN),
+		"msg"			=> __("These settings will only apply to vewing single posts. This means that any settings you set here will not effect any posts that appear in a post list or post grid.", $domain),
 		"tab"			=> "layout"
 	),
 
 	array(
 		"name" 		=> "Facebook",  
-		"desc" 		=> __("Introduzca la URL de su perfil o pagina de facebook.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil o pagina de facebook.", $domain),  
 		"id" 			=> "social_facebook",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -59,7 +61,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Twitter",  
-		"desc" 		=> __("Introduzca la URL de su perfil de twitter.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de twitter.", $domain),  
 		"id" 			=> "social_twitter",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -68,7 +70,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Instagram",  
-		"desc" 		=> __("Introduzca la URL de su perfil de instagram.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de instagram.", $domain),  
 		"id" 			=> "social_instagram",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -77,7 +79,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Google+",  
-		"desc" 		=> __("Introduzca la URL de su perfil de google+.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de google+.", $domain),  
 		"id" 			=> "social_gplus",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -86,7 +88,7 @@ $options = array(
 
 	array(
 		"name" 		=> "LinkedIn",  
-		"desc" 		=> __("Introduzca la URL de su perfil de linkedin.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de linkedin.", $domain),  
 		"id" 			=> "social_linkedin",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -95,7 +97,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Youtube",  
-		"desc" 		=> __("Introduzca la URL de su perfil de youtube.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de youtube.", $domain),  
 		"id" 			=> "social_youtube",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -104,7 +106,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Vimeo",  
-		"desc" 		=> __("Introduzca la URL de su perfil de vimeo.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de vimeo.", $domain),  
 		"id" 			=> "social_vimeo",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -113,7 +115,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Pinterest",  
-		"desc" 		=> __("Introduzca la URL de su perfil de pinterest.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de pinterest.", $domain),  
 		"id" 			=> "social_pinterest",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -122,7 +124,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Digg",  
-		"desc" 		=> __("Introduzca la URL de su perfil de digg.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de digg.", $domain),  
 		"id" 			=> "social_digg",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -131,7 +133,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Dribbble",  
-		"desc" 		=> __("Introduzca la URL de su perfil de dribbble.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de dribbble.", $domain),  
 		"id" 			=> "social_dribbble",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -140,7 +142,7 @@ $options = array(
 
 	array(
 		"name" 		=> "RSS",  
-		"desc" 		=> __("Introduzca la URL de su feed.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su feed.", $domain),  
 		"id" 			=> "social_rss",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -157,13 +159,13 @@ $options = array(
 	array(
 		"type" 		=> "open",
 		"title"		=> "Single Post",
-		"msg"			=> __("Estos ajustes solo se aplicaran a los posts individuales. Lo que quiere decir que no afectaran a los posts que se muestran en la parte frontal del blog.", TM_THEME_DOMAIN),
+		"msg"			=> __("Estos ajustes solo se aplicaran a los posts individuales. Lo que quiere decir que no afectaran a los posts que se muestran en la parte frontal del blog.", $domain),
 		"tab"			=> "content"
 	),
 
 	array(
-		"name" 		=> "Mostrar información meta en la parte superior de los posts?",  
-		"desc" 		=> __("Seleccione si desea que la información de metadatos (fecha de publicación, autor, etc) se muestre en la parte superior del post.", TM_THEME_DOMAIN),  
+		"name" 		=> "Mostrar informacion meta en la parte superior de los posts?",  
+		"desc" 		=> __("Seleccione si desea que la informacion meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post.", $domain),  
 		"id" 			=> "single_meta",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -175,8 +177,8 @@ $options = array(
 	),
 
 	array(
-		"name" 		=> "Mostrar imágenes destacadas en la parte superior de los posts?",  
-		"desc" 		=> __("Elija cómo desea que se muestren las imágenes destacadas en la parte superior de los posts.", TM_THEME_DOMAIN),  
+		"name" 		=> "Mostrar imagenes destacadas en la parte superior de los posts?",  
+		"desc" 		=> __("Elija como desea que se muestren las imagenes destacadas en la parte superior de los posts.", $domain),  
 		"id" 			=> "single_thumb",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -190,7 +192,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Mostrar comentarios debajo de los posts?",  
-		"desc" 		=> __("Seleccione si desea ocultar completamente los comentarios o no debajo de los posts.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea ocultar completamente los comentarios o no debajo de los posts.", $domain),  
 		"id" 			=> "single_comment",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -203,7 +205,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Mostrar breadcrumbs?",  
-		"desc" 		=> __("Seleccione si desea ocultar o mostrar los breadcrumbs.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea ocultar o mostrar los breadcrumbs.", $domain),  
 		"id" 			=> "single_breadcrumb",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -223,13 +225,13 @@ $options = array(
 	array(
 		"type" 		=> "open",
 		"title"		=> "Primary Posts",
-		"msg"			=> __("Estos ajustes sólo se aplicarán a los posts que se muestran en la parte frontal del blog.", TM_THEME_DOMAIN),
+		"msg"			=> __("Estos ajustes solo se aplicaran a los posts que se muestran en la parte frontal del blog.", $domain),
 		"tab"			=> "content"
 	),
 
 	array(
-		"name" 		=> "Mostrar información meta en la parte superior de los posts?",  
-		"desc" 		=> __("Seleccione si desea que la información de metadatos (fecha de publicación, autor, etc) se muestre en la parte superior del post.", TM_THEME_DOMAIN),  
+		"name" 		=> "Mostrar informacion meta en la parte superior de los posts?",  
+		"desc" 		=> __("Seleccione si desea que la informacion de meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post.", $domain),  
 		"id" 			=> "posts_meta",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -241,8 +243,8 @@ $options = array(
 	),
 
 	array(
-		"name" 		=> "Mostrar imágenes destacadas en la parte superior de los posts?",  
-		"desc" 		=> __("Elija cómo desea que muestren las imágenes destacadas en la parte superior de los posts.", TM_THEME_DOMAIN),  
+		"name" 		=> "Mostrar imagenes destacadas en la parte superior de los posts?",  
+		"desc" 		=> __("Elija como desea que muestren las imagenes destacadas en la parte superior de los posts.", $domain),  
 		"id" 			=> "posts_thumb",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -267,27 +269,27 @@ $options = array(
 	),
 	
 	array(
-		"name" 		=> "Tabletas y Móviles",
-		"desc" 		=> __("Este tema viene con una hoja de estilo especial que se centrará en la resolución de la pantalla de sus visitantes para mostrarles un diseño ligeramente modificado si su resolución de pantalla coincide con tamaños comunes de una tableta o un dispositivo móvil.", TM_THEME_DOMAIN),  
+		"name" 		=> "Tabletas y Moviles",
+		"desc" 		=> __("Este tema viene con una hoja de estilo especial que se centrara en la resolucion de la pantalla de sus visitantes para mostrarles un diseno ligeramente modificado si su resolucion de pantalla coincide con tamanos comunes de una tableta o un dispositivo movil.", $domain),  
 		"id" 			=> "responsive",
 		"type" 		=> "radio",
 		"std" 		=> "1",
 		"options" => array(
-			"1" => "Sí, aplicar estilos para tabletas y dispositivos móviles.",
+			"1" => "Si, aplicar estilos para tabletas y dispositivos moviles.",
 			"0" => "No, mostrar el sitio normal."
 		),
 		"tab"			=> "config"
 	),
 
 	array(
-		"name" 		=> "Navegación",
-		"desc" 		=> __("Seleccione cómo desea mostrar la navegación principal en los dispositivos móviles.", TM_THEME_DOMAIN),  
+		"name" 		=> "Navegacion",
+		"desc" 		=> __("Seleccione como desea mostrar la navegacion principal en los dispositivos moviles.", $domain),  
 		"id" 			=> "navigation",
 		"type" 		=> "radio",
 		"std" 		=> "toggle_navigation",
 		"options" => array(
-			"toggle_navigation" => "Navegación Toggle (Mostrar / Ocultar).",
-			"off_canvas_navigation" => "Navegación Off-Canvas."
+			"toggle_navigation" => "Navegacion Toggle (Mostrar / Ocultar).",
+			"off_canvas_navigation" => "Navegacion Off-Canvas."
 		),
 		"tab"			=> "config"
 	),

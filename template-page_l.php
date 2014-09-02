@@ -1,6 +1,6 @@
 <?php
 /*
- Template Name: Page Left Sidebar
+ Template Name: Page with Left Sidebar
  */
 ?>
 

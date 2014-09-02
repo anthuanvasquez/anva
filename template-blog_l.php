@@ -1,13 +1,16 @@
 <?php
 /*
- Template Name: Blog Right Sidebar
+ Template Name: Blog with Left Sidebar
  */
 
  get_header(); ?>
 
 
 <div class="grid-columns row-fluid">
-	<div class="content-area">
+
+	<?php get_sidebar( 'left' ); ?>
+
+	<div class="content-area right">
 		<div class="site-main" role="main">
 			<?php
 				// First, initialize how many posts to render per page
@@ -45,8 +48,6 @@
 
 		</div><!-- .site-main (end) -->
 	</div><!-- .content-area (end) -->
-	
-	<?php get_sidebar(); ?>
 	
 </div><!-- .grid-columns (end) -->
 

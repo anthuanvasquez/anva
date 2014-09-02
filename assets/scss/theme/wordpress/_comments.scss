@@ -2,25 +2,30 @@
    Comments
    ========================================================================== */
 
-/* Headings */
+/*
+ * Headings
+ */
 h2.comments-title,
 h3.comment-reply-title {
 	font-size: 18px;
 	margin: 0 0 $padding;
-	
 }
 
 #respond {
 	clear: both;
 }
 
-/* Comment List */
+/*
+ * Comment List
+ */
 .comment-list {
 	@include reset-list();
 	margin: $padding 0;
 }
 
-/* Commment Body */
+/*
+ * Commment Body
+ */
 .comment-body {
 	border: 1px solid #ccc;
 	margin-bottom: $padding;
@@ -28,7 +33,9 @@ h3.comment-reply-title {
 	width: 100%;
 }
 
-/* Comment Author */
+/*
+ * Comment Author
+ */
 .comment-author {
 	margin: 0 0 10px;
 }
@@ -63,7 +70,7 @@ h3.comment-reply-title {
 }
 
 /* Child Comments */
-.children {
+ul.children {
 	clear: both;
 	list-style: none;
 	margin: $padding 0 0;
@@ -82,13 +89,7 @@ h3.comment-reply-title {
    ========================================================================== */
 
 .comment-form {
-	input[type=date],
-	input[type=datetime],
-	input[type=email],
-	input[type=number],
-	input[type=text],
-	input[type=url],
-	textarea {
+	@include group-inputs() {
 		border: 2px solid #ddd;
 		border-radius: 3px;
 		font-size: 12px;
@@ -99,14 +100,17 @@ h3.comment-reply-title {
 }
 
 .comment-form {
+
 	label {
 		display: block;
 		font-weight: 700;
 		margin: 10px 0 2px;
 	}
+
 	.form-submit {
 		text-align: right;
 	}
+
 }
 
 #cancel-comment-reply {
