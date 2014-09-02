@@ -35,7 +35,7 @@ class Custom_Contact extends WP_Widget {
 
  		/* Title */
 		if ( ! empty( $title ) )
-			echo $before_title . $title . $after_title;;
+			echo $before_title . $title . $after_title;
  
 		/* Text */
 		echo '<div class="textwidget">';

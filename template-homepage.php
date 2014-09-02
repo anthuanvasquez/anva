@@ -1,6 +1,6 @@
 <?php
 /*
- Template Name: Homepage FullWidth
+ Template Name: Homepage
  */
 ?>
 

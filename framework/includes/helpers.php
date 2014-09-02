@@ -163,3 +163,32 @@ function tm_truncate( $string, $length = 100 ) {
 	}
 
 }
+
+function tm_get_widget_posts( $number = 3, $order = 'date', $thumbnail = true ) {
+	global $post;
+
+	$output = '';
+
+	$args = array(
+		'posts_per_page' => $number,
+		'post_type' => array( 'post' ),
+		'order'	=> $order
+	);
+
+	$the_query = new WP_Query( $args );
+	
+	echo '<ul class="posts">';
+
+	while ( $the_query->have_posts() ) {
+		$the_query->the_post();
+
+		$output .= '<li class="group"><a href="'. get_permalink() .'">' . get_the_post_thumbnail( $post->ID, 'thumbnail', $attr = '' ) . '</a>';
+		$output .= '<h4><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
+		$output .= '<span class="post-date">' . get_the_time( 'F j, Y' ) . '</span>';
+		$output .= '</li>';
+	}
+
+	echo $output;
+
+	echo '</ul>';
+}
