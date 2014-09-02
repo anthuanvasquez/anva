@@ -146,7 +146,7 @@ class Custom_Services extends WP_Widget {
 
 	/* Update Data for Widgets */
 	function update( $new_instance, $old_instance ) {
-		$instance 					= $old_instance;
+		$instance 							= $old_instance;
 		$instance['title'] 			= $new_instance['title'];
 		$instance['text'] 			= $new_instance['text'];
 		$instance['image'] 			= $new_instance['image'];
@@ -259,7 +259,7 @@ class Custom_Contact extends WP_Widget {
 
 		echo '</div>';
 		
-		$output.= '<ul class="widget-contact">';
+		$output.= '<ul class="widget-contact-info">';
 		$output.= '<li class="contact-phone"><i class="fa fa-phone"></i> '.$phone.'</li>';
 		$output.= '<li class="contact-email"><i class="fa fa-envelope"></i> <a href="mailto:'.$email.'">'.$email.'</a></li>';
 		$output.= '<li class="contact-link"><i class="fa fa-reply"></i> <a href="'.$link.'">Ponte en Contacto</a></li>';
@@ -276,7 +276,7 @@ class Custom_Contact extends WP_Widget {
 
 	/* Update Data for Widgets */
 	function update( $new_instance, $old_instance ) {
-		$instance 					= $old_instance;
+		$instance 							= $old_instance;
 		$instance['title'] 			= $new_instance['title'];
 		$instance['text'] 			= $new_instance['text'];
 		$instance['phone'] 			= $new_instance['phone'];
