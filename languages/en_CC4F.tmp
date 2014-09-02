@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TM\n"
 "POT-Creation-Date: 2014-09-02 16:47-0400\n"
-"PO-Revision-Date: 2014-09-02 16:47-0400\n"
+"PO-Revision-Date: 2014-09-02 16:52-0400\n"
 "Last-Translator: Anthuan Vasquez <eigthy@gmail.com>\n"
 "Language-Team:  <eigthy@gmail.com>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../comments.php:35 ../comments.php:52
 msgid "Comment navigation"
-msgstr ""
+msgstr "Comment navigation"
 
 #: ../comments.php:36 ../comments.php:53
 msgid "&larr; Older Comments"
@@ -38,18 +38,11 @@ msgid "Introduzca la URL del logo que desea mostrar."
 msgstr ""
 
 #: ../framework/admin/options.php:34
-msgid ""
-"Si necesitas realizar algunos cambios menores con estilos CSS, puedes "
-"ponerlos aqui para anular los estilos por omision del tema. Sin embargo, si "
-"vas a hacer muchos cambios de estilos CSS, lo mejor seria crear un archivo "
-"adicional de CSS o crear un Child Theme."
+msgid "Si necesitas realizar algunos cambios menores con estilos CSS, puedes ponerlos aqui para anular los estilos por omision del tema. Sin embargo, si vas a hacer muchos cambios de estilos CSS, lo mejor seria crear un archivo adicional de CSS o crear un Child Theme."
 msgstr ""
 
 #: ../framework/admin/options.php:49
-msgid ""
-"These settings will only apply to vewing single posts. This means that any "
-"settings you set here will not effect any posts that appear in a post list "
-"or post grid."
+msgid "These settings will only apply to vewing single posts. This means that any settings you set here will not effect any posts that appear in a post list or post grid."
 msgstr ""
 
 #: ../framework/admin/options.php:55
@@ -97,28 +90,19 @@ msgid "Introduzca la URL de su feed."
 msgstr ""
 
 #: ../framework/admin/options.php:162
-msgid ""
-"Estos ajustes solo se aplicaran a los posts individuales. Lo que quiere "
-"decir que no afectaran a los posts que se muestran en la parte frontal del "
-"blog."
+msgid "Estos ajustes solo se aplicaran a los posts individuales. Lo que quiere decir que no afectaran a los posts que se muestran en la parte frontal del blog."
 msgstr ""
 
 #: ../framework/admin/options.php:168
-msgid ""
-"Seleccione si desea que la informacion meta (fecha de publicacion, autor, "
-"etc) se muestre en la parte superior del post."
+msgid "Seleccione si desea que la informacion meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post."
 msgstr ""
 
 #: ../framework/admin/options.php:181
-msgid ""
-"Elija como desea que se muestren las imagenes destacadas en la parte "
-"superior de los posts."
+msgid "Elija como desea que se muestren las imagenes destacadas en la parte superior de los posts."
 msgstr ""
 
 #: ../framework/admin/options.php:195
-msgid ""
-"Seleccione si desea ocultar completamente los comentarios o no debajo de los "
-"posts."
+msgid "Seleccione si desea ocultar completamente los comentarios o no debajo de los posts."
 msgstr ""
 
 #: ../framework/admin/options.php:208
@@ -126,35 +110,23 @@ msgid "Seleccione si desea ocultar o mostrar los breadcrumbs."
 msgstr ""
 
 #: ../framework/admin/options.php:228
-msgid ""
-"Estos ajustes solo se aplicaran a los posts que se muestran en la parte "
-"frontal del blog."
+msgid "Estos ajustes solo se aplicaran a los posts que se muestran en la parte frontal del blog."
 msgstr ""
 
 #: ../framework/admin/options.php:234
-msgid ""
-"Seleccione si desea que la informacion de meta (fecha de publicacion, autor, "
-"etc) se muestre en la parte superior del post."
+msgid "Seleccione si desea que la informacion de meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post."
 msgstr ""
 
 #: ../framework/admin/options.php:247
-msgid ""
-"Elija como desea que muestren las imagenes destacadas en la parte superior "
-"de los posts."
+msgid "Elija como desea que muestren las imagenes destacadas en la parte superior de los posts."
 msgstr ""
 
 #: ../framework/admin/options.php:273
-msgid ""
-"Este tema viene con una hoja de estilo especial que se centrara en la "
-"resolucion de la pantalla de sus visitantes para mostrarles un diseno "
-"ligeramente modificado si su resolucion de pantalla coincide con tamanos "
-"comunes de una tableta o un dispositivo movil."
+msgid "Este tema viene con una hoja de estilo especial que se centrara en la resolucion de la pantalla de sus visitantes para mostrarles un diseno ligeramente modificado si su resolucion de pantalla coincide con tamanos comunes de una tableta o un dispositivo movil."
 msgstr ""
 
 #: ../framework/admin/options.php:286
-msgid ""
-"Seleccione como desea mostrar la navegacion principal en los dispositivos "
-"moviles."
+msgid "Seleccione como desea mostrar la navegacion principal en los dispositivos moviles."
 msgstr ""
 
 #: ../framework/admin/settings.php:61 ../framework/admin/settings.php:62
@@ -163,7 +135,7 @@ msgstr ""
 
 #: ../framework/admin/settings.php:196
 msgid "Cambios Realizados."
-msgstr ""
+msgstr "Updated changes."
 
 #: ../framework/admin/settings.php:250
 msgid "Restaurar Opciones"
@@ -175,9 +147,7 @@ msgstr ""
 
 #: ../framework/includes/display.php:4
 #, php-format
-msgid ""
-"Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="
-"\"%s\">mejorar tu experiencia</a>."
+msgid "Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href=\"%s\">mejorar tu experiencia</a>."
 msgstr ""
 
 #: ../framework/includes/general.php:17
@@ -202,9 +172,7 @@ msgid "Whoops! pagina no encontrada"
 msgstr ""
 
 #: ../framework/includes/locals.php:12
-msgid ""
-"Disculpa, pero la pagina solicitada no se pudo encontrar. Prueba haciendo "
-"una busqueda en el sitio o regresa a la pagina principal."
+msgid "Disculpa, pero la pagina solicitada no se pudo encontrar. Prueba haciendo una busqueda en el sitio o regresa a la pagina principal."
 msgstr ""
 
 #: ../framework/includes/locals.php:13
@@ -261,20 +229,19 @@ msgstr ""
 
 #: ../framework/includes/locals.php:26
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../framework/includes/locals.php:27
 msgid "Correo Electronico"
-msgstr ""
+msgstr "Email"
 
 #: ../framework/includes/locals.php:28
 msgid "Porfavor entre un correo electronico valido."
-msgstr ""
+msgstr "Please enter a valid email."
 
 #: ../framework/includes/locals.php:29
-msgid ""
-"El correo electronico debe tener un formato valido ej. nombre@email.com."
-msgstr ""
+msgid "El correo electronico debe tener un formato valido ej. nombre@email.com."
+msgstr "The email must have a valid format eg. nombre@email.com."
 
 #: ../framework/includes/locals.php:30
 msgid "Asunto"
@@ -321,9 +288,7 @@ msgid "Gracias, su email fue enviado con exito."
 msgstr ""
 
 #: ../framework/includes/locals.php:42
-msgid ""
-"<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que no haya "
-"campos en blanco."
+msgid "<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que no haya campos en blanco."
 msgstr ""
 
 #: ../framework/includes/locals.php:43
@@ -456,9 +421,7 @@ msgstr ""
 
 #: ../framework/includes/parts.php:91
 #, php-format
-msgid ""
-"<span class=\"posted-on\">Publicado en %1$s</span><span class=\"byline\"> "
-"por %2$s</span>"
+msgid "<span class=\"posted-on\">Publicado en %1$s</span><span class=\"byline\"> por %2$s</span>"
 msgstr ""
 
 #: ../framework/includes/parts.php:257
@@ -480,19 +443,19 @@ msgstr ""
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:125
 msgid "Telefono:"
-msgstr ""
+msgstr "Phone:"
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:130
 msgid "Email:"
-msgstr ""
+msgstr "Correo Electrónico:"
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:135
 msgid "Link:"
-msgstr ""
+msgstr "Link:"
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:140
 msgid "Skype:"
-msgstr ""
+msgstr "Skype"
 
 #: ../framework/includes/widgets/class-widget-social-media.php:11
 msgid "Muestra los iconos de las redes mas populares y una descripcion."
@@ -544,9 +507,7 @@ msgid "Slide Settings"
 msgstr ""
 
 #: ../framework/plugins/slideshows.php:264
-msgid ""
-"No se han configurado rotadores para los slideshows. Contacta con tu "
-"Desarrollador."
+msgid "No se han configurado rotadores para los slideshows. Contacta con tu Desarrollador."
 msgstr ""
 
 #: ../framework/plugins/slideshows.php:320
@@ -609,4 +570,5 @@ msgstr ""
 
 #: ../woocommerce/single-product/related.php:36
 msgid "Related Products"
-msgstr ""
+msgstr "Productos Relacionados"
+
