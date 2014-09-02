@@ -22,17 +22,30 @@
 	@include font-stack-headers;
 }
 
+.widget_custom_posts {
+	.posts {
+		@include reset-list();
+		li {
+			margin-bottom: 12px;
 
-.widget_search {
+			h4 {
+				margin: 0 0 5px;
+			}
 
-	.search-field {
-	
+			img {
+				border: 4px solid #fff;
+				border-radius: 4px;
+				box-shadow: 0 0 0 1px #ddd;
+				float: left;
+				margin: 0 15px 0 0;
+				max-width: 90px;
+			}
+
+			.post-date {
+				display: block;
+			}
+		}
 	}
-
-	.search-submit {
-
-	}
-
 }
 
 .widget_custom_contact {
