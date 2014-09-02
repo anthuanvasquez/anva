@@ -5,45 +5,45 @@
 
 // ------------------------------------------------
 // Susy
-@import "all/plugins/susy";
+@import "plugins/susy";
 
 // Settings
 // ------------------------------------------------
-@import "all/functions";
-@import "all/variables";
-@import "all/mixins";
-@import "all/fonts";
+@import "theme/functions";
+@import "theme/variables";
+@import "theme/mixins";
+@import "theme/fonts";
 
 // Base
 // ------------------------------------------------
-@import "all/base/normalize";
-@import "all/base/general";
-@import "all/base/forms";
-@import "all/base/typography";
+@import "theme/base/normalize";
+@import "theme/base/general";
+@import "theme/base/forms";
+@import "theme/base/typography";
 
 // Layout
 // ------------------------------------------------
-@import "all/layout/content";
-@import "all/layout/header";
-@import "all/layout/navigation";
-@import "all/layout/entry";
-@import "all/layout/footer";
+@import "theme/layout/content";
+@import "theme/layout/header";
+@import "theme/layout/navigation";
+@import "theme/layout/entry";
+@import "theme/layout/footer";
 
 // WordPress
 // ------------------------------------------------
-@import "all/wordpress/wp";
+@import "theme/wordpress/wp";
 
 // Modules
 // ------------------------------------------------
-@import "all/modules/buttons";
-@import "all/modules/contact";
-@import "all/modules/grids";
-@import "all/modules/helpers";
-@import "all/modules/components";
-@import "all/modules/animations";
-@import "all/modules/flexslider";
-@import "all/modules/spritesheets";
+@import "theme/modules/buttons";
+@import "theme/modules/contact";
+@import "theme/modules/grids";
+@import "theme/modules/helpers";
+@import "theme/modules/components";
+@import "theme/modules/animations";
+@import "theme/modules/flexslider";
+@import "theme/modules/spritesheets";
 
 // Global State Classes
 // ------------------------------------------------
-@import "all/state";
+@import "theme/state";
