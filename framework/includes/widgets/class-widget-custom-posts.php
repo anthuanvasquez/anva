@@ -23,6 +23,7 @@ class Custom_Posts extends WP_Widget {
 		$title 			= apply_filters('widget_title', $instance['title']);
 		$number 		= $instance['number'];
 		$order 			= $instance['order'];
+		$orderby 		= $instance['orderby'];
 		$thumbnail	= $instance['thumbnail'];
  
 		echo $before_widget;		
@@ -31,7 +32,7 @@ class Custom_Posts extends WP_Widget {
 		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
 
-		tm_get_widget_posts( $number, $order, $thumbnail );
+		tm_get_widget_posts( $number, $orderby, $order, $thumbnail );
 
 		echo $after_widget;
 	}
@@ -42,6 +43,7 @@ class Custom_Posts extends WP_Widget {
 		$instance['title'] 			= $new_instance['title'];
 		$instance['number'] 		= $new_instance['number'];
 		$instance['order'] 			= $new_instance['order'];
+		$instance['orderby'] 		= $new_instance['orderby'];
 		$instance['thumbnail']	= $new_instance['thumbnail'];
 
 		return $instance;
@@ -52,9 +54,10 @@ class Custom_Posts extends WP_Widget {
 		
 		/* Default Value */
 		$instance = wp_parse_args( (array) $instance, array(
-			'title' => __( 'Posts Recientes', TM_THEME_DOMAIN ),
+			'title' => __( 'Artículos Recientes', TM_THEME_DOMAIN ),
 			'number' 	=> '3',
-			'order' => 'date',
+			'order' => 'desc',
+			'orderby' => 'date',
 			'thumbnail' => true
 		));
 		
@@ -62,6 +65,7 @@ class Custom_Posts extends WP_Widget {
 		$title 			= $instance['title'];
 		$number 		= $instance['number'];
 		$order 			= $instance['order'];
+		$orderby 		= $instance['orderby'];
 		$thumbnail	= $instance['thumbnail'];
 
 		?>
@@ -78,19 +82,31 @@ class Custom_Posts extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="number" value="<?php echo esc_attr($number); ?>" />
 		</p>
 
-		<!-- Number -->
+		<!-- Order -->
 		<p>
-			<label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Numero de Posts:', TM_THEME_DOMAIN); ?></label>
+			<label for="<?php echo $this->get_field_id('order'); ?>"><?php _e('Orden:', TM_THEME_DOMAIN); ?></label>
 			<select class="widefat" id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>">
-				<option value="date">Fecha</option>
-				<option value="rand">Random</option>
-				<option value="title">Titulo</option>
+				<option <?php if ( 'asc' == $order ) echo 'selected="selected"'; ?> value="asc">ASC</option>
+				<option <?php if ( 'desc' == $order ) echo 'selected="selected"'; ?> value="desc">DESC</option>
+			
 			</select>
 		</p>
-
+		
+		<!-- Orderby -->
+		<p>
+			<label for="<?php echo $this->get_field_id('orderby'); ?>"><?php _e('Ordenar Por:', TM_THEME_DOMAIN); ?></label>
+			<select class="widefat" id="<?php echo $this->get_field_id('orderby'); ?>" name="<?php echo $this->get_field_name('orderby'); ?>">
+				<option <?php if ( 'date' == $orderby ) echo 'selected="selected"'; ?> value="date">Fecha</option>
+				<option <?php if ( 'rand' == $orderby ) echo 'selected="selected"'; ?> value="rand">Random</option>
+				<option <?php if ( 'title' == $orderby ) echo 'selected="selected"'; ?> value="title">Titile</option>
+			</select>
+		</p>
+		
+		<!-- Thumbnail -->
 		<p>			
-			<input class="widefat" id="<?php echo $this->get_field_id('thumbnail'); ?>" name="<?php echo $this->get_field_name('thumbnail'); ?>" type="checkbox" value="<?php echo esc_attr($thumbnail); ?>" />
-			<label for="<?php echo $this->get_field_id('thumbnail'); ?>"><?php _e('Usar imagenes Destacadas', TM_THEME_DOMAIN); ?></label>
+			<input class="widefat" <?php checked( $thumbnail, 'on'); ?> id="<?php echo $this->get_field_id('thumbnail'); ?>" name="<?php echo $this->get_field_name('thumbnail'); ?>" type="checkbox" />
+
+			<label for="<?php echo $this->get_field_id('thumbnail'); ?>"><?php _e('Mostrar miniaturas', TM_THEME_DOMAIN); ?></label>
 		</p>
 
 		<?php
