@@ -98,6 +98,9 @@ function tm_add_image_size() {
 	add_image_size( 'thumbnail_blog_large', 620, 300, true );
 	add_image_size( 'thumbnail_blog_medium', 300, 300, true );
 	add_image_size( 'thumbnail_blog_small', 150, 150, true );
+	add_image_size( 'thumbnail_grid_2', 472, 295, true );
+	add_image_size( 'thumbnail_grid_3', 320, 200, true);
+	add_image_size( 'thumbnail_grid_4', 240, 150, true );
 	add_image_size( 'thumbnail_slideshow', 980, 350, true );
 }
 

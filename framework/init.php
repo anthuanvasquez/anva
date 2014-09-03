@@ -16,6 +16,7 @@ define( 'TM_THEME_SETTINGS', serialize( $theme_settings ) );
 // Inlclude files
 include_once( TM_THEME_FRAMEWORK . '/includes/actions.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/display.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/meta.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/helpers.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/locals.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/parts.php' );
@@ -59,6 +60,8 @@ add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
 add_filter( 'pre_get_posts', 'tm_search_filter' );
 
 // Hook hooks
+add_action( 'add_meta_boxes', 'tm_add_page_options' );
+add_action( 'save_post', 'tm_page_options_save_meta', 1, 2 );
 add_action( 'wp_head', 'tm_apple_touch_icon' );
 add_action( 'wp_head', 'tm_custom_css' );
 add_action( 'wp_head', 'tm_navigation' );

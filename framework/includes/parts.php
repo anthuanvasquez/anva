@@ -132,6 +132,17 @@ function tm_post_thumbnails() {
 	echo $output;
 }
 
+function tm_post_grid_thumbnails( $thumbnail_size ) {
+	global $post;
+	$output = '';
+	
+	$output .= '<div class="entry-thumbnail large-thumbnail">';
+	$output .= '<a href="'.get_permalink( $post->ID ).'" title="'.get_the_title( $post->ID ).'">'.get_the_post_thumbnail( $post->ID, $thumbnail_size ).'</a>';
+	$output .= '</div>';
+
+	return $output;
+}
+
 function tm_social_media() {
 	
 	$html 			= '';
