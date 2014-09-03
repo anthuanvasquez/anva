@@ -100,6 +100,38 @@ function tm_posted_on() {
 	);
 }
 
+function tm_post_thumbnails() {
+	global $post;
+	$posts_thumb = tm_get_option( 'posts_thumb' );	
+	$output = '';
+	$size = 'thumbnail_blog_large';
+	$classes = 'large-thumbnail';
+
+	switch ( $posts_thumb ) {
+		case 0:				
+			$classes = 'medium-thumbnail';
+			$size = 'thumbnail_blog_medium';
+			break;
+
+		case 1:
+			$classes = 'large-thumbnail';
+			$size = 'thumbnail_blog_large';
+			break;
+
+		case 2:
+				$output = '';
+			break;
+	}
+
+	if ( has_post_thumbnail() ) {
+		$output .= '<div class="entry-thumbnail '.$classes.'">';
+		$output .= '<a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_post_thumbnail( $post->ID, 'thumbnail_blog_medium' ).'</a>';
+		$output .= '</div>';
+	}
+
+	echo $output;
+}
+
 function tm_social_media() {
 	
 	$html 			= '';
@@ -286,7 +318,8 @@ function tm_contact_form() {
 		setTimeout(function(){
 			jQuery("#email_message").fadeOut("slow");
 		}, 3000);
-		
+
+		jQuery('#contactform input[type="text"]').attr('autocomplete', 'off');
 		jQuery('#contactform').validate({
 			rules: {
 				cname: "required",
