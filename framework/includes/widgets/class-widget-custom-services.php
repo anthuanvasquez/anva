@@ -32,33 +32,32 @@ class Custom_Services extends WP_Widget {
 			echo '<div class="service-image"><img src="'. $image .'" alt="'. $title .'" /></div>';
 
  		/* Title */
-		if ( ! empty( $title ) ) {
-			if ( ! empty( $link ) )
-				echo $before_title . '<a class="service-link" href="'. esc_url( $link ) .'">' . $title . '</a>' . $after_title;
-			else
-				echo $before_title . $title . $after_title;
- 		}
+		if ( ! empty( $title ) )
+			echo $before_title . $title . $after_title;
 
 		/* Text */
-		echo '<div class="textwidget">';
+		echo '<div class="service-content textwidget">';
 			if ( 'true' == $autop ) {				
 				echo wpautop($text);
 			} else {
 				echo $text;
 			}
 		echo '</div>';
+
+		if ( ! empty( $link ) )
+			echo '<a class="service-link button" href="'. esc_url( $link ) .'">' . tm_get_local( 'read_more' ) . '</a>';
 			
 		echo $after_widget;
 	}
 
 	/* Update Data for Widgets */
 	function update( $new_instance, $old_instance ) {
-		$instance 							= $old_instance;
-		$instance['title'] 			= $new_instance['title'];
-		$instance['text'] 			= $new_instance['text'];
-		$instance['image'] 			= $new_instance['image'];
-		$instance['link'] 			= $new_instance['link'];
-		$instance['autop'] 			= $new_instance['autop'];
+		$instance 						= $old_instance;
+		$instance['title'] 		= $new_instance['title'];
+		$instance['text'] 		= $new_instance['text'];
+		$instance['image'] 		= $new_instance['image'];
+		$instance['link'] 		= $new_instance['link'];
+		$instance['autop'] 		= $new_instance['autop'];
 
 		return $instance;
 	}
