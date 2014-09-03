@@ -50,11 +50,13 @@
 
 .widget_custom_contact {
 
-	.widget-contact {
+	.widget-contact-info {
 		li {
+			line-height: 20px;
 			margin: 3px 0;
 			.fa {
 				font-size: 16px;
+				padding-right: 5px;
 			}
 		}
 	}
@@ -62,7 +64,7 @@
 	$icon-size: 24px;
 
 	.social-media {
-		margin-top: 5px;
+		margin-top: 8px;
 		li {
 			margin: 0 1px;
 			a {
