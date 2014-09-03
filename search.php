@@ -21,7 +21,7 @@
 					<?php get_template_part( 'content', 'search' ); ?>
 
 				<?php endwhile; ?>
-				<?php tm_pagination(); ?>
+				<?php tm_num_pagination(); ?>
 
 			<?php else : ?>
 

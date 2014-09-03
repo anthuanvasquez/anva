@@ -18,7 +18,7 @@
 
 			<?php endwhile; ?>
 
-			<?php tm_pagination(); ?>
+			<?php tm_num_pagination(); ?>
 			
 		<?php else : ?>
 

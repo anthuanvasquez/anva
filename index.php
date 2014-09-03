@@ -10,7 +10,7 @@
 					get_template_part( 'content', 'post' );
 				endwhile;
 				
-				tm_pagination();
+				tm_num_pagination();
 				
 			else :
 				get_template_part( 'content', 'none' );
