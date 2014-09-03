@@ -12,43 +12,9 @@
 	</header>
 
 	<div class="entry-container group">
-	<?php
-		$posts_thumb = tm_get_option( 'posts_thumb' );
-		$output = '';
 
-		switch ( $posts_thumb ) {
-			case 0:				
-				if ( has_post_thumbnail() ) :
-				$output .= '<div class="entry-thumbnail medium-thumbnail">';
-				$output .= '<a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_post_thumbnail( $post->ID, 'thumbnail_blog_medium' ).'</a>';
-				$output .= '</div>';
-				endif;
-				break;
+		<?php tm_post_thumbnails(); ?>
 
-			case 1:
-				if ( has_post_thumbnail() ) :
-				$output .= '<div class="entry-thumbnail large-thumbnail">';
-				$output .= '<a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_post_thumbnail( $post->ID, 'thumbnail_blog_large' ).'</a>';
-				$output .= '</div>';
-				endif;
-				break;
-
-			case 2:
-					$output = '';
-				break;
-
-			default:
-				if ( has_post_thumbnail() ) :
-				$output .= '<div class="entry-thumbnail large-thumbnail">';
-				$output .= '<a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_post_thumbnail( $post->ID, 'thumbnail_blog_large' ).'</a>';
-				$output .= '</div>';
-				endif;
-				break;
-		}
-
-		echo $output;
-		?>
-		
 		<div class="entry-summary">
 			<?php the_excerpt(); ?>
 			<a class="button" href="<?php the_permalink(); ?>">
