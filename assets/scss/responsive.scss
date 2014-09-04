@@ -4,7 +4,6 @@
 
 // ------------------------------------------------
 // Susy + Breakpoint
-
 @import "plugins/susy";
 @import "plugins/breakpoint";
 
@@ -20,14 +19,18 @@
 }
 
 /*
- * Large Devices 979px
+ * Large Devices 992px
  */
 @include susy-breakpoint($desktop-and-below, $desktop-layout) {
 
 	/* Layout */
 	@include container-class() {
 		@include pad(15px);
-		@include container();
+		@include container($tablet-and-below); // 752px
+	}
+
+	#container {
+		max-width: $tablet-and-below;
 	}
 
 	.content-area {
@@ -69,13 +72,6 @@
 		}
 	}
 
-}
-
-/*
- * Medium Mobile Devices 860px
- */
-@include susy-breakpoint(860px, $tablet-layout) {
-
 	.flex-direction-nav .flex-prev {
 		display: none;
 		opacity: 0;
@@ -91,16 +87,22 @@
 }
 
 /*
- * Medium Mobile Devices 767px
+ * Medium Mobile Devices 768px
  */
 @include susy-breakpoint($tablet-and-below, $tablet-layout) {
 
 	/* Layout */
 	@include container-class() {
-		@include container();
+		@include container($phone-and-below); // 480px;
 	}
 	
-	// Set order in columns
+	#container {
+		max-width: $phone-and-below;
+	}
+
+	/*
+	 * Set order in columns
+	 */
 	.grid-columns {
 		display: flex;
 		flex-direction: column;
@@ -131,12 +133,16 @@
 
 	}
 
-	/* Header */
+	/*
+	 * Header
+	 */
 	.site-branding {
 		margin: $padding 0;
 	}
 	
-	/* Navigation */
+	/*
+	 * Off Canvas
+	 */
 	.off_canvas_navigation {
 		
 		#off-canvas-button,
@@ -148,6 +154,7 @@
 		.site-navigation {
 			display: none;
 		}
+
 	}
 	
 	
@@ -165,11 +172,12 @@
 		.site-navigation {
 			display: none;
 		}
-	}	
 
-	$right: 10px;
-	$top: 12px;
+	}
 
+	/*
+	 * Navigation
+	 */
 	ul.navigation-menu {
 	
 		> li {
@@ -180,36 +188,21 @@
 			margin-left: 0px;
 						
 			> a {
-				padding: 10px 10px;
+				line-height: 38px;
+				padding: 0 12px;
 				text-align: left;
 				text-transform: uppercase;
-				
-				&:after {
-					@include font-stack-icon;
-					content: "\f054";
-					position: absolute;
-					right: $right;
-					top: $top;
-					color: #fff;
-				}
-
 			}
 
 			ul.sub-menu {
 				border: 0;
-				display: none;
 				margin: 0;
-				opacity: 1;
 				position: relative;				
 				width: auto;
-				visibility: visible;
 				
 				li {
 					 ul.sub-menu {
-						display: none;
-						opacity: 1;
 						left: 0;
-						visibility: visible;
 						position: relative;
 						width: auto;
 					}
@@ -217,51 +210,17 @@
 			}				
 		}
 	}
-
-	ul.navigation-menu {
-		li {
-			&.menu-item-has-children > a {
-				&:after {
-					@include font-stack-icon;
-					content: "\f067";
-					position: absolute;
-					top: $top;
-					right: $right;
-					display: block;
-					/* Reset */
-					bottom: auto;
-					border: 0;
-					left: auto;
-					height: auto;
-					width: auto;
-				}
-				&.is-active {
-					&:after {
-						@include font-stack-icon;
-						content: "\f068";
-						position: absolute;
-						top: $top;
-						right: $right;
-						display: block;
-						bottom: auto;
-						border: 0;
-						left: auto;
-						height: auto;
-						width: auto;
-					}
-				}
-			}
-		}
+	
+	/*
+	 * Featured
+	 */
+	.featured-container {
+		margin: 0 0 $padding;	
 	}
 
-	/* Change Class Name */
-	ul.sub-menu {
-		&.is-active {
-			display: block !important;
-		}
-	}
-
-	/* Footer */
+	/*
+	 * Footer
+	 */
 	.site-footer {
 		margin: $padding auto 0;
 	}
@@ -273,8 +232,9 @@
 		}
 	}
 
-	/* Grid Columns */
-	.row-fluid,
+	/*
+	 * Grid Columns
+	 */
 	.grid-columns,
 	.entry-content {
 		[class*="column-"] {
@@ -286,48 +246,27 @@
 		}
 	}
 
-}
-
-/*
- * Small Mobiles Devices or Landscape - 568px
- */
-@include susy-breakpoint($tablet-only, $tablet-layout) {
-	
-	/* Slider */
+	/*
+	 * Slider
+	 */
 	.flex-control-nav {
 		display: none;
 	}
-
-}
-
-/*
- * Small Mobile Devices in Landscape 479px
- */
-@include susy-breakpoint($phone-and-below, $phone-layout) {
 	
-	/* Layout */
-	@include container-class() {
-		@include container();
-	}
+	.blog-2-cols,
+	.blog-3-cols {
 
-	/* Header */
-	.site-branding {
-		margin: 10px auto $padding;
-	}
-
-	.blog-2-cols {	
 		article.post {
 			@include reset-float( right, true );
 		}
+		
+		.entry-thumbnail {
+			img {
+				display: block;
+				margin: 0 auto;
+			}
+		}
+
 	}
-
-}
-
-/*
- * Small Mobile Devices 319px
- */
-@include susy-breakpoint($phone-only, $phone-layout) {
-	
-	// Nothing here
 
 }
