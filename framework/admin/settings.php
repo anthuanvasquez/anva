@@ -94,8 +94,10 @@ function tm_load_settings_page() {
 function tm_settings_scripts() {
 
 	global $pagenow;
+
+	wp_enqueue_script( 'admin', get_template_directory_uri() . '/assets/js/admin.min.js', array('jquery'), false, false );
 	
-	if( $pagenow == 'themes.php' && isset( $_GET['page'] ) && $_GET['page'] == 'theme-settings' ) {
+	if ( $pagenow == 'themes.php' && isset( $_GET['page'] ) && $_GET['page'] == 'theme-settings' ) {
 		wp_enqueue_style( 'admin', get_template_directory_uri() . '/assets/css/admin.css');
 		add_thickbox();
 	}
