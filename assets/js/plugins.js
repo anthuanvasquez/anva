@@ -25,3 +25,5 @@
 //@prepros-append vendor/jquery.validate.js
 //@prepros-append vendor/jquery.fitvids.js
 //@prepros-append vendor/lightbox.js
+//@prepros-append vendor/hoverIntent.js
+//@prepros-append vendor/superfish.js

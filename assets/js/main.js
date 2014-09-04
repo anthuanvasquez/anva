@@ -4,17 +4,6 @@ jQuery(document).ready( function() {
 	var windows_width = jQuery(window).width();
 
 	// ---------------------------------------------------------
-	// Toogle Sub Menu
-	// ---------------------------------------------------------
-	if( windows_width < 768 ) {
-		var menuTrigger = jQuery('.menu-item-has-children > a');
-		menuTrigger.click( function(e) {
-			e.preventDefault();
-			jQuery(this).toggleClass('is-active').next('ul').toggleClass('is-active');
-		});
-	}
-
-	// ---------------------------------------------------------
 	// Lightbox
 	// ---------------------------------------------------------
 	jQuery('.gallery > .gallery-item a').attr('data-lightbox', 'gallery-item');
@@ -59,4 +48,9 @@ jQuery(document).ready( function() {
 	// ---------------------------------------------------------
 	jQuery("article").fitVids();
 
+	// ---------------------------------------------------------
+	// Superfish Menu
+	// ---------------------------------------------------------
+	jQuery('ul.navigation-menu').superfish();
+	
 });
