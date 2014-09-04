@@ -4,7 +4,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php if ( 'show' == $hide_title ) : ?>
+		<?php if ( 'hide' != $hide_title ) : ?>
 			<h1 class="entry-title"><?php the_title(); ?></h1>
 		<?php endif; ?>
 		<div class="entry-meta">
