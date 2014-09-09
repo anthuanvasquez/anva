@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: TM\n"
-"POT-Creation-Date: 2014-09-02 16:47-0400\n"
-"PO-Revision-Date: 2014-09-02 16:47-0400\n"
-"Last-Translator: Anthuan Vasquez <eigthy@gmail.com>\n"
-"Language-Team:  <eigthy@gmail.com>\n"
-"Language: es\n"
+"Project-Id-Version: 3 Mentes WordPress Framework\n"
+"POT-Creation-Date: 2014-09-09 11:14-0400\n"
+"PO-Revision-Date: 2014-09-09 11:15-0400\n"
+"Last-Translator: Anthuan Vasquez <programacion@3mentes.com>\n"
+"Language-Team:  <programacion@3mentes.com>\n"
+"Language: es_DO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,6 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x;_n\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../framework\n"
 "X-Poedit-SearchPath-2: ../woocomeerce\n"
@@ -161,15 +162,15 @@ msgstr ""
 msgid "Opciones"
 msgstr ""
 
-#: ../framework/admin/settings.php:196
+#: ../framework/admin/settings.php:198
 msgid "Cambios Realizados."
 msgstr ""
 
-#: ../framework/admin/settings.php:250
+#: ../framework/admin/settings.php:252
 msgid "Restaurar Opciones"
 msgstr ""
 
-#: ../framework/admin/settings.php:251
+#: ../framework/admin/settings.php:253
 msgid "Guardar Opciones"
 msgstr ""
 
@@ -216,7 +217,7 @@ msgid "No se encontraron publicaciones."
 msgstr ""
 
 #: ../framework/includes/locals.php:15
-msgid "Leer M&acute;s"
+msgid "Leer Más"
 msgstr ""
 
 #: ../framework/includes/locals.php:16
@@ -374,6 +375,10 @@ msgstr ""
 msgid "Area de widgets para los productos individuales de woocommerce."
 msgstr ""
 
+#: ../framework/includes/meta.php:7
+msgid "Opciones de Pagina"
+msgstr ""
+
 #: ../framework/includes/parts.php:12
 #, php-format
 msgid "Autor: %s"
@@ -461,7 +466,7 @@ msgid ""
 "por %2$s</span>"
 msgstr ""
 
-#: ../framework/includes/parts.php:257
+#: ../framework/includes/parts.php:300
 msgid "Correo Electr&oacute;nico"
 msgstr ""
 
@@ -474,6 +479,7 @@ msgid "Muestra informacion de contacto."
 msgstr ""
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:107
+#: ../framework/includes/widgets/class-widget-custom-posts.php:75
 #: ../framework/includes/widgets/class-widget-social-media.php:77
 msgid "Titulo:"
 msgstr ""
@@ -492,6 +498,30 @@ msgstr ""
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:140
 msgid "Skype:"
+msgstr ""
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:11
+msgid "Muestra una lista de los posts mas recientes con una imagen destacada."
+msgstr ""
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:57
+msgid "Artículos Recientes"
+msgstr ""
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:81
+msgid "Numero de Posts:"
+msgstr ""
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:87
+msgid "Orden:"
+msgstr ""
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:97
+msgid "Ordenar Por:"
+msgstr ""
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:109
+msgid "Mostrar miniaturas"
 msgstr ""
 
 #: ../framework/includes/widgets/class-widget-social-media.php:11
