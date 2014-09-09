@@ -4,9 +4,9 @@
 
 .widget {
 	margin: 0 0 $padding;
+	
 	ul {
-		list-style: none;
-		padding: 0;
+		@include reset-list();
 	}
 
 	p:last-child {
