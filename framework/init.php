@@ -50,7 +50,6 @@ add_filter( 'previous_posts_link_attributes', 'tm_posts_link_attr' );
 add_filter( 'next_post_link', 'tm_post_link_attr' );
 add_filter( 'previous_post_link', 'tm_post_link_attr' );
 add_filter( 'the_generator', 'tm_kill_version' );
-add_filter( 'excerpt_length', 'tm_excerpt_length', 999 );
 add_filter( 'wp_page_menu_args', 'tm_page_menu_args' );
 add_filter( 'body_class', 'tm_body_classes' );
 add_filter( 'body_class', 'tm_browser_class' );
