@@ -3,12 +3,11 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 @import "compass/css3/box-sizing";
-@import "compass/css3/transition";
-@import "compass/css3/images";
 
 // ---------------------------------------------------
-// Susy
+// Susy + Breakpoint
 @import "plugins/susy";
+@import "plugins/breakpoint";
 
 // ---------------------------------------------------
 // Settings
@@ -139,16 +138,12 @@
 				margin: 0;
 				text-shadow: none;
 				text-transform: lowercase;
+				
 				&:hover {
 					background: transparent !important;
 					color: $color-0 !important;
 				}
-				&:before {
-						@include font-stack-icon();
-					content: "\f18e";
-					padding-right: 5px;
-					color: #B7B7B7;
-				}
+
 				// posicionar boton en los box de los productos
 				// position: absolute;
 				// bottom: 15px;
@@ -239,8 +234,8 @@
 	#content input.button {
 		@extend .button;
 		&:hover {
-			background: darken($color-0, 5%) !important;
-			color: #fff !important;
+			background: darken($color-0, 5%);
+			color: #fff;
 		}
 	}
 
@@ -308,11 +303,11 @@
 	// ------------------------------
 	span.onsale {
 		background: $color-0;
+		background: linear-gradient(center top, $color-0 0%, $color-0 100%);
 		animation-duration: 1.2s;
 		animation-delay: 1.2s;
 		animation-iteration-count: 3;
 		transition: all .1s ease-in-out;
-		@include background(linear-gradient(center top, $color-0 0%, $color-0 100%));
 	}
 	
 	// WC Buttonus
@@ -330,8 +325,9 @@
 	input.button.added:before,
 	#respond input#submit.added:before,
 	#content input.button.added:before {
-		top: 8px;
+		top: 0;
 		color: #111;
+		right: -24px;
 		text-shadow: none;
 	}
 	
@@ -351,7 +347,7 @@
 	#respond input#submit.alt,
 	#content input.button.alt {
 		background: $color-0;
-		background: -webkit-gradient(linear,left top,left bottom,from(#fe4304),to(#ce3501));
+		background: linear-gradient(left top, left bottom, #fe4304, #ce3501);
 		border-color: $color-0;
 		color: #ffffff;
 	}
@@ -521,29 +517,85 @@ form.checkout h3 {
 	}
 }
 
-// Home: WooCommer Featured and
-// Latest Products
-// ------------------------------
+// Homepage Woocommerce Featured / Latest Products
+// ------------------------------------------------
 .home {
-	.woocommerce ul.products li.product,
-	.woocommerce-page ul.products li.product {
-		@include woocommerce-product();
-		clear: none;
-		margin-right: 3.8%;
-		width: 22.05%;
-
-		&:nth-child(2n) {
-			animation-delay: .8s;
-		}
-				
-		&:nth-child(4n) {
-			margin-right: 0;
-			animation-delay: 1.2s;
-		}
-
-		&:nth-child(3n) {
+	.woocommerce,
+	.woocommerce-page {
+		 ul.products li.product {
+			@include woocommerce-product();
+			clear: none;
 			margin-right: 3.8%;
-			animation-delay: 1s;
+			width: 22.05%;
+
+			&:nth-child(2n) {
+				animation-delay: .8s;
+			}
+					
+			&:nth-child(4n) {
+				margin-right: 0;
+				animation-delay: 1.2s;
+			}
+
+			&:nth-child(3n) {
+				margin-right: 3.8%;
+				animation-delay: 1s;
+			}
 		}
 	}
+}
+
+/*
+ * Large Devices 992px
+ */
+@include susy-breakpoint($desktop-and-below, $desktop-layout) {
+
+	.woocommerce,
+	.woocommerce-page {
+		
+		// WC Products List
+		// ------------------------------
+		ul.products {
+			li.product {
+				margin-right: 0;
+				width: 48.1%;
+
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+}
+
+/*
+ * Medium Mobile Devices 768px
+ */
+@include susy-breakpoint($tablet-and-below, $tablet-layout) {
+	
+	.woocommerce,
+	.woocommerce-page {
+		
+		// WC Products List
+		// ------------------------------
+		ul.products {
+			li.product {
+				float: none;
+				margin: 0 auto;
+				width: 48.1%;
+
+				&:nth-child(3n) {
+					float: none;
+					margin: auto;
+				}
+
+				&:nth-child(2n) {
+					float: none;
+					margin: 0 auto;
+				}
+			}
+		}
+	}
+
 }

@@ -111,13 +111,13 @@
 // Woocommerce products box
 @mixin woocommerce-product( $border: 1px solid #ccc, $pad: 0 0 25px, $height: 360px, $trans: true ) {
 	border-bottom: $border;
+	box-sizing: border-box;
 	margin-bottom: $padding;
 	height: $height;
 	padding: $pad;
 	position: relative;
-	@include box-sizing(border-box);
 	@if $trans {
-		@include transition(border .2s ease);
+		transition: border .2s ease;
 	}
 		
 	&:hover {
