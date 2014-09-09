@@ -61,7 +61,7 @@ $size = 'thumbnail_grid_'. $grid_columns;
 								?>
 
 								<div class="entry-summary">
-									<?php the_excerpt(); ?>
+									<?php tm_excerpt_limit(); ?>
 									<a class="button" href="<?php the_permalink(); ?>">
 										<?php echo tm_get_local( 'read_more' ); ?>
 									</a>
