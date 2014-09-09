@@ -21,6 +21,13 @@ h3.comment-reply-title {
 .comment-list {
 	@include reset-list();
 	margin: $padding 0;
+
+	ul.children {
+		clear: both;
+		list-style: none;
+		margin: $padding 0 0;
+		padding: 0 0 0 10%;
+	}
 }
 
 /*
@@ -67,14 +74,6 @@ h3.comment-reply-title {
 	.comment-body {
 		background: #eee;
 	}
-}
-
-/* Child Comments */
-ul.children {
-	clear: both;
-	list-style: none;
-	margin: $padding 0 0;
-	padding: 0 0 0 10%;
 }
 
 /* Moderation */
