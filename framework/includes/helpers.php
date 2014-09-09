@@ -164,6 +164,13 @@ function tm_truncate( $string, $length = 100 ) {
 
 }
 
+function tm_excerpt_limit() {
+	$string = get_the_excerpt();
+	$length = 256;
+	$p = tm_truncate( $string, $length );
+	echo wpautop( $p );
+}
+
 function tm_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
 	global $post;
 
