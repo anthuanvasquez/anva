@@ -126,8 +126,10 @@ function tm_search_filter( $query ) {
 		'page'
 	);
 
-	if ( ! $query->is_admin && $query->is_search ) {
-		$query->set( 'post_type', apply_filters( 'tm_search_filter_post_types', $post_types ) );
+	if ( ! class_exists( 'Woocommerce' ) ) {
+		if ( ! $query->is_admin && $query->is_search ) {
+			$query->set( 'post_type', apply_filters( 'tm_search_filter_post_types', $post_types ) );
+		}
 	}
 	
 	return $query;
