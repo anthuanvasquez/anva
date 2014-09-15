@@ -29,6 +29,13 @@ $off-canvas: 21em;
 	}
 }
 
+// Is admin bar is present
+.admin-bar {
+	.off-canvas-navigation {
+		top: 46px;
+	}
+}
+
 // When JS is loaded
 .js-ready {
 	#container {
