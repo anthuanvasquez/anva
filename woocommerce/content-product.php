@@ -52,11 +52,11 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
 
 			// Get the title
 			$title = get_the_title();
-			$short = apply_filters( 'woocommerce_short_description', $post->post_excerpt );
+			$description = apply_filters( 'woocommerce_short_description', $post->post_content );
 		?>
 
-		<h3 class="product-name" title="<?php the_title(); ?>"><?php echo tm_truncate( $title, 50 ); ?></h3>
-		<div class="product-short"><?php echo tm_truncate( $short, 50 ); ?></div>
+		<h3 class="product-title" title="<?php the_title(); ?>"><?php echo tm_truncate( $title, 50 ); ?></h3>
+		<div class="product-description"><?php echo tm_truncate( $description, 50 ); ?></div>
 
 		<?php
 			/**
