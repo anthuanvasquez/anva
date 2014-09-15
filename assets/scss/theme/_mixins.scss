@@ -109,19 +109,15 @@
 }
 
 // Woocommerce products box
-@mixin woocommerce-product( $border: 1px solid #ccc, $pad: 0 0 25px, $height: 360px, $trans: true ) {
-	border-bottom: $border;
+@mixin woocommerce-product( $border: 1px solid #ccc, $padding: 0 0 25px, $margin: 20px, $height: 360px, $trans: true ) {
+	border: $border;
 	box-sizing: border-box;
-	margin-bottom: $padding;
+	margin-bottom: $margin;
 	height: $height;
-	padding: $pad;
+	padding: $padding;
 	position: relative;
 	@if $trans {
-		transition: border .2s ease;
-	}
-		
-	&:hover {
-		border-color: $color-0;
+		transition: all .2s ease;
 	}
 }
 
