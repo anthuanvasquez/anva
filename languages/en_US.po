@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: TM\n"
-"POT-Creation-Date: 2014-09-02 16:47-0400\n"
-"PO-Revision-Date: 2014-09-02 16:55-0400\n"
-"Last-Translator: Anthuan Vasquez <eigthy@gmail.com>\n"
+"Project-Id-Version: 3 Mentes WordPress Framework\n"
+"POT-Creation-Date: 2014-09-15 17:25-0400\n"
+"PO-Revision-Date: 2014-09-15 18:03-0400\n"
+"Last-Translator: Anthuan Vasquez <programacion@3mentes.com>\n"
 "Language-Team:  <eigthy@gmail.com>\n"
-"Language: es\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,165 +13,186 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x;_n\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../framework\n"
-"X-Poedit-SearchPath-2: ../woocomeerce\n"
+"X-Poedit-SearchPath-2: ../woocommerce\n"
 
-#: ../comments.php:35 ../comments.php:52
+#: ../comments.php:22 ../comments.php:39
 msgid "Comment navigation"
 msgstr "Comment navigation"
 
-#: ../comments.php:36 ../comments.php:53
+#: ../comments.php:23 ../comments.php:40
 msgid "&larr; Older Comments"
-msgstr ""
+msgstr "&larr; Older Comments"
 
-#: ../comments.php:37 ../comments.php:54
+#: ../comments.php:24 ../comments.php:41
 msgid "Newer Comments &rarr;"
-msgstr ""
+msgstr "Newer Comments &rarr;"
 
-#: ../comments.php:64
+#: ../comments.php:51
 msgid "Comments are closed."
-msgstr ""
+msgstr "Comments are closed."
 
-#: ../framework/admin/options.php:25
+#: ../framework/admin/options.php:23
 msgid "Introduzca la URL del logo que desea mostrar."
-msgstr ""
+msgstr "Enter the URL of the logo you want to display."
 
-#: ../framework/admin/options.php:34
+#: ../framework/admin/options.php:32
 msgid ""
 "Si necesitas realizar algunos cambios menores con estilos CSS, puedes "
 "ponerlos aqui para anular los estilos por omision del tema. Sin embargo, si "
 "vas a hacer muchos cambios de estilos CSS, lo mejor seria crear un archivo "
 "adicional de CSS o crear un Child Theme."
 msgstr ""
+"If you need to make some minor changes with CSS styles, you can put here to "
+"override the theme styles by omission. However, if you are going to make "
+"many changes to CSS styles, it would be best to create an additional CSS "
+"file or create a Child Theme."
 
-#: ../framework/admin/options.php:49
+#: ../framework/admin/options.php:47
 msgid ""
 "These settings will only apply to vewing single posts. This means that any "
 "settings you set here will not effect any posts that appear in a post list "
 "or post grid."
 msgstr ""
+"These settings will only apply to vewing single posts. This means that any "
+"settings you set here will not effect any posts that appear in a post list "
+"or post grid."
 
-#: ../framework/admin/options.php:55
+#: ../framework/admin/options.php:53
 msgid "Introduzca la URL de su perfil o pagina de facebook."
-msgstr ""
+msgstr "Enter the URL of your profile or Facebook page."
 
-#: ../framework/admin/options.php:64
+#: ../framework/admin/options.php:62
 msgid "Introduzca la URL de su perfil de twitter."
-msgstr ""
+msgstr "Introduzca la URL de su perfil de twitter."
 
-#: ../framework/admin/options.php:73
+#: ../framework/admin/options.php:71
 msgid "Introduzca la URL de su perfil de instagram."
-msgstr ""
+msgstr "Introduzca la URL de su perfil de instagram."
 
-#: ../framework/admin/options.php:82
+#: ../framework/admin/options.php:80
 msgid "Introduzca la URL de su perfil de google+."
-msgstr ""
+msgstr "Introduzca la URL de su perfil de google+."
 
-#: ../framework/admin/options.php:91
+#: ../framework/admin/options.php:89
 msgid "Introduzca la URL de su perfil de linkedin."
-msgstr ""
+msgstr "Introduzca la URL de su perfil de linkedin."
 
-#: ../framework/admin/options.php:100
+#: ../framework/admin/options.php:98
 msgid "Introduzca la URL de su perfil de youtube."
-msgstr ""
+msgstr "Introduzca la URL de su perfil de youtube."
 
-#: ../framework/admin/options.php:109
+#: ../framework/admin/options.php:107
 msgid "Introduzca la URL de su perfil de vimeo."
-msgstr ""
+msgstr "Introduzca la URL de su perfil de vimeo."
 
-#: ../framework/admin/options.php:118
+#: ../framework/admin/options.php:116
 msgid "Introduzca la URL de su perfil de pinterest."
-msgstr ""
+msgstr "Enter the URL of your profile pinterest"
 
-#: ../framework/admin/options.php:127
+#: ../framework/admin/options.php:125
 msgid "Introduzca la URL de su perfil de digg."
-msgstr ""
+msgstr "Enter the URL of your profile digg."
 
-#: ../framework/admin/options.php:136
+#: ../framework/admin/options.php:134
 msgid "Introduzca la URL de su perfil de dribbble."
-msgstr ""
+msgstr "Enter the URL of your profile dribbble."
 
-#: ../framework/admin/options.php:145
+#: ../framework/admin/options.php:143
 msgid "Introduzca la URL de su feed."
-msgstr ""
+msgstr "Enter the URL of your feed."
 
-#: ../framework/admin/options.php:162
+#: ../framework/admin/options.php:160
 msgid ""
 "Estos ajustes solo se aplicaran a los posts individuales. Lo que quiere "
 "decir que no afectaran a los posts que se muestran en la parte frontal del "
 "blog."
 msgstr ""
+"These settings will only apply to individual posts. Which means that not "
+"affect posts displayed on the front of the blog."
 
-#: ../framework/admin/options.php:168
+#: ../framework/admin/options.php:166
 msgid ""
 "Seleccione si desea que la informacion meta (fecha de publicacion, autor, "
 "etc) se muestre en la parte superior del post."
 msgstr ""
+"Choose how you want outstanding pictures are displayed on the top of the "
+"posts."
 
-#: ../framework/admin/options.php:181
+#: ../framework/admin/options.php:179
 msgid ""
 "Elija como desea que se muestren las imagenes destacadas en la parte "
 "superior de los posts."
 msgstr ""
+"Choose how you want outstanding pictures are displayed on the top of the "
+"posts."
 
-#: ../framework/admin/options.php:195
+#: ../framework/admin/options.php:193
 msgid ""
 "Seleccione si desea ocultar completamente los comentarios o no debajo de los "
 "posts."
 msgstr ""
+"Select whether you want to completely hide the comments below or posts."
 
-#: ../framework/admin/options.php:208
+#: ../framework/admin/options.php:206
 msgid "Seleccione si desea ocultar o mostrar los breadcrumbs."
-msgstr ""
+msgstr "Select whether to hide or display breadcrumbs."
 
-#: ../framework/admin/options.php:228
+#: ../framework/admin/options.php:226
 msgid ""
 "Estos ajustes solo se aplicaran a los posts que se muestran en la parte "
 "frontal del blog."
-msgstr ""
+msgstr "These settings only apply to posts displayed on the front of the blog."
 
-#: ../framework/admin/options.php:234
+#: ../framework/admin/options.php:232
 msgid ""
 "Seleccione si desea que la informacion de meta (fecha de publicacion, autor, "
 "etc) se muestre en la parte superior del post."
 msgstr ""
+"Select whether the meta information (publication date, author, etc.) is "
+"displayed in the top of the post."
 
-#: ../framework/admin/options.php:247
+#: ../framework/admin/options.php:245
 msgid ""
 "Elija como desea que muestren las imagenes destacadas en la parte superior "
 "de los posts."
 msgstr ""
+"Choose how you want to show outstanding images in the top of the posts."
 
-#: ../framework/admin/options.php:273
+#: ../framework/admin/options.php:271
 msgid ""
 "Este tema viene con una hoja de estilo especial que se centrara en la "
 "resolucion de la pantalla de sus visitantes para mostrarles un diseno "
 "ligeramente modificado si su resolucion de pantalla coincide con tamanos "
 "comunes de una tableta o un dispositivo movil."
 msgstr ""
+"This theme comes with a special stylesheet to focus on the resolution of the "
+"screen to show visitors a slightly modified design if your screen resolution "
+"matches common sizes of a tablet or mobile device."
 
-#: ../framework/admin/options.php:286
+#: ../framework/admin/options.php:284
 msgid ""
 "Seleccione como desea mostrar la navegacion principal en los dispositivos "
 "moviles."
-msgstr ""
+msgstr "Select how to display the main navigation on mobile devices."
 
 #: ../framework/admin/settings.php:61 ../framework/admin/settings.php:62
 msgid "Opciones"
 msgstr "Options"
 
-#: ../framework/admin/settings.php:196
+#: ../framework/admin/settings.php:198
 msgid "Cambios Realizados."
 msgstr "Updated changes."
 
-#: ../framework/admin/settings.php:250
+#: ../framework/admin/settings.php:252
 msgid "Restaurar Opciones"
-msgstr ""
+msgstr "Restore Options"
 
-#: ../framework/admin/settings.php:251
+#: ../framework/admin/settings.php:253
 msgid "Guardar Opciones"
-msgstr ""
+msgstr "Save Options"
 
 #: ../framework/includes/display.php:4
 #, php-format
@@ -179,32 +200,34 @@ msgid ""
 "Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="
 "\"%s\">mejorar tu experiencia</a>."
 msgstr ""
+"You are using an outdated browser. Update your browser to <a href=\"%s"
+"\">improve your  experience</a>."
 
 #: ../framework/includes/general.php:17
 msgid "Menu Primario"
-msgstr ""
+msgstr "Primary Menu"
 
 #: ../framework/includes/general.php:18
 msgid "Menu Secundario"
-msgstr ""
+msgstr "Secondary Menu"
 
 #: ../framework/includes/helpers.php:67
 #, php-format
 msgid " %s"
-msgstr ""
+msgstr " %s"
 
 #: ../framework/includes/locals.php:10
-msgid "Por favor configura el menu en Administracion _> Apariencia _> Menus"
-msgstr ""
+msgid "Por favor configura el menú en Administración _> Apariencia _> Menús"
+msgstr "Please set the menu in Administration _> Appearance _> Menus"
 
 #: ../framework/includes/locals.php:11
-msgid "Whoops! pagina no encontrada"
+msgid "Whoops! página no encontrada"
 msgstr "Whoops! page not found"
 
 #: ../framework/includes/locals.php:12
 msgid ""
-"Disculpa, pero la pagina solicitada no se pudo encontrar. Prueba haciendo "
-"una busqueda en el sitio o regresa a la pagina principal."
+"Disculpa, pero la página solicitada no se pudo encontrar. Prueba haciendo "
+"una búsqueda en el sitio o regresa a la página principal."
 msgstr ""
 "Sorry, the page you requested could not be found. Try doing a search on the "
 "site or return to the main page."
@@ -218,7 +241,7 @@ msgid "No se encontraron publicaciones."
 msgstr "No publications were found."
 
 #: ../framework/includes/locals.php:15
-msgid "Leer M&acute;s"
+msgid "Leer Más"
 msgstr "Read More"
 
 #: ../framework/includes/locals.php:16
@@ -231,165 +254,179 @@ msgstr "Next &rarr;"
 
 #: ../framework/includes/locals.php:18
 msgid "Buscar para:"
-msgstr ""
+msgstr "Search for"
 
 #: ../framework/includes/locals.php:19
 msgid "Buscar"
-msgstr ""
+msgstr "Search"
 
 #: ../framework/includes/locals.php:20
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: ../framework/includes/locals.php:21
-msgid "Menu;"
-msgstr ""
+msgid "Menú;"
+msgstr "Menu"
 
 #: ../framework/includes/locals.php:22
-msgid "Pagina"
-msgstr ""
+msgid "Página"
+msgstr "Page"
 
 #: ../framework/includes/locals.php:23
 msgid "Nombre"
-msgstr ""
+msgstr "Name"
 
 #: ../framework/includes/locals.php:24
 msgid "Nombre Completo"
-msgstr ""
+msgstr "Full Name"
 
 #: ../framework/includes/locals.php:25
 msgid "Porfavor entre su nombre."
-msgstr ""
+msgstr "Please enter your name."
 
 #: ../framework/includes/locals.php:26
 msgid "Email"
 msgstr "Email"
 
 #: ../framework/includes/locals.php:27
-msgid "Correo Electronico"
+msgid "Correo Electrónico"
 msgstr "Email"
 
 #: ../framework/includes/locals.php:28
-msgid "Porfavor entre un correo electronico valido."
+msgid "Porfavor entre un correo electrónico válido."
 msgstr "Please enter a valid email address."
 
 #: ../framework/includes/locals.php:29
 msgid ""
-"El correo electronico debe tener un formato valido ej. nombre@email.com."
-msgstr "The email must have a valid format eg. nombre@email.com."
+"El correo electrónico debe tener un formato válido ej. nombre@email.com."
+msgstr "The email must have a valid format eg. name@email.com."
 
 #: ../framework/includes/locals.php:30
 msgid "Asunto"
-msgstr ""
+msgstr "Subject"
 
 #: ../framework/includes/locals.php:31
 msgid "Porfavor entre un asunto."
-msgstr ""
+msgstr "Please enter a subject."
 
 #: ../framework/includes/locals.php:32 ../framework/includes/locals.php:33
 msgid "Mensaje"
-msgstr ""
+msgstr "Message"
 
 #: ../framework/includes/locals.php:34
 msgid "Porfavor entre un mensaje."
-msgstr ""
+msgstr "Please enter a message."
 
 #: ../framework/includes/locals.php:35
-msgid "Debe introducir un minimo de 10 caracteres."
-msgstr ""
+msgid "Debe introducir un mínimo de 10 caracteres."
+msgstr "You must enter at least 10 characters."
 
 #: ../framework/includes/locals.php:36
 msgid "Entre el resultado"
-msgstr ""
+msgstr "Enter the result"
 
 #: ../framework/includes/locals.php:37
 msgid "Porfavor entre el resultado."
-msgstr ""
+msgstr "Please enter the result."
 
 #: ../framework/includes/locals.php:38
 msgid "La respuesta debe ser un numero entero."
-msgstr ""
+msgstr "La respuesta debe ser un numero entero."
 
 #: ../framework/includes/locals.php:39
 msgid "No es la repuesta correcta."
-msgstr ""
+msgstr "It is not the correct answer."
 
 #: ../framework/includes/locals.php:40
 msgid "Enviar Mensaje"
-msgstr ""
+msgstr "Send Message"
 
 #: ../framework/includes/locals.php:41
-msgid "Gracias, su email fue enviado con exito."
-msgstr ""
+msgid "Gracias, su email fue enviado con éxito."
+msgstr "Thank you, your email has been sent successfully."
 
 #: ../framework/includes/locals.php:42
 msgid ""
 "<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que no haya "
 "campos en blanco."
 msgstr ""
+"<strong> Sorry </ strong>, an error has occurred, check that there are no "
+"blank fields."
 
 #: ../framework/includes/locals.php:43
 msgid "Todos los Derechos Reservados."
-msgstr ""
+msgstr "All Rights Reserved."
 
 #: ../framework/includes/locals.php:44
 msgid "Diseño y Programación Web por:"
-msgstr ""
+msgstr "Web Design and Programming by:"
 
 #: ../framework/includes/locals.php:47
 msgid "Principal"
-msgstr ""
+msgstr "Primary"
 
 #: ../framework/includes/locals.php:48
 msgid "Area de widgets principal."
-msgstr ""
+msgstr "Primary widgets area."
 
 #: ../framework/includes/locals.php:49
 msgid "Portada"
-msgstr ""
+msgstr "Homepage"
 
 #: ../framework/includes/locals.php:50
 msgid "Area de widgets en la portada."
-msgstr ""
+msgstr "Homepage widgets area."
 
 #: ../framework/includes/locals.php:51
 msgid "Footer"
-msgstr ""
+msgstr "Footer"
 
 #: ../framework/includes/locals.php:52
 msgid "Area de widgets en el footer."
-msgstr ""
+msgstr "Footer widgets area."
 
 #: ../framework/includes/locals.php:53
 msgid "Tienda"
-msgstr ""
+msgstr "Shop"
 
 #: ../framework/includes/locals.php:54
 msgid "Area de widgets para la tienda de los productos de woocommerce."
-msgstr ""
+msgstr "Shop widgets area."
 
 #: ../framework/includes/locals.php:55
 msgid "Productos"
-msgstr ""
+msgstr "Products"
 
 #: ../framework/includes/locals.php:56
 msgid "Area de widgets para los productos individuales de woocommerce."
-msgstr ""
+msgstr "Individual products widgets area."
+
+#: ../framework/includes/locals.php:57
+msgid "Productos Destacados"
+msgstr "Featured Products"
+
+#: ../framework/includes/locals.php:58
+msgid "Productos Recientes"
+msgstr "Recent Products"
+
+#: ../framework/includes/meta.php:7
+msgid "Opciones de Pagina"
+msgstr "Options Page"
 
 #: ../framework/includes/parts.php:12
 #, php-format
 msgid "Autor: %s"
-msgstr ""
+msgstr "Author: %s"
 
 #: ../framework/includes/parts.php:15
 #, php-format
 msgid "Dia: %s"
-msgstr ""
+msgstr "Day: %s"
 
 #: ../framework/includes/parts.php:18
 #, php-format
 msgid "Mes: %s"
-msgstr ""
+msgstr "Month: %s"
 
 #: ../framework/includes/parts.php:18
 msgid "F Y"
@@ -398,7 +435,7 @@ msgstr ""
 #: ../framework/includes/parts.php:21
 #, php-format
 msgid "Ano: %s"
-msgstr ""
+msgstr "Year: %s"
 
 #: ../framework/includes/parts.php:21
 msgid "Y"
@@ -406,55 +443,55 @@ msgstr ""
 
 #: ../framework/includes/parts.php:24
 msgid "Asides"
-msgstr ""
+msgstr "Asides"
 
 #: ../framework/includes/parts.php:27
 msgid "Galerias"
-msgstr ""
+msgstr "Galeries"
 
 #: ../framework/includes/parts.php:30
 msgid "Imagenes"
-msgstr ""
+msgstr "Images"
 
 #: ../framework/includes/parts.php:33
 msgid "Videos"
-msgstr ""
+msgstr "Videos"
 
 #: ../framework/includes/parts.php:36
 msgid "Citas"
-msgstr ""
+msgstr "Quotes"
 
 #: ../framework/includes/parts.php:39
 msgid "Enlaces"
-msgstr ""
+msgstr "Links"
 
 #: ../framework/includes/parts.php:42
 msgid "Estados"
-msgstr ""
+msgstr "Status"
 
 #: ../framework/includes/parts.php:45
 msgid "Audios"
-msgstr ""
+msgstr "Audios"
 
 #: ../framework/includes/parts.php:48
 msgid "Chats"
-msgstr ""
+msgstr "Chats"
 
 #: ../framework/includes/parts.php:51
 msgid "Archivos"
-msgstr ""
+msgstr "Archives"
 
 #: ../framework/includes/parts.php:67
 msgid "Navegaci&oacute;n"
-msgstr ""
+msgstr "Navigation"
 
 #: ../framework/includes/parts.php:70
 msgid "<span class=\"meta-nav\">&larr;</span> %title"
-msgstr ""
+msgstr "<span class=\"meta-nav\">&larr;</span> %title"
 
 #: ../framework/includes/parts.php:71
 msgid "%title <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
+msgstr "%title <span class=\"meta-nav\">&rarr;</span>"
 
 #: ../framework/includes/parts.php:91
 #, php-format
@@ -462,23 +499,26 @@ msgid ""
 "<span class=\"posted-on\">Publicado en %1$s</span><span class=\"byline\"> "
 "por %2$s</span>"
 msgstr ""
+"<span class=\"posted-on\">Posted on %1$s</span><span class=\"byline\"> by "
+"%2$s</span>"
 
-#: ../framework/includes/parts.php:257
+#: ../framework/includes/parts.php:300
 msgid "Correo Electr&oacute;nico"
-msgstr ""
+msgstr "Email"
 
 #: ../framework/includes/shortcodes.php:248
 msgid "Click para Abrir"
-msgstr ""
+msgstr "Click to Open"
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:13
 msgid "Muestra informacion de contacto."
-msgstr ""
+msgstr "Displays contact information."
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:107
+#: ../framework/includes/widgets/class-widget-custom-posts.php:75
 #: ../framework/includes/widgets/class-widget-social-media.php:77
 msgid "Titulo:"
-msgstr ""
+msgstr "Title:"
 
 #: ../framework/includes/widgets/class-widget-custom-contact.php:125
 msgid "Telefono:"
@@ -496,118 +536,142 @@ msgstr "Link:"
 msgid "Skype:"
 msgstr "Skype"
 
+#: ../framework/includes/widgets/class-widget-custom-posts.php:11
+msgid "Muestra una lista de los posts mas recientes con una imagen destacada."
+msgstr "Displays a list of the most recent posts with a featured thumbnail"
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:57
+msgid "Artículos Recientes"
+msgstr "Recent Articles"
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:81
+msgid "Numero de Posts:"
+msgstr "Number of Posts:"
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:87
+msgid "Orden:"
+msgstr "Order"
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:97
+msgid "Ordenar Por:"
+msgstr "order by:"
+
+#: ../framework/includes/widgets/class-widget-custom-posts.php:109
+msgid "Mostrar miniaturas"
+msgstr "Show thumbnails"
+
 #: ../framework/includes/widgets/class-widget-social-media.php:11
 msgid "Muestra los iconos de las redes mas populares y una descripcion."
-msgstr ""
+msgstr "Displays icons of the most popular networks and description."
 
 #: ../framework/plugins/slideshows.php:50
 msgid "Slideshows"
-msgstr ""
+msgstr "Slideshows"
 
 #: ../framework/plugins/slideshows.php:51
 msgid "Slide"
-msgstr ""
+msgstr "Slide"
 
 #: ../framework/plugins/slideshows.php:52
 msgid "Todos los Slides"
-msgstr ""
+msgstr "All Slides"
 
 #: ../framework/plugins/slideshows.php:53
 #: ../framework/plugins/slideshows.php:54
 msgid "A&ntilde;adir Nuevo Slide"
-msgstr ""
+msgstr "Add New Slide"
 
 #: ../framework/plugins/slideshows.php:55
 msgid "Editar Slide"
-msgstr ""
+msgstr "Edit Slide"
 
 #: ../framework/plugins/slideshows.php:56
 msgid "Nuevo Slide"
-msgstr ""
+msgstr "New Slide"
 
 #: ../framework/plugins/slideshows.php:57
 msgid "Ver Slide"
-msgstr ""
+msgstr "View Slide"
 
 #: ../framework/plugins/slideshows.php:58
 msgid "Buscar Slides"
-msgstr ""
+msgstr "Search Slides"
 
 #: ../framework/plugins/slideshows.php:59
 msgid "Slide no Encontrado"
-msgstr ""
+msgstr "Slide not Found"
 
 #: ../framework/plugins/slideshows.php:60
 msgid "No se Encontraron Slides en la Papelera"
-msgstr ""
+msgstr "Slides are not found in the Trash"
 
 #: ../framework/plugins/slideshows.php:228
 msgid "Slide Settings"
-msgstr ""
+msgstr "Slide Settings"
 
 #: ../framework/plugins/slideshows.php:264
 msgid ""
 "No se han configurado rotadores para los slideshows. Contacta con tu "
 "Desarrollador."
-msgstr ""
+msgstr "No rotator configured for slideshows. Contact your developer."
 
 #: ../framework/plugins/slideshows.php:320
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
 #: ../framework/plugins/slideshows.php:321
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 #: ../framework/plugins/slideshows.php:322
 msgid "Slide ID"
-msgstr ""
+msgstr "Slide ID"
 
 #: ../framework/plugins/slideshows.php:323
 msgid "Order"
-msgstr ""
+msgstr "Order"
 
 #: ../framework/plugins/slideshows.php:324
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: ../framework/plugins/slideshows.php:325
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: ../framework/plugins/woocommerce-config.php:72
 #, php-format
 msgid "%1$s"
-msgstr ""
+msgstr "%1$s"
 
 #: ../product-searchform.php:3
 msgid "Search for:"
-msgstr ""
+msgstr "Search for:"
 
 #: ../product-searchform.php:4
 msgid "Search for products"
-msgstr ""
+msgstr "Search for products"
 
 #: ../search.php:12
 #, php-format
 msgid "Resultados de busqueda para: %s"
-msgstr ""
+msgstr "Search results for: %s"
 
-#: ../woocommerce/single-product/meta.php:22
+#: ../woocommerce/single-product/meta.php:23
 msgid "Category:"
-msgstr ""
+msgstr "Category:"
 
-#: ../woocommerce/single-product/meta.php:24
+#: ../woocommerce/single-product/meta.php:25
 msgid "Tag:"
-msgstr ""
+msgstr "Tag:"
 
 #: ../woocommerce/single-product/price.php:28
 msgid "SKU:"
-msgstr ""
+msgstr "SKU:"
 
 #: ../woocommerce/single-product/price.php:28
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: ../woocommerce/single-product/related.php:36
 msgid "Related Products"

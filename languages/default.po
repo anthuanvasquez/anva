@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 3 Mentes WordPress Framework\n"
-"POT-Creation-Date: 2014-09-09 11:14-0400\n"
-"PO-Revision-Date: 2014-09-09 11:15-0400\n"
+"POT-Creation-Date: 2014-09-15 17:14-0400\n"
+"PO-Revision-Date: 2014-09-15 17:25-0400\n"
 "Last-Translator: Anthuan Vasquez <programacion@3mentes.com>\n"
 "Language-Team:  <programacion@3mentes.com>\n"
 "Language: es_DO\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../framework\n"
-"X-Poedit-SearchPath-2: ../woocomeerce\n"
+"X-Poedit-SearchPath-2: ../woocommerce\n"
 
-#: ../comments.php:35 ../comments.php:52
+#: ../comments.php:22 ../comments.php:39
 msgid "Comment navigation"
 msgstr ""
 
-#: ../comments.php:36 ../comments.php:53
+#: ../comments.php:23 ../comments.php:40
 msgid "&larr; Older Comments"
 msgstr ""
 
-#: ../comments.php:37 ../comments.php:54
+#: ../comments.php:24 ../comments.php:41
 msgid "Newer Comments &rarr;"
 msgstr ""
 
-#: ../comments.php:64
+#: ../comments.php:51
 msgid "Comments are closed."
 msgstr ""
 
@@ -195,17 +195,17 @@ msgid " %s"
 msgstr ""
 
 #: ../framework/includes/locals.php:10
-msgid "Por favor configura el menu en Administracion _> Apariencia _> Menus"
+msgid "Por favor configura el menú en Administración _> Apariencia _> Menús"
 msgstr ""
 
 #: ../framework/includes/locals.php:11
-msgid "Whoops! pagina no encontrada"
+msgid "Whoops! página no encontrada"
 msgstr ""
 
 #: ../framework/includes/locals.php:12
 msgid ""
-"Disculpa, pero la pagina solicitada no se pudo encontrar. Prueba haciendo "
-"una busqueda en el sitio o regresa a la pagina principal."
+"Disculpa, pero la página solicitada no se pudo encontrar. Prueba haciendo "
+"una búsqueda en el sitio o regresa a la página principal."
 msgstr ""
 
 #: ../framework/includes/locals.php:13
@@ -241,11 +241,11 @@ msgid "Video"
 msgstr ""
 
 #: ../framework/includes/locals.php:21
-msgid "Menu;"
+msgid "Menú;"
 msgstr ""
 
 #: ../framework/includes/locals.php:22
-msgid "Pagina"
+msgid "Página"
 msgstr ""
 
 #: ../framework/includes/locals.php:23
@@ -265,16 +265,16 @@ msgid "Email"
 msgstr ""
 
 #: ../framework/includes/locals.php:27
-msgid "Correo Electronico"
+msgid "Correo Electrónico"
 msgstr ""
 
 #: ../framework/includes/locals.php:28
-msgid "Porfavor entre un correo electronico valido."
+msgid "Porfavor entre un correo electrónico válido."
 msgstr ""
 
 #: ../framework/includes/locals.php:29
 msgid ""
-"El correo electronico debe tener un formato valido ej. nombre@email.com."
+"El correo electrónico debe tener un formato válido ej. nombre@email.com."
 msgstr ""
 
 #: ../framework/includes/locals.php:30
@@ -294,7 +294,7 @@ msgid "Porfavor entre un mensaje."
 msgstr ""
 
 #: ../framework/includes/locals.php:35
-msgid "Debe introducir un minimo de 10 caracteres."
+msgid "Debe introducir un mínimo de 10 caracteres."
 msgstr ""
 
 #: ../framework/includes/locals.php:36
@@ -318,7 +318,7 @@ msgid "Enviar Mensaje"
 msgstr ""
 
 #: ../framework/includes/locals.php:41
-msgid "Gracias, su email fue enviado con exito."
+msgid "Gracias, su email fue enviado con éxito."
 msgstr ""
 
 #: ../framework/includes/locals.php:42
@@ -373,6 +373,14 @@ msgstr ""
 
 #: ../framework/includes/locals.php:56
 msgid "Area de widgets para los productos individuales de woocommerce."
+msgstr ""
+
+#: ../framework/includes/locals.php:57
+msgid "Productos Destacados"
+msgstr ""
+
+#: ../framework/includes/locals.php:58
+msgid "Productos Recientes"
 msgstr ""
 
 #: ../framework/includes/meta.php:7
@@ -621,11 +629,11 @@ msgstr ""
 msgid "Resultados de busqueda para: %s"
 msgstr ""
 
-#: ../woocommerce/single-product/meta.php:22
+#: ../woocommerce/single-product/meta.php:23
 msgid "Category:"
 msgstr ""
 
-#: ../woocommerce/single-product/meta.php:24
+#: ../woocommerce/single-product/meta.php:25
 msgid "Tag:"
 msgstr ""
 

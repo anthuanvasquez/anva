@@ -8,7 +8,7 @@ class Custom_Services extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' => 'widget_services',
-			'description' => 'Muestra servicios o un texto personalizado con una imagen y una descripcion.'
+			'description' => __('Muestra servicios o un texto personalizado con una imagen y una descripcion.', TM_THEME_DOMAIN )
 		);
 
 		$this->WP_Widget('Custom_Services', 'Custom Services', $widget_ops);
@@ -85,9 +85,8 @@ class Custom_Services extends WP_Widget {
 		
 		<!-- Title -->
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>">
-				Titulo: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-			</label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo tm_get_local( 'title' ) . ' :'; ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 
 		<!-- Text -->
@@ -97,20 +96,20 @@ class Custom_Services extends WP_Widget {
 
 		<!-- Image -->
 		<p>
-			<label for="<?php echo $this->get_field_id('image'); ?>">Image URL:</label>
+			<label for="<?php echo $this->get_field_id('image'); ?>"><?php echo tm_get_local( 'image_url' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('image'); ?>" name="<?php echo $this->get_field_name('image'); ?>" type="url" value="<?php echo esc_attr($image); ?>" />
 		</p>
 
 		<!-- Link -->
 		<p>
-			<label for="<?php echo $this->get_field_id('link'); ?>">URL:</label>
+			<label for="<?php echo $this->get_field_id('link'); ?>"><?php echo tm_get_local( 'url' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('link'); ?>" name="<?php echo $this->get_field_name('link'); ?>" type="url" value="<?php echo esc_attr($link); ?>" />
 		</p>
 		
 		<!-- Auto P -->
 		<p>			
 			<input class="widefat" <?php checked( $instance['autop'], 'on'); ?> id="<?php echo $this->get_field_id('autop'); ?>" name="<?php echo $this->get_field_name('autop'); ?>" type="checkbox" />
-			<label for="<?php echo $this->get_field_id('autop'); ?>">A&ntilde;adir p&aacute;rrafos autom&aacute;ticamente</label>
+			<label for="<?php echo $this->get_field_id('autop'); ?>"><?php echo tm_get_local( 'add_autop' ); ?></label>
 		</p>
 
 		<?php

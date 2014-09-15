@@ -42,8 +42,8 @@ function tm_get_text_locals() {
 		'submit_error'						=> __( '<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que no haya campos en blanco.', $domain ),
 		'footer_copyright'				=> __( 'Todos los Derechos Reservados.' , $domain ),
 		'footer_text'							=> __( 'Diseño y Programación Web por:', $domain ),
-
-		// Admin texts
+		'get_in_touch'						=> __( 'Ponte en Contacto', $domain ),
+		'title'										=> __( 'Title', $domain ),
 		'main_sidebar_title'			=> __( 'Principal', $domain ),
 		'main_sidebar_desc'				=> __( 'Area de widgets principal.', $domain ),
 		'home_sidebar_title'			=> __( 'Portada', $domain ),
@@ -53,7 +53,14 @@ function tm_get_text_locals() {
 		'shop_sidebar_title'			=> __( 'Tienda', $domain ),
 		'shop_sidebar_desc'				=> __( 'Area de widgets para la tienda de los productos de woocommerce.', $domain ),
 		'product_sidebar_title'		=> __( 'Productos', $domain ),
-		'product_sidebar_desc'		=> __( 'Area de widgets para los productos individuales de woocommerce.', $domain )
+		'product_sidebar_desc'		=> __( 'Area de widgets para los productos individuales de woocommerce.', $domain ),
+		'product_featured'				=> __( 'Productos Destacados', $domain ),
+		'product_latest'					=> __( 'Productos Recientes', $domain ),
+		'add_autop'								=> __( 'A&ntilde;adir p&aacute;rrafos autom&aacute;ticamente', $domain ),
+		'link'										=> __( 'Enlace', $domain ),
+		'skype'										=> __( 'Skype', $domain ),
+		'image_url'								=> __( 'URL de la Imagen', $domain ),
+		'url'											=> __( 'URL', $domain )
 
 	);
 

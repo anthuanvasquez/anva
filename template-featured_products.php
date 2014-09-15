@@ -31,12 +31,12 @@
 
 <div class="latest-products">
 	<div class="special-products">
-		<h2 class="h4"><?php _e( 'Productos Destacados', TM_THEME_DOMAIN ); ?></h2>
+		<h2 class="h4"><?php echo tm_get_local( 'product_featured' ) ?></h2>
 		<?php echo do_shortcode( '[featured_products per_page="4" columns="4" orderby="rand"]' ); ?>
 	</div>
 
 	<div class="new-products">
-		<h2 class="h4"><?php _e( 'Productos Recientes', TM_THEME_DOMAIN ); ?></h2>
+		<h2 class="h4"><?php echo tm_get_local( 'product_latest' ); ?></h2>
 		<?php echo do_shortcode( '[recent_products per_page="4" columns="4" orderby="rand"]' ); ?>
 	</div>
 </div>
