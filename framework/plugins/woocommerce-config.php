@@ -56,7 +56,7 @@ function woo_product_columns_frontend() {
 
 		//Related Products
 		if ( is_product() ) :
-				$columns = 3;
+			$columns = 3;
 		endif;
 
 	return $columns;
@@ -80,21 +80,21 @@ function wc_wc20_variation_price_format( $price, $product ) {
 add_action( 'woocommerce_email_after_order_table', 'wc_add_payment_type_to_emails', 15, 2 );
 function wc_add_payment_type_to_emails( $order, $is_admin_email ) {
 	$heading = "
-			color:#333333;
-			display:block;
-			font-family:
-			Arial;
-			font-size:14px;
-			font-weight:bold;
-			margin:15px 0 10px;
-			text-align:left;
-			line-height:150%;
-			padding:5px;
-			background:#ddd;
-		";
+		color:#333333;
+		display:block;
+		font-family:
+		Arial;
+		font-size:14px;
+		font-weight:bold;
+		margin:15px 0 10px;
+		text-align:left;
+		line-height:150%;
+		padding:5px;
+		background:#ddd;
+	";
 
-		echo '<h2 style="'.$heading.'">Payment Method:</h2>';
-		echo '<p><strong>Payment Type:</strong> ' . $order->payment_method_title . '</p>';
+	echo '<h2 style="'.$heading.'">Payment Method:</h2>';
+	echo '<p><strong>Payment Type:</strong> ' . $order->payment_method_title . '</p>';
 }
 
 /*
