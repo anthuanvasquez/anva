@@ -6,7 +6,7 @@
 
 <?php get_header(); ?>
 
-<div class="grid-columns row-fluid">
+<div class="grid-columns">
 	<div class="full-width">
 		<div class="site-main" role="main">
 
@@ -30,7 +30,7 @@
 </div><!-- .grid-columns (end) -->
 
 <div class="homepage-sidebar" role="complementary">
-	<div class="grid-columns row-fluid">
+	<div class="grid-columns">
 		<?php if ( dynamic_sidebar( 'home-sidebar' ) ) : endif; ?>
 	</div><!-- .grid-columns (end) -->
 </div><!-- .homepage-sidebar (end) -->

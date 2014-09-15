@@ -5,7 +5,7 @@
 			<div class="footer-inner">
 				
 				<div class="footer-content footer-widget">
-					<div class="grid-columns row-fluid">
+					<div class="grid-columns">
 						<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : endif; ?>
 					</div>
 				</div>

@@ -11,7 +11,7 @@ $size = 'thumbnail_grid_'. $grid_columns;
 ?>
 
 
-<div class="grid-columns row-fluid">
+<div class="grid-columns">
 	<div class="full-width">
 		<div class="site-main <?php echo $classes; ?> group" role="main">
 			<?php

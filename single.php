@@ -2,7 +2,7 @@
 	get_header();
 ?>
 
-<div class="grid-columns row-fluid">
+<div class="grid-columns">
 	<div class="content-area">
 		<div class="site-main" role="main">
 		

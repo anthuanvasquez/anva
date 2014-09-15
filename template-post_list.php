@@ -6,7 +6,7 @@
  get_header(); ?>
 
 
-<div class="grid-columns row-fluid">
+<div class="grid-columns">
 
 	<?php get_sidebar( 'left' ); ?>
 
