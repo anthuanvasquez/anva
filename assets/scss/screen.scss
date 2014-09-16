@@ -11,30 +11,35 @@
 @import "theme/mixins";
 
 // Base
-@import "theme/base/normalize";
-@import "theme/base/general";
-@import "theme/base/forms";
-@import "theme/base/typography";
+@import "theme/normalize";
+@import "theme/general";
+@import "theme/forms";
+@import "theme/typography";
 
 // Layout
-@import "theme/layout/content";
-@import "theme/layout/header";
-@import "theme/layout/navigation";
-@import "theme/layout/entry";
-@import "theme/layout/footer";
+@import "theme/content";
+@import "theme/header";
+@import "theme/navigation";
+@import "theme/entry";
+@import "theme/footer";
 
 // WordPress
-@import "theme/wordpress/wordpress";
+@import "theme/comments";
+@import "theme/gallery";
+@import "theme/shortcodes";
+@import "theme/widgets";
+@import "theme/wordpress";
 
 // Modules
-@import "theme/modules/buttons";
-@import "theme/modules/contact";
-@import "theme/modules/grids";
-@import "theme/modules/helpers";
-@import "theme/modules/components";
-@import "theme/modules/animations";
-@import "theme/modules/slideshows";
-@import "theme/modules/spritesheets";
+@import "theme/buttons";
+@import "theme/contact";
+@import "theme/grids";
+@import "theme/helpers";
+@import "theme/components";
+@import "theme/animations";
+@import "theme/featured";
+@import "theme/spritesheets";
+@import "theme/lightbox";
 
 // Global State Classes
 @import "theme/state";

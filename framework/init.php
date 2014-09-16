@@ -26,7 +26,11 @@ include_once( TM_THEME_FRAMEWORK . '/includes/shortcodes.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/login.php' );
 include_once( TM_THEME_FRAMEWORK . '/plugins/contact-email.php' );
 include_once( TM_THEME_FRAMEWORK . '/plugins/slideshows.php' );
-include_once( TM_THEME_FRAMEWORK . '/plugins/woocommerce-config.php' );
+
+// Validate if Woocommerce is activated
+if ( class_exists( 'Woocommerce' ) ) :
+	include_once( TM_THEME_FRAMEWORK . '/plugins/woocommerce-config.php' );
+endif;
 
 /**
  * Theme Settings Admin

@@ -1,23 +1,14 @@
 // ---------------------------------------------------
-// Compass
-@import "compass/css3/border-radius";
-@import "compass/css3/box-shadow";
-@import "compass/css3/box-sizing";
-
-// ---------------------------------------------------
 // Susy + Breakpoint
 @import "plugins/susy";
 @import "plugins/breakpoint";
 
 // ---------------------------------------------------
-// Settings
+// Theme
 @import "theme/functions";
 @import "theme/variables";
 @import "theme/mixins";
-
-// ---------------------------------------------------
-// Modules
-@import "theme/modules/buttons";
+@import "theme/buttons";
 
 /* ==========================================================================
 	 Woocommerce
@@ -47,8 +38,8 @@ div.product-description {
 			@include woocommerce-product(
 				$border: 1px solid #ddd,
 				$padding: 10px,
-				$margin: 20px,
-				$height: 360px,
+				$margin-bottom: 20px, // margin bottom
+				$min-height: 360px,
 				$trans: false
 			);
 			
@@ -64,7 +55,7 @@ div.product-description {
 					box-shadow: none;
 					display: block;
 					margin: 0 auto 8px;
-					height: 150px;
+					max-height: 150px;
 					width: auto;					
 				}
 
@@ -134,7 +125,7 @@ div.product-description {
 			.home & {
 				clear: none;
 				margin-right: 3.8%;
-				width: 22.05%;
+				width: 22.15%;
 
 				&:nth-child(4n) {
 					margin-right: 0;
@@ -196,6 +187,9 @@ div.product-description {
 			li.product {
 				margin-right: 3.8%;
 				width: 48.1%;
+				&:nth-child(3n) {
+					margin-right: 3.8%;
+				}
 				&:nth-child(2n) {
 					margin-right: 0;
 				}
@@ -465,7 +459,7 @@ div.product-description {
 	}
 
 
-} // .woocommerce (end)
+} // .woocommerce, .woocommerce-page (end)
 
 
 
@@ -483,21 +477,6 @@ form.checkout h3 {
 div.single_variation {
 	margin-bottom: 10px; 
 }
-
-// Homepage Woocommerce Featured / Latest Products
-// ------------------------------------------------
-// .home {
-// 	.woocommerce,
-// 	.woocommerce-page {
-// 		ul.products {
-// 			li.product {
-// 				clear: none;
-// 				margin-right: 3.8%;
-// 				width: 22.05%;
-// 			}
-// 		}
-// 	}
-// }
 
 /*
  * Large Devices 992px
@@ -546,6 +525,12 @@ div.single_variation {
 						margin-right: 0;
 					}
 				}
+			}
+		}
+
+		.cart-collaterals {
+			.cross-sells {
+				display: none;
 			}
 		}
 
