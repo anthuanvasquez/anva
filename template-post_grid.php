@@ -15,27 +15,8 @@ $size = 'thumbnail_grid_'. $grid_columns;
 	<div class="full-width">
 		<div class="site-main <?php echo $classes; ?> group" role="main">
 			<?php
-				// First, initialize how many posts to render per page
-				$number = get_option( 'posts_per_page' );
-				
-				// Next, get the current page
-				$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
-				// After that, calculate the offset
-				$offset = ( $page - 1 ) * $number;
-
-				// Finally, we'll set the query arguments and instantiate WP_Query
-				$query_args = array(
-				  'post_type'  =>  array( 'post' ),
-				  'posts_per_page' => $number,
-				  'orderby'    =>  'date',
-				  'order'      =>  'desc',
-				  'number'     =>  $number,
-				  'page'       =>  $page,
-				  'offset'     =>  $offset
-				);
-
-				$the_query = new WP_Query( $query_args );
+				$the_query = tm_get_post_query();
 					
 				if ( $the_query->have_posts() ) :
 					
