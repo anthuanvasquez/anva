@@ -88,6 +88,35 @@ function tm_get_offset() {
 
 }
 
+function tm_get_post_query( $query_args = '' ) {
+	
+	$number = get_option( 'posts_per_page' );
+	$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+	$offset = ( $page - 1 ) * $number;
+
+	if ( empty( $query_args ) ) {
+		$query_args = array(
+			'post_type'  =>  array( 'post' ),
+			'post_status' => 'publish',
+			'posts_per_page' => $number,
+			'orderby'    =>  'date',
+			// 'order'      =>  'desc',
+			// 'number'     =>  $number,
+			// 'page'       =>  $page,
+			// 'offset'     =>  $offset
+		);
+	}
+
+	$query_args['no_found_rows'] = true;
+  $query_args['update_post_term_cache'] = false;
+  $query_args['update_post_meta_cache'] = false;
+  $query_args['cache_results'] = false;
+
+	$the_query = new WP_Query( $query_args );
+
+	return $the_query;
+}
+
 /*
  * Add theme options menu to admin bar.
  */
