@@ -224,9 +224,9 @@ function tm_slideshows_slides( $slug ) {
 // ADMIN META BOX
 function tm_slideshows_create_slide_metaboxes() {
     add_meta_box(
-		'flexslider_metabox_1',
+		'tm_slideshows_metabox_1',
 		__( 'Slide Settings', 'flexslider-hg' ),
-		'flexslider_metabox_1',
+		'tm_slideshows_metabox_1',
 		'slideshows',
 		'normal', 'default'
 	);
