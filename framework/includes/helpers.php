@@ -20,29 +20,46 @@ function tm_browser_class( $classes ) {
 	
 	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
 	
-	if ( $is_lynx ) 		$classes[] = 'lynx';
-	elseif ( $is_gecko ) 	$classes[] = 'gecko';
-	elseif ( $is_opera ) 	$classes[] = 'opera';
-	elseif ( $is_NS4 ) 		$classes[] = 'ns4';
-	elseif ( $is_safari ) 	$classes[] = 'safari';
-	elseif ( $is_chrome ) 	$classes[] = 'chrome';
+	if ( $is_lynx )
+		$classes[] = 'lynx';
+
+	elseif ( $is_gecko )
+		$classes[] = 'gecko';
+
+	elseif ( $is_opera )
+		$classes[] = 'opera';
+
+	elseif ( $is_NS4 )
+		$classes[] = 'ns4';
+
+	elseif ( $is_safari )
+		$classes[] = 'safari';
+
+	elseif ( $is_chrome )
+		$classes[] = 'chrome';
+
 	elseif ( $is_IE ) {
 		$classes[] = 'ie';
+		
 		if ( preg_match( '/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version ) )
 			$classes[] = 'ie'.$browser_version[1];
 	} else {
 		$classes[] = 'unknown';
 	}
 	
-	if ( $is_iphone) $classes[] = 'iphone';
+	if ( $is_iphone )
+		$classes[] = 'iphone';
 	
 	if ( stristr( $_SERVER['HTTP_USER_AGENT'], "mac" ) ) {
 		$classes[] = 'osx';
+
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "linux" ) ) {
 		$classes[] = 'linux';
+	
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "windows" ) ) {
 		$classes[] = 'windows';
 	}
+
 	return $classes;
 }
 
@@ -99,11 +116,11 @@ function tm_get_post_query( $query_args = '' ) {
 			'post_type'  =>  array( 'post' ),
 			'post_status' => 'publish',
 			'posts_per_page' => $number,
-			'orderby'    =>  'date',
-			// 'order'      =>  'desc',
-			// 'number'     =>  $number,
-			// 'page'       =>  $page,
-			// 'offset'     =>  $offset
+			'orderby'    => 'date',
+			'order'      => 'desc',
+			'number'     => $number,
+			'page'       =>  $page,
+			'offset'     =>  $offset
 		);
 	}
 
@@ -123,7 +140,7 @@ function tm_get_post_query( $query_args = '' ) {
 function tm_settings_menu_link() {
 	global $wp_admin_bar, $wpdb;
 	
-	if( ! is_super_admin() || ! is_admin_bar_showing() )
+	if ( ! is_super_admin() || ! is_admin_bar_showing() )
 		return;
 	
 	$wp_admin_bar->add_menu( array(
@@ -144,7 +161,7 @@ function tm_get_option( $id ) {
 
 	$option = '';
 
-	if( ! empty( $id ) )
+	if ( ! empty( $id ) )
 		if ( isset( $settings[$id] ) )
 			$option = $settings[$id];
 	else
@@ -157,10 +174,14 @@ function tm_get_widget_args( $id, $name, $description ) {
 	
 	$columns = '';
 
-	if( 'home-sidebar' == $id || 'footer-sidebar' == $id ) {
+	if ( 'home-sidebar' == $id ) {
 		$columns = 'column-4';
 	}
 
+	if ( 'footer-sidebar' == $id ) {
+		$columns = 'column-4';
+	}
+	
 	$args = array(
 		'id'            => $id,
 		'name'          => tm_get_local( $name ),
@@ -233,4 +254,12 @@ function tm_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $
 	echo $output;
 
 	echo '</ul>';
+}
+
+function tm_get_featured_image( $post_id, $thumbnail ) {
+	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
+	if ( $post_thumbnail_id ) {
+		$post_thumbnail_img = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
+		return $post_thumbnail_img[0];
+	}
 }
