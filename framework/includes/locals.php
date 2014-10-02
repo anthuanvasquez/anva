@@ -43,7 +43,6 @@ function tm_get_text_locals() {
 		'footer_copyright'				=> __( 'Todos los Derechos Reservados.' , $domain ),
 		'footer_text'							=> __( 'Diseño y Programación Web por:', $domain ),
 		'get_in_touch'						=> __( 'Ponte en Contacto', $domain ),
-		'title'										=> __( 'Title', $domain ),
 		'main_sidebar_title'			=> __( 'Principal', $domain ),
 		'main_sidebar_desc'				=> __( 'Area de widgets principal.', $domain ),
 		'home_sidebar_title'			=> __( 'Portada', $domain ),
@@ -56,12 +55,20 @@ function tm_get_text_locals() {
 		'product_sidebar_desc'		=> __( 'Area de widgets para los productos individuales de woocommerce.', $domain ),
 		'product_featured'				=> __( 'Productos Destacados', $domain ),
 		'product_latest'					=> __( 'Productos Recientes', $domain ),
-		'add_autop'								=> __( 'A&ntilde;adir p&aacute;rrafos autom&aacute;ticamente', $domain ),
-		'link'										=> __( 'Enlace', $domain ),
+		'add_autop'								=> __( 'A&ntilde;adir p&aacute;rrafos autom&aacute;ticamente', $domain ),		
 		'skype'										=> __( 'Skype', $domain ),
+		'title'										=> __( 'Título', $domain ),
+		'date'										=> __( 'Fecha', $domain ),
+		'order'										=> __( 'Orden', $domain ),
+		'image'										=> __( 'Imagen', $domain ),
+		'link'										=> __( 'Enlace', $domain ),
 		'image_url'								=> __( 'URL de la Imagen', $domain ),
-		'url'											=> __( 'URL', $domain )
-
+		'url'											=> __( 'URL', $domain ),
+		'slide_id'								=> __( 'Slide ID', $domain ),
+		'slide_area'							=> __( 'Elege el Area del Slide', $domain ),
+		'slide_content'						=> __( 'Ocultar o Mostrar Contenido', $domain ),
+		'slide_shortcode'					=> __( 'Porfavor incluye un slug como parámetro por e.j. [slideshows slug="homepage"]', $domain ),
+		'slide_message'						=> __( 'No se han configurado rotadores para los slideshows. Contacta con tu Desarrollador.', $domain )
 	);
 
 	return apply_filters( 'tm_text_locals', $localize );
