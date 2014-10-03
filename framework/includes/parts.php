@@ -125,7 +125,7 @@ function tm_post_thumbnails() {
 
 	if ( has_post_thumbnail() ) {
 		$output .= '<div class="entry-thumbnail '.$classes.'">';
-		$output .= '<a href="'.get_permalink().'" title="'.get_the_title().'">'.get_the_post_thumbnail( $post->ID, 'thumbnail_blog_medium' ).'</a>';
+		$output .= '<a href="'.get_permalink().'">'.get_the_post_thumbnail( $post->ID, $size ).'</a>';
 		$output .= '</div>';
 	}
 
