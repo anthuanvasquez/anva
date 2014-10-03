@@ -1,7 +1,8 @@
 @import "mixins";
-@import "woocommerce-base"; /* Contains base colours like @primary */
+@import "woocommerce-base"; /* Contains base colours like $primary */
 
-.woocommerce, .woocommerce-page {
+.woocommerce,
+.woocommerce-page {
 
 	/* =General Layout Styles
 	-------------------------------------------------------------- */
@@ -27,7 +28,8 @@
 	/* =Product Page
 	-------------------------------------------------------------- */
 
-	div.product, #content div.product {
+	div.product,
+	#content div.product {
 		div.images {
 			float:left;
 			width: 48%;
