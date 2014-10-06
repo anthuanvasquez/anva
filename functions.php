@@ -20,14 +20,14 @@ function tm_setup() {
 
 	global $content_width;
 
-
+	// Global content width
 	if ( ! isset( $content_width ) )
 		$content_width = 980;
 
 	// Add theme-supported features
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'html5', array( 'comment-list', 'search-form', 'comment-form', 'gallery', 'caption' ) );
+	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
 	add_theme_support( 'woocommerce' );
 
 }
