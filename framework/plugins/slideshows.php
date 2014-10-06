@@ -27,6 +27,10 @@ function tm_slideshows() {
 			nextText: '',
 			start: function(slider) {
 				slider.removeClass('loading');
+				jQuery('#pause').click(function(e){
+					e.PreventDefault();
+					slider.pause();
+				});
 			}
 	");
 	
@@ -217,6 +221,7 @@ function tm_slideshows_slides( $slug ) {
 		}
 
 		$html .= '</ul>';
+		$html .= '<a id="pause" href="#">Pausa</a>';
 		$html .= '</div><!-- #flexslider_' . $slug . ' (end) -->';
 		$html .= '</div><!-- #flexslider_' . $slug . '_wrapper (end) -->';
 		
@@ -224,6 +229,7 @@ function tm_slideshows_slides( $slug ) {
 		$html .= '<script>';
 		$html .= 'jQuery(document).ready(function() {';
 		$html .= "jQuery('#flexslider_{$slug}').addClass('loading');";
+
 		$html .= "jQuery('#flexslider_{$slug}').flexslider({";
 			
 		if ( isset($rotators[ $slug ]['options']) && $rotators[ $slug ]['options'] != "" ) { 

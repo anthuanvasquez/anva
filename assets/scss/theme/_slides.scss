@@ -152,15 +152,18 @@
 		transition: all .3s ease;
 
 		&:before  { 
-			font-family: "flexslider-icon"; 
+			// font-family: "flexslider-icon";
+			@include font-stack-icon();
 			font-size: 24px; 
 			display: inline-block; 
-			content: '\f001';
+			// content: '\f001';
+			content:"\f053";
 			line-height: 40px;
 		}
 
 		&.flex-next:before {
-			content: '\f002';
+			// content: '\f002';
+			content:"\f054";
 		}
 
 	}
