@@ -27,10 +27,6 @@ function tm_slideshows() {
 			nextText: '',
 			start: function(slider) {
 				slider.removeClass('loading');
-				jQuery('#pause').click(function(e){
-					e.PreventDefault();
-					slider.pause();
-				});
 			}
 	");
 	
@@ -229,7 +225,10 @@ function tm_slideshows_slides( $slug ) {
 		$html .= '<script>';
 		$html .= 'jQuery(document).ready(function() {';
 		$html .= "jQuery('#flexslider_{$slug}').addClass('loading');";
-
+		$html .= "jQuery('#pause').click(function(e){
+					e.PreventDefault();
+					jQuery('#flexslider_{$slug}').flexslider('pause');
+				});";
 		$html .= "jQuery('#flexslider_{$slug}').flexslider({";
 			
 		if ( isset($rotators[ $slug ]['options']) && $rotators[ $slug ]['options'] != "" ) { 
