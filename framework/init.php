@@ -32,6 +32,11 @@ if ( class_exists( 'Woocommerce' ) ) :
 	include_once( TM_THEME_FRAMEWORK . '/plugins/woocommerce-config.php' );
 endif;
 
+// Validate if Foodlist ist activated
+if ( defined( 'FOODLIST_VERSION' )) {
+	include_once( TM_THEME_FRAMEWORK . 'plugins/foodlist.php' );
+}
+
 /**
  * Theme Settings Admin
  * @since 1.3.1
