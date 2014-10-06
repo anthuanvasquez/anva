@@ -32,12 +32,9 @@ div.product-meta {
 				$border: 1px solid #eee,
 				$padding: 10px,
 				$margin-bottom: 20px, // margin bottom
-				$min-height: none, // 360px
+				$min-height: 0, // 360px
 				$trans: false
 			);
-			
-			// margin-right: 3.8%;
-			// width: 30.8%;
 
 			@include span(4);
 
@@ -56,7 +53,7 @@ div.product-meta {
 					display: block;
 					margin: 0 auto 10px;
 					// max-height: 190px;
-					// width: auto;					
+					// width: auto;
 				}
 
 				&:hover {
@@ -126,9 +123,6 @@ div.product-meta {
 
 			.home & {
 				clear: none;
-				// margin-right: 3.8%;
-				// width: 22.15%;
-
 				@include span(3);
 
 				&:nth-child(4n) {
@@ -177,10 +171,10 @@ div.product-meta {
 	.upsells.products {
 		ul.products {
 			li.product {
-				margin-right: 3.8%;
-				width: 30.8%;
+				@include span(4);
+
 				&:nth-child(3n) {
-					margin-right: 0;
+					@include last();
 				}
 			}
 		}
@@ -189,13 +183,18 @@ div.product-meta {
 	.cart-collaterals {
 		.cross-sells {
 			li.product {
-				margin-right: 3.8%;
-				width: 48.1%;
+				@include span(6);
+
 				&:nth-child(3n) {
-					margin-right: 3.8%;
+					@include span(6);
 				}
+
+				&:nth-child(3n+1) {
+					clear: none;
+				}
+
 				&:nth-child(2n) {
-					margin-right: 0;
+					@include last();
 				}
 			}
 		}
@@ -444,6 +443,56 @@ div.product-meta {
 
 	}
 
+	nav.woocommerce-pagination,
+	#content nav.woocommerce-pagination, {
+		ul {
+			display: block;
+			border: 0;
+			clear: both;
+			font-size: 14px;
+			line-height: 13px;
+			margin: 0;
+			padding: 10px 0;
+			position: relative;		
+
+			li {
+				border: 0;
+
+				a,
+				span {
+					background: #c3c3c3;
+					border-right: 1px solid rgba(black, .1);
+					color: #fff;
+					display: block;
+					float: left;
+					padding: 8px 10px;
+					text-decoration: none;
+					width: auto;
+				}
+				
+				a:focus,
+				a:hover,
+				span.current {
+					background: $color-0;
+					color: #fff;
+				}
+
+				a.next {
+					border-right: 0;
+					border-radius: 0 4px 4px 0;
+				}
+
+				&:first-child {
+					a,
+					span {
+						border-radius: 4px 0 0 4px;
+					}
+				}
+
+			}
+		}
+	}
+
 	// WC Widgets
 	// ------------------------------
 	ul.cart_list li,
@@ -484,7 +533,7 @@ div.single_variation {
 }
 
 /*
- * Large Devices 992px
+ * Large Devices 992px - Change to 750px
  */
 @include susy-breakpoint($desktop-and-below, $desktop-layout) {
 
@@ -493,9 +542,6 @@ div.single_variation {
 		
 		ul.products {
 			li.product {
-				// margin-right: 3.8%;
-				// width: 48.1%;
-
 				@include span(6);
 
 				&:nth-child(3n) {
@@ -515,9 +561,6 @@ div.single_variation {
 				}
 
 				.home & {
-					// margin-right: 3.8%;
-					// width: 22.15%;
-
 					@include span(3);
 
 					&:nth-child(4n) {
@@ -536,14 +579,12 @@ div.single_variation {
 		.upsells.products {
 			ul.products {
 				li.product {
-					margin-right: 3.8%;
-					float: left;
-					width: 48.1%;
+					@include span(6);
 					&:nth-child(3n) {
-						margin-right: 3.8%;
+						@include span(6);
 					}
 					&:nth-child(2n) {
-						margin-right: 0;
+						@include last();
 					}
 				}
 			}
@@ -560,9 +601,9 @@ div.single_variation {
 }
 
 /*
- * Medium Mobile Devices 768px
+ * Medium Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint($tablet-and-below, $tablet-layout) {
+@include susy-breakpoint($tablet-only, $tablet-layout) {
 	
 	.woocommerce,
 	.woocommerce-page {
@@ -571,42 +612,16 @@ div.single_variation {
 		// ------------------------------
 		ul.products {
 			li.product {
-				// float: none;
-				// margin: 0 auto $padding;
-				// width: 48.1%;
-
-				// @include span(4);
-
-				// &:nth-child(3n),
-				// &:nth-child(2n) {
-				// 	float: none;
-				// 	margin: 0 auto $padding;
-				// }
 
 				.home & {
-					// margin-right: 3.8%;
-					// float: left;
-					// width: 48.1%;
-
 					@include span(4);
 
 					&:nth-child(2n) {
 						@include last();
 					}
-				}
-			}
-		}
 
-		.related.products,
-		.upsells.products {
-			ul.products {
-				li.product {
-					margin: 0 auto $padding;
-					float: none;
-					width: 48.1%;
-					&:nth-child(3n),
-					&:nth-child(2n) {
-						margin: 0 auto $padding;
+					&:nth-child(2n+1) {
+						clear: both;
 					}
 				}
 			}
@@ -624,13 +639,11 @@ div.single_variation {
 
 		.woocommerce-result-count {
 			float: none;
-			// width: 100%;
 			text-align: center;
 		}
 
 		.woocommerce-ordering {
 			float: none;
-			// width: 100%;
 
 			select {
 				width: 100%

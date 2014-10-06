@@ -36,6 +36,14 @@
 	width: $width;
 }
 
+@mixin boxed-layout( $max-width ) {
+	@if $boxed {
+		#container {
+			max-width: $max-width;
+		}
+	}
+}
+
 // Reset list ex. ul, ol
 @mixin reset-list() {
 	list-style: none;

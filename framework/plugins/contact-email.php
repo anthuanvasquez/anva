@@ -49,7 +49,7 @@ function tm_contact_send_email() {
 			}
 			
 			$email_subject 	= '[Contacto - '. $subject .'] De '. $name;
-			$email_body 		= "Nombre: $name\n\nEmail:</strong> $email\n\nMensaje: \n\n$message";
+			$email_body 		= "Nombre: $name\n\nEmail: $email\n\nMensaje: \n\n$message";
 			$headers 				= 'De: '. $name .' <'. $email_to .'>' . "\r\n" . 'Reply-To: ' . $email;
 
 			wp_mail( $email_to, $email_subject, $email_body, $headers );

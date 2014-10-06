@@ -119,11 +119,10 @@ time.updated {
 	a,
 	span {
 		background: #c3c3c3;
-		border-right: 1px solid darken($color-0, 10%);
+		border-right: 1px solid rgba(black, .1);
 		color: #fff;
 		display: block;
 		float: left;
-		// margin: 2px 2px 2px 0;
 		padding: 8px 10px;
 		text-decoration: none;
 		width: auto;		

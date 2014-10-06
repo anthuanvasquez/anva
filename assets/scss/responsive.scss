@@ -13,13 +13,14 @@
 @import "theme/variables";
 @import "theme/mixins";
 
+// If resposnsive option is disabled
 @include container-class() {
 	@include container();
 	width: auto; // reset width
 }
 
 /*
- * Large Devices 992px
+ * Large Devices 992px - Change to 750px
  */
 @include susy-breakpoint($desktop-and-below, $desktop-layout) {
 
@@ -29,9 +30,7 @@
 		@include container($tablet-and-below); // 752px
 	}
 
-	#container {
-		max-width: $tablet-and-below;
-	}
+	@include boxed-layout($tablet-and-below);
 
 	.content-area {
 		@include span(8);
@@ -59,10 +58,21 @@
 		margin: 40px auto 0;
 	}
 
+	/*
+	 * Navigation
+	 */
 	nav.site-navigation {
 		float: none;
 		text-align: center;
 	}
+
+	ul.navigation-menu {
+		> li {
+			> a {
+				font-size: ($menu-font-size - 2px);
+			}
+		}
+	}	
 
 	form {
 		&.search-form,
@@ -87,18 +97,16 @@
 }
 
 /*
- * Medium Mobile Devices 768px
+ * Medium Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint($tablet-and-below, $tablet-layout) {
+@include susy-breakpoint($tablet-only, $tablet-layout) {
 
 	/* Layout */
 	@include container-class() {
 		@include container($phone-and-below); // 480px;
 	}
-	
-	#container {
-		max-width: $phone-and-below;
-	}
+
+	@include boxed-layout($phone-and-below);
 
 	/*
 	 * Set order in columns
