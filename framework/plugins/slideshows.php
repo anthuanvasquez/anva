@@ -15,16 +15,24 @@ add_action( 'after_setup_theme', 'tm_slideshows_setup' );
 function tm_slideshows() {
 	
 	$args = array();
+	$slider_speed = tm_get_option( 'slider_speed' );
+	$slider_control = tm_get_option( 'slider_control' );
+	$slider_direction = tm_get_option( 'slider_direction' );
 
 	$args['homepage'] = array(
 		'size' 		=> 'thumbnail_slideshow',
 		'options' => "
 			animation: Modernizr.touch ? 'slide' : 'fade',
 			animationSpeed: Modernizr.touch ? 400 : 1000,
-			controlNav: true,
-			directionNav: true,
+			slideshowSpeed: '$slider_speed',
+			controlNav: ($slider_control == 1 ? true : false),
+			directionNav: ($slider_direction == 1 ? true : false),
+			pausePlay: true,
+			pauseText: '',
+			playText: '',
 			prevText: '',
 			nextText: '',
+			video: true,
 			start: function(slider) {
 				slider.removeClass('loading');
 			}
@@ -217,7 +225,6 @@ function tm_slideshows_slides( $slug ) {
 		}
 
 		$html .= '</ul>';
-		$html .= '<a id="pause" href="#">Pausa</a>';
 		$html .= '</div><!-- #flexslider_' . $slug . ' (end) -->';
 		$html .= '</div><!-- #flexslider_' . $slug . '_wrapper (end) -->';
 		
@@ -225,10 +232,6 @@ function tm_slideshows_slides( $slug ) {
 		$html .= '<script>';
 		$html .= 'jQuery(document).ready(function() {';
 		$html .= "jQuery('#flexslider_{$slug}').addClass('loading');";
-		$html .= "jQuery('#pause').click(function(e){
-					e.PreventDefault();
-					jQuery('#flexslider_{$slug}').flexslider('pause');
-				});";
 		$html .= "jQuery('#flexslider_{$slug}').flexslider({";
 			
 		if ( isset($rotators[ $slug ]['options']) && $rotators[ $slug ]['options'] != "" ) { 
