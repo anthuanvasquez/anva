@@ -43,6 +43,52 @@ $options = array(
 
 	array(
 		"type" 		=> "open",
+		"title"		=> "Slider",
+		"tab"			=> "layout"
+	),
+
+	array(
+		"name" 		=> "Slider Speed",  
+		"desc" 		=> __("Introduzca un valor en milisegundos para determinar el tiempo de cada slide.", TM_THEME_DOMAIN),  
+		"id" 			=> "slider_speed",
+		"type" 		=> "text",
+		"std" 		=> '7000',
+		"tab"			=> "layout"
+	),
+
+	array(
+		"name" 		=> "Slider Control",  
+		"desc" 		=> __("Seleccione si desea ocultar la navegación manual slider.", TM_THEME_DOMAIN),  
+		"id" 			=> "slider_control",
+		"type" 		=> "radio",
+		"std" 		=> '1',
+		"options" => array(
+			'1' => "Mostrar control.",
+			'0' => "Ocultar control."
+		),
+		"tab"			=> "layout"
+	),
+
+	array(
+		"name" 		=> "Slider Direction",  
+		"desc" 		=> __("Seleccione si desea ocultar la navegación de dirección del slider.", TM_THEME_DOMAIN),  
+		"id" 			=> "slider_direction",
+		"type" 		=> "radio",
+		"std" 		=> '1',
+		"options" => array(
+			'1' => "Mostrar dirección.",
+			'0' => "Ocultar dirección."
+		),
+		"tab"			=> "layout"
+	),
+
+	array(
+		"type" 		=> "close",
+		"tab"			=> "layout"
+	),
+
+	array(
+		"type" 		=> "open",
 		"title"		=> "Social Media",
 		"msg"			=> __("These settings will only apply to vewing single posts. This means that any settings you set here will not effect any posts that appear in a post list or post grid.", TM_THEME_DOMAIN),
 		"tab"			=> "layout"

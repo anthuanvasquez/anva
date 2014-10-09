@@ -123,7 +123,7 @@ function tm_save_theme_settings() {
 	
 	if( $pagenow == 'themes.php' && $_GET['page'] == 'theme-settings' ) { 
 		
-		if( isset ( $_GET['tab'] ) ) {
+		if ( isset ( $_GET['tab'] ) ) {
 			$tab = $_GET['tab'];
 		} else {
 			$tab = 'layout';
@@ -249,7 +249,6 @@ function tm_settings_page() {
 				
 				<div class="options-submit postbox">
 					<p class="submit" style="clear:both;">
-						<input type="submit" class="button-secondary" name="settings-reset" value="<?php _e('Restaurar Opciones', TM_THEME_DOMAIN); ?>" />
 						<input type="submit" class="button-primary" name="settings-submit" value="<?php _e('Guardar Opciones', TM_THEME_DOMAIN); ?>" />
 					</p>
 					<p class="copyright-text">
