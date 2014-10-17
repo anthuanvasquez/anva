@@ -41,22 +41,22 @@
 	</div>
 </div>
 				
-<div id="container" class="container">
+<div id="container">
 	
 	<a href="#" id="off-canvas-button" class="toggle-button">
 		<i class="fa fa-bars"></i>
 		<span class="screen-reader-text"><?php echo tm_get_local( 'menu' ); ?></span>
 	</a>
 	
-	<header id="header" class="header-container" role="banner">
-		<div class="site-header">
+	<header id="header">
+		<div class="header-inner inner">
 			
 			<div class="header-top group">				
-				<div class="site-branding">
+				<div id="brand" class="brand">
 					<?php tm_header_logo(); ?>
 				</div>
 
-				<div class="site-addon">
+				<div id="addon" class="addon">
 					<?php tm_header_addon(); ?>
 				</div>
 			</div>
@@ -70,13 +70,13 @@
 					</a>
 				</div>
 
-				<nav id="primary-nav" class="site-navigation horizontal-navigation group" role="navigation">
+				<nav id="main-navigation" class="main-navigation horizontal-navigation group" role="navigation">
 					<?php
 						if ( has_nav_menu( 'primary' ) ) {
 							wp_nav_menu( array( 
 								'theme_location'  => 'primary',
 								'container'       => 'div',
-								'container_class' => 'navigation-container',
+								'container_class' => 'navigation-inner',
 								'container_id'    => '',
 								'menu_class'      => 'navigation-menu sf-menu group',
 								'menu_id'         => '',
@@ -84,7 +84,7 @@
 								'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
 							);
 						} else {
-							echo tm_get_local( 'menu_nav_off' );
+							echo tm_get_local( 'menu_message' );
 						}
 					?>
 				</nav><!-- #primary-nav (end) -->
@@ -94,8 +94,8 @@
 	</header><!-- #header (end) -->
 	
 	<?php if ( is_front_page() ) : ?>
-		<div id="featured" class="featured-container">
-			<div class="site-featured">
+		<div id="featured">
+			<div class="featured-inner">
 				<?php
 					if ( function_exists( 'tm_slideshows_slides' ) ) {
 						echo tm_slideshows_slides( 'homepage' );

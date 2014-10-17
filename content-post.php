@@ -13,7 +13,7 @@
 
 	<div class="entry-container group">
 
-		<?php tm_post_thumbnails(); ?>
+		<?php tm_post_thumbnails( tm_get_option( 'posts_thumb' ) ); ?>
 
 		<div class="entry-summary">
 			<?php tm_excerpt_limit(); ?>
