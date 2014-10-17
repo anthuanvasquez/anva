@@ -7,6 +7,7 @@ function tm_get_text_locals() {
 	
 	$domain = TM_THEME_DOMAIN;
 	$localize = array(
+		'menu'										=> __( 'Menú', $domain ),
 		'menu_primary' 						=> __( 'Menú Primario', $domain ),
 		'menu_secondary' 					=> __( 'Menú Secundario', $domain ),
 		'menu_message'						=> __( 'Por favor configura el menú en Administración _> Apariencia _> Menús', $domain ),
@@ -21,9 +22,9 @@ function tm_get_text_locals() {
 		'comment_next'						=> __( 'Comentarios Siguientes &rarr;', $domain ),
 		'no_comment'							=> __( 'Comentarios cerrado.', $domain ),
 		'search_for' 							=> __( 'Buscar para:', $domain ),
+		'search_result'						=> __( 'Resultados de búsqueda para:', $domain ),
 		'search'		 							=> __( 'Buscar', $domain ),
 		'video'										=> __( 'Video', $domain),
-		'menu'										=> __( 'Menú;', $domain ),
 		'page'										=> __( 'Página', $domain ),
 		'page_options'						=> __( 'Opciones de Pagina', $domain),
 		'page_title'							=> __( 'Título de Página:' ),

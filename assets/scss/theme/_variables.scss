@@ -1,7 +1,6 @@
-// Responsive
+// Boxed
 // ------------------------------------------------
-$responsive: true !default;
-$boxed: true !default;
+$boxed: false !default;
 
 // Cross Browser Support Settings
 // ------------------------------------------------
@@ -14,7 +13,7 @@ $browser-minimum-versions: (
 	'firefox': '25',
 	'ie':      '8',
 	'safari':  '5',
-	'opera':   null
+	'opera':   '12'
 ) !global;
 
 // Compass Vertical Rhythm Settings
@@ -137,6 +136,6 @@ $breakpoint-base-font-size: $base-font-size;
 
 // ------------------------------------------------
 // Others
-$border-radius: 6px;
-$max-width: 1000px;
+$border-radius: 4px;
+$max-width: $container-width;
 $padding: 20px;

@@ -36,11 +36,12 @@
 	width: $width;
 }
 
-@mixin boxed-layout( $max-width ) {
+@mixin boxed-layout( $width ) {
 	@if $boxed {
-		#container {
-			max-width: $max-width;
-		}
+		margin: 0 auto;
+		max-width: $width;
+	} @else {
+		max-width: 100%;
 	}
 }
 

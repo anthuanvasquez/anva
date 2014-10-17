@@ -9,9 +9,8 @@
 // Container
 #container {
 	background: $container-background-color;
-	margin: 0 auto;
-	max-width: $max-width;
 	position: relative;
+	@include boxed-layout( $max-width );
 }
 
 // Group content

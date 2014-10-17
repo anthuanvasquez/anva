@@ -49,7 +49,7 @@ $off-canvas: 21em;
 
 nav.main-navigation {
 	background-color: $color-2;
-	border-radius: 3px;
+	border-radius: $border-radius;
 	position: relative;
 }
 
@@ -86,7 +86,7 @@ ul.navigation-menu {
 
 		&:first-child {
 			> a {
-				border-radius: 4px 0 0 4px;
+				border-radius: $border-radius 0 0 $border-radius;
 			}
 		}
 
