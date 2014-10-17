@@ -4,7 +4,7 @@
 function tm_add_page_options() {
 	add_meta_box(
 		'tm_page_options_metaboxes',
-		__('Opciones de Pagina', TM_THEME_DOMAIN),
+		tm_get_local( 'page_options' ),
 		'tm_page_options_metaboxes',
 		'page',
 		'side',
@@ -24,24 +24,30 @@ function tm_page_options_metaboxes() {
 
 	// Page title
 	$output .= '<div id="page_title">';
-	$output .= '<p>Titulo de Pagina:</p>';
+	$output .= '<p>'.tm_get_local( 'page_title' ).'</p>';
 	$output .= '<select name="_hide_title" class="widefat" />';
-	$titles = array( 'Mostrar Titulo' => 'show', 'Ocultar Titulo' => 'hide' );
+	
+	$titles = array(
+		tm_get_local( 'paget_title_hide' ) => 'show',
+		tm_get_local( 'paget_title_show' ) => 'hide'
+	);
+	
 	foreach ( $titles as $key => $value ) {
 		$output .= '<option '. selected( $hide_titlte, $value, false ).' value="'.$value.'">'.$key.'</option>';
 	}
+
 	$output .= '</select>';
 	$output .= '</div>';
 
 	// Post Grid
 	$output .= '<div id="post_grid" style="display:none">';
-	$output .= '<p>Post Grid:</p>';
+	$output .= '<p>'.tm_get_local( 'post_grid' ).'</p>';
 	$output .= '<select name="_grid_columns" class="widefat" />';
 	
 	$columns = array(
-		'2 Columns' => 2,
-		'3 Columns' => 3,
-		'4 Columns' => 4
+		tm_get_local( 'grid_2_columns' ) => 2,
+		tm_get_local( 'grid_3_columns' ) => 3,
+		tm_get_local( 'grid_4_columns' ) => 4
 	);
 
 	foreach ( $columns as $key => $value ) {

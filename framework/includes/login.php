@@ -47,8 +47,8 @@ function tm_login_footer() {
 	$author = '3mentes';
 
 	$html .= '<div id="login" style="padding:10px 0 0;">';
-	$html .= '<p id="credit">Copyright &copy; '. date('Y') .' <a href="'. esc_url( $link ).'">'. $author .'</a>. '. esc_html__( 'Todos los Derechos Reservados.', 'tm' );
+	$html .= '<p id="credit">Copyright &copy; '. date('Y') .' <a href="'. esc_url( $link ).'">'. $author .'</a>. '. tm_get_local( 'footer_copyright' );
 	$html .= '</p></div>';
-
+	
 	echo $html;
 }

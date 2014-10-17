@@ -1,9 +1,8 @@
 <?php
 
 function tm_ie_browser_message() {
-	$string = __( 'Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="%s">mejorar tu experiencia</a>.', TM_THEME_DOMAIN );
+	$string = tm_get_local( 'browsehappy' );
 	$url = esc_url( 'http://browsehappy.com/' );
-
 	?>
 	<!--[if lt IE 9]><p class="browsehappy"><?php echo sprintf( $string, $url ); ?></p><![endif]-->
 	<?php
@@ -28,9 +27,7 @@ function tm_header_logo_default() {
 }
 
 function tm_social_icons() {
-
 	$class = apply_filters( 'tm_social_media_style', 'color' );
-	
 	echo '<ul class="social-media social-style-'.$class.'">'. tm_social_media() .'</ul>';
 }
 
@@ -49,8 +46,7 @@ function tm_custom_css() {
 }
 
 function tm_footer_text_default() {
-	?><p>
-	<?php
+	echo '<p>';
 	$string = '<strong>%s</strong> &copy; %d %s %s %s';
 	$name = get_bloginfo( 'name' );
 	$date = date( 'Y' );
@@ -59,8 +55,7 @@ function tm_footer_text_default() {
 	$author = '<a href="'. esc_url( 'http://3mentes.com/') .'">3mentes.</a>';
 
 	echo sprintf( $string, $name, $date, $copyright, $text, $author );
-	?></p>
-	<?php
+	echo '</p>';
 }
 
 function tm_layout_before_default() {
@@ -71,7 +66,7 @@ function tm_layout_before_default() {
 
 function tm_layout_after_default() {
 	?>
-	</div>
+	</div><!-- #wrapper (end) -->
 	<?php
 }
 
@@ -81,7 +76,7 @@ function tm_breadcrumbs() {
 		if ( function_exists( 'yoast_breadcrumb' ) ) {
 			?>
 			<div id="breadcrumbs">
-				<div class="site-breadcrumbs">
+				<div class="breadcrumbs-inner inner">
 					<?php yoast_breadcrumb( '<p>', '</p>' ); ?>
 				</div>
 			</div><!-- #breadcrumbs (end) -->
@@ -92,14 +87,14 @@ function tm_breadcrumbs() {
 
 function tm_content_before_default() {
 	?>
-	<div id="content" class="content-container">
-		<div class="site-content">
+	<div id="content">
+		<div class="content-inner inner">
 	<?php
 }
 
 function tm_content_after_default() {
 	?>
-			</div><!-- .site-content (end) -->
+			</div><!-- .content-inner (end) -->
 	</div><!-- #content (end) -->
 	<?php
 }
@@ -143,16 +138,16 @@ function tm_navigation() {
 		// ---------------------------------------------------------
 		jQuery('#mobile-navigation').click( function(e) {
 			e.preventDefault();
-			jQuery('#primary-nav').slideToggle();
+			jQuery('#main-navigation').slideToggle();
 		});
 
 		// ---------------------------------------------------------
 		// Show main navigation if is hide
 		// ---------------------------------------------------------
 		jQuery(window).resize( function() {
-			var nav_display = jQuery('#primary-nav').css('display');
+			var nav_display = jQuery('#main-navigation').css('display');
 			if( nav_display === 'none' ) {
-				jQuery('#primary-nav').css('display', 'block');
+				jQuery('#main-navigation').css('display', 'block');
 			}
 		});
 	});

@@ -81,7 +81,7 @@ function tm_wp_title( $title, $sep ) {
 
 	// Add a page number if necessary:
 	if ( $paged >= 2 || $page >= 2 ) {
-		$title .= " $sep " . sprintf( __( tm_get_local( 'page' ) .' %s', '_s' ), max( $paged, $page ) );
+		$title .= " $sep " . sprintf( tm_get_local( 'page' ) .' %s', max( $paged, $page ) );
 	}
 
 	return $title;
@@ -119,8 +119,8 @@ function tm_get_post_query( $query_args = '' ) {
 			'orderby'    => 'date',
 			'order'      => 'desc',
 			'number'     => $number,
-			'page'       =>  $page,
-			'offset'     =>  $offset
+			'page'       => $page,
+			'offset'     => $offset
 		);
 	}
 
@@ -144,9 +144,9 @@ function tm_settings_menu_link() {
 		return;
 	
 	$wp_admin_bar->add_menu( array(
-		'id' 		=> 'theme_settings_link',
+		'id' 			=> 'theme_settings_link',
 		'parent' 	=> 'appearance',
-		'title' 	=> esc_html__( 'Opciones', TM_THEME_DOMAIN ),
+		'title' 	=> tm_get_local( 'options' ),
 		'href' 		=> home_url() . '/wp-admin/themes.php?page=theme-settings'
 	));
 

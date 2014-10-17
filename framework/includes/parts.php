@@ -9,46 +9,46 @@ function tm_archive_title() {
 		single_tag_title();
 
 	elseif ( is_author() ) :
-		printf( __( 'Autor: %s', TM_THEME_DOMAIN ), '<span class="vcard">' . get_the_author() . '</span>' );
+		printf( tm_get_local( 'author' ) . ' %s', '<span class="vcard">' . get_the_author() . '</span>' );
 
 	elseif ( is_day() ) :
-		printf( __( 'Día: %s', TM_THEME_DOMAIN ), '<span>' . get_the_date() . '</span>' );
+		printf( tm_get_local( 'day' ) . ' %s', '<span>' . get_the_date() . '</span>' );
 
 	elseif ( is_month() ) :
-		printf( __( 'Mes: %s', TM_THEME_DOMAIN ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', TM_THEME_DOMAIN ) ) . '</span>' );
+		printf( tm_get_local( 'month' ) . ' %s', '<span>' . get_the_date( 'F Y' ) . '</span>' );
 
 	elseif ( is_year() ) :
-		printf( __( 'Año: %s', TM_THEME_DOMAIN ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', TM_THEME_DOMAIN ) ) . '</span>' );
+		printf( tm_get_local( 'year' ) . ' %s', '<span>' . get_the_date( 'Y' ) . '</span>' );
 
 	elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
-		_e( 'Asides', TM_THEME_DOMAIN );
+		echo tm_get_local( 'asides' );
 
 	elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) :
-		_e( 'Galerías', TM_THEME_DOMAIN);
+		echo tm_get_local( 'galleries' );
 
 	elseif ( is_tax( 'post_format', 'post-format-image' ) ) :
-		_e( 'Imágenes', TM_THEME_DOMAIN);
+		echo tm_get_local( 'images' );
 
 	elseif ( is_tax( 'post_format', 'post-format-video' ) ) :
-		_e( 'Vídeos', TM_THEME_DOMAIN );
+		echo tm_get_local( 'videos' );
 
 	elseif ( is_tax( 'post_format', 'post-format-quote' ) ) :
-		_e( 'Citas', TM_THEME_DOMAIN );
+		echo tm_get_local( 'quotes' );
 
 	elseif ( is_tax( 'post_format', 'post-format-link' ) ) :
-		_e( 'Enlaces', TM_THEME_DOMAIN );
+		echo tm_get_local( 'links' );
 
 	elseif ( is_tax( 'post_format', 'post-format-status' ) ) :
-		_e( 'Estados', TM_THEME_DOMAIN );
+		echo tm_get_local( 'status' );
 
 	elseif ( is_tax( 'post_format', 'post-format-audio' ) ) :
-		_e( 'Audios', TM_THEME_DOMAIN );
+		echo tm_get_local( 'audios' );
 
 	elseif ( is_tax( 'post_format', 'post-format-chat' ) ) :
-		_e( 'Chats', TM_THEME_DOMAIN );
+		echo tm_get_local( 'chats' );
 
 	else :
-		_e( 'Archivos', TM_THEME_DOMAIN );
+		echo tm_get_local( 'archives' );
 
 	endif;
 
@@ -63,15 +63,14 @@ function tm_post_nav() {
 		return;
 	}
 	?>
-	<nav class="navigation post-navigation" role="navigation">
-		<h1 class="screen-reader-text"><?php _e( 'Navegaci&oacute;n', 'tm' ); ?></h1>
-		<div class="nav-links">
+	<nav class="post-navigation" role="navigation">
+		<div class="navigation-links">
 			<?php
-				previous_post_link( '<div class="nav-previous">%link</div>', _x( '<span class="meta-nav">&larr;</span> %title', 'Anterior', 'tm' ) );
-				next_post_link( '<div class="nav-next">%link</div>', _x( '%title <span class="meta-nav">&rarr;</span>', 'Siguiente', 'tm' ) );
+				previous_post_link( '<div class="nav-previous">%link</div>', tm_get_local( 'prev' ) );
+				next_post_link( '<div class="nav-next">%link</div>', tm_get_local( 'next' ) );
 			?>
-		</div><!-- .nav-links -->
-	</nav><!-- .navigation -->
+		</div><!-- .nav-links (end) -->
+	</nav><!-- .post-navigation (end) -->
 	<?php
 }
 
@@ -88,7 +87,7 @@ function tm_posted_on() {
 		esc_html( get_the_modified_date() )
 	);
 
-	printf( __( '<span class="posted-on">Publicado en %1$s</span><span class="byline"> por %2$s</span>', TM_THEME_DOMAIN ),
+	printf( '<span class="posted-on">'.tm_get_local( 'posted_on' ).' %1$s</span><span class="byline"> '.tm_get_local('by').' %2$s</span>',
 		sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
 			esc_url( get_permalink() ),
 			$time_string
@@ -100,14 +99,15 @@ function tm_posted_on() {
 	);
 }
 
-function tm_post_thumbnails() {
+function tm_post_thumbnails( $thumb ) {
+	
 	global $post;
-	$posts_thumb = tm_get_option( 'posts_thumb' );	
+
 	$output = '';
 	$size = 'thumbnail_blog_large';
 	$classes = 'large-thumbnail';
 
-	switch ( $posts_thumb ) {
+	switch ( $thumb ) {
 		case 0:				
 			$classes = 'medium-thumbnail';
 			$size = 'thumbnail_blog_medium';
@@ -119,17 +119,18 @@ function tm_post_thumbnails() {
 			break;
 
 		case 2:
-				$output = '';
+			$output = '';
 			break;
 	}
 
-	if ( has_post_thumbnail() ) {
+	if ( $thumb != 2 && has_post_thumbnail() ) {
 		$output .= '<div class="entry-thumbnail '.$classes.'">';
 		$output .= '<a href="'.get_permalink().'">'.get_the_post_thumbnail( $post->ID, $size ).'</a>';
 		$output .= '</div>';
 	}
 
 	echo $output;
+
 }
 
 function tm_post_grid_thumbnails( $thumbnail_size ) {
@@ -158,47 +159,47 @@ function tm_social_media() {
 	$dribbble 	= tm_get_option('social_dribbble');
 	$rss 				= tm_get_option('social_rss');
 
-	if( ! empty( $facebook ) ) {
+	if ( ! empty( $facebook ) ) {
 		$html .= '<li><a href="'. esc_url( $facebook ) .'" class="social social-facebook"><span class="screen-reader-text">Facebook</span></a></li>';
 	}
 
-	if( ! empty( $twitter ) ) {
+	if ( ! empty( $twitter ) ) {
 		$html .= '<li><a href="'. esc_url( $twitter ) .'" class="social social-twitter"><span class="screen-reader-text">Twitter</span></a></li>';
 	}
 
-	if( ! empty( $instagram ) ) {
+	if ( ! empty( $instagram ) ) {
 		$html .= '<li><a href="'. esc_url( $instagram ) .'" class="social social-instagram"><span class="screen-reader-text">Instagram</span></a></li>';
 	}
 
-	if( ! empty( $gplus ) ) {
+	if ( ! empty( $gplus ) ) {
 		$html .= '<li><a href="'. esc_url( $gplus ) .'" class="social social-gplus"><span class="screen-reader-text">Google+</span></a></li>';
 	}
 
-	if( ! empty( $youtube ) ) {
+	if ( ! empty( $youtube ) ) {
 		$html .= '<li><a href="'. esc_url( $youtube ) .'" class="social social-youtube"><span class="screen-reader-text">Youtube</span></a></li>';
 	}
 
-	if( ! empty( $linkedin ) ) {
+	if ( ! empty( $linkedin ) ) {
 		$html .= '<li><a href="'. esc_url( $linkedin ) .'" class="social social-linkedin"><span class="screen-reader-text">LinkedIn</span></a></li>';
 	}
 
-	if( ! empty( $vimeo ) ) {
+	if ( ! empty( $vimeo ) ) {
 		$html .= '<li><a href="'. esc_url( $vimeo ) .'" class="social social-vimeo"><span class="screen-reader-text">Vimeo</span></a></li>';
 	}
 
-	if( ! empty( $pinterest ) ) {
+	if ( ! empty( $pinterest ) ) {
 		$html .= '<li><a href="'. esc_url( $pinterest ) .'" class="social social-pinterest"><span class="screen-reader-text">Pinterest</span></a></li>';
 	}
 
-	if( ! empty( $digg ) ) {
+	if ( ! empty( $digg ) ) {
 		$html .= '<li><a href="'. esc_url( $digg ) .'" class="social social-digg"><span class="screen-reader-text">Digg</span></a></li>';
 	}
 
-	if( ! empty( $dribbble ) ) {
+	if ( ! empty( $dribbble ) ) {
 		$html .= '<li><a href="'. esc_url( $dribbble ) .'" class="social social-dribbble"><span class="screen-reader-text">Dribbble</span></a></li>';
 	}
 
-	if( ! empty( $rss ) ) {
+	if ( ! empty( $rss ) ) {
 		$html .= '<li><a href="'. esc_url( $rss ) .'" class="social social-rss"><span class="screen-reader-text">RSS</span></a></li>';
 	}
 
@@ -271,6 +272,17 @@ function tm_num_pagination( $pages = '', $range = 2 ) {
 	}
 }
 
+function tm_comment_pagination() {
+	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+	?>
+	<nav id="comment-nav" class="comment-navigation" role="navigation">
+		<div class="nav-previous"><?php previous_comments_link( tm_get_local( 'comment_prev' ) ); ?></div>
+		<div class="nav-next"><?php next_comments_link( tm_get_local( 'comment_next' ) ); ?></div>
+	</nav><!-- #comment-nav-above (end) -->
+	<?php
+	endif;
+}
+
 function tm_contact_form() {
 	
 	global $email_sended_message;
@@ -288,7 +300,7 @@ function tm_contact_form() {
 			<div id="email_message" class="alert alert-block"><?php echo $email_sended_message; ?></div>
 		<?php endif; ?>
 
-		<form id="contactform" class="contact-form" method="post" action="<?php the_permalink(); ?>#contactform">
+		<form id="contact_form" class="contact-form" method="post" action="<?php the_permalink(); ?>#contactform">
 
 			<div class="form-name">
 				<label for="cname" class="control-label"><?php echo tm_get_local( 'name' ); ?>:</label>
@@ -305,7 +317,7 @@ function tm_contact_form() {
 				<input id="subject" type="text" placeholder="<?php echo tm_get_local( 'subject' ); ?>" name="csubject" class="full-width requiredField" value="<?php if ( isset( $_POST['csubject'] ) ) echo esc_attr( $_POST['csubject'] ); ?>">
 			</div>
 			
-			<div class="form-comments">
+			<div class="form-message">
 				<label for="cmessage" class="control-label"><?php echo tm_get_local( 'message' ); ?>:</label>
 				<textarea id="message" name="cmessage" class="full-width" placeholder="<?php echo tm_get_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $_POST['cmessage'] ); ?></textarea>
 			</div>
@@ -330,8 +342,8 @@ function tm_contact_form() {
 			jQuery("#email_message").fadeOut("slow");
 		}, 3000);
 
-		jQuery('#contactform input[type="text"]').attr('autocomplete', 'off');
-		jQuery('#contactform').validate({
+		jQuery('#contact_form input[type="text"]').attr('autocomplete', 'off');
+		jQuery('#contact_form').validate({
 			rules: {
 				cname: "required",
 				csubject: "required",

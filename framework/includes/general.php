@@ -14,8 +14,8 @@ function tm_theme_texdomain() {
 function tm_register_menus() {
 	/* Register Menus */
 	register_nav_menus( array(
-		'primary' 	=> __( 'Menu Primario', TM_THEME_DOMAIN ),
-		'secondary' => __( 'Menu Secundario', TM_THEME_DOMAIN ),
+		'primary' 	=> tm_get_local( 'menu_primary' ),
+		'secondary' => tm_get_local( 'menu_secondary' )
 	) );
 }
 
@@ -142,7 +142,7 @@ function tm_posts_columns_head( $columns ) {
 // SHOW THE FEATURED IMAGE
 function tm_posts_columns_content($column_name, $post_ID) {
 	if ( $column_name == 'featured_image' ) {
-		$post_featured_image = tm_get_featured_image( $post_ID, 'thumbnail' );
+		$post_featured_image = tm_get_featured_image( $post_ID, array(90, 90) );
 		if ( $post_featured_image ) {
 			echo '<img src="' . $post_featured_image . '" />';
 		}
