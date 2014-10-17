@@ -47,7 +47,7 @@ function tm_custom_css() {
 
 function tm_footer_text_default() {
 	echo '<p>';
-	$string = '<strong>%s</strong> &copy; %d %s %s %s';
+	$string = '<strong>%s</strong> &copy; %d %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i> <span class="screen-reader-text">Go Top</span></a>';
 	$name = get_bloginfo( 'name' );
 	$date = date( 'Y' );
 	$copyright = tm_get_local( 'footer_copyright' );
