@@ -1,4 +1,6 @@
-/* Animations: duration, delay, count */
+/*
+ * Animations: duration, delay, count
+ */
 .animate-1 {
 	@include animation-delay(1, 0.4, 1);
 }

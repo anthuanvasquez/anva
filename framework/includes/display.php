@@ -13,12 +13,11 @@ function tm_header_logo_default() {
 	<a id="logo" class="logo" href="<?php echo home_url(); ?>">
 	<?php
 		$logo = tm_get_option('logo');
-		if( ! empty( $logo ) ) :
+		if ( ! empty( $logo ) ) :
 			$logo_image = '<img src="'. get_template_directory_uri() .'/assets/images/logo.png">';
 		else :
 			$logo_image = '<img src="'.$logo.'">';
 		endif;
-		
 		echo $logo_image;
 	?>
 	<span class="screen-reader-text"><?php bloginfo( 'name' ); ?></span>
@@ -53,7 +52,6 @@ function tm_footer_text_default() {
 	$copyright = tm_get_local( 'footer_copyright' );
 	$text = tm_get_local( 'footer_text' );
 	$author = '<a href="'. esc_url( 'http://3mentes.com/') .'">3mentes.</a>';
-
 	echo sprintf( $string, $name, $date, $copyright, $text, $author );
 	echo '</p>';
 }

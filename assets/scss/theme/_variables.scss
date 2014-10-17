@@ -1,6 +1,6 @@
 // Boxed
 // ------------------------------------------------
-$boxed: false !default;
+$boxed: true !default;
 
 // Cross Browser Support Settings
 // ------------------------------------------------
@@ -96,8 +96,8 @@ $button-padding-box: 6px 12px;
 $button-box-shadow: none;
 $button-text-shadow: none;
 
-// ------------------------------------------------
 // Susy 2 Grid Settings
+// ------------------------------------------------
 $container-style: magic;
 $container-width: 1000px;
 $total-columns: 12;
@@ -117,8 +117,8 @@ $susy: (
 	)
 );
 
-// ------------------------------------------------
 // Breakpoints Settings
+// ------------------------------------------------
 $phone-only: 320px;
 $phone-and-below: 480px;
 $tablet-only: 767px;
@@ -134,8 +134,8 @@ $breakpoint-no-queries: false;
 $breakpoint-no-query-fallbacks: true;
 $breakpoint-base-font-size: $base-font-size;
 
-// ------------------------------------------------
 // Others
+// ------------------------------------------------
 $border-radius: 4px;
 $max-width: $container-width;
 $padding: 20px;
