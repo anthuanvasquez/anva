@@ -1,7 +1,7 @@
 	<?php tm_content_after(); ?>
 	
-	<footer id="footer" role="contentinfo">
-		<div class="footer-inner">
+	<footer id="footer">
+		<div class="footer-inner inner">
 			
 			<div class="footer-content">
 				<div class="footer-widget">

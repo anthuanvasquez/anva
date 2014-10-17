@@ -2,9 +2,9 @@
 
 <div class="grid-columns">
 	<div class="content-area">
-		<div class="site-main" role="main">
+		<div class="main" role="main">
 			<?php get_template_part( 'content', 'error' ); ?>
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 </div><!-- .grid-columns (end) -->
 

@@ -13,7 +13,7 @@ $size = 'thumbnail_grid_'. $grid_columns;
 
 <div class="grid-columns">
 	<div class="full-width">
-		<div class="site-main <?php echo $classes; ?> group" role="main">
+		<div class="main <?php echo $classes; ?> group" role="main">
 			<?php
 
 				$the_query = tm_get_post_query();
@@ -58,7 +58,7 @@ $size = 'thumbnail_grid_'. $grid_columns;
 				endif;
 			?>	
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
 </div><!-- .grid-columns (end) -->

@@ -20,9 +20,8 @@ get_header();
 
 			<?php endwhile; ?>
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
-	
 </div><!-- .grid-columns (end) -->
 
 <?php get_footer(); ?>

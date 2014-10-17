@@ -8,14 +8,14 @@
 
 <div class="grid-columns">
 	<div class="content-area">
-		<div class="site-main" role="main">
+		<div class="main" role="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php get_template_part( 'content', 'page' ); ?>
 			<?php echo tm_contact_form(); ?>
 		<?php endwhile; ?>
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php get_sidebar(); ?>

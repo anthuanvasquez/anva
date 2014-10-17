@@ -26,11 +26,10 @@ Framework usado en 3 mentes para construir temas de WordPress de una forma rápi
   * Blog left Sidebar
   * Page Left Sidebar
   * Page Full Width
-  * Contact US Right Sidebar
-  * Contact US Full Width
+  * Contact Us
   * Homepage Full Width
 * Iconos para Social Media
-* Responsive Resolutions (980, 768, 568, 480, 320)
+* Responsive Resolutions (980, 768, 480, 320)
 
 ### TODO
 * Integrar con [Bootstrap 3](http://getbootstrap.com/)

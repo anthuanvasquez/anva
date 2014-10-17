@@ -8,7 +8,7 @@
 
 <div class="grid-columns">
 	<div class="full-width">
-		<div class="site-main" role="main">
+		<div class="main" role="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
@@ -25,7 +25,7 @@
 
 		<?php endwhile; ?>
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 </div><!-- .grid-columns (end) -->
 

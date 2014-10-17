@@ -11,7 +11,7 @@
 	<?php get_sidebar( 'left' ); ?>
 
 	<div class="content-area right">
-		<div class="site-main" role="main">
+		<div class="main" role="main">
 			<?php
 				
 				$the_query = tm_get_post_query();
@@ -27,7 +27,7 @@
 				endif;
 			?>	
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
 </div><!-- .grid-columns (end) -->

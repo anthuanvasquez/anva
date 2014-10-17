@@ -2,7 +2,7 @@
 
 <div class="grid-columns">
 	<div class="content-area">
-		<div class="site-main" role="main">
+		<div class="main" role="main">
 
 		<?php
 			if ( have_posts() ) :
@@ -17,7 +17,7 @@
 			endif;
 		?>
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php get_sidebar(); ?>

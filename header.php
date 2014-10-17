@@ -23,13 +23,13 @@
 <?php tm_layout_before(); ?>
 
 <div id="off-canvas" class="off-canvas-navigation">	
-	<div  class="off-canva-left">
+	<div  class="off-canvas-inner off-canva-left">
 	<?php
-		if( has_nav_menu( 'primary' ) ) {
+		if ( has_nav_menu( 'primary' ) ) {
 			wp_nav_menu( array( 
 				'theme_location'  => 'primary',
 				'container'       => 'div',
-				'container_class' => 'navigation-container',
+				'container_class' => 'navigation-inner',
 				'container_id'    => '',
 				'menu_class'      => 'navigation-menu',
 				'menu_id'         => '',
@@ -38,8 +38,8 @@
 			);
 		}
 	?>
-	</div>
-</div>
+	</div><!-- .off-canvas-inner (end) -->
+</div><!-- #off-canvas (end) -->
 				
 <div id="container">
 	
@@ -59,7 +59,7 @@
 				<div id="addon" class="addon">
 					<?php tm_header_addon(); ?>
 				</div>
-			</div>
+			</div><!-- .header-top (end) -->
 			
 			<div class="header-bottom">
 				
@@ -87,21 +87,21 @@
 							echo tm_get_local( 'menu_message' );
 						}
 					?>
-				</nav><!-- #primary-nav (end) -->
+				</nav><!-- #main-navigation (end) -->
 				
-			</div>
-		</div><!-- .site-header (end) -->
+			</div><!-- .header-bottom (end) -->
+		</div><!-- .header-inner (end) -->
 	</header><!-- #header (end) -->
 	
 	<?php if ( is_front_page() ) : ?>
 		<div id="featured">
-			<div class="featured-inner">
+			<div class="featured-inner inner">
 				<?php
 					if ( function_exists( 'tm_slideshows_slides' ) ) {
 						echo tm_slideshows_slides( 'homepage' );
 					}
 				?>
-			</div><!-- .site-featured (end) -->
+			</div><!-- .featured-inner (end) -->
 		</div><!-- #featured (end) -->
 	<?php endif; ?>
 

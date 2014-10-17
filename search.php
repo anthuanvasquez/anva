@@ -2,14 +2,14 @@
 
 <div class="grid-columns">
 	<div class="content-area">
-		<div class="site-main" role="main">
+		<div class="main" role="main">
 
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
 					<h1 class="page-title">
 						<?php
-							$string = __( 'Resultados de busqueda para: %s', TM_THEME_DOMAIN );
+							$string = tm_get_local( 'search_for_post' ) . ' %s';
 							$query =  get_search_query();
 							echo sprintf( $string, $query );
 						?>
@@ -29,7 +29,7 @@
 
 			<?php endif; ?>
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php get_sidebar(); ?>

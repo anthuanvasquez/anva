@@ -25,7 +25,7 @@
 
 		<?php endwhile; ?>
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php get_sidebar(); ?>

@@ -11,7 +11,7 @@
 	<?php get_sidebar( 'left' ); ?>
 	
 	<div class="content-area right">
-		<div class="site-main" role="main">
+		<div class="main" role="main">
 
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php get_template_part( 'content', 'page' ); ?>
@@ -23,7 +23,7 @@
 
 			<?php endwhile; ?>
 
-		</div><!-- .site-main (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->	
 </div><!-- .grid-columns (end) -->
 
