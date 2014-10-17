@@ -83,6 +83,19 @@ $options = array(
 	),
 
 	array(
+		"name" 		=> "Slider Play",  
+		"desc" 		=> __("Seleccione si desea ocultar el botón de play y pausa.", TM_THEME_DOMAIN),  
+		"id" 			=> "slider_play",
+		"type" 		=> "radio",
+		"std" 		=> '1',
+		"options" => array(
+			'1' => "Mostrar play/pausa.",
+			'0' => "Ocultar play/pausa."
+		),
+		"tab"			=> "layout"
+	),
+
+	array(
 		"type" 		=> "close",
 		"tab"			=> "layout"
 	),
@@ -90,7 +103,6 @@ $options = array(
 	array(
 		"type" 		=> "open",
 		"title"		=> "Social Media",
-		"msg"			=> __("These settings will only apply to vewing single posts. This means that any settings you set here will not effect any posts that appear in a post list or post grid.", TM_THEME_DOMAIN),
 		"tab"			=> "layout"
 	),
 
