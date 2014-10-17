@@ -15,7 +15,7 @@
 }
 
 // Group content
-.site-content {
+.content-inner {
 	margin: $padding 0 0;
 	position: relative;
 }
@@ -38,12 +38,12 @@
 }
 
 // Group main content
-.site-main {
+.main {
 	margin: 0 0 $padding*2;
 }
 
 // Featured slider
-.featured-container {
+#featured {
 	margin: 15px 0 $padding;
 }
 

@@ -41,16 +41,16 @@
 	}
 	
 	/* Header */
-	.site-branding {
+	div.brand {
 		float: none;
 		text-align: center;
 		
-		.logo {
+		a.logo {
 			margin: 0 auto;
 		}
 	}
 
-	.site-addon {
+	div.addon {
 		position: static;
 		right: 0;
 		top: 0;
@@ -61,7 +61,7 @@
 	/*
 	 * Navigation
 	 */
-	nav.site-navigation {
+	nav.main-navigation {
 		float: none;
 		text-align: center;
 	}
@@ -82,17 +82,19 @@
 		}
 	}
 
-	.flex-direction-nav .flex-prev {
-		display: none;
-		opacity: 0;
-		left: 10px;
+	.flex-direction-nav {
+		.flex-prev {
+			display: none;
+			opacity: 0;
+			left: 10px;
+		}
+		.flex-next {
+			display: none;
+			opacity: 0;
+			right: 10px;
+		}
 	}
 
-	.flex-direction-nav .flex-next {
-		display: none;
-		opacity: 0;
-		right: 10px;
-	}
 
 }
 
@@ -129,22 +131,19 @@
 			@include reset-float( none, true );
 			order: 1;
 		}
-
 	}
 	
 	.widget-area {
-
 		&.left {
 			@include reset-float( none, true );
 			order: 2;
 		}
-
 	}
 
 	/*
 	 * Header
 	 */
-	.site-branding {
+	div.brand {
 		margin: $padding 0;
 	}
 	
@@ -152,22 +151,19 @@
 	 * Off Canvas
 	 */
 	.off_canvas_navigation {
-		
 		#off-canvas-button,
 		.off-canvas-navigation {
 			display: block;
 		}
 		
 		.mobile-navigation,
-		.site-navigation {
+		.main-navigation {
 			display: none;
 		}
-
 	}
 	
 	
 	.toggle_navigation {
-		
 		#off-canvas-button,
 		.off-canvas-navigation {
 			display: none;
@@ -177,10 +173,9 @@
 			display: block;
 		}
 
-		.site-navigation {
+		.main-navigation {
 			display: none;
 		}
-
 	}
 
 	/*
@@ -222,14 +217,14 @@
 	/*
 	 * Featured
 	 */
-	.featured-container {
+	#featured {
 		margin: 0 0 $padding;	
 	}
 
 	/*
 	 * Footer
 	 */
-	.site-footer {
+	.footer-inner {
 		margin: $padding auto 0;
 	}
 

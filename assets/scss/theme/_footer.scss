@@ -2,7 +2,7 @@
 	 Footer
 	 ========================================================================== */
 
-.site-footer {
+.footer-inner {
 	color: $footer-font-color;
 	font-size: $footer-font-size;
 	padding-bottom: $padding;
@@ -20,12 +20,14 @@
 
 }
 
-.footer-inner {
+.footer-content {
 	border-top: 1px solid #eee;
 	padding: $padding*2 0 $padding;
 }
 
-/* Footer Widget Area */
+/*
+ * Footer Widget Area
+ */
 .footer-widget {
 	margin: 0 auto;
 	
@@ -45,7 +47,7 @@
 /*
  * Footer Copyright
  */
-.footer-sub-content {
+.footer-copyright {
 	border-top: 1px solid #eee;
 	padding-top: $padding;
 	clear: both;
@@ -69,5 +71,4 @@
 	&:hover {
 		opacity: 1;
 	}
-	
 }

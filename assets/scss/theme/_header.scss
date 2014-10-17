@@ -5,7 +5,7 @@
 /*
  * Header
  */
-.site-header {
+.header-inner {
 	position: relative;
 }
 
@@ -20,10 +20,10 @@
 /*
  * Logo
  */
-.site-branding {
+div.brand {
 	float: left;
 	
-	.logo {
+	a.logo {
 		display: block;
 		max-width: $logo-size;
 	}
@@ -33,7 +33,7 @@
 /*
  * Addons
  */
-.site-addon {
+div.addon {
 	position: absolute;
 	right: $padding;
 	top: 15%;

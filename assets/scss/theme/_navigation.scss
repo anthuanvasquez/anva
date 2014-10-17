@@ -47,13 +47,13 @@ $off-canvas: 21em;
 	}
 }
 
-nav.site-navigation {
+nav.main-navigation {
 	background-color: $color-2;
 	border-radius: 3px;
 	position: relative;
 }
 
-div.navigation-container {
+div.navigation-inner {
 	display: block;
 	position: relative;
 	width: 100%;
@@ -257,5 +257,4 @@ a.toggle-button {
 	.breadcrumb_last {
 		color: #999;
 	}
-
 }

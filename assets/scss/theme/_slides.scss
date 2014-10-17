@@ -14,8 +14,8 @@
  * RESETS
  * ====================================================================================================================*/
 
-.flex-container,
-.flex-slider{
+.slider-wrapper,
+.slider-inner {
 	a:hover,
 	a:focus{
 		outline: none;
@@ -38,7 +38,7 @@
  * BASE STYLES
  * ====================================================================================================================*/
 
-.flexslider {
+.slider-inner {
 	margin: 0; 
 	padding: 0;
 
@@ -92,7 +92,7 @@
  * DEFAULT THEME
  * ====================================================================================================================*/
 
-.flexslider {
+.slider-inner {
 	margin: 0;
 	position: relative;
 	zoom: 1;	
@@ -161,7 +161,7 @@
 	}
 
 	// Hover states
-	.flexslider:hover & {
+	.slider-inner:hover & {
 		.flex-prev {
 			opacity: 0.7; 
 			left: -20px;
@@ -288,7 +288,7 @@
 	}
 }
 
-.flexslider li {
+.slider-inner li {
 	div.slide {
 		position: relative;
 		a {
