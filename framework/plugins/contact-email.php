@@ -77,4 +77,3 @@ function tm_contact_send_email() {
 		endif;
 	endif;
 }
-add_action( 'init', 'tm_contact_send_email' );

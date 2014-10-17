@@ -1,8 +1,12 @@
 <?php
 
-add_filter( 'foodlist_menu_template', 'tm_menu_template', 10, 2 );
-add_filter( 'foodlist_menu_section_template', 'tm_menu_section_template', 10, 2 );
-add_filter( 'foodlist_menu_item_template', 'tm_menu_item_template', 10, 2 );
+add_action( 'after_setup_theme', 'tm_foodlist_setup' );
+
+function tm_foodlist_setup() {
+	add_filter( 'foodlist_menu_template', 'tm_menu_template', 10, 2 );
+	add_filter( 'foodlist_menu_section_template', 'tm_menu_section_template', 10, 2 );
+	add_filter( 'foodlist_menu_item_template', 'tm_menu_item_template', 10, 2 );
+}
 
 function tm_menu_template( $tpl ) {
 	$tpl = '

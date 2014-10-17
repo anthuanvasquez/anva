@@ -10,7 +10,6 @@ function tm_slideshows_setup() {
 	add_action( 'manage_slideshows_posts_custom_column', 'tm_slideshows_add_columns' );
 	add_shortcode( 'slideshows', 'tm_slideshows_shortcode' );
 }
-add_action( 'after_setup_theme', 'tm_slideshows_setup' );
 
 function tm_slideshows() {
 	
@@ -18,6 +17,7 @@ function tm_slideshows() {
 	$slider_speed = tm_get_option( 'slider_speed' );
 	$slider_control = tm_get_option( 'slider_control' );
 	$slider_direction = tm_get_option( 'slider_direction' );
+	$slider_play = tm_get_option( 'slider_play' );
 
 	$args['homepage'] = array(
 		'size' 		=> 'thumbnail_slideshow',
@@ -27,7 +27,7 @@ function tm_slideshows() {
 			slideshowSpeed: '$slider_speed',
 			controlNav: ($slider_control == 1 ? true : false),
 			directionNav: ($slider_direction == 1 ? true : false),
-			pausePlay: true,
+			pausePlay: ($slider_play == 1 ? true : false),
 			pauseText: '',
 			playText: '',
 			prevText: '',
@@ -39,21 +39,19 @@ function tm_slideshows() {
 	");
 	
 	$args['gallery'] = array(
-		'size' => 'thumbnail_blog_large',
-		'hide_slide_data' => true
+		'size' => 'thumbnail_blog_large'
 	);
 	
 	$args['attachments'] = array(
-		'size' => 'thumbnail_blog_large',
-		'hide_slide_data' => true
+		'size' => 'thumbnail_blog_large'
 	);
 	
 	return apply_filters( 'tm_slideshows', $args );
 }
 
-// INIT
+// Create Post Type
 function tm_slideshows_setup_init() {
-	// 'SLIDES' POST TYPE
+
 	$labels = array(
 		'name' 									=> __( 'Slideshows', TM_THEME_DOMAIN ),
 		'singular_name' 				=> __( 'Slide', TM_THEME_DOMAIN ),
@@ -84,39 +82,31 @@ function tm_slideshows_setup_init() {
 		'has_archive'          	=> true,
 		'show_in_nav_menus'    	=> false
 	);
+
 	register_post_type( 'slideshows', $args );
 }
 
 
-// ADMIN: WIDGET ICONS
+// Admin Icon
 function tm_slideshows_admin_icon() {
 	echo '<style>#adminmenu #menu-posts-slideshows div.wp-menu-image:before { content: "\f233"; }</style>';	
 }
 
-// SHOW ROTATOR
+// Show Slides
 function tm_slideshows_slides( $slug ) {
 	
-	// GET ALL ROTATORS
+	// Get slides area
 	$rotators = tm_slideshows();
 	
-	// SET IMAGE SIZE: size
-	$image_size = isset($rotators[ $slug ]['size']) ? $rotators[ $slug ]['size'] : 'large';
+	// Set image size
+	$image_size = isset( $rotators[ $slug ]['size']) ? $rotators[ $slug ]['size'] : 'large';
 
-	// HIDE SLIDE TEXT: hide_slide_data
-	$hide_slide_data = isset($rotators[ $slug ]['hide_slide_data']) ? true : false;
-	
-	// HEADING HTML ELEMENT: heading_tag
-	$header_type = isset($rotators[ $slug ]['heading_tag']) ? $rotators[ $slug ]['heading_tag'] : "h2";
-	
-	// CAPTION HTML ELEMENT: hide_caption
-	$hide_slide_caption = isset($rotators[ $slug ]['hide_slide_caption']) ? true : false;
-
-	// ORDER BY PARAMS: orderby, order, limit
+	// Order: orderby, order, limit
 	$orderby = isset($rotators[ $slug ]['orderby']) ? $rotators[ $slug ]['orderby'] : "menu_order";
 	$order = isset($rotators[ $slug ]['order']) ? $rotators[ $slug ]['order'] : "ASC";
 	$limit = isset($rotators[ $slug ]['limit']) ? $rotators[ $slug ]['limit'] : "-1";
 
-	// DEFAULT QUERY PARAMS
+	// Default Query Args
 	$query_args = array(
 		'post_type' 			=> array( 'slideshows' ),
 		'order' 					=> $order,
@@ -126,7 +116,7 @@ function tm_slideshows_slides( $slug ) {
 		'posts_per_page' 	=> $limit
 	);
 	
-	// IF ATTACHMENTS WE NEED THE POST PARENT
+	// Attachments Query Args
 	if ( $slug == "attachments" ) {
 		$query_args['post_type'] = 'attachment';
 		$query_args['post_parent'] = get_the_ID();
@@ -136,39 +126,48 @@ function tm_slideshows_slides( $slug ) {
 		unset( $query_args['meta_key'] );
 	}
 	
+	// Output
 	$html = "";
 	
 	query_posts( apply_filters( 'tm_slideshows_query_post_args', $query_args) );
 
 	if ( have_posts() ) {
-		$html .= '<div id="flexslider_' . $slug . '_wrapper" class="flexslider-wrapper">';
-		$html .= '<div id="flexslider_' . $slug . '" class="flexslider_' . $slug . ' flexslider">';
+		$html .= '<div id="slider_wrapper_' . $slug . '" class="slider-wrapper slider-wrapper-' . $slug . '">';
+		$html .= '<div id="slider_inner_' . $slug . '" class="slider-inner slider-inner-' . $slug . '">';
 		$html .= '<ul class="slides">';
 		
-		while ( have_posts() ) { the_post();
+		while ( have_posts() ) {
+
+			the_post();
 		
 			$url 	= get_post_meta( get_the_ID(), "_slider_link_url", true );
 			$data = get_post_meta( get_the_ID(), "_slider_data", true );
 
 			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array('echo' => false) ) . '" >';
-			
-			
+						
 			$html .= '<li>';
-			$html .= '<div id="slide-' . get_the_ID() . '" class="slide">';
+			$html .= '<div id="slide-' . get_the_ID() . '" class="slide slide-'. get_the_ID() .' slide-type-image">';
 			
 			if ( $slug == "attachments" ) {
 				$html .= wp_get_attachment_image( get_the_ID(), $image_size );
-			}
-			else if ( has_post_thumbnail() ) {
-				if ( $url ) { $html .= $a_tag_opening; }
+			
+			} else if ( has_post_thumbnail() ) {
+				
+				if ( $url ) {
+					$html .= $a_tag_opening;
+				}
+
 				$html .= get_the_post_thumbnail( get_the_ID(), $image_size , array( 'class' => 'slide-thumbnail' ) );
-				if ( $url ) { $html .= '</a>'; }
+
+				if ( $url ) {
+					$html .= '</a>';
+				}
 			}
 			
 			switch ( $data ) {
 				case 'title':
 					$html .= '<div class="slide-data">';
-					$html .= '<' . $header_type . ' class="slide-title">';	
+					$html .= '<h2 class="slide-title">';	
 
 					if ( $url ) {
 						$html .= $a_tag_opening;
@@ -180,25 +179,21 @@ function tm_slideshows_slides( $slug ) {
 						$html .= '</a>';
 					}
 
-					$html .= '</' . $header_type . '>';
+					$html .= '</h2>';
 					$html .= '</div>';
 					break;
 
 				case 'desc':
 					$html .= '<div class="slide-data">';
-
-					if ( ! $hide_slide_caption) {
-						$html .= '<div class="slide-caption">';
-						$html .= get_the_excerpt();
-						$html .= '</div>';
-					}
-
+					$html .= '<div class="slide-caption">';
+					$html .= get_the_excerpt();
+					$html .= '</div>';
 					$html .= '</div>';
 					break;
 
 				case 'show':
 					$html .= '<div class="slide-data">';
-					$html .= '<' . $header_type . ' class="slide-title">';	
+					$html .= '<h2 class="slide-title">';	
 
 					if ( $url ) {
 						$html .= $a_tag_opening;
@@ -209,13 +204,11 @@ function tm_slideshows_slides( $slug ) {
 					if ( $url ) {
 						$html .= '</a>';
 					}
-					$html .= '</' . $header_type . '>';
 
-					if ( ! $hide_slide_caption) {
-						$html .= '<div class="slide-caption">';
-						$html .= get_the_excerpt();
-						$html .= '</div>';
-					}
+					$html .= '</h2>';
+					$html .= '<div class="slide-caption">';
+					$html .= get_the_excerpt();
+					$html .= '</div>';
 					$html .= '</div>';
 					break;
 			}
@@ -225,14 +218,14 @@ function tm_slideshows_slides( $slug ) {
 		}
 
 		$html .= '</ul>';
-		$html .= '</div><!-- #flexslider_' . $slug . ' (end) -->';
-		$html .= '</div><!-- #flexslider_' . $slug . '_wrapper (end) -->';
+		$html .= '</div><!-- #slider_inner_' . $slug . ' (end) -->';
+		$html .= '</div><!-- #slider_wrapper_' . $slug . ' (end) -->';
 		
-		// INIT THE ROTATOR
+		// Call Flexslider
 		$html .= '<script>';
 		$html .= 'jQuery(document).ready(function() {';
-		$html .= "jQuery('#flexslider_{$slug}').addClass('loading');";
-		$html .= "jQuery('#flexslider_{$slug}').flexslider({";
+		$html .= "jQuery('#slider_inner_{$slug}').addClass('loading');";
+		$html .= "jQuery('#slider_inner_{$slug}').flexslider({";
 			
 		if ( isset($rotators[ $slug ]['options']) && $rotators[ $slug ]['options'] != "" ) { 
 			$html .= $rotators[ $slug ]['options'];
@@ -251,14 +244,15 @@ function tm_slideshows_slides( $slug ) {
 	return $html;
 }
 
-// ADMIN META BOX
+// Admin metabox
 function tm_slideshows_create_slide_metaboxes() {
-		add_meta_box(
+	add_meta_box(
 		'tm_slideshows_metabox_1',
-		__( 'Opciones de Slide', 'flexslider-hg' ),
+		tm_get_local( 'slide_meta' ),
 		'tm_slideshows_metabox_1',
 		'slideshows',
-		'normal', 'default'
+		'normal',
+		'default'
 	);
 }
 
@@ -279,6 +273,9 @@ function tm_slideshows_metabox_1() {
 	
 	<p><strong><?php echo tm_get_local( 'slide_area' ); ?>:</strong></p>
 	<p>
+
+		<?php var_dump( $rotators ); ?>
+
 		<?php if ( $rotators ) : ?>
 			
 		<select name="slider_id" style="width:99%;">
@@ -296,10 +293,10 @@ function tm_slideshows_metabox_1() {
 
 	<?php
 		$select = array(
-			'title' 	=> __( 'Mostrar solo el título', TM_THEME_DOMAIN ),
-			'desc' 		=> __( 'Mostrar solo la descripción', TM_THEME_DOMAIN ),
-			'show' 		=> __( 'Mostrar título y descripción', TM_THEME_DOMAIN ),
-			'hide' 		=> __( 'Ocultar ambos', TM_THEME_DOMAIN )
+			'title' => tm_get_local('slide_title'),
+			'desc' 	=> tm_get_local('slide_desc'),
+			'show' 	=> tm_get_local('slide_show'),
+			'hide' 	=> tm_get_local('slide_hide')
 		);
 	?>
 	
