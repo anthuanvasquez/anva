@@ -72,6 +72,7 @@ add_filter( 'manage_posts_columns', 'tm_posts_columns_head');
 add_action( 'add_meta_boxes', 'tm_add_page_options' );
 add_action( 'save_post', 'tm_page_options_save_meta', 1, 2 );
 add_action( 'manage_posts_custom_column', 'tm_posts_columns_content', 10, 2);
+
 add_action( 'wp_head', 'tm_apple_touch_icon' );
 add_action( 'wp_head', 'tm_custom_css' );
 add_action( 'wp_head', 'tm_navigation' );
@@ -85,3 +86,7 @@ add_action( 'tm_layout_before', 'tm_ie_browser_message' );
 add_action( 'tm_content_before', 'tm_breadcrumbs' );
 add_action( 'tm_content_before', 'tm_content_before_default' );
 add_action( 'tm_content_after', 'tm_content_after_default' );
+
+// Plugin Hooks
+add_action( 'init', 'tm_contact_send_email' );
+add_action( 'after_setup_theme', 'tm_slideshows_setup' );
