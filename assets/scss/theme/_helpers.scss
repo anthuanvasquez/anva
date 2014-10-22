@@ -15,7 +15,7 @@
 	}
 }
 
-@if $lt-ie9 {
+@if browser('ie') == '7' {
 	/*
 	 * For IE 6/7 only
 	 * Include this rule to trigger hasLayout and contain floats.
@@ -80,8 +80,10 @@
 	background: transparent;
 	border: 0;
 	overflow: hidden;
-	/* IE 6/7 fallback */
-	*text-indent: -9999px;
+	@if browser('ie') == '7' {
+		/* IE 6/7 fallback */
+		*text-indent: -9999px;
+	}
 	&:before {
 		content: "";
 		display: block;

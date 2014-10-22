@@ -1,10 +1,5 @@
-// ---------------------------------------------------
-// Susy + Breakpoint
 @import "plugins/susy";
 @import "plugins/breakpoint";
-
-// ---------------------------------------------------
-// Theme
 @import "theme/functions";
 @import "theme/variables";
 @import "theme/mixins";
@@ -536,7 +531,7 @@ div.single_variation {
 /*
  * Large Devices 992px - Change to 750px
  */
-@include susy-breakpoint($desktop-and-below, $desktop-layout) {
+@include responsive-media(desktop-and-below, desktop-layout) {
 
 	.woocommerce,
 	.woocommerce-page {
@@ -604,7 +599,7 @@ div.single_variation {
 /*
  * Medium Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint($tablet-only, $tablet-layout) {
+@include responsive-media(tablet-only, tablet-layout) {
 	
 	.woocommerce,
 	.woocommerce-page {

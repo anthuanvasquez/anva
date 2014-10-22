@@ -26,7 +26,6 @@ $indent-amount: 40px !default;
 @import "compass/css3/box-sizing";
 @import "compass/typography/vertical_rhythm";
 
-
 // To work around a bug in compass-core 1.0.0-alpha.17, we override Compass'
 // support-legacy-browser() function with a version of our own.
 // @TODO Remove this monkey patch after it's fixed in Compass.

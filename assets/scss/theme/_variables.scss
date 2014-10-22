@@ -2,10 +2,6 @@
 // ------------------------------------------------
 $boxed: true !default;
 
-// Cross Browser Support Settings
-// ------------------------------------------------
-$lt-ie9: true !default;
-
 // Normalize Browser Support Settings
 // ------------------------------------------------
 $browser-minimum-versions: (
@@ -26,6 +22,20 @@ $round-to-nearest-half-line: true;
 
 // Colour Palette
 // ------------------------------------------------
+$palette: (
+	'0': 					#2acbf5,
+	'1': 					#cccccc,
+	'2': 					#02C1F3,
+	'3': 					#888888,
+	'4': 					#222222,
+	'6': 					#111111,
+	'base': 			#ffffff,
+	'contrainer': #f2f2f2,
+	'link': 			#3498db,
+	'link-hover': saturate(#3498db, 20%),
+	'loud': 			#000000
+);
+
 $color-0: #2ACBF5;
 $color-1: #cccccc;
 $color-2: #02C1F3;
@@ -119,15 +129,19 @@ $susy: (
 
 // Breakpoints Settings
 // ------------------------------------------------
-$phone-only: 320px;
-$phone-and-below: 480px;
-$tablet-only: 767px;
-$tablet-and-below: 750px;
-$desktop-and-below: 992px;
+$breakpoints: (
+	'phone-only': 320px,
+	'phone-and-below': 480px,
+	'tablet-only': 767px,
+	'tablet-and-below': 750px,
+	'desktop-and-below': 992px
+);
 
-$phone-layout: 4;
-$tablet-layout: 8;
-$desktop-layout: 12;
+$layout-columns: (
+	'phone-layout': 4,
+	'tablet-layout': 8,
+	'desktop-layout': 12
+);
 
 $breakpoint-default-feature: max-width;
 $breakpoint-no-queries: false;

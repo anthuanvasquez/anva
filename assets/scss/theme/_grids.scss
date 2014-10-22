@@ -3,7 +3,6 @@
  */
 
  .blog-2-cols {
-	
 	.post {
 		@include span(6);
 
@@ -16,11 +15,9 @@
 		}
 
 	}
-
 }
 
 .blog-3-cols {
-	
 	.post {
 		@include span(4);
 
@@ -33,11 +30,9 @@
 		}
 		
 	}
-
 }
 
 .blog-4-cols {
-	
 	.post {
 		@include span(3);
 
@@ -50,7 +45,6 @@
 		}
 		
 	}
-
 }
 
 /*
@@ -58,7 +52,7 @@
  */
 .grid-columns {
 	width: 100%;
-	@if $lt-ie9 {
+	@if browser('ie') == '8' {
 		*zoom: 1;
 	}
 

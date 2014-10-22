@@ -1,19 +1,10 @@
-/* ==========================================================================
-	 Media Queries
-	 ========================================================================== */
-
-// ------------------------------------------------
-// Susy + Breakpoint
 @import "plugins/susy";
 @import "plugins/breakpoint";
-
-// Settings
-// ------------------------------------------------
 @import "theme/functions";
 @import "theme/variables";
 @import "theme/mixins";
 
-// If resposnsive option is disabled
+// If resposnsive is disabled in the options
 @include container-class() {
 	@include container();
 	width: auto; // reset width
@@ -22,15 +13,15 @@
 /*
  * Large Devices 992px - Change to 750px
  */
-@include susy-breakpoint($desktop-and-below, $desktop-layout) {
+@include responsive-media(desktop-and-below, desktop-layout) {
 
 	/* Layout */
 	@include container-class() {
 		@include pad(15px);
-		@include container($tablet-and-below); // 752px
+		@include container( break(tablet-and-below) ); // 752px
 	}
 
-	@include boxed-layout($tablet-and-below);
+	@include boxed-layout( break(tablet-and-below) );
 
 	.content-area {
 		@include span(8);
@@ -101,14 +92,14 @@
 /*
  * Medium Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint($tablet-only, $tablet-layout) {
+@include responsive-media(tablet-only, tablet-layout) {
 
 	/* Layout */
 	@include container-class() {
-		@include container($phone-and-below); // 480px;
+		@include container( break(phone-and-below )) ; // 480px;
 	}
 
-	@include boxed-layout($phone-and-below);
+	@include boxed-layout( break(phone-and-below )) ;
 
 	/*
 	 * Set order in columns
