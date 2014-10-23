@@ -1,6 +1,6 @@
 <?php
 /*
- Template Name: Featured Products
+ Template Name: Products
  */
 ?>
 
