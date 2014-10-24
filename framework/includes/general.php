@@ -29,6 +29,14 @@ function tm_register_sidebars() {
 	);
 
 	register_sidebar(
+		tm_get_widget_args( 'sidebar-left', 'sidebar_left_title', 'sidebar_left_desc' )
+	);
+
+	register_sidebar(
+		tm_get_widget_args( 'sidebar-right', 'sidebar_right_title', 'sidebar_right_desc' )
+	);
+
+	register_sidebar(
 		tm_get_widget_args( 'home-sidebar', 'home_sidebar_title', 'home_sidebar_desc' )
 	);
 
