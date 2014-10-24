@@ -20,7 +20,8 @@ function tm_page_options_metaboxes() {
 	
 	$output = '';
 	$grid_columns = get_post_meta( $post->ID, '_grid_columns', true );
-	$hide_titlte = get_post_meta( $post->ID, '_hide_title', true );	
+	$hide_titlte = get_post_meta( $post->ID, '_hide_title', true );
+	$sidebar_column = get_post_meta( $post->ID, '_sidebar_column', true );	
 
 	// Page title
 	$output .= '<div id="page_title">';
@@ -28,12 +29,33 @@ function tm_page_options_metaboxes() {
 	$output .= '<select name="_hide_title" class="widefat" />';
 	
 	$titles = array(
-		tm_get_local( 'paget_title_hide' ) => 'show',
-		tm_get_local( 'paget_title_show' ) => 'hide'
+		tm_get_local( 'page_title_show' ) => 'show',
+		tm_get_local( 'page_title_hide' ) => 'hide'
 	);
 	
 	foreach ( $titles as $key => $value ) {
 		$output .= '<option '. selected( $hide_titlte, $value, false ).' value="'.$value.'">'.$key.'</option>';
+	}
+
+	$output .= '</select>';
+	$output .= '</div>';
+
+	// Sidebar
+	$output .= '<div id="sidebar_column">';
+	$output .= '<p>'.tm_get_local( 'sidebar_title' ).'</p>';
+	$output .= '<select name="_sidebar_column" class="widefat" />';
+	
+	$asides = array(
+		tm_get_local( 'sidebar_right' ) 				=> 'right',
+		tm_get_local( 'sidebar_left' ) 					=> 'left',
+		tm_get_local( 'sidebar_fullwidth' ) 		=> 'fullwidth',
+		tm_get_local( 'sidebar_double' ) 				=> 'double',
+		tm_get_local( 'sidebar_double_left' ) 	=> 'double_left',
+		tm_get_local( 'sidebar_double_right' ) 	=> 'double_right'
+	);
+	
+	foreach ( $asides as $key => $value ) {
+		$output .= '<option '. selected( $sidebar_column, $value, false ).' value="'.$value.'">'.$key.'</option>';
 	}
 
 	$output .= '</select>';
@@ -77,6 +99,9 @@ function tm_page_options_save_meta( $post_id, $post ) {
 
 	if ( isset( $_POST['_hide_title'] ) )
 		$meta['_hide_title'] = $_POST['_hide_title'];
+
+	if ( isset( $_POST['_sidebar_column'] ) )
+		$meta['_sidebar_column'] = $_POST['_sidebar_column'];
 
 	// Validate all meta info
 	if ( isset( $meta ) ) {
