@@ -1,5 +1,5 @@
 <?php
-	$hide_title = get_post_meta( $post->ID, '_hide_title', true );
+	$hide_title = tm_get_post_meta('_hide_title');
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

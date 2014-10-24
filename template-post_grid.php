@@ -5,11 +5,10 @@
 
 get_header();
 
-$grid_columns = get_post_meta( $post->ID, '_grid_columns', true );
+$grid_columns = tm_get_post_meta('_grid_columns');
 $classes = 'blog-'.$grid_columns.'-cols';
 $size = 'thumbnail_grid_'. $grid_columns;
 ?>
-
 
 <div class="grid-columns">
 	<div class="full-width">
@@ -36,11 +35,7 @@ $size = 'thumbnail_grid_'. $grid_columns;
 							</header>
 
 							<div class="entry-container group">
-
-								<?php
-									echo tm_post_grid_thumbnails( $size );
-								?>
-
+								<?php echo tm_post_grid_thumbnails( $size ); ?>
 								<div class="entry-summary">
 									<?php tm_excerpt_limit(); ?>
 									<a class="button" href="<?php the_permalink(); ?>">

@@ -2,7 +2,7 @@
 
 <?php
 	$classes = '';
-	$sidebar = tm_get_page_meta('_sidebar_column');
+	$sidebar = tm_get_post_meta('_sidebar_column');
 
 	if ( 'left' == $sidebar || 'double_left' == $sidebar ) {
 		$classes = 'content-area right';
