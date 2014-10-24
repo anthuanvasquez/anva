@@ -61,7 +61,7 @@ function tm_browser_class( $classes ) {
 	}
 
 	if ( is_page() ) {
-		$sidebar_column = tm_get_page_meta('_sidebar_column');
+		$sidebar_column = tm_get_post_meta('_sidebar_column');
 		switch($sidebar_column) {
 			case 'left':
 				$classes[] = 'sidebar-layout-left';
@@ -196,7 +196,7 @@ function tm_get_option( $id ) {
 /*
  * Return the post meta field 
  */
-function tm_get_page_meta( $field ) {
+function tm_get_post_meta( $field ) {
 	global $post;
 	$meta = get_post_meta( $post->ID, $field, true );
 	return $meta;
