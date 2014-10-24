@@ -145,7 +145,9 @@ function tm_get_local( $id ) {
 function tm_get_js_locals() {
 	
 	$localize = array(
-		'themeurl' => get_template_directory_uri()
+		'ajax_url' => admin_url( 'admin-ajax.php' ),
+		'theme_url' => get_template_directory_uri(),
+		'theme_images' => get_template_directory_uri() . '/assets/images'
 	);
 
 	return apply_filters( 'tm_js_locals', $localize );
