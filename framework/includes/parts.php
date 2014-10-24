@@ -136,11 +136,9 @@ function tm_post_thumbnails( $thumb ) {
 function tm_post_grid_thumbnails( $thumbnail_size ) {
 	global $post;
 	$output = '';
-	
 	$output .= '<div class="entry-thumbnail large-thumbnail">';
 	$output .= '<a href="'.get_permalink( $post->ID ).'" title="'.get_the_title( $post->ID ).'">'.get_the_post_thumbnail( $post->ID, $thumbnail_size ).'</a>';
 	$output .= '</div>';
-
 	return $output;
 }
 
@@ -209,9 +207,9 @@ function tm_social_media() {
 
 function tm_site_search() {
 	if ( class_exists( 'Woocommerce' ) ) :
-		get_product_search_form();
+		tm_get_product_search_form();
 	else :
-		get_search_form( true );
+		tm_get_search_form();
 	endif;
 }
 
@@ -381,5 +379,30 @@ function tm_contact_form() {
 		});
 	});
 	</script>
+	<?php
+}
+
+function tm_get_search_form() {
+	?>
+	<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+		<label>
+			<span class="screen-reader-text"><?php echo tm_get_local( 'search_for' ); ?></span>
+			<input type="search" class="search-field" placeholder="<?php echo tm_get_local( 'search' ); ?>" value="" name="s" title="<?php echo tm_get_local( 'search_for' ); ?>" />
+		</label>
+		<button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+	</form>
+	<?php
+}
+
+function tm_get_product_search_form() {
+	?>
+	<form role="search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
+		<div>
+			<label class="screen-reader-text" for="s"><?php _e( 'Search for:', 'woocommerce' ); ?></label>
+			<input type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
+			<button type="submit" id="searchsubmit"><span class="screen-reader-text"><?php echo esc_attr__( 'Search' ); ?></span><i class="fa fa-search"></i></button>
+			<input type="hidden" name="post_type" value="product" />
+		</div>
+	</form>
 	<?php
 }
