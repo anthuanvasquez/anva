@@ -140,8 +140,8 @@ function tm_slideshows_slides( $slug ) {
 
 			the_post();
 		
-			$url 	= get_post_meta( get_the_ID(), "_slider_link_url", true );
-			$data = get_post_meta( get_the_ID(), "_slider_data", true );
+			$url 	= tm_get_post_meta( get_the_ID(), "_slider_link_url", true );
+			$data = tm_get_post_meta( get_the_ID(), "_slider_data", true );
 
 			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array('echo' => false) ) . '" >';
 						
@@ -261,9 +261,9 @@ function tm_slideshows_metabox_1() {
 	global $post;	
 		
 	$rotators 				= tm_slideshows();
-	$slider_id		 		= get_post_meta( $post->ID, '_slider_id', true );
-	$slider_link_url 	= get_post_meta( $post->ID, '_slider_link_url', true );
-	$slider_data			=	get_post_meta( $post->ID, '_slider_data', true );
+	$slider_id		 		= tm_get_post_meta( $post->ID, '_slider_id', true );
+	$slider_link_url 	= tm_get_post_meta( $post->ID, '_slider_link_url', true );
+	$slider_data			=	tm_get_post_meta( $post->ID, '_slider_data', true );
 	?>
 	
 	<p><strong>URL:</strong></p>
@@ -348,8 +348,8 @@ function tm_slideshows_add_columns( $column ) {
 	global $post;
 	
 	$edit_link = get_edit_post_link( $post->ID );
-	$slider_link = get_post_meta( $post->ID, "_slider_link_url", true );
-	$slider_id = get_post_meta( $post->ID, "_slider_id", true );
+	$slider_link = tm_get_post_meta( $post->ID, "_slider_link_url", true );
+	$slider_id = tm_get_post_meta( $post->ID, "_slider_id", true );
 
 	if ( $column == 'image' )
 		echo '<a href="' . $edit_link . '" title="' . $post->post_title . '">' . get_the_post_thumbnail( $post->ID, 'thumbnail', array( 'alt' => $post->post_title  )  ) . '</a>';
