@@ -232,8 +232,10 @@ div.mobile-navigation {
 
 a.toggle-button {
 	background-color: $color-0;
+	border-radius: $border-radius $border-radius 0 0;
 	color: #fff;
-	font-size: 18px;	
+	font-size: 18px;
+	margin-left: 10px;
 	padding: 10px;
 	@include inline-block();
 	&:hover {

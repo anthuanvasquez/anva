@@ -2,13 +2,14 @@
 	 Layout
 	 ========================================================================== */
 
+// Inner container group
 @include container-class() {
 	@include container-width($container-width, $padding);
 }
 
 // Container
 #container {
-	background: $container-background-color;
+	background: color('container');
 	position: relative;
 	@include boxed-layout( $max-width );
 }
@@ -100,9 +101,4 @@
 
 .homepage-sidebar {
 	margin-bottom: 40px;
-}
-
-.service-image,
-.service-content {
-	margin-bottom: 10px;
 }

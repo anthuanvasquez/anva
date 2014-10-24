@@ -102,3 +102,11 @@
 		@include spritesheet-icon($icon-size);
 	}
 }
+
+/*
+ * Widget services
+ */
+.service-image,
+.service-content {
+	margin-bottom: 10px;
+}

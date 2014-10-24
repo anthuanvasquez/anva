@@ -6,12 +6,11 @@ $icon-sprite-dimensions: 32px !default;
 	margin: 10px 0;
 	padding-left: 0;
 	li {
-		display: inline-block;
+		@include inline-block();
 		margin: 0 0 0 5px;
-		*display: inline;
-		*zoom: 1;
 		a {
 			display: block;
+			position: relative;
 			height: $icon-sprite-dimensions;
 			width: $icon-sprite-dimensions;
 		}
