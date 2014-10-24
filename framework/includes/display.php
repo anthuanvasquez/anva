@@ -97,6 +97,26 @@ function tm_content_after_default() {
 	<?php
 }
 
+function tm_sidebar_layout_before_default() {
+	$sidebar = tm_get_page_meta('_sidebar_column');
+	if ( 'left' == $sidebar || 'double' == $sidebar ) {
+		get_sidebar( 'left' );
+	} elseif ( 'double_left' == $sidebar ) {
+		get_sidebar( 'left' );
+		get_sidebar( 'right' );
+	}
+}
+
+function tm_sidebar_layout_after_default() {
+	$sidebar = tm_get_page_meta('_sidebar_column');
+	if ( 'right' == $sidebar || 'double' == $sidebar ) {
+		get_sidebar( 'right' );
+	} elseif ( 'double_right' == $sidebar ) {
+		get_sidebar( 'left' );
+		get_sidebar( 'right' );
+	}
+}
+
 function tm_navigation() {	
 	$nav = tm_get_option( 'navigation' );
 	switch( $nav ) :
