@@ -60,6 +60,29 @@ function tm_browser_class( $classes ) {
 		$classes[] = 'windows';
 	}
 
+	if ( is_page() ) {
+		$sidebar_column = tm_get_page_meta('_sidebar_column');
+		switch($sidebar_column) {
+			case 'left':
+				$classes[] = 'sidebar-layout-left';
+			case 'right':
+				$classes[] = 'sidebar-layout-right';
+				break;
+			case 'double':
+				$classes[] = 'sidebar-layout-double';
+				break;
+			case 'double_left':
+				$classes[] = 'sidebar-layout-double-left';
+				break;
+			case 'double_right':
+				$classes[] = 'sidebar-layout-double-right';
+				break;
+		}
+	}
+
+
+	
+
 	return $classes;
 }
 
@@ -168,6 +191,15 @@ function tm_get_option( $id ) {
 		$option = $settings;
 
 	return $option; 
+}
+
+/*
+ * Return the post meta field 
+ */
+function tm_get_page_meta( $field ) {
+	global $post;
+	$meta = get_post_meta( $post->ID, $field, true );
+	return $meta;
 }
 
 function tm_get_widget_args( $id, $name, $description ) {
