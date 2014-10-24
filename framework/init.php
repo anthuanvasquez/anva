@@ -86,6 +86,8 @@ add_action( 'tm_layout_before', 'tm_ie_browser_message' );
 add_action( 'tm_content_before', 'tm_breadcrumbs' );
 add_action( 'tm_content_before', 'tm_content_before_default' );
 add_action( 'tm_content_after', 'tm_content_after_default' );
+add_action( 'tm_sidebar_layout_before', 'tm_sidebar_layout_before_default' );
+add_action( 'tm_sidebar_layout_after', 'tm_sidebar_layout_after_default' );
 
 // Plugin Hooks
 add_action( 'init', 'tm_contact_send_email' );
