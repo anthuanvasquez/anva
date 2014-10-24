@@ -27,6 +27,7 @@
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
+
 </div><!-- .grid-columns (end) -->
 
 <div class="latest-products">
