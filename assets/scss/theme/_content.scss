@@ -19,20 +19,72 @@
 	position: relative;
 }
 
-// Content column
+// Content
 .content-area {
 	@include span(8);
+
 	&.right {
 		@include span(8 last);
 		margin-right: 0;
 	}
+
+	&.center {
+		@include span(6)
+	}
+
+	.full-width {
+		@include reset-float(right, false);
+	}
 }
 
-// Sidebar column
+// Sidebar
 .widget-area {
 	@include span(4 last);
 	&.left {
 		@include span(4);
+	}
+}
+
+.sidebar-layout-double {
+	.widget-area {
+		&.left {
+			@include span(3);
+		}
+		&.right {
+			@include span(3 last);
+		}
+	}
+}
+
+.sidebar-layout-double-left {
+	.content-area {
+		&.right {
+			@include span(6 last);
+		}
+	}
+	.widget-area {
+		&.left {
+			@include span(3);
+		}
+		&.right {
+			@include span(3);
+		}
+	}
+}
+
+.sidebar-layout-double-right {
+	.content-area {
+		&.left {
+			@include span(6);
+		}
+	}
+	.widget-area {
+		&.left {
+			@include span(3);
+		}
+		&.right {
+			@include span(3 last);
+		}
 	}
 }
 

@@ -18,10 +18,11 @@
 	/* Layout */
 	@include container-class() {
 		@include pad(15px);
-		@include container( break(tablet-and-below) ); // 752px
+		@include container(break(tablet-and-below)); // 752px
 	}
-
-	@include boxed-layout( break(tablet-and-below) );
+	
+	/* Aqui e */
+	// @include boxed-layout(break(tablet-and-below));
 
 	.content-area {
 		@include span(8);
@@ -72,7 +73,10 @@
 			width: 70%;
 		}
 	}
-
+	
+	/*
+	 * Slides
+	 */
 	.flex-direction-nav {
 		.flex-prev {
 			display: none;
@@ -86,6 +90,14 @@
 		}
 	}
 
+	/*
+	 * Galleries
+	 */
+	.gallery-columns-4 {
+		.gallery-item {
+			width: 50% !important;
+		}
+	}
 
 }
 
@@ -96,10 +108,10 @@
 
 	/* Layout */
 	@include container-class() {
-		@include container( break(phone-and-below )) ; // 480px;
+		@include container(break(phone-and-below )); // 480px;
 	}
 
-	@include boxed-layout( break(phone-and-below )) ;
+	// @include boxed-layout(break(phone-and-below));
 
 	/*
 	 * Set order in columns
@@ -117,7 +129,6 @@
 
 	.content-area {
 		margin-bottom: $padding;
-
 		&.right {
 			@include reset-float( none, true );
 			order: 1;
@@ -128,6 +139,54 @@
 		&.left {
 			@include reset-float( none, true );
 			order: 2;
+		}
+	}
+
+	.sidebar-layout-double {
+		.content-area {
+			&.center {
+				order: 1;
+				@include reset-float(right, true);
+			}
+		}
+		.widget-area {
+			&.left,
+			&.right {
+				@include reset-float(none, true);
+				order: 2;
+			}
+		}
+	}
+
+	.sidebar-layout-double-left {
+		.content-area {
+			&.right {
+				@include reset-float(none, true);
+				order: 1;
+			}
+		}
+		.widget-area {
+			&.left,
+			&.right {
+				@include reset-float(none, true);
+				order: 2;
+			}
+		}
+	}
+
+	.sidebar-layout-double-right {
+		.content-area {
+			&.left {
+				@include reset-float(none, true);
+				order: 1;
+			}
+		}
+		.widget-area {
+			&.left,
+			&.right {
+				@include reset-float(none, true);
+				order: 2;
+			}
 		}
 	}
 
@@ -241,16 +300,18 @@
 	}
 
 	/*
-	 * Slider
+	 * Slides
 	 */
 	.flex-control-nav,
 	.flex-pauseplay {
 		display: none;
 	}
 	
+	/*
+	 * Blog Columns
+	 */
 	.blog-2-cols,
 	.blog-3-cols {
-
 		article.post {
 			@include reset-float( right, true );
 		}
@@ -261,7 +322,19 @@
 				margin: 0 auto;
 			}
 		}
+	}
 
+	/*
+	 * Galleries
+	 */
+	.gallery-columns-3 {
+		.gallery-item {
+			width: 50% !important;
+		}
+
+		br {
+			clear: none !important
+		}
 	}
 
 }

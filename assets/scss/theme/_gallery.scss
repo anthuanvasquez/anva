@@ -2,12 +2,15 @@
  * Gallery
  */
 .gallery {
-	img {
-		border: 0 !important;
-		border-radius: 2px;
-		transition: all .2s linear;
-		&:hover {
-			opacity: .6;
+	dl {
+		img {
+			border: 0 !important; /* Remove border from gallery inline style */
+			border-radius: $border-radius;
+			opacity: 1;
+			transition: opacity .2s linear;
+			&:hover {
+				opacity: .6;
+			}
 		}
 	}
 }

@@ -2,7 +2,9 @@
 	 Helpers
 	 ========================================================================== */
 
-/* Modern Clearfix */
+/*
+ * Modern Clearfix
+ */
 .clear,
 .group {
 	&:before,
@@ -26,7 +28,9 @@
 	}
 }
 
-/* Screen readers */
+/*
+ Screen readers text
+ */
 .screen-reader-text {
 	border: 0 none;
 	clip: rect(0px, 0px, 0px, 0px);
@@ -38,13 +42,17 @@
 	width: 1px;
 }
 
-/* Remove margin and padding for elements */
+/*
+ * Remove margin and padding for elements
+ */
 .no-padding {
 	margin: 0;
 	padding: 0;
 }
 
-/* Full Width Elements */
+/*
+ * Full Width Elements
+ */
 .full-width {
 	width: 100%;
 }
@@ -54,15 +62,16 @@
 	display: none;
 	width: 40px;
 	height: 40px;
-	background: url(images/top.png) no-repeat;
+	opacity: .3;
 	position: fixed;
 	bottom: $padding;
 	right: $padding;
 	text-indent: -9999px;
-	opacity: .3;
 }
 
-/* Display message for old browsers */
+/*
+ * Display message for old browsers
+ */
 .browsehappy {
 	background: #FFF9D7;
 	color: #5A3333;
@@ -75,7 +84,6 @@
 /*
  * Image replacement
  */
-
 .ir {
 	background: transparent;
 	border: 0;

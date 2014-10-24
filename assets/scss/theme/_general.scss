@@ -2,7 +2,7 @@
    Base
    ========================================================================== */
 
-@include establish-baseline;   
+@include establish-baseline();   
 // @include border-box-sizing;
 
 html {
@@ -18,7 +18,7 @@ html {
 html {
 	color: $base-font-color;
 	font-size: $base-font-size;
-	@include font-stack-body;
+	@include font-stack-body();
 	overflow-x: hidden;
 }
 

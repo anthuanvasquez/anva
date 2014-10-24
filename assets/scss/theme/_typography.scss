@@ -67,7 +67,7 @@ h6, .h6 {
 #{headings()} {
 	color: $heading-font-color;
 	line-height: $heading-font-line-height;
-	@include font-stack-headers;
+	@include font-stack-headers();
 	a {
 		color: $heading-font-color;
 		&:hover {
@@ -98,7 +98,7 @@ code,
 kbd,
 pre,
 samp {
-	@include font-stack-code;
+	@include font-stack-code();
 	font-size: $base-font-size;
 }
 

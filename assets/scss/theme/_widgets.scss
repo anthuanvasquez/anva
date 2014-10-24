@@ -2,6 +2,9 @@
    Widgets
    ========================================================================== */
 
+/*
+ * Main widgets
+ */
 .widget {
 	margin: 0 0 $padding;
 	
@@ -14,14 +17,20 @@
 	}
 }
 
+/*
+ * Widgets Title
+ */
 .widget-title {
 	color: $base-font-color;
 	display: block;
 	font-size: $widget-heading-font-size;
 	margin: 0 0 .5em;
-	@include font-stack-headers;
+	@include font-stack-headers();
 }
 
+/*
+ * Custom Posts
+ */
 .widget_custom_posts {
 	.posts {
 		@include reset-list();
@@ -48,14 +57,19 @@
 	}
 }
 
+/*
+ * Social Media
+ */
 .widget_social_media {
 	.social-media {
 		margin-top: 10px;
 	}
 }
 
+/*
+ * Custom Contact Info
+ */
 .widget_custom_contact {
-
 	.widget-contact-info {
 		li {
 			line-height: 20px;
@@ -67,6 +81,7 @@
 		}
 	}
 	
+	// Include Social Media Icons
 	$icon-size: 24px;
 
 	.social-media {
@@ -86,5 +101,4 @@
 		}
 		@include spritesheet-icon($icon-size);
 	}
-
 }
