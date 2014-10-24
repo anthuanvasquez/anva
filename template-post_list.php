@@ -8,9 +8,7 @@
 
 <div class="grid-columns">
 
-	<?php get_sidebar( 'left' ); ?>
-
-	<div class="content-area right">
+	<div class="content-area">
 		<div class="main" role="main">
 			<?php
 				
@@ -29,6 +27,8 @@
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
+
+	<?php get_sidebar(); ?>
 	
 </div><!-- .grid-columns (end) -->
 
