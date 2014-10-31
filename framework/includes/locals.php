@@ -109,7 +109,7 @@ function tm_get_text_locals() {
 		'image_url'								=> __( 'URL de la Imagen', $domain ),
 		'url'											=> __( 'URL', $domain ),
 		'slide_id'								=> __( 'Slide ID', $domain ),
-		'slide_area'							=> __( 'Elege el Area del Slide', $domain ),
+		'slide_area'							=> __( 'Selecciona el Area del Slide', $domain ),
 		'slide_content'						=> __( 'Ocultar o Mostrar Contenido', $domain ),
 		'slide_shortcode'					=> __( 'Por favor incluye un slug como parámetro por e.j. [slideshows slug="homepage"]', $domain ),
 		'slide_message'						=> __( 'No se han configurado rotadores para los slideshows. Contacta con tu Desarrollador.', $domain ),
