@@ -54,6 +54,7 @@ function tm_load_scripts() {
 	// Load Stylesheets
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.css' );
 	wp_enqueue_style( 'screen', get_template_directory_uri() . '/assets/css/screen.css' );
+	
 	if ( 1 == tm_get_option( 'responsive' ) ) {
 		wp_enqueue_style( 'responsive', get_template_directory_uri() . '/assets/css/responsive.css', array( 'screen' ), false, 'all' );
 	}
@@ -145,14 +146,4 @@ function tm_search_filter( $query ) {
 function tm_posts_columns_head( $columns ) {
 	$columns['featured_image'] = tm_get_local( 'featured_image' );
 	return $columns;
-}
- 
-// SHOW THE FEATURED IMAGE
-function tm_posts_columns_content($column_name, $post_ID) {
-	if ( $column_name == 'featured_image' ) {
-		$post_featured_image = tm_get_featured_image( $post_ID, array(90, 90) );
-		if ( $post_featured_image ) {
-			echo '<img src="' . $post_featured_image . '" />';
-		}
-	}
 }

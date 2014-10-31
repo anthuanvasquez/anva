@@ -1,21 +1,28 @@
-jQuery(document).ready(function($) {
-	var pageTemplate = jQuery("#page_template");
+function validate( val ) {
 	var pageGrid = jQuery("#post_grid");
-
-	// Initial Validation
-	if ( 'template-post_grid.php' == pageTemplate.val() ) {
+	var pageSidebar = jQuery("#sidebar_column");
+	if ( 'template-post_grid.php' == val ) {
 		pageGrid.show();
 	} else {
 		pageGrid.hide();
 	}
+	if ( 'default' == val ) {
+		pageSidebar.show();
+	} else {
+		pageSidebar.hide();
+	}
+}
+
+jQuery.noConflict();
+jQuery(document).ready(function($) {
+	var pageTemplate = jQuery("#page_template");
+	
+	// Initial
+	validate( pageTemplate.val() )
 
 	// On Change
 	pageTemplate.on( "change", function(e) {		
-		if ( 'template-post_grid.php' == jQuery(this).val() ) {
-			pageGrid.show();
-		} else {
-			pageGrid.hide();
-		}
+		validate( jQuery(this).val() )
 	});
 
 });

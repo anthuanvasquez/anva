@@ -173,3 +173,9 @@ function tm_navigation() {
 	<?php break;
 	endswitch;
 }
+
+function tm_debug_queries() {
+	// if ( current_user_can( 'administrator' ) ) {
+		echo '<p class="browsehappy">Page generated in '.timer_stop(1).' seconds with '.get_num_queries().' database queries.</p>';
+	// }
+}

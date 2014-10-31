@@ -86,7 +86,6 @@
 						}
 					?>
 				</nav><!-- #main-navigation (end) -->
-				
 			</div><!-- .header-bottom (end) -->
 		</div><!-- .header-inner (end) -->
 	</header><!-- #header (end) -->

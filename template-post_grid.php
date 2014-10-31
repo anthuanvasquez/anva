@@ -55,7 +55,6 @@ $size = 'thumbnail_grid_'. $grid_columns;
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
-	
 </div><!-- .grid-columns (end) -->
 
 <?php get_footer(); ?>
