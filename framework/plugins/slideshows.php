@@ -19,6 +19,7 @@ function tm_slideshows() {
 	$slider_direction = tm_get_option( 'slider_direction' );
 	$slider_play = tm_get_option( 'slider_play' );
 
+	// Main Slider
 	$args['homepage'] = array(
 		'size' 		=> 'thumbnail_slideshow',
 		'options' => "
@@ -38,10 +39,12 @@ function tm_slideshows() {
 			}
 	");
 	
+	// Gallery Slider
 	$args['gallery'] = array(
 		'size' => 'thumbnail_blog_large'
 	);
-	
+
+	// Attachments Slider	
 	$args['attachments'] = array(
 		'size' => 'thumbnail_blog_large'
 	);
@@ -129,7 +132,7 @@ function tm_slideshows_slides( $slug ) {
 	// Output
 	$html = "";
 	
-	query_posts( apply_filters( 'tm_slideshows_query_post_args', $query_args) );
+	query_posts( apply_filters( 'tm_slideshows_query_args', $query_args) );
 
 	if ( have_posts() ) {
 		$html .= '<div id="slider_wrapper_' . $slug . '" class="slider-wrapper slider-wrapper-' . $slug . '">';
@@ -139,9 +142,11 @@ function tm_slideshows_slides( $slug ) {
 		while ( have_posts() ) {
 
 			the_post();
-		
-			$url 	= tm_get_post_meta( get_the_ID(), "_slider_link_url", true );
-			$data = tm_get_post_meta( get_the_ID(), "_slider_data", true );
+			
+			$meta = tm_get_post_custom();
+
+			$url 	= $meta['_slider_link_url'][0];
+			$data = $meta['_slider_data'][0];
 
 			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array('echo' => false) ) . '" >';
 						
@@ -261,9 +266,10 @@ function tm_slideshows_metabox_1() {
 	global $post;	
 		
 	$rotators 				= tm_slideshows();
-	$slider_id		 		= tm_get_post_meta( $post->ID, '_slider_id', true );
-	$slider_link_url 	= tm_get_post_meta( $post->ID, '_slider_link_url', true );
-	$slider_data			=	tm_get_post_meta( $post->ID, '_slider_data', true );
+	$meta 						= tm_get_post_custom();
+	$slider_id		 		= $meta['_slider_id'][0];
+	$slider_link_url 	= $meta['_slider_link_url'][0];
+	$slider_data			=	$meta['_slider_data'][0];
 	?>
 	
 	<p><strong>URL:</strong></p>
@@ -274,11 +280,9 @@ function tm_slideshows_metabox_1() {
 	<p><strong><?php echo tm_get_local( 'slide_area' ); ?>:</strong></p>
 	<p>
 
-		<?php var_dump( $rotators ); ?>
-
 		<?php if ( $rotators ) : ?>
 			
-		<select name="slider_id" style="width:99%;">
+		<select name="slider_id" style="width:99%;text-transform:capitalize;">
 			<?php foreach ( $rotators as $rotator => $size ) : ?>
 				<option value="<?php echo $rotator; ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator ?></option>
 			<?php endforeach; ?>
@@ -347,12 +351,13 @@ function tm_slideshows_add_columns( $column ) {
 	
 	global $post;
 	
-	$edit_link = get_edit_post_link( $post->ID );
-	$slider_link = tm_get_post_meta( $post->ID, "_slider_link_url", true );
-	$slider_id = tm_get_post_meta( $post->ID, "_slider_id", true );
+	$edit_link 		= get_edit_post_link( $post->ID );
+	$meta 				= tm_get_post_custom();
+	$slider_link 	= $meta['_slider_link_url'][0];
+	$slider_id 		= $meta['_slider_id'][0];
 
 	if ( $column == 'image' )
-		echo '<a href="' . $edit_link . '" title="' . $post->post_title . '">' . get_the_post_thumbnail( $post->ID, 'thumbnail', array( 'alt' => $post->post_title  )  ) . '</a>';
+		echo '<a href="' . $edit_link . '" title="' . $post->post_title . '">' . get_the_post_thumbnail( $post->ID, array( 90, 90 ), array( 'alt' => $post->post_title  )  ) . '</a>';
 	
 	if ( $column == 'order' )
 		echo '<a href="' . $edit_link . '">' . $post->menu_order . '</a>';
@@ -361,7 +366,6 @@ function tm_slideshows_add_columns( $column ) {
 		echo $slider_id;
 	
 	if ( $column == 'link' )
-
 		echo '<a href="' . $slider_link . '" target="_blank" >' . $slider_link . '</a>';		
 }
 
@@ -369,11 +373,11 @@ function tm_slideshows_add_columns( $column ) {
 function tm_slideshows_shortcode($atts, $content = null) {
 	
 	$slug = isset( $atts['slug'] ) ? $atts['slug'] : "attachments";
-	
 	$string = tm_get_local( 'slide_shortcode' );
 	
 	if ( ! $slug ) {
 		return apply_filters( 'tm_slideshows_empty_shortcode', $string );
 	}
+
 	return tm_slideshows( $slug );
 }
