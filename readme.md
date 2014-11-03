@@ -1,6 +1,6 @@
 # 3 Mentes WordPress Framework
 
-Versión: 1.5.0
+Versión: 1.6.0
 
 ## Author:
 
@@ -9,7 +9,7 @@ Anthuan Vásquez ( [@oidoperfecto](https://twitter.com/odioperfecto) / [anthuanv
 ## Descripción
 Framework usado en 3 mentes para construir temas de WordPress de una forma rápida, robusta y adaptable.
 
-### Caracteristicas
+### Características
 * Favicon
 * Apple Touch Icon (200, 144, 72)
 * Panel de Opciones
@@ -23,11 +23,16 @@ Framework usado en 3 mentes para construir temas de WordPress de una forma rápi
 * Multiples locaciones de Menus
 * Shortcodes
 * Templates
-  * Blog left Sidebar
-  * Page Left Sidebar
-  * Page Full Width
   * Contact Us
-  * Homepage Full Width
+  * Homepage
+  * Featured Products
+* Sidebar Layout
+  * Page Left Sidebar
+  * Page Right Sidebar
+  * Page Full Width
+  * Page Double Sidebar
+  * Page Double Left Sidebar
+  * Page Double Right Sidebar
 * Iconos para Social Media
 * Responsive Resolutions (980, 768, 480, 320)
 
