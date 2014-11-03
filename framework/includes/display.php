@@ -175,7 +175,9 @@ function tm_navigation() {
 }
 
 function tm_debug_queries() {
-	// if ( current_user_can( 'administrator' ) ) {
-		echo '<p class="browsehappy">Page generated in '.timer_stop(1).' seconds with '.get_num_queries().' database queries.</p>';
-	// }
+	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :
+	?>
+		<div class="browsehappy">Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</div>
+	<?php
+	endif;
 }
