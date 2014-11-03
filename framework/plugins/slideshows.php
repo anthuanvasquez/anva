@@ -71,18 +71,18 @@ function tm_slideshows_setup_init() {
 	
 	$args = array(
 		'labels'               	=> $labels,
-		'public'               	=> true,
-		'publicly_queryable'   	=> true,
+		'public'               	=> false,
+		'publicly_queryable'   	=> false,
 		'_builtin'             	=> false,
 		'show_ui'              	=> true, 
-		'query_var'            	=> true,
+		'query_var'            	=> false,
 		'rewrite'              	=> apply_filters( 'tm_slideshows_post_type_rewite', array( "slug" => "slideshows" )),
 		'capability_type'      	=> 'post',
 		'hierarchical'         	=> false,
 		'menu_position'        	=> 26.6,
 		'supports'             	=> array( 'title', 'thumbnail', 'excerpt', 'page-attributes' ),
 		'taxonomies'           	=> array(),
-		'has_archive'          	=> true,
+		'has_archive'          	=> false,
 		'show_in_nav_menus'    	=> false
 	);
 
