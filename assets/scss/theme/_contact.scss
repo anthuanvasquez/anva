@@ -14,7 +14,7 @@
 		margin: 0 0 2px 0;
 		padding: 8px;
 		&:focus {
-			border-color: $color-0;
+			border-color: color(primary);
 		}
 	}
 
@@ -61,7 +61,7 @@
 			width: 100%;
 			border-radius: 3px;
 			&:focus {
-				border-color: $color-0;
+				border-color: color(primary);
 			}
 		}
 	}

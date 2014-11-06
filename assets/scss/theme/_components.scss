@@ -21,11 +21,11 @@
 }
 
 .quiet {
-	font-color: $quiet-color;
+	font-color: color(quiet);
 }
 
 .loud {
-	font-color: $loud-color;
+	font-color: color(loud);
 }
 
 .italic {

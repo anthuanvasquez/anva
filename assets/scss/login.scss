@@ -79,9 +79,9 @@ body {
 			p#nav {
 				text-align: center;
 				a {
-					color: $color-0;
+					color: color(primary);
 					&:hover {
-						color: saturate($color-0, 5%);
+						color: saturate(color(primary), 5%);
 					}
 				}
 			}
@@ -101,10 +101,10 @@ body {
 	font-weight: bold;
 	text-align: center;
 	a {
-		color: $color-0;
+		color: color(primary);
 		text-decoration: none;
 		&:hover {
-			color: saturate($color-0, 5%);
+			color: saturate(color(primary), 5%);
 		}
 	}
 }
@@ -113,9 +113,9 @@ body {
 // ------------------------------
 .wp-core-ui {
 	.button-primary {
-		background: $color-0;
-		border-color: $color-0;
-		box-shadow: 0px 1px 0px rgba($color-0, 0.5) inset, 0px 1px 0px rgba(0, 0, 0, 0.15);
+		background: color(primary);
+		border-color: color(primary);
+		box-shadow: 0px 1px 0px rgba(color(primary), 0.5) inset, 0px 1px 0px rgba(0, 0, 0, 0.15);
 		color: #fff;
 		text-decoration: none;
 		text-shadow: none;
@@ -123,9 +123,9 @@ body {
 		&.hover,
 		&:focus,
 		&:hover {
-			background: $color-0;
-			border-color: $color-0;
-			box-shadow: 0px 1px 0px rgba($color-0, 0.6) inset;
+			background: color(primary);
+			border-color: color(primary);
+			box-shadow: 0px 1px 0px rgba(color(primary), 0.6) inset;
 			color: #fff;
 			text-shadow: none;
 		}

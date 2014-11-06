@@ -38,3 +38,11 @@
 	@warn "Unknown `#{$key}` in $palette.";
 	@return null;
 }
+
+@function font-stack($key) {
+	@if map-has-key($font-stacks, $key) {
+		@return map-get($font-stacks, $key);
+	}
+	@warn "Unknown `#{$key}` in $font-stacks.";
+	@return null;
+}

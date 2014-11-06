@@ -59,7 +59,7 @@ div.product-meta {
 			}
 
 			h3 {
-				border-bottom: 2px solid $color-0;
+				border-bottom: 2px solid color(primary);
 				color: $base-font-color;
 				font-size: $base-font-size;
 				font-weight: 400;
@@ -68,7 +68,7 @@ div.product-meta {
 			}
 
 			span.price {
-				color: $color-0 !important;
+				color: color(primary) !important;
 				display: block;
 				font-size: 14px !important;
 				font-weight: 400 !important;
@@ -76,7 +76,7 @@ div.product-meta {
 				text-align: center;
 
 				del {
-					color: rgba($color-0, .5);
+					color: rgba(color(primary), .5);
 					font-size: 14px !important;
 					display: block;
 				}
@@ -93,7 +93,7 @@ div.product-meta {
 			}
 
 			.add_to_cart_button {
-				background: $color-0;
+				background: color(primary);
 				border: 0;
 				box-shadow: none;
 				color: #fff;
@@ -106,7 +106,7 @@ div.product-meta {
 				width: 75%;
 				
 				&:hover {
-					background: darken($color-0, 8%);
+					background: darken(color(primary), 8%);
 					color: #fff;
 				}
 			}
@@ -266,14 +266,14 @@ div.product-meta {
 
 		p.price,
 		span.price {
-			color: $color-0;
+			color: color(primary);
 			font-size: 18px;
 			font-weight: bold;
 			margin: 15px 0;
 			padding: 0;
 
 			del {
-				color: rgba($color-0, .5);
+				color: rgba(color(primary), .5);
 				font-size: 18px;
 			}
 
@@ -297,7 +297,7 @@ div.product-meta {
 			margin-bottom: 1em;
 
 			.button {
-				background: $color-0;
+				background: color(primary);
 				background-image: none;
 				font-size: 1em;
 				margin: 0;
@@ -305,7 +305,7 @@ div.product-meta {
 				text-shadow: none;
 
 				&:hover {
-					background: darken($color-0, 5%);
+					background: darken(color(primary), 5%);
 				}
 			}
 
@@ -344,7 +344,7 @@ div.product-meta {
 		@extend .button;
 
 		&:hover {
-			background: darken($color-0, 5%);
+			background: darken(color(primary), 5%);
 			color: #fff;
 		}
 
@@ -361,9 +361,9 @@ div.product-meta {
 		}
 
 		&.alt {
-			background: $color-0;
+			background: color(primary);
 			background: linear-gradient(left top, left bottom, #fe4304, #ce3501);
-			border-color: $color-0;
+			border-color: color(primary);
 			color: #ffffff;
 		}
 
@@ -469,7 +469,7 @@ div.product-meta {
 				a:focus,
 				a:hover,
 				span.current {
-					background: $color-0;
+					background: color(primary);
 					color: #fff;
 				}
 

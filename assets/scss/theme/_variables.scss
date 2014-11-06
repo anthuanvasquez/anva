@@ -23,30 +23,17 @@ $round-to-nearest-half-line: true;
 // Colour Palette
 // ------------------------------------------------
 $palette: (
-	'0': 					#2acbf5,
-	'1': 					#cccccc,
-	'2': 					#02C1F3,
-	'3': 					#888888,
-	'4': 					#222222,
-	'5': 					#111111,
+	'primary': 		#2acbf5,
+	'secondary': 	#cccccc,
+	'tertiary': 	#02C1F3,
 	'body': 			#f2f2f2,
-	'container':  #ffffff,
+	'content':  	#ffffff,
 	'link': 			#3498db,
-	'link-hover': saturate(#3498db, 20%),
-	'loud': 			#000000
+	'loud': 			#000000,
+	'quiet':			#cccccc,
+	'meta':				#666666,
+	'metahover':	#222222
 );
-
-$color-0: #2ACBF5;
-$color-1: #cccccc;
-$color-2: #02C1F3;
-$color-3: #999999;
-$color-4: #111111;
-$container-background-color: #fff;
-$base-background-color: #f2f2f2;
-$link-color: #3498db;
-$link-hover-color: saturate($link-color, 20%);
-$quiet-color: #ccc;
-$loud-color: #000;
 
 // Font Stacks
 // ------------------------------------------------
@@ -79,7 +66,7 @@ $fixed-font-size: 13px;
 $fixed-line-height: 18px;
 $footer-font-color: #333;
 $footer-font-size: 13px;
-$footer-link-color: $link-color;
+$footer-link-color: color(link);
 $footer-heading-font-size: 18px;
 $footer-heading-font-color: #333;
 $widget-heading-font-color: #333;
@@ -96,7 +83,7 @@ $h6: 12px !default;
 
 // Buttons Settings
 // ------------------------------------------------
-$button-background-color: $color-0;
+$button-background-color: color(primary);
 $button-border-radius: 4px;
 $button-border: 1px solid darken($button-background-color, 8%);
 $button-font-color: #fff;

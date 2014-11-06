@@ -7,9 +7,9 @@
  */
 a,
 .link {
-	color: $link-color;
+	color: color(link);
 	&:hover {
-		color: lighten($link-color, 10%);
+		color: lighten(color(link), 10%);
 	}
 }
 

@@ -9,7 +9,7 @@
 
 // Container
 #container {
-	background: color('container');
+	background: color('content');
 	position: relative;
 	@include boxed-layout( $max-width );
 }

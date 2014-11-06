@@ -17,7 +17,7 @@ $off-canvas: 21em;
 
 .off-canvas-navigation {
 	display: none;
-	background-color: $color-0;
+	background-color: color(primary);
 	height: 100%;
 	left: -21em;
 	position: absolute;
@@ -48,7 +48,7 @@ $off-canvas: 21em;
 }
 
 nav.main-navigation {
-	background-color: $color-2;
+	background-color: color(tertiary);
 	border-radius: $border-radius;
 	position: relative;
 }
@@ -69,7 +69,7 @@ ul.navigation-menu {
 	
 	> li {
 		float: left;
-		border-right: 1px solid darken($color-0, 10%); 
+		border-right: 1px solid darken(color(primary), 10%); 
 		position: relative;
 		
 		> a {
@@ -94,7 +94,7 @@ ul.navigation-menu {
 		&.current-menu-item,
 		&.current_page_item {
 			> a {
-				background-color: $color-0;				
+				background-color: color(primary);				
 				color: #fff;
 			}
 		}
@@ -119,7 +119,7 @@ ul.navigation-menu {
 				&.current-menu-item,
 				&.current_page_item {
 					> a {
-						background: $color-0;
+						background: color(primary);
 						color: #fff;
 					}					
 				}
@@ -231,7 +231,7 @@ div.mobile-navigation {
 }
 
 a.toggle-button {
-	background-color: $color-0;
+	background-color: color(primary);
 	border-radius: $border-radius $border-radius 0 0;
 	color: #fff;
 	font-size: 18px;
