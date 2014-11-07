@@ -51,9 +51,9 @@ h2 {
 .entry-meta {
 	margin: 0 0 10px;
 	a {
-		color: color(metalink);
+		color: color(meta);
 		&:hover {
-			color: color(metalinkhover);
+			color: color(meta-on);
 			text-decoration: underline;
 		}
 	}

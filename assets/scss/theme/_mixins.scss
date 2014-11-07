@@ -88,17 +88,6 @@
 	}
 }
 
-// Responsive Media Query
-@mixin responsive-media($breakpoint, $layout) { 
-	@if map-has-key($breakpoints, $breakpoint) {
-		@include susy-breakpoint( #{map-get($breakpoints, $breakpoint)}, #{map-get($layout-columns, $layout)}) {
-			@content;
-		}
-	} @else {
-		@warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. Please make sure it is defined in `$breakpoints` map.";
-	}
-}
-
 // Group inputs
 @mixin group-inputs() {
 	input[type="text"],

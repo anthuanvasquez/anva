@@ -13,16 +13,16 @@
 /*
  * Large Devices 992px - Change to 750px
  */
-@include responsive-media(desktop-and-below, desktop-layout) {
+@include susy-breakpoint(break(desktop), layout-column(desktop)) {
 
 	/* Layout */
 	@include container-class() {
 		@include pad(15px);
-		@include container(break(tablet-and-below)); // 752px
+		@include container(break(tablet-medium)); // 752px
 	}
 	
 	#container {
-		@include boxed-layout(break(tablet-and-below));
+		@include boxed-layout(break(tablet-medium));
 	}	
 
 	.content-area {
@@ -184,15 +184,15 @@
 /*
  * Medium Mobile Devices 767px - Change to 480px
  */
-@include responsive-media(tablet-only, tablet-layout) {
+@include susy-breakpoint(break(tablet-small), layout-column(tablet)) {
 
 	/* Layout */
 	@include container-class() {
-		@include container(break(phone-and-below )); // 480px;
+		@include container(break(phone-medium)); // 480px;
 	}
 
 	#container {
-		@include boxed-layout(break(phone-and-below));
+		@include boxed-layout(break(phone-medium));
 	}
 
 	/*

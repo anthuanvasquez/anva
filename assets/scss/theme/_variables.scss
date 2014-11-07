@@ -23,16 +23,16 @@ $round-to-nearest-half-line: true;
 // Colour Palette
 // ------------------------------------------------
 $palette: (
-	'primary': 		#2acbf5,
-	'secondary': 	#cccccc,
-	'tertiary': 	#02C1F3,
-	'body': 			#f2f2f2,
-	'content':  	#ffffff,
-	'link': 			#3498db,
-	'loud': 			#000000,
-	'quiet':			#cccccc,
-	'meta':				#666666,
-	'metahover':	#222222
+	primary: 		#2acbf5,
+	secondary: 	#cccccc,
+	tertiary: 	#02C1F3,
+	body: 			#f2f2f2,
+	content:  	#ffffff,
+	link: 			#3498db,
+	loud: 			#000000,
+	quiet:			#cccccc,
+	meta:				#666666,
+	meta-on:		#222222
 );
 
 // Font Stacks
@@ -116,18 +116,18 @@ $susy: (
 
 // Breakpoints Settings
 // ------------------------------------------------
-$breakpoints: (
-	'phone-only': 320px,
-	'phone-and-below': 480px,
-	'tablet-only': 767px,
-	'tablet-and-below': 750px,
-	'desktop-and-below': 992px
+$all-breakpoints: (
+	phone-small: 320px,
+	phone-medium: 480px,
+	tablet-small: 767px,
+	tablet-medium: 750px,
+	desktop: 992px
 );
 
-$layout-columns: (
-	'phone-layout': 4,
-	'tablet-layout': 8,
-	'desktop-layout': 12
+$all-layout-columns: (
+	phone: 4,
+	tablet: 8,
+	desktop: 12
 );
 
 $breakpoint-default-feature: max-width;

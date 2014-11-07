@@ -531,7 +531,7 @@ div.single_variation {
 /*
  * Large Devices 992px - Change to 750px
  */
-@include responsive-media(desktop-and-below, desktop-layout) {
+@include susy-breakpoint(break(desktop), layout-column(desktop)) {
 
 	.woocommerce,
 	.woocommerce-page {
@@ -599,7 +599,7 @@ div.single_variation {
 /*
  * Medium Mobile Devices 767px - Change to 480px
  */
-@include responsive-media(tablet-only, tablet-layout) {
+@include susy-breakpoint(break(tablet-small), layout-column(tablet)) {
 	
 	.woocommerce,
 	.woocommerce-page {
