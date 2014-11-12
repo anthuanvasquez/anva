@@ -3,6 +3,8 @@
 $configuration: (
 	font-size: 13px,
 	line-height: 18px,
+	padding: 20px,
+	border-radius: 4px,
 	boxed: true
 );
 
@@ -40,8 +42,8 @@ $georgia: Georgia,Times, "Times New Roman", serif;
 
 // Font And Others Settings
 // ------------------------------------------------
-$base-font-size: 13px;
-$base-line-height: 18px;
+$base-font-size: config(font-size);
+$base-line-height: config(line-height);
 $base-font-color: #333;
 $base-font-family: $helvetica;
 $base-font-weight: 400;
@@ -99,8 +101,8 @@ $button-text-shadow: none;
 
 // Others
 // ------------------------------------------------
-$border-radius: 4px;
-$padding: 20px;
+$border-radius: config(border-radius);
+$padding: config(padding);
 
 // Neat
 // ------------------------------------------------
