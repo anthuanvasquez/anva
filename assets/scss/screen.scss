@@ -1,14 +1,12 @@
-@charset "utf-8";
-// Compass
-// Need it ?
-
-// Susy
-@import "plugins/susy";
+@import "bourbon";
 
 // Settings
 @import "theme/functions";
 @import "theme/variables";
 @import "theme/mixins";
+
+// Neat
+@import "neat";
 
 // Base
 @import "theme/normalize";
@@ -33,13 +31,11 @@
 // Modules
 @import "theme/buttons";
 @import "theme/contact";
-@import "theme/grids";
-@import "theme/helpers";
-@import "theme/components";
-@import "theme/animations";
 @import "theme/slides";
 @import "theme/spritesheets";
 @import "theme/lightbox";
-
-// Global State Classes
+@import "theme/components";
+@import "theme/grids";
+@import "theme/helpers";
 @import "theme/state";
+@import "theme/animations";

@@ -1,7 +1,3 @@
-/* 
-	 Posts
-	 ========================================================================== */
-
 /*
  * Post Container
  */
@@ -42,7 +38,7 @@ h2 {
 
 .medium-thumbnail {
 	margin-bottom: $padding;
-	@include span(5);
+	@include span-columns(5);
 }
 
 /*

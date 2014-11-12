@@ -79,15 +79,13 @@
 /*
  * Notifications
  */
- 
 .alert {
 	background-color: #F7F3D5;
 	border: 1px solid #D7CD82;
 	border-radius: $border-radius;
 	color: #95712F;
 	padding: 8px 15px;
-	@include leader(0);
-	@include trailer(1);
+	margin: 0 0 $padding;
 }
 
 .alert-block {

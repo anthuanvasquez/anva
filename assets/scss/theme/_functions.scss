@@ -48,7 +48,7 @@
 	@return null;
 }
 
-@function configuration($key) {
+@function config($key) {
 	@if map-has-key($configuration, $key) {
 		@return map-get($configuration, $key);
 	}

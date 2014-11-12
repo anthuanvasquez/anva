@@ -1,6 +1,3 @@
-// Custom mixins
-// ========================================================================== //
-
 // Font Family for HTML Doc and Body
 @mixin font-stack-body {
 	font-family: $base-font-family;
@@ -38,7 +35,7 @@
 
 // Boxed or Wide layout
 @mixin boxed-layout( $width ) {
-	@if configuration(boxed) {
+	@if config(boxed) {
 		margin: 0 auto;
 		max-width: $width;
 	} @else {

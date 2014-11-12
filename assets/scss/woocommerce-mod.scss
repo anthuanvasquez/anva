@@ -1,9 +1,9 @@
-@import "plugins/susy";
-@import "plugins/breakpoint";
+@import "bourbon";
 @import "theme/functions";
 @import "theme/variables";
 @import "theme/mixins";
 @import "theme/buttons";
+@import "neat";
 
 /* ==========================================================================
 	 Woocommerce
@@ -31,10 +31,10 @@ div.product-meta {
 				$trans: false
 			);
 
-			@include span(4);
+			@include span-columns(4);
 
 			&:nth-child(3n) {
-				@include last();
+				@include omega();
 			}
 			
 			// Clear grid
@@ -120,10 +120,10 @@ div.product-meta {
 
 			.home & {
 				clear: none;
-				@include span(3);
+				@include span-columns(3);
 
 				&:nth-child(4n) {
-					@include last();
+					@include omega();
 				}
 			}
 
@@ -167,10 +167,10 @@ div.product-meta {
 	.upsells.products {
 		ul.products {
 			li.product {
-				@include span(4);
+				@include span-columns(4);
 
 				&:nth-child(3n) {
-					@include last();
+					@include omega();
 				}
 			}
 		}
@@ -179,10 +179,10 @@ div.product-meta {
 	.cart-collaterals {
 		.cross-sells {
 			li.product {
-				@include span(6);
+				@include span-columns(6);
 
 				&:nth-child(3n) {
-					@include span(6);
+					@include span-columns(6);
 				}
 
 				&:nth-child(3n+1) {
@@ -190,7 +190,7 @@ div.product-meta {
 				}
 
 				&:nth-child(2n) {
-					@include last();
+					@include omega();
 				}
 			}
 		}
@@ -531,17 +531,17 @@ div.single_variation {
 /*
  * Large Devices 992px - Change to 750px
  */
-@include susy-breakpoint(break(desktop), layout-column(desktop)) {
+@include media($desktop) {
 
 	.woocommerce,
 	.woocommerce-page {
 		
 		ul.products {
 			li.product {
-				@include span(6);
+				@include span-columns(6);
 
 				&:nth-child(3n) {
-					@include span(6);
+					@include span-columns(6);
 				}
 
 				&:nth-child(3n+1) {
@@ -549,7 +549,7 @@ div.single_variation {
 				}
 
 				&:nth-child(2n) {
-					@include last();
+					@include omega();
 				}
 
 				&:nth-child(2n+1) {
@@ -557,10 +557,10 @@ div.single_variation {
 				}
 
 				.home & {
-					@include span(3);
+					@include span-columns(3);
 
 					&:nth-child(4n) {
-						@include last();
+						@include omega();
 					}
 
 					&:nth-child(2n+1) {
@@ -575,12 +575,12 @@ div.single_variation {
 		.upsells.products {
 			ul.products {
 				li.product {
-					@include span(6);
+					@include span-columns(6);
 					&:nth-child(3n) {
-						@include span(6);
+						@include span-columns(6);
 					}
 					&:nth-child(2n) {
-						@include last();
+						@include omega();
 					}
 				}
 			}
@@ -599,7 +599,7 @@ div.single_variation {
 /*
  * Medium Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint(break(tablet-medium), layout-column(tablet)) {
+@include media($tablet) {
 	
 	.woocommerce,
 	.woocommerce-page {
@@ -610,10 +610,10 @@ div.single_variation {
 			li.product {
 
 				.home & {
-					@include span(4);
+					@include span-columns(4);
 
 					&:nth-child(2n) {
-						@include last();
+						@include omega();
 					}
 
 					&:nth-child(2n+1) {

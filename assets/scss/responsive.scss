@@ -1,24 +1,24 @@
-@import "plugins/susy";
-@import "plugins/breakpoint";
+@import "bourbon";
 @import "theme/functions";
 @import "theme/variables";
 @import "theme/mixins";
+@import "neat";
 
 // If responsive is disabled in the options
 @include container-class() {
-	@include container();
+	@include outer-container();
 	width: auto; // reset width
 }
 
 /*
  * Devices 992px - Change to 750px
  */
-@include susy-breakpoint(break(desktop), layout-column(desktop)) {
+@include media($desktop) {
 
 	/* Layout */
 	@include container-class() {
 		@include pad(15px);
-		@include container(break(tablet-small)); // 752px
+		@include outer-container( break(tablet-small) );
 	}
 	
 	#container {
@@ -26,11 +26,12 @@
 	}	
 
 	.content-area {
-		@include span(8);
+		@include span-columns(8);
 	}
 
 	.widget-area {
-		@include span(4 last);
+		@include span-columns(4);
+		@include omega();
 	}
 	
 	/*
@@ -184,11 +185,11 @@
 /*
  * Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint(break(tablet-medium), layout-column(tablet)) {
+@include media($tablet) {
 
 	/* Layout */
 	@include container-class() {
-		@include container(break(phone-medium)); // 480px;
+		@include outer-container(break(phone-medium)); // 480px;
 	}
 
 	#container {

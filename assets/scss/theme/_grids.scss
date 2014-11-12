@@ -4,7 +4,7 @@
 
  .blog-2-cols {
 	.post {
-		@include span(6);
+		@include span-columns(6);
 
 		&:nth-child(2n) {
 			margin-right: 0;
@@ -19,7 +19,7 @@
 
 .blog-3-cols {
 	.post {
-		@include span(4);
+		@include span-columns(4);
 
 		&:nth-child(3n) {
 			margin-right: 0;
@@ -34,7 +34,7 @@
 
 .blog-4-cols {
 	.post {
-		@include span(3);
+		@include span-columns(3);
 
 		&:nth-child(4n) {
 			margin-right: 0;
@@ -48,10 +48,11 @@
 }
 
 /*
- * Grid Columns Container
+ * Grid Columns
  */
 .grid-columns {
 	width: 100%;
+
 	@if browser('ie') == '8' {
 		*zoom: 1;
 	}
@@ -72,68 +73,60 @@
 		min-height: 30px;
 		width: 100%;
 		&:last-child {
-			@include last;
+			@include omega();
 		}
 	}
 
-}
-
-/*
- * Grid Columns
- */
-.grid-columns,
-.entry-content {
-
 	.column-12 {
-		@include span(12);
+		@include span-columns(12);
 	}
 
 	.column-11 {
-		@include span(11);
+		@include span-columns(11);
 	}
 
 	.column-10 {
-		@include span(10);
+		@include span-columns(10);
 	}
 
 	.column-9 {
-		@include span(9);
+		@include span-columns(9);
 	}
 
 	.column-8 {
-		@include span(8);
+		@include span-columns(8);
 	}
 
 	.column-7 {
-		@include span(7);
+		@include span-columns(7);
 	}
 
 	.column-6 {
-		@include span(6);
+		@include span-columns(6);
 	}
 
 	.column-5 {
-		@include span(5);
+		@include span-columns(5);
 	}
 
 	.column-4 {
-		@include span(4);
+		@include span-columns(4);
 	}
 
 	.column-3 {
-		@include span(3);
+		@include span-columns(3);
 	}
 
 	.column-2 {
-		@include span(2);
+		@include span-columns(2);
 	}
 
 	.column-1 {
-		@include span(1);
+		@include span-columns(1);
 	}	
 
 	.column-last {
-		@include last;
+		@include omega();
 	}
 
 }
