@@ -10,11 +10,19 @@
 	</div><!-- .content-area (end) -->
 	
 	<?php
-		if ( ! is_single() ) {
-			get_sidebar( 'shop' ); 
-		} else {
-			get_sidebar( 'product' ); 
-		}
+		if ( ! is_single() ) :
+			?>
+			<div class="widget-area shop-sidebar" role="complementary">
+				<?php if ( dynamic_sidebar( 'shop-sidebar' ) ) : endif; ?>
+			</div><!-- .widget-area (end) -->
+			<?php
+		else :
+			?>
+			<div class="widget-area product-sidebar" role="complementary">
+				<?php if ( dynamic_sidebar( 'product-sidebar' ) ) : endif; ?>
+			</div><!-- .widget-area (end) -->
+			<?php
+		endif;
 	?>
 	
 </div><!-- .grid-columns (end) -->

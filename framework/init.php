@@ -28,12 +28,12 @@ include_once( TM_THEME_FRAMEWORK . '/includes/login.php' );
 include_once( TM_THEME_FRAMEWORK . '/plugins/contact-email.php' );
 include_once( TM_THEME_FRAMEWORK . '/plugins/slideshows.php' );
 
-// Validate if Woocommerce is activated
+// Validate if Woocommerce plugin is activated
 if ( class_exists( 'Woocommerce' ) ) :
 	include_once( TM_THEME_FRAMEWORK . '/plugins/woocommerce-config.php' );
 endif;
 
-// Validate if Foodlist ist activated
+// Validate if Foodlist plugin is activated
 if ( defined( 'FOODLIST_VERSION' )) {
 	include_once( TM_THEME_FRAMEWORK . 'plugins/foodlist.php' );
 }
@@ -93,3 +93,9 @@ add_action( 'tm_sidebar_layout_after', 'tm_sidebar_layout_after_default' );
 // Plugin Hooks
 add_action( 'init', 'tm_contact_send_email' );
 add_action( 'after_setup_theme', 'tm_slideshows_setup' );
+
+/**
+ * Hook textdomain
+ * @since 1.4.0
+ */
+do_action( 'tm_texdomain' );

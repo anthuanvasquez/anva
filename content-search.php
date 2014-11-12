@@ -6,6 +6,6 @@
 	</header>
 
 	<div class="entry-summary">
-		<?php the_excerpt(); ?>
+		<?php tm_excerpt_limit(); ?>
 	</div>
 </article>

@@ -7,12 +7,6 @@
 include_once( get_template_directory() . '/framework/init.php' );
 
 /**
- * Hook textdomain
- * @since 1.4.0
- */
-do_action( 'tm_texdomain' );
-
-/**
  * Setup theme functions. After theme setup hooks and filters.
  * @since 1.3.1
  */

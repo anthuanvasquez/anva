@@ -7,14 +7,14 @@
 		<?php if ( 'hide' != $hide_title ) : ?>
 			<h1 class="entry-title"><?php the_title(); ?></h1>
 		<?php endif; ?>
-		<div class="entry-meta">
-			<?php
-				$single_meta = tm_get_option( 'single_meta' );
-				if ( 1 == $single_meta ) :
-					tm_posted_on();
-				endif;
-			?>
-		</div>
+		
+		<?php
+			$single_meta = tm_get_option( 'single_meta' );
+			if ( 1 == $single_meta ) :
+				tm_posted_on();
+			endif;
+		?>
+		
 	</header>
 
 	<div class="entry-content">
