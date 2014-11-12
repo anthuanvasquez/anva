@@ -14,6 +14,7 @@
  * Devices 992px - Change to 750px
  */
 @include media($desktop) {
+// @include media($desktop) {
 
 	/* Layout */
 	@include container-class() {
@@ -189,11 +190,11 @@
 
 	/* Layout */
 	@include container-class() {
-		@include outer-container(break(phone-medium)); // 480px;
+		@include outer-container( break(phone-medium) ); // 480px;
 	}
 
 	#container {
-		@include boxed-layout(break(phone-medium));
+		@include boxed-layout( break(phone-medium) );
 	}
 
 	/*

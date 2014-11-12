@@ -106,13 +106,10 @@ $padding: 20px;
 // ------------------------------------------------
 $max-width: 1000px !default;
 $grid-columns: 12 !default;
-$border-box-sizing: true !default;
-$default-feature: max-width;
-$gutter: golden-ratio(20px, 1) !default;
-$column: golden-ratio(20px, 3) !default;
+$border-box-sizing: false !default;
+$gutter: 20px !default;
+$column: 60px !default;
 
-// Breakpoints Settings
-// ------------------------------------------------
 $all-breakpoints: (
 	phone-small: 320px,
 	phone-medium: 480px,
@@ -128,6 +125,12 @@ $all-layout-columns: (
 	desktop: 12
 );
 
-$desktop: new-breakpoint($default-feature break(desktop) layout-column(desktop));
-$tablet: new-breakpoint($default-feature break(tablet-medium) layout-column(tablet));
-$phone: new-breakpoint($default-feature break(phone-medium) layout-column(phone));
+$desktop: max-width break(desktop) layout-column(desktop);
+$tablet: max-width break(tablet-medium) layout-column(tablet);
+$phone: max-width break(phone-medium) layout-column(phone);
+
+// Debug grid columns
+// $visual-grid: true !default;
+// $visual-grid-color: red !default;
+// $visual-grid-index: front !default;
+// $visual-grid-opacity: 0.1 !default;

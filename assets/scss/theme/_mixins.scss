@@ -65,6 +65,16 @@
 	}
 }
 
+@mixin omega-reset($nth, $col) {
+  &:nth-child(#{$nth}) {
+  	@include span-columns($col);
+  }
+
+  &:nth-child(#{$nth}+1) {
+  	clear: none
+  }
+}
+
 // Display elements to inline-block
 @mixin inline-block() {
 	display: inline-block;

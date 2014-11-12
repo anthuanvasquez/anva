@@ -65,7 +65,7 @@ function remove_woocommerce_generator() {
  */
 add_action( 'wp_enqueue_scripts', 'wc_load_scripts' ); 
 function wc_load_scripts() {
-	wp_enqueue_style( 'woocommerce-mod', get_template_directory_uri() . '/assets/css/woocommerce-mod.css' );
+	wp_enqueue_style( 'woocommerce-screen', get_template_directory_uri() . '/assets/css/woocommerce-screen.css' );
 }
 
 add_action( 'widgets_init', 'wc_register_sidebars' );

@@ -32,15 +32,7 @@ div.product-meta {
 			);
 
 			@include span-columns(4);
-
-			&:nth-child(3n) {
-				@include omega();
-			}
-			
-			// Clear grid
-			&:nth-child(3n+1) {
-				clear: both;
-			}
+			@include nth-child(3n, right);
 
 			a {
 				img {
@@ -121,10 +113,7 @@ div.product-meta {
 			.home & {
 				clear: none;
 				@include span-columns(3);
-
-				&:nth-child(4n) {
-					@include omega();
-				}
+				@include nth-child(4n, right);
 			}
 
 		}
@@ -168,10 +157,7 @@ div.product-meta {
 		ul.products {
 			li.product {
 				@include span-columns(4);
-
-				&:nth-child(3n) {
-					@include omega();
-				}
+				@include nth-child(3n, right);
 			}
 		}
 	}
@@ -180,18 +166,7 @@ div.product-meta {
 		.cross-sells {
 			li.product {
 				@include span-columns(6);
-
-				&:nth-child(3n) {
-					@include span-columns(6);
-				}
-
-				&:nth-child(3n+1) {
-					clear: none;
-				}
-
-				&:nth-child(2n) {
-					@include omega();
-				}
+				@include nth-child(3n, right);
 			}
 		}
 	}
@@ -529,7 +504,7 @@ div.single_variation {
 }
 
 /*
- * Large Devices 992px - Change to 750px
+ * Large Devices 992px - Change to 750px - 12
  */
 @include media($desktop) {
 
@@ -538,30 +513,14 @@ div.single_variation {
 		
 		ul.products {
 			li.product {
+
 				@include span-columns(6);
-
-				&:nth-child(3n) {
-					@include span-columns(6);
-				}
-
-				&:nth-child(3n+1) {
-					clear: none;
-				}
-
-				&:nth-child(2n) {
-					@include omega();
-				}
-
-				&:nth-child(2n+1) {
-					clear: both;
-				}
+				@include nth-child(2n, right);
+				@include omega-reset(3n, 6);
 
 				.home & {
 					@include span-columns(3);
-
-					&:nth-child(4n) {
-						@include omega();
-					}
+					@include nth-child(4n, right);
 
 					&:nth-child(2n+1) {
 						clear: none;
@@ -576,12 +535,8 @@ div.single_variation {
 			ul.products {
 				li.product {
 					@include span-columns(6);
-					&:nth-child(3n) {
-						@include span-columns(6);
-					}
-					&:nth-child(2n) {
-						@include omega();
-					}
+					@include nth-child(2n, right);
+					@include omega-reset(3n, 6);
 				}
 			}
 		}
@@ -597,7 +552,7 @@ div.single_variation {
 }
 
 /*
- * Medium Mobile Devices 767px - Change to 480px
+ * Medium Mobile Devices 767px - Change to 480px - 8
  */
 @include media($tablet) {
 	
@@ -610,15 +565,8 @@ div.single_variation {
 			li.product {
 
 				.home & {
-					@include span-columns(4);
-
-					&:nth-child(2n) {
-						@include omega();
-					}
-
-					&:nth-child(2n+1) {
-						clear: both;
-					}
+					@include span-columns(4);			
+					@include nth-child(2n, right);
 				}
 			}
 		}
