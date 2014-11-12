@@ -4,25 +4,25 @@
 @import "theme/variables";
 @import "theme/mixins";
 
-// If resposnsive is disabled in the options
+// If responsive is disabled in the options
 @include container-class() {
 	@include container();
 	width: auto; // reset width
 }
 
 /*
- * Large Devices 992px - Change to 750px
+ * Devices 992px - Change to 750px
  */
 @include susy-breakpoint(break(desktop), layout-column(desktop)) {
 
 	/* Layout */
 	@include container-class() {
 		@include pad(15px);
-		@include container(break(tablet-medium)); // 752px
+		@include container(break(tablet-small)); // 752px
 	}
 	
 	#container {
-		@include boxed-layout(break(tablet-medium));
+		@include boxed-layout(break(tablet-small));
 	}	
 
 	.content-area {
@@ -182,9 +182,9 @@
 }
 
 /*
- * Medium Mobile Devices 767px - Change to 480px
+ * Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint(break(tablet-small), layout-column(tablet)) {
+@include susy-breakpoint(break(tablet-medium), layout-column(tablet)) {
 
 	/* Layout */
 	@include container-class() {

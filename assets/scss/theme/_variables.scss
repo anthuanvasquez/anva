@@ -1,8 +1,10 @@
-// Boxed
+// Configuration
 // ------------------------------------------------
-$boxed: true !default;
+$configuration: (
+	boxed: true
+);
 
-// Normalize Browser Support Settings
+// Browser Support Settings
 // ------------------------------------------------
 $browser-minimum-versions: (
 	'chrome':  '30',
@@ -93,7 +95,7 @@ $button-padding-box: 6px 12px;
 $button-box-shadow: none;
 $button-text-shadow: none;
 
-// Susy 2 Grid Settings
+// Susy Grid Settings
 // ------------------------------------------------
 $container-style: magic;
 $container-width: 1000px;
@@ -119,9 +121,10 @@ $susy: (
 $all-breakpoints: (
 	phone-small: 320px,
 	phone-medium: 480px,
-	tablet-small: 767px,
-	tablet-medium: 750px,
-	desktop: 992px
+	tablet-small: 750px,
+	tablet-medium: 767px,
+	desktop: 992px,
+	large: 1200px
 );
 
 $all-layout-columns: (

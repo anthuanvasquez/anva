@@ -599,7 +599,7 @@ div.single_variation {
 /*
  * Medium Mobile Devices 767px - Change to 480px
  */
-@include susy-breakpoint(break(tablet-small), layout-column(tablet)) {
+@include susy-breakpoint(break(tablet-medium), layout-column(tablet)) {
 	
 	.woocommerce,
 	.woocommerce-page {

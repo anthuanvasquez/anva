@@ -12,7 +12,7 @@
 	@return #{$remSize}rem;
 }
 
-// Return browser version
+// Return minimum browser version
 @function browser($key) {
 	@if map-has-key($browser-minimum-versions, $key) {
 		@return map-get($browser-minimum-versions, $key);
@@ -48,10 +48,10 @@
 	@return null;
 }
 
-@function font-stack($key) {
-	@if map-has-key($font-stacks, $key) {
-		@return map-get($font-stacks, $key);
+@function configuration($key) {
+	@if map-has-key($configuration, $key) {
+		@return map-get($configuration, $key);
 	}
-	@warn "Unknown `#{$key}` in $font-stacks.";
+	@warn "Unknown `#{$key}` in $configuration.";
 	@return null;
 }

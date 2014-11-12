@@ -36,8 +36,9 @@
 	width: $width;
 }
 
+// Boxed or Wide layout
 @mixin boxed-layout( $width ) {
-	@if $boxed {
+	@if configuration(boxed) {
 		margin: 0 auto;
 		max-width: $width;
 	} @else {
@@ -77,7 +78,7 @@
 	}
 }
 
-// Conatiner classes
+// Container inner classes
 @mixin container-class() {
 	.header-inner,
 	.featured-inner,
@@ -168,6 +169,7 @@
 	animation-iteration-count: $count;
 }
 
+// Sprites
 @mixin spritesheet-position($x: 0, $y: 0, $width: 0, $height: 0) {
 	background-position: $x $y;
 	width: $width;
