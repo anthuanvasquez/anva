@@ -96,6 +96,21 @@ $options = array(
 	),
 
 	array(
+		"name" 		=> "Footer Columns",  
+		"desc" 		=> __("Selecciona la cantidad de columnas que deseas mostrar en el footer.", TM_THEME_DOMAIN),  
+		"id" 			=> "footer_cols",
+		"type" 		=> "radio",
+		"std" 		=> '4',
+		"options" => array(
+			'12' => "1 Columna.",
+			'6'  => "2 Columnas.",
+			'4'  => "3 Columnas.",
+			'3'  => "4 Columnas."
+		),
+		"tab"			=> "layout"
+	),
+
+	array(
 		"type" 		=> "close",
 		"tab"			=> "layout"
 	),

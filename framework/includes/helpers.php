@@ -207,13 +207,14 @@ function tm_get_post_custom() {
 function tm_get_widget_args( $id, $name, $description ) {
 	
 	$columns = '';
+	$footer_cols = tm_get_option( 'footer_cols' );
 
 	if ( 'home-sidebar' == $id ) {
 		$columns = 'column-4';
 	}
 
 	if ( 'footer-sidebar' == $id ) {
-		$columns = 'column-4';
+		$columns = 'column-' . $footer_cols;
 	}
 	
 	$args = array(
