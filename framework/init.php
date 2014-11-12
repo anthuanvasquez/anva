@@ -67,12 +67,10 @@ add_filter( 'wp_title', 'tm_wp_title', 10, 2 );
 add_filter( 'wp_mail_from', 'tm_wp_mail_from' );
 add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
 add_filter( 'pre_get_posts', 'tm_search_filter' );
-add_filter( 'manage_posts_columns', 'tm_posts_columns_head');
 
 // Hook hooks
 add_action( 'add_meta_boxes', 'tm_add_page_options' );
 add_action( 'save_post', 'tm_page_options_save_meta', 1, 2 );
-add_action( 'manage_posts_custom_column', 'tm_posts_columns_content', 10, 2);
 add_action( 'wp_head', 'tm_apple_touch_icon' );
 add_action( 'wp_head', 'tm_custom_css' );
 add_action( 'wp_head', 'tm_navigation' );

@@ -1,6 +1,4 @@
-<?php
-	get_header();
-?>
+<?php get_header(); ?>
 
 <div class="grid-columns">
 	<div class="content-area">

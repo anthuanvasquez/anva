@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3 Mentes WordPress Framework\n"
 "POT-Creation-Date: 2014-11-12 10:20-0400\n"
-"PO-Revision-Date: 2014-11-12 10:20-0400\n"
+"PO-Revision-Date: 2014-11-12 14:06-0400\n"
 "Last-Translator: Anthuan Vasquez <programacion@3mentes.com>\n"
 "Language-Team:  <eigthy@gmail.com>\n"
 "Language: en_US\n"
@@ -757,7 +757,7 @@ msgstr "N/A"
 
 #: ../woocommerce/single-product/related.php:36
 msgid "Related Products"
-msgstr "Productos Relacionados"
+msgstr "Related Products"
 
 #~ msgid " %s"
 #~ msgstr " %s"

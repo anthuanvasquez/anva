@@ -298,7 +298,7 @@ function tm_contact_form() {
 			<div id="email_message" class="alert alert-block"><?php echo $email_sended_message; ?></div>
 		<?php endif; ?>
 
-		<form id="contact_form" class="contact-form" method="post" action="<?php the_permalink(); ?>#contactform">
+		<form id="contactform" class="contact-form" method="post" action="<?php the_permalink(); ?>#contactform">
 
 			<div class="form-name">
 				<label for="cname" class="control-label"><?php echo tm_get_local( 'name' ); ?>:</label>

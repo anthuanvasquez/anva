@@ -92,20 +92,6 @@ function tm_post_link_attr( $output ) {
 }
 
 /**
- * Add customs image sizes.
- * @since 1.4.2
- */
-function tm_add_image_size() {
-	add_image_size( 'thumbnail_blog_large', 620, 300, true );
-	add_image_size( 'thumbnail_blog_medium', 300, 300, true );
-	add_image_size( 'thumbnail_blog_small', 150, 150, true );
-	add_image_size( 'thumbnail_grid_2', 472, 295, true );
-	add_image_size( 'thumbnail_grid_3', 320, 200, true);
-	add_image_size( 'thumbnail_grid_4', 240, 150, true );
-	add_image_size( 'thumbnail_slideshow', 980, 450, true );
-}
-
-/**
  * Change the default mail from.
  * @since 1.5.0
  */
@@ -141,9 +127,4 @@ function tm_search_filter( $query ) {
 	}
 	
 	return $query;
-}
-
-function tm_posts_columns_head( $columns ) {
-	$columns['featured_image'] = tm_get_local( 'featured_image' );
-	return $columns;
 }
