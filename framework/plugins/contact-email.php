@@ -16,31 +16,31 @@ function tm_contact_send_email() {
 		
 		// Validate name
 		if ( empty( $name ) || sanitize_text_field( $name ) == '' ) {
-			$hasError = true;
+			$has_error = true;
 		}
 
 		// Validate email
-		if ( empty( $email ) || ! is_email( $email ) ) {
-			$hasError = true;
+		if ( empty( $email ) || sanitize_email( $email ) == '' || ! is_email( $email ) ) {
+			$has_error = true;
 		}
 
 		// Validate subject
 		if ( empty( $subject ) || sanitize_text_field( $subject ) == '' ) {
-			$hasError = true;
+			$has_error = true;
 		}
 
 		// Validate message
 		if ( empty( $message ) || sanitize_text_field( $message ) == '' ) {
-			$hasError = true;
+			$has_error = true;
 		}
 
 		// Validate answer
 		if ( empty( $captcha ) || sanitize_text_field( $captcha ) == '' ) {
-			$hasError = true;
+			$has_error = true;
 		}
 		
 		// Body Mail
-		if ( ! isset( $hasError ) ) {
+		if ( ! isset( $has_error ) ) {
 
 			// Change to dynamic
 			$email_to = '';
@@ -72,7 +72,7 @@ function tm_contact_send_email() {
 		);
 		
 	else :
-		if ( isset( $hasError ) ) :
+		if ( isset( $has_error ) ) :
 			$email_sended_message = tm_get_local( 'submit_error' );
 		endif;
 	endif;
