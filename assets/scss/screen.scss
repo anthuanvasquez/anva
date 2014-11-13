@@ -1,41 +1,41 @@
 @import "bourbon";
 
 // Settings
-@import "theme/functions";
-@import "theme/variables";
-@import "theme/mixins";
+@import "functions";
+@import "variables";
+@import "mixins";
 
 // Neat
 @import "neat";
 
 // Base
-@import "theme/normalize";
-@import "theme/general";
-@import "theme/forms";
-@import "theme/typography";
+@import "screen/normalize";
+@import "screen/general";
+@import "screen/forms";
+@import "screen/typography";
 
 // Layout
-@import "theme/content";
-@import "theme/header";
-@import "theme/navigation";
-@import "theme/entry";
-@import "theme/footer";
+@import "screen/content";
+@import "screen/header";
+@import "screen/navigation";
+@import "screen/entry";
+@import "screen/footer";
 
 // WordPress
-@import "theme/comments";
-@import "theme/gallery";
-@import "theme/shortcodes";
-@import "theme/widgets";
-@import "theme/wordpress";
+@import "screen/comments";
+@import "screen/gallery";
+@import "screen/shortcodes";
+@import "screen/widgets";
+@import "screen/wordpress";
 
 // Modules
-@import "theme/buttons";
-@import "theme/contact";
-@import "theme/slides";
-@import "theme/spritesheets";
-@import "theme/lightbox";
-@import "theme/components";
-@import "theme/grids";
-@import "theme/helpers";
-@import "theme/state";
-@import "theme/animations";
+@import "screen/buttons";
+@import "screen/contact";
+@import "screen/slides";
+@import "screen/spritesheets";
+@import "screen/lightbox";
+@import "screen/components";
+@import "screen/grids";
+@import "screen/helpers";
+@import "screen/state";
+@import "screen/animations";

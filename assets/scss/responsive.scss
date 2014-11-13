@@ -1,7 +1,7 @@
 @import "bourbon";
-@import "theme/functions";
-@import "theme/variables";
-@import "theme/mixins";
+@import "functions";
+@import "variables";
+@import "mixins";
 @import "neat";
 
 // If responsive is disabled in the options
@@ -13,7 +13,7 @@
 /*
  * Devices 992px - Change to 750px
  */
-@include media($desktop) {
+@include media(992px) {
 
 	/* Layout */
 	@include container-class() {
