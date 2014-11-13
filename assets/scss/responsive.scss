@@ -13,7 +13,7 @@
 /*
  * Devices 992px - Change to 750px
  */
-@include media(992px) {
+@include media($desktop) {
 
 	/* Layout */
 	@include container-class() {
