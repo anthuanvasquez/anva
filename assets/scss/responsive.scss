@@ -14,7 +14,6 @@
  * Devices 992px - Change to 750px
  */
 @include media($desktop) {
-// @include media($desktop) {
 
 	/* Layout */
 	@include container-class() {
@@ -68,7 +67,7 @@
 
 	form {
 		&.search-form,
-		&#searchform {			
+		&#searchform {
 			button,
 			input {				
 				&.search-submit,
@@ -97,7 +96,7 @@
 			display: none;
 		}
 	}
-		
+	
 	.toggle_navigation {
 		#off-canvas-button,
 		.off-canvas-navigation {
