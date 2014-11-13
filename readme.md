@@ -36,9 +36,6 @@ Framework usado en 3 mentes para construir temas de WordPress de una forma rápi
 * Iconos para Social Media
 * Responsive Resolutions (980, 768, 480, 320)
 
-### TODO
-* Integrar con [Bootstrap 3](http://getbootstrap.com/)
-
 ### Plugins Sugeridos
 * [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/)
 * [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/)
