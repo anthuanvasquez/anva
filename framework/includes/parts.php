@@ -340,8 +340,8 @@ function tm_contact_form() {
 			jQuery("#email_message").fadeOut("slow");
 		}, 3000);
 
-		jQuery('#contact_form input[type="text"]').attr('autocomplete', 'off');
-		jQuery('#contact_form').validate({
+		jQuery('#contactform input[type="text"]').attr('autocomplete', 'off');
+		jQuery('#contactform').validate({
 			rules: {
 				cname: "required",
 				csubject: "required",
