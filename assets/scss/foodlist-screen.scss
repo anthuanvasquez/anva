@@ -76,8 +76,9 @@ nav.table-of-contents {
 .fl-menu-item {
 
 	h3 {
-		color: color(primary);
+		border-bottom: 1px solid #eee;
 		margin-bottom: 5px;
+		padding-bottom: 5px;
 	}
 
 	> p {
@@ -118,6 +119,7 @@ nav.table-of-contents {
 
 	ul {
 		@include reset-list();
+		margin-top: 20px;
 		
 		li {
 			margin-bottom: $padding;
