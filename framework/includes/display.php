@@ -100,22 +100,26 @@ function tm_content_after_default() {
 }
 
 function tm_sidebar_layout_before_default() {
-	$sidebar = tm_get_post_meta('_sidebar_column');
-	if ( 'left' == $sidebar || 'double' == $sidebar ) {
-		get_sidebar( 'left' );
-	} elseif ( 'double_left' == $sidebar ) {
-		get_sidebar( 'left' );
-		get_sidebar( 'right' );
+	if ( is_page() ) {
+		$sidebar = tm_get_post_meta('_sidebar_column');
+		if ( 'left' == $sidebar || 'double' == $sidebar ) {
+			get_sidebar( 'left' );
+		} elseif ( 'double_left' == $sidebar ) {
+			get_sidebar( 'left' );
+			get_sidebar( 'right' );
+		}
 	}
 }
 
 function tm_sidebar_layout_after_default() {
-	$sidebar = tm_get_post_meta('_sidebar_column');
-	if ( 'right' == $sidebar || 'double' == $sidebar ) {
-		get_sidebar( 'right' );
-	} elseif ( 'double_right' == $sidebar ) {
-		get_sidebar( 'left' );
-		get_sidebar( 'right' );
+	if ( is_page() ) {
+		$sidebar = tm_get_post_meta('_sidebar_column');
+		if ( 'right' == $sidebar || 'double' == $sidebar ) {
+			get_sidebar( 'right' );
+		} elseif ( 'double_right' == $sidebar ) {
+			get_sidebar( 'left' );
+			get_sidebar( 'right' );
+		}
 	}
 }
 

@@ -4,17 +4,14 @@
 	$classes = '';
 	$sidebar = tm_get_post_meta('_sidebar_column');
 
-	if ( 'left' == $sidebar || 'double_left' == $sidebar ) {
-		$classes = 'content-area right';
+	if ( 'left' == $sidebar || 'right' == $sidebar ) {
+		$classes = 'content col-sm-8';
 
-	} elseif ( 'right' == $sidebar || 'double_right' == $sidebar  ) {
-		$classes = 'content-area left';
-
-	} elseif ( 'double' == $sidebar ) {
-		$classes = 'content-area center';
+	} elseif ( 'double' == $sidebar || 'double_left' == $sidebar || 'double_right' == $sidebar  ) {
+		$classes = 'content col-sm-6';
 
 	} elseif ( 'fullwidth' ) {
-		$classes = 'full-width';
+		$classes = 'content col-sm-12';
 	}
 ?>
 

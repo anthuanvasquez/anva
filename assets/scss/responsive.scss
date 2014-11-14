@@ -38,7 +38,7 @@
 	 * Header
 	 */
 	div.brand {
-		float: none;
+		margin: 0;
 		text-align: center;
 		
 		a.logo {
@@ -47,11 +47,9 @@
 	}
 
 	div.addon {
-		margin: 40px auto 0;
-		right: 0;
+		margin: 10px auto 0;
 		position: static;
 		text-align: center;
-		top: 0;
 
 		form.search-form,
 		form#searchform,
@@ -61,7 +59,8 @@
 		}
 
 		.social-media {
-			margin-top: 15px;
+			margin-bottom: 15px;
+			text-align: center;
 		}
 	}
 
@@ -271,13 +270,6 @@
 				order: 2;
 			}
 		}
-	}
-
-	/*
-	 * Header
-	 */
-	div.brand {
-		margin: $padding 0;
 	}
 	
 	/*

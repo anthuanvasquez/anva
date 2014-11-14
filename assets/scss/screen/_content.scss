@@ -25,49 +25,15 @@
 }
 
 .sidebar-layout-double {
-	.widget-area {
-		&.left {
-			@include span-columns(3);
-		}
-		&.right {
-			@include span-columns(3);
-			@include omega();
-		}
-	}
+
 }
 
 .sidebar-layout-double-left {
-	.content-area {
-		&.right {
-			@include span-columns(6);
-			@include omega();
-		}
-	}
-	.widget-area {
-		&.left {
-			@include span-columns(3);
-		}
-		&.right {
-			@include span-columns(3);
-		}
-	}
+
 }
 
 .sidebar-layout-double-right {
-	.content-area {
-		&.left {
-			@include span-columns(6);
-		}
-	}
-	.widget-area {
-		&.left {
-			@include span-columns(3);
-		}
-		&.right {
-			@include span-columns(3);
-			@include omega();
-		}
-	}
+
 }
 
 // Group main content
