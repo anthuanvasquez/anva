@@ -6,6 +6,11 @@ function tm_foodlist_setup() {
 	add_filter( 'foodlist_menu_template', 'tm_menu_template', 10, 2 );
 	add_filter( 'foodlist_menu_section_template', 'tm_menu_section_template', 10, 2 );
 	add_filter( 'foodlist_menu_item_template', 'tm_menu_item_template', 10, 2 );
+	add_action( 'wp_enqueue_scripts', 'foodlist_load_scripts' );
+}
+
+function foodlist_load_scripts() {
+	wp_enqueue_style( 'foodlist-screen', get_template_directory_uri() . '/assets/css/foodlist-screen.css' );
 }
 
 function tm_menu_template( $tpl ) {
