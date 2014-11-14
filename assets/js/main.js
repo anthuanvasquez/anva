@@ -41,8 +41,6 @@ jQuery(document).ready( function() {
 		jQuery('html, body').animate({ scrollTop: 0 }, 'slow');
 	});
 	
-	// Additional JS
-
 	// ---------------------------------------------------------
 	// Fitvids
 	// ---------------------------------------------------------
@@ -52,5 +50,37 @@ jQuery(document).ready( function() {
 	// Superfish Menu
 	// ---------------------------------------------------------
 	jQuery('ul.navigation-menu').superfish();
+
+	// ---------------------------------------------------------
+	// TOC
+	// ---------------------------------------------------------
+	var ToC = "<nav role='navigation' class='table-of-contents'>" + "<h2 id='toc' class='alt'><i class='fa fa-bars'></i> Menú</h2>" + "<ul class='toc-list group'>";
+	var newLine, el, title, link;
+		
+	jQuery(".fl-menu ul > li > div.fl-menu-section > h2").each( function() {
+		el = jQuery(this);
+		id = jQuery(this).parent('div.fl-menu-section');
+		title = el.text();
+		link = "#" + id.attr("id");
+		newLine = "<li class='toc-item'>" + "<a href='" + link + "'>" + title + "</a>" + "</li>";
+		ToC += newLine;
+	});
+
+	ToC += "</ul>" + "</nav>";
+
+	jQuery("#menu-toc").prepend(ToC);
+
+	jQuery('a[href*=#]:not([href=#])').click(function() {
+		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+			var target = jQuery(this.hash);
+			target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
+			if (target.length) {
+				jQuery('html,body').animate({
+					scrollTop: target.offset().top
+				}, 1000);
+				return false;
+			}
+		}
+	});
 	
 });
