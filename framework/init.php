@@ -35,7 +35,7 @@ endif;
 
 // Validate if Foodlist plugin is activated
 if ( defined( 'FOODLIST_VERSION' )) {
-	include_once( TM_THEME_FRAMEWORK . 'plugins/foodlist.php' );
+	include_once( TM_THEME_FRAMEWORK . '/plugins/foodlist.php' );
 }
 
 /**
