@@ -1,7 +1,6 @@
 /*
  * Typography
  */
-
 .size-2x {
 	font-size: 120%;
 }
@@ -12,12 +11,6 @@
 
 .size-4x {
 	font-size: 180%;
-}
-
-.fixed {
-	font-family: $fixed-font-family;
-	font-size: $fixed-font-size;
-	line-height: $fixed-line-height;
 }
 
 .quiet {
@@ -33,7 +26,7 @@
 }
 
 .bold {
-	font-weight: 700;
+	font-weight: bold;
 }
 
 .block-margins {
@@ -65,15 +58,43 @@
 }
 
 .text-left {
-	text-align: left !important;
+	text-align: left;
 }
 
 .text-center {
-	text-align: center !important;
+	text-align: center;
 }
 
 .text-right {
-	text-align: right !important;
+	text-align: right;
+}
+
+.text-justify {
+	text-align: justify;
+}
+
+.text-nowrap {
+	white-space: nowrap;
+}
+
+/*
+ * Tables
+ */
+.table {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 20px;
+}
+
+.table {
+	> tr > td
+	> tr > td
+	> tr > td {
+		border-top: 1px solid #ddd;
+		line-height: 1.42857143;
+		padding: 8px;
+		vertical-align: top;
+	}
 }
 
 /*
@@ -111,3 +132,78 @@
 	background: #CCE7F5;
 	border-color: #7DBBDF;
 }
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+.hidden {
+	display: none !important;
+	visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+.visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+.visuallyhidden {
+	&.focusable {
+		&:active,
+		&:focus {
+			clip: auto;
+			height: auto;
+			margin: 0;
+			overflow: visible;
+			position: static;
+			width: auto;
+		}
+	}
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+.invisible {
+	visibility: hidden;
+}
+
+.is-hidden {
+	display: none;
+}
+
+.no-js {
+	.is-hidden--no-js {
+		display: none
+	}
+}
+
+.js {
+	.is-hidden--js {
+		display: none;
+	}
+}
+
+// Hide only visually, but have it available for screenreaders: h5bp.com/v
+.is-visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+ }

@@ -33,6 +33,7 @@ input[type="button"],
 input[type="submit"],
 input[type="reset"] {
   background: #2acbf5;
+  background-image: none;
   border: 1px solid #0bbdeb;
   -webkit-border-radius: 4px;
           border-radius: 4px;
@@ -43,7 +44,8 @@ input[type="reset"] {
   *display: inline;
   *zoom: 1;
   font-size: 14px;
-  font-weight: normal;
+  font-weight: 400;
+  line-height: 1.42857143;
   padding: 6px 12px;
   position: relative;
   text-align: center;
@@ -81,7 +83,7 @@ input.button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-  background-color: #0bb5e1;
+  background: #0bb5e1;
   color: #fff;
 }
 .button:active, .woocommerce a.button:active,
@@ -106,6 +108,51 @@ input[type="button"]:active,
 input[type="submit"]:active,
 input[type="reset"]:active {
   top: 1px;
+}
+.button.button-default, .woocommerce a.button-default.button,
+.woocommerce button.button-default.button,
+.woocommerce input.button-default.button,
+.woocommerce #respond input.button-default#submit,
+.woocommerce #content input.button-default.button,
+.woocommerce-page a.button-default.button,
+.woocommerce-page button.button-default.button,
+.woocommerce-page input.button-default.button,
+.woocommerce-page #respond input.button-default#submit,
+.woocommerce-page #content input.button-default.button,
+a.button.button-default,
+button.button-default,
+button.button.button-default,
+input.button.button-default,
+.woocommerce #respond input.button-default#submit,
+.woocommerce #content input.button-default.button,
+.woocommerce-page #respond input.button-default#submit,
+.woocommerce-page #content input.button-default.button,
+input[type="button"].button-default,
+input[type="submit"].button-default,
+input[type="reset"].button-default {
+  background: #fff;
+  border-color: #ccc;
+  color: #333;
+}
+.button.button-default:hover,
+.woocommerce #respond input.button-default#submit:hover,
+.woocommerce #content input.button-default.button:hover,
+.woocommerce-page #respond input.button-default#submit:hover,
+.woocommerce-page #content input.button-default.button:hover,
+a.button.button-default:hover,
+button.button-default:hover,
+button.button.button-default:hover,
+input.button.button-default:hover,
+.woocommerce #respond input.button-default#submit:hover,
+.woocommerce #content input.button-default.button:hover,
+.woocommerce-page #respond input.button-default#submit:hover,
+.woocommerce-page #content input.button-default.button:hover,
+input[type="button"].button-default:hover,
+input[type="submit"].button-default:hover,
+input[type="reset"].button-default:hover {
+  background: #e6e6e6;
+  border-color: #adadad;
+  color: #333;
 }
 
 /* ==========================================================================
@@ -164,7 +211,7 @@ div.product-meta {
 .woocommerce-page ul.products li.product h3 {
   border-bottom: 2px solid #2acbf5;
   color: #333;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   margin: 0 0 10px;
   padding: 0 0 10px;
@@ -270,7 +317,7 @@ div.product-meta {
 .woocommerce-page div.related.products h2,
 .woocommerce-page div.upsells.products h2,
 .woocommerce-page div.cross-sells h2 {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
   margin: 0 0 15px;
 }
@@ -528,7 +575,7 @@ div.product-meta {
 .woocommerce #content div.product p.stock,
 .woocommerce-page div.product p.stock,
 .woocommerce-page #content div.product p.stock {
-  font-size: 16px;
+  font-size: 18px;
 }
 .woocommerce div.product div.thumbnails a,
 .woocommerce #content div.product div.thumbnails a,

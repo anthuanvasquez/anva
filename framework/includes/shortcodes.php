@@ -29,7 +29,7 @@ function tm_shortcodes_setup() {
 add_filter( 'after_setup_theme', 'tm_shortcodes_setup'  );
 
 // [dropcap foo="foo-value"]
-function dropcap_func($atts, $content) {
+function dropcap_func( $atts, $content ) {
 	// Extract short code attr
 	extract(shortcode_atts(array(
 		'style' => 1
@@ -37,12 +37,13 @@ function dropcap_func($atts, $content) {
 
 	// Get first char
 	$first_char = substr($content, 0, 1);
-	$text_len = strlen($content);
-	$rest_text = substr($content, 1, $text_len);
+	$text_len 	= strlen($content);
+	$rest_text 	= substr($content, 1, $text_len);
 
-	$html = '<span class="dropcap">'. $first_char .'</span>';
-	$html.= do_shortcode($rest_text);
-	$html.= '';
+	$html  = '<span class="dropcap">'. $first_char .'</span>';
+	$html .= wpautop($rest_text);
+	$html .= '';
+
 	return $html;
 }
 

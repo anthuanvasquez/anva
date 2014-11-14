@@ -13,8 +13,8 @@ a,
  * Lists
  */
 ul, ol {
-	margin: 0 0 1em;
-	padding-left: $padding*2;
+	margin-top: 0;
+	margin-bottom: 10px;
 }
 
 /*
@@ -44,30 +44,57 @@ h6, .h6 {
 	font-size: $h6;
 }
 
+h1, .h1, h2, .h2, h3, .h3 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+h4, .h4, h5, .h5, h6, .h6 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 /*
  * Headings
  */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	color: $heading-font-color;
 	line-height: $heading-font-line-height;
 	margin: 0 0 1em;
 	@include font-stack-headers();
 	a {
-		color: $heading-font-color;
+		color: inherit;
 		&:hover {
-			color: $heading-font-color;
+			color: inherit;
 			text-decoration: underline;
 		}
 	}
 }
 
 /*
+ * Quotes
+ */
+blockquote {
+	padding: 10px 20px;
+	margin: 0 0 20px;
+	font-size: 17.5px;
+	border-left: 5px solid #eee;
+}
+
+/*
+ * Address
+ */
+address {
+	margin-bottom: 20px;
+	font-style: normal;
+	line-height: 1.42857143;
+}
+
+/*
  * Paragraphs
  */
-blockquote,
-p,
-pre {
-	margin: 0 0 1em;
+p {
+	margin: 0 0 10px;
 }
 
 /*

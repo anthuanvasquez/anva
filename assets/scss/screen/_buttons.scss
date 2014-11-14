@@ -3,6 +3,7 @@
  */
 @include group-buttons() {
 	background: $button-background-color;
+	background-image: none;
 	border: $button-border;
 	border-radius: $button-border-radius;
 	
@@ -15,6 +16,7 @@
 	@include inline-block();
 	font-size: $button-font-size;
 	font-weight: $button-font-weight;
+	line-height: 1.42857143;
 	padding: $button-padding-box;
 	position: relative;
 	text-align: center;
@@ -27,12 +29,24 @@
 	-webkit-font-smoothing: antialiased;
 
 	&:hover {
-		background-color: darken($button-background-color, 10%);
+		background: darken($button-background-color, 10%);
 		color: $button-font-color;
 	}
 
 	&:active {
 		top: 1px;
+	}
+
+	&.button-default {
+		background: #fff;
+		border-color: #ccc;
+		color: #333;
+
+		&:hover {
+			background: #e6e6e6;
+			border-color: #adadad;
+			color: #333;			
+		}
 	}
 
 }

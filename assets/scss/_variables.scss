@@ -1,8 +1,8 @@
 // Configuration
 // ------------------------------------------------
 $configuration: (
-	font-size: 13px,
-	line-height: 18px,
+	font-size: 14px,
+	line-height: 1.428,
 	padding: 20px,
 	border-radius: 4px,
 	boxed: true
@@ -80,10 +80,10 @@ $widget-heading-font-size: 18px;
 
 // Font Heading Settings
 // ------------------------------------------------
-$h1: 27px !default;
-$h2: 24px !default;
-$h3: 18px !default;
-$h4: 16px !default;
+$h1: 36px !default;
+$h2: 30px !default;
+$h3: 24px !default;
+$h4: 18px !default;
 $h5: 14px !default;
 $h6: 12px !default;
 
@@ -94,7 +94,7 @@ $button-border-radius: 4px;
 $button-border: 1px solid darken($button-background-color, 8%);
 $button-font-color: #fff;
 $button-font-size: 14px;
-$button-font-weight: normal;
+$button-font-weight: 400;
 $button-padding-box: 6px 12px;
 $button-box-shadow: none;
 $button-text-shadow: none;

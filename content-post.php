@@ -17,7 +17,7 @@
 
 		<div class="entry-summary">
 			<?php tm_excerpt_limit(); ?>
-			<a class="button" href="<?php the_permalink(); ?>">
+			<a class="button button-default" href="<?php the_permalink(); ?>">
 				<?php echo tm_get_local( 'read_more' ); ?>
 			</a>
 		</div>
