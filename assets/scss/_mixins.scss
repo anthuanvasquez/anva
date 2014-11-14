@@ -87,11 +87,7 @@
 
 // Container inner classes
 @mixin container-class() {
-	.header-inner,
-	.featured-inner,
-	.breadcrumbs-inner,
-	.content-inner,
-	.footer-inner {
+	.other {
 		@content;
 	}
 }

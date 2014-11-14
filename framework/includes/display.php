@@ -74,9 +74,11 @@ function tm_breadcrumbs() {
 		if ( function_exists( 'yoast_breadcrumb' ) ) {
 			?>
 			<div id="breadcrumbs">
-				<div class="breadcrumbs-inner inner">
-					<?php yoast_breadcrumb( '<p>', '</p>' ); ?>
-				</div>
+				<div class="breadcrumbs-inner">
+					<div class="breadcrumbs-content">
+						<?php yoast_breadcrumb( '<p>', '</p>' ); ?>
+					</div><!-- breadcrumbs-content (end) -->
+				</div><!-- breadcrumbs-inner (end) -->
 			</div><!-- #breadcrumbs (end) -->
 			<?php
 		}
@@ -85,15 +87,15 @@ function tm_breadcrumbs() {
 
 function tm_content_before_default() {
 	?>
-	<div id="content">
-		<div class="content-inner inner">
+	<div id="sidebar-layout">
+		<div class="sidebar-layout-inner">
 	<?php
 }
 
 function tm_content_after_default() {
 	?>
-			</div><!-- .content-inner (end) -->
-	</div><!-- #content (end) -->
+			</div><!-- .sidebar-layout-inner (end) -->
+	</div><!-- #sidebar-layout (end) -->
 	<?php
 }
 

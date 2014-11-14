@@ -222,18 +222,14 @@ ul.navigation-menu {
 /*
  * Mobile Navigation
  */
-div.mobile-navigation {
-	display: none;
-}
-
 a.toggle-button {
-	background-color: color(primary);
+	background: color(primary);
 	border-radius: $border-radius $border-radius 0 0;
 	color: #fff;
+	display: none;
 	font-size: 18px;
 	margin-left: 10px;
 	padding: 10px;
-	@include inline-block();
 	&:hover {
 		color: #fff;
 	}

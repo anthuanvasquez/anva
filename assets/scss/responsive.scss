@@ -91,7 +91,7 @@
 			display: block;
 		}
 		
-		.mobile-navigation,
+		a.toggle-button,
 		.main-navigation {
 			display: none;
 		}
@@ -103,8 +103,8 @@
 			display: none;
 		}
 		
-		.mobile-navigation {
-			display: block;
+		a.toggle-button {
+			@include inline-block();
 		}
 
 		.main-navigation {

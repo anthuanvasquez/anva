@@ -6,9 +6,9 @@
 
 <?php get_header(); ?>
 
-<div class="grid-columns">
-	<div class="content-area">
-		<div class="main" role="main">
+<div class="row grid-columns">
+	<div class="content-area col-sm-8">
+		<div class="inner">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php get_template_part( 'content', 'page' ); ?>

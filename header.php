@@ -40,33 +40,33 @@
 </div><!-- #off-canvas (end) -->
 				
 <div id="container">
-	
-	<a href="#" id="off-canvas-button" class="toggle-button">
-		<i class="fa fa-bars"></i>
-		<span class="screen-reader-text"><?php echo tm_get_local( 'menu' ); ?></span>
-	</a>
-	
-	<header id="header">
-		<div class="header-inner inner">
-			
-			<div class="header-top group">				
-				<div id="brand" class="brand">
-					<?php tm_header_logo(); ?>
-				</div>
 
-				<div id="addon" class="addon">
-					<?php tm_header_addon(); ?>
-				</div>
-			</div><!-- .header-top (end) -->
-			
-			<div class="header-bottom">
+	<div id="top">
+		<header id="header">
+			<div class="header-inner inner">
 				
-				<div class="mobile-navigation">
-					<a href="#" id="mobile-navigation" class="toggle-button">
-						<i class="fa fa-bars"></i>
-						<span class="screen-reader-text"><?php echo tm_get_local( 'menu' ); ?></span>
-					</a>
-				</div>
+				<div class="header-content">
+					<div class="header-content-inner">
+						
+						<div class="header-content-group group">
+
+							<div id="brand" class="brand">
+								<?php tm_header_logo(); ?>
+							</div><!-- #brand (end) -->
+
+							<div id="addon" class="addon">
+								<?php tm_header_addon(); ?>
+							</div><!-- #addon (end) -->
+
+						</div>
+
+					</div><!-- .header-content-inner (end) -->
+				</div><!-- .header-content (end) -->
+
+				<a href="#" id="mobile-navigation" class="toggle-button ">
+					<i class="fa fa-bars"></i>
+					<span class="screen-reader-text"><?php echo tm_get_local( 'menu' ); ?></span>
+				</a>
 
 				<nav id="main-navigation" class="main-navigation horizontal-navigation group" role="navigation">
 					<?php
@@ -86,9 +86,10 @@
 						}
 					?>
 				</nav><!-- #main-navigation (end) -->
-			</div><!-- .header-bottom (end) -->
-		</div><!-- .header-inner (end) -->
-	</header><!-- #header (end) -->
+
+			</div><!-- .header-inner (end) -->
+		</header><!-- #header (end) -->
+	</div><!-- #top (end) -->
 	
 	<?php if ( is_front_page() ) : ?>
 		<div id="featured">
@@ -102,4 +103,8 @@
 		</div><!-- #featured (end) -->
 	<?php endif; ?>
 
-	<?php tm_content_before(); ?>
+	<div id="main">
+		<div class="main-inner">
+			<div class="main-content">
+				
+				<?php tm_content_before(); ?>

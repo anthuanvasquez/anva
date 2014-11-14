@@ -2,7 +2,7 @@
  * Main widgets
  */
 .widget {
-	margin: 0 0 $padding;
+	margin: 0 0 30px 0;
 	
 	ul {
 		@include reset-list();
@@ -11,17 +11,6 @@
 	p:last-child {
 		margin: 0;
 	}
-}
-
-/*
- * Widgets Title
- */
-.widget-title {
-	color: $widget-heading-font-color;
-	display: block;
-	font-size: $widget-heading-font-size;
-	margin: 0 0 .5em;
-	@include font-stack-headers();
 }
 
 /*

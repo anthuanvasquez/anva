@@ -1,23 +1,25 @@
-/*
- * Header
- */
-.header-inner {
+#top {
 	position: relative;
+	padding: 0 30px;
 }
 
 /*
- * Group Header Top
+/*
+ * Header Content
  */
-.header-top {
-	margin-bottom: $padding;
+.header-content {
 	padding: $padding 0;
+}
+
+.header-content-group {
+	padding: 10px 20px;
+	position: relative;
 }
 
 /*
  * Logo
  */
 div.brand {
-	float: left;
 	
 	a.logo {
 		display: block;
@@ -30,9 +32,15 @@ div.brand {
  * Addons
  */
 div.addon {
+	margin-top: -40px;
 	position: absolute;
-	right: $padding;
-	top: 15%;
+	right: 20px;
+	top: 50%;
+
+	.social-media {
+		margin: 0 0 3px;
+		text-align: right;
+	}
 }
 
 /*

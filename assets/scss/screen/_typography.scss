@@ -59,9 +59,12 @@ h4, .h4, h5, .h5, h6, .h6 {
  */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	color: $heading-font-color;
-	line-height: $heading-font-line-height;
-	margin: 0 0 1em;
+	font-weight: bold;
+	line-height: 1.1;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	@include font-stack-headers();
+
 	a {
 		color: inherit;
 		&:hover {
@@ -93,8 +96,8 @@ address {
 /*
  * Paragraphs
  */
-p {
-	margin: 0 0 10px;
+p, pre {
+	margin-bottom: 1.38em;
 }
 
 /*

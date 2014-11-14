@@ -210,19 +210,19 @@ function tm_get_widget_args( $id, $name, $description ) {
 	$footer_cols = tm_get_option( 'footer_cols' );
 
 	if ( 'home-sidebar' == $id ) {
-		$columns = 'column-4';
+		$columns = 'grid-4';
 	}
 
 	if ( 'footer-sidebar' == $id ) {
-		$columns = 'column-' . $footer_cols;
+		$columns = 'grid-' . $footer_cols;
 	}
 	
 	$args = array(
 		'id'            => $id,
 		'name'          => tm_get_local( $name ),
 		'description'		=> tm_get_local( $description ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s '.$columns.'">',
-		'after_widget'  => '</aside>',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s '.$columns.'"><div class="widget-inner">',
+		'after_widget'  => '</div></aside>',
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	);

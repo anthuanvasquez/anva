@@ -68,7 +68,7 @@
 		clear: both;
 	}
 
-	[class*="column-"] {
+	[class*="grid-"] {
 		display: block;
 		min-height: 30px;
 		width: 100%;
@@ -77,55 +77,55 @@
 		}
 	}
 
-	.column-12 {
+	.grid-12 {
 		@include span-columns(12);
 	}
 
-	.column-11 {
+	.grid-11 {
 		@include span-columns(11);
 	}
 
-	.column-10 {
+	.grid-10 {
 		@include span-columns(10);
 	}
 
-	.column-9 {
+	.grid-9 {
 		@include span-columns(9);
 	}
 
-	.column-8 {
+	.grid-8 {
 		@include span-columns(8);
 	}
 
-	.column-7 {
+	.grid-7 {
 		@include span-columns(7);
 	}
 
-	.column-6 {
+	.grid-6 {
 		@include span-columns(6);
 	}
 
-	.column-5 {
+	.grid-5 {
 		@include span-columns(5);
 	}
 
-	.column-4 {
+	.grid-4 {
 		@include span-columns(4);
 	}
 
-	.column-3 {
+	.grid-3 {
 		@include span-columns(3);
 	}
 
-	.column-2 {
+	.grid-2 {
 		@include span-columns(2);
 	}
 
-	.column-1 {
+	.grid-1 {
 		@include span-columns(1);
 	}	
 
-	.column-last {
+	.grid-last {
 		@include omega();
 	}
 

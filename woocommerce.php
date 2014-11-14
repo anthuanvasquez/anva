@@ -1,26 +1,34 @@
 <?php get_header(); ?>
 
-<div class="grid-columns">
-	<div class="content-area">
-		<div class="main" role="main">
+<div class="row grid-columns">
+	<div class="content-area col-sm-8">
+		<div class="inner">
 		
 		<?php woocommerce_content(); ?>
 
-		</div><!-- .main (end) -->
+		</div><!-- .inner (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php
 		if ( ! is_single() ) :
 			?>
-			<div class="widget-area shop-sidebar" role="complementary">
-				<?php if ( dynamic_sidebar( 'shop-sidebar' ) ) : endif; ?>
-			</div><!-- .widget-area (end) -->
+			<div class="sidebar-wrapper col-sm-4">
+				<div class="sidebar-inner">
+					<div class="widget-area">
+							<?php if ( dynamic_sidebar( 'shop-sidebar' ) ) : endif; ?>
+						</div>
+				</div>
+			</div><!-- .sidebar-wrapper (end) -->
 			<?php
 		else :
 			?>
-			<div class="widget-area product-sidebar" role="complementary">
-				<?php if ( dynamic_sidebar( 'product-sidebar' ) ) : endif; ?>
-			</div><!-- .widget-area (end) -->
+			<div class="sidebar-wrapper col-sm-4">
+				<div class="sidebar-inner">
+					<div class="widget-area">
+							<?php if ( dynamic_sidebar( 'product-sidebar' ) ) : endif; ?>
+						</div>
+				</div>
+			</div><!-- .sidebar-wrapper (end) -->
 			<?php
 		endif;
 	?>

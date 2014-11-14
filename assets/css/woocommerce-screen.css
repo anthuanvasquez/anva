@@ -211,7 +211,7 @@ div.product-meta {
 .woocommerce-page ul.products li.product h3 {
   border-bottom: 2px solid #2acbf5;
   color: #333;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   margin: 0 0 10px;
   padding: 0 0 10px;
@@ -317,7 +317,7 @@ div.product-meta {
 .woocommerce-page div.related.products h2,
 .woocommerce-page div.upsells.products h2,
 .woocommerce-page div.cross-sells h2 {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   margin: 0 0 15px;
 }
@@ -575,7 +575,7 @@ div.product-meta {
 .woocommerce #content div.product p.stock,
 .woocommerce-page div.product p.stock,
 .woocommerce-page #content div.product p.stock {
-  font-size: 18px;
+  font-size: 14px;
 }
 .woocommerce div.product div.thumbnails a,
 .woocommerce #content div.product div.thumbnails a,
