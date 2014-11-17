@@ -18,7 +18,7 @@
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php get_sidebar(); ?>
+	<?php tm_sidebars( 'right', '4' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

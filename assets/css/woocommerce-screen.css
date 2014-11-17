@@ -86,29 +86,6 @@ input[type="reset"]:hover {
   background: #0bb5e1;
   color: #fff;
 }
-.button:active, .woocommerce a.button:active,
-.woocommerce button.button:active,
-.woocommerce input.button:active,
-.woocommerce #respond input#submit:active,
-.woocommerce #content input.button:active,
-.woocommerce-page a.button:active,
-.woocommerce-page button.button:active,
-.woocommerce-page input.button:active,
-.woocommerce-page #respond input#submit:active,
-.woocommerce-page #content input.button:active,
-a.button:active,
-button:active,
-button.button:active,
-input.button:active,
-.woocommerce #respond input#submit:active,
-.woocommerce #content input.button:active,
-.woocommerce-page #respond input#submit:active,
-.woocommerce-page #content input.button:active,
-input[type="button"]:active,
-input[type="submit"]:active,
-input[type="reset"]:active {
-  top: 1px;
-}
 .button.button-default, .woocommerce a.button-default.button,
 .woocommerce button.button-default.button,
 .woocommerce input.button-default.button,

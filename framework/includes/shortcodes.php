@@ -135,7 +135,7 @@ function column_six_func($atts, $content) {
 		'class' => '',
 	), $atts));
 	
-	$html = '<div class="column-6 '. $class .'">'. do_shortcode($content) .'</div>';
+	$html = '<div class="grid-6 '. $class .'">'. do_shortcode($content) .'</div>';
 	return $html;
 }
 
@@ -146,7 +146,7 @@ function column_six_last_func($atts, $content) {
 		'class' => '',
 	), $atts));
 
-	$html = '<div class="column-6 column-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
+	$html = '<div class="grid-6 grid-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
 	return $html;
 }
 
@@ -158,7 +158,7 @@ function column_four_func($atts, $content) {
 		'class' => '',
 	), $atts));
 	
-	$html = '<div class="column-4 '. $class .'">'. do_shortcode($content) .'</div>';
+	$html = '<div class="grid-4 '. $class .'">'. do_shortcode($content) .'</div>';
 	return $html;
 }
 
@@ -169,7 +169,7 @@ function column_four_last_func($atts, $content) {
 		'class' => '',
 	), $atts));
 
-	$html = '<div class="column-4 column-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
+	$html = '<div class="grid-4 grid-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
 	return $html;
 }
 
@@ -181,7 +181,7 @@ function column_three_func($atts, $content) {
 		'class' => '',
 	), $atts));
 	
-	$html = '<div class="column-3 '. $class .'">'. do_shortcode($content) .'</div>';
+	$html = '<div class="grid-3 '. $class .'">'. do_shortcode($content) .'</div>';
 	return $html;
 }
 
@@ -192,7 +192,7 @@ function column_three_last_func($atts, $content) {
 		'class' => '',
 	), $atts));
 
-	$html = '<div class="column-3 column-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
+	$html = '<div class="grid-3 grid-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
 	return $html;
 }
 
@@ -204,7 +204,7 @@ function column_two_func($atts, $content) {
 		'class' => '',
 	), $atts));
 	
-	$html = '<div class="column-2 '. $class .'">'. do_shortcode($content) .'</div>';
+	$html = '<div class="grid-2 '. $class .'">'. do_shortcode($content) .'</div>';
 	return $html;
 }
 
@@ -215,7 +215,7 @@ function column_two_last_func($atts, $content) {
 		'class' => '',
 	), $atts));
 
-	$html = '<div class="column-2 column-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
+	$html = '<div class="grid-2 grid-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
 	return $html;
 }
 
@@ -227,7 +227,7 @@ function column_one_func($atts, $content) {
 		'class' => '',
 	), $atts));
 	
-	$html = '<div class="column-1 '. $class .'">'. do_shortcode($content) .'</div>';
+	$html = '<div class="grid-1 '. $class .'">'. do_shortcode($content) .'</div>';
 	return $html;
 }
 
@@ -238,7 +238,7 @@ function column_one_last_func($atts, $content) {
 		'class' => '',
 	), $atts));
 
-	$html = '<div class="column-1 column-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
+	$html = '<div class="grid-1 grid-last '. $class .'">'. do_shortcode($content) .'</div><div class="clear"></div>';
 	return $html;
 }
 

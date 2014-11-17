@@ -18,6 +18,7 @@ include_once( TM_THEME_FRAMEWORK . '/includes/actions.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/display.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/meta.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/helpers.php' );
+include_once( TM_THEME_FRAMEWORK . '/includes/elements.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/media.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/locals.php' );
 include_once( TM_THEME_FRAMEWORK . '/includes/parts.php' );

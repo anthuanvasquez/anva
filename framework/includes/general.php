@@ -25,10 +25,6 @@ function tm_register_menus() {
 function tm_register_sidebars() {
 
 	register_sidebar(
-		tm_get_widget_args( 'main-sidebar', 'main_sidebar_title', 'main_sidebar_desc' )
-	);
-
-	register_sidebar(
 		tm_get_widget_args( 'sidebar-left', 'sidebar_left_title', 'sidebar_left_desc' )
 	);
 

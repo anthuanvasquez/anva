@@ -5,9 +5,9 @@
 
  get_header(); ?>
 
-<div class="grid-columns">
+<div class="row grid-columns">
 
-	<div class="content-area">
+	<div class="content-area col-sm-8">
 		<div class="main" role="main">
 			<?php
 				
@@ -27,7 +27,7 @@
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 
-	<?php get_sidebar(); ?>
+	<?php tm_sidebars( 'right', '4' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

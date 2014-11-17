@@ -44,7 +44,7 @@ h2 {
  * Post Meta
  */
 .entry-meta {
-	color: #999999;
+	color: color(meta);
 	font-size: 12px;
 	font-weight: bold;
 	margin: 5px 2px 15px 2px;
@@ -60,7 +60,7 @@ time.updated {
  */
 .entry-category {
 	a {
-		color: #777;
+		color: color(meta);;
 		margin-right: 5px;
 	}
 }

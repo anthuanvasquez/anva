@@ -1,25 +1,13 @@
-html {
-	font-size: $base-font-size;
-	line-height: $base-line-height;
-	@include box-sizing(border-box);
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-html {
+html, body {
 	color: $base-font-color;
 	font-size: $base-font-size;
+	line-height: $base-line-height;
 	@include font-stack-body();
 	overflow-x: hidden;
 }
 
 body {
 	background: color('body');
-	overflow-x: hidden;
 }
 
 html,
@@ -35,6 +23,10 @@ textarea {
  */
 a {
 	text-decoration: none;
+	&:focus,
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 /*

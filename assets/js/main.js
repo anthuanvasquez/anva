@@ -6,7 +6,18 @@ jQuery(document).ready( function() {
 	// ---------------------------------------------------------
 	// Lightbox
 	// ---------------------------------------------------------
-	jQuery('.gallery > .gallery-item a').attr('data-lightbox', 'gallery-item');
+	
+	// jQuery('.gallery > .gallery-item a').attr('data-lightbox', 'gallery-item');
+
+	jQuery('.gallery > .gallery-item').magnificPopup({
+		delegate: 'a',
+		removalDelay: 300,
+		type: 'image',
+		mainClass: 'mfp-fade',
+		gallery: {
+			enabled: true
+		}
+	});
 
 	// ---------------------------------------------------------
 	// Toogle for shortcodes

@@ -23,15 +23,6 @@
 	
 	#container {
 		@include boxed-layout(break(tablet-small));
-	}	
-
-	.content-area {
-		@include span-columns(8);
-	}
-
-	.widget-area {
-		@include span-columns(4);
-		@include omega();
 	}
 	
 	/*
@@ -210,66 +201,11 @@
 	}
 
 	.content-area {
-		margin-bottom: $padding;
-		&.right {
-			@include reset-float( none, true );
-			order: 1;
-		}
+		order: 1;
 	}
 	
-	.widget-area {
-		&.left {
-			@include reset-float( none, true );
-			order: 2;
-		}
-	}
-
-	.sidebar-layout-double {
-		.content-area {
-			&.center {
-				order: 1;
-				@include reset-float(right, true);
-			}
-		}
-		.widget-area {
-			&.left,
-			&.right {
-				@include reset-float(none, true);
-				order: 2;
-			}
-		}
-	}
-
-	.sidebar-layout-double-left {
-		.content-area {
-			&.right {
-				@include reset-float(none, true);
-				order: 1;
-			}
-		}
-		.widget-area {
-			&.left,
-			&.right {
-				@include reset-float(none, true);
-				order: 2;
-			}
-		}
-	}
-
-	.sidebar-layout-double-right {
-		.content-area {
-			&.left {
-				@include reset-float(none, true);
-				order: 1;
-			}
-		}
-		.widget-area {
-			&.left,
-			&.right {
-				@include reset-float(none, true);
-				order: 2;
-			}
-		}
+	.sidebar-wrapper {
+		order: 2;
 	}
 	
 	/*

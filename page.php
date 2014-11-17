@@ -5,17 +5,17 @@
 	$sidebar = tm_get_post_meta('_sidebar_column');
 
 	if ( 'left' == $sidebar || 'right' == $sidebar ) {
-		$classes = 'content col-sm-8';
+		$classes = 'content-area col-sm-8';
 
 	} elseif ( 'double' == $sidebar || 'double_left' == $sidebar || 'double_right' == $sidebar  ) {
-		$classes = 'content col-sm-6';
+		$classes = 'content-area col-sm-6';
 
 	} elseif ( 'fullwidth' ) {
-		$classes = 'content col-sm-12';
+		$classes = 'content-area col-sm-12';
 	}
 ?>
 
-<div class="grid-columns">
+<div class="row grid-columns">
 
 	<?php tm_sidebar_layout_before(); ?>
 

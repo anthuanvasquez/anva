@@ -6,8 +6,8 @@
 
 <?php get_header(); ?>
 
-<div class="grid-columns">
-	<div class="full-width">
+<div class="row grid-columns">
+	<div class="col-sm-12">
 		<div class="main" role="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
