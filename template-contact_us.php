@@ -8,7 +8,7 @@
 
 <div class="row grid-columns">
 	<div class="content-area col-sm-8">
-		<div class="inner">
+		<div class="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php get_template_part( 'content', 'page' ); ?>

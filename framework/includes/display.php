@@ -4,7 +4,7 @@ function tm_ie_browser_message() {
 	$string = tm_get_local( 'browsehappy' );
 	$url = esc_url( 'http://browsehappy.com/' );
 	?>
-	<!--[if lt IE 9]><p class="browsehappy"><?php echo sprintf( $string, $url ); ?></p><![endif]-->
+	<!--[if lt IE 9]><p class="alert alert-warning browsehappy"><?php echo sprintf( $string, $url ); ?></p><![endif]-->
 	<?php
 }
 
@@ -20,7 +20,7 @@ function tm_header_logo_default() {
 		endif;
 		echo $logo_image;
 	?>
-	<span class="screen-reader-text"><?php bloginfo( 'name' ); ?></span>
+	<span class="sr-only"><?php bloginfo( 'name' ); ?></span>
 	</a>
 	<?php
 }
@@ -46,7 +46,7 @@ function tm_custom_css() {
 
 function tm_footer_text_default() {
 	echo '<p>';
-	$string = '<strong>%s</strong> &copy; %d %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i> <span class="screen-reader-text">Go Top</span></a>';
+	$string = '<strong>%s</strong> &copy; %d %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i> <span class="sr-only">Go Top</span></a>';
 	$name = get_bloginfo( 'name' );
 	$date = date( 'Y' );
 	$copyright = tm_get_local( 'footer_copyright' );
@@ -203,7 +203,7 @@ function tm_navigation() {
 function tm_debug_queries() {
 	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :
 	?>
-		<div class="browsehappy">Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</div>
+		<div class="alert alert-warning">Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</div>
 	<?php
 	endif;
 }

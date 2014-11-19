@@ -8,7 +8,7 @@
 <div class="row grid-columns">
 
 	<div class="content-area col-sm-8">
-		<div class="main" role="main">
+		<div class="main">
 			<?php
 				
 				$the_query = tm_get_post_query();

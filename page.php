@@ -20,7 +20,7 @@
 	<?php tm_sidebar_layout_before(); ?>
 
 	<div class="<?php echo esc_html( $classes ); ?>">
-		<div class="main" role="main">
+		<div class="main">
 
 			<?php tm_post_before(); ?>
 

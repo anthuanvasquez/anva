@@ -58,7 +58,7 @@
 
 				<a href="#" id="mobile-navigation" class="toggle-button ">
 					<i class="fa fa-bars"></i>
-					<span class="screen-reader-text"><?php echo tm_get_local( 'menu' ); ?></span>
+					<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
 				</a>
 
 				<nav id="main-navigation" class="main-navigation horizontal-navigation group" role="navigation">

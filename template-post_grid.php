@@ -25,7 +25,7 @@ switch ( $grid_columns ) {
 
 <div class="row grid-columns">
 	<div class="col-sm-12">
-		<div class="main" role="main">
+		<div class="main">
 			<div class="row grid-columns">
 			<?php
 

@@ -2,7 +2,7 @@
 
 <div class="grid-columns">
 	<div class="content-area">
-		<div class="main" role="main">
+		<div class="main">
 
 			<?php if ( have_posts() ) : ?>
 

@@ -26,9 +26,7 @@
 
 </div><!-- #container (end) -->
 
-<?php wp_footer(); ?>
-
 <?php tm_layout_after(); ?>
-
+<?php wp_footer(); ?>
 </body>
 </html>

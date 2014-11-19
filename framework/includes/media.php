@@ -21,3 +21,46 @@ function tm_get_featured_image( $post_id, $thumbnail ) {
 		return $post_thumbnail_img[0];
 	}
 }
+
+function tm_post_thumbnails( $thumb ) {
+	
+	global $post;
+
+	$output = '';
+	$size = 'blog_large';
+	$classes = 'large-thumbnail';
+
+	switch ( $thumb ) {
+		case 0:				
+			$classes = 'medium-thumbnail';
+			$size = 'blog_medium';
+			break;
+
+		case 1:
+			$classes = 'large-thumbnail';
+			$size = 'blog_large';
+			break;
+
+		case 2:
+			$output = '';
+			break;
+	}
+
+	if ( $thumb != 2 && has_post_thumbnail() ) {
+		$output .= '<div class="entry-thumbnail '.$classes.'">';
+		$output .= '<a href="'.get_permalink().'">'.get_the_post_thumbnail( $post->ID, $size ).'</a>';
+		$output .= '</div>';
+	}
+
+	echo $output;
+
+}
+
+function tm_post_grid_thumbnails( $thumbnail_size ) {
+	global $post;
+	$output = '';
+	$output .= '<div class="entry-thumbnail large-thumbnail">';
+	$output .= '<a href="'.get_permalink( $post->ID ).'" title="'.get_the_title( $post->ID ).'">'.get_the_post_thumbnail( $post->ID, $thumbnail_size ).'</a>';
+	$output .= '</div>';
+	return $output;
+}

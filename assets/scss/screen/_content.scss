@@ -1,6 +1,6 @@
 // Inner container group
 @include container-class() {
-	@include container-width($max-width, $padding);
+	@include container-width($max-width, 0);
 }
 
 // Container
@@ -14,36 +14,9 @@
 	padding: 20px 30px;
 }
 
-// Content
-.content-area {
-
-}
-
-// Sidebar
-.widget-area {
-
-}
-
-.sidebar-layout-double {
-
-}
-
-.sidebar-layout-double-left {
-
-}
-
-.sidebar-layout-double-right {
-
-}
-
 // Group main content
 .main {
 	margin: 0 0 $padding*2;
-}
-
-// Featured slider
-#featured {
-	padding: 10px 30px;
 }
 
 .homepage-sidebar {

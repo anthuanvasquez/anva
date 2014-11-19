@@ -5,7 +5,8 @@ $configuration: (
 	line-height: 1.5,
 	padding: 20px,
 	border-radius: 4px,
-	boxed: true
+	boxed: true,
+	debug: false
 );
 
 // Browser Support Settings
@@ -132,7 +133,9 @@ $tablet: max-width break(tablet-medium) layout-column(tablet);
 $phone: max-width break(phone-medium) layout-column(phone);
 
 // Debug grid columns
-// $visual-grid: true !default;
-// $visual-grid-color: red !default;
-// $visual-grid-index: front !default;
-// $visual-grid-opacity: 0.1 !default;
+@if config(debug) {
+	$visual-grid: true !default;
+	$visual-grid-color: red !default;
+	$visual-grid-index: front !default;
+	$visual-grid-opacity: 0.1 !default;
+}

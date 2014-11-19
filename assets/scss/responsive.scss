@@ -17,7 +17,6 @@
 
 	/* Layout */
 	@include container-class() {
-		@include pad(15px);
 		@include outer-container( break(tablet-small) );
 	}
 	

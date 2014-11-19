@@ -21,7 +21,7 @@ function tm_slideshows() {
 
 	// Main Slider
 	$args['homepage'] = array(
-		'size' 		=> 'thumbnail_slideshow',
+		'size' 		=> 'slideshow',
 		'options' => "
 			animation: Modernizr.touch ? 'slide' : 'fade',
 			animationSpeed: Modernizr.touch ? 400 : 1000,
@@ -41,12 +41,12 @@ function tm_slideshows() {
 	
 	// Gallery Slider
 	$args['gallery'] = array(
-		'size' => 'thumbnail_blog_large'
+		'size' => 'blog_large'
 	);
 
 	// Attachments Slider	
 	$args['attachments'] = array(
-		'size' => 'thumbnail_blog_large'
+		'size' => 'blog_large'
 	);
 	
 	return apply_filters( 'tm_slideshows', $args );

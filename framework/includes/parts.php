@@ -105,49 +105,6 @@ function tm_posted_on() {
 	<?php
 }
 
-function tm_post_thumbnails( $thumb ) {
-	
-	global $post;
-
-	$output = '';
-	$size = 'thumbnail_blog_large';
-	$classes = 'large-thumbnail';
-
-	switch ( $thumb ) {
-		case 0:				
-			$classes = 'medium-thumbnail';
-			$size = 'thumbnail_blog_medium';
-			break;
-
-		case 1:
-			$classes = 'large-thumbnail';
-			$size = 'thumbnail_blog_large';
-			break;
-
-		case 2:
-			$output = '';
-			break;
-	}
-
-	if ( $thumb != 2 && has_post_thumbnail() ) {
-		$output .= '<div class="entry-thumbnail '.$classes.'">';
-		$output .= '<a href="'.get_permalink().'">'.get_the_post_thumbnail( $post->ID, $size ).'</a>';
-		$output .= '</div>';
-	}
-
-	echo $output;
-
-}
-
-function tm_post_grid_thumbnails( $thumbnail_size ) {
-	global $post;
-	$output = '';
-	$output .= '<div class="entry-thumbnail large-thumbnail">';
-	$output .= '<a href="'.get_permalink( $post->ID ).'" title="'.get_the_title( $post->ID ).'">'.get_the_post_thumbnail( $post->ID, $thumbnail_size ).'</a>';
-	$output .= '</div>';
-	return $output;
-}
-
 function tm_social_media() {
 	
 	$html 			= '';
@@ -164,47 +121,47 @@ function tm_social_media() {
 	$rss 				= tm_get_option('social_rss');
 
 	if ( ! empty( $facebook ) ) {
-		$html .= '<li><a href="'. esc_url( $facebook ) .'" class="social social-facebook"><span class="screen-reader-text">Facebook</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $facebook ) .'" class="social social-facebook"><span class="sr-only">Facebook</span></a></li>';
 	}
 
 	if ( ! empty( $twitter ) ) {
-		$html .= '<li><a href="'. esc_url( $twitter ) .'" class="social social-twitter"><span class="screen-reader-text">Twitter</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $twitter ) .'" class="social social-twitter"><span class="sr-only">Twitter</span></a></li>';
 	}
 
 	if ( ! empty( $instagram ) ) {
-		$html .= '<li><a href="'. esc_url( $instagram ) .'" class="social social-instagram"><span class="screen-reader-text">Instagram</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $instagram ) .'" class="social social-instagram"><span class="sr-only">Instagram</span></a></li>';
 	}
 
 	if ( ! empty( $gplus ) ) {
-		$html .= '<li><a href="'. esc_url( $gplus ) .'" class="social social-gplus"><span class="screen-reader-text">Google+</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $gplus ) .'" class="social social-gplus"><span class="sr-only">Google+</span></a></li>';
 	}
 
 	if ( ! empty( $youtube ) ) {
-		$html .= '<li><a href="'. esc_url( $youtube ) .'" class="social social-youtube"><span class="screen-reader-text">Youtube</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $youtube ) .'" class="social social-youtube"><span class="sr-only">Youtube</span></a></li>';
 	}
 
 	if ( ! empty( $linkedin ) ) {
-		$html .= '<li><a href="'. esc_url( $linkedin ) .'" class="social social-linkedin"><span class="screen-reader-text">LinkedIn</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $linkedin ) .'" class="social social-linkedin"><span class="sr-only">LinkedIn</span></a></li>';
 	}
 
 	if ( ! empty( $vimeo ) ) {
-		$html .= '<li><a href="'. esc_url( $vimeo ) .'" class="social social-vimeo"><span class="screen-reader-text">Vimeo</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $vimeo ) .'" class="social social-vimeo"><span class="sr-only">Vimeo</span></a></li>';
 	}
 
 	if ( ! empty( $pinterest ) ) {
-		$html .= '<li><a href="'. esc_url( $pinterest ) .'" class="social social-pinterest"><span class="screen-reader-text">Pinterest</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $pinterest ) .'" class="social social-pinterest"><span class="sr-only">Pinterest</span></a></li>';
 	}
 
 	if ( ! empty( $digg ) ) {
-		$html .= '<li><a href="'. esc_url( $digg ) .'" class="social social-digg"><span class="screen-reader-text">Digg</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $digg ) .'" class="social social-digg"><span class="sr-only">Digg</span></a></li>';
 	}
 
 	if ( ! empty( $dribbble ) ) {
-		$html .= '<li><a href="'. esc_url( $dribbble ) .'" class="social social-dribbble"><span class="screen-reader-text">Dribbble</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $dribbble ) .'" class="social social-dribbble"><span class="sr-only">Dribbble</span></a></li>';
 	}
 
 	if ( ! empty( $rss ) ) {
-		$html .= '<li><a href="'. esc_url( $rss ) .'" class="social social-rss"><span class="screen-reader-text">RSS</span></a></li>';
+		$html .= '<li><a href="'. esc_url( $rss ) .'" class="social social-rss"><span class="sr-only">RSS</span></a></li>';
 	}
 
 	return $html;
@@ -392,7 +349,7 @@ function tm_get_search_form() {
 	?>
 	<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
 		<label>
-			<span class="screen-reader-text"><?php echo tm_get_local( 'search_for' ); ?></span>
+			<span class="sr-only"><?php echo tm_get_local( 'search_for' ); ?></span>
 			<input type="search" class="search-field" placeholder="<?php echo tm_get_local( 'search' ); ?>" value="" name="s" title="<?php echo tm_get_local( 'search_for' ); ?>" />
 		</label>
 		<button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
@@ -404,9 +361,9 @@ function tm_get_product_search_form() {
 	?>
 	<form role="search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
 		<div>
-			<label class="screen-reader-text" for="s"><?php _e( 'Search for:', 'woocommerce' ); ?></label>
+			<label class="sr-only" for="s"><?php _e( 'Search for:', 'woocommerce' ); ?></label>
 			<input type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
-			<button type="submit" id="searchsubmit"><span class="screen-reader-text"><?php echo esc_attr__( 'Search' ); ?></span><i class="fa fa-search"></i></button>
+			<button type="submit" id="searchsubmit"><span class="sr-only"><?php echo esc_attr__( 'Search' ); ?></span><i class="fa fa-search"></i></button>
 			<input type="hidden" name="post_type" value="product" />
 		</div>
 	</form>
