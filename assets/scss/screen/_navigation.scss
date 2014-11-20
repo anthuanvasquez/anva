@@ -57,6 +57,7 @@ div.navigation-inner {
 
 ul.navigation-menu {
 	@include reset-list();
+	font-family: $menu-font-family;
 	width: 100%;
 
 	ul.sub-menu {
@@ -90,7 +91,7 @@ ul.navigation-menu {
 		&.current-menu-item,
 		&.current_page_item {
 			> a {
-				background-color: color(primary);				
+				background: color(primary);				
 				color: #fff;
 			}
 		}
@@ -121,6 +122,7 @@ ul.navigation-menu {
 				}
 
 				a {
+					color: color(primary);
 					display: block;
 					font-size: $sub-menu-font-size;
 					padding: 8px 10px;
@@ -222,7 +224,7 @@ ul.navigation-menu {
 /*
  * Mobile Navigation
  */
-a.toggle-button {
+a.mobile-toggle-button {
 	background: color(primary);
 	border-radius: $border-radius $border-radius 0 0;
 	color: #fff;
@@ -240,9 +242,9 @@ a.toggle-button {
  * Support WordPress SEO Plugin
  */
 #breadcrumbs {
-	color: $base-font-color;
-	margin: 15px 0;
-	padding: 0;
+	background: transparent;
+	margin: 0 0 5px 0;
+	padding: 7px 5px;
 
 	p {
 		margin: 0;

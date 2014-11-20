@@ -10,11 +10,6 @@
 	font-weight: $heading-font-weight;
 }
 
-// Font for Code ex. pre, code
-@mixin font-stack-code {
-	font-family: $code-font-family;
-}
-
 // Font Icons
 @mixin font-stack-icon {
 	font-family: $icon-font-family;

@@ -80,7 +80,7 @@
 			display: block;
 		}
 		
-		a.toggle-button,
+		a.mobile-toggle-button,
 		.main-navigation {
 			display: none;
 		}
@@ -92,7 +92,7 @@
 			display: none;
 		}
 		
-		a.toggle-button {
+		a.mobile-toggle-button {
 			@include inline-block();
 		}
 

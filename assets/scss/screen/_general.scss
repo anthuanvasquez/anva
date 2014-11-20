@@ -25,7 +25,7 @@ a {
 	text-decoration: none;
 	&:focus,
 	&:hover {
-		text-decoration: none;
+		text-decoration: inherit;
 	}
 }
 
@@ -50,15 +50,6 @@ article {
 img {
 	max-width: 100%;
 	height: auto;
-}
-
-/*
- * Blockquotes
- */
-blockquote {
-	background: #ddd;
-	font-style: italic;
-	padding: 10px 10px 10px 15px;
 }
 
 /*

@@ -3,22 +3,23 @@
 @import "variables";
 @import "mixins";
 @import "neat";
-@import "screen/buttons";
-
-/* ==========================================================================
-	 Woocommerce
-	 ========================================================================== */
+@import "screen/buttons"; // need default theme buttons styles
 
 // Place SKU below price
 div.product-meta {
 	margin: 8px 0;
 }
 
+.latest-products {
+	h2 {
+		
+	}
+}
+
 .woocommerce,
 .woocommerce-page {
 	
 	// Products List
-	// ------------------------------
 	ul.products {
 		@include reset-list();
 		
@@ -116,16 +117,15 @@ div.product-meta {
 				@include nth-child(4n, right);
 			}
 
-		}
+			&.first {
+				clear: none;
+			}
 
-		li.first {
-			clear: none;
-		}
+		} // li.product (end) //
 
-	}
+	} // ul.products (end) //
 
 	// On Sale Products
-	// ------------------------------
 	span.onsale {
 		background: #ddd;
 		background-image: none;
@@ -138,7 +138,6 @@ div.product-meta {
 	}
 	
 	// Related, Up Sells and Cross Sells
-	// ------------------------------
 	div.related.products,
 	div.upsells.products,
 	div.cross-sells, {
@@ -152,6 +151,7 @@ div.product-meta {
 
 	}
 	
+	// Related and Upsells
 	.related.products,
 	.upsells.products {
 		ul.products {
@@ -162,6 +162,7 @@ div.product-meta {
 		}
 	}
 
+	// Cart collaterals
 	.cart-collaterals {
 		.cross-sells {
 			li.product {
@@ -171,13 +172,11 @@ div.product-meta {
 		}
 	}
 	
-	// Products
-	// ------------------------------
+	// Product on single page
 	div.product,
 	#content div.product {
 
 		// Single Images
-		// ------------------------------ 
 		div.images {
 			width: 36%;
 			img {
@@ -186,12 +185,12 @@ div.product-meta {
 			}
 		}
 
+		// Summary
 		div.summary {
 			width: 60%;
 		}
 
-		// WC Tabs
-		// ------------------------------
+		// Tabs
 		.woocommerce-tabs {
 
 			ul.tabs {
@@ -237,7 +236,7 @@ div.product-meta {
 				margin: 0 0 2em;
 				padding: $padding;
 			}
-		}
+		} // .woocommerce-tabs (end) //
 
 		p.price,
 		span.price {
@@ -301,16 +300,14 @@ div.product-meta {
 			}
 		}
 
-	} // div.product (end)
-	
-	// WC Buttons
-	// ------------------------------
+	} // div.product (end) //
 	
 	// Added to Cart
 	a.added_to_cart {
 		display: none;
 	}
 
+	// Buttons
 	a.button,
 	button.button,
 	input.button,
@@ -378,6 +375,7 @@ div.product-meta {
 		}
 	}
 
+	// Cart items
 	.cart_item {
 		.quantity {
 			margin: 0 !important;
@@ -395,6 +393,7 @@ div.product-meta {
 		}
 	}
 
+	// Messages
 	.woocommerce-error,
 	.woocommerce-info,
 	.woocommerce-message {
@@ -414,6 +413,7 @@ div.product-meta {
 
 	}
 
+	// Pagination
 	nav.woocommerce-pagination,
 	#content nav.woocommerce-pagination, {
 		ul {
@@ -464,8 +464,7 @@ div.product-meta {
 		}
 	}
 
-	// WC Widgets
-	// ------------------------------
+	// Widgets
 	ul.cart_list li,
 	ul.product_list_widget li {
 		ins {
@@ -474,7 +473,6 @@ div.product-meta {
 	}
 		
 	// Cart Variation P
-	// ------------------------------
 	td.product-name {
 		dl.variation {
 			dd p:last-child {
@@ -484,12 +482,9 @@ div.product-meta {
 	}
 
 
-} // .woocommerce, .woocommerce-page (end)
+} // .woocommerce (end) //
 
-
-
-// WC Heading Tabs Panel
-// ------------------------------
+// Heading Tabs Panel
 div.cart_totals h2,
 form.shipping_calculator h2,
 form.checkout h3 {
@@ -497,8 +492,7 @@ form.checkout h3 {
 	margin: 0 0 10px;
 }
 
-// Product Variable
-// ------------------------------
+// Variables Products
 div.single_variation {
 	margin-bottom: 10px; 
 }
@@ -560,7 +554,6 @@ div.single_variation {
 	.woocommerce-page {
 		
 		// WC Products List
-		// ------------------------------
 		ul.products {
 			li.product {
 

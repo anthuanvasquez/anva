@@ -56,7 +56,7 @@
 					</div><!-- .header-content-inner (end) -->
 				</div><!-- .header-content (end) -->
 
-				<a href="#" id="mobile-navigation" class="toggle-button ">
+				<a href="#" id="mobile-navigation" class="mobile-toggle-button">
 					<i class="fa fa-bars"></i>
 					<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
 				</a>

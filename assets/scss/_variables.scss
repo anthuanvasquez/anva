@@ -9,7 +9,7 @@ $configuration: (
 	debug: false
 );
 
-// Browser Support Settings
+// Minimum Browser Support
 // ------------------------------------------------
 $browser-minimum-versions: (
 	'chrome':  '30',
@@ -28,36 +28,32 @@ $palette: (
 	body: 			#f2f2f2,
 	content:  	#ffffff,
 	link: 			#3498db,
-	loud: 			#000000,
-	quiet:			#cccccc,
 	meta:				#999999
 );
 
 // Font Stacks
 // ------------------------------------------------
-$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$monospace: Menlo, Monaco, Courier, MonoSpace, Consolas;
-$icon-font: 'FontAwesome';
-$georgia: Georgia,Times, "Times New Roman", serif;
+$font-awesome: 'FontAwesome';
+$helvetica: 		"Helvetica Neue", Helvetica, Arial, sans-serif;
+$georgia: 			Georgia, Times, "Times New Roman", serif;
 
-// Font And Others Settings
+// Fonts
 // ------------------------------------------------
+
+// Base
 $base-font-size: config(font-size);
 $base-line-height: config(line-height);
 $base-font-color: #333;
 $base-font-family: $helvetica;
 $base-font-weight: 400;
 
-$code-font-family: $monospace;
-
+// Headings
 $heading-font-color: #333;
 $heading-font-family: $helvetica;
 $heading-font-line-height: 1.1;
 $heading-font-weight: 700;
 
-$icon-font-family: $icon-font;
-$logo-size: 200px;
-
+// Menu
 $menu-font-size: 14px;
 $menu-font-weight: normal;
 $menu-font-family: $helvetica;
@@ -65,29 +61,27 @@ $menu-text-shadow: none;
 $menu-text-transform: capitalize;
 $sub-menu-font-size: 14px;
 
-$fixed-font-family: $monospace;
-$fixed-font-size: 13px;
-$fixed-line-height: 18px;
-
+// Footer
 $footer-font-color: #333;
 $footer-font-size: 13px;
 $footer-link-color: color(link);
 $footer-heading-font-size: 18px;
 $footer-heading-font-color: #333;
 
+// Widget
 $widget-heading-font-color: #333;
 $widget-heading-font-size: 18px;
 
-// Font Heading Settings
+// Font Headings
 // ------------------------------------------------
-$h1: 27px !default;
-$h2: 24px !default;
-$h3: 18px !default;
-$h4: 14px !default;
-$h5: 13px !default;
-$h6: 11px !default;
+$h1: 27px;
+$h2: 24px;
+$h3: 18px;
+$h4: 14px;
+$h5: 13px;
+$h6: 11px;
 
-// Buttons Settings
+// Buttons
 // ------------------------------------------------
 $button-background-color: color(primary);
 $button-border-radius: 4px;
@@ -102,6 +96,8 @@ $button-text-shadow: none;
 // Others
 // ------------------------------------------------
 $border-radius: config(border-radius);
+$icon-font-family: $font-awesome;
+$logo-size: 200px;
 $padding: config(padding);
 
 // Neat

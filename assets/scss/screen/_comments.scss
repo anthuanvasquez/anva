@@ -21,32 +21,44 @@ h3.comment-reply-title {
 	ul.children {
 		clear: both;
 		list-style: none;
-		margin: $padding 0 0;
-		padding: 0 0 0 10%;
+		margin: 0;
+		padding-left: 10%;
 	}
+
 }
 
 /*
  * Commment Body
  */
-.comment-body {
-	border: 1px solid #ccc;
-	margin-bottom: $padding;
+.comment-wrapper {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin-bottom: 10px;
 	padding: 10px;
+	position: relative;
 	width: 100%;
+}
+
+.comment-body {
+	p {
+		margin-bottom: 10px;
+	}
+}
+
+.comment-text {
+	margin-top: 15px;
+}
+
+.reply {
+	margin-top: 20px;
+	text-align: right;
 }
 
 /*
  * Comment Author
  */
 .comment-author {
-	margin: 0 0 10px;
-}
-
-/* Hide 'says' */
-.says {
-	display: none;
-	visibility: hidden;
+	margin: 0 0 5px;
 }
 
 /* Author Nickname */
@@ -55,8 +67,17 @@ h3.comment-reply-title {
 	@include font-stack-headers;
 }
 
-/* Comment Meta */
-.comment-metadata {
+/* Hide 'says' */
+.says {
+	display: none;
+	visibility: hidden;
+}
+
+/* Meta */
+.comment-meta {
+	font-size: 12px;
+	font-style: italic;
+
 	a {
 		color: #999;
 		&:hover {
@@ -67,7 +88,7 @@ h3.comment-reply-title {
 
 /* Hightlight Author Comments */
 .bypostauthor {
-	.comment-body {
+	.comment-wrapper {
 		background: #eee;
 	}
 }
@@ -79,44 +100,25 @@ h3.comment-reply-title {
 	padding: 10px;
 }
 
-/* 
-   Comment Form
-   ========================================================================== */
-
-.comment-form {
-	@include group-inputs() {
-		border: 2px solid #ddd;
-		border-radius: 3px;
-		font-size: 12px;
-		margin: 0 0 2px;
-		padding: 8px;
-		width: 100%
-	}
+/* Comment Form */
+span.required {
+	color: #ff0000;
 }
 
 .comment-form {
-
-	label {
-		display: block;
-		font-weight: 700;
-		margin: 10px 0 2px;
+	textarea {
+		width: 100%;
 	}
 
 	.form-submit {
 		text-align: right;
 	}
 
-}
-
-#cancel-comment-reply {
-	small {
-		font-size: $base-font-size;
+	input.form-control {
+		display: inline-block;
+		margin-right: 10px;
+		width: 40%;
 	}
-}
-
-.comment-reply-link,
-#cancel-comment-reply-link {
-	@extend .button;
 }
 
 .comment-subscription-form {
