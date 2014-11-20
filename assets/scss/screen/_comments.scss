@@ -49,11 +49,6 @@ h3.comment-reply-title {
 	margin-top: 15px;
 }
 
-.reply {
-	margin-top: 20px;
-	text-align: right;
-}
-
 /*
  * Comment Author
  */
@@ -63,8 +58,8 @@ h3.comment-reply-title {
 
 /* Author Nickname */
 .fn {
-	font-style: normal;
 	@include font-stack-headers;
+	font-style: normal;
 }
 
 /* Hide 'says' */
@@ -86,6 +81,11 @@ h3.comment-reply-title {
 	}
 }
 
+.reply {
+	margin-top: 20px;
+	text-align: right;
+}
+
 /* Hightlight Author Comments */
 .bypostauthor {
 	.comment-wrapper {
@@ -100,7 +100,9 @@ h3.comment-reply-title {
 	padding: 10px;
 }
 
-/* Comment Form */
+/*
+ * Comment Form
+ */
 span.required {
 	color: #ff0000;
 }
