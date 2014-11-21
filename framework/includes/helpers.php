@@ -12,6 +12,7 @@ function tm_body_classes( $classes ) {
 	}
 	
 	$classes[] = tm_get_option( 'navigation' );
+	$classes[] = 'lang-' . get_bloginfo( 'language' );
 
 	return $classes;
 }
@@ -62,26 +63,6 @@ function tm_browser_class( $classes ) {
 	
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "windows" ) ) {
 		$classes[] = 'windows';
-	}
-
-	if ( is_page() ) {
-		$sidebar_column = tm_get_post_meta('_sidebar_column');
-		switch($sidebar_column) {
-			case 'left':
-				$classes[] = 'sidebar-layout-left';
-			case 'right':
-				$classes[] = 'sidebar-layout-right';
-				break;
-			case 'double':
-				$classes[] = 'sidebar-layout-double';
-				break;
-			case 'double_left':
-				$classes[] = 'sidebar-layout-double-left';
-				break;
-			case 'double_right':
-				$classes[] = 'sidebar-layout-double-right';
-				break;
-		}
 	}
 
 	return $classes;
