@@ -4,24 +4,38 @@
 @import "mixins";
 @import "neat";
 
-// If responsive is disabled in the options
+/*
+ * Only apply if responsive is disabled
+ * in the theme options
+ */
 @include container-class() {
 	@include outer-container();
-	width: auto; // reset width
+	width: auto;
 }
 
 /*
- * Devices 992px - Change to 750px - 12
+ * Medium devices (desktops, 992px and below)
+ * Change container width to 750px with 12 columns
  */
 @include media($desktop) {
 
-	/* Layout */
+	/*
+	 * Layout
+	 */
 	@include container-class() {
 		@include outer-container( break(tablet-small) );
 	}
 	
 	#container {
 		@include boxed-layout(break(tablet-small));
+	}
+
+	#top,
+	#featured,
+	#main,
+	#bottom {
+		padding-right: 20px;
+		padding-left: 20px;
 	}
 	
 	/*
@@ -81,7 +95,7 @@
 		}
 		
 		a.mobile-toggle-button,
-		.main-navigation {
+		nav.main-navigation {
 			display: none;
 		}
 	}
@@ -96,7 +110,7 @@
 			@include inline-block();
 		}
 
-		.main-navigation {
+		nav.main-navigation {
 			display: none;
 		}
 	}
@@ -104,6 +118,11 @@
 	/*
 	 * Navigation
 	 */
+	nav.main-navigation {
+		float: none;
+		text-align: center;
+	}
+
 	ul.navigation-menu {
 		> li {
 			border-right: 0;
@@ -135,14 +154,6 @@
 			}				
 		}
 	}
-
-	/*
-	 * Navigation
-	 */
-	nav.main-navigation {
-		float: none;
-		text-align: center;
-	}
 	
 	/*
 	 * Slides
@@ -172,31 +183,37 @@
 }
 
 /*
- * Mobile Devices 767px - Change to 480px - 8
+ * Small devices (tablets, 768px and below)
+ * Change container width to 480px with 8 columns
  */
 @include media($tablet) {
 
-	/* Layout */
+	/*
+	 * Layout
+	 */
 	@include container-class() {
-		@include outer-container( break(phone-medium) ); // 480px;
+		@include outer-container( break(phone-medium) );
 	}
 
 	#container {
 		@include boxed-layout( break(phone-medium) );
 	}
 
-	/*
-	 * Set order in columns
-	 */
-	.grid-columns {
-		display: flex;
-		flex-direction: column;
-		box-orient: vertical;
+	#featured {
+		margin: 0 0 $padding;	
 	}
 
-	.content-area,
-	.widget-area {
-		@include reset-float();
+	/*
+	 * Order columns
+	 */
+	#sidebar-layout {
+		.sidebar-layout-inner {
+			.grid-columns {
+				box-orient: vertical;
+				display: flex;
+				flex-direction: column;
+			}
+		}
 	}
 
 	.content-area {
@@ -205,13 +222,6 @@
 	
 	.sidebar-wrapper {
 		order: 2;
-	}
-	
-	/*
-	 * Featured
-	 */
-	#featured {
-		margin: 0 0 $padding;	
 	}
 
 	/*
@@ -231,8 +241,7 @@
 	/*
 	 * Grid Columns
 	 */
-	.grid-columns,
-	.entry-content {
+	.grid-columns {
 		[class*="grid-"] {
 			display: block;
 			float: none;

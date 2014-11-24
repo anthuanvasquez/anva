@@ -62,7 +62,7 @@
 
 @mixin omega-reset($nth, $col) {
   &:nth-child(#{$nth}) {
-  	@include span-columns($col);
+  	margin-right: flex-gutter();
   }
 
   &:nth-child(#{$nth}+1) {

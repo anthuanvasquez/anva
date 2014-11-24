@@ -113,9 +113,9 @@ $all-breakpoints: (
 	phone-small: 320px,
 	phone-medium: 480px,
 	tablet-small: 750px,
-	tablet-medium: 767px,
-	desktop: 992px,
-	large: 1200px
+	tablet-medium: 768px,
+	desktop-small: 992px,
+	desktop-large: 1200px
 );
 
 $all-layout-columns: (
@@ -124,8 +124,13 @@ $all-layout-columns: (
 	desktop: 12
 );
 
-$desktop: max-width break(desktop) layout-column(desktop);
+// Medium devices (desktops, 992px and below)
+$desktop: max-width break(desktop-small) layout-column(desktop);
+
+// Small devices (tablets, 768px and below)
 $tablet: max-width break(tablet-medium) layout-column(tablet);
+
+// Extra small devices (phones, less than 768px)
 $phone: max-width break(phone-medium) layout-column(phone);
 
 // Debug grid columns

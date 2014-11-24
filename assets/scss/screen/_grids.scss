@@ -51,11 +51,6 @@
  * Grid Columns
  */
 .grid-columns {
-	width: 100%;
-
-	@if browser('ie') == '8' {
-		*zoom: 1;
-	}
 
 	&:before,
 	&:after {
