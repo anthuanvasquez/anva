@@ -2,47 +2,40 @@
  * Default Button Styles
  */
 @include group-buttons() {
-	background: $button-background-color;
+	background-color: #fff;
 	background-image: none;
-	border: $button-border;
-	border-radius: $button-border-radius;
-	
-	@if not $button-box-shadow {
-		box-shadow: $button-box-shadow;
-	}
-
-	color: $button-font-color;
-	cursor: pointer;
-	@include inline-block();
-	font-size: $button-font-size;
-	font-weight: $button-font-weight;
-	line-height: 1.42857143;
-	padding: $button-padding-box;
-	position: relative;
+	border: 1px solid transparent;
+	border-color: #ccc;
+	color: #333;
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: normal;
 	text-align: center;
-	text-shadow: $button-text-shadow; 
-	text-decoration: none;
-	user-select: none;
 	vertical-align: middle;
+	cursor: pointer;
 	white-space: nowrap;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.428571429;
+	border-radius: 4px;
+	user-select: none;
 	transition: background .1s linear;
 	-webkit-font-smoothing: antialiased;
 
 	&:hover {
-		background: darken($button-background-color, 10%);
+		background-color: #ebebeb;
+		border-color: #adadad;
+		color: #333;
+	}
+}
+
+.btn-primary {
+	background: $button-bg-color;
+	background-image: none;
+	border-color: $button-border;
+	color: $button-font-color;
+	&:hover {
+		background: darken($button-bg-color, 10%);
 		color: $button-font-color;
 	}
-
-	&.button-default {
-		background: #fff;
-		border-color: #ccc;
-		color: #333;
-
-		&:hover {
-			background: #e6e6e6;
-			border-color: #adadad;
-			color: #333;			
-		}
-	}
-
 }

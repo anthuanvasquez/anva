@@ -18,7 +18,6 @@
 a.button,
 .woocommerce a.button,
 .woocommerce-page a.button,
-button,
 button.button,
 .woocommerce button.button,
 .woocommerce-page button.button,
@@ -29,34 +28,30 @@ input.button,
 .woocommerce-page input.button,
 .woocommerce-page #respond input#submit,
 .woocommerce-page #content input.button,
-input[type="button"],
 input[type="submit"],
-input[type="reset"] {
-  background: #2acbf5;
+input[type="reset"],
+input[type="button"] {
+  background-color: #fff;
   background-image: none;
-  border: 1px solid #0bbdeb;
+  border: 1px solid transparent;
+  border-color: #ccc;
+  color: #333;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
   -webkit-border-radius: 4px;
           border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  /* IE7/8 Hack */
-  *display: inline;
-  *zoom: 1;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.42857143;
-  padding: 6px 12px;
-  position: relative;
-  text-align: center;
-  text-shadow: none;
-  text-decoration: none;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
   -webkit-transition: background .1s linear;
        -o-transition: background .1s linear;
           transition: background .1s linear;
@@ -73,63 +68,29 @@ input[type="reset"] {
 .woocommerce-page #respond input#submit:hover,
 .woocommerce-page #content input.button:hover,
 a.button:hover,
-button:hover,
 button.button:hover,
 input.button:hover,
 .woocommerce #respond input#submit:hover,
 .woocommerce #content input.button:hover,
 .woocommerce-page #respond input#submit:hover,
 .woocommerce-page #content input.button:hover,
-input[type="button"]:hover,
 input[type="submit"]:hover,
-input[type="reset"]:hover {
-  background: #0bb5e1;
-  color: #fff;
-}
-.button.button-default, .woocommerce a.button-default.button,
-.woocommerce button.button-default.button,
-.woocommerce input.button-default.button,
-.woocommerce #respond input.button-default#submit,
-.woocommerce #content input.button-default.button,
-.woocommerce-page a.button-default.button,
-.woocommerce-page button.button-default.button,
-.woocommerce-page input.button-default.button,
-.woocommerce-page #respond input.button-default#submit,
-.woocommerce-page #content input.button-default.button,
-a.button.button-default,
-button.button-default,
-button.button.button-default,
-input.button.button-default,
-.woocommerce #respond input.button-default#submit,
-.woocommerce #content input.button-default.button,
-.woocommerce-page #respond input.button-default#submit,
-.woocommerce-page #content input.button-default.button,
-input[type="button"].button-default,
-input[type="submit"].button-default,
-input[type="reset"].button-default {
-  background: #fff;
-  border-color: #ccc;
-  color: #333;
-}
-.button.button-default:hover,
-.woocommerce #respond input.button-default#submit:hover,
-.woocommerce #content input.button-default.button:hover,
-.woocommerce-page #respond input.button-default#submit:hover,
-.woocommerce-page #content input.button-default.button:hover,
-a.button.button-default:hover,
-button.button-default:hover,
-button.button.button-default:hover,
-input.button.button-default:hover,
-.woocommerce #respond input.button-default#submit:hover,
-.woocommerce #content input.button-default.button:hover,
-.woocommerce-page #respond input.button-default#submit:hover,
-.woocommerce-page #content input.button-default.button:hover,
-input[type="button"].button-default:hover,
-input[type="submit"].button-default:hover,
-input[type="reset"].button-default:hover {
-  background: #e6e6e6;
+input[type="reset"]:hover,
+input[type="button"]:hover {
+  background-color: #ebebeb;
   border-color: #adadad;
   color: #333;
+}
+
+.btn-primary {
+  background: #2acbf5;
+  background-image: none;
+  border-color: 1px solid #0bbdeb;
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #0bb5e1;
+  color: #fff;
 }
 
 div.product-meta {

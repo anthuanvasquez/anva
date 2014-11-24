@@ -83,15 +83,13 @@ $h6: 11px;
 
 // Buttons
 // ------------------------------------------------
-$button-background-color: color(primary);
+$button-bg-color: color(primary);
 $button-border-radius: 4px;
-$button-border: 1px solid darken($button-background-color, 8%);
+$button-border: 1px solid darken($button-bg-color, 8%);
 $button-font-color: #fff;
 $button-font-size: 14px;
-$button-font-weight: 400;
+$button-font-weight: normal;
 $button-padding-box: 6px 12px;
-$button-box-shadow: none;
-$button-text-shadow: none;
 
 // Others
 // ------------------------------------------------

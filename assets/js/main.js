@@ -27,8 +27,9 @@ jQuery(document).ready( function() {
 	});
 
 	// ---------------------------------------------------------
-	// Remove empty 'p' tags
+	// Remove empty elements
 	// ---------------------------------------------------------
+	jQuery('div.fl-thumbnail:empty').remove();
 	jQuery('p:empty').remove();
 	jQuery('p').filter( function() {
 		return jQuery.trim( jQuery(this).html() ) == '';
@@ -58,7 +59,15 @@ jQuery(document).ready( function() {
 	// ---------------------------------------------------------
 	// Superfish Menu
 	// ---------------------------------------------------------
-	jQuery('ul.navigation-menu').superfish();
+	jQuery('ul.navigation-menu').superfish({
+		delay: 500,
+		animation:   {
+			opacity: 'show',
+			height: 'show'
+		},
+		speed: 'fast',
+		autoArrows: true
+	});
 
 	// ---------------------------------------------------------
 	// TOC

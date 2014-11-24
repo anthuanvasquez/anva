@@ -41,41 +41,45 @@ div.addon {
 		margin: 0 0 3px;
 		text-align: right;
 	}
+
+	.input-group {
+		max-width: 210px;
+	}
 }
 
 /*
  * Search
  */
-form {
-	&.search-form,
-	&#searchform {
+// form {
+// 	&.search-form,
+// 	&#searchform {
 
-		label {
-			display: inline;
-		}
+// 		label {
+// 			display: inline;
+// 		}
 		
-		button,
-		input {
+// 		button,
+// 		input {
 			
-			&.search-field,
-			&#s {
-				border: 1px solid #ccc;
-				border-radius: $border-radius 0 0 $border-radius;
-				float: left;
-				height: 33px;
-				width: 80%;
-			}
+// 			&.search-field,
+// 			&#s {
+// 				border: 1px solid #ccc;
+// 				border-radius: $border-radius 0 0 $border-radius;
+// 				float: left;
+// 				height: 33px;
+// 				width: 80%;
+// 			}
 			
-			&.search-submit,
-			&#searchsubmit {
-				border-radius: 0 $border-radius $border-radius 0;
-				height: 33px;
-				line-height: 33px;
-				padding: 0;
-				margin: 0;
-				width: 20%; 
-			}
+// 			&.search-submit,
+// 			&#searchsubmit {
+// 				border-radius: 0 $border-radius $border-radius 0;
+// 				height: 33px;
+// 				line-height: 33px;
+// 				padding: 0;
+// 				margin: 0;
+// 				width: 20%; 
+// 			}
 
-		}
-	}
-}
+// 		}
+// 	}
+// }

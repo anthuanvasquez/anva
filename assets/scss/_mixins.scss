@@ -110,12 +110,11 @@
 @mixin group-buttons() {
 	.button,
 	a.button,
-	button,
 	button.button,
 	input.button,
-	input[type="button"],
 	input[type="submit"],
-	input[type="reset"]	{
+	input[type="reset"],
+	input[type="button"] {
 		@content;
 	}
 }

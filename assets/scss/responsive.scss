@@ -66,18 +66,9 @@
 			margin-bottom: 15px;
 			text-align: center;
 		}
-	}
 
-	form {
-		&.search-form,
-		&#searchform {
-			button,
-			input {				
-				&.search-submit,
-				&#searchsubmit {
-					font-size: 12px;
-				}
-			}
+		.input-group {
+			max-width: 100%;
 		}
 	}
 

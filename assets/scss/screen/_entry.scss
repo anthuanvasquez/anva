@@ -2,7 +2,7 @@
  * Post Container
  */
 .post {
-	margin: 0 0 $padding;
+	margin-bottom: $padding;
 	position: relative;
 }
 
@@ -50,7 +50,6 @@ h2 {
 	margin: 5px 2px 15px 2px;
 }
 
-// Hide time updated
 time.updated {
 	display: none;
 }
@@ -65,79 +64,34 @@ time.updated {
 	}
 }
 
-/* Separator */
-.sep-bullet {
-	margin: 0 10px 0;
+/*
+ * Content
+ */
+.entry-container {
+	margin-bottom: $padding;
 }
 
-/* Titles Headline */
-.headline {
-	border-bottom: 1px solid #ddd;
-	padding: 0 0 $padding;
-	margin: 0 0 $padding;
+.entry-content {
+	margin-bottom: $padding;
 }
 
-/* Summary Excerpt */
 .entry-summary {
 	
 }
 
-/* Post Navigation */
-.entry-container {
-	margin: 0 0 $padding;
-}
-
-.entry-content {
-	margin: 0 0 $padding;
-	padding: 0;
-}
-
-/* Pagination */
-
-.nav-posts {
-	list-style: none;
-	padding-left: 0;
-}
-
+/*
+ * Pagination
+ */
 .pagination {
-	clear: both;
-	padding: 10px 0;
-	position: relative;
-	font-size: 14px;
-	line-height: 13px;
-	
-	a,
-	span {
-		background: #c3c3c3;
-		border-right: 1px solid rgba(black, .1);
-		color: #fff;
-		display: block;
-		float: left;
-		padding: 8px 10px;
-		text-decoration: none;
-		width: auto;		
-
-		&:first-child,
-		&:last-child {
-			border-radius: 4px 0 0 4px;
-		}
-
-		&:last-child {
-			border-right: 0;
-			border-radius: 0 4px 4px 0;
-		}
-	}
-
-	a {
-		&:hover {
+	> .active {
+		> a,
+		> a:hover,
+		> span,
+		> span:focus,
+		> span:hover,
+		> a:focus {
 			background: color(primary);
-			color: #fff;
+			border-color: darken(color(primary), 8%);
 		}
 	}
-
-	.current {
-		background: color(primary);
-		color: #fff;
-	}
-
 }

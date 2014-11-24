@@ -76,9 +76,8 @@ nav.table-of-contents {
 .fl-menu-item {
 
 	h3 {
-		border-bottom: 1px solid #eee;
-		margin-bottom: 5px;
-		padding-bottom: 5px;
+		margin-top: 0;
+		margin-bottom: 10px;
 	}
 
 	> p {
@@ -139,11 +138,14 @@ nav.table-of-contents {
 
 }
 
-img.fl-menu-item-thumb {
-	border: 4px solid #fff;
-	border-radius: 4px;
-	box-shadow: 0 0 1px rgba(black, .3);
+div.fl-thumbnail {
+	float: left;
 	margin: 0 10px 20px 0 !important;
+}
+
+img.fl-menu-item-thumb {
+	margin: 0 !important;
+	float: none;
 	padding-right: 0;
 }
 
