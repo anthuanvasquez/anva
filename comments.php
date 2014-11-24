@@ -38,6 +38,7 @@ if ( post_password_required() ) {
 		$args = array(
 			'id_form'           => 'commentform',
 			'id_submit'         => 'submit',
+			'class_submit'      => 'btn btn-default',
 			'title_reply'       => __( 'Leave a Reply' ),
 			'title_reply_to'    => __( 'Leave a Reply to %s' ),
 			'cancel_reply_link' => __( 'Cancel Reply' ),

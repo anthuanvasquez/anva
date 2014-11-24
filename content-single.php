@@ -7,10 +7,18 @@
 				tm_posted_on();
 			endif;
 		?>
-	</header>
+	</header><!-- .entry-header (end) -->
 	
 	<div class="entry-content">
-		<?php tm_post_thumbnails( tm_get_option( 'single_thumb' ) ); ?>
+		<div class="featured-image-wrapper">
+			<div class="featured-image">
+				<div class="featured-image-inner">
+					<?php tm_post_thumbnails( tm_get_option( 'single_thumb' ) ); ?>
+				</div>
+			</div>
+		</div><!-- .featured-image-wrapper (end) -->
+
 		<?php the_content(); ?>
-	</div>
+	</div><!-- .entry-content (end) -->
+
 </article>
