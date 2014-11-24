@@ -395,10 +395,11 @@ function tm_comment_list( $comment, $args, $depth ) {
 	<<?php echo $tag ?> <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ) ?> id="comment-<?php comment_ID() ?>">
 	
 	<?php if ( 'div' != $args['style'] ) : ?>
-		<div id="div-comment-<?php comment_ID() ?>" class="comment-wrapper media">
+		<div id="div-comment-<?php comment_ID() ?>" class="comment-wrapper">
+			<div class="row">
 	<?php endif; ?>
 	
-	<div class="comment-avatar media-left">
+	<div class="comment-avatar col-sm-2">
 		<a href="<?php echo get_comment_author_link(); ?>">
 			<?php
 				if ( $args['avatar_size'] != 0 )
@@ -412,7 +413,7 @@ function tm_comment_list( $comment, $args, $depth ) {
 		<br />
 	<?php endif; ?>
 
-	<div class="comment-body media-body">
+	<div class="comment-body col-sm-10">
 		<h4 class="comment-author vcard media-heading">
 		<?php
 			printf(
@@ -440,6 +441,7 @@ function tm_comment_list( $comment, $args, $depth ) {
 	</div>
 
 	<?php if ( 'div' != $args['style'] ) : ?>
+	</div>
 	</div>
 	<?php endif; ?>
 
