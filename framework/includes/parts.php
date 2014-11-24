@@ -211,25 +211,27 @@ function tm_num_pagination( $pages = '', $range = 2 ) {
 	}
 	
 	if ( 1 != $pages ) {
-		echo "<div class='pagination group'>";
+		echo "<nav id='pagination'>";
+		echo "<ul class='pagination group'>";
 			if ( $paged > 2 && $paged > $range + 1 && $showitems < $pages )
-				echo "<a href='".get_pagenum_link(1)."'>&laquo;</a>";
+				echo "<li><a href='".get_pagenum_link(1)."'>&laquo;</a></li>";
 			
 			if ( $paged > 1 && $showitems < $pages )
-				echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo;</a>";
+				echo "<li><a href='".get_pagenum_link($paged - 1)."'>&lsaquo;</a></li>";
 
 			for ( $i = 1; $i <= $pages; $i++ ) {
 				if ( 1 != $pages &&( !($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems ) ) {
-					echo ($paged == $i) ? "<span class='current'>".$i."</span>" : "<a href='".get_pagenum_link( $i )."' class='inactive' >".$i."</a>";
+					echo ($paged == $i) ? "<li class='active'><a href='#'>".$i."<span class='sr-only'>(current)</span></a></li>" : "<li><a href='".get_pagenum_link( $i )."'>".$i."</a></li>";
 				}
 			}
 
 			if ( $paged < $pages && $showitems < $pages )
-				echo "<a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a>";  
+				echo "<li><a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a></li>";  
 			
 			if ( $paged < $pages - 1 &&  $paged+$range - 1 < $pages && $showitems < $pages )
-				echo "<a href='".get_pagenum_link( $pages )."'>&raquo;</a>";
-		echo "</div>\n";
+				echo "<li><a href='".get_pagenum_link( $pages )."'>&raquo;</a></li>";
+		echo "</ul>\n";
+		echo "</nav>";
 	}
 }
 
@@ -261,37 +263,37 @@ function tm_contact_form() {
 			<div id="email_message" class="alert alert-block"><?php echo $email_sended_message; ?></div>
 		<?php endif; ?>
 
-		<form id="contactform" class="contact-form" method="post" action="<?php the_permalink(); ?>#contactform">
+		<form id="contactform" class="contact-form"  role="form" method="post" action="<?php the_permalink(); ?>#contactform">
 
-			<div class="form-name">
+			<div class="form-name form-group">
 				<label for="cname" class="control-label"><?php echo tm_get_local( 'name' ); ?>:</label>
-				<input id="name" type="text" placeholder="<?php echo tm_get_local( 'name_place' ); ?>" name="cname" class="full-width requiredField" value="<?php if ( isset( $_POST['cname'] ) ) echo esc_attr( $_POST['cname'] ); ?>">
+				<input id="name" type="text" placeholder="<?php echo tm_get_local( 'name_place' ); ?>" name="cname" class="form-control requiredField" value="<?php if ( isset( $_POST['cname'] ) ) echo esc_attr( $_POST['cname'] ); ?>">
 			</div>
 			
-			<div class="form-email">
+			<div class="form-email form-group">
 				<label for="cemail" class="control-label"><?php echo tm_get_local( 'email' ); ?>:</label>
-				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', TM_THEME_DOMAIN); ?>" name="cemail" class="full-width requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
+				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', TM_THEME_DOMAIN); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
 			</div>
 
-			<div class="form-subject">						
+			<div class="form-subject form-group">						
 				<label for="csubject" class="control-label"><?php echo tm_get_local( 'subject' ); ?>:</label>
-				<input id="subject" type="text" placeholder="<?php echo tm_get_local( 'subject' ); ?>" name="csubject" class="full-width requiredField" value="<?php if ( isset( $_POST['csubject'] ) ) echo esc_attr( $_POST['csubject'] ); ?>">
+				<input id="subject" type="text" placeholder="<?php echo tm_get_local( 'subject' ); ?>" name="csubject" class="form-control requiredField" value="<?php if ( isset( $_POST['csubject'] ) ) echo esc_attr( $_POST['csubject'] ); ?>">
 			</div>
 			
-			<div class="form-message">
+			<div class="form-message form-group">
 				<label for="cmessage" class="control-label"><?php echo tm_get_local( 'message' ); ?>:</label>
-				<textarea id="message" name="cmessage" class="full-width" placeholder="<?php echo tm_get_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $_POST['cmessage'] ); ?></textarea>
+				<textarea id="message" name="cmessage" class="form-control" placeholder="<?php echo tm_get_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $_POST['cmessage'] ); ?></textarea>
 			</div>
 			
-			<div class="form-captcha">
+			<div class="form-captcha form-group">
 				<label for="captcha" class="control-label"><?php echo $a . ' + '. $b . ' = ?'; ?>:</label>
-				<input type="text" name="ccaptcha" placeholder="<?php echo tm_get_local( 'captcha_place' ); ?>" class="full-width requiredField" value="<?php if ( isset( $_POST['ccaptcha'] ) ) echo $_POST['ccaptcha'];?>">
+				<input type="text" name="ccaptcha" placeholder="<?php echo tm_get_local( 'captcha_place' ); ?>" class="form-control requiredField" value="<?php if ( isset( $_POST['ccaptcha'] ) ) echo $_POST['ccaptcha'];?>">
 				<input type="hidden" id="answer" name="canswer" value="<?php echo esc_attr( $answer ); ?>">
 			</div>
 			
-			<div class="form-submit">
+			<div class="form-submit form-group">
 				<input type="hidden" id="submitted" name="contact-submission" value="1">
-				<input id="submit-contact-form" type="submit" class="button button--contact" value="<?php echo tm_get_local( 'submit' ); ?>">
+				<input id="submit-contact-form" type="submit" class="btn btn-primary" value="<?php echo tm_get_local( 'submit' ); ?>">
 			</div>
 		</form>
 	</div><!-- .contact-form-wrapper -->
@@ -348,11 +350,15 @@ function tm_contact_form() {
 function tm_get_search_form() {
 	?>
 	<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
-		<label>
-			<span class="sr-only"><?php echo tm_get_local( 'search_for' ); ?></span>
-			<input type="search" class="search-field" placeholder="<?php echo tm_get_local( 'search' ); ?>" value="" name="s" title="<?php echo tm_get_local( 'search_for' ); ?>" />
-		</label>
-		<button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+		<div class="input-group">
+			<input type="search" class="search-field form-control" placeholder="<?php echo tm_get_local( 'search' ); ?>" value="" name="s" title="<?php echo tm_get_local( 'search_for' ); ?>" />
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-default search-submit">
+					<span class="sr-only"><?php echo tm_get_local( 'search_for' ); ?></span>
+					<i class="fa fa-search"></i>
+				</button>
+			</span>
+		</div>
 	</form>
 	<?php
 }
@@ -360,11 +366,15 @@ function tm_get_search_form() {
 function tm_get_product_search_form() {
 	?>
 	<form role="search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
-		<div>
-			<label class="sr-only" for="s"><?php _e( 'Search for:', 'woocommerce' ); ?></label>
-			<input type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
-			<button type="submit" id="searchsubmit"><span class="sr-only"><?php echo esc_attr__( 'Search' ); ?></span><i class="fa fa-search"></i></button>
-			<input type="hidden" name="post_type" value="product" />
+		<div class="input-group">
+		<input type="text" id="s" name="s" class="form-control" value="<?php echo get_search_query(); ?>"  placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
+			<span class="input-group-btn">
+				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
+					<span class="sr-only"><?php echo esc_attr__( 'Search' ); ?></span>
+					<i class="fa fa-search"></i>
+				</button>
+				<input type="hidden" name="post_type" value="product" />
+			</span>
 		</div>
 	</form>
 	<?php
