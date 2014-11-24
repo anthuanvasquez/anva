@@ -50,9 +50,9 @@ function tm_menu_item_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu-item" id="fl-menu-item-[menu_item_id]-[menu_item_instance]">
 			<div class="fl-excerpt">
-				[menu_item_thumbnail]
+				<div class="fl-thumbnail thumbnail">[menu_item_thumbnail]</div>
 				<h3>[menu_item_title]</h3>
-				[menu_item_excerpt]
+				<div class="fl-summary">[menu_item_excerpt]</div>
 			</div>
 			<div class="fl-menu-item-meta">
 				<span class="fl-currency-sign">[currency_sign]</span>
