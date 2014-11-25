@@ -11,9 +11,9 @@
 		?>
 	</header>
 
-	<div class="entry-container group">
+	<div class="entry-container clearfix">
 
-		<?php tm_post_thumbnails( tm_get_option( 'posts_thumb' ) ); ?>
+		<?php echo tm_post_thumbnails( tm_get_option( 'posts_thumb' ) ); ?>
 
 		<div class="entry-summary">
 			<?php tm_excerpt_limit(); ?>
@@ -21,5 +21,8 @@
 				<?php echo tm_get_local( 'read_more' ); ?>
 			</a>
 		</div>
+		<span class="tag">
+			<?php the_tags( '<i class="fa fa-tags"></i> ', ', ' ); ?>
+		</span>
 	</div>
 </article>

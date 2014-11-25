@@ -13,12 +13,16 @@
 		<div class="featured-image-wrapper">
 			<div class="featured-image">
 				<div class="featured-image-inner">
-					<?php tm_post_thumbnails( tm_get_option( 'single_thumb' ) ); ?>
+					<?php echo tm_post_thumbnails( tm_get_option( 'single_thumb' ) ); ?>
 				</div>
 			</div>
 		</div><!-- .featured-image-wrapper (end) -->
 
 		<?php the_content(); ?>
+		<span class="tag">
+			<?php the_tags( '<i class="fa fa-tags"></i> ', ', ' ); ?>
+		</span>
+		<div class="clearfix"></div>
 	</div><!-- .entry-content (end) -->
 
 </article>

@@ -68,6 +68,7 @@ add_filter( 'wp_title', 'tm_wp_title', 10, 2 );
 add_filter( 'wp_mail_from', 'tm_wp_mail_from' );
 add_filter( 'wp_mail_from_name', 'tm_wp_mail_from_name' );
 add_filter( 'pre_get_posts', 'tm_search_filter' );
+add_filter( 'comment_reply_link', 'replace_reply_link_class' );
 
 // Hook hooks
 add_action( 'add_meta_boxes', 'tm_add_page_options' );
