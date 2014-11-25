@@ -7,11 +7,12 @@ jQuery(document).ready( function() {
 	// Lightbox
 	// ---------------------------------------------------------
 
-	jQuery('.gallery > .gallery-item').magnificPopup({
+	jQuery('.gallery > .gallery-item, .single .featured-image .thumbnail').magnificPopup({
 		delegate: 'a',
 		removalDelay: 300,
 		type: 'image',
 		mainClass: 'mfp-with-zoom',
+		titleSrc: 'title',
 		gallery: {
 			enabled: true
 		}

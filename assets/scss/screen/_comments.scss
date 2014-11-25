@@ -40,25 +40,26 @@ h3.comment-reply-title {
 }
 
 .comment-body {
+	padding-left: 0;
+
 	p {
 		margin-bottom: 10px;
 	}
 }
 
 .comment-text {
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 /*
  * Comment Author
  */
 .comment-author {
+	@include font-stack-headers();
 	margin: 0 0 5px;
 }
 
-/* Author Nickname */
 .fn {
-	@include font-stack-headers;
 	font-style: normal;
 }
 
@@ -89,15 +90,15 @@ h3.comment-reply-title {
 /* Hightlight Author Comments */
 .bypostauthor {
 	.comment-wrapper {
-		background: #eee;
+		background: #f9f9f9;
 	}
 }
 
 /* Moderation */
 .comment-awaiting-moderation {
-	background: #aaa;
-	border: 1px solid #ddd;
-	padding: 10px;
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 0;
 }
 
 /*

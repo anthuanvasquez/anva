@@ -16,6 +16,13 @@ h2 {
 	}
 }
 
+.post-grid_item {
+	.entry-title {
+		font-size: 15px;
+		line-height: 1.5em;
+	}
+}
+
 /*
  * Entry Thumbnail
  */
@@ -24,9 +31,6 @@ h2 {
 	margin-bottom: $padding;
 
 	img {
-		border: 4px solid #fff;
-		border-radius: 4px;
-		box-shadow: 0 0 0 1px #ddd;
 		transition: opacity .2s linear;
 		&:hover {
 			opacity: .8;
@@ -48,6 +52,13 @@ h2 {
 	font-size: 12px;
 	font-weight: bold;
 	margin: 5px 2px 15px 2px;
+
+	.sep {
+		color: color(meta);
+		font-weight: normal;
+		padding: 0 7px;
+	}
+
 }
 
 time.updated {
@@ -57,11 +68,12 @@ time.updated {
 /*
  * Categories
  */
-.entry-category {
-	a {
-		color: color(meta);;
-		margin-right: 5px;
-	}
+.category {
+
+}
+
+.tag {
+
 }
 
 /*
@@ -76,13 +88,14 @@ time.updated {
 }
 
 .entry-summary {
-	
+	margin-bottom: 15px;
 }
 
 /*
  * Pagination
  */
 .pagination {
+	margin: 20px 0 0;
 	> .active {
 		> a,
 		> a:hover,

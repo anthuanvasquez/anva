@@ -3,22 +3,23 @@
 	@include container-width($max-width, 0);
 }
 
-// Container
+/* Container */
 #container {
 	background: color('content');
 	position: relative;
 	@include boxed-layout( $max-width );
 }
 
+/* Main Content */
 #main {
 	padding: 20px 30px;
 }
 
-// Group content
 .main {
-	margin: 0 0 $padding*2;
+	margin: 0;
 }
 
+/* Home Sidebar */
 .homepage-sidebar {
 	margin-bottom: 40px;
 }
