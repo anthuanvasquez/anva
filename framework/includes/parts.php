@@ -64,45 +64,78 @@ function tm_post_nav() {
 	}
 	?>
 	<nav class="post-navigation" role="navigation">
-		<div class="navigation-links">
-			<?php
-				previous_post_link( '<div class="nav-previous">%link</div>', tm_get_local( 'prev' ) );
-				next_post_link( '<div class="nav-next">%link</div>', tm_get_local( 'next' ) );
-			?>
-		</div><!-- .nav-links (end) -->
+		<div class="post-navigation-inner">
+			<div class="navigation-links">
+				<?php
+					previous_post_link( '<div class="nav-previous">%link</div>', tm_get_local( 'prev' ) );
+					next_post_link( '<div class="nav-next">%link</div>', tm_get_local( 'next' ) );
+				?>
+			</div>
+		</div>
 	</nav><!-- .post-navigation (end) -->
 	<?php
 }
 
 function tm_posted_on() {
-	?>
-	<div class="entry-meta">
-		<?php
-		$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
-		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-			$time_string .= '<time class="updated" datetime="%3$s">%4$s</time>';
+
+	// Get the time
+	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
+	
+	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+		$time_string .= '<time class="updated" datetime="%3$s"><i class="fa fa-calendar"></i> %4$s</time>';
+	}
+
+	$time_string = sprintf( $time_string,
+		esc_attr( get_the_date( 'c' ) ),
+		esc_html( get_the_date() ),
+		esc_attr( get_the_modified_date( 'c' ) ),
+		esc_html( get_the_modified_date() )
+	);
+
+	// Get comments number
+	$num_comments = get_comments_number();
+
+	if ( comments_open() ) {
+		if ( $num_comments == 0 ) {
+			$comments = __( 'No hay Comentarios', TM_THEME_DOMAIN );
+		} elseif ( $num_comments > 1 ) {
+			$comments = $num_comments . __( ' Comentarios', TM_THEME_DOMAIN );
+		} else {
+			$comments = __( '1 Comentario', TM_THEME_DOMAIN );
 		}
+		$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
+	} else {
+		$write_comments =  __( 'Comentarios cerrado', TM_THEME_DOMAIN );
+	}
 
-		$time_string = sprintf( $time_string,
-			esc_attr( get_the_date( 'c' ) ),
-			esc_html( get_the_date() ),
-			esc_attr( get_the_modified_date( 'c' ) ),
-			esc_html( get_the_modified_date() )
-		);
+	$sep = ' / ';
 
-		printf( '<div class="entry-meta"><span class="posted-on">'.tm_get_local( 'posted_on' ).' %1$s</span><span class="byline"> '.tm_get_local('by').' %2$s</span></div>',
-			sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
-				esc_url( get_permalink() ),
-				$time_string
-			),
-			sprintf( '<span class="author vcard"><a class="url fn" href="%1$s">%2$s</a></span>',
-				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				esc_html( get_the_author() )
-			)
-		);
-		?>
-	</div>
-	<?php
+	printf(
+		'<div class="entry-meta">
+			<span class="posted-on">%1$s</span>
+			<span class="sep">%5$s</span>
+			<span class="byline"><i class="fa fa-user"></i> %2$s</span>
+			<span class="sep">%5$s</span>
+			<span class="category"><i class="fa fa-bars"></i> %3$s</span>
+			<span class="sep">%5$s</span>
+			<span class="comments-link"><i class="fa fa-comments"></i> %4$s</span>
+		</div><!-- .entry-meta (end) -->',
+		sprintf(
+			'%1$s', $time_string
+		),
+		sprintf(
+			'<span class="author vcard"><a class="url fn" href="%1$s">%2$s</a></span>',
+			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+			esc_html( get_the_author() )
+		),
+		sprintf(
+			'%1$s', get_the_category_list( ', ' )
+		),
+		sprintf(
+			'%1$s', $write_comments
+		),
+		sprintf( '%1$s', $sep )
+	);
 }
 
 function tm_social_media() {
@@ -399,7 +432,7 @@ function tm_comment_list( $comment, $args, $depth ) {
 			<div class="row">
 	<?php endif; ?>
 	
-	<div class="comment-avatar col-sm-2">
+	<div class="comment-avatar col-xs-3 col-sm-2">
 		<a href="<?php echo get_comment_author_link(); ?>">
 			<?php
 				if ( $args['avatar_size'] != 0 )
@@ -408,16 +441,11 @@ function tm_comment_list( $comment, $args, $depth ) {
 		</a>
 	</div>
 
-	<?php if ( $comment->comment_approved == '0' ) : ?>
-		<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></em>
-		<br />
-	<?php endif; ?>
-
-	<div class="comment-body col-sm-10">
-		<h4 class="comment-author vcard media-heading">
+	<div class="comment-body col-xs-9 col-sm-10">
+		<h4 class="comment-author vcard">
 		<?php
 			printf(
-				__( '<cite class="fn">%s</cite> <span class="says">says:</span>' ),
+				'<cite class="fn">%s</cite> <span class="says">says:</span>',
 				get_comment_author_link()
 			);
 		?>
@@ -429,6 +457,10 @@ function tm_comment_list( $comment, $args, $depth ) {
 				<?php edit_comment_link( __( '(Edit)' ), '  ', '' ); ?>
 			</a>
 		</div>
+
+		<?php if ( $comment->comment_approved == '0' ) : ?>
+		<em class="comment-awaiting-moderation well well-sm"><?php _e( 'Your comment is awaiting moderation.' ); ?></em>
+		<?php endif; ?>
 		
 		<div class="comment-text">
 			<?php comment_text(); ?>
@@ -448,7 +480,6 @@ function tm_comment_list( $comment, $args, $depth ) {
 <?php
 }
 
-add_filter( 'comment_reply_link', 'replace_reply_link_class' );
 function replace_reply_link_class( $class ){
 	$class = str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-default btn-sm", $class );
 	return $class;
