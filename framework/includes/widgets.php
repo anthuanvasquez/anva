@@ -1,9 +1,9 @@
 <?php
 
-include_once( TM_THEME_FRAMEWORK . '/includes/widgets/class-widget-social-media.php' );
-include_once( TM_THEME_FRAMEWORK . '/includes/widgets/class-widget-custom-services.php' );
-include_once( TM_THEME_FRAMEWORK . '/includes/widgets/class-widget-custom-contact.php' );
-include_once( TM_THEME_FRAMEWORK . '/includes/widgets/class-widget-custom-posts.php' );
+include_once( TM_THEME_FRAMEWORK . '/widgets/class-widget-social-media.php' );
+include_once( TM_THEME_FRAMEWORK . '/widgets/class-widget-custom-services.php' );
+include_once( TM_THEME_FRAMEWORK . '/widgets/class-widget-custom-contact.php' );
+include_once( TM_THEME_FRAMEWORK . '/widgets/class-widget-custom-posts.php' );
 
 /* Register Widgets */
 function tm_register_widgets() {
