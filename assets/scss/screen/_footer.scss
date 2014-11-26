@@ -49,8 +49,9 @@
  */
 .footer-copyright {
 	border-top: 1px solid #eee;
-	padding-top: $padding;
 	clear: both;
+	padding-top: $padding;
+	text-align: center;
 
 	p {
 		margin: 0;

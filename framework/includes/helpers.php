@@ -275,3 +275,8 @@ function tm_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $
 
 	echo '</ul>';
 }
+
+function tm_get_current_year( $year ) {
+	$current_year = date( 'Y' );
+	return $year . ( ( $year != $current_year ) ? ' - ' . $current_year : '' );
+}

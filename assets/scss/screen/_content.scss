@@ -20,6 +20,10 @@
 }
 
 /* Home Sidebar */
-.homepage-sidebar {
-	margin-bottom: 40px;
+.home-sidebar {
+	padding-bottom: $padding;
+	
+	.widget {
+		margin-bottom: 0;
+	}
 }

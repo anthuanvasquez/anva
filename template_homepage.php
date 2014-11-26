@@ -7,7 +7,7 @@
 <?php get_header(); ?>
 
 <div class="row grid-columns">
-	<div class="col-sm-12">
+	<div class="content col-sm-12">
 		<div class="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
@@ -27,12 +27,19 @@
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
+
+	<div class="sidebar-wrapper home-sidebar col-sm-12">
+		<div class="sidebar-inner">
+			<div class="widget-area home-widget-area">
+				<div class="grid-columns">
+					<?php if ( dynamic_sidebar( 'home-sidebar' ) ) : endif; ?>
+				</div><!-- .grid-columns (end) -->
+			</div>
+		</div>
+	</div><!-- .sidebar-wrapperr (end) -->
+
 </div><!-- .grid-columns (end) -->
 
-<div class="homepage-sidebar" role="complementary">
-	<div class="grid-columns">
-		<?php if ( dynamic_sidebar( 'home-sidebar' ) ) : endif; ?>
-	</div><!-- .grid-columns (end) -->
-</div><!-- .homepage-sidebar (end) -->
+
 
 <?php get_footer(); ?>

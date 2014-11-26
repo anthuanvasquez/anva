@@ -1,7 +1,6 @@
-/* ====================================================================================================================
- * RESETS
- * ====================================================================================================================*/
-
+/*
+ * Reset
+ */
 .slider-wrapper,
 .slider-inner {
 	a:hover,
@@ -22,10 +21,9 @@
 	text-transform: capitalize;
 }
 
-/* ====================================================================================================================
- * BASE STYLES
- * ====================================================================================================================*/
-
+/*
+ * Base Styles
+ */
 .slider-inner {
 	margin: 0; 
 	padding: 0;
@@ -76,10 +74,9 @@
 	}
 }
 
-/* ====================================================================================================================
- * DEFAULT THEME
- * ====================================================================================================================*/
-
+/*
+ * Default Theme
+ */
 .slider-inner {
 	margin: 0;
 	position: relative;
@@ -99,6 +96,7 @@
 	}
 }
 
+// Carousel
 .carousel li {
 	margin-right: 5px; 
 }
@@ -109,30 +107,35 @@
 
 	// Global styles
 	a {
-		color: #111;
-		background: #fff;
+		color: #fff;
+		background: transparent;
+		border: 2px solid #fff;
+		border-radius: 50%;
+		cursor: pointer;
 		display: block;
 		width: 40px;
 		height: 40px;
 		position: absolute;
 		top: 50%;
 		overflow: hidden;
-		opacity: 0; cursor: pointer;
-		text-shadow: 1px 1px 0 rgba(white, .3);
-		z-index: 10;
-		border-radius: 50%;
+		opacity: 0;
+		text-shadow: 1px 1px 0 rgba(black, .8);
 		transition: all .3s ease;
+		z-index: 10;
 
 		&:before  {
 			@include font-stack-icon();
-			font-size: 24px; 
-			display: inline-block; 
-			content: "\f053";
+			content: "\f104";
+			font-size: 22px;
+			display: block;
 			line-height: 40px;
+			margin-left: -2px;
+			margin-top: -1px;
 		}
 
 		&.flex-next:before {
-			content:"\f054";
+			content:"\f105";
+			margin-left: 2px;
 		}
 	}
 
@@ -151,8 +154,8 @@
 	// Hover states
 	.slider-inner:hover & {
 		.flex-prev {
-			opacity: 0.7; 
-			left: -20px;
+			opacity: .7; 
+			left: 20px;
 
 			&:hover {				
 				opacity: 1;
@@ -160,8 +163,8 @@
 		}
 		
 		.flex-next {
-			opacity: 0.7; 
-			right: -20px;
+			opacity: .7; 
+			right: 20px;
 
 			&:hover {				
 				opacity: 1;
@@ -229,18 +232,17 @@
 		width: 11px;
 		height: 11px; 
 		display: block; 
-		background: rgba(color(tertiary), .5);
+		background: rgba(black, .4);
 		cursor: pointer; 
-		text-indent: -9999px; 
-		box-shadow: inset 0 0 3px rgba(black, .3);
+		text-indent: -9999px;
 		border-radius: 50%;
 
 		&:hover {
-			background: color(tertiary);
+			background: rgba(black, .8);
 		}
 
 		&.flex-active { 
-			background: color(tertiary);
+			background: rgba(black, .8);
 			cursor: default;
 		}
 	}
@@ -290,13 +292,17 @@
 	}
 }
 
-.slide-data {
-	background: rgba(black, .4);
-	padding: 10px;
+.slide-caption {
+	padding: 15px;
 	position: absolute;
 	right: 0;
 	bottom: 0;
 	width: 100%;
+	&.no-title {
+		.slide-description {
+			margin-top: 0;
+		}
+	}
 }
 
 .slide-title {
@@ -310,9 +316,9 @@
 
 }
 
-.slide-caption {
+.slide-description {
 	color: #fff;
-	margin: 10px 0 0;
+	margin-top: 10px;
 }
 
 // Featured slider

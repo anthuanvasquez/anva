@@ -1,7 +1,7 @@
 function validate( val ) {
 	var pageGrid = jQuery("#post_grid");
 	var pageSidebar = jQuery("#sidebar_column");
-	if ( 'template-post_grid.php' == val ) {
+	if ( 'template_post-grid.php' == val ) {
 		pageGrid.show();
 	} else {
 		pageGrid.hide();

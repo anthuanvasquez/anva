@@ -45,15 +45,14 @@ function tm_custom_css() {
 }
 
 function tm_footer_text_default() {
-	echo '<p>';
-	$string = '<strong>%s</strong> &copy; %d %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i> <span class="sr-only">Go Top</span></a>';
-	$name = get_bloginfo( 'name' );
-	$date = date( 'Y' );
-	$copyright = tm_get_local( 'footer_copyright' );
-	$text = tm_get_local( 'footer_text' );
-	$author = '<a href="'. esc_url( 'http://3mentes.com/') .'">3mentes.</a>';
-	echo sprintf( $string, $name, $date, $copyright, $text, $author );
-	echo '</p>';
+	printf(
+		'<p>&copy; %s <strong>%s</strong> %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i><span class="sr-only">Go Top</span></a></p>',
+		tm_get_current_year( apply_filters( 'tm_footer_year', date( 'Y' ) ) ),
+		get_bloginfo( 'name' ),
+		tm_get_local( 'footer_copyright' ),
+		tm_get_local( 'footer_text' ),
+		apply_filters( 'tm_footer_author', '<a href="'. esc_url( 'http://3mentes.com/') .'">3 Mentes</a>.' )
+	);
 }
 
 function tm_layout_before_default() {
@@ -71,7 +70,7 @@ function tm_layout_after_default() {
 function tm_breadcrumbs() {
 	$single_breadcrumb = tm_get_option( 'single_breadcrumb' );
 	if ( 1 == $single_breadcrumb ) {
-		if ( function_exists( 'yoast_breadcrumb' ) ) {
+		if ( function_exists( 'yoast_breadcrumb' ) && ! is_front_page() && ! is_home() ) {
 			?>
 			<div id="breadcrumbs">
 				<div class="breadcrumbs-inner">
@@ -203,7 +202,7 @@ function tm_navigation() {
 function tm_debug_queries() {
 	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :
 	?>
-		<div class="alert alert-warning">Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</div>
+		<div class="alert alert-warning text-center">Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</div>
 	<?php
 	endif;
 }

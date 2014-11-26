@@ -1,4 +1,10 @@
-				<?php tm_content_after(); ?>
+<?php
+/**
+ * The template for displaying the footer.
+ */
+
+				tm_content_after();
+				?>
 				
 			</div><!-- .main-content (end) -->
 		</div><!-- .main-inner (end) -->

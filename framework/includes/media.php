@@ -1,18 +1,112 @@
 <?php
 
 /**
- * Add customs image sizes.
- * @since 1.4.2
+ * Get Image Sizes
+ *
+ * By having this in a separate function, hopefully
+ * it can be extended upon better. If any plugin or
+ * other feature of the framework requires these
+ * image sizes, they can grab 'em.
  */
-function tm_add_image_size() {
-	add_image_size( 'blog_large', 620, 300, true );
-	add_image_size( 'blog_medium', 300, 300, true );
-	add_image_size( 'blog_small', 150, 150, true );
-	add_image_size( 'grid_2', 472, 295, true );
-	add_image_size( 'grid_3', 320, 200, true);
-	add_image_size( 'grid_4', 240, 150, true );
-	add_image_size( 'slideshow', 980, 450, true );
+function tm_get_image_sizes() {
+
+	global $content_width;
+
+	// Content Width
+	// Default width of primary content area
+	$content_width = apply_filters( 'tm_content_width', 940 );
+
+	// Crop sizes
+	$sizes = array(
+		'blog_large' => array(
+			'name' 		=> __( 'Blog Large', TM_THEME_DOMAIN ),
+			'width' 	=> $content_width,
+			'height' 	=> 9999,
+			'crop' 		=> false
+		),
+		'blog_medium' => array(
+			'name' 		=> __( 'Blog Medium', TM_THEME_DOMAIN ),
+			'width' 	=> 620,
+			'height'	=> 9999,
+			'crop' 		=> false
+		),
+		'blog_small' => array(
+			'name' 		=> __( 'Blog Small', TM_THEME_DOMAIN ),
+			'width' 	=> 195,
+			'height' 	=> 195,
+			'crop' 		=> false
+		),
+		'slider_large' => array(
+			'name' 		=> __( 'Slider Full Width', TM_THEME_DOMAIN ),
+			'width' 	=> $content_width,
+			'height' 	=> 400,
+			'crop' 		=> true
+		),
+		'grid_2' => array(
+			'name' 		=> __( '2 Column of Grid', TM_THEME_DOMAIN ),
+			'width' 	=> 472,
+			'height' 	=> 395,
+			'crop' 		=> true
+		),
+		'grid_3' => array(
+			'name' 		=> __( '3 Column of Grid', TM_THEME_DOMAIN ),
+			'width' 	=> 320,
+			'height' 	=> 200,
+			'crop' 		=> true
+		),
+		'grid_4' => array(
+			'name' 		=> __( '4 Column of Grid', TM_THEME_DOMAIN ),
+			'width' 	=> 240,
+			'height' 	=> 150,
+			'crop' 		=> true
+		),
+	);
+
+	return apply_filters( 'tm_image_sizes', $sizes );
 }
+
+/**
+ * Register Image Sizes
+ */
+function tm_add_image_sizes() {
+
+	// Get image sizes
+	$sizes = tm_get_image_sizes();
+
+	// Add image sizes
+	foreach ( $sizes as $size => $atts ) {
+		add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'] );
+	}
+
+}
+
+/**
+ * Show theme's image thumb sizes when inserting
+ * an image in a post or page.
+ *
+ * This function gets added as a filter to WP's
+ * image_size_names_choose
+ *
+ * @return array Framework's image sizes
+ */
+function tm_image_size_names_choose( $sizes ) {
+
+	// Get image sizes for framework that were registered.
+	$sizes = tm_get_image_sizes();
+
+	// Format sizes
+	$sizes = array();
+	foreach ( $sizes as $id => $atts ) {
+		$image_sizes[$id] = $atts['name'];
+	}
+
+	// Apply filter - Filter in filter... I know, I know.
+	$image_sizes = apply_filters( 'tm_image_choose_sizes', $image_sizes );
+
+	// Return merged with original WP sizes
+	return array_merge( $sizes, $image_sizes );
+}
+
 
 function tm_get_featured_image( $post_id, $thumbnail ) {
 	$post_thumbnail_id = get_post_thumbnail_id( $post_id );

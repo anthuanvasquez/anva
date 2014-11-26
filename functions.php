@@ -26,3 +26,12 @@ function tm_setup() {
 
 }
 add_action( 'after_setup_theme', 'tm_setup' );
+
+
+/*
+ * Change the start year in footer.
+ */
+// function tm_start_year() {
+// 	return 2008;
+// }
+// add_filter( 'tm_footer_year', 'start_year' );

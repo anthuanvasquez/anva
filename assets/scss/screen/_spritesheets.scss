@@ -7,7 +7,7 @@ $icon-sprite-dimensions: 32px !default;
 	padding-left: 0;
 	li {
 		@include inline-block();
-		margin: 0 0 0 5px;
+		margin-left: 3px;
 		a {
 			display: block;
 			position: relative;

@@ -55,7 +55,9 @@ add_action( 'wp_enqueue_scripts', 'tm_load_scripts' );
 add_action( 'widgets_init', 'tm_register_sidebars' );
 add_action( 'widgets_init', 'tm_register_widgets' );	
 add_action( 'admin_bar_menu', 'tm_settings_menu_link', 1000 );
-add_action( 'init', 'tm_add_image_size' );
+
+add_action( 'after_setup_theme', 'tm_add_image_sizes' );
+add_action( 'image_size_names_choose', 'tm_image_size_names_choose' );
 add_filter( 'next_posts_link_attributes', 'tm_posts_link_attr' );
 add_filter( 'previous_posts_link_attributes', 'tm_posts_link_attr' );
 add_filter( 'next_post_link', 'tm_post_link_attr' );

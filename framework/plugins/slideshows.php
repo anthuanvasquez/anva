@@ -21,7 +21,7 @@ function tm_slideshows() {
 
 	// Main Slider
 	$args['homepage'] = array(
-		'size' 		=> 'slideshow',
+		'size' 		=> 'slider_large',
 		'options' => "
 			animation: Modernizr.touch ? 'slide' : 'fade',
 			animationSpeed: Modernizr.touch ? 400 : 1000,
@@ -105,9 +105,9 @@ function tm_slideshows_slides( $slug ) {
 	$image_size = isset( $rotators[ $slug ]['size']) ? $rotators[ $slug ]['size'] : 'large';
 
 	// Order: orderby, order, limit
-	$orderby = isset($rotators[ $slug ]['orderby']) ? $rotators[ $slug ]['orderby'] : "menu_order";
-	$order = isset($rotators[ $slug ]['order']) ? $rotators[ $slug ]['order'] : "ASC";
-	$limit = isset($rotators[ $slug ]['limit']) ? $rotators[ $slug ]['limit'] : "-1";
+	$orderby = isset( $rotators[ $slug ]['orderby']) ? $rotators[ $slug ]['orderby'] : "menu_order";
+	$order 	 = isset( $rotators[ $slug ]['order']) ? $rotators[ $slug ]['order'] : "ASC";
+	$limit 	 = isset( $rotators[ $slug ]['limit']) ? $rotators[ $slug ]['limit'] : "-1";
 
 	// Default Query Args
 	$query_args = array(
@@ -171,7 +171,7 @@ function tm_slideshows_slides( $slug ) {
 			
 			switch ( $data ) {
 				case 'title':
-					$html .= '<div class="slide-data">';
+					$html .= '<div class="slide-caption no-description">';
 					$html .= '<h2 class="slide-title">';	
 
 					if ( $url ) {
@@ -189,15 +189,15 @@ function tm_slideshows_slides( $slug ) {
 					break;
 
 				case 'desc':
-					$html .= '<div class="slide-data">';
-					$html .= '<div class="slide-caption">';
+					$html .= '<div class="slide-caption no-title">';
+					$html .= '<div class="slide-description">';
 					$html .= get_the_excerpt();
 					$html .= '</div>';
 					$html .= '</div>';
 					break;
 
 				case 'show':
-					$html .= '<div class="slide-data">';
+					$html .= '<div class="slide-caption">';
 					$html .= '<h2 class="slide-title">';	
 
 					if ( $url ) {
@@ -211,7 +211,7 @@ function tm_slideshows_slides( $slug ) {
 					}
 
 					$html .= '</h2>';
-					$html .= '<div class="slide-caption">';
+					$html .= '<div class="slide-description">';
 					$html .= get_the_excerpt();
 					$html .= '</div>';
 					$html .= '</div>';
@@ -271,49 +271,56 @@ function tm_slideshows_metabox_1() {
 	$slider_link_url 	= $meta['_slider_link_url'][0];
 	$slider_data			=	$meta['_slider_data'][0];
 	?>
-	
-	<p><strong>URL:</strong></p>
-	<p>
-		<input type="text" style="width:99%;" name="slider_link_url" value="<?php echo esc_attr( $slider_link_url ); ?>" />
-	</p>
-	
-	<p><strong><?php echo tm_get_local( 'slide_area' ); ?>:</strong></p>
-	<p>
 
-		<?php if ( $rotators ) : ?>
-			
-		<select name="slider_id" style="width:99%;text-transform:capitalize;">
-			<?php foreach ( $rotators as $rotator => $size ) : ?>
-				<option value="<?php echo $rotator; ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator ?></option>
-			<?php endforeach; ?>
-		</select>
-
-		<?php else : ?>
-			<div style="color:red;">
-				<?php tm_get_local( 'slide_message' ); ?>
-			</div>
-		<?php endif; ?>
-	</p>
-
+	<table class="form-table">
+		<tr>
+			<th>
+				<label for="slider_link_url">URL:</label>
+			</th>
+			<td>
+				<input type="text" style="width:99%;" name="slider_link_url" value="<?php echo esc_attr( $slider_link_url ); ?>" />
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<label for="slider_id"><?php echo tm_get_local( 'slide_area' ); ?>:</label>
+			</th>
+			<td>
+				<?php if ( $rotators ) : ?>
+					<select name="slider_id" style="width:99%;text-transform:capitalize;">
+						<?php foreach ( $rotators as $rotator => $size ) : ?>
+							<option value="<?php echo $rotator; ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator ?></option>
+						<?php endforeach; ?>
+					</select>
+				<?php else : ?>
+					<div style="color:red;">
+						<?php tm_get_local( 'slide_message' ); ?>
+					</div>
+				<?php endif; ?>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<label for="slider_data"><?php echo tm_get_local( 'slide_content' ); ?>:</label>
+			</th>
+			<td>
+				<select name="slider_data" style="width:99%;">
+					<?php
+						$select = array(
+							'title' => tm_get_local('slide_title'),
+							'desc' 	=> tm_get_local('slide_desc'),
+							'show' 	=> tm_get_local('slide_show'),
+							'hide' 	=> tm_get_local('slide_hide'),
+						);
+						foreach ( $select as $key => $value ) {
+							echo '<option value="'.$key.'" '. selected( $slider_data, $key, true ) .'>'. $value .'</option>';
+						}
+					?>
+				</select>
+			</td>
+		</tr>
+	</table>
 	<?php
-		$select = array(
-			'title' => tm_get_local('slide_title'),
-			'desc' 	=> tm_get_local('slide_desc'),
-			'show' 	=> tm_get_local('slide_show'),
-			'hide' 	=> tm_get_local('slide_hide')
-		);
-	?>
-	
-	<p><strong><?php echo tm_get_local( 'slide_content' ); ?>:</strong></p>
-	<p><select name="slider_data" style="width:99%;">
-		<?php
-			foreach ( $select as $key => $value ) {
-				echo '<option value="'.$key.'" '. selected( $slider_data, $key, true ) .'>'. $value .'</option>';
-			}
-		?>
-	</select></p>
-	
-	<?php 
 }
 
 // SAVE THE EXTRA GOODS FROM THE SLIDE
