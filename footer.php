@@ -13,19 +13,17 @@
 	<div id="bottom">
 		<footer id="footer">
 			<div class="footer-inner">
-				
 				<div class="footer-content">
 					<div class="footer-widget">
 						<div class="grid-columns">
 							<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : endif; ?>
 						</div>
 					</div>
-				</div>
+				</div><!-- .footer-content (end) -->
 
 				<div class="footer-copyright">
 					<?php do_action( 'tm_footer_text' ); ?>
-				</div>
-
+				</div><!-- .footer-copyright (end) -->
 			</div>
 		</footer><!-- #footer (end) -->
 	</div><!-- #bottom (end) -->

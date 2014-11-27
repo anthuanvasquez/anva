@@ -1,10 +1,12 @@
 <?php
-/*
- Template Name: Contact Us
+/**
+ * Template Name: Contact Us
+ *
+ * The template used for displaying page contact form
  */
-?>
 
-<?php get_header(); ?>
+get_header();
+?>
 
 <div class="row grid-columns">
 	<div class="content-area col-sm-8">

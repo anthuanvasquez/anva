@@ -1,29 +1,25 @@
 <?php
+/*-----------------------------------------------------------------------------------*/
+/* Run Framework
+/*
+/* Below is the file needed to load the parent theme and theme framework.
+/* It's included with require_once().
+/*-----------------------------------------------------------------------------------*/
+
+require_once( get_template_directory() . '/framework/init.php' );
+
+/*-----------------------------------------------------------------------------------*/
+/* Theme Functions
+/*-----------------------------------------------------------------------------------*/
 
 /**
- * Load framework
- * @since 1.5.0
- */
-include_once( get_template_directory() . '/framework/init.php' );
-
-/**
- * Setup theme functions. After theme setup hooks and filters.
- * @since 1.3.1
+ * Add theme support features
  */
 function tm_setup() {
-
-	global $content_width;
-
-	// Global content width
-	if ( ! isset( $content_width ) )
-		$content_width = 980;
-
-	// Add theme-supported features
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
 	add_theme_support( 'woocommerce' );
-
 }
 add_action( 'after_setup_theme', 'tm_setup' );
 

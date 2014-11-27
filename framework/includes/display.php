@@ -9,39 +9,49 @@ function tm_ie_browser_message() {
 }
 
 function tm_header_logo_default() {
+	$logo = tm_get_option('logo');
+	$name = get_bloginfo( 'name' );
 	?>
-	<a id="logo" class="logo" href="<?php echo home_url(); ?>">
-	<?php
-		$logo = tm_get_option('logo');
-		if ( ! empty( $logo ) ) :
-			$logo_image = '<img src="'. get_template_directory_uri() .'/assets/images/logo.png">';
-		else :
-			$logo_image = '<img src="'.$logo.'">';
-		endif;
-		echo $logo_image;
-	?>
-	<span class="sr-only"><?php bloginfo( 'name' ); ?></span>
+	<a id="logo" class="logo" href="<?php echo home_url(); ?>" title="<?php echo $name; ?>">
+		<?php
+			if ( empty( $logo ) ) {
+				$image = '<img src="' . get_template_directory_uri() . '/assets/images/logo.png" alt="' . $name . '">';
+			} else {
+				$image = '<img src="' . $logo . '">';
+			}
+			echo $image;
+		?>
+		<span class="sr-only"><?php echo $name; ?></span>
 	</a>
 	<?php
 }
 
 function tm_social_icons() {
 	$class = apply_filters( 'tm_social_media_style', 'color' );
-	echo '<ul class="social-media social-style-'.$class.'">'. tm_social_media() .'</ul>';
+	echo '<ul class="social-media social-style-' . $class . '">' . tm_social_media() . '</ul>';
 }
 
 function tm_apple_touch_icon() {
+	$image_path = get_template_directory_uri() . '/assets/images';
 	?>
-	<link rel="shortcut icon" href="<?php echo get_template_directory_uri() . '/assets/images/favicon.png'; ?>" />
-	<link rel="apple-touch-icon" href="<?php echo get_template_directory_uri() . '/assets/images/apple-touch-icon.png'; ?>" />
-	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo get_template_directory_uri() . '/assets/images/apple-touch-icon-72x72.png'; ?>" />
-	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo get_template_directory_uri() . '/assets/images/apple-touch-icon-114x114.png'; ?>" />
+	<!-- ICONS -->
+	<link rel="shortcut icon" href="<?php echo $image_path . '/favicon.png'; ?>" />
+	<link rel="apple-touch-icon" href="<?php echo $image_path . '/apple-touch-icon.png'; ?>" />
+	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $image_path . '/apple-touch-icon-72x72.png'; ?>" />
+	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $image_path . '/apple-touch-icon-114x114.png'; ?>" />
+	<!-- ICONS (end) -->
 	<?php
 }
 
 function tm_custom_css() {
+	$styles = '';
 	$custom_css = tm_get_option( 'custom_css' );
-	echo '<style type="text/css">'.$custom_css.'</style>';
+	$custom_css = tm_compress( $custom_css );
+	if ( ! empty( $custom_css ) ) {
+		$styles = '<style type="text/css">' . $custom_css . '</style>';
+	}
+	
+	echo $styles; 
 }
 
 function tm_footer_text_default() {
@@ -149,7 +159,7 @@ function tm_navigation() {
 	<script type="text/javascript">
 	jQuery(document).ready( function() {
 		// Off Canvas Navigation
-		var offCanvas = jQuery('#off-canvas-button'),
+		var offCanvas = jQuery('#off-canvas-toggle'),
 			offCanvasNav = jQuery('#off-canvas'),
 			pageCanvas = jQuery('#container'),
 			bodyCanvas = jQuery('body');

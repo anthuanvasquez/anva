@@ -1,9 +1,12 @@
 <?php
-/*
- Template Name: Post List
+/**
+ * Template Name: Post List
+ *
+ * The template used for displaying posts in list
  */
 
- get_header(); ?>
+ get_header();
+ ?>
 
 <div class="row grid-columns">
 

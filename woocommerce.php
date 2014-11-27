@@ -1,4 +1,12 @@
-<?php get_header(); ?>
+<?php
+/**
+ * WARNING: This template file is a core part of the
+ * Woocommerce plugin.
+ * @link https://wordpress.org/plugins/woocommerce/
+ */
+
+get_header();
+?>
 
 <div class="row grid-columns">
 	<div class="content-area col-sm-8">

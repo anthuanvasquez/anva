@@ -23,26 +23,33 @@
 
 <?php tm_layout_before(); ?>
 
-<div id="off-canvas" class="off-canvas-navigation">	
-	<div  class="off-canvas-inner off-canva-left">
-	<?php
-		if ( has_nav_menu( 'primary' ) ) {
-			wp_nav_menu( array( 
-				'theme_location'  => 'primary',
-				'container'       => 'div',
-				'container_class' => 'navigation-inner',
-				'container_id'    => '',
-				'menu_class'      => 'navigation-menu',
-				'menu_id'         => '',
-				'echo'            => true,
-				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
-			);
-		}
-	?>
-	</div><!-- .off-canvas-inner (end) -->
+<div id="off-canvas" class="off-canvas">	
+	<div  class="off-canvas-inner">
+		<div class="off-canvas-content">
+			<?php
+				if ( has_nav_menu( 'primary' ) ) {
+					wp_nav_menu( array( 
+						'theme_location'  => 'primary',
+						'container'       => 'div',
+						'container_class' => 'off-canvas-menu-wrapper',
+						'container_id'    => '',
+						'menu_class'      => 'off-canvas-menu sf-menu',
+						'menu_id'         => '',
+						'echo'            => true,
+						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
+					);
+				}
+			?>
+		</div>
+	</div>
 </div><!-- #off-canvas (end) -->
 				
 <div id="container">
+
+	<a href="#" id="off-canvas-toggle" class="off-canvas-toggle">
+		<i class="fa fa-bars"></i>
+		<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
+	</a>
 
 	<div id="top">
 		<header id="header">

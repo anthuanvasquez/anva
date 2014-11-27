@@ -1,6 +1,8 @@
 <?php
-/*
- Template Name: Archives
+/**
+ * Template Name: Archives
+ *
+ * The template used for displaying archives content
  */
 
  get_header();

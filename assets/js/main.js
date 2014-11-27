@@ -60,7 +60,7 @@ jQuery(document).ready( function() {
 	// ---------------------------------------------------------
 	// Superfish Menu
 	// ---------------------------------------------------------
-	jQuery('ul.navigation-menu').superfish({
+	jQuery('ul.navigation-menu, ul.off-canvas-menu').superfish({
 		delay: 500,
 		animation:   {
 			opacity: 'show',

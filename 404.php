@@ -1,4 +1,10 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template file for 404's
+ */
+
+get_header();
+?>
 
 <div class="row grid-columns">
 	<div class="content-area col-sm-12">

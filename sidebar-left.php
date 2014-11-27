@@ -2,4 +2,4 @@
 	<div class="widget-area">
 		<?php if ( dynamic_sidebar( 'sidebar-left' ) ) : endif; ?>
 	</div>
-</div>
+</div><!-- .sidebar-inner (end) -->

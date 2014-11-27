@@ -80,8 +80,8 @@
 	 * Off Canvas
 	 */
 	.off_canvas_navigation {
-		#off-canvas-button,
-		.off-canvas-navigation {
+		#off-canvas-toggle,
+		.off-canvas {
 			display: block;
 		}
 		
@@ -92,8 +92,8 @@
 	}
 	
 	.toggle_navigation {
-		#off-canvas-button,
-		.off-canvas-navigation {
+		#off-canvas-toggle,
+		.off-canvas {
 			display: none;
 		}
 		
@@ -103,6 +103,13 @@
 
 		nav.main-navigation {
 			display: none;
+		}
+	}
+
+	// Is admin bar is present
+	.admin-bar {
+		.off-canvas {
+			top: 32px;
 		}
 	}
 
@@ -192,6 +199,13 @@
 
 	#featured {
 		margin: 0 0 $padding;	
+	}
+
+	// Is admin bar is present
+	.admin-bar {
+		.off-canvas {
+			top: 46px;
+		}
 	}
 
 	/*

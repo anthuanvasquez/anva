@@ -1,4 +1,10 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The main template file.
+ */
+
+get_header();
+?>
 
 <div class="row grid-columns">
 	<div class="content-area col-sm-8">

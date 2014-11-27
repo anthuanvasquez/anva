@@ -1,4 +1,7 @@
 <?php
+/**
+ * The template for displaying Comments
+ */
 
 if ( post_password_required() ) {
 	return;

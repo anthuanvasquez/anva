@@ -1,10 +1,14 @@
 <?php
-/*
- Template Name: Products
+/**
+ * Template Name: Products
+ *
+ * The template used for displaying products in front page
+ * Woocommerce plugin is required.
+ * @link https://wordpress.org/plugins/woocommerce/
  */
-?>
 
-<?php get_header(); ?>
+get_header();
+?>
 
 <div class="row grid-columns">
 	<div class="coontent-area col-sm-12">

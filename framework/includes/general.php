@@ -2,13 +2,12 @@
 
 /**
  * Make theme available for translations
- * @since 1.0.0
  */
 function tm_theme_texdomain() {
 	load_theme_textdomain( TM_THEME_DOMAIN, get_template_directory() . '/languages' );
 }
 
-/*
+/**
  * Register menus.
  */
 function tm_register_menus() {
@@ -19,7 +18,7 @@ function tm_register_menus() {
 	) );
 }
 
-/*
+/**
  * Register widgets areas.
  */
 function tm_register_sidebars() {
@@ -42,7 +41,7 @@ function tm_register_sidebars() {
 
 }
 
-/*
+/**
  * Enqueue custom Javascript & Stylesheets using wp_enqueue_script() and wp_enqueue_style().
  */
 function tm_load_scripts() {
@@ -69,16 +68,15 @@ function tm_load_scripts() {
 
 }
 
-/*
+/**
  * Hide wordpress version number.
  */
 function tm_kill_version() {
 	return '';
 }
 
-/*
+/**
  * Add class to posts_link_next() and previous.
- * @since 1.3.1
  */
 function tm_posts_link_attr() {
 	return 'class="button button-link"';
@@ -91,7 +89,6 @@ function tm_post_link_attr( $output ) {
 
 /**
  * Change the default mail from.
- * @since 1.5.0
  */
 function tm_wp_mail_from( $original_email_address ) {
 	$email = get_option( 'admin_email' );
@@ -100,7 +97,6 @@ function tm_wp_mail_from( $original_email_address ) {
 
 /**
  * Change the default from name.
- * @since 1.5.0
  */
 function tm_wp_mail_from_name( $original_email_from ) {
 	$name = get_bloginfo( 'name' );
@@ -109,7 +105,6 @@ function tm_wp_mail_from_name( $original_email_from ) {
 
 /**
  * Include post types in search page
- * @since 1.5.1
  */
 function tm_search_filter( $query ) {
 
@@ -125,4 +120,22 @@ function tm_search_filter( $query ) {
 	}
 	
 	return $query;
+}
+
+/**
+ * Compress a chunk of code to output.
+ *
+ * @param string $buffer Text to compress
+ * @param string $buffer Buffered text
+ * @return array $buffer Compressed text
+ */
+function tm_compress( $buffer ) {
+
+	// Remove comments
+	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
+
+	// Remove tabs, spaces, newlines, etc.
+	$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
+
+	return $buffer;
 }
