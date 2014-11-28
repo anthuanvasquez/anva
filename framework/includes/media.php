@@ -95,7 +95,8 @@ function tm_image_size_names_choose( $sizes ) {
 	$sizes = tm_get_image_sizes();
 
 	// Format sizes
-	$sizes = array();
+	$image_sizes = array();
+	
 	foreach ( $sizes as $id => $atts ) {
 		$image_sizes[$id] = $atts['name'];
 	}

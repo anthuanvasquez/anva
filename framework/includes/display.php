@@ -9,19 +9,18 @@ function tm_ie_browser_message() {
 }
 
 function tm_header_logo_default() {
-	$logo = tm_get_option('logo');
-	$name = get_bloginfo( 'name' );
+	$logo 	= tm_get_option('logo');
+	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
+	$name 	= get_bloginfo( 'name' );
 	?>
 	<a id="logo" class="logo" href="<?php echo home_url(); ?>" title="<?php echo $name; ?>">
 		<?php
-			if ( empty( $logo ) ) {
-				$image = '<img src="' . get_template_directory_uri() . '/assets/images/logo.png" alt="' . $name . '">';
-			} else {
-				$image = '<img src="' . $logo . '">';
-			}
-			echo $image;
+			printf(
+				'<img src="%1$s" alt="%2$s" /><span class="sr-only">%2$s</span>',
+				( empty( $logo ) ? esc_url( $image ) : esc_url( $logo ) ),
+				get_bloginfo( 'name' )
+			);
 		?>
-		<span class="sr-only"><?php echo $name; ?></span>
 	</a>
 	<?php
 }

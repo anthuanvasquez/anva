@@ -364,7 +364,7 @@ function tm_slideshows_add_columns( $column ) {
 	$slider_id 		= $meta['_slider_id'][0];
 
 	if ( $column == 'image' )
-		echo '<a href="' . $edit_link . '" title="' . $post->post_title . '">' . get_the_post_thumbnail( $post->ID, array( 90, 90 ), array( 'alt' => $post->post_title  )  ) . '</a>';
+		echo '<a href="' . $edit_link . '" title="' . $post->post_title . '">' . get_the_post_thumbnail( $post->ID, 'thumbnail', array( 'alt' => $post->post_title  )  ) . '</a>';
 	
 	if ( $column == 'order' )
 		echo '<a href="' . $edit_link . '">' . $post->menu_order . '</a>';
