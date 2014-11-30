@@ -2,7 +2,7 @@
 
 <?php
 	$classes = '';
-	$sidebar = tm_get_post_meta('_sidebar_column');
+	$sidebar = tm_get_post_meta( '_sidebar_column' );
 
 	if ( 'left' == $sidebar || 'right' == $sidebar ) {
 		$classes = 'content-area col-sm-8';

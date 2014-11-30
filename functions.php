@@ -23,6 +23,16 @@ function tm_setup() {
 }
 add_action( 'after_setup_theme', 'tm_setup' );
 
+/*
+ * Change slider featured image size
+ */
+// function tm_featured_size( $args ) {
+// 	if ( isset( $args['homepage'] ) ) {
+// 		$args['homepage']['size'] = 'slider_big';
+// 	}
+// 	return $args;
+// }
+// add_filter( 'tm_slideshows', 'tm_featured_size' );
 
 /*
  * Change the start year in footer.

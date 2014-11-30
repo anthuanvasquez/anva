@@ -1,5 +1,6 @@
-$icon-sprite-base-class: ".social" !default;
-$icon-sprite-dimensions: 32px !default;
+$icon-sprite-base-class: ".social";
+$icon-sprite-dimensions: 24px;
+$size: 24;
 
 .social-media {
 	list-style: none;
@@ -19,9 +20,9 @@ $icon-sprite-dimensions: 32px !default;
 
 // Style icons
 
-.social-style-color {
+.social-style-normal {
 	#{$icon-sprite-base-class} {
-		background-image: url('../images/social-media-color-32x32.png');
+		background-image: url('../images/social-media-normal-32x32.png');
 		background-repeat: no-repeat;
 		display: block;
 	}
@@ -44,4 +45,11 @@ $icon-sprite-dimensions: 32px !default;
 		display: block;
 	}
 	@include spritesheet-icon();
+}
+
+.social-icon-#{$size} {
+	.social {
+		background-size: #{$size}px;
+	}
+	@include spritesheet-icon($icon-sprite-dimensions);
 }

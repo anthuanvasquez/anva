@@ -17,26 +17,27 @@
  * Custom Posts
  */
 .widget_custom_posts {
-	.posts {
+	.widget-posts {
 		@include reset-list();
 		li {
 			margin-bottom: 12px;
 
 			h4 {
-				margin: 0 0 5px;
+				margin-top: 0;
+				margin-bottom: 3px;
 			}
 
-			img {
-				border: 4px solid #fff;
-				border-radius: 4px;
-				box-shadow: 0 0 0 1px #ddd;
+			.thumbnail {
 				float: left;
-				margin: 0 15px 0 0;
+				margin-right: 10px;
+				margin-bottom: 0;
 				max-width: 90px;
 			}
 
 			.post-date {
 				display: block;
+				font-size: 12px;
+				text-transform: capitalize;
 			}
 		}
 	}
@@ -80,7 +81,7 @@
 		}
 	}
 
-	.social-style-color {
+	.social-style-normal {
 		.social {
 			background-size: $icon-size;
 		}

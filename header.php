@@ -51,6 +51,7 @@
 		<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
 	</a>
 
+	<!-- TOP START -->
 	<div id="top">
 		<header id="header">
 			<div class="header-inner inner">
@@ -73,46 +74,26 @@
 					</div><!-- .header-content-inner (end) -->
 				</div><!-- .header-content (end) -->
 
-				<a href="#" id="mobile-navigation" class="mobile-toggle-button">
-					<i class="fa fa-bars"></i>
-					<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
-				</a>
-
-				<nav id="main-navigation" class="main-navigation horizontal-navigation group" role="navigation">
-					<?php
-						if ( has_nav_menu( 'primary' ) ) {
-							wp_nav_menu( array( 
-								'theme_location'  => 'primary',
-								'container'       => 'div',
-								'container_class' => 'navigation-inner',
-								'container_id'    => '',
-								'menu_class'      => 'navigation-menu sf-menu group',
-								'menu_id'         => '',
-								'echo'            => true,
-								'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
-							);
-						} else {
-							echo tm_get_local( 'menu_message' );
-						}
-					?>
-				</nav><!-- #main-navigation (end) -->
+				<?php tm_main_navigation(); ?>
 
 			</div><!-- .header-inner (end) -->
 		</header><!-- #header (end) -->
-	</div><!-- #top (end) -->
+	</div><!-- TOP END -->
 	
 	<?php if ( is_front_page() ) : ?>
+		<!-- FEATURED END -->
 		<div id="featured">
 			<div class="featured-inner inner">
 				<?php
-					if ( function_exists( 'tm_slideshows_slides' ) ) {
-						echo tm_slideshows_slides( 'homepage' );
+					if ( function_exists( 'tm_slideshows_featured' ) ) {
+						echo tm_slideshows_featured( 'homepage' );
 					}
 				?>
 			</div><!-- .featured-inner (end) -->
-		</div><!-- #featured (end) -->
+		</div><!-- FEATURED END -->
 	<?php endif; ?>
 
+	<!-- MAIN START -->
 	<div id="main">
 		<div class="main-inner">
 			<div class="main-content">

@@ -1,13 +1,15 @@
 <?php
 
-// SETUP ACTIONS
+/*
+ * Setup slideshows 
+ */
 function tm_slideshows_setup() {
-	add_action( 'init', 'tm_slideshows_setup_init' );
+	add_action( 'init', 'tm_slideshows_register' );
 	add_action( 'admin_head', 'tm_slideshows_admin_icon' );	
-	add_action( 'add_meta_boxes', 'tm_slideshows_create_slide_metaboxes' );
+	add_action( 'add_meta_boxes', 'tm_slideshows_add_meta' );
 	add_action( 'save_post', 'tm_slideshows_save_meta', 1, 2 );
-	add_filter( 'manage_edit-slideshows_columns', 'tm_slideshows_columns' );
 	add_action( 'manage_slideshows_posts_custom_column', 'tm_slideshows_add_columns' );
+	add_filter( 'manage_edit-slideshows_columns', 'tm_slideshows_columns' );
 	add_shortcode( 'slideshows', 'tm_slideshows_shortcode' );
 }
 
@@ -23,37 +25,44 @@ function tm_slideshows() {
 	$args['homepage'] = array(
 		'size' 		=> 'slider_large',
 		'options' => "
-			animation: Modernizr.touch ? 'slide' : 'fade',
-			animationSpeed: Modernizr.touch ? 400 : 1000,
+			animation: 'fade',
+			animationSpeed: 1000,
 			slideshowSpeed: '$slider_speed',
-			controlNav: ($slider_control == 1 ? true : false),
-			directionNav: ($slider_direction == 1 ? true : false),
-			pausePlay: ($slider_play == 1 ? true : false),
+			controlNav: ( $slider_control == 1 ? true : false ),
+			directionNav: ( $slider_direction == 1 ? true : false ) ,
+			pausePlay: ( $slider_play == 1 ? true : false ),
 			pauseText: '',
 			playText: '',
 			prevText: '',
 			nextText: '',
+			useCSS: true,
+			touch: true,
 			video: true,
 			start: function(slider) {
 				slider.removeClass('loading');
 			}
 	");
-	
-	// Gallery Slider
-	$args['gallery'] = array(
-		'size' => 'blog_large'
-	);
 
 	// Attachments Slider	
 	$args['attachments'] = array(
-		'size' => 'blog_large'
-	);
+		'size' => 'blog_large',
+		'options' => "
+			controlNav: false,
+			directionNav: true,
+			pausePlay: false,
+			smoothHeight: true,
+			start: function(slider) {
+				slider.removeClass('loading');
+			}
+	");
 	
 	return apply_filters( 'tm_slideshows', $args );
 }
 
-// Create Post Type
-function tm_slideshows_setup_init() {
+/*
+ * Register post type slideshows
+ */
+function tm_slideshows_register() {
 
 	$labels = array(
 		'name' 									=> __( 'Slideshows', TM_THEME_DOMAIN ),
@@ -76,7 +85,7 @@ function tm_slideshows_setup_init() {
 		'_builtin'             	=> false,
 		'show_ui'              	=> true, 
 		'query_var'            	=> false,
-		'rewrite'              	=> apply_filters( 'tm_slideshows_post_type_rewite', array( "slug" => "slideshows" )),
+		'rewrite'              	=> false,
 		'capability_type'      	=> 'post',
 		'hierarchical'         	=> false,
 		'menu_position'        	=> 26.6,
@@ -89,25 +98,26 @@ function tm_slideshows_setup_init() {
 	register_post_type( 'slideshows', $args );
 }
 
-
-// Admin Icon
+/*
+ * Admin menu icon
+ */
 function tm_slideshows_admin_icon() {
 	echo '<style>#adminmenu #menu-posts-slideshows div.wp-menu-image:before { content: "\f233"; }</style>';	
 }
 
-// Show Slides
-function tm_slideshows_slides( $slug ) {
+/*
+ * Output slides from slideshows array
+ */
+function tm_slideshows_featured( $slug ) {
 	
 	// Get slides area
 	$rotators = tm_slideshows();
 	
-	// Set image size
-	$image_size = isset( $rotators[ $slug ]['size']) ? $rotators[ $slug ]['size'] : 'large';
-
-	// Order: orderby, order, limit
-	$orderby = isset( $rotators[ $slug ]['orderby']) ? $rotators[ $slug ]['orderby'] : "menu_order";
-	$order 	 = isset( $rotators[ $slug ]['order']) ? $rotators[ $slug ]['order'] : "ASC";
-	$limit 	 = isset( $rotators[ $slug ]['limit']) ? $rotators[ $slug ]['limit'] : "-1";
+	// Set args
+	$image_size = isset( $rotators[$slug]['size'] ) ? $rotators[$slug]['size'] : 'large';
+	$orderby = isset( $rotators[$slug]['orderby'] ) ? $rotators[$slug]['orderby'] : "menu_order";
+	$order 	 = isset( $rotators[$slug]['order'] ) ? $rotators[$slug]['order'] : "ASC";
+	$limit 	 = isset( $rotators[$slug]['limit'] ) ? $rotators[$slug]['limit'] : "-1";
 
 	// Default Query Args
 	$query_args = array(
@@ -145,8 +155,8 @@ function tm_slideshows_slides( $slug ) {
 			
 			$meta = tm_get_post_custom();
 
-			$url 	= $meta['_slider_link_url'][0];
-			$data = $meta['_slider_data'][0];
+			$url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
+			$data = ( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
 
 			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array('echo' => false) ) . '" >';
 						
@@ -156,7 +166,7 @@ function tm_slideshows_slides( $slug ) {
 			if ( $slug == "attachments" ) {
 				$html .= wp_get_attachment_image( get_the_ID(), $image_size );
 			
-			} else if ( has_post_thumbnail() ) {
+			} elseif ( has_post_thumbnail() ) {
 				
 				if ( $url ) {
 					$html .= $a_tag_opening;
@@ -170,20 +180,11 @@ function tm_slideshows_slides( $slug ) {
 			}
 			
 			switch ( $data ) {
+
 				case 'title':
 					$html .= '<div class="slide-caption no-description">';
-					$html .= '<h2 class="slide-title">';	
-
-					if ( $url ) {
-						$html .= $a_tag_opening;
-					}
-
+					$html .= '<h2 class="slide-title">';
 					$html .= get_the_title();
-
-					if ( $url ) {
-						$html .= '</a>';
-					}
-
 					$html .= '</h2>';
 					$html .= '</div>';
 					break;
@@ -198,78 +199,75 @@ function tm_slideshows_slides( $slug ) {
 
 				case 'show':
 					$html .= '<div class="slide-caption">';
-					$html .= '<h2 class="slide-title">';	
-
-					if ( $url ) {
-						$html .= $a_tag_opening;
-					}
-
+					$html .= '<h2 class="slide-title">';
 					$html .= get_the_title();
-
-					if ( $url ) {
-						$html .= '</a>';
-					}
-
 					$html .= '</h2>';
 					$html .= '<div class="slide-description">';
 					$html .= get_the_excerpt();
 					$html .= '</div>';
 					$html .= '</div>';
 					break;
+
 			}
 	
 			$html .= '</div><!-- #slide-' . get_the_ID() . ' (end) -->';
 			$html .= '</li>';
 		}
 
-		$html .= '</ul>';
+		$html .= '</ul><!-- .slides (end) -->';
 		$html .= '</div><!-- #slider_inner_' . $slug . ' (end) -->';
-		$html .= '</div><!-- #slider_wrapper_' . $slug . ' (end) -->';
-		
-		// Call Flexslider
-		$html .= '<script>';
-		$html .= 'jQuery(document).ready(function() {';
-		$html .= "jQuery('#slider_inner_{$slug}').addClass('loading');";
-		$html .= "jQuery('#slider_inner_{$slug}').flexslider({";
-			
-		if ( isset($rotators[ $slug ]['options']) && $rotators[ $slug ]['options'] != "" ) { 
-			$html .= $rotators[ $slug ]['options'];
-		} else {
-			$html .="prevText: '', nextText: '',";
-			$html .="start: function(slider){ slider.removeClass('loading'); }";
-		}
-		
-		$html .= "});";
-		$html .= "});";
-		$html .= '</script>';		
+		$html .= '</div><!-- #slider_wrapper_' . $slug . ' (end) -->';	
 	}
 	
+	// Reset wp query
 	wp_reset_query();
+
+	// Call Flexslider
+	$html .= '<script>';
+	$html .= 'jQuery(document).ready(function() {';
+	$html .= "jQuery('#slider_inner_{$slug}').addClass('loading');";
+	$html .= "jQuery('#slider_inner_{$slug}').flexslider({";
+		
+	if ( isset($rotators[$slug]['options']) && $rotators[$slug]['options'] != "" ) { 
+		$html .= $rotators[$slug]['options'];
+	} else {
+		$html .="prevText: '', nextText: '',";
+		$html .="start: function(slider){ slider.removeClass('loading'); }";
+	}
+	
+	$html .= "});";
+	$html .= "});";
+	$html .= '</script>';
 	
 	return $html;
 }
 
-// Admin metabox
-function tm_slideshows_create_slide_metaboxes() {
+/*
+ * Admin metabox
+ */
+function tm_slideshows_add_meta() {
 	add_meta_box(
-		'tm_slideshows_metabox_1',
+		'tm_slideshows_metabox',
 		tm_get_local( 'slide_meta' ),
-		'tm_slideshows_metabox_1',
+		'tm_slideshows_metabox',
 		'slideshows',
 		'normal',
 		'default'
 	);
 }
 
-function tm_slideshows_metabox_1() {
+/*
+ * Metabox form
+ */
+function tm_slideshows_metabox() {
 	
 	global $post;	
 		
 	$rotators 				= tm_slideshows();
 	$meta 						= tm_get_post_custom();
-	$slider_id		 		= $meta['_slider_id'][0];
-	$slider_link_url 	= $meta['_slider_link_url'][0];
-	$slider_data			=	$meta['_slider_data'][0];
+	$slider_id		 		= ( isset( $meta['_slider_id'][0] ) ? $meta['_slider_id'][0] : '' );
+	$slider_link_url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
+	$slider_data			=	( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
 	?>
 
 	<table class="form-table">
@@ -289,7 +287,7 @@ function tm_slideshows_metabox_1() {
 				<?php if ( $rotators ) : ?>
 					<select name="slider_id" style="width:99%;text-transform:capitalize;">
 						<?php foreach ( $rotators as $rotator => $size ) : ?>
-							<option value="<?php echo $rotator; ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator ?></option>
+							<option value="<?php echo esc_attr( $rotator ); ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator; ?></option>
 						<?php endforeach; ?>
 					</select>
 				<?php else : ?>
@@ -313,7 +311,7 @@ function tm_slideshows_metabox_1() {
 							'hide' 	=> tm_get_local('slide_hide'),
 						);
 						foreach ( $select as $key => $value ) {
-							echo '<option value="'.$key.'" '. selected( $slider_data, $key, true ) .'>'. $value .'</option>';
+							echo '<option value="'.esc_attr( $key ).'" '. selected( $slider_data, $key, true ) .'>'. $value .'</option>';
 						}
 					?>
 				</select>
@@ -323,7 +321,9 @@ function tm_slideshows_metabox_1() {
 	<?php
 }
 
-// SAVE THE EXTRA GOODS FROM THE SLIDE
+/*
+ * Save metabox
+ */
 function tm_slideshows_save_meta( $post_id, $post ) {
 	
 	if ( isset( $_POST['slider_link_url'] ) ) {
@@ -340,7 +340,9 @@ function tm_slideshows_save_meta( $post_id, $post ) {
 
 }
 
-// ADMIN COLUMNS
+/*
+ * Admin columns
+ */
 function tm_slideshows_columns( $columns ) {
 	$columns = array(
 		'cb'       => '<input type="checkbox" />',
@@ -354,6 +356,9 @@ function tm_slideshows_columns( $columns ) {
 	return $columns;
 }
 
+/*
+ * Add admin coumns
+ */
 function tm_slideshows_add_columns( $column ) {
 	
 	global $post;
@@ -376,15 +381,20 @@ function tm_slideshows_add_columns( $column ) {
 		echo '<a href="' . $slider_link . '" target="_blank" >' . $slider_link . '</a>';		
 }
 
-// SHORTCODE
-function tm_slideshows_shortcode($atts, $content = null) {
+/*
+ * Create slideshows shortcode
+ */
+function tm_slideshows_shortcode( $atts, $content = null ) {
+
+	extract(shortcode_atts( array(
+		'slug' => 'attachments',
+	), $atts ));
 	
-	$slug = isset( $atts['slug'] ) ? $atts['slug'] : "attachments";
 	$string = tm_get_local( 'slide_shortcode' );
 	
-	if ( ! $slug ) {
+	if ( empty( $slug ) ) {
 		return apply_filters( 'tm_slideshows_empty_shortcode', $string );
 	}
 
-	return tm_slideshows( $slug );
+	return tm_slideshows_featured( $slug );
 }

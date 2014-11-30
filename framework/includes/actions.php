@@ -8,6 +8,10 @@ function tm_header_addon() {
 	do_action( 'tm_header_addon' );
 }
 
+function tm_main_navigation() {
+	do_action( 'tm_main_navigation' );
+}
+
 function tm_layout_before() {
 	do_action( 'tm_layout_before' );
 }

@@ -51,11 +51,6 @@ jQuery(document).ready( function() {
 		e.preventDefault();
 		jQuery('html, body').animate({ scrollTop: 0 }, 'slow');
 	});
-	
-	// ---------------------------------------------------------
-	// Fitvids
-	// ---------------------------------------------------------
-	jQuery("article").fitVids();
 
 	// ---------------------------------------------------------
 	// Superfish Menu

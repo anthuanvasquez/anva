@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Get sidebars position
+ * Get sidebars columns and location
  */
 function tm_sidebars( $position, $columns ) {
 	?>

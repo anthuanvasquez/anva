@@ -309,6 +309,7 @@
 	color: #fff;
 	font-size: 20px;
 	margin: 0;
+	text-decoration: none;
 
 	a {
 		color: #fff;
@@ -322,6 +323,12 @@
 }
 
 // Featured slider
-#featured {
-	padding: 10px 30px;
+@if config(boxed) {
+	#featured {
+		padding: 10px 30px;
+	}
+} @else { 
+	#featured {
+		padding: 0;
+	}
 }

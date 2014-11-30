@@ -86,7 +86,7 @@
 		}
 		
 		a.mobile-toggle-button,
-		nav.main-navigation {
+		nav.navigation {
 			display: none;
 		}
 	}
@@ -101,7 +101,7 @@
 			@include inline-block();
 		}
 
-		nav.main-navigation {
+		nav.navigation {
 			display: none;
 		}
 	}
@@ -116,7 +116,7 @@
 	/*
 	 * Navigation
 	 */
-	nav.main-navigation {
+	nav.navigation {
 		float: none;
 		text-align: center;
 	}

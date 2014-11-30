@@ -141,8 +141,8 @@ div.product-meta {
 .woocommerce ul.products li.product h3,
 .woocommerce-page ul.products li.product h3 {
   border-bottom: 2px solid #2acbf5;
-  color: #333;
-  font-size: 13px;
+  color: #333333;
+  font-size: 14px;
   font-weight: 400;
   margin: 0 0 10px;
   padding: 0 0 10px;
@@ -964,3 +964,5 @@ div.single_variation {
     width: 100%;
   }
 }
+
+/*# sourceMappingURL=woocommerce-screen.css.map */

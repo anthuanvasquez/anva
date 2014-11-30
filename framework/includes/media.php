@@ -36,16 +36,28 @@ function tm_get_image_sizes() {
 			'height' 	=> 195,
 			'crop' 		=> false
 		),
+		'slider_big' => array(
+			'name' 		=> __( 'Slider Big', TM_THEME_DOMAIN ),
+			'width' 	=> 1600,
+			'height' 	=> 500,
+			'crop' 		=> true
+		),
 		'slider_large' => array(
-			'name' 		=> __( 'Slider Full Width', TM_THEME_DOMAIN ),
+			'name' 		=> __( 'Slider Large', TM_THEME_DOMAIN ),
 			'width' 	=> $content_width,
+			'height' 	=> 400,
+			'crop' 		=> true
+		),
+		'slider_medium' => array(
+			'name' 		=> __( 'Slider Medium', TM_THEME_DOMAIN ),
+			'width' 	=> 564,
 			'height' 	=> 400,
 			'crop' 		=> true
 		),
 		'grid_2' => array(
 			'name' 		=> __( '2 Column of Grid', TM_THEME_DOMAIN ),
 			'width' 	=> 472,
-			'height' 	=> 395,
+			'height' 	=> 295,
 			'crop' 		=> true
 		),
 		'grid_3' => array(
@@ -92,12 +104,12 @@ function tm_add_image_sizes() {
 function tm_image_size_names_choose( $sizes ) {
 
 	// Get image sizes for framework that were registered.
-	$sizes = tm_get_image_sizes();
+	$raw_sizes = tm_get_image_sizes();
 
 	// Format sizes
 	$image_sizes = array();
 	
-	foreach ( $sizes as $id => $atts ) {
+	foreach ( $raw_sizes as $id => $atts ) {
 		$image_sizes[$id] = $atts['name'];
 	}
 

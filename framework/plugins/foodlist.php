@@ -2,6 +2,9 @@
 
 add_action( 'after_setup_theme', 'tm_foodlist_setup' );
 
+/*
+ * Foodlist theme setup
+ */
 function tm_foodlist_setup() {
 	add_filter( 'foodlist_menu_template', 'tm_menu_template', 10, 2 );
 	add_filter( 'foodlist_menu_section_template', 'tm_menu_section_template', 10, 2 );
@@ -9,10 +12,16 @@ function tm_foodlist_setup() {
 	add_action( 'wp_enqueue_scripts', 'foodlist_load_scripts' );
 }
 
+/*
+ * Foodlist front end scripts
+ */
 function foodlist_load_scripts() {
 	wp_enqueue_style( 'foodlist-screen', get_template_directory_uri() . '/assets/css/foodlist-screen.css' );
 }
 
+/*
+ * Foodlist menu template
+ */
 function tm_menu_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu" id="fl-menu-[menu_id]">
@@ -29,6 +38,9 @@ function tm_menu_template( $tpl ) {
 	return $tpl;
 }
 
+/*
+ * Foodlist menu section template
+ */
 function tm_menu_section_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu-section" id="fl-menu-section-[menu_section_id]-[menu_section_instance]">
@@ -46,6 +58,9 @@ function tm_menu_section_template( $tpl ) {
 	return $tpl;
 }
 
+/*
+ * Foodlist menu item template
+ */
 function tm_menu_item_template( $tpl ) {	
 	$tpl = '
 		<div class="fl-menu-item" id="fl-menu-item-[menu_item_id]-[menu_item_instance]">

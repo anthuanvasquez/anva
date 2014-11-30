@@ -8,8 +8,9 @@
 				
 			</div><!-- .main-content (end) -->
 		</div><!-- .main-inner (end) -->
-	</div><!-- #main (end) -->
+	</div><!-- MAIN END -->
 	
+	<!--BOTTOM START -->
 	<div id="bottom">
 		<footer id="footer">
 			<div class="footer-inner">
@@ -26,7 +27,7 @@
 				</div><!-- .footer-copyright (end) -->
 			</div>
 		</footer><!-- #footer (end) -->
-	</div><!-- #bottom (end) -->
+	</div><!-- BOTTOM END -->
 
 </div><!-- #container (end) -->
 

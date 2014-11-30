@@ -1,13 +1,19 @@
 <?php
 
+/*
+ * IE browser warning
+ */
 function tm_ie_browser_message() {
-	$string = tm_get_local( 'browsehappy' );
-	$url = esc_url( 'http://browsehappy.com/' );
 	?>
-	<!--[if lt IE 9]><p class="alert alert-warning browsehappy"><?php echo sprintf( $string, $url ); ?></p><![endif]-->
+	<!--[if lt IE 9]>
+		<p class="alert alert-warning browsehappy"><?php printf( tm_get_local( 'browsehappy' ), esc_url( 'http://browsehappy.com/' ) ); ?></p>
+	<![endif]-->
 	<?php
 }
 
+/*
+ * Display default header logo 
+ */
 function tm_header_logo_default() {
 	$logo 	= tm_get_option('logo');
 	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
@@ -25,15 +31,55 @@ function tm_header_logo_default() {
 	<?php
 }
 
-function tm_social_icons() {
-	$class = apply_filters( 'tm_social_media_style', 'color' );
-	echo '<ul class="social-media social-style-' . $class . '">' . tm_social_media() . '</ul>';
+/*
+ * Display default main navigation
+ */
+function tm_main_navigation_default() {
+	?>
+	<a href="#" id="mobile-toggle" class="mobile-toggle">
+		<i class="fa fa-bars"></i>
+		<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
+	</a>
+
+	<?php if ( has_nav_menu( 'primary' ) ) : ?>
+		<nav id="navigation" class="navigation clearfix" role="navigation">
+			<?php
+				wp_nav_menu( apply_filters( 'tm_main_navigation_default', array( 
+					'theme_location'  => 'primary',
+					'container'       => 'div',
+					'container_class' => 'navigation-inner',
+					'container_id'    => 'primary',
+					'menu_class'      => 'navigation-menu sf-menu clearfix',
+					'menu_id'         => 'primary-menu',
+					'echo'            => true,
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
+				));
+			?>
+		</nav><!-- #main-navigation (end) -->
+	<?php else : ?>
+		<div class="well well-sm"><?php echo tm_get_local( 'menu_message' ); ?></div>
+	<?php endif;
 }
 
+/*
+ * Display social media icons
+ */
+function tm_social_icons() {
+	$class = 'normal';
+	printf(
+		'<ul class="social-media social-style-%2$s social-icon-24">%1$s</ul>',
+		tm_social_media(),
+		apply_filters( 'tm_social_media_style', $class )
+	);
+}
+
+/*
+ * Print favion and apple touch icons in head
+ */
 function tm_apple_touch_icon() {
 	$image_path = get_template_directory_uri() . '/assets/images';
 	?>
-	<!-- ICONS -->
+	<!-- ICONS START -->
 	<link rel="shortcut icon" href="<?php echo $image_path . '/favicon.png'; ?>" />
 	<link rel="apple-touch-icon" href="<?php echo $image_path . '/apple-touch-icon.png'; ?>" />
 	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $image_path . '/apple-touch-icon-72x72.png'; ?>" />
@@ -42,6 +88,9 @@ function tm_apple_touch_icon() {
 	<?php
 }
 
+/*
+ * Print custom css styles in head
+ */
 function tm_custom_css() {
 	$styles = '';
 	$custom_css = tm_get_option( 'custom_css' );
@@ -53,6 +102,9 @@ function tm_custom_css() {
 	echo $styles; 
 }
 
+/*
+ * Display default footer text copyright
+ */
 function tm_footer_text_default() {
 	printf(
 		'<p>&copy; %s <strong>%s</strong> %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i><span class="sr-only">Go Top</span></a></p>',
@@ -64,18 +116,27 @@ function tm_footer_text_default() {
 	);
 }
 
+/*
+ * Wrapper start
+ */
 function tm_layout_before_default() {
 	?>
 	<div id="wrapper">
 	<?php
 }
 
+/*
+ * Wrapper end
+ */
 function tm_layout_after_default() {
 	?>
 	</div><!-- #wrapper (end) -->
 	<?php
 }
 
+/*
+ * Display breadcrumbs
+ */
 function tm_breadcrumbs() {
 	$single_breadcrumb = tm_get_option( 'single_breadcrumb' );
 	if ( 1 == $single_breadcrumb ) {
@@ -93,6 +154,9 @@ function tm_breadcrumbs() {
 	}
 }
 
+/*
+ * Wrapper main content start
+ */
 function tm_content_before_default() {
 	?>
 	<div id="sidebar-layout">
@@ -100,6 +164,9 @@ function tm_content_before_default() {
 	<?php
 }
 
+/*
+ * Wrapper main content end
+ */
 function tm_content_after_default() {
 	?>
 			</div><!-- .sidebar-layout-inner (end) -->
@@ -107,10 +174,13 @@ function tm_content_after_default() {
 	<?php
 }
 
+/*
+ * Display sidebars locations before
+ */
 function tm_sidebar_layout_before_default() {
 	if ( is_page() ) {
 		
-		$sidebar = tm_get_post_meta('_sidebar_column');
+		$sidebar = tm_get_post_meta( '_sidebar_column' );
 		
 		// One sidebar
 		if ( 'left' == $sidebar ) {
@@ -129,10 +199,13 @@ function tm_sidebar_layout_before_default() {
 	}
 }
 
+/*
+ * Display sidebars locations after
+ */
 function tm_sidebar_layout_after_default() {
 	if ( is_page() ) {
 		
-		$sidebar = tm_get_post_meta('_sidebar_column');
+		$sidebar = tm_get_post_meta( '_sidebar_column' );
 		
 		// One sidebar
 		if ( 'right' == $sidebar ) {
@@ -142,7 +215,7 @@ function tm_sidebar_layout_after_default() {
 		} elseif ( 'double' == $sidebar ) {
 			tm_sidebars( 'right', '3' );
 
-		// Two sidebar
+		// Two sidebar right
 		} elseif ( 'double_right' == $sidebar ) {
 			tm_sidebars( 'left', '3' );
 			tm_sidebars( 'right', '3' );
@@ -151,6 +224,9 @@ function tm_sidebar_layout_after_default() {
 	}
 }
 
+/*
+ * Change navigation
+ */
 function tm_navigation() {	
 	$nav = tm_get_option( 'navigation' );
 	switch( $nav ) :
@@ -188,18 +264,18 @@ function tm_navigation() {
 		// ---------------------------------------------------------
 		// Show main navigation with slidetoggle effect
 		// ---------------------------------------------------------
-		jQuery('#mobile-navigation').click( function(e) {
+		jQuery('#mobile-toggle').click( function(e) {
 			e.preventDefault();
-			jQuery('#main-navigation').slideToggle();
+			jQuery('nav#navigation').slideToggle();
 		});
 
 		// ---------------------------------------------------------
 		// Show main navigation if is hide
 		// ---------------------------------------------------------
 		jQuery(window).resize( function() {
-			var nav_display = jQuery('#main-navigation').css('display');
+			var nav_display = jQuery('nav#navigation').css('display');
 			if( nav_display === 'none' ) {
-				jQuery('#main-navigation').css('display', 'block');
+				jQuery('nav#navigation').css('display', 'block');
 			}
 		});
 	});
@@ -208,6 +284,10 @@ function tm_navigation() {
 	endswitch;
 }
 
+/*
+ * Display debug information if WP_DEBUG is enabled
+ * and current user if adminsitrator 
+ */
 function tm_debug_queries() {
 	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :
 	?>

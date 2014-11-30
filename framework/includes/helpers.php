@@ -213,7 +213,6 @@ function tm_get_widget_args( $id, $name, $description ) {
 
 /*
  * Limit chars in string
- * @since 1.5.0
  * @return $string
  */
 function tm_truncate( $string, $length = 100 ) {
@@ -255,18 +254,19 @@ function tm_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $
 
 	$the_query = new WP_Query( $args );
 	
-	echo '<ul class="posts">';
+	echo '<ul class="posts widget-posts">';
 
 	while ( $the_query->have_posts() ) {
 		$the_query->the_post();
 
 		if ( $thumbnail ) {
-			$output .= '<li class="group"><a href="'. get_permalink() .'">' . get_the_post_thumbnail( $post->ID, 'thumbnail', $attr = '' ) . '</a>';
+			$output .= '<li class="post-widget clearfix">';
+			$output .= '<a href="'. get_permalink() .'"><div class="thumbnail">' . get_the_post_thumbnail( $post->ID, 'thumbnail', $attr = '' ) . '</div></a>';
 		} else {
-			$output .= '<li class="group">';
+			$output .= '<li class="post-widget clearfix">';
 		}
 
-		$output .= '<h4><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
+		$output .= '<h4 class="post-title"><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
 		$output .= '<span class="post-date">' . get_the_time( 'F j, Y' ) . '</span>';
 		$output .= '</li>';
 	}
@@ -276,6 +276,9 @@ function tm_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $
 	echo '</ul>';
 }
 
+/*
+ * Get current year in footer copyright
+ */
 function tm_get_current_year( $year ) {
 	$current_year = date( 'Y' );
 	return $year . ( ( $year != $current_year ) ? ' - ' . $current_year : '' );

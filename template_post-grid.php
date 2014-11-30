@@ -7,7 +7,8 @@
 
 get_header();
 
-$grid_columns = tm_get_post_meta('_grid_columns');
+$hide_title   = tm_get_post_meta( '_hide_title' );
+$grid_columns = tm_get_post_meta( '_grid_columns' );
 $size = 'grid_'. $grid_columns;
 $columns = '';
 
@@ -31,6 +32,12 @@ $the_query = tm_get_post_query();
 <div class="row grid-columns">
 	<div class="col-sm-12">
 		<div class="main">
+
+			<?php if ( 'hide' != $hide_title ) : ?>
+				<header class="entry-header">
+					<h1 class="entry-title"><?php the_title(); ?></h1>
+				</header><!-- .entry-header (end) -->
+			<?php endif; ?>
 
 			<div class="primary-post-grid post-grid-paginated post-grid">
 				<div class="grid-columns">
@@ -70,7 +77,7 @@ $the_query = tm_get_post_query();
 				<?php endif; ?>
 				
 				</div><!-- .grid-columns -->
-				<?php tm_num_pagination($the_query->max_num_pages); ?>
+				<?php tm_num_pagination( $the_query->max_num_pages ); ?>
 			</div><!-- .primary-post-grid -->
 
 		</div><!-- .main (end) -->

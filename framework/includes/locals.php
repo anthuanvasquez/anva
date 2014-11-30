@@ -101,6 +101,7 @@ function tm_get_text_locals() {
 		'options'									=> __( 'Opciones', $domain ),
 		'browsehappy'							=> __( 'Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="%s">mejorar tu experiencia</a> en la web.' ),
 		'skype'										=> __( 'Skype', $domain ),
+		'phone'										=> __( 'Telefono', $domain ),
 		'title'										=> __( 'Título', $domain ),
 		'date'										=> __( 'Fecha', $domain ),
 		'order'										=> __( 'Orden', $domain ),
