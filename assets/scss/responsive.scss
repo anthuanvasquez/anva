@@ -83,7 +83,7 @@
 			display: block;
 		}
 		
-		a.mobile-toggle-button,
+		a.mobile-toggle,
 		nav.navigation {
 			display: none;
 		}
@@ -95,7 +95,7 @@
 			display: none;
 		}
 		
-		a.mobile-toggle-button {
+		a.mobile-toggle {
 			@include inline-block();
 		}
 
@@ -154,6 +154,10 @@
 	/*
 	 * Slides
 	 */
+	 .slide-caption {
+	 		display: none;
+	 }
+
 	.flex-direction-nav {
 		.flex-prev {
 			display: none;
