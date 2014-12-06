@@ -23,6 +23,6 @@
 
 //@prepros-append vendor/jquery.flexslider.js
 //@prepros-append vendor/jquery.validate.js
-//@prepros-append vendor/jquery.magnific-popup.min.js
+//@prepros-append vendor/jquery.magnific-popup.js
 //@prepros-append vendor/hoverIntent.js
 //@prepros-append vendor/superfish.js

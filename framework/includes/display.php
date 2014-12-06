@@ -3,10 +3,10 @@
 /*
  * IE browser warning
  */
-function tm_ie_browser_message() {
+function anva_ie_browser_message() {
 	?>
 	<!--[if lt IE 9]>
-		<p class="alert alert-warning browsehappy"><?php printf( tm_get_local( 'browsehappy' ), esc_url( 'http://browsehappy.com/' ) ); ?></p>
+		<p class="alert alert-warning browsehappy"><?php printf( anva_get_local( 'browsehappy' ), esc_url( 'http://browsehappy.com/' ) ); ?></p>
 	<![endif]-->
 	<?php
 }
@@ -14,8 +14,8 @@ function tm_ie_browser_message() {
 /*
  * Display default header logo 
  */
-function tm_header_logo_default() {
-	$logo 	= tm_get_option('logo');
+function anva_header_logo_default() {
+	$logo 	= anva_get_option('logo');
 	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
 	$name 	= get_bloginfo( 'name' );
 	?>
@@ -34,17 +34,17 @@ function tm_header_logo_default() {
 /*
  * Display default main navigation
  */
-function tm_main_navigation_default() {
+function anva_main_navigation_default() {
 	?>
 	<a href="#" id="mobile-toggle" class="mobile-toggle">
 		<i class="fa fa-bars"></i>
-		<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
+		<span class="sr-only"><?php echo anva_get_local( 'menu' ); ?></span>
 	</a>
 
 	<?php if ( has_nav_menu( 'primary' ) ) : ?>
 		<nav id="navigation" class="navigation clearfix" role="navigation">
 			<?php
-				wp_nav_menu( apply_filters( 'tm_main_navigation_default', array( 
+				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
 					'theme_location'  => 'primary',
 					'container'       => 'div',
 					'container_class' => 'navigation-inner',
@@ -57,33 +57,35 @@ function tm_main_navigation_default() {
 			?>
 		</nav><!-- #main-navigation (end) -->
 	<?php else : ?>
-		<div class="well well-sm"><?php echo tm_get_local( 'menu_message' ); ?></div>
+		<div class="well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
 	<?php endif;
 }
 
 /*
  * Display social media icons
  */
-function tm_social_icons() {
+function anva_social_icons() {
 	$class = 'normal';
+	$size = 24;
 	printf(
-		'<ul class="social-media social-style-%2$s social-icon-24">%1$s</ul>',
-		tm_social_media(),
-		apply_filters( 'tm_social_media_style', $class )
+		'<ul class="social-media social-style-%2$s social-icon-%3$s">%1$s</ul>',
+		anva_social_media(),
+		apply_filters( 'anva_social_media_style', $class ),
+		apply_filters( 'anva_social_media_size', $size )
 	);
 }
 
 /*
  * Print favion and apple touch icons in head
  */
-function tm_apple_touch_icon() {
+function anva_apple_touch_icon() {
 	$image_path = get_template_directory_uri() . '/assets/images';
 	?>
-	<!-- ICONS START -->
+	<!-- ICONS (start) -->
 	<link rel="shortcut icon" href="<?php echo $image_path . '/favicon.png'; ?>" />
-	<link rel="apple-touch-icon" href="<?php echo $image_path . '/apple-touch-icon.png'; ?>" />
-	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $image_path . '/apple-touch-icon-72x72.png'; ?>" />
-	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $image_path . '/apple-touch-icon-114x114.png'; ?>" />
+	<link rel="apple-touch-icon" sizes="76x76" href="<?php echo $image_path . '/apple-touch-icon-76x76.png'; ?>" />
+	<link rel="apple-touch-icon" sizes="120x120" href="<?php echo $image_path . '/apple-touch-icon-120x120.png'; ?>" />
+	<link rel="apple-touch-icon" sizes="152x152" href="<?php echo $image_path . '/apple-touch-icon-152x152.png'; ?>" />
 	<!-- ICONS (end) -->
 	<?php
 }
@@ -91,10 +93,10 @@ function tm_apple_touch_icon() {
 /*
  * Print custom css styles in head
  */
-function tm_custom_css() {
+function anva_custom_css() {
 	$styles = '';
-	$custom_css = tm_get_option( 'custom_css' );
-	$custom_css = tm_compress( $custom_css );
+	$custom_css = anva_get_option( 'custom_css' );
+	$custom_css = anva_compress( $custom_css );
 	if ( ! empty( $custom_css ) ) {
 		$styles = '<style type="text/css">' . $custom_css . '</style>';
 	}
@@ -105,21 +107,21 @@ function tm_custom_css() {
 /*
  * Display default footer text copyright
  */
-function tm_footer_text_default() {
+function anva_footer_text_default() {
 	printf(
 		'<p>&copy; %s <strong>%s</strong> %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i><span class="sr-only">Go Top</span></a></p>',
-		tm_get_current_year( apply_filters( 'tm_footer_year', date( 'Y' ) ) ),
+		anva_get_current_year( apply_filters( 'anva_footer_year', date( 'Y' ) ) ),
 		get_bloginfo( 'name' ),
-		tm_get_local( 'footer_copyright' ),
-		tm_get_local( 'footer_text' ),
-		apply_filters( 'tm_footer_author', '<a href="'. esc_url( 'http://3mentes.com/') .'">3 Mentes</a>.' )
+		anva_get_local( 'footer_copyright' ),
+		apply_filters( 'anva_footer_credits', anva_get_local( 'footer_text' ) ),
+		apply_filters( 'anva_footer_author', '<a href="'. esc_url( 'http://anthuanvasquez.com/') .'">Anthuan Vasquez</a>.' )
 	);
 }
 
 /*
  * Wrapper start
  */
-function tm_layout_before_default() {
+function anva_layout_before_default() {
 	?>
 	<div id="wrapper">
 	<?php
@@ -128,7 +130,7 @@ function tm_layout_before_default() {
 /*
  * Wrapper end
  */
-function tm_layout_after_default() {
+function anva_layout_after_default() {
 	?>
 	</div><!-- #wrapper (end) -->
 	<?php
@@ -137,8 +139,8 @@ function tm_layout_after_default() {
 /*
  * Display breadcrumbs
  */
-function tm_breadcrumbs() {
-	$single_breadcrumb = tm_get_option( 'single_breadcrumb' );
+function anva_breadcrumbs() {
+	$single_breadcrumb = anva_get_option( 'single_breadcrumb' );
 	if ( 1 == $single_breadcrumb ) {
 		if ( function_exists( 'yoast_breadcrumb' ) && ! is_front_page() && ! is_home() ) {
 			?>
@@ -157,7 +159,7 @@ function tm_breadcrumbs() {
 /*
  * Wrapper main content start
  */
-function tm_content_before_default() {
+function anva_content_before_default() {
 	?>
 	<div id="sidebar-layout">
 		<div class="sidebar-layout-inner">
@@ -167,7 +169,7 @@ function tm_content_before_default() {
 /*
  * Wrapper main content end
  */
-function tm_content_after_default() {
+function anva_content_after_default() {
 	?>
 			</div><!-- .sidebar-layout-inner (end) -->
 	</div><!-- #sidebar-layout (end) -->
@@ -177,23 +179,23 @@ function tm_content_after_default() {
 /*
  * Display sidebars locations before
  */
-function tm_sidebar_layout_before_default() {
+function anva_sidebar_layout_before_default() {
 	if ( is_page() ) {
 		
-		$sidebar = tm_get_post_meta( '_sidebar_column' );
+		$sidebar = anva_get_post_meta( '_sidebar_column' );
 		
 		// One sidebar
 		if ( 'left' == $sidebar ) {
-			tm_sidebars( 'left', '4' );
+			anva_sidebars( 'left', '4' );
 
 		// Two sidebar
 		} elseif( 'double' == $sidebar ) {
-			tm_sidebars( 'left', '3' );
+			anva_sidebars( 'left', '3' );
 
 		// Two sidebar left
 		} elseif ( 'double_left' == $sidebar ) {
-			tm_sidebars( 'left', '3' );
-			tm_sidebars( 'right', '3' );
+			anva_sidebars( 'left', '3' );
+			anva_sidebars( 'right', '3' );
 
 		}
 	}
@@ -202,23 +204,23 @@ function tm_sidebar_layout_before_default() {
 /*
  * Display sidebars locations after
  */
-function tm_sidebar_layout_after_default() {
+function anva_sidebar_layout_after_default() {
 	if ( is_page() ) {
 		
-		$sidebar = tm_get_post_meta( '_sidebar_column' );
+		$sidebar = anva_get_post_meta( '_sidebar_column' );
 		
 		// One sidebar
 		if ( 'right' == $sidebar ) {
-			tm_sidebars( 'right', '4' );
+			anva_sidebars( 'right', '4' );
 
 		// Two sidebar
 		} elseif ( 'double' == $sidebar ) {
-			tm_sidebars( 'right', '3' );
+			anva_sidebars( 'right', '3' );
 
 		// Two sidebar right
 		} elseif ( 'double_right' == $sidebar ) {
-			tm_sidebars( 'left', '3' );
-			tm_sidebars( 'right', '3' );
+			anva_sidebars( 'left', '3' );
+			anva_sidebars( 'right', '3' );
 
 		}
 	}
@@ -227,8 +229,8 @@ function tm_sidebar_layout_after_default() {
 /*
  * Change navigation
  */
-function tm_navigation() {	
-	$nav = tm_get_option( 'navigation' );
+function anva_navigation() {	
+	$nav = anva_get_option( 'navigation' );
 	switch( $nav ) :
 	case 'off_canvas_navigation': ?>
 	<script type="text/javascript">
@@ -288,7 +290,7 @@ function tm_navigation() {
  * Display debug information if WP_DEBUG is enabled
  * and current user if adminsitrator 
  */
-function tm_debug_queries() {
+function anva_debug_queries() {
 	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :
 	?>
 		<div class="alert alert-warning text-center">Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</div>

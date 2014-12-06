@@ -1,6 +1,4 @@
-@import "functions";
-@import "variables";
-@import "mixins";
+@import "framework";
 
 // Login variables
 $logo-width: 267px;
@@ -9,9 +7,10 @@ $login-font-color: #2d2e2f;
 $login-border-radius: 4px;
 $login-form-background: #fff;
 $login-form-border: 1px solid #BABABA;
-$login-nav-link-color: #333;
+$login-nav-link-color: color(base);
 $login-nav-background: #f6f6f6;
 $login-nav-border: 1px solid #bababa;
+$login-width: 380px;
 
 body {
 	
@@ -19,7 +18,7 @@ body {
 		background: #eee;
 
 		div#login {
-			width: 380px;
+			width: $login-width;
 			
 			// Logo
 			h1 {
@@ -28,7 +27,7 @@ body {
 					background-size: $logo-width $logo-height;
 					background-position: center top;
 					background-repeat: no-repeat;
-					color: #333;
+					color: color(base);
 					height: $logo-height;
 					font-size: $padding;
 					font-weight: normal;
@@ -48,6 +47,8 @@ body {
 				background: $login-form-background;
 				border: $login-form-border;
 				border-radius: 6px 6px 0 0;
+				box-shadow: none;
+
 				p {
 
 					label {
@@ -79,7 +80,7 @@ body {
 			p#nav {
 				text-align: center;
 				a {
-					color: color(primary);
+					color: color(base);
 					&:hover {
 						color: saturate(color(primary), 5%);
 					}
@@ -96,12 +97,19 @@ body {
 	}
 }
 
-#credit {
+#login-footer {
+	margin: auto;
+	padding-top: 20px;
+	width: $login-width;
+}
+
+#login-credits {
 	color: $login-font-color;
-	font-weight: bold;
+	font-weight: normal;
 	text-align: center;
 	a {
-		color: color(primary);
+		color: color(base);
+		font-weight: bold;
 		text-decoration: none;
 		&:hover {
 			color: saturate(color(primary), 5%);
@@ -114,18 +122,19 @@ body {
 .wp-core-ui {
 	.button-primary {
 		background: color(primary);
-		border-color: color(primary);
-		box-shadow: 0px 1px 0px rgba(color(primary), 0.5) inset, 0px 1px 0px rgba(0, 0, 0, 0.15);
+		border-color: darken(color(primary), 8%);
+		box-shadow: none;
 		color: #fff;
 		text-decoration: none;
 		text-shadow: none;
+
 		&.focus,
 		&.hover,
 		&:focus,
 		&:hover {
-			background: color(primary);
-			border-color: color(primary);
-			box-shadow: 0px 1px 0px rgba(color(primary), 0.6) inset;
+			background: darken(color(primary),5%);
+			border-color: darken(color(primary), 8%);
+			box-shadow: none;
 			color: #fff;
 			text-shadow: none;
 		}

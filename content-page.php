@@ -2,7 +2,7 @@
 /**
  * The template used for displaying page content in page.php
  */
-$hide_title = tm_get_post_meta( '_hide_title' );
+$hide_title = anva_get_post_meta( '_hide_title' );
 ?>
 <div class="article-wrapper">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

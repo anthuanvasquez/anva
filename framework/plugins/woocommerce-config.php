@@ -1,12 +1,14 @@
 <?php
 /**
- * This file contain extra settings for
- * WooCommerce plugin
+ * WARNING: This template file is a core part of the
+ * Woocommerce plugin.
+ * @link https://wordpress.org/plugins/woocommerce/
+ * 
+ * This file contain extra settings for WooCommerce plugin.
  */
 
 /**
  * Remove Woocoomerce Stylesheets
- * @since 1.5.5
  */
 add_filter( 'woocommerce_enqueue_styles', 'wc_change_styles' );
 function wc_change_styles( $styles ) {
@@ -26,7 +28,6 @@ function wc_change_styles( $styles ) {
 
 /**
  * Remove Woocommerce Scripts on unnecessary pages
- * @since 1.5.5
  */
 add_action( 'wp_print_scripts', 'woocommerce_de_script', 100 );
 function woocommerce_de_script() {
@@ -46,7 +47,6 @@ function woocommerce_de_script() {
 
 /**
  * Remove Woocommerce generator tag from head
- * @since 1.5.5
  */
 add_action( 'wp_enqueue_scripts', 'remove_woocommerce_generator', 99 );
 function remove_woocommerce_generator() {
@@ -61,13 +61,15 @@ function remove_woocommerce_generator() {
 
 /**
  * Load Woocoomerce Mod Stylesheet
- * @since 1.5.0
  */
 add_action( 'wp_enqueue_scripts', 'wc_load_scripts' ); 
 function wc_load_scripts() {
 	wp_enqueue_style( 'woocommerce-screen', get_template_directory_uri() . '/assets/css/woocommerce-screen.css' );
 }
 
+/**
+ * Register woocomemrce widgets
+ */
 add_action( 'widgets_init', 'wc_register_sidebars' );
 function wc_register_sidebars() {
 	register_sidebar(
@@ -82,21 +84,16 @@ function wc_register_sidebars() {
 /*
  * Change number of related products on product page
  * Set your own value for 'posts_per_page'
- * @since 1.5.0
  */
 add_filter( 'woocommerce_output_related_products_args', 'wc_related_products_limit' );
 function wc_related_products_limit() {
-	
 	global $product;
-	
 	$args['posts_per_page'] = 3;
-	
 	return $args;
 }
 
 /*
  * Change product columns number on shop pages
- * @since 1.5.0
  */
 add_filter( 'loop_shop_columns', 'woo_product_columns_frontend' );
 function woo_product_columns_frontend() {
@@ -113,8 +110,8 @@ function woo_product_columns_frontend() {
 	return $columns;
 }
 
-/* Use WC 2.0 variable price format
- * @since 1.5.0
+/*
+ * Use WC 2.0 variable price format
  */
 add_filter( 'woocommerce_variable_sale_price_html', 'wc_wc20_variation_price_format', 10, 2 );
 add_filter( 'woocommerce_variable_price_html', 'wc_wc20_variation_price_format', 10, 2 );
@@ -126,7 +123,6 @@ function wc_wc20_variation_price_format( $price, $product ) {
 
 /*
  * Add Payment Type to Emails
- * @since 1.5.0
  */
 add_action( 'woocommerce_email_after_order_table', 'wc_add_payment_type_to_emails', 15, 2 );
 function wc_add_payment_type_to_emails( $order, $is_admin_email ) {
@@ -150,7 +146,6 @@ function wc_add_payment_type_to_emails( $order, $is_admin_email ) {
 
 /*
  * Change text onsale
- * @since 1.5.0
  */
 add_filter('woocommerce_sale_flash', 'wc_custom_sale_flash', 10, 3);
 function wc_custom_sale_flash( $text, $post, $_product ) {

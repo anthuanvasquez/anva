@@ -8,10 +8,10 @@ class Custom_Services extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' => 'widget_services',
-			'description' => __('Muestra servicios o un texto personalizado con una imagen y una descripcion.', TM_THEME_DOMAIN )
+			'description' => __( 'Muestra una imagen con un texto personalizado.', ANVA_DOMAIN )
 		);
 
-		$this->WP_Widget('Custom_Services', 'Custom Services', $widget_ops);
+		$this->WP_Widget( 'Custom_Services', 'Custom Image', $widget_ops);
 	}
 
 	/* Call Widget */
@@ -45,7 +45,7 @@ class Custom_Services extends WP_Widget {
 		echo '</div>';
 
 		if ( ! empty( $link ) )
-			echo '<a class="service-link button" href="'. esc_url( $link ) .'">' . tm_get_local( 'read_more' ) . '</a>';
+			echo '<a class="service-link button" href="'. esc_url( $link ) .'">' . anva_get_local( 'read_more' ) . '</a>';
 			
 		echo $after_widget;
 	}
@@ -85,7 +85,7 @@ class Custom_Services extends WP_Widget {
 		
 		<!-- Title -->
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo tm_get_local( 'title' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo anva_get_local( 'title' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 
@@ -96,20 +96,20 @@ class Custom_Services extends WP_Widget {
 
 		<!-- Image -->
 		<p>
-			<label for="<?php echo $this->get_field_id('image'); ?>"><?php echo tm_get_local( 'image_url' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('image'); ?>"><?php echo anva_get_local( 'image_url' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('image'); ?>" name="<?php echo $this->get_field_name('image'); ?>" type="url" value="<?php echo esc_attr($image); ?>" />
 		</p>
 
 		<!-- Link -->
 		<p>
-			<label for="<?php echo $this->get_field_id('link'); ?>"><?php echo tm_get_local( 'url' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('link'); ?>"><?php echo anva_get_local( 'url' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('link'); ?>" name="<?php echo $this->get_field_name('link'); ?>" type="url" value="<?php echo esc_attr($link); ?>" />
 		</p>
 		
 		<!-- Auto P -->
 		<p>			
 			<input class="widefat" <?php checked( $instance['autop'], 'on'); ?> id="<?php echo $this->get_field_id('autop'); ?>" name="<?php echo $this->get_field_name('autop'); ?>" type="checkbox" />
-			<label for="<?php echo $this->get_field_id('autop'); ?>"><?php echo tm_get_local( 'add_autop' ); ?></label>
+			<label for="<?php echo $this->get_field_id('autop'); ?>"><?php echo anva_get_local( 'add_autop' ); ?></label>
 		</p>
 
 		<?php

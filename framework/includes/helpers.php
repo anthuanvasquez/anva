@@ -1,26 +1,30 @@
 <?php
 
-function tm_page_menu_args( $args ) {
+/*
+ * Home page args
+ */
+function anva_page_menu_args( $args ) {
 	$args['show_home'] = true;
 	return $args;
 }
 
-function tm_body_classes( $classes ) {
+/*
+ * Body classes
+ */
+function anva_body_classes( $classes ) {
 	// Adds a class of group-blog to blogs with more than 1 published author.
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
-	
-	$classes[] = tm_get_option( 'navigation' );
+	$classes[] = anva_get_option( 'navigation' );
 	$classes[] = 'lang-' . get_bloginfo( 'language' );
-
 	return $classes;
 }
 
 /*
  * Return browser classes
  */
-function tm_browser_class( $classes ) {
+function anva_browser_class( $classes ) {
 	
 	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
 	
@@ -68,7 +72,10 @@ function tm_browser_class( $classes ) {
 	return $classes;
 }
 
-function tm_wp_title( $title, $sep ) {
+/*
+ * Display name and description in title
+ */
+function anva_wp_title( $title, $sep ) {
 	if ( is_feed() ) {
 		return $title;
 	}
@@ -86,13 +93,16 @@ function tm_wp_title( $title, $sep ) {
 
 	// Add a page number if necessary:
 	if ( $paged >= 2 || $page >= 2 ) {
-		$title .= " $sep " . sprintf( tm_get_local( 'page' ) .' %s', max( $paged, $page ) );
+		$title .= " $sep " . sprintf( anva_get_local( 'page' ) .' %s', max( $paged, $page ) );
 	}
 
 	return $title;
 }
 
-function tm_setup_author() {
+/*
+ * Setup author page
+ */
+function anva_setup_author() {
 	global $wp_query;
 
 	if ( $wp_query->is_author() && isset( $wp_query->post ) ) {
@@ -100,17 +110,10 @@ function tm_setup_author() {
 	}
 }
 
-// Get the current offset
-function tm_get_offset() {
-
-	$number = 10;
-	$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-
-	return 1 == $page ? ( $page - 1 ) : ( ( $page - 1 ) * $number );
-
-}
-
-function tm_get_post_query( $query_args = '' ) {
+/*
+ * WP Query args
+ */
+function anva_get_post_query( $query_args = '' ) {
 	
 	$number = get_option( 'posts_per_page' );
 	$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
@@ -137,7 +140,7 @@ function tm_get_post_query( $query_args = '' ) {
 /*
  * Add theme options menu to admin bar.
  */
-function tm_settings_menu_link() {
+function anva_settings_menu_link() {
 	global $wp_admin_bar, $wpdb;
 	
 	if ( ! is_super_admin() || ! is_admin_bar_showing() )
@@ -146,49 +149,37 @@ function tm_settings_menu_link() {
 	$wp_admin_bar->add_menu( array(
 		'id' 			=> 'theme_settings_link',
 		'parent' 	=> 'appearance',
-		'title' 	=> tm_get_local( 'options' ),
+		'title' 	=> anva_get_local( 'options' ),
 		'href' 		=> home_url() . '/wp-admin/themes.php?page=theme-settings'
 	));
 
 }
 
 /*
- * Get theme single option or all options.
- */
-function tm_get_option( $id ) {
-
-	$settings = unserialize( TM_THEME_SETTINGS );
-
-	$option = '';
-
-	if ( ! empty( $id ) )
-		if ( isset( $settings[$id] ) )
-			$option = $settings[$id];
-	else
-		$option = $settings;
-
-	return $option; 
-}
-
-/*
  * Return the post meta field 
  */
-function tm_get_post_meta( $field ) {
+function anva_get_post_meta( $field ) {
 	global $post;
 	$meta = get_post_meta( $post->ID, $field, true );
 	return $meta;
 }
 
-function tm_get_post_custom() {
+/*
+ * Get custom meta fields
+ */
+function anva_get_post_custom() {
 	global $post;
 	$meta = get_post_custom( $post->ID );
 	return $meta;
 }
 
-function tm_get_widget_args( $id, $name, $description ) {
+/*
+ * Args in registers widget function
+ */
+function anva_get_widget_args( $id, $name, $description ) {
 	
 	$columns = '';
-	$footer_cols = tm_get_option( 'footer_cols' );
+	$footer_cols = anva_get_option( 'footer_cols' );
 
 	if ( 'home-sidebar' == $id ) {
 		$columns = 'grid-4';
@@ -200,25 +191,22 @@ function tm_get_widget_args( $id, $name, $description ) {
 	
 	$args = array(
 		'id'            => $id,
-		'name'          => tm_get_local( $name ),
-		'description'		=> tm_get_local( $description ),
+		'name'          => anva_get_local( $name ),
+		'description'		=> anva_get_local( $description ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s '.$columns.'"><div class="widget-inner">',
 		'after_widget'  => '</div></aside>',
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	);
 
-	return apply_filters( 'tm_widget_args', $args );
+	return apply_filters( 'anva_get_widget_args', $args );
 }
 
 /*
  * Limit chars in string
- * @return $string
  */
-function tm_truncate( $string, $length = 100 ) {
-
+function anva_truncate( $string, $length = 100 ) {
 	$string = trim( $string );
-
 	if ( strlen( $string ) <= $length) {
 		return $string;
 	}
@@ -226,21 +214,24 @@ function tm_truncate( $string, $length = 100 ) {
 		$string = substr( $string, 0, $length ) . '...';
 		return $string;
 	}
-
 }
 
-function tm_excerpt_limit( $length = '' ) {
-
-	if ( empty($length) ) {
+/*
+ * Limit chars in excerpt
+ */
+function anva_excerpt( $length = '' ) {
+	if ( empty( $length ) ) {
 		$length = 256;
 	}
-
 	$string = get_the_excerpt();
-	$p = tm_truncate( $string, $length );
+	$p = anva_truncate( $string, $length );
 	echo wpautop( $p );
 }
 
-function tm_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
+/*
+ * Get posts in custom posts widget
+ */
+function anva_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
 	global $post;
 
 	$output = '';
@@ -279,7 +270,7 @@ function tm_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $
 /*
  * Get current year in footer copyright
  */
-function tm_get_current_year( $year ) {
+function anva_get_current_year( $year ) {
 	$current_year = date( 'Y' );
 	return $year . ( ( $year != $current_year ) ? ' - ' . $current_year : '' );
 }

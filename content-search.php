@@ -12,9 +12,9 @@
 		</header><!-- .entry-header (end) -->
 		<div class="entry-content">
 			<div class="entry-summary">
-				<?php tm_excerpt_limit(); ?>
+				<?php anva_excerpt(); ?>
 				<a class="btn btn-default" href="<?php the_permalink(); ?>">
-					<?php echo tm_get_local( 'read_more' ); ?>
+					<?php echo anva_get_local( 'read_more' ); ?>
 				</a>
 			</div><!-- .entry-summary (end) -->
 			<div class="clearfix"></div>

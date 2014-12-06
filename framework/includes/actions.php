@@ -1,45 +1,45 @@
 <?php
 
-function tm_header_logo() {
-	do_action( 'tm_header_logo' );
+function anva_header_logo() {
+	do_action( 'anva_header_logo' );
 }
 
-function tm_header_addon() {
-	do_action( 'tm_header_addon' );
+function anva_header_addon() {
+	do_action( 'anva_header_addon' );
 }
 
-function tm_main_navigation() {
-	do_action( 'tm_main_navigation' );
+function anva_main_navigation() {
+	do_action( 'anva_main_navigation' );
 }
 
-function tm_layout_before() {
-	do_action( 'tm_layout_before' );
+function anva_layout_before() {
+	do_action( 'anva_layout_before' );
 }
 
-function tm_layout_after() {
-	do_action( 'tm_layout_after' );
+function anva_layout_after() {
+	do_action( 'anva_layout_after' );
 }
 
-function tm_content_before() {
-	do_action( 'tm_content_before' );
+function anva_content_before() {
+	do_action( 'anva_content_before' );
 }
 
-function tm_content_after() {
-	do_action( 'tm_content_after' );
+function anva_content_after() {
+	do_action( 'anva_content_after' );
 }
 
-function tm_post_before() {
-	do_action( 'tm_post_before' );
+function anva_post_before() {
+	do_action( 'anva_post_before' );
 }
 
-function tm_post_after() {
-	do_action( 'tm_post_after' );
+function anva_post_after() {
+	do_action( 'anva_post_after' );
 }
 
-function tm_sidebar_layout_before() {
-	do_action( 'tm_sidebar_layout_before' );
+function anva_sidebar_layout_before() {
+	do_action( 'anva_sidebar_layout_before' );
 }
 
-function tm_sidebar_layout_after() {
-	do_action( 'tm_sidebar_layout_after' );
+function anva_sidebar_layout_after() {
+	do_action( 'anva_sidebar_layout_after' );
 }

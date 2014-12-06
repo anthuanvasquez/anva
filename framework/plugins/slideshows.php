@@ -3,23 +3,23 @@
 /*
  * Setup slideshows 
  */
-function tm_slideshows_setup() {
-	add_action( 'init', 'tm_slideshows_register' );
-	add_action( 'admin_head', 'tm_slideshows_admin_icon' );	
-	add_action( 'add_meta_boxes', 'tm_slideshows_add_meta' );
-	add_action( 'save_post', 'tm_slideshows_save_meta', 1, 2 );
-	add_action( 'manage_slideshows_posts_custom_column', 'tm_slideshows_add_columns' );
-	add_filter( 'manage_edit-slideshows_columns', 'tm_slideshows_columns' );
-	add_shortcode( 'slideshows', 'tm_slideshows_shortcode' );
+function anva_slideshows_setup() {
+	add_action( 'init', 'anva_slideshows_register' );
+	add_action( 'admin_head', 'anva_slideshows_admin_icon' );	
+	add_action( 'add_meta_boxes', 'anva_slideshows_add_meta' );
+	add_action( 'save_post', 'anva_slideshows_save_meta', 1, 2 );
+	add_action( 'manage_slideshows_posts_custom_column', 'anva_slideshows_add_columns' );
+	add_filter( 'manage_edit-slideshows_columns', 'anva_slideshows_columns' );
+	add_shortcode( 'slideshows', 'anva_slideshows_shortcode' );
 }
 
-function tm_slideshows() {
+function anva_slideshows() {
 	
 	$args = array();
-	$slider_speed = tm_get_option( 'slider_speed' );
-	$slider_control = tm_get_option( 'slider_control' );
-	$slider_direction = tm_get_option( 'slider_direction' );
-	$slider_play = tm_get_option( 'slider_play' );
+	$slider_speed = anva_get_option( 'slider_speed' );
+	$slider_control = anva_get_option( 'slider_control' );
+	$slider_direction = anva_get_option( 'slider_direction' );
+	$slider_play = anva_get_option( 'slider_play' );
 
 	// Main Slider
 	$args['homepage'] = array(
@@ -56,26 +56,26 @@ function tm_slideshows() {
 			}
 	");
 	
-	return apply_filters( 'tm_slideshows', $args );
+	return apply_filters( 'anva_slideshows', $args );
 }
 
 /*
  * Register post type slideshows
  */
-function tm_slideshows_register() {
+function anva_slideshows_register() {
 
 	$labels = array(
-		'name' 									=> __( 'Slideshows', TM_THEME_DOMAIN ),
-		'singular_name' 				=> __( 'Slide', TM_THEME_DOMAIN ),
-		'all_items' 						=> __( 'Todos los Slides', TM_THEME_DOMAIN ),
-		'add_new' 							=> __( 'A&ntilde;adir Nuevo Slide', TM_THEME_DOMAIN ),
-		'add_new_item' 					=> __( 'A&ntilde;adir Nuevo Slide', TM_THEME_DOMAIN ),
-		'edit_item' 						=> __( 'Editar Slide', TM_THEME_DOMAIN ),
-		'new_item' 							=> __( 'Nuevo Slide', TM_THEME_DOMAIN ),
-		'view_item' 						=> __( 'Ver Slide', TM_THEME_DOMAIN ),
-		'search_items' 					=> __( 'Buscar Slides', TM_THEME_DOMAIN ),
-		'not_found' 						=> __( 'Slide no Encontrado', TM_THEME_DOMAIN ),
-		'not_found_in_trash' 		=> __( 'No se Encontraron Slides en la Papelera', TM_THEME_DOMAIN ),
+		'name' 									=> __( 'Slideshows', ANVA_DOMAIN ),
+		'singular_name' 				=> __( 'Slide', ANVA_DOMAIN ),
+		'all_items' 						=> __( 'Todos los Slides', ANVA_DOMAIN ),
+		'add_new' 							=> __( 'A&ntilde;adir Nuevo Slide', ANVA_DOMAIN ),
+		'add_new_item' 					=> __( 'A&ntilde;adir Nuevo Slide', ANVA_DOMAIN ),
+		'edit_item' 						=> __( 'Editar Slide', ANVA_DOMAIN ),
+		'new_item' 							=> __( 'Nuevo Slide', ANVA_DOMAIN ),
+		'view_item' 						=> __( 'Ver Slide', ANVA_DOMAIN ),
+		'search_items' 					=> __( 'Buscar Slides', ANVA_DOMAIN ),
+		'not_found' 						=> __( 'Slide no Encontrado', ANVA_DOMAIN ),
+		'not_found_in_trash' 		=> __( 'No se Encontraron Slides en la Papelera', ANVA_DOMAIN ),
 		'parent_item_colon' 		=> '' );
 	
 	$args = array(
@@ -101,17 +101,17 @@ function tm_slideshows_register() {
 /*
  * Admin menu icon
  */
-function tm_slideshows_admin_icon() {
+function anva_slideshows_admin_icon() {
 	echo '<style>#adminmenu #menu-posts-slideshows div.wp-menu-image:before { content: "\f233"; }</style>';	
 }
 
 /*
  * Output slides from slideshows array
  */
-function tm_slideshows_featured( $slug ) {
+function anva_slideshows_featured( $slug ) {
 	
 	// Get slides area
-	$rotators = tm_slideshows();
+	$rotators = anva_slideshows();
 	
 	// Set args
 	$image_size = isset( $rotators[$slug]['size'] ) ? $rotators[$slug]['size'] : 'large';
@@ -142,7 +142,7 @@ function tm_slideshows_featured( $slug ) {
 	// Output
 	$html = "";
 	
-	query_posts( apply_filters( 'tm_slideshows_query_args', $query_args) );
+	query_posts( apply_filters( 'anva_slideshows_query_args', $query_args) );
 
 	if ( have_posts() ) {
 		$html .= '<div id="slider_wrapper_' . $slug . '" class="slider-wrapper slider-wrapper-' . $slug . '">';
@@ -153,7 +153,7 @@ function tm_slideshows_featured( $slug ) {
 
 			the_post();
 			
-			$meta = tm_get_post_custom();
+			$meta = anva_get_post_custom();
 
 			$url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
 			$data = ( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
@@ -245,11 +245,11 @@ function tm_slideshows_featured( $slug ) {
 /*
  * Admin metabox
  */
-function tm_slideshows_add_meta() {
+function anva_slideshows_add_meta() {
 	add_meta_box(
-		'tm_slideshows_metabox',
-		tm_get_local( 'slide_meta' ),
-		'tm_slideshows_metabox',
+		'anva_slideshows_metabox',
+		anva_get_local( 'slide_meta' ),
+		'anva_slideshows_metabox',
 		'slideshows',
 		'normal',
 		'default'
@@ -259,12 +259,12 @@ function tm_slideshows_add_meta() {
 /*
  * Metabox form
  */
-function tm_slideshows_metabox() {
+function anva_slideshows_metabox() {
 	
 	global $post;	
 		
-	$rotators 				= tm_slideshows();
-	$meta 						= tm_get_post_custom();
+	$rotators 				= anva_slideshows();
+	$meta 						= anva_get_post_custom();
 	$slider_id		 		= ( isset( $meta['_slider_id'][0] ) ? $meta['_slider_id'][0] : '' );
 	$slider_link_url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
 	$slider_data			=	( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
@@ -281,7 +281,7 @@ function tm_slideshows_metabox() {
 		</tr>
 		<tr>
 			<th>
-				<label for="slider_id"><?php echo tm_get_local( 'slide_area' ); ?>:</label>
+				<label for="slider_id"><?php echo anva_get_local( 'slide_area' ); ?>:</label>
 			</th>
 			<td>
 				<?php if ( $rotators ) : ?>
@@ -292,23 +292,23 @@ function tm_slideshows_metabox() {
 					</select>
 				<?php else : ?>
 					<div style="color:red;">
-						<?php tm_get_local( 'slide_message' ); ?>
+						<?php anva_get_local( 'slide_message' ); ?>
 					</div>
 				<?php endif; ?>
 			</td>
 		</tr>
 		<tr>
 			<th>
-				<label for="slider_data"><?php echo tm_get_local( 'slide_content' ); ?>:</label>
+				<label for="slider_data"><?php echo anva_get_local( 'slide_content' ); ?>:</label>
 			</th>
 			<td>
 				<select name="slider_data" style="width:99%;">
 					<?php
 						$select = array(
-							'title' => tm_get_local('slide_title'),
-							'desc' 	=> tm_get_local('slide_desc'),
-							'show' 	=> tm_get_local('slide_show'),
-							'hide' 	=> tm_get_local('slide_hide'),
+							'title' => anva_get_local('slide_title'),
+							'desc' 	=> anva_get_local('slide_desc'),
+							'show' 	=> anva_get_local('slide_show'),
+							'hide' 	=> anva_get_local('slide_hide'),
 						);
 						foreach ( $select as $key => $value ) {
 							echo '<option value="'.esc_attr( $key ).'" '. selected( $slider_data, $key, true ) .'>'. $value .'</option>';
@@ -324,7 +324,7 @@ function tm_slideshows_metabox() {
 /*
  * Save metabox
  */
-function tm_slideshows_save_meta( $post_id, $post ) {
+function anva_slideshows_save_meta( $post_id, $post ) {
 	
 	if ( isset( $_POST['slider_link_url'] ) ) {
 		update_post_meta( $post_id, '_slider_link_url', strip_tags( $_POST['slider_link_url'] ) );
@@ -343,15 +343,15 @@ function tm_slideshows_save_meta( $post_id, $post ) {
 /*
  * Admin columns
  */
-function tm_slideshows_columns( $columns ) {
+function anva_slideshows_columns( $columns ) {
 	$columns = array(
 		'cb'       => '<input type="checkbox" />',
-		'image'    => tm_get_local( 'image' ),
-		'title'    => tm_get_local( 'title' ),
-		'ID'       => tm_get_local( 'slide_id' ),
-		'order'    => tm_get_local( 'order' ),
-		'link'     => tm_get_local( 'link' ),
-		'date'     => tm_get_local( 'date' )
+		'image'    => anva_get_local( 'image' ),
+		'title'    => anva_get_local( 'title' ),
+		'ID'       => anva_get_local( 'slide_id' ),
+		'order'    => anva_get_local( 'order' ),
+		'link'     => anva_get_local( 'link' ),
+		'date'     => anva_get_local( 'date' )
 	);
 	return $columns;
 }
@@ -359,12 +359,12 @@ function tm_slideshows_columns( $columns ) {
 /*
  * Add admin coumns
  */
-function tm_slideshows_add_columns( $column ) {
+function anva_slideshows_add_columns( $column ) {
 	
 	global $post;
 	
 	$edit_link 		= get_edit_post_link( $post->ID );
-	$meta 				= tm_get_post_custom();
+	$meta 				= anva_get_post_custom();
 	$slider_link 	= $meta['_slider_link_url'][0];
 	$slider_id 		= $meta['_slider_id'][0];
 
@@ -384,17 +384,17 @@ function tm_slideshows_add_columns( $column ) {
 /*
  * Create slideshows shortcode
  */
-function tm_slideshows_shortcode( $atts, $content = null ) {
+function anva_slideshows_shortcode( $atts, $content = null ) {
 
 	extract(shortcode_atts( array(
 		'slug' => 'attachments',
 	), $atts ));
 	
-	$string = tm_get_local( 'slide_shortcode' );
+	$string = anva_get_local( 'slide_shortcode' );
 	
 	if ( empty( $slug ) ) {
-		return apply_filters( 'tm_slideshows_empty_shortcode', $string );
+		return apply_filters( 'anva_slideshows_empty_shortcode', $string );
 	}
 
-	return tm_slideshows_featured( $slug );
+	return anva_slideshows_featured( $slug );
 }

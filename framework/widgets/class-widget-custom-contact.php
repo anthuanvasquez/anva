@@ -10,7 +10,7 @@ class Custom_Contact extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' => 'widget_custom_contact',
-			'description' => __('Muestra informacion de contacto.', TM_THEME_DOMAIN)
+			'description' => __('Muestra informacion de contacto.', ANVA_DOMAIN)
 		);
 
 		$this->WP_Widget('Custom_Contact', 'Custom Contact', $widget_ops);
@@ -29,7 +29,6 @@ class Custom_Contact extends WP_Widget {
  		$link 	= $instance['link'];
  		$skype 	= $instance['skype'];
 		$autop 	= $instance['autop'] ? 'true' : 'false';
-		$output = '';
  
 		echo $before_widget;		
 
@@ -47,18 +46,26 @@ class Custom_Contact extends WP_Widget {
 			}
 
 		echo '</div>';
+		?>
 		
-		$output.= '<ul class="widget-contact-info">';
-		$output.= '<li class="contact-phone"><i class="fa fa-phone"></i> '.$phone.'</li>';
-		$output.= '<li class="contact-email"><i class="fa fa-envelope"></i> <a href="mailto:'.$email.'">'.$email.'</a></li>';
-		$output.= '<li class="contact-link"><i class="fa fa-reply"></i> <a href="'.$link.'">'.tm_get_local('get_in_touch').'</a></li>';
-		$output.= '<li class="contact-skype"><i class="fa fa-skype"></i> '.$skype.'</li>';
-		$output.= '<li class="contact-icons">';
-		$output.= '<ul class="social-media social-style-color">'. tm_social_media() .'</ul>';
-		$output.= '</li>';
-		$output.= '</ul>';
-
-		echo $output;
+		<ul class="widget-contact-info">
+			<li class="contact-phone">
+				<i class="fa fa-phone"></i><?php echo $phone; ?>
+			</li>
+			<li class="contact-email">
+				<i class="fa fa-envelope"></i> <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a>
+			</li>
+			<li class="contact-link">
+				<i class="fa fa-reply"></i> <a href="<?php echo $link; ?>"><?php echo anva_get_local( 'get_in_touch' ); ?></a>
+			</li>
+			<li class="contact-skype">
+				<i class="fa fa-skype"></i> <?php echo $skype; ?>
+			</li>
+			<li class="contact-icons">
+				<?php anva_social_icons(); ?>
+			</li>
+		</ul>
+		<?php
 
 		echo $after_widget;
 	}
@@ -104,7 +111,7 @@ class Custom_Contact extends WP_Widget {
 		
 		<!-- Title -->
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo tm_get_local( 'title' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo anva_get_local( 'title' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
 		</p>
 		
@@ -116,26 +123,26 @@ class Custom_Contact extends WP_Widget {
 		<!-- Auto P -->
 		<p>			
 			<input class="widefat" <?php checked( $autop, 'on'); ?> id="<?php echo $this->get_field_id('autop'); ?>" name="<?php echo $this->get_field_name('autop'); ?>" type="checkbox" />
-			<label for="<?php echo $this->get_field_id('autop'); ?>"><?php echo tm_get_local( 'add_autop' ); ?></label>
+			<label for="<?php echo $this->get_field_id('autop'); ?>"><?php echo anva_get_local( 'add_autop' ); ?></label>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('phone'); ?>"><?php echo tm_get_local( 'phone' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('phone'); ?>"><?php echo anva_get_local( 'phone' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('phone'); ?>" name="<?php echo $this->get_field_name('phone'); ?>" type="text" value="<?php echo esc_attr($phone); ?>" />
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('email'); ?>"><?php echo tm_get_local( 'email' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('email'); ?>"><?php echo anva_get_local( 'email' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('email'); ?>" name="<?php echo $this->get_field_name('email'); ?>" type="text" value="<?php echo esc_attr($email); ?>" />
 		</p>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id('link'); ?>"><?php echo tm_get_local( 'link' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('link'); ?>"><?php echo anva_get_local( 'link' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('link'); ?>" name="<?php echo $this->get_field_name('link'); ?>" type="text" value="<?php echo esc_attr($link); ?>" />
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('skype'); ?>"><?php echo tm_get_local( 'skype' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('skype'); ?>"><?php echo anva_get_local( 'skype' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('skype'); ?>" name="<?php echo $this->get_field_name('skype'); ?>" type="text" value="<?php echo esc_attr($skype); ?>" />
 		</p>
 

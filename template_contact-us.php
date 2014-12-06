@@ -14,13 +14,15 @@ get_header();
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php get_template_part( 'content', 'page' ); ?>
-			<?php echo tm_contact_form(); ?>
+			<div class="form-container">
+				<?php echo anva_contact_form(); ?>
+			</div>
 		<?php endwhile; ?>
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php tm_sidebars( 'right', '4' ); ?>
+	<?php anva_sidebars( 'right', '4' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

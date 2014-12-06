@@ -14,29 +14,29 @@ if ( post_password_required() ) {
 	<?php if ( have_comments() ) : ?>
 		<h2 class="comments-title">
 			<?php
-				printf( _nx( 'Una respuesta en &ldquo;%2$s&rdquo;', '%1$s respuestas en &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', TM_THEME_DOMAIN ),
+				printf( _nx( 'Una respuesta en &ldquo;%2$s&rdquo;', '%1$s respuestas en &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', ANVA_DOMAIN ),
 					number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
 			?>
 		</h2>
 
-		<?php tm_comment_pagination(); ?>
+		<?php anva_comment_pagination(); ?>
 
 		<ol class="comment-list">
 			<?php
-		wp_list_comments( 'type=comment&callback=tm_comment_list' );
+		wp_list_comments( 'type=comment&callback=anva_comment_list' );
 			?>
 		</ol><!-- .comment-list (end) -->
 
-		<?php tm_comment_pagination(); ?>
+		<?php anva_comment_pagination(); ?>
 
 	<?php endif; ?>
 
 	<?php if ( ! comments_open() && '0' != get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
-		<p class="no-comments"><?php tm_get_local( 'no_comment' ); ?></p>
+		<p class="no-comments"><?php anva_get_local( 'no_comment' ); ?></p>
 	<?php endif; ?>
 
 	<?php
-		$required_text = __( 'Los campos marcados con <span class="required">*</span> son requeridos.', TM_THEME_DOMAIN );
+		$required_text = __( 'Los campos marcados con <span class="required">*</span> son requeridos.', ANVA_DOMAIN );
 		$aria_req = 'required';
 		$args = array(
 			'id_form'           => 'commentform',

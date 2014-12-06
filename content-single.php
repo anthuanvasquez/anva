@@ -9,9 +9,9 @@
 			<h1 class="entry-title"><?php the_title(); ?></h1>
 			<div class="meta-wrapper">
 				<?php
-					$single_meta = tm_get_option( 'single_meta' );
+					$single_meta = anva_get_option( 'single_meta' );
 					if ( 1 == $single_meta ) :
-						tm_posted_on();
+						anva_posted_on();
 					endif;
 				?>
 			</div>
@@ -21,7 +21,7 @@
 			<div class="featured-image-wrapper">
 				<div class="featured-image">
 					<div class="featured-image-inner">
-						<?php echo tm_post_thumbnails( tm_get_option( 'single_thumb' ) ); ?>
+						<?php echo anva_post_thumbnails( anva_get_option( 'single_thumb' ) ); ?>
 					</div>
 				</div>
 			</div><!-- .featured-image-wrapper (end) -->

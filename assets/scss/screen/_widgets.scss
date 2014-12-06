@@ -57,7 +57,7 @@
  */
 .widget_custom_contact {
 	.widget-contact-info {
-		li {
+		> li {
 			line-height: 20px;
 			margin: 3px 0;
 			.fa {
@@ -65,27 +65,6 @@
 				padding-right: 5px;
 			}
 		}
-	}
-	
-	// Include Social Media Icons
-	$icon-size: 24px;
-
-	.social-media {
-		margin-top: 8px;
-		li {
-			margin: 0 1px;
-			a {
-				height: $icon-size;
-				width: $icon-size;
-			}
-		}
-	}
-
-	.social-style-normal {
-		.social {
-			background-size: $icon-size;
-		}
-		@include spritesheet-icon($icon-size);
 	}
 }
 

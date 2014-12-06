@@ -3,14 +3,14 @@
  * The template for displaying the footer.
  */
 
-				tm_content_after();
+				anva_content_after();
 				?>
 				
 			</div><!-- .main-content (end) -->
 		</div><!-- .main-inner (end) -->
-	</div><!-- MAIN END -->
+	</div><!-- MAIN (end) -->
 	
-	<!--BOTTOM START -->
+	<!--BOTTOM (start) -->
 	<div id="bottom">
 		<footer id="footer">
 			<div class="footer-inner">
@@ -23,15 +23,15 @@
 				</div><!-- .footer-content (end) -->
 
 				<div class="footer-copyright">
-					<?php do_action( 'tm_footer_text' ); ?>
+					<?php do_action( 'anva_footer_text' ); ?>
 				</div><!-- .footer-copyright (end) -->
 			</div>
 		</footer><!-- #footer (end) -->
-	</div><!-- BOTTOM END -->
+	</div><!-- BOTTOM (end) -->
 
 </div><!-- #container (end) -->
 
-<?php tm_layout_after(); ?>
+<?php anva_layout_after(); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -4,11 +4,11 @@
  * Options interface.
  * @since 1.3.1
  */
-function tm_settings_inputs( $tab ) {
+function anva_settings_inputs( $tab ) {
 	
 	global $options;
 	
-	$settings = unserialize(TM_THEME_SETTINGS);
+	$settings = unserialize(ANVA_SETTINGS);
 
 	$output = '';
 

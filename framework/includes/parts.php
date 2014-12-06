@@ -1,6 +1,6 @@
 <?php
 
-function tm_archive_title() {
+function anva_archive_title() {
 
 	if ( is_category() ) :
 		single_cat_title();
@@ -9,52 +9,52 @@ function tm_archive_title() {
 		single_tag_title();
 
 	elseif ( is_author() ) :
-		printf( tm_get_local( 'author' ) . ' %s', '<span class="vcard">' . get_the_author() . '</span>' );
+		printf( anva_get_local( 'author' ) . ' %s', '<span class="vcard">' . get_the_author() . '</span>' );
 
 	elseif ( is_day() ) :
-		printf( tm_get_local( 'day' ) . ' %s', '<span>' . get_the_date() . '</span>' );
+		printf( anva_get_local( 'day' ) . ' %s', '<span>' . get_the_date() . '</span>' );
 
 	elseif ( is_month() ) :
-		printf( tm_get_local( 'month' ) . ' %s', '<span>' . get_the_date( 'F Y' ) . '</span>' );
+		printf( anva_get_local( 'month' ) . ' %s', '<span>' . get_the_date( 'F Y' ) . '</span>' );
 
 	elseif ( is_year() ) :
-		printf( tm_get_local( 'year' ) . ' %s', '<span>' . get_the_date( 'Y' ) . '</span>' );
+		printf( anva_get_local( 'year' ) . ' %s', '<span>' . get_the_date( 'Y' ) . '</span>' );
 
 	elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
-		echo tm_get_local( 'asides' );
+		echo anva_get_local( 'asides' );
 
 	elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) :
-		echo tm_get_local( 'galleries' );
+		echo anva_get_local( 'galleries' );
 
 	elseif ( is_tax( 'post_format', 'post-format-image' ) ) :
-		echo tm_get_local( 'images' );
+		echo anva_get_local( 'images' );
 
 	elseif ( is_tax( 'post_format', 'post-format-video' ) ) :
-		echo tm_get_local( 'videos' );
+		echo anva_get_local( 'videos' );
 
 	elseif ( is_tax( 'post_format', 'post-format-quote' ) ) :
-		echo tm_get_local( 'quotes' );
+		echo anva_get_local( 'quotes' );
 
 	elseif ( is_tax( 'post_format', 'post-format-link' ) ) :
-		echo tm_get_local( 'links' );
+		echo anva_get_local( 'links' );
 
 	elseif ( is_tax( 'post_format', 'post-format-status' ) ) :
-		echo tm_get_local( 'status' );
+		echo anva_get_local( 'status' );
 
 	elseif ( is_tax( 'post_format', 'post-format-audio' ) ) :
-		echo tm_get_local( 'audios' );
+		echo anva_get_local( 'audios' );
 
 	elseif ( is_tax( 'post_format', 'post-format-chat' ) ) :
-		echo tm_get_local( 'chats' );
+		echo anva_get_local( 'chats' );
 
 	else :
-		echo tm_get_local( 'archives' );
+		echo anva_get_local( 'archives' );
 
 	endif;
 
 }
 
-function tm_post_nav() {
+function anva_post_nav() {
 	// Don't print empty markup if there's nowhere to navigate.
 	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
 	$next = get_adjacent_post( false, '', false );
@@ -65,10 +65,10 @@ function tm_post_nav() {
 	?>
 	<nav class="post-navigation" role="navigation">
 		<div class="post-navigation-inner">
-			<div class="navigation-links">
+			<div class="navigation-content">
 				<?php
-					previous_post_link( '<div class="nav-previous">%link</div>', tm_get_local( 'prev' ) );
-					next_post_link( '<div class="nav-next">%link</div>', tm_get_local( 'next' ) );
+					previous_post_link( '<div class="nav-previous">%link</div>', anva_get_local( 'prev' ) );
+					next_post_link( '<div class="nav-next">%link</div>', anva_get_local( 'next' ) );
 				?>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ function tm_post_nav() {
 	<?php
 }
 
-function tm_posted_on() {
+function anva_posted_on() {
 
 	// Get the time
 	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
@@ -97,15 +97,15 @@ function tm_posted_on() {
 
 	if ( comments_open() ) {
 		if ( $num_comments == 0 ) {
-			$comments = __( 'No hay Comentarios', TM_THEME_DOMAIN );
+			$comments = __( 'No hay Comentarios', ANVA_DOMAIN );
 		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __( ' Comentarios', TM_THEME_DOMAIN );
+			$comments = $num_comments . __( ' Comentarios', ANVA_DOMAIN );
 		} else {
-			$comments = __( '1 Comentario', TM_THEME_DOMAIN );
+			$comments = __( '1 Comentario', ANVA_DOMAIN );
 		}
 		$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
 	} else {
-		$write_comments =  __( 'Comentarios cerrado', TM_THEME_DOMAIN );
+		$write_comments =  __( 'Comentarios cerrado', ANVA_DOMAIN );
 	}
 
 	$sep = ' / ';
@@ -138,20 +138,20 @@ function tm_posted_on() {
 	);
 }
 
-function tm_social_media() {
+function anva_social_media() {
 	
 	$html 			= '';
-	$facebook 	= tm_get_option('social_facebook');
-	$twitter 		= tm_get_option('social_twitter');
-	$instagram 	= tm_get_option('social_instagram');
-	$gplus 			= tm_get_option('social_gplus');
-	$youtube 		= tm_get_option('social_youtube');
-	$linkedin 	= tm_get_option('social_linkedin');	
-	$vimeo 			= tm_get_option('social_vimeo');
-	$pinterest 	= tm_get_option('social_pinterest');
-	$digg 			= tm_get_option('social_digg');
-	$dribbble 	= tm_get_option('social_dribbble');
-	$rss 				= tm_get_option('social_rss');
+	$facebook 	= anva_get_option('social_facebook');
+	$twitter 		= anva_get_option('social_twitter');
+	$instagram 	= anva_get_option('social_instagram');
+	$gplus 			= anva_get_option('social_gplus');
+	$youtube 		= anva_get_option('social_youtube');
+	$linkedin 	= anva_get_option('social_linkedin');	
+	$vimeo 			= anva_get_option('social_vimeo');
+	$pinterest 	= anva_get_option('social_pinterest');
+	$digg 			= anva_get_option('social_digg');
+	$dribbble 	= anva_get_option('social_dribbble');
+	$rss 				= anva_get_option('social_rss');
 
 	if ( ! empty( $facebook ) ) {
 		$html .= '<li><a href="'. esc_url( $facebook ) .'" class="social social-facebook"><span class="sr-only">Facebook</span></a></li>';
@@ -201,33 +201,33 @@ function tm_social_media() {
 
 }
 
-function tm_site_search() {
+function anva_site_search() {
 	if ( class_exists( 'Woocommerce' ) ) :
-		tm_get_product_search_form();
+		anva_get_product_search_form();
 	else :
-		tm_get_search_form();
+		anva_get_search_form();
 	endif;
 }
 
-function tm_pagination( $query = '' ) {
+function anva_pagination( $query = '' ) {
 
 	if ( empty( $query ) ) :
 	?>
 	<ul id="nav-posts" class="nav-posts group">
-		<li class="prev alignleft"><?php previous_posts_link( tm_get_local( 'prev' ) ); ?></li>
-		<li class="next alignright"><?php next_posts_link( tm_get_local( 'next' ) ); ?></li>
+		<li class="prev alignleft"><?php previous_posts_link( anva_get_local( 'prev' ) ); ?></li>
+		<li class="next alignright"><?php next_posts_link( anva_get_local( 'next' ) ); ?></li>
 	</ul>
 	<?php
 	else : ?>
 	<ul id="nav-posts" class="nav-posts group">
-		<li class="prev alignleft"><?php previous_posts_link( tm_get_local( 'prev'  ), $query->max_num_pages ); ?></li>
-		<li class="next alignright"><?php next_posts_link( tm_get_local( 'next'  ), $query->max_num_pages ); ?></li>
+		<li class="prev alignleft"><?php previous_posts_link( anva_get_local( 'prev'  ), $query->max_num_pages ); ?></li>
+		<li class="next alignright"><?php next_posts_link( anva_get_local( 'next'  ), $query->max_num_pages ); ?></li>
 	</ul>
 	<?php
 	endif;
 }
 
-function tm_num_pagination( $pages = '', $range = 2 ) {
+function anva_num_pagination( $pages = '', $range = 2 ) {
 	
 	$showitems = ( $range * 2) + 1;  
 	
@@ -268,18 +268,18 @@ function tm_num_pagination( $pages = '', $range = 2 ) {
 	}
 }
 
-function tm_comment_pagination() {
+function anva_comment_pagination() {
 	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
 	?>
 	<nav id="comment-nav" class="comment-navigation" role="navigation">
-		<div class="nav-previous"><?php previous_comments_link( tm_get_local( 'comment_prev' ) ); ?></div>
-		<div class="nav-next"><?php next_comments_link( tm_get_local( 'comment_next' ) ); ?></div>
+		<div class="nav-previous"><?php previous_comments_link( anva_get_local( 'comment_prev' ) ); ?></div>
+		<div class="nav-next"><?php next_comments_link( anva_get_local( 'comment_next' ) ); ?></div>
 	</nav><!-- #comment-nav-above (end) -->
 	<?php
 	endif;
 }
 
-function tm_contact_form() {
+function anva_contact_form() {
 	
 	global $email_sended_message;
 
@@ -299,34 +299,34 @@ function tm_contact_form() {
 		<form id="contactform" class="contact-form"  role="form" method="post" action="<?php the_permalink(); ?>#contactform">
 
 			<div class="form-name form-group">
-				<label for="cname" class="control-label"><?php echo tm_get_local( 'name' ); ?>:</label>
-				<input id="name" type="text" placeholder="<?php echo tm_get_local( 'name_place' ); ?>" name="cname" class="form-control requiredField" value="<?php if ( isset( $_POST['cname'] ) ) echo esc_attr( $_POST['cname'] ); ?>">
+				<label for="cname" class="control-label"><?php echo anva_get_local( 'name' ); ?>:</label>
+				<input id="name" type="text" placeholder="<?php echo anva_get_local( 'name_place' ); ?>" name="cname" class="form-control requiredField" value="<?php if ( isset( $_POST['cname'] ) ) echo esc_attr( $_POST['cname'] ); ?>">
 			</div>
 			
 			<div class="form-email form-group">
-				<label for="cemail" class="control-label"><?php echo tm_get_local( 'email' ); ?>:</label>
-				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', TM_THEME_DOMAIN); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
+				<label for="cemail" class="control-label"><?php echo anva_get_local( 'email' ); ?>:</label>
+				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', ANVA_DOMAIN); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
 			</div>
 
 			<div class="form-subject form-group">						
-				<label for="csubject" class="control-label"><?php echo tm_get_local( 'subject' ); ?>:</label>
-				<input id="subject" type="text" placeholder="<?php echo tm_get_local( 'subject' ); ?>" name="csubject" class="form-control requiredField" value="<?php if ( isset( $_POST['csubject'] ) ) echo esc_attr( $_POST['csubject'] ); ?>">
+				<label for="csubject" class="control-label"><?php echo anva_get_local( 'subject' ); ?>:</label>
+				<input id="subject" type="text" placeholder="<?php echo anva_get_local( 'subject' ); ?>" name="csubject" class="form-control requiredField" value="<?php if ( isset( $_POST['csubject'] ) ) echo esc_attr( $_POST['csubject'] ); ?>">
 			</div>
 			
 			<div class="form-message form-group">
-				<label for="cmessage" class="control-label"><?php echo tm_get_local( 'message' ); ?>:</label>
-				<textarea id="message" name="cmessage" class="form-control" placeholder="<?php echo tm_get_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $_POST['cmessage'] ); ?></textarea>
+				<label for="cmessage" class="control-label"><?php echo anva_get_local( 'message' ); ?>:</label>
+				<textarea id="message" name="cmessage" class="form-control" placeholder="<?php echo anva_get_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $_POST['cmessage'] ); ?></textarea>
 			</div>
 			
 			<div class="form-captcha form-group">
 				<label for="captcha" class="control-label"><?php echo $a . ' + '. $b . ' = ?'; ?>:</label>
-				<input type="text" name="ccaptcha" placeholder="<?php echo tm_get_local( 'captcha_place' ); ?>" class="form-control requiredField" value="<?php if ( isset( $_POST['ccaptcha'] ) ) echo $_POST['ccaptcha'];?>">
+				<input type="text" name="ccaptcha" placeholder="<?php echo anva_get_local( 'captcha_place' ); ?>" class="form-control requiredField" value="<?php if ( isset( $_POST['ccaptcha'] ) ) echo $_POST['ccaptcha'];?>">
 				<input type="hidden" id="answer" name="canswer" value="<?php echo esc_attr( $answer ); ?>">
 			</div>
 			
 			<div class="form-submit form-group">
 				<input type="hidden" id="submitted" name="contact-submission" value="1">
-				<input id="submit-contact-form" type="submit" class="btn btn-primary" value="<?php echo tm_get_local( 'submit' ); ?>">
+				<input id="submit-contact-form" type="submit" class="btn btn-primary" value="<?php echo anva_get_local( 'submit' ); ?>">
 			</div>
 		</form>
 	</div><!-- .contact-form-wrapper -->
@@ -358,20 +358,20 @@ function tm_contact_form() {
 				}
 			},
 			messages: {			
-				cname: "<?php echo tm_get_local( 'name_required' ); ?>",
-				csubject: "<?php echo tm_get_local( 'subject_required' ); ?>",
+				cname: "<?php echo anva_get_local( 'name_required' ); ?>",
+				csubject: "<?php echo anva_get_local( 'subject_required' ); ?>",
 				cemail: {
-					required: "<?php echo tm_get_local( 'email_required' ); ?>",
-					email: "<?php echo tm_get_local( 'email_error' );  ?>"
+					required: "<?php echo anva_get_local( 'email_required' ); ?>",
+					email: "<?php echo anva_get_local( 'email_error' );  ?>"
 				},
 				cmessage: {
-					required: "<?php echo tm_get_local( 'message_required' ); ?>",
-					minlength: "<?php echo tm_get_local( 'message_min' ); ?>"
+					required: "<?php echo anva_get_local( 'message_required' ); ?>",
+					minlength: "<?php echo anva_get_local( 'message_min' ); ?>"
 				},
 				ccaptcha: {
-					required: "<?php echo tm_get_local( 'captcha_required' ); ?>",
-					number: "<?php echo tm_get_local( 'captcha_number' ); ?>",
-					equalTo: "<?php echo tm_get_local( 'captcha_equalto' );  ?>"
+					required: "<?php echo anva_get_local( 'captcha_required' ); ?>",
+					number: "<?php echo anva_get_local( 'captcha_number' ); ?>",
+					equalTo: "<?php echo anva_get_local( 'captcha_equalto' );  ?>"
 				}
 			}
 		});
@@ -380,14 +380,14 @@ function tm_contact_form() {
 	<?php
 }
 
-function tm_get_search_form() {
+function anva_get_search_form() {
 	?>
 	<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
 		<div class="input-group">
-			<input type="search" class="search-field form-control" placeholder="<?php echo tm_get_local( 'search' ); ?>" value="" name="s" title="<?php echo tm_get_local( 'search_for' ); ?>" />
+			<input type="search" class="search-field form-control" placeholder="<?php echo anva_get_local( 'search' ); ?>" value="" name="s" title="<?php echo anva_get_local( 'search_for' ); ?>" />
 			<span class="input-group-btn">
 				<button type="submit" class="btn btn-default search-submit">
-					<span class="sr-only"><?php echo tm_get_local( 'search_for' ); ?></span>
+					<span class="sr-only"><?php echo anva_get_local( 'search_for' ); ?></span>
 					<i class="fa fa-search"></i>
 				</button>
 			</span>
@@ -396,7 +396,7 @@ function tm_get_search_form() {
 	<?php
 }
 
-function tm_get_product_search_form() {
+function anva_get_product_search_form() {
 	?>
 	<form role="search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
 		<div class="input-group">
@@ -413,7 +413,7 @@ function tm_get_product_search_form() {
 	<?php
 }
 
-function tm_comment_list( $comment, $args, $depth ) {
+function anva_comment_list( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	extract($args, EXTR_SKIP);
 
@@ -433,10 +433,11 @@ function tm_comment_list( $comment, $args, $depth ) {
 	<?php endif; ?>
 	
 	<div class="comment-avatar col-xs-3 col-sm-2">
-		<a href="<?php echo get_comment_author_link(); ?>">
+		<a href="<?php echo comment_author_url( $comment->comment_ID ); ?>">
 			<?php
-				if ( $args['avatar_size'] != 0 )
+				if ( $args['avatar_size'] != 0 ) {
 					echo get_avatar( $comment, 64 );
+				}
 			?>
 		</a>
 	</div>
@@ -445,7 +446,7 @@ function tm_comment_list( $comment, $args, $depth ) {
 		<h4 class="comment-author vcard">
 		<?php
 			printf(
-				'<cite class="fn">%s</cite> <span class="says">says:</span>',
+				'<cite class="fn">%s</cite> <span class="says sr-only">says:</span>',
 				get_comment_author_link()
 			);
 		?>

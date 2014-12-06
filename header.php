@@ -8,7 +8,6 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
@@ -21,7 +20,7 @@
 
 <body <?php body_class(); ?>>
 
-<?php tm_layout_before(); ?>
+<?php anva_layout_before(); ?>
 
 <div id="off-canvas" class="off-canvas">	
 	<div  class="off-canvas-inner">
@@ -43,15 +42,15 @@
 		</div>
 	</div>
 </div><!-- #off-canvas (end) -->
-				
+
 <div id="container">
 
 	<a href="#" id="off-canvas-toggle" class="off-canvas-toggle">
 		<i class="fa fa-bars"></i>
-		<span class="sr-only"><?php echo tm_get_local( 'menu' ); ?></span>
+		<span class="sr-only"><?php echo anva_get_local( 'menu' ); ?></span>
 	</a>
 
-	<!-- TOP START -->
+	<!-- TOP (start) -->
 	<div id="top">
 		<header id="header">
 			<div class="header-inner inner">
@@ -62,11 +61,11 @@
 						<div class="header-content-group group">
 
 							<div id="brand" class="brand">
-								<?php tm_header_logo(); ?>
+								<?php anva_header_logo(); ?>
 							</div><!-- #brand (end) -->
 
 							<div id="addon" class="addon">
-								<?php tm_header_addon(); ?>
+								<?php anva_header_addon(); ?>
 							</div><!-- #addon (end) -->
 
 						</div>
@@ -74,28 +73,28 @@
 					</div><!-- .header-content-inner (end) -->
 				</div><!-- .header-content (end) -->
 
-				<?php tm_main_navigation(); ?>
+				<?php anva_main_navigation(); ?>
 
 			</div><!-- .header-inner (end) -->
 		</header><!-- #header (end) -->
-	</div><!-- TOP END -->
+	</div><!-- TOP (end) -->
 	
 	<?php if ( is_front_page() ) : ?>
-		<!-- FEATURED END -->
+		<!-- FEATURED (start) -->
 		<div id="featured">
-			<div class="featured-inner inner">
+			<div class="featured-inner">
 				<?php
-					if ( function_exists( 'tm_slideshows_featured' ) ) {
-						echo tm_slideshows_featured( 'homepage' );
+					if ( function_exists( 'anva_slideshows_featured' ) ) {
+						echo anva_slideshows_featured( 'homepage' );
 					}
 				?>
 			</div><!-- .featured-inner (end) -->
-		</div><!-- FEATURED END -->
+		</div><!-- FEATURED (end) -->
 	<?php endif; ?>
 
-	<!-- MAIN START -->
+	<!-- MAIN (start) -->
 	<div id="main">
 		<div class="main-inner">
 			<div class="main-content">
 				
-				<?php tm_content_before(); ?>
+				<?php anva_content_before(); ?>

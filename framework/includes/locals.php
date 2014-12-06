@@ -3,9 +3,9 @@
 /**
  * Get all theme locals
  */
-function tm_get_text_locals() {
+function anva_get_text_locals() {
 	
-	$domain = TM_THEME_DOMAIN;
+	$domain = ANVA_DOMAIN;
 	$localize = array(
 		'menu'										=> __( 'Menú', $domain ),
 		'menu_primary' 						=> __( 'Menú Primario', $domain ),
@@ -78,7 +78,7 @@ function tm_get_text_locals() {
 		'submit_message'					=> __( 'Gracias, su email fue enviado con éxito.', $domain ),
 		'submit_error'						=> __( '<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que no haya campos en blanco.', $domain ),
 		'footer_copyright'				=> __( 'Todos los Derechos Reservados.' , $domain ),
-		'footer_text'							=> __( 'Diseño y Programación Web por:', $domain ),
+		'footer_text'							=> __( 'Design by', $domain ),
 		'get_in_touch'						=> __( 'Ponte en Contacto', $domain ),
 		'main_sidebar_title'			=> __( 'Principal', $domain ),
 		'main_sidebar_desc'				=> __( 'Area de widgets principal. Por defecto en el lado derecho.', $domain ),
@@ -121,17 +121,17 @@ function tm_get_text_locals() {
 		'slide_meta'							=> __( 'Opciones de Slide', $domain )
 	);
 
-	return apply_filters( 'tm_text_locals', $localize );
+	return apply_filters( 'anva_get_text_locals', $localize );
 
 }
 
 /**
  * Get separate local
  */
-function tm_get_local( $id ) {
+function anva_get_local( $id ) {
 
 	$text = null;
-	$localize = tm_get_text_locals();
+	$localize = anva_get_text_locals();
 
 	if ( isset( $localize[$id] ) ) {
 		$text = $localize[$id];
@@ -143,7 +143,7 @@ function tm_get_local( $id ) {
 /**
  * Get all js locals
  */
-function tm_get_js_locals() {
+function anva_get_js_locals() {
 	
 	$localize = array(
 		'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -151,5 +151,5 @@ function tm_get_js_locals() {
 		'theme_images' => get_template_directory_uri() . '/assets/images'
 	);
 
-	return apply_filters( 'tm_js_locals', $localize );
+	return apply_filters( 'anva_get_js_locals', $localize );
 }

@@ -1,6 +1,6 @@
 <?php
 
-function tm_contact_send_email() {
+function anva_contact_send_email() {
 	
 	global $email_sended_message;
 
@@ -60,7 +60,7 @@ function tm_contact_send_email() {
 
 	if ( isset( $email_sent ) && $email_sent == true ) :
 
-		$email_sended_message = tm_get_local( 'submit_message' );
+		$email_sended_message = anva_get_local( 'submit_message' );
 		
 		// Clear form after submit
 		unset(
@@ -73,7 +73,7 @@ function tm_contact_send_email() {
 		
 	else :
 		if ( isset( $has_error ) ) :
-			$email_sended_message = tm_get_local( 'submit_error' );
+			$email_sended_message = anva_get_local( 'submit_error' );
 		endif;
 	endif;
 }

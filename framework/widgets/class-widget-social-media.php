@@ -8,7 +8,7 @@ class Custom_Social_Media extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' => 'widget_social_media',
-			'description' => __('Muestra los iconos de las redes mas populares y una descripcion.', TM_THEME_DOMAIN)
+			'description' => __('Muestra los iconos de las redes mas populares y una descripcion.', ANVA_DOMAIN)
 		);
 
 		$this->WP_Widget('Custom_Social_Media', 'Custom Social Media', $widget_ops);
@@ -40,7 +40,7 @@ class Custom_Social_Media extends WP_Widget {
 		echo '</div>';
 		
 		/* Show Social Media Icons */
-		tm_social_icons();
+		anva_social_icons();
 
 		echo $after_widget;
 	}
@@ -74,7 +74,7 @@ class Custom_Social_Media extends WP_Widget {
 		
 		<!-- Title -->
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo tm_get_local( 'title' ) . ' :'; ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo anva_get_local( 'title' ) . ' :'; ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
 		</p>
 		

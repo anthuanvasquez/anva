@@ -16,7 +16,7 @@ get_header();
 						get_template_part( 'content', 'post' );
 					endwhile;
 					
-					tm_num_pagination();
+					anva_num_pagination();
 					
 				else :
 					get_template_part( 'content', 'none' );
@@ -26,7 +26,7 @@ get_header();
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php tm_sidebars( 'right', '4' ); ?>
+	<?php anva_sidebars( 'right', '4' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

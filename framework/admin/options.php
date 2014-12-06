@@ -20,16 +20,16 @@ $options = array(
 
 	array(
 		"name" 		=> "Logo",  
-		"desc" 		=> __("Introduzca la URL del logo que desea mostrar.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL del logo que desea mostrar.", ANVA_DOMAIN),  
 		"id" 			=> "logo",
 		"type" 		=> "image",
-		"std" 		=> TM_THEME_LOGO,
+		"std" 		=> ANVA_LOGO,
 		"tab"			=> "layout"
 	),
 
 	array(
 		"name" 		=> "CSS Personalizado",
-		"desc" 		=> __("Si necesitas realizar algunos cambios menores con estilos CSS, puedes ponerlos aqui para anular los estilos por omision del tema. Sin embargo, si vas a hacer muchos cambios de estilos CSS, lo mejor seria crear un archivo adicional de CSS o crear un Child Theme.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Si necesitas realizar algunos cambios menores con estilos CSS, puedes ponerlos aqui para anular los estilos por omision del tema. Sin embargo, si vas a hacer muchos cambios de estilos CSS, lo mejor seria crear un archivo adicional de CSS o crear un Child Theme.", ANVA_DOMAIN),  
 		"id" 			=> "custom_css",
 		"type" 		=> "textarea",
 		"std" 		=> "",
@@ -49,7 +49,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Slider Speed",  
-		"desc" 		=> __("Introduzca un valor en milisegundos para determinar el tiempo de cada slide.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca un valor en milisegundos para determinar el tiempo de cada slide.", ANVA_DOMAIN),  
 		"id" 			=> "slider_speed",
 		"type" 		=> "text",
 		"std" 		=> '7000',
@@ -58,7 +58,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Slider Control",  
-		"desc" 		=> __("Seleccione si desea ocultar la navegación manual slider.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea ocultar la navegación manual slider.", ANVA_DOMAIN),  
 		"id" 			=> "slider_control",
 		"type" 		=> "radio",
 		"std" 		=> '1',
@@ -71,7 +71,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Slider Direction",  
-		"desc" 		=> __("Seleccione si desea ocultar la navegación de dirección del slider.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea ocultar la navegación de dirección del slider.", ANVA_DOMAIN),  
 		"id" 			=> "slider_direction",
 		"type" 		=> "radio",
 		"std" 		=> '1',
@@ -84,7 +84,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Slider Play",  
-		"desc" 		=> __("Seleccione si desea ocultar el botón de play y pausa.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea ocultar el botón de play y pausa.", ANVA_DOMAIN),  
 		"id" 			=> "slider_play",
 		"type" 		=> "radio",
 		"std" 		=> '1',
@@ -97,7 +97,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Footer Columns",  
-		"desc" 		=> __("Selecciona la cantidad de columnas que deseas mostrar en el footer.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Selecciona la cantidad de columnas que deseas mostrar en el footer.", ANVA_DOMAIN),  
 		"id" 			=> "footer_cols",
 		"type" 		=> "radio",
 		"std" 		=> '4',
@@ -123,7 +123,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Facebook",  
-		"desc" 		=> __("Introduzca la URL de su perfil o pagina de facebook.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil o pagina de facebook.", ANVA_DOMAIN),  
 		"id" 			=> "social_facebook",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -132,7 +132,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Twitter",  
-		"desc" 		=> __("Introduzca la URL de su perfil de twitter.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de twitter.", ANVA_DOMAIN),  
 		"id" 			=> "social_twitter",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -141,7 +141,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Instagram",  
-		"desc" 		=> __("Introduzca la URL de su perfil de instagram.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de instagram.", ANVA_DOMAIN),  
 		"id" 			=> "social_instagram",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -150,7 +150,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Google+",  
-		"desc" 		=> __("Introduzca la URL de su perfil de google+.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de google+.", ANVA_DOMAIN),  
 		"id" 			=> "social_gplus",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -159,7 +159,7 @@ $options = array(
 
 	array(
 		"name" 		=> "LinkedIn",  
-		"desc" 		=> __("Introduzca la URL de su perfil de linkedin.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de linkedin.", ANVA_DOMAIN),  
 		"id" 			=> "social_linkedin",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -168,7 +168,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Youtube",  
-		"desc" 		=> __("Introduzca la URL de su perfil de youtube.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de youtube.", ANVA_DOMAIN),  
 		"id" 			=> "social_youtube",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -177,7 +177,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Vimeo",  
-		"desc" 		=> __("Introduzca la URL de su perfil de vimeo.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de vimeo.", ANVA_DOMAIN),  
 		"id" 			=> "social_vimeo",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -186,7 +186,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Pinterest",  
-		"desc" 		=> __("Introduzca la URL de su perfil de pinterest.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de pinterest.", ANVA_DOMAIN),  
 		"id" 			=> "social_pinterest",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -195,7 +195,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Digg",  
-		"desc" 		=> __("Introduzca la URL de su perfil de digg.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de digg.", ANVA_DOMAIN),  
 		"id" 			=> "social_digg",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -204,7 +204,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Dribbble",  
-		"desc" 		=> __("Introduzca la URL de su perfil de dribbble.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su perfil de dribbble.", ANVA_DOMAIN),  
 		"id" 			=> "social_dribbble",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -213,7 +213,7 @@ $options = array(
 
 	array(
 		"name" 		=> "RSS",  
-		"desc" 		=> __("Introduzca la URL de su feed.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Introduzca la URL de su feed.", ANVA_DOMAIN),  
 		"id" 			=> "social_rss",
 		"type" 		=> "text",
 		"std" 		=> "#",
@@ -230,13 +230,13 @@ $options = array(
 	array(
 		"type" 		=> "open",
 		"title"		=> "Single Post",
-		"msg"			=> __("Estos ajustes solo se aplicaran a los posts individuales. Lo que quiere decir que no afectaran a los posts que se muestran en la parte frontal del blog.", TM_THEME_DOMAIN),
+		"msg"			=> __("Estos ajustes solo se aplicaran a los posts individuales. Lo que quiere decir que no afectaran a los posts que se muestran en la parte frontal del blog.", ANVA_DOMAIN),
 		"tab"			=> "content"
 	),
 
 	array(
 		"name" 		=> "Mostrar informacion meta en la parte superior de los posts?",  
-		"desc" 		=> __("Seleccione si desea que la informacion meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea que la informacion meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post.", ANVA_DOMAIN),  
 		"id" 			=> "single_meta",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -249,7 +249,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Mostrar imagenes destacadas en la parte superior de los posts?",  
-		"desc" 		=> __("Elija como desea que se muestren las imagenes destacadas en la parte superior de los posts.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Elija como desea que se muestren las imagenes destacadas en la parte superior de los posts.", ANVA_DOMAIN),  
 		"id" 			=> "single_thumb",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -263,7 +263,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Mostrar comentarios debajo de los posts?",  
-		"desc" 		=> __("Seleccione si desea ocultar completamente los comentarios o no debajo de los posts.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea ocultar completamente los comentarios o no debajo de los posts.", ANVA_DOMAIN),  
 		"id" 			=> "single_comment",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -276,7 +276,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Mostrar breadcrumbs?",  
-		"desc" 		=> __("Seleccione si desea ocultar o mostrar los breadcrumbs.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea ocultar o mostrar los breadcrumbs.", ANVA_DOMAIN),  
 		"id" 			=> "single_breadcrumb",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -296,13 +296,13 @@ $options = array(
 	array(
 		"type" 		=> "open",
 		"title"		=> "Primary Posts",
-		"msg"			=> __("Estos ajustes solo se aplicaran a los posts que se muestran en la parte frontal del blog.", TM_THEME_DOMAIN),
+		"msg"			=> __("Estos ajustes solo se aplicaran a los posts que se muestran en la parte frontal del blog.", ANVA_DOMAIN),
 		"tab"			=> "content"
 	),
 
 	array(
 		"name" 		=> "Mostrar informacion meta en la parte superior de los posts?",  
-		"desc" 		=> __("Seleccione si desea que la informacion de meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione si desea que la informacion de meta (fecha de publicacion, autor, etc) se muestre en la parte superior del post.", ANVA_DOMAIN),  
 		"id" 			=> "posts_meta",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -315,7 +315,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Mostrar imagenes destacadas en la parte superior de los posts?",  
-		"desc" 		=> __("Elija como desea que muestren las imagenes destacadas en la parte superior de los posts.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Elija como desea que muestren las imagenes destacadas en la parte superior de los posts.", ANVA_DOMAIN),  
 		"id" 			=> "posts_thumb",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -341,7 +341,7 @@ $options = array(
 	
 	array(
 		"name" 		=> "Tabletas y Moviles",
-		"desc" 		=> __("Este tema viene con una hoja de estilo especial que se centrara en la resolucion de la pantalla de sus visitantes para mostrarles un diseno ligeramente modificado si su resolucion de pantalla coincide con tamanos comunes de una tableta o un dispositivo movil.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Este tema viene con una hoja de estilo especial que se centrara en la resolucion de la pantalla de sus visitantes para mostrarles un diseno ligeramente modificado si su resolucion de pantalla coincide con tamanos comunes de una tableta o un dispositivo movil.", ANVA_DOMAIN),  
 		"id" 			=> "responsive",
 		"type" 		=> "radio",
 		"std" 		=> "1",
@@ -354,7 +354,7 @@ $options = array(
 
 	array(
 		"name" 		=> "Navegacion",
-		"desc" 		=> __("Seleccione como desea mostrar la navegacion principal en los dispositivos moviles.", TM_THEME_DOMAIN),  
+		"desc" 		=> __("Seleccione como desea mostrar la navegacion principal en los dispositivos moviles.", ANVA_DOMAIN),  
 		"id" 			=> "navigation",
 		"type" 		=> "radio",
 		"std" 		=> "toggle_navigation",

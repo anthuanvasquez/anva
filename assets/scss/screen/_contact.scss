@@ -39,7 +39,9 @@
 
 }
 
-/* Contact Form 7 Support */
+/*
+ * Contact Form 7
+ */
 .wpcf7-form {
 	
 	.wpcf7-form-control-wrap {
@@ -48,14 +50,20 @@
 
 	@include group-inputs {
 		&.wpcf7-form-control {
-			border: 2px solid #ddd;
-			padding: 8px;
+			border: 1px solid #c9c9c9;
+			padding: 5px;
 			width: 100%;
 			border-radius: 3px;
+
 			&:focus {
 				border-color: color(primary);
 			}
 		}
+	}
+
+	label,
+	.wpc7-label {
+		font-weight: bold;
 	}
 
 	.wpcf7-radio {
@@ -70,20 +78,20 @@
 		width: auto;
 		@include inline-block();
 	}
+
+	span.wpcf7-not-valid-tip {
+		margin-top: 5px;
+		@include inline-block();
+	}
+
+	div.wpcf7-validation-errors {
+		border: 1px solid #ff0000;
+		color: #ff0000;
+		margin: $padding 0 5px;
+		padding: 10px 15px;
+	}
+
 }
 
-label.wpc7-label {
-	font-weight: bold;
-}
 
-span.wpcf7-not-valid-tip {
-	margin-top: 5px;
-	@include inline-block();
-}
 
-div.wpcf7-validation-errors {
-	border: 1px solid #ff0000;
-	color: #ff0000;
-	margin: $padding 0 5px;
-	padding: 10px 15px;
-}

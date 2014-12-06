@@ -10,11 +10,11 @@ get_header();
 
 <div class="row grid-columns">
 	<div class="content-area col-sm-8">
-		<div class="inner">
+		<div class="main">
 		
 		<?php woocommerce_content(); ?>
 
-		</div><!-- .inner (end) -->
+		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php
@@ -22,7 +22,7 @@ get_header();
 			?>
 			<div class="sidebar-wrapper col-sm-4">
 				<div class="sidebar-inner">
-					<div class="widget-area">
+					<div class="widget-area widget-area-shop">
 							<?php if ( dynamic_sidebar( 'shop-sidebar' ) ) : endif; ?>
 						</div>
 				</div>
@@ -32,7 +32,7 @@ get_header();
 			?>
 			<div class="sidebar-wrapper col-sm-4">
 				<div class="sidebar-inner">
-					<div class="widget-area">
+					<div class="widget-area widget-area-product">
 							<?php if ( dynamic_sidebar( 'product-sidebar' ) ) : endif; ?>
 						</div>
 				</div>

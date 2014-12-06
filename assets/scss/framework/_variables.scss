@@ -2,8 +2,8 @@
 // ------------------------------------------------
 $configuration: (
 	font-size: 14px,
-	layout: 12,
 	line-height: 1.5,
+	layout: 12,	
 	max-width: 1000px,
 	padding: 20px,
 	border-radius: 4px,
@@ -37,8 +37,8 @@ $palette: (
 // Font Stacks
 // ------------------------------------------------
 $font-awesome: 'FontAwesome';
-$helvetica: 		"Helvetica Neue", Helvetica, Arial, sans-serif;
-$georgia: 			Georgia, Times, "Times New Roman", serif;
+$helvetica: 	 "Helvetica Neue", Helvetica, Arial, sans-serif;
+$georgia: 		 Georgia, Times, "Times New Roman", serif;
 
 // Fonts
 // ------------------------------------------------
@@ -51,18 +51,18 @@ $base-font-family: $helvetica;
 $base-font-weight: 400;
 
 // Headings
-$heading-font-color: #333;
+$heading-font-color: color(base);
 $heading-font-family: $helvetica;
 $heading-font-line-height: 1.1;
 $heading-font-weight: 700;
 
 // Menu
-$menu-font-size: 14px;
+$menu-font-size: config(font-size);
 $menu-font-weight: normal;
 $menu-font-family: $helvetica;
 $menu-text-shadow: none;
 $menu-text-transform: capitalize;
-$sub-menu-font-size: 14px;
+$sub-menu-font-size: config(font-size);
 
 // Footer
 $footer-font-color: color(base);
@@ -88,7 +88,7 @@ $h6: 11px;
 // ------------------------------------------------
 $button-bg-color: color(primary);
 $button-border-radius: 4px;
-$button-border: 1px solid darken($button-bg-color, 8%);
+$button-border-color: darken($button-bg-color, 8%);
 $button-font-color: #fff;
 $button-font-size: 14px;
 $button-font-weight: normal;

@@ -6,7 +6,7 @@
 
 			<header class="entry-header">
 				<h1 class="entry-title">
-					<?php printf( tm_get_local( 'search_result' ) . ' %s', get_search_query() ); ?>
+					<?php printf( anva_get_local( 'search_result' ) . ' %s', get_search_query() ); ?>
 				</h1>
 			</header><!-- .page-header -->
 				
@@ -15,7 +15,7 @@
 					<?php while ( have_posts() ) : the_post(); ?>
 						<?php get_template_part( 'content', 'search' ); ?>
 					<?php endwhile; ?>
-					<?php tm_num_pagination(); ?>
+					<?php anva_num_pagination(); ?>
 				<?php else : ?>
 					<?php get_template_part( 'content', 'none' ); ?>
 				<?php endif; ?>
@@ -24,7 +24,7 @@
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php tm_sidebars( 'right', '4' ); ?>
+	<?php anva_sidebars( 'right', '4' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

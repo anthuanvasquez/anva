@@ -32,7 +32,7 @@
 .btn-primary {
 	background: $button-bg-color;
 	background-image: none;
-	border-color: $button-border;
+	border-color:$button-border-color;
 	color: $button-font-color;
 	&:hover {
 		background: darken($button-bg-color, 10%);

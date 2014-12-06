@@ -5,7 +5,7 @@
  * The template used for displaying page content in front page
  */
 
-$hide_title = tm_get_post_meta( '_hide_title' );
+$hide_title = anva_get_post_meta( '_hide_title' );
 
 get_header();
 ?>
@@ -29,9 +29,9 @@ get_header();
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 
-	<div class="sidebar-wrapper home-sidebar col-sm-12">
+	<div class="sidebar-wrapper sidebar-home col-sm-12">
 		<div class="sidebar-inner">
-			<div class="widget-area home-widget-area">
+			<div class="widget-area widget-area-home">
 				<div class="grid-columns">
 					<?php if ( dynamic_sidebar( 'home-sidebar' ) ) : endif; ?>
 				</div><!-- .grid-columns (end) -->

@@ -8,82 +8,82 @@
  * other feature of the framework requires these
  * image sizes, they can grab 'em.
  */
-function tm_get_image_sizes() {
+function anva_get_image_sizes() {
 
 	global $content_width;
 
 	// Content Width
 	// Default width of primary content area
-	$content_width = apply_filters( 'tm_content_width', 940 );
+	$content_width = apply_filters( 'anva_content_width', 940 );
 
 	// Crop sizes
 	$sizes = array(
 		'blog_large' => array(
-			'name' 		=> __( 'Blog Large', TM_THEME_DOMAIN ),
+			'name' 		=> __( 'Blog Large', ANVA_DOMAIN ),
 			'width' 	=> $content_width,
 			'height' 	=> 9999,
 			'crop' 		=> false
 		),
 		'blog_medium' => array(
-			'name' 		=> __( 'Blog Medium', TM_THEME_DOMAIN ),
-			'width' 	=> 620,
+			'name' 		=> __( 'Blog Medium', ANVA_DOMAIN ),
+			'width' 	=> 320,
 			'height'	=> 9999,
 			'crop' 		=> false
 		),
 		'blog_small' => array(
-			'name' 		=> __( 'Blog Small', TM_THEME_DOMAIN ),
+			'name' 		=> __( 'Blog Small', ANVA_DOMAIN ),
 			'width' 	=> 195,
 			'height' 	=> 195,
 			'crop' 		=> false
 		),
 		'slider_big' => array(
-			'name' 		=> __( 'Slider Big', TM_THEME_DOMAIN ),
+			'name' 		=> __( 'Slider Big', ANVA_DOMAIN ),
 			'width' 	=> 1600,
 			'height' 	=> 500,
 			'crop' 		=> true
 		),
 		'slider_large' => array(
-			'name' 		=> __( 'Slider Large', TM_THEME_DOMAIN ),
+			'name' 		=> __( 'Slider Large', ANVA_DOMAIN ),
 			'width' 	=> $content_width,
 			'height' 	=> 400,
 			'crop' 		=> true
 		),
 		'slider_medium' => array(
-			'name' 		=> __( 'Slider Medium', TM_THEME_DOMAIN ),
+			'name' 		=> __( 'Slider Medium', ANVA_DOMAIN ),
 			'width' 	=> 564,
 			'height' 	=> 400,
 			'crop' 		=> true
 		),
 		'grid_2' => array(
-			'name' 		=> __( '2 Column of Grid', TM_THEME_DOMAIN ),
+			'name' 		=> __( '2 Column of Grid', ANVA_DOMAIN ),
 			'width' 	=> 472,
 			'height' 	=> 295,
 			'crop' 		=> true
 		),
 		'grid_3' => array(
-			'name' 		=> __( '3 Column of Grid', TM_THEME_DOMAIN ),
+			'name' 		=> __( '3 Column of Grid', ANVA_DOMAIN ),
 			'width' 	=> 320,
 			'height' 	=> 200,
 			'crop' 		=> true
 		),
 		'grid_4' => array(
-			'name' 		=> __( '4 Column of Grid', TM_THEME_DOMAIN ),
+			'name' 		=> __( '4 Column of Grid', ANVA_DOMAIN ),
 			'width' 	=> 240,
 			'height' 	=> 150,
 			'crop' 		=> true
 		),
 	);
 
-	return apply_filters( 'tm_image_sizes', $sizes );
+	return apply_filters( 'anva_image_sizes', $sizes );
 }
 
 /**
  * Register Image Sizes
  */
-function tm_add_image_sizes() {
+function anva_add_image_sizes() {
 
 	// Get image sizes
-	$sizes = tm_get_image_sizes();
+	$sizes = anva_get_image_sizes();
 
 	// Add image sizes
 	foreach ( $sizes as $size => $atts ) {
@@ -101,10 +101,10 @@ function tm_add_image_sizes() {
  *
  * @return array Framework's image sizes
  */
-function tm_image_size_names_choose( $sizes ) {
+function anva_image_size_names_choose( $sizes ) {
 
 	// Get image sizes for framework that were registered.
-	$raw_sizes = tm_get_image_sizes();
+	$raw_sizes = anva_get_image_sizes();
 
 	// Format sizes
 	$image_sizes = array();
@@ -114,14 +114,14 @@ function tm_image_size_names_choose( $sizes ) {
 	}
 
 	// Apply filter - Filter in filter... I know, I know.
-	$image_sizes = apply_filters( 'tm_image_choose_sizes', $image_sizes );
+	$image_sizes = apply_filters( 'anva_image_choose_sizes', $image_sizes );
 
 	// Return merged with original WP sizes
 	return array_merge( $sizes, $image_sizes );
 }
 
 
-function tm_get_featured_image( $post_id, $thumbnail ) {
+function anva_get_featured_image( $post_id, $thumbnail ) {
 	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
 	if ( $post_thumbnail_id ) {
 		$post_thumbnail_img = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
@@ -129,7 +129,7 @@ function tm_get_featured_image( $post_id, $thumbnail ) {
 	}
 }
 
-function tm_post_thumbnails( $thumb ) {
+function anva_post_thumbnails( $thumb ) {
 	
 	global $post;
 
@@ -150,7 +150,7 @@ function tm_post_thumbnails( $thumb ) {
 
 	if ( $thumb != 2 && has_post_thumbnail() ) {
 		$output .= '<div class="entry-thumbnail ' . $classes . ' thumbnail">';
-		$output .= '<a href="' . tm_get_featured_image( $post->ID, 'large' ) . '" title="' . get_the_title() . '">' . get_the_post_thumbnail( $post->ID, $size ) . '</a>';
+		$output .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '">' . get_the_post_thumbnail( $post->ID, $size ) . '</a>';
 		$output .= '</div>';
 	}
 
@@ -158,7 +158,7 @@ function tm_post_thumbnails( $thumb ) {
 
 }
 
-function tm_post_grid_thumbnails( $size ) {
+function anva_post_grid_thumbnails( $size ) {
 	global $post;
 	
 	$output  = '';

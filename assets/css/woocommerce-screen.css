@@ -85,7 +85,7 @@ input[type="button"]:hover {
 .btn-primary {
   background: #2acbf5;
   background-image: none;
-  border-color: 1px solid #0bbdeb;
+  border-color: #0bbdeb;
   color: #fff;
 }
 .btn-primary:hover {

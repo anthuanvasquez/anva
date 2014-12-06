@@ -11,19 +11,19 @@
 			</h2>
 			<div class="meta-wrapper">
 				<?php
-					$single_meta = tm_get_option( 'single_meta' );
+					$single_meta = anva_get_option( 'single_meta' );
 					if ( 1 == $single_meta ) :
-						tm_posted_on();
+						anva_posted_on();
 					endif;
 				?>
 			</div>
 		</header><!-- .entry-header (end) -->
 		<div class="entry-content">
-			<?php echo tm_post_thumbnails( tm_get_option( 'posts_thumb' ) ); ?>
+			<?php echo anva_post_thumbnails( anva_get_option( 'posts_thumb' ) ); ?>
 			<div class="entry-summary">
-				<?php tm_excerpt_limit(); ?>
+				<?php anva_excerpt(); ?>
 				<a class="btn btn-default" href="<?php the_permalink(); ?>">
-					<?php echo tm_get_local( 'read_more' ); ?>
+					<?php echo anva_get_local( 'read_more' ); ?>
 				</a>
 			</div><!-- .entry-summary (end) -->
 			<div class="clearfix"></div>

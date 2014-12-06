@@ -1,14 +1,14 @@
 <?php
 
-add_action( 'after_setup_theme', 'tm_foodlist_setup' );
+add_action( 'after_setup_theme', 'anva_foodlist_setup' );
 
 /*
  * Foodlist theme setup
  */
-function tm_foodlist_setup() {
-	add_filter( 'foodlist_menu_template', 'tm_menu_template', 10, 2 );
-	add_filter( 'foodlist_menu_section_template', 'tm_menu_section_template', 10, 2 );
-	add_filter( 'foodlist_menu_item_template', 'tm_menu_item_template', 10, 2 );
+function anva_foodlist_setup() {
+	add_filter( 'foodlist_menu_template', 'anva_menu_template', 10, 2 );
+	add_filter( 'foodlist_menu_section_template', 'anva_menu_section_template', 10, 2 );
+	add_filter( 'foodlist_menu_item_template', 'anva_menu_item_template', 10, 2 );
 	add_action( 'wp_enqueue_scripts', 'foodlist_load_scripts' );
 }
 
@@ -22,7 +22,7 @@ function foodlist_load_scripts() {
 /*
  * Foodlist menu template
  */
-function tm_menu_template( $tpl ) {
+function anva_menu_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu" id="fl-menu-[menu_id]">
 			<div class="clear"></div>
@@ -41,7 +41,7 @@ function tm_menu_template( $tpl ) {
 /*
  * Foodlist menu section template
  */
-function tm_menu_section_template( $tpl ) {
+function anva_menu_section_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu-section" id="fl-menu-section-[menu_section_id]-[menu_section_instance]">
 			<h2>[menu_section_title] <a href="#menu-toc" title="Ir Arriba"><i class="fa fa-long-arrow-up"></i></a></h2>
@@ -61,7 +61,7 @@ function tm_menu_section_template( $tpl ) {
 /*
  * Foodlist menu item template
  */
-function tm_menu_item_template( $tpl ) {	
+function anva_menu_item_template( $tpl ) {	
 	$tpl = '
 		<div class="fl-menu-item" id="fl-menu-item-[menu_item_id]-[menu_item_instance]">
 			<div class="fl-excerpt">
