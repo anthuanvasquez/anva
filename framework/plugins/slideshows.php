@@ -145,6 +145,7 @@ function anva_slideshows_featured( $slug ) {
 	query_posts( apply_filters( 'anva_slideshows_query_args', $query_args) );
 
 	if ( have_posts() ) {
+		$html .= '<div id="slider">';
 		$html .= '<div id="slider_wrapper_' . $slug . '" class="slider-wrapper slider-wrapper-' . $slug . '">';
 		$html .= '<div id="slider_inner_' . $slug . '" class="slider-inner slider-inner-' . $slug . '">';
 		$html .= '<ul class="slides">';
@@ -158,7 +159,7 @@ function anva_slideshows_featured( $slug ) {
 			$url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
 			$data = ( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
 
-			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array('echo' => false) ) . '" >';
+			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array( 'echo' => false ) ) . '" >';
 						
 			$html .= '<li>';
 			$html .= '<div id="slide-' . get_the_ID() . '" class="slide slide-'. get_the_ID() .' slide-type-image">';
@@ -216,7 +217,8 @@ function anva_slideshows_featured( $slug ) {
 
 		$html .= '</ul><!-- .slides (end) -->';
 		$html .= '</div><!-- #slider_inner_' . $slug . ' (end) -->';
-		$html .= '</div><!-- #slider_wrapper_' . $slug . ' (end) -->';	
+		$html .= '</div><!-- #slider_wrapper_' . $slug . ' (end) -->';
+		$html .= '</div><!-- #slider (end) -->';	
 	}
 	
 	// Reset wp query
@@ -228,7 +230,7 @@ function anva_slideshows_featured( $slug ) {
 	$html .= "jQuery('#slider_inner_{$slug}').addClass('loading');";
 	$html .= "jQuery('#slider_inner_{$slug}').flexslider({";
 		
-	if ( isset($rotators[$slug]['options']) && $rotators[$slug]['options'] != "" ) { 
+	if ( isset( $rotators[$slug]['options'] ) && $rotators[$slug]['options'] != "" ) { 
 		$html .= $rotators[$slug]['options'];
 	} else {
 		$html .="prevText: '', nextText: '',";
