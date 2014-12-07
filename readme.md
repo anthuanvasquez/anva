@@ -1,39 +1,32 @@
-# 3 Mentes WordPress Framework
+# Anva WordPress Framework
 
-Versión: 1.6.0
+Versión: 1.0.0
 
 ## Author:
 
-Anthuan Vásquez ( [@oidoperfecto](https://twitter.com/odioperfecto) / [anthuanvasquez.net](http://anthuanvasquez.net) / [3mentes.com](http://3mentes.com) )
+Anthuan Vásquez ( [@oidoperfecto](https://twitter.com/odioperfecto) / [anthuanvasquez.net](http://anthuanvasquez.net)
 
 ## Descripción
-Framework usado en 3 mentes para construir temas de WordPress de una forma rápida, robusta y adaptable.
+Framework usado para construir temas de WordPress de una forma rápida, robusta y adaptable.
 
 ### Características
-* Favicon
-* Apple Touch Icon (200, 144, 72)
 * Panel de Opciones
-* Formulario de Contacto
-* Widgets Areas
-  * Sidebar Principal
-  * Sidebar en el Home
-  * Sidebar en el Footer
-* Personalizacion de Login
 * Disponible para traducciones
-* Multiples locaciones de Menus
 * Shortcodes
-* Templates
+* Page Templates
+  * Archives
+  * Post List
+  * Post Grid
   * Contact Us
-  * Homepage
-  * Featured Products
-* Sidebar Layout
-  * Page Left Sidebar
-  * Page Right Sidebar
-  * Page Full Width
-  * Page Double Sidebar
-  * Page Double Left Sidebar
-  * Page Double Right Sidebar
-* Iconos para Social Media
+  * Woocommerce Products
+* Sidebar Layouts
+  * Sidebar Right
+  * Sidebar Left
+  * Sidebar Full Width
+  * Double Sidebars
+  * Double Sidebars Right
+  * Double Sidebars Left
+* Sprite de iconos para social media
 * Responsive Resolutions (980, 768, 480, 320)
 
 ### Plugins Sugeridos
@@ -43,14 +36,15 @@ Framework usado en 3 mentes para construir temas de WordPress de una forma rápi
 ### Creditos
 Sin estos proyectos, este tema base para WordPress no estaría donde está hoy.
 
+* [Bootstrap](http://getbootstrap.com/)
 * [HTML5 Boilerplate](http://html5boilerplate.com/)
 * [Underscores (_s)](http://underscores.me/)
 * [Normalize.scss](https://github.com/JohnAlbin/normalize-scss)
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/icons/)
-* [Modernizr](http://modernizr.com/)
 
 ### jQuery Plugins
-* [Lightbox 2.7.1](http://lokeshdhakar.com/projects/lightbox2/)
-* [jQuery Validation 1.12.0](http://jqueryvalidation.org/)
-* [jQuery FlexSlider 2.2.0](http://www.woothemes.com/flexslider/)
-* [FitVids 1.1](http://fitvidsjs.com/)
+* [jQuery Superfish Menu](http://users.tpg.com.au/j_birch/plugins/superfish/)
+* [JQuery hoverIntent](http://cherne.net/brian/resources/jquery.hoverIntent.html)
+* [jQuery Magnific Popup](http://dimsemenov.com/plugins/magnific-popup)
+* [jQuery Validation](http://jqueryvalidation.org/)
+* [jQuery FlexSlider](http://www.woothemes.com/flexslider/)
