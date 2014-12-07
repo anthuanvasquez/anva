@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Archive titles
+ */
 function anva_archive_title() {
 
 	if ( is_category() ) :
@@ -54,28 +57,9 @@ function anva_archive_title() {
 
 }
 
-function anva_post_nav() {
-	// Don't print empty markup if there's nowhere to navigate.
-	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
-	$next = get_adjacent_post( false, '', false );
-
-	if ( ! $next && ! $previous ) {
-		return;
-	}
-	?>
-	<nav class="post-navigation" role="navigation">
-		<div class="post-navigation-inner">
-			<div class="navigation-content">
-				<?php
-					previous_post_link( '<div class="nav-previous">%link</div>', anva_get_local( 'prev' ) );
-					next_post_link( '<div class="nav-next">%link</div>', anva_get_local( 'next' ) );
-				?>
-			</div>
-		</div>
-	</nav><!-- .post-navigation (end) -->
-	<?php
-}
-
+/**
+ * Meta posted on
+ */
 function anva_posted_on() {
 
 	// Get the time
@@ -138,6 +122,9 @@ function anva_posted_on() {
 	);
 }
 
+/**
+ * Social media icons
+ */
 function anva_social_media() {
 	
 	$html 			= '';
@@ -201,6 +188,9 @@ function anva_social_media() {
 
 }
 
+/**
+ * Header search
+ */
 function anva_site_search() {
 	if ( class_exists( 'Woocommerce' ) ) :
 		anva_get_product_search_form();
@@ -209,6 +199,34 @@ function anva_site_search() {
 	endif;
 }
 
+/**
+ * Post navigation
+ */
+function anva_post_nav() {
+	// Don't print empty markup if there's nowhere to navigate.
+	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
+	$next = get_adjacent_post( false, '', false );
+
+	if ( ! $next && ! $previous ) {
+		return;
+	}
+	?>
+	<nav class="post-navigation" role="navigation">
+		<div class="post-navigation-inner">
+			<div class="pager navigation-content">
+				<?php
+					previous_post_link( '<div class="previous">%link</div>', anva_get_local( 'prev' ) );
+					next_post_link( '<div class="next">%link</div>', anva_get_local( 'next' ) );
+				?>
+			</div>
+		</div>
+	</nav><!-- .post-navigation (end) -->
+	<?php
+}
+
+/**
+ * Pagination
+ */
 function anva_pagination( $query = '' ) {
 
 	if ( empty( $query ) ) :
@@ -227,6 +245,9 @@ function anva_pagination( $query = '' ) {
 	endif;
 }
 
+/**
+ * Num pagination
+ */
 function anva_num_pagination( $pages = '', $range = 2 ) {
 	
 	$showitems = ( $range * 2) + 1;  
@@ -268,6 +289,9 @@ function anva_num_pagination( $pages = '', $range = 2 ) {
 	}
 }
 
+/**
+ * Comment pagination
+ */
 function anva_comment_pagination() {
 	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
 	?>
@@ -279,6 +303,9 @@ function anva_comment_pagination() {
 	endif;
 }
 
+/**
+ * Contact form
+ */
 function anva_contact_form() {
 	
 	global $email_sended_message;
@@ -380,6 +407,9 @@ function anva_contact_form() {
 	<?php
 }
 
+/**
+ * Search form
+ */
 function anva_get_search_form() {
 	?>
 	<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
@@ -396,6 +426,9 @@ function anva_get_search_form() {
 	<?php
 }
 
+/**
+ * Woocommerce search product form
+ */
 function anva_get_product_search_form() {
 	?>
 	<form role="search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
@@ -413,6 +446,9 @@ function anva_get_product_search_form() {
 	<?php
 }
 
+/**
+ * Get comment list
+ */
 function anva_comment_list( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	extract($args, EXTR_SKIP);
@@ -481,6 +517,9 @@ function anva_comment_list( $comment, $args, $depth ) {
 <?php
 }
 
+/**
+ * Replace reply link class in comment form
+ */
 function replace_reply_link_class( $class ){
 	$class = str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-default btn-sm", $class );
 	return $class;

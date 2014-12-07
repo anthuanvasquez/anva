@@ -28,9 +28,12 @@
 			<?php the_content(); ?>
 			<div class="clearfix"></div>
 			<footer class="entry-footer">
-				<span class="tag">
-					<?php the_tags( '<i class="fa fa-tags"></i> ', ', ' ); ?>
-				</span>
+				<div class="tag">
+					<div class="tag-inner">
+						<?php the_tags( '<i class="fa fa-tags"></i> ', ', ' ); ?>
+					</div>
+				</div>
+				<?php anva_post_nav(); ?>
 			</footer><!-- .entry-footer (end) -->
 		</div><!-- .entry-content (end) -->
 	</article><!-- #post-<?php the_ID(); ?> -->
