@@ -1,6 +1,8 @@
 <?php
 
-// Add the Events Meta Boxes
+/**
+ * Add the page meta boxes
+ */
 function anva_add_page_options() {
 	add_meta_box(
 		'anva_page_options_metaboxes',
@@ -12,6 +14,9 @@ function anva_add_page_options() {
 	);
 }
 
+/**
+ * Add the page meta boxes options
+ */
 function anva_page_options_metaboxes() {
 
 	global $post;
@@ -83,7 +88,9 @@ function anva_page_options_metaboxes() {
 
 }
 
-// Save the Metabox Data
+/**
+ * Save the Metabox Data
+ */
 function anva_page_options_save_meta( $post_id, $post ) {
 	
 	if ( isset( $_POST['anva_page_options_nonce'] ) && ! wp_verify_nonce( $_POST['anva_page_options_nonce'], plugin_basename(__FILE__) ) ) {
