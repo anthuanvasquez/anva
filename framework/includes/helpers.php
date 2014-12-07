@@ -25,50 +25,35 @@ function anva_body_classes( $classes ) {
  * Return browser classes
  */
 function anva_browser_class( $classes ) {
-	
 	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
-	
 	if ( $is_lynx )
 		$classes[] = 'lynx';
-
 	elseif ( $is_gecko )
 		$classes[] = 'gecko';
-
 	elseif ( $is_opera )
 		$classes[] = 'opera';
-
 	elseif ( $is_NS4 )
 		$classes[] = 'ns4';
-
 	elseif ( $is_safari )
 		$classes[] = 'safari';
-
 	elseif ( $is_chrome )
 		$classes[] = 'chrome';
-
 	elseif ( $is_IE ) {
 		$classes[] = 'ie';
-		
 		if ( preg_match( '/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version ) )
 			$classes[] = 'ie'.$browser_version[1];
-
 	} else {
 		$classes[] = 'unknown';
 	}
-	
 	if ( $is_iphone )
 		$classes[] = 'iphone';
-	
 	if ( stristr( $_SERVER['HTTP_USER_AGENT'], "mac" ) ) {
 		$classes[] = 'osx';
-
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "linux" ) ) {
 		$classes[] = 'linux';
-	
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "windows" ) ) {
 		$classes[] = 'windows';
 	}
-
 	return $classes;
 }
 
@@ -104,7 +89,6 @@ function anva_wp_title( $title, $sep ) {
  */
 function anva_setup_author() {
 	global $wp_query;
-
 	if ( $wp_query->is_author() && isset( $wp_query->post ) ) {
 		$GLOBALS['authordata'] = get_userdata( $wp_query->post->post_author );
 	}
@@ -114,11 +98,9 @@ function anva_setup_author() {
  * WP Query args
  */
 function anva_get_post_query( $query_args = '' ) {
-	
 	$number = get_option( 'posts_per_page' );
 	$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 	$offset = ( $page - 1 ) * $number;
-
 	if ( empty( $query_args ) ) {
 		$query_args = array(
 			'post_type'  			=>  array( 'post' ),
@@ -131,9 +113,7 @@ function anva_get_post_query( $query_args = '' ) {
 			'offset'     			=> $offset
 		);
 	}
-
 	$the_query = new WP_Query( $query_args );
-
 	return $the_query;
 }
 

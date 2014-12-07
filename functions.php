@@ -24,13 +24,15 @@ function anva_setup() {
 add_action( 'after_setup_theme', 'anva_setup' );
 
 /**
- * Change slider featured image size
- * @see anva_get_image_sizes()
+ * Change the slider args
  */
 // function anva_featured_size( $args ) {
 // 	if ( isset( $args['homepage'] ) ) {
 // 		$args['homepage']['size'] = 'slider_big';
 // 	}
+//  if ( ! isset( $args['homepage'] ) ) {
+// 		$args['homepage']['orderby'] = 'date';
+//  }
 // 	return $args;
 // }
 // add_filter( 'anva_slideshows', 'anva_featured_size' );

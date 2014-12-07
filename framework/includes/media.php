@@ -120,7 +120,9 @@ function anva_image_size_names_choose( $sizes ) {
 	return array_merge( $sizes, $image_sizes );
 }
 
-
+/**
+ * Get featured image url
+ */
 function anva_get_featured_image( $post_id, $thumbnail ) {
 	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
 	if ( $post_thumbnail_id ) {
@@ -129,6 +131,9 @@ function anva_get_featured_image( $post_id, $thumbnail ) {
 	}
 }
 
+/**
+ * Get featured image in posts
+ */
 function anva_post_thumbnails( $thumb ) {
 	
 	global $post;
@@ -158,6 +163,9 @@ function anva_post_thumbnails( $thumb ) {
 
 }
 
+/**
+ * Get featured image in post grid
+ */
 function anva_post_grid_thumbnails( $size ) {
 	global $post;
 	
