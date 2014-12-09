@@ -1,15 +1,13 @@
 <?php
 
-/**
- * Get any current theme settings
- */
+// Get any current theme settings
 $theme_settings = get_option( 'anva_settings' );
 
 // Define constants
 define( 'ANVA_PATH', get_template_directory() );
-define( 'ANVA_FRAMEWORK', get_template_directory() . '/framework' );
 define( 'ANVA_URL', get_template_directory_uri() );
 define( 'ANVA_LOGO', get_template_directory_uri() . '/assets/images/logo.png' );
+define( 'ANVA_FRAMEWORK', get_template_directory() . '/framework' );
 define( 'ANVA_DOMAIN', 'anva' );
 define( 'ANVA_SETTINGS', serialize( $theme_settings ) );
 
@@ -93,8 +91,8 @@ add_action( 'anva_sidebar_layout_after', 'anva_sidebar_layout_after_default' );
 add_action( 'init', 'anva_contact_send_email' );
 add_action( 'after_setup_theme', 'anva_slideshows_setup' );
 
-/**
- * Hook textdomain
- * @since 1.4.0
- */
+// Hook textdomain
 do_action( 'anva_texdomain' );
+
+// Load theme functions
+include_once( get_template_directory() . '/functions/theme-functions.php' );

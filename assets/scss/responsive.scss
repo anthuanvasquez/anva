@@ -249,7 +249,7 @@
 	 * Grid Columns
 	 */
 	.grid-columns {
-		[class*="grid-"] {
+		[class*="grid_"] {
 			display: block;
 			float: none;
 			margin-right: 0;
@@ -264,23 +264,6 @@
 	.flex-control-nav,
 	.flex-pauseplay {
 		display: none;
-	}
-	
-	/*
-	 * Blog Columns
-	 */
-	.blog-2-cols,
-	.blog-3-cols {
-		article.post {
-			@include reset-float( right, true );
-		}
-		
-		.entry-thumbnail {
-			img {
-				display: block;
-				margin: 0 auto;
-			}
-		}
 	}
 
 	/*

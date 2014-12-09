@@ -17,7 +17,7 @@
 				<div class="footer-content">
 					<div class="footer-widget">
 						<div class="grid-columns">
-							<?php if ( ! dynamic_sidebar( 'footer-sidebar' ) ) : endif; ?>
+							<?php if ( ! dynamic_sidebar( 'footer' ) ) : endif; ?>
 						</div>
 					</div>
 				</div><!-- .footer-content (end) -->

@@ -26,7 +26,6 @@ function anva_theme_texdomain() {
  * Register menus.
  */
 function anva_register_menus() {
-	/* Register Menus */
 	register_nav_menus( array(
 		'primary' 	=> anva_get_local( 'menu_primary' ),
 		'secondary' => anva_get_local( 'menu_secondary' )
@@ -34,26 +33,82 @@ function anva_register_menus() {
 }
 
 /**
+ * Sidebar locations
+ */
+function anva_get_sidebar_locations() {
+	$cols = anva_get_option( 'footer_cols', '4' );
+	$locations = array(
+		'sidebar_right' => array(
+			'args' => array(
+				'id' => 'sidebar_right',
+				'name' => __( 'Sidebar Right', ANVA_DOMAIN ),
+				'description' => __( 'Sidebar right.', ANVA_DOMAIN ),
+			)
+		),
+		'sidebar_left' => array(
+			'args' => array(
+				'id' => 'sidebar_left',
+				'name' => __( 'Sidebar Left', ANVA_DOMAIN ),
+				'description' => __( 'Sidebar left.', ANVA_DOMAIN ),
+			)
+		),
+		'homepage' => array(
+			'args' => array(
+				'id' => 'homepage',
+				'name' => __( 'Homepage', ANVA_DOMAIN ),
+				'description' => __( 'Homepage sidebar below content.', ANVA_DOMAIN ),
+				'class' => 'grid_4',
+			)
+		),
+		'footer' => array(
+			'args' => array(
+				'id' => 'footer',
+				'name' => __( 'Footer', ANVA_DOMAIN ),
+				'description' => __( 'Footer sidebar.', ANVA_DOMAIN ),
+				'class' => 'grid_' . $cols,
+			)
+		),
+	);
+
+	return apply_filters( 'anva_get_sidebar_locations', $locations );
+}
+
+/**
  * Register widgets areas.
  */
 function anva_register_sidebars() {
 
-	register_sidebar(
-		anva_get_widget_args( 'sidebar-right', 'sidebar_right_title', 'sidebar_right_desc' )
+	$locations = anva_get_sidebar_locations();
+
+	foreach ( $locations as $sidebar ) {
+		if ( is_array( $sidebar ) && isset( $sidebar['args'] ) ) {
+			register_sidebar(
+				anva_get_sidebar_args(
+					$sidebar['args']['id'],
+					$sidebar['args']['name'],
+					$sidebar['args']['description'],
+					( isset( $sidebar['args']['class'] ) ? $sidebar['args']['class'] : '' )
+				)
+			);
+		}
+	}
+}
+
+/*
+ * Args in registers widget function
+ */
+function anva_get_sidebar_args( $id, $name, $description, $classes ) {	
+	$args = array(
+		'id'            => $id,
+		'name'          => $name,
+		'description'		=> $description,
+		'before_widget' => '<aside id="%1$s" class="widget %2$s '.$classes.'"><div class="widget-inner">',
+		'after_widget'  => '</div></aside>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	);
 
-	register_sidebar(
-		anva_get_widget_args( 'sidebar-left', 'sidebar_left_title', 'sidebar_left_desc' )
-	);
-
-	register_sidebar(
-		anva_get_widget_args( 'home-sidebar', 'home_sidebar_title', 'home_sidebar_desc' )
-	);
-
-	register_sidebar(
-		anva_get_widget_args( 'footer-sidebar', 'footer_sidebar_title', 'footer_sidebar_desc' )
-	);
-
+	return apply_filters( 'anva_get_sidebar_args', $args );
 }
 
 /**
@@ -78,7 +133,7 @@ function anva_load_scripts() {
 	wp_enqueue_script( 'boostrap-js', get_template_directory_uri() . '/assets/js/vendor/bootstrap.min.js', array( 'jquery' ), '', true );
 	wp_enqueue_script( 'plugins', get_template_directory_uri() . '/assets/js/plugins.min.js', array( 'jquery' ), '', true );
 	wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.min.js', array( 'jquery' ), '', true );
-	wp_localize_script( 'main', 'anva_FRAMEWORK', anva_get_js_locals() );
+	wp_localize_script( 'main', 'ANVAJS', anva_get_js_locals() );
 
 }
 
@@ -93,11 +148,11 @@ function anva_kill_version() {
  * Add class to posts_link_next() and previous.
  */
 function anva_posts_link_attr() {
-	return 'class="button button-link"';
+	return 'class="btn button-link"';
 }
 
 function anva_post_link_attr( $output ) {
-	$class = 'class="button button-link"';
+	$class = 'class="btn button-link"';
 	return str_replace('<a href=', '<a '. $class .' href=', $output);
 }
 

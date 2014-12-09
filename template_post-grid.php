@@ -49,14 +49,14 @@ $the_query = anva_get_post_query();
 
 							// Validate column number
 							if ( 0 == ( $count - 1 ) % $grid_columns || 1 == $grid_columns )
-								echo '<div class="grid_row row">'; ?>
+								echo '<div class="grid-row row">'; ?>
 								
-							<div class="post-grid_item col-sm-<?php echo $columns; ?>">
+							<div class="post-grid-item col-sm-<?php echo $columns; ?>">
 								<div class="article-container">
 									<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 										<div class="entry-container group">
 											<?php echo anva_post_grid_thumbnails( $size ); ?>
-											<h2 class="entry-title">
+											<h2 class="entry-title h3">
 												<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
 											</h2>
 											<div class="entry-summary">

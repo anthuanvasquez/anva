@@ -154,35 +154,6 @@ function anva_get_post_custom() {
 }
 
 /*
- * Args in registers widget function
- */
-function anva_get_widget_args( $id, $name, $description ) {
-	
-	$columns = '';
-	$footer_cols = anva_get_option( 'footer_cols' );
-
-	if ( 'home-sidebar' == $id ) {
-		$columns = 'grid-4';
-	}
-
-	if ( 'footer-sidebar' == $id ) {
-		$columns = 'grid-' . $footer_cols;
-	}
-	
-	$args = array(
-		'id'            => $id,
-		'name'          => anva_get_local( $name ),
-		'description'		=> anva_get_local( $description ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s '.$columns.'"><div class="widget-inner">',
-		'after_widget'  => '</div></aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	);
-
-	return apply_filters( 'anva_get_widget_args', $args );
-}
-
-/*
  * Limit chars in string
  */
 function anva_truncate( $string, $length = 100 ) {
@@ -225,7 +196,7 @@ function anva_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date',
 
 	$the_query = new WP_Query( $args );
 	
-	echo '<ul class="posts widget-posts">';
+	echo '<ul class="widget-posts">';
 
 	while ( $the_query->have_posts() ) {
 		$the_query->the_post();

@@ -3,6 +3,11 @@
 	@include container-width($max-width, 0);
 }
 
+/* Global wrapper */
+#wrapper {
+	min-width: $min-width;
+}
+
 /* Container */
 #container {
 	background: color('content');

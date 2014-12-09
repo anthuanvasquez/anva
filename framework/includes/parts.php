@@ -231,15 +231,15 @@ function anva_pagination( $query = '' ) {
 
 	if ( empty( $query ) ) :
 	?>
-	<ul id="nav-posts" class="nav-posts group">
-		<li class="prev alignleft"><?php previous_posts_link( anva_get_local( 'prev' ) ); ?></li>
-		<li class="next alignright"><?php next_posts_link( anva_get_local( 'next' ) ); ?></li>
+	<ul id="nav-posts" class="pager clearfix">
+		<li class="previous"><?php previous_posts_link( anva_get_local( 'prev' ) ); ?></li>
+		<li class="next"><?php next_posts_link( anva_get_local( 'next' ) ); ?></li>
 	</ul>
 	<?php
 	else : ?>
-	<ul id="nav-posts" class="nav-posts group">
-		<li class="prev alignleft"><?php previous_posts_link( anva_get_local( 'prev'  ), $query->max_num_pages ); ?></li>
-		<li class="next alignright"><?php next_posts_link( anva_get_local( 'next'  ), $query->max_num_pages ); ?></li>
+	<ul id="nav-posts" class="pager clearfix">
+		<li class="previous"><?php previous_posts_link( anva_get_local( 'prev'  ), $query->max_num_pages ); ?></li>
+		<li class="next"><?php next_posts_link( anva_get_local( 'next'  ), $query->max_num_pages ); ?></li>
 	</ul>
 	<?php
 	endif;
@@ -266,7 +266,7 @@ function anva_num_pagination( $pages = '', $range = 2 ) {
 	
 	if ( 1 != $pages ) {
 		echo "<nav id='pagination'>";
-		echo "<ul class='pagination group'>";
+		echo "<ul class='pagination clearfix'>";
 			if ( $paged > 2 && $paged > $range + 1 && $showitems < $pages )
 				echo "<li><a href='".get_pagenum_link(1)."'>&laquo;</a></li>";
 			
@@ -295,9 +295,9 @@ function anva_num_pagination( $pages = '', $range = 2 ) {
 function anva_comment_pagination() {
 	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
 	?>
-	<nav id="comment-nav" class="comment-navigation" role="navigation">
-		<div class="nav-previous"><?php previous_comments_link( anva_get_local( 'comment_prev' ) ); ?></div>
-		<div class="nav-next"><?php next_comments_link( anva_get_local( 'comment_next' ) ); ?></div>
+	<nav id="comment-nav" class="pager comment-navigation" role="navigation">
+		<div class="previous nav-previous"><?php previous_comments_link( anva_get_local( 'comment_prev' ) ); ?></div>
+		<div class="next nav-next"><?php next_comments_link( anva_get_local( 'comment_next' ) ); ?></div>
 	</nav><!-- #comment-nav-above (end) -->
 	<?php
 	endif;

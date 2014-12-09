@@ -177,7 +177,7 @@ function anva_content_after_default() {
 }
 
 /*
- * Display sidebars locations before
+ * Display sidebars location before
  */
 function anva_sidebar_layout_before_default() {
 	if ( is_page() ) {
@@ -196,13 +196,12 @@ function anva_sidebar_layout_before_default() {
 		} elseif ( 'double_left' == $sidebar ) {
 			anva_sidebars( 'left', '3' );
 			anva_sidebars( 'right', '3' );
-
 		}
 	}
 }
 
 /*
- * Display sidebars locations after
+ * Display sidebars location after
  */
 function anva_sidebar_layout_after_default() {
 	if ( is_page() ) {

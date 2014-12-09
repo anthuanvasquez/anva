@@ -1,25 +1,29 @@
-<?php get_header(); ?>
-
 <?php
-	$classes = '';
-	$sidebar = anva_get_post_meta( '_sidebar_column' );
+/**
+ * The template file for page.
+ */
 
-	if ( 'left' == $sidebar || 'right' == $sidebar ) {
-		$classes = 'content-area col-sm-8';
+$classes = '';
+$sidebar = anva_get_post_meta( '_sidebar_column' );
 
-	} elseif ( 'double' == $sidebar || 'double_left' == $sidebar || 'double_right' == $sidebar  ) {
-		$classes = 'content-area col-sm-6';
+if ( 'left' == $sidebar || 'right' == $sidebar ) {
+	$classes = 'col-sm-8';
 
-	} elseif ( 'fullwidth' ) {
-		$classes = 'content-area col-sm-12';
-	}
+} elseif ( 'double' == $sidebar || 'double_left' == $sidebar || 'double_right' == $sidebar  ) {
+	$classes = 'col-sm-6';
+
+} elseif ( 'fullwidth' == $sidebar ) {
+	$classes = 'col-sm-12';
+}
+
+get_header();
 ?>
 
 <div class="row grid-columns">
 
 	<?php anva_sidebar_layout_before(); ?>
 
-	<div class="<?php echo esc_html( $classes ); ?>">
+	<div class="content-area <?php echo esc_attr($classes); ?>">
 		<div class="main">
 
 			<?php anva_post_before(); ?>

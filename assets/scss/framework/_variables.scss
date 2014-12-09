@@ -3,7 +3,8 @@
 $configuration: (
 	font-size: 14px,
 	line-height: 1.5,
-	layout: 12,	
+	layout: 12,
+	min-width: 320px,
 	max-width: 1000px,
 	padding: 20px,
 	border-radius: 4px,
@@ -103,6 +104,7 @@ $padding: config(padding);
 
 // Neat
 // ------------------------------------------------
+$min-width: config(min-width) !default;
 $max-width: config(max-width) !default;
 $grid-columns: config(layout) !default;
 $border-box-sizing: false !default;

@@ -43,13 +43,14 @@ function dropcap_func( $atts, $content ) {
 function button_func( $atts, $content )  {
 	extract( shortcode_atts( array(
 		'href' => '#',
-		'align' => '',
-		'bg' => '',
-		'text' => '',
+		'align' => 'none',
 		'color' => '',
 		'size' => 'btn-sm',
 		'target' => '_self',
 	), $atts ));
+
+	$bg = '';
+	$text = '';
 
 	if ( ! empty( $color ) ) {
 		switch( strtolower( $color ) ) {
@@ -96,16 +97,16 @@ function button_func( $atts, $content )  {
 		}
 	}
 	
-	if ( !empty( $bg ) ) {
+	if ( ! empty( $bg ) ) {
 		$border = $bg;
 	} else {
 		$border = 'transparent';
 	}
 	
 	if ( ! empty( $bg ) ) { 
-		$html = '<a class="btn ' . $size . ' ' . $align . '" style="background-color:' . $bg . ';border:1px solid ' . $border . ';color:' . $text . ';' . $style . '"';
+		$html = '<a class="btn ' . $size . ' align' . $align . '" style="background-color:' . $bg . ';border:1px solid ' . $border . ';color:' . $text . ';"';
 	} else {
-		$html = '<a class="btn ' . $size . ' ' . $align . '"';
+		$html = '<a class="btn ' . $size . ' align' . $align . '"';
 	}
 	
 	if ( ! empty( $href ) ) {
@@ -125,7 +126,7 @@ function column_six_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-6 '. $class .'">'. $content . '</div>';
+	$html = '<div class="grid_6 '. $class .'">'. $content . '</div>';
 	return $html;
 }
 
@@ -137,7 +138,7 @@ function column_six_last_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-6 grid-last '. $class .'">'. $content . '</div><div class="clearfixfix"></div>';
+	$html = '<div class="grid_6 grid_last '. $class .'">'. $content . '</div><div class="clearfixfix"></div>';
 	return $html;
 }
 
@@ -149,7 +150,7 @@ function column_four_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-4 '. $class .'">'. $content . '</div>';
+	$html = '<div class="grid_4 '. $class .'">'. $content . '</div>';
 	return $html;
 }
 
@@ -161,7 +162,7 @@ function column_four_last_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-4 grid-last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
+	$html = '<div class="grid_4 grid_last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
 	return $html;
 }
 
@@ -173,7 +174,7 @@ function column_three_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-3 '. $class .'">'. $content . '</div>';
+	$html = '<div class="grid_3 '. $class .'">'. $content . '</div>';
 	return $html;
 }
 
@@ -185,7 +186,7 @@ function column_three_last_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-3 grid-last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
+	$html = '<div class="grid_3 grid_last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
 	return $html;
 }
 
@@ -197,7 +198,7 @@ function column_two_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-2 '. $class .'">'. $content . '</div>';
+	$html = '<div class="grid_2 '. $class .'">'. $content . '</div>';
 	return $html;
 }
 
@@ -209,7 +210,7 @@ function column_two_last_func( $atts, $content ) {
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-2 grid-last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
+	$html = '<div class="grid_2 grid_last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
 	return $html;
 }
 
@@ -221,7 +222,7 @@ function column_one_func( $atts, $content ) {
 	extract( shortcode_atts( array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid-1 '. $class .'">' . $content . '</div>';
+	$html = '<div class="grid_1 '. $class .'">' . $content . '</div>';
 	return $html;
 }
 
@@ -233,7 +234,7 @@ function column_one_last_func( $atts, $content ) {
 	extract( shortcode_atts( array(
 		'class' => '',
 	), $atts ));
-	$html  = '<div class="grid-1 grid-last '. $class .'">' . $content . '</div>';
+	$html  = '<div class="grid_1 grid_last '. $class .'">' . $content . '</div>';
 	$html .= '<div class="clearfixfix"></div>';
 	return $html;
 }

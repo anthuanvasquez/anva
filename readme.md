@@ -26,8 +26,7 @@ Framework usado para construir temas de WordPress de una forma rápida, robusta 
   * Double Sidebars
   * Double Sidebars Right
   * Double Sidebars Left
-* Sprite de iconos para social media
-* Responsive Resolutions (980, 768, 480, 320)
+* Fully Responsive (980, 768, 480, 320)
 
 ### Plugins Sugeridos
 * [WordPress SEO by Yoast](https://wordpress.org/plugins/wordpress-seo/)

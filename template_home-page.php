@@ -33,7 +33,7 @@ get_header();
 		<div class="sidebar-inner">
 			<div class="widget-area widget-area-home">
 				<div class="grid-columns">
-					<?php if ( dynamic_sidebar( 'home-sidebar' ) ) : endif; ?>
+					<?php if ( dynamic_sidebar( 'homepage' ) ) : endif; ?>
 				</div><!-- .grid-columns (end) -->
 			</div>
 		</div>
