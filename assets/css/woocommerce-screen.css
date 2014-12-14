@@ -133,6 +133,8 @@ div.product-meta-wrapper {
           box-shadow: none;
   display: block;
   margin: 0 auto 10px;
+  max-height: 200px;
+  width: auto;
 }
 .woocommerce ul.products li.product a:hover img,
 .woocommerce-page ul.products li.product a:hover img {
@@ -141,12 +143,11 @@ div.product-meta-wrapper {
 }
 .woocommerce ul.products li.product h3,
 .woocommerce-page ul.products li.product h3 {
-  border-bottom: 2px solid #2acbf5;
   color: #333333;
   font-size: 14px;
   font-weight: 400;
   margin: 0 0 10px;
-  padding: 0 0 10px;
+  padding: 0;
 }
 .woocommerce ul.products li.product span.price,
 .woocommerce-page ul.products li.product span.price {
@@ -201,7 +202,6 @@ div.product-meta-wrapper {
 }
 .home .woocommerce ul.products li.product, .home
 .woocommerce-page ul.products li.product {
-  clear: none;
   float: left;
   display: block;
   margin-right: 2.12766%;
@@ -287,12 +287,12 @@ div.product-meta-wrapper {
 .woocommerce-page .cart-collaterals .cross-sells li.product:last-child {
   margin-right: 0;
 }
-.woocommerce .cart-collaterals .cross-sells li.product:nth-child(3n),
-.woocommerce-page .cart-collaterals .cross-sells li.product:nth-child(3n) {
+.woocommerce .cart-collaterals .cross-sells li.product:nth-child(2n),
+.woocommerce-page .cart-collaterals .cross-sells li.product:nth-child(2n) {
   margin-right: 0;
 }
-.woocommerce .cart-collaterals .cross-sells li.product:nth-child(3n+1),
-.woocommerce-page .cart-collaterals .cross-sells li.product:nth-child(3n+1) {
+.woocommerce .cart-collaterals .cross-sells li.product:nth-child(2n+1),
+.woocommerce-page .cart-collaterals .cross-sells li.product:nth-child(2n+1) {
   clear: left;
 }
 .woocommerce div.product div.images,
@@ -368,6 +368,19 @@ div.product-meta-wrapper {
   bottom: 0;
   width: 0;
   height: 0;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li a,
+.woocommerce #content div.product .woocommerce-tabs ul.tabs li a,
+.woocommerce-page div.product .woocommerce-tabs ul.tabs li a,
+.woocommerce-page #content div.product .woocommerce-tabs ul.tabs li a {
+  color: #888;
+  text-shadow: none;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover,
+.woocommerce #content div.product .woocommerce-tabs ul.tabs li a:hover,
+.woocommerce-page div.product .woocommerce-tabs ul.tabs li a:hover,
+.woocommerce-page #content div.product .woocommerce-tabs ul.tabs li a:hover {
+  color: inherit;
 }
 .woocommerce div.product .woocommerce-tabs .panel,
 .woocommerce #content div.product .woocommerce-tabs .panel,
@@ -464,8 +477,9 @@ div.product-meta-wrapper {
   background: #2acbf5;
   background-image: none;
   font-size: 1em;
+  height: 40px;
   margin: 0;
-  padding: 1em;
+  padding: 8px;
   text-shadow: none;
 }
 .woocommerce div.product form.cart .button:hover,
@@ -490,7 +504,7 @@ div.product-meta-wrapper {
 .woocommerce #respond .woocommerce-page #content div.product form.cart input#submit:hover,
 .woocommerce-page #content div.product form.cart #respond input#submit:hover,
 .woocommerce-page #respond #content div.product form.cart input#submit:hover {
-  background: #12c5f4;
+  background: #0bbdeb;
 }
 .woocommerce div.product form.cart div.quantity,
 .woocommerce #content div.product form.cart div.quantity,
@@ -799,6 +813,27 @@ div.product-meta-wrapper {
 .woocommerce td.product-name dl.variation dd p:last-child,
 .woocommerce-page td.product-name dl.variation dd p:last-child {
   margin: 0;
+}
+.woocommerce .variations_form .variations td.label,
+.woocommerce-page .variations_form .variations td.label {
+  color: #333333;
+  font-size: 14px;
+}
+.woocommerce #reviews h3,
+.woocommerce-page #reviews h3 {
+  margin-bottom: 5px;
+}
+.woocommerce #reviews #comments ol.commentlist,
+.woocommerce-page #reviews #comments ol.commentlist {
+  padding-left: 0;
+}
+.woocommerce #reviews #comments ol.commentlist li img.avatar,
+.woocommerce-page #reviews #comments ol.commentlist li img.avatar {
+  width: 70px;
+}
+.woocommerce #reviews #comments ol.commentlist li .comment-text,
+.woocommerce-page #reviews #comments ol.commentlist li .comment-text {
+  margin: 0 0 0 85px;
 }
 
 div.cart_totals h2,

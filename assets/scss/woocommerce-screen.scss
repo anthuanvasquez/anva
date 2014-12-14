@@ -25,8 +25,8 @@ div.product-meta-wrapper {
 			@include woocommerce-product(
 				$border: 1px solid #eee,
 				$padding: 10px,
-				$margin-bottom: 20px, // margin bottom
-				$min-height: 0, // 360px
+				$margin-bottom: 20px,
+				$min-height: 0,
 				$trans: false
 			);
 
@@ -41,8 +41,8 @@ div.product-meta-wrapper {
 					box-shadow: none;
 					display: block;
 					margin: 0 auto 10px;
-					// max-height: 190px;
-					// width: auto;
+					max-height: 200px;
+					width: auto;
 				}
 
 				&:hover {
@@ -53,12 +53,11 @@ div.product-meta-wrapper {
 			}
 
 			h3 {
-				border-bottom: 2px solid color(primary);
 				color: $base-font-color;
 				font-size: $base-font-size;
 				font-weight: 400;
 				margin: 0 0 10px;
-				padding: 0 0 10px;
+				padding: 0;
 			}
 
 			span.price {
@@ -113,14 +112,13 @@ div.product-meta-wrapper {
 			}
 
 			.home & {
-				clear: none;
 				@include span-columns(3);
 				@include nth-child(4n, right);
 			}
 
-		} // li.product (end) //
+		} // li.product (end)
 
-	} // ul.products (end) //
+	} // ul.products (end)
 
 	// On Sale Products
 	span.onsale {
@@ -164,7 +162,7 @@ div.product-meta-wrapper {
 		.cross-sells {
 			li.product {
 				@include span-columns(6);
-				@include nth-child(3n, right);
+				@include nth-child(2n, right);
 			}
 		}
 	}
@@ -225,6 +223,14 @@ div.product-meta-wrapper {
 						width: 0;
 						height: 0;
 					}
+
+					a {
+						color: #888;
+						text-shadow: none;
+						&:hover {
+							color: inherit;
+						}
+					}
 				}
 			}
 
@@ -233,7 +239,7 @@ div.product-meta-wrapper {
 				margin: 0 0 2em;
 				padding: $padding;
 			}
-		} // .woocommerce-tabs (end) //
+		} // .woocommerce-tabs (end)
 
 		p.price,
 		span.price {
@@ -271,12 +277,13 @@ div.product-meta-wrapper {
 				background: color(primary);
 				background-image: none;
 				font-size: 1em;
+				height: 40px;
 				margin: 0;
-				padding: 1em;
+				padding: 8px;
 				text-shadow: none;
 
 				&:hover {
-					background: darken(color(primary), 5%);
+					background: darken(color(primary), 8%);
 				}
 			}
 
@@ -470,11 +477,40 @@ div.product-meta-wrapper {
 		}
 	}
 		
-	// Cart Variation P
+	// Cart Variation
 	td.product-name {
 		dl.variation {
 			dd p:last-child {
 				margin: 0;
+			}
+		}
+	}
+
+	.variations_form {
+		.variations {
+			td.label {
+				color: color(base);
+				font-size: config(font-size);
+			}
+		}
+	}
+
+	#reviews {
+		h3 {
+			margin-bottom: 5px;
+		}
+
+		#comments {
+			ol.commentlist {
+				padding-left: 0;
+				li {
+					img.avatar {
+						width: 70px;
+					}
+					.comment-text {
+						margin: 0 0 0 85px;
+					}
+				}
 			}
 		}
 	}
