@@ -225,6 +225,18 @@ function anva_post_nav() {
 }
 
 /**
+ * Add class to posts_link_next() and previous.
+ */
+function anva_posts_link_attr() {
+	return 'class="btn btn-default button-link"';
+}
+
+function anva_post_link_attr( $output ) {
+	$class = 'class="btn btn-default button-link"';
+	return str_replace('<a href=', '<a '. $class .' href=', $output);
+}
+
+/**
  * Pagination
  */
 function anva_pagination( $query = '' ) {
@@ -412,11 +424,11 @@ function anva_contact_form() {
  */
 function anva_get_search_form() {
 	?>
-	<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+	<form role="search" method="get" id="searchform" class="search-form" action="<?php echo home_url( '/' ); ?>">
 		<div class="input-group">
-			<input type="search" class="search-field form-control" placeholder="<?php echo anva_get_local( 'search' ); ?>" value="" name="s" title="<?php echo anva_get_local( 'search_for' ); ?>" />
+			<input type="search" id="s" class="search-field form-control" placeholder="<?php echo anva_get_local( 'search' ); ?>" value="" name="s" title="<?php echo anva_get_local( 'search_for' ); ?>" />
 			<span class="input-group-btn">
-				<button type="submit" class="btn btn-default search-submit">
+				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
 					<span class="sr-only"><?php echo anva_get_local( 'search_for' ); ?></span>
 					<i class="fa fa-search"></i>
 				</button>
@@ -431,9 +443,9 @@ function anva_get_search_form() {
  */
 function anva_get_product_search_form() {
 	?>
-	<form role="search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
+	<form role="search" method="get" id="searchform" class="search-form" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
 		<div class="input-group">
-		<input type="text" id="s" name="s" class="form-control" value="<?php echo get_search_query(); ?>"  placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
+		<input type="text" id="s" name="s" class="search-field form-control" value="<?php echo get_search_query(); ?>"  placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
 			<span class="input-group-btn">
 				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
 					<span class="sr-only"><?php echo esc_attr__( 'Search' ); ?></span>

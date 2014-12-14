@@ -14,6 +14,10 @@ if ( 'left' == $sidebar || 'right' == $sidebar ) {
 
 } elseif ( 'fullwidth' == $sidebar ) {
 	$classes = 'col-sm-12';
+
+} else {
+	$classes = 'col-sm-8';
+	
 }
 
 get_header();

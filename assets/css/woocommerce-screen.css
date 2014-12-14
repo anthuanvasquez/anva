@@ -79,7 +79,7 @@ input[type="reset"]:hover,
 input[type="button"]:hover {
   background-color: #ebebeb;
   border-color: #adadad;
-  color: #333;
+  color: #333333;
 }
 
 .btn-primary {
@@ -90,10 +90,11 @@ input[type="button"]:hover {
 }
 .btn-primary:hover {
   background: #0bb5e1;
+  border-color: #0bbdeb;
   color: #fff;
 }
 
-div.product-meta {
+div.product-meta-wrapper {
   margin: 8px 0;
 }
 
@@ -539,6 +540,7 @@ div.product-meta {
 .woocommerce-page #respond #content input#submit:hover,
 .woocommerce-page #content input.button:hover {
   background: #12c5f4;
+  border-color: #12c5f4;
   color: #fff;
 }
 .woocommerce a.added.button:before,

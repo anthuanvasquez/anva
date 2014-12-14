@@ -4,7 +4,7 @@
 @import "screen/buttons"; // need default theme buttons styles
 
 // Place SKU below price
-div.product-meta {
+div.product-meta-wrapper {
 	margin: 8px 0;
 }
 
@@ -314,6 +314,7 @@ div.product-meta {
 
 		&:hover {
 			background: darken(color(primary), 5%);
+			border-color: darken(color(primary), 5%);
 			color: #fff;
 		}
 
