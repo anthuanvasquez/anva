@@ -22,6 +22,12 @@ function anva_theme_texdomain() {
 	load_theme_textdomain( ANVA_DOMAIN, get_template_directory() . '/languages' );
 }
 
+function anva_add_theme_support() {
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
+}
+
 /**
  * Register menus.
  */
@@ -29,7 +35,7 @@ function anva_register_menus() {
 	register_nav_menus( array(
 		'primary' 	=> anva_get_local( 'menu_primary' ),
 		'secondary' => anva_get_local( 'menu_secondary' )
-	) );
+	));
 }
 
 /**
@@ -142,18 +148,6 @@ function anva_load_scripts() {
  */
 function anva_kill_version() {
 	return '';
-}
-
-/**
- * Add class to posts_link_next() and previous.
- */
-function anva_posts_link_attr() {
-	return 'class="btn button-link"';
-}
-
-function anva_post_link_attr( $output ) {
-	$class = 'class="btn button-link"';
-	return str_replace('<a href=', '<a '. $class .' href=', $output);
 }
 
 /**

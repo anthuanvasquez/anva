@@ -8,7 +8,6 @@
  * Add theme support features
  */
 function anva_theme_setup() {
-	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
 	add_theme_support( 'woocommerce' );
 }
 add_action( 'after_setup_theme', 'anva_theme_setup' );
@@ -38,15 +37,16 @@ add_filter( 'anva_footer_year', 'anva_theme_start_year' );
 /**
  * Change footer credits.
  */
-// function anva_theme_footer_credits() {
-// 	return __( 'Diseno por', 'anva' );
-// }
-// add_filter( 'anva_footer_credits', 'anva_theme_footer_credits' );
+function anva_theme_footer_credits() {
+	return __( 'Development by', 'anva' );
+}
+add_filter( 'anva_footer_credits', 'anva_theme_footer_credits' );
 
 /**
  * Change footer author.
  */
-// function anva_theme_footer_author() {
-// 	return  '<a href="'. esc_url( 'http://your-url.com/') .'">Your name</a>.';
-// }
-// add_filter( 'anva_footer_author', 'anva_theme_footer_author' );
+function anva_theme_footer_author() {
+	return  '<a href="'. esc_url( 'http://your-url.com/') .'">Your Name</a>.';
+}
+add_filter( 'anva_footer_author', 'anva_theme_footer_author' );
+add_filter( 'anva_login_author', 'anva_theme_footer_author' );

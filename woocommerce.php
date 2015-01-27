@@ -11,9 +11,7 @@ get_header();
 <div class="row grid-columns">
 	<div class="content-area col-sm-8">
 		<div class="main">
-		
-		<?php woocommerce_content(); ?>
-
+			<?php woocommerce_content(); ?>
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
@@ -23,8 +21,8 @@ get_header();
 			<div class="sidebar-wrapper col-sm-4">
 				<div class="sidebar-inner">
 					<div class="widget-area widget-area-shop">
-							<?php if ( dynamic_sidebar( 'shop-sidebar' ) ) : endif; ?>
-						</div>
+						<?php if ( dynamic_sidebar( 'shop' ) ) : endif; ?>
+					</div>
 				</div>
 			</div><!-- .sidebar-wrapper (end) -->
 			<?php
@@ -33,8 +31,8 @@ get_header();
 			<div class="sidebar-wrapper col-sm-4">
 				<div class="sidebar-inner">
 					<div class="widget-area widget-area-product">
-							<?php if ( dynamic_sidebar( 'product-sidebar' ) ) : endif; ?>
-						</div>
+						<?php if ( dynamic_sidebar( 'product' ) ) : endif; ?>
+					</div>
 				</div>
 			</div><!-- .sidebar-wrapper (end) -->
 			<?php

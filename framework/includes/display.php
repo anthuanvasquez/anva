@@ -91,6 +91,17 @@ function anva_apple_touch_icon() {
 }
 
 /*
+ * Print meta viewport
+ */
+function anva_viewport() {
+	if ( 1 == anva_get_option( 'responsive' ) ) :
+	?>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<?php
+	endif;
+}
+
+/*
  * Print custom css styles in head
  */
 function anva_custom_css() {
@@ -100,7 +111,6 @@ function anva_custom_css() {
 	if ( ! empty( $custom_css ) ) {
 		$styles = '<style type="text/css">' . $custom_css . '</style>';
 	}
-	
 	echo $styles; 
 }
 
@@ -109,12 +119,12 @@ function anva_custom_css() {
  */
 function anva_footer_text_default() {
 	printf(
-		'<p>&copy; %s <strong>%s</strong> %s %s %s <a id="gotop" href="#"><i class="fa fa-chevron-up"></i><span class="sr-only">Go Top</span></a></p>',
+		'<p>&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#"><i class="fa fa-chevron-up"></i><span class="sr-only">Go Top</span></a></p>',
 		anva_get_current_year( apply_filters( 'anva_footer_year', date( 'Y' ) ) ),
 		get_bloginfo( 'name' ),
 		anva_get_local( 'footer_copyright' ),
 		apply_filters( 'anva_footer_credits', anva_get_local( 'footer_text' ) ),
-		apply_filters( 'anva_footer_author', '<a href="'. esc_url( 'http://anthuanvasquez.com/') .'">Anthuan Vasquez</a>.' )
+		apply_filters( 'anva_footer_author', '<a href="'. esc_url( 'http://anthuanvasquez.net/') .'">Anthuan Vasquez</a>' )
 	);
 }
 
@@ -221,6 +231,8 @@ function anva_sidebar_layout_after_default() {
 			anva_sidebars( 'left', '3' );
 			anva_sidebars( 'right', '3' );
 
+		} else {
+			anva_sidebars( 'right', '3' );
 		}
 	}
 }
@@ -287,7 +299,7 @@ function anva_navigation() {
 
 /*
  * Display debug information if WP_DEBUG is enabled
- * and current user if adminsitrator 
+ * and current user caen adminsitrator 
  */
 function anva_debug_queries() {
 	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :

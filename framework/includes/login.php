@@ -37,10 +37,9 @@ function anva_login_footer() {
 	$url = 'http://anthuanvasquez.net/';
 	$author = 'Anthuan Vasquez';	
 	printf(
-		'<div id="login-footer"><p id="login-credits">&copy %s <a href="%s">%s</a> %s.</p></div>',
+		'<div id="login-footer"><p id="login-credits">&copy %1$s %2$s %3$s.</p></div>',
 		date('Y'),
-		esc_url( $url ),
-		esc_html( $author ),
+		apply_filters( 'anva_login_author', '<a href="'. esc_url( 'http://anthuanvasquez.net/') .'">Anthuan Vasquez</a>'  ),
 		anva_get_local( 'footer_copyright' )
 	);
 }

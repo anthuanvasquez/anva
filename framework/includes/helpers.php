@@ -10,9 +10,9 @@ function anva_page_menu_args( $args ) {
 
 /*
  * Body classes
+ * Adds a class of group-blog to blogs with more than 1 published author.
  */
 function anva_body_classes( $classes ) {
-	// Adds a class of group-blog to blogs with more than 1 published author.
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
@@ -214,7 +214,6 @@ function anva_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date',
 	}
 
 	echo $output;
-
 	echo '</ul>';
 }
 

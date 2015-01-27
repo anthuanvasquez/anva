@@ -25,7 +25,8 @@ function foodlist_load_scripts() {
 function anva_menu_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu" id="fl-menu-[menu_id]">
-			<div class="clear"></div>
+			<div id="menu-toc"></div>
+			<div class="clearfix"></div>
 			<ul>
 				[menu_sections]
 				<li>
