@@ -30,6 +30,7 @@ div.product-meta-wrapper {
 				$trans: false
 			);
 
+			border-radius: $border-radius;
 			@include span-columns(4);
 			
 			&:nth-child(3n) {
@@ -63,19 +64,19 @@ div.product-meta-wrapper {
 			span.price {
 				color: color(primary) !important;
 				display: block;
-				font-size: 14px !important;
+				font-size: $base-font-size !important;
 				font-weight: 400 !important;
 				margin: 0 0 8px !important;
 				text-align: center;
 
 				del {
 					color: rgba(color(primary), .5);
-					font-size: 14px !important;
-					display: block;
+					font-size: $base-font-size !important;
+					@include inline-block();
 				}
 				
 				ins {
-					display: block;
+					@include inline-block();
 					text-decoration: none;
 				}
 				
@@ -85,6 +86,7 @@ div.product-meta-wrapper {
 				display: none;
 			}
 
+			.button,
 			.add_to_cart_button {
 				background: color(primary);
 				border: 0;
@@ -111,7 +113,7 @@ div.product-meta-wrapper {
 				margin: -8px 0 0 -8px;
 			}
 
-			.home & {
+			.latest-products & {
 				@include span-columns(3);
 				@include nth-child(4n, right);
 			}

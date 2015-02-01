@@ -156,7 +156,7 @@ function anva_get_post_custom() {
 /*
  * Limit chars in string
  */
-function anva_truncate( $string, $length = 100 ) {
+function anva_truncate_string( $string, $length = 100 ) {
 	$string = trim( $string );
 	if ( strlen( $string ) <= $length) {
 		return $string;
@@ -175,7 +175,7 @@ function anva_excerpt( $length = '' ) {
 		$length = 256;
 	}
 	$string = get_the_excerpt();
-	$p = anva_truncate( $string, $length );
+	$p = anva_truncate_string( $string, $length );
 	echo wpautop( $p );
 }
 
