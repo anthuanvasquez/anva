@@ -46,7 +46,7 @@ add_filter( 'anva_footer_credits', 'anva_theme_footer_credits' );
  * Change footer author.
  */
 function anva_theme_footer_author() {
-	return  '<a href="'. esc_url( 'http://your-url.com/') .'">Your Name</a>.';
+	return  '<a href="'. esc_url( 'http://your-url.com/') .'">'. __( 'Your Name' ) .'</a>.';
 }
 add_filter( 'anva_footer_author', 'anva_theme_footer_author' );
 add_filter( 'anva_login_author', 'anva_theme_footer_author' );

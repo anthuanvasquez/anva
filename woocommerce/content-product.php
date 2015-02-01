@@ -54,8 +54,9 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
 		<?php
 			// Truncate the title is too long
 			printf(
-			'<h3 title="%1$s">' . anva_truncate( '%1$s', 25 ) . '</h3>',
-				get_the_title()
+			'<h3 title="%1$s">%2$s</h3>',
+				get_the_title(),
+				anva_truncate_string( get_the_title(), 25 )
 			);
 		?>
 
