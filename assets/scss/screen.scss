@@ -28,9 +28,12 @@
 // Modules
 @import "screen/buttons";
 @import "screen/contact";
-@import "screen/slides";
 @import "screen/spritesheets";
 @import "screen/magnific-popup";
 @import "screen/grids";
 @import "screen/helpers";
 @import "screen/animations";
+
+// Plugins
+@import "plugins/flexslider";
+@import "plugins/slick";
