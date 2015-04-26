@@ -25,13 +25,13 @@ $browser-minimum-versions: (
 // Colour Palette
 // ------------------------------------------------
 $palette: (
-	primary: 		#2acbf5,
+	primary: 		#4285f4,
 	secondary: 	#cccccc,
-	tertiary: 	#02C1F3,
+	tertiary: 	darken(#4285f4, 5%),
 	body: 			#f2f2f2,
 	base:				#333333,
 	content:  	#ffffff,
-	link: 			#3498db,
+	link: 			#4285f4,
 	meta:				#999999
 );
 

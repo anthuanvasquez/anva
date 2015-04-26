@@ -15,21 +15,17 @@
 		<footer id="footer">
 			<div class="footer-inner">
 				<div class="footer-content">
-					<div class="footer-widget">
-						<div class="grid-columns">
-							<?php if ( ! dynamic_sidebar( 'footer' ) ) : endif; ?>
-						</div>
-					</div>
+					<?php anva_footer_content(); ?>
 				</div><!-- .footer-content (end) -->
 
 				<div class="footer-copyright">
-					<?php do_action( 'anva_footer_text' ); ?>
+					<?php anva_footer_text(); ?>
 				</div><!-- .footer-copyright (end) -->
 			</div>
 		</footer><!-- #footer (end) -->
 	</div><!-- BOTTOM (end) -->
 
-</div><!-- #container (end) -->
+</div><!-- CONTAINER (end) -->
 
 <?php anva_layout_after(); ?>
 <?php wp_footer(); ?>

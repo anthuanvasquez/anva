@@ -78,6 +78,7 @@ add_action( 'anva_header_addon', 'anva_social_icons' );
 add_action( 'anva_header_addon', 'anva_site_search' );
 add_action( 'anva_header_logo', 'anva_header_logo_default' );
 add_action( 'anva_main_navigation', 'anva_main_navigation_default' );
+add_action( 'anva_footer_content', 'anva_footer_widget' );
 add_action( 'anva_footer_text', 'anva_footer_text_default' );
 add_action( 'anva_layout_before', 'anva_layout_before_default' );
 add_action( 'anva_layout_after', 'anva_layout_after_default' );

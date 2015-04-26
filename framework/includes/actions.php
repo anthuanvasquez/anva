@@ -14,6 +14,20 @@ function anva_header_addon() {
 	do_action( 'anva_header_addon' );
 }
 
+/*
+ * Footer content
+ */
+function anva_footer_content() {
+	do_action( 'anva_footer_content' );
+}
+
+/*
+ * Anva footer text
+ */
+function anva_footer_text() {
+	do_action( 'anva_footer_text' );
+}
+
 /**
  * Header main navigation
  */

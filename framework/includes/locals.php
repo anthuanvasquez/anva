@@ -144,11 +144,24 @@ function anva_get_local( $id ) {
  * Get all js locals
  */
 function anva_get_js_locals() {
+
+	$foodlist = 0;
+	$woocommerce = 0;
+
+	if ( defined( 'FOODLIST_VERSION' )) {
+		$foodlist = 1;
+	}
+
+	if ( class_exists( 'Woocommerce' )) {
+		$woocommerce = 1;
+	}
 	
 	$localize = array(
 		'ajax_url' => admin_url( 'admin-ajax.php' ),
 		'theme_url' => get_template_directory_uri(),
-		'theme_images' => get_template_directory_uri() . '/assets/images'
+		'theme_images' => get_template_directory_uri() . '/assets/images',
+		'plugin_foodlist' => $foodlist,
+		'plugin_woocommerce' => $woocommerce
 	);
 
 	return apply_filters( 'anva_get_js_locals', $localize );

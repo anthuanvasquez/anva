@@ -36,7 +36,7 @@ function anva_header_logo_default() {
  */
 function anva_main_navigation_default() {
 	?>
-	<a href="#" id="mobile-toggle" class="mobile-toggle">
+	<a href="#" id="mobile-toggle" class="mobile-toggle" title="<?php echo anva_get_local( 'menu' ); ?>">
 		<i class="fa fa-bars"></i>
 		<span class="sr-only"><?php echo anva_get_local( 'menu' ); ?></span>
 	</a>
@@ -112,6 +112,19 @@ function anva_custom_css() {
 		$styles = '<style type="text/css">' . $custom_css . '</style>';
 	}
 	echo $styles; 
+}
+
+/*
+ * Display footer widgets
+ */
+function anva_footer_widget() {
+	?>
+	<div class="footer-widget">
+		<div class="grid-columns">
+			<?php if ( ! dynamic_sidebar( 'footer' ) ) : endif; ?>
+		</div>
+	</div>
+	<?php
 }
 
 /*
@@ -230,9 +243,6 @@ function anva_sidebar_layout_after_default() {
 		} elseif ( 'double_right' == $sidebar ) {
 			anva_sidebars( 'left', '3' );
 			anva_sidebars( 'right', '3' );
-
-		} else {
-			anva_sidebars( 'right', '3' );
 		}
 	}
 }
@@ -240,7 +250,7 @@ function anva_sidebar_layout_after_default() {
 /*
  * Change navigation
  */
-function anva_navigation() {	
+function anva_navigation() {
 	$nav = anva_get_option( 'navigation' );
 	switch( $nav ) :
 	case 'off_canvas_navigation': ?>

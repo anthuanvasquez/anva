@@ -33,8 +33,8 @@ function dropcap_func( $atts, $content ) {
 	$first_char = substr( $content, 0, 1 );
 	$text_len 	= strlen( $content );
 	$rest_text 	= substr( $content, 1, $text_len );
-	$html  = '<span class="dropcap">' . $first_char . '</span>';
-	$html .= wpautop( $rest_text );
+	$html  			= '<span class="dropcap">' . $first_char . '</span>';
+	$html 		 .= wpautop( $rest_text );
 	return $html;
 }
 /*

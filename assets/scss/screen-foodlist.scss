@@ -1,7 +1,5 @@
 @import "bourbon";
-@import "functions";
-@import "variables";
-@import "mixins";
+@import "framework";
 @import "neat";
 
 div#menu-toc {
@@ -11,8 +9,7 @@ div#menu-toc {
 nav.table-of-contents {
 	background: #fff;
 	border-radius: 4px 0 0 0;
-	box-shadow: 0 0 0 1px rgba(#ddd, .6);
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 
 	h2 {
 		margin: 0;
@@ -71,6 +68,12 @@ nav.table-of-contents {
 		margin-bottom: 14px;
 	}
 
+}
+
+article.fl-menu {
+	border-radius: 0;
+	box-shadow: none;
+	overflow: auto;
 }
 
 .fl-menu-item {
@@ -136,6 +139,10 @@ nav.table-of-contents {
 		margin-bottom: 14px;
 	}
 
+}
+
+article.fl-menu-section {
+	padding: 0;
 }
 
 div.fl-thumbnail {
