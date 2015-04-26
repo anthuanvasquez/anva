@@ -27,7 +27,7 @@ function anva_get_image_sizes() {
 		'blog_medium' => array(
 			'name' 		=> __( 'Blog Medium', ANVA_DOMAIN ),
 			'width' 	=> 320,
-			'height'	=> 9999,
+			'height'	=> 320,
 			'crop' 		=> false
 		),
 		'blog_small' => array(

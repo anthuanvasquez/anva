@@ -16,7 +16,8 @@ function anva_foodlist_setup() {
  * Foodlist front end scripts
  */
 function foodlist_load_scripts() {
-	wp_enqueue_style( 'foodlist-screen', get_template_directory_uri() . '/assets/css/foodlist-screen.css' );
+	wp_dequeue_style( 'foodlist-frontend' );
+	wp_enqueue_style( 'foodlist-screen', get_template_directory_uri() . '/assets/css/screen-foodlist.css' );
 }
 
 /*

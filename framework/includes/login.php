@@ -13,7 +13,7 @@ add_filter( 'login_headerurl', 'anva_login_logo_url' );
  * Custom login stylesheet.
  */
 function anva_login_stylesheet() {
-	wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/assets/css/login.css', array(), '', 'all' );
+	wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/assets/css/screen-login.css', array(), '', 'all' );
 }
 
 /**

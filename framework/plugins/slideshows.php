@@ -13,39 +13,44 @@ function anva_slideshows_setup() {
 	add_shortcode( 'slideshows', 'anva_slideshows_shortcode' );
 }
 
-function anva_slideshows() {
+function anva_get_slideshows() {
 	
 	$args = array();
 	$slider_speed = anva_get_option( 'slider_speed' );
 	$slider_control = anva_get_option( 'slider_control' );
 	$slider_direction = anva_get_option( 'slider_direction' );
 	$slider_play = anva_get_option( 'slider_play' );
+	$slide_animation = 'slide';
+	$slide_animation_speed = '1000';
 
 	// Main Slider
 	$args['homepage'] = array(
 		'size' 		=> 'slider_large',
-		'options' => "
-			animation: 'fade',
-			animationSpeed: 1000,
-			slideshowSpeed: '$slider_speed',
-			controlNav: ( $slider_control == 1 ? true : false ),
-			directionNav: ( $slider_direction == 1 ? true : false ) ,
-			pausePlay: ( $slider_play == 1 ? true : false ),
-			pauseText: '',
-			playText: '',
-			prevText: '',
-			nextText: '',
-			useCSS: true,
-			touch: true,
-			video: true,
-			start: function(slider) {
-				slider.removeClass('loading');
-			}
-	");
+		'type'		=> 'slick',
+		// 'options' => "
+		// 	animation: '$slide_animation',
+		// 	animationSpeed: '$slide_animation_speed',
+		// 	slideshowSpeed: '$slider_speed',
+		// 	controlNav: ( $slider_control == 1 ? true : false ),
+		// 	directionNav: ( $slider_direction == 1 ? true : false ) ,
+		// 	pausePlay: ( $slider_play == 1 ? true : false ),
+		// 	pauseText: '',
+		// 	playText: '',
+		// 	prevText: '',
+		// 	nextText: '',
+		// 	useCSS: true,
+		// 	touch: true,
+		// 	video: true,
+		// 	start: function(slider) {
+		// 		slider.removeClass('loading');
+		// 	}
+		// "
+	);
 
 	// Attachments Slider	
 	$args['attachments'] = array(
 		'size' => 'blog_large',
+		'type' => 'flexslider',
 		'options' => "
 			controlNav: false,
 			directionNav: true,
@@ -54,7 +59,8 @@ function anva_slideshows() {
 			start: function(slider) {
 				slider.removeClass('loading');
 			}
-	");
+		"
+	);
 	
 	return apply_filters( 'anva_slideshows', $args );
 }
@@ -111,13 +117,13 @@ function anva_slideshows_admin_icon() {
 function anva_slideshows_featured( $slug ) {
 	
 	// Get slides area
-	$rotators = anva_slideshows();
+	$slideshows = anva_get_slideshows();
 	
 	// Set args
-	$image_size = isset( $rotators[$slug]['size'] ) ? $rotators[$slug]['size'] : 'large';
-	$orderby = isset( $rotators[$slug]['orderby'] ) ? $rotators[$slug]['orderby'] : "menu_order";
-	$order 	 = isset( $rotators[$slug]['order'] ) ? $rotators[$slug]['order'] : "ASC";
-	$limit 	 = isset( $rotators[$slug]['limit'] ) ? $rotators[$slug]['limit'] : "-1";
+	$image_size = isset( $slideshows[$slug]['size'] ) ? $slideshows[$slug]['size'] : 'large';
+	$orderby = isset( $slideshows[$slug]['orderby'] ) ? $slideshows[$slug]['orderby'] : "menu_order";
+	$order 	 = isset( $slideshows[$slug]['order'] ) ? $slideshows[$slug]['order'] : "ASC";
+	$limit 	 = isset( $slideshows[$slug]['limit'] ) ? $slideshows[$slug]['limit'] : "-1";
 
 	// Default Query Args
 	$query_args = array(
@@ -142,17 +148,17 @@ function anva_slideshows_featured( $slug ) {
 	// Output
 	$html = "";
 	
-	query_posts( apply_filters( 'anva_slideshows_query_args', $query_args) );
+	$the_query = anva_get_post_query( apply_filters( 'anva_slideshows_query_args', $query_args ) );
 
-	if ( have_posts() ) {
+	if ( $the_query->have_posts() ) {
 		$html .= '<div id="slider">';
 		$html .= '<div id="slider_wrapper_' . $slug . '" class="slider-wrapper slider-wrapper-' . $slug . '">';
 		$html .= '<div id="slider_inner_' . $slug . '" class="slider-inner slider-inner-' . $slug . '">';
 		$html .= '<ul class="slides">';
 		
-		while ( have_posts() ) {
+		while ( $the_query->have_posts() ) {
 
-			the_post();
+			$the_query->the_post();
 			
 			$meta = anva_get_post_custom();
 
@@ -224,23 +230,41 @@ function anva_slideshows_featured( $slug ) {
 	// Reset wp query
 	wp_reset_query();
 
-	// Call Flexslider
-	$html .= '<script>';
-	$html .= 'jQuery(document).ready(function() {';
-	$html .= "jQuery('#slider_inner_{$slug}').addClass('loading');";
-	$html .= "jQuery('#slider_inner_{$slug}').flexslider({";
+	// Init Flexslider
+	if ( 'flexslider' == $slideshows[$slug]['type'] ) {
+
+		wp_enqueue_script( 'flexslider-js', get_template_directory_uri() . '/assets/js/vendor/jquery.flexslider.min.js', array( 'jquery' ), '', true );
+
+		$html .= '<script>';
+		$html .= 'jQuery(document).ready(function() {';
+		$html .= "jQuery('#slider_inner_{$slug}').addClass('loading');";
+		$html .= "jQuery('#slider_inner_{$slug}').flexslider({";
+			
+		if ( isset( $slideshows[$slug]['options'] ) && $slideshows[$slug]['options'] != "" ) { 
+			$html .= $slideshows[$slug]['options'];
+		} else {
+			$html .="prevText: '', nextText: '',";
+			$html .="start: function(slider){ slider.removeClass('loading'); }";
+		}
 		
-	if ( isset( $rotators[$slug]['options'] ) && $rotators[$slug]['options'] != "" ) { 
-		$html .= $rotators[$slug]['options'];
-	} else {
-		$html .="prevText: '', nextText: '',";
-		$html .="start: function(slider){ slider.removeClass('loading'); }";
+		$html .= "});";
+		$html .= "});";
+		$html .= '</script>';
+
+	} elseif( 'slick' == $slideshows[$slug]['type'] ) {
+
+		wp_enqueue_script( 'slick-js', get_template_directory_uri() . '/assets/js/vendor/slick.min.js', array( 'jquery' ), '', true );
+
+		$html .= '<script>';
+		$html .= 'jQuery(document).ready(function() {';
+		$html .= "jQuery('#slider_inner_{$slug} .slides').slick({";
+		$html .= "autoplay: true, autoplaySpeed: 7000, dots: true";
+		$html .= "});";
+		$html .= "});";
+		$html .= '</script>';
+
 	}
-	
-	$html .= "});";
-	$html .= "});";
-	$html .= '</script>';
-	
+
 	return $html;
 }
 
@@ -265,7 +289,7 @@ function anva_slideshows_metabox() {
 	
 	global $post;	
 		
-	$rotators 				= anva_slideshows();
+	$slideshows 			= anva_get_slideshows();
 	$meta 						= anva_get_post_custom();
 	$slider_id		 		= ( isset( $meta['_slider_id'][0] ) ? $meta['_slider_id'][0] : '' );
 	$slider_link_url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
@@ -286,9 +310,9 @@ function anva_slideshows_metabox() {
 				<label for="slider_id"><?php echo anva_get_local( 'slide_area' ); ?>:</label>
 			</th>
 			<td>
-				<?php if ( $rotators ) : ?>
+				<?php if ( $slideshows ) : ?>
 					<select name="slider_id" style="width:99%;text-transform:capitalize;">
-						<?php foreach ( $rotators as $rotator => $size ) : ?>
+						<?php foreach ( $slideshows as $rotator => $size ) : ?>
 							<option value="<?php echo esc_attr( $rotator ); ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator; ?></option>
 						<?php endforeach; ?>
 					</select>

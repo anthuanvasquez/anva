@@ -12,6 +12,7 @@
 nav.navigation {
 	background: color(tertiary);
 	border-radius: $border-radius;
+	box-shadow: inset 0px -1px 1px rgba(black, .25), 0px 1px 0px rgba(black, .15);
 	position: relative;
 }
 

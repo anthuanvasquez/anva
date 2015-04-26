@@ -8,7 +8,6 @@ function anva_shortcodes_setup() {
 	add_shortcode( 'dropcap', 'dropcap_func' );
 	add_shortcode( 'button', 'button_func' );
 	add_shortcode( 'toggle', 'toggle_func' );
-	
 	add_shortcode( 'column_six', 'column_six_func' );
 	add_shortcode( 'column_six_last', 'column_six_last_func' );	
 	add_shortcode( 'column_four', 'column_four_func' );
@@ -33,10 +32,11 @@ function dropcap_func( $atts, $content ) {
 	$first_char = substr( $content, 0, 1 );
 	$text_len 	= strlen( $content );
 	$rest_text 	= substr( $content, 1, $text_len );
-	$html  = '<span class="dropcap">' . $first_char . '</span>';
-	$html .= wpautop( $rest_text );
+	$html  			= '<span class="dropcap">' . $first_char . '</span>';
+	$html 		 .= wpautop( $rest_text );
 	return $html;
 }
+
 /*
  * Buttons
  */
@@ -246,13 +246,21 @@ function toggle_func( $atts, $content ) {
 	$content = wpautop( trim( $content ) );
 	extract( shortcode_atts( array(
 		'title' => __( 'Click para Abrir', ANVA_DOMAIN ),
-		'color' => ''
+		'id' => 'default',
+		'collapse' => '',
+		''
 	), $atts ));
-	$html  = '<div class="toggle-container">';
-	$html .= '<h3 class="toggle-trigger toggle-'. $color .'">';
-	$html .= '<a href="#">'. $title .'</a>';
-	$html .= '</h3>';
-	$html .= '<div class="toggle-info">'. $content . '</div>';
+	$html  = '<div class="panel-group">';
+	$html .= '<div class="panel panel-default">';
+	$html .= '<div class="panel-heading">';
+	$html .= '<h4 class="panel-title">';
+	$html .= '<a href="#'. $id .'" data-toggle="collapse">'. $title .'</a>';
+	$html .= '</h4>';
 	$html .= '</div>';
+	$html .= '<div id="'. $id .'" class="panel-collapse collapse">';
+	$html .= '<div class="panel-body">'. $content . '</div>';
+	$html .= '</div>';
+	$html .= '</div>';
+	$html .= '</div>';	
 	return $html;
 }

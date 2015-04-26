@@ -194,7 +194,7 @@
 		z-index: 10;
 		overflow: hidden;
 		cursor: pointer;
-		color: #000;
+		color: #fff;
 
 		&:before {
 			@include font-stack-icon();
@@ -215,10 +215,13 @@
 
 // Control Nav
 .flex-control-nav {
-	background: #f2f2f2;
 	padding: 8px;
 	line-height: 11px;
 	width: 100%;
+	position: absolute;
+  bottom: 0;
+  z-index: 1;
+  text-align: center;
 
 	li {
 		@include inline-block();
@@ -232,17 +235,18 @@
 		width: 11px;
 		height: 11px; 
 		display: block; 
-		background: rgba(black, .4);
+		background: rgba(white, .6);
+		box-shadow: 0 0 1px rgba(black, .8);
 		cursor: pointer; 
 		text-indent: -9999px;
 		border-radius: 50%;
 
 		&:hover {
-			background: rgba(black, .8);
+			background: rgba(white, 1);
 		}
 
 		&.flex-active { 
-			background: rgba(black, .8);
+			background: rgba(white, 1);
 			cursor: default;
 		}
 	}
