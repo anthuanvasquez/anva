@@ -36,7 +36,7 @@ function anva_header_logo_default() {
  */
 function anva_main_navigation_default() {
 	?>
-	<a href="#" id="mobile-toggle" class="mobile-toggle" title="<?php echo anva_get_local( 'menu' ); ?>">
+	<a href="#" id="mobile-toggle" class="mobile-toggle" data-toggle="tooltip" data-placement="right" title="<?php echo anva_get_local( 'menu' ); ?>">
 		<i class="fa fa-bars"></i>
 		<span class="sr-only"><?php echo anva_get_local( 'menu' ); ?></span>
 	</a>

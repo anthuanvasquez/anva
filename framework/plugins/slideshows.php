@@ -25,8 +25,9 @@ function anva_get_slideshows() {
 
 	// Main Slider
 	$args['homepage'] = array(
-		'size' 		=> 'slider_large',
-		'type'		=> 'slick',
+		'name' => 'Homepage',
+		'size' => 'slider_large',
+		'type' => 'slick',
 		// 'options' => "
 		// 	animation: '$slide_animation',
 		// 	animationSpeed: '$slide_animation_speed',
@@ -49,6 +50,7 @@ function anva_get_slideshows() {
 
 	// Attachments Slider	
 	$args['attachments'] = array(
+		'name' => 'Attachments',
 		'size' => 'blog_large',
 		'type' => 'flexslider',
 		'options' => "
@@ -312,8 +314,8 @@ function anva_slideshows_metabox() {
 			<td>
 				<?php if ( $slideshows ) : ?>
 					<select name="slider_id" style="width:99%;text-transform:capitalize;">
-						<?php foreach ( $slideshows as $rotator => $size ) : ?>
-							<option value="<?php echo esc_attr( $rotator ); ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator; ?></option>
+						<?php foreach ( $slideshows as $slide => $item ) : ?>
+							<option value="<?php echo esc_attr( $slide ); ?>" <?php selected( $slider_id, $slide, true ); ?>><?php echo $item['name']; ?></option>
 						<?php endforeach; ?>
 					</select>
 				<?php else : ?>

@@ -35,6 +35,13 @@
 		padding-right: 20px;
 		padding-left: 20px;
 	}
+
+	@if config(boxed) != true {
+		#featured {
+			padding-right: 0;
+			padding-left: 0;
+		}
+	}
 	
 	/*
 	 * Header

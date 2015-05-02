@@ -99,6 +99,8 @@ var initialize = {
 			e.preventDefault();
 			jQuery(this).toggleClass("is-active").next().slideToggle("normal");
 		});
+		jQuery('#mobile-toggle').tooltip();
+
 	},
 
 	// ---------------------------------------------------------
