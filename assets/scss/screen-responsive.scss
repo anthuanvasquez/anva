@@ -36,6 +36,9 @@
 		padding-left: 20px;
 	}
 
+	/*
+	 * Remove padding in boxed layout
+	 */
 	@if config(boxed) != true {
 		#featured {
 			padding-right: 0;
