@@ -4,6 +4,7 @@ $configuration: (
 	font-size: 14px,
 	line-height: 1.5,
 	layout: 12,
+	logo: 200px,
 	min-width: 320px,
 	max-width: 1000px,
 	padding: 20px,
@@ -37,7 +38,7 @@ $palette: (
 
 // Font Stacks
 // ------------------------------------------------
-$font-awesome: 'FontAwesome';
+$font-awesome: "FontAwesome";
 $helvetica: 	 "Helvetica Neue", Helvetica, Arial, sans-serif;
 $georgia: 		 Georgia, Times, "Times New Roman", serif;
 
@@ -99,7 +100,7 @@ $button-padding-box: 6px 12px;
 // ------------------------------------------------
 $border-radius: config(border-radius);
 $icon-font-family: $font-awesome;
-$logo-size: 200px;
+$logo-size: config(logo);
 $padding: config(padding);
 
 // Neat
@@ -109,7 +110,7 @@ $max-width: config(max-width) !default;
 $grid-columns: config(layout) !default;
 $border-box-sizing: false !default;
 $default-feature: max-width !default;
-$gutter: 20px !default;
+$gutter: $padding !default;
 $column: 60px !default;
 
 $all-breakpoints: (

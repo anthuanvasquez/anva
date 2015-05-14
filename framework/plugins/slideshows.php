@@ -25,30 +25,32 @@ function anva_get_slideshows() {
 
 	// Main Slider
 	$args['homepage'] = array(
-		'size' 		=> 'slider_large',
-		'type'		=> 'slick',
-		// 'options' => "
-		// 	animation: '$slide_animation',
-		// 	animationSpeed: '$slide_animation_speed',
-		// 	slideshowSpeed: '$slider_speed',
-		// 	controlNav: ( $slider_control == 1 ? true : false ),
-		// 	directionNav: ( $slider_direction == 1 ? true : false ) ,
-		// 	pausePlay: ( $slider_play == 1 ? true : false ),
-		// 	pauseText: '',
-		// 	playText: '',
-		// 	prevText: '',
-		// 	nextText: '',
-		// 	useCSS: true,
-		// 	touch: true,
-		// 	video: true,
-		// 	start: function(slider) {
-		// 		slider.removeClass('loading');
-		// 	}
-		// "
+		'name' => 'Homepage',
+		'size' => 'slider_large',
+		'type' => 'flexslider',
+		'options' => "
+			animation: '$slide_animation',
+			animationSpeed: '$slide_animation_speed',
+			slideshowSpeed: '$slider_speed',
+			controlNav: ( $slider_control == 1 ? true : false ),
+			directionNav: ( $slider_direction == 1 ? true : false ) ,
+			pausePlay: ( $slider_play == 1 ? true : false ),
+			pauseText: '',
+			playText: '',
+			prevText: '',
+			nextText: '',
+			useCSS: true,
+			touch: true,
+			video: true,
+			start: function(slider) {
+				slider.removeClass('loading');
+			}
+		"
 	);
 
 	// Attachments Slider	
 	$args['attachments'] = array(
+		'name' => 'Attachments',
 		'size' => 'blog_large',
 		'type' => 'flexslider',
 		'options' => "
@@ -165,7 +167,7 @@ function anva_slideshows_featured( $slug ) {
 			$url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
 			$data = ( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
 
-			$a_tag_opening = '<a href="' . $url . '" title="' . the_title_attribute( array( 'echo' => false ) ) . '" >';
+			$a_tag_opening = '<a href="' . $url . '">';
 						
 			$html .= '<li>';
 			$html .= '<div id="slide-' . get_the_ID() . '" class="slide slide-'. get_the_ID() .' slide-type-image">';
@@ -251,6 +253,7 @@ function anva_slideshows_featured( $slug ) {
 		$html .= "});";
 		$html .= '</script>';
 
+	// Init Slick JS
 	} elseif( 'slick' == $slideshows[$slug]['type'] ) {
 
 		wp_enqueue_script( 'slick-js', get_template_directory_uri() . '/assets/js/vendor/slick.min.js', array( 'jquery' ), '', true );
@@ -312,8 +315,8 @@ function anva_slideshows_metabox() {
 			<td>
 				<?php if ( $slideshows ) : ?>
 					<select name="slider_id" style="width:99%;text-transform:capitalize;">
-						<?php foreach ( $slideshows as $rotator => $size ) : ?>
-							<option value="<?php echo esc_attr( $rotator ); ?>" <?php selected( $slider_id, $rotator, true ); ?>><?php echo $rotator; ?></option>
+						<?php foreach ( $slideshows as $slide => $item ) : ?>
+							<option value="<?php echo esc_attr( $slide ); ?>" <?php selected( $slider_id, $slide, true ); ?>><?php echo $item['name']; ?></option>
 						<?php endforeach; ?>
 					</select>
 				<?php else : ?>
