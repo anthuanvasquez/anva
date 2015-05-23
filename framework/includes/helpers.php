@@ -224,3 +224,20 @@ function anva_get_current_year( $year ) {
 	$current_year = date( 'Y' );
 	return $year . ( ( $year != $current_year ) ? ' - ' . $current_year : '' );
 }
+
+/**
+ * Compress a chunk of code to output.
+ *
+ * @param string $buffer Text to compress
+ * @return array $buffer Compressed text
+ */
+function anva_compress( $buffer ) {
+
+	// Remove comments
+	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
+
+	// Remove tabs, spaces, newlines, etc.
+	$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
+
+	return $buffer;
+}

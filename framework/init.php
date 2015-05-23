@@ -46,6 +46,7 @@ if ( is_admin() ) {
 add_action( 'init', 'anva_register_menus' );
 add_action( 'anva_texdomain', 'anva_theme_texdomain' );
 add_action( 'wp', 'anva_setup_author' );
+add_action( 'wp_enqueue_scripts', 'anva_register_scripts' );
 add_action( 'wp_enqueue_scripts', 'anva_load_scripts' );
 add_action( 'widgets_init', 'anva_register_sidebars' );
 add_action( 'widgets_init', 'anva_register_widgets' );	

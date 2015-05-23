@@ -29,6 +29,7 @@ function anva_header_logo_default() {
 		?>
 	</a>
 	<?php
+	var_dump(anva_get_theme_scripts());
 }
 
 /*

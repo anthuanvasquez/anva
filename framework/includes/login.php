@@ -34,12 +34,10 @@ function anva_login_logo_url_title() {
  * Add custom text in login footer page.
  */
 function anva_login_footer() {
-	$url = 'http://anthuanvasquez.net/';
-	$author = 'Anthuan Vasquez';	
 	printf(
 		'<div id="login-footer"><p id="login-credits">&copy %1$s %2$s %3$s.</p></div>',
 		date('Y'),
-		apply_filters( 'anva_login_author', '<a href="'. esc_url( $url ) .'">' . esc_html( $author ) . '</a>'  ),
+		apply_filters( 'anva_login_author', '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">' . esc_html( 'Anthuan Vasquez' ) . '</a>'  ),
 		anva_get_local( 'footer_copyright' )
 	);
 }

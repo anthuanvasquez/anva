@@ -38,6 +38,32 @@ function anva_register_menus() {
 	));
 }
 
+/*
+ * Get theme info
+ */
+function anva_get_theme( $id ) {
+	
+	$text = null;
+	$theme = wp_get_theme();
+
+	$data = array(
+		'name' => $theme->get( 'Name' ),
+		'uri' => $theme->get( 'ThemeURI' ),
+		'desc' => $theme->get( 'Description' ),
+		'version' => $theme->get( 'Version' ),
+		'domain' => $theme->get( 'TextDomain' ),
+		'author' => $theme->get( 'Author' ),
+		'author_uri' => $theme->get( 'AuthorURI' ),
+		
+	);
+
+	if ( isset( $data[$id]) ) {
+		$text = $data[$id];
+	}
+
+	return $text;
+}
+
 /**
  * Sidebar locations
  */
@@ -75,7 +101,6 @@ function anva_get_sidebar_locations() {
 			)
 		),
 	);
-
 	return apply_filters( 'anva_get_sidebar_locations', $locations );
 }
 
@@ -113,37 +138,146 @@ function anva_get_sidebar_args( $id, $name, $description, $classes ) {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	);
-
 	return apply_filters( 'anva_get_sidebar_args', $args );
 }
 
+/*
+ * Define theme scripts
+ */
+function anva_get_theme_scripts() {
+	$scripts = array(
+		'font-awesome' => array(
+			'handle' => 'font-awesome',
+			'src' => get_template_directory_uri() . '/assets/css/font-awesome.css',
+			'dep' => array(),
+			'ver' => '4.3.0',
+			'media' => 'all',
+			'type' => 'css',
+			'cond' => true
+		),
+		'boostrap' => array(
+			'handle' => 'boostrap',
+			'src' => get_template_directory_uri() . '/assets/css/bootstrap.css',
+			'dep' => array(),
+			'ver' => '3.3.4',
+			'media' => 'all',
+			'type' => 'css',
+			'cond' => true
+		),
+		'screen' => array(
+			'handle' => 'screen',
+			'src' => get_template_directory_uri() . '/assets/css/screen.css',
+			'dep' => array(),
+			'ver' => false,
+			'media' => 'all',
+			'type' => 'css',
+			'cond' => true
+		),
+		'responsive' => array(
+			'handle' => 'responsive',
+			'src' => get_template_directory_uri() . '/assets/css/screen-responsive.css',
+			'dep' => array( 'screen' ),
+			'ver' => false,
+			'media' => 'all',
+			'type' => 'css',
+			'cond' => ( 1 == anva_get_option( 'responsive' ) ? true : false ),
+		),
+		'bootstrap-js' => array(
+			'handle' => 'boostrap-js',
+			'src' => get_template_directory_uri() . '/assets/js/vendor/bootstrap.min.js',
+			'dep' => array( 'jquery' ),
+			'ver' => '3.3.4',
+			'in_footer' => true,
+			'type' => 'js',
+			'cond' => true
+		),
+		'validate' => array(
+			'handle' => 'jquery-validate',
+			'src' => get_template_directory_uri() . '/assets/js/jquery.validate.min.js',
+			'dep' => array( 'jquery' ),
+			'ver' => '1.12.0',
+			'in_footer' => true,
+			'type' => 'js',
+			'cond' => ( is_page_template( 'template_contact-us.php' ) ? true : false )
+		),
+		'flexslider' => array(
+			'handle' => 'jquery-flexslider',
+			'src' => get_template_directory_uri() . '/assets/js/vendor/jquery.flexslider.min.js',
+			'dep' => array( 'jquery' ),
+			'ver' => '2.2.2',
+			'in_footer' => true,
+			'type' => 'js',
+			'cond' => true
+		),
+		'slick' => array(
+			'handle' => 'slick-js',
+			'src' => get_template_directory_uri() . '/assets/js/vendor/slick.min.js',
+			'dep' => array(),
+			'ver' => '1.5.0',
+			'in_footer' => true,
+			'type' => 'js',
+			'cond' => true
+		),
+		'plugins' => array(
+			'handle' => 'theme-plugins',
+			'src' => get_template_directory_uri() . '/assets/js/plugins.min.js',
+			'dep' => array( 'jquery' ),
+			'ver' => '',
+			'in_footer' => true,
+			'type' => 'js',
+			'cond' => true
+		),
+		'main' => array(
+			'handle' => 'theme-main',
+			'src' => get_template_directory_uri() . '/assets/js/main.min.js',
+			'dep' => array( 'jquery', 'theme-plugins' ),
+			'ver' => '',
+			'in_footer' => true,
+			'type' => 'js',
+			'cond' => true
+		),
+	);
+	return apply_filters( 'anva_get_theme_scripts', $scripts );
+}
+
+/*
+ * Register theme scripts
+ */
+function anva_register_scripts() {
+	
+	$scripts = anva_get_theme_scripts();
+	
+	foreach ( $scripts as $key => $value) {
+		if ( 'js' == $value['type'] ) {
+			wp_register_script( $value['handle'], $value['src'], $value['dep'], $value['ver'], $value['in_footer'] );
+		} elseif ( 'css' == $value['type'] ) {
+			wp_register_style( $value['handle'], $value['src'], $value['dep'], $value['ver'], $value['media'] );
+		}
+	}
+}
+
 /**
- * Enqueue custom Javascript & Stylesheets using wp_enqueue_script() and wp_enqueue_style().
+ * Load theme scripts.
  */
 function anva_load_scripts() {
 	
-	// Stylesheets
-	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.css' );
-	wp_enqueue_style( 'boostrap', get_template_directory_uri() . '/assets/css/bootstrap.css' );
-	wp_enqueue_style( 'screen', get_template_directory_uri() . '/assets/css/screen.css' );
-	
-	if ( 1 == anva_get_option( 'responsive' ) ) {
-		wp_enqueue_style( 'responsive', get_template_directory_uri() . '/assets/css/screen-responsive.css', array( 'screen' ), false, 'all' );
+	$scripts = anva_get_theme_scripts();
+
+	foreach ( $scripts as $key => $value) {
+		if ( true == $value['cond'] ) {
+			if ( 'js' == $value['type'] ) {
+				wp_enqueue_script( $value['handle'] );
+			} elseif ( 'css' == $value['type']  ) {
+				wp_enqueue_style( $value['handle'] );
+			}
+		}
 	}
-	
-	// Scripts
+
+	wp_localize_script( 'theme-main', 'ANVAJS', anva_get_js_locals() );
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
-
-	if ( is_page_template( 'template_contact-us.php' ) ) {
-		wp_enqueue_script( 'validate', get_template_directory_uri() . '/assets/js/jquery.validate.min.js', array( 'jquery' ), '', true );
-	}
-
-	wp_enqueue_script( 'boostrap-js', get_template_directory_uri() . '/assets/js/vendor/bootstrap.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_script( 'plugins', get_template_directory_uri() . '/assets/js/plugins.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.min.js', array( 'jquery', 'plugins' ), '', true );
-	wp_localize_script( 'main', 'ANVAJS', anva_get_js_locals() );
 
 }
 
@@ -187,21 +321,4 @@ function anva_search_filter( $query ) {
 	}
 	
 	return $query;
-}
-
-/**
- * Compress a chunk of code to output.
- *
- * @param string $buffer Text to compress
- * @return array $buffer Compressed text
- */
-function anva_compress( $buffer ) {
-
-	// Remove comments
-	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
-
-	// Remove tabs, spaces, newlines, etc.
-	$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
-
-	return $buffer;
 }
