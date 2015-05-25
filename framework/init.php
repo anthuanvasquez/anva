@@ -26,6 +26,7 @@ include_once( ANVA_FRAMEWORK . '/includes/shortcodes.php' );
 include_once( ANVA_FRAMEWORK . '/includes/login.php' );
 include_once( ANVA_FRAMEWORK . '/plugins/contact-email.php' );
 include_once( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
+include_once( ANVA_FRAMEWORK . '/plugins/gallery.php' );
 
 // Validate if Woocommerce plugin is activated
 if ( class_exists( 'Woocommerce' ) ) :
@@ -67,6 +68,7 @@ add_filter( 'wp_mail_from', 'anva_wp_mail_from' );
 add_filter( 'wp_mail_from_name', 'anva_wp_mail_from_name' );
 add_filter( 'pre_get_posts', 'anva_search_filter' );
 add_filter( 'comment_reply_link', 'replace_reply_link_class' );
+add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
 
 // Hooks
 add_action( 'add_meta_boxes', 'anva_add_page_options' );
@@ -94,6 +96,7 @@ add_action( 'anva_sidebar_layout_after', 'anva_sidebar_layout_after_default' );
 // Plugin Hooks
 add_action( 'init', 'anva_contact_send_email' );
 add_action( 'after_setup_theme', 'anva_slideshows_setup' );
+add_action( 'after_setup_theme', 'anva_galleries_setup' );
 
 // Hook textdomain
 do_action( 'anva_texdomain' );

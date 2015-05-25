@@ -1,6 +1,6 @@
-# Anva WordPress Framework
+# Anva Theme
 
-Versión: 1.0.0
+Version: 1.0.0
 
 ## Author:
 
@@ -47,3 +47,4 @@ Sin estos proyectos, este tema base para WordPress no estaría donde está hoy.
 * [jQuery Magnific Popup](http://dimsemenov.com/plugins/magnific-popup)
 * [jQuery Validation](http://jqueryvalidation.org/)
 * [jQuery FlexSlider](http://www.woothemes.com/flexslider/)
+* [Slick JS](http://www.woothemes.com/flexslider/)

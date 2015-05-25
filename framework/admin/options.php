@@ -288,6 +288,22 @@ $options = array(
 	),
 
 	array(
+		"name" 		=> "Ordenar Galeria",  
+		"desc" 		=> __("Seleccione en que orden desea ordenar la galeria de imagenes.", ANVA_DOMAIN),  
+		"id" 			=> "gallery_order",
+		"type" 		=> "radio",
+		"std" 		=> "drag",
+		"options" => array(
+			"drag" 			=> "Drag and Drog.",
+			"title" 		=> "Titulo",
+			"desc" 			=> "DESC",
+			"asc" 			=> "ASC",
+			"rand" 			=> "Aleatorio"
+		),
+		"tab"			=> "content"
+	),
+
+	array(
 		"type" 		=> "close",
 		"tab"			=> "content"
 	),

@@ -72,6 +72,12 @@ function anva_get_image_sizes() {
 			'height' 	=> 150,
 			'crop' 		=> true
 		),
+		'gallery_2' => array(
+			'name' 		=> __( '2 Column of Gallery Grid', ANVA_DOMAIN ),
+			'width' 	=> 440,
+			'height' 	=> 440,
+			'crop' 		=> true
+		),
 	);
 
 	return apply_filters( 'anva_image_sizes', $sizes );

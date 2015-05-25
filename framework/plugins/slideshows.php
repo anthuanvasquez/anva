@@ -235,7 +235,7 @@ function anva_slideshows_featured( $slug ) {
 	// Init Flexslider
 	if ( 'flexslider' == $slideshows[$slug]['type'] ) {
 
-		wp_enqueue_script( 'flexslider-js', get_template_directory_uri() . '/assets/js/vendor/jquery.flexslider.min.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'flexslider-js' );
 
 		$html .= '<script>';
 		$html .= 'jQuery(document).ready(function() {';
@@ -256,7 +256,7 @@ function anva_slideshows_featured( $slug ) {
 	// Init Slick JS
 	} elseif( 'slick' == $slideshows[$slug]['type'] ) {
 
-		wp_enqueue_script( 'slick-js', get_template_directory_uri() . '/assets/js/vendor/slick.min.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'slick-js' );
 
 		$html .= '<script>';
 		$html .= 'jQuery(document).ready(function() {';
@@ -290,7 +290,10 @@ function anva_slideshows_add_meta() {
  */
 function anva_slideshows_metabox() {
 	
-	global $post;	
+	global $post;
+
+	// Add an nonce field so we can check for it later.
+	wp_nonce_field( 'anva_slideshows_custom_box', 'anva_slideshows_custom_box_nonce' );
 		
 	$slideshows 			= anva_get_slideshows();
 	$meta 						= anva_get_post_custom();
@@ -354,6 +357,27 @@ function anva_slideshows_metabox() {
  * Save metabox
  */
 function anva_slideshows_save_meta( $post_id, $post ) {
+
+	// Check if our nonce is set
+	if ( ! isset( $_POST['anva_slideshows_custom_box_nonce'] ) )
+		return $post_id;
+
+	// Verify that the nonce is valid
+	if ( ! wp_verify_nonce( $_POST['anva_slideshows_custom_box_nonce'], 'anva_slideshows_custom_box' ) )
+		return $post_id;
+
+	// If this is an autosave, our form has not been submitted
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+		return $post_id;
+
+	// Check the user's permissions
+	if ( 'page' == $_POST['post_type'] ) {
+		if ( ! current_user_can( 'edit_page', $post_id ) )
+			return $post_id;
+	} else {
+		if ( ! current_user_can( 'edit_post', $post_id ) )
+			return $post_id;
+	}
 	
 	if ( isset( $_POST['slider_link_url'] ) ) {
 		update_post_meta( $post_id, '_slider_link_url', strip_tags( $_POST['slider_link_url'] ) );

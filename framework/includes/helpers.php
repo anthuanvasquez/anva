@@ -241,3 +241,74 @@ function anva_compress( $buffer ) {
 
 	return $buffer;
 }
+
+function anva_sort_gallery( $gallery_arr ) {
+	
+	$gallery_arr_sorted = array();
+	$order = anva_get_option( 'gallery_order' );
+	
+	if ( ! empty( $order ) && ! empty ( $gallery_arr ) ) {
+		
+		switch ( $order ) {
+			
+			case 'drag':
+				foreach( $gallery_arr as $key => $image ) {
+					$gallery_arr_sorted[$key] = $image;
+				}
+				break;
+
+			case 'desc':
+				foreach( $gallery_arr as $key => $image ) {
+					$image_meta = get_post( $image );
+					$image_date = strtotime( $image_meta->post_date );	
+					$gallery_arr_sorted[$image_date] = $image;
+					krsort( $gallery_arr_sorted );
+				}
+				break;
+			
+			case 'asc':
+				foreach( $gallery_arr as $key => $image) {
+					$image_meta = get_post( $image );
+					$image_date = strtotime( $image_meta->post_date );
+					$gallery_arr_sorted[$image_date] = $image;
+					ksort( $gallery_arr_sorted );
+				}
+				break;
+			
+			case 'rand':
+				shuffle( $gallery_arr );
+				$gallery_arr_sorted = $gallery_arr;
+				break;
+			
+			case 'title':
+				foreach( $gallery_arr as $key => $image ) {
+					$image_meta = get_post( $image );
+					$image_title = $image_meta->post_title;
+					$gallery_arr_sorted[$image_title] = $image;
+					ksort( $gallery_arr_sorted );
+				}
+				break;
+		}
+		
+		return $gallery_arr_sorted;
+
+	} else {
+		return $gallery_arr;
+	}
+}
+
+/*
+ * Get media queries
+ */
+function anva_get_media_queries( $localize ) {
+	$media_queries = array(
+		'phone_small' 		=> 320,
+		'phone_medium' 		=> 480,
+		'tablet_small' 		=> 750,
+		'tablet_medium' 	=> 768,
+		'desktop_small' 	=> 992,
+		'desktop_medium' 	=> 1200,
+		'desktop_large' 	=> 1600
+	);
+	return array_merge( $localize, $media_queries );
+}

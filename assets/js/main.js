@@ -2,23 +2,13 @@ if ( typeof jQuery === 'undefined' ) {
 	throw new Error( 'JavaScript requires jQuery' )
 }
 
-var bp = {
-	phones: 320,
-	phonem: 480,
-	tablets: 750,
-	tabletm: 768,
-	desktops: 992,
-	desktopm: 1200,
-	desktopl: 1600
-}
-
 jQuery.noConflict();
 jQuery(document).ready(function($) {
 	
 	// ---------------------------------------------------------
 	// Enquire JS
 	// ---------------------------------------------------------
-	enquire.register("screen and (max-width: " + bp.phonem + "px)", {
+	enquire.register("screen and (max-width: " + ANVAJS.phone_small + "px)", {
 		match : function() {
 			
 		},
@@ -34,7 +24,7 @@ var initialize = {
 	// ---------------------------------------------------------
 	// Lightbox
 	// ---------------------------------------------------------
-	Popup: function(target) {
+	Lightbox: function(target) {
 		jQuery(target).magnificPopup({
 			delegate: 'a',
 			removalDelay: 300,
@@ -45,6 +35,40 @@ var initialize = {
 				enabled: true
 			}
 		});
+	},
+
+	// Galleries Lightbox
+	GalleryLightbox: function(target) {
+		jQuery(target).magnificPopup({
+			delegate: 'a',
+			type: 'image',
+			tLoading: 'Loading image #%curr%...',
+			gallery: {
+				enabled: true,
+				navigateByImgClick: true,
+				preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+			},
+			image: {
+				tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+				titleSrc: function(item) {
+					return '<div class="gallery-caption"><h4>' + item.el.attr('title') + '</h4>' + '<p>' + item.el.attr('data-desc') + '</p></div>';
+				}
+			}
+		});
+	},
+
+	// ---------------------------------------------------------
+	// Masonry
+	// ---------------------------------------------------------
+	Mansory: function(container, target) {
+		// var _container = jQuery(container);
+		// _container.isotope({
+		// 	itemSelector: target,
+		// 	layoutMode: 'fitRows'
+		// });
+		// _container.imagesLoaded( function() {
+		//   _container.isotope('layout');
+		// });
 	},
 
 	// ---------------------------------------------------------
@@ -144,18 +168,18 @@ var initialize = {
 	// ---------------------------------------------------------
 	Init: function() {
 
-		initialize.Popup('.gallery > .gallery-item, .single .featured-image .thumbnail');
+		initialize.Lightbox('.gallery > .gallery-item, .single .featured-image .thumbnail');
+		initialize.GalleryLightbox('#gallery-container .gallery-content > .gallery-item');
+		initialize.Mansory('.gallery-mansory .gallery-content', '.gallery-item');
 		initialize.Menu('ul.navigation-menu, ul.off-canvas-menu');
 		initialize.RemoveEmpty('div.fl-thumbnail');
 		initialize.RemoveEmpty('p');
 		initialize.Toggle();
+		initialize.Scroll('#gotop');
 		
 		if ( 1 == ANVAJS.plugin_foodlist ) {
 			initialize.TOC();
 		}
-
-		initialize.Scroll('#gotop');
-
 	}
 
 };

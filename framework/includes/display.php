@@ -29,7 +29,6 @@ function anva_header_logo_default() {
 		?>
 	</a>
 	<?php
-	var_dump(anva_get_theme_scripts());
 }
 
 /*
@@ -147,6 +146,7 @@ function anva_footer_text_default() {
  */
 function anva_layout_before_default() {
 	?>
+	<!-- WRAPPER (start) -->
 	<div id="wrapper">
 	<?php
 }
@@ -156,7 +156,7 @@ function anva_layout_before_default() {
  */
 function anva_layout_after_default() {
 	?>
-	</div><!-- #wrapper (end) -->
+	</div><!-- WRAPPER (end) -->
 	<?php
 }
 

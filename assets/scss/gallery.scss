@@ -1,0 +1,103 @@
+// Galleries
+
+#anva_gallery_thumbs {
+	margin: 10px 0;
+
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+
+	li {
+		box-sizing: border-box;
+		float: left;
+		margin-bottom: 0;
+		padding: 0 5px 10px;
+		position: relative;
+		width: 20%;
+
+		> a.anva_gallery_image {
+			display: block;
+			line-height: 0;
+		}
+
+		img {
+			border: 2px solid transparent;
+			height: auto;
+			max-width: 100%;
+			transition: all .2s ease;
+			&:hover {
+				border-color: #0073aa;
+			}
+		}
+	}
+}
+
+.anva_gallery_remove {
+	background: #d54e21;
+	border-radius: 50%;
+	color: #fff;
+	font-size: 11px;
+	height: 16px;
+	line-height: 16px;
+	padding: 3px;
+	position: absolute;
+	right: -6px;
+	text-align: center;
+	text-decoration: none;
+	top: -6px;
+	width: 16px;
+
+	&:hover {
+		color: #fff;
+		opacity: .8;
+	}
+}
+
+#anva_gallery_spinner {
+	display: none;
+	visibility: visible;
+}
+
+// Meta
+
+.meta-wrapper {
+	margin-top: 10px;
+}
+
+.meta-input-wrapper {
+	margin-bottom: 10px;
+
+	input[type=text],
+	input[type=password],
+	input[type=email],
+	input[type=datetime],
+	input[type=date],
+	input[type=time],
+	input[type=number],
+	input[type=tel],
+	input[type=url],
+	select,
+	textarea {
+		box-sizing: border-box;
+		width: 100%
+	}
+
+}
+
+.meta-label {
+  border-bottom: 1px solid #eee;
+	display: block;
+  padding-bottom: 5px; 
+}
+
+.meta-description {
+	color: #999;
+  font-size: 12px;
+}
+
+.meta-input-actions {
+	border-top: 1px solid #eee;
+	padding-top: 10px;
+}

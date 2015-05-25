@@ -15,7 +15,7 @@
 			<?php
 				$the_query = anva_get_post_query();
 				if ( $the_query->have_posts() ) :
-					while ($the_query->have_posts()) : $the_query->the_post();
+					while ( $the_query->have_posts() ) : $the_query->the_post();
 						get_template_part( 'content', 'post' );
 					endwhile;
 					

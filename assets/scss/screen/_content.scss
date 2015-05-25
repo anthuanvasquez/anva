@@ -32,3 +32,30 @@
 		margin-bottom: 0;
 	}
 }
+
+.password-content {
+	text-align: center;
+
+	.lock-icon {
+		background: color(primary);
+		width: 144px;
+		height: 144px;
+		font-size: 108px;
+		line-height: 140px;
+		display: block;
+		font-weight: 500;
+		margin: 20px auto 30px;
+		color: #fff;
+		text-align: center;
+		cursor: default;
+		border: 1px solid #cdbfe3;
+		border-radius: 15%;
+	}
+
+	.password-error {
+		max-width: 480px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+}

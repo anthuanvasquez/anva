@@ -22,6 +22,7 @@
 
 <?php anva_layout_before(); ?>
 
+<!-- OFF-CANVAS (start) -->
 <div id="off-canvas" class="off-canvas">	
 	<div  class="off-canvas-inner">
 		<div class="off-canvas-content">
@@ -41,7 +42,7 @@
 			?>
 		</div>
 	</div>
-</div><!-- #off-canvas (end) -->
+</div><!-- OFF-CANVAS (end) -->
 
 <!-- CONTAINER (start) -->
 <div id="container">
