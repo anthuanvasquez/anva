@@ -6,7 +6,7 @@
 	$gallery_arr = anva_sort_gallery( $gallery_arr );
 ?>
 
-<div id="gallery-container" class="gallery-container gallery-4-col">
+<div id="gallery-container" class="gallery-container gallery-masonry gallery-masonry-2-col">
 	<div class="gallery-inner">
 		<div class="gallery-content clearfix">
 			<?php
@@ -18,13 +18,13 @@
 				
 				if ( ! empty( $id ) ) :
 					$gallery_image_ori = wp_get_attachment_image_src( $id, 'original', true );
-					$gallery_image_url = wp_get_attachment_image_src( $id, 'gallery_2', true );
+					$gallery_image_url = wp_get_attachment_image_src( $id, 'gallery_masonry', true );
 				endif;
 			?>
 				
 				<div class="gallery-item">
 					<div class="gallery-image">
-						<a href="<?php echo $gallery_image_ori[0]; ?>" title="<?php echo $gallery_image_title; ?>" data-gallery="gallery-group" data-desc="<?php echo $gallery_image_desc; ?>">
+						<a href="<?php echo $gallery_image_ori[0]; ?>" data-gallery="gallery-group" data-desc="<?php echo $gallery_image_desc; ?>">
 							<img src="<?php echo $gallery_image_url[0]; ?>" alt="<?php echo $gallery_image_title; ?>" />
 						</a>
 					</div>

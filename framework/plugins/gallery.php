@@ -487,6 +487,7 @@ function anva_galleries_metabox() {
 							'Gallery 2 Columns' => 'Gallery 2 Columns',
 							'Gallery 3 Columns' => 'Gallery 3 Columns',
 							'Gallery 4 Columns' => 'Gallery 4 Columns',
+							'Gallery Masonry 2 Columns' => 'Gallery Masonry 2 Columns',
 						);
 						foreach ( $select as $key => $value ) {
 							echo '<option value="' . esc_attr( $key ) . '" ' . selected( $gallery_template, $key, true ) . '>' . $value . '</option>';

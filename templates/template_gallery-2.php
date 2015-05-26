@@ -6,7 +6,7 @@
 	$gallery_arr = anva_sort_gallery( $gallery_arr );
 ?>
 
-<div id="gallery-container" class="gallery-container gallery-2-col gallery-mansory gallery-mansory-2-col">
+<div id="gallery-container" class="gallery-container gallery-2-col">
 	<div class="gallery-inner">
 		<div class="gallery-content clearfix">
 			<?php

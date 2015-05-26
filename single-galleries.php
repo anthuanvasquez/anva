@@ -67,6 +67,9 @@ get_header();
 								case 'Gallery 4 Columns':
 									get_template_part( 'templates/template_gallery-4' );
 									break;
+								case 'Gallery Masonry 2 Columns':
+									get_template_part( 'templates/template_gallery-masonry-2' );
+									break;
 								default:
 									get_template_part( 'templates/template_gallery-1' );
 									break;

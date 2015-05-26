@@ -61,11 +61,14 @@ var initialize = {
 	// Masonry
 	// ---------------------------------------------------------
 	Mansory: function(container, target) {
-		// var _container = jQuery(container);
-		// _container.isotope({
-		// 	itemSelector: target,
-		// 	layoutMode: 'fitRows'
-		// });
+		var _container = jQuery(container);
+		_container.isotope({
+			itemSelector: target,
+			masonry: {
+      	columnWidth: target,
+      	gutter: 15
+    	}
+		});
 		// _container.imagesLoaded( function() {
 		//   _container.isotope('layout');
 		// });
@@ -170,7 +173,7 @@ var initialize = {
 
 		initialize.Lightbox('.gallery > .gallery-item, .single .featured-image .thumbnail');
 		initialize.GalleryLightbox('#gallery-container .gallery-content > .gallery-item');
-		initialize.Mansory('.gallery-mansory .gallery-content', '.gallery-item');
+		initialize.Mansory('.gallery-masonry .gallery-content', '.gallery-item');
 		initialize.Menu('ul.navigation-menu, ul.off-canvas-menu');
 		initialize.RemoveEmpty('div.fl-thumbnail');
 		initialize.RemoveEmpty('p');

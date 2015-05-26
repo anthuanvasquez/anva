@@ -73,10 +73,16 @@ function anva_get_image_sizes() {
 			'crop' 		=> true
 		),
 		'gallery_2' => array(
-			'name' 		=> __( '2 Column of Gallery Grid', ANVA_DOMAIN ),
-			'width' 	=> 440,
-			'height' 	=> 440,
+			'name' 		=> __( 'Gallery Grid', ANVA_DOMAIN ),
+			'width' 	=> 480,
+			'height' 	=> 480,
 			'crop' 		=> true
+		),
+		'gallery_masonry' => array(
+			'name' 		=> __( 'Gallery Masonry', ANVA_DOMAIN ),
+			'width' 	=> 440,
+			'height' 	=> 9999,
+			'crop' 		=> false
 		),
 	);
 
