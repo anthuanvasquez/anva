@@ -68,6 +68,7 @@ add_filter( 'wp_mail_from', 'anva_wp_mail_from' );
 add_filter( 'wp_mail_from_name', 'anva_wp_mail_from_name' );
 add_filter( 'pre_get_posts', 'anva_search_filter' );
 add_filter( 'comment_reply_link', 'replace_reply_link_class' );
+add_filter( 'the_password_form', 'anva_password_form' );
 add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
 
 // Hooks

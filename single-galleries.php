@@ -54,6 +54,11 @@ get_header();
 						<div class="clearfix"></div>
 
 						<?php
+
+							if ( post_password_required() ) {
+								return '';
+							}
+
 							switch( $gallery_template ) :
 								case 'Gallery 1 Column':
 									get_template_part( 'templates/template_gallery-1' );

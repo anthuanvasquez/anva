@@ -340,3 +340,17 @@ function anva_search_filter( $query ) {
 	
 	return $query;
 }
+
+function anva_password_form() {
+	global $post;
+	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+	$html  = '';
+	$html .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';
+	$html .= '<form class="form-inline" role="form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
+	$html .= '<div class="form-group">';
+	$html .= '<input class="form-control" name="post_password" id="' . $label . '" type="password" maxlength="20" />';
+	$html .= '<input type="submit" class="btn btn-default" name="Submit" value="' . esc_attr__( "Submit" ) . '" />';
+	$html .= '</div>';
+	$html .= '</form>';
+	return $html;
+}

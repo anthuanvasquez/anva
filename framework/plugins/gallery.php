@@ -33,7 +33,7 @@ class Anva_Gallery {
 		$this->thumbnail_size_h = 100;
 
 		add_action( 'admin_print_scripts-post.php', array( &$this, 'admin_print_scripts' ) );
-		add_action( 'admin_print_scripts-post-new.php', array(&$this, 'admin_print_scripts' ) );
+		add_action( 'admin_print_scripts-post-new.php', array( &$this, 'admin_print_scripts' ) );
 		add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
 		
 		// add_filter( 'the_content', array( &$this, 'gallery_output' ), 10 );
@@ -229,11 +229,11 @@ class Anva_Gallery {
 
 		// Do only if there are attachments of these qualifications
 		$attachments = get_children( array(
-			'post_parent' => $post_id,
-			'post_type' => 'attachment',
-			'numberposts' => -1,
-			'order' => 'ASC',
-			'post_mime_type' => 'image', //MIME Type condition
+			'post_parent' 		=> $post_id,
+			'post_type' 			=> 'attachment',
+			'numberposts' 		=> -1,
+			'order' 					=> 'ASC',
+			'post_mime_type' 	=> 'image', //MIME Type condition
 		) );
 
 		header( 'Cache-Control: no-cache, must-revalidate' );
@@ -256,8 +256,8 @@ class Anva_Gallery {
 	private function thumb( $id, $post_id ) {
 		
 		$info = get_posts( array(
-			'p' => $id,
-			'post_type' => 'attachment'
+			'p' 					=> $id,
+			'post_type' 	=> 'attachment'
 		));
 
 		$url 						= wp_get_attachment_url( $id );
@@ -286,20 +286,6 @@ class Anva_Gallery {
 		);
 
 		return $html;
-	}
-
-	/*
-	 * Print scripts
-	 */
-	public function print_scripts() {
-		// wp_enqueue_script( 'gallery-admin-scripts', ANVA_URL . '/assets/js/admin.gallery.js' );
-	}
-
-	/*
-	 * Print styles
-	 */
-	public function print_styles() {
-		// wp_enqueue_style('anva_gallery-style', ANVA_URL . 'tg-gallery.css');
 	}
 
 	/*
