@@ -10,10 +10,10 @@ jQuery(document).ready(function($) {
 	// ---------------------------------------------------------
 	enquire.register("screen and (max-width: " + ANVAJS.phone_small + "px)", {
 		match : function() {
-			
+			// Match
 		},
 		unmatch : function() {
-			
+			// Unmatch
 		}
 	});
 
@@ -60,18 +60,14 @@ var initialize = {
 	// ---------------------------------------------------------
 	// Masonry
 	// ---------------------------------------------------------
-	Mansory: function(container, target) {
+	Masonry: function(container, target) {
 		var _container = jQuery(container);
-		_container.isotope({
+		_container.masonry({
 			itemSelector: target,
-			masonry: {
-      	columnWidth: target,
-      	gutter: 15
-    	}
+			columnWidth: target,
+			percentPosition: true,
+			gutter: 15
 		});
-		// _container.imagesLoaded( function() {
-		//   _container.isotope('layout');
-		// });
 	},
 
 	// ---------------------------------------------------------
@@ -173,7 +169,7 @@ var initialize = {
 
 		initialize.Lightbox('.gallery > .gallery-item, .single .featured-image .thumbnail');
 		initialize.GalleryLightbox('#gallery-container .gallery-content > .gallery-item');
-		initialize.Mansory('.gallery-masonry .gallery-content', '.gallery-item');
+		initialize.Masonry('.gallery-masonry .gallery-content', '.gallery-item');
 		initialize.Menu('ul.navigation-menu, ul.off-canvas-menu');
 		initialize.RemoveEmpty('div.fl-thumbnail');
 		initialize.RemoveEmpty('p');

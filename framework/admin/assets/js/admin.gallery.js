@@ -41,10 +41,8 @@ jQuery(function($) {
 				});
 
 				setTimeout(function(){
-					alert("Boom!");
-				}, 2000);
-
-				anva_gallery.empty_gallery();
+					anva_gallery.empty_gallery();
+				}, 500);
 
 				return false;
 			});

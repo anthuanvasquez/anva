@@ -35,7 +35,7 @@ add_action( 'after_setup_theme', 'anva_theme_setup' );
  */
 // function anva_theme_featured_size( $args ) {
 // 	if ( isset( $args['homepage'] ) ) {
-// 		$args['homepage']['size'] = 'slider_big';
+// 		$args['homepage']['size'] = 'slider_bigger';
 // 	}
 //  if ( ! isset( $args['homepage'] ) ) {
 // 		$args['homepage']['orderby'] = 'date';

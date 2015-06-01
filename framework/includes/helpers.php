@@ -297,6 +297,12 @@ function anva_sort_gallery( $gallery_arr ) {
 	}
 }
 
+function anva_get_template_part( $name ) {
+	$path = 'templates/';
+	$part = 'template_';
+	get_template_part( $path . $part . $name );
+}
+
 /*
  * Get media queries
  */

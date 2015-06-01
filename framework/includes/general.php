@@ -218,15 +218,6 @@ function anva_get_theme_scripts() {
 			'type' => 'js',
 			'cond' => true
 		),
-		'isotope' => array(
-			'handle' => 'isotope',
-			'src' => get_template_directory_uri() . '/assets/js/vendor/isotope.min.js',
-			'dep' => array( 'jquery' ),
-			'ver' => '2.2.0',
-			'in_footer' => true,
-			'type' => 'js',
-			'cond' => ( is_singular( 'galleries' ) ? true : false )
-		),
 		'masonry' => array(
 			'handle' => 'masonry',
 			'src' => get_template_directory_uri() . '/assets/js/vendor/masonry.min.js',
@@ -234,7 +225,7 @@ function anva_get_theme_scripts() {
 			'ver' => '3.3.0',
 			'in_footer' => true,
 			'type' => 'js',
-			'cond' => false
+			'cond' => true
 		),
 		'plugins' => array(
 			'handle' => 'theme-plugins',

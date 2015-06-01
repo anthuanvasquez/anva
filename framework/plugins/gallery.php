@@ -3,29 +3,48 @@
 /*
  * Anva Gallery Class
  */
+if ( ! class_exists( 'Anva_Gallery' ) ) :
+
 class Anva_Gallery {
 
 	/*
-	 * Class properties
+	 * A single instance of this class.
 	 */
-	private static $instance;
-	private $admin_thumbnail_size = 110;
-	private $thumbnail_size_w = 150;
-	private $thumbnail_size_h = 150;
+	private static $instance = null;
 
 	/*
-	 * Instance class
+	 * Image admin thumbnail size.
+	 */
+	private $admin_thumbnail_size = 150;
+
+	/*
+	 * Image thumbnail sizes width.
+	 */
+	private $thumbnail_size_w = 150;
+
+	/*
+	 * Image thumbnail sizes height.
+	 */
+	private $thumbnail_size_h = 150;
+
+	/*--------------------------------------------*/
+	/* Constructor
+	/*--------------------------------------------*/
+
+	/*
+	 * Creates or returns an instance of this class.
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			$className = __CLASS__;
-			self::$instance = new $className;
+
+		if ( self::$instance == null ) {
+			self::$instance = new self;
 		}
+
 		return self::$instance;
 	}
 
 	/*
-	 * Construct
+	 * Constructor. Hook everything in.
 	 */
 	private function __construct() {
 		
@@ -35,12 +54,10 @@ class Anva_Gallery {
 		add_action( 'admin_print_scripts-post.php', array( &$this, 'admin_print_scripts' ) );
 		add_action( 'admin_print_scripts-post-new.php', array( &$this, 'admin_print_scripts' ) );
 		add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
-		
-		// add_filter( 'the_content', array( &$this, 'gallery_output' ), 10 );
-		
+		add_action( 'admin_head', array( &$this, 'admin_icon' ) );
+		add_action( 'init', array( &$this, 'register_post_type' ) );
 		add_image_size( 'anva_gallery_admin_thumb', $this->admin_thumbnail_size, $this->admin_thumbnail_size, true );
 		add_image_size( 'anva_gallery_thumb', $this->thumbnail_size_w, $this->thumbnail_size_h, true );
-		
 		add_shortcode( 'anva_gallery', array(&$this, 'shortcode' ) );
 
 		if ( is_admin() ) {
@@ -57,14 +74,14 @@ class Anva_Gallery {
 	 */
 	public function admin_print_scripts() {
 		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'gallery-admin-scripts', ANVA_URL . '/assets/js/admin.gallery.js' );
+		wp_enqueue_script( 'gallery-admin-scripts', ANVA_FRAMEWORK_URL . '/admin/assets/js/admin.gallery.js' );
 	}
 
 	/*
 	 * Amin stylesheets
 	 */
 	public function admin_print_styles() {
-		wp_enqueue_style( 'gallery-admin-style', ANVA_URL . '/assets/css/gallery.css' );
+		wp_enqueue_style( 'gallery-admin-style', ANVA_FRAMEWORK_URL . '/admin/assets/css/gallery.css' );
 	}
 
 	/*
@@ -83,16 +100,26 @@ class Anva_Gallery {
 				'advanced',
 				'default'
 			);
+
+			add_meta_box(
+				'anva_galleries_metabox',
+				__( 'Gallery Options', 'anva' ),
+				array( &$this, 'gallery_metabox_side'),
+				$post_type,
+				'side',
+				'core'
+			);
 		}
 	}
 
 	/*
-	 * Custom meta box
+	 * Metabox advanced
 	 */
 	public function gallery_metabox_advanced( $post ) {
 		
 		$gallery = get_post_meta( $post->ID, 'anva_gallery_gallery', true );
-		wp_nonce_field( basename( __FILE__ ), 'anva_gallery_nonce' );
+
+		wp_nonce_field( 'anva_galleries_advanced_box', 'anva_galleries_advanced_box_nonce' );
 
 		$upload_size_unit = $max_upload_size = wp_max_upload_size();
 		$sizes = array( 'KB', 'MB', 'GB' );
@@ -166,30 +193,112 @@ class Anva_Gallery {
 	}
 
 	/*
+	 * Metabox side
+	 */
+	public function gallery_metabox_side() {
+		
+		global $post;
+
+		// Add an nonce field so we can check for it later.
+		wp_nonce_field( 'anva_galleries_side_box', 'anva_galleries_side_box_nonce' );
+		
+		$meta 						= anva_get_post_custom();
+		$gallery_password = ( isset( $meta['_gallery_password'][0] ) ? $meta['_gallery_password'][0] : '' );
+		$gallery_password = base64_decode( $gallery_password );
+		$gallery_template = ( isset( $meta['_gallery_template'][0] ) ? $meta['_gallery_template'][0] : '' );
+
+		?>
+		
+		<div class="meta-wrapper">
+			<div class="meta-input-wrapper meta-input-text">
+				<label class="meta-label" for="gallery_password">
+					<strong>Gallery Password:</strong>
+				</label>
+				<p class="meta-description">Enter your password for this gallery.</p>
+				<p class="meta-input"><input type="password" class="wide" name="gallery_password" value="<?php echo esc_attr( $gallery_password ); ?>" /></p>
+			</div>
+
+			<div class="meta-input-wrapper meta-input-select">
+				<label class="meta-label" for="gallery_template">
+					<strong>Gallery Template:</strong>
+				</label>
+				<p class="meta-description">Select gallery template for this gallery.</p>
+				<p class="meta-input">
+					<select class="wide" name="gallery_template">
+						<?php
+							$select = array(
+								'Gallery 1 Column'  => 'Gallery 1 Column',
+								'Gallery 2 Columns' => 'Gallery 2 Columns',
+								'Gallery 3 Columns' => 'Gallery 3 Columns',
+								'Gallery 4 Columns' => 'Gallery 4 Columns',
+								'Gallery 5 Columns' => 'Gallery 5 Columns',
+								'Gallery Masonry 2 Columns' => 'Gallery Masonry 2 Columns',
+								'Gallery Masonry 3 Columns' => 'Gallery Masonry 3 Columns',
+								'Gallery Masonry 4 Columns' => 'Gallery Masonry 4 Columns',
+							);
+							foreach ( $select as $key => $value ) {
+								echo '<option value="' . esc_attr( $key ) . '" ' . selected( $gallery_template, $key, true ) . '>' . $value . '</option>';
+							}
+						?>
+					</select>
+				</p>
+			</div>
+		</div>
+		<?php
+	}
+
+	/*
 	 * Save the meta when the post is saved
 	 */
 	public function gallery_save_meta( $post_id ) {
 		
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return '';
+		// If this is an autosave, our form has not been submitted
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+			return $post_id;
+
+		// Check the user's permissions
+		if ( 'page' == $_POST['post_type'] ) {
+			if ( ! current_user_can( 'edit_page', $post_id ) )
+				return $post_id;
+		} else {
+			if ( ! current_user_can( 'edit_post', $post_id ) )
+				return $post_id;
 		}
 
-		if ( ! isset( $_POST['anva_gallery_nonce'] ) || ! wp_verify_nonce( $_POST['anva_gallery_nonce'], basename( __FILE__ ) ) )
-			return ( isset( $post_id) ) ? $post_id : 0;
-
-		$images = ( isset( $_POST['anva_gallery_thumb'] ) ) ? $_POST['anva_gallery_thumb'] : array();
-		$gallery = array();
-		
-		if ( count( $images ) > 0 ) {
-			foreach ( $images as $i => $img ) {
-				if ( is_numeric( $img ) ) {
-					$gallery[] = $img;
+		// Check nonce fo advanced box
+		if ( ! isset( $_POST['anva_galleries_advanced_box_nonce'] ) && ! wp_verify_nonce( $_POST['anva_galleries_advanced_nonce'], 'anva_galleries_advanced_box' ) ) {
+			return $post_id;
+		} else {
+			$images = ( isset( $_POST['anva_gallery_thumb'] ) ) ? $_POST['anva_gallery_thumb'] : array();
+			$gallery = array();
+			
+			if ( count( $images ) > 0 ) {
+				foreach ( $images as $i => $img ) {
+					if ( is_numeric( $img ) ) {
+						$gallery[] = $img;
+					}
 				}
+			}
+
+			update_post_meta( $post_id, 'anva_gallery_gallery', $gallery );
+		}
+
+		// Check noce for side box
+		if ( ! isset( $_POST['anva_galleries_side_box_nonce'] ) && ! wp_verify_nonce( $_POST['anva_galleries_side_box_nonce'], 'anva_galleries_side_box' ) ) {
+			return $post_id;
+		} else {
+			if ( isset( $_POST['gallery_password'] ) ) {
+				$text = sanitize_text_field( $_POST['gallery_password'] );
+				$text = base64_encode( $text );
+				update_post_meta( $post_id, '_gallery_password', $text );
+			}
+			
+			if ( isset( $_POST['gallery_template'] ) ) {
+				$text = sanitize_text_field( $_POST['gallery_template'] );
+				update_post_meta( $post_id, '_gallery_template', $text );
 			}
 		}
 
-		update_post_meta( $post_id, 'anva_gallery_gallery', $gallery );
-		
 		return $post_id;
 	}
 
@@ -200,8 +309,8 @@ class Anva_Gallery {
 		$image = wp_get_attachment_image_src( $id, 'thumbnail', true );
 		?>
 		<li>
-			<a class="anva_gallery_image" href="<?php echo admin_url( '/post.php?post=' ) . $id . '&action=edit'; ?>" target="_blank">
-				<img src="<?php echo $image[0]; ?>" width="<?php echo $image[1]; ?>" height="<?php echo $image[2]; ?>" />
+			<a class="anva_gallery_image" href="<?php echo esc_url( admin_url( '/post.php?post=' ) . $id . '&action=edit' ); ?>" target="_blank">
+				<img src="<?php echo esc_url( $image[0] ); ?>" width="<?php echo $image[1]; ?>" height="<?php echo $image[2]; ?>" />
 			</a>
 			<a href="#" class="anva_gallery_remove">X</a>
 			<input type="hidden" name="anva_gallery_thumb[]" value="<?php echo $id; ?>" />
@@ -316,23 +425,6 @@ class Anva_Gallery {
 	}
 
 	/*
-	 * Output gallery
-	 */
-	public function gallery_output( $content ) {
-		
-		if ( post_password_required() ) {
-			return $content;
-		}
-
-		$append_gallery = 1;
-		
-		if ( ! post_password_required() && $append_gallery == '1' && is_singular() ) {
-			$content .= $this->gallery();
-		}
-		return $content;
-	}
-
-	/*
 	 * Shortcode
 	 */
 	public function shortcode($atts) {
@@ -342,194 +434,84 @@ class Anva_Gallery {
 		return $this->gallery( $id );
 	}
 
-}
+	/*
+	 * Admin menu icon
+	 */
+	public function admin_icon() {
+		echo '<style>#adminmenu #menu-posts-galleries div.wp-menu-image:before { content: "\f161"; }</style>';	
+	}
 
-// Run gallery class instance
-Anva_Gallery::instance();
-
-/*
- * Setup galleries
- */
-function anva_galleries_setup() {
-	add_action( 'init', 'anva_galleries_register' );
-	add_action( 'add_meta_boxes', 'anva_galleries_add_meta' );
-	add_action( 'save_post', 'anva_galleries_save_meta', 1, 2 );
-	add_action( 'admin_head', 'anva_galleries_admin_icon' );
-}
-
-/*
- * Register galleries post type
- */
-function anva_galleries_register() {
-	
-	$labels = array(
-		'name' 								=> __( 'Galleries', ANVA_DOMAIN ),
-		'singular_name' 			=> __( 'Gallery', ANVA_DOMAIN ),
-		'add_new' 						=> __( 'Add New Gallery', ANVA_DOMAIN ),
-		'add_new_item' 				=> __( 'Add New Gallery', ANVA_DOMAIN ),
-		'edit_item' 					=> __( 'Edit Gallery', ANVA_DOMAIN ),
-		'new_item' 						=> __( 'New Gallery', ANVA_DOMAIN ),
-		'view_item' 					=> __( 'View Gallery', ANVA_DOMAIN ),
-		'search_items' 				=> __( 'Search Gallery', ANVA_DOMAIN ),
-		'not_found' 					=> __( 'No Gallery found', ANVA_DOMAIN ),
-		'not_found_in_trash' 	=> __( 'No Gallery found in Trash', ANVA_DOMAIN ), 
-		'parent_item_colon' 	=> ''
-	);
-
-	$args = array(
-		'labels' 							=> $labels,
-		'public' 							=> true,
-		'publicly_queryable' 	=> true,
-		'show_ui' 						=> true, 
-		'query_var' 					=> true,
-		'rewrite' 						=> true,
-		'capability_type' 		=> 'post',
-		'hierarchical' 				=> false,
-		'menu_position' 			=> 26.6,
-		'supports' 						=> array( 'title', 'editor', 'thumbnail', 'excerpt' ),
-		'taxonomies'          => array( 'gallery_cat' ),
-		'has_archive'         => true
-	); 		
-
-	register_post_type( 'galleries', $args );
-	
-	$labels = array(			  
-		'name' 								=> __( 'Gallery Categories', ANVA_DOMAIN ),
-		'singular_name' 			=> __( 'Gallery Category', ANVA_DOMAIN ),
-		'search_items' 				=> __( 'Search Gallery Categories', ANVA_DOMAIN ),
-		'all_items' 					=> __( 'All Gallery Categories', ANVA_DOMAIN ),
-		'parent_item' 				=> __( 'Parent Gallery Category', ANVA_DOMAIN ),
-		'parent_item_colon' 	=> __( 'Parent Gallery Category:', ANVA_DOMAIN ),
-		'edit_item' 					=> __( 'Edit Gallery Category', ANVA_DOMAIN ), 
-		'update_item' 				=> __( 'Update Gallery Category', ANVA_DOMAIN ),
-		'add_new_item' 				=> __( 'Add New Gallery Category', ANVA_DOMAIN ),
-		'new_item_name' 			=> __( 'New Gallery Category Name', ANVA_DOMAIN ),
-	); 							  
+	/*
+	 * Register galleries post type
+	 */
+	public function register_post_type() {
 		
-	register_taxonomy(
-		'gallery_cat',
-		'galleries',
-		array(
-			'public'						=> true,
-			'hierarchical' 			=> true,
-			'labels'						=> $labels,
-			'query_var' 				=> 'gallery_cat',
-			'show_ui' 					=> true,
-			'rewrite' 					=> array( 'slug' => 'gallery_cat', 'with_front' => false ),
-		)
-	);		  
-}
+		$labels = array(
+			'name' 								=> __( 'Galleries', ANVA_DOMAIN ),
+			'singular_name' 			=> __( 'Gallery', ANVA_DOMAIN ),
+			'add_new' 						=> __( 'Add New Gallery', ANVA_DOMAIN ),
+			'add_new_item' 				=> __( 'Add New Gallery', ANVA_DOMAIN ),
+			'edit_item' 					=> __( 'Edit Gallery', ANVA_DOMAIN ),
+			'new_item' 						=> __( 'New Gallery', ANVA_DOMAIN ),
+			'view_item' 					=> __( 'View Gallery', ANVA_DOMAIN ),
+			'search_items' 				=> __( 'Search Gallery', ANVA_DOMAIN ),
+			'not_found' 					=> __( 'No Gallery found', ANVA_DOMAIN ),
+			'not_found_in_trash' 	=> __( 'No Gallery found in Trash', ANVA_DOMAIN ), 
+			'parent_item_colon' 	=> ''
+		);
 
-/*
- * Admin metabox
- */
-function anva_galleries_add_meta() {
-	add_meta_box(
-		'anva_galleries_metabox',
-		__( 'Gallery Options' ),
-		'anva_galleries_metabox',
-		'galleries',
-		'side',
-		'core'
-	);
-}
+		$args = array(
+			'labels' 							=> $labels,
+			'public' 							=> true,
+			'publicly_queryable' 	=> true,
+			'show_ui' 						=> true, 
+			'query_var' 					=> true,
+			'rewrite' 						=> true,
+			'capability_type' 		=> 'post',
+			'hierarchical' 				=> false,
+			'menu_position' 			=> 26.6,
+			'supports' 						=> array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+			'taxonomies'          => array( 'gallery_cat' ),
+			'has_archive'         => true
+		); 		
 
-/*
- * Metabox form
- */
-function anva_galleries_metabox() {
-	
-	global $post;
-
-	// Add an nonce field so we can check for it later.
-	wp_nonce_field( 'anva_galleries_custom_box', 'anva_galleries_custom_box_nonce' );
-	
-	$meta 						= anva_get_post_custom();
-	$gallery_password = ( isset( $meta['_gallery_password'][0] ) ? $meta['_gallery_password'][0] : '' );
-	$gallery_password = base64_decode( $gallery_password );
-	$gallery_template = ( isset( $meta['_gallery_template'][0] ) ? $meta['_gallery_template'][0] : '' );
-
-	?>
-	
-	<div class="meta-wrapper">
-		<div class="meta-input-wrapper meta-input-text">
-			<label class="meta-label" for="gallery_password">
-				<strong>Gallery Password:</strong>
-			</label>
-			<p class="meta-description">Enter your password for this gallery.</p>
-			<p class="meta-input"><input type="password" class="wide" name="gallery_password" value="<?php echo esc_attr( $gallery_password ); ?>" /></p>
-		</div>
-
-		<div class="meta-input-wrapper meta-input-select">
-			<label class="meta-label" for="gallery_template">
-				<strong>Gallery Template:</strong>
-			</label>
-			<p class="meta-description">Select gallery template for this gallery.</p>
-			<p class="meta-input">
-				<select class="wide" name="gallery_template">
-					<?php
-						$select = array(
-							'Gallery 1 Column'  => 'Gallery 1 Column',
-							'Gallery 2 Columns' => 'Gallery 2 Columns',
-							'Gallery 3 Columns' => 'Gallery 3 Columns',
-							'Gallery 4 Columns' => 'Gallery 4 Columns',
-							'Gallery Masonry 2 Columns' => 'Gallery Masonry 2 Columns',
-						);
-						foreach ( $select as $key => $value ) {
-							echo '<option value="' . esc_attr( $key ) . '" ' . selected( $gallery_template, $key, true ) . '>' . $value . '</option>';
-						}
-					?>
-				</select>
-			</p>
-		</div>
-	</div>
-	<?php
-}
-
-/*
- * Save metabox
- */
-function anva_galleries_save_meta( $post_id, $post ) {
-
-	// Check if our nonce is set
-	if ( ! isset( $_POST['anva_galleries_custom_box_nonce'] ) )
-		return $post_id;
-
-	// Verify that the nonce is valid
-	if ( ! wp_verify_nonce( $_POST['anva_galleries_custom_box_nonce'], 'anva_galleries_custom_box' ) )
-		return $post_id;
-
-	// If this is an autosave, our form has not been submitted
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-		return $post_id;
-
-	// Check the user's permissions
-	if ( 'page' == $_POST['post_type'] ) {
-		if ( ! current_user_can( 'edit_page', $post_id ) )
-			return $post_id;
-	} else {
-		if ( ! current_user_can( 'edit_post', $post_id ) )
-			return $post_id;
-	}
-
-	// Is safe to save the data
-	
-	if ( isset( $_POST['gallery_password'] ) ) {
-		$text = sanitize_text_field( $_POST['gallery_password'] );
-		$text = base64_encode( $text );
-		update_post_meta( $post_id, '_gallery_password', $text );
-	}
-	
-	if ( isset( $_POST['gallery_template'] ) ) {
-		$text = sanitize_text_field( $_POST['gallery_template'] );
-		update_post_meta( $post_id, '_gallery_template', $text );
+		register_post_type( 'galleries', $args );
+		
+		$labels = array(			  
+			'name' 								=> __( 'Gallery Categories', ANVA_DOMAIN ),
+			'singular_name' 			=> __( 'Gallery Category', ANVA_DOMAIN ),
+			'search_items' 				=> __( 'Search Gallery Categories', ANVA_DOMAIN ),
+			'all_items' 					=> __( 'All Gallery Categories', ANVA_DOMAIN ),
+			'parent_item' 				=> __( 'Parent Gallery Category', ANVA_DOMAIN ),
+			'parent_item_colon' 	=> __( 'Parent Gallery Category:', ANVA_DOMAIN ),
+			'edit_item' 					=> __( 'Edit Gallery Category', ANVA_DOMAIN ), 
+			'update_item' 				=> __( 'Update Gallery Category', ANVA_DOMAIN ),
+			'add_new_item' 				=> __( 'Add New Gallery Category', ANVA_DOMAIN ),
+			'new_item_name' 			=> __( 'New Gallery Category Name', ANVA_DOMAIN ),
+		); 							  
+			
+		register_taxonomy(
+			'gallery_cat',
+			'galleries',
+			array(
+				'public'						=> true,
+				'hierarchical' 			=> true,
+				'labels'						=> $labels,
+				'query_var' 				=> 'gallery_cat',
+				'show_ui' 					=> true,
+				'rewrite' 					=> array( 'slug' => 'gallery_cat', 'with_front' => false ),
+			)
+		);		  
 	}
 
 }
+endif; // If class_exists check
 
 /*
- * Admin menu icon
+ * The main function to return Anva_Gallery instance
  */
-function anva_galleries_admin_icon() {
-	echo '<style>#adminmenu #menu-posts-galleries div.wp-menu-image:before { content: "\f161"; }</style>';	
+function Anva_Gallery() {
+	return Anva_Gallery::instance();
 }
+
+Anva_Gallery();

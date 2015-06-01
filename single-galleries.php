@@ -27,14 +27,14 @@ get_header();
 						$meta 						= anva_get_post_custom();
 						$gallery_password = $meta['_gallery_password'][0];
 						$gallery_template = $meta['_gallery_template'][0];
-
-						if ( ! empty( $gallery_password ) ) {
+						
+						if ( ! empty( $gallery_password ) && ! isset( $_SESSION['gallery_page_' . $id] ) ) :
 							
-							if ( ! isset( $_SESSION['gallery_page_' . $id] ) OR empty( $_SESSION['gallery_page_' . $id] ) ) {
-								get_template_part( 'templates/template_password' );
-								exit;
-							}
-						}
+							if ( ! isset( $_SESSION['gallery_page_' . $id] ) || empty( $_SESSION['gallery_page_' . $id] ) ) :
+								anva_get_template_part( 'password' );
+							endif;
+
+						else :
 					?>
 
 					<header class="entry-header">
@@ -55,33 +55,38 @@ get_header();
 
 						<?php
 
-							if ( post_password_required() ) {
-								return '';
-							}
+							// if ( post_password_required() ) {
+							// 	return '';
+							// }
 
 							switch( $gallery_template ) :
 								case 'Gallery 1 Column':
-									get_template_part( 'templates/template_gallery-1' );
+									anva_get_template_part( 'gallery-1' );
 									break;
 								case 'Gallery 2 Columns':
-									get_template_part( 'templates/template_gallery-2' );
+									anva_get_template_part( 'gallery-2' );
 									break;		
 								case 'Gallery 3 Columns':
-									get_template_part( 'templates/template_gallery-3' );
+									anva_get_template_part( 'gallery-3' );
 									break;
 								case 'Gallery 4 Columns':
-									get_template_part( 'templates/template_gallery-4' );
+									anva_get_template_part( 'gallery-4' );
+									break;
+								case 'Gallery 5 Columns':
+									anva_get_template_part( 'gallery-5' );
 									break;
 								case 'Gallery Masonry 2 Columns':
-									get_template_part( 'templates/template_gallery-masonry-2' );
+									anva_get_template_part( 'gallery-masonry-2' );
 									break;
 								default:
-									get_template_part( 'templates/template_gallery-1' );
+									anva_get_template_part( 'gallery-1' );
 									break;
 							endswitch;
 						?>
 						<div class="clearfix"></div>
 					</div><!-- .entry-content (end) -->
+
+				<?php endif; ?>
 				</article><!-- #post-<?php the_ID(); ?> -->
 			</div><!-- .article-container (end) -->
 		
