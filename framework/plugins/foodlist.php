@@ -26,9 +26,11 @@ function foodlist_load_scripts() {
 function anva_menu_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu" id="fl-menu-[menu_id]">
+			<div class="fl-menu-desc">
+				[menu_excerpt]
+			</div>
 			<div id="menu-toc"></div>
-			<div class="clearfix"></div>
-			<ul>
+			<ul class="fl-menu-sections clearfix">
 				[menu_sections]
 				<li>
 					[menu_section]
@@ -47,8 +49,10 @@ function anva_menu_section_template( $tpl ) {
 	$tpl = '
 		<div class="fl-menu-section" id="fl-menu-section-[menu_section_id]-[menu_section_instance]">
 			<h2>[menu_section_title] <a href="#menu-toc" title="Ir Arriba"><i class="fa fa-long-arrow-up"></i></a></h2>
-			<div class="clear"></div>
-			<ul class="group">
+			<div class="fl-menu-section-content">
+				[menu_section_excerpt]
+			</div>
+			<ul class="fl-menu-items section-full clearfix">
 				[menu_items]
 				<li>
 					[menu_item]
@@ -66,16 +70,31 @@ function anva_menu_section_template( $tpl ) {
 function anva_menu_item_template( $tpl ) {	
 	$tpl = '
 		<div class="fl-menu-item" id="fl-menu-item-[menu_item_id]-[menu_item_instance]">
-			<div class="fl-excerpt">
-				<div class="fl-thumbnail thumbnail">[menu_item_thumbnail]</div>
-				<h3>[menu_item_title]</h3>
-				<div class="fl-summary">[menu_item_excerpt]</div>
+			<div class="fl-menu-item-inner">
+				<div class="fl-menu-item-image">
+					[menu_item_thumbnail]
+				</div>
+				<div class="fl-menu-item-content">
+					<div class="fl-menu-item-title">
+						<h3>[menu_item_title]</h3>
+					</div>
+					<div class="fl-menu-item-desc">
+						[menu_item_excerpt]
+					</div>
+					<div class="fl-menu-item-meta">
+						<div class="fl-menu-item-tags">
+							[menu_item_tags]
+            		<span>
+            			<img src="[menu_item_tag_icon_url]" alt="[menu_item_tag_description]" />
+            			<span class="sr-only">[menu_item_tag_description]</span>
+            		</span>
+        			[/menu_item_tags]
+						</div>
+						<span class="fl-menu-item-currency">[currency_sign]</span>
+						<span class="fl-menu-item-price">[menu_item_price]</span>
+					</div>
+				</div>
 			</div>
-			<div class="fl-menu-item-meta">
-				<span class="fl-currency-sign">[currency_sign]</span>
-				<span class="fl-menu-item-price">[menu_item_price]</span>
-			</div>
-			<div class="clear"></div>
 		</div>
 	';
 	return $tpl;

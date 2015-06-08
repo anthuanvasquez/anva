@@ -157,11 +157,11 @@ function anva_get_js_locals() {
 	}
 	
 	$localize = array(
-		'ajax_url' => admin_url( 'admin-ajax.php' ),
-		'theme_url' => get_template_directory_uri(),
-		'theme_images' => get_template_directory_uri() . '/assets/images',
-		'plugin_foodlist' => $foodlist,
-		'plugin_woocommerce' => $woocommerce
+		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+		'themeUrl' => get_template_directory_uri(),
+		'themeImages' => get_template_directory_uri() . '/assets/images',
+		'pluginFoodlist' => $foodlist,
+		'pluginWoocommerce' => $woocommerce
 	);
 
 	return apply_filters( 'anva_get_js_locals', $localize );

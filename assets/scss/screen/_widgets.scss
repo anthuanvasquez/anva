@@ -13,6 +13,9 @@
 	}
 }
 
+/*
+ * WordPress Widgets
+ */
 .widget_calendar {
 	#wp-calendar {
 		width: 100%;
@@ -20,29 +23,50 @@
 }
 
 /*
- * Custom Posts
+ * Anva Custom Posts
  */
-.widget_custom_posts {
-	.widget-posts {
+.widget_anva_posts {
+	ul.widget-posts {
 		@include reset-list();
+		margin-top: 20px;
 		li {
-			margin-bottom: 12px;
+			margin-top: 20px;
+			padding-top: 20px;
+			border-top: 1px dashed #E5E5E5;
 
-			h4 {
+			&:first-child {
 				margin-top: 0;
-				margin-bottom: 3px;
+				padding-top: 0;
+				border-top: 0;
 			}
 
-			.thumbnail {
+			.post-content {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.post-title {
+				h4 {
+					margin: 0;
+					font-size: 14px;
+					font-weight: 600;
+				}
+			}
+
+			.post-image {
 				float: left;
-				margin-right: 10px;
-				margin-bottom: 0;
-				max-width: 90px;
+				margin: 0 15px 0 0;
+				text-align: center;
+				img {
+					max-width: 64px;
+				}
 			}
 
 			.post-date {
 				display: block;
-				font-size: 12px;
+				color: #999;
+				margin: 8px 0 0;
+				font-size: 13px;
 				text-transform: capitalize;
 			}
 		}

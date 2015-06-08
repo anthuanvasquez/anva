@@ -1,43 +1,116 @@
 /*
  * Default Button Styles
  */
-@include group-buttons() {
-	background-color: #fff;
-	background-image: none;
-	border: 1px solid transparent;
-	border-color: #ccc;
-	color: #333;
-	display: inline-block;
-	margin-bottom: 0;
-	font-weight: normal;
-	text-align: center;
-	vertical-align: middle;
-	cursor: pointer;
-	white-space: nowrap;
-	padding: 6px 12px;
-	font-size: 14px;
-	line-height: 1.428571429;
-	border-radius: 4px;
-	user-select: none;
-	transition: background .1s linear;
-	-webkit-font-smoothing: antialiased;
+// @include group-buttons() {
+// 	background-color: #fff;
+// 	background-image: none;
+// 	border: 1px solid transparent;
+// 	border-color: #ccc;
+// 	color: #333;
+// 	display: inline-block;
+// 	margin-bottom: 0;
+// 	font-weight: normal;
+// 	text-align: center;
+// 	vertical-align: middle;
+// 	cursor: pointer;
+// 	white-space: nowrap;
+// 	padding: 6px 12px;
+// 	font-size: 14px;
+// 	line-height: 1.428571429;
+// 	border-radius: 4px;
+// 	user-select: none;
+// 	transition: background .1s linear;
+// 	-webkit-font-smoothing: antialiased;
 
-	&:hover {
-		background-color: #ebebeb;
-		border-color: #adadad;
-		color: color(base);
+// 	&:hover {
+// 		background-color: #ebebeb;
+// 		border-color: #adadad;
+// 		color: color(base);
+// 	}
+// }
+
+body:not(.device-touch) {
+	.button {
+  	transition: all .2s ease-in-out;
 	}
 }
 
-.btn-primary {
-	background: $button-bg-color;
-	background-image: none;
-	border-color:$button-border-color;
-	color: $button-font-color;
+.button {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	white-space: nowrap;
+	margin: 5px;
+	padding: 0 22px;
+	font-size: config(font-size);
+	height: 40px;
+	line-height: 40px;
+	background-color: color(primary);
+	color: #fff;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border: none;
+	text-shadow: 1px 1px 1px rgba(black, .2);
 
 	&:hover {
-		background: darken($button-bg-color, 10%);
-		border-color:$button-border-color;
-		color: $button-font-color;
+		background-color: color(base);
+		color: #fff;
+		text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 	}
+
+	i {
+  	position: relative;
+  	top: 0px;
+  	line-height: 1;
+  	margin-right: 5px;
+	}
+
+	&.button-mini {
+		padding: 0 14px;
+		font-size: 11px;
+		height: 28px;
+		line-height: 28px;
+	}
+
+	&.button-small {
+		padding: 0 17px;
+		font-size: 12px;
+		height: 34px;
+		line-height: 34px;
+	}
+
+	&.button-large {
+	  padding: 0 26px;
+	  font-size: 16px;
+	  height: 46px;
+	  line-height: 46px;
+	}
+
+	&.button-xlarge {
+	  padding: 0 32px;
+	  font-size: 18px;
+	  letter-spacing: 2px;
+	  height: 52px;
+	  line-height: 52px;
+	}
+
+	&.button-dark {
+		background-color: color(base);
+		&:hover {
+			background-color: color(primary);
+		}
+	}
+
+	&.button-rounded {
+  	border-radius: $border-radius;
+	}
+
+	&.button-3d {
+	  border-radius: $border-radius;
+	  border-bottom: 3px solid rgba(black, .15);
+	  transition: none;
+	}
+
 }

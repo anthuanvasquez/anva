@@ -21,7 +21,10 @@
 	}
 }());
 
-//@prepros-append vendor/enquire.js
-//@prepros-append vendor/jquery.magnific-popup.js
-//@prepros-append vendor/jquery.hoverIntent.js
-//@prepros-append vendor/jquery.superfish.js
+//@prepros-append vendor/enquire.min.js
+//@prepros-append vendor/jquery.magnific-popup.min.js
+//@prepros-append vendor/jquery.hoverIntent.min.js
+//@prepros-append vendor/jquery.superfish.min.js
+//@prepros-append vendor/jquery.appear.min.js
+//@prepros-append vendor/jquery.counto.min.js
+//@prepros-append vendor/jquery.spectragram.min.js

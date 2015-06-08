@@ -193,7 +193,7 @@ function anva_get_theme_scripts() {
 		),
 		'validate' => array(
 			'handle' => 'jquery-validate',
-			'src' => get_template_directory_uri() . '/assets/js/jquery.validate.min.js',
+			'src' => get_template_directory_uri() . '/assets/js/vendor/jquery.validate.min.js',
 			'dep' => array( 'jquery' ),
 			'ver' => '1.12.0',
 			'in_footer' => true,
@@ -223,6 +223,15 @@ function anva_get_theme_scripts() {
 			'src' => get_template_directory_uri() . '/assets/js/vendor/masonry.min.js',
 			'dep' => array( 'jquery' ),
 			'ver' => '3.3.0',
+			'in_footer' => true,
+			'type' => 'js',
+			'cond' => false
+		),
+		'isotope' => array(
+			'handle' => 'isotope',
+			'src' => get_template_directory_uri() . '/assets/js/vendor/isotope.min.js',
+			'dep' => array( 'jquery' ),
+			'ver' => '2.2.0',
 			'in_footer' => true,
 			'type' => 'js',
 			'cond' => true

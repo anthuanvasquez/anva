@@ -1,17 +1,17 @@
 <?php
 
 /* Social Icons Widget */
-class Custom_Posts extends WP_Widget {
+class Anva_Posts extends WP_Widget {
 
 	/* Create Widget Function */
-	function Custom_Posts() {
+	function Anva_Posts() {
 
 		$widget_ops = array(
-			'classname' => 'widget_custom_posts',
+			'classname' => 'widget_anva_posts',
 			'description' => __('Muestra una lista de los posts mas recientes con una imagen destacada.', ANVA_DOMAIN)
 		);
 
-		$this->WP_Widget('Custom_Posts', 'Custom Posts', $widget_ops);
+		$this->WP_Widget('Anva_Posts', 'Anva Custom Posts', $widget_ops);
 	}
 
 	/* Call Widget */
@@ -45,7 +45,6 @@ class Custom_Posts extends WP_Widget {
 		$instance['order'] 			= $new_instance['order'];
 		$instance['orderby'] 		= $new_instance['orderby'];
 		$instance['thumbnail']	= $new_instance['thumbnail'];
-
 		return $instance;
 	}
 
@@ -53,20 +52,20 @@ class Custom_Posts extends WP_Widget {
 	function form( $instance ) {
 		
 		/* Default Value */
-		$instance = wp_parse_args( (array) $instance, array(
-			'title' => __( 'Artículos Recientes', ANVA_DOMAIN ),
-			'number' 	=> '3',
-			'order' => 'desc',
-			'orderby' => 'date',
+		$instance 		= wp_parse_args( (array) $instance, array(
+			'title' 		=> __( 'Artículos Recientes', ANVA_DOMAIN ),
+			'number' 		=> '3',
+			'order' 		=> 'desc',
+			'orderby' 	=> 'date',
 			'thumbnail' => true
 		));
 		
 		/* Inputs */
-		$title 			= $instance['title'];
-		$number 		= $instance['number'];
-		$order 			= $instance['order'];
-		$orderby 		= $instance['orderby'];
-		$thumbnail	= $instance['thumbnail'];
+		$title 				= $instance['title'];
+		$number 			= $instance['number'];
+		$order 				= $instance['order'];
+		$orderby 			= $instance['orderby'];
+		$thumbnail		= $instance['thumbnail'];
 
 		?>
 		
@@ -88,7 +87,6 @@ class Custom_Posts extends WP_Widget {
 			<select class="widefat" id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>">
 				<option <?php if ( 'asc' == $order ) echo 'selected="selected"'; ?> value="asc">ASC</option>
 				<option <?php if ( 'desc' == $order ) echo 'selected="selected"'; ?> value="desc">DESC</option>
-			
 			</select>
 		</p>
 		
@@ -105,7 +103,6 @@ class Custom_Posts extends WP_Widget {
 		<!-- Thumbnail -->
 		<p>			
 			<input class="widefat" <?php checked( $thumbnail, 'on'); ?> id="<?php echo $this->get_field_id('thumbnail'); ?>" name="<?php echo $this->get_field_name('thumbnail'); ?>" type="checkbox" />
-
 			<label for="<?php echo $this->get_field_id('thumbnail'); ?>"><?php _e('Mostrar miniaturas', ANVA_DOMAIN); ?></label>
 		</p>
 

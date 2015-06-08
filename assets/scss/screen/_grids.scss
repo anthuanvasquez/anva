@@ -15,14 +15,18 @@
 	}
 
 	[class*="grid_"] {
+		display: block;
 		min-height: 30px;
+		margin-bottom: 50px;
 		&:last-child {
 			@include omega();
 		}
 	}
 
 	.grid_12 {
+		clear: both;
 		@include span-columns(12);
+		margin-right: 0;
 	}
 
 	.grid_11 {
@@ -70,7 +74,8 @@
 	}	
 
 	.grid_last {
-		@include omega();
+		margin-right: 0;
+		clear: right;
 	}
 
 }

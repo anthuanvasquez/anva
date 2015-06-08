@@ -188,33 +188,41 @@ function anva_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date',
 	$output = '';
 
 	$args = array(
-		'posts_per_page' => $number,
-		'post_type' => array( 'post' ),
-		'orderby'	=> $orderby,
-		'order'	=> $order
+		'posts_per_page' 	=> $number,
+		'post_type' 			=> array( 'post' ),
+		'orderby'					=> $orderby,
+		'order'						=> $order
 	);
 
 	$the_query = new WP_Query( $args );
 	
-	echo '<ul class="widget-posts">';
+	$output .= '<ul class="widget-posts">';
 
 	while ( $the_query->have_posts() ) {
 		$the_query->the_post();
 
 		if ( $thumbnail ) {
 			$output .= '<li class="post-widget clearfix">';
-			$output .= '<a href="'. get_permalink() .'"><div class="thumbnail">' . get_the_post_thumbnail( $post->ID, 'thumbnail', $attr = '' ) . '</div></a>';
+			$output .= '<div class="post-image">';
+			$output .= '<a href="'. get_permalink() .'">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</a>';
+			$output .= '</div>';
 		} else {
 			$output .= '<li class="post-widget clearfix">';
 		}
 
-		$output .= '<h4 class="post-title"><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
+		$output .= '<div class="post-content">';
+		$output .= '<div class="post-title">';
+		$output .= '<h4><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
+		$output .= '</div>';
+		$output .= '<div class="post-meta">';
 		$output .= '<span class="post-date">' . get_the_time( 'F j, Y' ) . '</span>';
+		$output .= '</div>';
+		$output .= '</div>';
 		$output .= '</li>';
 	}
 
+	$output .= '</ul>';
 	echo $output;
-	echo '</ul>';
 }
 
 /*
@@ -297,10 +305,31 @@ function anva_sort_gallery( $gallery_arr ) {
 	}
 }
 
+/*
+ * Get templates part
+ */
 function anva_get_template_part( $name ) {
 	$path = 'templates/';
 	$part = 'template_';
 	get_template_part( $path . $part . $name );
+}
+
+function anva_get_framework_url() {
+	if ( defined( 'ANVA_FRAMEWORK_URL' ) ) {
+		$url = ANVA_FRAMEWORK_URL;
+	} else {
+		$url = get_template_directory_uri() . '/framework';
+	}
+	return $url;
+}
+
+function anva_get_framework_directory() {
+	if ( defined( 'ANVA_FRAMEWORK' ) ) {
+		$path = ANVA_FRAMEWORK;
+	} else {
+		$path = get_template_directory_uri() . '/framework';
+	}
+	return $path;
 }
 
 /*
@@ -308,13 +337,11 @@ function anva_get_template_part( $name ) {
  */
 function anva_get_media_queries( $localize ) {
 	$media_queries = array(
-		'phone_small' 		=> 320,
-		'phone_medium' 		=> 480,
-		'tablet_small' 		=> 750,
-		'tablet_medium' 	=> 768,
-		'desktop_small' 	=> 992,
-		'desktop_medium' 	=> 1200,
-		'desktop_large' 	=> 1600
+		'small' 		=> 320,
+		'handheld' 	=> 480,
+		'tablet' 		=> 768,
+		'laptop' 		=> 992,
+		'desktop' 	=> 1200
 	);
 	return array_merge( $localize, $media_queries );
 }

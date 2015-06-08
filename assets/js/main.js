@@ -3,186 +3,378 @@ if ( typeof jQuery === 'undefined' ) {
 }
 
 jQuery.noConflict();
-jQuery(document).ready(function($) {
-	
-	// ---------------------------------------------------------
-	// Enquire JS
-	// ---------------------------------------------------------
-	enquire.register("screen and (max-width: " + ANVAJS.phone_small + "px)", {
-		match : function() {
-			// Match
+
+var ANVA = ANVA || {};
+
+(function($){
+
+	"use strict";
+
+	// Initial
+	ANVA.initialize = {
+
+		init: function() {
+
+			ANVA.initialize.responsiveClasses();
+			ANVA.initialize.masonryLayout();
+			ANVA.initialize.lightbox();
+			ANVA.initialize.menuNavigation( _menuNavigation );
+			ANVA.initialize.removeEmpty('div.fl-thumbnail');
+			ANVA.initialize.removeEmpty('p');
+			ANVA.initialize.toggle();
+			ANVA.initialize.scrollToTop(_goTop);
+			
+			if ( 1 == ANVAJS.pluginFoodlist ) {
+				ANVA.initialize.menuTable();
+			}
 		},
-		unmatch : function() {
-			// Unmatch
-		}
-	});
 
-});
+		responsiveClasses: function() {
 
-var initialize = {
-
-	// ---------------------------------------------------------
-	// Lightbox
-	// ---------------------------------------------------------
-	Lightbox: function(target) {
-		jQuery(target).magnificPopup({
-			delegate: 'a',
-			removalDelay: 300,
-			type: 'image',
-			mainClass: 'mfp-with-zoom',
-			titleSrc: 'title',
-			gallery: {
-				enabled: true
+			function handlerClass(className) {
+				return {
+					match : function() {
+						_body.addClass(className);
+					},
+					unmatch : function() {
+						_body.removeClass(className);
+					}
+				};
 			}
-		});
-	},
 
-	// Galleries Lightbox
-	GalleryLightbox: function(target) {
-		jQuery(target).magnificPopup({
-			delegate: 'a',
-			type: 'image',
-			tLoading: 'Loading image #%curr%...',
-			gallery: {
-				enabled: true,
-				navigateByImgClick: true,
-				preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-			},
-			image: {
-				tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-				titleSrc: function(item) {
-					return '<div class="gallery-caption"><h4>' + item.el.attr('title') + '</h4>' + '<p>' + item.el.attr('data-desc') + '</p></div>';
+			enquire.register("screen and (max-width: 10000px) and (min-width: " + ANVAJS.desktop + "px)", handlerClass('device-lg'));
+			enquire.register("screen and (max-width: 1199px) and (min-width: " + ANVAJS.laptop + "px)", handlerClass('device-md'));
+			enquire.register("screen and (max-width: 991px) and (min-width: " + ANVAJS.tablet + "px)", handlerClass('device-sm'));	
+			enquire.register("screen and (max-width: 767px) and (min-width: " + ANVAJS.handheld + "px)", handlerClass('device-sx'));
+			enquire.register("screen and (max-width: 479px) and (min-width: 0px)", handlerClass('device-xxs'));
+
+		},
+
+		lightbox: function() {
+			var _lightboxImageEl 	= jQuery('[data-lightbox="image"]'),
+				_lightboxGalleryEl 	= jQuery('[data-lightbox="gallery"]'),
+				_lightboxIframeEl 	= jQuery('[data-lightbox="iframe"]');
+
+			// Image
+			if ( _lightboxImageEl.length > 0 ) {
+				_lightboxImageEl.magnificPopup({
+					type: 'image',
+					closeOnContentClick: true,
+					closeBtnInside: false,
+					fixedContentPos: true,
+					mainClass: 'mfp-no-margins mfp-fade', // class to remove default margin from left and right side
+					image: {
+						verticalFit: true
+					}
+				});
+			}
+
+			// Gallery
+			if ( _lightboxGalleryEl.length > 0 ) {
+				_lightboxGalleryEl.each(function() {
+					var element = jQuery(this);
+
+					element.magnificPopup({
+						delegate: 'a[data-lightbox="gallery-item"]',
+						type: 'image',
+						closeOnContentClick: true,
+						closeBtnInside: false,
+						fixedContentPos: true,
+						mainClass: 'mfp-no-margins mfp-fade', // class to remove default margin from left and right side
+						image: {
+							verticalFit: true
+						},
+						gallery: {
+							enabled: true,
+							navigateByImgClick: true,
+							preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+						},
+						tLoading: 'Loading image #%curr%...',
+						image: {
+							tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+							titleSrc: function(item) {
+								return '<div class="gallery-caption"><h4>' + item.el.attr('title') + '</h4>' + '<p>' + item.el.attr('data-desc') + '</p></div>';
+							}
+						}
+					});
+				});
+			}
+
+			if ( _lightboxIframeEl.length > 0 ) {
+				_lightboxIframeEl.magnificPopup({
+					disableOn: 600,
+					type: 'iframe',
+					removalDelay: 160,
+					preloader: false,
+					fixedContentPos: false
+				});
+			}
+		},
+
+		masonryLayout: function() {
+			var _masonryContainer = jQuery('.gallery-masonry .gallery-content'),
+				_masonryItem 				= jQuery('.gallery-item');
+			_masonryContainer.isotope();
+		},
+
+		scrollToTop: function() {
+			jQuery(window).scroll(function() {
+				if ( jQuery(this).scrollTop() > 200 ) {
+					_goTop.fadeIn(200);
+				} else {
+					_goTop.fadeOut(200);
+				}
+			});
+			_goTop.click(function(e) {
+				e.preventDefault();
+				_root.animate({ scrollTop: 0 }, 'slow');
+			});
+		},
+
+		menuNavigation: function(target, rows) {
+			jQuery(target).superfish({
+				delay: 500,
+				animation:   {
+					opacity: 'show',
+					height: 'show'
+				},
+				speed: 'fast',
+				cssArrows: false
+			});
+		},
+
+		removeEmpty: function(target) {
+			jQuery(target + ':empty').remove();
+			jQuery(target).filter( function() {
+				return jQuery.trim( jQuery(this).html() ) == '';
+			}).remove();
+		},
+
+		toggle: function() {
+			jQuery('div.toggle-info').hide();
+			jQuery('h3.toggle-trigger').click(function(e) {
+				e.preventDefault();
+				jQuery(this).toggleClass("is-active").next().slideToggle("normal");
+			});
+			jQuery('#mobile-toggle').tooltip();
+		},
+
+		menuTable: function() {
+			var _menuContent 	= jQuery("#menu-toc");
+			if ( _menuContent.length > 0 ) {
+				var	_menuTitle 		= jQuery(".fl-menu ul > li > div.fl-menu-section > h2"),
+					html = "<nav role='navigation' class='table-of-content'><h2 id='toc' class='alt'><i class='fa fa-bars'></i> Menú</h2><ul class='toc-list clearfix'>",
+					id,
+					list,
+					element,
+					title,
+					link;
+				_menuTitle.each( function() {
+					element = jQuery(this);
+					id 			= jQuery(this).parent('div.fl-menu-section');
+					title 	= element.text();
+					link 		= "#" + id.attr("id");
+					list 		= "<li class='toc-item'><a href='" + link + "'>" + title + "</a></li>";
+					html 	 += list;
+				});
+				html += "</ul></nav>";
+				_menuContent.prepend( html );
+
+				var _menuScrollTop 	= jQuery('#menu-toc a, .fl-menu-section h2 a');
+				if ( _menuScrollTop.length > 0 ) {
+					_menuScrollTop.click(function() {
+						_root.animate({
+							scrollTop: jQuery( jQuery.attr(this, 'href') ).offset().top
+						}, 'slow');
+						return false;
+					});
 				}
 			}
-		});
-	},
+		}
+	};
 
-	// ---------------------------------------------------------
-	// Masonry
-	// ---------------------------------------------------------
-	Masonry: function(container, target) {
-		var _container = jQuery(container);
-		_container.masonry({
-			itemSelector: target,
-			columnWidth: target,
-			percentPosition: true,
-			gutter: 15
-		});
-	},
+	ANVA.widget = {
+		
+		init: function() {
+			ANVA.widget.counter();
+			ANVA.widget.wpCalendar();
+			// ANVA.widget.instagramPhotos( ANVA.config.instagramID, ANVA.config.instagramSecret );
+			ANVA.widget.toggles();
+		},
+		
+		counter: function(){
+			var _counterEl = jQuery('.counter:not(.counter-instant)');
+			if ( _counterEl.length > 0 ){
+				_counterEl.each(function(){
+					var element = jQuery(this);
+					var counterElementComma = jQuery(this).find('span').attr('data-comma');
+					if ( !counterElementComma ) {
+						counterElementComma = false;
+					} else {
+						counterElementComma = true;
+					}
+					if ( _body.hasClass('device-lg') || _body.hasClass('device-md' ) ) {
+						element.appear( function() {
+							ANVA.widget.runCounter( element, counterElementComma );
+						}, { accX: 0, accY: -120 },'easeInCubic');
+					} else {
+						ANVA.widget.runCounter( element, counterElementComma );
+					}
+				});
+			}
+		},
 
-	// ---------------------------------------------------------
-	// Scroll go top button
-	// ---------------------------------------------------------
-	Scroll: function(target) {
-		jQuery(window).scroll(function() {
-			if (jQuery(this).scrollTop() > 200) {
-				jQuery(target).fadeIn(200);
+		runCounter: function( counterElement, counterElementComma ){
+			if ( counterElementComma == true ) {
+				counterElement.find('span').countTo({
+					formatter: function (value, options) {
+						value = value.toFixed(options.decimals);
+						value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+						return value;
+					}
+				});
 			} else {
-				jQuery(target).fadeOut(200);
+				counterElement.find('span').countTo();
 			}
-		});
+		},
 
-		jQuery(target).click(function(e) {
-			e.preventDefault();
-			jQuery('html, body').animate({ scrollTop: 0 }, 'slow');
-		});
-	},
-
-	// ---------------------------------------------------------
-	// Superfish Menu
-	// ---------------------------------------------------------
-	Menu: function(target, rows) {
-		jQuery(target).superfish({
-			delay: 500,
-			animation:   {
-				opacity: 'show',
-				height: 'show'
-			},
-			speed: 'fast',
-			cssArrows: false
-		});
-	},
-
-	// ---------------------------------------------------------
-	// Remove empty elements
-	// ---------------------------------------------------------
-	RemoveEmpty: function(target) {
-		jQuery(target + ':empty').remove();
-		jQuery(target).filter( function() {
-			return jQuery.trim( jQuery(this).html() ) == '';
-		}).remove();
-	},
-
-	// ---------------------------------------------------------
-	// Toogle for shortcodes
-	// ---------------------------------------------------------
-	Toggle: function() {
-		jQuery('div.toggle-info').hide();
-		jQuery('h3.toggle-trigger').click(function(e) {
-			e.preventDefault();
-			jQuery(this).toggleClass("is-active").next().slideToggle("normal");
-		});
-		jQuery('#mobile-toggle').tooltip();
-
-	},
-
-	// ---------------------------------------------------------
-	// TOC
-	// ---------------------------------------------------------
-	TOC: function() {
-		var menu = jQuery("#menu-toc");
-		var target = jQuery(".fl-menu ul > li > div.fl-menu-section > h2");
-		var html = "<nav role='navigation' class='table-of-contents'>" + "<h2 id='toc' class='alt'><i class='fa fa-bars'></i> Menú</h2>" + "<ul class='toc-list group'>";
-		var list, el, title, link;
-		
-		target.each( function() {
-			el = jQuery(this);
-			id = jQuery(this).parent('div.fl-menu-section');
-			title = el.text();
-			link = "#" + id.attr("id");
-			list = "<li class='toc-item'>" + "<a href='" + link + "'>" + title + "</a>" + "</li>";
-			html += list;
-		});
-
-		html += "</ul>" + "</nav>";
-
-		menu.prepend(html);
-
-		jQuery('.fl-menu a[href*=#]:not([href=#])').click(function() {
-			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-				var target = jQuery(this.hash);
-				target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
-				if (target.length) {
-					jQuery('html, body').animate({
-						scrollTop: target.offset().top
-					}, 1000);
-					return false;
-				}
+		wpCalendar: function() {
+			if ( _wpCalendar.length > 0 ) {
+				_wpCalendar.addClass('table table-bordered table-condensed table-responsive').find('tfoot a').addClass('btn btn-default')
 			}
-		});
-	},
+		},
 
-	// ---------------------------------------------------------
-	// Init Function
-	// ---------------------------------------------------------
-	Init: function() {
+		instagramPhotos: function( c_accessToken, c_clientID ) {
+			var _instagramPhotosEl = jQuery('.instagram-photos');
+			if ( _instagramPhotosEl.length > 0 ) {
+				jQuery.fn.spectragram.accessData = {
+					accessToken: c_accessToken,
+					clientID: c_clientID
+				};
 
-		initialize.Lightbox('.gallery > .gallery-item, .single .featured-image .thumbnail');
-		initialize.GalleryLightbox('#gallery-container .gallery-content > .gallery-item');
-		initialize.Masonry('.gallery-masonry .gallery-content', '.gallery-item');
-		initialize.Menu('ul.navigation-menu, ul.off-canvas-menu');
-		initialize.RemoveEmpty('div.fl-thumbnail');
-		initialize.RemoveEmpty('p');
-		initialize.Toggle();
-		initialize.Scroll('#gotop');
-		
-		if ( 1 == ANVAJS.plugin_foodlist ) {
-			initialize.TOC();
+				_instagramPhotosEl.each(function() {
+					var element = jQuery(this),
+						instaGramUsername = element.attr('data-user'),
+						instaGramTag 			= element.attr('data-tag'),
+						instaGramCount 		= element.attr('data-count'),
+						instaGramType 		= element.attr('data-type');
+
+					if ( !instaGramCount ) {
+						instaGramCount = 9;
+					}
+
+					if ( instaGramType == 'tag' ) {
+						element.spectragram('getRecentTagged',{
+							query: instaGramTag,
+							max: Number( instaGramCount ),
+							size: 'medium',
+							wrapEachWith: ' '
+						});
+					} else if ( instaGramType == 'user' ) {
+						element.spectragram('getUserFeed',{
+							query: instaGramUsername,
+							max: Number( instaGramCount ),
+							size: 'medium',
+							wrapEachWith: ' '
+						});
+					} else {
+						element.spectragram('getPopular',{
+							max: Number( instaGramCount ),
+							size: 'medium',
+							wrapEachWith: ' '
+						});
+					}
+				});
+			}
+		},
+
+		toggles: function(){
+			var _toggle = jQuery('.toggle');
+			if ( _toggle.length > 0 ) {
+				_toggle.each( function(){
+					var element = jQuery(this),
+						elementState = element.attr('data-state');
+
+					if ( elementState != 'open' ){
+						element.find('.toggle-content').hide();
+					} else {
+						element.find('.toggle-ttitle').addClass("toggle-title-a");
+					}
+
+					element.find('.toggle-title').click(function(){
+						jQuery(this).toggleClass('toggle-title-a').next('.toggle-content').slideToggle(300);
+						return true;
+					});
+				});
+			}
+		},
+	};
+
+	ANVA.isMobile = {
+		Android: function() {
+			return navigator.userAgent.match(/Android/i);
+		},
+		BlackBerry: function() {
+			return navigator.userAgent.match(/BlackBerry/i);
+		},
+		iOS: function() {
+			return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+		},
+		Opera: function() {
+			return navigator.userAgent.match(/Opera Mini/i);
+		},
+		Windows: function() {
+			return navigator.userAgent.match(/IEMobile/i);
+		},
+		any: function() {
+			return (ANVA.isMobile.Android() || ANVA.isMobile.BlackBerry() || ANVA.isMobile.iOS() || ANVA.isMobile.Opera() || ANVA.isMobile.Windows());
 		}
-	}
+	};
 
-};
+	ANVA.documentOnReady = {
+		
+		init: function() {
+			ANVA.initialize.init();
+			ANVA.widget.init();
+		}
 
-jQuery(document).ready(function($) {
-	initialize.Init();
-});
+	};
+
+	ANVA.documentOnLoad = {
+		
+		init: function() {
+			// Init document load functions
+		}
+
+	};
+
+	ANVA.documentOnResize = {
+		
+		init: function() {
+			// Init document resize functions
+		}
+
+	};
+
+	ANVA.config = {
+		instagramID: 			'43dd505ce2c04bd1aa2230726e9300e1',
+		instagramSecret: 	'7eceb8870d854d8b999262f0496906ea',
+		flickrID: "",
+		flickrSecret: ""
+	};
+
+	var _window 				= jQuery(window),
+		_root 						= jQuery('html, body'),
+		_body 						= jQuery('body'),
+		_wrapper 					= jQuery('#wrapper'),
+		_header 					= jQuery('#header'),
+		_footer 					= jQuery('#footer'),
+		_goTop						= jQuery('#gotop'),
+		_menuNavigation 	= jQuery('ul.navigation-menu, ul.off-canvas-menu'),
+		_wpCalendar				= jQuery('#wp-calendar');
+
+	jQuery(document).ready( ANVA.documentOnReady.init );
+	jQuery(window).load( ANVA.documentOnLoad.init );
+	jQuery(window).on( 'resize', ANVA.documentOnResize.init );
+
+})(jQuery);

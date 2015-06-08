@@ -8,7 +8,7 @@
 
 <div id="gallery-container" class="gallery-container gallery-3-col">
 	<div class="gallery-inner">
-		<div class="gallery-content clearfix">
+		<div class="gallery-content clearfix" data-lightbox="gallery">
 			<?php
 			foreach( $gallery_arr as $id ) :
 				$gallery_image_url 				= '';
@@ -24,7 +24,7 @@
 				
 				<div class="gallery-item">
 					<div class="gallery-image">
-						<a href="<?php echo $gallery_image_ori[0]; ?>" title="<?php echo $gallery_image_title; ?>" data-gallery="gallery-group" data-desc="<?php echo $gallery_image_desc; ?>">
+						<a href="<?php echo $gallery_image_ori[0]; ?>" title="<?php echo $gallery_image_title; ?>" data-lightbox="gallery-item" data-desc="<?php echo $gallery_image_desc; ?>">
 							<img src="<?php echo $gallery_image_url[0]; ?>" alt="<?php echo $gallery_image_title; ?>" />
 						</a>
 					</div>

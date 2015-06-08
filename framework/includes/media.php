@@ -174,7 +174,7 @@ function anva_post_thumbnails( $thumb ) {
 	if ( $thumb != 2 && has_post_thumbnail() ) {
 		$output .= '<div class="entry-thumbnail ' . $classes . ' thumbnail">';
 		if ( is_single() ) {
-			$output .= '<a href="' . anva_get_featured_image( $post->ID, 'large' ) . '" title="' . get_the_title() . '">' . get_the_post_thumbnail( $post->ID, $size ) . '</a>';
+			$output .= '<a data-lightbox="image" href="' . anva_get_featured_image( $post->ID, 'large' ) . '" title="' . get_the_title() . '">' . get_the_post_thumbnail( $post->ID, $size ) . '</a>';
 		} else {
 			$output .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '">' . get_the_post_thumbnail( $post->ID, $size ) . '</a>';
 		}

@@ -13,6 +13,12 @@ $configuration: (
 	debug: false
 );
 
+// Helpers
+// ------------------------------------------------
+$border-radius: config(border-radius);
+$logo-size: config(logo);
+$padding: config(padding);
+
 // Minimum Browser Support
 // ------------------------------------------------
 $browser-minimum-versions: (
@@ -30,10 +36,15 @@ $palette: (
 	secondary: 	#cccccc,
 	tertiary: 	darken(#4285f4, 5%),
 	body: 			#f2f2f2,
-	base:				#333333,
+	base:				#444444,
 	content:  	#ffffff,
 	link: 			#4285f4,
 	meta:				#999999
+);
+
+$colors: (
+	orange: #EB9C4D,
+	green: #59BA41
 );
 
 // Font Stacks
@@ -89,19 +100,12 @@ $h6: 11px;
 // Buttons
 // ------------------------------------------------
 $button-bg-color: color(primary);
-$button-border-radius: 4px;
+$button-border-radius: $border-radius;
 $button-border-color: darken($button-bg-color, 8%);
 $button-font-color: #fff;
 $button-font-size: 14px;
 $button-font-weight: normal;
 $button-padding-box: 6px 12px;
-
-// Others
-// ------------------------------------------------
-$border-radius: config(border-radius);
-$icon-font-family: $font-awesome;
-$logo-size: config(logo);
-$padding: config(padding);
 
 // Neat
 // ------------------------------------------------

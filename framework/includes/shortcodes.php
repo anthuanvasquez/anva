@@ -1,13 +1,19 @@
 <?php
 
+add_filter( 'the_content', 'anva_fix_shortcodes' );
+add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
+
 /*
  * Shortcodes
  */
-function anva_shortcodes_setup() {
+function anva_shortcodes_init() {
 	
-	add_shortcode( 'dropcap', 'dropcap_func' );
-	add_shortcode( 'button', 'button_func' );
-	add_shortcode( 'toggle', 'toggle_func' );
+	add_shortcode( 'drop', 'anva_dropcap' );
+	add_shortcode( 'button', 'anva_button' );
+	add_shortcode( 'toggle', 'anva_toggle' );
+	add_shortcode( 'counter', 'anva_counter' );
+
+	add_shortcode( 'column_full', 'column_full' );
 	add_shortcode( 'column_six', 'column_six_func' );
 	add_shortcode( 'column_six_last', 'column_six_last_func' );	
 	add_shortcode( 'column_four', 'column_four_func' );
@@ -20,100 +26,92 @@ function anva_shortcodes_setup() {
 	add_shortcode( 'column_one_last', 'column_one_last_func' );
 	
 }
-add_filter( 'after_setup_theme', 'anva_shortcodes_setup'  );
 
-/*
- * Dropcap
- */
-function dropcap_func( $atts, $content ) {
-	extract( shortcode_atts( array(
-		'style' => 1
-	), $atts ));
-	$first_char = substr( $content, 0, 1 );
-	$text_len 	= strlen( $content );
-	$rest_text 	= substr( $content, 1, $text_len );
-	$html  			= '<span class="dropcap">' . $first_char . '</span>';
-	$html 		 .= wpautop( $rest_text );
-	return $html;
+function anva_fix_shortcodes( $content ) {
+	$array = array (
+		'<p>[' 		=> '[', 
+		']</p>' 	=> ']', 
+		']<br />' => ']'
+	);
+	$content = strtr($content, $array);
+	return $content;
 }
 
 /*
  * Buttons
  */
-function button_func( $atts, $content )  {
+function anva_button( $atts, $content ) {
+
 	extract( shortcode_atts( array(
-		'href' => '#',
-		'align' => 'none',
-		'color' => '',
-		'size' => 'btn-sm',
-		'target' => '_self',
+		'href' 		=> '',
+		'align' 	=> '',
+		'icon'		=> '',
+		'size' 		=> '',
+		'color'		=> '',
+		'style'		=> '',
+		'target' 	=> '',
 	), $atts ));
 
-	$bg = '';
-	$text = '';
+	$classes = array();
 
-	if ( ! empty( $color ) ) {
-		switch( strtolower( $color ) ) {
-			case 'black':
-				$bg 	= '#000000';
-				$text = '#ffffff';
-				break;
-			case 'grey':
-				$bg 	= '#666666';
-				$text = '#ffffff';
-				break;
-			case 'white':
-				$bg	= '#f5f5f5';
-				$text = '#444444';
-				break;
-			case 'blue':
-				$bg 	= '#3498DB';
-				$text = '#ffffff';
-				break;
-			case 'yellow':
-				$bg 	= '#F1C40F';
-				$text = '#ffffff';
-				break;
-			case 'red':
-				$bg 	= '#ff0000';
-				$text = '#ffffff';
-				break;
-			case 'orange':
-				$bg 	= '#ff9900';
-				$text = '#ffffff';
-				break;
-			case 'green':
-				$bg 	= '#2ECC71';
-				$text = '#ffffff';
-				break;
-			case 'pink':
-				$bg 	= '#ed6280';
-				$text = '#ffffff';
-				break;
-			case 'purple':
-				$bg 	= '#9B59B6';
-				$text = '#ffffff';
-				break;
-		}
+	if ( ! empty( $icon ) ) {
+		$icon = '<i class="fa fa-'. $icon .'"></i>';
 	}
-	
-	if ( ! empty( $bg ) ) {
-		$border = $bg;
-	} else {
-		$border = 'transparent';
+
+	if ( ! empty( $align ) ) {
+		$classes[] = 'align'. $align;
 	}
-	
-	if ( ! empty( $bg ) ) { 
-		$html = '<a class="btn ' . $size . ' align' . $align . '" style="background-color:' . $bg . ';border:1px solid ' . $border . ';color:' . $text . ';"';
-	} else {
-		$html = '<a class="btn ' . $size . ' align' . $align . '"';
-	}
-	
+
 	if ( ! empty( $href ) ) {
-		$html .= ' onclick="window.open(\'' . $href . '\', \'' . $target . '\')"';
+		$href	= 'href="'. $href .'"';
 	}
 
-	$html .= '>' . $content . '</a>';
+	if ( ! empty( $target ) ) {
+		$target = 'target="'. $target .'"';
+	}
+
+	switch ( $style ) {
+		case 'round':
+			$classes[] = 'button-rounded';
+			break;
+
+		case '3d':
+			$classes[] = 'button-3d';
+			break;
+	}
+
+	// Sizes
+	switch ( $size ) {
+		case 'mini':
+			$classes[] = 'button-mini';
+			break;
+		
+		case 'small':
+			$classes[] = 'button-small';
+			break;
+
+		case 'large':
+			$classes[] = 'button-large';
+			break;
+
+		case 'xlarge':
+			$classes[] = 'button-xlarge';
+			break;
+	}
+
+	// Colors
+	switch ( $color ) {
+		case 'orange':
+			$classes[] = 'button-orange';
+			break;
+	}
+
+	$classes = implode( ' ', $classes );
+	
+	$html  = '<a class="button '. $classes . '" '. $href .' '. $target .'>';
+	$html .= $icon;
+	$html .= $content;
+	$html .= '</a>';
 
 	return $html;
 }
@@ -122,7 +120,6 @@ function button_func( $atts, $content )  {
  * Six columns
  */
 function column_six_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
@@ -134,11 +131,10 @@ function column_six_func( $atts, $content ) {
  * Six columns last
  */
 function column_six_last_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
 	extract(shortcode_atts(array(
 		'class' => '',
 	), $atts));
-	$html = '<div class="grid_6 grid_last '. $class .'">'. $content . '</div><div class="clearfixfix"></div>';
+	$html = '<div class="grid_6 grid_last '. $class .'">'. $content . '</div>';
 	return $html;
 }
 
@@ -235,32 +231,104 @@ function column_one_last_func( $atts, $content ) {
 		'class' => '',
 	), $atts ));
 	$html  = '<div class="grid_1 grid_last '. $class .'">' . $content . '</div>';
-	$html .= '<div class="clearfixfix"></div>';
+	$html .= '<div class="clearfix"></div>';
+	return $html;
+}
+
+function column_full( $atts, $content ) {
+	extract( shortcode_atts( array(
+		'class' => '',
+	), $atts));
+	$html = '<div class="grid_12 '. $class .'">' . $content . '</div>';
+	return $html;
+}
+
+/*
+ * Dropcap
+ */
+function anva_dropcap( $atts, $content ) {
+	extract( shortcode_atts( array(
+		'style' => ''
+	), $atts ));
+
+	$first_char = substr( $content, 0, 1 );
+	$text_len 	= strlen( $content );
+	$rest_text 	= substr( $content, 1, $text_len );
+	$classes 		= '';
+
+	switch ( $style ) {
+		case 'bg':
+			$classes .= 'dropcap-bg';
+			break;
+		case 'border':
+			$classes .= 'dropcap-border';
+			break;
+	}
+
+	$html  = '<span class="dropcap '. $classes .'">' . $first_char . '</span>';
+	$html .= wpautop( $rest_text );
 	return $html;
 }
 
 /*
  * Toggle
  */
-function toggle_func( $atts, $content ) {
+function anva_toggle( $atts, $content ) {
 	$content = wpautop( trim( $content ) );
 	extract( shortcode_atts( array(
-		'title' => __( 'Click para Abrir', ANVA_DOMAIN ),
-		'id' => 'default',
-		'collapse' => '',
-		''
+		'title' 	=> __( 'Click para ver el Contenido', ANVA_DOMAIN ),
+		'id' 			=> '',
+		'style'		=> ''
 	), $atts ));
-	$html  = '<div class="panel-group">';
-	$html .= '<div class="panel panel-default">';
-	$html .= '<div class="panel-heading">';
-	$html .= '<h4 class="panel-title">';
-	$html .= '<a href="#'. $id .'" data-toggle="collapse">'. $title .'</a>';
-	$html .= '</h4>';
-	$html .= '</div>';
-	$html .= '<div id="'. $id .'" class="panel-collapse collapse">';
-	$html .= '<div class="panel-body">'. $content . '</div>';
-	$html .= '</div>';
-	$html .= '</div>';
+
+	$classes = '';
+
+	if ( ! empty( $id ) ) {
+		$id = 'id="'. esc_attr( $id ) . '"';
+	}
+
+	switch ( $style ) {
+		case 'bg':
+			$classes .= 'toggle-bg';
+			break;
+		case 'border':
+			$classes .= 'toggle-border';
+			break;
+	}
+
+	$html  = '<div class="toggle '. esc_attr( $classes ) .'" '. $id .'>';
+	$html .= '<div class="toggle-title" "><i class="toggle-closed fa fa-minus-circle"></i><i class="toggle-open fa fa-plus-circle"></i>'. esc_html( $title ) .'</div>';
+	$html .= '<div class="toggle-content">'. $content . '</div>';
 	$html .= '</div>';	
+	return $html;
+}
+
+/*
+ * Counter
+ */
+function anva_counter( $atts, $content ) {
+	$content = wpautop( trim( $content ) );
+	extract( shortcode_atts( array(
+		'from' 			=> 0,
+		'to' 				=> 100,
+		'interval'	=> 100,  // Refresh interval
+		'speed' 		=> 2000, // Speed animation
+		'size'			=> ''
+	), $atts ));
+
+	$classes = '';
+
+	switch ( $size ) {
+		case 'small':
+			$classes = 'counter-small';
+			break;
+		case 'large':
+			$classes = 'counter-large';
+			break;
+	}
+
+	$html  = '<div class="counter text-center '. $classes .'">';
+	$html .= '<span data-from="'. $from .'" data-to="'. $to .'" data-refresh-interval="'. $interval .'" data-speed="'. $speed .'"></span>';
+	$html .= '</div>';
 	return $html;
 }

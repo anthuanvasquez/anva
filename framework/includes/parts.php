@@ -332,7 +332,7 @@ function anva_contact_form() {
 	<div class="contact-form-container">
 		
 		<?php if ( ! empty( $email_sended_message ) ) : ?>
-			<div id="email_message" class="alert alert-block"><?php echo $email_sended_message; ?></div>
+			<div id="email_message" class="alert alert-warning"><?php echo $email_sended_message; ?></div>
 		<?php endif; ?>
 
 		<form id="contactform" class="contact-form"  role="form" method="post" action="<?php the_permalink(); ?>#contactform">
@@ -365,7 +365,7 @@ function anva_contact_form() {
 			
 			<div class="form-submit form-group">
 				<input type="hidden" id="submitted" name="contact-submission" value="1">
-				<input id="submit-contact-form" type="submit" class="btn btn-primary" value="<?php echo anva_get_local( 'submit' ); ?>">
+				<input id="submit-contact-form" type="submit" class="button button-3d" value="<?php echo anva_get_local( 'submit' ); ?>">
 			</div>
 		</form>
 	</div><!-- .contact-form-wrapper -->
