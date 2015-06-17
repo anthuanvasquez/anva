@@ -47,23 +47,23 @@
 /**
  * Change the start year in footer.
  */
-function anva_theme_start_year() {
-	return 2015;
-}
-add_filter( 'anva_footer_year', 'anva_theme_start_year' );
+// function anva_theme_start_year() {
+// 	return 2015;
+// }
+// add_filter( 'anva_footer_year', 'anva_theme_start_year' );
 
 /**
  * Change footer credits.
  */
-function anva_theme_footer_credits() {
-	return __( 'Development by', 'anva' );
-}
-add_filter( 'anva_footer_credits', 'anva_theme_footer_credits' );
+// function anva_theme_footer_credits() {
+// 	return __( 'Development by', 'anva' );
+// }
+// add_filter( 'anva_footer_credits', 'anva_theme_footer_credits' );
 
 /**
  * Change footer author.
  */
-function anva_theme_footer_author() {
-	return  '<a href="'. esc_url( anva_get_theme( 'author_uri' ) ) .'">'. anva_get_theme( 'author' ) .'</a>.';
-}
-add_filter( 'anva_footer_author', 'anva_theme_footer_author' );
+// function anva_theme_footer_author() {
+// 	return  '<a href="'. esc_url( anva_get_theme( 'author_uri' ) ) .'">'. anva_get_theme( 'author' ) .'</a>.';
+// }
+// add_filter( 'anva_footer_author', 'anva_theme_footer_author' );

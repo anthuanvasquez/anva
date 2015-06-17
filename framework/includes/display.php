@@ -28,7 +28,7 @@ function anva_main_navigation_default() {
 	if ( has_nav_menu( 'primary' ) ) :
 	$trigger = '<a href="#" id="primary-menu-trigger"><i class="fa fa-bars"></i></a>';
 	?>
-		<nav id="navigation" class="navigation clearfix" role="navigation">
+		<nav id="navigation" class="navigation" role="navigation">
 			<?php
 				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
 					'theme_location'  => 'primary',
@@ -43,7 +43,9 @@ function anva_main_navigation_default() {
 			?>
 		</nav><!-- #main-navigation (end) -->
 	<?php else : ?>
-		<div class="navigation-message well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
+		<div class="container clearfix">
+			<div class="navigation-message well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
+		</div>
 	<?php endif;
 }
 
@@ -116,7 +118,7 @@ function anva_footer_content_default() {
  */
 function anva_footer_copyrights_default() {
 	printf(
-		'<p>&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#"><i class="fa fa-chevron-up"></i></a></p>',
+		'<div class="grid_6">&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#"><i class="fa fa-chevron-up"></i></a></div>',
 		anva_get_current_year( apply_filters( 'anva_footer_year', date( 'Y' ) ) ),
 		get_bloginfo( 'name' ),
 		anva_get_local( 'footer_copyright' ),
