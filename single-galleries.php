@@ -12,9 +12,9 @@ get_header();
 
 <div class="row grid-columns">
 	<div class="content-area col-sm-12">
-		<div class="main" role="main">
+		<div id="galleries">
 		
-		<?php anva_post_before(); ?>
+		<?php anva_content_post_before(); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 		
@@ -51,7 +51,6 @@ get_header();
 					
 					<div class="entry-content">
 						<?php the_content(); ?>
-						<div class="clearfix"></div>
 
 						<?php
 
@@ -89,8 +88,6 @@ get_header();
 				<?php endif; ?>
 				</article><!-- #post-<?php the_ID(); ?> -->
 			</div><!-- .article-container (end) -->
-		
-		<?php anva_post_after(); ?>
 
 			<?php
 				$single_comment = anva_get_option( 'single_comment' );
@@ -102,6 +99,8 @@ get_header();
 			?>
 
 		<?php endwhile; ?>
+
+		<?php anva_content_post_after(); ?>
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->	

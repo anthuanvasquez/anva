@@ -6,7 +6,7 @@ $configuration: (
 	layout: 12,
 	logo: 200px,
 	min-width: 320px,
-	max-width: 1000px,
+	max-width: 1170px,
 	padding: 20px,
 	border-radius: 4px,
 	boxed: true,
@@ -35,7 +35,7 @@ $palette: (
 	primary: 		#4285f4,
 	secondary: 	#cccccc,
 	tertiary: 	darken(#4285f4, 5%),
-	body: 			#f2f2f2,
+	body: 			#f5f5f5,
 	base:				#444444,
 	content:  	#ffffff,
 	link: 			#4285f4,
@@ -46,6 +46,8 @@ $colors: (
 	orange: #EB9C4D,
 	green: #59BA41
 );
+
+$theme-color: color(primary);
 
 // Font Stacks
 // ------------------------------------------------
@@ -70,12 +72,11 @@ $heading-font-line-height: 1.1;
 $heading-font-weight: 700;
 
 // Menu
-$menu-font-size: config(font-size);
-$menu-font-weight: normal;
+$menu-font-size: 13px;
+$menu-font-weight: 600;
 $menu-font-family: $helvetica;
 $menu-text-shadow: none;
-$menu-text-transform: capitalize;
-$sub-menu-font-size: config(font-size);
+$menu-text-transform: uppercase;
 
 // Footer
 $footer-font-color: color(base);

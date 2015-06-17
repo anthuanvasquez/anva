@@ -38,6 +38,17 @@
 	}
 }
 
+@mixin clearfix() {
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
 // Reset list ex. ul, ol
 @mixin reset-list() {
 	list-style: none;
@@ -60,16 +71,6 @@
 	}
 }
 
-@mixin omega-reset($nth, $col) {
-  &:nth-child(#{$nth}) {
-  	margin-right: flex-gutter();
-  }
-
-  &:nth-child(#{$nth}+1) {
-  	clear: none
-  }
-}
-
 // Display elements to inline-block
 @mixin inline-block() {
 	display: inline-block;
@@ -82,11 +83,7 @@
 
 // Container inner classes
 @mixin container-class() {
-	#header,
-	#footer,
-	.main-inner {
-		@content;
-	}
+	
 }
 
 // Group inputs
@@ -166,80 +163,4 @@
 	animation-duration: #{$duration}s;
 	animation-delay: #{$delay}s;
 	animation-iteration-count: $count;
-}
-
-// Sprites
-@mixin spritesheet-position($x: 0, $y: 0, $width: 0, $height: 0) {
-	background-position: $x $y;
-	width: $width;
-	height: $height;
-}
-
-// Include 32x32 icons by default
-@mixin spritesheet-icon($dimensions: 32px) {
-	.social-digg {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 0;
-	}
-
-	.social-dribbble {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions);
-	}
-
-	.social-facebook {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*2;
-	}
-
-	.social-gplus {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*3;
-	}
-
-	.social-instagram {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*4;
-	}
-
-	.social-linkedin {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*5;
-	}
-
-	.social-pinterest {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*6;
-	}
-
-	.social-rss {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*7;
-	}
-
-	.social-twitter {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*8;
-	}
-
-	.social-vimeo {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*9;
-	}
-
-	.social-youtube {
-		width: $dimensions;
-		height: $dimensions;
-		background-position: 0 (-$dimensions)*10;
-	}
 }

@@ -1,17 +1,17 @@
 <?php
 
 /* Social Icons Widget */
-class Custom_Social_Media extends WP_Widget {
+class Anva_Social_Icons extends WP_Widget {
 
 	/* Create Widget Function */
-	function Custom_Social_Media() {
+	function Anva_Social_Icons() {
 
 		$widget_ops = array(
-			'classname' => 'widget_social_media',
+			'classname' => 'widget_social_icons',
 			'description' => __('Muestra los iconos de las redes mas populares y una descripcion.', ANVA_DOMAIN)
 		);
 
-		$this->WP_Widget('Custom_Social_Media', 'Custom Social Media', $widget_ops);
+		$this->WP_Widget('Anva_Social_Icons', 'Anva Social Icons', $widget_ops);
 	}
 
 	/* Call Widget */
@@ -40,7 +40,12 @@ class Custom_Social_Media extends WP_Widget {
 		echo '</div>';
 		
 		/* Show Social Media Icons */
-		anva_social_icons();
+		$size  = 'social-small';
+		$style = 'social-colored';
+		printf(
+			'<ul class="social-media">%1$s</ul>',
+			anva_social_media( $size, $style )
+		);
 
 		echo $after_widget;
 	}

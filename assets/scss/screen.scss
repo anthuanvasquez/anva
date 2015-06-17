@@ -1,39 +1,31 @@
+// ---------------------------------------------------------------- //
+// Framework - Variables / Mixins / Functions
+// ---------------------------------------------------------------- //
+
 @import "bourbon";
-
-// Settings
 @import "framework";
-
-// Neat
 @import "neat";
 
-// Base
+/* ---------------------------------------------------------------- */
+/* Screen - Main CSS File
+/* ---------------------------------------------------------------- */
+
 @import "screen/general";
 @import "screen/forms";
 @import "screen/typography";
-
-// Layout
-@import "screen/content";
+@import "screen/layouts";
 @import "screen/header";
 @import "screen/navigation";
-@import "screen/entry";
+@import "screen/blog";
 @import "screen/footer";
-
-// WordPress
 @import "screen/comments";
 @import "screen/gallery";
-@import "screen/shortcodes/shortcodes";
+@import "screen/shortcodes";
 @import "screen/widgets";
 @import "screen/wordpress";
-
-// Modules
 @import "screen/buttons";
-@import "screen/contact-us";
-@import "screen/spritesheets";
+@import "screen/social-icons";
 @import "screen/magnific-popup";
 @import "screen/grids";
+@import "screen/sliders";
 @import "screen/helpers";
-@import "screen/animations";
-
-// Plugins
-@import "plugins/flexslider";
-@import "plugins/slick";

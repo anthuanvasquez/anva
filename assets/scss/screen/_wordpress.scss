@@ -6,14 +6,20 @@
 
 .alignleft {
 	float: left;
-	margin: 0 10px 5px 0;
+	margin: 0 15px 10px 0;
 	text-align: left;
 }
 
 .alignright {
 	float: right;
-	margin: 0 0 5px 10px;
+	margin: 0 0 10px 5px;
 	text-align: right;
+}
+
+.alignnone {
+	float: none;
+	margin: 0;
+	text-align: left;
 }
 
 a {

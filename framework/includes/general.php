@@ -133,7 +133,7 @@ function anva_get_sidebar_args( $id, $name, $description, $classes ) {
 		'id'            => $id,
 		'name'          => $name,
 		'description'		=> $description,
-		'before_widget' => '<aside id="%1$s" class="widget %2$s '.$classes.'"><div class="widget-inner">',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s '. $classes .'"><div class="widget-inner clearfix">',
 		'after_widget'  => '</div></aside>',
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
@@ -146,9 +146,18 @@ function anva_get_sidebar_args( $id, $name, $description, $classes ) {
  */
 function anva_get_theme_scripts() {
 	$scripts = array(
+		'animate' => array(
+			'handle' => 'animate',
+			'src' => get_template_directory_uri() . '/assets/css/animate.min.css',
+			'dep' => array(),
+			'ver' => '',
+			'media' => 'all',
+			'type' => 'css',
+			'cond' => true
+		),
 		'font-awesome' => array(
 			'handle' => 'font-awesome',
-			'src' => get_template_directory_uri() . '/assets/css/font-awesome.css',
+			'src' => get_template_directory_uri() . '/assets/css/font-awesome.min.css',
 			'dep' => array(),
 			'ver' => '4.3.0',
 			'media' => 'all',
@@ -157,7 +166,7 @@ function anva_get_theme_scripts() {
 		),
 		'boostrap' => array(
 			'handle' => 'boostrap',
-			'src' => get_template_directory_uri() . '/assets/css/bootstrap.css',
+			'src' => get_template_directory_uri() . '/assets/css/bootstrap.min.css',
 			'dep' => array(),
 			'ver' => '3.3.4',
 			'media' => 'all',
@@ -175,7 +184,7 @@ function anva_get_theme_scripts() {
 		),
 		'responsive' => array(
 			'handle' => 'responsive',
-			'src' => get_template_directory_uri() . '/assets/css/screen-responsive.css',
+			'src' => get_template_directory_uri() . '/assets/css/responsive.css',
 			'dep' => array( 'screen' ),
 			'ver' => false,
 			'media' => 'all',
@@ -217,15 +226,6 @@ function anva_get_theme_scripts() {
 			'in_footer' => true,
 			'type' => 'js',
 			'cond' => true
-		),
-		'masonry' => array(
-			'handle' => 'masonry',
-			'src' => get_template_directory_uri() . '/assets/js/vendor/masonry.min.js',
-			'dep' => array( 'jquery' ),
-			'ver' => '3.3.0',
-			'in_footer' => true,
-			'type' => 'js',
-			'cond' => false
 		),
 		'isotope' => array(
 			'handle' => 'isotope',

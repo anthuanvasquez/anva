@@ -7,6 +7,8 @@
  * @link		http://anthuanvasquez.webcindario.com
  * @package		3Mentes WordPress Base Template
  */
+
+global $options;
  
 // Options Array
 $options = array(

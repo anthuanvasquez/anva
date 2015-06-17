@@ -1,16 +1,13 @@
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
+
 /*
  * Modern Clearfix
  */
 .clear,
 .group {
-	&:before,
-	&:after {
-		content: " ";
-		display: table;
-	}
-	&:after {
-		clear: both;
-	}
+	@include clearfix();
 }
 
 @if browser('ie') == '7' {
@@ -24,11 +21,19 @@
 	}
 }
 
+.resetlist {
+	@include reset-list();
+}
+
 /*
  * Full Width Elements
  */
 .full-width {
 	width: 100%;
+}
+
+.not-animated {
+	opacity: 0;
 }
 
 /*
@@ -44,4 +49,32 @@
 
 .no-margin-top {
 	margin-top: 0;
+}
+
+.bottommargin {
+	margin-bottom: 20px;
+}
+
+.topmargin {
+	margin-top: 20px;
+}
+
+/*
+ * Lines
+ */
+.line,
+.double-line {
+  clear: both;
+  position: relative;
+  width: 100%;
+  margin: 60px 0;
+  border-top: 1px solid #eee;
+}
+
+.divider {
+  position: relative;
+  overflow: hidden;
+  margin: 35px 0;
+  color: #e5e5e5;
+  width: 100%;
 }

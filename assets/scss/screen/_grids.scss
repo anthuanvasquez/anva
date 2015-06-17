@@ -2,80 +2,66 @@
  * Grid Columns
  */
 .grid-columns {
+	@include clearfix();
+}
 
-	&:before,
-	&:after {
-		display: table;
-		line-height: 0;
-		content: "";
-	}
+[class*="grid_"] {
+	display: block;
+	margin-bottom: 30px;
+	position: relative;
+}
 
-	&:after {
-		clear: both;
-	}
+.grid_12 {
+	clear: both;
+	@include span-columns(12);
+	margin-right: 0;
+}
 
-	[class*="grid_"] {
-		display: block;
-		min-height: 30px;
-		margin-bottom: 50px;
-		&:last-child {
-			@include omega();
-		}
-	}
+.grid_11 {
+	@include span-columns(11);
+}
 
-	.grid_12 {
-		clear: both;
-		@include span-columns(12);
-		margin-right: 0;
-	}
+.grid_10 {
+	@include span-columns(10);
+}
 
-	.grid_11 {
-		@include span-columns(11);
-	}
+.grid_9 {
+	@include span-columns(9);
+}
 
-	.grid_10 {
-		@include span-columns(10);
-	}
+.grid_8 {
+	@include span-columns(8);
+}
 
-	.grid_9 {
-		@include span-columns(9);
-	}
+.grid_7 {
+	@include span-columns(7);
+}
 
-	.grid_8 {
-		@include span-columns(8);
-	}
+.grid_6 {
+	@include span-columns(6);
+}
 
-	.grid_7 {
-		@include span-columns(7);
-	}
+.grid_5 {
+	@include span-columns(5);
+}
 
-	.grid_6 {
-		@include span-columns(6);
-	}
+.grid_4 {
+	@include span-columns(4);
+}
 
-	.grid_5 {
-		@include span-columns(5);
-	}
+.grid_3 {
+	@include span-columns(3);
+}
 
-	.grid_4 {
-		@include span-columns(4);
-	}
+.grid_2 {
+	@include span-columns(2);
+}
 
-	.grid_3 {
-		@include span-columns(3);
-	}
+.grid_1 {
+	@include span-columns(1);
+}	
 
-	.grid_2 {
-		@include span-columns(2);
-	}
-
-	.grid_1 {
-		@include span-columns(1);
-	}	
-
-	.grid_last {
-		margin-right: 0;
-		clear: right;
-	}
-
+.grid_last {
+	margin-right: 0;
+	clear: right;
 }

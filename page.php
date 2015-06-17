@@ -6,18 +6,25 @@
 $classes = '';
 $sidebar = anva_get_post_meta( '_sidebar_column' );
 
-if ( 'left' == $sidebar || 'right' == $sidebar ) {
-	$classes = 'col-sm-8';
-
-} elseif ( 'double' == $sidebar || 'double_left' == $sidebar || 'double_right' == $sidebar  ) {
-	$classes = 'col-sm-6';
-
-} elseif ( 'fullwidth' == $sidebar ) {
-	$classes = 'col-sm-12';
-
-} else {
-	$classes = 'col-sm-8';
+switch ( $sidebar ) {
+	case 'left':
+	case 'rght':
+		$classes = 'col-sm-9';
+		break;
 	
+	case 'double':
+	case 'double_left':
+	case 'double_right':
+		$classes = 'col-sm-6';
+		break;
+
+	case 'fullwidth':
+		$classes = 'col-sm-12';
+		break;
+	
+	default:
+		$classes = 'col-sm-9';
+		break;
 }
 
 get_header();
@@ -25,34 +32,30 @@ get_header();
 
 <div class="row grid-columns">
 
-	<?php anva_sidebar_layout_before(); ?>
+	<?php anva_sidebar_before(); ?>
 
-	<div class="content-area <?php echo esc_attr($classes); ?>">
-		<div class="main">
+	<div class="content-area <?php echo esc_attr( $classes ); ?>">
+		<?php anva_content_post_before(); ?>
 
-			<?php anva_post_before(); ?>
+		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php while ( have_posts() ) : the_post(); ?>
+			<?php get_template_part( 'content', 'page' ); ?>
 
-				<?php get_template_part( 'content', 'page' ); ?>
-			
-			<?php anva_post_after(); ?>
-
-				<?php
-					$single_comment = anva_get_option( 'single_comment' );
-					if ( 1 == $single_comment ) :
-						if ( comments_open() || '0' != get_comments_number() ) :
-							comments_template();
-						endif;
+			<?php
+				$single_comment = anva_get_option( 'single_comment' );
+				if ( 1 == $single_comment ) :
+					if ( comments_open() || '0' != get_comments_number() ) :
+						comments_template();
 					endif;
-				?>
+				endif;
+			?>
 
-			<?php endwhile; ?>
+		<?php endwhile; ?>
 
-		</div><!-- .main (end) -->
+		<?php anva_content_post_after(); ?>
 	</div><!-- .content-area (end) -->
 	
-	<?php anva_sidebar_layout_after(); ?>
+	<?php anva_sidebar_after(); ?>
 	
 </div><!-- .grid-columns (end) -->
 

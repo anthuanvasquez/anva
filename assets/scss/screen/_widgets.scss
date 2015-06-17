@@ -1,107 +1,176 @@
-/*
- * Main widgets
- */
-.widget {
-	margin: 0 0 30px 0;
-	
-	ul {
-		@include reset-list();
-	}
+/* ---------------------------------------------------------------- */
+/* Widgets
+/* ---------------------------------------------------------------- */
 
-	p:last-child {
+.widget {
+		position: relative;
+		margin-top: 50px;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		.widget-inner {
+			> h3 {
+				margin-bottom: 25px;
+				font-size: 15px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+			}
+		}
+
+		.textwidget {
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		p {
+			font-size: 14px;
+		}
+}
+
+.widget-title {
+	margin-top: 0;
+	margin-bottom: 25px;
+}
+
+/* -----------------------------------------------------------------*/
+/* Tag Cloud
+/* -----------------------------------------------------------------*/
+
+.tagcloud {
+	margin-bottom: -2px;
+	@include clearfix();
+
+	a {
+		display: block;
+		float: left;
+		margin-right: 4px;
+		margin-bottom: 4px;
+		padding: 3px 6px;
+		border: 1px solid #e5e5e5;
+		font-size: 13px !important;
+		color: #666;
+		border-radius: 2px;
+
+		&:hover {
+			border-color: $theme-color;
+			color: $theme-color;
+		}
+	}
+}
+
+body {
+	&:not(.device-touch) {
+		.tagcloud {
+			a {
+				-webkit-transition: all .3s ease-in-out;
+				-o-transition: all .3s ease-in-out;
+				transition: all .3s ease-in-out;
+			}
+		}
+	}
+}
+
+/* -----------------------------------------------------------------*/
+/* Widget - Links
+/* -----------------------------------------------------------------*/
+
+.widget_nav_menu,
+.widget_links,
+.widget_meta,
+.widget_archive,
+.widget_recent_comments,
+.widget_recent_entries,
+.widget_categories,
+.widget_pages,
+.widget_rss {
+	ul,
+	li {
+		list-style: none;
 		margin: 0;
 	}
-}
-
-/*
- * WordPress Widgets
- */
-.widget_calendar {
-	#wp-calendar {
-		width: 100%;
+	ul {
+		padding-left: 0;
 	}
 }
 
-/*
- * Anva Custom Posts
- */
-.widget_anva_posts {
-	ul.widget-posts {
-		@include reset-list();
-		margin-top: 20px;
-		li {
-			margin-top: 20px;
-			padding-top: 20px;
-			border-top: 1px dashed #E5E5E5;
+.widget_nav_menu,
+.widget_links,
+.widget_meta,
+.widget_archive,
+.widget_recent_comments,
+.widget_recent_entries,
+.widget_categories,
+.widget_pages,
+.widget_rss {
+	li {
+		padding: 4px;
+	}
+}
 
-			&:first-child {
-				margin-top: 0;
-				padding-top: 0;
-				border-top: 0;
-			}
-
-			.post-content {
-				position: relative;
-				overflow: hidden;
-			}
-
-			.post-title {
-				h4 {
-					margin: 0;
-					font-size: 14px;
-					font-weight: 600;
-				}
-			}
-
-			.post-image {
-				float: left;
-				margin: 0 15px 0 0;
-				text-align: center;
-				img {
-					max-width: 64px;
-				}
-			}
-
-			.post-date {
-				display: block;
-				color: #999;
-				margin: 8px 0 0;
-				font-size: 13px;
-				text-transform: capitalize;
-			}
+.widget_recent_comments {
+	li {
+		display: block;
+		padding: 4px 0 4px 20px;
+		a {
+			display: inline;
+			padding: 0;
+			background: none !important;
 		}
 	}
 }
 
-/*
- * Social Media
- */
-.widget_social_media {
-	.social-media {
-		margin-top: 10px;
-	}
-}
-
-/*
- * Custom Contact Info
- */
-.widget_custom_contact {
-	.widget-contact-info {
+.widget_nav_menu,
+.widget_links,
+.widget_meta,
+.widget_archive,
+.widget_recent_comments,
+.widget_recent_entries,
+.widget_categories,
+.widget_pages,
+.widget_rss {
+	 > ul {
 		> li {
-			line-height: 20px;
-			margin: 3px 0;
-			.fa {
-				font-size: 16px;
-				padding-right: 5px;
-			}
+			&:first-child {
+				border-top: 0 !important;
+			 }
+		 }
+	 }
+}
+
+.widget_nav_menu,
+.widget_links,
+.widget_meta,
+.widget_archive,
+.widget_recent_comments,
+.widget_recent_entries,
+.widget_categories,
+.widget_pages,
+.widget_rss {
+	 > ul {
+		margin-top: -4px !important;
+	}
+}
+
+.widget_nav_menu,
+.widget_links,
+.widget_meta,
+.widget_archive,
+.widget_recent_comments,
+.widget_recent_entries,
+.widget_categories,
+.widget_pages,
+.widget_rss {
+	 ul {
+		ul {
+			margin-left: 15px;
 		}
 	}
 }
 
-/*
- * Widget services
- */
-.service-image,
-.service-content {
-	margin-bottom: 10px;
-}
+@import "widgets/calendar";
+@import "widgets/posts-list";
+@import "widgets/social-icons";

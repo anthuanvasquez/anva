@@ -58,6 +58,35 @@ function anva_browser_class( $classes ) {
 }
 
 /*
+ * Return post classes
+ */
+function anva_post_classes() {
+	
+	$classes = array();
+	$thumb 	 = anva_get_option( 'posts_thumb' );
+
+	if ( is_home() ) {
+		$classes[] = 'primary-post-list';
+	}
+
+	if ( is_archive() ) {
+		$classes[] = 'archive-post-list';
+	}
+
+	$classes[] = 'post-list post-list-paginated';
+
+	if ( 0 == $thumb ) {
+		$classes[] = 'post-list-small';
+	} elseif ( 1 == $thumb ) {
+		$classes[] = 'post-list-large';
+	}
+
+	$classes = implode( ' ', $classes );
+	
+	echo apply_filters( 'anva_posts_classes', $classes );
+}
+
+/*
  * Display name and description in title
  */
 function anva_wp_title( $title, $sep ) {
@@ -182,7 +211,7 @@ function anva_excerpt( $length = '' ) {
 /*
  * Get posts in custom posts widget
  */
-function anva_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
+function anva_widget_posts_list( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
 	global $post;
 
 	$output = '';
@@ -196,7 +225,7 @@ function anva_get_widget_posts( $number = 3, $orderby = 'date', $order = 'date',
 
 	$the_query = new WP_Query( $args );
 	
-	$output .= '<ul class="widget-posts">';
+	$output .= '<ul class="widget-posts-list">';
 
 	while ( $the_query->have_posts() ) {
 		$the_query->the_post();
@@ -314,6 +343,9 @@ function anva_get_template_part( $name ) {
 	get_template_part( $path . $part . $name );
 }
 
+/*
+ * Get framework url
+ */
 function anva_get_framework_url() {
 	if ( defined( 'ANVA_FRAMEWORK_URL' ) ) {
 		$url = ANVA_FRAMEWORK_URL;
@@ -323,6 +355,9 @@ function anva_get_framework_url() {
 	return $url;
 }
 
+/*
+ * Get templates part
+ */
 function anva_get_framework_directory() {
 	if ( defined( 'ANVA_FRAMEWORK' ) ) {
 		$path = ANVA_FRAMEWORK;

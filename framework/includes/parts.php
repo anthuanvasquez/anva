@@ -52,7 +52,6 @@ function anva_archive_title() {
 
 	else :
 		echo anva_get_local( 'archives' );
-
 	endif;
 
 }
@@ -61,73 +60,75 @@ function anva_archive_title() {
  * Meta posted on
  */
 function anva_posted_on() {
-
-	// Get the time
-	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
-	
-	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-		$time_string .= '<time class="updated" datetime="%3$s"><i class="fa fa-calendar"></i> %4$s</time>';
-	}
-
-	$time_string = sprintf( $time_string,
-		esc_attr( get_the_date( 'c' ) ),
-		esc_html( get_the_date() ),
-		esc_attr( get_the_modified_date( 'c' ) ),
-		esc_html( get_the_modified_date() )
-	);
-
-	// Get comments number
-	$num_comments = get_comments_number();
-
-	if ( comments_open() ) {
-		if ( $num_comments == 0 ) {
-			$comments = __( 'No hay Comentarios', ANVA_DOMAIN );
-		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __( ' Comentarios', ANVA_DOMAIN );
-		} else {
-			$comments = __( '1 Comentario', ANVA_DOMAIN );
+	if ( is_singular( 'post' )) {
+		// Get the time
+		$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
+		
+		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+			$time_string .= '<time class="entry-date-updated updated" datetime="%3$s"><i class="fa fa-calendar"></i> %4$s</time>';
 		}
-		$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
-	} else {
-		$write_comments =  __( 'Comentarios cerrado', ANVA_DOMAIN );
+
+		$time_string = sprintf( $time_string,
+			esc_attr( get_the_date( 'c' ) ),
+			esc_html( get_the_date() ),
+			esc_attr( get_the_modified_date( 'c' ) ),
+			esc_html( get_the_modified_date() )
+		);
+
+		// Get comments number
+		$num_comments = get_comments_number();
+
+		if ( comments_open() ) {
+			if ( $num_comments == 0 ) {
+				$comments = __( 'No hay Comentarios', ANVA_DOMAIN );
+			} elseif ( $num_comments > 1 ) {
+				$comments = $num_comments . __( ' Comentarios', ANVA_DOMAIN );
+			} else {
+				$comments = __( '1 Comentario', ANVA_DOMAIN );
+			}
+			$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
+		} else {
+			$write_comments =  __( 'Comentarios cerrado', ANVA_DOMAIN );
+		}
+
+		$sep = ' / ';
+
+		printf(
+			'<div class="entry-meta">
+				<span class="posted-on">%1$s</span>
+				<span class="sep">%5$s</span>
+				<span class="byline"><i class="fa fa-user"></i> %2$s</span>
+				<span class="sep">%5$s</span>
+				<span class="category"><i class="fa fa-bars"></i> %3$s</span>
+				<span class="sep">%5$s</span>
+				<span class="comments-link"><i class="fa fa-comments"></i> %4$s</span>
+			</div><!-- .entry-meta (end) -->',
+			sprintf(
+				'%1$s', $time_string
+			),
+			sprintf(
+				'<span class="author vcard"><a class="url fn" href="%1$s">%2$s</a></span>',
+				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				esc_html( get_the_author() )
+			),
+			sprintf(
+				'%1$s', get_the_category_list( ', ' )
+			),
+			sprintf(
+				'%1$s', $write_comments
+			),
+			sprintf( '%1$s', $sep )
+		);
 	}
-
-	$sep = ' / ';
-
-	printf(
-		'<div class="entry-meta">
-			<span class="posted-on">%1$s</span>
-			<span class="sep">%5$s</span>
-			<span class="byline"><i class="fa fa-user"></i> %2$s</span>
-			<span class="sep">%5$s</span>
-			<span class="category"><i class="fa fa-bars"></i> %3$s</span>
-			<span class="sep">%5$s</span>
-			<span class="comments-link"><i class="fa fa-comments"></i> %4$s</span>
-		</div><!-- .entry-meta (end) -->',
-		sprintf(
-			'%1$s', $time_string
-		),
-		sprintf(
-			'<span class="author vcard"><a class="url fn" href="%1$s">%2$s</a></span>',
-			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-			esc_html( get_the_author() )
-		),
-		sprintf(
-			'%1$s', get_the_category_list( ', ' )
-		),
-		sprintf(
-			'%1$s', $write_comments
-		),
-		sprintf( '%1$s', $sep )
-	);
 }
 
 /**
  * Social media icons
  */
-function anva_social_media() {
+function anva_social_media( $size = '', $style = '' ) {
 	
 	$html 			= '';
+	$classes 		= array();
 	$facebook 	= anva_get_option('social_facebook');
 	$twitter 		= anva_get_option('social_twitter');
 	$instagram 	= anva_get_option('social_instagram');
@@ -140,48 +141,76 @@ function anva_social_media() {
 	$dribbble 	= anva_get_option('social_dribbble');
 	$rss 				= anva_get_option('social_rss');
 
-	if ( ! empty( $facebook ) ) {
-		$html .= '<li><a href="'. esc_url( $facebook ) .'" class="social social-facebook"><span class="sr-only">Facebook</span></a></li>';
+	$profiles = array(
+		'facebook' => array(
+			'name' => 'Facebook',
+			'url'  => $facebook
+		),
+		'twitter' => array(
+			'name' => 'Twitter',
+			'url'  => $twitter
+		),
+		'instagram' => array(
+			'name' => 'Instagram',
+			'url'  => $instagram
+		),
+		'google-plus' => array(
+			'name' => 'Google+',
+			'url'  => $gplus
+		),
+		'youtube' => array(
+			'name' => 'Youtube',
+			'url'  => $youtube
+		),
+		'linkedin' => array(
+			'name' => 'LinkedIn',
+			'url'  => $linkedin
+		),
+		'vimeo-square' => array(
+			'name' => 'Vimeo',
+			'url'  => $vimeo
+		),
+		'pinterest' => array(
+			'name' => 'Pinterest',
+			'url'  => $pinterest
+		),
+		'digg' => array(
+			'name' => 'Digg',
+			'url'  => $digg
+		),
+		'dribbble' => array(
+			'name' => 'Dribbble',
+			'url'  => $dribbble
+		),
+		'rss' => array(
+			'name' => 'RSS',
+			'url'  => $rss
+		),
+	);
+
+	if ( ! empty( $size ) ) {
+		$classes[] = $size;
 	}
 
-	if ( ! empty( $twitter ) ) {
-		$html .= '<li><a href="'. esc_url( $twitter ) .'" class="social social-twitter"><span class="sr-only">Twitter</span></a></li>';
+	if ( ! empty( $style ) ) {
+		$classes[] = $style;
 	}
 
-	if ( ! empty( $instagram ) ) {
-		$html .= '<li><a href="'. esc_url( $instagram ) .'" class="social social-instagram"><span class="sr-only">Instagram</span></a></li>';
-	}
+	$classes = implode( ' ', $classes );
+	
+	foreach ( $profiles as $key => $value ) {
 
-	if ( ! empty( $gplus ) ) {
-		$html .= '<li><a href="'. esc_url( $gplus ) .'" class="social social-gplus"><span class="sr-only">Google+</span></a></li>';
-	}
+		if ( isset( $value['url'] ) && ! empty( $value['url'] ) ) {
 
-	if ( ! empty( $youtube ) ) {
-		$html .= '<li><a href="'. esc_url( $youtube ) .'" class="social social-youtube"><span class="sr-only">Youtube</span></a></li>';
-	}
+		$name  = $value['name'];
+		$url 	 = $value['url'];
 
-	if ( ! empty( $linkedin ) ) {
-		$html .= '<li><a href="'. esc_url( $linkedin ) .'" class="social social-linkedin"><span class="sr-only">LinkedIn</span></a></li>';
-	}
+		$html .= '<li>';
+		$html .= '<a href="'. esc_url( $url ) .'" class="social-icon social-'. esc_attr( $key ) . ' '. esc_attr( $classes ) . '" data-toggle="tooltip" data-placement="top" title="'. $name .'"><i class="fa fa-'. esc_attr( $key ) .'"></i>';
+		$html .= '</a>';
+		$html .= '</li>';
 
-	if ( ! empty( $vimeo ) ) {
-		$html .= '<li><a href="'. esc_url( $vimeo ) .'" class="social social-vimeo"><span class="sr-only">Vimeo</span></a></li>';
-	}
-
-	if ( ! empty( $pinterest ) ) {
-		$html .= '<li><a href="'. esc_url( $pinterest ) .'" class="social social-pinterest"><span class="sr-only">Pinterest</span></a></li>';
-	}
-
-	if ( ! empty( $digg ) ) {
-		$html .= '<li><a href="'. esc_url( $digg ) .'" class="social social-digg"><span class="sr-only">Digg</span></a></li>';
-	}
-
-	if ( ! empty( $dribbble ) ) {
-		$html .= '<li><a href="'. esc_url( $dribbble ) .'" class="social social-dribbble"><span class="sr-only">Dribbble</span></a></li>';
-	}
-
-	if ( ! empty( $rss ) ) {
-		$html .= '<li><a href="'. esc_url( $rss ) .'" class="social social-rss"><span class="sr-only">RSS</span></a></li>';
+		}
 	}
 
 	return $html;
@@ -213,7 +242,7 @@ function anva_post_nav() {
 	?>
 	<nav class="post-navigation" role="navigation">
 		<div class="post-navigation-inner">
-			<div class="pager navigation-content">
+			<div class="pager navigation-content clearfix">
 				<?php
 					previous_post_link( '<div class="previous">%link</div>', anva_get_local( 'prev' ) );
 					next_post_link( '<div class="next">%link</div>', anva_get_local( 'next' ) );
@@ -221,19 +250,8 @@ function anva_post_nav() {
 			</div>
 		</div>
 	</nav><!-- .post-navigation (end) -->
+	<div class="line"></div>
 	<?php
-}
-
-/**
- * Add class to posts_link_next() and previous.
- */
-function anva_posts_link_attr() {
-	return 'class="btn btn-default button-link"';
-}
-
-function anva_post_link_attr( $output ) {
-	$class = 'class="btn btn-default button-link"';
-	return str_replace('<a href=', '<a '. $class .' href=', $output);
 }
 
 /**
@@ -472,7 +490,7 @@ function anva_comment_list( $comment, $args, $depth ) {
 		$tag = 'li';
 		$add_below = 'div-comment';
 	}
-?>
+	?>
 	<<?php echo $tag ?> <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ) ?> id="comment-<?php comment_ID() ?>">
 	
 	<?php if ( 'div' != $args['style'] ) : ?>
@@ -508,7 +526,7 @@ function anva_comment_list( $comment, $args, $depth ) {
 		</div>
 
 		<?php if ( $comment->comment_approved == '0' ) : ?>
-		<em class="comment-awaiting-moderation well well-sm"><?php _e( 'Your comment is awaiting moderation.' ); ?></em>
+			<em class="comment-awaiting-moderation well well-sm"><?php _e( 'Your comment is awaiting moderation.' ); ?></em>
 		<?php endif; ?>
 		
 		<div class="comment-text">

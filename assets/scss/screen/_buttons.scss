@@ -1,33 +1,6 @@
 /*
  * Default Button Styles
  */
-// @include group-buttons() {
-// 	background-color: #fff;
-// 	background-image: none;
-// 	border: 1px solid transparent;
-// 	border-color: #ccc;
-// 	color: #333;
-// 	display: inline-block;
-// 	margin-bottom: 0;
-// 	font-weight: normal;
-// 	text-align: center;
-// 	vertical-align: middle;
-// 	cursor: pointer;
-// 	white-space: nowrap;
-// 	padding: 6px 12px;
-// 	font-size: 14px;
-// 	line-height: 1.428571429;
-// 	border-radius: 4px;
-// 	user-select: none;
-// 	transition: background .1s linear;
-// 	-webkit-font-smoothing: antialiased;
-
-// 	&:hover {
-// 		background-color: #ebebeb;
-// 		border-color: #adadad;
-// 		color: color(base);
-// 	}
-// }
 
 body:not(.device-touch) {
 	.button {
@@ -67,6 +40,24 @@ body:not(.device-touch) {
   	margin-right: 5px;
 	}
 
+	&.button-desc {
+		text-align: left;
+  	padding: 24px 34px;
+  	font-size: 22px;
+  	height: auto;
+  	line-height: 1 !important;
+
+	  span {
+	  	display: block;
+	  	margin-top: 10px;
+	  	font-size: 14px;
+	  	font-weight: 400;
+	  	letter-spacing: 1px;
+	  	font-style: italic;
+	  	text-transform: none;
+	  }
+	}
+
 	&.button-mini {
 		padding: 0 14px;
 		font-size: 11px;
@@ -103,6 +94,37 @@ body:not(.device-touch) {
 		}
 	}
 
+	&.button-light {
+		border: 2px solid #444;
+	  background-color: transparent;
+	  color: #444;
+	  line-height: 36px;
+	  font-weight: 600;
+	  text-shadow: none;
+	  &:hover {
+		  background-color: #444;
+		  color: #fff;
+		  border-color: transparent;
+		  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+		}
+
+	  &.button-mini {
+  		line-height: 24px;
+		}
+
+		&.button-small {
+  		line-height: 30px;
+		}
+
+		&.button-large {
+  		line-height: 42px;
+		}
+		
+		&.button-xlarge {
+  		line-height: 48px;
+		}
+	}
+
 	&.button-rounded {
   	border-radius: $border-radius;
 	}
@@ -113,4 +135,36 @@ body:not(.device-touch) {
 	  transition: none;
 	}
 
+	.post-list & {
+		margin: 0;
+	}
+
+}
+
+@mixin button-color($color) {
+	background-color: $color;
+	&:hover {
+		background-color: darken($color, 5%);
+	}
+}
+
+$color-aqua:	 	#40C0CB;
+$color-red: 		#C02942;
+$color-yellow: 	#ECD078;
+$color-green: 	#59BA41;
+
+.button-aqua {;
+	@include button-color($color-aqua);
+}
+
+.button-red {
+	@include button-color($color-red);
+}
+
+.button-yellow {
+	@include button-color($color-yellow);
+}
+
+.button-green {
+	@include button-color($color-green);
 }

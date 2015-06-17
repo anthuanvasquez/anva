@@ -18,11 +18,12 @@ var ANVA = ANVA || {};
 			ANVA.initialize.responsiveClasses();
 			ANVA.initialize.masonryLayout();
 			ANVA.initialize.lightbox();
-			ANVA.initialize.menuNavigation( _menuNavigation );
-			ANVA.initialize.removeEmpty('div.fl-thumbnail');
-			ANVA.initialize.removeEmpty('p');
-			ANVA.initialize.toggle();
-			ANVA.initialize.scrollToTop(_goTop);
+			ANVA.initialize.menuNavigation();
+			ANVA.initialize.menuTrigger();
+			ANVA.initialize.removeEmptyEl('div.fl-thumbnail');
+			ANVA.initialize.removeEmptyEl('p');
+			ANVA.initialize.goToTop();
+			ANVA.initialize.paginationButtons();
 			
 			if ( 1 == ANVAJS.pluginFoodlist ) {
 				ANVA.initialize.menuTable();
@@ -117,46 +118,83 @@ var ANVA = ANVA || {};
 			_masonryContainer.isotope();
 		},
 
-		scrollToTop: function() {
-			jQuery(window).scroll(function() {
-				if ( jQuery(this).scrollTop() > 200 ) {
-					_goTop.fadeIn(200);
-				} else {
-					_goTop.fadeOut(200);
-				}
-			});
+		goToTop: function() {
 			_goTop.click(function(e) {
 				e.preventDefault();
-				_root.animate({ scrollTop: 0 }, 'slow');
+				_root.animate({ scrollTop: 0 }, 400 );
 			});
 		},
 
-		menuNavigation: function(target, rows) {
-			jQuery(target).superfish({
+		goToTopScroll: function()	{
+			_window.scroll(function() {
+				if ( _body.hasClass('device-lg') || _body.hasClass('device-md') || _body.hasClass('device-sm') ) {
+					if ( jQuery(this).scrollTop() > 450 ) {
+						_goTop.fadeIn(200);
+					} else {
+						_goTop.fadeOut(200);
+					}
+				}
+			});
+		},
+
+		menuNavigation: function() {
+			_menuNavigation.superfish({
 				delay: 500,
 				animation:   {
 					opacity: 'show',
 					height: 'show'
 				},
 				speed: 'fast',
-				cssArrows: false
+				cssArrows: true
 			});
 		},
 
-		removeEmpty: function(target) {
-			jQuery(target + ':empty').remove();
-			jQuery(target).filter( function() {
+		menuTrigger: function() {
+			var _offCanvasTrigger = jQuery('#off-canvas-trigger'),
+				_offCanvas = jQuery('#off-canvas'),
+				_primaryMenu = jQuery('#primary-menu'),
+				_primaryTrigger = jQuery('#primary-menu-trigger');
+
+			if ( _offCanvas.length > 0 ) {
+				_body.addClass('js-ready');
+				_offCanvasTrigger.click( function() {
+					_offCanvas.toggleClass('is-active');
+					_contain.toggleClass('is-active');
+					return false;
+				});
+
+				_window.on( 'resize', function() {
+					if ( _offCanvas.css('display') === 'block' ) {
+						_offCanvas.removeClass('is-active');
+						_contain.removeClass('is-active');
+					}
+				});
+
+			} else if ( _primaryMenu.length > 0 ) {
+				_primaryTrigger.click( function() {
+					_primaryMenu.slideToggle();
+					return false;
+				});
+
+				_window.on( 'resize', function() {
+					if ( _primaryMenu.css('display') === 'none' ) {
+						_primaryMenu.css('display', 'block');
+					}
+				});
+			}
+		},
+
+		removeEmptyEl: function(selector) {
+			jQuery(selector + ':empty').remove();
+			jQuery(selector).filter( function() {
 				return jQuery.trim( jQuery(this).html() ) == '';
 			}).remove();
 		},
 
-		toggle: function() {
-			jQuery('div.toggle-info').hide();
-			jQuery('h3.toggle-trigger').click(function(e) {
-				e.preventDefault();
-				jQuery(this).toggleClass("is-active").next().slideToggle("normal");
-			});
-			jQuery('#mobile-toggle').tooltip();
+		paginationButtons: function() {
+			if ( _buttonNav.length > 0 ) {
+				_buttonNav.addClass('button');
+			}
 		},
 
 		menuTable: function() {
@@ -196,13 +234,40 @@ var ANVA = ANVA || {};
 	ANVA.widget = {
 		
 		init: function() {
+			ANVA.widget.animations();
 			ANVA.widget.counter();
 			ANVA.widget.wpCalendar();
 			// ANVA.widget.instagramPhotos( ANVA.config.instagramID, ANVA.config.instagramSecret );
 			ANVA.widget.toggles();
+			ANVA.widget.extras();
+		},
+
+		animations: function() {
+			var _dataAnimateEl = jQuery('[data-animate]');
+			if ( _dataAnimateEl.length > 0 ){
+				if ( _body.hasClass('device-lg') || _body.hasClass('device-md') || _body.hasClass('device-sm') ) {
+					_dataAnimateEl.each( function(){
+						var element = jQuery(this),
+							animationDelay = element.attr('data-delay'),
+							animationDelayTime = 0;
+
+						if ( animationDelay ) { animationDelayTime = Number( animationDelay ) + 500; } else { animationDelayTime = 500; }
+
+						if ( ! element.hasClass('animated') ) {
+							element.addClass('not-animated');
+							var elementAnimation = element.attr('data-animate');
+							element.appear(function () {
+								setTimeout(function() {
+									element.removeClass('not-animated').addClass( elementAnimation + ' animated');
+								}, animationDelayTime);
+							},{ accX: 0, accY: -120 },'easeInCubic');
+						}
+					});
+				}
+			}
 		},
 		
-		counter: function(){
+		counter: function() {
 			var _counterEl = jQuery('.counter:not(.counter-instant)');
 			if ( _counterEl.length > 0 ){
 				_counterEl.each(function(){
@@ -308,6 +373,22 @@ var ANVA = ANVA || {};
 				});
 			}
 		},
+
+		extras: function() {
+			jQuery('[data-toggle="tooltip"]').tooltip({
+				container: 'body'
+			});
+
+			if ( ANVA.isMobile.any() ) {
+				_body.addClass('device-touch');
+			}
+		}
+	};
+
+	ANVA.isBrowser = {
+		any: function() {
+			
+		}
 	};
 
 	ANVA.isMobile = {
@@ -336,8 +417,15 @@ var ANVA = ANVA || {};
 		init: function() {
 			ANVA.initialize.init();
 			ANVA.widget.init();
-		}
+			ANVA.isBrowser.any();
+			ANVA.documentOnReady.windowScroll();	
+		},
 
+		windowScroll: function() {
+			_window.on( 'scroll', function() {
+				ANVA.initialize.goToTopScroll();
+			});
+		}
 	};
 
 	ANVA.documentOnLoad = {
@@ -351,7 +439,7 @@ var ANVA = ANVA || {};
 	ANVA.documentOnResize = {
 		
 		init: function() {
-			// Init document resize functions
+			
 		}
 
 	};
@@ -368,10 +456,12 @@ var ANVA = ANVA || {};
 		_body 						= jQuery('body'),
 		_wrapper 					= jQuery('#wrapper'),
 		_header 					= jQuery('#header'),
+		_contain 					= jQuery('#container'),
 		_footer 					= jQuery('#footer'),
 		_goTop						= jQuery('#gotop'),
 		_menuNavigation 	= jQuery('ul.navigation-menu, ul.off-canvas-menu'),
-		_wpCalendar				= jQuery('#wp-calendar');
+		_wpCalendar				= jQuery('#wp-calendar'),
+		_buttonNav				= jQuery('.next a[rel="next"], .previous a[rel="prev"]');
 
 	jQuery(document).ready( ANVA.documentOnReady.init );
 	jQuery(window).load( ANVA.documentOnLoad.init );

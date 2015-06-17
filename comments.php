@@ -9,6 +9,8 @@ if ( post_password_required() ) {
 
 ?>
 
+<?php anva_comments_before(); ?>
+
 <div id="comments" class="comments-area">
 
 	<?php if ( have_comments() ) : ?>
@@ -23,7 +25,7 @@ if ( post_password_required() ) {
 
 		<ol class="comment-list">
 			<?php
-		wp_list_comments( 'type=comment&callback=anva_comment_list' );
+				wp_list_comments( 'type=comment&callback=anva_comment_list' );
 			?>
 		</ol><!-- .comment-list (end) -->
 
@@ -107,3 +109,5 @@ if ( post_password_required() ) {
 	?>
 
 </div><!-- #comments (end) -->
+
+<?php anva_comments_after(); ?>

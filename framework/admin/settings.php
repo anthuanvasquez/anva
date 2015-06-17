@@ -78,10 +78,10 @@ function anva_settings_scripts() {
 
 	global $pagenow;
 
-	wp_enqueue_script( 'admin', get_template_directory_uri() . '/assets/js/admin.min.js', array('jquery'), false, false );
+	wp_enqueue_script( 'admin', get_template_directory_uri() . '/framework/admin/assets/js/admin.js', array('jquery'), false, false );
 	
 	if ( $pagenow == 'themes.php' && isset( $_GET['page'] ) && $_GET['page'] == 'theme-settings' ) {
-		wp_enqueue_style( 'admin', get_template_directory_uri() . '/assets/css/screen-admin.css');
+		wp_enqueue_style( 'admin', get_template_directory_uri() . '/framework/admin/assets/css/admin.css');
 		add_thickbox();
 	}
 }

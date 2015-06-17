@@ -7,26 +7,23 @@ get_header();
 ?>
 
 <div class="row grid-columns">
-	<div class="content-area col-sm-8">
-		<div class="main">
-			<div class="primary-post-list post-list-paginated post-list">
+	<div class="content-area col-sm-9">
+		<div id="posts" class="<?php anva_post_classes(); ?>">
 				<?php
-				if ( have_posts() ) :
-					while ( have_posts() ) : the_post();
-						get_template_part( 'content', 'post' );
-					endwhile;
-					
-					anva_num_pagination();
-					
-				else :
-					get_template_part( 'content', 'none' );
-				endif;
-			?>
-			</div><!-- .primary-post-list (end) -->
-		</div><!-- .main (end) -->
+					if ( have_posts() ) {
+						while ( have_posts() ) {
+							the_post();
+							get_template_part( 'content', 'post' );
+						}
+						anva_num_pagination();				
+					} else {
+						get_template_part( 'content', 'none' );
+					}
+				?>
+			</div><!-- #posts (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php anva_sidebars( 'right', '4' ); ?>
+	<?php anva_sidebars( 'right', '3' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

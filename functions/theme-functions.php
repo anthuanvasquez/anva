@@ -7,10 +7,10 @@
 /**
  * Add theme support features
  */
-function anva_theme_setup() {
-	add_theme_support( 'woocommerce' );
-}
-add_action( 'after_setup_theme', 'anva_theme_setup' );
+// function anva_theme_setup() {
+// 	add_theme_support( 'woocommerce' );
+// }
+// add_action( 'after_setup_theme', 'anva_theme_setup' );
 
 /*
  * Add additional sidebar locations
@@ -35,7 +35,7 @@ add_action( 'after_setup_theme', 'anva_theme_setup' );
  */
 // function anva_theme_featured_size( $args ) {
 // 	if ( isset( $args['homepage'] ) ) {
-// 		$args['homepage']['size'] = 'slider_bigger';
+// 		$args['homepage']['size'] = 'slider_fullwidth';
 // 	}
 //  if ( ! isset( $args['homepage'] ) ) {
 // 		$args['homepage']['orderby'] = 'date';
@@ -67,4 +67,3 @@ function anva_theme_footer_author() {
 	return  '<a href="'. esc_url( anva_get_theme( 'author_uri' ) ) .'">'. anva_get_theme( 'author' ) .'</a>.';
 }
 add_filter( 'anva_footer_author', 'anva_theme_footer_author' );
-add_filter( 'anva_login_author', 'anva_theme_footer_author' );

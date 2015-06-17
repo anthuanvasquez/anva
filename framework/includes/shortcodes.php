@@ -11,22 +11,14 @@ function anva_shortcodes_init() {
 	add_shortcode( 'drop', 'anva_dropcap' );
 	add_shortcode( 'button', 'anva_button' );
 	add_shortcode( 'toggle', 'anva_toggle' );
-	add_shortcode( 'counter', 'anva_counter' );
-
-	add_shortcode( 'column_full', 'column_full' );
-	add_shortcode( 'column_six', 'column_six_func' );
-	add_shortcode( 'column_six_last', 'column_six_last_func' );	
-	add_shortcode( 'column_four', 'column_four_func' );
-	add_shortcode( 'column_four_last', 'column_four_last_func' );	
-	add_shortcode( 'column_three', 'column_three_func' );
-	add_shortcode( 'column_three_last', 'column_three_last_func' );	
-	add_shortcode( 'column_two', 'column_two_func' );
-	add_shortcode( 'column_two_last', 'column_two_last_func' );
-	add_shortcode( 'column_one', 'column_one_func' );
-	add_shortcode( 'column_one_last', 'column_one_last_func' );
+	add_shortcode( 'counter', 'anva_counter' );	
+	add_shortcode( 'column', 'anva_column' );
 	
 }
 
+/*
+ * Remove br and p tags from shortcodes.
+ */
 function anva_fix_shortcodes( $content ) {
 	$array = array (
 		'<p>[' 		=> '[', 
@@ -41,7 +33,6 @@ function anva_fix_shortcodes( $content ) {
  * Buttons
  */
 function anva_button( $atts, $content ) {
-
 	extract( shortcode_atts( array(
 		'href' 		=> '',
 		'align' 	=> '',
@@ -49,6 +40,7 @@ function anva_button( $atts, $content ) {
 		'size' 		=> '',
 		'color'		=> '',
 		'style'		=> '',
+		'text'		=> '',
 		'target' 	=> '',
 	), $atts ));
 
@@ -63,21 +55,16 @@ function anva_button( $atts, $content ) {
 	}
 
 	if ( ! empty( $href ) ) {
-		$href	= 'href="'. $href .'"';
+		$href	= 'href="'. esc_url( $href ) .'"';
+	}
+
+	if ( ! empty( $text ) ) {
+		$classes[] = 'button-desc';
+		$text = '<span>'. esc_html( $text ) .'</span>';
 	}
 
 	if ( ! empty( $target ) ) {
-		$target = 'target="'. $target .'"';
-	}
-
-	switch ( $style ) {
-		case 'round':
-			$classes[] = 'button-rounded';
-			break;
-
-		case '3d':
-			$classes[] = 'button-3d';
-			break;
+		$target = 'target="'. esc_attr( $target ) .'"';
 	}
 
 	// Sizes
@@ -99,147 +86,69 @@ function anva_button( $atts, $content ) {
 			break;
 	}
 
+	switch ( $style ) {
+		case 'round':
+			$classes[] = 'button-rounded';
+			break;
+
+		case '3d':
+			$classes[] = 'button-3d';
+			break;
+	}
+
 	// Colors
 	switch ( $color ) {
-		case 'orange':
-			$classes[] = 'button-orange';
+		case 'dark':
+			$classes[] = 'button-dark';
+			break;
+		case 'light':
+			$classes[] = 'button-light';
 			break;
 	}
 
 	$classes = implode( ' ', $classes );
 	
-	$html  = '<a class="button '. $classes . '" '. $href .' '. $target .'>';
+	$html  = '<a class="button '. esc_attr( $classes ) .'" '. $href .' '. $target .'>';
 	$html .= $icon;
 	$html .= $content;
+	$html .= $text;
 	$html .= '</a>';
 
 	return $html;
 }
 
 /*
- * Six columns
+ * Columns
  */
-function column_six_func( $atts, $content ) {
+function anva_column( $atts, $content ) {
 	extract(shortcode_atts(array(
+		'id'		=> '',
 		'class' => '',
+		'col'		=> '',
+		'last'	=> false,
 	), $atts));
-	$html = '<div class="grid_6 '. $class .'">'. $content . '</div>';
-	return $html;
-}
 
-/*
- * Six columns last
- */
-function column_six_last_func( $atts, $content ) {
-	extract(shortcode_atts(array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_6 grid_last '. $class .'">'. $content . '</div>';
-	return $html;
-}
+	$classes = array();
 
-/*
- * Four columns
- */
-function column_four_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract(shortcode_atts(array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_4 '. $class .'">'. $content . '</div>';
-	return $html;
-}
+	if ( ! empty( $id ) ) {
+		$id = 'id="'. esc_attr( $id ) .'"';
+	}
 
-/*
- * Four columns last
- */
-function column_four_last_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract(shortcode_atts(array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_4 grid_last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
-	return $html;
-}
+	if ( ! empty( $col ) ) {
+		$classes[] = 'grid_' . $col;
+	}
 
-/*
- * Three columns
- */
-function column_three_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract(shortcode_atts(array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_3 '. $class .'">'. $content . '</div>';
-	return $html;
-}
+	if ( ! empty( $class ) ) {
+		$classes[] = $class;
+	}
 
-/*
- * Three columns last
- */
-function column_three_last_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract(shortcode_atts(array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_3 grid_last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
-	return $html;
-}
+	if ( true == $last ) {
+		$classes[] = 'grid_last';
+	}
 
-/*
- * Two columns
- */
-function column_two_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract(shortcode_atts(array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_2 '. $class .'">'. $content . '</div>';
-	return $html;
-}
+	$classes = implode( ' ', $classes );
 
-/*
- * Two columns last
- */
-function column_two_last_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract(shortcode_atts(array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_2 grid_last '. $class .'">'. $content . '</div><div class="clearfix"></div>';
-	return $html;
-}
-
-/*
- * One column
- */
-function column_one_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract( shortcode_atts( array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_1 '. $class .'">' . $content . '</div>';
-	return $html;
-}
-
-/*
- * One column last
- */
-function column_one_last_func( $atts, $content ) {
-	$content = wpautop( trim( $content ) );
-	extract( shortcode_atts( array(
-		'class' => '',
-	), $atts ));
-	$html  = '<div class="grid_1 grid_last '. $class .'">' . $content . '</div>';
-	$html .= '<div class="clearfix"></div>';
-	return $html;
-}
-
-function column_full( $atts, $content ) {
-	extract( shortcode_atts( array(
-		'class' => '',
-	), $atts));
-	$html = '<div class="grid_12 '. $class .'">' . $content . '</div>';
+	$html = '<div '. $id .' class="'. esc_attr( $classes ) .'">'. $content .'</div>';
 	return $html;
 }
 

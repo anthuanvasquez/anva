@@ -1,17 +1,6 @@
 <?php
 
 /*
- * IE browser warning
- */
-function anva_ie_browser_message() {
-	?>
-	<!--[if lt IE 9]>
-		<p class="alert alert-warning browsehappy"><?php printf( anva_get_local( 'browsehappy' ), esc_url( 'http://browsehappy.com/' ) ); ?></p>
-	<![endif]-->
-	<?php
-}
-
-/*
  * Display default header logo 
  */
 function anva_header_logo_default() {
@@ -19,15 +8,16 @@ function anva_header_logo_default() {
 	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
 	$name 	= get_bloginfo( 'name' );
 	?>
-	<a id="logo" class="logo" href="<?php echo home_url(); ?>" title="<?php echo $name; ?>">
+	<div id="brand">
 		<?php
 			printf(
-				'<img src="%1$s" alt="%2$s" /><span class="sr-only">%2$s</span>',
+				'<a id="logo" class="standard-logo" href="%3$s" title="<?php echo $name; ?>"><img src="%1$s" alt="%2$s" /><span class="sr-only">%2$s</span></a>',
 				( empty( $logo ) ? esc_url( $image ) : esc_url( $logo ) ),
-				get_bloginfo( 'name' )
+				$name,
+				esc_url( home_url() )
 			);
 		?>
-	</a>
+	</div><!-- #brand (end) -->
 	<?php
 }
 
@@ -35,29 +25,25 @@ function anva_header_logo_default() {
  * Display default main navigation
  */
 function anva_main_navigation_default() {
+	if ( has_nav_menu( 'primary' ) ) :
+	$trigger = '<a href="#" id="primary-menu-trigger"><i class="fa fa-bars"></i></a>';
 	?>
-	<a href="#" id="mobile-toggle" class="mobile-toggle" data-toggle="tooltip" data-placement="right" title="<?php echo anva_get_local( 'menu' ); ?>">
-		<i class="fa fa-bars"></i>
-		<span class="sr-only"><?php echo anva_get_local( 'menu' ); ?></span>
-	</a>
-
-	<?php if ( has_nav_menu( 'primary' ) ) : ?>
 		<nav id="navigation" class="navigation clearfix" role="navigation">
 			<?php
 				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
 					'theme_location'  => 'primary',
 					'container'       => 'div',
-					'container_class' => 'navigation-inner',
-					'container_id'    => 'primary',
+					'container_class' => 'container clearfix',
+					'container_id'    => 'primary-menu',
 					'menu_class'      => 'navigation-menu sf-menu clearfix',
-					'menu_id'         => 'primary-menu',
+					'menu_id'         => '',
 					'echo'            => true,
-					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
+					'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
 				));
 			?>
 		</nav><!-- #main-navigation (end) -->
 	<?php else : ?>
-		<div class="well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
+		<div class="navigation-message well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
 	<?php endif;
 }
 
@@ -65,13 +51,11 @@ function anva_main_navigation_default() {
  * Display social media icons
  */
 function anva_social_icons() {
-	$class = 'normal';
-	$size = 24;
+	$size  = 'social-small';
+	$style = 'social-colored';
 	printf(
-		'<ul class="social-media social-style-%2$s social-icon-%3$s">%1$s</ul>',
-		anva_social_media(),
-		apply_filters( 'anva_social_media_style', $class ),
-		apply_filters( 'anva_social_media_size', $size )
+		'<ul class="social-media top-social-media">%1$s</ul>',
+		anva_social_media( $size, $style )
 	);
 }
 
@@ -117,7 +101,7 @@ function anva_custom_css() {
 /*
  * Display footer widgets
  */
-function anva_footer_widget() {
+function anva_footer_content_default() {
 	?>
 	<div class="footer-widget">
 		<div class="grid-columns">
@@ -130,9 +114,9 @@ function anva_footer_widget() {
 /*
  * Display default footer text copyright
  */
-function anva_footer_text_default() {
+function anva_footer_copyrights_default() {
 	printf(
-		'<p>&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#"><i class="fa fa-chevron-up"></i><span class="sr-only">Go Top</span></a></p>',
+		'<p>&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#"><i class="fa fa-chevron-up"></i></a></p>',
 		anva_get_current_year( apply_filters( 'anva_footer_year', date( 'Y' ) ) ),
 		get_bloginfo( 'name' ),
 		anva_get_local( 'footer_copyright' ),
@@ -141,35 +125,45 @@ function anva_footer_text_default() {
 	);
 }
 
-/*
- * Wrapper start
- */
-function anva_layout_before_default() {
-	?>
-	<!-- WRAPPER (start) -->
-	<div id="wrapper">
+function anva_addon() {
+	?>	
+	<div id="addon">
+		<div class="container clearfix">
+			<div class="addon-content">
+				<?php anva_header_addon(); ?>
+			</div>
+		</div>
+	</div><!-- #addon (end) -->
 	<?php
 }
 
-/*
- * Wrapper end
- */
-function anva_layout_after_default() {
+function anva_featured_default() {
+	if ( is_front_page() ) :
 	?>
-	</div><!-- WRAPPER (end) -->
+	<!-- FEATURED (start) -->
+	<div id="featured">
+		<div class="featured-inner">
+			<?php
+				if ( function_exists( 'anva_slideshows_featured' ) ) {
+					echo anva_slideshows_featured( 'homepage' );
+				}
+			?>
+		</div><!-- .featured-inner (end) -->
+	</div><!-- FEATURED (end) -->
 	<?php
+	endif;
 }
 
 /*
  * Display breadcrumbs
  */
-function anva_breadcrumbs() {
+function anva_breadcrumbs_default() {
 	$single_breadcrumb = anva_get_option( 'single_breadcrumb' );
 	if ( 1 == $single_breadcrumb ) {
 		if ( function_exists( 'yoast_breadcrumb' ) && ! is_front_page() && ! is_home() ) {
 			?>
 			<div id="breadcrumbs">
-				<div class="breadcrumbs-inner">
+				<div class="container clearfix">
 					<div class="breadcrumbs-content">
 						<?php yoast_breadcrumb( '<p>', '</p>' ); ?>
 					</div><!-- breadcrumbs-content (end) -->
@@ -183,19 +177,17 @@ function anva_breadcrumbs() {
 /*
  * Wrapper main content start
  */
-function anva_content_before_default() {
+function anva_above_layout_default() {
 	?>
 	<div id="sidebar-layout">
-		<div class="sidebar-layout-inner">
 	<?php
 }
 
 /*
  * Wrapper main content end
  */
-function anva_content_after_default() {
+function anva_below_layout_default() {
 	?>
-			</div><!-- .sidebar-layout-inner (end) -->
 	</div><!-- #sidebar-layout (end) -->
 	<?php
 }
@@ -203,23 +195,24 @@ function anva_content_after_default() {
 /*
  * Display sidebars location before
  */
-function anva_sidebar_layout_before_default() {
-	if ( is_page() ) {
+function anva_sidebar_before_default() {
+	if ( is_page() || is_single() ) {
 		
-		$sidebar = anva_get_post_meta( '_sidebar_column' );
-		
-		// One sidebar
-		if ( 'left' == $sidebar ) {
-			anva_sidebars( 'left', '4' );
+		$sidebars = anva_get_post_meta( '_sidebar_column' );
+		$position = 'left';
+		$columns  = 3;
 
-		// Two sidebar
-		} elseif( 'double' == $sidebar ) {
-			anva_sidebars( 'left', '3' );
-
-		// Two sidebar left
-		} elseif ( 'double_left' == $sidebar ) {
-			anva_sidebars( 'left', '3' );
-			anva_sidebars( 'right', '3' );
+		switch ( $sidebars ) {
+			case 'left':
+				anva_sidebars( $position, $columns );
+				break;
+			case 'double':
+				anva_sidebars( $position, $columns );
+				break;
+			case 'double_left':
+				anva_sidebars( $position, $columns );
+				anva_sidebars( 'right', $columns );
+				break;
 		}
 	}
 }
@@ -227,95 +220,77 @@ function anva_sidebar_layout_before_default() {
 /*
  * Display sidebars location after
  */
-function anva_sidebar_layout_after_default() {
+function anva_sidebar_after_default() {
 	if ( is_page() ) {
 		
-		$sidebar = anva_get_post_meta( '_sidebar_column' );
-		
-		// One sidebar
-		if ( 'right' == $sidebar ) {
-			anva_sidebars( 'right', '4' );
+		$sidebars  = anva_get_post_meta( '_sidebar_column' );
+		$position = 'right';
+		$columns  = 3;
 
-		// Two sidebar
-		} elseif ( 'double' == $sidebar ) {
-			anva_sidebars( 'right', '3' );
-
-		// Two sidebar right
-		} elseif ( 'double_right' == $sidebar ) {
-			anva_sidebars( 'left', '3' );
-			anva_sidebars( 'right', '3' );
+		switch ( $sidebars ) {
+			case 'right':
+				anva_sidebars( $position, $columns );
+				break;
+			case 'double':
+				anva_sidebars( $position, $columns );
+				break;
+			case 'double_right':
+				anva_sidebars( 'left', $columns );
+				anva_sidebars( $position, $columns );
+				break;
 		}
 	}
 }
 
-/*
- * Change navigation
- */
-function anva_navigation() {
-	$nav = anva_get_option( 'navigation' );
-	switch( $nav ) :
-	case 'off_canvas_navigation': ?>
-	<script type="text/javascript">
-	jQuery(document).ready( function() {
-		// Off Canvas Navigation
-		var offCanvas = jQuery('#off-canvas-toggle'),
-			offCanvasNav = jQuery('#off-canvas'),
-			pageCanvas = jQuery('#container'),
-			bodyCanvas = jQuery('body');
-
-		bodyCanvas.addClass('js-ready');
-
-		offCanvas.click( function(e) {
-			e.preventDefault();
-			offCanvasNav.toggleClass('is-active');
-			pageCanvas.toggleClass('is-active');
-		});
-
-		// Hide Off Canvas Nav on Windows Resize
-		jQuery(window).resize( function() {
-			var off_canvas_nav_display = jQuery('#off-canvas').css('display');
-			if( off_canvas_nav_display === 'block' ) {
-				jQuery('#off-canvas').removeClass('is-active');
-				jQuery('#container').removeClass('is-active');
-			}
-		});
-	});
-	</script>
-	<?php break;
-	case 'toggle_navigation': ?>
-	<script type="text/javascript">
-	jQuery(document).ready( function() {
-		// ---------------------------------------------------------
-		// Show main navigation with slidetoggle effect
-		// ---------------------------------------------------------
-		jQuery('#mobile-toggle').click( function(e) {
-			e.preventDefault();
-			jQuery('nav#navigation').slideToggle();
-		});
-
-		// ---------------------------------------------------------
-		// Show main navigation if is hide
-		// ---------------------------------------------------------
-		jQuery(window).resize( function() {
-			var nav_display = jQuery('nav#navigation').css('display');
-			if( nav_display === 'none' ) {
-				jQuery('nav#navigation').css('display', 'block');
-			}
-		});
-	});
-	</script>
-	<?php break;
-	endswitch;
+function anva_off_canvas_navigation() {
+	if ( 'off_canvas_navigation' == anva_get_option( 'navigation' ) ) :
+	?>
+	<a href="#" id="off-canvas-trigger">
+		<i class="fa fa-bars"></i>
+	</a>
+	<!-- OFF-CANVAS (start) -->
+	<div id="off-canvas">	
+		<div  class="off-canvas-inner">
+			<div class="off-canvas-content off-canvas-left">
+				<?php
+					if ( has_nav_menu( 'primary' ) ) {
+						wp_nav_menu( array( 
+							'theme_location'  => 'primary',
+							'container'       => 'div',
+							'container_class' => 'off-canvas-navigation',
+							'container_id'    => '',
+							'menu_class'      => 'off-canvas-menu sf-menu',
+							'menu_id'         => '',
+							'echo'            => true,
+							'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
+						);
+					}
+				?>
+			</div>
+		</div>
+	</div><!-- OFF-CANVAS (end) -->
+	<?php
+	endif;
 }
 
 /*
  * Display debug information if WP_DEBUG is enabled
- * and current user caen adminsitrator 
+ * and current user is an adminsitrator 
  */
-function anva_debug_queries() {
+function anva_debug_info() {
 	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :
 	?>
-		<div class="alert alert-warning text-center">Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</div>
+		<div class="container clearfix">
+			<div class="debug-info alert alert-info topmargin bottommargin">
+				<ul class="resetlist">
+					<li><strong>Debug Info</strong></li>
+					<li><span>Queries:</span> Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</li>
+					<li><span>Theme Name:</span> <?php echo anva_get_theme( 'name' ); ?></li>
+					<li><span>Theme Version:</span> <?php echo anva_get_theme( 'version' ); ?></li>
+					<li><span>Theme Author:</span> <?php echo anva_get_theme( 'author' ); ?></li>
+				</ul>
+			</div>
+		</div>
 	<?php
 	endif;
 }

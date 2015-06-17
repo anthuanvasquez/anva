@@ -1,92 +1,141 @@
 <?php
 
-/**
- * Header logo
- */
+/* ---------------------------------------------------------------- */
+/* Header
+/* ---------------------------------------------------------------- */
+
+function anva_top_before() {
+	do_action( 'anva_top_before' );
+}
+
+function anva_top_after() {
+	do_action( 'anva_top_after' );
+}
+
+function anva_header_above() {
+	do_action( 'anva_header_above' );
+}
+
+function anva_header_below() {
+	do_action( 'anva_header_below' );
+}
+
 function anva_header_logo() {
 	do_action( 'anva_header_logo' );
 }
 
-/**
- * Header addons
- */
 function anva_header_addon() {
 	do_action( 'anva_header_addon' );
 }
 
-/*
- * Footer content
- */
-function anva_footer_content() {
-	do_action( 'anva_footer_content' );
-}
-
-/*
- * Anva footer text
- */
-function anva_footer_text() {
-	do_action( 'anva_footer_text' );
-}
-
-/**
- * Header main navigation
- */
 function anva_main_navigation() {
 	do_action( 'anva_main_navigation' );
 }
 
-/**
- * Layout before
- */
-function anva_layout_before() {
-	do_action( 'anva_layout_before' );
+function anva_main_navigation_addon() {
+	do_action( 'anva_main_navigation_addon' );
 }
 
-/**
- * Layout after
- */
-function anva_layout_after() {
-	do_action( 'anva_layout_after' );
+/* ---------------------------------------------------------------- */
+/* Featured
+/* ---------------------------------------------------------------- */
+
+function anva_featured_before() {
+	do_action( 'anva_featured_before' );
 }
 
-/**
- * Layout content before
- */
+function anva_featured_after() {
+	do_action( 'anva_featured_after' );
+}
+
+function anva_featured() {
+	do_action( 'anva_featured' );
+}
+
+/* ---------------------------------------------------------------- */
+/* Footer
+/* ---------------------------------------------------------------- */
+
+function anva_bottom_before() {
+	do_action( 'anva_bottom_before' );
+}
+
+function anva_bottom_after() {
+	do_action( 'anva_bottom_after' );
+}
+
+function anva_footer_above() {
+	do_action( 'anva_footer_above' );
+}
+
+function anva_footer_below() {
+	do_action( 'anva_footer_below' );
+}
+
+function anva_footer_content() {
+	do_action( 'anva_footer_content' );
+}
+
+function anva_footer_copyrights() {
+	do_action( 'anva_footer_copyrights' );
+}
+
+/* ---------------------------------------------------------------- */
+/* Layout
+/* ---------------------------------------------------------------- */
+
+function anva_before() {
+	do_action( 'anva_before' );
+}
+
+function anva_after() {
+	do_action( 'anva_after' );
+}
+
 function anva_content_before() {
 	do_action( 'anva_content_before' );
 }
 
-/**
- * Layout content after
- */
 function anva_content_after() {
 	do_action( 'anva_content_after' );
 }
 
-/**
- * Post content before
- */
-function anva_post_before() {
-	do_action( 'anva_post_before' );
+function anva_before_layout() {
+	do_action( 'anva_before_layout' );
 }
 
-/**
- * Post content after
- */
-function anva_post_after() {
-	do_action( 'anva_post_after' );
+function anva_after_layout() {
+	do_action( 'anva_after_layout' );
 }
 
-/**
- * Sidebar layout before
- */
-function anva_sidebar_layout_before() {
-	do_action( 'anva_sidebar_layout_before' );
+function anva_sidebar_before() {
+	do_action( 'anva_sidebar_before' );
 }
 
-/**
- * Sidebar layout after
- */
-function anva_sidebar_layout_after() {
-	do_action( 'anva_sidebar_layout_after' );
+function anva_sidebar_after() {
+	do_action( 'anva_sidebar_after' );
+}
+
+/* ---------------------------------------------------------------- */
+/* Posts
+/* ---------------------------------------------------------------- */
+
+function anva_breadcrumbs() {
+	do_action( 'anva_breadcrumbs' );
+}
+
+function anva_content_post_before() {
+	do_action( 'anva_content_post_before' );
+}
+
+function anva_content_post_after() {
+	do_action( 'anva_content_post_after' );
+}
+
+function anva_comments_before() {
+	do_action( 'anva_comments_before' );
+}
+
+function anva_comments_after() {
+	do_action( 'anva_comments_after' );
 }

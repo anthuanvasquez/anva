@@ -9,7 +9,7 @@ get_header();
 <div class="row grid-columns">
 	<div class="content-area col-sm-12">
 		<div class="main">
-			<?php get_template_part( 'content', 'error' ); ?>
+			<?php get_template_part( 'content', '404' ); ?>
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 </div><!-- .grid-columns (end) -->
