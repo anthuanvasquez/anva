@@ -1,12 +1,11 @@
 $icon-class: ".social-";
 $icon-size:  40px;
 
-#{$icon-class}media {
+#{$icon-class}icons {
 	@include reset-list();
 	@include clearfix();
 	
 	li {
-		// @include inline-block();
 		float: left;
 	}
 }

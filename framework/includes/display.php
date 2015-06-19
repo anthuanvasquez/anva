@@ -8,10 +8,10 @@ function anva_header_logo_default() {
 	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
 	$name 	= get_bloginfo( 'name' );
 	?>
-	<div id="brand">
+	<div id="logo">
 		<?php
 			printf(
-				'<a id="logo" class="standard-logo" href="%3$s" title="<?php echo $name; ?>"><img src="%1$s" alt="%2$s" /><span class="sr-only">%2$s</span></a>',
+				'<a href="%3$s" class="standard-logo"><img src="%1$s" alt="%2$s" /></a>',
 				( empty( $logo ) ? esc_url( $image ) : esc_url( $logo ) ),
 				$name,
 				esc_url( home_url() )
@@ -24,23 +24,29 @@ function anva_header_logo_default() {
 /*
  * Display default main navigation
  */
-function anva_main_navigation_default() {
+function anva_header_primary_menu_default() {
 	if ( has_nav_menu( 'primary' ) ) :
 	$trigger = '<a href="#" id="primary-menu-trigger"><i class="fa fa-bars"></i></a>';
 	?>
-		<nav id="navigation" class="navigation" role="navigation">
-			<?php
-				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
-					'theme_location'  => 'primary',
-					'container'       => 'div',
-					'container_class' => 'container clearfix',
-					'container_id'    => 'primary-menu',
-					'menu_class'      => 'navigation-menu sf-menu clearfix',
-					'menu_id'         => '',
-					'echo'            => true,
-					'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
-				));
-			?>
+		<nav id="primary-navigation" role="navigation">
+			<div id="primary-menu">
+				<div class="container cleafix">
+					<?php
+						wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
+							'theme_location'  => 'primary',
+							'container'       => '',
+							'container_class' => '',
+							'container_id'    => '',
+							'menu_class'      => 'sf-menu clearfix',
+							'menu_id'         => '',
+							'echo'            => true,
+							'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
+						));
+
+						anva_header_primary_menu_addon();
+					?>
+				</div>
+			</div>
 		</nav><!-- #main-navigation (end) -->
 	<?php else : ?>
 		<div class="container clearfix">
@@ -49,22 +55,39 @@ function anva_main_navigation_default() {
 	<?php endif;
 }
 
-/*
- * Display social media icons
- */
-function anva_social_icons() {
-	$size  = 'social-small';
-	$style = 'social-colored';
-	printf(
-		'<ul class="social-media top-social-media">%1$s</ul>',
-		anva_social_media( $size, $style )
-	);
+function anva_header_primary_menu_addon_default() {
+	?>	
+	<ul id="header-menu-addon">
+		<li>
+			<div id="top-search">
+				<a href="#" id="top-search-trigger">
+					<i class="fa fa-search"></i>
+				</a>
+			</div>
+		</li>
+		<li>
+			<div id="top-cart">
+				<a href="#" id="top-cart-trigger">
+					<i class="fa fa-shopping-cart"></i>
+					<span class="badge">0</span>
+				</a>
+			</div>
+		</li>
+		<li>
+			<div id="top-lang">
+				<a href="#" id="top-lang-trigger">
+					<i class="fa fa-flag"></i>
+				</a>
+			</div>
+		</li>
+	</ul><!-- #menu-addon (end) -->
+	<?php
 }
 
 /*
  * Print favion and apple touch icons in head
  */
-function anva_apple_touch_icon() {
+function anva_head_apple_touch_icon() {
 	$image_path = get_template_directory_uri() . '/assets/images';
 	?>
 	<!-- ICONS (start) -->
@@ -79,7 +102,7 @@ function anva_apple_touch_icon() {
 /*
  * Print meta viewport
  */
-function anva_viewport() {
+function anva_head_viewport() {
 	if ( 1 == anva_get_option( 'responsive' ) ) :
 	?>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -90,7 +113,7 @@ function anva_viewport() {
 /*
  * Print custom css styles in head
  */
-function anva_custom_css() {
+function anva_head_custom_css() {
 	$styles = '';
 	$custom_css = anva_get_option( 'custom_css' );
 	$custom_css = anva_compress( $custom_css );
@@ -127,15 +150,38 @@ function anva_footer_copyrights_default() {
 	);
 }
 
-function anva_addon() {
+function anva_top_bar_default() {
 	?>	
-	<div id="addon">
+	<div id="top-bar">
 		<div class="container clearfix">
-			<div class="addon-content">
-				<?php anva_header_addon(); ?>
+			<div class="grid_6 grid_last fright nobottommargin">
+				<div id="top-social">
+					<?php 
+						$size  			= '';
+						$color 			= '';
+						$style 			= 'social-noborder';
+						echo anva_social_icons( $size, $color, $style ); ?>
+				</div>
 			</div>
 		</div>
 	</div><!-- #addon (end) -->
+	<?php
+}
+
+function anva_header_extras_default() {
+	?>	
+	<ul id="header-extras" class="header-extras">
+		<li>
+			<i class="fa fa-envelope"></i>
+			<div class="text">
+				Drop an Email
+				<span>info@canvas.com</span>
+			</div>
+		</li>
+		<li id="header-search">
+			<?php anva_site_search(); ?>
+		</li>
+	</ul><!-- #header-extras (end) -->
 	<?php
 }
 
@@ -244,7 +290,7 @@ function anva_sidebar_after_default() {
 	}
 }
 
-function anva_off_canvas_navigation() {
+function anva_side_menu() {
 	if ( 'off_canvas_navigation' == anva_get_option( 'navigation' ) ) :
 	?>
 	<a href="#" id="off-canvas-trigger">

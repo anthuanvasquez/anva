@@ -15,7 +15,7 @@
 	position: relative;
 }
 
-ul.navigation-menu {
+#primary-menu .container > ul {
 	@include reset-list();
 	font-family: $menu-font-family;
 	float: left;
@@ -273,9 +273,5 @@ ul.navigation-menu {
 
 	p {
 		margin: 0;
-	}
-
-	.breadcrumb_last {
-		color: #999;
 	}
 }

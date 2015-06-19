@@ -36,23 +36,35 @@
 	opacity: 0;
 }
 
+.fright {
+  float: right;
+}
+
+.fleft {
+  float: left;
+}
+
 /*
- * Remove Margin From Elements
+ * Margin
  */
-.no-margin {
+.nomargin {
 	margin: 0;
 }
 
-.no-margin-bottom {
+.nobottommargin {
 	margin-bottom: 0;
 }
 
-.no-margin-top {
+.notopmargin {
 	margin-top: 0;
 }
 
 .bottommargin {
 	margin-bottom: 20px;
+}
+
+.bottommargin-lg {
+	margin-bottom: 50px;
 }
 
 .topmargin {

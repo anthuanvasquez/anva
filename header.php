@@ -39,10 +39,11 @@
 			<div class="container clearfix">	
 				<div class="header-content clearfix">
 					<?php anva_header_logo(); ?>
+					<?php anva_header_extras(); ?>
 				</div><!-- .header-content (end) -->
 			</div><!-- .container (end) -->
 			
-			<?php anva_main_navigation(); ?>
+			<?php anva_header_primary_menu(); ?>
 
 		</header><!-- #header (end) -->
 

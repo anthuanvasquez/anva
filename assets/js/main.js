@@ -374,6 +374,26 @@ var ANVA = ANVA || {};
 			}
 		},
 
+		linkScroll: function(){
+			jQuery("a[data-scrollto]").click(function(){
+				var element = jQuery(this),
+					divScrollToAnchor = element.attr('data-scrollto'),
+					divScrollSpeed = element.attr('data-speed'),
+					divScrollOffset = element.attr('data-offset'),
+					divScrollEasing = element.attr('data-easing');
+
+					if ( !divScrollSpeed ) { divScrollSpeed = 750; }
+					if ( !divScrollOffset ) { divScrollOffset = SEMICOLON.initialize.topScrollOffset(); }
+					if ( !divScrollEasing ) { divScrollEasing = 'easeOutQuad'; }
+
+				_root.stop(true).animate({
+					'scrollTop': jQuery( divScrollToAnchor ).offset().top - Number(divScrollOffset)
+				}, Number(divScrollSpeed), divScrollEasing);
+
+				return false;
+			});
+		},
+
 		extras: function() {
 			jQuery('[data-toggle="tooltip"]').tooltip({
 				container: 'body'

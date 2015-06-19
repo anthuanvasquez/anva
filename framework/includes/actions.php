@@ -24,16 +24,16 @@ function anva_header_logo() {
 	do_action( 'anva_header_logo' );
 }
 
-function anva_header_addon() {
-	do_action( 'anva_header_addon' );
+function anva_header_extras() {
+	do_action( 'anva_header_extras' );
 }
 
-function anva_main_navigation() {
-	do_action( 'anva_main_navigation' );
+function anva_header_primary_menu() {
+	do_action( 'anva_header_primary_menu' );
 }
 
-function anva_main_navigation_addon() {
-	do_action( 'anva_main_navigation_addon' );
+function anva_header_primary_menu_addon() {
+	do_action( 'anva_header_primary_menu_addon' );
 }
 
 /* ---------------------------------------------------------------- */

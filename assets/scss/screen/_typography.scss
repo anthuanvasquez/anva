@@ -5,7 +5,7 @@ a,
 .link {
 	color: color(link);
 	&:hover {
-		color: lighten(color(link), 10%);
+		color: color(base);
 	}
 }
 

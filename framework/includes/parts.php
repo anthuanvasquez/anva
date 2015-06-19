@@ -125,7 +125,7 @@ function anva_posted_on() {
 /**
  * Social media icons
  */
-function anva_social_media( $size = '', $style = '' ) {
+function anva_social_icons( $size = '', $style = '', $color = '' ) {
 	
 	$html 			= '';
 	$classes 		= array();
@@ -192,26 +192,33 @@ function anva_social_media( $size = '', $style = '' ) {
 		$classes[] = $size;
 	}
 
+	if ( ! empty( $color ) ) {
+		$classes[] = $color;
+	}
+
 	if ( ! empty( $style ) ) {
 		$classes[] = $style;
 	}
 
 	$classes = implode( ' ', $classes );
+
+	$html .= '<ul class="social-icons">';
 	
 	foreach ( $profiles as $key => $value ) {
 
 		if ( isset( $value['url'] ) && ! empty( $value['url'] ) ) {
 
-		$name  = $value['name'];
-		$url 	 = $value['url'];
-
-		$html .= '<li>';
-		$html .= '<a href="'. esc_url( $url ) .'" class="social-icon social-'. esc_attr( $key ) . ' '. esc_attr( $classes ) . '" data-toggle="tooltip" data-placement="top" title="'. $name .'"><i class="fa fa-'. esc_attr( $key ) .'"></i>';
-		$html .= '</a>';
-		$html .= '</li>';
+			$name  = $value['name'];
+			$url 	 = $value['url'];
+			$html .= '<li>';
+			$html .= '<a href="'. esc_url( $url ) .'" class="social-icon social-'. esc_attr( $key ) . ' '. esc_attr( $classes ) . '" data-toggle="tooltip" data-placement="top" title="'. $name .'"><i class="fa fa-'. esc_attr( $key ) .'"></i>';
+			$html .= '</a>';
+			$html .= '</li>';
 
 		}
 	}
+
+	$html .= '</ul>';
 
 	return $html;
 
@@ -442,7 +449,7 @@ function anva_contact_form() {
  */
 function anva_get_search_form() {
 	?>
-	<form role="search" method="get" id="searchform" class="search-form" action="<?php echo home_url( '/' ); ?>">
+	<form role="search" method="get" id="searchform" class="form-inline search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 		<div class="input-group">
 			<input type="search" id="s" class="search-field form-control" placeholder="<?php echo anva_get_local( 'search' ); ?>" value="" name="s" title="<?php echo anva_get_local( 'search_for' ); ?>" />
 			<span class="input-group-btn">
@@ -461,7 +468,7 @@ function anva_get_search_form() {
  */
 function anva_get_product_search_form() {
 	?>
-	<form role="search" method="get" id="searchform" class="search-form" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
+	<form role="search" method="get" id="searchform" class="form-inline search-form" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
 		<div class="input-group">
 		<input type="text" id="s" name="s" class="search-field form-control" value="<?php echo get_search_query(); ?>"  placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
 			<span class="input-group-btn">

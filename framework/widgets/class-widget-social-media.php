@@ -40,12 +40,7 @@ class Anva_Social_Icons extends WP_Widget {
 		echo '</div>';
 		
 		/* Show Social Media Icons */
-		$size  = 'social-small';
-		$style = 'social-colored';
-		printf(
-			'<ul class="social-media">%1$s</ul>',
-			anva_social_media( $size, $style )
-		);
+		echo anva_social_icons();
 
 		echo $after_widget;
 	}
