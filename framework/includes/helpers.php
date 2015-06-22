@@ -12,7 +12,7 @@ function anva_page_menu_args( $args ) {
  * Body classes
  * Adds a class of group-blog to blogs with more than 1 published author.
  */
-function anva_body_classes( $classes ) {
+function anva_body_class( $classes ) {
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
@@ -47,6 +47,8 @@ function anva_browser_class( $classes ) {
 	}
 	if ( $is_iphone )
 		$classes[] = 'iphone';
+
+	// OS
 	if ( stristr( $_SERVER['HTTP_USER_AGENT'], "mac" ) ) {
 		$classes[] = 'osx';
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "linux" ) ) {
@@ -365,6 +367,14 @@ function anva_get_framework_directory() {
 		$path = get_template_directory_uri() . '/framework';
 	}
 	return $path;
+}
+
+function anva_textdomain() {
+	$domain = 'anva';
+	if ( defined( 'ANVA_DOMAIN' ) ) {
+		$domain = ANVA_DOMAIN;
+	}
+	return $domain;
 }
 
 /*

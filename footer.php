@@ -3,7 +3,7 @@
  * The template for displaying the footer.
  */
 
-				anva_after_layout();
+				anva_below_layout();
 				?>
 				
 			</div><!-- .container (end) -->

@@ -22,43 +22,49 @@ function anva_get_image_sizes() {
 			'name' 		=> __( 'Blog Full Width', ANVA_DOMAIN ),
 			'width' 	=> 2000,
 			'height' 	=> 1333,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
-		'blog_large' => array(
+		'blog_lg' => array(
 			'name' 		=> __( 'Blog Large', ANVA_DOMAIN ),
 			'width' 	=> 860,
 			'height' 	=> 400,
-			'crop' 		=> false
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
-		'blog_medium' => array(
+		'blog_md' => array(
 			'name' 		=> __( 'Blog Medium', ANVA_DOMAIN ),
 			'width' 	=> 400,
 			'height'	=> 300,
-			'crop' 		=> false
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
-		'blog_small' => array(
+		'blog_sm' => array(
 			'name' 		=> __( 'Blog Small', ANVA_DOMAIN ),
 			'width' 	=> 195,
 			'height' 	=> 195,
 			'crop' 		=> false
 		),
-		'slider_fullwidth' => array(
+		'slider_full' => array(
 			'name' 		=> __( 'Slider Full Width', ANVA_DOMAIN ),
 			'width' 	=> 1600,
 			'height' 	=> 500,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
-		'slider_large' => array(
+		'slider_lg' => array(
 			'name' 		=> __( 'Slider Large', ANVA_DOMAIN ),
 			'width' 	=> 1140,
 			'height' 	=> 500,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
-		'slider_medium' => array(
+		'slider_md' => array(
 			'name' 		=> __( 'Slider Medium', ANVA_DOMAIN ),
 			'width' 	=> 564,
 			'height' 	=> 400,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
 		'grid_2' => array(
 			'name' 		=> __( '2 Column of Grid', ANVA_DOMAIN ),
@@ -76,7 +82,8 @@ function anva_get_image_sizes() {
 			'name' 		=> __( '4 Column of Grid', ANVA_DOMAIN ),
 			'width' 	=> 240,
 			'height' 	=> 150,
-			'crop' 		=> true
+			'crop' 		=> true,
+
 		),
 		'gallery_2' => array(
 			'name' 		=> __( 'Gallery Grid 2 Columns', ANVA_DOMAIN ),
@@ -105,13 +112,20 @@ function anva_get_image_sizes() {
  * Register Image Sizes
  */
 function anva_add_image_sizes() {
+	
+	// Compared wp version
+	global $wp_version;
 
 	// Get image sizes
 	$sizes = anva_get_image_sizes();
 
 	// Add image sizes
 	foreach ( $sizes as $size => $atts ) {
-		add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'] );
+		if ( version_compare( $wp_version, '3.9', '>=' ) && isset( $atts['position'] ) ) {
+			add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'], $atts['position'] );
+		} else {
+			add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'] );
+		}
 	}
 
 }
@@ -161,13 +175,14 @@ function anva_get_featured_image( $post_id, $thumbnail ) {
 function anva_get_post_thumbnail( $thumb ) {
 	global $post;
 
+	// Default
 	$html = '';
-	$size = 'blog_large';
+	$size = 'blog_lg';
 
 	if ( 0 == $thumb ) {
-		$size = 'blog_medium';
+		$size = 'blog_md';
 	} elseif ( 1 == $thumb ) {
-		$size = 'blog_large';
+		$size = 'blog_lg';
 	}
 
 	if ( $thumb != 2 && has_post_thumbnail() ) {
@@ -193,7 +208,7 @@ function anva_post_grid_thumbnails( $size ) {
 	$output  = '';
 
 	if ( has_post_thumbnail() ) {
-		$output .= '<div class="entry-thumbnail">';
+		$output .= '<div class="entry-image">';
 		$output .= '<a href="' . get_permalink( $post->ID ) . '" title="' . get_the_title( $post->ID ) . '">' .get_the_post_thumbnail( $post->ID, $size ) . '</a>';
 		$output .= '</div>';
 	}

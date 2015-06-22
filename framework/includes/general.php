@@ -18,8 +18,8 @@ function anva_get_option( $id, $default = false ) {
 /**
  * Make theme available for translations
  */
-function anva_theme_texdomain() {
-	load_theme_textdomain( ANVA_DOMAIN, get_template_directory() . '/languages' );
+function anva_load_theme_texdomain() {
+	load_theme_textdomain( anva_textdomain(), get_template_directory() . '/languages' );
 }
 
 function anva_add_theme_support() {
@@ -73,23 +73,36 @@ function anva_get_sidebar_locations() {
 		'sidebar_right' => array(
 			'args' => array(
 				'id' => 'sidebar_right',
-				'name' => __( 'Sidebar Right', ANVA_DOMAIN ),
+				'name' => __( 'Right', ANVA_DOMAIN ),
 				'description' => __( 'Sidebar right.', ANVA_DOMAIN ),
 			)
 		),
 		'sidebar_left' => array(
 			'args' => array(
 				'id' => 'sidebar_left',
-				'name' => __( 'Sidebar Left', ANVA_DOMAIN ),
+				'name' => __( 'Left', ANVA_DOMAIN ),
 				'description' => __( 'Sidebar left.', ANVA_DOMAIN ),
 			)
 		),
-		'homepage' => array(
+		'above_header' => array(
 			'args' => array(
-				'id' => 'homepage',
-				'name' => __( 'Homepage', ANVA_DOMAIN ),
-				'description' => __( 'Homepage sidebar below content.', ANVA_DOMAIN ),
-				'class' => 'grid_4',
+				'id' => 'above_header',
+				'name' => __( 'Above Header', ANVA_DOMAIN ),
+				'description' => __( 'Sidebar above header.', ANVA_DOMAIN ),
+			)
+		),
+		'above_content' => array(
+			'args' => array(
+				'id' => 'above_content',
+				'name' => __( 'Above Content', ANVA_DOMAIN ),
+				'description' => __( 'Sidebar above content.', ANVA_DOMAIN ),
+			)
+		),
+		'below_content' => array(
+			'args' => array(
+				'id' => 'below_content',
+				'name' => __( 'Below Content', ANVA_DOMAIN ),
+				'description' => __( 'Sidebar below content.', ANVA_DOMAIN ),
 			)
 		),
 		'footer' => array(
@@ -164,6 +177,15 @@ function anva_get_theme_scripts() {
 			'type' => 'css',
 			'cond' => true
 		),
+		'magnific-popup' => array(
+			'handle' => 'magnific-popup',
+			'src' => get_template_directory_uri() . '/assets/css/magnific-popup.min.css',
+			'dep' => array(),
+			'ver' => '',
+			'media' => 'all',
+			'type' => 'css',
+			'cond' => true
+		),
 		'boostrap' => array(
 			'handle' => 'boostrap',
 			'src' => get_template_directory_uri() . '/assets/css/bootstrap.min.css',
@@ -208,24 +230,6 @@ function anva_get_theme_scripts() {
 			'in_footer' => true,
 			'type' => 'js',
 			'cond' => ( is_page_template( 'template_contact-us.php' ) ? true : false )
-		),
-		'flexslider' => array(
-			'handle' => 'jquery-flexslider',
-			'src' => get_template_directory_uri() . '/assets/js/vendor/jquery.flexslider.min.js',
-			'dep' => array( 'jquery' ),
-			'ver' => '2.2.2',
-			'in_footer' => true,
-			'type' => 'js',
-			'cond' => true
-		),
-		'slick' => array(
-			'handle' => 'slick-js',
-			'src' => get_template_directory_uri() . '/assets/js/vendor/slick.min.js',
-			'dep' => array( 'jquery' ),
-			'ver' => '1.5.0',
-			'in_footer' => true,
-			'type' => 'js',
-			'cond' => true
 		),
 		'isotope' => array(
 			'handle' => 'isotope',
@@ -300,42 +304,14 @@ function anva_load_scripts() {
 }
 
 /**
- * Hide wordpress version number.
- */
-function anva_kill_version() {
-	return '';
-}
-
-/**
- * Change the default mail from.
- */
-function anva_wp_mail_from( $original_email_address ) {
-	$email = get_option( 'admin_email' );
-	return $email;
-}
-
-/**
- * Change the default from name.
- */
-function anva_wp_mail_from_name( $original_email_from ) {
-	$name = get_bloginfo( 'name' );
-	return $name;
-}
-
-/**
  * Include post types in search page
  */
-function anva_search_filter( $query ) {
+function anva_exclude_search_post_types( $query ) {
 
-	$post_types = array(
-		'post',
-		'page'
-	);
+	$post_types = array();
 
-	if ( ! class_exists( 'Woocommerce' ) ) {
-		if ( ! $query->is_admin && $query->is_search ) {
-			$query->set( 'post_type', apply_filters( 'anva_search_filter_post_types', $post_types ) );
-		}
+	if ( ! $query->is_admin && $query->is_search ) {
+		$query->set( 'post_type', apply_filters( 'anva_exclude_search_post_types', $post_types ) );
 	}
 	
 	return $query;

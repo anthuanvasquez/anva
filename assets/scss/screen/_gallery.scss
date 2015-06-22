@@ -15,20 +15,52 @@
 	}
 }
 
-/*
- * I need grid for gallery with html5 support
- */
-
 .gallery-item {
 	margin-bottom: 10px;
 	position: relative;
+	overflow: hidden;
 
 	> .gallery-image {
 		> a {
 			display: block;
 		}
 	}
+
+	.gallery-content {
+		bottom: $padding;
+		color: #fff;
+		left: $padding;
+		position: absolute;
+
+		h4 {
+			color: inherit;
+			font-size: 16px;
+			margin: 0;
+		}
+
+		p {
+			font-style: italic;
+			margin-bottom: 0;
+		}
+	}
+
+	.gallery-caption {
+		h4 {
+			color: #fff;
+			margin: 0;
+		}
+
+		p {
+			color: #fff;
+			font-size: 12px;
+			font-style: italic;
+		}
+	}
 	
+	.gallery-1-col & {
+		margin-bottom: 20px;
+	}
+
 	.gallery-2-col & {
 		float: left;
 		height: auto;
@@ -90,34 +122,4 @@
 		}
 	}
 
-}
-
-.gallery-info {
-	bottom: $padding;
-	color: #fff;
-	left: $padding;
-	position: absolute;
-
-	h4 {
-		color: inherit;
-		font-size: 16px;
-		margin: 0;
-	}
-
-	p {
-		font-style: italic;
-		margin-bottom: 0;
-	}
-}
-
-.gallery-caption {
-	h4 {
-		color: #fff;
-		margin: 0;
-	}
-	p {
-		color: #fff;
-		font-size: 12px;
-		font-style: italic;
-	}
 }

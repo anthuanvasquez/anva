@@ -113,9 +113,7 @@ var ANVA = ANVA || {};
 		},
 
 		masonryLayout: function() {
-			var _masonryContainer = jQuery('.gallery-masonry .gallery-content'),
-				_masonryItem 				= jQuery('.gallery-item');
-			_masonryContainer.isotope();
+			
 		},
 
 		goToTop: function() {
@@ -264,6 +262,68 @@ var ANVA = ANVA || {};
 						}
 					});
 				}
+			}
+		},
+
+		loadFlexSlider: function() {
+			var _flexSliderEl = jQuery('.flexslider');
+			if ( _flexSliderEl.length > 0 ) {
+				_flexSliderEl.each(function() {
+					var _flexsSlider 	= jQuery(this),
+						flexsAnimation 	= _flexsSlider.parent('.fslider').attr('data-animation'),
+						flexsEasing 		= _flexsSlider.parent('.fslider').attr('data-easing'),
+						flexsDirection 	= _flexsSlider.parent('.fslider').attr('data-direction'),
+						flexsSlideshow 	= _flexsSlider.parent('.fslider').attr('data-slideshow'),
+						flexsPause 			= _flexsSlider.parent('.fslider').attr('data-pause'),
+						flexsSpeed 			= _flexsSlider.parent('.fslider').attr('data-speed'),
+						flexsVideo 			= _flexsSlider.parent('.fslider').attr('data-video'),
+						flexsPagi 			= _flexsSlider.parent('.fslider').attr('data-pagi'),
+						flexsArrows 		= _flexsSlider.parent('.fslider').attr('data-arrows'),
+						flexsThumbs 		= _flexsSlider.parent('.fslider').attr('data-thumbs'),
+						flexsHover 			= _flexsSlider.parent('.fslider').attr('data-hover'),
+						flexsSheight 		= true,
+						flexsUseCSS 		= false;
+
+					if ( !flexsAnimation ) {
+						flexsAnimation = 'slide';
+					}
+					if ( !flexsEasing || flexsEasing == 'swing' ) {
+						flexsEasing = 'swing';
+						flexsUseCSS = true;
+					}
+					if ( !flexsDirection ) { flexsDirection = 'horizontal'; }
+					if ( !flexsSlideshow ) { flexsSlideshow = true; } else { flexsSlideshow = false; }
+					if ( !flexsPause ) { flexsPause = 5000; }
+					if ( !flexsSpeed ) { flexsSpeed = 600; }
+					if ( !flexsVideo ) { flexsVideo = false; }
+					if ( flexsDirection == 'vertical' ) { flexsSheight = false; }
+					if ( flexsPagi == 'false' ) { flexsPagi = false; } else { flexsPagi = true; }
+					if ( flexsThumbs == 'true' ) { flexsPagi = 'thumbnails'; } else { flexsPagi = flexsPagi; }
+					if ( flexsArrows == 'false' ) { flexsArrows = false; } else { flexsArrows = true; }
+					if ( flexsHover == 'false' ) { flexsHover = false; } else { flexsHover = true; }
+
+					_flexsSlider.flexslider({
+						selector: ".slides > li",
+						animation: flexsAnimation,
+						easing: flexsEasing,
+						direction: flexsDirection,
+						slideshow: flexsSlideshow,
+						slideshowSpeed: Number(flexsPause),
+						animationSpeed: Number(flexsSpeed),
+						pauseOnHover: flexsHover,
+						video: flexsVideo,
+						controlNav: flexsPagi,
+						directionNav: flexsArrows,
+						smoothHeight: flexsSheight,
+						useCSS: flexsUseCSS,
+						start: function(slider) {
+							ANVA.widget.animations();
+							slider.parent().removeClass('preloader2');
+							jQuery('.flex-prev').html('<i class="fa fa-angle-left"></i>');
+							jQuery('.flex-next').html('<i class="fa fa-angle-right"></i>');
+						},
+					});
+				});
 			}
 		},
 		
@@ -451,7 +511,7 @@ var ANVA = ANVA || {};
 	ANVA.documentOnLoad = {
 		
 		init: function() {
-			// Init document load functions
+			ANVA.widget.loadFlexSlider();
 		}
 
 	};

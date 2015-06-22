@@ -2,9 +2,7 @@
 // Framework - Variables / Mixins / Functions
 // ---------------------------------------------------------------- //
 
-@import "bourbon";
 @import "framework";
-@import "neat";
 
 /* ---------------------------------------------------------------- */
 /* Screen - Main CSS File
@@ -25,7 +23,6 @@
 @import "screen/wordpress";
 @import "screen/buttons";
 @import "screen/social-icons";
-@import "screen/magnific-popup";
 @import "screen/grids";
 @import "screen/sliders";
 @import "screen/helpers";

@@ -13,7 +13,7 @@
 	li {
 		margin-top: 20px;
 		padding-top: 20px;
-		border-top: 1px dashed #E5E5E5;
+		border-top: 1px dashed #e5e5e5;
 
 		&:first-child {
 			margin-top: 0;
@@ -31,6 +31,11 @@
 				margin: 0;
 				font-size: 14px;
 				font-weight: 600;
+			}
+			a {
+				&:hover {
+					color: $theme-color;
+				}
 			}
 		}
 

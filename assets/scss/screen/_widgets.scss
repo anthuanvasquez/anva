@@ -111,14 +111,49 @@ body {
 	}
 }
 
+.widget_nav_menu,
+.widget_links,
+.widget_meta,
+.widget_archive,
+.widget_recent_entries,
+.widget_categories,
+.widget_pages,
+.widget_rss,
+.widget_recent_comments {
+	li {
+		a {
+			display: inline-block;
+			padding: 0 3px 0 0;
+			border: none !important;
+			color: #444;
+			font-size: 14px;
+			&:before {
+				content: "\f105";
+				padding-right: 12px;
+				@include font-stack-icon();
+			}
+			&:hover {
+				color: #000;
+			}
+		}
+	}
+}
+
 .widget_recent_comments {
 	li {
 		display: block;
-		padding: 4px 0 4px 20px;
+		padding: 4px 0 4px 0;
+		&:before {
+			content: "\f105";
+			padding-right: 12px;
+			@include font-stack-icon();
+		}
 		a {
 			display: inline;
 			padding: 0;
-			background: none !important;
+			&:before {
+				content: none;
+			}
 		}
 	}
 }

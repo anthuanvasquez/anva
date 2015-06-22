@@ -9,35 +9,29 @@
 	}
 }
 
-#navigation {
-	background: #fff;
+#primary-menu {
 	border-top: 1px solid #f5f5f5;
-	position: relative;
 }
 
-#primary-menu .container > ul {
+#primary-menu > div > ul {
 	@include reset-list();
-	font-family: $menu-font-family;
+	font-family: $primary-menu-font-family;
 	float: left;
-
-	ul.sub-menu {
-		min-width: 200px;
-	}
 	
 	> li {
 		float: left;
 		position: relative;
 		
 		> a {
-			color: #444;
+			color: $base-font-color;
 			display: block;
-			font-size: $menu-font-size;
-			font-weight: $menu-font-weight;
-			line-height: 60px;
+			font-size: $primary-menu-font-size;
+			font-weight: $primary-menu-font-weight;
+			line-height: $primary-menu-line-height;
 			padding: 0 15px;
 			text-align: center;
-			text-shadow: $menu-text-shadow;
-			text-transform: $menu-text-transform;
+			text-shadow: $primary-menu-text-shadow;
+			text-transform: $primary-menu-text-transform;
 		}
 
 		&:hover,
@@ -50,14 +44,14 @@
 		
 		ul.sub-menu {
 			background: #fff;
-			box-shadow: 0px 13px 42px 11px rgba(0, 0, 0, 0.05);
-  		border: 1px solid #EEE;
+			box-shadow: 0px 13px 42px 11px rgba(black, .05);
+  		border: 1px solid #eee;
   		border-top: 2px solid $theme-color;
 			margin: 0;
 			height: auto;
 			padding: 0;
 			z-index: 199;
-			width: 220px;
+			width: $primary-menu-submenu-width;
 
 			> li {
 				display: block;
@@ -83,14 +77,14 @@
 				}
 
 				a {
-					color: color(base);
+					color: $theme-color;
 					display: block;
-					font-size: $menu-font-size;
-					font-weight: 600;
+					font-size: $primary-menu-font-size;
+					font-weight: $primary-menu-font-weight;
 					padding: 8px 10px;
 					position: relative;
 					text-align: left;
-					text-transform: uppercase;
+					text-transform: $primary-menu-text-transform;
 					transition: all .3s ease;
 				}
 				
@@ -143,7 +137,6 @@
 }
 
 .sf-arrows {
-
 	.sf-with-ul {
 		padding-right: 15px;
 
@@ -166,21 +159,6 @@
 			}
 		}
 	}
-
-	> li > .sf-with-ul:focus,
-	> li:hover > .sf-with-ul,
-	> .sfHover > .sf-with-ul {
-		&:after {
-			border-top-color: #fff;
-		}
-	}
-
-	ul li > .sf-with-ul:focus:after,
-	ul li:hover > .sf-with-ul:after,
-	ul .sfHover > .sf-with-ul:after {
-		border-left-color: color(base);
-	}
-
 }
 
 /*

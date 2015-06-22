@@ -28,16 +28,6 @@
 	width: $width;
 }
 
-// Boxed or Wide layout
-@mixin boxed-layout( $width ) {
-	@if config(boxed) {
-		margin: 0 auto;
-		max-width: $width;
-	} @else {
-		max-width: 100%;
-	}
-}
-
 @mixin clearfix() {
 	&:before,
 	&:after {
@@ -81,11 +71,6 @@
 	}
 }
 
-// Container inner classes
-@mixin container-class() {
-	
-}
-
 // Group inputs
 @mixin group-inputs() {
 	input[type="text"],
@@ -109,28 +94,10 @@
 	a.button,
 	button.button,
 	input.button,
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"] {
+	input[type="submit"].button,
+	input[type="reset"].button,
+	input[type="button"].button {
 		@content;
-	}
-}
-
-// Woocommerce products box
-@mixin woocommerce-product(
-	$border: 1px solid #ccc,
-	$padding: 0 0 25px,
-	$margin-bottom: 20px,
-	$min-height: 360px,
-	$trans: true ) {
-	border: $border;
-	box-sizing: border-box;
-	margin-bottom: $margin-bottom;
-	min-height: $min-height;
-	padding: $padding;
-	position: relative;
-	@if $trans {
-		transition: all .2s ease;
 	}
 }
 
@@ -159,7 +126,7 @@
 }
 
 // Animation Delay
-@mixin animation-delay($duration, $delay, $count) {
+@mixin animation-time($duration, $delay, $count) {
 	animation-duration: #{$duration}s;
 	animation-delay: #{$delay}s;
 	animation-iteration-count: $count;

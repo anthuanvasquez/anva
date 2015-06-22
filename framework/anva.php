@@ -65,14 +65,14 @@ class Anva {
 		include_once( ANVA_FRAMEWORK . '/includes/general.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/widgets.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/shortcodes.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/contact-email.php' );
+		include_once( ANVA_FRAMEWORK . '/plugins/email.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/login.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/gallery.php' );
 
 		// Validate if Woocommerce plugin is activated
 		if ( class_exists( 'Woocommerce' ) ) :
-			include_once( ANVA_FRAMEWORK . '/plugins/woocommerce-config.php' );
+			include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
 		endif;
 
 		// Validate if Foodlist plugin is activated
@@ -106,13 +106,13 @@ class Anva {
 		add_action( 'wp_head', 'anva_head_custom_css' );
 		add_action( 'wp_head', 'anva_head_viewport', 8 );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
-		add_filter( 'body_class', 'anva_body_classes' );
+		add_filter( 'body_class', 'anva_body_class' );
 		add_filter( 'body_class', 'anva_browser_class' );
 		add_filter( 'wp_title', 'anva_wp_title', 10, 2 );
 		add_filter( 'comment_reply_link', 'replace_reply_link_class' );
 		add_filter( 'the_password_form', 'anva_password_form' );
 		add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
-		add_action( 'anva_textdomain', 'anva_theme_texdomain' );
+		add_action( 'anva_textdomain', 'anva_load_theme_texdomain' );
 
 		/* ---------------------------------------------------------------- */
 		/* Header
@@ -151,6 +151,7 @@ class Anva {
 		add_action( 'anva_breadcrumbs', 'anva_breadcrumbs_default' );
 		add_action( 'anva_above_layout', 'anva_above_layout_default' );
 		add_action( 'anva_below_layout', 'anva_below_layout_default' );
+		add_action( 'anva_below_layout', 'anva_sidebar_below_content' );
 		add_action( 'anva_sidebar_before', 'anva_sidebar_before_default' );
 		add_action( 'anva_sidebar_after', 'anva_sidebar_after_default' );
 		

@@ -2,8 +2,6 @@
 /* Slick JS
 /* ---------------------------------------------------------------- */
 
-@charset "UTF-8";
-
 /* Slider */
 
 .slick-slider {
@@ -265,14 +263,14 @@ $slick-opacity-not-active: 0.25 !default;
 }
 
 /* ---------------------------------------------------------------- */
-/* Flexslider
+/* FlexSlider
 /* ---------------------------------------------------------------- */
 
 /*
  * Reset
  */
-.slider-wrapper,
-.slider-inner {
+#slider,
+.fslider {
 	a:hover,
 	a:focus{
 		outline: none;
@@ -294,7 +292,7 @@ $slick-opacity-not-active: 0.25 !default;
 /*
  * Base Styles
  */
-.slider-inner {
+.flexslider {
 	margin: 0; 
 	padding: 0;
 
@@ -308,6 +306,7 @@ $slick-opacity-not-active: 0.25 !default;
 		img {
 			width: 100%;
 			display: block;
+			transform: translatez(0);
 			transition: all .2s ease;
 		}
 
@@ -347,7 +346,7 @@ $slick-opacity-not-active: 0.25 !default;
 /*
  * Default Theme
  */
-.slider-inner {
+.flexslider{
 	margin: 0;
 	position: relative;
 	zoom: 1;	
@@ -360,10 +359,6 @@ $slick-opacity-not-active: 0.25 !default;
 .flex-viewport { 
 	max-height: 2000px;
 	transition: all 1s ease;
-	
-	.loading & {
-		max-height: 300px;
-	}
 }
 
 // Carousel
@@ -375,7 +370,6 @@ $slick-opacity-not-active: 0.25 !default;
 .flex-direction-nav {
 	*height: 0;
 
-	// Global styles
 	a {
 		color: #fff;
 		background: rgba(black, .8);
@@ -383,9 +377,10 @@ $slick-opacity-not-active: 0.25 !default;
 		border-radius: 2px;
 		cursor: pointer;
 		display: block;
-		width: 40px;
-		height: 40px;
+		width: 52px;
+	  height: 52px;
 		position: absolute;
+		margin-top: -30px;
 		top: 50%;
 		overflow: hidden;
 		opacity: 0;
@@ -393,19 +388,12 @@ $slick-opacity-not-active: 0.25 !default;
 		transition: all .3s ease;
 		z-index: 10;
 
-		&:before  {
-			@include font-stack-icon();
-			content: "\f104";
-			font-size: 22px;
-			display: block;
-			line-height: 40px;
-			margin-left: -2px;
-			margin-top: -1px;
-		}
-
-		&.flex-next:before {
-			content:"\f105";
-			margin-left: 2px;
+		i {
+			width: 32px;
+			height: 52px;
+			line-height: 50px;
+			font-size: 34px;
+			text-align: center;
 		}
 	}
 
@@ -422,10 +410,10 @@ $slick-opacity-not-active: 0.25 !default;
 	}
 
 	// Hover states
-	.slider-inner:hover & {
+	.flexslider:hover & {
 		.flex-prev {
 			opacity: .7; 
-			left: 0px;
+			left: 0;
 
 			&:hover {				
 				opacity: 1;
@@ -434,7 +422,7 @@ $slick-opacity-not-active: 0.25 !default;
 		
 		.flex-next {
 			opacity: .7; 
-			right: 0px;
+			right: 0;
 
 			&:hover {				
 				opacity: 1;
@@ -543,7 +531,6 @@ $slick-opacity-not-active: 0.25 !default;
 		&:hover {
 			opacity: 1;
 		}
-
 	}
 
 	.flex-active {
@@ -552,32 +539,84 @@ $slick-opacity-not-active: 0.25 !default;
 	}
 }
 
+.flex-control-nav.flex-control-thumbs {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 2px -2px -2px 0;
+  height: 75px;
+  overflow: visible;
+}
+
+.flex-control-nav.flex-control-thumbs li,
+.flex-control-nav.flex-control-thumbs li img {
+  display: block;
+  width: 100px !important;
+  height: 75px !important;
+}
+
+.flex-control-nav.flex-control-thumbs li {
+  margin: 0 2px 2px 0;
+}
+
+.flex-control-nav.flex-control-thumbs li img {
+  cursor: pointer;
+  text-indent: -9999px;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  opacity: 0.5;
+  transition: all .3s ease-in-out;
+}
+
+.flex-control-nav.flex-control-thumbs li:hover img,
+.flex-control-nav.flex-control-thumbs li img.flex-active {
+  border-width: 0;
+  opacity: 1;
+}
+
 /* ---------------------------------------------------------------- */
 /* Slides
 /* ---------------------------------------------------------------- */
 
-.slider-inner li {
-	div.slide {
-		position: relative;
-		a {
-			display: block;
-			&:hover {
-				img {
-					opacity: .8;
+.slider-boxed {
+	padding-top: 40px;
+}
+
+.fslider[data-animation="fade"] .flexslider {
+  height: auto !important;
+}
+
+.flexslider {
+
+	.pre-loading & {
+		max-height: 30px;
+	}
+
+	li {
+		.slide {
+			position: relative;
+			a {
+				display: block;
+				&:hover {
+					img {
+						opacity: .8;
+					}
 				}
 			}
 		}
 	}
 }
 
-.slide-caption {
-	padding: 15px;
+.slide-content {
+	padding: 0 40px 40px;
 	position: absolute;
 	right: 0;
 	bottom: 0;
 	width: 100%;
 	&.no-title {
-		.slide-description {
+		.slide-desc {
 			margin-top: 0;
 		}
 	}
@@ -600,18 +639,7 @@ $slick-opacity-not-active: 0.25 !default;
 	}
 }
 
-.slide-description {
+.slide-desc {
 	color: #fff;
-	margin-top: 10px;
-}
-
-// Featured slider
-@if config(boxed) {
-	#featured {
-		padding: 0;
-	}
-} @else { 
-	#featured {
-		padding: 0;
-	}
+	margin-top: 15px;
 }

@@ -1,4 +1,4 @@
-/* Global wrapper */
+/* Wrapper */
 #wrapper {
 	min-width: $min-width;
 }
@@ -10,7 +10,7 @@
 	float: none;
 	position: relative;
 	margin: 0 auto;
-	max-width: 1200px;
+	max-width: $theme-max-width;
 
 	body.stretched & {
 		max-width: 100%;

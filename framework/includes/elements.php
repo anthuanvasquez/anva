@@ -1,5 +1,9 @@
 <?php
 
+function anva_display_sidebar( $id ) {
+	if ( dynamic_sidebar( $id ) ) : endif;
+}
+
 /**
  * Get sidebars columns and location
  */

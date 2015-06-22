@@ -218,7 +218,7 @@
 								var captn = slide.attr( 'data-thumbcaption' );
 								if ( '' != captn && undefined != captn ) item += '<span class="' + namespace + 'caption">' + captn + '</span>';
 							}
-							slider.controlNavScaffold.append('<li>' + item + '</li>');
+							slider.controlNavScaffold.append("<li data-animate=\"zoomIn\" data-delay=\""+ j*200 +"\">" + item + "</li>");
 							j++;
 						}
 					}

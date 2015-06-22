@@ -1,90 +1,6 @@
 <?php
 
 /*
- * Display default header logo 
- */
-function anva_header_logo_default() {
-	$logo 	= anva_get_option('logo');
-	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
-	$name 	= get_bloginfo( 'name' );
-	?>
-	<div id="logo">
-		<?php
-			printf(
-				'<a href="%3$s" class="standard-logo"><img src="%1$s" alt="%2$s" /></a>',
-				( empty( $logo ) ? esc_url( $image ) : esc_url( $logo ) ),
-				$name,
-				esc_url( home_url() )
-			);
-		?>
-	</div><!-- #brand (end) -->
-	<?php
-}
-
-/*
- * Display default main navigation
- */
-function anva_header_primary_menu_default() {
-	if ( has_nav_menu( 'primary' ) ) :
-	$trigger = '<a href="#" id="primary-menu-trigger"><i class="fa fa-bars"></i></a>';
-	?>
-		<nav id="primary-navigation" role="navigation">
-			<div id="primary-menu">
-				<div class="container cleafix">
-					<?php
-						wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
-							'theme_location'  => 'primary',
-							'container'       => '',
-							'container_class' => '',
-							'container_id'    => '',
-							'menu_class'      => 'sf-menu clearfix',
-							'menu_id'         => '',
-							'echo'            => true,
-							'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
-						));
-
-						anva_header_primary_menu_addon();
-					?>
-				</div>
-			</div>
-		</nav><!-- #main-navigation (end) -->
-	<?php else : ?>
-		<div class="container clearfix">
-			<div class="navigation-message well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
-		</div>
-	<?php endif;
-}
-
-function anva_header_primary_menu_addon_default() {
-	?>	
-	<ul id="header-menu-addon">
-		<li>
-			<div id="top-search">
-				<a href="#" id="top-search-trigger">
-					<i class="fa fa-search"></i>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div id="top-cart">
-				<a href="#" id="top-cart-trigger">
-					<i class="fa fa-shopping-cart"></i>
-					<span class="badge">0</span>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div id="top-lang">
-				<a href="#" id="top-lang-trigger">
-					<i class="fa fa-flag"></i>
-				</a>
-			</div>
-		</li>
-	</ul><!-- #menu-addon (end) -->
-	<?php
-}
-
-/*
  * Print favion and apple touch icons in head
  */
 function anva_head_apple_touch_icon() {
@@ -124,42 +40,23 @@ function anva_head_custom_css() {
 }
 
 /*
- * Display footer widgets
+ * Top Bar
  */
-function anva_footer_content_default() {
-	?>
-	<div class="footer-widget">
-		<div class="grid-columns">
-			<?php if ( ! dynamic_sidebar( 'footer' ) ) : endif; ?>
-		</div>
-	</div>
-	<?php
-}
-
-/*
- * Display default footer text copyright
- */
-function anva_footer_copyrights_default() {
-	printf(
-		'<div class="grid_6">&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#"><i class="fa fa-chevron-up"></i></a></div>',
-		anva_get_current_year( apply_filters( 'anva_footer_year', date( 'Y' ) ) ),
-		get_bloginfo( 'name' ),
-		anva_get_local( 'footer_copyright' ),
-		apply_filters( 'anva_footer_credits', anva_get_local( 'footer_text' ) ),
-		apply_filters( 'anva_footer_author', '<a href="'. esc_url( 'http://anthuanvasquez.net/') .'">Anthuan Vasquez</a>' )
-	);
-}
-
 function anva_top_bar_default() {
 	?>	
 	<div id="top-bar">
 		<div class="container clearfix">
+			<div class="grid_6">
+				<div id="top-links">
+					<?php anva_header_secondary_menu(); ?>
+				</div>
+			</div>
 			<div class="grid_6 grid_last fright nobottommargin">
 				<div id="top-social">
 					<?php 
-						$size  			= '';
-						$color 			= '';
-						$style 			= 'social-noborder';
+						$size  	= '';
+						$color 	= '';
+						$style 	= 'social-noborder';
 						echo anva_social_icons( $size, $color, $style ); ?>
 				</div>
 			</div>
@@ -168,6 +65,30 @@ function anva_top_bar_default() {
 	<?php
 }
 
+/*
+ * Display default header logo 
+ */
+function anva_header_logo_default() {
+	$logo 	= anva_get_option('logo');
+	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
+	$name 	= get_bloginfo( 'name' );
+	?>
+	<div id="logo">
+		<?php
+			printf(
+				'<a href="%3$s" class="standard-logo"><img src="%1$s" alt="%2$s" /></a>',
+				( empty( $logo ) ? esc_url( $image ) : esc_url( $logo ) ),
+				$name,
+				esc_url( home_url() )
+			);
+		?>
+	</div><!-- #logo (end) -->
+	<?php
+}
+
+/*
+ * Display default extra header information
+ */
 function anva_header_extras_default() {
 	?>	
 	<ul id="header-extras" class="header-extras">
@@ -185,17 +106,113 @@ function anva_header_extras_default() {
 	<?php
 }
 
+/*
+ * Display default main navigation
+ */
+function anva_header_primary_menu_default() {
+	if ( has_nav_menu( 'primary' ) ) :
+	$trigger = '<a href="#" id="primary-menu-trigger"><i class="fa fa-bars"></i></a>';
+	?>
+		<nav id="primary-menu" role="navigation">
+			<div class="container cleafix">
+				<?php
+					wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
+						'theme_location'  => 'primary',
+						'container'       => '',
+						'container_class' => '',
+						'container_id'    => '',
+						'menu_class'      => 'sf-menu clearfix',
+						'menu_id'         => '',
+						'echo'            => true,
+						'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
+					));
+
+					anva_header_primary_menu_addon();
+				?>
+			</div>
+		</nav><!-- #main-navigation (end) -->
+	<?php else : ?>
+		<div class="container clearfix">
+			<div class="navigation-message well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
+		</div>
+	<?php endif;
+}
+
+/*
+ * Display default menu addons
+ */
+function anva_header_primary_menu_addon_default() {
+	?>	
+	<ul id="header-menu-addon">
+		<li>
+			<div id="top-search">
+				<a href="#" id="top-search-trigger">
+					<i class="fa fa-search"></i>
+				</a>
+			</div>
+		</li>
+		<li>
+			<div id="top-cart">
+				<a href="#" id="top-cart-trigger">
+					<i class="fa fa-shopping-cart"></i>
+					<span class="badge">0</span>
+				</a>
+			</div>
+		</li>
+		<li>
+			<div id="top-lang">
+				<a href="#" id="top-lang-trigger">
+					<i class="fa fa-flag"></i>
+				</a>
+			</div>
+		</li>
+	</ul><!-- #menu-addon (end) -->
+	<?php
+}
+
+/*
+ * Display footer widgets
+ */
+function anva_footer_content_default() {
+	?>
+	<div class="footer-widget">
+		<div class="grid-columns">
+			<?php if ( ! dynamic_sidebar( 'footer' ) ) : endif; ?>
+		</div>
+	</div>
+	<?php
+}
+
+/*
+ * Display default footer text copyright
+ */
+function anva_footer_copyrights_default() {
+	printf(
+		'<div class="grid_6">&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#" class="gotop gotop-md"><i class="fa fa-chevron-up"></i></a></div>',
+		anva_get_current_year( apply_filters( 'anva_footer_year', date( 'Y' ) ) ),
+		get_bloginfo( 'name' ),
+		anva_get_local( 'footer_copyright' ),
+		apply_filters( 'anva_footer_credits', anva_get_local( 'footer_text' ) ),
+		apply_filters( 'anva_footer_author', '<a href="'. esc_url( 'http://anthuanvasquez.net/') .'">Anthuan Vasquez</a>' )
+	);
+}
+
 function anva_featured_default() {
 	if ( is_front_page() ) :
 	?>
 	<!-- FEATURED (start) -->
 	<div id="featured">
-		<div class="featured-inner">
-			<?php
-				if ( function_exists( 'anva_slideshows_featured' ) ) {
-					echo anva_slideshows_featured( 'homepage' );
-				}
-			?>
+		<div class="container clearfix">
+			<div class="featured-content">
+				<?php
+					if ( function_exists( 'anva_put_slideshows' ) ) {
+						$slideshows = anva_get_slideshows();
+						if ( isset( $slideshows['main'] ) ) {
+							echo anva_put_slideshows( 'main' );
+						}
+					}
+				?>
+			</div>
 		</div><!-- .featured-inner (end) -->
 	</div><!-- FEATURED (end) -->
 	<?php
@@ -321,12 +338,24 @@ function anva_side_menu() {
 	endif;
 }
 
+function anva_sidebar_below_content() {
+	?>
+	<div id="ad-below-content" class="sidebar-wrapper">
+		<div class="sidebar-inner">
+			<div class="widget-area widget-ad-below-content">
+				<?php if ( dynamic_sidebar( 'below_content' ) ) : endif; ?>
+			</div>
+		</div><!-- .sidebar-inner (end) -->
+	</div>
+	<?php
+}
+
 /*
  * Display debug information if WP_DEBUG is enabled
  * and current user is an adminsitrator 
  */
 function anva_debug_info() {
-	if ( true == WP_DEBUG && current_user_can( 'administrator' ) ) :
+	if ( true == WP_DEBUG ) :
 	?>
 		<div class="container clearfix">
 			<div class="debug-info alert alert-info topmargin bottommargin">

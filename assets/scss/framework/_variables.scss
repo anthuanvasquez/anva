@@ -9,9 +9,11 @@ $configuration: (
 	max-width: 1170px,
 	padding: 20px,
 	border-radius: 4px,
-	boxed: true,
 	debug: false
 );
+
+$theme-min-width: 320px;
+$theme-max-width: 1200px;
 
 // Helpers
 // ------------------------------------------------
@@ -42,12 +44,11 @@ $palette: (
 	meta:				#999999
 );
 
-$colors: (
+$theme-color: color(primary);
+$theme-skins: (
 	orange: #EB9C4D,
 	green: #59BA41
 );
-
-$theme-color: color(primary);
 
 // Font Stacks
 // ------------------------------------------------
@@ -59,24 +60,27 @@ $georgia: 		 Georgia, Times, "Times New Roman", serif;
 // ------------------------------------------------
 
 // Base
-$base-font-size: config(font-size);
-$base-line-height: config(line-height);
-$base-font-color: color(base);
+$base-font-size: 14px;
+$base-line-height: 1.5;
+$base-font-color: #444;
 $base-font-family: $helvetica;
 $base-font-weight: 400;
+$base-background-color: #f5f5f5;
 
 // Headings
-$heading-font-color: color(base);
+$heading-font-color: #444;
 $heading-font-family: $helvetica;
 $heading-font-line-height: 1.1;
 $heading-font-weight: 700;
 
 // Menu
-$menu-font-size: 13px;
-$menu-font-weight: 600;
-$menu-font-family: $helvetica;
-$menu-text-shadow: none;
-$menu-text-transform: uppercase;
+$primary-menu-submenu-width: 220px;
+$primary-menu-font-size: 13px;
+$primary-menu-font-weight: 600;
+$primary-menu-font-family: $helvetica;
+$primary-menu-text-shadow: none;
+$primary-menu-text-transform: uppercase;
+$primary-menu-line-height: 60px;
 
 // Footer
 $footer-font-color: color(base);

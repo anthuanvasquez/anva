@@ -4,9 +4,10 @@
 
 	// Sort gallery images
 	$gallery_arr = anva_sort_gallery( $gallery_arr );
+	var_dump($gallery_arr);
 ?>
 
-<div id="gallery-container" class="gallery-container gallery-1-col">
+<div id="gallery-container" class="gallery-1-col">
 	<div class="gallery-inner">
 		<div class="gallery-content clearfix" data-lightbox="gallery">
 			<?php
@@ -18,7 +19,7 @@
 				
 				if ( ! empty( $id ) ) :
 					$gallery_image_ori = wp_get_attachment_image_src( $id, 'original', true );
-					$gallery_image_url = wp_get_attachment_image_src( $id, 'blog_large', true );
+					$gallery_image_url = wp_get_attachment_image_src( $id, 'blog_full', true );
 				endif;
 			?>
 				
@@ -26,9 +27,9 @@
 					<div class="gallery-image">
 						<a href="<?php echo $gallery_image_ori[0]; ?>" title="<?php echo $gallery_image_title; ?>" data-lightbox="gallery-item" data-desc="<?php echo $gallery_image_desc; ?>">
 							<img src="<?php echo $gallery_image_url[0]; ?>" alt="<?php echo $gallery_image_title; ?>" />
-							<div class="gallery-info">
-								<h4><?php echo $gallery_image_title; ?></h4>
-								<p data-desc=""><?php echo $gallery_image_desc; ?></p>
+							<div class="gallery-content">
+								<h4 class="gallery-title"><?php echo $gallery_image_title; ?></h4>
+								<p class="gallery-desc" data-desc=""><?php echo $gallery_image_desc; ?></p>
 							</div>
 						</a>
 					</div>

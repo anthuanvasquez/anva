@@ -13,6 +13,7 @@ function anva_shortcodes_init() {
 	add_shortcode( 'toggle', 'anva_toggle' );
 	add_shortcode( 'counter', 'anva_counter' );	
 	add_shortcode( 'column', 'anva_column' );
+	add_shortcode( 'slides', 'anva_slides' );
 	
 }
 
@@ -240,4 +241,23 @@ function anva_counter( $atts, $content ) {
 	$html .= '<span data-from="'. $from .'" data-to="'. $to .'" data-refresh-interval="'. $interval .'" data-speed="'. $speed .'"></span>';
 	$html .= '</div>';
 	return $html;
+}
+
+/*
+ * Create slideshows shortcode
+ */
+function anva_slides( $atts, $content ) {
+	extract(shortcode_atts( array(
+		'id' => '', // Default ID
+	), $atts ));
+
+	$html = '<div class="alert alert-warning">Please install the plugin <strong>Anva Sideshows</strong> to use the slides shortcode.</div>';
+	
+	if ( function_exists( 'anva_put_slideshows' ) ) {
+		if ( ! empty( $id ) ) {
+			return anva_put_slideshows( $id );
+		}
+	} else {
+		return $html;
+	}
 }

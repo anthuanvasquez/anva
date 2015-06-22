@@ -10,59 +10,6 @@ function anva_slideshows_setup() {
 	add_action( 'save_post', 'anva_slideshows_save_meta', 1, 2 );
 	add_action( 'manage_slideshows_posts_custom_column', 'anva_slideshows_add_columns' );
 	add_filter( 'manage_edit-slideshows_columns', 'anva_slideshows_columns' );
-	add_shortcode( 'slideshows', 'anva_slideshows_shortcode' );
-}
-
-function anva_get_slideshows() {
-	
-	$args = array();
-	$slider_speed = anva_get_option( 'slider_speed' );
-	$slider_control = anva_get_option( 'slider_control' );
-	$slider_direction = anva_get_option( 'slider_direction' );
-	$slider_play = anva_get_option( 'slider_play' );
-	$slide_animation = 'slide';
-	$slide_animation_speed = '1000';
-
-	// Main Slider
-	$args['homepage'] = array(
-		'name' => 'Homepage',
-		'size' => 'slider_large',
-		'type' => 'flexslider',
-		'options' => "
-			animation: '$slide_animation',
-			animationSpeed: '$slide_animation_speed',
-			slideshowSpeed: '$slider_speed',
-			controlNav: ( $slider_control == 1 ? true : false ),
-			directionNav: ( $slider_direction == 1 ? true : false ),
-			playText: '',
-			prevText: '',
-			nextText: '',
-			useCSS: true,
-			touch: true,
-			video: true,
-			start: function(slider) {
-				slider.removeClass('loading');
-			}
-		"
-	);
-
-	// Attachments Slider	
-	$args['attachments'] = array(
-		'name' => 'Attachments',
-		'size' => 'blog_large',
-		'type' => 'flexslider',
-		'options' => "
-			controlNav: false,
-			directionNav: true,
-			pausePlay: false,
-			smoothHeight: true,
-			start: function(slider) {
-				slider.removeClass('loading');
-			}
-		"
-	);
-	
-	return apply_filters( 'anva_slideshows', $args );
 }
 
 /*
@@ -111,21 +58,49 @@ function anva_slideshows_admin_icon() {
 	echo '<style>#adminmenu #menu-posts-slideshows div.wp-menu-image:before { content: "\f233"; }</style>';	
 }
 
+function anva_get_slideshows() {
+	
+	$args = array();
+
+	// Main Slider
+	$args['main'] = array(
+		'name' 	=> 'Main Area',
+		'size' 	=> 'slider_lg',
+		'layout'=> 'boxed',
+		'limit' => -1
+	);
+
+	$args['blog'] = array(
+		'name' 	=> 'Blog Area',
+		'size' 	=> 'slider_md',
+		'limit' => -1
+	);
+	
+	return apply_filters( 'anva_get_slideshows_args', $args );
+}
+
+
 /*
  * Output slides from slideshows array
  */
-function anva_slideshows_featured( $slug ) {
+function anva_put_slideshows( $slug ) {
 	
-	// Get slides area
+	$slug = strtolower( $slug );
 	$slideshows = anva_get_slideshows();
+	$slider_speed = anva_get_option( 'slider_speed' );
+	$slider_control = anva_get_option( 'slider_control' );
+	$slider_arrows = anva_get_option( 'slider_direction' );
+	$slider_play = anva_get_option( 'slider_play' );
+	$slider_animation = 'slide';
+	$slider_animation_speed = '1000';
 	
 	// Set args
-	$image_size = isset( $slideshows[$slug]['size'] ) ? $slideshows[$slug]['size'] : 'large';
-	$orderby = isset( $slideshows[$slug]['orderby'] ) ? $slideshows[$slug]['orderby'] : "menu_order";
-	$order 	 = isset( $slideshows[$slug]['order'] ) ? $slideshows[$slug]['order'] : "ASC";
-	$limit 	 = isset( $slideshows[$slug]['limit'] ) ? $slideshows[$slug]['limit'] : "-1";
+	$size 		= isset( $slideshows[$slug]['size'] ) ? $slideshows[$slug]['size'] : 'large';
+	$orderby 	= isset( $slideshows[$slug]['orderby'] ) ? $slideshows[$slug]['orderby'] : "menu_order";
+	$order 	 	= isset( $slideshows[$slug]['order'] ) ? $slideshows[$slug]['order'] : "ASC";
+	$limit 	 	= isset( $slideshows[$slug]['limit'] ) ? $slideshows[$slug]['limit'] : "-1";
 
-	// Default Query Args
+	// Default
 	$query_args = array(
 		'post_type' 			=> array( 'slideshows' ),
 		'order' 					=> $order,
@@ -135,136 +110,81 @@ function anva_slideshows_featured( $slug ) {
 		'posts_per_page' 	=> $limit
 	);
 	
-	// Attachments Query Args
-	if ( $slug == "attachments" ) {
-		$query_args['post_type'] = 'attachment';
-		$query_args['post_parent'] = get_the_ID();
-		$query_args['post_status'] = 'inherit';
-		$query_args['post_mime_type'] = 'image';
-		unset( $query_args['meta_value'] );
-		unset( $query_args['meta_key'] );
-	}
-	
 	// Output
 	$html = "";
 	
-	$the_query = anva_get_post_query( apply_filters( 'anva_slideshows_query_args', $query_args ) );
+	$the_query = anva_get_post_query( apply_filters( 'anva_put_slideshows_query_args', $query_args ) );
 
 	if ( $the_query->have_posts() ) {
-		$html .= '<div id="slider">';
-		$html .= '<div id="slider_wrapper_' . $slug . '" class="slider-wrapper slider-wrapper-' . $slug . '">';
-		$html .= '<div id="slider_inner_' . $slug . '" class="slider-inner slider-inner-' . $slug . '">';
+		$html .= '<div id="slider" class="fslider slider-boxed" data-animation="fade" data-thumbs="true" data-arrows="'. $slider_arrows .'" data-speed="'. $slider_animation_speed .'" data-pause="'. $slider_speed .'">';
+		$html .= '<div id="slider-' . esc_attr( $slug ) . '" class="flexslider">';
 		$html .= '<ul class="slides">';
 		
 		while ( $the_query->have_posts() ) {
 
 			$the_query->the_post();
 			
-			$meta = anva_get_post_custom();
-
-			$url 	= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
-			$data = ( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
-
-			$a_tag_opening = '<a href="' . $url . '">';
-						
-			$html .= '<li>';
-			$html .= '<div id="slide-' . get_the_ID() . '" class="slide slide-'. get_the_ID() .' slide-type-image">';
+			$id 		= get_the_ID();
+			$title 	= get_the_title();
+			$desc 	= get_the_excerpt();
+			$meta 	= anva_get_post_custom();
+			$url 		= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
+			$data 	= ( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
+			$image  = anva_get_featured_image( $id, 'blog_md' );
+			$a_tag  = '<a href="' . esc_url( $url ) . '">';
+			
+			$html .= '<li data-thumb="'. esc_attr( $image ) .'">';
+			$html .= '<div id="slide-' . esc_attr( $id ) . '" class="slide slide-'. esc_attr( $id ) .' slide-type-image">';
 			
 			if ( $slug == "attachments" ) {
-				$html .= wp_get_attachment_image( get_the_ID(), $image_size );
+				$html .= anva_get_featured_image( $id, $size );
 			
 			} elseif ( has_post_thumbnail() ) {
 				
 				if ( $url ) {
-					$html .= $a_tag_opening;
+					$html .= $a_tag;
 				}
 
-				$html .= get_the_post_thumbnail( get_the_ID(), $image_size , array( 'class' => 'slide-thumbnail' ) );
+				$html .= get_the_post_thumbnail( $id, $size , array( 'class' => 'slide-image' ) );
 
+				// Close anchor
 				if ( $url ) {
 					$html .= '</a>';
 				}
 			}
 			
 			switch ( $data ) {
-
 				case 'title':
-					$html .= '<div class="slide-caption no-description">';
-					$html .= '<h2 class="slide-title">';
-					$html .= get_the_title();
-					$html .= '</h2>';
+					$html .= '<div class="slide-content no-desc">';
+					$html .= '<h2 class="slide-title">'. esc_html( $title ) .'</h2>';
 					$html .= '</div>';
 					break;
 
 				case 'desc':
-					$html .= '<div class="slide-caption no-title">';
-					$html .= '<div class="slide-description">';
-					$html .= get_the_excerpt();
-					$html .= '</div>';
+					$html .= '<div class="slide-content no-title">';
+					$html .= '<div class="slide-desc">'. esc_html( $desc ) .'</div>';
 					$html .= '</div>';
 					break;
 
-				case 'show':
-					$html .= '<div class="slide-caption">';
-					$html .= '<h2 class="slide-title">';
-					$html .= get_the_title();
-					$html .= '</h2>';
-					$html .= '<div class="slide-description">';
-					$html .= get_the_excerpt();
-					$html .= '</div>';
+				case 'both':
+					$html .= '<div class="slide-content">';
+					$html .= '<h2 class="slide-title">'. esc_html( $title ) .'</h2>';
+					$html .= '<div class="slide-desc">'. esc_html( $desc ) .'</div>';
 					$html .= '</div>';
 					break;
-
 			}
 	
-			$html .= '</div><!-- #slide-' . get_the_ID() . ' (end) -->';
+			$html .= '</div><!-- #slide-' . $id . ' (end) -->';
 			$html .= '</li>';
 		}
 
 		$html .= '</ul><!-- .slides (end) -->';
-		$html .= '</div><!-- #slider_inner_' . $slug . ' (end) -->';
-		$html .= '</div><!-- #slider_wrapper_' . $slug . ' (end) -->';
-		$html .= '</div><!-- #slider (end) -->';	
+		$html .= '</div><!-- .flexslider (end) -->';
+		$html .= '</div><!-- .fslider (end) -->';	
 	}
 	
 	// Reset wp query
 	wp_reset_query();
-
-	// Init Flexslider
-	if ( 'flexslider' == $slideshows[$slug]['type'] ) {
-
-		wp_enqueue_script( 'flexslider-js' );
-
-		$html .= '<script>';
-		$html .= 'jQuery(document).ready(function() {';
-		$html .= "jQuery('#slider_inner_{$slug}').addClass('loading');";
-		$html .= "jQuery('#slider_inner_{$slug}').flexslider({";
-			
-		if ( isset( $slideshows[$slug]['options'] ) && $slideshows[$slug]['options'] != "" ) { 
-			$html .= $slideshows[$slug]['options'];
-		} else {
-			$html .="prevText: '', nextText: '',";
-			$html .="start: function(slider){ slider.removeClass('loading'); }";
-		}
-		
-		$html .= "});";
-		$html .= "});";
-		$html .= '</script>';
-
-	// Init Slick JS
-	} elseif( 'slick' == $slideshows[$slug]['type'] ) {
-
-		wp_enqueue_script( 'slick-js' );
-
-		$html .= '<script>';
-		$html .= 'jQuery(document).ready(function() {';
-		$html .= "jQuery('#slider_inner_{$slug} .slides').slick({";
-		$html .= "autoplay: true, autoplaySpeed: 7000, dots: true";
-		$html .= "});";
-		$html .= "});";
-		$html .= '</script>';
-
-	}
 
 	return $html;
 }
@@ -337,7 +257,7 @@ function anva_slideshows_metabox() {
 						$select = array(
 							'title' => anva_get_local('slide_title'),
 							'desc' 	=> anva_get_local('slide_desc'),
-							'show' 	=> anva_get_local('slide_show'),
+							'both' 	=> anva_get_local('slide_show'),
 							'hide' 	=> anva_get_local('slide_hide'),
 						);
 						foreach ( $select as $key => $value ) {
@@ -430,22 +350,4 @@ function anva_slideshows_add_columns( $column ) {
 	
 	if ( $column == 'link' )
 		echo '<a href="' . $slider_link . '" target="_blank" >' . $slider_link . '</a>';		
-}
-
-/*
- * Create slideshows shortcode
- */
-function anva_slideshows_shortcode( $atts, $content = null ) {
-
-	extract(shortcode_atts( array(
-		'slug' => 'attachments',
-	), $atts ));
-	
-	$string = anva_get_local( 'slide_shortcode' );
-	
-	if ( empty( $slug ) ) {
-		return apply_filters( 'anva_slideshows_empty_shortcode', $string );
-	}
-
-	return anva_slideshows_featured( $slug );
 }

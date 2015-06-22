@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
 	color: $base-font-color;
 	font-size: $base-font-size;
 	line-height: $base-line-height;
@@ -7,7 +8,7 @@ html, body {
 }
 
 body {
-	background: color('body');
+	background: $base-background-color;
 }
 
 html,
@@ -70,7 +71,7 @@ hr {
 	display: block;
 	height: 1px;
 	border: 0;
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #eee;
 	margin: 1em 0;
 	padding: 0;
 }
@@ -88,11 +89,13 @@ fieldset {
  * Selection.
  */
 ::-moz-selection {
-	background: #b3d4fc;
+	background: $theme-color;
+	color: #fff;
 	text-shadow: none;
 }
 
 ::selection {
-	background: #b3d4fc;
+	background: $theme-color;
+	color: #fff;
 	text-shadow: none;
 }

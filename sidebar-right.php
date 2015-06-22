@@ -1,5 +1,5 @@
 <div class="sidebar-inner">
-	<div class="widget-area widget-area-right">
-		<?php if ( dynamic_sidebar( 'sidebar_right' ) ) : endif; ?>
+	<div class="widgets-area widgets-right">
+		<?php anva_display_sidebar( 'sidebar_right' ); ?>
 	</div>
 </div><!-- .sidebar-inner (end) -->

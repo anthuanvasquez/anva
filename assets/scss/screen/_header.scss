@@ -12,8 +12,8 @@
 	.grid_6 {
 		width: auto;
 	}
-	.social-icons {
 
+	.social-icons {
 		li {
 			border-left: 1px solid #EEE;
 			&:first-child {
@@ -33,6 +33,10 @@
 		  line-height: 44px;
 		}
 	}
+}
+
+#header {
+	border-bottom: 1px solid #eee;
 }
 
 .header-content {
@@ -122,6 +126,7 @@
 #header-menu-addon {
 	float: right !important;
   margin: 20px 0 20px 15px !important;
+
   li {
 		margin-left: 15px;
   }
@@ -138,4 +143,11 @@
 	  text-align: center;
 	  color: #333;
   }
+}
+
+#top-cart {
+	.badge {
+		background-color: $theme-color;
+		font-weight: 300;
+	}
 }

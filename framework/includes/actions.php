@@ -36,6 +36,10 @@ function anva_header_primary_menu_addon() {
 	do_action( 'anva_header_primary_menu_addon' );
 }
 
+function anva_header_secondary_menu() {
+	do_action( 'anva_header_secondary_menu' );
+}
+
 /* ---------------------------------------------------------------- */
 /* Featured
 /* ---------------------------------------------------------------- */
@@ -100,12 +104,12 @@ function anva_content_after() {
 	do_action( 'anva_content_after' );
 }
 
-function anva_before_layout() {
-	do_action( 'anva_before_layout' );
+function anva_above_layout() {
+	do_action( 'anva_above_layout' );
 }
 
-function anva_after_layout() {
-	do_action( 'anva_after_layout' );
+function anva_below_layout() {
+	do_action( 'anva_below_layout' );
 }
 
 function anva_sidebar_before() {
