@@ -4,6 +4,8 @@
 /* Theme Functions
 /*-----------------------------------------------------------------------------------*/
 
+// anva_remove_sidebar_location();
+
 /**
  * Add theme support features
  */

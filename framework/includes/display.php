@@ -286,11 +286,11 @@ function anva_sidebar_before_default() {
  * Display sidebars location after
  */
 function anva_sidebar_after_default() {
-	if ( is_page() ) {
+	if ( is_page() || is_single() ) {
 		
-		$sidebars  = anva_get_post_meta( '_sidebar_column' );
-		$position = 'right';
-		$columns  = 3;
+		$sidebars = anva_get_post_meta( '_sidebar_column' );
+		$position = 'right'; // Default Position
+		$columns  = 3; // Default Columns
 
 		switch ( $sidebars ) {
 			case 'right':

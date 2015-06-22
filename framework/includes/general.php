@@ -22,6 +22,9 @@ function anva_load_theme_texdomain() {
 	load_theme_textdomain( anva_textdomain(), get_template_directory() . '/languages' );
 }
 
+/**
+ * Add theme support features
+ */
 function anva_add_theme_support() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
@@ -73,54 +76,62 @@ function anva_get_sidebar_locations() {
 		'sidebar_right' => array(
 			'args' => array(
 				'id' => 'sidebar_right',
-				'name' => __( 'Right', ANVA_DOMAIN ),
-				'description' => __( 'Sidebar right.', ANVA_DOMAIN ),
+				'name' => __( 'Right', anva_textdomain() ),
+				'description' => __( 'Sidebar right.', anva_textdomain() ),
 			)
 		),
 		'sidebar_left' => array(
 			'args' => array(
 				'id' => 'sidebar_left',
-				'name' => __( 'Left', ANVA_DOMAIN ),
-				'description' => __( 'Sidebar left.', ANVA_DOMAIN ),
+				'name' => __( 'Left', anva_textdomain() ),
+				'description' => __( 'Sidebar left.', anva_textdomain() ),
 			)
 		),
 		'above_header' => array(
 			'args' => array(
 				'id' => 'above_header',
-				'name' => __( 'Above Header', ANVA_DOMAIN ),
-				'description' => __( 'Sidebar above header.', ANVA_DOMAIN ),
+				'name' => __( 'Above Header', anva_textdomain() ),
+				'description' => __( 'Sidebar above header.', anva_textdomain() ),
 			)
 		),
 		'above_content' => array(
 			'args' => array(
 				'id' => 'above_content',
-				'name' => __( 'Above Content', ANVA_DOMAIN ),
-				'description' => __( 'Sidebar above content.', ANVA_DOMAIN ),
+				'name' => __( 'Above Content', anva_textdomain() ),
+				'description' => __( 'Sidebar above content.', anva_textdomain() ),
 			)
 		),
 		'below_content' => array(
 			'args' => array(
 				'id' => 'below_content',
-				'name' => __( 'Below Content', ANVA_DOMAIN ),
-				'description' => __( 'Sidebar below content.', ANVA_DOMAIN ),
+				'name' => __( 'Below Content', anva_textdomain() ),
+				'description' => __( 'Sidebar below content.', anva_textdomain() ),
+			)
+		),
+		'below_footer' => array(
+			'args' => array(
+				'id' => 'below_footer',
+				'name' => __( 'Below Footer', anva_textdomain() ),
+				'description' => __( 'Sidebar below footer.', anva_textdomain() ),
 			)
 		),
 		'footer' => array(
 			'args' => array(
 				'id' => 'footer',
-				'name' => __( 'Footer', ANVA_DOMAIN ),
-				'description' => __( 'Footer sidebar.', ANVA_DOMAIN ),
+				'name' => __( 'Footer', anva_textdomain() ),
+				'description' => __( 'Footer sidebar.', anva_textdomain() ),
 				'class' => 'grid_' . $cols,
 			)
 		),
 	);
+	
 	return apply_filters( 'anva_get_sidebar_locations', $locations );
 }
 
 /**
  * Register widgets areas.
  */
-function anva_register_sidebars() {
+function anva_register_sidebar_locations() {
 
 	$locations = anva_get_sidebar_locations();
 
@@ -136,6 +147,27 @@ function anva_register_sidebars() {
 			);
 		}
 	}
+}
+
+function anva_add_sidebar_location( $locations ) {
+	return $locations;
+}
+
+function anva_filter_sidebar_locations( $locations ) {
+	
+}
+
+/**
+ * Remove sidebar locations from framework and wordpress
+ */
+function anva_remove_sidebar_location( $locations ) {
+	// $locations = anva_get_sidebar_locations();
+	// if ( isset( $locations[$id] ) ) {
+	// 	unregister_sidebar( $id );
+	// 	//unset( $locations[$id] );
+	// 	//var_dump($locations);
+	// }
+	return $locations;
 }
 
 /*

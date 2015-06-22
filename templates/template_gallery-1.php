@@ -4,7 +4,6 @@
 
 	// Sort gallery images
 	$gallery_arr = anva_sort_gallery( $gallery_arr );
-	var_dump($gallery_arr);
 ?>
 
 <div id="gallery-container" class="gallery-1-col">
