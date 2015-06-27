@@ -67,125 +67,6 @@ function anva_get_theme( $id ) {
 	return $text;
 }
 
-/**
- * Sidebar locations
- */
-function anva_get_sidebar_locations() {
-	$cols = anva_get_option( 'footer_cols', '4' );
-	$locations = array(
-		'sidebar_right' => array(
-			'args' => array(
-				'id' => 'sidebar_right',
-				'name' => __( 'Right', anva_textdomain() ),
-				'description' => __( 'Sidebar right.', anva_textdomain() ),
-			)
-		),
-		'sidebar_left' => array(
-			'args' => array(
-				'id' => 'sidebar_left',
-				'name' => __( 'Left', anva_textdomain() ),
-				'description' => __( 'Sidebar left.', anva_textdomain() ),
-			)
-		),
-		'above_header' => array(
-			'args' => array(
-				'id' => 'above_header',
-				'name' => __( 'Above Header', anva_textdomain() ),
-				'description' => __( 'Sidebar above header.', anva_textdomain() ),
-			)
-		),
-		'above_content' => array(
-			'args' => array(
-				'id' => 'above_content',
-				'name' => __( 'Above Content', anva_textdomain() ),
-				'description' => __( 'Sidebar above content.', anva_textdomain() ),
-			)
-		),
-		'below_content' => array(
-			'args' => array(
-				'id' => 'below_content',
-				'name' => __( 'Below Content', anva_textdomain() ),
-				'description' => __( 'Sidebar below content.', anva_textdomain() ),
-			)
-		),
-		'below_footer' => array(
-			'args' => array(
-				'id' => 'below_footer',
-				'name' => __( 'Below Footer', anva_textdomain() ),
-				'description' => __( 'Sidebar below footer.', anva_textdomain() ),
-			)
-		),
-		'footer' => array(
-			'args' => array(
-				'id' => 'footer',
-				'name' => __( 'Footer', anva_textdomain() ),
-				'description' => __( 'Footer sidebar.', anva_textdomain() ),
-				'class' => 'grid_' . $cols,
-			)
-		),
-	);
-	
-	return apply_filters( 'anva_get_sidebar_locations', $locations );
-}
-
-/**
- * Register widgets areas.
- */
-function anva_register_sidebar_locations() {
-
-	$locations = anva_get_sidebar_locations();
-
-	foreach ( $locations as $sidebar ) {
-		if ( is_array( $sidebar ) && isset( $sidebar['args'] ) ) {
-			register_sidebar(
-				anva_get_sidebar_args(
-					$sidebar['args']['id'],
-					$sidebar['args']['name'],
-					$sidebar['args']['description'],
-					( isset( $sidebar['args']['class'] ) ? $sidebar['args']['class'] : '' )
-				)
-			);
-		}
-	}
-}
-
-function anva_add_sidebar_location( $locations ) {
-	return $locations;
-}
-
-function anva_filter_sidebar_locations( $locations ) {
-	
-}
-
-/**
- * Remove sidebar locations from framework and wordpress
- */
-function anva_remove_sidebar_location( $locations ) {
-	// $locations = anva_get_sidebar_locations();
-	// if ( isset( $locations[$id] ) ) {
-	// 	unregister_sidebar( $id );
-	// 	//unset( $locations[$id] );
-	// 	//var_dump($locations);
-	// }
-	return $locations;
-}
-
-/*
- * Args in registers widget function
- */
-function anva_get_sidebar_args( $id, $name, $description, $classes ) {	
-	$args = array(
-		'id'            => $id,
-		'name'          => $name,
-		'description'		=> $description,
-		'before_widget' => '<aside id="%1$s" class="widget %2$s '. $classes .'"><div class="widget-inner clearfix">',
-		'after_widget'  => '</div></aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	);
-	return apply_filters( 'anva_get_sidebar_args', $args );
-}
-
 /*
  * Define theme scripts
  */
@@ -311,7 +192,7 @@ function anva_register_scripts() {
 }
 
 /**
- * Load theme scripts.
+ * Load theme scripts
  */
 function anva_load_scripts() {
 	
@@ -335,30 +216,204 @@ function anva_load_scripts() {
 
 }
 
-/**
- * Include post types in search page
+/*
+ * Grid columns
  */
-function anva_exclude_search_post_types( $query ) {
+function anva_grid_columns() {
+	$columns = array(
+		'grid_1' => array(
+			'name' => '1 Column',
+			'class' => 'col-sm-12',
+			'column'	=> 1,
+		),
+		'grid_2' => array(
+			'name' => '2 Columns',
+			'class' => 'col-sm-6',
+			'column'	=> 2,
+		),
+		'grid_3' => array(
+			'name' => '3 Columns',
+			'class' => 'col-sm-4',
+			'column' => 3
+		),
+		'grid_4' => array(
+			'name' => '4 Columns',
+			'class' => 'col-sm-3',
+			'column' => 4
+		),
+		'grid_5' => array(
+			'name' => '5 Columns',
+			'class' => 'col-sm-5th', // Extend Boostrap Columns
+			'column' => 5
+		),
+		'grid_6' => array(
+			'name' => '6 Columns',
+			'class' => 'col-sm-6', // Extend Boostrap Columns
+			'column' => 6
+		),
+	);
+	return apply_filters( 'anva_grid_columns', $columns );
+}
 
-	$post_types = array();
+/*
+ * Sidebar layouts
+ */
+function anva_sidebar_layouts() {
+	$layouts = array(
+		'fullwidth' 	=> array(
+			'name' 			=> 'Full Width',
+			'id'				=> 'fullwidth',
+			'columns'		=> array(
+				'content' => 'col-sm-12',
+				'left' 		=> '',
+				'right' 	=> ''
+			)
+		),
+		'right' 			=> array(
+			'name' 			=> 'Sidebar Right',
+			'id'				=> 'sidebar_right',
+			'columns'		=> array(
+				'content' => 'col-sm-9',
+				'left' 		=> '',
+				'right' 	=> 'col-sm-3'
+			)
+		),
+		'left' 				=> array(
+			'name' 			=> 'Sidebar Left',
+			'id'				=> 'sidebar_left',
+			'columns'		=> array(
+				'content' => 'col-sm-9',
+				'left' 		=> 'col-sm-3',
+				'right' 	=> ''
+			)
+		),
+		'double' 			=> array(
+			'name' 			=> 'Double Sidebar',
+			'id'				=> 'double',
+			'columns'		=> array(
+				'content' => 'col-sm-6',
+				'left' 		=> 'col-sm-3',
+				'right' 	=> 'col-sm-3'
+			)
+		),
+		'double_left' => array(
+			'name' 			=> 'Double Left Sidebars',
+			'id'				=> 'double_left',
+			'columns'		=> array(
+				'content' => 'col-sm-6',
+				'left' 		=> 'col-sm-3',
+				'right' 	=> 'col-sm-3'
+			)
+		),
+		'double_right'=> array(
+			'name' 			=> 'Double Right Sidebars',
+			'id'				=> 'double_right',
+			'columns'		=> array(
+				'content' => 'col-sm-6',
+				'left' 		=> 'col-sm-3',
+				'right' 	=> 'col-sm-3'
+			)
+		)
+	);
+	return apply_filters( 'anva_sidebar_layouts', $layouts );
+}
 
-	if ( ! $query->is_admin && $query->is_search ) {
-		$query->set( 'post_type', apply_filters( 'anva_exclude_search_post_types', $post_types ) );
+/*
+ * Get layout column classes
+*/
+function anva_get_column_class( $column ) {
+	
+	$column_class 	 = '';
+	$sidebar_layouts = anva_sidebar_layouts();
+	$current_layout  = anva_get_field( 'sidebar_layout' );
+
+	// Set default sidebar layout
+	if ( ! is_page() && ! is_single() || empty( $current_layout ) ) {
+		$current_layout = 'right';
+	}
+
+	// Validate if field exists
+	if ( isset( $sidebar_layouts[$current_layout]['columns'][$column] ) ) {
+		$column_class = $sidebar_layouts[$current_layout]['columns'][$column];
+	}
+
+	return apply_filters( 'anva_column_class', $column_class );
+}
+
+/**
+ * Setup the config array for which features the framework supports
+ */
+function anva_setup() {
+	$setup = array(
+		'featured' 			=> array(
+			'archive'			=> false,
+			'front'				=> true,
+			'blog'				=> false,
+			'grid'				=> false,
+			'page'				=> false,
+			'single'			=> false
+		),
+		'comments' 			=> array(
+			'posts'				=> true,
+			'pages'				=> false,
+			'attachments'	=> false
+		),
+		'display' 			=> array(
+			'responsive' 	=> true
+		)
+	);
+	return apply_filters( 'anva_setup', $setup );
+}
+
+/**
+ * Test whether an feature is currently supported
+ */
+function anva_supports( $group, $feature ) {
+
+	$setup = anva_setup();
+	$supports = false;
+
+	if ( ! empty( $setup ) && ! empty( $setup[$group][$feature] ) ) {
+		$supports = true;
+	}
+
+	return $supports;
+}
+
+/*
+ * Return meta field outside loop
+ */
+function anva_get_field( $field ) {
+
+	// Get post ID
+	global $wp_query;
+
+	$id 		 = $wp_query->post->ID;
+	$prefix  = '_';
+	$field   = get_post_meta( $id, $prefix . $field, true );
+
+	if ( empty( $field )) {
+		$field = '';
 	}
 	
-	return $query;
+	return $field;
 }
 
-function anva_password_form() {
+/*
+ * Return the post meta field 
+ */
+function anva_get_post_meta( $field ) {
 	global $post;
-	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
-	$html  = '';
-	$html .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';
-	$html .= '<form class="form-inline" role="form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
-	$html .= '<div class="form-group">';
-	$html .= '<input class="form-control" name="post_password" id="' . $label . '" type="password" maxlength="20" />';
-	$html .= '<input type="submit" class="btn btn-default" name="Submit" value="' . esc_attr__( "Submit" ) . '" />';
-	$html .= '</div>';
-	$html .= '</form>';
-	return $html;
+	$field = get_post_meta( $post->ID, $field, true );
+	return $field;
 }
+
+/*
+ * Get custom meta fields
+ */
+function anva_get_post_custom() {
+	global $post;
+	$fields = get_post_custom( $post->ID );
+	return $fields;
+}
+

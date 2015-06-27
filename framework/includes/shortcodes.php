@@ -1,8 +1,5 @@
 <?php
 
-add_filter( 'the_content', 'anva_fix_shortcodes' );
-add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
-
 /*
  * Shortcodes
  */

@@ -11,8 +11,6 @@
 	</section><!-- CONTENT (end) -->
 
 	<?php anva_content_after(); ?>
-
-	<?php anva_bottom_before(); ?>
 	
 	<!--BOTTOM (start) -->
 	<div id="bottom">
@@ -20,8 +18,8 @@
 		<?php anva_footer_above(); ?>
 		
 		<footer id="footer">
-			<div class="container clearfix">
-				<div class="footer-content">
+			<div class="footer-content">
+				<div class="container clearfix">
 					<?php anva_footer_content(); ?>
 				</div><!-- .footer-content (end) -->
 			</div>
@@ -39,7 +37,7 @@
 	
 	<?php anva_bottom_after(); ?>
 
-</div><!-- CONTAINER (end) -->
+	</div><!-- CONTAINER (end) -->
 </div><!-- WRAPPER (end) -->
 
 <?php anva_after(); ?>

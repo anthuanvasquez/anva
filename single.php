@@ -7,10 +7,13 @@ get_header();
 ?>
 
 <div class="row grid-columns">
+	
+	<?php get_sidebar( 'left' ); ?>
+
 	<div class="content-area col-sm-9">
 		<div class="main" role="main">
-		
-			<?php anva_content_post_before(); ?>
+			
+			<?php anva_posts_before(); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 			
@@ -27,13 +30,13 @@ get_header();
 
 			<?php endwhile; ?>
 
-			<?php anva_content_post_after(); ?>
+			<?php anva_posts_after(); ?>
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php anva_sidebars( 'right', '3' ); ?>
-	
+	<?php get_sidebar( 'right' ); ?>
+
 </div><!-- .grid-columns (end) -->
 
 <?php get_footer(); ?>

@@ -60,32 +60,56 @@ function anva_browser_class( $classes ) {
 }
 
 /*
- * Return post classes
+ * Get primary post classes
  */
-function anva_post_classes() {
-	
+function anva_post_classes( $class, $paged = true ) {
+
 	$classes = array();
-	$thumb 	 = anva_get_option( 'posts_thumb' );
 
-	if ( is_home() ) {
-		$classes[] = 'primary-post-list';
+	$default_classes = array(
+		'index' => array(
+			'default' => 'primary-post-list post-list',
+			'paged' => 'post-list-paginated',
+		),
+		'archive' => array(
+			'default' => 'archive-post-list post-list',
+			'paged' => 'post-list-paginated',
+		),
+		'grid' => array(
+			'default' => 'primary-post-grid post-grid',
+			'paged' => 'post-grid-paginated',
+		),
+		'list' => array(
+			'default' => 'template-post-list post-list',
+			'paged' => 'post-list-paginated',
+		),
+		'search' => array(
+			'default' => 'search-post-list post-list',
+			'paged' => 'post-list-paginated',
+		),
+	);
+
+	if ( isset( $default_classes[$class]['default'] ) ) {
+		$classes[] = $default_classes[$class]['default'];
+		if ( $paged && isset( $default_classes[$class]['paged'] ) ) {
+			$classes[] = $default_classes[$class]['paged'];
+		}
 	}
+	
+	$thumb = anva_get_option( 'posts_thumb' );
 
-	if ( is_archive() ) {
-		$classes[] = 'archive-post-list';
-	}
-
-	$classes[] = 'post-list post-list-paginated';
-
-	if ( 0 == $thumb ) {
-		$classes[] = 'post-list-small';
-	} elseif ( 1 == $thumb ) {
-		$classes[] = 'post-list-large';
+	// Ignore posts grid
+	if ( ! is_page_template( 'template_grid.php' ) ) {
+		if ( 0 == $thumb ) {
+			$classes[] = 'post-list-small';
+		} elseif ( 1 == $thumb ) {
+			$classes[] = 'post-list-large';
+		}
 	}
 
 	$classes = implode( ' ', $classes );
 	
-	echo apply_filters( 'anva_posts_classes', $classes );
+	return apply_filters( 'anva_post_classes', $classes );
 }
 
 /*
@@ -126,12 +150,14 @@ function anva_setup_author() {
 }
 
 /*
- * WP Query args
+ * Get query posts args
  */
-function anva_get_post_query( $query_args = '' ) {
+function anva_get_query_posts( $query_args = '' ) {
+	
 	$number = get_option( 'posts_per_page' );
-	$page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+	$page 	= get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 	$offset = ( $page - 1 ) * $number;
+	
 	if ( empty( $query_args ) ) {
 		$query_args = array(
 			'post_type'  			=>  array( 'post' ),
@@ -144,8 +170,12 @@ function anva_get_post_query( $query_args = '' ) {
 			'offset'     			=> $offset
 		);
 	}
-	$the_query = new WP_Query( $query_args );
-	return $the_query;
+
+	$query_args = apply_filters( 'anva_get_query_posts_query_args', $query_args );
+	
+	$query = new WP_Query( $query_args );
+	
+	return $query;
 }
 
 /*
@@ -164,24 +194,6 @@ function anva_settings_menu_link() {
 		'href' 		=> home_url() . '/wp-admin/themes.php?page=theme-settings'
 	));
 
-}
-
-/*
- * Return the post meta field 
- */
-function anva_get_post_meta( $field ) {
-	global $post;
-	$meta = get_post_meta( $post->ID, $field, true );
-	return $meta;
-}
-
-/*
- * Get custom meta fields
- */
-function anva_get_post_custom() {
-	global $post;
-	$meta = get_post_custom( $post->ID );
-	return $meta;
 }
 
 /*
@@ -348,7 +360,7 @@ function anva_get_template_part( $name ) {
 /*
  * Get framework url
  */
-function anva_get_framework_url() {
+function anva_get_core_url() {
 	if ( defined( 'ANVA_FRAMEWORK_URL' ) ) {
 		$url = ANVA_FRAMEWORK_URL;
 	} else {
@@ -360,7 +372,7 @@ function anva_get_framework_url() {
 /*
  * Get templates part
  */
-function anva_get_framework_directory() {
+function anva_get_core_directory() {
 	if ( defined( 'ANVA_FRAMEWORK' ) ) {
 		$path = ANVA_FRAMEWORK;
 	} else {

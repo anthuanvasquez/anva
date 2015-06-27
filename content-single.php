@@ -9,13 +9,9 @@
 			<h1><?php the_title(); ?></h1>
 		</div><!-- .entry-header (end) -->
 		
-		<?php
-			$single_meta = anva_get_option( 'single_meta' );
-			if ( 1 == $single_meta ) {
-				anva_posted_on();
-			}
-		?>
+		<?php anva_posts_meta(); ?>
 		<?php anva_get_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+		
 		<div class="entry-content">
 			<?php the_content(); ?>
 		</div><!-- .entry-content (end) -->

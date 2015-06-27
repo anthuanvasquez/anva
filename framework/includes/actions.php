@@ -1,6 +1,18 @@
 <?php
 
 /* ---------------------------------------------------------------- */
+/* Site: Before / After
+/* ---------------------------------------------------------------- */
+
+function anva_before() {
+	do_action( 'anva_before' );
+}
+
+function anva_after() {
+	do_action( 'anva_after' );
+}
+
+/* ---------------------------------------------------------------- */
 /* Header
 /* ---------------------------------------------------------------- */
 
@@ -85,15 +97,19 @@ function anva_footer_copyrights() {
 }
 
 /* ---------------------------------------------------------------- */
-/* Layout
+/* Sidebars
 /* ---------------------------------------------------------------- */
 
-function anva_before() {
-	do_action( 'anva_before' );
+function anva_sidebars( $position ) {
+	do_action( 'anva_sidebars', $position );
 }
 
-function anva_after() {
-	do_action( 'anva_after' );
+/* ---------------------------------------------------------------- */
+/* Content
+/* ---------------------------------------------------------------- */
+
+function anva_breadcrumbs() {
+	do_action( 'anva_breadcrumbs' );
 }
 
 function anva_content_before() {
@@ -112,28 +128,32 @@ function anva_below_layout() {
 	do_action( 'anva_below_layout' );
 }
 
-function anva_sidebar_before() {
-	do_action( 'anva_sidebar_before' );
-}
-
-function anva_sidebar_after() {
-	do_action( 'anva_sidebar_after' );
-}
-
 /* ---------------------------------------------------------------- */
 /* Posts
 /* ---------------------------------------------------------------- */
 
-function anva_breadcrumbs() {
-	do_action( 'anva_breadcrumbs' );
+function anva_posts_title() {
+	do_action( 'anva_posts_title' );
 }
 
-function anva_content_post_before() {
-	do_action( 'anva_content_post_before' );
+function anva_posts_meta() {
+	do_action( 'anva_posts_meta' );
 }
 
-function anva_content_post_after() {
-	do_action( 'anva_content_post_after' );
+function anva_posts_tag() {
+	do_action( 'anva_posts_tag' );
+}
+
+function anva_posts_related() {
+	do_action( 'anva_posts_related' );
+}
+
+function anva_posts_before() {
+	do_action( 'anva_posts_before' );
+}
+
+function anva_posts_after() {
+	do_action( 'anva_posts_after' );
 }
 
 function anva_comments_before() {
@@ -143,3 +163,4 @@ function anva_comments_before() {
 function anva_comments_after() {
 	do_action( 'anva_comments_after' );
 }
+

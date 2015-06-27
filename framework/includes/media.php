@@ -202,14 +202,14 @@ function anva_get_post_thumbnail( $thumb ) {
 /**
  * Get featured image in post grid
  */
-function anva_post_grid_thumbnails( $size ) {
+function anva_get_post_grid_thumbnails( $size ) {
 	global $post;
 	
 	$output  = '';
 
 	if ( has_post_thumbnail() ) {
 		$output .= '<div class="entry-image">';
-		$output .= '<a href="' . get_permalink( $post->ID ) . '" title="' . get_the_title( $post->ID ) . '">' .get_the_post_thumbnail( $post->ID, $size ) . '</a>';
+		$output .= '<a href="'. get_permalink( $post->ID ) .'" title="'. get_the_title( $post->ID ) .'">'. get_the_post_thumbnail( $post->ID, $size ) .'</a>';
 		$output .= '</div>';
 	}
 	

@@ -14,7 +14,7 @@ get_header();
 	<div class="content-area col-sm-12">
 		<div id="galleries">
 		
-		<?php anva_content_post_before(); ?>
+		<?php anva_posts_before(); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 		
@@ -100,7 +100,7 @@ get_header();
 
 		<?php endwhile; ?>
 
-		<?php anva_content_post_after(); ?>
+		<?php anva_posts_after(); ?>
 
 		</div><!-- .main (end) -->
 	</div><!-- .content-area (end) -->	

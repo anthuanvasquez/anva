@@ -1,8 +1,12 @@
-.DS_Store
-Desktop.ini
 ._*
-Thumbs.db
 .Trashes
-node_modules
+.DS_Store
 .sass-cache
+.html
+.txt
 *.css.map
+*.js.map
+
+Thumbs.db
+Desktop.ini
+node_modules

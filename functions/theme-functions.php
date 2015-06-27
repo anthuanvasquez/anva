@@ -4,7 +4,11 @@
 /* Theme Functions
 /*-----------------------------------------------------------------------------------*/
 
-// anva_remove_sidebar_location();
+// anva_add_sidebar_location( 'test', 'Testing' );
+// anva_remove_sidebar_location( 'below_content' );
+
+// anva_add_widget( 'Anva_Contact_AS' );;
+// anva_remove_widget( 'Anva_Social_Icons' );
 
 /**
  * Add theme support features
@@ -13,24 +17,6 @@
 // 	add_theme_support( 'woocommerce' );
 // }
 // add_action( 'after_setup_theme', 'anva_theme_setup' );
-
-/*
- * Add additional sidebar locations
- */
-// function anva_theme_sidebar_locations( $locations ) {
-// 	$cols = anva_get_option( 'footer_cols', '4' );
-// 	$sidebars = array(
-// 		'sidebar_front' => array(
-// 			'args' => array(
-// 				'id' => 'sidebar_front',
-// 				'name' => __( 'Sidebar Front', ANVA_DOMAIN ),
-// 				'description' => __( 'Sidebar front.', ANVA_DOMAIN ),
-// 			)
-// 		),
-// 	);
-// 	return array_merge( $locations, $sidebars );
-// }
-// add_filter( 'anva_get_sidebar_locations', 'anva_theme_sidebar_locations' );
 
 /**
  * Change the slider args

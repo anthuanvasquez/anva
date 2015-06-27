@@ -36,8 +36,8 @@
 		<?php anva_header_above(); ?>
 
 		<header id="header">
-			<div class="container clearfix">	
-				<div class="header-content clearfix">
+			<div class="header-content">	
+				<div class="container clearfix">
 					<?php anva_header_logo(); ?>
 					<?php anva_header_extras(); ?>
 				</div><!-- .header-content (end) -->
@@ -52,7 +52,7 @@
 	</div><!-- TOP (end) -->
 
 	<?php
-		// After Header
+		// After Top
 		anva_top_after();
 
 		// Featured

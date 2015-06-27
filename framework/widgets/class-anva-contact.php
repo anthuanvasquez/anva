@@ -3,17 +3,17 @@
 /*
  * Contact Widget
  */
-class Custom_Contact extends WP_Widget {
+class Anva_Contact extends WP_Widget {
 
 	/* Create Widget Function */
-	function Custom_Contact() {
+	function Anva_Contact() {
 
 		$widget_ops = array(
 			'classname' => 'widget_custom_contact',
 			'description' => __('Muestra informacion de contacto.', ANVA_DOMAIN)
 		);
 
-		$this->WP_Widget('Custom_Contact', 'Custom Contact', $widget_ops);
+		$this->WP_Widget('Anva_Contact', 'Anva Contact', $widget_ops);
 	}
 
 	/* Call Widget */

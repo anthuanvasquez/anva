@@ -55,22 +55,23 @@ class Anva {
 	public function includes() {
 
 		// Inlclude files
-		include_once( ANVA_FRAMEWORK . '/includes/api/class-sidebars.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/api/sidebars-helpers.php' );
+		// include_once( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
+		include_once( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
+		include_once( ANVA_FRAMEWORK . '/includes/api/widgets.php' );
+		include_once( ANVA_FRAMEWORK . '/includes/api/api.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/actions.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/display.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/helpers.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/elements.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/media.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/locals.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/parts.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/general.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/widgets.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/shortcodes.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/email.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/login.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/gallery.php' );
+		include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
 
 		// Validate if Woocommerce plugin is activated
 		if ( class_exists( 'Woocommerce' ) ) :
@@ -96,8 +97,6 @@ class Anva {
 		add_action( 'wp', 'anva_setup_author' );
 		add_action( 'wp_enqueue_scripts', 'anva_register_scripts' );
 		add_action( 'wp_enqueue_scripts', 'anva_load_scripts' );
-		add_action( 'widgets_init', 'anva_register_sidebar_locations' );
-		add_action( 'widgets_init', 'anva_register_widgets' );	
 		add_action( 'admin_bar_menu', 'anva_settings_menu_link', 1000 );
 		add_action( 'after_setup_theme', 'anva_add_image_sizes' );
 		add_action( 'image_size_names_choose', 'anva_image_size_names_choose' );
@@ -111,8 +110,8 @@ class Anva {
 		add_filter( 'body_class', 'anva_body_class' );
 		add_filter( 'body_class', 'anva_browser_class' );
 		add_filter( 'wp_title', 'anva_wp_title', 10, 2 );
-		add_filter( 'comment_reply_link', 'replace_reply_link_class' );
-		add_filter( 'the_password_form', 'anva_password_form' );
+		add_filter( 'comment_reply_link', 'anva_comment_reply_link_class' );
+		add_filter( 'the_password_form', 'anva_the_password_form' );
 		add_action( 'anva_init', 'anva_api_init' );
 		add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
 		add_action( 'anva_textdomain', 'anva_load_theme_texdomain' );
@@ -123,6 +122,7 @@ class Anva {
 
 		add_action( 'anva_top_before', 'anva_side_menu' );
 		add_action( 'anva_header_above', 'anva_top_bar_default' );
+		add_action( 'anva_header_above', 'anva_sidebar_above_header' );
 		add_action( 'anva_header_extras', 'anva_header_extras_default' );
 		add_action( 'anva_header_logo', 'anva_header_logo_default' );
 		add_action( 'anva_header_primary_menu', 'anva_header_primary_menu_default' );
@@ -136,15 +136,11 @@ class Anva {
 		add_action( 'anva_footer_copyrights', 'anva_footer_copyrights_default' );
 
 		/* ---------------------------------------------------------------- */
-		/* Layout
-		/* ---------------------------------------------------------------- */
-
-		add_action( 'anva_after', 'anva_debug_info' );
-
-		/* ---------------------------------------------------------------- */
 		/* Featured
 		/* ---------------------------------------------------------------- */
 
+		add_action( 'anva_featured_before', 'anva_featured_before_default' );
+		add_action( 'anva_featured_after', 'anva_featured_after_default' );
 		add_action( 'anva_featured', 'anva_featured_default' );
 
 		/* ---------------------------------------------------------------- */
@@ -154,14 +150,31 @@ class Anva {
 		add_action( 'anva_breadcrumbs', 'anva_breadcrumbs_default' );
 		add_action( 'anva_above_layout', 'anva_above_layout_default' );
 		add_action( 'anva_below_layout', 'anva_below_layout_default' );
+		add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
 		add_action( 'anva_below_layout', 'anva_sidebar_below_content' );
-		add_action( 'anva_sidebar_before', 'anva_sidebar_before_default' );
-		add_action( 'anva_sidebar_after', 'anva_sidebar_after_default' );
+
+	add_action( 'anva_posts_meta', 'anva_posts_meta_default' );
+
+		/* ---------------------------------------------------------------- */
+		/* Sidebars
+		/* ---------------------------------------------------------------- */
+
+		add_action( 'anva_fixed_sidebar_before', 'anva_fixed_sidebar_before_default' );
+		add_action( 'anva_fixed_sidebar_after', 'anva_fixed_sidebar_after_default' );
+		add_action( 'anva_sidebars', 'anva_fixed_sidebars' );
+
+		/* ---------------------------------------------------------------- */
+		/* Layout
+		/* ---------------------------------------------------------------- */
+
+		add_action( 'anva_after', 'anva_debug_info' );
 		
 		/* ---------------------------------------------------------------- */
 		/* Plugins
 		/* ---------------------------------------------------------------- */
 
+		add_filter( 'the_content', 'anva_fix_shortcodes' );
+		add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
 		add_action( 'init', 'anva_contact_send_email' );
 		add_action( 'after_setup_theme', 'anva_slideshows_setup' );
 

@@ -12,80 +12,79 @@ function anva_add_page_options() {
 		'side',
 		'default'
 	);
+	// add_meta_box(
+	// 	'anva_post_options_metaboxes',
+	// 	__( 'Post Options', anva_textdomain() ),
+	// 	'anva_post_options_metaboxes',
+	// 	'post',
+	// 	'side',
+	// 	'default'
+	// );
 }
 
 /**
  * Add the page meta boxes options
  */
 function anva_page_options_metaboxes() {
-
-	global $post;
 	
 	echo '<input type="hidden" name="anva_page_options_nonce" id="anva_page_options_nonce" value="'.wp_create_nonce( plugin_basename(__FILE__) ).'" />';
 	
-	$output = '';
-	$grid_columns = get_post_meta( $post->ID, '_grid_columns', true );
-	$hide_titlte = get_post_meta( $post->ID, '_hide_title', true );
-	$sidebar_column = get_post_meta( $post->ID, '_sidebar_column', true );	
+	$output 				= '';
+	$hide_titlte		= anva_get_post_meta( '_hide_title' );
+	$grid_column 		= anva_get_post_meta( '_grid_column' );
+	$sidebar_layout = anva_get_post_meta( '_sidebar_layout' );
+	?>
 
-	// Page title
-	$output .= '<div id="page_title">';
-	$output .= '<p>'.anva_get_local( 'page_title' ).'</p>';
-	$output .= '<select name="_hide_title" class="widefat" />';
-	
-	$titles = array(
-		anva_get_local( 'page_title_show' ) => 'show',
-		anva_get_local( 'page_title_hide' ) => 'hide'
-	);
-	
-	foreach ( $titles as $key => $value ) {
-		$output .= '<option '. selected( $hide_titlte, $value, false ).' value="'.$value.'">'.$key.'</option>';
-	}
+	<div class="meta-wrapper">
+		<div class="meta-input-wrapper meta-input-page-title">
+			<label class="meta-label" for="hide_title"><?php echo __( 'Page Title:', anva_textdomain() ); ?></label>
+			<p class="meta-description"><?php echo __( 'Select option to show or hide page title.', anva_textdomain() ); ?></p>
+			<p class="meta-input">
+				<select name="hide_title" class="widefat">
+					<?php
+						$titles = array(
+							anva_get_local( 'page_title_show' ) => 'show',
+							anva_get_local( 'page_title_hide' ) => 'hide'
+						);
+						foreach ( $titles as $key => $value ) {
+							echo '<option '. selected( $hide_titlte, $value, false ).' value="'.$value.'">'.$key.'</option>';
+						}
+					?>
+				</select>
+			</p>
+		</div>
 
-	$output .= '</select>';
-	$output .= '</div>';
+		<div class="meta-input-wrapper meta-input-sidebar-layout">
+			<label class="meta-label" for="sidebar_layout"><?php echo __( 'Sidebar Layouts:', anva_textdomain() ); ?></label>
+			<p class="meta-description"><?php echo __( 'Select a sidebar layout.', anva_textdomain() ); ?></p>
+			<p class="meta-input">
+				<select name="sidebar_layout" class="widefat">
+				<?php
+					$layouts = anva_sidebar_layouts();
+					foreach ( $layouts as $key => $value ) {
+						echo '<option '. selected( $sidebar_layout, $key, false ).' value="'. esc_attr( $key ) .'">'. esc_html( $value['name'] ) .'</option>';
+					}
+				?>
+				</select>
+			</p>
+		</div>
 
-	// Sidebar
-	$output .= '<div id="sidebar_column">';
-	$output .= '<p>'.anva_get_local( 'sidebar_title' ).'</p>';
-	$output .= '<select name="_sidebar_column" class="widefat" />';
-	
-	$asides = array(
-		anva_get_local( 'sidebar_right' ) 				=> 'right',
-		anva_get_local( 'sidebar_left' ) 					=> 'left',
-		anva_get_local( 'sidebar_fullwidth' ) 		=> 'fullwidth',
-		anva_get_local( 'sidebar_double' ) 				=> 'double',
-		anva_get_local( 'sidebar_double_left' ) 	=> 'double_left',
-		anva_get_local( 'sidebar_double_right' ) 	=> 'double_right'
-	);
-	
-	foreach ( $asides as $key => $value ) {
-		$output .= '<option '. selected( $sidebar_column, $value, false ).' value="'.$value.'">'.$key.'</option>';
-	}
-
-	$output .= '</select>';
-	$output .= '</div>';
-
-	// Post Grid
-	$output .= '<div id="post_grid" style="display:none">';
-	$output .= '<p>'.anva_get_local( 'post_grid' ).'</p>';
-	$output .= '<select name="_grid_columns" class="widefat" />';
-	
-	$columns = array(
-		anva_get_local( 'grid_2_columns' ) => 2,
-		anva_get_local( 'grid_3_columns' ) => 3,
-		anva_get_local( 'grid_4_columns' ) => 4
-	);
-
-	foreach ( $columns as $key => $value ) {
-		$output .= '<option '. selected( $grid_columns, $value, false ).' value="'.$value.'">'.$key.'</option>';
-	}
-
-	$output .= '</select>';
-	$output .= '</div>';
-
-	echo $output;
-
+		<div class="meta-input-wrapper meta-input-post-grid">
+			<label class="meta-label" for="grid_column"><?php echo anva_get_local( 'post_grid' ); ?></label>
+			<p class="meta-description"><?php echo __( 'Select a grid column for posts list.', anva_textdomain() ); ?></p>
+			<p class="meta-input">
+				<select name="grid_column" class="widefat">
+					<?php
+						$columns = anva_grid_columns();
+						foreach ( $columns as $key => $value ) {
+							echo '<option '. selected( $grid_column, $key, false ).' value="'. esc_attr( $key ) .'">'. esc_html( $value['name'] ) .'</option>';
+						}
+					?>
+				</select>
+			</p>
+		</div>
+	</div>
+	<?php
 }
 
 /**
@@ -97,18 +96,18 @@ function anva_page_options_save_meta( $post_id, $post ) {
 		return $post->ID;
 	}
 	
-	if ( !current_user_can( 'edit_post', $post->ID ) )
+	if ( ! current_user_can( 'edit_post', $post->ID ) )
 		return $post->ID;
 	
 	// Validate inputs
-	if ( isset( $_POST['_grid_columns'] ) )
-		$meta['_grid_columns'] = $_POST['_grid_columns'];
+	if ( isset( $_POST['grid_column'] ) )
+		$meta['_grid_column'] = $_POST['grid_column'];
 
-	if ( isset( $_POST['_hide_title'] ) )
-		$meta['_hide_title'] = $_POST['_hide_title'];
+	if ( isset( $_POST['hide_title'] ) )
+		$meta['_hide_title'] = $_POST['hide_title'];
 
-	if ( isset( $_POST['_sidebar_column'] ) )
-		$meta['_sidebar_column'] = $_POST['_sidebar_column'];
+	if ( isset( $_POST['sidebar_layout'] ) )
+		$meta['_sidebar_layout'] = $_POST['sidebar_layout'];
 
 	// Validate all meta info
 	if ( isset( $meta ) ) {

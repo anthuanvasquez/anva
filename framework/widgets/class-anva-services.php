@@ -1,17 +1,17 @@
 <?php
 
 /* Services Widget */
-class Custom_Services extends WP_Widget {
+class Anva_Services extends WP_Widget {
 
 	/* Create Widget Function */
-	function Custom_Services() {
+	function Anva_Services() {
 
 		$widget_ops = array(
 			'classname' => 'widget_services',
 			'description' => __( 'Muestra una imagen con un texto personalizado.', ANVA_DOMAIN )
 		);
 
-		$this->WP_Widget( 'Custom_Services', 'Custom Image', $widget_ops);
+		$this->WP_Widget( 'Anva_Services', 'Anva Image', $widget_ops);
 	}
 
 	/* Call Widget */

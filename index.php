@@ -12,8 +12,11 @@ get_header();
 			<h1><?php echo __( 'Blog', anva_textdomain() ); ?></h1>
 		</div><!-- .page-title -->
 	<?php endif; ?>
-	<div class="content-area col-sm-9">
-		<div id="posts" class="<?php anva_post_classes(); ?>">
+
+	<?php get_sidebar( 'left' ); ?>
+
+	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
+		<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'index' ) ); ?>">
 			<?php
 				if ( have_posts() ) {
 					while ( have_posts() ) {
@@ -28,7 +31,7 @@ get_header();
 		</div><!-- #posts (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php anva_sidebars( 'right', '3' ); ?>
+	<?php get_sidebar( 'right' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

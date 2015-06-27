@@ -69,15 +69,15 @@ function anva_top_bar_default() {
  * Display default header logo 
  */
 function anva_header_logo_default() {
-	$logo 	= anva_get_option('logo');
-	$image 	= get_template_directory_uri() . '/assets/images/logo.png';
-	$name 	= get_bloginfo( 'name' );
+	$default_logo = get_template_directory_uri() . '/assets/images/logo.png';
+	$logo 				= anva_get_option('logo');
+	$name 				= get_bloginfo( 'name' );
 	?>
 	<div id="logo">
 		<?php
 			printf(
 				'<a href="%3$s" class="standard-logo"><img src="%1$s" alt="%2$s" /></a>',
-				( empty( $logo ) ? esc_url( $image ) : esc_url( $logo ) ),
+				( empty( $logo ) ? esc_url( $default_logo ) : esc_url( $logo ) ),
 				$name,
 				esc_url( home_url() )
 			);
@@ -175,9 +175,9 @@ function anva_header_primary_menu_addon_default() {
  */
 function anva_footer_content_default() {
 	?>
-	<div class="footer-widget">
-		<div class="grid-columns">
-			<?php if ( ! dynamic_sidebar( 'footer' ) ) : endif; ?>
+	<div class="sidebar sidebar-footer footer-widget">
+		<div class="sidebar-inner clearfix">
+			<?php anva_display_sidebar( 'footer' ); ?>
 		</div>
 	</div>
 	<?php
@@ -197,26 +197,33 @@ function anva_footer_copyrights_default() {
 	);
 }
 
+/*
+ * Display default featured slider
+ */
 function anva_featured_default() {
-	if ( is_front_page() ) :
+	if ( anva_supports( 'featured', 'front' ) ) {
+		$slideshows = anva_get_slideshows();
+		if ( function_exists( 'anva_put_slideshows' ) && isset( $slideshows['main'] ) ) {
+			echo anva_put_slideshows( 'main' );
+		}
+	}
+}
+
+function anva_featured_before_default() {
 	?>
-	<!-- FEATURED (start) -->
-	<div id="featured">
-		<div class="container clearfix">
+		<!-- FEATURED (start) -->
+		<div id="featured">
 			<div class="featured-content">
-				<?php
-					if ( function_exists( 'anva_put_slideshows' ) ) {
-						$slideshows = anva_get_slideshows();
-						if ( isset( $slideshows['main'] ) ) {
-							echo anva_put_slideshows( 'main' );
-						}
-					}
-				?>
-			</div>
-		</div><!-- .featured-inner (end) -->
+				<div class="container clearfix">
+	<?php
+}
+
+function anva_featured_after_default() {
+	?>
+			</div><!-- .container (end) -->
+		</div><!-- .featured-content (end) -->
 	</div><!-- FEATURED (end) -->
 	<?php
-	endif;
 }
 
 /*
@@ -258,53 +265,69 @@ function anva_below_layout_default() {
 }
 
 /*
- * Display sidebars location before
+ * Display sidebars location after
  */
-function anva_sidebar_before_default() {
-	if ( is_page() || is_single() ) {
-		
-		$sidebars = anva_get_post_meta( '_sidebar_column' );
-		$position = 'left';
-		$columns  = 3;
+function anva_fixed_sidebars( $position ) {
 
-		switch ( $sidebars ) {
-			case 'left':
-				anva_sidebars( $position, $columns );
-				break;
-			case 'double':
-				anva_sidebars( $position, $columns );
-				break;
-			case 'double_left':
-				anva_sidebars( $position, $columns );
-				anva_sidebars( 'right', $columns );
-				break;
-		}
+	$layout = anva_get_field( 'sidebar_layout' );
+	
+	// Set default layout
+	if ( ! is_page() && ! is_single() ) {
+		$layout = 'right';
+	}
+
+	// Sidebar Left, Sidebar Right, Double Sidebars
+	if ( $layout == $position || $layout == 'double' ) {
+
+		do_action( 'anva_fixed_sidebar_before', $position  );
+		anva_display_sidebar( 'sidebar_'. $position );
+		do_action( 'anva_fixed_sidebar_after', $position );
+
+	}
+
+	// Double Left Sidebars
+	if ( $layout == 'double_left' && $position == 'left' ) {
+
+		// Left Sidebar
+		do_action( 'anva_fixed_sidebar_before', 'left'  );
+		anva_display_sidebar( 'sidebar_left' );
+		do_action( 'anva_fixed_sidebar_after', 'left' );
+
+		// Right Sidebar
+		do_action( 'anva_fixed_sidebar_before', 'right'  );
+		anva_display_sidebar( 'sidebar_right' );
+		do_action( 'anva_fixed_sidebar_after', 'right' );
+
+	}
+
+	// Double Right Sidebars
+	if ( $layout == 'double_right' && $position == 'right' ) {
+
+		// Left Sidebar
+		do_action( 'anva_fixed_sidebar_before', 'left'  );
+		anva_display_sidebar( 'sidebar_left' );
+		do_action( 'anva_fixed_sidebar_after', 'left' );
+
+		// Right Sidebar
+		do_action( 'anva_fixed_sidebar_before', 'right'  );
+		anva_display_sidebar( 'sidebar_right' );
+		do_action( 'anva_fixed_sidebar_after', 'right' );
+
 	}
 }
 
-/*
- * Display sidebars location after
- */
-function anva_sidebar_after_default() {
-	if ( is_page() || is_single() ) {
-		
-		$sidebars = anva_get_post_meta( '_sidebar_column' );
-		$position = 'right'; // Default Position
-		$columns  = 3; // Default Columns
+function anva_fixed_sidebar_before_default( $side ) {
+	?>
+	<div class="sidebar sidebar-<?php echo esc_attr( $side ) .' '. esc_attr( anva_get_column_class( $side ) ); ?>">
+	<div class="sidebar-inner">
+	<?php
+}
 
-		switch ( $sidebars ) {
-			case 'right':
-				anva_sidebars( $position, $columns );
-				break;
-			case 'double':
-				anva_sidebars( $position, $columns );
-				break;
-			case 'double_right':
-				anva_sidebars( 'left', $columns );
-				anva_sidebars( $position, $columns );
-				break;
-		}
-	}
+function anva_fixed_sidebar_after_default() {
+	?>
+	</div><!-- .sidebar-inner (end) -->
+	</div><!-- .sidebar (end) -->
+	<?php
 }
 
 function anva_side_menu() {
@@ -338,16 +361,43 @@ function anva_side_menu() {
 	endif;
 }
 
+function anva_sidebar_above_header() {
+	?>
+	<div class="sidebar sidebar-above-header">
+		<div class="sidebar-inner">
+			<div class="container clearfix">
+				<?php anva_display_sidebar( 'above_header' ); ?>
+			</div>
+		</div>
+	</div><!-- .sidebar (end) -->
+	<?php
+}
+
+function anva_sidebar_above_content() {
+	?>
+	<div class="sidebar sidebar-above-content">
+		<div class="sidebar-inner clearfix">
+			<?php anva_display_sidebar( 'above_content' ); ?>
+		</div>
+	</div><!-- .sidebar (end) -->
+	<?php
+}
+
 function anva_sidebar_below_content() {
 	?>
-	<div id="ad-below-content" class="sidebar-wrapper">
-		<div class="sidebar-inner">
-			<div class="widget-area widget-ad-below-content">
-				<?php if ( dynamic_sidebar( 'below_content' ) ) : endif; ?>
-			</div>
-		</div><!-- .sidebar-inner (end) -->
-	</div>
+	<div class="sidebar sidebar-below-content">
+		<div class="sidebar-inner clearfix">
+			<?php anva_display_sidebar( 'below_content' ); ?>
+		</div>
+	</div><!-- .sidebar (end) -->
 	<?php
+}
+
+function anva_posts_meta_default() {
+	$single_meta = anva_get_option( 'single_meta' );
+	if ( 1 == $single_meta ) {
+		anva_posted_on();
+	}
 }
 
 /*

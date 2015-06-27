@@ -557,7 +557,24 @@ function anva_comment_list( $comment, $args, $depth ) {
 /**
  * Replace reply link class in comment form
  */
-function replace_reply_link_class( $class ){
+function anva_comment_reply_link_class( $class ){
 	$class = str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-default btn-sm", $class );
 	return $class;
+}
+
+/*
+ * Custom Password Form
+ */
+function anva_the_password_form() {
+	global $post;
+	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+	$html  = '';
+	$html .= '<p class="lead">' . __( "To view this protected post, enter the password below", anva_textdomain() ) . ':</p>';
+	$html .= '<form class="form-inline" role="form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
+	$html .= '<div class="form-group">';
+	$html .= '<input class="form-control" name="post_password" id="' . esc_attr( $label ) . '" type="password" maxlength="20" />';
+	$html .= '<input type="submit" class="btn btn-default" name="Submit" value="' . esc_attr__( "Submit", anva_textdomain() ) . '" />';
+	$html .= '</div>';
+	$html .= '</form>';
+	return $html;
 }

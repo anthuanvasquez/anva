@@ -73,14 +73,14 @@ class Anva_Gallery {
 	 */
 	public function admin_print_scripts() {
 		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'gallery-admin-scripts', anva_get_framework_url() . '/admin/assets/js/admin.gallery.js' );
+		wp_enqueue_script( 'gallery-admin-scripts', anva_get_core_url() . '/admin/assets/js/admin.gallery.js' );
 	}
 
 	/*
 	 * Amin stylesheets
 	 */
 	public function admin_print_styles() {
-		wp_enqueue_style( 'gallery-admin-style', anva_get_framework_url() . '/admin/assets/css/gallery.css' );
+		wp_enqueue_style( 'gallery-admin-style', anva_get_core_url() . '/admin/assets/css/gallery.css' );
 	}
 
 	/*

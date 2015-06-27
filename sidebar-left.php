@@ -1,5 +1,6 @@
-<div class="sidebar-inner">
-	<div class="widgets-area widgets-left">
-		<?php anva_display_sidebar( 'sidebar_left' ); ?>
-	</div>
-</div><!-- .sidebar-inner (end) -->
+<?php
+/**
+ * The template file for any sidebars to appear left
+ * of the main content.
+ */
+anva_sidebars( 'left' );

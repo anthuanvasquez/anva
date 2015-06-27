@@ -9,16 +9,9 @@
 		<?php anva_get_post_thumbnail( anva_get_option( 'posts_thumb' ) ); ?>
 		<div class="entry-content">
 			<div class="entry-title">
-				<h2>
-					<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
-				</h2>
+				<h2><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 			</div><!-- .entry-header (end) -->
-			<?php
-				$single_meta = anva_get_option( 'single_meta' );
-				if ( 1 == $single_meta ) :
-					anva_posted_on();
-				endif;
-			?>
+			<?php anva_posts_meta(); ?>
 			<div class="entry-summary">
 				<?php anva_excerpt(); ?>
 				<a class="button button-small" href="<?php the_permalink(); ?>">

@@ -113,7 +113,7 @@ function anva_put_slideshows( $slug ) {
 	// Output
 	$html = "";
 	
-	$the_query = anva_get_post_query( apply_filters( 'anva_put_slideshows_query_args', $query_args ) );
+	$the_query = anva_get_query_posts( apply_filters( 'anva_put_slideshows_query_args', $query_args ) );
 
 	if ( $the_query->have_posts() ) {
 		$html .= '<div id="slider" class="fslider slider-boxed" data-animation="fade" data-thumbs="true" data-arrows="'. $slider_arrows .'" data-speed="'. $slider_animation_speed .'" data-pause="'. $slider_speed .'">';

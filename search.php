@@ -10,7 +10,7 @@
 				</h1>
 			</header><!-- .page-header -->
 				
-			<div class="search-post-list post-list-paginated post-list">
+			<div class="<?php echo esc_attr( anva_post_classes( 'search' ) ); ?>">
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) : the_post(); ?>
 						<?php get_template_part( 'content', 'search' ); ?>

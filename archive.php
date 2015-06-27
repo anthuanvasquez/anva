@@ -12,7 +12,7 @@ get_header();
 		<h1><?php anva_archive_title(); ?></h1>
 	</div><!-- .page-title -->
 	<div class="content-area col-sm-9">
-		<div id="posts" class="<?php anva_post_classes(); ?>">
+		<div id="posts" class="<?php echo esc_attr( anva_post_classes() ); ?>">
 			<?php
 				if ( have_posts() ) {
 					while ( have_posts() ) {
