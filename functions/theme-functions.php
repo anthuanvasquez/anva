@@ -1,8 +1,34 @@
 <?php
 
+define( 'THEME_ID', 'theme' );
+define( 'THEME_NAME', 'Theme' );
+define( 'THEME_VERSION', '1.0.0');
+
 /*-----------------------------------------------------------------------------------*/
 /* Theme Functions
 /*-----------------------------------------------------------------------------------*/
+
+/* 
+ * Change the options.php directory.
+ */
+function theme_options_location() {
+	return  '/framework/admin/options.php';
+}
+add_filter( 'options_framework_location', 'theme_options_location' );
+
+/*
+ * This is an example of filtering menu parameters
+ */
+function theme_options_menu( $menu ) {
+	$options_framework = new Options_Framework;
+	$option_name = $options_framework->get_option_name();
+	$menu['mode'] = 'menu';
+	$menu['page_title'] = __( 'Theme Options', 'anva' );
+	$menu['menu_title'] = __( 'Theme Options', 'anva' );
+	$menu['menu_slug']  = $option_name;
+	return $menu;
+}
+add_filter( 'optionsframework_menu', 'theme_options_menu' );
 
 // anva_add_sidebar_location( 'test', 'Testing' );
 // anva_remove_sidebar_location( 'below_content' );
@@ -55,3 +81,19 @@
 // 	return  '<a href="'. esc_url( anva_get_theme( 'author_uri' ) ) .'">'. anva_get_theme( 'author' ) .'</a>.';
 // }
 // add_filter( 'anva_footer_author', 'anva_theme_footer_author' );
+
+/**
+ * Google fonts using by the theme
+ */
+function theme_google_fonts() {
+	anva_enqueue_google_fonts(
+		anva_get_option('body_font'),
+		anva_get_option('heading_font')
+	);
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Hooks
+/*-----------------------------------------------------------------------------------*/
+
+add_action('wp_enqueue_scripts', 'theme_google_fonts');

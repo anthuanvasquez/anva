@@ -33,19 +33,14 @@ class Anva {
 	 */
 	public function constants() {
 
-		// Get any current theme settings
-		$settings = get_option( 'anva_settings' );
-
 		// Define constants
 		define( 'ANVA_PATH', get_template_directory() );
 		define( 'ANVA_URL', get_template_directory_uri() );
-		define( 'ANVA_LOGO', get_template_directory_uri() . '/assets/images/logo.png' );
 		define( 'ANVA_FRAMEWORK', get_template_directory() . '/framework' );
 		define( 'ANVA_FRAMEWORK_URL', get_template_directory_uri() . '/framework' );
 		define( 'ANVA_FRAMEWORK_NAME', 'Anva Framework' );
 		define( 'ANVA_FRAMEWORK_VERSION', '1.0.0' );
 		define( 'ANVA_DOMAIN', 'anva' );
-		define( 'ANVA_SETTINGS', serialize( $settings ) );
 
 	}
 
@@ -55,6 +50,11 @@ class Anva {
 	public function includes() {
 
 		// Inlclude files
+		include_once ( ANVA_FRAMEWORK . '/admin/options-framework.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/options.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/includes/metaboxes.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
 		// include_once( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
 		include_once( ANVA_FRAMEWORK . '/includes/api/widgets.php' );
@@ -72,22 +72,10 @@ class Anva {
 		include_once( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/gallery.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
+		include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
+		include_once( ANVA_FRAMEWORK . '/plugins/foodlist.php' );
 
-		// Validate if Woocommerce plugin is activated
-		if ( class_exists( 'Woocommerce' ) ) :
-			include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
-		endif;
-
-		// Validate if Foodlist plugin is activated
-		if ( defined( 'FOODLIST_VERSION' )) {
-			include_once( ANVA_FRAMEWORK . '/plugins/foodlist.php' );
-		}
-
-		// Admin
-		if ( is_admin() ) {
-			include_once( ANVA_FRAMEWORK . '/admin/metaboxes.php' );
-			include_once( ANVA_FRAMEWORK . '/admin/settings.php' );
-		}
+		add_action( 'optionsframework_after', 'anva_admin_footer_after' );
 
 		/* ---------------------------------------------------------------- */
 		/* Init
@@ -97,7 +85,7 @@ class Anva {
 		add_action( 'wp', 'anva_setup_author' );
 		add_action( 'wp_enqueue_scripts', 'anva_register_scripts' );
 		add_action( 'wp_enqueue_scripts', 'anva_load_scripts' );
-		add_action( 'admin_bar_menu', 'anva_settings_menu_link', 1000 );
+		add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
 		add_action( 'after_setup_theme', 'anva_add_image_sizes' );
 		add_action( 'image_size_names_choose', 'anva_image_size_names_choose' );
 		add_action( 'after_setup_theme', 'anva_add_theme_support' );

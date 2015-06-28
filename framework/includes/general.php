@@ -1,20 +1,5 @@
 <?php
 
-/*
- * Get theme single option or all options.
- */
-function anva_get_option( $id, $default = false ) {
-	$settings = unserialize( ANVA_SETTINGS );
-	$option = '';
-	if ( ! empty( $id ) ) {
-		if ( isset( $settings[$id] ) )
-			$option = $settings[$id];
-	} else {
-		$option = $default;
-	}
-	return $option; 
-}
-
 /**
  * Make theme available for translations
  */
@@ -417,3 +402,64 @@ function anva_get_post_custom() {
 	return $fields;
 }
 
+function anva_get_admin_modules() {
+
+	// Options page
+	//$options_admin = new Options_Framework_Admin;
+	$//args = $options_admin->menu_settings();
+	//$options_page = sprintf( 'themes.php?page=%s', $args['menu_slug'] );
+	$options_page = 'themes.php?page=anva_theme';
+
+	// Admin modules
+	$modules = array(
+		'options'	=> $options_page,
+		'backup'	=> $options_page .'-backup'
+	);
+
+	var_dump($args);
+
+	return apply_filters( 'anva_admin_modules', $modules );
+}
+
+/**
+ * Add items to admin menu bar
+ */
+function anva_admin_menu_bar() {
+
+	global $wp_admin_bar;
+
+	if ( is_admin() || ! method_exists( $wp_admin_bar, 'add_node' ) ) {
+		return;
+	}
+
+	// Get all admin modules
+	$modules = anva_get_admin_modules();
+
+	if ( ! $modules ) {
+		return;
+	}
+
+	// Theme Options
+	if ( isset( $modules['options'] ) ) {
+		$wp_admin_bar->add_node(
+			array(
+				'id'			=> 'anva_theme_options',
+				'parent' 	=> 'site-name',
+				'title'		=> __( 'Theme Options', 'anva' ),
+				'href'		=> admin_url( $modules['options'] )
+			)
+		);
+	}
+
+	// // Theme Backup
+	if ( isset( $modules['backup'] ) ) {
+		$wp_admin_bar->add_node(
+			array(
+				'id'		 => 'anva_theme_backup',
+				'parent' 	=> 'site-name',
+				'title'	 => __( 'Theme Backup', 'anva' ),
+				'href'	 => admin_url( $modules['backup'] )
+			)
+		);
+	}
+}

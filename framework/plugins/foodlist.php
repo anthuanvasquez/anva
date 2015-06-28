@@ -1,5 +1,7 @@
 <?php
 
+if ( defined( 'FOODLIST_VERSION' )) :
+
 add_action( 'after_setup_theme', 'anva_foodlist_setup' );
 
 /*
@@ -99,3 +101,5 @@ function anva_menu_item_template( $tpl ) {
 	';
 	return $tpl;
 }
+
+endif;

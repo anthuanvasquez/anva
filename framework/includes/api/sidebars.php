@@ -48,7 +48,7 @@ class Anva_Sidebars {
 	private function set_core_locations() {
 
 		$this->core_locations = array();
-		$footer = anva_get_option( 'footer_cols' );
+		$footer_class = 'grid_3';
 
 		// Default Right Sidebar
 		$this->core_locations['sidebar_right'] = array(

@@ -179,24 +179,6 @@ function anva_get_query_posts( $query_args = '' ) {
 }
 
 /*
- * Add theme options menu to admin bar.
- */
-function anva_settings_menu_link() {
-	global $wp_admin_bar, $wpdb;
-	
-	if ( ! is_super_admin() || ! is_admin_bar_showing() )
-		return;
-	
-	$wp_admin_bar->add_menu( array(
-		'id' 			=> 'theme_settings_link',
-		'parent' 	=> 'appearance',
-		'title' 	=> anva_get_local( 'options' ),
-		'href' 		=> home_url() . '/wp-admin/themes.php?page=theme-settings'
-	));
-
-}
-
-/*
  * Limit chars in string
  */
 function anva_truncate_string( $string, $length = 100 ) {

@@ -1,5 +1,12 @@
 <?php
 
+add_action( 'admin_print_scripts-post.php', 'anva_page_admin_print_scripts' );
+add_action( 'admin_print_scripts-post-new.php', 'anva_page_admin_print_scripts' );
+
+function anva_page_admin_print_scripts() {
+	wp_enqueue_script( 'metaboxes-admin-scripts', anva_get_core_url() . '/admin/assets/js/admin.min.js' );
+}
+
 /**
  * Add the page meta boxes
  */
