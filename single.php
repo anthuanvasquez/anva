@@ -7,32 +7,18 @@ get_header();
 ?>
 
 <div class="row grid-columns">
-	
+
 	<?php get_sidebar( 'left' ); ?>
-
+	
 	<div class="content-area col-sm-9">
-		<div class="main" role="main">
-			
-			<?php anva_posts_before(); ?>
-
+		<div id="posts">
+			<?php anva_posts_content_before(); ?>
 			<?php while ( have_posts() ) : the_post(); ?>
-			
 				<?php get_template_part( 'content', 'single' ); ?>
-
-				<?php
-					$single_comment = anva_get_option( 'single_comment' );
-					if ( 1 == $single_comment ) {
-						if ( comments_open() || '0' != get_comments_number() ) {
-							comments_template();
-						}
-					}
-				?>
-
+				<?php anva_posts_comments(); ?>
 			<?php endwhile; ?>
-
-			<?php anva_posts_after(); ?>
-
-		</div><!-- .main (end) -->
+			<?php anva_posts_content_after(); ?>
+		</div><!-- #posts (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php get_sidebar( 'right' ); ?>

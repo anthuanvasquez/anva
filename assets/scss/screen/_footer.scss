@@ -127,10 +127,10 @@ body:not(.device-touch) #gotop {
 
 .debug-info {
 	strong {
+		border-bottom: 1px solid rgba(black, .1);
 		display: block;
 	  padding: 0 0 10px;
 	  margin: 0 0 10px;
-	  border-bottom: 1px solid rgba(black,.1);
 	}
 	li {
 		position: relative;
@@ -138,6 +138,6 @@ body:not(.device-touch) #gotop {
 	}
 	span {
 		float: left;
-		width: 120px;
+		width: 150px;
 	}
 }

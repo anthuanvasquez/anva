@@ -206,34 +206,34 @@ function anva_load_scripts() {
  */
 function anva_grid_columns() {
 	$columns = array(
-		'grid_1' => array(
+		'1' => array(
 			'name' => '1 Column',
 			'class' => 'col-sm-12',
 			'column'	=> 1,
 		),
-		'grid_2' => array(
+		'2' => array(
 			'name' => '2 Columns',
 			'class' => 'col-sm-6',
 			'column'	=> 2,
 		),
-		'grid_3' => array(
+		'3' => array(
 			'name' => '3 Columns',
 			'class' => 'col-sm-4',
 			'column' => 3
 		),
-		'grid_4' => array(
+		'4' => array(
 			'name' => '4 Columns',
 			'class' => 'col-sm-3',
 			'column' => 4
 		),
-		'grid_5' => array(
+		'5' => array(
 			'name' => '5 Columns',
 			'class' => 'col-sm-5th', // Extend Boostrap Columns
 			'column' => 5
 		),
-		'grid_6' => array(
+		'6' => array(
 			'name' => '6 Columns',
-			'class' => 'col-sm-6', // Extend Boostrap Columns
+			'class' => 'col-sm-6',
 			'column' => 6
 		),
 	);
@@ -273,17 +273,8 @@ function anva_sidebar_layouts() {
 			)
 		),
 		'double' 			=> array(
-			'name' 			=> 'Double Sidebar',
+			'name' 			=> 'Double Sidebars',
 			'id'				=> 'double',
-			'columns'		=> array(
-				'content' => 'col-sm-6',
-				'left' 		=> 'col-sm-3',
-				'right' 	=> 'col-sm-3'
-			)
-		),
-		'double_left' => array(
-			'name' 			=> 'Double Left Sidebars',
-			'id'				=> 'double_left',
 			'columns'		=> array(
 				'content' => 'col-sm-6',
 				'left' 		=> 'col-sm-3',
@@ -293,6 +284,15 @@ function anva_sidebar_layouts() {
 		'double_right'=> array(
 			'name' 			=> 'Double Right Sidebars',
 			'id'				=> 'double_right',
+			'columns'		=> array(
+				'content' => 'col-sm-6',
+				'left' 		=> 'col-sm-3',
+				'right' 	=> 'col-sm-3'
+			)
+		),
+		'double_left' => array(
+			'name' 			=> 'Double Left Sidebars',
+			'id'				=> 'double_left',
 			'columns'		=> array(
 				'content' => 'col-sm-6',
 				'left' 		=> 'col-sm-3',
@@ -314,7 +314,7 @@ function anva_get_column_class( $column ) {
 
 	// Set default sidebar layout
 	if ( ! is_page() && ! is_single() || empty( $current_layout ) ) {
-		$current_layout = 'right';
+		$current_layout = anva_get_option( 'sidebar_layout', 'right' );
 	}
 
 	// Validate if field exists
@@ -332,7 +332,7 @@ function anva_setup() {
 	$setup = array(
 		'featured' 			=> array(
 			'archive'			=> false,
-			'front'				=> true,
+			'front'				=> false,
 			'blog'				=> false,
 			'grid'				=> false,
 			'page'				=> false,
@@ -347,6 +347,11 @@ function anva_setup() {
 			'responsive' 	=> true
 		)
 	);
+
+	if ( is_front_page() ) {
+		$setup['featured']['front'] = true;
+	}
+
 	return apply_filters( 'anva_setup', $setup );
 }
 
@@ -377,11 +382,72 @@ function anva_get_field( $field ) {
 	$prefix  = '_';
 	$field   = get_post_meta( $id, $prefix . $field, true );
 
-	if ( empty( $field )) {
+	if ( empty( $field ) ) {
 		$field = '';
 	}
 	
 	return $field;
+}
+
+function anva_get_footer_widget_columns() {
+	$columns = array(
+		'footer_1' => array(
+			'id' => 'footer_1',
+			'name' => __( 'Footer 1', 'anva' ),
+			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'col' => 1
+		),
+		'footer_2' => array(
+			'id' => 'footer_2',
+			'name' => __( 'Footer 2', 'anva' ),
+			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'col' => 2
+		),
+		'footer_3' => array(
+			'id' => 'footer_3',
+			'name' => __( 'Footer 3', 'anva' ),
+			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'col' => 3
+		),
+		'footer_4' => array(
+			'id' => 'footer_4',
+			'name' => __( 'Footer 4', 'anva' ),
+			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'col' => 4
+		),
+		'footer_5' => array(
+			'id' => 'footer_5',
+			'name' => __( 'Footer 5', 'anva' ),
+			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'col' => 5
+		)
+	);
+	return apply_filters( 'anva_get_footer_widget_columns', $columns );
+}
+
+function anva_display_footer_sidebar() {
+	$footer_columns = anva_get_option( 'footer_columns' );
+	$html = '';
+
+	// Dont display sidebars
+	if ( 'hide' == $footer_columns ) {
+		return;
+	}
+
+	$columns = anva_grid_columns();
+	$widgets = anva_get_footer_widget_columns();
+
+	foreach ( $widgets as $key => $value ) {
+		if ( isset( $value['col'] ) && isset( $columns[$footer_columns]['class'] ) ) {
+			$class = $columns[$footer_columns]['class'];
+			echo '<div id="'. esc_attr( $value['id'] ) .'" class="'. esc_attr( $class ) .'">';
+			anva_display_sidebar($value['id']) ;
+			echo '</div>';
+			if ( $footer_columns == $value['col'] ) {
+				break;
+			}
+		}
+	}
 }
 
 /*
@@ -405,18 +471,15 @@ function anva_get_post_custom() {
 function anva_get_admin_modules() {
 
 	// Options page
-	//$options_admin = new Options_Framework_Admin;
-	$//args = $options_admin->menu_settings();
-	//$options_page = sprintf( 'themes.php?page=%s', $args['menu_slug'] );
-	$options_page = 'themes.php?page=anva_theme';
+	$options_admin = new Options_Framework_Admin;
+	$args = $options_admin->menu_settings();
+	$options_page = sprintf( 'themes.php?page=%s', $args['menu_slug'] );
 
 	// Admin modules
 	$modules = array(
 		'options'	=> $options_page,
-		'backup'	=> $options_page .'-backup'
+		'backup'	=> $options_page .'_backup'
 	);
-
-	var_dump($args);
 
 	return apply_filters( 'anva_admin_modules', $modules );
 }

@@ -96,13 +96,13 @@ function anva_post_classes( $class, $paged = true ) {
 		}
 	}
 	
-	$thumb = anva_get_option( 'posts_thumb' );
+	$thumb = anva_get_option( 'primary_thumb' );
 
 	// Ignore posts grid
 	if ( ! is_page_template( 'template_grid.php' ) ) {
-		if ( 0 == $thumb ) {
+		if ( 'small' == $thumb ) {
 			$classes[] = 'post-list-small';
-		} elseif ( 1 == $thumb ) {
+		} elseif ( 'large' == $thumb ) {
 			$classes[] = 'post-list-large';
 		}
 	}

@@ -173,25 +173,31 @@ function anva_get_featured_image( $post_id, $thumbnail ) {
  * Get featured image in posts
  */
 function anva_get_post_thumbnail( $thumb ) {
+	
 	global $post;
 
-	// Default
+	// Output
 	$html = '';
+	
+	// Default size
 	$size = 'blog_lg';
 
-	if ( 0 == $thumb ) {
+	if ( 'small' == $thumb ) {
 		$size = 'blog_md';
-	} elseif ( 1 == $thumb ) {
+	} elseif ( 'large' == $thumb ) {
 		$size = 'blog_lg';
 	}
 
-	if ( $thumb != 2 && has_post_thumbnail() ) {
+	if ( $thumb != 'hide' && has_post_thumbnail() ) {
+		
 		$html .= '<div class="entry-image">';
+		
 		if ( is_single() ) {
-			$html .= '<a data-lightbox="image" href="' . anva_get_featured_image( $post->ID, 'large' ) . '" title="' . get_the_title() . '">' . get_the_post_thumbnail( $post->ID, $size, array( 'title' => get_the_title() ) ) . '</a>';
+			$html .= '<a data-lightbox="image" href="' . anva_get_featured_image( $post->ID, 'large' ) . '">' . get_the_post_thumbnail( $post->ID, $size, array( 'title' => get_the_title() ) ) . '</a>';
 		} else {
-			$html .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '">' . get_the_post_thumbnail( $post->ID, $size, array( 'title' => get_the_title() ) ) . '</a>';
+			$html .= '<a href="' . get_permalink() . '">' . get_the_post_thumbnail( $post->ID, $size, array( 'title' => get_the_title() ) ) . '</a>';
 		}
+
 		$html .= '</div>';
 	}
 
@@ -203,15 +209,16 @@ function anva_get_post_thumbnail( $thumb ) {
  * Get featured image in post grid
  */
 function anva_get_post_grid_thumbnails( $size ) {
+	
 	global $post;
 	
-	$output  = '';
+	$html  = '';
 
 	if ( has_post_thumbnail() ) {
-		$output .= '<div class="entry-image">';
-		$output .= '<a href="'. get_permalink( $post->ID ) .'" title="'. get_the_title( $post->ID ) .'">'. get_the_post_thumbnail( $post->ID, $size ) .'</a>';
-		$output .= '</div>';
+		$html .= '<div class="entry-image">';
+		$html .= '<a href="'. get_permalink( $post->ID ) .'" title="'. get_the_title( $post->ID ) .'">'. get_the_post_thumbnail( $post->ID, $size ) .'</a>';
+		$html .= '</div>';
 	}
 	
-	return $output;
+	return $html;
 }

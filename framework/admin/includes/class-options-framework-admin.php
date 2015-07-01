@@ -61,7 +61,7 @@ class Options_Framework_Admin {
 		$name = $options_framework->get_option_name();
 
 		// Registers the settings fields and callback
-		register_setting( 'optionsframework', $name, array ( $this, 'validate_options' ) );
+		register_setting( 'optionsframework', $name, array( $this, 'validate_options' ) );
 		
 		// Displays notice after options save
 		add_action( 'optionsframework_after_validate', array( $this, 'save_options_notice' ) );
@@ -165,7 +165,7 @@ class Options_Framework_Admin {
 		// Enqueue custom option panel JS
 		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_url() . '/admin/assets/js/jquery-ui-slider-pips.min.js', array( 'jquery' ), '' );
 		wp_enqueue_script( 'options-custom',  anva_get_core_url() . '/admin/assets/js/options-custom.js', array( 'jquery','wp-color-picker' ), Options_Framework::VERSION );
-
+		
 		// Inline scripts from options-interface.php
 		add_action( 'admin_head', array( $this, 'anva_admin_head' ) );
 	}
@@ -195,18 +195,14 @@ class Options_Framework_Admin {
 
 			<h2><?php echo $menu['page_title']; ?></h2>
 			
-			<?php if ( isset( $_GET['activated']) && true == $_GET['activated'] ) : ?>
-				<div class="section-info updated">
-					The theme is activated.
-				</div>
-			<?php endif; ?>
+			<?php do_action( 'optionsframework_top' ); ?>
 
 			<h2 class="nav-tab-wrapper">
 					<?php echo Options_Framework_Interface::optionsframework_tabs(); ?>
 			</h2>
 
 			<?php settings_errors( 'options-framework' ); ?>
-
+			<?php do_action( 'optionsframework_before' ); ?>
 			<div id="optionsframework-metabox" class="metabox-holder">
 				<div id="optionsframework">
 					<form action="options.php" method="post">
@@ -290,6 +286,10 @@ class Options_Framework_Admin {
 
 		// Hook to run after validation
 		do_action( 'optionsframework_after_validate', $clean );
+
+		// Update log option to get last time saved
+		$option_name = Options_Framework::get_option_name();
+		update_option( $option_name .'_log', current_time( 'mysql' ) );
 
 		return $clean;
 	}

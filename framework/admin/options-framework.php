@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
-if ( is_admin() && ! function_exists( 'optionsframework_init' ) ) :
+if ( ! function_exists( 'optionsframework_init' ) ) :
 /*
  * Don't load if optionsframework_init is already defined
  */

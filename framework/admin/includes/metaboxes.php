@@ -66,12 +66,13 @@ function anva_page_options_metaboxes() {
 			<p class="meta-description"><?php echo __( 'Select a sidebar layout.', anva_textdomain() ); ?></p>
 			<p class="meta-input">
 				<select name="sidebar_layout" class="widefat">
-				<?php
-					$layouts = anva_sidebar_layouts();
-					foreach ( $layouts as $key => $value ) {
-						echo '<option '. selected( $sidebar_layout, $key, false ).' value="'. esc_attr( $key ) .'">'. esc_html( $value['name'] ) .'</option>';
-					}
-				?>
+					<option value=""><?php esc_html_e( 'Default Sidebar Layout' ); ?></option>
+					<?php
+						$layouts = anva_sidebar_layouts();
+						foreach ( $layouts as $key => $value ) {
+							echo '<option '. selected( $sidebar_layout, $key, false ).' value="'. esc_attr( $key ) .'">'. esc_html( $value['name'] ) .'</option>';
+						}
+					?>
 				</select>
 			</p>
 		</div>
@@ -81,6 +82,7 @@ function anva_page_options_metaboxes() {
 			<p class="meta-description"><?php echo __( 'Select a grid column for posts list.', anva_textdomain() ); ?></p>
 			<p class="meta-input">
 				<select name="grid_column" class="widefat">
+					<option value=""><?php esc_html_e( 'Default Grid Columns' ); ?></option>
 					<?php
 						$columns = anva_grid_columns();
 						foreach ( $columns as $key => $value ) {

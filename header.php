@@ -67,5 +67,5 @@
 	<section id="content">
 		<div class="main-content">
 			<div class="container clearfix">
+				<?php anva_breadcrumbs(); ?>
 				<?php anva_above_layout(); ?>
-					<?php anva_breadcrumbs(); ?>

@@ -182,13 +182,13 @@ function anva_get_social_media_profiles() {
 		'facebook' 		=> 'Facebook',
 		'flickr' 			=> 'Flickr',
 		'github' 			=> 'Github',
-		'google' 			=> 'Google+',
+		'google-plus' => 'Google+',
 		'instagram' 	=> 'Instagram',
 		'linkedin' 		=> 'Linkedin',
 		'pinterest' 	=> 'Pinterest',
 		'tumblr' 			=> 'Tumblr',
 		'twitter' 		=> 'Twitter',
-		'vimeo' 			=> 'Vimeo',
+		'vimeo-square'=> 'Vimeo',
 		'youtube' 		=> 'YouTube',
 		'rss' 				=> 'RSS'
 	);
@@ -235,7 +235,7 @@ function anva_social_media_fields( $id, $name, $val ) {
 		// Add to output
 		$output .= '<div class="social-media-item">';
 		$output .= '<span>'. $profile .'</span>';
-		$output .= sprintf( '<input class="of-input social_media-input" value="%s" type="text" name="%s" />', esc_attr( $value ), esc_attr( $name.'['.$id.'][profiles]['.$key.']' ) );
+		$output .= sprintf( '<input class="anva-input social_media-input" value="%s" type="text" name="%s" />', esc_attr( $value ), esc_attr( $name.'['.$id.'][profiles]['.$key.']' ) );
 		$output .= '</div><!-- .social-media-item (end) -->';
 
 		if ( $counter == $divider ) {

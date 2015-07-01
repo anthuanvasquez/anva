@@ -10,7 +10,7 @@ $hide_title = anva_get_post_meta( '_hide_title' );
 			<?php if ( 'hide' != $hide_title ) : ?>
 				<div class="entry-title">
 					<h1><?php the_title(); ?></h1>
-				</div><!-- .entry-header (end) -->
+				</div><!-- .entry-title (end) -->
 			<?php endif; ?>
 			<div class="entry-summary">
 				<?php the_content(); ?>

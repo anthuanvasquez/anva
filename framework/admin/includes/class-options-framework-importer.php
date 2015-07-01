@@ -55,7 +55,7 @@ class OptionsFramework_Backup {
 
 		// Setup properties
 		$this->admin_page = '';
-		$this->token = $option_name . '-backup';
+		$this->token = $option_name . '_backup';
 		$this->name = $option_name;
 	}
 

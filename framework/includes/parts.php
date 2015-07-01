@@ -60,66 +60,64 @@ function anva_archive_title() {
  * Meta posted on
  */
 function anva_posted_on() {
-	if ( is_singular( 'post' )) {
-		// Get the time
-		$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
-		
-		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-			$time_string .= '<time class="entry-date-updated updated" datetime="%3$s"><i class="fa fa-calendar"></i> %4$s</time>';
-		}
-
-		$time_string = sprintf( $time_string,
-			esc_attr( get_the_date( 'c' ) ),
-			esc_html( get_the_date() ),
-			esc_attr( get_the_modified_date( 'c' ) ),
-			esc_html( get_the_modified_date() )
-		);
-
-		// Get comments number
-		$num_comments = get_comments_number();
-
-		if ( comments_open() ) {
-			if ( $num_comments == 0 ) {
-				$comments = __( 'No hay Comentarios', ANVA_DOMAIN );
-			} elseif ( $num_comments > 1 ) {
-				$comments = $num_comments . __( ' Comentarios', ANVA_DOMAIN );
-			} else {
-				$comments = __( '1 Comentario', ANVA_DOMAIN );
-			}
-			$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
-		} else {
-			$write_comments =  __( 'Comentarios cerrado', ANVA_DOMAIN );
-		}
-
-		$sep = ' / ';
-
-		printf(
-			'<div class="entry-meta">
-				<span class="posted-on">%1$s</span>
-				<span class="sep">%5$s</span>
-				<span class="byline"><i class="fa fa-user"></i> %2$s</span>
-				<span class="sep">%5$s</span>
-				<span class="category"><i class="fa fa-bars"></i> %3$s</span>
-				<span class="sep">%5$s</span>
-				<span class="comments-link"><i class="fa fa-comments"></i> %4$s</span>
-			</div><!-- .entry-meta (end) -->',
-			sprintf(
-				'%1$s', $time_string
-			),
-			sprintf(
-				'<span class="author vcard"><a class="url fn" href="%1$s">%2$s</a></span>',
-				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				esc_html( get_the_author() )
-			),
-			sprintf(
-				'%1$s', get_the_category_list( ', ' )
-			),
-			sprintf(
-				'%1$s', $write_comments
-			),
-			sprintf( '%1$s', $sep )
-		);
+	// Get the time
+	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
+	
+	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+		$time_string .= '<time class="entry-date-updated updated" datetime="%3$s"><i class="fa fa-calendar"></i> %4$s</time>';
 	}
+
+	$time_string = sprintf( $time_string,
+		esc_attr( get_the_date( 'c' ) ),
+		esc_html( get_the_date() ),
+		esc_attr( get_the_modified_date( 'c' ) ),
+		esc_html( get_the_modified_date() )
+	);
+
+	// Get comments number
+	$num_comments = get_comments_number();
+
+	if ( comments_open() ) {
+		if ( $num_comments == 0 ) {
+			$comments = __( 'No hay Comentarios', ANVA_DOMAIN );
+		} elseif ( $num_comments > 1 ) {
+			$comments = $num_comments . __( ' Comentarios', ANVA_DOMAIN );
+		} else {
+			$comments = __( '1 Comentario', ANVA_DOMAIN );
+		}
+		$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
+	} else {
+		$write_comments =  __( 'Comentarios cerrado', ANVA_DOMAIN );
+	}
+
+	$sep = ' / ';
+
+	printf(
+		'<div class="entry-meta">
+			<span class="posted-on">%1$s</span>
+			<span class="sep">%5$s</span>
+			<span class="byline"><i class="fa fa-user"></i> %2$s</span>
+			<span class="sep">%5$s</span>
+			<span class="category"><i class="fa fa-bars"></i> %3$s</span>
+			<span class="sep">%5$s</span>
+			<span class="comments-link"><i class="fa fa-comments"></i> %4$s</span>
+		</div><!-- .entry-meta (end) -->',
+		sprintf(
+			'%1$s', $time_string
+		),
+		sprintf(
+			'<span class="author vcard"><a class="url fn" href="%1$s">%2$s</a></span>',
+			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+			esc_html( get_the_author() )
+		),
+		sprintf(
+			'%1$s', get_the_category_list( ', ' )
+		),
+		sprintf(
+			'%1$s', $write_comments
+		),
+		sprintf( '%1$s', $sep )
+	);
 }
 
 /**
@@ -221,6 +219,58 @@ function anva_social_icons( $size = '', $style = '', $color = '' ) {
 	$html .= '</ul>';
 
 	return $html;
+
+}
+
+/**
+ * Display default social media profiles.
+ *
+ * @return html output
+ */
+
+function anva_social_media( $buttons = array(), $style = null ) {
+
+	// Set up buttons
+	if ( ! $buttons ) {
+		$buttons = anva_get_option( 'social_media' );
+	}
+
+	// Set up style
+	if ( ! $style ) {
+		$style = anva_get_option( 'social_media_style', 'normal' );
+	}
+
+	// Social media sources
+	$profiles = anva_get_social_media_profiles();
+
+	// Start output
+	$output = '';
+	if ( is_array( $buttons ) && ! empty ( $buttons ) ) {
+
+		$output .= '<div class="social-media">';
+		$output .= '<div class="social-inner">';
+		$output .= '<ul class="social-icons">';
+
+		foreach ( $buttons as $id => $url ) {
+
+			// Link target
+			$target = '_blank';
+			
+			// Link Title
+			$title = '';
+			if ( isset( $profiles[$id] ) ) {
+				$title = $profiles[$id];
+			}
+
+			$output .= sprintf( '<li><a href="%1$s" title="%2$s" class="social-icon social-%3$s" target="%4$s"><i class="fa fa-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target );
+		}
+
+		$output .= '</ul><!-- .social-icons (end) -->';
+		$output .= '</div><!-- .social-inner (end) -->';
+		$output .= '</div><!-- .social-media (end) -->';
+	}
+	
+	return apply_filters( 'of_social_media_buttons', $output );
 
 }
 
@@ -560,6 +610,199 @@ function anva_comment_list( $comment, $args, $depth ) {
 function anva_comment_reply_link_class( $class ){
 	$class = str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-default btn-sm", $class );
 	return $class;
+}
+
+/**
+ * Display a breadcrumb menu after header
+ */
+function anva_get_breadcrumbs() {  
+	
+	$text['home']   		= anva_get_local( 'home' );
+	$text['category'] 	= anva_get_local( 'category_archive' ) . ' "%s"';
+	$text['search']  		= anva_get_local( 'search_results' ) . ' "%s"';
+	$text['tag']   			= anva_get_local( 'tag_archive' ) . ' "%s"';
+	$text['author']  		= anva_get_local( 'author_archive' ) . ' "%s"';
+	$text['404']   			= anva_get_local( '404' );
+	
+	$show_current  			= 1; // 1 - show current post/page/category title in breadcrumbs, 0 - don't show  
+	$show_on_home  			= 0; // 1 - show breadcrumbs on the homepage, 0 - don't show  
+	$show_home_link			= 1; // 1 - show the 'Home' link, 0 - don't show  
+	$show_title   			= 1; // 1 - show the title for the links, 0 - don't show  
+	$delimiter   				= '<span class="separator"> / </span>'; // delimiter between crumbs  
+	$before     				= '<span class="current">'; // tag before the current crumb  
+	$after     					= '</span>'; // tag after the current crumb   
+	
+	global $post;
+
+	$home_link  				= home_url( '/' );  
+	$link_before 				= '<span typeof="v:Breadcrumb">';  
+	$link_after  				= '</span>';  
+	$link_attr  				= ' rel="v:url" property="v:title"';  
+	$link     					= $link_before . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $link_after;  
+	$parent_id  				= $parent_id_2 = $post->post_parent;  
+	$frontpage_id 			= get_option( 'page_on_front' );  
+	
+	// Home or Front Page
+	if ( is_home() || is_front_page() ) {
+	
+		if ( $show_on_home == 1 ) echo '<div class="breadcrumbs"><a href="' . $home_link . '">' . $text['home'] . '</a></div>';  
+	
+	} else {
+	
+		echo '<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
+		
+		if ( $show_home_link == 1 ) {
+			
+			echo '<a href="' . $home_link . '" rel="v:url" property="v:title">' . $text['home'] . '</a>';  
+			
+			if ( $frontpage_id == 0 || $parent_id != $frontpage_id )
+				echo $delimiter;
+		} 
+	
+		// Category Navigation
+		if ( is_category() ) {
+			
+			$this_cat = get_category(get_query_var('cat'), false);
+
+			if ( $this_cat->parent != 0 ) {  
+				
+				$cats = get_category_parents($this_cat->parent, TRUE, $delimiter);
+
+				if ( $show_current == 0 ) {
+					$cats = preg_replace("#^(.+)$delimiter$#", "$1", $cats);
+				}
+				
+				$cats = str_replace('<a', $link_before . '<a' . $link_attr, $cats);
+				
+				$cats = str_replace('</a>', '</a>' . $link_after, $cats);
+				
+				if ( $show_title == 0 ) {
+					$cats = preg_replace('/ title="(.*?)"/', '', $cats);
+				}
+				
+				echo $cats;
+			}
+			
+			if ( $show_current == 1 )
+				echo $before . sprintf($text['category'], single_cat_title('', false)) . $after;
+		
+		// Search Navigation
+		} elseif ( is_search() ) {
+			echo $before . sprintf($text['search'], get_search_query()) . $after;  
+		
+		// Archive: Day
+		} elseif ( is_day() ) {
+			echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $delimiter;  
+			echo sprintf($link, get_month_link(get_the_time('Y'),get_the_time('m')), get_the_time('F')) . $delimiter;  
+			echo $before . get_the_time('d') . $after;  
+		
+		// Archive: Month
+		} elseif ( is_month() ) {  
+			echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $delimiter;  
+			echo $before . get_the_time('F') . $after;  
+		
+		// Archive: Year
+		} elseif ( is_year() ) {  
+			echo $before . get_the_time('Y') . $after;  
+		
+		// Single Post
+		} elseif ( is_single() && ! is_attachment() ) {  
+			
+			if ( get_post_type() != 'post' ) {
+				
+				$post_type = get_post_type_object(get_post_type());  
+				
+				$slug = $post_type->rewrite;  
+				
+				printf($link, $home_link . $slug['slug'] . '/', $post_type->labels->singular_name);  
+				
+				if ( $show_current == 1) {
+					echo $delimiter . $before . get_the_title() . $after;  
+				}
+			
+			} else {  
+				$cat = get_the_category(); $cat = $cat[0];  
+				$cats = get_category_parents($cat, TRUE, $delimiter);  
+				if ($show_current == 0) $cats = preg_replace("#^(.+)$delimiter$#", "$1", $cats);  
+				$cats = str_replace('<a', $link_before . '<a' . $link_attr, $cats);  
+				$cats = str_replace('</a>', '</a>' . $link_after, $cats);  
+				if ($show_title == 0) $cats = preg_replace('/ title="(.*?)"/', '', $cats);  
+				echo $cats;  
+				if ($show_current == 1) echo $before . get_the_title() . $after;  
+			}  
+	
+		} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {  
+			$post_type = get_post_type_object(get_post_type());  
+			echo $before . $post_type->labels->singular_name . $after;  
+		
+		// Single Attachment
+		} elseif ( is_attachment() ) {  
+			$parent = get_post($parent_id);  
+			$cat = get_the_category($parent->ID); $cat = $cat[0];  
+			if ($cat) {  
+				$cats = get_category_parents($cat, TRUE, $delimiter);  
+				$cats = str_replace('<a', $link_before . '<a' . $link_attr, $cats);  
+				$cats = str_replace('</a>', '</a>' . $link_after, $cats);  
+				if ($show_title == 0) $cats = preg_replace('/ title="(.*?)"/', '', $cats);  
+				echo $cats;  
+			}  
+			printf($link, get_permalink($parent), $parent->post_title);  
+			if ($show_current == 1) echo $delimiter . $before . get_the_title() . $after;  
+		
+		// Single Page
+		} elseif ( is_page() && !$parent_id ) {  
+			if ($show_current == 1) echo $before . get_the_title() . $after;  
+	
+		} elseif ( is_page() && $parent_id ) {  
+			if ($parent_id != $frontpage_id) {  
+				$breadcrumbs = array();  
+				while ($parent_id) {  
+					$page = get_page($parent_id);  
+					if ($parent_id != $frontpage_id) {  
+						$breadcrumbs[] = sprintf($link, get_permalink($page->ID), get_the_title($page->ID));  
+					}  
+					$parent_id = $page->post_parent;  
+				}  
+				$breadcrumbs = array_reverse($breadcrumbs);  
+				for ($i = 0; $i < count($breadcrumbs); $i++) {  
+					echo $breadcrumbs[$i];  
+					if ($i != count($breadcrumbs)-1) echo $delimiter;  
+				}  
+			}  
+			if ($show_current == 1) {  
+				if ($show_home_link == 1 || ($parent_id_2 != 0 && $parent_id_2 != $frontpage_id)) echo $delimiter;  
+				echo $before . get_the_title() . $after;  
+			}  
+		
+		// Tag Navigation
+		} elseif ( is_tag() ) {  
+			echo $before . sprintf($text['tag'], single_tag_title('', false)) . $after;  
+		
+		// Single Author Navigation
+		} elseif ( is_author() ) {
+			global $author;  
+			$userdata = get_userdata($author);  
+			echo $before . sprintf($text['author'], $userdata->display_name) . $after;  
+		
+		// 404 Page
+		} elseif ( is_404() ) {  
+			echo $before . $text['404'] . $after;  
+		
+		// Single Page
+		} elseif ( has_post_format() && !is_singular() ) {  
+			echo get_post_format_string( get_post_format() );  
+		}  
+		
+		// Is Paged
+		// if ( get_query_var('paged') ) {  
+		// 	if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';  
+		// 	echo __('Page') . ' ' . get_query_var('paged');  
+		// 	if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';  
+		// }
+	
+		echo '</div><!-- .breadcrumbs (end) -->';
+	
+	}
 }
 
 /*

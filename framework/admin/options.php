@@ -39,7 +39,7 @@ function optionsframework_options() {
 	// Social media buttons defautls
 	$social_media_defaults = array(
 		'google'		=> 'https://plus.google.com/+AnthuanVasquez',
-		'twitter' 	=> 'http://twitter.com/oidoperfecto', // Follow me :)
+		'twitter' 	=> 'http://twitter.com/oidoperfecto', // Follow Me! :)
 		'rss'				=> get_feed_link()
 	);
 
@@ -96,7 +96,7 @@ function optionsframework_options() {
 		'type' => 'select',
 		'options' => array(
 			'boxed' => __( 'Boxed', $domain ),
-			'wide' => __( 'Wide', $domain )
+			'stretched' => __( 'Stretched', $domain )
 		));
 
 	$options[] = array(
@@ -104,24 +104,24 @@ function optionsframework_options() {
 		'desc' => "Choose schema color for the theme.",
 		'id' => "skin",
 		'std' => "blue",
-		'type' => "images",
+		'type' => "select",
 		'options' => array(
-			'blue' => $skin_path . 'blue.png',
-			'green' => $skin_path . 'green.png',
-			'orange' => $skin_path . 'orange.png',
-			'red' => $skin_path . 'red.png',
-			'teal' => $skin_path . 'teal.png',
+			'blue' => 'Blue',
+			'green' => 'Green',
+			'orange' => 'Orange',
+			'red' => 'Red',
+			'teal' => 'Teal',
 		));
 
 	$options[] = array(
 		'name' => __('Social Media Button Style', $domain),
 		'desc' => __('Select the style for your social media buttons.', $domain),
 		'id' => 'social_media_style',
-		'std' => 'normal',
+		'std' => 'light',
 		'type' => 'select',
 		'options' => array(
-			'normal' => __('Normal', $domain),
-			'grey' => __('Grey', $domain),
+			'light' => __('Light', $domain),
+			'colored' => __('Colored', $domain),
 			'dark' => __('Dark', $domain),
 		));
 
@@ -394,19 +394,53 @@ function optionsframework_options() {
 		'type' 	=> 'group_end');
 
 	$options[] = array(
+		'name' => __( 'Main', $domain ),
+		'class' => 'group-main',
+		'type' 	=> 'group_start');
+
+	$options[] = array(
+		'name' => __('Breadcrumbs', $domain),
+		'desc' => __('Select whether youd like breadcrumbs to show throughout the site or not.', $domain),
+		'id' => 'breadcrumbs',
+		'std' => 'show',
+		'type' => 'select',
+		'options' => array(
+			'show' => __('Show breadcrumbs', $domain),
+			'hide' => __('Hide breadcrumbs', $domain)
+		));
+
+	$options[] = array(
+		'name' => __('Default Sidebar Layout', $domain),
+		'desc' => __('Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', $domain),
+		'id' => 'sidebar_layout',
+		'std' => 'right',
+		'type' => 'select',
+		'options' => array(
+			'fullwidth' => __('Full Width', $domain),
+			'right' => __('Sidebar Right', $domain),
+			'left' => __('Sidebar Left', $domain),
+			'double' => __('Double Sidebars', $domain),
+			'double_right' => __('Double Right Sidebars', $domain),
+			'double_left' => __('Double Left Sidebars', $domain)
+		));
+
+	$options[] = array(
+		'type' 	=> 'group_end');
+
+	$options[] = array(
 		'name' => __( 'Slider', $domain ),
 		'class' => 'group-slider',
 		'type' 	=> 'group_start');
 
 	$options[] = array(
-		'name' => __('Slider Speed', $domain),
+		'name' => __('Speed', $domain),
 		'desc' => __('Set the slider speed. Default is 7000 in milliseconds', $domain),
 		'id' => 'slider_speed',
 		'std' => '7000',
 		'type' => 'number');
 
 	$options[] = array(
-		'name' => __('Slider Control Navigation', $domain),
+		'name' => __('Control Navigation', $domain),
 		'desc' => __('Show or hide the slider control navigation.', $domain),
 		'id' => 'slider_control',
 		'std' => 'show',
@@ -417,7 +451,7 @@ function optionsframework_options() {
 		));
 
 	$options[] = array(
-		'name' => __('Slider Direction Navigation', $domain),
+		'name' => __('Direction Navigation', $domain),
 		'desc' => __('Show or hide the slider direction navigation.', $domain),
 		'id' => 'slider_direction',
 		'std' => 'show',
@@ -428,23 +462,14 @@ function optionsframework_options() {
 		));
 
 	$options[] = array(
-		'name' => __('Slider Play/Pause', $domain),
-		'desc' => __('Show or hide the slider slider play/pause button.', $domain),
-		'id' => 'slider_play',
-		'std' => 'show',
-		'type' => 'select',
-		'options' => array(
-			'show' => __('Show the slider play/pause', $domain),
-			'hide' => __('Hide the slider play/pause', $domain)
-		));
-
-	$options[] = array(
 		'type' 	=> 'group_end');
 
 	$options[] = array(
 		'name' => __( 'Templates', $domain ),
 		'class' => 'group-templates',
 		'type' 	=> 'group_start');
+
+	// Templates
 
 	$options[] = array(
 		'type' 	=> 'group_end');
@@ -462,10 +487,11 @@ function optionsframework_options() {
 		'type' => "select",
 		'options' => array(
 			'hide' => __( 'Hide Columns', $domain ),
-			'1' => __( ' 1 Column', $domain ),
-			'2' => __( ' 2 Columns', $domain ),
-			'3' => __( ' 3 Columns', $domain ),
-			'4' => __( ' 4 Columns', $domain ),
+			'1' => __( '1 Column', $domain ),
+			'2' => __( '2 Columns', $domain ),
+			'3' => __( '3 Columns', $domain ),
+			'4' => __( '4 Columns', $domain ),
+			'5' => __( '5 Columns', $domain )
 		));
 
 	$options[] = array(
@@ -509,11 +535,11 @@ function optionsframework_options() {
 		'name' => __('Show featured images', $domain),
 		'desc' => __('Choose how you want your featured images to show at the top of the posts.', $domain),
 		'id' => 'single_thumb',
-		'std' => 'hide',
+		'std' => 'large',
 		'type' => 'radio',
 		'options' => array(
 			'small' => __('Show small thumbnails', $domain),
-			'fullwidth' => __('Show full width thumbnails', $domain),
+			'large' => __('Show large thumbnails', $domain),
 			'hide' => __('Hide thumbnails', $domain),
 		));
 
@@ -582,14 +608,25 @@ function optionsframework_options() {
 		'type' 	=> 'group_start');
 
 	$options[] = array(
+		'name' => __('Show meta info', $domain),
+		'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the primary posts.', $domain),
+		'id' => 'primary_meta',
+		'std' => 'show',
+		'type' => 'radio',
+		'options' => array(
+			'show' => __('Show meta info', $domain),
+			'hide' => __('Hide meta info', $domain),
+		));
+
+	$options[] = array(
 		'name' => __('Show featured images', $domain),
 		'desc' => __('Choose how you want your featured images to show in primary posts.', $domain),
 		'id' => 'primary_thumb',
-		'std' => 'fullwidth',
+		'std' => 'large',
 		'type' => 'radio',
 		'options' => array(
 			'small' => __('Show small thumbnails', $domain),
-			'fullwidth' => __('Show full width thumbnails', $domain),
+			'large' => __('Show large thumbnails', $domain),
 			'hide' => __('Hide thumbnails', $domain),
 		));
 
@@ -665,11 +702,11 @@ function optionsframework_options() {
 		'name' => __('Responsive', $domain),
 		'desc' => __('This theme comes with a special stylesheet that will target the screen resolution of your website vistors and show them a slightly modified design if their screen resolution matches common sizes for a tablet or a mobile device.', $domain),
 		'id' => "responsive",
-		'std' => '1',
+		'std' => 'yes',
 		'type' => 'radio',
 		'options' => array(
-			'1' => __('Yes, apply special styles to tablets and mobile devices', $domain),
-			'0' => __('No, allow website to show normally on tablets and mobile devices', $domain),
+			'yes' => __('Yes, apply special styles to tablets and mobile devices', $domain),
+			'no' => __('No, allow website to show normally on tablets and mobile devices', $domain),
 		));
 
 	$options[] = array(
@@ -682,7 +719,7 @@ function optionsframework_options() {
 	$options[] = array(
 		'name' => __('Add styles to mobile devices only', $domain),
 		'desc' => __('This CSS styles apply to breakpoint @media screen and (max-width: 768px).', $domain),
-		'id' => 'responsive_css_992',
+		'id' => 'responsive_css_768',
 		'std' => '',
 		'type' => 'textarea');
 
@@ -702,14 +739,14 @@ function optionsframework_options() {
 
 	$options[] = array(
 		'name' => __('Combine and Compress CSS files', $domain),
-		'desc' => __('Combine and compress all CSS files to one. Help reduce page load time.', $domain),
+		'desc' => __('Combine and compress all CSS files to one. Help reduce page load time and increase server resources.', $domain),
 		'id' => "compress_css",
 		'std' => '0',
 		'type' => 'checkbox');
 
 	$options[] = array(
 		'name' => __('Combine and Compress Javascript files', $domain),
-		'desc' => __('Combine and compress all Javascript files to one. Help reduce page load time.', $domain),
+		'desc' => __('Combine and compress all Javascript files to one. Help reduce page load time and increase server resource.', $domain),
 		'id' => "compress_js",
 		'std' => '0',
 		'type' => 'checkbox');

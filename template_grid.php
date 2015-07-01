@@ -11,7 +11,7 @@ $column 				= '';
 $hide_title   	= anva_get_post_meta( '_hide_title' );
 $grid_columns 	= anva_grid_columns();
 $current_grid 	= anva_get_post_meta( '_grid_column' );
-$size 					= $current_grid;
+$size 					= 'blog_md';
 
 if ( isset( $grid_columns[$current_grid]['class'] ) ) {
 	$class = $grid_columns[$current_grid]['class'];

@@ -1,5 +1,38 @@
 <?php
 
+
+function anva_admin_theme_activate() {
+	if ( isset( $_GET['activated']) && true == $_GET['activated'] ) :
+	?>
+	<div class="section-info updated"><?php _e( 'The theme is activated.', anva_textdomain() ); ?></div>
+	<?php
+	endif;
+}
+
+function anva_admin_header_before() {
+	
+	$html = '';
+
+	// Get current info
+	$options_framework = new Options_Framework;
+	$option_name = $options_framework->get_option_name();
+	$current_user = wp_get_current_user();
+	$current_time = get_option( $option_name .'_log' );
+
+	$html .= '<div id="optionsframework-log">';
+
+	// Check if field exists
+	if ( ! empty( $current_time ) ) {
+		$html .= sprintf( __( 'You edited your last settings', anva_textdomain() ) . ': %s.', $current_time );
+	} else {
+		$html .= __( 'Your settings has not changed.', anva_textdomain() );
+		$html .= '</div>';
+	}
+
+	echo $html;
+
+}
+
 /**
  * Display the theme credits.
  */
@@ -17,7 +50,6 @@ function anva_admin_footer_after() {
 /**
  * Custom admin javascripts
  */
-add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
 function anva_admin_head_scripts() {
 
 	$options_framework = new Options_Framework;

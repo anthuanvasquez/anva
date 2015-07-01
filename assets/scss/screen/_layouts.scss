@@ -24,11 +24,19 @@
 	padding: 40px 0;
 }
 
+.ad-widget {
+	display: none; // Test
+	margin: 20px 0;
+	.alert {
+		margin-bottom: 0;
+	}
+}
+
 .password-content {
 	text-align: center;
 
 	.lock-icon {
-		background: color(primary);
+		background: $theme-color;
 		width: 144px;
 		height: 144px;
 		font-size: 108px;
@@ -48,5 +56,4 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-
 }

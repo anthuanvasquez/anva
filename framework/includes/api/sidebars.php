@@ -48,7 +48,6 @@ class Anva_Sidebars {
 	private function set_core_locations() {
 
 		$this->core_locations = array();
-		$footer_class = 'grid_3';
 
 		// Default Right Sidebar
 		$this->core_locations['sidebar_right'] = array(
@@ -97,15 +96,6 @@ class Anva_Sidebars {
 				'id' => 'below_footer',
 				'name' => __( 'Below Footer', anva_textdomain() ),
 				'description' => __( 'Sidebar below footer.', anva_textdomain() ),
-			)
-		);
-
-		$this->core_locations['footer'] = array(
-			'args' => array(
-				'id' => 'footer',
-				'name' => __( 'Footer', anva_textdomain() ),
-				'description' => __( 'Footer sidebar.', anva_textdomain() ),
-				'class' => $footer_class,
 			)
 		);
 
@@ -249,7 +239,7 @@ class Anva_Sidebars {
 
 		do_action( 'anva_sidebar_'. $location .'_before' );
 		
-		echo '<div class="widget-area widget-area-'. esc_attr( $location ) .'">';
+		echo '<div class="widget-area widget-area-'. esc_attr( $location ) .' clearfix">';
 		
 		if ( $sidebar['error'] ) {
 
@@ -338,5 +328,5 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	);
-	return apply_filters( 'anva_get_sidebar_args', $args );
+	return apply_filters( 'anva_add_sidebar_args', $args );
 }

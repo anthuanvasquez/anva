@@ -53,6 +53,10 @@
 	@include span-columns(3);
 }
 
+.grid_2-4 {
+	@include span-columns(2.4);
+}
+
 .grid_2 {
 	@include span-columns(2);
 }

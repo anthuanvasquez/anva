@@ -140,6 +140,10 @@ function anva_posts_meta() {
 	do_action( 'anva_posts_meta' );
 }
 
+function anva_posts_content() {
+	do_action( 'anva_posts_content' );
+}
+
 function anva_posts_tag() {
 	do_action( 'anva_posts_tag' );
 }
@@ -148,12 +152,16 @@ function anva_posts_related() {
 	do_action( 'anva_posts_related' );
 }
 
-function anva_posts_before() {
-	do_action( 'anva_posts_before' );
+function anva_posts_content_before() {
+	do_action( 'anva_posts_content_before' );
 }
 
-function anva_posts_after() {
-	do_action( 'anva_posts_after' );
+function anva_posts_content_after() {
+	do_action( 'anva_posts_content_after' );
+}
+
+function anva_posts_comments() {
+	do_action( 'anva_posts_comments' );
 }
 
 function anva_comments_before() {

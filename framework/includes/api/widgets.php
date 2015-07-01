@@ -48,7 +48,7 @@ class Anva_Widgets {
 	public function include_core_widgets() {
 		include_once( anva_get_core_directory() . '/widgets/class-anva-social-icons.php' );
 		include_once( anva_get_core_directory() . '/widgets/class-anva-services.php' );
-		include_once( anva_get_core_directory() . '/widgets/class-anva-contact.php' );
+		include_once( anva_get_core_directory() . '/widgets/class-anva-quick-contact.php' );
 		include_once( anva_get_core_directory() . '/widgets/class-anva-posts-list.php' );
 	}
 

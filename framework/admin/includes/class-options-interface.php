@@ -182,12 +182,14 @@ class Options_Framework_Interface {
 
 			// Select Box
 			case 'select':
+				$output .= '<label class="anva-input-label" for="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '">';
 				$output .= '<select class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '">';
 
 				foreach ($value['options'] as $key => $option ) {
 					$output .= '<option'. selected( $val, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
 				}
 				$output .= '</select>';
+				$output .= '</label>';
 				break;
 
 

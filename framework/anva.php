@@ -75,7 +75,13 @@ class Anva {
 		include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
 		include_once( ANVA_FRAMEWORK . '/plugins/foodlist.php' );
 
+		/* ---------------------------------------------------------------- */
+		/* Admin
+		/* ---------------------------------------------------------------- */
+
+		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
 		add_action( 'optionsframework_after', 'anva_admin_footer_after' );
+		add_action( 'optionsframework_after', 'anva_admin_header_before' );
 
 		/* ---------------------------------------------------------------- */
 		/* Init
@@ -92,7 +98,6 @@ class Anva {
 		add_action( 'add_meta_boxes', 'anva_add_page_options' );
 		add_action( 'save_post', 'anva_page_options_save_meta', 1, 2 );
 		add_action( 'wp_head', 'anva_head_apple_touch_icon' );
-		add_action( 'wp_head', 'anva_head_custom_css' );
 		add_action( 'wp_head', 'anva_head_viewport', 8 );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'body_class', 'anva_body_class' );
@@ -100,8 +105,8 @@ class Anva {
 		add_filter( 'wp_title', 'anva_wp_title', 10, 2 );
 		add_filter( 'comment_reply_link', 'anva_comment_reply_link_class' );
 		add_filter( 'the_password_form', 'anva_the_password_form' );
-		add_action( 'anva_init', 'anva_api_init' );
 		add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
+		add_action( 'anva_init', 'anva_api_init' );
 		add_action( 'anva_textdomain', 'anva_load_theme_texdomain' );
 
 		/* ---------------------------------------------------------------- */
@@ -122,7 +127,8 @@ class Anva {
 
 		add_action( 'anva_footer_content', 'anva_footer_content_default' );
 		add_action( 'anva_footer_copyrights', 'anva_footer_copyrights_default' );
-
+		add_action( 'anva_footer_below', 'anva_sidebar_below_footer' );
+		
 		/* ---------------------------------------------------------------- */
 		/* Featured
 		/* ---------------------------------------------------------------- */
@@ -136,12 +142,13 @@ class Anva {
 		/* ---------------------------------------------------------------- */
 		
 		add_action( 'anva_breadcrumbs', 'anva_breadcrumbs_default' );
+		add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
 		add_action( 'anva_above_layout', 'anva_above_layout_default' );
 		add_action( 'anva_below_layout', 'anva_below_layout_default' );
-		add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
 		add_action( 'anva_below_layout', 'anva_sidebar_below_content' );
-
-	add_action( 'anva_posts_meta', 'anva_posts_meta_default' );
+		add_action( 'anva_posts_meta', 'anva_posts_meta_default' );
+		add_action( 'anva_posts_content', 'anva_posts_content_default' );
+		add_action( 'anva_posts_comments', 'anva_posts_comments_default' );
 
 		/* ---------------------------------------------------------------- */
 		/* Sidebars

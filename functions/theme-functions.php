@@ -32,27 +32,18 @@ add_filter( 'optionsframework_menu', 'theme_options_menu' );
 
 // anva_add_sidebar_location( 'test', 'Testing' );
 // anva_remove_sidebar_location( 'below_content' );
-
 // anva_add_widget( 'Anva_Contact_AS' );;
 // anva_remove_widget( 'Anva_Social_Icons' );
-
-/**
- * Add theme support features
- */
-// function anva_theme_setup() {
-// 	add_theme_support( 'woocommerce' );
-// }
-// add_action( 'after_setup_theme', 'anva_theme_setup' );
 
 /**
  * Change the slider args
  */
 // function anva_theme_featured_size( $args ) {
-// 	if ( isset( $args['homepage'] ) ) {
-// 		$args['homepage']['size'] = 'slider_fullwidth';
+// 	if ( isset( $args['main'] ) ) {
+// 		$args['main']['size'] = 'slider_fullwidth';
 // 	}
-//  if ( ! isset( $args['homepage'] ) ) {
-// 		$args['homepage']['orderby'] = 'date';
+//  if ( ! isset( $args['main'] ) ) {
+// 		$args['main']['orderby'] = 'date';
 //  }
 // 	return $args;
 // }
@@ -66,21 +57,35 @@ add_filter( 'optionsframework_menu', 'theme_options_menu' );
 // }
 // add_filter( 'anva_footer_year', 'anva_theme_start_year' );
 
-/**
- * Change footer credits.
- */
-// function anva_theme_footer_credits() {
-// 	return __( 'Development by', 'anva' );
-// }
-// add_filter( 'anva_footer_credits', 'anva_theme_footer_credits' );
+function theme_sidebar_footer_locations() {
+	
+	$footer_columns = anva_get_option( 'footer_columns' );
+
+	// Dont add sidebars
+	if ( 'hide' == $footer_columns ) {
+		return;
+	}
+
+	$columns = anva_get_footer_widget_columns();
+	
+	foreach ( $columns as $key => $value ) {
+		if ( isset( $value['col'] ) ) {
+			anva_add_sidebar_location( $value['id'], $value['name'] );
+			if ( $footer_columns == $value['col'] ) {
+				break;
+			}
+		}
+	}
+}
 
 /**
- * Change footer author.
+ * Body Classes
  */
-// function anva_theme_footer_author() {
-// 	return  '<a href="'. esc_url( anva_get_theme( 'author_uri' ) ) .'">'. anva_get_theme( 'author' ) .'</a>.';
-// }
-// add_filter( 'anva_footer_author', 'anva_theme_footer_author' );
+function theme_body_classes( $classes ) {
+	$classes[] = anva_get_option( 'layout_style' );
+	$classes[] = 'skin-'. anva_get_option( 'skin' );
+	return $classes;
+}
 
 /**
  * Google fonts using by the theme
@@ -92,8 +97,95 @@ function theme_google_fonts() {
 	);
 }
 
+/**
+ * Custom Stylesheets
+ */
+function theme_stylesheets() {
+	
+	wp_enqueue_style( 'theme-skin', get_template_directory_uri() . '/assets/css/colors.css' );
+	wp_add_inline_style( 'theme-skin', theme_styles() );
+
+}
+
+/**
+ * Custom Styles 
+ */
+function theme_styles() {
+	$styles = '';
+	$custom_css = anva_get_option( 'custom_css' );
+	$body_font = anva_get_option( 'body_font' );
+	$heading_font = anva_get_option( 'heading_font' );
+	$heading_h1 = anva_get_option( 'heading_h1', '27' );
+	$heading_h2 = anva_get_option( 'heading_h2', '24' );
+	$heading_h3 = anva_get_option( 'heading_h3', '18' );
+	$heading_h4 = anva_get_option( 'heading_h4', '14' );
+	$heading_h5 = anva_get_option( 'heading_h5', '13' );
+	$heading_h6 = anva_get_option( 'heading_h6', '11' );
+	$background_color = anva_get_option( 'background_color' );
+	$background_pattern = anva_get_option( 'background_pattern' );
+
+	ob_start();
+	?>
+	/* Typography */
+	html,
+	body {
+		font-family: <?php echo anva_get_font_face( $body_font ); ?>;
+		font-size: <?php echo anva_get_font_size( $body_font ); ?>;
+		font-style: <?php echo anva_get_font_style( $body_font ); ?>;
+		font-weight: <?php echo anva_get_font_weight( $body_font ); ?>;
+	}
+	h1, h2, h3, h4, h5, h6, .slide-title, .entry-title h1, .entry-title h2 {
+		font-family: <?php echo anva_get_font_face( $heading_font ); ?>;
+		font-style: <?php echo anva_get_font_style( $heading_font ); ?>;
+		font-weight: <?php echo anva_get_font_weight( $heading_font ); ?>;
+	}
+	h1 {
+		font-size: <?php echo $heading_h1; ?>;
+	}
+	h2 {
+		font-size: <?php echo $heading_h2; ?>;
+	}
+	h3 {
+		font-size: <?php echo $heading_h3; ?>;
+	}
+	h4 {
+		font-size: <?php echo $heading_h4; ?>;
+	}
+	h5 {
+		font-size: <?php echo $heading_h5; ?>;
+	}
+	h6 {
+		font-size: <?php echo $heading_h6; ?>;
+	}
+	/* Background */
+	body {
+		background: <?php echo esc_html( $background_color ); ?>;
+		<?php if ( '' == $background_pattern ) : ?>
+		background-image: none;
+		<?php else : ?>
+		background-image: url(<?php echo anva_get_background_pattern( $background_pattern ); ?>);
+		background-repeat: repeat;
+		<?php endif; ?>
+	}
+	<?php
+	$styles = ob_get_clean();
+
+	// Add custom CSS
+	if ( $custom_css ) {
+		$styles .= "\n/* Custom CSS */\n";
+		$styles .= $custom_css;
+	}
+
+	// Compress output
+	return anva_compress( $styles );
+}
+
 /*-----------------------------------------------------------------------------------*/
 /* Hooks
 /*-----------------------------------------------------------------------------------*/
 
-add_action('wp_enqueue_scripts', 'theme_google_fonts');
+add_action( 'after_setup_theme', 'theme_sidebar_footer_locations' );
+add_filter( 'body_class', 'theme_body_classes' );
+add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
+add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
+add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );

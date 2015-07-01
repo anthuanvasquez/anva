@@ -31,7 +31,7 @@ var ANVAMETA = ANVAMETA || {};
 				$inputGrid.hide();
 			}
 			
-			if ( 'default' == val || 'template_list.php' == val ) {
+			if ( 'default' == val || 'template_list.php' == val || 'template_archives.php' == val ) {
 				$inputSidebar.show();
 			} else {
 				$inputSidebar.hide();
