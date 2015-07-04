@@ -63,7 +63,7 @@ class Anva_Widgets {
 		$this->core_widgets[] = 'Anva_Services';			// Services Image
 		$this->core_widgets[] = 'Anva_Contact';				// Quick Contact Information
 		$this->core_widgets[] = 'Anva_Posts_List';		// Posts List
-		$this->core_widgets[] = 'Anva_Social_Icons';	// Socia Media Icons
+		$this->core_widgets[] = 'Anva_Social_Media';	// Socia Media Buttons
 
 		$this->core_widgets = apply_filters( 'anva_core_widgets', $this->core_widgets );
 

@@ -177,76 +177,35 @@ function anva_enqueue_google_fonts() {
  */
 function anva_get_social_media_profiles() {
 	$profiles = array(
+		'bitbucket'		=> 'Bitbucket',
+		'codepen'			=> 'Codepen',
+		'delicious' 	=> 'Delicious',
+		'deviantart' 	=> 'DeviantArt',
 		'digg' 				=> 'Digg',
 		'dribbble' 		=> 'Dribbble',
+		'email' 			=> 'Email',
 		'facebook' 		=> 'Facebook',
 		'flickr' 			=> 'Flickr',
+		'foursquare' 	=> 'Foursquare',
 		'github' 			=> 'Github',
 		'google-plus' => 'Google+',
 		'instagram' 	=> 'Instagram',
 		'linkedin' 		=> 'Linkedin',
+		'paypal' 			=> 'Paypal',
 		'pinterest' 	=> 'Pinterest',
+		'reddit' 			=> 'Reddit',
+		'skype'				=> 'Skype',
+		'soundcloud' 	=> 'Soundcloud',
 		'tumblr' 			=> 'Tumblr',
 		'twitter' 		=> 'Twitter',
 		'vimeo-square'=> 'Vimeo',
+		'yahoo' 			=> 'Yahoo',
 		'youtube' 		=> 'YouTube',
-		'rss' 				=> 'RSS'
+		'whatsapp'		=> 'Whatsapp',
+		'rss' 				=> 'RSS',
 	);
 
 	// Backwards compat filter
 	$profiles = apply_filters( 'anva_get_social_media_profiles', $profiles );
 	return $profiles;
-}
-
-/**
- * Generates option to edit social media buttons.
- *
- * This has been moved to a separate function
- * because it's a custom addition to the optionframework
- * module and it's pretty lengthy.
- */
-function anva_social_media_fields( $id, $name, $val ) {
-
-	$profiles = anva_get_social_media_profiles();
-
-	$counter = 1;
-	$divider = round( count( $profiles ) / 2 );
-
-	$output = '<div class="social-media column-1">';
-
-	foreach ( $profiles as $key => $profile ) {
-
-		// Setup
-		$checked = false;
-		if ( is_array( $val ) && array_key_exists( $key, $val ) ) {
-			$checked = true;
-		}
-
-		if ( ! empty( $val ) && ! empty( $val[$key] ) ) {
-			$value = $val[$key];
-		} else {
-
-			$value = '#';
-			if ( $key == 'email' ) {
-				$value = 'mailto:';
-			}
-		}
-
-		// Add to output
-		$output .= '<div class="social-media-item">';
-		$output .= '<span>'. $profile .'</span>';
-		$output .= sprintf( '<input class="anva-input social_media-input" value="%s" type="text" name="%s" />', esc_attr( $value ), esc_attr( $name.'['.$id.'][profiles]['.$key.']' ) );
-		$output .= '</div><!-- .social-media-item (end) -->';
-
-		if ( $counter == $divider ) {
-			// Separate options into two columns
-			$output .= '</div><!-- .column-1 (end) -->';
-			$output .= '<div class="social-media column-2">';
-		}
-
-		$counter++;
-	}
-	$output .= '</div><!-- .column-2 (end) -->';
-
-	return $output;
 }

@@ -7,7 +7,7 @@
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<div class="entry-title">
 			<h1><?php the_title(); ?></h1>
-		</div><!-- .entry-header (end) -->
+		</div><!-- .entry-title (end) -->
 		
 		<?php anva_posts_meta(); ?>
 		<?php anva_get_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
@@ -17,12 +17,14 @@
 		</div><!-- .entry-content (end) -->
 		
 		<div class="entry-footer">
-			<div class="entry-tags tag">
-				<?php the_tags( '<i class="fa fa-tags"></i> ', ' ' ); ?>
-			</div>
+			<?php anva_posts_tag(); ?>
 		</div><!-- .entry-footer (end) -->
 	</article><!-- #post-<?php the_ID(); ?> -->
 
-	<?php anva_post_nav(); ?>
+	<?php
+		anva_post_nav();
+		anva_post_author();
+		anva_post_related();
+	?>
 
 </div><!-- .article-wrapper (end) -->

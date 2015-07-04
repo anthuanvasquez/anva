@@ -477,8 +477,6 @@ function anva_validate_hex( $hex ) {
 
 /**
  * Social Media Buttons
- *
- * @return array
  */
 function anva_sanitize_social_media( $input ) {
 	if ( ! empty( $input ) && ! empty( $input['profiles'] ) ) {
@@ -486,16 +484,100 @@ function anva_sanitize_social_media( $input ) {
 		// Theme Options page and so it hasn't been
 		// formatted yet.
 		$output = array();
-		foreach ( $input['profiles'] as $key => $profile ) {
-			$output[$key] = $input['profiles'][$key];
+		if ( ! empty( $input['includes'] ) ) {
+			foreach ( $input['includes'] as $include ) {
+				if ( isset( $input['profiles'][$include] ) ) {
+					$output[$include] = $input['profiles'][$include];
+				}
+			}
 		}
-
 	} else {
 		// The option has already been formatted,
 		// so let it on through.
 		$output = $input;
 	}
-	
 	return $output;
 }
 add_filter( 'anva_sanitize_social_media', 'anva_sanitize_social_media' );
+
+/**
+ * Logo
+ */
+function anva_sanitize_logo( $input ) {
+
+	$output = array();
+
+	// Type
+	if ( is_array( $input ) && isset( $input['type'] ) ) {
+		$output['type'] = $input['type'];
+	}
+
+	// Custom
+	if ( isset( $input['custom'] ) ) {
+		$output['custom'] = sanitize_text_field( $input['custom'] );
+	}
+
+	if ( isset( $input['custom_tagline'] ) ) {
+		$output['custom_tagline'] = sanitize_text_field( $input['custom_tagline'] );
+	}
+
+	// Image (standard)
+	if ( isset( $input['image'] ) ) {
+		$filetype = wp_check_filetype( $input['image'] );
+		if ( $filetype["ext"] ) {
+			$output['image'] = $input['image'];
+		} else {
+			$output['image'] = null;
+		}
+	}
+
+	// Image (for retina)
+	if ( isset( $input['image_2x'] ) ) {
+		$filetype = wp_check_filetype( $input['image_2x'] );
+		if ( $filetype["ext"] ) {
+			$output['image_2x'] = $input['image_2x'];
+		} else {
+			$output['image_2x'] = null;
+		}
+	}
+
+	return $output;
+}
+add_filter( 'anva_sanitize_logo', 'anva_sanitize_logo' );
+
+/**
+ * Columns
+ */
+function anva_sanitize_columns( $input ) {
+
+	$width_options = anva_column_widths();
+	$output = array();
+
+	// Verify number of columns is an integer
+	if ( is_numeric( $input['num'] ) ) {
+		$output['num'] = $input['num'];
+	} else {
+		$output['num'] = null;
+	}
+
+	// Verify widths
+	foreach ( $input['width'] as $key => $width ) {
+
+		$valid = false;
+
+		foreach ( $width_options[$key.'-col'] as $width_option ) {
+			if ( $width == $width_option['value'] ) {
+				$valid = true;
+			}
+		}
+
+		if ( $valid ) {
+			$output['width'][$key] = $width;
+		} else {
+			$output['width'][$key] = null;
+		}
+	}
+
+	return $output;
+}
+add_filter( 'anva_sanitize_columns', 'anva_sanitize_columns' );

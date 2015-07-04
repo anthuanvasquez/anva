@@ -13,44 +13,6 @@
  * Change container width to 750px with 12 columns
  */
 @include media($desktop) {
-	
-	/*
-	 * Header
-	 */
-	div.brand {
-		margin: 0;
-		text-align: center;
-		
-		a.logo {
-			margin: 0 auto;
-		}
-	}
-
-	div.addon {
-		margin: 10px auto 0;
-		position: static;
-		text-align: center;
-
-		form.search-form,
-		form#searchform,
-		.social-media {
-			margin: 0 auto;
-			width: 70%;
-		}
-
-		.social-media {
-			margin-bottom: 15px;
-			text-align: center;
-		}
-
-		.input-group {
-			max-width: 100%;
-		}
-	}
-
-	.header-bottom {
-		border-bottom: 1px solid #eee;
-	}
 
 	/*
 	 * Off Canvas
@@ -151,12 +113,6 @@
 	/*
 	 * Galleries
 	 */
-	.gallery-columns-4 {
-		.gallery-item {
-			width: 50% !important;
-		}
-	}
-
 	.gallery-item {
 		.gallery-3-col & {
 			margin-right: 1.6%;
@@ -205,12 +161,10 @@
 	 * Order columns
 	 */
 	#sidebar-layout {
-		.sidebar-layout-inner {
-			.grid-columns {
-				box-orient: vertical;
-				display: flex;
-				flex-direction: column;
-			}
+		.grid-columns {
+			box-orient: vertical;
+			display: flex;
+			flex-direction: column;
 		}
 	}
 
@@ -218,21 +172,16 @@
 		order: 1;
 	}
 	
-	.sidebar-wrapper {
+	.sidebar {
 		order: 2;
 	}
 
 	/*
 	 * Footer
 	 */
-	.footer-inner {
-		margin: $padding auto 0;
-	}
-
-	.footer-widget {
+	.footer-widgets {
 		.widget {
-			margin: 0 0 $padding;
-			width: 100%;
+			margin-bottom: $padding + 10;
 		}
 	}
 
@@ -241,11 +190,7 @@
 	 */
 	.grid-columns {
 		[class*="grid_"] {
-			display: block;
-			float: none;
-			margin-right: 0;
-			margin-bottom: $padding;
-			width: 100%;
+			@include reset-float();
 		}
 	}
 
@@ -278,19 +223,6 @@
 	.flex-control-nav,
 	.flex-pauseplay {
 		display: none;
-	}
-
-	/*
-	 * Galleries
-	 */
-	.gallery-columns-3 {
-		.gallery-item {
-			width: 50% !important;
-		}
-
-		br {
-			clear: none !important
-		}
 	}
 
 	/*

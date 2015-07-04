@@ -14,26 +14,19 @@ define( 'THEME_VERSION', '1.0.0');
 function theme_options_location() {
 	return  '/framework/admin/options.php';
 }
-add_filter( 'options_framework_location', 'theme_options_location' );
 
 /*
  * This is an example of filtering menu parameters
  */
 function theme_options_menu( $menu ) {
-	$options_framework = new Options_Framework;
-	$option_name = $options_framework->get_option_name();
-	$menu['mode'] = 'menu';
+	$options_framework  = new Options_Framework;
+	$option_name 				= $options_framework->get_option_name();
+	$menu['mode'] 			= 'menu';
 	$menu['page_title'] = __( 'Theme Options', 'anva' );
 	$menu['menu_title'] = __( 'Theme Options', 'anva' );
 	$menu['menu_slug']  = $option_name;
 	return $menu;
 }
-add_filter( 'optionsframework_menu', 'theme_options_menu' );
-
-// anva_add_sidebar_location( 'test', 'Testing' );
-// anva_remove_sidebar_location( 'below_content' );
-// anva_add_widget( 'Anva_Contact_AS' );;
-// anva_remove_widget( 'Anva_Social_Icons' );
 
 /**
  * Change the slider args
@@ -56,27 +49,6 @@ add_filter( 'optionsframework_menu', 'theme_options_menu' );
 // 	return 2015;
 // }
 // add_filter( 'anva_footer_year', 'anva_theme_start_year' );
-
-function theme_sidebar_footer_locations() {
-	
-	$footer_columns = anva_get_option( 'footer_columns' );
-
-	// Dont add sidebars
-	if ( 'hide' == $footer_columns ) {
-		return;
-	}
-
-	$columns = anva_get_footer_widget_columns();
-	
-	foreach ( $columns as $key => $value ) {
-		if ( isset( $value['col'] ) ) {
-			anva_add_sidebar_location( $value['id'], $value['name'] );
-			if ( $footer_columns == $value['col'] ) {
-				break;
-			}
-		}
-	}
-}
 
 /**
  * Body Classes
@@ -184,7 +156,8 @@ function theme_styles() {
 /* Hooks
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'after_setup_theme', 'theme_sidebar_footer_locations' );
+add_filter( 'options_framework_location', 'theme_options_location' );
+add_filter( 'optionsframework_menu', 'theme_options_menu' );
 add_filter( 'body_class', 'theme_body_classes' );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
 add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );

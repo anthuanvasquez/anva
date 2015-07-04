@@ -109,7 +109,7 @@ function anva_get_theme_scripts() {
 			'ver' => false,
 			'media' => 'all',
 			'type' => 'css',
-			'cond' => ( 1 == anva_get_option( 'responsive' ) ? true : false ),
+			'cond' => ( 'yes' == anva_get_option( 'responsive' ) ? true : false ),
 		),
 		'bootstrap-js' => array(
 			'handle' => 'boostrap-js',
@@ -389,6 +389,141 @@ function anva_get_field( $field ) {
 	return $field;
 }
 
+/**
+ * Generates default column widths for column element
+ */
+function anva_column_widths() {
+	$widths = array(
+		'1-col' => array(
+			array(
+				'name' 	=> '100%',
+				'value' => 'grid_12',
+			)
+		),
+		'2-col' => array(
+			array(
+				'name' 	=> '20% | 80%',
+				'value' => 'grid_fifth_1,grid_fifth_4',
+			),
+			array(
+				'name' 	=> '25% | 75%',
+				'value' => 'grid_3,grid_9',
+			),
+			array(
+				'name' 	=> '30% | 70%',
+				'value' => 'grid_tenth_3,grid_tenth_7',
+			),
+			array(
+				'name' 	=> '33% | 66%',
+				'value' => 'grid_4,grid_8',
+			),
+			array(
+				'name' 	=> '50% | 50%',
+				'value' => 'grid_6,grid_6',
+			),
+			array(
+				'name' 	=> '66% | 33%',
+				'value' => 'grid_8,grid_4',
+			),
+			array(
+				'name' 	=> '70% | 30%',
+				'value' => 'grid_tenth_7,grid_tenth_3',
+			),
+			array(
+				'name' 	=> '75% | 25%',
+				'value' => 'grid_9,grid_3',
+			),
+			array(
+				'name' 	=> '80% | 20%',
+				'value' => 'grid_fifth_4,grid_fifth_1',
+			)
+		),
+		'3-col' => array(
+			array(
+				'name' 	=> '33% | 33% | 33%',
+				'value' => 'grid_4,grid_4,grid_4',
+			),
+			array(
+				'name' 	=> '25% | 25% | 50%',
+				'value' => 'grid_3,grid_3,grid_6',
+			),
+			array(
+				'name' 	=> '25% | 50% | 25%',
+				'value' => 'grid_3,grid_6,grid_3',
+			),
+			array(
+				'name' 	=> '50% | 25% | 25% ',
+				'value' => 'grid_6,grid_3,grid_3',
+			),
+			array(
+				'name' 	=> '20% | 20% | 60%',
+				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_3',
+			),
+			array(
+				'name' 	=> '20% | 60% | 20%',
+				'value' => 'grid_fifth_1,grid_fifth_3,grid_fifth_1',
+			),
+			array(
+				'name' 	=> '60% | 20% | 20%',
+				'value' => 'grid_fifth_3,grid_fifth_1,grid_fifth_1',
+			),
+			array(
+				'name' 	=> '40% | 40% | 20%',
+				'value' => 'grid_fifth_2,grid_fifth_2,grid_fifth_1',
+			),
+			array(
+				'name' 	=> '40% | 20% | 40%',
+				'value' => 'grid_fifth_2,grid_fifth_1,grid_fifth_2',
+			),
+			array(
+				'name' 	=> '20% | 40% | 40%',
+				'value' => 'grid_fifth_1,grid_fifth_2,grid_fifth_2',
+			),
+			array(
+				'name' 	=> '30% | 30% | 40%',
+				'value' => 'grid_tenth_3,grid_tenth_3,grid_fifth_2',
+			),
+			array(
+				'name' 	=> '30% | 40% | 30%',
+				'value' => 'grid_tenth_3,grid_fifth_2,grid_tenth_3',
+			),
+			array(
+				'name' 	=> '40% | 30% | 30%',
+				'value' => 'grid_fifth_2,grid_tenth_3,grid_tenth_3',
+			)
+		),
+		'4-col' => array(
+			array(
+				'name' 	=> '25% | 25% | 25% | 25%',
+				'value' => 'grid_3,grid_3,grid_3,grid_3',
+			),
+			array(
+				'name' 	=> '20% | 20% | 20% | 40%',
+				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_1,grid_fifth_2',
+			),
+			array(
+				'name' 	=> '20% | 20% | 40% | 20%',
+				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_2,grid_fifth_1',
+			),
+			array(
+				'name' 	=> '20% | 40% | 20% | 20%',
+				'value' => 'grid_fifth_1,grid_fifth_2,grid_fifth_1,grid_fifth_1',
+			),
+			array(
+				'name' 	=> '40% | 20% | 20% | 20%',
+				'value' => 'grid_fifth_2,grid_fifth_1,grid_fifth_1,grid_fifth_1',
+			)
+		),
+		'5-col' => array(
+			array(
+				'name' 	=> '20% | 20% | 20% | 20% | 20%',
+				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_1,grid_fifth_1,grid_fifth_1',
+			)
+		)
+	);
+	return apply_filters( 'anva_column_widths', $widths );
+}
+
 function anva_get_footer_widget_columns() {
 	$columns = array(
 		'footer_1' => array(
@@ -425,28 +560,84 @@ function anva_get_footer_widget_columns() {
 	return apply_filters( 'anva_get_footer_widget_columns', $columns );
 }
 
-function anva_display_footer_sidebar() {
-	$footer_columns = anva_get_option( 'footer_columns' );
-	$html = '';
+function anva_register_footer_sidebar_locations() {
+	
+	$footer = anva_get_option( 'footer_setup' );
 
-	// Dont display sidebars
-	if ( 'hide' == $footer_columns ) {
+	// Register footer locations
+	if ( isset( $footer['num'] ) && $footer['num'] > 0 ) {
+	
+		$columns = anva_get_footer_widget_columns();
+		
+		foreach ( $columns as $key => $value ) {
+			if ( isset( $value['col'] ) ) {
+				anva_add_sidebar_location( $value['id'], $value['name'] );
+				if ( $footer['num'] == $value['col'] ) {
+					break;
+				}
+			}
+		}
+	}
+}
+
+function anva_display_footer_sidebar_locations() {
+
+	$footer_setup = anva_get_option( 'footer_setup' );
+	$widgets_columns = anva_get_footer_widget_columns();
+
+	// Make sure there's actually a footer option in the theme setup
+	if ( is_array( $footer_setup ) ) {
+
+		// Only move forward if user has selected for columns to show
+		if ( $footer_setup['num'] > 0 ) {
+
+			// Build array of columns
+			$i = 1;
+			$columns = array();
+			$num = $footer_setup['num'];
+			while ( $i <= $num ) {
+				if ( isset( $widgets_columns['footer_'. $i] ) ) {
+					$columns[] = $widgets_columns['footer_'. $i]['id'];
+				}
+				$i++;
+			}
+			anva_columns( $num, $footer_setup['width'][$num], $columns );
+		}
+	}
+
+}
+
+/**
+ * Display set of columns
+ */
+function anva_columns( $num, $widths, $columns ) {
+
+	// Kill it if number of columns doesn't match the
+	// number of widths exploded from the string.
+	$widths = explode( ',', $widths );
+	if ( $num != count( $widths ) ) {
 		return;
 	}
 
-	$columns = anva_grid_columns();
-	$widgets = anva_get_footer_widget_columns();
+	// Kill it if number of columns doesn't match the
+	// number of columns feed into the function.
+	if ( $num != count( $columns ) ) {
+		return;
+	}
 
-	foreach ( $widgets as $key => $value ) {
-		if ( isset( $value['col'] ) && isset( $columns[$footer_columns]['class'] ) ) {
-			$class = $columns[$footer_columns]['class'];
-			echo '<div id="'. esc_attr( $value['id'] ) .'" class="'. esc_attr( $class ) .'">';
-			anva_display_sidebar($value['id']) ;
-			echo '</div>';
-			if ( $footer_columns == $value['col'] ) {
-				break;
-			}
+	// Last column's key
+	$last = $num - 1;
+
+	foreach ( $columns as $key => $column ) {
+		// Set CSS classes for column
+		$classes = 'grid_column '.$widths[$key];
+		if ( $last == $key ) {
+			$classes .= ' grid_last';
 		}
+
+		echo '<div class="'. esc_attr( $classes ) .'">';
+		anva_display_sidebar($column);
+		echo '</div><!-- .grid_column (end) -->';
 	}
 }
 

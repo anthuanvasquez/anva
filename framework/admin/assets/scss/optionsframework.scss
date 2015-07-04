@@ -31,7 +31,61 @@
 }
 
 #optionsframework {
-	max-width:840px;
+	max-width: 840px;
+
+	.section-logo {
+		.logo-item {
+			display: none;
+		}
+		.section-upload {
+			background: #fff;
+			border: 1px solid #dfdfdf;
+			border-radius: 4px;
+			margin: 0 0 10px 0;
+			padding: 12px 15px;
+
+			label {
+				display: block;
+				margin-bottom: 10px;
+			}
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+		p.note {
+			color: #999;
+			font-size: 12px;
+			font-style: italic;
+			line-height: 150%;
+			padding: 5px;
+		}
+		.screenshot {
+			float: none;
+			margin-top: 15px;
+			img {
+				float: none;
+			}
+		}
+	}
+
+	.section-upload {
+		.button {
+			float: right;
+			width: auto;
+		}
+	}
+
+	.section-columns {
+		.select-wrap {
+			margin-right: 3%;
+			width: 47%;
+		}
+		.inactive {
+			margin: 0;
+			padding: 0;
+			line-height: 29px;
+		}
+	}
 }
 
 #optionsframework h3 {
@@ -137,16 +191,16 @@
 				border-radius: 4px;
 			}
 			&:after {
-			  content: '<>';
-			  font: 16px "Consolas", monospace;
-			  color: #aaa;
-			  transform: rotate(90deg);
-			  right: 8px;
-			  top: 7px;
-			  padding: 0 0 2px;
-			  border-bottom: 1px solid #ddd;
-			  position: absolute;
-			  pointer-events: none;
+				content: '<>';
+				font: 16px "Consolas", monospace;
+				color: #aaa;
+				transform: rotate(90deg);
+				right: 8px;
+				top: 7px;
+				padding: 0 0 2px;
+				border-bottom: 1px solid #ddd;
+				position: absolute;
+				pointer-events: none;
 			}
 			select {
 				margin: 0;
@@ -207,21 +261,31 @@
 	text-align: center;
 }
 
-#optionsframework .social-media span {
-	display: inline-block;
-	margin: .5em 0;
-}
-
-#optionsframework .social-media.column-1 {
-	float: left;
-	margin-right: 2%;
-	width: 48%;
-}
-
-#optionsframework .social-media.column-2 {
-	float: right;
-	margin-right: 0%;
-	width: 48%;
+#optionsframework {
+	.section-social_media {
+		span {
+			display: block;
+			line-height: 20px;
+		}
+		input.anva-radio,
+		input.checkbox {
+			margin: 0 5px 0 0;
+			float: none;
+		}
+		input[type="text"] {
+			margin: 10px 0;
+		}
+		.column-1 {
+			float: left;
+			margin-right: 2%;
+			width: 48%;
+		}
+		.column-2 {
+			float: right;
+			margin-right: 0%;
+			width: 48%;
+		}
+	}
 }
 
 #optionsframework .ui-slider-horizontal {
@@ -391,17 +455,20 @@
 }
 
 #optionsframework .screenshot .remove-image {
-	background:url("../images/ico-delete.png") no-repeat;
-	border:medium none;
-	bottom:4px;
-	display:block;
-	float:left;
-	height:16px;
-	padding:0;
-	position:absolute;
-	left:-4px;
-	text-indent:-9999px;
-	width:16px;
+	background-image: none;
+	position: absolute;
+	color: #d54e21;
+	left: -10px;
+	bottom: 3px;
+	text-indent: 0;
+	width: 24px;
+	height: 24px;
+	&:before {
+		content: '\f158';
+		font-family: 'dashicons';
+		font-size: 24px;
+		line-height: 1em;
+	}
 }
 
 #optionsframework .anva-input-file {

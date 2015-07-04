@@ -40,7 +40,7 @@ jQuery(document).ready(function($){
 					optionsframework_selector.find('.screenshot').empty().hide().append('<img src="' + attachment.attributes.url + '"><a class="remove-image">Remove</a>').slideDown('fast');
 				}
 				optionsframework_selector.find('.upload-button').unbind().addClass('remove-file').removeClass('upload-button').val(optionsframework_l10n.remove);
-				optionsframework_selector.find('.of-background-properties').slideDown();
+				optionsframework_selector.find('.anva-background-properties').slideDown();
 				optionsframework_selector.find('.remove-image, .remove-file').on('click', function() {
 					optionsframework_remove_file( $(this).parents('.section') );
 				});
@@ -55,7 +55,7 @@ jQuery(document).ready(function($){
 	function optionsframework_remove_file(selector) {
 		selector.find('.remove-image').hide();
 		selector.find('.upload').val('');
-		selector.find('.of-background-properties').hide();
+		selector.find('.anva-background-properties').hide();
 		selector.find('.screenshot').slideUp();
 		selector.find('.remove-file').unbind().addClass('upload-button').removeClass('remove-file').val(optionsframework_l10n.upload);
 		// We don't display the upload button if .upload-notice is present
@@ -64,16 +64,16 @@ jQuery(document).ready(function($){
 			$('.upload-button').remove();
 		}
 		selector.find('.upload-button').on('click', function(event) {
-			optionsframework_add_file(event, $(this).parents('.section'));
+			optionsframework_add_file(event, $(this).closest('.section-upload'));
 		});
 	}
 
 	$('.remove-image, .remove-file').on('click', function() {
-		optionsframework_remove_file( $(this).parents('.section') );
+		optionsframework_remove_file( $(this).closest('.section-upload') );
     });
 
     $('.upload-button').click( function( event ) {
-    	optionsframework_add_file(event, $(this).parents('.section'));
+    	optionsframework_add_file(event, $(this).closest('.section-upload'));
     });
 
 });

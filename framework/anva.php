@@ -99,6 +99,7 @@ class Anva {
 		add_action( 'save_post', 'anva_page_options_save_meta', 1, 2 );
 		add_action( 'wp_head', 'anva_head_apple_touch_icon' );
 		add_action( 'wp_head', 'anva_head_viewport', 8 );
+		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'body_class', 'anva_body_class' );
 		add_filter( 'body_class', 'anva_browser_class' );

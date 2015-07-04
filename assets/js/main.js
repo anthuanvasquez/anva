@@ -15,6 +15,7 @@ var ANVA = ANVA || {};
 
 		init: function() {
 
+			ANVA.initialize.responsiveLogo();
 			ANVA.initialize.responsiveClasses();
 			ANVA.initialize.masonryLayout();
 			ANVA.initialize.lightbox();
@@ -28,6 +29,10 @@ var ANVA = ANVA || {};
 			if ( 1 == ANVAJS.pluginFoodlist ) {
 				ANVA.initialize.menuTable();
 			}
+		},
+
+		responsiveLogo: function() {
+
 		},
 
 		responsiveClasses: function() {
@@ -100,7 +105,7 @@ var ANVA = ANVA || {};
 					});
 				});
 			}
-
+			// Frame
 			if ( $lightboxIframeEl.length > 0 ) {
 				$lightboxIframeEl.magnificPopup({
 					disableOn: 600,
@@ -114,6 +119,26 @@ var ANVA = ANVA || {};
 
 		masonryLayout: function() {
 			
+		},
+
+		topScrollOffset: function() {
+			var topOffsetScroll = 0;
+
+			if ( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !ANVA.isMobile.any() ) {
+				if ( $header.hasClass('sticky-header') ) {
+					if ( $pagemenu.hasClass('dots-menu') ) { topOffsetScroll = 100; } else { topOffsetScroll = 144; }
+				} else {
+					if ( $pagemenu.hasClass('dots-menu') ) { topOffsetScroll = 140; } else { topOffsetScroll = 184; }
+				}
+
+				if ( !$pagemenu.length ) {
+					if ( $header.hasClass('sticky-header') ) { topOffsetScroll = 100; } else { topOffsetScroll = 140; }
+				}
+			} else {
+				topOffsetScroll = 40;
+			}
+
+			return topOffsetScroll;
 		},
 
 		goToTop: function() {
@@ -443,7 +468,7 @@ var ANVA = ANVA || {};
 					divScrollEasing = element.attr('data-easing');
 
 					if ( !divScrollSpeed ) { divScrollSpeed = 750; }
-					if ( !divScrollOffset ) { divScrollOffset = SEMICOLON.initialize.topScrollOffset(); }
+					if ( !divScrollOffset ) { divScrollOffset = ANVA.initialize.topScrollOffset(); }
 					if ( !divScrollEasing ) { divScrollEasing = 'easeOutQuad'; }
 
 				$root.stop(true).animate({
@@ -525,8 +550,8 @@ var ANVA = ANVA || {};
 	};
 
 	ANVA.config = {
-		instagramID: 			'43dd505ce2c04bd1aa2230726e9300e1',
-		instagramSecret: 	'7eceb8870d854d8b999262f0496906ea',
+		instaID: 			'43dd505ce2c04bd1aa2230726e9300e1',
+		instaSecret: 	'7eceb8870d854d8b999262f0496906ea',
 		flickrID: "",
 		flickrSecret: ""
 	};

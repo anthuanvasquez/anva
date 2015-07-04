@@ -7,37 +7,6 @@
  */
 @media screen and (max-width: 992px) {
   /*
-	 * Header
-	 */
-  div.brand {
-    margin: 0;
-    text-align: center;
-  }
-  div.brand a.logo {
-    margin: 0 auto;
-  }
-  div.addon {
-    margin: 10px auto 0;
-    position: static;
-    text-align: center;
-  }
-  div.addon form.search-form,
-  div.addon form#searchform,
-  div.addon .social-media {
-    margin: 0 auto;
-    width: 70%;
-  }
-  div.addon .social-media {
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  div.addon .input-group {
-    max-width: 100%;
-  }
-  .header-bottom {
-    border-bottom: 1px solid #eee;
-  }
-  /*
 	 * Off Canvas
 	 */
   .off_canvas_navigation #off-canvas-trigger,
@@ -113,9 +82,6 @@
   /*
 	 * Galleries
 	 */
-  .gallery-columns-4 .gallery-item {
-    width: 50% !important;
-  }
   .gallery-3-col .gallery-item {
     margin-right: 1.6%;
     width: 49.2%;
@@ -150,7 +116,7 @@
   /*
 	 * Order columns
 	 */
-  #sidebar-layout .sidebar-layout-inner .grid-columns {
+  #sidebar-layout .grid-columns {
     box-orient: vertical;
     display: -webkit-box;
     display: -webkit-flex;
@@ -172,7 +138,7 @@
         -ms-flex-order: 1;
             order: 1;
   }
-  .sidebar-wrapper {
+  .sidebar {
     -webkit-box-ordinal-group: 3;
     -webkit-order: 2;
        -moz-box-ordinal-group: 3;
@@ -182,21 +148,15 @@
   /*
 	 * Footer
 	 */
-  .footer-inner {
-    margin: 20px auto 0;
-  }
-  .footer-widget .widget {
-    margin: 0 0 20px;
-    width: 100%;
+  .footer-widgets .widget {
+    margin-bottom: 30px;
   }
   /*
 	 * Grid Columns
 	 */
   .grid-columns [class*="grid_"] {
-    display: block;
     float: none;
     margin-right: 0;
-    margin-bottom: 20px;
     width: 100%;
   }
   /*
@@ -240,15 +200,6 @@
   .flex-control-nav,
   .flex-pauseplay {
     display: none;
-  }
-  /*
-	 * Galleries
-	 */
-  .gallery-columns-3 .gallery-item {
-    width: 50% !important;
-  }
-  .gallery-columns-3 br {
-    clear: none !important;
   }
   /*
 	 * Comments

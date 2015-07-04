@@ -225,14 +225,24 @@ class Options_Framework_Interface {
 				$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
 				break;
 
+			// Logo
+			case 'logo' :
+				$output .= anva_logo_option( $value['id'], $option_name, $val );
+				break;
+
 			// Social Media
 			case "social_media":
-				$output .= anva_social_media_fields( $value['id'], $option_name, $val );
+				$output .= anva_social_media_option( $value['id'], $option_name, $val );
+				break;
+
+			// Columns
+			case 'columns' :
+				$output .= anva_columns_option( $value['id'], $option_name, $val );
 				break;
 
 			// Multicheck
 			case "multicheck":
-				foreach ($value['options'] as $key => $option) {
+				foreach ( $value['options'] as $key => $option ) {
 					$checked = '';
 					$label = $option;
 					$option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($key));

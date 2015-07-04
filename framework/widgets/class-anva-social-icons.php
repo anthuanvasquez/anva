@@ -1,26 +1,25 @@
 <?php
 
 /* Social Icons Widget */
-class Anva_Social_Icons extends WP_Widget {
+class Anva_Social_Media extends WP_Widget {
 
 	/* Create Widget Function */
-	function Anva_Social_Icons() {
+	function Anva_Social_Media() {
 
 		$widget_ops = array(
-			'classname' => 'widget_social_icons',
-			'description' => __('Muestra los iconos de las redes mas populares y una descripcion.', ANVA_DOMAIN)
+			'classname' => 'widget_social_media',
+			'description' => __( 'Muestra los iconos de las redes mas populares y una descripcion.', anva_textdomain() )
 		);
 
-		$this->WP_Widget('Anva_Social_Icons', 'Anva Social Icons', $widget_ops);
+		$this->WP_Widget( 'Anva_Social_Media', 'Anva Social Media', $widget_ops );
 	}
 
 	/* Call Widget */
 	function widget( $args, $instance ) {
 		
-		extract($args);
+		extract( $args );
 
-		$html 	= '';
-		$title 	= apply_filters('widget_title', $instance['title']);
+		$title 	= apply_filters( 'widget_title', $instance['title'] );
  		$text 	= apply_filters( 'widget_text', $instance['text'], $instance );
 		$autop 	= $instance['autop'] ? 'true' : 'false';
  
@@ -33,25 +32,25 @@ class Anva_Social_Icons extends WP_Widget {
 		/* Text */
 		echo '<div class="textwidget">';
 			if ( 'true' == $autop ) {				
-				echo wpautop($text);
+				echo wpautop( $text );
 			} else {
 				echo $text;
 			}
 		echo '</div>';
 		
 		/* Show Social Media Icons */
-		echo anva_social_icons();
+		$style = anva_get_option( 'social_media_style' );
+		echo anva_social_media( array(), $style );
 
 		echo $after_widget;
 	}
 
 	/* Update Data for Widgets */
 	function update( $new_instance, $old_instance ) {
-		$instance 							= $old_instance;
-		$instance['title'] 			= $new_instance['title'];
-		$instance['text'] 			= $new_instance['text'];
-		$instance['autop'] 			= $new_instance['autop'];
-
+		$instance 					= $old_instance;
+		$instance['title'] 	= $new_instance['title'];
+		$instance['text'] 	= $new_instance['text'];
+		$instance['autop'] 	= $new_instance['autop'];
 		return $instance;
 	}
 
@@ -60,35 +59,27 @@ class Anva_Social_Icons extends WP_Widget {
 		
 		/* Default Value */
 		$instance = wp_parse_args( (array) $instance, array(
-			'title' => '',
+			'title' => 'Social Media',
 			'text' 	=> '',
 			'autop' => false
 		));
 		
 		/* Inputs */
-		$title 				= $instance['title'];
-		$text 				= format_to_edit($instance['text']);
-		$autop 				= $instance['autop'];
+		$title 	 = $instance['title'];
+		$text 	 = format_to_edit( $instance['text'] );
+		$autop 	 = $instance['autop'];
 
-		?>
-		
-		<!-- Title -->
-		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo anva_get_local( 'title' ) . ' :'; ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
-		</p>
-		
-		<!-- Text -->
-		<p>
-			<textarea class="widefat" rows="8" cols="10" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text; ?></textarea>
-		</p>
-		
-		<!-- Auto P -->
-		<p>			
-			<input class="widefat" <?php checked( $autop, 'on'); ?> id="<?php echo $this->get_field_id('autop'); ?>" name="<?php echo $this->get_field_name('autop'); ?>" type="checkbox" />
-			<label for="<?php echo $this->get_field_id('autop'); ?>">A&ntilde;adir p&aacute;rrafos autom&aacute;ticamente</label>
-		</p>
+		$html 	 = '';
+		$html 	.= '<p>';
+		$html 	.= '<label for="'. $this->get_field_id('title') .'">'. anva_get_local( 'title' ) . ':</label>';
+		$html 	.= '<input type="text" class="widefat" id="'. $this->get_field_id('title') .'" name="'. $this->get_field_name('title') .'" value="'. esc_attr($title) .'" />';
+		$html 	.= '</p>';
+		$html 	.= '<p><textarea class="widefat" rows="8" cols="10" id="'. $this->get_field_id('text') .'" name="'. $this->get_field_name('text') .'">'. $text .'</textarea></p>';
+		$html 	.= '<p>';
+		$html 	.= '<input class="widefat" '. checked( $autop, 'on') .' id="'. $this->get_field_id('autop') .'" name="'. $this->get_field_name('autop') .'" type="checkbox" />';
+		$html 	.= '<label for="'. $this->get_field_id('autop') .'">'. __( 'Añadir párrafos automáticamente', anva_textdomain() ) .'</label>';
+		$html 	.= '</p>';
 
-		<?php
+		echo $html;
 	}
 }

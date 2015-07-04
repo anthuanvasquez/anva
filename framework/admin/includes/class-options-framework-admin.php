@@ -209,8 +209,8 @@ class Options_Framework_Admin {
 						<?php settings_fields( 'optionsframework' ); ?>
 						<?php Options_Framework_Interface::optionsframework_fields(); /* Settings */ ?>
 						<div id="optionsframework-submit" class="postbox">
-							<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'textdomain' ); ?>" />
-							<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults', 'textdomain' ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', 'textdomain' ) ); ?>' );" />
+							<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', anva_textdomain() ); ?>" />
+							<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults', anva_textdomain() ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', anva_textdomain() ) ); ?>' );" />
 							<div class="clear"></div>
 						</div>
 					</form>
@@ -241,7 +241,7 @@ class Options_Framework_Admin {
 		 */
 
 		if ( isset( $_POST['reset'] ) ) {
-			add_settings_error( 'options-framework', 'restore_defaults', __( 'Default options restored.', 'textdomain' ), 'updated fade' );
+			add_settings_error( 'options-framework', 'restore_defaults', __( 'Default options restored.', anva_textdomain() ), 'updated fade' );
 			return $this->get_default_values();
 		}
 
@@ -299,7 +299,7 @@ class Options_Framework_Admin {
 	 */
 
 	function save_options_notice() {
-		add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', 'textdomain' ), 'updated fade' );
+		add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', anva_textdomain() ), 'updated fade' );
 	}
 
 	/**
@@ -331,6 +331,10 @@ class Options_Framework_Admin {
 				$output[$option['id']] = apply_filters( 'anva_sanitize_' . $option['type'], $option['std'], $option );
 			}
 		}
+
+		$option_name = Options_Framework::get_option_name();
+		delete_option( $option_name .'_log' );
+
 		return $output;
 	}
 

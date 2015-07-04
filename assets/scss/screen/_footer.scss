@@ -32,8 +32,9 @@
 /*
  * Widgets
  */
-.footer-widget {
-	.widget {
+.footer-widgets {
+	.widget,
+	[class*="grid_"] {
 		margin-top: 0;
 		margin-bottom: 0;
 	}

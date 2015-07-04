@@ -4,10 +4,11 @@
  * Print favion and apple touch icons in head
  */
 function anva_head_apple_touch_icon() {
-	$favicon = anva_get_option( 'favicon' );
-	$html  = '';
-	$sizes = '';
-	$image = get_template_directory_uri() . '/assets/images';
+	
+	$html  		= '';
+	$sizes 		= '';
+	$favicon 	= anva_get_option( 'favicon' );
+	$image 		= get_template_directory_uri() . '/assets/images';
 	
 	if ( ! $favicon ) {
 		$favicon = $image . '/favicon.png';
@@ -51,11 +52,9 @@ function anva_head_apple_touch_icon() {
  * Print meta viewport
  */
 function anva_head_viewport() {
-	if ( 'yes' == anva_get_option( 'responsive' ) ) :
-	?>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<?php
-	endif;
+	if ( 'yes' == anva_get_option( 'responsive' ) ) {
+		echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">';
+	}
 }
 
 /*
@@ -72,13 +71,7 @@ function anva_top_bar_default() {
 			</div>
 			<div class="grid_6 grid_last fright nobottommargin">
 				<div id="top-social">
-					<?php 
-						// $size  	= '';
-						// $color 	= '';
-						// $style 	= 'social-noborder';
-						// echo anva_social_icons( $size, $color, $style ); 
-						echo anva_social_media();
-					?>
+					<?php echo anva_social_media(); ?>
 				</div>
 			</div>
 		</div>
@@ -90,21 +83,56 @@ function anva_top_bar_default() {
  * Display default header logo 
  */
 function anva_header_logo_default() {
-	$default_logo = get_template_directory_uri() . '/assets/images/logo.png';
-	$logo 				= anva_get_option( 'logo', $default_logo );
-	$name 				= get_bloginfo( 'name' );
-	?>
-	<div id="logo">
-		<?php
-			printf(
-				'<a href="%3$s" class="standard-logo"><img src="%1$s" alt="%2$s" /></a>',
-				esc_url( $logo ),
-				$name,
-				esc_url( home_url() )
-			);
-		?>
-	</div><!-- #logo (end) -->
-	<?php
+	
+	$option 	= anva_get_option( 'logo' );
+	$classes 	= 'logo-'. $option['type'];
+	$name 		= get_bloginfo( 'name' );
+	
+	if ( $option['type'] == 'custom' || $option['type'] == 'title' || $option['type'] == 'title_tagline' ) {
+		$classes .= ' logo-text';
+	}
+
+	if ( $option['type'] == 'custom' && ! empty( $option['custom_tagline'] ) ) {
+		$classes .= ' logo-has-tagline';
+	}
+
+	if ( $option['type'] == 'title_tagline' ) {
+		$classes .= ' logo-has-tagline';
+	}
+
+	echo '<div id="logo" class="'. esc_attr( $classes ) .'">';
+	if ( ! empty( $option['type'] ) ) {
+		switch ( $option['type'] ) {
+
+			case 'title' :
+				echo '<h1 class="text-logo"><a href="'. home_url() .'">'. $name .'</a></h1>';
+				break;
+
+			case 'title_tagline' :
+				echo '<h1 class="text-logo"><a href="'. home_url() .'">'. $name .'</a></h1>';
+				echo '<span class="logo-tagline">'. get_bloginfo('description') .'</span>';
+				break;
+
+			case 'custom' :
+				echo '<h1 class="text-logo"><a href="'. home_url() .'">'. $option['custom'] .'</a></h1>';
+				if ( $option['custom_tagline'] ) {
+					echo '<span class="logo-tagline">'. $option['custom_tagline'] .'</span>';
+				}
+				break;
+
+			case 'image' :
+				$image_1x = $option['image'];
+				$image_2x = '';
+
+				if ( ! empty( $option['image_2x'] ) ) {
+					$image_2x = $option['image_2x'];
+				}
+
+				echo '<a href="'. home_url() .'"><img src="'. $image_1x .'" alt="'. $name .'" data-image-2x="'. $image_2x .'" /></a>';
+				break;
+		}
+	}
+	echo '</div><!-- .#logo (end) -->';
 }
 
 /*
@@ -116,8 +144,7 @@ function anva_header_extras_default() {
 		<li>
 			<i class="fa fa-envelope"></i>
 			<div class="text">
-				Drop an Email
-				<span>info@canvas.com</span>
+				Drop an Email <span>info@anvas.com</span>
 			</div>
 		</li>
 		<li id="header-search">
@@ -196,8 +223,8 @@ function anva_header_primary_menu_addon_default() {
  */
 function anva_footer_content_default() {
 	?>
-	<div class="footer-widget row">
-		<?php anva_display_footer_sidebar(); ?>
+	<div class="footer-widgets grid-columns">
+		<?php anva_display_footer_sidebar_locations(); ?>
 	</div>
 	<?php
 }
@@ -206,14 +233,20 @@ function anva_footer_content_default() {
  * Display default footer text copyright
  */
 function anva_footer_copyrights_default() {
-	printf(
-		'<div class="grid_6">&copy; %1$s <strong>%2$s</strong> %3$s %4$s %5$s. <a id="gotop" href="#" class="gotop gotop-md"><i class="fa fa-chevron-up"></i></a></div>',
-		anva_get_current_year( apply_filters( 'anva_footer_year', date( 'Y' ) ) ),
-		get_bloginfo( 'name' ),
-		anva_get_local( 'footer_copyright' ),
-		apply_filters( 'anva_footer_credits', anva_get_local( 'footer_text' ) ),
-		apply_filters( 'anva_footer_author', '<a href="'. esc_url( 'http://anthuanvasquez.net/') .'">Anthuan Vasquez</a>' )
-	);
+	$footer_copyright = anva_get_option( 'footer_copyright' );
+	$html  = '';
+	$html .= '<div class="grid_6">';
+
+	if ( $footer_copyright || ! empty( $footer_copyright ) ) {
+		$html .= sprintf( $footer_copyright );
+	} else {
+		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2015', get_bloginfo( 'name' ), __( 'Designed by', anva_textdomain() ), __( '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>', anva_textdomain() ) );
+	}
+
+	$html .= '<a id="gotop" href="#" class="gotop gotop-md"><i class="fa fa-chevron-up"></i></a>';
+	$html .= '</div>';
+
+	echo $html;
 }
 
 /*
@@ -440,10 +473,14 @@ function anva_posts_content_default() {
 		anva_excerpt();
 		echo '<a class="button button-mini" href="'. get_the_permalink() .'">'. anva_get_local( 'read_more' ) .'</a>';
 	} else {
-		the_content();
+		the_content( anva_get_local( 'read_more' ) );
 	}
 }
 
+if ( ! function_exists( 'anva_posts_comments_default' ) ) :
+/*
+ * Default comments
+ */
 function anva_posts_comments_default() {
 	$single_comments = anva_get_option( 'single_comments', 'show' );
 	if ( 'show' == $single_comments ) {
@@ -452,6 +489,7 @@ function anva_posts_comments_default() {
 		}
 	}
 }
+endif;
 
 /*
  * Display debug information if WP_DEBUG is enabled

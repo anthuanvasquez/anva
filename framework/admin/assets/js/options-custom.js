@@ -6,17 +6,64 @@
 jQuery(document).ready(function($) {
 
 	// Loads the color pickers
-	$('.of-color').wpColorPicker();
+	$('.anva-color').wpColorPicker();
 
 	// Image Options
-	$('.of-radio-img-img').click(function(){
-		$(this).parent().parent().find('.of-radio-img-img').removeClass('of-radio-img-selected');
-		$(this).addClass('of-radio-img-selected');
+	$('.anva-radio-img-img').click(function(){
+		$(this).parent().parent().find('.anva-radio-img-img').removeClass('anva-radio-img-selected');
+		$(this).addClass('anva-radio-img-selected');
 	});
 
-	$('.of-radio-img-label').hide();
-	$('.of-radio-img-img').show();
-	$('.of-radio-img-radio').hide();
+	$('.anva-radio-img-label').hide();
+	$('.anva-radio-img-img').show();
+	$('.anva-radio-img-radio').hide();
+
+	// Logo
+	$('.section-logo').each(function(){
+		var el = $(this), value = el.find('.select-type select').val();
+		el.find('.logo-item').hide();
+		el.find('.' + value).show();
+	});
+
+	$('.section-logo .anva-select select').live( 'change', function() {
+		var el = $(this), parent = el.closest('.section-logo'), value = el.val();
+		parent.find('.logo-item').hide();
+		parent.find('.' + value).show();
+	});
+
+	// Social media buttons
+	$('.section-social_media').each(function() {
+		var el = $(this);
+		el.find('.social_media-input').hide();
+		el.find('.checkbox').each(function() {
+			var checkbox = $(this);
+			if ( checkbox.is(':checked') )
+				checkbox.closest('.item').addClass('active').find('.social_media-input').show();
+			else
+				checkbox.closest('.item').removeClass('active').find('.social_media-input').hide();
+		});
+	});
+
+	$('.section-social_media .checkbox').live('click', function() {
+		var checkbox = $(this);
+		if ( checkbox.is(':checked') )
+			checkbox.closest('.item').addClass('active').find('.social_media-input').fadeIn('fast');
+		else
+			checkbox.closest('.item').removeClass('active').find('.social_media-input').hide();
+	});
+
+	// Columns
+	$('.section-columns').each(function(){
+		var el = $(this), i = 1, num = el.find('.column-num').val();
+		el.find('.column-width').hide();
+		el.find('.column-width-'+num).show();
+	});
+
+	$('.section-columns .column-num').live('change', function(){
+		var el = $(this), i = 1, num = el.val(), parent = el.closest('.section-columns');
+		parent.find('.column-width').hide();
+		parent.find('.column-width-'+num).fadeIn('fast');
+	});
 
 	// Loads tabbed sections if they exist
 	if ( $('.nav-tab-wrapper').length > 0 ) {
@@ -67,5 +114,4 @@ jQuery(document).ready(function($) {
 
 		});
 	}
-
 });

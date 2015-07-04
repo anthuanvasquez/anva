@@ -21,7 +21,7 @@ function optionsframework_options() {
 	// Theme domain
 	$domain = anva_textdomain();
 
-	// Background Defaults
+	// Background defaults
 	$background_defaults = array(
 		'color' => '',
 		'image' => '',
@@ -29,7 +29,7 @@ function optionsframework_options() {
 		'position' => 'top center',
 		'attachment' => 'scroll' );
 
-	// Template Defaults
+	// Template defaults
 	$template_defaults = array(
 		'blog' => __('Classic Blog', $domain),
 		'search' => __('Classic Search', $domain),
@@ -38,16 +38,22 @@ function optionsframework_options() {
 
 	// Social media buttons defautls
 	$social_media_defaults = array(
-		'google'		=> 'https://plus.google.com/+AnthuanVasquez',
-		'twitter' 	=> 'http://twitter.com/oidoperfecto', // Follow Me! :)
-		'rss'				=> get_feed_link()
+		'dribbble'		=> 'https://dribbble.com/oidoperfecto',
+		'google-plus' => 'https://plus.google.com/+AnthuanVasquez',
+		'twitter' 		=> 'https://twitter.com/oidoperfecto', // Follow Me! :)
+		'rss'					=> get_feed_link()
 	);
 
-	// WordPress default credits
-	$wordpress = '<a href="'.esc_url('http://wordpress.org').'" title="WordPress" target="_blank">WordPress</a>';
+	// Logo defaults
+	$logo_defaults = array(
+		'type' => 'image',
+		'custom' => 'Custom Text',
+		'image' => get_template_directory_uri() .'/assets/images/logo.png',
+		'image_2x' => get_template_directory_uri() .'/assets/images/logo@2x.png'
+	);
 
 	// Author default credtis
-	$author = '<a href="'.esc_url('http://anthuanvasquez.net').'" title="Anthuan Vasquez" target="_blank">Anthuan Vasquez</a>';
+	$author = '<a href="'. esc_url( 'http://anthuanvasquez.net' ) .'" target="_blank">Anthuan Vasquez</a>';
 
 	// Pull all the categories into an array
 	$options_categories = array();
@@ -65,9 +71,8 @@ function optionsframework_options() {
 	}
 
 	// If using image radio buttons, define a directory path
-	$image_path =  get_template_directory_uri() . '/assets/images/';
-	$skin_path = get_template_directory_uri() . '/assets/images/skins/';
-	$ext = '.png';
+	$image_path = get_template_directory_uri() . '/assets/images/';
+	$skin_path  = $image_path . 'skins/';
 
 	$options = array();
 
@@ -354,26 +359,11 @@ function optionsframework_options() {
 		'type' 	=> 'group_start');
 
 	$options[] = array(
-		'name' => __('Logo Image', $domain),
-		'desc' => __('Configure the primary branding logo for the header of your site.', $domain),
+		'name' => __( 'Logo', $domain ),
+		'desc' => __( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', $domain ),
 		'id' => 'logo',
-		'std' => $image_path . 'logo.png', // Get the efault logo from the theme
-		'class' => 'logo-input',
-		'type' => 'upload');
-
-	$options[] = array(
-		'name' => __('Add Retina Logo', $domain),
-		'desc' => __('Add retina display logo.', $domain),
-		'id' => 'logo_retina_check',
-		'type' => 'checkbox');
-
-	$options[] = array(
-		'name' => __('Retina Logo', $domain),
-		'desc' => __('Configure the primary branding logo for the header of your site.', $domain),
-		'id' => 'logo_retina',
-		'std' => '', // Get the efault logo from the theme
-		'class' => 'logo-retina-input hidden',
-		'type' => 'upload');
+		'std' => $logo_defaults,
+		'type' => 'logo');
 
 	$options[] = array(
 		'name' => __('Favicon', $domain),
@@ -385,7 +375,7 @@ function optionsframework_options() {
 
 	$options[] = array(
 		"name" => __('Social Media', $domain),  
-		"desc" => __('Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: http://twitter.com/oidoperfecto. Note: If youre using the RSS button, your default RSS feed URL is: <strong>'.get_feed_link().'</strong>.', $domain),  
+		"desc" => __('Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: http://twitter.com/oidoperfecto. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>'.get_feed_link().'</strong>.', $domain),  
 		"id" => "social_media",
 		"type" => "social_media",
 		"std" => $social_media_defaults);
@@ -480,25 +470,16 @@ function optionsframework_options() {
 		'type' 	=> 'group_start');
 
 	$options[] = array(
-		'name' => "Columns",
-		'desc' => "Choose the number of columns along.",
-		'id' => "footer_columns",
-		'std' => "4",
-		'type' => "select",
-		'options' => array(
-			'hide' => __( 'Hide Columns', $domain ),
-			'1' => __( '1 Column', $domain ),
-			'2' => __( '2 Columns', $domain ),
-			'3' => __( '3 Columns', $domain ),
-			'4' => __( '4 Columns', $domain ),
-			'5' => __( '5 Columns', $domain )
-		));
+		'name'		=> __( 'Setup Columns', 'themeblvd' ),
+		'desc'		=> __( 'Choose the number of columns along with the corresponding width configurations.', 'themeblvd' ),
+		'id' 			=> 'footer_setup',
+		'type'		=> 'columns');
 
 	$options[] = array(
 		'name' => "Copyright Text",
 		'desc' => "Enter the copyright text you'd like to show in the footer of your site.",
 		'id' => "footer_copyright",
-		'std' => sprintf( __( 'Copyright %s %s - Powered by %s, Designed by %s.', $domain ), date('Y'), get_bloginfo('name'), $wordpress, $author ),
+		'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', $domain ), date('Y'), get_bloginfo('name'), $author ),
 		'type' => "textarea");
 
 	$options[] = array(
@@ -562,7 +543,7 @@ function optionsframework_options() {
 		'type' => 'radio',
 		'options' => array(
 			'show' => __('Show share buttons', $domain),
-			'hide' => __('Hide share buttons', $domain),
+			'hide' => __('Hide share buttons', $domain)
 		));
 
 	$options[] = array(
@@ -573,7 +554,7 @@ function optionsframework_options() {
 		'type' => 'radio',
 		'options' => array(
 			'show' => __('Show about author', $domain),
-			'hide' => __('Hide about author', $domain),
+			'hide' => __('Hide about author', $domain)
 		));
 
 	$options[] = array(

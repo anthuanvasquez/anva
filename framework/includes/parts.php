@@ -79,15 +79,15 @@ function anva_posted_on() {
 
 	if ( comments_open() ) {
 		if ( $num_comments == 0 ) {
-			$comments = __( 'No hay Comentarios', ANVA_DOMAIN );
+			$comments = __( 'No hay Comentarios', anva_textdomain() );
 		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __( ' Comentarios', ANVA_DOMAIN );
+			$comments = $num_comments . __( ' Comentarios', anva_textdomain() );
 		} else {
-			$comments = __( '1 Comentario', ANVA_DOMAIN );
+			$comments = __( '1 Comentario', anva_textdomain() );
 		}
 		$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
 	} else {
-		$write_comments =  __( 'Comentarios cerrado', ANVA_DOMAIN );
+		$write_comments =  __( 'Comentarios cerrado', anva_textdomain() );
 	}
 
 	$sep = ' / ';
@@ -121,111 +121,7 @@ function anva_posted_on() {
 }
 
 /**
- * Social media icons
- */
-function anva_social_icons( $size = '', $style = '', $color = '' ) {
-	
-	$html 			= '';
-	$classes 		= array();
-	$facebook 	= anva_get_option('social_facebook');
-	$twitter 		= anva_get_option('social_twitter');
-	$instagram 	= anva_get_option('social_instagram');
-	$gplus 			= anva_get_option('social_gplus');
-	$youtube 		= anva_get_option('social_youtube');
-	$linkedin 	= anva_get_option('social_linkedin');	
-	$vimeo 			= anva_get_option('social_vimeo');
-	$pinterest 	= anva_get_option('social_pinterest');
-	$digg 			= anva_get_option('social_digg');
-	$dribbble 	= anva_get_option('social_dribbble');
-	$rss 				= anva_get_option('social_rss');
-
-	$profiles = array(
-		'facebook' => array(
-			'name' => 'Facebook',
-			'url'  => $facebook
-		),
-		'twitter' => array(
-			'name' => 'Twitter',
-			'url'  => $twitter
-		),
-		'instagram' => array(
-			'name' => 'Instagram',
-			'url'  => $instagram
-		),
-		'google-plus' => array(
-			'name' => 'Google+',
-			'url'  => $gplus
-		),
-		'youtube' => array(
-			'name' => 'Youtube',
-			'url'  => $youtube
-		),
-		'linkedin' => array(
-			'name' => 'LinkedIn',
-			'url'  => $linkedin
-		),
-		'vimeo-square' => array(
-			'name' => 'Vimeo',
-			'url'  => $vimeo
-		),
-		'pinterest' => array(
-			'name' => 'Pinterest',
-			'url'  => $pinterest
-		),
-		'digg' => array(
-			'name' => 'Digg',
-			'url'  => $digg
-		),
-		'dribbble' => array(
-			'name' => 'Dribbble',
-			'url'  => $dribbble
-		),
-		'rss' => array(
-			'name' => 'RSS',
-			'url'  => $rss
-		),
-	);
-
-	if ( ! empty( $size ) ) {
-		$classes[] = $size;
-	}
-
-	if ( ! empty( $color ) ) {
-		$classes[] = $color;
-	}
-
-	if ( ! empty( $style ) ) {
-		$classes[] = $style;
-	}
-
-	$classes = implode( ' ', $classes );
-
-	$html .= '<ul class="social-icons">';
-	
-	foreach ( $profiles as $key => $value ) {
-
-		if ( isset( $value['url'] ) && ! empty( $value['url'] ) ) {
-
-			$name  = $value['name'];
-			$url 	 = $value['url'];
-			$html .= '<li>';
-			$html .= '<a href="'. esc_url( $url ) .'" class="social-icon social-'. esc_attr( $key ) . ' '. esc_attr( $classes ) . '" data-toggle="tooltip" data-placement="top" title="'. $name .'"><i class="fa fa-'. esc_attr( $key ) .'"></i>';
-			$html .= '</a>';
-			$html .= '</li>';
-
-		}
-	}
-
-	$html .= '</ul>';
-
-	return $html;
-
-}
-
-/**
- * Display default social media profiles.
- *
- * @return html output
+ * Display social media profiles
  */
 
 function anva_social_media( $buttons = array(), $style = null ) {
@@ -235,20 +131,26 @@ function anva_social_media( $buttons = array(), $style = null ) {
 		$buttons = anva_get_option( 'social_media' );
 	}
 
+	// If buttons haven't been sanitized return nothing
+	if ( is_array( $buttons ) && isset( $buttons['includes'] ) ) {
+		return null;
+	}
+
 	// Set up style
 	if ( ! $style ) {
-		$style = anva_get_option( 'social_media_style', 'normal' );
+		$style = anva_get_option( 'social_media_style', 'light' );
+		$classes = 'social-' . $style;
 	}
 
 	// Social media sources
 	$profiles = anva_get_social_media_profiles();
 
 	// Start output
-	$output = '';
+	$output = null;
 	if ( is_array( $buttons ) && ! empty ( $buttons ) ) {
 
 		$output .= '<div class="social-media">';
-		$output .= '<div class="social-inner">';
+		$output .= '<div class="social-content">';
 		$output .= '<ul class="social-icons">';
 
 		foreach ( $buttons as $id => $url ) {
@@ -260,17 +162,20 @@ function anva_social_media( $buttons = array(), $style = null ) {
 			$title = '';
 			if ( isset( $profiles[$id] ) ) {
 				$title = $profiles[$id];
+				if ( $id == 'email' ) {
+					$id = 'envelope-o';
+				}
 			}
 
-			$output .= sprintf( '<li><a href="%1$s" title="%2$s" class="social-icon social-%3$s" target="%4$s"><i class="fa fa-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target );
+			$output .= sprintf( '<li><a href="%1$s" class="social-icon social-%3$s" target="%4$s"><i class="fa fa-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target );
 		}
 
 		$output .= '</ul><!-- .social-icons (end) -->';
-		$output .= '</div><!-- .social-inner (end) -->';
+		$output .= '</div><!-- .social-content (end) -->';
 		$output .= '</div><!-- .social-media (end) -->';
 	}
 	
-	return apply_filters( 'of_social_media_buttons', $output );
+	return apply_filters( 'anva_social_media_buttons', $output );
 
 }
 
@@ -289,6 +194,11 @@ function anva_site_search() {
  * Post navigation
  */
 function anva_post_nav() {
+	$single_navigation = anva_get_option( 'single_navigation', 'show' );
+	if ( 'show' != $single_navigation ) {
+		return;
+	}
+
 	// Don't print empty markup if there's nowhere to navigate.
 	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
 	$next = get_adjacent_post( false, '', false );
@@ -308,6 +218,44 @@ function anva_post_nav() {
 		</div>
 	</nav><!-- .post-navigation (end) -->
 	<div class="line"></div>
+	<?php
+}
+
+function anva_post_author() {
+	$single_author = anva_get_option( 'single_author', 'hide' );
+	if ( 'show' != $single_author ) {
+		return;
+	}
+
+	global $post;
+	$id 		= $post->post_author;
+	$avatar = get_avatar( $id, '96' );
+	$url 		= get_the_author_meta( 'user_url', $id );
+	$name 	= get_the_author_meta( 'display_name', $id );
+	$desc 	= get_the_author_meta( 'description', $id );
+	?>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+				<h3 class="panel-title">Posted by <span><a href="<?php echo esc_attr( $url ); ?>"><?php echo esc_attr( $name ); ?></a></span></h3>
+		</div>
+		<div class="panel-body">
+			<div class="author-image">
+				<?php echo $avatar; ?>
+			</div>
+			<?php echo esc_html( $desc ); ?>
+		</div>
+	</div>
+	<div class="line"></div>
+	<?php
+}
+
+function anva_post_related() {
+	?>
+	<h3>Related Posts</h3>
+	<div class="related-posts clearfix">
+		<div class="grid_6">1</div>
+		<div class="grid_6">2</div>
+	</div>
 	<?php
 }
 
@@ -419,7 +367,7 @@ function anva_contact_form() {
 			
 			<div class="form-email form-group">
 				<label for="cemail" class="control-label"><?php echo anva_get_local( 'email' ); ?>:</label>
-				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', ANVA_DOMAIN); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
+				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', anva_textdomain()); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
 			</div>
 
 			<div class="form-subject form-group">						
