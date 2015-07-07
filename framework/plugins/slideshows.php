@@ -18,17 +18,17 @@ function anva_slideshows_setup() {
 function anva_slideshows_register() {
 
 	$labels = array(
-		'name' 									=> __( 'Slideshows', ANVA_DOMAIN ),
-		'singular_name' 				=> __( 'Slide', ANVA_DOMAIN ),
-		'all_items' 						=> __( 'Todos los Slides', ANVA_DOMAIN ),
-		'add_new' 							=> __( 'A&ntilde;adir Nuevo Slide', ANVA_DOMAIN ),
-		'add_new_item' 					=> __( 'A&ntilde;adir Nuevo Slide', ANVA_DOMAIN ),
-		'edit_item' 						=> __( 'Editar Slide', ANVA_DOMAIN ),
-		'new_item' 							=> __( 'Nuevo Slide', ANVA_DOMAIN ),
-		'view_item' 						=> __( 'Ver Slide', ANVA_DOMAIN ),
-		'search_items' 					=> __( 'Buscar Slides', ANVA_DOMAIN ),
-		'not_found' 						=> __( 'Slide no Encontrado', ANVA_DOMAIN ),
-		'not_found_in_trash' 		=> __( 'No se Encontraron Slides en la Papelera', ANVA_DOMAIN ),
+		'name' 									=> __( 'Slideshows', anva_textdomain() ),
+		'singular_name' 				=> __( 'Slide', anva_textdomain() ),
+		'all_items' 						=> __( 'Todos los Slides', anva_textdomain() ),
+		'add_new' 							=> __( 'A&ntilde;adir Nuevo Slide', anva_textdomain() ),
+		'add_new_item' 					=> __( 'A&ntilde;adir Nuevo Slide', anva_textdomain() ),
+		'edit_item' 						=> __( 'Editar Slide', anva_textdomain() ),
+		'new_item' 							=> __( 'Nuevo Slide', anva_textdomain() ),
+		'view_item' 						=> __( 'Ver Slide', anva_textdomain() ),
+		'search_items' 					=> __( 'Buscar Slides', anva_textdomain() ),
+		'not_found' 						=> __( 'Slide no Encontrado', anva_textdomain() ),
+		'not_found_in_trash' 		=> __( 'No se Encontraron Slides en la Papelera', anva_textdomain() ),
 		'parent_item_colon' 		=> '' );
 	
 	$args = array(

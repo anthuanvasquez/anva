@@ -19,86 +19,86 @@ function anva_get_image_sizes() {
 	// Crop sizes
 	$sizes = array(
 		'blog_full' => array(
-			'name' 		=> __( 'Blog Full Width', ANVA_DOMAIN ),
+			'name' 		=> __( 'Blog Full Width', anva_textdomain() ),
 			'width' 	=> 2000,
 			'height' 	=> 1333,
 			'crop' 		=> true,
 			'position'=> array( 'center', 'top' )
 		),
 		'blog_lg' => array(
-			'name' 		=> __( 'Blog Large', ANVA_DOMAIN ),
+			'name' 		=> __( 'Blog Large', anva_textdomain() ),
 			'width' 	=> 860,
 			'height' 	=> 400,
 			'crop' 		=> true,
 			'position'=> array( 'center', 'top' )
 		),
 		'blog_md' => array(
-			'name' 		=> __( 'Blog Medium', ANVA_DOMAIN ),
+			'name' 		=> __( 'Blog Medium', anva_textdomain() ),
 			'width' 	=> 400,
 			'height'	=> 300,
 			'crop' 		=> true,
 			'position'=> array( 'center', 'top' )
 		),
 		'blog_sm' => array(
-			'name' 		=> __( 'Blog Small', ANVA_DOMAIN ),
+			'name' 		=> __( 'Blog Small', anva_textdomain() ),
 			'width' 	=> 195,
 			'height' 	=> 195,
 			'crop' 		=> false
 		),
 		'slider_full' => array(
-			'name' 		=> __( 'Slider Full Width', ANVA_DOMAIN ),
+			'name' 		=> __( 'Slider Full Width', anva_textdomain() ),
 			'width' 	=> 1600,
 			'height' 	=> 500,
 			'crop' 		=> true,
 			'position'=> array( 'center', 'top' )
 		),
 		'slider_lg' => array(
-			'name' 		=> __( 'Slider Large', ANVA_DOMAIN ),
+			'name' 		=> __( 'Slider Large', anva_textdomain() ),
 			'width' 	=> 1140,
 			'height' 	=> 500,
 			'crop' 		=> true,
 			'position'=> array( 'center', 'top' )
 		),
 		'slider_md' => array(
-			'name' 		=> __( 'Slider Medium', ANVA_DOMAIN ),
+			'name' 		=> __( 'Slider Medium', anva_textdomain() ),
 			'width' 	=> 564,
 			'height' 	=> 400,
 			'crop' 		=> true,
 			'position'=> array( 'center', 'top' )
 		),
 		'grid_2' => array(
-			'name' 		=> __( '2 Column of Grid', ANVA_DOMAIN ),
+			'name' 		=> __( '2 Column of Grid', anva_textdomain() ),
 			'width' 	=> 472,
 			'height' 	=> 295,
 			'crop' 		=> true
 		),
 		'grid_3' => array(
-			'name' 		=> __( '3 Column of Grid', ANVA_DOMAIN ),
+			'name' 		=> __( '3 Column of Grid', anva_textdomain() ),
 			'width' 	=> 320,
 			'height' 	=> 200,
 			'crop' 		=> true
 		),
 		'grid_4' => array(
-			'name' 		=> __( '4 Column of Grid', ANVA_DOMAIN ),
+			'name' 		=> __( '4 Column of Grid', anva_textdomain() ),
 			'width' 	=> 240,
 			'height' 	=> 150,
 			'crop' 		=> true,
 
 		),
 		'gallery_2' => array(
-			'name' 		=> __( 'Gallery Grid 2 Columns', ANVA_DOMAIN ),
+			'name' 		=> __( 'Gallery Grid 2 Columns', anva_textdomain() ),
 			'width' 	=> 480,
 			'height' 	=> 480,
 			'crop' 		=> true
 		),
 		'gallery_3' => array(
-			'name' 		=> __( 'Gallery Grid 3 Columns', ANVA_DOMAIN ),
+			'name' 		=> __( 'Gallery Grid 3 Columns', anva_textdomain() ),
 			'width' 	=> 440,
 			'height' 	=> 440,
 			'crop' 		=> true
 		),
 		'gallery_masonry' => array(
-			'name' 		=> __( 'Gallery Masonry', ANVA_DOMAIN ),
+			'name' 		=> __( 'Gallery Masonry', anva_textdomain() ),
 			'width' 	=> 480,
 			'height' 	=> 9999,
 			'crop' 		=> false

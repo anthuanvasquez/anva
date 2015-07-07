@@ -126,6 +126,8 @@ function anva_posted_on() {
 
 function anva_social_media( $buttons = array(), $style = null ) {
 
+	$classes = array();
+
 	// Set up buttons
 	if ( ! $buttons ) {
 		$buttons = anva_get_option( 'social_media' );
@@ -139,8 +141,10 @@ function anva_social_media( $buttons = array(), $style = null ) {
 	// Set up style
 	if ( ! $style ) {
 		$style = anva_get_option( 'social_media_style', 'light' );
-		$classes = 'social-' . $style;
+		$classes[] = 'social-' . $style;
 	}
+
+	$classes = implode( ' ', $classes );
 
 	// Social media sources
 	$profiles = anva_get_social_media_profiles();
@@ -167,7 +171,7 @@ function anva_social_media( $buttons = array(), $style = null ) {
 				}
 			}
 
-			$output .= sprintf( '<li><a href="%1$s" class="social-icon social-%3$s" target="%4$s"><i class="fa fa-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target );
+			$output .= sprintf( '<li><a href="%1$s" class="social-icon social-%3$s %5$s" target="%4$s"><i class="fa fa-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target, $classes );
 		}
 
 		$output .= '</ul><!-- .social-icons (end) -->';

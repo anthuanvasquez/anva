@@ -1,18 +1,21 @@
 <?php
+/*-----------------------------------------------------------------------------------*/
+/* Theme Functions
+/*-----------------------------------------------------------------------------------*/
 
+// Define theme constants
 define( 'THEME_ID', 'theme' );
 define( 'THEME_NAME', 'Theme' );
 define( 'THEME_VERSION', '1.0.0');
 
-/*-----------------------------------------------------------------------------------*/
-/* Theme Functions
-/*-----------------------------------------------------------------------------------*/
+// Modify framework's theme options
+require_once( get_template_directory() . '/functions/options.php' );
 
 /* 
  * Change the options.php directory.
  */
 function theme_options_location() {
-	return  '/framework/admin/options.php';
+	return  '/functions/options.php';
 }
 
 /*
@@ -69,13 +72,93 @@ function theme_google_fonts() {
 	);
 }
 
+function theme_add_stylesheets() {
+	// anva_add_stylesheet( 'test', get_template_directory_uri() . '/assets/css/test.css', 3 );
+}
+
 /**
  * Custom Stylesheets
  */
 function theme_stylesheets() {
+
+	// Get stylesheet API
+	$api = Anva_Stylesheets::instance();
+
+	// Register stylesheets
+	$stylesheets = array();
+
+	$stylesheets['theme_screen'] = array(
+		'handle' => 'theme_screen',
+		'src' => get_template_directory_uri() . '/assets/css/screen.css',
+		'deps' => $api->get_framework_deps(),
+		'ver' => THEME_VERSION,
+		'media' => 'all'
+	);
+
+	$stylesheets['theme_colors'] = array(
+		'handle' => 'theme_colors',
+		'src' => get_template_directory_uri() . '/assets/css/colors.css',
+		'deps' => array( 'theme_screen' ),
+		'ver' => THEME_VERSION,
+		'media' => 'all'
+	);
+
+	$stylesheets['theme_responsive'] = array(
+		'handle' => 'theme_responsive',
+		'src' => get_template_directory_uri() . '/assets/css/responsive.css',
+		'deps' => array( 'theme_screen' ),
+		'ver' => THEME_VERSION,
+		'media' => 'all'
+	);
+
+	$stylesheets['theme_ie'] = array(
+		'handle' => 'theme_ie',
+		'src' => get_template_directory_uri() . '/assets/css/ie.css',
+		'deps' => array( 'theme_screen' ),
+		'ver' => THEME_VERSION,
+		'media' => 'all'
+	);
+
+	// Register stylesheets for later use
+	foreach ( $stylesheets as $key => $value ) {
+		wp_register_style( $value['handle'], $value['src'], $value['deps'], $value['ver'], $value['media'] );
+	}
+
+	// Compress CSS
+	if ( '1' != anva_get_option( 'compress_css' ) ) {
+		
+		// Enqueue theme stylesheets
+		wp_enqueue_style( 'theme_screen' );
+		wp_enqueue_style( 'theme_responsive' );
+		wp_enqueue_style( 'theme_colors' );
+		
+		// IE
+		$GLOBALS['wp_styles']->add_data( 'theme_ie', 'conditional', 'lt IE 9' );
+		wp_enqueue_style( 'theme_ie' );
+
+		// Inline theme styles
+		wp_add_inline_style( 'theme_colors', theme_styles() );
+
+	} else {
+		
+		// Ignore stylesheets in compressed file
+		$ignore = array( 'theme_ie' => '' );
+
+		// Compress CSS files
+		anva_minify_stylesheets( $stylesheets, $ignore );
+		
+		// Add IE conditional
+		wp_register_style( 'theme_xie', get_template_directory_uri() . '/assets/css/ie.css', array( 'all-in-one' ), THEME_VERSION, 'all' );
+		$GLOBALS['wp_styles']->add_data( 'theme_xie', 'conditional', 'lt IE 9' );
+		wp_enqueue_style( 'theme_xie' );
+		
+		// Inline theme styles
+		wp_add_inline_style( 'all-in-one', theme_styles() );
+
+	}
 	
-	wp_enqueue_style( 'theme-skin', get_template_directory_uri() . '/assets/css/colors.css' );
-	wp_add_inline_style( 'theme-skin', theme_styles() );
+	// Level 3 
+	$api->print_styles(3);
 
 }
 
@@ -95,7 +178,6 @@ function theme_styles() {
 	$heading_h6 = anva_get_option( 'heading_h6', '11' );
 	$background_color = anva_get_option( 'background_color' );
 	$background_pattern = anva_get_option( 'background_pattern' );
-
 	ob_start();
 	?>
 	/* Typography */
@@ -160,5 +242,6 @@ add_filter( 'options_framework_location', 'theme_options_location' );
 add_filter( 'optionsframework_menu', 'theme_options_menu' );
 add_filter( 'body_class', 'theme_body_classes' );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
+add_action( 'after_setup_theme', 'theme_add_stylesheets' );
 add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
 add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );

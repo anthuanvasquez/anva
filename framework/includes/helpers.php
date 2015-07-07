@@ -26,6 +26,8 @@ function anva_body_class( $classes ) {
  */
 function anva_browser_class( $classes ) {
 	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
+	
+	// Browsers
 	if ( $is_lynx )
 		$classes[] = 'lynx';
 	elseif ( $is_gecko )
@@ -45,6 +47,8 @@ function anva_browser_class( $classes ) {
 	} else {
 		$classes[] = 'unknown';
 	}
+	
+	// iPhone
 	if ( $is_iphone )
 		$classes[] = 'iphone';
 
@@ -56,6 +60,7 @@ function anva_browser_class( $classes ) {
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "windows" ) ) {
 		$classes[] = 'windows';
 	}
+	
 	return $classes;
 }
 
@@ -185,8 +190,7 @@ function anva_truncate_string( $string, $length = 100 ) {
 	$string = trim( $string );
 	if ( strlen( $string ) <= $length) {
 		return $string;
-	}
-	else {
+	} else {
 		$string = substr( $string, 0, $length ) . '...';
 		return $string;
 	}
@@ -197,7 +201,7 @@ function anva_truncate_string( $string, $length = 100 ) {
  */
 function anva_excerpt( $length = '' ) {
 	if ( empty( $length ) ) {
-		$length = 256;
+		$length = apply_filters( 'anva_excerpt_length', 256 );
 	}
 	$string = get_the_excerpt();
 	$p = anva_truncate_string( $string, $length );
@@ -259,10 +263,7 @@ function anva_get_current_year( $year ) {
 }
 
 /**
- * Compress a chunk of code to output.
- *
- * @param string $buffer Text to compress
- * @return array $buffer Compressed text
+ * Compress a chunk of code to output
  */
 function anva_compress( $buffer ) {
 
@@ -275,6 +276,80 @@ function anva_compress( $buffer ) {
 	return $buffer;
 }
 
+/*
+ * Minify stylesheets output and combine into one
+ */
+function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
+
+	$filename = apply_filters( 'anva_minify_stylesheets_filename', 'all.min.css' );
+	$files 	= array();
+	$stylesheets = anva_get_stylesheets();
+
+	if ( is_array( $merge_styles ) && ! empty( $merge_styles ) ) {
+		$merged= array_merge( $stylesheets, $merge_styles );
+	}
+
+	// Set URL
+	$url = '';
+
+	if ( isset( $_SERVER['HTTPS'] ) && filter_var( $_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN ) ) {
+		$url .= 'https';
+	} else {
+		$url .= 'http';
+	}
+
+	$url .= '://';
+
+	foreach ( $merged as $key => $value ) {
+		if ( isset( $ignore[$key] ) ) {
+			unset( $merged[$key] );
+		} elseif ( isset( $value['src'] ) ) {
+			$string = str_replace( $url . $_SERVER['SERVER_NAME'], $_SERVER['DOCUMENT_ROOT'], $value['src']);
+			if ( file_exists( $string ) ) {
+				$files[] = $string;
+			}
+		}
+	}
+
+	// Get file path
+	$path = get_template_directory() .'/assets/css/'. $filename;
+		
+	// Create compressed file if don't exists
+	if ( ! file_exists( $path ) ) {
+		$cssmin = new CSSMin();
+
+		// Add files
+		$cssmin->addFiles( $files );
+
+		// Set original CSS from all files
+		$cssmin->setOriginalCSS();
+
+		// Compress CSS
+		$cssmin->compressCSS();
+
+		// Get compressed and combined css
+		$css = $cssmin->printCompressedCSS();
+
+		// Create compressed file
+		file_put_contents( $path, $css );
+	}
+
+	// Dequeue framework stylesheets to clear the HEAD
+	foreach ( $stylesheets as $key => $value ) {
+		if ( isset( $value['handle'] ) ) {
+			wp_dequeue_style( $value['handle'] );
+			wp_deregister_style( $value['handle'] );
+		}
+	}
+
+	// Enqueue compressed file
+	wp_enqueue_style( 'all-in-one', get_template_directory_uri() .'/assets/css/'. $filename, array(), THEME_VERSION, 'all' );
+	
+}
+
+/*
+ * Sort galleries
+ */
 function anva_sort_gallery( $gallery_arr ) {
 	
 	$gallery_arr_sorted = array();
@@ -358,7 +433,7 @@ function anva_get_core_directory() {
 	if ( defined( 'ANVA_FRAMEWORK' ) ) {
 		$path = ANVA_FRAMEWORK;
 	} else {
-		$path = get_template_directory_uri() . '/framework';
+		$path = get_template_directory() . '/framework';
 	}
 	return $path;
 }

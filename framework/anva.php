@@ -40,7 +40,7 @@ class Anva {
 		define( 'ANVA_FRAMEWORK_URL', get_template_directory_uri() . '/framework' );
 		define( 'ANVA_FRAMEWORK_NAME', 'Anva Framework' );
 		define( 'ANVA_FRAMEWORK_VERSION', '1.0.0' );
-		define( 'ANVA_DOMAIN', 'anva' );
+		define( 'ANVA_FRAMEWORK_DOMAIN', 'anva' );
 
 	}
 
@@ -49,31 +49,33 @@ class Anva {
 	 */
 	public function includes() {
 
-		// Inlclude files
+		// Vendor files
+		include_once ( ANVA_FRAMEWORK . '/vendor/cssmin.php' );
+
+		// Include files
 		include_once ( ANVA_FRAMEWORK . '/admin/options-framework.php' );
-		include_once ( ANVA_FRAMEWORK . '/admin/options.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/metaboxes.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
-		// include_once( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/api/widgets.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/api/api.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/actions.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/display.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/helpers.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/media.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/locals.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/parts.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/general.php' );
-		include_once( ANVA_FRAMEWORK . '/includes/shortcodes.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/email.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/login.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/gallery.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
-		include_once( ANVA_FRAMEWORK . '/plugins/foodlist.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/api/widgets.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/api/api.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/actions.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/display.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/helpers.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/media.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/locals.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/parts.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/general.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/shortcodes.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/email.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/login.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/gallery.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/foodlist.php' );
 
 		/* ---------------------------------------------------------------- */
 		/* Admin
@@ -194,6 +196,9 @@ class Anva {
 }
 endif;
 
+/*
+ * Init framework
+ */
 function Anva_Framework() {
 	return Anva::instance();
 }

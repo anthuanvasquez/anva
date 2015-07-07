@@ -72,7 +72,7 @@ class Options_Framework_Interface {
 				}
 
 				if ( ! empty($value['desc']) ) {
-					$output .= '<div class="section-description">'.$value['desc'].'</div>';
+					$output .= '<div class="section section-description">'.$value['desc'].'</div><!-- .section (end) -->';
 				}
 
 			}
@@ -150,22 +150,38 @@ class Options_Framework_Interface {
 			 */
 			switch ( $value['type'] ) :
 
-			// Basic text input
+			/*
+			|--------------------------------------------------------------------------
+			| Text Input
+			|--------------------------------------------------------------------------
+			*/
 			case 'text':
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-input-text" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
 				break;
 
-			// Basic number input
+			/*
+			|--------------------------------------------------------------------------
+			| Number Input
+			|--------------------------------------------------------------------------
+			*/
 			case 'number':
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="number" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
 				break;
 
-			// Password input
+			/*
+			|--------------------------------------------------------------------------
+			| Password Input
+			|--------------------------------------------------------------------------
+			*/
 			case 'password':
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="password" value="' . esc_attr( $val ) . '" />';
 				break;
 
-			// Textarea
+			/*
+			|--------------------------------------------------------------------------
+			| Textarea
+			|--------------------------------------------------------------------------
+			*/
 			case 'textarea':
 				$rows = '8';
 
@@ -180,7 +196,11 @@ class Options_Framework_Interface {
 				$output .= '<textarea id="' . esc_attr( $value['id'] ) . '" class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" rows="' . $rows . '"' . $placeholder . '>' . esc_textarea( $val ) . '</textarea>';
 				break;
 
-			// Select Box
+			/*
+			|--------------------------------------------------------------------------
+			| Select Box
+			|--------------------------------------------------------------------------
+			*/
 			case 'select':
 				$output .= '<label class="anva-input-label" for="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '">';
 				$output .= '<select class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '">';
@@ -193,7 +213,12 @@ class Options_Framework_Interface {
 				break;
 
 
-			// Radio Box
+			
+			/*
+			|--------------------------------------------------------------------------
+			| Radio Box
+			|--------------------------------------------------------------------------
+			*/
 			case "radio":
 				$name = $option_name .'['. $value['id'] .']';
 				foreach ($value['options'] as $key => $option) {
@@ -202,7 +227,11 @@ class Options_Framework_Interface {
 				}
 				break;
 
-			// Image Selectors
+			/*
+			|--------------------------------------------------------------------------
+			| Radio Images
+			|--------------------------------------------------------------------------
+			*/
 			case "images":
 				$name = $option_name .'['. $value['id'] .']';
 				foreach ( $value['options'] as $key => $option ) {
@@ -219,13 +248,21 @@ class Options_Framework_Interface {
 				$output .= '<div class="clear"></div>';
 				break;
 
-			// Checkbox
+			/*
+			|--------------------------------------------------------------------------
+			| Checkbox
+			|--------------------------------------------------------------------------
+			*/
 			case "checkbox":
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox anva-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
 				$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
 				break;
 
-			// Logo
+			/*
+			|--------------------------------------------------------------------------
+			| Logo
+			|--------------------------------------------------------------------------
+			*/
 			case 'logo' :
 				$output .= anva_logo_option( $value['id'], $option_name, $val );
 				break;
@@ -235,12 +272,20 @@ class Options_Framework_Interface {
 				$output .= anva_social_media_option( $value['id'], $option_name, $val );
 				break;
 
-			// Columns
+			/*
+			|--------------------------------------------------------------------------
+			| Columns
+			|--------------------------------------------------------------------------
+			*/
 			case 'columns' :
 				$output .= anva_columns_option( $value['id'], $option_name, $val );
 				break;
 
-			// Multicheck
+			/*
+			|--------------------------------------------------------------------------
+			| Multicheck
+			|--------------------------------------------------------------------------
+			*/
 			case "multicheck":
 				foreach ( $value['options'] as $key => $option ) {
 					$checked = '';
@@ -258,7 +303,11 @@ class Options_Framework_Interface {
 				}
 				break;
 
-			// Color picker
+			/*
+			|--------------------------------------------------------------------------
+			| Color Picker
+			|--------------------------------------------------------------------------
+			*/
 			case "color":
 				$default_color = '';
 				if ( isset($value['std']) ) {
@@ -269,13 +318,21 @@ class Options_Framework_Interface {
 
 				break;
 
-			// Uploader
+			/*
+			|--------------------------------------------------------------------------
+			| Uploader
+			|--------------------------------------------------------------------------
+			*/
 			case "upload":
 				$output .= Options_Framework_Media_Uploader::optionsframework_uploader( $value['id'], $val, null );
 
 				break;
 
-			// Range Slider
+			/*
+			|--------------------------------------------------------------------------
+			| Range Slider
+			|--------------------------------------------------------------------------
+			*/
 			case "range":
 				// $output .= anva_range_slider_fields( $value['id'], $option_name, $val );
 				$output .= '<div id="' . esc_attr( $value['id'] ) . '_range"></div>';
@@ -283,7 +340,11 @@ class Options_Framework_Interface {
 				
 				break;
 
-			// Typography
+			/*
+			|--------------------------------------------------------------------------
+			| Typography
+			|--------------------------------------------------------------------------
+			*/
 			case 'typography':
 
 				unset( $font_size, $font_style, $font_face, $font_color );
@@ -370,7 +431,11 @@ class Options_Framework_Interface {
 
 				break;
 
-			// Background
+			/*
+			|--------------------------------------------------------------------------
+			| Background
+			|--------------------------------------------------------------------------
+			*/
 			case 'background':
 
 				$background = $val;
@@ -426,9 +491,13 @@ class Options_Framework_Interface {
 
 				break;
 
-			// Editor
+			/*
+			|--------------------------------------------------------------------------
+			| Editor
+			|--------------------------------------------------------------------------
+			*/
 			case 'editor':
-				$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags ) . '</div>'."\n";
+				$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .explain (end) -->'."\n";
 				echo $output;
 				$textarea_name = esc_attr( $option_name . '[' . $value['id'] . ']' );
 				$default_editor_settings = array(
@@ -445,7 +514,11 @@ class Options_Framework_Interface {
 				$output = '';
 				break;
 
-			// Info
+			/*
+			|--------------------------------------------------------------------------
+			| Info
+			|--------------------------------------------------------------------------
+			*/
 			case "info":
 				$id = '';
 				$class = 'section';
@@ -469,7 +542,11 @@ class Options_Framework_Interface {
 				$output .= '</div>' . "\n";
 				break;
 
-			// Heading for Navigation
+			/*
+			|--------------------------------------------------------------------------
+			| Heading for Navigation
+			|--------------------------------------------------------------------------
+			*/
 			case "heading":
 				$counter++;
 				if ( $counter >= 2 ) {
@@ -485,13 +562,14 @@ class Options_Framework_Interface {
 			endswitch;
 
 			// Close div and add descriptions
+
 			if ( ( $value['type'] != "group_start" ) && ( $value['type'] != "group_end" ) ) {
 				if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) ) {
 					
 					$output .= '</div><!-- .controls (end) -->';
 
 					if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) ) {
-						$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags) . '</div>'."\n";
+						$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags) . '</div><!-- .explain (end) -->'."\n";
 					}
 					$output .= '</div><!-- .option (end) -->';
 					$output .= '</div><!-- .section (end) -->'."\n";
@@ -506,8 +584,6 @@ class Options_Framework_Interface {
 		// Outputs closing div if there tabs
 		if ( Options_Framework_Interface::optionsframework_tabs() != '' ) {
 			echo '</div><!-- .tab (end) -->';
-
 		}
 	}
-
 }

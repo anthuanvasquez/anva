@@ -39,8 +39,7 @@ class Anva_Social_Media extends WP_Widget {
 		echo '</div>';
 		
 		/* Show Social Media Icons */
-		$style = anva_get_option( 'social_media_style' );
-		echo anva_social_media( array(), $style );
+		echo anva_social_media();
 
 		echo $after_widget;
 	}

@@ -4,7 +4,7 @@
  * This class sets up the framework stylesheets that get
  * enqueued on the frontend of the website.
  * Additionally, this class provides methods to add and
- * remove stylesheets. Client API-added stylesheets are organized
+ * remove stylesheets. Custom API-added stylesheets are organized
  * within four levels.
  *	- Level 1: Before Framework styles
  *	- Level 2: After Framework styles
@@ -20,7 +20,7 @@ class Anva_Stylesheets {
 	private $remove_stylesheets = array();
 	private $framework_stylesheets = array();
 	private $framework_deps = array();
-	private $client_stylesheets = array();
+	private $custom_stylesheets = array();
 
 	/**
 		* Creates or returns an instance of this class
@@ -28,10 +28,10 @@ class Anva_Stylesheets {
 	public static function instance() {
 
 		if ( self::$instance == null ) {
-						self::$instance = new self;
-				}
+			self::$instance = new self;
+		}
 
-				return self::$instance;
+		return self::$instance;
 	}
 
 	/**
@@ -39,10 +39,10 @@ class Anva_Stylesheets {
 	 */
 	private function __construct() {
 
-		// Setup stylesheets from Framework and Client API.
+		// Setup stylesheets from Framework and Custom API.
 		// No enqueuing yet.
 		add_action( 'wp_enqueue_scripts', array( $this, 'set_framework_stylesheets' ), 1 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'set_client_stylesheets' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'set_custom_stylesheets' ), 1 );
 
 		// Include stylesheets, framework and levels 1, 2, and 4
 		// Note: Level 3 needs to be included at the theme level.
@@ -60,37 +60,46 @@ class Anva_Stylesheets {
 		// Boostrap
 		$this->framework_stylesheets['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
-			'src'		=> TB_FRAMEWORK_URI.'/assets/plugins/bootstrap/css/bootstrap.min.css',
+			'src'			=> get_template_directory_uri() .'/assets/css/bootstrap.min.css',
 			'deps'		=> array(),
-			'ver'		=> '2.3.2',
+			'ver'			=> '3.3.4',
 			'media'		=> 'all'
 
 		);
 
-		// FontAwesome
+		// Font Awesome
 		$this->framework_stylesheets['fontawesome'] = array(
 			'handle'	=> 'fontawesome',
-			'src'		=> TB_FRAMEWORK_URI.'/assets/plugins/fontawesome/css/font-awesome.min.css',
+			'src'			=> get_template_directory_uri() .'/assets/css/font-awesome.min.css',
 			'deps'		=> array(),
-			'ver'		=> '3.2.1',
+			'ver'			=> '4.3.0',
+			'media'		=> 'all'
+		);
+
+		// Animate
+		$this->framework_stylesheets['animate'] = array(
+			'handle'	=> 'animate',
+			'src'			=> get_template_directory_uri() .'/assets/css/animate.min.css',
+			'deps'		=> array(),
+			'ver'			=> '3.3.0',
 			'media'		=> 'all'
 		);
 
 		// Magnific Popup
-		$this->framework_stylesheets['magnific_popup'] = array(
-			'handle'	=> 'magnific_popup',
-			'src'		=> TB_FRAMEWORK_URI.'/assets/css/magnificpopup.min.css',
+		$this->framework_stylesheets['magnificpopup'] = array(
+			'handle'	=> 'magnificpopup',
+			'src'			=> get_template_directory_uri() .'/assets/css/magnific-popup.min.css',
 			'deps'		=> array(),
-			'ver'		=> '0.9.3',
+			'ver'			=> '0.9.9',
 			'media'		=> 'all'
 		);
 
-		// Primary framework styles
-		$this->framework_stylesheets['themeblvd'] = array(
-			'handle'	=> 'themeblvd',
-			'src'		=> TB_FRAMEWORK_URI.'/assets/css/themeblvd.min.css',
+		// Framework styles
+		$this->framework_stylesheets['anva'] = array(
+			'handle'	=> 'anva',
+			'src'			=> get_template_directory_uri().'/assets/css/anva.min.css',
 			'deps'		=> array(),
-			'ver'		=> TB_FRAMEWORK_VERSION,
+			'ver'			=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'
 		);
 
@@ -118,14 +127,14 @@ class Anva_Stylesheets {
 		}
 
 		// Backwards compat for $deps
-		$GLOBALS['anva_framework_stylesheets'] = apply_filters('anva_framework_stylesheets', $this->framework_deps );
+		$GLOBALS['anva_framework_stylesheets'] = apply_filters( 'anva_framework_stylesheets', $this->framework_deps );
 
 	}
 
 	/**
-	 * Set client stylesheets
+	 * Set custom stylesheets
 	 */
-	public function set_client_stylesheets() {
+	public function set_custom_stylesheets() {
 
 		if ( ! is_admin() ) {
 
@@ -136,11 +145,11 @@ class Anva_Stylesheets {
 				}
 			}
 
-			// Re-format array of client stylesheets that are left
+			// Re-format array of custom stylesheets that are left
 			// to be organized by level.
-			$temp_stylesheets = $this->client_stylesheets;
+			$temp_stylesheets = $this->custom_stylesheets;
 
-			$this->client_stylesheets = array(
+			$this->custom_stylesheets = array(
 				'1' => array(),	// Level 1: Before Framework styles
 				'2' => array(),	// Level 2: After Framework styles
 				'3' => array(),	// Level 3: After Theme styles
@@ -150,7 +159,7 @@ class Anva_Stylesheets {
 			if ( $temp_stylesheets ) {
 				foreach ( $temp_stylesheets as $handle => $file ) {
 					$key = $file['level'];
-					$this->client_stylesheets[$key][$handle] = $file;
+					$this->custom_stylesheets[$key][$handle] = $file;
 				}
 
 			}
@@ -164,7 +173,7 @@ class Anva_Stylesheets {
 	 */
 	public function add( $handle, $src, $level = 4, $ver = null, $media = 'all' ) {
 		if ( ! is_admin() ) {
-			$this->client_stylesheets[$handle] = array(
+			$this->custom_stylesheets[$handle] = array(
 				'handle' 	=> $handle,
 				'src' 		=> $src,
 				'level' 	=> $level,
@@ -209,10 +218,10 @@ class Anva_Stylesheets {
 
 
 	/**
-	 * Get stylesheets added through client API
+	 * Get stylesheets added through custom API
 	 */
-	public function get_client_stylesheets() {
-		return $this->client_stylesheets;
+	public function get_custom_stylesheets() {
+		return $this->custom_stylesheets;
 	}
 
 	/**
@@ -220,7 +229,7 @@ class Anva_Stylesheets {
 	 */
 	public function enqueue_framework_stylesheets() {
 
-		// Level 1 client stylesheets
+		// Level 1 custom stylesheets
 		$this->print_styles(1);
 
 		// Enqueue framework stylesheets
@@ -230,7 +239,7 @@ class Anva_Stylesheets {
 			}
 		}
 
-		// Level 2 client stylesheets
+		// Level 2 custom stylesheets
 		$this->print_styles(2);
 
 	}
@@ -243,7 +252,6 @@ class Anva_Stylesheets {
 	public function closing_stylesheets() {
 		// Level 4 stylesheets
 		$this->print_styles(4);
-
 	}
 
 	/**
@@ -262,8 +270,8 @@ class Anva_Stylesheets {
 		if ( $level == 4 ) {
 
 			// Manually insert level 4 stylesheets
-			if ( $this->client_stylesheets[4] ) {
-				foreach ( $this->client_stylesheets[4] as $file ) {
+			if ( $this->custom_stylesheets[4] ) {
+				foreach ( $this->custom_stylesheets[4] as $file ) {
 					printf( "<link rel='stylesheet' id='%s' href='%s' type='text/css' media='%s' />\n", $file['handle'], $file['src'], $file['media'] );
 				}
 			}
@@ -271,8 +279,8 @@ class Anva_Stylesheets {
 		} else {
 
 			// Use WordPress's enqueue system
-			if ( $this->client_stylesheets[$level] ) {
-				foreach ( $this->client_stylesheets[$level] as $file ) {
+			if ( $this->custom_stylesheets[$level] ) {
+				foreach ( $this->custom_stylesheets[$level] as $file ) {
 					wp_enqueue_style( $file['handle'], $file['src'], array(), $file['ver'], $file['media'] );
 				}
 			}
@@ -296,6 +304,16 @@ function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = '
 function anva_remove_stylesheet( $handle ) {
 	$api = Anva_Stylesheets::instance();
 	$api->remove( $handle );
+}
+
+/**
+ * Get stylesheets
+ */
+function anva_get_stylesheets() {
+	$api = Anva_Stylesheets::instance();
+	$core = $api->get_framework_stylesheets();
+	$custom = $api->get_custom_stylesheets();
+	return array_merge( $core, $custom );
 }
 
 /**

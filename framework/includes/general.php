@@ -42,7 +42,6 @@ function anva_get_theme( $id ) {
 		'domain' => $theme->get( 'TextDomain' ),
 		'author' => $theme->get( 'Author' ),
 		'author_uri' => $theme->get( 'AuthorURI' ),
-		
 	);
 
 	if ( isset( $data[$id]) ) {
@@ -57,60 +56,6 @@ function anva_get_theme( $id ) {
  */
 function anva_get_theme_scripts() {
 	$scripts = array(
-		'animate' => array(
-			'handle' => 'animate',
-			'src' => get_template_directory_uri() . '/assets/css/animate.min.css',
-			'dep' => array(),
-			'ver' => '',
-			'media' => 'all',
-			'type' => 'css',
-			'cond' => true
-		),
-		'font-awesome' => array(
-			'handle' => 'font-awesome',
-			'src' => get_template_directory_uri() . '/assets/css/font-awesome.min.css',
-			'dep' => array(),
-			'ver' => '4.3.0',
-			'media' => 'all',
-			'type' => 'css',
-			'cond' => true
-		),
-		'magnific-popup' => array(
-			'handle' => 'magnific-popup',
-			'src' => get_template_directory_uri() . '/assets/css/magnific-popup.min.css',
-			'dep' => array(),
-			'ver' => '',
-			'media' => 'all',
-			'type' => 'css',
-			'cond' => true
-		),
-		'boostrap' => array(
-			'handle' => 'boostrap',
-			'src' => get_template_directory_uri() . '/assets/css/bootstrap.min.css',
-			'dep' => array(),
-			'ver' => '3.3.4',
-			'media' => 'all',
-			'type' => 'css',
-			'cond' => true
-		),
-		'screen' => array(
-			'handle' => 'screen',
-			'src' => get_template_directory_uri() . '/assets/css/screen.css',
-			'dep' => array(),
-			'ver' => false,
-			'media' => 'all',
-			'type' => 'css',
-			'cond' => true
-		),
-		'responsive' => array(
-			'handle' => 'responsive',
-			'src' => get_template_directory_uri() . '/assets/css/responsive.css',
-			'dep' => array( 'screen' ),
-			'ver' => false,
-			'media' => 'all',
-			'type' => 'css',
-			'cond' => ( 'yes' == anva_get_option( 'responsive' ) ? true : false ),
-		),
 		'bootstrap-js' => array(
 			'handle' => 'boostrap-js',
 			'src' => get_template_directory_uri() . '/assets/js/vendor/bootstrap.min.js',

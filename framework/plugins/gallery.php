@@ -156,7 +156,7 @@ class Anva_Gallery {
 			'url' 								=> $upload_action_url,
 			'flash_swf_url' 			=> includes_url( 'js/plupload/plupload.flash.swf'),
 			'silverlight_xap_url' => includes_url( 'js/plupload/plupload.silverlight.xap' ),
-			'filters' 						=> array( array( 'title' => __( 'Allowed Files', ANVA_DOMAIN ), 'extensions' => '*' ) ),
+			'filters' 						=> array( array( 'title' => __( 'Allowed Files', anva_textdomain() ), 'extensions' => '*' ) ),
 			'multipart' 					=> true,
 			'urlstream_upload' 		=> true,
 			'multipart_params' 		=> $post_params
@@ -441,16 +441,16 @@ class Anva_Gallery {
 	public function register_post_type() {
 		
 		$labels = array(
-			'name' 								=> __( 'Galleries', ANVA_DOMAIN ),
-			'singular_name' 			=> __( 'Gallery', ANVA_DOMAIN ),
-			'add_new' 						=> __( 'Add New Gallery', ANVA_DOMAIN ),
-			'add_new_item' 				=> __( 'Add New Gallery', ANVA_DOMAIN ),
-			'edit_item' 					=> __( 'Edit Gallery', ANVA_DOMAIN ),
-			'new_item' 						=> __( 'New Gallery', ANVA_DOMAIN ),
-			'view_item' 					=> __( 'View Gallery', ANVA_DOMAIN ),
-			'search_items' 				=> __( 'Search Gallery', ANVA_DOMAIN ),
-			'not_found' 					=> __( 'No Gallery found', ANVA_DOMAIN ),
-			'not_found_in_trash' 	=> __( 'No Gallery found in Trash', ANVA_DOMAIN ), 
+			'name' 								=> __( 'Galleries', anva_textdomain() ),
+			'singular_name' 			=> __( 'Gallery', anva_textdomain() ),
+			'add_new' 						=> __( 'Add New Gallery', anva_textdomain() ),
+			'add_new_item' 				=> __( 'Add New Gallery', anva_textdomain() ),
+			'edit_item' 					=> __( 'Edit Gallery', anva_textdomain() ),
+			'new_item' 						=> __( 'New Gallery', anva_textdomain() ),
+			'view_item' 					=> __( 'View Gallery', anva_textdomain() ),
+			'search_items' 				=> __( 'Search Gallery', anva_textdomain() ),
+			'not_found' 					=> __( 'No Gallery found', anva_textdomain() ),
+			'not_found_in_trash' 	=> __( 'No Gallery found in Trash', anva_textdomain() ), 
 			'parent_item_colon' 	=> ''
 		);
 
@@ -472,16 +472,16 @@ class Anva_Gallery {
 		register_post_type( 'galleries', $args );
 		
 		$labels = array(			  
-			'name' 								=> __( 'Gallery Categories', ANVA_DOMAIN ),
-			'singular_name' 			=> __( 'Gallery Category', ANVA_DOMAIN ),
-			'search_items' 				=> __( 'Search Gallery Categories', ANVA_DOMAIN ),
-			'all_items' 					=> __( 'All Gallery Categories', ANVA_DOMAIN ),
-			'parent_item' 				=> __( 'Parent Gallery Category', ANVA_DOMAIN ),
-			'parent_item_colon' 	=> __( 'Parent Gallery Category:', ANVA_DOMAIN ),
-			'edit_item' 					=> __( 'Edit Gallery Category', ANVA_DOMAIN ), 
-			'update_item' 				=> __( 'Update Gallery Category', ANVA_DOMAIN ),
-			'add_new_item' 				=> __( 'Add New Gallery Category', ANVA_DOMAIN ),
-			'new_item_name' 			=> __( 'New Gallery Category Name', ANVA_DOMAIN ),
+			'name' 								=> __( 'Gallery Categories', anva_textdomain() ),
+			'singular_name' 			=> __( 'Gallery Category', anva_textdomain() ),
+			'search_items' 				=> __( 'Search Gallery Categories', anva_textdomain() ),
+			'all_items' 					=> __( 'All Gallery Categories', anva_textdomain() ),
+			'parent_item' 				=> __( 'Parent Gallery Category', anva_textdomain() ),
+			'parent_item_colon' 	=> __( 'Parent Gallery Category:', anva_textdomain() ),
+			'edit_item' 					=> __( 'Edit Gallery Category', anva_textdomain() ), 
+			'update_item' 				=> __( 'Update Gallery Category', anva_textdomain() ),
+			'add_new_item' 				=> __( 'Add New Gallery Category', anva_textdomain() ),
+			'new_item_name' 			=> __( 'New Gallery Category Name', anva_textdomain() ),
 		); 							  
 			
 		register_taxonomy(

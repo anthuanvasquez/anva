@@ -146,7 +146,7 @@ class Options_Framework_Admin {
 			return;
 
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'optionsframework', anva_get_core_url() . '/admin/assets/css/optionsframework.css', array(), Options_Framework::VERSION );
+		wp_enqueue_style( 'optionsframework', anva_get_core_url() . '/admin/assets/css/options.min.css', array(), Options_Framework::VERSION );
 		wp_enqueue_style( 'jquery-slider-pips', anva_get_core_url(). '/admin/assets/css/jquery-ui-slider-pips.css', array(),  '' );
 		wp_enqueue_style( 'jquery-ui-custom', anva_get_core_url() . '/admin/assets/css/jquery-ui-custom.min.css', array(), '' );
 		

@@ -10,10 +10,10 @@ class Anva_Contact extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' => 'widget_custom_contact',
-			'description' => __('Muestra informacion de contacto.', ANVA_DOMAIN)
+			'description' => __( 'Muestra informacion de contacto.', anva_textdomain() )
 		);
 
-		$this->WP_Widget('Anva_Contact', 'Anva Contact', $widget_ops);
+		$this->WP_Widget( 'Anva_Contact', 'Anva Contact', $widget_ops );
 	}
 
 	/* Call Widget */
