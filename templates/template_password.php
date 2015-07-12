@@ -11,7 +11,7 @@ if ( isset( $_POST['password-submit'] ) && 1 == $_POST['password-submit']  ) {
 	
 	if ( isset( $_POST['password'] ) && sanitize_text_field( $_POST['password'] ) != $gallery_password  ) {
 
-		$notice = __( '<strong>Error!</strong> Password is incorrect.', ANVA_DOMAIN );
+		$notice = __( '<strong>Error!</strong> Password is incorrect.', anva_textdomain() );
 	
 	} else {
 
@@ -33,7 +33,7 @@ if ( isset( $_POST['password-submit'] ) && 1 == $_POST['password-submit']  ) {
 				<i class="fa fa-lock"></i>
 			</div>
 				
-			<p class="lead"><?php _e( 'This gallery is password protected. Please enter password.<br/>To view it please enter your password below', ANVA_DOMAIN ); ?></p>
+			<p class="lead"><?php _e( 'This gallery is password protected. Please enter password.<br/>To view it please enter your password below', anva_textdomain() ); ?></p>
 				
 			<?php if ( ! empty ( $notice ) ) : ?>
 				<div class="alert alert-danger password-error" role="alert"><?php echo $notice; ?></div>
@@ -42,7 +42,7 @@ if ( isset( $_POST['password-submit'] ) && 1 == $_POST['password-submit']  ) {
 			<form class="form-inline" role="form" method="post" action="<?php echo esc_url( get_permalink( $id ) ); ?>">
 				<div class="form-group">
 					<p class="lead">
-						<input type="password" class="form-control" name="password" placeholder="<?php _e( 'Password', ANVA_DOMAIN ); ?>" />
+						<input type="password" class="form-control" name="password" placeholder="<?php _e( 'Password', anva_textdomain() ); ?>" />
 						<input type="hidden" name="password-submit" value="1" />
 						<input type="submit" class="btn btn-default" value="Login" />
 					</p>

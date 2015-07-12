@@ -9,10 +9,10 @@ get_header();
 
 	<?php anva_woocommerce_sidebar_after(); ?>
 
-	<div class="content-area col-sm-9">
-		<div class="main">
+	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
+		<div id="products">
 			<?php woocommerce_content(); ?>
-		</div><!-- .main (end) -->
+		</div><!-- #products (end) -->
 	</div><!-- .content-area (end) -->
 	
 	<?php anva_woocommerce_sidebar_after(); ?>

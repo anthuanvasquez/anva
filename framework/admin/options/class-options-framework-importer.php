@@ -105,7 +105,7 @@ class OptionsFramework_Backup {
 	 * @since 1.0.0
 	 */
 	function optionsframework_load_adminstyles() {
-		wp_enqueue_style( 'optionsframework', anva_get_core_url() . '/admin/assets/css/optionsframework.css', array(), Options_Framework::VERSION );
+		wp_enqueue_style( 'optionsframework', anva_get_core_url() . '/assets/css/admin/options.css', array(), Options_Framework::VERSION );
 	}
 
 	/**

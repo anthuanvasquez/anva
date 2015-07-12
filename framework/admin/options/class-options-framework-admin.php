@@ -146,9 +146,9 @@ class Options_Framework_Admin {
 			return;
 
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'optionsframework', anva_get_core_url() . '/admin/assets/css/options.min.css', array(), Options_Framework::VERSION );
-		wp_enqueue_style( 'jquery-slider-pips', anva_get_core_url(). '/admin/assets/css/jquery-ui-slider-pips.css', array(),  '' );
-		wp_enqueue_style( 'jquery-ui-custom', anva_get_core_url() . '/admin/assets/css/jquery-ui-custom.min.css', array(), '' );
+		wp_enqueue_style( 'optionsframework', anva_get_core_url() . '/assets/css/admin/options.min.css', array(), Options_Framework::VERSION );
+		wp_enqueue_style( 'jquery-slider-pips', anva_get_core_url(). '/assets/css/admin/jquery-ui-slider-pips.css', array(),  '' );
+		wp_enqueue_style( 'jquery-ui-custom', anva_get_core_url() . '/aassets/css/admin/jquery-ui-custom.min.css', array(), '' );
 		
 	}
 
@@ -163,8 +163,8 @@ class Options_Framework_Admin {
 			return;
 
 		// Enqueue custom option panel JS
-		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_url() . '/admin/assets/js/jquery-ui-slider-pips.min.js', array( 'jquery' ), '' );
-		wp_enqueue_script( 'options-custom',  anva_get_core_url() . '/admin/assets/js/options-custom.js', array( 'jquery','wp-color-picker' ), Options_Framework::VERSION );
+		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_url() . '/assets/js/admin/jquery-ui-slider-pips.min.js', array( 'jquery' ), '' );
+		wp_enqueue_script( 'options-custom',  anva_get_core_url() . '/assets/js/admin/options-custom.js', array( 'jquery','wp-color-picker' ), Options_Framework::VERSION );
 		
 		// Inline scripts from options-interface.php
 		add_action( 'admin_head', array( $this, 'anva_admin_head' ) );

@@ -2,14 +2,16 @@
 /**
  * A unique identifier is defined to store the options in the database and reference them from the theme.
  */
+
 // function optionsframework_option_name() {
 // Change this to use your theme slug
 // return 'options-framework-theme';
 // }
 
 /**
- * Defines an array of options that will be used to generate the settings page and be saved in the database.
- * When creating the 'id' fields, make sure to use all lowercase and no spaces.
+ * Defines an array of options that will be used to generate the settings page
+ * and be saved in the database. When creating the 'id' fields, make sure
+ * to use all lowercase and no spaces.
  *
  * If you are making your theme translatable, you should replace $domain
  * with the actual text domain for your theme.  Read more:
@@ -23,18 +25,18 @@ function optionsframework_options() {
 
 	// Background defaults
 	$background_defaults = array(
-		'color' => '',
-		'image' => '',
-		'repeat' => 'repeat',
-		'position' => 'top center',
-		'attachment' => 'scroll' );
+		'color' 			=> '',
+		'image' 			=> '',
+		'repeat' 			=> 'repeat',
+		'position' 		=> 'top center',
+		'attachment' 	=> 'scroll' );
 
 	// Template defaults
 	$template_defaults = array(
-		'blog' => __('Classic Blog', $domain),
-		'search' => __('Classic Search', $domain),
-		'2col' => __('2 Columns', $domain),
-		'3col' => __('3 Columns', $domain));
+		'blog' 				=> __('Classic Blog', $domain),
+		'search' 			=> __('Classic Search', $domain),
+		'2col' 				=> __('2 Columns', $domain),
+		'3col' 				=> __('3 Columns', $domain));
 
 	// Social media buttons defautls
 	$social_media_defaults = array(
@@ -46,10 +48,10 @@ function optionsframework_options() {
 
 	// Logo defaults
 	$logo_defaults = array(
-		'type' => 'image',
-		'custom' => 'Custom Text',
-		'image' => get_template_directory_uri() .'/assets/images/logo.png',
-		'image_2x' => get_template_directory_uri() .'/assets/images/logo@2x.png'
+		'type' 				=> 'image',
+		'custom' 			=> '',
+		'image' 			=> get_template_directory_uri() .'/assets/images/logo.png',
+		'image_2x' 		=> get_template_directory_uri() .'/assets/images/logo@2x.png'
 	);
 
 	// Author default credtis
@@ -58,15 +60,15 @@ function optionsframework_options() {
 	// Pull all the categories into an array
 	$options_categories = array();
 	$options_categories_obj = get_categories();
-	foreach ($options_categories_obj as $category) {
+	foreach ( $options_categories_obj as $category ) {
 		$options_categories[$category->cat_ID] = $category->cat_name;
 	}
 
 	// Pull all the pages into an array
 	$options_pages = array();
-	$options_pages_obj = get_pages('sort_column=post_parent,menu_order');
-	$options_pages[''] = 'Select a page:';
-	foreach ($options_pages_obj as $page) {
+	$options_pages_obj = get_pages( 'sort_column=post_parent,menu_order' );
+	$options_pages[''] = __( 'Select a page:', anva_textdomain() );
+	foreach ( $options_pages_obj as $page ) {
 		$options_pages[$page->ID] = $page->post_title;
 	}
 
@@ -74,6 +76,7 @@ function optionsframework_options() {
 	$image_path = get_template_directory_uri() . '/assets/images/';
 	$skin_path  = $image_path . 'skins/';
 
+	// Array options
 	$options = array();
 
 	/*
@@ -412,6 +415,28 @@ function optionsframework_options() {
 			'double' => __('Double Sidebars', $domain),
 			'double_right' => __('Double Right Sidebars', $domain),
 			'double_left' => __('Double Left Sidebars', $domain)
+		));
+
+	$options[] = array(
+		'type' 	=> 'group_end');
+
+	$options[] = array(
+		'name' => __( 'Gallery', $domain ),
+		'class' => 'group-gallery',
+		'type' 	=> 'group_start');
+
+	$options[] = array(
+		'name' => __('Images Sorting', $domain),
+		'desc' => __('Select how you want to sort gallery images.', $domain),
+		'id' => 'gallery_sort',
+		'std' => 'drag',
+		'type' => 'select',
+		'options' => array(
+			'drag' => __('By Drag & Drop', $domain),
+			'desc' => __('By Newest', $domain),
+			'asc' => __('By Oldest', $domain),
+			'rand' => __('By Random', $domain),
+			'title' => __('By Title', $domain)
 		));
 
 	$options[] = array(

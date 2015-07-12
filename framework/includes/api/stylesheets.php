@@ -60,7 +60,7 @@ class Anva_Stylesheets {
 		// Boostrap
 		$this->framework_stylesheets['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
-			'src'			=> get_template_directory_uri() .'/assets/css/bootstrap.min.css',
+			'src'			=> anva_get_core_url() .'/assets/css/bootstrap.min.css',
 			'deps'		=> array(),
 			'ver'			=> '3.3.4',
 			'media'		=> 'all'
@@ -70,7 +70,7 @@ class Anva_Stylesheets {
 		// Font Awesome
 		$this->framework_stylesheets['fontawesome'] = array(
 			'handle'	=> 'fontawesome',
-			'src'			=> get_template_directory_uri() .'/assets/css/font-awesome.min.css',
+			'src'			=> anva_get_core_url() .'/assets/css/font-awesome.min.css',
 			'deps'		=> array(),
 			'ver'			=> '4.3.0',
 			'media'		=> 'all'
@@ -79,7 +79,7 @@ class Anva_Stylesheets {
 		// Animate
 		$this->framework_stylesheets['animate'] = array(
 			'handle'	=> 'animate',
-			'src'			=> get_template_directory_uri() .'/assets/css/animate.min.css',
+			'src'			=> anva_get_core_url() .'/assets/css/animate.min.css',
 			'deps'		=> array(),
 			'ver'			=> '3.3.0',
 			'media'		=> 'all'
@@ -88,7 +88,7 @@ class Anva_Stylesheets {
 		// Magnific Popup
 		$this->framework_stylesheets['magnificpopup'] = array(
 			'handle'	=> 'magnificpopup',
-			'src'			=> get_template_directory_uri() .'/assets/css/magnific-popup.min.css',
+			'src'			=> anva_get_core_url() .'/assets/css/magnific-popup.min.css',
 			'deps'		=> array(),
 			'ver'			=> '0.9.9',
 			'media'		=> 'all'
@@ -97,7 +97,7 @@ class Anva_Stylesheets {
 		// Framework styles
 		$this->framework_stylesheets['anva'] = array(
 			'handle'	=> 'anva',
-			'src'			=> get_template_directory_uri().'/assets/css/anva.min.css',
+			'src'			=> anva_get_core_url() .'/assets/css/anva.min.css',
 			'deps'		=> array(),
 			'ver'			=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'

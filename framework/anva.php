@@ -51,6 +51,7 @@ class Anva {
 
 		// Vendor files
 		include_once ( ANVA_FRAMEWORK . '/vendor/cssmin.php' );
+		include_once ( ANVA_FRAMEWORK . '/vendor/jsmin.php' );
 
 		// Include files
 		include_once ( ANVA_FRAMEWORK . '/admin/options-framework.php' );
@@ -58,6 +59,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/api/scripts.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/widgets.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/api.php' );
@@ -74,11 +76,10 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/gallery.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
-		include_once ( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/foodlist.php' );
 
 		/* ---------------------------------------------------------------- */
-		/* Admin
+		/* Admin / Options
 		/* ---------------------------------------------------------------- */
 
 		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
@@ -91,8 +92,6 @@ class Anva {
 
 		add_action( 'init', 'anva_register_menus' );
 		add_action( 'wp', 'anva_setup_author' );
-		add_action( 'wp_enqueue_scripts', 'anva_register_scripts' );
-		add_action( 'wp_enqueue_scripts', 'anva_load_scripts' );
 		add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
 		add_action( 'after_setup_theme', 'anva_add_image_sizes' );
 		add_action( 'image_size_names_choose', 'anva_image_size_names_choose' );
@@ -179,7 +178,7 @@ class Anva {
 	}
 
 	/*
-	 * Theme Functions.
+	 * Theme Functions
 	 */
 	public function functions() {
 		include_once( ANVA_PATH . '/functions/theme-functions.php' );

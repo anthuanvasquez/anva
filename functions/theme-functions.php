@@ -76,6 +76,10 @@ function theme_add_stylesheets() {
 	// anva_add_stylesheet( 'test', get_template_directory_uri() . '/assets/css/test.css', 3 );
 }
 
+function theme_add_scripts() {
+	// anva_add_script( 'test', get_template_directory_uri() . '/assets/js/test.js', 4 );
+}
+
 /**
  * Custom Stylesheets
  */
@@ -162,6 +166,29 @@ function theme_stylesheets() {
 
 }
 
+function theme_scripts() {
+
+	// Get stylesheet API
+	$api = Anva_Scripts::instance();
+
+	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.6.2' );
+	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '3.6.2' );
+
+	$GLOBALS['wp_scripts']->add_data( 'html5shiv', 'conditional', 'lt IE 9' );
+	$GLOBALS['wp_scripts']->add_data( 'css3mediaqueriesjs', 'conditional', 'lt IE 9' );
+
+	wp_enqueue_script( 'html5shiv' );
+	wp_enqueue_script( 'css3mediaqueriesjs' );
+	wp_localize_script( 'anva', 'ANVAJS', anva_get_js_locals() );
+
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
+
+	// Level 3 
+	$api->print_scripts(3);
+}
+
 /**
  * Custom Styles 
  */
@@ -243,5 +270,7 @@ add_filter( 'optionsframework_menu', 'theme_options_menu' );
 add_filter( 'body_class', 'theme_body_classes' );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
 add_action( 'after_setup_theme', 'theme_add_stylesheets' );
+add_action( 'after_setup_theme', 'theme_add_scripts' );
 add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
+add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );

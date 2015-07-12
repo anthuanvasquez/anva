@@ -82,25 +82,7 @@ function anva_admin_head_scripts() {
 					}
 				}
 			?>
-			// Typography
-			<?php if ( 'typography' == $value['type'] ) : ?>
-				// Update font stacks preview
-				var <?php echo $id; ?> = {
-					face: jQuery('#<?php echo $id; ?>_face'),
-					sample: jQuery('#<?php echo $id; ?>_sample_text'),
-					google: jQuery('#<?php echo $id; ?>_google')
-				};
-
-				if ( <?php echo $id; ?>.face.val() == 'google' ) { <?php echo $id; ?>.google.removeClass('hidden'); }
-				<?php echo $id; ?>.face.change(function() {
-					<?php echo $id; ?>.sample.css('font-family', jQuery(this).val());
-					if ( jQuery(this).val() == 'google' ) {
-						<?php echo $id; ?>.google.removeClass('hidden');
-					} else {
-						<?php echo $id; ?>.google.addClass('hidden');
-					}
-				});
-			<?php endif; ?>
+			
 			// Range Slider
 			<?php if ( 'range' == $value['type'] ) : ?>
 				var <?php echo $id; ?> = {
@@ -138,15 +120,6 @@ function anva_admin_head_scripts() {
 		setTimeout( function() {
 			jQuery('#optionsframework-wrap .settings-error').fadeOut(500);
 		}, 2000);
-
-		jQuery('#logo_retina_check').click(function() {
-			jQuery('#section-logo_retina').fadeToggle(400);
-		});
-
-		if (jQuery('#logo_retina_check:checked').val() !== undefined) {
-			jQuery('#section-logo_retina').show();
-		}
-
 	});
 	</script>
 <?php

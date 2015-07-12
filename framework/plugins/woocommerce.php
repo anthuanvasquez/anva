@@ -33,4 +33,4 @@ function anva_add_woocommerce_support() {
 
 anva_add_sidebar_location( 'shop', 'Shop', 'Woocommerce shop sidebar.' );
 
-endif; // End Woocommer Class Exists
+endif; // End Woocommerce Class Exists

@@ -418,17 +418,18 @@ function anva_recognized_font_sizes() {
  * @return   array
  */
 function anva_recognized_font_faces() {
-	$default = array(
-		'arial'     => 'Arial',
-		'verdana'   => 'Verdana, Geneva',
-		'trebuchet' => 'Trebuchet',
-		'georgia'   => 'Georgia',
-		'times'     => 'Times New Roman',
-		'tahoma'    => 'Tahoma, Geneva',
-		'palatino'  => 'Palatino',
-		'helvetica' => 'Helvetica*',
-		'google' 		=> 'Google Font'
-	);
+	// $default = array(
+	// 	'arial'     => 'Arial',
+	// 	'verdana'   => 'Verdana, Geneva',
+	// 	'trebuchet' => 'Trebuchet',
+	// 	'georgia'   => 'Georgia',
+	// 	'times'     => 'Times New Roman',
+	// 	'tahoma'    => 'Tahoma, Geneva',
+	// 	'palatino'  => 'Palatino',
+	// 	'helvetica' => 'Helvetica*',
+	// 	'google' 		=> 'Google Font'
+	// );
+	$default = anva_get_font_stacks();
 	return apply_filters( 'anva_recognized_font_faces', $default );
 }
 

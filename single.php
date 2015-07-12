@@ -10,7 +10,7 @@ get_header();
 
 	<?php get_sidebar( 'left' ); ?>
 	
-	<div class="content-area col-sm-9">
+	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
 		<div id="posts">
 			<?php anva_posts_content_before(); ?>
 			<?php while ( have_posts() ) : the_post(); ?>

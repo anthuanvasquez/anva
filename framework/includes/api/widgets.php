@@ -46,10 +46,10 @@ class Anva_Widgets {
 	 * Includes core widgets
 	 */
 	public function include_core_widgets() {
-		include_once( anva_get_core_directory() . '/widgets/class-anva-social-icons.php' );
-		include_once( anva_get_core_directory() . '/widgets/class-anva-services.php' );
-		include_once( anva_get_core_directory() . '/widgets/class-anva-quick-contact.php' );
-		include_once( anva_get_core_directory() . '/widgets/class-anva-posts-list.php' );
+		include_once( anva_get_core_directory() . '/includes/widgets/class-anva-social-icons.php' );
+		include_once( anva_get_core_directory() . '/includes/widgets/class-anva-services.php' );
+		include_once( anva_get_core_directory() . '/includes/widgets/class-anva-quick-contact.php' );
+		include_once( anva_get_core_directory() . '/includes/widgets/class-anva-posts-list.php' );
 	}
 
 	/**

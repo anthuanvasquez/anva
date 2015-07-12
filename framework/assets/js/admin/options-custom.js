@@ -5,10 +5,14 @@
 
 jQuery(document).ready(function($) {
 
-	// Loads the color pickers
+	/* ---------------------------------------------------------------- */
+	/* WP Color Picker
+	/* ---------------------------------------------------------------- */
 	$('.anva-color').wpColorPicker();
 
-	// Image Options
+	/* ---------------------------------------------------------------- */
+	/* Radio Images
+	/* ---------------------------------------------------------------- */
 	$('.anva-radio-img-img').click(function(){
 		$(this).parent().parent().find('.anva-radio-img-img').removeClass('anva-radio-img-selected');
 		$(this).addClass('anva-radio-img-selected');
@@ -18,7 +22,9 @@ jQuery(document).ready(function($) {
 	$('.anva-radio-img-img').show();
 	$('.anva-radio-img-radio').hide();
 
-	// Logo
+	/* ---------------------------------------------------------------- */
+	/* Logo
+	/* ---------------------------------------------------------------- */
 	$('.section-logo').each(function(){
 		var el = $(this), value = el.find('.select-type select').val();
 		el.find('.logo-item').hide();
@@ -31,7 +37,30 @@ jQuery(document).ready(function($) {
 		parent.find('.' + value).show();
 	});
 
-	// Social media buttons
+	/* ---------------------------------------------------------------- */
+	/* Typography Google
+	/* ---------------------------------------------------------------- */
+	$('.section-typography .anva-typography-face').each(function() {
+		var el = $(this), value = el.val();
+		if ( value == 'google' )
+			el.closest('.section-typography').find('.google-font').fadeIn('fast');
+		else
+			el.closest('.section-typography').find('.google-font').hide();
+			el.closest('.section-typography').find('.sample-text-font').css('font-family', value );
+	});
+
+	$('.section-typography .anva-typography-face').live( 'change', function() {
+		var el = $(this), value = el.val();
+		if ( value == 'google' )
+			el.closest('.section-typography').find('.google-font').fadeIn('fast');
+		else
+			el.closest('.section-typography').find('.google-font').hide();
+			el.closest('.section-typography').find('.sample-text-font').css('font-family', value );
+	});
+
+	/* ---------------------------------------------------------------- */
+	/* Social Media Buttons
+	/* ---------------------------------------------------------------- */
 	$('.section-social_media').each(function() {
 		var el = $(this);
 		el.find('.social_media-input').hide();
@@ -52,7 +81,9 @@ jQuery(document).ready(function($) {
 			checkbox.closest('.item').removeClass('active').find('.social_media-input').hide();
 	});
 
-	// Columns
+	/* ---------------------------------------------------------------- */
+	/* Columns
+	/* ---------------------------------------------------------------- */
 	$('.section-columns').each(function(){
 		var el = $(this), i = 1, num = el.find('.column-num').val();
 		el.find('.column-width').hide();
@@ -65,13 +96,14 @@ jQuery(document).ready(function($) {
 		parent.find('.column-width-'+num).fadeIn('fast');
 	});
 
-	// Loads tabbed sections if they exist
+	/* ---------------------------------------------------------------- */
+	/* Loads tabbed sections if they exist
+	/* ---------------------------------------------------------------- */
 	if ( $('.nav-tab-wrapper').length > 0 ) {
 		options_framework_tabs();
 	}
 
 	function options_framework_tabs() {
-
 		var $group = $('.group'),
 			$navtabs = $('.nav-tab-wrapper a'),
 			active_tab = '';
@@ -95,7 +127,6 @@ jQuery(document).ready(function($) {
 
 		// Bind tabs clicks
 		$navtabs.click(function(e) {
-
 			e.preventDefault();
 
 			// Remove active class from all tabs
@@ -111,7 +142,6 @@ jQuery(document).ready(function($) {
 
 			$group.hide();
 			$(selected).fadeIn();
-
 		});
 	}
 });
