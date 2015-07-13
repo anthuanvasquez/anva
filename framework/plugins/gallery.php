@@ -119,7 +119,7 @@ class Anva_Gallery {
 	 */
 	public function gallery_metabox_advanced( $post ) {
 		
-		$gallery = get_post_meta( $post->ID, 'anva_gallery_gallery', true );
+		$gallery = get_post_meta( $post->ID, '_anva_gallery_images', true );
 
 		wp_nonce_field( 'anva_galleries_advanced_box', 'anva_galleries_advanced_box_nonce' );
 
@@ -149,14 +149,14 @@ class Anva_Gallery {
 
 		$plupload_init = array(
 			'runtimes' 						=> 'html5, silverlight, flash, html4',
-			'browse_button' 			=> 'wpsg-plupload-browse-button',
+			'browse_button' 			=> 'anva-plupload-browse-button',
 			'file_data_name' 			=> 'async-upload',
 			'multiple_queues' 		=> true,
 			'max_file_size' 			=> $max_upload_size . 'b',
 			'url' 								=> $upload_action_url,
 			'flash_swf_url' 			=> includes_url( 'js/plupload/plupload.flash.swf'),
 			'silverlight_xap_url' => includes_url( 'js/plupload/plupload.silverlight.xap' ),
-			'filters' 						=> array( array( 'title' => __( 'Allowed Files', anva_textdomain() ), 'extensions' => '*' ) ),
+			'filters' 						=> array( array( 'title' => __( 'Allowed Files', 'anva' ), 'extensions' => '*' ) ),
 			'multipart' 					=> true,
 			'urlstream_upload' 		=> true,
 			'multipart_params' 		=> $post_params
@@ -185,7 +185,7 @@ class Anva_Gallery {
 				<script type="text/javascript">
 					/* <![CDATA[ */
 					var POST_ID = <?php echo $post->ID; ?>;
-					var WPSGwpUploaderInit = <?php echo json_encode( $plupload_init ); ?>;
+					var ANVAUploaderInit = <?php echo json_encode( $plupload_init ); ?>;
 					/* ]]> */
 				</script>
 			</div>
@@ -226,19 +226,11 @@ class Anva_Gallery {
 				<p class="meta-description">Select gallery template for this gallery.</p>
 				<p class="meta-input">
 					<select class="wide" name="gallery_template">
+						<option value=""><?php _e( 'Default Gallery Template', 'anva' ); ?></option>
 						<?php
-							$select = array(
-								'Gallery 1 Column'  				=> 'Gallery 1 Column',
-								'Gallery 2 Columns' 				=> 'Gallery 2 Columns',
-								'Gallery 3 Columns' 				=> 'Gallery 3 Columns',
-								'Gallery 4 Columns' 				=> 'Gallery 4 Columns',
-								'Gallery 5 Columns' 				=> 'Gallery 5 Columns',
-								'Gallery Masonry 2 Columns' => 'Gallery Masonry 2 Columns',
-								'Gallery Masonry 3 Columns' => 'Gallery Masonry 3 Columns',
-								'Gallery Masonry 4 Columns' => 'Gallery Masonry 4 Columns',
-							);
-							foreach ( $select as $key => $value ) {
-								echo '<option value="' . esc_attr( $key ) . '" ' . selected( $gallery_template, $key, true ) . '>' . $value . '</option>';
+							$templates = anva_gallery_templates();
+							foreach ( $templates as $key => $value ) {
+								echo '<option value="' . esc_attr( $key ) . '" ' . selected( $gallery_template, $key, true ) . '>' . $value['name'] . '</option>';
 							}
 						?>
 					</select>
@@ -252,18 +244,10 @@ class Anva_Gallery {
 	 * Save the meta when the post is saved
 	 */
 	public function gallery_save_meta( $post_id ) {
-		
-		// If this is an autosave, our form has not been submitted
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-			return $post_id;
-
-		// Check the user's permissions
-		if ( ! current_user_can( 'edit_page', $post_id ) )
-			return $post_id;
 
 		// Check nonce fo advanced box
-		if ( isset( $_POST['anva_galleries_advanced_box_nonce'] ) && wp_verify_nonce( $_POST['anva_galleries_advanced_nonce'], 'anva_galleries_advanced_box' ) ) {
-			
+		if ( isset( $_POST['anva_galleries_advanced_box_nonce'] ) && wp_verify_nonce( $_POST['anva_galleries_advanced_box_nonce'], 'anva_galleries_advanced_box' ) ) {
+		
 			$images = ( isset( $_POST['anva_gallery_thumb'] ) ) ? $_POST['anva_gallery_thumb'] : array();
 			$gallery = array();
 			
@@ -275,7 +259,7 @@ class Anva_Gallery {
 				}
 			}
 
-			update_post_meta( $post_id, 'anva_gallery_gallery', $gallery );
+			update_post_meta( $post_id, '_anva_gallery_images', $gallery );
 		}
 
 		// Check noce for side box
@@ -285,11 +269,15 @@ class Anva_Gallery {
 				$text = sanitize_text_field( $_POST['gallery_password'] );
 				$text = base64_encode( $text );
 				update_post_meta( $post_id, '_gallery_password', $text );
+			} else {
+				delete_post_meta( $post_id, '_gallery_password', $text );
 			}
 			
 			if ( isset( $_POST['gallery_template'] ) ) {
 				$text = sanitize_text_field( $_POST['gallery_template'] );
 				update_post_meta( $post_id, '_gallery_template', $text );
+			} else {
+				delete_post_meta( $post_id, '_gallery_template', $text );
 			}
 		}
 
@@ -336,7 +324,7 @@ class Anva_Gallery {
 			'post_type' 			=> 'attachment',
 			'numberposts' 		=> -1,
 			'order' 					=> 'ASC',
-			'post_mime_type' 	=> 'image', //MIME Type condition
+			'post_mime_type' 	=> 'image', // MIME Type condition
 		) );
 
 		header( 'Cache-Control: no-cache, must-revalidate' );
@@ -399,7 +387,7 @@ class Anva_Gallery {
 		global $post;
 		
 		$post_id = ( ! $post_id ) ? $post->ID : $post_id;
-		$gallery = get_post_meta( $post_id, 'anva_gallery_gallery', true );
+		$gallery = get_post_meta( $post_id, '_anva_gallery_images', true );
 		$gallery = ( is_string( $gallery ) ) ? @unserialize( $gallery ) : $gallery;
 		$html = '';
 
@@ -441,16 +429,16 @@ class Anva_Gallery {
 	public function register_post_type() {
 		
 		$labels = array(
-			'name' 								=> __( 'Galleries', anva_textdomain() ),
-			'singular_name' 			=> __( 'Gallery', anva_textdomain() ),
-			'add_new' 						=> __( 'Add New Gallery', anva_textdomain() ),
-			'add_new_item' 				=> __( 'Add New Gallery', anva_textdomain() ),
-			'edit_item' 					=> __( 'Edit Gallery', anva_textdomain() ),
-			'new_item' 						=> __( 'New Gallery', anva_textdomain() ),
-			'view_item' 					=> __( 'View Gallery', anva_textdomain() ),
-			'search_items' 				=> __( 'Search Gallery', anva_textdomain() ),
-			'not_found' 					=> __( 'No Gallery found', anva_textdomain() ),
-			'not_found_in_trash' 	=> __( 'No Gallery found in Trash', anva_textdomain() ), 
+			'name' 								=> __( 'Galleries', 'anva' ),
+			'singular_name' 			=> __( 'Gallery', 'anva' ),
+			'add_new' 						=> __( 'Add New Gallery', 'anva' ),
+			'add_new_item' 				=> __( 'Add New Gallery', 'anva' ),
+			'edit_item' 					=> __( 'Edit Gallery', 'anva' ),
+			'new_item' 						=> __( 'New Gallery', 'anva' ),
+			'view_item' 					=> __( 'View Gallery', 'anva' ),
+			'search_items' 				=> __( 'Search Gallery', 'anva' ),
+			'not_found' 					=> __( 'No Gallery found', 'anva' ),
+			'not_found_in_trash' 	=> __( 'No Gallery found in Trash', 'anva' ), 
 			'parent_item_colon' 	=> ''
 		);
 
@@ -472,16 +460,16 @@ class Anva_Gallery {
 		register_post_type( 'galleries', $args );
 		
 		$labels = array(			  
-			'name' 								=> __( 'Gallery Categories', anva_textdomain() ),
-			'singular_name' 			=> __( 'Gallery Category', anva_textdomain() ),
-			'search_items' 				=> __( 'Search Gallery Categories', anva_textdomain() ),
-			'all_items' 					=> __( 'All Gallery Categories', anva_textdomain() ),
-			'parent_item' 				=> __( 'Parent Gallery Category', anva_textdomain() ),
-			'parent_item_colon' 	=> __( 'Parent Gallery Category:', anva_textdomain() ),
-			'edit_item' 					=> __( 'Edit Gallery Category', anva_textdomain() ), 
-			'update_item' 				=> __( 'Update Gallery Category', anva_textdomain() ),
-			'add_new_item' 				=> __( 'Add New Gallery Category', anva_textdomain() ),
-			'new_item_name' 			=> __( 'New Gallery Category Name', anva_textdomain() ),
+			'name' 								=> __( 'Gallery Categories', 'anva' ),
+			'singular_name' 			=> __( 'Gallery Category', 'anva' ),
+			'search_items' 				=> __( 'Search Gallery Categories', 'anva' ),
+			'all_items' 					=> __( 'All Gallery Categories', 'anva' ),
+			'parent_item' 				=> __( 'Parent Gallery Category', 'anva' ),
+			'parent_item_colon' 	=> __( 'Parent Gallery Category:', 'anva' ),
+			'edit_item' 					=> __( 'Edit Gallery Category', 'anva' ), 
+			'update_item' 				=> __( 'Update Gallery Category', 'anva' ),
+			'add_new_item' 				=> __( 'Add New Gallery Category', 'anva' ),
+			'new_item_name' 			=> __( 'New Gallery Category Name', 'anva' ),
 		); 							  
 			
 		register_taxonomy(
@@ -509,3 +497,93 @@ function Anva_Gallery() {
 }
 
 Anva_Gallery();
+
+/*
+ * Get gallery templates
+ */
+function anva_gallery_templates() {
+	$templates = array(
+		'grid_1'  => array(
+			'name' => __( 'Gallery 1 Column', 'anva' ),
+			'id'	 => 'grid_1',
+			'layout' => array(
+				'size' => 'blog_full',
+				'col'	 => 'col-1',
+				'type' => 'grid'
+			)
+		),
+		'grid_2'  => array(
+			'name' => __( 'Gallery 2 Columns', 'anva' ),
+			'id'	 => 'grid_2',
+			'layout' => array(
+				'size' => 'gallery_2',
+				'col'	 => 'col-2',
+				'type' => 'grid'
+			)
+		),
+		'grid_3'  => array(
+			'name' => __( 'Gallery 3 Columns', 'anva' ),
+			'id'	 => 'grid_3',
+			'layout' => array(
+				'size' => 'gallery_2',
+				'col'	 => 'col-3',
+				'type' => 'grid'
+			)
+		),
+		'grid_4'  => array(
+			'name' => __( 'Gallery 4 Columns', 'anva' ),
+			'id'	 => 'grid_4',
+			'layout' => array(
+				'size' => 'gallery_2',
+				'col'	 => 'col-4',
+				'type' => 'grid'
+			)
+		),
+		'grid_5'  => array(
+			'name' => __( 'Gallery 5 Columns', 'anva' ),
+			'id'	 => 'grid_5',
+			'layout' => array(
+				'size' => 'gallery_3',
+				'col'	 => 'col-5',
+				'type' => 'grid'
+			)
+		),
+		'masonry_2' => array(
+			'name' => __( 'Masonry 2 Columns', 'anva' ),
+			'id'	 => 'masonry_2',
+			'layout' => array(
+				'size' => 'gallery_masonry',
+				'col'	 => 'col-2',
+				'type' => 'masonry'
+			)
+		),
+		'masonry_3' => array(
+			'name' => __( 'Masonry 3 Columns', 'anva' ),
+			'id'	 => 'masonry_3',
+			'layout' => array(
+				'size' => 'gallery_masonry',
+				'col'	 => 'col-3',
+				'type' => 'masonry'
+			)
+		),
+		'masonry_4' => array(
+			'name' => __( 'Masonry 4 Columns', 'anva' ),
+			'id'	 => 'masonry_4',
+			'layout' => array(
+				'size' => 'gallery_masonry',
+				'col'	 => 'col-4',
+				'type' => 'masonry'
+			)
+		),
+		'masonry_5' => array(
+			'name' => __( 'Masonry 5 Columns', 'anva' ),
+			'id'	 => 'masonry_5',
+			'layout' => array(
+				'size' => 'gallery_masonry',
+				'col'	 => 'col-5',
+				'type' => 'masonry'
+			)
+		)
+	);
+	return apply_filters( 'anva_gallery_templates', $templates );
+}

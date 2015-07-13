@@ -172,6 +172,7 @@ function anva_header_primary_menu_default() {
 						'menu_class'      => 'sf-menu clearfix',
 						'menu_id'         => '',
 						'echo'            => true,
+						'walker' 			=> new tg_walker(),
 						'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
 					));
 

@@ -17,7 +17,6 @@ var ANVA = ANVA || {};
 
 			ANVA.initialize.responsiveLogo();
 			ANVA.initialize.responsiveClasses();
-			ANVA.initialize.masonryLayout();
 			ANVA.initialize.lightbox();
 			ANVA.initialize.menuNavigation();
 			ANVA.initialize.menuTrigger();
@@ -117,10 +116,6 @@ var ANVA = ANVA || {};
 			}
 		},
 
-		masonryLayout: function() {
-			
-		},
-
 		topScrollOffset: function() {
 			var topOffsetScroll = 0;
 
@@ -139,6 +134,106 @@ var ANVA = ANVA || {};
 			}
 
 			return topOffsetScroll;
+		},
+
+		defineColumns: function( element ){
+			var column = 4;
+
+			if( element.hasClass('portfolio-full') ) {
+				if( element.hasClass('portfolio-3') ) column = 3;
+				else if( element.hasClass('portfolio-5') ) column = 5;
+				else if( element.hasClass('portfolio-6') ) column = 6;
+				else column = 4;
+
+				if( $body.hasClass('device-sm') && ( column == 4 || column == 5 || column == 6 ) ) {
+					column = 3;
+				} else if( $body.hasClass('device-xs') && ( column == 3 || column == 4 || column == 5 || column == 6 ) ) {
+					column = 2;
+				} else if( $body.hasClass('device-xxs') ) {
+					column = 1;
+				}
+			} else if( element.hasClass('masonry-thumbs') ) {
+
+				var lgCol = element.attr('data-lg-col'),
+					mdCol = element.attr('data-md-col'),
+					smCol = element.attr('data-sm-col'),
+					xsCol = element.attr('data-xs-col'),
+					xxsCol = element.attr('data-xxs-col');
+
+				if( element.hasClass('col-2') ) column = 2;
+				else if( element.hasClass('col-3') ) column = 3;
+				else if( element.hasClass('col-5') ) column = 5;
+				else if( element.hasClass('col-6') ) column = 6;
+				else column = 4;
+
+				if( $body.hasClass('device-lg') ) {
+					if( lgCol ) { column = Number(lgCol); }
+				} else if( $body.hasClass('device-md') ) {
+					if( mdCol ) { column = Number(mdCol); }
+				} else if( $body.hasClass('device-sm') ) {
+					if( smCol ) { column = Number(smCol); }
+				} else if( $body.hasClass('device-xs') ) {
+					if( xsCol ) { column = Number(xsCol); }
+				} else if( $body.hasClass('device-xxs') ) {
+					if( xxsCol ) { column = Number(xxsCol); }
+				}
+
+			}
+
+			return column;
+		},
+
+		setFullColumnWidth: function( element ){
+
+			if( element.hasClass('portfolio-full') ) {
+				var columns = ANVA.initialize.defineColumns( element );
+				var containerWidth = element.width();
+				if( containerWidth == ( Math.floor(containerWidth/columns) * columns ) ) { containerWidth = containerWidth - 1; }
+				var postWidth = Math.floor(containerWidth/columns);
+				if( $body.hasClass('device-xxs') ) { var deviceSmallest = 1; } else { var deviceSmallest = 0; }
+				element.find(".portfolio-item").each(function(index){
+					if( deviceSmallest == 0 && $(this).hasClass('wide') ) { var elementSize = ( postWidth*2 ); } else { var elementSize = postWidth; }
+					$(this).css({"width":elementSize+"px"});
+				});
+			} else if( element.hasClass('masonry-thumbs') ) {
+				var columns = ANVA.initialize.defineColumns( element ),
+					containerWidth = element.innerWidth(),
+					windowWidth = $window.width();
+				if( containerWidth == windowWidth ){
+					containerWidth = windowWidth*1.004;
+					element.css({ 'width': containerWidth+'px' });
+				}
+				var postWidth = (containerWidth/columns);
+
+				postWidth = Math.floor(postWidth);
+
+				if( ( postWidth * columns ) >= containerWidth ) { element.css({ 'margin-right': '-1px' }); }
+
+				element.children('a').css({"width":postWidth+"px"});
+
+				var firstElementWidth = element.find('a:eq(0)').outerWidth();
+
+				element.isotope({
+					masonry: {
+						columnWidth: firstElementWidth
+					}
+				});
+
+				var bigImageNumbers = element.attr('data-big');
+				if( bigImageNumbers ) {
+					bigImageNumbers = bigImageNumbers.split(",");
+					var bigImageNumber = '',
+						bigi = '';
+					for( bigi = 0; bigi < bigImageNumbers.length; bigi++ ){
+						bigImageNumber = Number(bigImageNumbers[bigi]) - 1;
+						element.find('a:eq('+bigImageNumber+')').css({ width: firstElementWidth*2 + 'px' });
+					}
+					var t = setTimeout( function(){
+						element.isotope('layout');
+					}, 1000 );
+				}
+			}
+
 		},
 
 		goToTop: function() {
@@ -388,6 +483,21 @@ var ANVA = ANVA || {};
 			}
 		},
 
+		masonryThumbs: function(){
+			var $masonryThumbsEl = $('.masonry-thumbs');
+			if( $masonryThumbsEl.length > 0 ){
+				$masonryThumbsEl.each( function(){
+					var masonryItemContainer = $(this);
+					ANVA.widget.masonryThumbsArrange( masonryItemContainer );
+				});
+			}
+		},
+
+		masonryThumbsArrange: function( element ){
+			ANVA.initialize.setFullColumnWidth( element );
+			element.isotope('layout');
+		},
+
 		wpCalendar: function() {
 			if ( $wpCalendar.length > 0 ) {
 				$wpCalendar.addClass('table table-bordered table-condensed table-responsive').find('tfoot a').addClass('btn btn-default')
@@ -537,6 +647,7 @@ var ANVA = ANVA || {};
 		
 		init: function() {
 			ANVA.widget.loadFlexSlider();
+			ANVA.widget.masonryThumbs();
 		}
 
 	};
@@ -544,7 +655,7 @@ var ANVA = ANVA || {};
 	ANVA.documentOnResize = {
 		
 		init: function() {
-			
+			ANVA.widget.masonryThumbs();
 		}
 
 	};

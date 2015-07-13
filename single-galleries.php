@@ -30,6 +30,7 @@ get_header();
 						$meta 						= anva_get_post_custom();
 						$gallery_password = $meta['_gallery_password'][0];
 						$gallery_template = $meta['_gallery_template'][0];
+						$templates				= anva_gallery_templates();
 						
 						if ( ! empty( $gallery_password ) && ! isset( $_SESSION['gallery_page_' . $id] ) ) :
 							
@@ -51,25 +52,15 @@ get_header();
 							// 	return '';
 							// }
 
-							switch ( $gallery_template ) {
-								case 'Gallery 1 Column':
-									anva_gallery_grid( '1-col', 'blog_full' );
-									break;
-								case 'Gallery 2 Columns':
-									anva_gallery_grid( '2-col', 'gallery_2' );
-									break;		
-								case 'Gallery 3 Columns':
-									anva_gallery_grid( '3-col', 'gallery_2' );
-									break;
-								case 'Gallery 4 Columns':
-									anva_gallery_grid( '4-col', 'gallery_2' );
-									break;
-								case 'Gallery 5 Columns':
-									anva_gallery_grid( '5-col', 'gallery_3' );
-									break;
-								case 'Gallery Masonry 2 Columns':
-									anva_get_template_part( 'gallery-masonry-2' );
-									break;
+							if ( empty( $gallery_template ) ) {
+								$gallery_template = anva_get_option( 'gallery_template' );
+							}
+
+							if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
+								$column = $templates[$gallery_template]['layout']['col'];
+								$size = $templates[$gallery_template]['layout']['size'];
+								$type = $templates[$gallery_template]['layout']['type'];
+								anva_gallery_grid( $column, $size, $type );
 							}
 						?>
 						<div class="clearfix"></div>
@@ -88,7 +79,6 @@ get_header();
 	</div><!-- .content-area (end) -->
 
 	<?php get_sidebar( 'right' ); ?>
-
 
 </div><!-- .grid-columns (end) -->
 

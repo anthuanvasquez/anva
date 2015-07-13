@@ -757,42 +757,45 @@ function anva_get_breadcrumbs() {
 	}
 }
 
-function anva_gallery_grid( $columns, $size ) {
-	$gallery_arr = anva_get_post_meta( 'anva_gallery_gallery' ); // Get gallery images
-	$gallery_arr = anva_sort_gallery( $gallery_arr ); // Sort gallery images
+
+/**
+ * Display gallery grid
+ */
+function anva_gallery_grid( $columns, $size, $type = 'grid' ) {
+	$classes 	 = array();
+	$gallery 	 = anva_get_post_meta( '_anva_gallery_images' ); // Get gallery images
+	$gallery 	 = anva_sort_gallery( $gallery ); 					 		 // Sort gallery images
+	$animate 	 = 'data-animate="fadeIn"';
+	$highlight = "data-big='2'";
+	$gallery_image_url 		= '';
+	$gallery_image_desc 	= '';
+
+	if ( 'grid' == $type ) {
+		$classes[] = 'gallery-thumbs';
+	} else {
+		$classes[] = 'masonry-thumbs';
+	}
+	$classes[] = $columns;
+	$classes = implode( ' ', $classes );
+
 	?>
-	<div id="gallery-container" class="gallery-container gallery-<?php echo esc_attr( $columns ); ?>">
-		<div class="gallery-inner">
-			<div class="gallery-content clearfix" data-lightbox="gallery">
-			<?php
-			foreach ( $gallery_arr as $id ) :
-				$gallery_image_url 		= '';
-				$gallery_image_desc 	= '';
-				$gallery_image_title 	= get_the_title( $id );
-				$gallery_image_desc 	= get_post_field( 'post_content', $id );
-				$animation 						= 'data-animate="fadeIn"';
-				
-				if ( ! empty( $id ) ) :
-					$gallery_image_ori = wp_get_attachment_image_src( $id, 'large', true );
-					$gallery_image_url = wp_get_attachment_image_src( $id, $size, true );
-				endif;
-			?>
-					
-				<div class="gallery-item" <?php echo $animation; ?>>
-					<div class="gallery-image">
-						<a href="<?php echo $gallery_image_ori[0]; ?>" title="<?php echo $gallery_image_title; ?>" data-lightbox="gallery-item" data-desc="<?php echo $gallery_image_desc; ?>">
-							<img src="<?php echo $gallery_image_url[0]; ?>" alt="<?php echo $gallery_image_title; ?>" />
-							<?php if ( '1-col' == $columns ) : ?>
-							<div class="gallery-content">
-								<h4 class="gallery-title"><?php echo $gallery_image_title; ?></h4>
-								<p class="gallery-desc" data-desc=""><?php echo $gallery_image_desc; ?></p>
-							</div>
-							<?php endif; ?>
-						</a>
-					</div>
-				</div>
-			<?php endforeach; ?>
-			</div>
+	<div id="gallery-container">
+		<div class="<?php echo esc_attr( $classes ); ?> clearfix" data-lightbox="gallery">
+		<?php foreach ( $gallery as $id ) :
+			$image_title 	= get_the_title( $id );
+			$image_desc 	= get_post_field( 'post_content', $id );
+			
+			if ( ! empty( $id ) ) :
+				$image_ori = wp_get_attachment_image_src( $id, 'large', true );
+				$image_url = wp_get_attachment_image_src( $id, $size, true );
+			endif;
+		?>
+		
+		<a href="<?php echo esc_url( $image_ori[0] ); ?>" title="<?php echo esc_attr( $image_title ); ?>" data-lightbox="gallery-item" data-desc="<?php echo esc_attr( $image_desc ); ?>">
+			<img src="<?php echo esc_attr( $image_url[0] ); ?>" alt="<?php echo esc_attr( $image_title ); ?>" />
+		</a>
+
+		<?php endforeach; ?>
 		</div>
 	</div>
 	<?php

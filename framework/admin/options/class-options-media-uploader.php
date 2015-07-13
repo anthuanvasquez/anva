@@ -112,7 +112,7 @@ class Options_Framework_Media_Uploader {
 		if ( function_exists( 'wp_enqueue_media' ) )
 			wp_enqueue_media();
 
-		wp_register_script( 'anva-media-uploader', anva_get_core_url() .'/admin/assets/js/media-uploader.js', array( 'jquery' ), Options_Framework::VERSION );
+		wp_register_script( 'anva-media-uploader', anva_get_core_url() .'/assets/js/admin/media-uploader.js', array( 'jquery' ), Options_Framework::VERSION );
 		wp_enqueue_script( 'anva-media-uploader' );
 		wp_localize_script( 'anva-media-uploader', 'optionsframework_l10n', array(
 			'upload' => __( 'Upload', 'anva' ),

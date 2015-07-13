@@ -61,9 +61,13 @@
   opacity: .8;
 }
 
-#anva_gallery_spinner {
+.spinner,
+#anva_gallery_spinner,
+#anva_gallery_spinner .spinner {
   display: none;
-  visibility: visible;
+  visibility: visible !important;
+  float: none;
+  margin: 5px auto;
 }
 
 .meta-wrapper {

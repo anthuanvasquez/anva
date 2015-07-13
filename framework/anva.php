@@ -77,6 +77,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/plugins/gallery.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/foodlist.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/megamenu.php' );
 
 		/* ---------------------------------------------------------------- */
 		/* Admin / Options

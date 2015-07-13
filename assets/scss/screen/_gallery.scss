@@ -1,69 +1,43 @@
 /*
- * Gallery
+ * Galleries
  */
-.gallery {
-	dl {
-		img {
-			border: 0 !important; /* Remove border from gallery inline style */
-			border-radius: $border-radius;
-			opacity: 1;
-			transition: opacity .2s linear;
-			&:hover {
-				opacity: .6;
-			}
+
+.gallery-thumbs,
+.masonry-thumbs {
+	a {
+		display: block;
+		float: left;
+		max-width: 100%;
+		position: relative;
+		overflow: hidden;
+		width: 25%;
+	}
+	
+	a, img {
+		display: block;
+		height: auto;
+	}
+
+	img {
+		border-radius: 0 !important;
+		padding: 0 1px 1px 0;
+		transition: opacity .5s ease;
+		width: 100%;
+		&:hover {
+			opacity: .8;
 		}
 	}
 }
 
-.gallery-item {
-	margin-bottom: 10px;
-	position: relative;
-	overflow: hidden;
-
-	> .gallery-image {
-		> a {
-			display: block;
-		}
-	}
-
-	.gallery-content {
-		bottom: $padding;
-		color: #fff;
-		left: $padding;
-		position: absolute;
-
-		h4 {
-			color: inherit;
-			font-size: 16px;
-			margin: 0;
-		}
-
-		p {
-			font-style: italic;
-			margin-bottom: 0;
-		}
-	}
-
-	.gallery-caption {
-		h4 {
-			color: #fff;
-			margin: 0;
-		}
-
-		p {
-			color: #fff;
-			font-size: 12px;
-			font-style: italic;
-		}
-	}
+.gallery-thumbs {
 	
-	.gallery-1-col & {
+	&.col-1 a {
+		float: none;
 		margin-bottom: 20px;
+		width: 100%;
 	}
 
-	.gallery-2-col & {
-		float: left;
-		height: auto;
+	&.col-2 a {
 		margin-bottom: 1.6%;
 		margin-right: 1.6%;
 		width: 49.2%;
@@ -73,9 +47,7 @@
 		}
 	}
 
-	.gallery-3-col & {
-		float: left;
-		height: auto;
+	&.col-3 a {
 		margin-bottom: 1.25%;
 		margin-right: 1.25%;
 		width: 32.5%;
@@ -85,9 +57,7 @@
 		}
 	}
 
-	.gallery-4-col & {
-		float: left;
-		height: auto;
+	&.col-4 a {
 		margin-bottom: .66%;
 		margin-right: .66%;
 		width: 24.5%;
@@ -97,9 +67,7 @@
 		}
 	}
 
-	.gallery-5-col & {
-		float: left;
-		height: auto;
+	&.col-5 a {
 		margin-bottom: .62%;
 		margin-right: .62%;
 		width: 19.5%;
@@ -108,18 +76,24 @@
 			margin-right: 0;
 		}
 	}
+}
 
-	.gallery-masonry-2-col & {
-		float: left;
-		height: auto;
-		margin-bottom: 1.6%;
-		// margin-right: 1.6%;
-		width: 49.2%;
-		transition-property: height;
+.masonry-thumbs {
+	position: relative;
 
-		&:nth-child(2n) {
-			margin-right: 0;
-		}
+	&.col-2 a {
+		width: 50%;
 	}
 
+	&.col-3 a {
+		width: 33.30%;
+	}
+
+	&.col-4 a {
+		width: 25%;
+	}
+
+	&.col-5 a {
+		width: 20%;
+	}
 }

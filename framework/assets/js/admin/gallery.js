@@ -1,12 +1,12 @@
 jQuery(function($) {
-	if ( typeof plupload !== 'undefined' && typeof WPSGwpUploaderInit !== 'undefined' ) {
+	if ( typeof plupload !== 'undefined' && typeof ANVAUploaderInit !== 'undefined' ) {
 		
-		var uploader = new plupload.Uploader(WPSGwpUploaderInit);
+		var uploader = new plupload.Uploader(ANVAUploaderInit);
 		
 		uploader.init();
 		uploader.bind('FilesAdded', function(up) {
 			up.start();
-			jQuery('#anva_gallery_spinner').show();
+			jQuery('#anva_gallery_spinner').css('display', 'block');
 		});
 		
 		uploader.bind('FileUploaded', function(up, file, res) {
@@ -20,7 +20,7 @@ jQuery(function($) {
 		});
 	
 	} else {
-		jQuery('#wpsg-plupload-browse-button').hide();
+		jQuery('#anva-plupload-browse-button').hide();
 	}
 
 	var file_frame;
@@ -30,12 +30,14 @@ jQuery(function($) {
 
 		init: function() {
 			this.admin_thumb_ul = jQuery('#anva_gallery_thumbs');
+			this.admin_thumb_ul_li = jQuery('#anva_gallery_thumbs li');
 			this.admin_thumb_ul.sortable({
 				placeholder: 'anva_gallery_placeholder'
 			});
 			
 			// Remove thumb
-			this.admin_thumb_ul.on('click', '.anva_gallery_remove', function() {
+			this.admin_thumb_ul.on( 'click', '.anva_gallery_remove', function() {
+
 				jQuery(this).parent().fadeOut(100, function() {
 					jQuery(this).remove();
 				});
@@ -63,7 +65,7 @@ jQuery(function($) {
 					multiple: true
 				});
 
-				file_frame.on('select', function() {
+				file_frame.on( 'select', function() {
 					var images = file_frame.state().get('selection').toJSON();
 					var length = images.length;
 					
@@ -75,19 +77,29 @@ jQuery(function($) {
 				file_frame.open();
 			});
 
-			jQuery('#anva_gallery_add_attachments_button').on('click', function() {
+
+			jQuery('#anva_gallery_add_attachments_button').on( 'click', function() {
 				var included = [];
-				jQuery('#anva_gallery_thumbs input[type=hidden]').each(function(i, e) {
-					included.push($(this).val());
+				jQuery('#anva_gallery_thumbs input[type=hidden]').each( function(i, e) {
+					included.push( jQuery(this).val() );
 				});
 				anva_gallery.get_all_thumbnails( POST_ID, included );
 			});
 
-			jQuery('#anva_gallery_delete_all_button').on('click', function() {
+			// Delete all images
+			jQuery('#anva_gallery_delete_all_button').on( 'click', function() {
+
+				if ( jQuery('#anva_gallery_thumbs li').length == 0 ) {
+					alert( 'The box is empty, add some image first.' );
+					return;
+				}
+
 				if ( confirm( 'Are you sure you want to delete all the images in the gallery?' ) ) {
 					anva_gallery.admin_thumb_ul.empty();
 				}
+
 				anva_gallery.empty_gallery();
+				
 				return false;
 			});
 
@@ -101,10 +113,13 @@ jQuery(function($) {
 				action: 'anva_gallery_get_thumbnail',
 				imageid: id
 			};
+			jQuery('#anva_gallery_spinner').css('display', 'block');
 			jQuery.post(ajaxurl, data, function( response ) {
 				anva_gallery.admin_thumb_ul.append( response );
 				cb();
 				anva_gallery.empty_gallery();
+			}).done( function() {
+				jQuery('#anva_gallery_spinner').hide();
 			});
 		},
 
@@ -115,11 +130,12 @@ jQuery(function($) {
 				included: included
 			};
 
-			jQuery('#anva_gallery_spinner').show();
+			jQuery('#anva_gallery_spinner').css('display', 'block');
 			jQuery.post( ajaxurl, data, function( response ) {
 				anva_gallery.admin_thumb_ul.append(response);
-				jQuery('#anva_gallery_spinner').hide();
 				anva_gallery.empty_gallery();
+			}).done( function() {
+				jQuery('#anva_gallery_spinner').hide();
 			});
 		},
 

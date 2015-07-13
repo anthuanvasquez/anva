@@ -72,6 +72,14 @@ function optionsframework_options() {
 		$options_pages[$page->ID] = $page->post_title;
 	}
 
+	// Pull all gallery templates
+	$options_galleries = array();
+	$options_galleries_obj = anva_gallery_templates();
+	foreach ( $options_galleries_obj as $key => $gallery ) {
+		$options_galleries[$key] = $gallery['name'];
+	}
+
+
 	// If using image radio buttons, define a directory path
 	$image_path = get_template_directory_uri() . '/assets/images/';
 	$skin_path  = $image_path . 'skins/';
@@ -438,6 +446,14 @@ function optionsframework_options() {
 			'rand' => __('By Random', $domain),
 			'title' => __('By Title', $domain)
 		));
+
+	$options[] = array(
+		'name' => __('Default Template', $domain),
+		'desc' => __('Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', $domain),
+		'id' => 'gallery_template',
+		'std' => '3-col',
+		'type' => 'select',
+		'options' => $options_galleries);
 
 	$options[] = array(
 		'type' 	=> 'group_end');
