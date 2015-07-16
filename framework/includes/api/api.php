@@ -13,4 +13,7 @@ function anva_api_init() {
 
 	// Setup Framework Widgets
 	Anva_Widgets::instance();
+
+	// Setup Framework Options
+	Anva_Options_API::instance();
 }

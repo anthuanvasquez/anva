@@ -16,7 +16,12 @@
 
 <body <?php body_class(); ?>>
 
-<?php anva_before(); ?>
+<?php anva_before(); 
+
+
+var_dump(anva_get_formatted_options());
+
+?>
 
 <!-- WRAPPER (start) -->
 <div id="wrapper" class="clearfix">

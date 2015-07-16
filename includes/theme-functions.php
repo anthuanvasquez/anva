@@ -9,13 +9,13 @@ define( 'THEME_NAME', 'Theme' );
 define( 'THEME_VERSION', '1.0.0');
 
 // Modify framework's theme options
-require_once( get_template_directory() . '/functions/options.php' );
+require_once( get_template_directory() . '/includes/options.php' );
 
 /* 
  * Change the options.php directory.
  */
 function theme_options_location() {
-	return  '/functions/options.php';
+	return  '/includes/options.php';
 }
 
 /*

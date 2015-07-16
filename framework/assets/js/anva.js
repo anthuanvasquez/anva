@@ -257,13 +257,12 @@ var ANVA = ANVA || {};
 
 		menuNavigation: function() {
 			$menuNavigation.superfish({
-				delay: 500,
-				animation:   {
-					opacity: 'show',
-					height: 'show'
-				},
-				speed: 'fast',
-				cssArrows: true
+				popUpSelector: 'ul,.mega-menu-content',
+				delay: 250,
+				speed: 350,
+				animation: {opacity:'show'},
+				animationOut:  {opacity:'hide'},
+				cssArrows: false
 			});
 		},
 
@@ -675,7 +674,7 @@ var ANVA = ANVA || {};
 		$contain 					= $('#container'),
 		$footer 					= $('#footer'),
 		$goTop						= $('#gotop'),
-		$menuNavigation 	= $('ul.navigation-menu, ul.off-canvas-menu'),
+		$menuNavigation 	= $('ul.sf-menu'),
 		$wpCalendar				= $('#wp-calendar'),
 		$buttonNav				= $('.next a[rel="next"], .previous a[rel="prev"]');
 

@@ -20,11 +20,17 @@ class Options_Framework_Interface {
 		foreach ( $options as $value ) {
 			// Heading for Navigation
 			if ( $value['type'] == "heading" ) {
+				
+				$icon = '';
+				if ( isset( $value['icon'] ) && ! empty( $value['icon'] ) ) {
+					$icon = '<span class="dashicons dashicons-'. esc_attr( $value['icon'] ) .'"></span> ';
+				}
+
 				$counter++;
 				$class = '';
 				$class = ! empty( $value['id'] ) ? $value['id'] : $value['name'];
-				$class = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower($class) ) . '-tab';
-				$menu .= '<a id="options-group-'.  $counter . '-tab" class="nav-tab ' . $class .'" title="' . esc_attr( $value['name'] ) . '" href="' . esc_attr( '#options-group-'.  $counter ) . '">' . esc_html( $value['name'] ) . '</a>';
+				$class = 'tab-' . preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
+				$menu .= '<a id="options-group-'.  $counter . '-tab" class="nav-tab ' . $class .'" title="' . esc_attr( $value['name'] ) . '" href="' . esc_attr( '#options-group-'.  $counter ) . '">' . $icon . esc_html( $value['name'] ) . '</a>';
 			}
 		}
 
@@ -50,29 +56,31 @@ class Options_Framework_Interface {
 		foreach ( $options as $value ) :
 
 			$val = '';
-			$select_value = '';
 			$output = '';
+			$select_value = '';
 
 			if ( $value['type'] == 'group_start' ) {
 
+				$class = '';
+
 				$name = ! empty( $value['name'] ) ? esc_html( $value['name'] ) : '';
 
-				if ( isset( $value['class'] ) ) {
-					$class = ' '.$value['class'];
+				if ( isset( $value['class'] ) && ! empty( $value['class'] ) ) {
+					$class = ' ' . $value['class'];
 				}
 
 				if ( ! $name ) {
 					$class .= ' no-name';
 				}
 
-				$output .= '<div class="postbox inner-group '.$class.'">';
+				$output .= '<div class="postbox inner-group' . esc_attr( $class ) . '">';
 
 				if ( $name ) {
-					$output .= '<h3>'.$name.'</h3>';
+					$output .= '<h3>' . esc_html( $name ) . '</h3>';
 				}
 
-				if ( ! empty($value['desc']) ) {
-					$output .= '<div class="section section-description">'.$value['desc'].'</div><!-- .section (end) -->';
+				if ( ! empty( $value['desc'] ) ) {
+					$output .= '<div id="section-' . esc_attr( $value['id'] ) . '" class="section section-description">' . esc_html( $value['desc'] ) . '</div><!-- .section (end) -->';
 				}
 
 			}
@@ -86,7 +94,7 @@ class Options_Framework_Interface {
 				if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) ) {
 
 					// Keep all ids lowercase with no spaces
-					$value['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($value['id']) );
+					$value['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $value['id'] ) );
 
 					$id = 'section-' . $value['id'];
 
@@ -94,14 +102,17 @@ class Options_Framework_Interface {
 					if ( isset( $value['type'] ) ) {
 						$class .= ' section-' . $value['type'];
 					}
+					
 					if ( isset( $value['class'] ) ) {
 						$class .= ' ' . $value['class'];
 					}
 
 					$output .= '<div id="' . esc_attr( $id ) .'" class="' . esc_attr( $class ) . '">'."\n";
+					
 					if ( isset( $value['name'] ) ) {
 						$output .= '<h4 class="heading">' . esc_html( $value['name'] ) . '</h4>' . "\n";
 					}
+
 					if ( $value['type'] != 'editor' ) {
 						$output .= '<div class="option">' . "\n" . '<div class="controls">' . "\n";
 					}
@@ -569,7 +580,7 @@ class Options_Framework_Interface {
 					$output .= '</div><!-- .controls (end) -->';
 
 					if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) ) {
-						$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags) . '</div><!-- .explain (end) -->'."\n";
+						$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .explain (end) -->'."\n";
 					}
 					$output .= '</div><!-- .option (end) -->';
 					$output .= '</div><!-- .section (end) -->'."\n";

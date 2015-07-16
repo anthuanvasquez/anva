@@ -64,22 +64,6 @@ function optionsframework_options() {
 		$options_categories[$category->cat_ID] = $category->cat_name;
 	}
 
-	// Pull all the pages into an array
-	$options_pages = array();
-	$options_pages_obj = get_pages( 'sort_column=post_parent,menu_order' );
-	$options_pages[''] = __( 'Select a page:', anva_textdomain() );
-	foreach ( $options_pages_obj as $page ) {
-		$options_pages[$page->ID] = $page->post_title;
-	}
-
-	// Pull all gallery templates
-	$options_galleries = array();
-	$options_galleries_obj = anva_gallery_templates();
-	foreach ( $options_galleries_obj as $key => $gallery ) {
-		$options_galleries[$key] = $gallery['name'];
-	}
-
-
 	// If using image radio buttons, define a directory path
 	$image_path = get_template_directory_uri() . '/assets/images/';
 	$skin_path  = $image_path . 'skins/';
@@ -92,125 +76,6 @@ function optionsframework_options() {
 	| Styles
 	|--------------------------------------------------------------------------
 	*/
-
-	$options[] = array(
-		'name' => __('Styles', $domain),
-		'type' => 'heading');
-
-	$options[] = array(
-		'name' => __( 'Layout', $domain ),
-		'desc' => __( 'This is the section of layout inputs.', $domain ),
-		'class' => 'group-layout',
-		'type' 	=> 'group_start');
-
-	$options[] = array(
-		'name' => __('Layout Style', $domain),
-		'desc' => __('Select the layout style.', $domain),
-		'id' => 'layout_style',
-		'std' => 'boxed',
-		'class' => 'input-select',
-		'type' => 'select',
-		'options' => array(
-			'boxed' => __( 'Boxed', $domain ),
-			'stretched' => __( 'Stretched', $domain )
-		));
-
-	$options[] = array(
-		'name' => "Schema Color",
-		'desc' => "Choose schema color for the theme.",
-		'id' => "skin",
-		'std' => "blue",
-		'type' => "select",
-		'options' => array(
-			'blue' => 'Blue',
-			'green' => 'Green',
-			'orange' => 'Orange',
-			'red' => 'Red',
-			'teal' => 'Teal',
-		));
-
-	$options[] = array(
-		'name' => __('Social Media Button Style', $domain),
-		'desc' => __('Select the style for your social media buttons.', $domain),
-		'id' => 'social_media_style',
-		'std' => 'light',
-		'type' => 'select',
-		'options' => array(
-			'light' => __('Light', $domain),
-			'colored' => __('Colored', $domain),
-			'dark' => __('Dark', $domain),
-		));
-
-	$options[] = array(
-		'type' 	=> 'group_end');
-
-	$options[] = array(
-		'name' => __( 'Links', $domain ),
-		'class' => 'group-links',
-		'type' 	=> 'group_start');
-
-	$options[] = array(
-		'name' => __('Link Color', $domain),
-		'desc' => __('Set the link color.', $domain),
-		'id' => 'link_color',
-		'std' => '#ff0000',
-		'type' => 'color');
-
-	$options[] = array(
-		'name' => __('Link Color (:Hover)', $domain),
-		'desc' => __('Set the link color.', $domain),
-		'id' => 'link_color_hover',
-		'std' => '#ff0000',
-		'type' => 'color');
-
-	$options[] = array(
-		'type' 	=> 'group_end');
-
-	$options[] = array(
-		'name' => __( 'Background', $domain ),
-		'class' => 'group-background',
-		'type' 	=> 'group_start');
-
-	$options[] = array(
-		'name' => __('Background Color', $domain),
-		'desc' => __('Select the background color.', $domain),
-		'id' => 'background_color',
-		'std' => '#dddddd',
-		'type' => 'color');
-
-	$options[] = array(
-		'name' => __('Background Image', $domain),
-		'desc' => __('Select the background color.', $domain),
-		'id' => 'background_image',
-		'std' => array(
-			'color' => '#dddddd',
-			'image' => '',
-			'repeat' => 'repeat',
-			'position' => 'top center',
-			'attachment'=> 'scroll',
-		),
-		'type' => 'background');
-
-	$options[] = array(
-		'name' => __('Background Pattern', $domain),
-		'desc' => __('Select the background pattern.', $domain),
-		'id' => 'background_pattern',
-		'std' => '',
-		'type' => 'select',
-		'options' => array(
-			'' => 'None',
-			'binding_light' => 'Binding Light',
-			'dimension_@2X' => 'Dimension',
-			'hoffman_@2X' => 'Hoffman',
-			'knitting250px' => 'Knitting',
-			'noisy_grid' => 'Noisy Grid',
-			'pixel_weave_@2X' => 'Pixel Weave',
-			'struckaxiom' => 'Struckaxiom',
-			'subtle_stripes' => 'Subtle Stripes',
-		));
-
-	$options[] = array(
-		'type' 	=> 'group_end');
 
 	$options[] = array(
 		'name' => __( 'Typography', $domain ),
@@ -711,70 +576,16 @@ function optionsframework_options() {
 	|--------------------------------------------------------------------------
 	*/
 
-	$options[] = array(
-		'name' => __('Configuration', $domain),
-		'type' => 'heading');
+	// return $options;
 
-	$options[] = array(
-		'name' => __( 'Responsive', $domain ),
-		'class' => 'group-responsive',
-		'type' 	=> 'group_start');
+	return anva_get_formatted_options();
 
-	$options[] = array(
-		'name' => __('Responsive', $domain),
-		'desc' => __('This theme comes with a special stylesheet that will target the screen resolution of your website vistors and show them a slightly modified design if their screen resolution matches common sizes for a tablet or a mobile device.', $domain),
-		'id' => "responsive",
-		'std' => 'yes',
-		'type' => 'radio',
-		'options' => array(
-			'yes' => __('Yes, apply special styles to tablets and mobile devices', $domain),
-			'no' => __('No, allow website to show normally on tablets and mobile devices', $domain),
-		));
-
-	$options[] = array(
-		'name' => __('Add styles to tablet devices only', $domain),
-		'desc' => __('This CSS styles apply to breakpoint @media screen and (max-width: 992px).', $domain),
-		'id' => 'responsive_css_992',
-		'std' => '',
-		'type' => 'textarea');
-
-	$options[] = array(
-		'name' => __('Add styles to mobile devices only', $domain),
-		'desc' => __('This CSS styles apply to breakpoint @media screen and (max-width: 768px).', $domain),
-		'id' => 'responsive_css_768',
-		'std' => '',
-		'type' => 'textarea');
-
-	$options[] = array(
-		'type' 	=> 'group_end');
-
-	$options[] = array(
-		'name' => __( 'Minify', $domain ),
-		'class' => 'group-minify',
-		'type' 	=> 'group_start');
-
-	$options[] = array(
-		'name' => __('Warning', $domain),
-		'desc' => __('If you have a cache plugin installed in your site desactive this options.', $domain),
-		'id' => 'css_warning',
-		'type' => 'info');
-
-	$options[] = array(
-		'name' => __('Combine and Compress CSS files', $domain),
-		'desc' => __('Combine and compress all CSS files to one. Help reduce page load time and increase server resources.', $domain),
-		'id' => "compress_css",
-		'std' => '0',
-		'type' => 'checkbox');
-
-	$options[] = array(
-		'name' => __('Combine and Compress Javascript files', $domain),
-		'desc' => __('Combine and compress all Javascript files to one. Help reduce page load time and increase server resource.', $domain),
-		'id' => "compress_js",
-		'std' => '0',
-		'type' => 'checkbox');
-
-	$options[] = array(
-		'type' 	=> 'group_end');
-
-	return $options;
 }
+
+
+function theme_options() {
+
+	// anva_add_option_tab( 'fonts', 'Fonts', true );
+
+}
+add_action( 'after_setup_theme', 'theme_options' );

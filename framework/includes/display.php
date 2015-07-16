@@ -10,15 +10,13 @@ function anva_head_apple_touch_icon() {
 	$favicon 	= anva_get_option( 'favicon' );
 	$image 		= get_template_directory_uri() . '/assets/images';
 	
-	if ( ! $favicon ) {
-		$favicon = $image . '/favicon.png';
+	if ( $favicon ) {
+		$links[] = array(
+			'rel' => 'shortcut icon',
+			'image' => $favicon,
+			'size' => '',
+		);
 	}
-
-	$links[] = array(
-		'rel' => 'shortcut icon',
-		'image' => $favicon,
-		'size' => '',
-	);
 
 	$links[] = array(
 		'rel' => 'apple-touch-icon',
@@ -143,9 +141,7 @@ function anva_header_extras_default() {
 	<ul id="header-extras" class="header-extras">
 		<li>
 			<i class="fa fa-envelope"></i>
-			<div class="text">
-				Drop an Email <span>info@anvas.com</span>
-			</div>
+			<div class="text">Drop an Email <span>info@anvas.com</span></div>
 		</li>
 		<li id="header-search">
 			<?php anva_site_search(); ?>
@@ -172,7 +168,7 @@ function anva_header_primary_menu_default() {
 						'menu_class'      => 'sf-menu clearfix',
 						'menu_id'         => '',
 						'echo'            => true,
-						'walker' 			=> new tg_walker(),
+						'walker' 					=> new Anva_Walker_Nav_Menu(),
 						'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
 					));
 

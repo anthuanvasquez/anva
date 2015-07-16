@@ -75,6 +75,7 @@ class Options_Framework {
 		static $options = null;
 
 		if ( ! $options ) {
+			
 			// Load options from options.php file (if it exists)
 			$location = apply_filters( 'options_framework_location', array( 'options.php' ) );
 			

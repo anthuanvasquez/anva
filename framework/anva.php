@@ -62,6 +62,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/includes/api/scripts.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/widgets.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/api/options.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/api.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/actions.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/display.php' );
@@ -182,7 +183,7 @@ class Anva {
 	 * Theme Functions
 	 */
 	public function functions() {
-		include_once( ANVA_PATH . '/functions/theme-functions.php' );
+		include_once( ANVA_PATH . '/includes/theme-functions.php' );
 	}
 
 	/*
