@@ -57,8 +57,7 @@ class Options_Framework_Admin {
 		global $pagenow;
 
 		// Get the option name
-		$options_framework = new Options_Framework;
-		$name = $options_framework->get_option_name();
+		$name = anva_get_option_name();
 
 		// Registers the settings fields and callback
 		register_setting( 'optionsframework', $name, array( $this, 'validate_options' ) );
@@ -73,7 +72,7 @@ class Options_Framework_Admin {
 
 	}
 
-	/*
+	/**
 	 * Define menu options
 	 *
 	 * Examples usage:
@@ -92,7 +91,7 @@ class Options_Framework_Admin {
 		$menu = array(
 
 			// Modes: submenu, menu
-			'mode' => 'submenu',
+			'mode' 				=> 'submenu',
 
 			// Submenu default settings
 			'page_title' 	=> __( 'Theme Options', anva_textdomain() ),
@@ -102,8 +101,8 @@ class Options_Framework_Admin {
 			'parent_slug' => 'themes.php',
 
 			// Menu default settings
-			'icon_url' => 'dashicons-admin-generic',
-			'position' => '61'
+			'icon_url' 		=> 'dashicons-admin-generic',
+			'position' 		=> '61'
 
 		);
 
@@ -192,8 +191,8 @@ class Options_Framework_Admin {
 		<div id="optionsframework-wrap" class="wrap">
 
 			<?php $menu = $this->menu_settings(); ?>
-
-			<h2><?php echo $menu['page_title']; ?></h2>
+			
+			<h2><?php echo $menu['page_title']; ?> <span>v<?php echo THEME_VERSION; ?></span></h2>
 			
 			<?php do_action( 'optionsframework_top' ); ?>
 
@@ -241,6 +240,10 @@ class Options_Framework_Admin {
 		 */
 
 		if ( isset( $_POST['reset'] ) ) {
+			// Delete log option
+			$option_name = Options_Framework::get_option_name();
+			delete_option( $option_name .'_log' );
+
 			add_settings_error( 'options-framework', 'restore_defaults', __( 'Default options restored.', anva_textdomain() ), 'updated fade' );
 			return $this->get_default_values();
 		}
@@ -287,7 +290,7 @@ class Options_Framework_Admin {
 		// Hook to run after validation
 		do_action( 'optionsframework_after_validate', $clean );
 
-		// Update log option to get last time saved
+		// Create log option
 		$option_name = Options_Framework::get_option_name();
 		update_option( $option_name .'_log', current_time( 'mysql' ) );
 
@@ -331,9 +334,6 @@ class Options_Framework_Admin {
 				$output[$option['id']] = apply_filters( 'anva_sanitize_' . $option['type'], $option['std'], $option );
 			}
 		}
-
-		$option_name = Options_Framework::get_option_name();
-		delete_option( $option_name .'_log' );
 
 		return $output;
 	}

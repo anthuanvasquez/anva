@@ -4,29 +4,21 @@
 /*-----------------------------------------------------------------------------------*/
 
 // Define theme constants
-define( 'THEME_ID', 'theme' );
-define( 'THEME_NAME', 'Theme' );
+define( 'THEME_ID', 'tesla' );
+define( 'THEME_NAME', 'Tesla' );
 define( 'THEME_VERSION', '1.0.0');
 
 // Modify framework's theme options
 require_once( get_template_directory() . '/includes/options.php' );
 
-/* 
- * Change the options.php directory.
- */
-function theme_options_location() {
-	return  '/includes/options.php';
-}
-
 /*
  * This is an example of filtering menu parameters
  */
 function theme_options_menu( $menu ) {
-	$options_framework  = new Options_Framework;
-	$option_name 				= $options_framework->get_option_name();
+	$option_name 				= anva_get_option_name();
 	$menu['mode'] 			= 'menu';
-	$menu['page_title'] = __( 'Theme Options', 'anva' );
-	$menu['menu_title'] = __( 'Theme Options', 'anva' );
+	$menu['page_title'] = THEME_NAME . ' ' . __( 'Options', 'anva' );
+	$menu['menu_title'] = THEME_NAME . ' ' . __( 'Options', 'anva' );
 	$menu['menu_slug']  = $option_name;
 	return $menu;
 }
@@ -93,7 +85,7 @@ function theme_stylesheets() {
 
 	$stylesheets['theme_screen'] = array(
 		'handle' => 'theme_screen',
-		'src' => get_template_directory_uri() . '/assets/css/screen.css',
+		'src' => get_template_directory_uri() . '/assets/css/styles.css',
 		'deps' => $api->get_framework_deps(),
 		'ver' => THEME_VERSION,
 		'media' => 'all'
@@ -265,7 +257,6 @@ function theme_styles() {
 /* Hooks
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'options_framework_location', 'theme_options_location' );
 add_filter( 'optionsframework_menu', 'theme_options_menu' );
 add_filter( 'body_class', 'theme_body_classes' );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );

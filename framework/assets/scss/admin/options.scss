@@ -1,8 +1,16 @@
 /* Options Framework Admin Styles */
 
+#optionsframework-wrap {
+	max-width: 840px;
+}
+
 #optionsframework-wrap .nav-tab-wrapper a span {
 	position: relative;
 	top: 2px;
+}
+
+#optionsframework-wrap > h2 > span {
+	font-size: 13px;
 }
 
 #optionsframework-wrap .settings-error {
@@ -10,7 +18,6 @@
 }
 
 #optionsframework {
-	max-width: 840px;
 
 	.section-logo {
 		.logo-item {
@@ -69,7 +76,7 @@
 
 #optionsframework h3 {
 	cursor: default;
-	background-color: #f1f1f1;
+	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 }
 
@@ -84,7 +91,7 @@
 }
 
 #optionsframework .section-description {
-	padding: 10px 10px 15px;
+	padding: 10px 10px 20px;
 	color: #888;
 	font-style: italic;
 	border-bottom: 1px solid #e5e5e5;
@@ -118,6 +125,15 @@
 	min-width:350px;
 	width: 54%;
 	padding-right:2%;
+}
+
+#optionsframework .section-import .anva-input-file {
+	display: block;
+	margin-bottom: 10px;
+}
+
+#optionsframework .section-export {
+	margin-bottom: 0;
 }
 
 #optionsframework .section .explain {

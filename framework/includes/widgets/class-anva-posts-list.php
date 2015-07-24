@@ -7,7 +7,7 @@ class Anva_Posts_List extends WP_Widget {
 	function Anva_Posts_List() {
 
 		$widget_ops = array(
-			'classname' => 'widget_anva_posts_list',
+			'classname' 	=> 'widget_anva_posts_list',
 			'description' => __( 'Muestra una lista de los posts mas recientes con una imagen destacada.', anva_textdomain()  )
 		);
 
@@ -17,7 +17,7 @@ class Anva_Posts_List extends WP_Widget {
 	/* Call Widget */
 	function widget( $args, $instance ) {
 		
-		extract($args);
+		extract( $args );
 
 		$html 			= '';
 		$title 			= apply_filters('widget_title', $instance['title']);
@@ -32,7 +32,7 @@ class Anva_Posts_List extends WP_Widget {
 		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
 
-		anva_widget_posts_list( $number, $orderby, $order, $thumbnail );
+		anva_mini_posts_list( $number, $orderby, $order, $thumbnail );
 
 		echo $after_widget;
 	}

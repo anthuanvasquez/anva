@@ -1,0 +1,107 @@
+@import "../framework";
+
+.anva-meta-box {
+
+	input[type="text"],
+	input[type="tel"],
+	input[type="number"],
+	input[type="date"],
+	input[type="time"],
+	select,
+	textarea {
+		box-sizing: border-box;
+		margin: 0;
+		width: 100%;
+	}
+
+	input[type="checkbox"] {
+		position: relative;
+		top: 2px;
+	}
+
+	input.checkbox,
+	input.meta-radio {
+	  margin: 0 10px 5px 0;
+	  float: left;
+	  clear: both;
+	}
+
+	.field-radio label,
+	.field-multicheck label {
+	  float: left;
+	  max-width: 90%;
+	  line-height: 16px;
+	  margin-bottom: 5px;
+	}
+
+	h4 {
+		margin-bottom: 10px;
+	}
+
+	.meta-option {
+		&:before,
+		&:after {
+			content: " ";
+			display: table;
+		}
+		&:after {
+			clear: both;
+		}
+	}
+
+	.meta-explain {
+		font-size: 12px;
+		margin-top: 10px;
+  	line-height: 16px;
+  	color: #777;
+	}
+
+	.field-multicheck {
+		label {
+			display: block;
+			margin: 3px 0;
+		}
+	}
+
+}
+
+.anva-meta-desc {
+	border-bottom: 1px solid #e5e5e5;
+	color: #888;
+	font-size: 13px;
+	font-style: italic;
+	margin: 0 -12px;
+	padding: 8px 12px 12px;
+}
+
+// Context
+.anva-meta-context-normal,
+.anva-meta-context-advanced {
+	.meta-controls,
+	.meta-explain {
+		float: left;
+		margin-right: 2%;
+		width: 48%;
+	}
+
+	.meta-explain {
+		margin-right: 0;
+	}
+}
+
+.anva-meta-context-side {
+	.meta-controls,
+	.meta-explain {
+		float: none;
+		margin-right: 0;
+		width: 100%;
+	}
+
+	.meta-controls {
+		@include clearfix();
+	}
+
+	.meta-explain {
+		margin-right: 0;
+	}
+}

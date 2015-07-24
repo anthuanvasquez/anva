@@ -233,7 +233,7 @@
 
 #off-canvas {
 	display: none;
-	background: color(tertiary);
+	background: #333;
 	height: 100%;
 	left: -21em;
 	position: absolute;
@@ -259,7 +259,7 @@
 		line-height: 38px;
 
 		> a {
-			border-bottom: 1px solid darken(color(primary), 10%);
+			border-bottom: 1px solid darken($theme-color, 10%);
 			color: #fff;
 			padding: 0 10px;
 		}
@@ -268,13 +268,13 @@
 		&.current-menu-item,
 		&.current_page_item {
 			> a {
-				background: color(primary);
+				background: $theme-color;
 				color: #fff;
 			}
 		}
 
 		ul.sub-menu {
-			background: darken(color(tertiary), 3%);
+			background: darken(#333, 3%);
 			padding-left: 0;
 		}
 	}
@@ -286,8 +286,14 @@
  */
 #breadcrumbs {
 	background: transparent;
-	margin: 0 0 5px 0;
-	padding: 7px 5px;
+	
+	.breadcrumb {
+		margin-bottom: 30px;
+	}
+
+	.separator {
+		display: none;
+	}
 
 	p {
 		margin: 0;

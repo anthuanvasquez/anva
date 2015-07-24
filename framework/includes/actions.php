@@ -144,8 +144,8 @@ function anva_posts_content() {
 	do_action( 'anva_posts_content' );
 }
 
-function anva_posts_tag() {
-	do_action( 'anva_posts_tag' );
+function anva_posts_footer() {
+	do_action( 'anva_posts_footer' );
 }
 
 function anva_posts_related() {

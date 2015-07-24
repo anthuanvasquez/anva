@@ -11,7 +11,7 @@ if ( isset( $_POST['password-submit'] ) && 1 == $_POST['password-submit']  ) {
 	
 	if ( isset( $_POST['password'] ) && sanitize_text_field( $_POST['password'] ) != $gallery_password  ) {
 
-		$notice = __( '<strong>Error!</strong> Password is incorrect.', anva_textdomain() );
+		$notice = sprint( __( 's%Error!s% Password is incorrect.', anva_textdomain() ), '<strong>', '</strong>' );
 	
 	} else {
 

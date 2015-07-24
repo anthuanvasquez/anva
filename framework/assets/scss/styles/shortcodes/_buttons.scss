@@ -16,10 +16,10 @@ body:not(.device-touch) {
 	white-space: nowrap;
 	margin: 5px;
 	padding: 0 22px;
-	font-size: config(font-size);
+	font-size: $font-size-base;
 	height: 40px;
 	line-height: 40px;
-	background-color: color(primary);
+	background-color: $theme-color;
 	color: #fff;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -28,9 +28,9 @@ body:not(.device-touch) {
 	text-shadow: 1px 1px 1px rgba(black, .2);
 
 	&:hover {
-		background-color: color(base);
+		background-color: #333;
 		color: #fff;
-		text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+		text-shadow: 1px 1px 1px rgba(black, .2);
 	}
 
 	i {
@@ -88,9 +88,9 @@ body:not(.device-touch) {
 	}
 
 	&.button-dark {
-		background-color: color(base);
+		background-color: #333;
 		&:hover {
-			background-color: color(primary);
+			background-color: $theme-color;
 		}
 	}
 
@@ -105,7 +105,7 @@ body:not(.device-touch) {
 		  background-color: #444;
 		  color: #fff;
 		  border-color: transparent;
-		  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+		  text-shadow: 1px 1px 1px rgba(black, .2);
 		}
 
 	  &.button-mini {

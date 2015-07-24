@@ -26,7 +26,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
 if ( ! function_exists( 'optionsframework_init' ) ) :
 /*
  * Don't load if optionsframework_init is already defined
@@ -45,6 +44,7 @@ function optionsframework_init() {
 	require anva_get_core_directory() . '/admin/options/class-options-interface.php';
 	require anva_get_core_directory() . '/admin/options/class-options-media-uploader.php';
 	require anva_get_core_directory() . '/admin/options/class-options-sanitization.php';
+	require anva_get_core_directory() . '/admin/options/class-meta-box.php';
 
 	// Instantiate the options page.
 	$options_framework_admin = new Options_Framework_Admin;
@@ -93,5 +93,44 @@ function anva_get_option( $name, $default = false ) {
 	}
 	
 	return $default;
+}
+endif;
+
+if ( ! function_exists( 'anva_get_option_name' ) ) :
+/**
+ * This is for print option value.
+ */
+function anva_the_option( $name, $default = false ) {
+	echo anva_get_option( $name, $default );
+}
+endif;
+
+if ( ! function_exists( 'anva_get_option_name' ) ) :
+/**
+ * Helper function to return the theme option name
+ */
+function anva_get_option_name() {
+	$options_framework = new Options_Framework;
+	return $options_framework->get_option_name();
+}
+endif;
+
+if ( ! function_exists( 'anva_get_option_defaults' ) ) :
+/**
+ * Helper function to return the default options
+ */
+function anva_get_option_defaults() {
+	$options_framework = new Options_Framework_Admin;
+	return $options_framework->get_default_values();
+}
+endif;
+
+if ( ! function_exists( 'anva_get_admin_menu_settings' ) ) :
+/**
+ * Helper function to get menu settings for options page
+ */
+function anva_get_admin_menu_settings() {
+	$options_framework = new Options_Framework_Admin;
+	return $options_framework->menu_settings();
 }
 endif;

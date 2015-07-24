@@ -18,6 +18,12 @@ function anva_body_class( $classes ) {
 	}
 	$classes[] = anva_get_option( 'navigation' );
 	$classes[] = 'lang-' . get_bloginfo( 'language' );
+	
+	$footer = anva_get_option( 'footer_setup' );
+	if (  isset( $footer['num'] ) && $footer['num'] > 0  ) {
+		$classes[] = 'has-footer-content';
+	}
+	
 	return $classes;
 }
 
@@ -176,7 +182,7 @@ function anva_get_query_posts( $query_args = '' ) {
 		);
 	}
 
-	$query_args = apply_filters( 'anva_get_query_posts_query_args', $query_args );
+	$query_args = apply_filters( 'anva_get_query_posts_args', $query_args );
 	
 	$query = new WP_Query( $query_args );
 	
@@ -211,7 +217,7 @@ function anva_excerpt( $length = '' ) {
 /*
  * Get posts in custom posts widget
  */
-function anva_widget_posts_list( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
+function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
 	global $post;
 
 	$output = '';
@@ -223,7 +229,7 @@ function anva_widget_posts_list( $number = 3, $orderby = 'date', $order = 'date'
 		'order'						=> $order
 	);
 
-	$the_query = new WP_Query( $args );
+	$the_query = anva_get_query_posts( $args );
 	
 	$output .= '<ul class="widget-posts-list">';
 
@@ -231,27 +237,28 @@ function anva_widget_posts_list( $number = 3, $orderby = 'date', $order = 'date'
 		$the_query->the_post();
 
 		if ( $thumbnail ) {
-			$output .= '<li class="post-widget clearfix">';
-			$output .= '<div class="post-image">';
+			$output .= '<li class="sm-post small-post clearfix">';
+			$output .= '<div class="entry-image">';
 			$output .= '<a href="'. get_permalink() .'">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</a>';
-			$output .= '</div>';
+			$output .= '</div><!-- .entry-image (end) -->';
 		} else {
-			$output .= '<li class="post-widget clearfix">';
+			$output .= '<li class="sm-post small-post clearfix">';
 		}
 
-		$output .= '<div class="post-content">';
-		$output .= '<div class="post-title">';
+		$output .= '<div class="entry-c">';
+		$output .= '<div class="entry-title">';
 		$output .= '<h4><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
-		$output .= '</div>';
-		$output .= '<div class="post-meta">';
-		$output .= '<span class="post-date">' . get_the_time( 'F j, Y' ) . '</span>';
-		$output .= '</div>';
-		$output .= '</div>';
-		$output .= '</li>';
+		$output .= '</div><!-- .entry-title (end) -->';
+		$output .= '<div class="entry-meta">';
+		$output .= '<span class="date">' . get_the_time( 'jS F Y' ) . '</span>';
+		$output .= '</div><!-- .entry-meta (end) -->';
+		$output .= '</div><!-- .entry-c (end) -->';
+		$output .= '</li><!-- .mini-posts (end) -->';
 	}
 
 	$output .= '</ul>';
 	echo $output;
+	wp_reset_postdata();
 }
 
 /*

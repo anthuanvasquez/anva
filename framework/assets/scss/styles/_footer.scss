@@ -26,7 +26,13 @@
 }
 
 .footer-content {
-	padding: $padding+40 0;
+	padding: 0;
+}
+
+.has-footer-content {
+	.footer-content {
+		padding: $padding+40 0;
+	}
 }
 
 /*

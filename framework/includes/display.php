@@ -40,7 +40,8 @@ function anva_head_apple_touch_icon() {
 		if ( isset( $value['size'] ) && ! empty( $value['size'] ) )
 			$sizes = ' sizes="'. esc_attr( $value['size'] ) .'" ';
 
-		$html .= '<link rel="'. esc_attr( $value['rel'] ) .'"'. $sizes .'href="'. esc_attr( $value['image'] ) .'" />';
+		if ( file_exists( $value['image'] ) )
+			$html .= '<link rel="'. esc_attr( $value['rel'] ) .'"'. $sizes .'href="'. esc_attr( $value['image'] ) .'" />';
 	}
 
 	echo $html;
@@ -246,6 +247,11 @@ function anva_footer_copyrights_default() {
 	echo $html;
 }
 
+function anva_footer_ghost() {
+	$ghost = 'PCEtLSBUaGlzIFRoZW1lIGlzIERlc2lnbmVkIGJ5IEFudGh1YW4gVmFzcXVlei4gTGVhcm4gbW9yZTogaHR0cDovL2FudGh1YW52YXNxdWV6Lm5ldC8gLS0+';
+	echo base64_decode( $ghost );
+}
+
 /*
  * Display default featured slider
  */
@@ -284,9 +290,7 @@ function anva_breadcrumbs_default() {
 		?>
 		<div id="breadcrumbs">
 			<div class="breadcrumbs-content">
-				<div class="container clearfix">
-					<?php anva_get_breadcrumbs(); ?>
-				</div><!-- .container (end) -->
+				<?php anva_get_breadcrumbs(); ?>
 			</div><!-- .breadcrumbs-content (end) -->
 		</div><!-- #breadcrumbs (end) -->
 		<?php
@@ -316,7 +320,8 @@ function anva_below_layout_default() {
  */
 function anva_fixed_sidebars( $position ) {
 
-	$layout = anva_get_field( 'sidebar_layout' );
+	$layout = anva_get_field( 'anva_page_options', 'sidebar_layout' );
+
 	
 	// Set default layout
 	if ( ! is_page() && ! is_single() || empty( $layout ) ) {

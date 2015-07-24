@@ -50,8 +50,7 @@ class OptionsFramework_Backup {
 	function __construct() {
 
 		// Get default option name
-		$options_framework = new Options_Framework;
-		$option_name = $options_framework->get_option_name();
+		$option_name = anva_get_option_name();
 
 		// Setup properties
 		$this->admin_page = '';
@@ -79,8 +78,8 @@ class OptionsFramework_Backup {
 	function register_admin_screen () {
 
 		$this->admin_page = add_theme_page(
-			__( 'Theme Backup', anva_textdomain() ),
-			__( 'Theme Backup', anva_textdomain() ),
+			__( 'Backup Options', anva_textdomain() ),
+			__( 'Backup Options', anva_textdomain() ),
 			'manage_options',
 			$this->token,
 			array( $this, 'admin_screen' )
@@ -115,41 +114,31 @@ class OptionsFramework_Backup {
 	 */
 	function admin_screen () {
 	?>
-	<div class="wrap">
+	<div id="optionsframework-wrap" class="wrap">
 		<?php echo get_screen_icon( $screen = 'import-export' ); ?>
 		<h2><?php _e( 'Import / Export' ); ?></h2>
 		
 		<div id="optionsframework-metabox" class="metabox-holder">
+		<?php do_action( 'optionsframework_importer_before' ); ?>
 		<div id="optionsframework">
 			<div class="import-export-settings">
 
 				<div id="import-notice" class="section-info">
-					<p>
-					<?php
-						printf(
-							__( 'Please note that this backup manager backs up only your theme settings and not your content. To backup your content, please use the %sWordPress Export Tool%s.', anva_textdomain() ),
-							'<a href="' . esc_url( admin_url( 'export.php' ) ) . '">',
-							'</a>'
-						);
-					?>
-					</p>
+					<p><?php printf( __( 'Please note that this backup manager backs up only your theme settings and not your content. To backup your content, please use the %sWordPress Export Tool%s.', anva_textdomain() ), '<a href="' . esc_url( admin_url( 'export.php' ) ) . '">', '</a>' ); ?></p>
 				</div><!-- #import-notice (end) -->
 
 				<div class="postbox inner-group">
-
 					<h3><?php _e( 'Import Settings', anva_textdomain() ); ?></h3>
 					<div class="section-description">
 						 <?php _e( 'To get started, upload your backup file to import from below.', anva_textdomain() ); ?>
 					</div>
-					<div class="section">
-						<h4 class="heading">
-							<?php printf( __( 'Upload File: (Maximum Size: %s)' ), ini_get( 'post_max_size' ) ); ?>
-						</h4>
+					<div class="section section-import">
+						<h4 class="heading"><?php printf( __( 'Upload File: (Maximum Size: %s)' ), ini_get( 'post_max_size' ) ); ?></h4>
 						<div class="option option-import">
 							<div class="controls">
 								<form enctype="multipart/form-data" method="post" action="<?php echo admin_url( 'admin.php?page=' . $this->token ); ?>">
 									<?php wp_nonce_field( 'OptionsFramework-backup-import' ); ?>
-									<input type="file" id="OptionsFramework-import-file" name="OptionsFramework-import-file" class="of-input-file" />
+									<input type="file" id="OptionsFramework-import-file" name="OptionsFramework-import-file" class="anva-input-file" />
 									<input type="hidden" name="OptionsFramework-backup-import" value="1" />
 									<input type="submit" class="button" value="<?php _e( 'Upload File and Import', anva_textdomain() ); ?>" />
 								</form>
@@ -166,10 +155,8 @@ class OptionsFramework_Backup {
 					<div class="section-description">
 						<?php _e( 'When you click the button below, the Import / Export system will create a text file for you to save to your computer.', anva_textdomain() ); ?>
 					</div>
-					<div class="section">
-						<h4 class="heading">
-							<?php _e( 'Export File:', anva_textdomain() ); ?>
-						</h4>
+					<div class="section section-export">
+						<h4 class="heading"><?php _e( 'Export File:', anva_textdomain() ); ?></h4>
 						<div class="option option-export">
 							<div class="controls">
 								<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->token ) ); ?>">
@@ -179,19 +166,20 @@ class OptionsFramework_Backup {
 								</form>
 							</div>
 							<div class="explain">
-								<p><?php echo sprintf( __( 'This text file can be used to restore your settings here on "%s", or to easily setup another website with the same settings".', anva_textdomain() ), get_bloginfo( 'name' ) ); ?></p>
+								<?php printf( __( 'This text file can be used to restore your settings here on "%s", or to easily setup another website with the same settings".', anva_textdomain() ), get_bloginfo( 'name' ) ); ?>
 							</div>
 						</div><!-- .export (end) -->
 					</div><!-- .section (end) -->
 				</div><!-- .inner-group (end) -->
-
 			</div><!-- .import-export-settings (end) -->
+			
 			<div id="optionsframework-submit" class="postbox">
-				a
+				
 			</div>
+
 		</div><!-- #optionsframework (end) -->
+		<?php do_action( 'optionsframework_importer_after' ); ?>
 		</div><!-- #optionsframework-metabox (nd) -->
-		<?php do_action( 'optionsframework_after' ); ?>
 	</div><!--/.wrap-->
 	<?php
 	}
@@ -211,12 +199,9 @@ class OptionsFramework_Backup {
 			'<p>' . __( 'The backup manager allows you to backup or restore your "Theme Options" and other settings to or from a text file.', anva_textdomain() ) . '</p>' .
 			'<p>' . __( 'To create a backup, simply select the setting type you\'d like to backup (or "All Settings") and hit the "Download Export File" button.', anva_textdomain() ) . '</p>' .
 			'<p>' . __( 'To restore your settings from a backup, browse your computer for the file (under the "Import Settings" heading) and hit the "Upload File and Import" button. This will restore only the settings that have changed since the backup.', anva_textdomain() ) . '</p>' .
-
 			'<p><strong>' . sprintf( __( 'Please note that only valid backup files generated through the %s Backup Manager should be imported.', anva_textdomain() ), ucfirst ( $this->name ) ) . '</strong></p>' .
-
 			'<p><strong>' . __( 'Looking for assistance?', anva_textdomain() ) . '</strong></p>' .
 			'<p>' . sprintf( __( 'Please post your query on the %sThemeForest Support Item%s where we will do our best to assist you further.', anva_textdomain() ), '<a href="' . esc_url( 'http://www.themeforest.com/user/oidoperfecto/portfolio' ) . '" target="_blank">', '</a>' ) . '</p>';
-
 		}
 
 		return $contextual_help;

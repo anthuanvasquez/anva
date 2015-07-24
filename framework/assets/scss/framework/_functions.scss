@@ -41,15 +41,6 @@
 }
 
 // Return the color from $palette map
-@function color($key) {
-	@if map-has-key($palette, $key) {
-		@return map-get($palette, $key);
-	}
-	@warn "Unknown `#{$key}` in $palette.";
-	@return null;
-}
-
-// Return the color from $palette map
 @function skin($key) {
 	@if map-has-key($theme-skins, $key) {
 		@return map-get($theme-skins, $key);

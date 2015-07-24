@@ -160,8 +160,8 @@ function anva_get_column_class( $column ) {
 	
 	$column_class 	 = '';
 	$sidebar_layouts = anva_sidebar_layouts();
-	$current_layout  = anva_get_field( 'sidebar_layout' );
-
+	$current_layout  = anva_get_field( 'anva_page_options', 'sidebar_layout' );
+	
 	// Set default sidebar layout
 	if ( ! is_page() && ! is_single() || empty( $current_layout ) ) {
 		$current_layout = anva_get_option( 'sidebar_layout', 'right' );
@@ -202,6 +202,11 @@ function anva_setup() {
 		$setup['featured']['front'] = true;
 	}
 
+	if ( is_page() ) {
+		$setup['featured']['front'] = false;
+		$setup['comments']['posts'] = true;
+	}
+
 	return apply_filters( 'anva_setup', $setup );
 }
 
@@ -223,21 +228,21 @@ function anva_supports( $group, $feature ) {
 /*
  * Return meta field outside loop
  */
-function anva_get_field( $field ) {
+// function anva_get_field( $field ) {
 
-	// Get post ID
-	global $wp_query;
+// 	// Get post ID
+// 	global $wp_query;
 
-	$id 		 = $wp_query->post->ID;
-	$prefix  = '_';
-	$field   = get_post_meta( $id, $prefix . $field, true );
+// 	$id 		 = $wp_query->post->ID;
+// 	$prefix  = '_';
+// 	$field   = get_post_meta( $id, $prefix . $field, true );
 
-	if ( empty( $field ) ) {
-		$field = '';
-	}
+// 	if ( empty( $field ) ) {
+// 		$field = '';
+// 	}
 	
-	return $field;
-}
+// 	return $field;
+// }
 
 /**
  * Generates default column widths for column element
@@ -480,13 +485,13 @@ function anva_columns( $num, $widths, $columns ) {
 
 	foreach ( $columns as $key => $column ) {
 		// Set CSS classes for column
-		$classes = 'grid_column '.$widths[$key];
+		$classes = 'grid_column ' . $widths[$key];
 		if ( $last == $key ) {
 			$classes .= ' grid_last';
 		}
 
-		echo '<div class="'. esc_attr( $classes ) .'">';
-		anva_display_sidebar($column);
+		echo '<div class="' . esc_attr( $classes ) .'">';
+		anva_display_sidebar( $column );
 		echo '</div><!-- .grid_column (end) -->';
 	}
 }
@@ -498,6 +503,7 @@ function anva_get_post_meta( $field ) {
 	global $post;
 	$field = get_post_meta( $post->ID, $field, true );
 	return $field;
+	var_dump($field);
 }
 
 /*
@@ -512,14 +518,13 @@ function anva_get_post_custom() {
 function anva_get_admin_modules() {
 
 	// Options page
-	$options_admin = new Options_Framework_Admin;
-	$args = $options_admin->menu_settings();
+	$args = anva_get_admin_menu_settings();
 	$options_page = sprintf( 'themes.php?page=%s', $args['menu_slug'] );
 
 	// Admin modules
 	$modules = array(
 		'options'	=> $options_page,
-		'backup'	=> $options_page .'_backup'
+		'backup'	=> $options_page . '_backup'
 	);
 
 	return apply_filters( 'anva_admin_modules', $modules );
@@ -548,22 +553,104 @@ function anva_admin_menu_bar() {
 		$wp_admin_bar->add_node(
 			array(
 				'id'			=> 'anva_theme_options',
-				'parent' 	=> 'site-name',
-				'title'		=> __( 'Theme Options', 'anva' ),
+				'parent' 	=> 'appearance',
+				'title'		=> __( 'Theme Options', anva_textdomain() ),
 				'href'		=> admin_url( $modules['options'] )
 			)
 		);
 	}
 
-	// // Theme Backup
+	// Theme Backup
 	if ( isset( $modules['backup'] ) ) {
 		$wp_admin_bar->add_node(
 			array(
 				'id'		 => 'anva_theme_backup',
-				'parent' 	=> 'site-name',
-				'title'	 => __( 'Theme Backup', 'anva' ),
+				'parent' => 'appearance',
+				'title'	 => __( 'Backup Options', anva_textdomain() ),
 				'href'	 => admin_url( $modules['backup'] )
 			)
 		);
 	}
+}
+
+/**
+ * Contact email
+ */
+function anva_contact_send_email() {
+	
+	global $email_sended_message;
+
+	// Submit form
+	if ( isset( $_POST['contact-submission'] ) && 1 == $_POST['contact-submission'] ) {
+
+		// Fields
+		$name 		= $_POST['cname'];
+		$email 		= $_POST['cemail'];
+		$subject 	= $_POST['csubject'];
+		$message 	= $_POST['cmessage'];
+		$captcha 	= $_POST['ccaptcha'];
+		
+		// Validate name
+		if ( empty( $name ) || sanitize_text_field( $name ) == '' ) {
+			$has_error = true;
+		}
+
+		// Validate email
+		if ( empty( $email ) || sanitize_email( $email ) == '' || ! is_email( $email ) ) {
+			$has_error = true;
+		}
+
+		// Validate subject
+		if ( empty( $subject ) || sanitize_text_field( $subject ) == '' ) {
+			$has_error = true;
+		}
+
+		// Validate message
+		if ( empty( $message ) || sanitize_text_field( $message ) == '' ) {
+			$has_error = true;
+		}
+
+		// Validate answer
+		if ( empty( $captcha ) || sanitize_text_field( $captcha ) == '' ) {
+			$has_error = true;
+		}
+		
+		// Body Mail
+		if ( ! isset( $has_error ) ) {
+
+			// Change to dynamic
+			$email_to = '';
+			
+			if ( ! isset( $email_to ) || ( $email_to == '' ) ) {
+				$email_to = get_option( 'admin_email' );
+			}
+			
+			$email_subject 	= '[Contacto - '. $subject . '] De ' . $name;
+			$email_body 		= "Nombre: $name\n\nEmail: $email\n\nMensaje: \n\n$message";
+			$headers 				= 'De: ' . $name . ' <' . $email_to . '>' . "\r\n" . 'Reply-To: ' . $email;
+			
+			wp_mail( $email_to, $email_subject, $email_body, $headers );
+			$email_sent = true;
+		}
+
+	}
+
+	if ( isset( $email_sent ) && $email_sent == true ) :
+
+		$email_sended_message = anva_get_local( 'submit_message' );
+		
+		// Clear form after submit
+		unset(
+			$_POST['cname'],
+			$_POST['cemail'],
+			$_POST['csubject'],
+			$_POST['cmessage'],
+			$_POST['ccaptcha']
+		);
+		
+	else :
+		if ( isset( $has_error ) ) :
+			$email_sended_message = anva_get_local( 'submit_error' );
+		endif;
+	endif;
 }

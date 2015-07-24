@@ -172,7 +172,7 @@ function anva_get_featured_image( $post_id, $thumbnail ) {
 /**
  * Get featured image in posts
  */
-function anva_get_post_thumbnail( $thumb ) {
+function anva_the_post_thumbnail( $thumb ) {
 	
 	global $post;
 
@@ -198,7 +198,7 @@ function anva_get_post_thumbnail( $thumb ) {
 			$html .= '<a href="' . get_permalink() . '">' . get_the_post_thumbnail( $post->ID, $size, array( 'title' => get_the_title() ) ) . '</a>';
 		}
 
-		$html .= '</div>';
+		$html .= '</div><!-- .entry-image (end) -->';
 	}
 
 	echo $html;
@@ -208,7 +208,7 @@ function anva_get_post_thumbnail( $thumb ) {
 /**
  * Get featured image in post grid
  */
-function anva_get_post_grid_thumbnails( $size ) {
+function anva_the_post_grid_thumbnail( $size ) {
 	
 	global $post;
 	
@@ -217,7 +217,7 @@ function anva_get_post_grid_thumbnails( $size ) {
 	if ( has_post_thumbnail() ) {
 		$html .= '<div class="entry-image">';
 		$html .= '<a href="'. get_permalink( $post->ID ) .'" title="'. get_the_title( $post->ID ) .'">'. get_the_post_thumbnail( $post->ID, $size ) .'</a>';
-		$html .= '</div>';
+		$html .= '</div><!-- .entry-image (end) -->';
 	}
 	
 	return $html;

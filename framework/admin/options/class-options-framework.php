@@ -77,17 +77,20 @@ class Options_Framework {
 		if ( ! $options ) {
 			
 			// Load options from options.php file (if it exists)
-			$location = apply_filters( 'options_framework_location', array( 'options.php' ) );
+			// $location = apply_filters( 'options_framework_location', array( 'options.php' ) );
 			
-			if ( $optionsfile = locate_template( $location ) ) {
-				$maybe_options = load_template( $optionsfile );
+			// if ( $optionsfile = locate_template( $location ) ) {
+			// 	$maybe_options = load_template( $optionsfile );
 
-				if ( is_array( $maybe_options ) ) {
-					$options = $maybe_options;
-				} else if ( function_exists( 'optionsframework_options' ) ) {
-					$options = optionsframework_options();
-				}
-			}
+			// 	if ( is_array( $maybe_options ) ) {
+			// 		$options = $maybe_options;
+			// 	} else if ( function_exists( 'optionsframework_options' ) ) {
+			// 		$options = anva_get_formatted_options();
+			// 	}
+			// }
+
+			// Get options from class Anva_Options
+			$options = anva_get_formatted_options();
 
 			// Allow setting/manipulating options via filters
 			$options = apply_filters( 'anva_options', $options );

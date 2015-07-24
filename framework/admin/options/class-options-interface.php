@@ -44,8 +44,7 @@ class Options_Framework_Interface {
 
 		global $allowedtags;
 
-		$options_framework = new Options_Framework;
-		$option_name = $options_framework->get_option_name();
+		$option_name = anva_get_option_name();
 		$settings = get_option( $option_name );
 		$options = & Options_Framework::_optionsframework_options();
 
@@ -222,8 +221,6 @@ class Options_Framework_Interface {
 				$output .= '</select>';
 				$output .= '</label>';
 				break;
-
-
 			
 			/*
 			|--------------------------------------------------------------------------
@@ -301,12 +298,12 @@ class Options_Framework_Interface {
 				foreach ( $value['options'] as $key => $option ) {
 					$checked = '';
 					$label = $option;
-					$option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($key));
+					$option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $key ) );
 
 					$id = $option_name . '-' . $value['id'] . '-'. $option;
 					$name = $option_name . '[' . $value['id'] . '][' . $option .']';
 
-					if ( isset($val[$option]) ) {
+					if ( isset( $val[$option] ) ) {
 						$checked = checked($val[$option], 1, false);
 					}
 
@@ -326,7 +323,6 @@ class Options_Framework_Interface {
 						$default_color = ' data-default-color="' .$value['std'] . '" ';
 				}
 				$output .= '<input name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '" class="anva-color" type="text" value="' . esc_attr( $val ) . '"' . $default_color .' />';
-
 				break;
 
 			/*
@@ -358,87 +354,93 @@ class Options_Framework_Interface {
 			*/
 			case 'typography':
 
-				unset( $font_size, $font_style, $font_face, $font_color );
+				// unset( $font_size, $font_style, $font_face, $font_color );
 
-				$typography_defaults = array(
-					'size' => '',
-					'face' => '',
-					'style' => '',
-					'color' => '',
-					'google' => '',
-				);
+				// $typography_defaults = array(
+				// 	'size' => '',
+				// 	'face' => '',
+				// 	'style' => '',
+				// 	'color' => '',
+				// 	'google' => '',
+				// );
 
-				$typography_stored = wp_parse_args( $val, $typography_defaults );
+				// $typography_stored = wp_parse_args( $val, $typography_defaults );
 
-				$typography_options = array(
-					'sizes' => anva_recognized_font_sizes(),
-					'faces' => anva_recognized_font_faces(),
-					'styles' => anva_recognized_font_styles(),
-					'color' => true,
-					'google' => '',
-					''
-				);
+				// $typography_options = array(
+				// 	'sizes' => anva_recognized_font_sizes(),
+				// 	'faces' => anva_recognized_font_faces(),
+				// 	'styles' => anva_recognized_font_styles(),
+				// 	'color' => false,
+				// 	'google' => '',
+				// 	''
+				// );
 
-				if ( isset( $value['options'] ) ) {
-					$typography_options = wp_parse_args( $value['options'], $typography_options );
-				}
+				// if ( isset( $value['options'] ) ) {
+				// 	$typography_options = wp_parse_args( $value['options'], $typography_options );
+				// }
+
+				$typography_stored = $val;
 
 				// Font Size
-				if ( $typography_options['sizes'] ) {
-					$font_size = '<select class="anva-typography anva-typography-size" name="' . esc_attr( $option_name . '[' . $value['id'] . '][size]' ) . '" id="' . esc_attr( $value['id'] . '_size' ) . '">';
-					$sizes = $typography_options['sizes'];
+				if ( in_array( 'size', $value['options'] ) ) {
+					$output .= '<select class="anva-typography anva-typography-size" name="' . esc_attr( $option_name . '[' . $value['id'] . '][size]' ) . '" id="' . esc_attr( $value['id'] . '_size' ) . '">';
+					$sizes = anva_recognized_font_sizes();
 					foreach ( $sizes as $i ) {
 						$size = $i . 'px';
-						$font_size .= '<option value="' . esc_attr( $size ) . '" ' . selected( $typography_stored['size'], $size, false ) . '>' . esc_html( $size ) . '</option>';
+						$output .= '<option value="' . esc_attr( $size ) . '" ' . selected( $typography_stored['size'], $size, false ) . '>' . esc_html( $size ) . '</option>';
 					}
-					$font_size .= '</select>';
-				}
-
-				// Font Face
-				if ( $typography_options['faces'] ) {
-					$font_face = '<select class="anva-typography anva-typography-face" name="' . esc_attr( $option_name . '[' . $value['id'] . '][face]' ) . '" id="' . esc_attr( $value['id'] . '_face' ) . '">';
-					$faces = $typography_options['faces'];
-					foreach ( $faces as $key => $face ) {
-						$font_face .= '<option value="' . esc_attr( $key ) . '" ' . selected( $typography_stored['face'], $key, false ) . '>' . esc_html( $face ) . '</option>';
-					}
-					$font_face .= '</select>';
+					$output .= '</select>';
 				}
 
 				// Font Styles
-				if ( $typography_options['styles'] ) {
-					$font_style = '<select class="anva-typography anva-typography-style" name="'.$option_name.'['.$value['id'].'][style]" id="'. $value['id'].'_style">';
-					$styles = $typography_options['styles'];
+				if ( in_array( 'style', $value['options'] ) ) {
+					$output .= '<select class="anva-typography anva-typography-style" name="'.$option_name.'['.$value['id'].'][style]" id="'. $value['id'].'_style">';
+					$styles = anva_recognized_font_styles();
 					foreach ( $styles as $key => $style ) {
-						$font_style .= '<option value="' . esc_attr( $key ) . '" ' . selected( $typography_stored['style'], $key, false ) . '>'. $style .'</option>';
+						$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $typography_stored['style'], $key, false ) . '>'. $style .'</option>';
 					}
-					$font_style .= '</select>';
+					$output .= '</select>';
+				}
+
+				// Font Face
+				if ( in_array( 'face', $value['options'] ) ) {
+					$output .= '<select class="anva-typography anva-typography-face" name="' . esc_attr( $option_name . '[' . $value['id'] . '][face]' ) . '" id="' . esc_attr( $value['id'] . '_face' ) . '">';
+					$faces = anva_recognized_font_faces();
+					foreach ( $faces as $key => $face ) {
+						$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $typography_stored['face'], $key, false ) . '>' . esc_html( $face ) . '</option>';
+					}
+					$output .= '</select>';
 				}
 
 				// Font Color
-				if ( $typography_options['color'] ) {
+				if ( in_array( 'color', $value['options'] ) ) {
 					$default_color = '';
 					if ( isset($value['std']['color']) ) {
 						if ( $val !=  $value['std']['color'] )
 							$default_color = ' data-default-color="' .$value['std']['color'] . '" ';
 					}
-					$font_color = '<input name="' . esc_attr( $option_name . '[' . $value['id'] . '][color]' ) . '" id="' . esc_attr( $value['id'] . '_color' ) . '" class="anva-color anva-typography-color  type="text" value="' . esc_attr( $typography_stored['color'] ) . '"' . $default_color .' />';
+					$output .= '<input name="' . esc_attr( $option_name . '[' . $value['id'] . '][color]' ) . '" id="' . esc_attr( $value['id'] . '_color' ) . '" class="anva-color anva-typography-color  type="text" value="' . esc_attr( $typography_stored['color'] ) . '"' . $default_color .' />';
+				}
+
+				$output .= '<div class="clear"></div>';
+
+				if ( in_array( 'face', $value['options'] ) ) {
+					// Google Font support
+					$output .= '<div class="google-font hidden">';
+					$output .= '<h5>' . __( 'Enter the name of a font from the <a href="' . esc_url( 'http://www.google.com/webfonts' ) . '" target="_blank">Google Font Directory</a> . ', anva_textdomain() ) . '</h5>';
+					$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $value['id'] . '][google]' ) . '" value="' . esc_attr( $typography_stored['google'] ) . '" />';
+					$output .= '<p class="note">' . esc_html__( 'Example Font Name', anva_textdomain() ) . ': ' . '"Open Sans"</p>';
+					$output .= '</div>';
+
+					// Font preview
+					$sample_text = apply_filters( 'anva_typography_sample_text', 'Lorem Ipsum' );
+					$output .= '<div class="sample-text-font" style="font-family: Arial;">' . esc_html( $sample_text ) . '</div>';
 				}
 
 				// Allow modification/injection of typography fields
-				$typography_fields = compact( 'font_size', 'font_face', 'font_style', 'font_color' );
-				$typography_fields = apply_filters( 'anva_typography_fields', $typography_fields, $typography_stored, $option_name, $value );
-				$output .= implode( '', $typography_fields );
-
-				// Google Font support
-				$output .= '<div id="'.$value['id'].'_google" class="google-font hidden">';
-				$output .= '<h5>'.__( 'Enter the name of a font from the <a href="'.esc_url('http://www.google.com/webfonts').'" target="_blank">Google Font Directory</a>.', 'tm' ).'</h5>';
-				$output .= '<input type="text" id="' . esc_attr( $value['id'] . '_google' ) . '" name="'.esc_attr( $option_name.'['.$value['id'].'][google]' ).'" value="'.esc_attr( $typography_stored['google'] ).'" />';
-				$output .= '<p class="note">'. esc_html__( 'Example Font Name', anva_textdomain() ) . ': ' .'"Open Sans"</p>';
-				$output .= '</div>';
-
-				// Font preview box
-				$sample_text = apply_filters( 'anva_typography_sample_text', 'Lorem Ipsum' );
-				$output .= '<div id="' . esc_attr( $value['id'] . '_sample_text' ) . '" class="sample-text-font" style="font-family: Arial;">' . esc_html( $sample_text ) . '</div>';
+				// $typography_fields = compact( 'font_size', 'font_face', 'font_style', 'font_color' );
+				// $typography_fields = apply_filters( 'anva_typography_fields', $typography_fields, $typography_stored, $option_name, $value );
+				// $output .= implode( '', $typography_fields );
 
 				break;
 
@@ -573,7 +575,6 @@ class Options_Framework_Interface {
 			endswitch;
 
 			// Close div and add descriptions
-
 			if ( ( $value['type'] != "group_start" ) && ( $value['type'] != "group_end" ) ) {
 				if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) ) {
 					
@@ -587,7 +588,7 @@ class Options_Framework_Interface {
 				}
 			}
 
-			// Print html output
+			// Print html
 			echo $output;
 		
 		endforeach;

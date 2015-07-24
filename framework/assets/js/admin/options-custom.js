@@ -38,24 +38,28 @@ jQuery(document).ready(function($) {
 	});
 
 	/* ---------------------------------------------------------------- */
-	/* Typography Google
+	/* Typography
 	/* ---------------------------------------------------------------- */
 	$('.section-typography .anva-typography-face').each(function() {
-		var el = $(this), value = el.val();
-		if ( value == 'google' )
+		var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
+		if ( value == 'google' ) {
 			el.closest('.section-typography').find('.google-font').fadeIn('fast');
-		else
+			text = 'Arial';
+		} else {
 			el.closest('.section-typography').find('.google-font').hide();
-			el.closest('.section-typography').find('.sample-text-font').css('font-family', value );
+		}
+		el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
 	});
 
 	$('.section-typography .anva-typography-face').live( 'change', function() {
-		var el = $(this), value = el.val();
-		if ( value == 'google' )
+		var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
+		if ( value == 'google' ) {
+			text = 'Arial';
 			el.closest('.section-typography').find('.google-font').fadeIn('fast');
-		else
+		} else {
 			el.closest('.section-typography').find('.google-font').hide();
-			el.closest('.section-typography').find('.sample-text-font').css('font-family', value );
+		}
+		el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
 	});
 
 	/* ---------------------------------------------------------------- */
@@ -143,5 +147,12 @@ jQuery(document).ready(function($) {
 			$group.hide();
 			$(selected).fadeIn();
 		});
+	}
+
+	var $error = $('#optionsframework-wrap .settings-error');
+	if ( $error.length > 0 ) {
+		setTimeout( function() {
+			$error.fadeOut(500);
+		}, 2000);
 	}
 });

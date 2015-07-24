@@ -80,7 +80,7 @@ function anva_get_font_face( $option ) {
  */
 function anva_get_font_size( $option ) {
 
-	$size = '13px'; // defuault font size
+	$size = '14px'; // defuault font size
 
 	if ( isset( $option['size'] ) ) {
 		$size = $option['size'];

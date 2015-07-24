@@ -17,15 +17,15 @@ function anva_shortcodes_init() {
 /*
  * Remove br and p tags from shortcodes.
  */
-function anva_fix_shortcodes( $content ) {
-	$array = array (
-		'<p>[' 		=> '[', 
-		']</p>' 	=> ']', 
-		']<br />' => ']'
-	);
-	$content = strtr($content, $array);
-	return $content;
-}
+// function anva_fix_shortcodes( $content ) {
+// 	$array = array (
+// 		'<p>[' 		=> '[', 
+// 		']</p>' 	=> ']', 
+// 		']<br />' => ']'
+// 	);
+// 	$content = strtr($content, $array);
+// 	return $content;
+// }
 
 /*
  * Buttons

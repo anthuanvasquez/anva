@@ -1,5 +1,10 @@
 <?php
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if ( ! class_exists( 'Anva' ) ) :
 
 class Anva {
@@ -55,7 +60,7 @@ class Anva {
 
 		// Include files
 		include_once ( ANVA_FRAMEWORK . '/admin/options-framework.php' );
-		include_once ( ANVA_FRAMEWORK . '/admin/includes/metaboxes.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/includes/fields.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
@@ -72,7 +77,6 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/includes/parts.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/shortcodes.php' );
-		include_once ( ANVA_FRAMEWORK . '/plugins/email.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/login.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/slideshows.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/gallery.php' );
@@ -85,24 +89,27 @@ class Anva {
 		/* ---------------------------------------------------------------- */
 
 		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
-		add_action( 'optionsframework_after', 'anva_admin_footer_after' );
-		add_action( 'optionsframework_after', 'anva_admin_header_before' );
+		add_action( 'optionsframework_after', 'anva_admin_footer_credits' );
+		add_action( 'optionsframework_after', 'anva_admin_footer_log' );
+		add_action( 'optionsframework_importer_after', 'anva_admin_footer_credits' );
+		add_action( 'optionsframework_importer_after', 'anva_admin_footer_log' );
 
 		/* ---------------------------------------------------------------- */
 		/* Init
 		/* ---------------------------------------------------------------- */
 
 		add_action( 'init', 'anva_register_menus' );
+		add_action( 'init', 'anva_contact_send_email' );
 		add_action( 'wp', 'anva_setup_author' );
 		add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
 		add_action( 'after_setup_theme', 'anva_add_image_sizes' );
 		add_action( 'image_size_names_choose', 'anva_image_size_names_choose' );
 		add_action( 'after_setup_theme', 'anva_add_theme_support' );
-		add_action( 'add_meta_boxes', 'anva_add_page_options' );
-		add_action( 'save_post', 'anva_page_options_save_meta', 1, 2 );
 		add_action( 'wp_head', 'anva_head_apple_touch_icon' );
 		add_action( 'wp_head', 'anva_head_viewport', 8 );
+		add_action( 'wp_footer', 'anva_footer_ghost', 1000 );
 		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
+		add_action( 'admin_init', 'anva_add_meta_boxes' );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'body_class', 'anva_body_class' );
 		add_filter( 'body_class', 'anva_browser_class' );
@@ -153,6 +160,8 @@ class Anva {
 		add_action( 'anva_posts_meta', 'anva_posts_meta_default' );
 		add_action( 'anva_posts_content', 'anva_posts_content_default' );
 		add_action( 'anva_posts_comments', 'anva_posts_comments_default' );
+		add_action( 'anva_posts_footer', 'anva_post_tags' );
+		add_action( 'anva_posts_footer', 'anva_post_share' );
 
 		/* ---------------------------------------------------------------- */
 		/* Sidebars
@@ -172,9 +181,7 @@ class Anva {
 		/* Plugins
 		/* ---------------------------------------------------------------- */
 
-		add_filter( 'the_content', 'anva_fix_shortcodes' );
 		add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
-		add_action( 'init', 'anva_contact_send_email' );
 		add_action( 'after_setup_theme', 'anva_slideshows_setup' );
 
 	}

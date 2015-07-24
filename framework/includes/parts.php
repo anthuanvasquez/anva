@@ -67,11 +67,12 @@ function anva_posted_on() {
 		$time_string .= '<time class="entry-date-updated updated" datetime="%3$s"><i class="fa fa-calendar"></i> %4$s</time>';
 	}
 
-	$time_string = sprintf( $time_string,
+	$time_string = sprintf(
+		$time_string,
 		esc_attr( get_the_date( 'c' ) ),
-		esc_html( get_the_date() ),
+		esc_html( get_the_date( 'jS F Y' ) ),
 		esc_attr( get_the_modified_date( 'c' ) ),
-		esc_html( get_the_modified_date() )
+		esc_html( get_the_modified_date( 'jS F Y' ) )
 	);
 
 	// Get comments number
@@ -79,21 +80,21 @@ function anva_posted_on() {
 
 	if ( comments_open() ) {
 		if ( $num_comments == 0 ) {
-			$comments = __( 'No hay Comentarios', anva_textdomain() );
+			$comments = __( 'No Comments', anva_textdomain() );
 		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __( ' Comentarios', anva_textdomain() );
+			$comments = $num_comments . __( ' Comments', anva_textdomain() );
 		} else {
-			$comments = __( '1 Comentario', anva_textdomain() );
+			$comments = __( '1 Comment', anva_textdomain() );
 		}
-		$write_comments = '<a href="' . get_comments_link() .'"><span class="leave-reply">'.$comments.'</span></a>';
+		$write_comments = '<a href="' . get_comments_link() . '"><span class="leave-reply">' . $comments . '</span></a>';
 	} else {
-		$write_comments =  __( 'Comentarios cerrado', anva_textdomain() );
+		$write_comments =  __( 'Comments closed', anva_textdomain() );
 	}
 
 	$sep = ' / ';
 
 	printf(
-		'<div class="entry-meta">
+		'<div class="entry-meta clearfix">
 			<span class="posted-on">%1$s</span>
 			<span class="sep">%5$s</span>
 			<span class="byline"><i class="fa fa-user"></i> %2$s</span>
@@ -116,7 +117,9 @@ function anva_posted_on() {
 		sprintf(
 			'%1$s', $write_comments
 		),
-		sprintf( '%1$s', $sep )
+		sprintf(
+			'%1$s', $sep
+		)
 	);
 }
 
@@ -240,7 +243,7 @@ function anva_post_author() {
 	?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-				<h3 class="panel-title">Posted by <span><a href="<?php echo esc_attr( $url ); ?>"><?php echo esc_attr( $name ); ?></a></span></h3>
+			<h3 class="panel-title">Posted by <span><a href="<?php echo esc_attr( $url ); ?>"><?php echo esc_attr( $name ); ?></a></span></h3>
 		</div>
 		<div class="panel-body">
 			<div class="author-image">
@@ -248,18 +251,137 @@ function anva_post_author() {
 			</div>
 			<?php echo esc_html( $desc ); ?>
 		</div>
-	</div>
+	</div><!-- .author (end) -->
 	<div class="line"></div>
 	<?php
 }
 
-function anva_post_related() {
+function anva_post_tags() {
+	$margin = 'entry-tags clearfix';
+	if ( is_single() )
+		$margin .= ' bottommargin';
 	?>
-	<h3>Related Posts</h3>
+	<span class="<?php echo esc_attr( $margin ); ?>">
+		<?php the_tags( '<i class="fa fa-tags"></i> ', ' ' ); ?>
+	</span><!-- .entry-tags (end) -->
+	<?php
+}
+
+function anva_post_share() {
+	$single_share = anva_get_option( 'single_share', 'show' );
+	if ( 'show' != $single_share ) {
+		return;
+	}
+
+	if ( is_single() ) :
+	?>
+	<div class="social-share noborder clearfix">
+		<span><?php _e( 'Share this Post:', anva_textdomain() ); ?></span>
+		<div>
+			<a href="#" class="social-icon social-noborder social-facebook">
+				<i class="fa fa-facebook"></i>
+			</a>
+			<a href="#" class="social-icon social-noborder social-twitter">
+				<i class="fa fa-twitter"></i>
+			</a>
+			<a href="#" class="social-icon social-noborder social-pinterest">
+				<i class="fa fa-pinterest"></i>
+			</a>
+			<a href="#" class="social-icon social-noborder social-google-plus">
+				<i class="fa fa-google-plus"></i>
+			</a>
+			<a href="#" class="social-icon social-noborder social-rss">
+				<i class="fa fa-rss"></i>
+			</a>
+			<a href="#" class="social-icon social-noborder social-envelope">
+				<i class="fa fa-envelope"></i>
+			</a>
+		</div>
+	</div><!-- .social-share (end) -->
+	<?php
+	endif;
+}
+
+function anva_post_related() {
+	$single_related = anva_get_option( 'single_related', 'hide' );
+	if ( 'show' != $single_related ) {
+		return;
+	}
+
+	global $post;
+	?>
+	<h3><?php _e( 'Related Posts', anva_textdomain() ); ?></h3>
 	<div class="related-posts clearfix">
-		<div class="grid_6">1</div>
-		<div class="grid_6">2</div>
-	</div>
+	<?php
+
+	$limit = 4;
+	$count = 1;
+	$column = 2;
+	$categories = get_the_category( $post->ID );
+
+	$open_row = '<div class="grid_6 nomarginbottom">';
+	$close_row = '</div><!-- .grid_6 (end) -->';
+
+	if ( $categories ) :
+		
+		$ids = array();
+	
+		foreach ( $categories as $cat ) {
+			$ids[] = $cat->term_id;
+		}
+		
+		$query_args = array(
+			'category__in' => $ids,
+			'post__not_in' => array( $post->ID ),
+			'posts_per_page' => $limit,
+			'ignore_sticky_posts' => 1,
+			'orderby' => 'rand'
+		);
+	
+		$query = anva_get_query_posts( $query_args );
+	
+		if ( $query->have_posts() ) : ?>
+			
+			<?php while ( $query->have_posts() ) :
+				$query->the_post(); ?>
+
+				<?php if ( 1 == $count ): echo $open_row; endif ?>
+				
+				<div class="md-post clearfix">
+					<div class="entry-image">
+						<a href="<?php the_permalink(); ?>">
+							<?php the_post_thumbnail( 'blog_md' ); ?>
+						</a>
+					</div><!-- .entry-image (end) -->
+					<div class="entry-c">
+						<div class="entry-title">
+							<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+						</div>
+						<div class="entry-meta clearfix">
+							<span><i class="fa fa-calendar"></i> <?php the_time( 'jS F Y' ); ?></span>
+							<span class="sep">/</span>
+							<span><a href="<?php the_permalink(); ?>/#comments"><i class="fa fa-comments"></i> <?php echo get_comments_number(); ?></a></span>
+						</div>
+						<div class="entry-content">
+							<?php anva_excerpt( 90 ); ?>
+						</div>
+					</div><!-- .entry-c (end) -->
+				</div><!-- .md-post (end) -->
+
+				<?php if ( 0 == $count % $column ): echo $close_row; endif ?>
+				<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row; endif; ?>
+
+				<?php $count++; ?>
+
+			<?php endwhile; ?>
+			
+			<?php if ( ( $count - 1 ) != $limit ) : echo $close_row; endif; ?>
+
+		<?php endif;
+	endif;
+	wp_reset_postdata();
+	?>
+	</div><!-- .related-posts (end) -->
 	<?php
 }
 
@@ -567,8 +689,10 @@ function anva_comment_reply_link_class( $class ){
 /**
  * Display a breadcrumb menu after header
  */
-function anva_get_breadcrumbs() {  
+function anva_get_breadcrumbs() {
 	
+	global $post;
+
 	$text['home']   		= anva_get_local( 'home' );
 	$text['category'] 	= anva_get_local( 'category_archive' ) . ' "%s"';
 	$text['search']  		= anva_get_local( 'search_results' ) . ' "%s"';
@@ -576,19 +700,16 @@ function anva_get_breadcrumbs() {
 	$text['author']  		= anva_get_local( 'author_archive' ) . ' "%s"';
 	$text['404']   			= anva_get_local( '404' );
 	
-	$show_current  			= 1; // 1 - show current post/page/category title in breadcrumbs, 0 - don't show  
-	$show_on_home  			= 0; // 1 - show breadcrumbs on the homepage, 0 - don't show  
-	$show_home_link			= 1; // 1 - show the 'Home' link, 0 - don't show  
-	$show_title   			= 1; // 1 - show the title for the links, 0 - don't show  
-	$delimiter   				= '<span class="separator"> / </span>'; // delimiter between crumbs  
-	$before     				= '<span class="current">'; // tag before the current crumb  
-	$after     					= '</span>'; // tag after the current crumb   
-	
-	global $post;
-
-	$home_link  				= home_url( '/' );  
-	$link_before 				= '<span typeof="v:Breadcrumb">';  
-	$link_after  				= '</span>';  
+	$show_current  			= 1; // 1 - show current post/page/category title in breadcrumbs, 0 - don't show
+	$show_on_home  			= 0; // 1 - show breadcrumbs on the homepage, 0 - don't show
+	$show_home_link			= 1; // 1 - show the 'Home' link, 0 - don't show
+	$show_title   			= 1; // 1 - show the title for the links, 0 - don't show
+	$delimiter   				= '<li class="separator"> / </li>'; // delimiter between crumbs
+	$before     				= '<li class="current">'; // tag before the current crumb
+	$after     					= '</li>'; // tag after the current crumb
+	$home_link  				= home_url( '/' );
+	$link_before 				= '<li typeof="v:Breadcrumb">';  
+	$link_after  				= '</li>';  
 	$link_attr  				= ' rel="v:url" property="v:title"';  
 	$link     					= $link_before . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $link_after;  
 	$parent_id  				= $parent_id_2 = $post->post_parent;  
@@ -597,15 +718,15 @@ function anva_get_breadcrumbs() {
 	// Home or Front Page
 	if ( is_home() || is_front_page() ) {
 	
-		if ( $show_on_home == 1 ) echo '<div class="breadcrumbs"><a href="' . $home_link . '">' . $text['home'] . '</a></div>';  
+		if ( $show_on_home == 1 ) echo '<ol class="breadcrumb"><li><a href="' . $home_link . '">' . $text['home'] . '</a></li></ol>';  
 	
 	} else {
 	
-		echo '<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
+		echo '<ol class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">';
 		
 		if ( $show_home_link == 1 ) {
 			
-			echo '<a href="' . $home_link . '" rel="v:url" property="v:title">' . $text['home'] . '</a>';  
+			echo '<li><a href="' . $home_link . '" rel="v:url" property="v:title">' . $text['home'] . '</a></li>';
 			
 			if ( $frontpage_id == 0 || $parent_id != $frontpage_id )
 				echo $delimiter;
@@ -614,14 +735,14 @@ function anva_get_breadcrumbs() {
 		// Category Navigation
 		if ( is_category() ) {
 			
-			$this_cat = get_category(get_query_var('cat'), false);
+			$this_cat = get_category( get_query_var( 'cat' ), false );
 
 			if ( $this_cat->parent != 0 ) {  
 				
-				$cats = get_category_parents($this_cat->parent, TRUE, $delimiter);
+				$cats = get_category_parents( $this_cat->parent, true, $delimiter );
 
 				if ( $show_current == 0 ) {
-					$cats = preg_replace("#^(.+)$delimiter$#", "$1", $cats);
+					$cats = preg_replace( "#^(.+)$delimiter$#", "$1", $cats );
 				}
 				
 				$cats = str_replace('<a', $link_before . '<a' . $link_attr, $cats);
@@ -741,7 +862,7 @@ function anva_get_breadcrumbs() {
 			echo $before . $text['404'] . $after;  
 		
 		// Single Page
-		} elseif ( has_post_format() && !is_singular() ) {  
+		} elseif ( has_post_format() && ! is_singular() ) {  
 			echo get_post_format_string( get_post_format() );  
 		}  
 		
@@ -752,7 +873,7 @@ function anva_get_breadcrumbs() {
 		// 	if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';  
 		// }
 	
-		echo '</div><!-- .breadcrumbs (end) -->';
+		echo '</ol><!-- .breadcrumb (end) -->';
 	
 	}
 }

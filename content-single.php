@@ -10,14 +10,16 @@
 		</div><!-- .entry-title (end) -->
 		
 		<?php anva_posts_meta(); ?>
-		<?php anva_get_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+		<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 		
 		<div class="entry-content">
 			<?php the_content(); ?>
 		</div><!-- .entry-content (end) -->
 		
 		<div class="entry-footer">
-			<?php anva_posts_tag(); ?>
+			<?php anva_posts_footer(); ?>
+				<?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div>' ) ); ?>
+				<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link">', '</span>' ); ?>
 		</div><!-- .entry-footer (end) -->
 	</article><!-- #post-<?php the_ID(); ?> -->
 
