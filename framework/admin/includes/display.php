@@ -50,74 +50,9 @@ function anva_admin_footer_credits() {
  * Custom admin javascripts
  */
 function anva_admin_head_scripts() {
-
-	$option_name = anva_get_option_name();
-	$settings = get_option( $option_name );
-	$options = & Options_Framework::_optionsframework_options();
-
-	$val = '';
 	?>
-	<script type="text/javascript">
-	jQuery.noConflict();
-	jQuery(document).ready(function() {
-		<?php foreach ( $options as $value ) : ?>
-			<?php
-				if ( isset( $value['id'] ) ) {
-					// Set the id
-					$id = $value['id'];
-
-					// Set default value to $val
-					if ( isset( $value['std'] ) ) {
-						$val = $value['std'];
-					}
-					// If the option is already saved, override $val
-					if ( isset( $settings[($value['id'])] ) ) {
-						$val = $settings[($value['id'])];
-						// Striping slashes of non-array options
-						if ( ! is_array($val) ) {
-							$val = stripslashes( $val );
-						}
-					}
-				}
-			?>
-			
-			<?php if ( 'range' == $value['type'] ) : ?>
-				// Range Slider
-				var <?php echo $id; ?> = {
-					input: jQuery("#<?php echo $id; ?>"),
-					slider: jQuery("#<?php echo $id; ?>_range")
-				}
-
-				<?php
-					// Remove all formats from the value
-					$val = strtr( $val, ['px' => '', 'em' => '', '%' => '', 'rem' => ''] );
-					// $val = str_replace( $value['options']['format'], '', $val );
-					$plus = '+';
-					$format = '';
-					if ( isset( $value['options']['format'] ) ) {
-						$format = $value['options']['format'];
-					}
-				?>
-
-				// Update input range slider
-				<?php echo $id; ?>.slider.slider({
-					min: <?php echo esc_js( $value['options']['min'] ); ?>,
-					max: <?php echo esc_js( $value['options']['max'] ); ?>,
-					step: <?php echo esc_js( $value['options']['step'] ); ?>,
-					value: <?php echo esc_js( $val ); ?>,
-					slide: function(e, ui) {
-						<?php echo $id; ?>.input.val( ui.value <?php echo esc_js( $plus ); ?> '<?php echo esc_js( $format ); ?>' );
-					}
-				});
-				<?php echo $id; ?>.input.val( <?php echo $id; ?>.slider.slider( "value" ) <?php echo esc_js( $plus ); ?> '<?php echo esc_js( $format ); ?>' );
-				<?php echo $id; ?>.slider.slider("pips");
-				<?php echo $id; ?>.slider.slider("float", { pips: true });
-			<?php endif; ?>
-		<?php endforeach; ?>
-	});
-	</script>
 	<link rel="stylesheet" id="google-css" href="<?php echo esc_url( '//fonts.googleapis.com/css?family=Open+Sans' ); ?>" type="text/css" media="all">
-<?php
+	<?php
 }
 
 /**

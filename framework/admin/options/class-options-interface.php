@@ -342,8 +342,8 @@ class Options_Framework_Interface {
 			*/
 			case "range":
 				// $output .= anva_range_slider_fields( $value['id'], $option_name, $val );
-				$output .= '<div id="' . esc_attr( $value['id'] ) . '_range"></div>';
-				$output .= '<input id="' . esc_attr( $value['id'] ) .'" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" class="anva-input-range hidden" type="text" value="' . esc_attr( $val ) . '" />';
+				$output .= '<div class="anva-range-slider" data-range="' . esc_attr( $value['id'] ) . '"></div>';
+				$output .= '<input id="' . esc_attr( $value['id'] ) .'" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" class="anva-input-range hidden" type="text" value="' . esc_attr( $val ) . '" data-min="" data-max="" data-step="" data-value="" />';
 				
 				break;
 
