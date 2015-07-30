@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Init API classes
+ * 
+ * @since 1.0.0
+ */
 function anva_api_init() {
 
 	// Setup Framework Stylesheets

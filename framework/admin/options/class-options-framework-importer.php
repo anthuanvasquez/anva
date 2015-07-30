@@ -77,12 +77,20 @@ class OptionsFramework_Backup {
 	 */
 	function register_admin_screen () {
 
+		$menu = apply_filters( 'optionsframework_backup_menu', array(
+			'page_title' 	=> __( 'Backup Options', anva_textdomain() ),
+			'menu_title' 	=> __( 'Backup Options', anva_textdomain() ),
+			'capability' 	=> 'manage_options',
+			'slug' 				=> $this->token,
+			'screen' 			=> array( $this, 'admin_screen' )
+		));
+
 		$this->admin_page = add_theme_page(
-			__( 'Backup Options', anva_textdomain() ),
-			__( 'Backup Options', anva_textdomain() ),
-			'manage_options',
-			$this->token,
-			array( $this, 'admin_screen' )
+			$menu['page_title'],
+			$menu['menu_title'],
+			$menu['capability'],
+			$menu['slug'],
+			$menu['screen']
 		);
 
 		// Adds actions to hook in the required css and javascript
@@ -121,8 +129,9 @@ class OptionsFramework_Backup {
 		<div id="optionsframework-metabox" class="metabox-holder">
 		<?php do_action( 'optionsframework_importer_before' ); ?>
 		<div id="optionsframework">
-			<div class="import-export-settings">
-
+			<div class="options-settings import-export-settings">
+				
+				<div class="column-1">
 				<div id="import-notice" class="section-info">
 					<p><?php printf( __( 'Please note that this backup manager backs up only your theme settings and not your content. To backup your content, please use the %sWordPress Export Tool%s.', anva_textdomain() ), '<a href="' . esc_url( admin_url( 'export.php' ) ) . '">', '</a>' ); ?></p>
 				</div><!-- #import-notice (end) -->
@@ -171,12 +180,15 @@ class OptionsFramework_Backup {
 						</div><!-- .export (end) -->
 					</div><!-- .section (end) -->
 				</div><!-- .inner-group (end) -->
-			</div><!-- .import-export-settings (end) -->
-			
-			<div id="optionsframework-submit" class="postbox">
-				
-			</div>
+				</div><!-- .column-1 (end) -->
 
+				<div class="column-2">
+					
+				</div><!-- .column-2 (end) -->
+
+				<div class="clear"></div>
+
+			</div><!-- .import-export-settings (end) -->
 		</div><!-- #optionsframework (end) -->
 		<?php do_action( 'optionsframework_importer_after' ); ?>
 		</div><!-- #optionsframework-metabox (nd) -->

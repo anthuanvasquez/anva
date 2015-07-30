@@ -1,8 +1,10 @@
 <?php
 /**
- * Javascripts
+ * Anva Javascripts
+ * 
  * This class sets up the framework scripts that get
  * enqueued on the frontend of the website.
+ *
  * Additionally, this class provides methods to add and
  * remove scripts. Custom API-added scripts are organized
  * within four levels.
@@ -10,6 +12,11 @@
  *	- Level 2: After Framework scripts
  *	- Level 3: After Theme scripts (implemented at theme level)
  *	- Level 4: After everything. (end of wp_head)
+ *
+ * @since 		 1.0.0
+ * @package    Anva
+ * @subpackage Anva/admin
+ * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 class Anva_Scripts {
 
@@ -290,8 +297,14 @@ class Anva_Scripts {
 	}
 }
 
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
+
 /**
  * Add custom script
+ *
+ * @since 1.0.0
  */
 function anva_add_script( $handle, $src, $level = 4, $ver = null, $footer = true ) {
 	$api = Anva_Scripts::instance();
@@ -300,6 +313,8 @@ function anva_add_script( $handle, $src, $level = 4, $ver = null, $footer = true
 
 /**
  * Remove custom script
+ *
+ * @since 1.0.0
  */
 function anva_remove_script( $handle ) {
 	$api = Anva_Scripts::instance();
@@ -308,6 +323,8 @@ function anva_remove_script( $handle ) {
 
 /**
  * Get scripts
+ *
+ * @since 1.0.0
  */
 function anva_get_scripts() {
 	$api = Anva_Scripts::instance();
@@ -318,6 +335,8 @@ function anva_get_scripts() {
 
 /**
  * Print out scripts
+ *
+ * @since 1.0.0
  */
 function anva_print_scripts( $level ) {
 	$api = Anva_Scripts::instance();

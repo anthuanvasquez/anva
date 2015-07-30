@@ -515,6 +515,40 @@ function anva_get_post_custom() {
 	return $fields;
 }
 
+/**
+ * Get query posts args
+ *
+ * @since   1.0.0
+ * @package Anva
+ * @param   array The query arguments.
+ * @return  array The post list.
+ */
+function anva_get_query_posts( $query_args = '' ) {
+	
+	$number = get_option( 'posts_per_page' );
+	$page 	= get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+	$offset = ( $page - 1 ) * $number;
+	
+	if ( empty( $query_args ) ) {
+		$query_args = array(
+			'post_type'  			=> array( 'post' ),
+			'post_status' 		=> 'publish',
+			'posts_per_page' 	=> $number,
+			'orderby'    			=> 'date',
+			'order'      			=> 'desc',
+			'number'     			=> $number,
+			'page'       			=> $page,
+			'offset'     			=> $offset
+		);
+	}
+
+	$query_args = apply_filters( 'anva_get_query_posts_args', $query_args );
+	
+	$query = new WP_Query( $query_args );
+	
+	return $query;
+}
+
 function anva_get_admin_modules() {
 
 	// Options page

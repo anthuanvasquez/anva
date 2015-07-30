@@ -122,3 +122,9 @@
 .anva-meta-context-side .meta-explain {
   margin-right: 0;
 }
+
+.meta-content-builder .meta-explain {
+  float: none;
+  margin-bottom: 20px;
+  width: 100%;
+}

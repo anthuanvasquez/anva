@@ -4,37 +4,6 @@
  */
 
 jQuery(document).ready(function($) {
-	
-	/* ---------------------------------------------------------------- */
-	/* Range Slider
-	/* ---------------------------------------------------------------- */
-	var $rangeSliderEl = $('.section-range');
-	
-	if ( $rangeSliderEl.length > 0 ) {
-		$rangeSliderEl.each( function() {
-			$rangeSlider = $(this);
-			$min		= $rangeSlider.parent('.anva-range-input').attr('data-min'),
-			$max 		= $rangeSlider.parent('.anva-range-input').attr('data-max'),
-			$step 	= $rangeSlider.parent('.anva-range-input').attr('data-step'),
-			$format = $rangeSlider.parent('.anva-range-input').attr('data-format').toString(),
-			$value 	= $rangeSlider.parent('.anva-range-input').attr('value'),
-			$input 	= $rangeSlider.parent('.anva-range-input'),
-			$slider = $rangeSlider.parent('.anva-range-slider');
-
-			$slider.slider({
-				min: $min,
-				max: $max,
-				step: $step,
-				value: $value,
-				slide: function(e, ui) {
-					$input.val( ui.value + $format );
-				}
-			});
-			$input.val( $slider.slider( "value" ) + $format );
-			$slider.slider("pips");
-			$slider.slider("float", { pips: true });
-		}
-	}
 
 	/* ---------------------------------------------------------------- */
 	/* WP Color Picker
@@ -131,6 +100,10 @@ jQuery(document).ready(function($) {
 		parent.find('.column-width-'+num).fadeIn('fast');
 	});
 
+	$('#optionsframework-submit input.button-primary').click( function() {
+		$('#optionsframework-submit .spinner').addClass('is-active');
+	});
+
 	/* ---------------------------------------------------------------- */
 	/* Loads tabbed sections if they exist
 	/* ---------------------------------------------------------------- */
@@ -184,6 +157,6 @@ jQuery(document).ready(function($) {
 	if ( $error.length > 0 ) {
 		setTimeout( function() {
 			$error.fadeOut(500);
-		}, 2000);
+		}, 3000);
 	}
 });

@@ -2,6 +2,9 @@
 
 /**
  * Add page and post meta boxes
+ *
+ * @since 1.0.0
+ * @return class Anva_Meta_box
  */
 function anva_add_meta_boxes() {
 
@@ -11,6 +14,12 @@ function anva_add_meta_boxes() {
 
 }
 
+/**
+ * Page meta setup array
+ *
+ * @since 1.0.0
+ * @return array $setup
+ */
 function anva_setup_page_meta() {
 	
 	$domain = anva_textdomain();
@@ -36,7 +45,7 @@ function anva_setup_page_meta() {
 			'id' 				=> 'anva_page_options',
 			'title' 		=> __( 'Page Options', $domain ),
 			'page'			=> array( 'page' ),
-			'context' 	=> 'side',
+			'context' 	=> 'normal',
 			'priority'	=> 'default',
 			'desc'			=> __( 'Page Options Desc', $domain )
 		),
@@ -117,64 +126,22 @@ function anva_setup_page_meta() {
 				'type'  => 'date',
 				'std'		=> '07/11/2018'
 			),
+			'repeatable' => array(
+				'name' => 'Repeatable',
+				'desc'  => 'A description for the field.',
+				'id'    => 'repeatable',
+				'type'  => 'repeatable'
+			)
 		)
 	);
 
 	return apply_filters( 'anva_page_meta', $setup );
 }
 
-/*
- * Init meta boxes
- */
-// add_action( 'admin_head','anva_add_fields_scripts' );
-
-/*
- * Meta Fields for Advanced Options
- */
-function anva_meta_fields() {
-
-	// Fields Array
-	$fields = array(
-		array(
-			'label' => 'Category',
-			'id'    => 'category',
-			'type'  => 'tax_select'
-		),
-		array(
-			'label' => 'Post List',
-			'desc' => 'A description for the field.',
-			'id'   =>  'post_id',
-			'type' => 'post_list',
-			'post_type' => array( 'post', 'page' )
-		),
-		array(
-			'label' => 'Slider',
-			'desc'  => 'A description for the field.',
-			'id'    => 'slider',
-			'type'  => 'slider',
-			'min'   => '0',
-			'max'   => '100',
-			'step'  => '5'
-		),
-		array(
-			'label'  => 'Image',
-			'desc'  => 'A description for the field.',
-			'id'    => 'image',
-			'type'  => 'upload'
-		),
-		array(
-			'label' => 'Repeatable',
-			'desc'  => 'A description for the field.',
-			'id'    => 'repeatable',
-			'type'  => 'repeatable'
-		)
-	);
-	
-	return $fields;
-}
-
-/*
+/**
  * Meta Fields Interface
+ *
+ * @since 1.0.0
  */
 function anva_meta_fields_interface( $option_name, $fields ) {
 
@@ -214,10 +181,10 @@ function anva_meta_fields_interface( $option_name, $fields ) {
 			}
 			
 			if ( $field['type'] != 'editor' ) {
-				$output .= '<div class="meta-option">' . "\n" . '<div class="meta-controls">' . "\n";
+				$output .= '<div class="meta-option">' . "\n" . '<div class="meta-controls"><!-- .meta-controls (end) -->' . "\n";
 			}
 			else {
-				$output .= '<div class="meta-option">' . "\n" . '<div>' . "\n";
+				$output .= '<div class="meta-option">' . "\n" . '<div><!-- .meta-option (end) -->' . "\n";
 			}
 		}
 
@@ -308,37 +275,6 @@ function anva_meta_fields_interface( $option_name, $fields ) {
 				}
 				break;
 
-			// case 'tax_select':
-			// 	echo '<select name="'.$field['id'].'" id="'.$field['id'].'">';
-			// 	echo '<option value="">Select One</option>'; // Select One
-			// 	$terms = get_terms($field['id'], 'get=all');
-			// 	$selected = wp_get_object_terms($post->ID, $field['id']);
-			// 	foreach ($terms as $term) {
-			// 		if (!empty($selected) && !strcmp($term->slug, $selected[0]->slug)) 
-			// 			echo '<option value="'.$term->slug.'" selected="selected">'.$term->name.'</option>'; 
-			// 		else
-			// 			echo '<option value="'.$term->slug.'">'.$term->name.'</option>'; 
-			// 	}
-			// 	$taxonomy = get_taxonomy($field['id']);
-			// 	$output .= '</select>';
-			// 	$output .= '<span class="description"><a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy='.$field['id'].'">Manage '.$taxonomy->label.'</a></span>';
-			// 	break;
-
-			// // post_list
-			// case 'post_list':
-			// 	$items = get_posts( array (
-			// 		'post_type' => $field['post_type'],
-			// 		'posts_per_page' => -1
-			// 	));
-				
-			// 	$output .= '<select name="'.$field['id'].'" id="'.$field['id'].'">';
-			// 	$output .= '<option value="">Select One</option>'; // Select One
-			// 	foreach($items as $item) {
-			// 		$output .= '<option value="'.$item->ID.'"' . $meta == $item->ID ? ' selected="selected"' : '' . '>'.$item->post_type.': '.$item->post_title.'</option>';
-			// 	}
-			// 	$output .= '</select><br /><span class="description">'.$field['desc'].'</span>';
-			// 	break;
-
 			// Date
 			case 'date':
 				$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input meta-date meta-date-picker" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
@@ -350,24 +286,7 @@ function anva_meta_fields_interface( $option_name, $fields ) {
 				$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input meta-slider" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
 				break;
 
-			// // image
-			case 'upload':
-				$image = '';
-				$output .= '<span class="custom_default_image" style="display:none">'.$image.'</span>';
-				
-				if ( $val ) {
-					$image = wp_get_attachment_image_src( $val, 'medium' );
-					$image = esc_url( $image[0] );
-					$output .= '<img src="' . $image . '" class="custom_preview_image" alt="" />';
-				}     
-
-				$output .= '<input name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="hidden" class="custom_upload_image" value="' . esc_attr( $val ) . '" />';
-				
-				$output .= '<input class="custom_upload_image_button button" type="button" value="Choose Image" />';
-				$output .= '<a href="#" class="custom_clear_image_button button">Remove Image</a>';
-				break;
-
-			// // repeatable
+			// Repeatable
 			case 'repeatable':
 				$output .= '<a class="repeatable-add button" href="#">+</a>';
 				$output .= '<ul id="' . esc_attr( $field['id'] ) . '-repeatable" class="custom_repeatable">';
@@ -394,7 +313,7 @@ function anva_meta_fields_interface( $option_name, $fields ) {
 		if ( ( $field['type'] != "heading" ) && ( $field['type'] != "info" ) ) {
 			$output .= '</div>';
 			if ( ( $field['type'] != "checkbox" ) && ( $field['type'] != "editor" ) ) {
-				$output .= '<div class="meta-explain description">' . wp_kses( $explain_value, $allowedtags ) . '</div>'."\n";
+				$output .= '<div class="meta-explain description">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .meta-explain (end) -->'."\n";
 			}
 			$output .= '</div></div>'."\n";
 		}
@@ -405,44 +324,14 @@ function anva_meta_fields_interface( $option_name, $fields ) {
 
 }
 
-/*
- * Add fields scripts
- */
-// function anva_add_fields_scripts() {
-		
-// 		global $post;
-// 		$fields = anva_meta_fields();
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
 
-// 		$output = '<script type="text/javascript">jQuery( function() {';				 
-		
-// 		foreach ( $fields as $field ) {
-
-// 			if ( $field['type'] == 'slider' ) {
-// 				$value = get_post_meta( $post->ID, $field['id'], true );
-				
-// 				if ( empty( $value ) ) {
-// 					$value = $field['min'];
-// 				}
-				
-// 				$output .= 'jQuery("#' . esc_js( $field['id'] ) . '-slider").slider({';
-// 				$output .= 'value: '. esc_js( $value ) . ',';
-// 				$output .= 'min: '. esc_js( $field['min'] ) . ',';
-// 				$output .= 'max: '. esc_js( $field['max'] ) . ',';
-// 				$output .= 'step: '. esc_js( $field['step'] ) . ',';
-// 				$output .= 'slide: function( event, ui ) {';
-// 				$output .= 'jQuery( "#' . esc_js( $field['id'] ) . '" ).val( ui.value );';
-// 				$output .= '}';
-// 				$output .= '});';
-// 			}
-// 		}
-
-// 		$output .= '});</script>';
-		
-// 		echo $output;
-// }
-
-/*
+/**
  * Get field
+ *
+ * @since 1.0.0
  */
 function anva_get_field( $id, $field, $default = false ) {
 	
@@ -455,8 +344,10 @@ function anva_get_field( $id, $field, $default = false ) {
 	return $default;
 }
 
-/*
+/**
  * Show field
+ *
+ * @since 1.0.0
  */
 function anva_the_field( $id, $field, $default = false ) {
 	echo anva_get_field( $id, $field, $default );

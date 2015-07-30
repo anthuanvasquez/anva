@@ -3,18 +3,56 @@
 if ( ! class_exists( 'Anva_Sidebars' ) ) :
 
 /**
- * Class Anva_Sidebars
- * Manage sidebar locations.
+ * Anva Sidebars
+ * 
+ * This class sets up the framework sidebars location. 
+ * Additionally, this class provides methods to add and remove locations.
+ * 
+ * @since 		 1.0.0
+ * @package    Anva
+ * @subpackage Anva/admin
+ * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 class Anva_Sidebars {
 
 	/**
-	 * Properties
+	 * A single instance of this class
+	 * 
+	 * @since  1.0.0
+	 * @access private
 	 */
 	private static $instance = null;
+
+	/**
+	 * Core locations array
+	 * 
+	 * @since  1.0.0
+	 * @access private
+	 */
 	private $core_locations = array();
+
+	/**
+	 * Custom locations array
+	 * 
+	 * @since  1.0.0
+	 * @access private
+	 */
 	private $custom_locations = array();
+
+	/**
+	 * Remove locations array
+	 * 
+	 * @since  1.0.0
+	 * @access private
+	 */
 	private $remove_locations = array();
+
+	/**
+	 * Locations
+	 * 
+	 * @since  1.0.0
+	 * @access private
+	 */
 	private $locations = array();
 
 	/**
@@ -266,32 +304,44 @@ class Anva_Sidebars {
 }
 endif;
 
-/*
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
+
+/**
  * Add sidebar location
+ * 
+ * @since 1.0.0
  */
 function anva_add_sidebar_location( $id, $name, $desc = '' ) {
 	$api = Anva_Sidebars::instance();
 	$api->add_location( $id, $name, $desc );
 }
 
-/*
+/**
  * Remove sidebar location
+ * 
+ * @since 1.0.0
  */
 function anva_remove_sidebar_location( $id ) {
 	$api = Anva_Sidebars::instance();
 	$api->remove_location( $id );
 }
 
-/*
+/**
  * Get sidebar locations
+ * 
+ * @since 1.0.0
  */
 function anva_get_sidebar_locations() {
 	$api = Anva_Sidebars::instance();
 	return $api->get_locations();
 }
 
-/*
+/**
  * Get sidebar location name or slug name
+ * 
+ * @since 1.0.0
  */
 function anva_get_sidebar_location_name( $location, $slug = false ) {
 	$api = Anva_Sidebars::instance();
@@ -304,19 +354,23 @@ function anva_get_sidebar_location_name( $location, $slug = false ) {
 		return $sidebar['args']['name'];
 	}
 
-	return __( 'Floating Widget Area', anva_textdomain() );
+	return __( 'Widget Area', anva_textdomain() );
 }
 
-/*
+/**
  * Display sidebar location
+ * 
+ * @since 1.0.0
  */
 function anva_display_sidebar( $location ) {
 	$api = Anva_Sidebars::instance();
 	$api->display( $location );
 }
 
-/*
+/**
  * Add sidebar args when register locations
+ * 
+ * @since 1.0.0
  */
 function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {	
 	$args = array(

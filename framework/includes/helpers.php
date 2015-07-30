@@ -1,23 +1,32 @@
 <?php
 
-/*
+/**
  * Home page args
+ *
+ * @since 1.0.0
  */
 function anva_page_menu_args( $args ) {
 	$args['show_home'] = true;
 	return $args;
 }
 
-/*
+/**
  * Body classes
  * Adds a class of group-blog to blogs with more than 1 published author.
+ *
+ * @since   1.0.0
+ * @package Anva
+ * @param   array Body classes.
+ * @return  array Body classes.
  */
 function anva_body_class( $classes ) {
+	
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
+
 	$classes[] = anva_get_option( 'navigation' );
-	$classes[] = 'lang-' . get_bloginfo( 'language' );
+	$classes[] = 'lang-' . strtolower( get_bloginfo( 'language' ) );
 	
 	$footer = anva_get_option( 'footer_setup' );
 	if (  isset( $footer['num'] ) && $footer['num'] > 0  ) {
@@ -27,8 +36,13 @@ function anva_body_class( $classes ) {
 	return $classes;
 }
 
-/*
+/**
  * Return browser classes
+ *
+ * @since   1.0.0
+ * @package Anva
+ * @param   array Body classes.
+ * @return  array Body classes.
  */
 function anva_browser_class( $classes ) {
 	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
@@ -70,8 +84,13 @@ function anva_browser_class( $classes ) {
 	return $classes;
 }
 
-/*
+/**
  * Get primary post classes
+ *
+ * @since   1.0.0
+ * @package Anva
+ * @param   string Post class, boolean 
+ * @return  string Body classes.
  */
 function anva_post_classes( $class, $paged = true ) {
 
@@ -123,8 +142,13 @@ function anva_post_classes( $class, $paged = true ) {
 	return apply_filters( 'anva_post_classes', $classes );
 }
 
-/*
+/**
  * Display name and description in title
+ *
+ * @since   1.0.0
+ * @package Anva
+ * @param   string The title of the site, string Separator.
+ * @return  string The title content.
  */
 function anva_wp_title( $title, $sep ) {
 	if ( is_feed() ) {
@@ -150,8 +174,11 @@ function anva_wp_title( $title, $sep ) {
 	return $title;
 }
 
-/*
+/**
  * Setup author page
+ *
+ * @since   1.0.0
+ * @package Anva
  */
 function anva_setup_author() {
 	global $wp_query;
@@ -160,37 +187,10 @@ function anva_setup_author() {
 	}
 }
 
-/*
- * Get query posts args
- */
-function anva_get_query_posts( $query_args = '' ) {
-	
-	$number = get_option( 'posts_per_page' );
-	$page 	= get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-	$offset = ( $page - 1 ) * $number;
-	
-	if ( empty( $query_args ) ) {
-		$query_args = array(
-			'post_type'  			=>  array( 'post' ),
-			'post_status' 		=> 'publish',
-			'posts_per_page' 	=> $number,
-			'orderby'    			=> 'date',
-			'order'      			=> 'desc',
-			'number'     			=> $number,
-			'page'       			=> $page,
-			'offset'     			=> $offset
-		);
-	}
-
-	$query_args = apply_filters( 'anva_get_query_posts_args', $query_args );
-	
-	$query = new WP_Query( $query_args );
-	
-	return $query;
-}
-
-/*
+/**
  * Limit chars in string
+ *
+ * @since 1.0.0
  */
 function anva_truncate_string( $string, $length = 100 ) {
 	$string = trim( $string );
@@ -202,8 +202,10 @@ function anva_truncate_string( $string, $length = 100 ) {
 	}
 }
 
-/*
+/**
  * Limit chars in excerpt
+ *
+ * @since 1.0.0
  */
 function anva_excerpt( $length = '' ) {
 	if ( empty( $length ) ) {
@@ -214,55 +216,11 @@ function anva_excerpt( $length = '' ) {
 	echo wpautop( $p );
 }
 
-/*
- * Get posts in custom posts widget
- */
-function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
-	global $post;
-
-	$output = '';
-
-	$args = array(
-		'posts_per_page' 	=> $number,
-		'post_type' 			=> array( 'post' ),
-		'orderby'					=> $orderby,
-		'order'						=> $order
-	);
-
-	$the_query = anva_get_query_posts( $args );
-	
-	$output .= '<ul class="widget-posts-list">';
-
-	while ( $the_query->have_posts() ) {
-		$the_query->the_post();
-
-		if ( $thumbnail ) {
-			$output .= '<li class="sm-post small-post clearfix">';
-			$output .= '<div class="entry-image">';
-			$output .= '<a href="'. get_permalink() .'">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</a>';
-			$output .= '</div><!-- .entry-image (end) -->';
-		} else {
-			$output .= '<li class="sm-post small-post clearfix">';
-		}
-
-		$output .= '<div class="entry-c">';
-		$output .= '<div class="entry-title">';
-		$output .= '<h4><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
-		$output .= '</div><!-- .entry-title (end) -->';
-		$output .= '<div class="entry-meta">';
-		$output .= '<span class="date">' . get_the_time( 'jS F Y' ) . '</span>';
-		$output .= '</div><!-- .entry-meta (end) -->';
-		$output .= '</div><!-- .entry-c (end) -->';
-		$output .= '</li><!-- .mini-posts (end) -->';
-	}
-
-	$output .= '</ul>';
-	echo $output;
-	wp_reset_postdata();
-}
-
-/*
+/**
  * Get current year in footer copyright
+ *
+ *
+ * @since 1.0.0
  */
 function anva_get_current_year( $year ) {
 	$current_year = date( 'Y' );
@@ -271,6 +229,8 @@ function anva_get_current_year( $year ) {
 
 /**
  * Compress a chunk of code to output
+ *
+ * @since 1.0.0
  */
 function anva_compress( $buffer ) {
 
@@ -283,8 +243,13 @@ function anva_compress( $buffer ) {
 	return $buffer;
 }
 
-/*
+/**
  * Minify stylesheets output and combine into one
+ *
+ * @since   1.0.0
+ * @package Anva
+ * @param   array Custom stysheets.
+ * @return  array Ignore stysheets.
  */
 function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 
@@ -293,7 +258,7 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 	$stylesheets = anva_get_stylesheets();
 
 	if ( is_array( $merge_styles ) && ! empty( $merge_styles ) ) {
-		$merged= array_merge( $stylesheets, $merge_styles );
+		$merged = array_merge( $stylesheets, $merge_styles );
 	}
 
 	// Set URL
@@ -350,12 +315,14 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 	}
 
 	// Enqueue compressed file
-	wp_enqueue_style( 'all-in-one', get_template_directory_uri() .'/assets/css/'. $filename, array(), THEME_VERSION, 'all' );
+	wp_enqueue_style( 'anva-all-in-one', get_template_directory_uri() .'/assets/css/'. $filename, array(), THEME_VERSION, 'all' );
 	
 }
 
-/*
+/**
  * Sort galleries
+ *
+ * @since 1.0.0
  */
 function anva_sort_gallery( $gallery_arr ) {
 	
@@ -412,8 +379,10 @@ function anva_sort_gallery( $gallery_arr ) {
 	}
 }
 
-/*
+/**
  * Get templates part
+ *
+ * @since 1.0.0
  */
 function anva_get_template_part( $name ) {
 	$path = 'templates/';
@@ -421,8 +390,10 @@ function anva_get_template_part( $name ) {
 	get_template_part( $path . $part . $name );
 }
 
-/*
+/**
  * Get framework url
+ *
+ * @since 1.0.0
  */
 function anva_get_core_url() {
 	if ( defined( 'ANVA_FRAMEWORK_URL' ) ) {
@@ -433,8 +404,10 @@ function anva_get_core_url() {
 	return $url;
 }
 
-/*
+/**
  * Get templates part
+ *
+ * @since 1.0.0
  */
 function anva_get_core_directory() {
 	if ( defined( 'ANVA_FRAMEWORK' ) ) {
@@ -445,24 +418,15 @@ function anva_get_core_directory() {
 	return $path;
 }
 
+/**
+ * Textdomain
+ *
+ * @since 1.0.0
+ */
 function anva_textdomain() {
 	$domain = 'anva';
 	if ( defined( 'ANVA_DOMAIN' ) ) {
 		$domain = ANVA_DOMAIN;
 	}
 	return $domain;
-}
-
-/*
- * Get media queries
- */
-function anva_get_media_queries( $localize ) {
-	$media_queries = array(
-		'small' 		=> 320,
-		'handheld' 	=> 480,
-		'tablet' 		=> 768,
-		'laptop' 		=> 992,
-		'desktop' 	=> 1200
-	);
-	return array_merge( $localize, $media_queries );
 }

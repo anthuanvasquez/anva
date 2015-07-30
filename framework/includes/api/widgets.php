@@ -3,8 +3,15 @@
 if ( ! class_exists( 'Anva_Widgets' ) ) :
 
 /**
- * Class Anva_Widgets
- * Manage widgets.
+ * Anva Widgets
+ *
+ * This class sets up the framework widgets.
+ * Additionally, this class provides methods to add and remove widgets.
+ *
+ * @since 		 1.0.0
+ * @package    Anva
+ * @subpackage Anva/admin
+ * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 class Anva_Widgets {
 
@@ -156,8 +163,14 @@ class Anva_Widgets {
 }
 endif;
 
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
+
 /**
  * Add widget
+ *
+ * @since 1.0.0
  */
 function anva_add_widget( $class ) {
 	$api = Anva_Widgets::instance();
@@ -166,6 +179,8 @@ function anva_add_widget( $class ) {
 
 /**
  * Remove widget
+ *
+ * @since 1.0.0
  */
 function anva_remove_widget( $class ) {
 	$api = Anva_Widgets::instance();
@@ -174,6 +189,8 @@ function anva_remove_widget( $class ) {
 
 /**
  * Get widgets
+ *
+ * @since 1.0.0
  */
 function anva_get_widgets() {
 	$api = Anva_Widgets::instance();

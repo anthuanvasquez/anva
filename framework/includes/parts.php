@@ -228,6 +228,53 @@ function anva_post_nav() {
 	<?php
 }
 
+/*
+ * Get posts in custom posts widget
+ */
+function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
+	global $post;
+
+	$output = '';
+
+	$args = array(
+		'posts_per_page' 	=> $number,
+		'post_type' 			=> array( 'post' ),
+		'orderby'					=> $orderby,
+		'order'						=> $order
+	);
+
+	$the_query = anva_get_query_posts( $args );
+	
+	$output .= '<ul class="widget-posts-list">';
+
+	while ( $the_query->have_posts() ) {
+		$the_query->the_post();
+
+		if ( $thumbnail ) {
+			$output .= '<li class="sm-post small-post clearfix">';
+			$output .= '<div class="entry-image">';
+			$output .= '<a href="'. get_permalink() .'">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</a>';
+			$output .= '</div><!-- .entry-image (end) -->';
+		} else {
+			$output .= '<li class="sm-post small-post clearfix">';
+		}
+
+		$output .= '<div class="entry-c">';
+		$output .= '<div class="entry-title">';
+		$output .= '<h4><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
+		$output .= '</div><!-- .entry-title (end) -->';
+		$output .= '<div class="entry-meta">';
+		$output .= '<span class="date">' . get_the_time( 'jS F Y' ) . '</span>';
+		$output .= '</div><!-- .entry-meta (end) -->';
+		$output .= '</div><!-- .entry-c (end) -->';
+		$output .= '</li><!-- .mini-posts (end) -->';
+	}
+
+	$output .= '</ul>';
+	echo $output;
+	wp_reset_postdata();
+}
+
 function anva_post_author() {
 	$single_author = anva_get_option( 'single_author', 'hide' );
 	if ( 'show' != $single_author ) {

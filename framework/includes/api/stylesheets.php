@@ -1,8 +1,10 @@
 <?php
 /**
- * Stylesheets
+ * Anva Stylesheets
+ * 
  * This class sets up the framework stylesheets that get
  * enqueued on the frontend of the website.
+ * 
  * Additionally, this class provides methods to add and
  * remove stylesheets. Custom API-added stylesheets are organized
  * within four levels.
@@ -10,16 +12,50 @@
  *	- Level 2: After Framework styles
  *	- Level 3: After Theme styles (implemented at theme level)
  *	- Level 4: After everything. (end of wp_head)
+ * 
+ * @since 		 1.0.0
+ * @package    Anva
+ * @subpackage Anva/admin
+ * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
+
+if ( ! class_exists( 'Anva_Stylesheets' ) ) :
+
 class Anva_Stylesheets {
 
 	/**
-	 * Properties
+	 * A single instance of this class
+	 * 
+	 * @since 1.0.0
 	 */
 	private static $instance = null;
+
+	/**
+	 * Remove stylesheets array
+	 * 
+	 * @since 1.0.0
+	 */
 	private $remove_stylesheets = array();
+	
+	/**
+	 * Core stylesheets array
+	 * 
+	 * @since 1.0.0
+	 */
 	private $framework_stylesheets = array();
+	
+	/**
+	 * Framework dependencies
+	 * 
+	 * @since 1.0.0
+	 */
 	private $framework_deps = array();
+	
+	/**
+	 * Custom stylesheets
+	 * 
+	 * @since 1.0.0
+	 */
 	private $custom_stylesheets = array();
 
 	/**
@@ -36,6 +72,7 @@ class Anva_Stylesheets {
 
 	/**
 	 * Constructor
+	 * Hook everythin in.
 	 */
 	private function __construct() {
 
@@ -289,9 +326,16 @@ class Anva_Stylesheets {
 
 	}
 }
+endif;
+
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
 
 /**
  * Add custom stylesheet
+ * 
+ * @since 1.0.0
  */
 function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = 'all' ) {
 	$api = Anva_Stylesheets::instance();
@@ -300,6 +344,8 @@ function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = '
 
 /**
  * Remove custom stylesheet
+ * 
+ * @since 1.0.0
  */
 function anva_remove_stylesheet( $handle ) {
 	$api = Anva_Stylesheets::instance();
@@ -308,6 +354,8 @@ function anva_remove_stylesheet( $handle ) {
 
 /**
  * Get stylesheets
+ * 
+ * @since 1.0.0
  */
 function anva_get_stylesheets() {
 	$api = Anva_Stylesheets::instance();
@@ -318,6 +366,8 @@ function anva_get_stylesheets() {
 
 /**
  * Print out styles
+ * 
+ * @since 1.0.0
  */
 function anva_print_styles( $level ) {
 	$api = Anva_Stylesheets::instance();

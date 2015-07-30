@@ -9,7 +9,7 @@ function anva_admin_theme_activate() {
 	endif;
 }
 
-function anva_admin_footer_log() {
+function anva_admin_settings_log() {
 	
 	$html = '';
 
@@ -18,18 +18,31 @@ function anva_admin_footer_log() {
 	$current_user = wp_get_current_user();
 	$current_time = get_option( $option_name .'_log' );
 
-	$html .= '<div id="optionsframework-log">';
+	$html .= '<div class="log">';
 
 	// Check if field exists
 	if ( ! empty( $current_time ) ) {
-		$html .= sprintf( __( 'You edited your last settings', anva_textdomain() ) . ': %s.', $current_time );
+		$html .= sprintf( '%s' . __( 'Last changed', anva_textdomain() ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $current_time );
 	} else {
-		$html .= __( 'Your settings has not changed.', anva_textdomain() );
-		$html .= '</div>';
+		$html .= '<span class="dashicons dashicons-clock"></span> ' . __( 'Your settings has not changed.', anva_textdomain() );
 	}
+
+	$html .= '</div>';
 
 	echo $html;
 
+}
+
+function anva_admin_side() {
+	?>
+	<div id="optionsframework-submit" class="postbox">
+		<h3><span>Example</span></h3>
+		<div class="inside">
+			Text
+			<div class="actions">Actions</div>
+		</div>
+	</div>
+	<?php
 }
 
 /**
@@ -50,6 +63,68 @@ function anva_admin_footer_credits() {
  * Custom admin javascripts
  */
 function anva_admin_head_scripts() {
+	$option_name = anva_get_option_name();
+	$settings = get_option( $option_name );
+	$options = & Options_Framework::_optionsframework_options();
+	$val = '';
+	?>
+	<script type="text/javascript">
+	jQuery.noConflict();
+	jQuery(document).ready(function() {
+	<?php
+		foreach ( $options as $value ) :
+			if ( isset( $value['id'] ) ) {
+				// Set the id
+				$id = $value['id'];
+
+				// Set default value to $val
+				if ( isset( $value['std'] ) ) {
+					$val = $value['std'];
+				}
+				// If the option is already saved, override $val
+				if ( isset( $settings[($value['id'])] ) ) {
+					$val = $settings[($value['id'])];
+					// Striping slashes of non-array options
+					if ( ! is_array($val) ) {
+						$val = stripslashes( $val );
+					}
+				}
+			}
+		 
+			 if ( 'range' == $value['type'] ) : ?>
+				// Range Slider
+				var <?php echo $id; ?> = {
+					input: jQuery("#<?php echo $id; ?>"),
+					slider: jQuery("#<?php echo $id; ?>_range")
+				}
+
+				<?php
+					// Remove all formats from the value
+					$val = strtr( $val, ['px' => '', 'em' => '', '%' => '', 'rem' => ''] );
+					$plus = '+';
+					$format = '';
+					if ( isset( $value['options']['format'] ) ) {
+						$format = $value['options']['format'];
+					}
+				?>
+
+				// Update input range slider
+				<?php echo $id; ?>.slider.slider({
+					min: <?php echo esc_js( $value['options']['min'] ); ?>,
+					max: <?php echo esc_js( $value['options']['max'] ); ?>,
+					step: <?php echo esc_js( $value['options']['step'] ); ?>,
+					value: <?php echo esc_js( $val ); ?>,
+					slide: function(e, ui) {
+						<?php echo $id; ?>.input.val( ui.value <?php echo esc_js( $plus ); ?> '<?php echo esc_js( $format ); ?>' );
+					}
+				});
+				<?php echo $id; ?>.input.val( <?php echo $id; ?>.slider.slider( "value" ) <?php echo esc_js( $plus ); ?> '<?php echo esc_js( $format ); ?>' );
+				<?php echo $id; ?>.slider.slider("pips");
+				<?php echo $id; ?>.slider.slider("float", { pips: true });
+			<?php endif; ?>
+		<?php endforeach; ?>
+	});
+	</script>
 	?>
 	<link rel="stylesheet" id="google-css" href="<?php echo esc_url( '//fonts.googleapis.com/css?family=Open+Sans' ); ?>" type="text/css" media="all">
 	<?php

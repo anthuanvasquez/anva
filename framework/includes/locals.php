@@ -2,6 +2,8 @@
 
 /**
  * Get all theme locals
+ *
+ * @since 1.0.0
  */
 function anva_get_text_locals() {
 	
@@ -129,6 +131,8 @@ function anva_get_text_locals() {
 
 /**
  * Get separate local
+ *
+ * @since 1.0.0
  */
 function anva_get_local( $id ) {
 
@@ -144,17 +148,19 @@ function anva_get_local( $id ) {
 
 /**
  * Get all js locals
+ *
+ * @since 1.0.0
  */
 function anva_get_js_locals() {
 
 	$foodlist = 0;
 	$woocommerce = 0;
 
-	if ( defined( 'FOODLIST_VERSION' )) {
+	if ( defined( 'FOODLIST_VERSION' ) ) {
 		$foodlist = 1;
 	}
 
-	if ( class_exists( 'Woocommerce' )) {
+	if ( class_exists( 'Woocommerce' ) ) {
 		$woocommerce = 1;
 	}
 	

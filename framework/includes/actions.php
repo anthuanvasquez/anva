@@ -4,10 +4,20 @@
 /* Site: Before / After
 /* ---------------------------------------------------------------- */
 
+/**
+ * Before site
+ *
+ * @since 1.0.0
+ */
 function anva_before() {
 	do_action( 'anva_before' );
 }
 
+/**
+ * After site
+ *
+ * @since 1.0.0
+ */
 function anva_after() {
 	do_action( 'anva_after' );
 }
@@ -16,38 +26,83 @@ function anva_after() {
 /* Header
 /* ---------------------------------------------------------------- */
 
+/**
+ * Before top
+ *
+ * @since 1.0.0
+ */
 function anva_top_before() {
 	do_action( 'anva_top_before' );
 }
 
+/**
+ * After top
+ *
+ * @since 1.0.0
+ */
 function anva_top_after() {
 	do_action( 'anva_top_after' );
 }
 
+/**
+ * Header above
+ *
+ * @since 1.0.0
+ */
 function anva_header_above() {
 	do_action( 'anva_header_above' );
 }
 
+/**
+ * Header below
+ *
+ * @since 1.0.0
+ */
 function anva_header_below() {
 	do_action( 'anva_header_below' );
 }
 
+/**
+ * Header logo
+ *
+ * @since 1.0.0
+ */
 function anva_header_logo() {
 	do_action( 'anva_header_logo' );
 }
 
+/**
+ * Header extras addons
+ *
+ * @since 1.0.0
+ */
 function anva_header_extras() {
 	do_action( 'anva_header_extras' );
 }
 
+/**
+ * Primary menu
+ *
+ * @since 1.0.0
+ */
 function anva_header_primary_menu() {
 	do_action( 'anva_header_primary_menu' );
 }
 
+/**
+ * Primary menu addons
+ *
+ * @since 1.0.0
+ */
 function anva_header_primary_menu_addon() {
 	do_action( 'anva_header_primary_menu_addon' );
 }
 
+/**
+ * Secondary menu
+ *
+ * @since 1.0.0
+ */
 function anva_header_secondary_menu() {
 	do_action( 'anva_header_secondary_menu' );
 }
@@ -56,14 +111,29 @@ function anva_header_secondary_menu() {
 /* Featured
 /* ---------------------------------------------------------------- */
 
+/**
+ * Before featured content
+ *
+ * @since 1.0.0
+ */
 function anva_featured_before() {
 	do_action( 'anva_featured_before' );
 }
 
+/**
+ * After featured content
+ *
+ * @since 1.0.0
+ */
 function anva_featured_after() {
 	do_action( 'anva_featured_after' );
 }
 
+/**
+ * Featured content
+ *
+ * @since 1.0.0
+ */
 function anva_featured() {
 	do_action( 'anva_featured' );
 }

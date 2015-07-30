@@ -75,7 +75,7 @@ class Options_Framework_Interface {
 				$output .= '<div class="postbox inner-group' . esc_attr( $class ) . '">';
 
 				if ( $name ) {
-					$output .= '<h3>' . esc_html( $name ) . '</h3>';
+					$output .= '<h3><span>' . esc_html( $name ) . '</span></h3>';
 				}
 
 				if ( ! empty( $value['desc'] ) ) {
@@ -341,9 +341,13 @@ class Options_Framework_Interface {
 			|--------------------------------------------------------------------------
 			*/
 			case "range":
-				// $output .= anva_range_slider_fields( $value['id'], $option_name, $val );
-				$output .= '<div class="anva-range-slider" data-range="' . esc_attr( $value['id'] ) . '"></div>';
-				$output .= '<input id="' . esc_attr( $value['id'] ) .'" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" class="anva-input-range hidden" type="text" value="' . esc_attr( $val ) . '" data-min="" data-max="" data-step="" data-value="" />';
+				$max = $value['options']['max'];
+				$min = $value['options']['min'];
+				$step = $value['options']['step'];
+				$format = $value['options']['format'];
+				
+				$output .= '<div id="' . esc_attr( $value['id'] ) . '_range" class="anva-range-slider" data-range="' . esc_attr( $value['id'] ) . '"></div>';
+				$output .= '<input id="' . esc_attr( $value['id'] ) .'" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" class="anva-input-range hidden" type="text" value="' . esc_attr( $val ) . '" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '" data-format="' . esc_attr( $format ) . '" />';
 				
 				break;
 
@@ -563,12 +567,12 @@ class Options_Framework_Interface {
 			case "heading":
 				$counter++;
 				if ( $counter >= 2 ) {
-					$output .= '</div>'."\n";
+					$output .= '</div><!-- .group (end) -->'."\n";
 				}
 				$class = '';
 				$class = ! empty( $value['id'] ) ? $value['id'] : $value['name'];
-				$class = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($class) );
-				$output .= '<div id="options-group-' . $counter . '" class="group ' . $class . '">';
+				$class = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
+				$output .= '<div id="options-group-' . esc_attr( $counter ) . '" class="group ' . esc_attr( $class ) . '">';
 				// $output .= '<h3>' . esc_html( $value['name'] ) . '</h3>' . "\n";
 				break;
 
@@ -595,7 +599,7 @@ class Options_Framework_Interface {
 
 		// Outputs closing div if there tabs
 		if ( Options_Framework_Interface::optionsframework_tabs() != '' ) {
-			echo '</div><!-- .tab (end) -->';
+			echo '</div><!-- .group (end) -->';
 		}
 	}
 }

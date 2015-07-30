@@ -163,7 +163,7 @@ class Options_Framework_Admin {
 
 		// Enqueue custom option panel JS
 		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_url() . '/assets/js/admin/jquery-ui-slider-pips.min.js', array( 'jquery' ), '' );
-		wp_enqueue_script( 'options-custom',  anva_get_core_url() . '/assets/js/admin/options-custom.js', array( 'jquery','wp-color-picker' ), Options_Framework::VERSION );
+		wp_enqueue_script( 'options-custom',  anva_get_core_url() . '/assets/js/admin/options.js', array( 'jquery','wp-color-picker' ), Options_Framework::VERSION );
 		
 		// Inline scripts from options-interface.php
 		add_action( 'admin_head', array( $this, 'anva_admin_head' ) );
@@ -204,18 +204,37 @@ class Options_Framework_Admin {
 			<?php do_action( 'optionsframework_before' ); ?>
 			<div id="optionsframework-metabox" class="metabox-holder">
 				<div id="optionsframework">
-					<form action="options.php" method="post">
-						<?php settings_fields( 'optionsframework' ); ?>
-						<?php Options_Framework_Interface::optionsframework_fields(); /* Settings */ ?>
-						<div id="optionsframework-submit" class="postbox">
-							<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', anva_textdomain() ); ?>" />
-							<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults', anva_textdomain() ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', anva_textdomain() ) ); ?>' );" />
-							<div class="clear"></div>
-						</div>
+					<form class="options-settings" action="options.php" method="post">
+						<div class="column-1">
+							<?php settings_fields( 'optionsframework' ); ?>
+							<?php Options_Framework_Interface::optionsframework_fields(); /* Settings */ ?>
+						</div><!-- .column-1 (end) -->
+						<div class="column-2">
+							<?php do_action( 'optionsframework_side_before' ); ?>
+							<div id="optionsframework-submit" class="postbox">
+								<h3><span><?php _e( 'Actions', anva_textdomain() );?></span></h3>
+								<div class="inside">
+									<?php anva_admin_settings_log(); ?>
+									<div class="actions">
+										<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', anva_textdomain() ); ?>" />
+										<span class="spinner"></span>
+										<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults', anva_textdomain() ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', anva_textdomain() ) ); ?>' );" />
+										<div class="clear"></div>
+									</div>
+								</div>
+							</div>
+							<?php do_action( 'optionsframework_side_after' ); ?>
+						</div><!-- .column-2 (end) -->
+						<div class="clear"></div>
 					</form>
 				</div> <!-- #optionsframework (end) -->
 			</div><!-- #optionsframework-metabox (end) -->
 			<?php do_action( 'optionsframework_after' ); ?>
+			<div id="optionsframework-links">
+				<a href="#"><span class="dashicons dashicons-megaphone"></span> Support</a>
+				<a href="#"><span class="dashicons dashicons-book"></span> Theme Documentation</a>
+				<a href="#"><span class="dashicons dashicons-cart"></span> Buy Themes</a>
+			</div>
 		</div><!-- .wrap -->
 
 	<?php

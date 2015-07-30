@@ -13,6 +13,7 @@ var ANVAMETA = ANVAMETA || {};
 	ANVAMETA.initialize = {
 		init: function() {
 			ANVAMETA.initialize.change();
+			ANVAMETA.initialize.active();
 		},
 
 		change: function() {
@@ -21,6 +22,30 @@ var ANVAMETA = ANVAMETA || {};
 				ANVAMETA.initialize.validate( $template.val() );
 				$template.live( "change", function() {
 					ANVAMETA.initialize.validate( $(this).val() );
+				});
+			}
+		},
+
+		active: function() {
+			var $active = $('.iphone_checkboxes');
+			if ( $active.length > 0 ) {
+
+				if ( $active.is(':checked') ) {
+					$('.meta-content-builder').fadeIn();
+					$('#meta_tab').fadeIn();
+				} else {
+					$('.meta-content-builder').fadeOut();
+					$('#meta_tab').fadeOut();
+				}
+
+				$active.live( 'change', function() {
+					if ( $active.is(':checked') ) {
+						$('.meta-content-builder').fadeIn();
+						$('#meta_tab').fadeIn();
+					} else {
+						$('.meta-content-builder').fadeOut();
+						$('#meta_tab').fadeOut();
+					}
 				});
 			}
 		},

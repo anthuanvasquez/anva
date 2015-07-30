@@ -7,6 +7,8 @@
  * it can be extended upon better. If any plugin or
  * other feature of the framework requires these
  * image sizes, they can grab 'em.
+ *
+ * @since 1.0.0
  */
 function anva_get_image_sizes() {
 
@@ -109,7 +111,25 @@ function anva_get_image_sizes() {
 }
 
 /**
+ * Get media queries
+ *
+ * @since 1.0.0
+ */
+function anva_get_media_queries( $localize ) {
+	$media_queries = array(
+		'small' 		=> 320,
+		'handheld' 	=> 480,
+		'tablet' 		=> 768,
+		'laptop' 		=> 992,
+		'desktop' 	=> 1200
+	);
+	return array_merge( $localize, $media_queries );
+}
+
+/**
  * Register Image Sizes
+ *
+ * @since 1.0.0
  */
 function anva_add_image_sizes() {
 	
@@ -137,6 +157,7 @@ function anva_add_image_sizes() {
  * This function gets added as a filter to WP's
  * image_size_names_choose
  *
+ * @since  1.0.0
  * @return array Framework's image sizes
  */
 function anva_image_size_names_choose( $sizes ) {
@@ -160,6 +181,8 @@ function anva_image_size_names_choose( $sizes ) {
 
 /**
  * Get featured image url
+ *
+ * @since 1.0.0
  */
 function anva_get_featured_image( $post_id, $thumbnail ) {
 	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
@@ -171,6 +194,8 @@ function anva_get_featured_image( $post_id, $thumbnail ) {
 
 /**
  * Get featured image in posts
+ *
+ * @since 1.0.0
  */
 function anva_the_post_thumbnail( $thumb ) {
 	
@@ -207,6 +232,8 @@ function anva_the_post_thumbnail( $thumb ) {
 
 /**
  * Get featured image in post grid
+ *
+ * @since 1.0.0
  */
 function anva_the_post_grid_thumbnail( $size ) {
 	

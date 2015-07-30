@@ -60,6 +60,9 @@ add_action( 'init', 'optionsframework_init', 20 );
 
 endif;
 
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
 
 if ( ! function_exists( 'anva_get_option' ) ) :
 /**
@@ -98,7 +101,9 @@ endif;
 
 if ( ! function_exists( 'anva_get_option_name' ) ) :
 /**
- * This is for print option value.
+ * This is for print option value
+ * 
+ * @since 1.0.0
  */
 function anva_the_option( $name, $default = false ) {
 	echo anva_get_option( $name, $default );
@@ -108,6 +113,8 @@ endif;
 if ( ! function_exists( 'anva_get_option_name' ) ) :
 /**
  * Helper function to return the theme option name
+ * 
+ * @since 1.0.0
  */
 function anva_get_option_name() {
 	$options_framework = new Options_Framework;
@@ -118,6 +125,8 @@ endif;
 if ( ! function_exists( 'anva_get_option_defaults' ) ) :
 /**
  * Helper function to return the default options
+ * 
+ * @since 1.0.0
  */
 function anva_get_option_defaults() {
 	$options_framework = new Options_Framework_Admin;
@@ -128,6 +137,8 @@ endif;
 if ( ! function_exists( 'anva_get_admin_menu_settings' ) ) :
 /**
  * Helper function to get menu settings for options page
+ * 
+ * @since 1.0.0
  */
 function anva_get_admin_menu_settings() {
 	$options_framework = new Options_Framework_Admin;

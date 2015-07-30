@@ -9,7 +9,7 @@ if ( ! class_exists( 'Anva' ) ) :
 
 class Anva {
 	
-	/*
+	/**
 	 * A single instance of this class.
 	 */
 	private static $instance = null;
@@ -24,7 +24,8 @@ class Anva {
 	}
 
 	/*
-	 * Constructor. Hook everything in.
+	 * Constructor
+	 * Hook everything in.
 	 */
 	private function __construct() {
 		add_action( 'after_setup_theme', array( $this, 'constants' ), 1 );
@@ -34,7 +35,7 @@ class Anva {
 	}
 
 	/*
-	 * Constants.
+	 * Constants
 	 */
 	public function constants() {
 
@@ -63,6 +64,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/fields.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/includes/builder/builder.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/scripts.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
@@ -90,9 +92,9 @@ class Anva {
 
 		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
 		add_action( 'optionsframework_after', 'anva_admin_footer_credits' );
-		add_action( 'optionsframework_after', 'anva_admin_footer_log' );
 		add_action( 'optionsframework_importer_after', 'anva_admin_footer_credits' );
-		add_action( 'optionsframework_importer_after', 'anva_admin_footer_log' );
+		add_action( 'optionsframework_side_after', 'anva_admin_side' );
+
 
 		/* ---------------------------------------------------------------- */
 		/* Init
@@ -110,6 +112,7 @@ class Anva {
 		add_action( 'wp_footer', 'anva_footer_ghost', 1000 );
 		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
 		add_action( 'admin_init', 'anva_add_meta_boxes' );
+		add_action( 'admin_init', 'anva_add_builder_meta_box' );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'body_class', 'anva_body_class' );
 		add_filter( 'body_class', 'anva_browser_class' );

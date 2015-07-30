@@ -1,18 +1,39 @@
 <?php
 /**
- * Adds meta boxes through
- * WP's built-in add_meta_box functionality.
+ * Adds meta boxes
+ * 
+ * WP's built-in add_meta_box() functionality.
+ *
+ * @since 		 1.0.0
+ * @package    Anva
+ * @subpackage Anva/admin
+ * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
+
+if ( ! class_exists( 'Anva_Meta_Box' ) ) :
+
 class Anva_Meta_Box {
 
 	/**
 	 * Arguments to pass to add_meta_box()
+	 *
+	 * @since 1.0.0
 	 */
 	private $args;
+
+	/**
+	 * Options array for fields
+	 *
+	 * @since 1.0.0
+	 * @var $options
+	 */
 	private $options;
 
 	/**
-	 * Constructor. Hook in meta box to start the process.
+	 * Constructor
+	 * Hook in meta box to start the process.
+	 *
+	 * @since 1.0.0
 	 */
 	public function __construct( $id, $args, $options ) {
 
@@ -20,13 +41,14 @@ class Anva_Meta_Box {
 		$this->options = $options;
 
 		$defaults = array(
-			'page'				=> array( 'post' ),		// can contain post, page, link, or custom post type's slug
-			'context'			=> 'normal',					// normal, advanced, or side
-			'priority'		=> 'high'							// 
+			'page'				=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
+			'context'			=> 'normal',					// Normal, advanced, or side
+			'priority'		=> 'high'							// Priority
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
 
+		// Hooks
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add' ) );
 		add_action( 'save_post', array( $this, 'save' ) );
@@ -34,13 +56,26 @@ class Anva_Meta_Box {
 
 	/**
 	 * Enqueue scripts
+	 *
+	 * @since 1.0.0
 	 */
-	public function scripts() {
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_style( 'jquery-ui-custom', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' );
-		wp_enqueue_style( 'anva-metaboxes', anva_get_core_url() . '/assets/css/admin/metaboxes.min.css' );
-		wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_url() . '/assets/js/admin/metaboxes.min.js' );
+	public function scripts( $hook ) {
+		
+		global $typenow;
+
+		foreach ( $this->args['page'] as $page ) {
+			
+			// Add scripts only if page match with post type
+			if ( $typenow != $page )
+				return;
+
+			wp_enqueue_script( 'jquery-ui-datepicker' );
+			wp_enqueue_script( 'jquery-ui-slider' );
+			wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_url() . '/assets/js/admin/metaboxes.min.js' );
+			
+			wp_enqueue_style( 'jquery-ui-custom', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' );
+			wp_enqueue_style( 'anva-metaboxes', anva_get_core_url() . '/assets/css/admin/metaboxes.min.css' );
+		}
 	}
 
 	/**
@@ -48,6 +83,7 @@ class Anva_Meta_Box {
 	 */
 	public function add() {
 
+		// Filters
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 		$this->options = apply_filters( 'anva_meta_options_' . $this->id, $this->options );
 
@@ -64,14 +100,16 @@ class Anva_Meta_Box {
 	}
 
 	/**
-	 * Callback to display meta box
+	 * Renders the content of the meta box
+	 *
+	 * @since 1.0.0
 	 */
 	public function display() {
 
 		// Make sure options framework exists so we can show
 		// the options form.
 		if ( ! function_exists( 'anva_meta_fields_interface' ) ) {
-			echo 'Options framework not found.';
+			echo __( 'Options framework not found.', anva_textdomain() );
 			return;
 		}
 
@@ -82,7 +120,7 @@ class Anva_Meta_Box {
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
 
 		// Start content
-		echo '<div class="anva-meta-box anva-meta-context-' . $this->args['context'] . '">';
+		echo '<div class="anva-meta-box anva-meta-context-' . esc_attr( $this->args['context'] ) . '">';
 
 		if ( ! empty( $this->args['desc'] ) ) {
 			printf( '<p class="anva-meta-desc">%s</p><!-- .anva-meta-desc (end) -->', $this->args['desc'] );
@@ -98,6 +136,9 @@ class Anva_Meta_Box {
 
 	/**
 	 * Save meta data sent from meta box
+	 * 
+ 	 * @since 1.0.0
+ 	 * @param integer The post ID
 	 */
 	public function save( $post_id ) {
 
@@ -133,7 +174,9 @@ class Anva_Meta_Box {
 				return $post_id;
 		}
 
-		/* OK, its safe! */
+		/*
+		 * OK, its safe!
+		 */
 		$id  = $this->id;
 		$old = get_post_meta( $post_id, $this->id, true );
 
@@ -143,6 +186,7 @@ class Anva_Meta_Box {
 
 			if ( $new && $new != $old ) {
 
+				// Clean inputs
 				$clean = $this->validate( $new );
 
 				update_post_meta( $post_id, $id, $clean );
@@ -159,6 +203,10 @@ class Anva_Meta_Box {
 
 	/**
 	 * Validate meta data before saved
+	 *
+	 * @since  1.0.0
+	 * @param  $_POST The form fields
+	 * @return array Sanitize options
 	 */
 	private function validate( $input ) {
 
@@ -201,4 +249,20 @@ class Anva_Meta_Box {
 		return $clean;
 	}
 
+}
+endif;
+
+/* ---------------------------------------------------------------- */
+/* Helpers
+/* ---------------------------------------------------------------- */
+
+/**
+ * Helper to add new meta box
+ *
+ * @since 1.0.0
+ * @param $id, $args, $options
+ * @return class Anva_Meta_Box
+ */
+function anva_add_new_meta_box( $id, $args, $options ) {
+	$meta_box = new Anva_Meta_Box( $id, $args, $options );
 }
