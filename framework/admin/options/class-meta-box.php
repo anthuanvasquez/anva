@@ -15,9 +15,18 @@ if ( ! class_exists( 'Anva_Meta_Box' ) ) :
 class Anva_Meta_Box {
 
 	/**
+	 * ID for meta box and post field saved
+	 *
+	 * @since 2.2.0
+	 * @var string
+	 */
+	public $id;
+
+	/**
 	 * Arguments to pass to add_meta_box()
 	 *
 	 * @since 1.0.0
+	 * @var array
 	 */
 	private $args;
 
@@ -25,7 +34,7 @@ class Anva_Meta_Box {
 	 * Options array for fields
 	 *
 	 * @since 1.0.0
-	 * @var $options
+	 * @var array
 	 */
 	private $options;
 
@@ -68,12 +77,9 @@ class Anva_Meta_Box {
 			// Add scripts only if page match with post type
 			if ( $typenow != $page )
 				return;
-
-			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_script( 'jquery-ui-slider' );
-			wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_url() . '/assets/js/admin/metaboxes.min.js' );
 			
-			wp_enqueue_style( 'jquery-ui-custom', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css' );
+			wp_enqueue_script( 'jquery-ui-datepicker' );
+			wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_url() . '/assets/js/admin/metaboxes.min.js' );
 			wp_enqueue_style( 'anva-metaboxes', anva_get_core_url() . '/assets/css/admin/metaboxes.min.css' );
 		}
 	}
@@ -108,7 +114,7 @@ class Anva_Meta_Box {
 
 		// Make sure options framework exists so we can show
 		// the options form.
-		if ( ! function_exists( 'anva_meta_fields_interface' ) ) {
+		if ( ! method_exists( $this, 'fields' ) ) {
 			echo __( 'Options framework not found.', anva_textdomain() );
 			return;
 		}
@@ -120,15 +126,22 @@ class Anva_Meta_Box {
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
 
 		// Start content
-		echo '<div class="anva-meta-box anva-meta-context-' . esc_attr( $this->args['context'] ) . '">';
+		echo '<div class="anva-meta-box">';
 
 		if ( ! empty( $this->args['desc'] ) ) {
 			printf( '<p class="anva-meta-desc">%s</p><!-- .anva-meta-desc (end) -->', $this->args['desc'] );
 		}
 
+		// Display tabs
+		echo '<h2 class="nav-tab-wrapper">' . $this->tabs() . '</h2>';
+
 		// Use options framework to display form elements
-		$form = anva_meta_fields_interface( $this->id, $this->options );
-		echo $form;
+		echo $this->fields();
+
+		// Outputs closing div if there tabs
+		if ( $this->tabs() != '' ) {
+			echo '</div><!-- .meta-group (end) -->';
+		}
 
 		//  Finish content
 		echo '</div><!-- .anva-meta-box (end) -->';
@@ -137,8 +150,8 @@ class Anva_Meta_Box {
 	/**
 	 * Save meta data sent from meta box
 	 * 
- 	 * @since 1.0.0
- 	 * @param integer The post ID
+	 * @since 1.0.0
+	 * @param integer The post ID
 	 */
 	public function save( $post_id ) {
 
@@ -249,7 +262,239 @@ class Anva_Meta_Box {
 		return $clean;
 	}
 
-}
+	/**
+	 * Tabs
+	 *
+	 * @since 1.0.0
+	 */
+	public function tabs() {
+		$fields = $this->options;
+		$counter = 0;
+		$tabs = '';
+
+		foreach ( $fields as $field ) {
+			// Heading for Navigation
+			if ( $field['type'] == "heading" ) {
+				
+				$icon = '';
+				if ( isset( $field['icon'] ) && ! empty( $field['icon'] ) ) {
+					$icon = '<span class="dashicons dashicons-'. esc_attr( $field['icon'] ) .'"></span> ';
+				}
+
+				$counter++;
+				$class = '';
+				$class = ! empty( $field['id'] ) ? $field['id'] : $field['name'];
+				$class = 'tab-' . preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
+				$tabs .= '<a id="meta-group-'.  esc_attr( $counter ) . '-tab" class="nav-tab ' . $class .'" title="' . esc_attr( $field['name'] ) . '" href="' . esc_attr( '#meta-group-' .  $counter ) . '">' . $icon . esc_html( $field['name'] ) . '</a>';
+			}
+		}
+
+		return $tabs;
+	}
+
+	/**
+	 * Interface
+	 *
+	 * @since 1.0.0
+	 */
+	public function fields() {
+
+		$option_name = $this->id;
+		$fields = $this->options;
+
+		global $post, $allowedtags;
+
+		// get value of this field if it exists for this post
+		$meta = get_post_meta( $post->ID, $option_name, true );
+		$output = '';
+		$counter = 0;
+
+		// Begin the field table and loop
+		foreach ( $fields as $field ) {
+
+			$val = '';
+			$select_value = '';
+
+			// Wrap all options
+			if ( ( $field['type'] != "heading" ) && ( $field['type'] != "info" ) ) {
+				
+				// Keep all ids lowercase with no spaces
+				$field['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $field['id'] ) );
+				$id = 'meta-' . $field['id'];
+
+				$class = 'meta';
+
+				if ( isset( $field['type'] ) ) {
+					$class .= ' field-' . $field['type'];
+				}
+
+				if ( isset( $field['class'] ) ) {
+					$class .= ' ' . $field['class'];
+				}
+
+				$output .= '<div id="' . esc_attr( $id ) .'" class="' . esc_attr( $class ) . '">'."\n";
+
+				if ( isset( $field['name'] ) ) {
+					$output .= '<h4 class="heading">' . esc_html( $field['name'] ) . '</h4>' . "\n";
+				}
+				
+				if ( $field['type'] != 'editor' ) {
+					$output .= '<div class="meta-option">' . "\n" . '<div class="meta-controls"><!-- .meta-controls (end) -->' . "\n";
+				}
+				else {
+					$output .= '<div class="meta-option">' . "\n" . '<div><!-- .meta-option (end) -->' . "\n";
+				}
+			}
+
+			// Set default value to $val
+			if ( isset( $field['std'] ) ) {
+				$val = $field['std'];
+			}
+
+			if ( ( $field['type'] != 'heading' ) && ( $field['type'] != 'info') ) {
+				if ( isset( $meta[($field['id'])]) ) {
+					$val = $meta[($field['id'])];
+					// Striping slashes of non-array options
+					if ( ! is_array( $val ) ) {
+						$val = stripslashes( $val );
+					}
+				}
+			}
+			
+			// If there is a description save it for labels
+			$explain_value = '';
+			if ( isset( $field['desc'] ) ) {
+				$explain_value = $field['desc'];
+			}
+
+			// Set the placeholder if one exists
+			$placeholder = '';
+			if ( isset( $field['placeholder'] ) ) {
+				$placeholder = ' placeholder="' . esc_attr( $field['placeholder'] ) . '"';
+			}
+		
+			switch ( $field['type'] ) {
+
+				// Text
+				case 'text':
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
+					break;
+
+				// Textarea
+				case 'textarea':
+					$rows = '8';
+					if ( isset( $field['settings']['rows'] ) ) {
+						$custom_rows = $field['settings']['rows'];
+						if ( is_numeric( $custom_rows ) ) {
+							$rows = $custom_rows;
+						}
+					}
+					$val = stripslashes( $val );
+					$output .= '<textarea id="' . esc_attr( $field['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" rows="' . $rows . '"' . $placeholder . '>' . esc_textarea( $val ) . '</textarea>';
+					break;
+
+				// Checkbox
+				case "checkbox":
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="checkbox meta-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
+					$output .= '<label class="explain" for="' . esc_attr( $field['id'] ) . '">' . wp_kses( $explain_value, $allowedtags ) . '</label>';
+					break;
+
+				// Select Box
+				case 'select':
+					$output .= '<select class="of-input" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" id="' . esc_attr( $field['id'] ) . '">';
+					foreach ( $field['options'] as $key => $option ) {
+						$output .= '<option'. selected( $val, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+					}
+					$output .= '</select>';
+					break;
+
+				// Radio
+				case "radio":
+					$name = $option_name .'['. $field['id'] .']';
+					foreach ( $field['options'] as $key => $option ) {
+						$id = $option_name . '-' . $field['id'] .'-'. $key;
+						$output .= '<input class="meta-input meta-radio" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" '. checked( $val, $key, false) .' /><label for="' . esc_attr( $id ) . '">' . esc_html( $option ) . '</label>';
+					}
+					break;
+
+				// Multicheck
+				case 'multicheck':
+					foreach ( $field['options'] as $key => $option ) {
+						$checked = '';
+						$label = $option;
+						$option = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $key ) );
+						$id = $option_name . '-' . $field['id'] . '-'. $option;
+						$name = $option_name . '[' . $field['id'] . '][' . $option .']';
+
+						if ( isset( $val[$option] ) ) {
+							$checked = checked( $val[$option], 1, false );
+						}
+						$output .= '<input id="' . esc_attr( $id ) . '" class="checkbox meta-input" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
+					}
+					break;
+
+				// Date
+				case 'date':
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input meta-date meta-date-picker" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
+					break;
+
+				// Slider
+				case 'slider':
+					$output .= '<div id="' . esc_attr( $field['id'] ) . '-slider"></div>';
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input meta-slider" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
+					break;
+
+				// Repeatable
+				case 'repeatable':
+					$output .= '<a class="repeatable-add button" href="#">+</a>';
+					$output .= '<ul id="' . esc_attr( $field['id'] ) . '-repeatable" class="custom_repeatable">';
+					
+					$i = 0;
+					if ( is_array( $val ) && $val ) {
+						foreach ( $val as $row) {
+							$output .= '<li><span class="sort hndle">##</span>';
+							$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '['.$i.']" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $row ) . '" />';
+							$output .= '<a class="repeatable-remove button" href="#">-</a></li>';
+							$i++;
+						}
+					} else {
+						$output .= '<li><span class="sort hndle">##</span>';
+						$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '[' . $i . ']" id="' . esc_attr( $field['id'] ) . '" value="" />';
+						$output .= '<a class="repeatable-remove button" href="#">-</a></li>';
+					}
+					
+					$output .= '</ul>';
+					break;
+
+				// Tab
+				case "heading":
+					$counter++;
+					if ( $counter >= 2 ) {
+						$output .= '</div><!-- .meta-group (end) -->'."\n";
+					}
+					$class = '';
+					$class = ! empty( $field['id'] ) ? $field['id'] : $field['name'];
+					$class = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
+					$output .= '<div id="meta-group-' . esc_attr( $counter ) . '" class="meta-group ' . esc_attr( $class ) . '">';
+					break;
+
+			} // End Switch
+
+			if ( ( $field['type'] != "heading" ) && ( $field['type'] != "info" ) ) {
+				$output .= '</div><!-- .meta-controls (end) -->';
+				if ( ( $field['type'] != "checkbox" ) && ( $field['type'] != "editor" ) ) {
+					$output .= '<div class="meta-explain description">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .meta-explain (end) -->'."\n";
+				}
+				$output .= '</div><!-- .meta-option (end) --></div><!-- .meta (end) -->'."\n";
+			}
+
+		} // End Foreach
+		
+		return $output;
+
+	}
+
+} // End Class
 endif;
 
 /* ---------------------------------------------------------------- */
@@ -265,4 +510,29 @@ endif;
  */
 function anva_add_new_meta_box( $id, $args, $options ) {
 	$meta_box = new Anva_Meta_Box( $id, $args, $options );
+}
+
+/**
+ * Get field
+ *
+ * @since 1.0.0
+ */
+function anva_get_field( $id, $field, $default = false ) {
+	
+	$fields = anva_get_post_meta( $id );
+
+	if ( isset( $fields[$field] ) ) {
+		return $fields[$field];
+	}
+
+	return $default;
+}
+
+/**
+ * Show field
+ *
+ * @since 1.0.0
+ */
+function anva_the_field( $id, $field, $default = false ) {
+	echo anva_get_field( $id, $field, $default );
 }

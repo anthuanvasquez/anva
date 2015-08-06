@@ -19,10 +19,11 @@ if ( isset( $page->ID ) ) {
   $page_id = $page->ID;
 }
 
-$enable = anva_get_post_meta( 'ppb_enable' );
+// Verify is Page Builder is enabled
+$enable = anva_get_builder_field();
 ?>
 
-<?php if ( empty( $enable ) ) : ?>
+<?php if ( empty( $enable['enable'] ) ) : ?>
 
 	<div class="row grid-columns">
 		<div class="content-area col-sm-12">

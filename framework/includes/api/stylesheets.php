@@ -99,7 +99,7 @@ class Anva_Stylesheets {
 			'handle'	=> 'bootstrap',
 			'src'			=> anva_get_core_url() .'/assets/css/bootstrap.min.css',
 			'deps'		=> array(),
-			'ver'			=> '3.3.4',
+			'ver'			=> '3.3.5',
 			'media'		=> 'all'
 
 		);
@@ -109,7 +109,7 @@ class Anva_Stylesheets {
 			'handle'	=> 'fontawesome',
 			'src'			=> anva_get_core_url() .'/assets/css/font-awesome.min.css',
 			'deps'		=> array(),
-			'ver'			=> '4.3.0',
+			'ver'			=> '4.4.0',
 			'media'		=> 'all'
 		);
 
@@ -118,7 +118,7 @@ class Anva_Stylesheets {
 			'handle'	=> 'animate',
 			'src'			=> anva_get_core_url() .'/assets/css/animate.min.css',
 			'deps'		=> array(),
-			'ver'			=> '3.3.0',
+			'ver'			=> '3.4.0',
 			'media'		=> 'all'
 		);
 

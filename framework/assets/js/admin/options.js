@@ -159,4 +159,29 @@ jQuery(document).ready(function($) {
 			$error.fadeOut(500);
 		}, 3000);
 	}
+
+	$(window).scroll(function(e) {
+		var $cache = $('#optionsframework .options-settings > .column-2');
+		var $box = $('#optionsframework .postbox-wrapper');
+		if ( $(window).scrollTop() > 115 ) {
+			$cache.css({
+				'position': 'absolute',
+				'top': 0,
+				'right': 0,
+				'z-index': 99
+			});
+			$box.css({
+				'position': 'fixed',
+				'top': '40px'
+			});
+		} else {
+			$cache.css({
+				'position': 'static'
+			});
+			$box.css({
+				'position': 'static'
+			});
+		}
+	});
+	
 });

@@ -92,9 +92,9 @@ class Anva {
 
 		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
 		add_action( 'optionsframework_after', 'anva_admin_footer_credits' );
+		add_action( 'optionsframework_after', 'anva_admin_footer_links' );
 		add_action( 'optionsframework_importer_after', 'anva_admin_footer_credits' );
-		add_action( 'optionsframework_side_after', 'anva_admin_side' );
-
+		add_action( 'optionsframework_importer_after', 'anva_admin_footer_links' );
 
 		/* ---------------------------------------------------------------- */
 		/* Init
@@ -111,7 +111,7 @@ class Anva {
 		add_action( 'wp_head', 'anva_head_viewport', 8 );
 		add_action( 'wp_footer', 'anva_footer_ghost', 1000 );
 		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
-		add_action( 'admin_init', 'anva_add_meta_boxes' );
+		add_action( 'admin_init', 'anva_add_meta_boxes_default' );
 		add_action( 'admin_init', 'anva_add_builder_meta_box' );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'body_class', 'anva_body_class' );

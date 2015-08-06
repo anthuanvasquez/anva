@@ -20,10 +20,8 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
 // Don't load directly
-if ( ! function_exists( 'is_admin' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit();
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
 if ( ! class_exists( 'OptionsFramework_Backup' ) ) :
@@ -123,7 +121,6 @@ class OptionsFramework_Backup {
 	function admin_screen () {
 	?>
 	<div id="optionsframework-wrap" class="wrap">
-		<?php echo get_screen_icon( $screen = 'import-export' ); ?>
 		<h2><?php _e( 'Import / Export' ); ?></h2>
 		
 		<div id="optionsframework-metabox" class="metabox-holder">

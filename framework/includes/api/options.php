@@ -4,8 +4,6 @@
  *
  * This class establishes all of the framework's theme options,
  * allow these options to be modified from theme side.
- * Also, this class provides access to the saved
- * settings cooresponding to the these theme options.
  *
  * @since 		 1.0.0
  * @package    Anva

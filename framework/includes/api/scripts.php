@@ -69,7 +69,7 @@ class Anva_Scripts {
 			'handle'	=> 'bootstrap',
 			'src'			=> anva_get_core_url() .'/assets/js/vendor/bootstrap.min.js',
 			'deps'		=> array( 'jquery' ),
-			'ver'			=> '3.3.4',
+			'ver'			=> '3.3.5',
 			'footer'	=> true
 
 		);
@@ -88,7 +88,7 @@ class Anva_Scripts {
 			'handle'	=> 'isotope',
 			'src'			=> anva_get_core_url() .'/assets/js/vendor/isotope.min.js',
 			'deps'		=> array(),
-			'ver'			=> '3.3.0',
+			'ver'			=> '2.2.0',
 			'footer'	=> true
 		);
 
@@ -98,7 +98,7 @@ class Anva_Scripts {
 			'src'			=> anva_get_core_url() .'/assets/js/plugins.min.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'			=> ANVA_FRAMEWORK_VERSION,
-			'footer'		=> true
+			'footer'	=> true
 		);
 
 		// Main JS
@@ -107,7 +107,7 @@ class Anva_Scripts {
 			'src'			=> anva_get_core_url() .'/assets/js/anva.min.js',
 			'deps'		=> array( 'jquery', 'anva_plugins' ),
 			'ver'			=> ANVA_FRAMEWORK_VERSION,
-			'footer'		=> true
+			'footer'	=> true
 		);
 
 		// Remove scripts

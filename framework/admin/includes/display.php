@@ -4,7 +4,7 @@
 function anva_admin_theme_activate() {
 	if ( isset( $_GET['activated']) && true == $_GET['activated'] ) :
 	?>
-	<div class="section-info updated"><?php _e( 'The theme is activated.', anva_textdomain() ); ?></div>
+	<div class="updated"><?php _e( 'The theme is activated.', anva_textdomain() ); ?></div>
 	<?php
 	endif;
 }
@@ -15,7 +15,6 @@ function anva_admin_settings_log() {
 
 	// Get current info
 	$option_name = anva_get_option_name();
-	$current_user = wp_get_current_user();
 	$current_time = get_option( $option_name .'_log' );
 
 	$html .= '<div class="log">';
@@ -27,35 +26,49 @@ function anva_admin_settings_log() {
 		$html .= '<span class="dashicons dashicons-clock"></span> ' . __( 'Your settings has not changed.', anva_textdomain() );
 	}
 
-	$html .= '</div>';
+	$html .= '</div><!-- .log (end) -->';
 
 	echo $html;
 
 }
 
-function anva_admin_side() {
-	?>
-	<div id="optionsframework-submit" class="postbox">
-		<h3><span>Example</span></h3>
-		<div class="inside">
-			Text
-			<div class="actions">Actions</div>
-		</div>
-	</div>
-	<?php
+/**
+ * Display framework and theme credits
+ *
+ * @since 1.0.0
+ */
+function anva_admin_footer_credits() {
+	$theme_info 		= THEME_NAME .' '. THEME_VERSION;
+	$framework_info = ANVA_FRAMEWORK_NAME .' '. ANVA_FRAMEWORK_VERSION;
+	$author_info 		= '<a href="' . esc_url( 'http://anthuanvasquez.net/' ) . '">Anthuan Vasquez</a>';
+
+	printf(
+		'<div id="optionsframework-credit">%s %s<div class="clear"></div></div>',
+		sprintf(
+			'<span class="alignleft">%2$s %1$s %3$s</span>',
+			__( 'powered by', anva_textdomain() ),
+			$theme_info,
+			$framework_info
+		),
+		sprintf(
+			'<span class="alignright">%1$s %2$s</span>',
+			__( 'Develop by', anva_textdomain() ),
+			$author_info
+		)
+	);
 }
 
 /**
- * Display the theme credits
+ * Display footer links
+ *
+ * @since 1.0.0
  */
-function anva_admin_footer_credits() {
-	$theme_info = THEME_NAME .' '. THEME_VERSION;
-	$framework_info = ANVA_FRAMEWORK_NAME .' '. ANVA_FRAMEWORK_VERSION;
+function anva_admin_footer_links() {
 	printf(
-		'<div id="optionsframework-credit"><span class="alignleft">%1$s powered by %2$s</span><span class="alignright">Develop by %3$s</span><div class="clear"></div></div>',
-		$theme_info,
-		$framework_info,
-		'<a href="http://anthuanvasquez.net/">Anthuan Vasquez</a>'
+		'<div id="optionsframework-links">%s %s %s</div>',
+		sprintf( '<a href="%s"><span class="dashicons dashicons-megaphone"></span> %s</a>', esc_url( '#' ), __( 'Support', anva_textdomain() ) ),
+		sprintf( '<a href="%s"><span class="dashicons dashicons-book"></span> %s</a>', esc_url( '#' ), __( 'Theme Documentation', anva_textdomain() ) ),
+		sprintf( '<a href="%s"><span class="dashicons dashicons-cart"></span> %s</a>', esc_url( '#' ), __( 'Buy Themes', anva_textdomain() ) )
 	);
 }
 
