@@ -320,9 +320,8 @@ function anva_below_layout_default() {
  */
 function anva_fixed_sidebars( $position ) {
 
-	$layout = anva_get_field( 'anva_page_options', 'sidebar_layout' );
+	$layout = anva_get_field( 'sidebar_layout' );
 
-	
 	// Set default layout
 	if ( ! is_page() && ! is_single() || empty( $layout ) ) {
 		$layout = anva_get_option( 'sidebar_layout', 'right' );

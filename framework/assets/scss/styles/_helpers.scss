@@ -71,8 +71,47 @@
 	margin-top: 20px;
 }
 
+.topmargin-lg {
+	margin-top: 50px;
+}
+
+
+/*
+ * Border
+ */
 .noborder {
 	border: none;
+}
+
+/*
+ * Padding
+ */
+.nopadding {
+	padding: 0;
+}
+
+.nobottompadding {
+	padding-bottom: 0;
+}
+
+.notoppadding {
+	padding-top: 0;
+}
+
+.bottompadding {
+	padding-bottom: 20px;
+}
+
+.bottompadding-lg {
+	padding-bottom: 50px;
+}
+
+.toppadding {
+	padding-top: 20px;
+}
+
+.toppadding-lg {
+	padding-top: 50px;
 }
 
 /*

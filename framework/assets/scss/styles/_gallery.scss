@@ -27,6 +27,24 @@
 			opacity: .8;
 		}
 	}
+
+	.gallery-caption {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: 15px;
+		width: 100%;
+
+		h4, .gallery-desc {
+			color: #fff;
+			margin: 0;
+		}
+
+		.gallery-desc {
+			font-size: 16px;
+			font-style: italic;
+		}
+	}
 }
 
 .gallery-thumbs {

@@ -19,8 +19,8 @@ require_once( get_template_directory() . '/includes/options.php' );
 function theme_options_menu( $menu ) {
 	$option_name 				= anva_get_option_name();
 	$menu['mode'] 			= 'menu';
-	$menu['page_title'] = THEME_NAME . ' ' . __( 'Options', 'anva' );
-	$menu['menu_title'] = THEME_NAME . ' ' . __( 'Options', 'anva' );
+	$menu['page_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', anva_textdomain() ) );
+	$menu['menu_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', anva_textdomain() ) );
 	$menu['menu_slug']  = $option_name;
 	return $menu;
 }

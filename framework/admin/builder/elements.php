@@ -59,7 +59,7 @@ function ppb_text_func($atts, $content) {
 	{
 		$html.= '<div style="margin:auto;width:'.esc_attr(urldecode($width)).'">';
 	}
-	$html.= do_shortcode(tg_apply_content($content)).'</div>';
+	$html.= do_shortcode(anva_apply_content($content)).'</div>';
 	if(!empty($width))
 	{
 		$html.= '</div>';
@@ -132,7 +132,7 @@ function ppb_text_image_func($atts, $content) {
 	$html.= '><div class="page_content_wrapper"><div class="inner" ';
 
 	$html.= '>';
-	$html.= do_shortcode(tg_apply_content($content)).'</div>';
+	$html.= do_shortcode(anva_apply_content($content)).'</div>';
 	$html.= '</div></div>';
 
 	return $html;
@@ -174,7 +174,7 @@ function ppb_text_sidebar_func($atts, $content) {
 	
 	$html.= '<div class="sidebar_content page_content">';
 	
-	$html.= do_shortcode(tg_apply_content($content)).'</div>';
+	$html.= do_shortcode(anva_apply_content($content)).'</div>';
 	
 	//Display Sidebar
 	$html.= '<div class="sidebar_wrapper"><div class="sidebar"><div class="content"><ul class="sidebar_widget">';
@@ -263,7 +263,7 @@ function ppb_header_func($atts, $content) {
 	
 	if(!empty($content))
 	{
-		$html.= '<br class="clear"/>'.do_shortcode(tg_apply_content($content));
+		$html.= '<br class="clear"/>'.do_shortcode(anva_apply_content($content));
 	}
 	
 	$html.= '</div>';
@@ -363,7 +363,7 @@ function ppb_header_image_func($atts, $content) {
 	
 	if(!empty($content))
 	{
-		$html.= '<br class="clear"/>'.do_shortcode(tg_apply_content($content));
+		$html.= '<br class="clear"/>'.do_shortcode(anva_apply_content($content));
 	}
 	
 	$html.= '</div>';
@@ -378,19 +378,13 @@ add_shortcode('ppb_header_image', 'ppb_header_image_func');
 
 
 function ppb_divider_func($atts, $content) {
-
-	//extract short code attr
-	extract(shortcode_atts(array(
+	extract( shortcode_atts( array(
 		'size' => 'one'
-	), $atts));
-
-	$html = '<div class="divider '.esc_attr($size).'">&nbsp;</div>';
-
+	), $atts ) );
+	$html = '<div class="divider clearfix ' . esc_attr( $size ) . '"></div>';
 	return $html;
-
 }
-
-add_shortcode('ppb_divider', 'ppb_divider_func');
+add_shortcode( 'ppb_divider', 'ppb_divider_func' );
 
 
 function ppb_gallery_slider_func($atts, $content) {
@@ -482,38 +476,37 @@ function ppb_gallery_slider_fixed_width_func($atts, $content) {
 add_shortcode('ppb_gallery_slider_fixed_width', 'ppb_gallery_slider_fixed_width_func');
 
 
-function ppb_gallery_grid_func($atts, $content) {
+function ppb_gallery_grid_func( $atts, $content ) {
 
-	//extract short code attr
-	extract(shortcode_atts(array(
-		'size' => 'one',
-		'slug' => '',
-		'gallery_id' => '',
-		'bgcolor' => '',
-		'margin' => '',
-	), $atts));
+	// Extract short code attr
+	extract( shortcode_atts( array(
+		'size' 				=> 'one',
+		'slug' 				=> '',
+		'gallery_id' 	=> '',
+		'bgcolor' 		=> '',
+	), $atts ) );
 	
 	$sec_id = '';
-	if(!empty($slug))
-	{
-		$sec_id = 'id="'.esc_attr($slug).'"';
+	if ( ! empty( $slug ) ) {
+		$sec_id = 'id="' . esc_attr( $slug ) . '"';
 	}
 	
 	$custom_css = '';
-	if(!empty($bgcolor))
-	{
-		$custom_css.= 'background-color:'.esc_attr($bgcolor).';';
+	if ( ! empty( $bgcolor ) ) {
+		$custom_css .= 'background-color:' . esc_attr( $bgcolor ) . ';';
 	}
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' nopadding" style="'.$custom_css.'">';
 	
-	$html.= do_shortcode('[tg_grid_gallery gallery_id="'.esc_attr($gallery_id).'" margin="'.esc_attr($margin).'"]');
-	
-	$html.= '</div>';
+	$html  = '<div ' . $sec_id . ' class="' . esc_attr( $size ) . ' nopadding" style="' . $custom_css . '">';
+	$html .= anva_gallery_grid( $gallery_id, 3, 'grid_2', 'grid' );
+	// $html .= do_shortcode( '[tg_grid_gallery gallery_id="' . esc_attr( $gallery_id ) . '" margin="' . esc_attr( $margin ) . '"]' );
+	$html .= '</div>';
 	
 	return $html;
+
+	anva_gallery_grid( 15, 3, 'grid_2' );
 }
 
-add_shortcode('ppb_gallery_grid', 'ppb_gallery_grid_func');
+add_shortcode( 'ppb_gallery_grid', 'ppb_gallery_grid_func' );
 
 
 function ppb_animated_gallery_grid_func($atts, $content) {
@@ -946,7 +939,7 @@ function ppb_content_half_bg_func($atts, $content) {
 		
 		if(!empty($content))
 		{
-			$html.= '<br class="clear"/>'.do_shortcode(tg_apply_content($content));
+			$html.= '<br class="clear"/>'.do_shortcode(anva_apply_content($content));
 		}
 		$html.= '</div>';
 	}

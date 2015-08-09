@@ -12,9 +12,9 @@
 
 get_header();
 
+// Get current page ID
 $page_id = '';
 $page = get_page( $post->ID );
-
 if ( isset( $page->ID ) ) {
   $page_id = $page->ID;
 }

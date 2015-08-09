@@ -8,8 +8,8 @@ get_header();
 
 $class 					= '';
 $column 				= 2;
-$hide_title   	= anva_get_field( 'anva_page_options', 'hide_title' );
-$current_grid 	= anva_get_field( 'anva_page_options', 'grid_column' );
+$hide_title   	= anva_get_field( 'hide_title' );
+$current_grid 	= anva_get_field( 'grid_column' );
 $grid_columns 	= anva_grid_columns();
 $size 					= 'blog_md';
 

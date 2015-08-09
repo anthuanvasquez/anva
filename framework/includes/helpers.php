@@ -16,7 +16,6 @@ function anva_page_menu_args( $args ) {
  *
  * @since   1.0.0
  * @package Anva
- * @param   array Body classes.
  * @return  array Body classes.
  */
 function anva_body_class( $classes ) {
@@ -41,10 +40,10 @@ function anva_body_class( $classes ) {
  *
  * @since   1.0.0
  * @package Anva
- * @param   array Body classes.
  * @return  array Body classes.
  */
 function anva_browser_class( $classes ) {
+	
 	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
 	
 	// Browsers
@@ -89,7 +88,6 @@ function anva_browser_class( $classes ) {
  *
  * @since   1.0.0
  * @package Anva
- * @param   string Post class, boolean 
  * @return  string Body classes.
  */
 function anva_post_classes( $class, $paged = true ) {
@@ -248,8 +246,7 @@ function anva_compress( $buffer ) {
  *
  * @since   1.0.0
  * @package Anva
- * @param   array Custom stysheets.
- * @return  array Ignore stysheets.
+ * @return  Enqueue stysheets
  */
 function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 
@@ -317,66 +314,6 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 	// Enqueue compressed file
 	wp_enqueue_style( 'anva-all-in-one', get_template_directory_uri() .'/assets/css/'. $filename, array(), THEME_VERSION, 'all' );
 	
-}
-
-/**
- * Sort galleries
- *
- * @since 1.0.0
- */
-function anva_sort_gallery( $gallery_arr ) {
-	
-	$gallery_arr_sorted = array();
-	$order = anva_get_option( 'gallery_order' );
-	
-	if ( ! empty( $order ) && ! empty ( $gallery_arr ) ) {
-		
-		switch ( $order ) {
-			
-			case 'drag':
-				foreach( $gallery_arr as $key => $image ) {
-					$gallery_arr_sorted[$key] = $image;
-				}
-				break;
-
-			case 'desc':
-				foreach( $gallery_arr as $key => $image ) {
-					$image_meta = get_post( $image );
-					$image_date = strtotime( $image_meta->post_date );	
-					$gallery_arr_sorted[$image_date] = $image;
-					krsort( $gallery_arr_sorted );
-				}
-				break;
-			
-			case 'asc':
-				foreach( $gallery_arr as $key => $image) {
-					$image_meta = get_post( $image );
-					$image_date = strtotime( $image_meta->post_date );
-					$gallery_arr_sorted[$image_date] = $image;
-					ksort( $gallery_arr_sorted );
-				}
-				break;
-			
-			case 'rand':
-				shuffle( $gallery_arr );
-				$gallery_arr_sorted = $gallery_arr;
-				break;
-			
-			case 'title':
-				foreach( $gallery_arr as $key => $image ) {
-					$image_meta = get_post( $image );
-					$image_title = $image_meta->post_title;
-					$gallery_arr_sorted[$image_title] = $image;
-					ksort( $gallery_arr_sorted );
-				}
-				break;
-		}
-		
-		return $gallery_arr_sorted;
-
-	} else {
-		return $gallery_arr;
-	}
 }
 
 /**

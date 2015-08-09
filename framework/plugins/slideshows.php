@@ -130,14 +130,14 @@ function anva_put_slideshows( $slug ) {
 			$meta 	= anva_get_post_custom();
 			$url 		= ( isset( $meta['_slider_link_url'][0] ) ? $meta['_slider_link_url'][0] : '' );
 			$data 	= ( isset( $meta['_slider_data'][0] ) ? $meta['_slider_data'][0] : '' );
-			$image  = anva_get_featured_image( $id, 'blog_md' );
+			$image  = anva_get_attachment_image( $id, 'blog_md' );
 			$a_tag  = '<a href="' . esc_url( $url ) . '">';
 			
 			$html .= '<li data-thumb="'. esc_attr( $image ) .'">';
 			$html .= '<div id="slide-' . esc_attr( $id ) . '" class="slide slide-'. esc_attr( $id ) .' slide-type-image">';
 			
 			if ( $slug == "attachments" ) {
-				$html .= anva_get_featured_image( $id, $size );
+				$html .= anva_get_attachment_image( $id, $size );
 			
 			} elseif ( has_post_thumbnail() ) {
 				

@@ -517,8 +517,26 @@ function anva_add_new_meta_box( $id, $args, $options ) {
  *
  * @since 1.0.0
  */
-function anva_get_field( $id, $field, $default = false ) {
+function anva_get_field( $field, $default = false ) {
+
+	$id = null;
 	
+	if ( is_page() ) {
+		$page = anva_setup_page_meta();
+	}
+
+	if ( is_singular( 'post' ) ) {
+		$page = anva_setup_post_meta();
+	}
+
+	if ( is_singular( 'galleries' ) ) {
+		$page = anva_setup_gallery_meta();
+	}
+
+	if ( isset( $page['args']['id'] ) ) {
+		$id = $page['args']['id'];
+	}
+
 	$fields = anva_get_post_meta( $id );
 
 	if ( isset( $fields[$field] ) ) {

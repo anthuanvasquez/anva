@@ -3,21 +3,71 @@
 /**
  * Add page and post meta boxes
  *
- * @since 1.0.0
- * @return class Anva_Meta_box
+ * @since  1.0.0
+ * @return class Anva_Meta_Box
  */
 function anva_add_meta_boxes_default() {
 
-	// Page meta box
+	// Page Meta Box
 	$page_meta = anva_setup_page_meta();
 	$page_meta_box = new Anva_Meta_Box( $page_meta['args']['id'], $page_meta['args'], $page_meta['options'] );
 
+	// Post Meta Box
+	$post_meta = anva_setup_post_meta();
+	$post_meta_box = new Anva_Meta_Box( $post_meta['args']['id'], $post_meta['args'], $post_meta['options'] );
+
+	// Gallery Meta Box
+	$gallery_meta = anva_setup_gallery_meta();
+	$gallery_meta_box = new Anva_Meta_Box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['options'] );
+
+}
+
+/**
+ * Post meta setup array
+ *
+ * @since  1.0.0
+ * @return array $setup
+ */
+function anva_setup_post_meta() {
+	
+	$domain = anva_textdomain();
+
+	$setup = array(
+		'args' => array(
+			'id' 				=> 'anva_post_options',
+			'title' 		=> __( 'Post Options', $domain ),
+			'page'			=> array( 'post' ),
+			'context' 	=> 'side',
+			'priority'	=> 'default',
+			'desc'			=> __( 'This is the default placeholder for post options.', $domain )
+		),
+		'options' => array(
+			'layout' => array(
+				'id' 			=> 'layout',
+				'name'		=> __( 'Layout', $domain ),
+				'type' 		=> 'heading'
+			),
+			'hide_title' => array(
+				'id'			=> 'hide_title',
+				'name' 		=> __( 'Page Title', $domain ),
+				'desc'		=> __( 'Show or hide page\'s titles.', $domain ),
+				'type' 		=> 'select',
+				'std'			=> 'show',
+				'options'	=> array(
+					'show' 	=> __( 'Show page\'s title', $domain ),
+					'hide'	=> __( 'Hide page\'s title', $domain )
+				)
+			),
+		)
+	);
+
+	return apply_filters( 'anva_post_meta', $setup );
 }
 
 /**
  * Page meta setup array
  *
- * @since 1.0.0
+ * @since  1.0.0
  * @return array $setup
  */
 function anva_setup_page_meta() {
@@ -45,9 +95,9 @@ function anva_setup_page_meta() {
 			'id' 				=> 'anva_page_options',
 			'title' 		=> __( 'Page Options', $domain ),
 			'page'			=> array( 'page' ),
-			'context' 	=> 'normal',
+			'context' 	=> 'side',
 			'priority'	=> 'default',
-			'desc'			=> __( 'Page Options Desc', $domain )
+			'desc'			=> __( 'This is the default placeholder for post options.', $domain )
 		),
 		'options' => array(
 			'layout' => array(
@@ -145,4 +195,56 @@ function anva_setup_page_meta() {
 	);
 
 	return apply_filters( 'anva_page_meta', $setup );
+}
+
+/**
+ * Gallery meta setup array
+ *
+ * @since  1.0.0
+ * @return array $setup
+ */
+function anva_setup_gallery_meta() {
+	
+	$domain = anva_textdomain();
+	$galleries = array();
+
+	$galleries[''] = esc_html__( 'Default Gallery Columns', $domain );
+	foreach ( anva_gallery_templates() as $key => $value ) {
+		$galleries[$key] = esc_html( $value['name'] );
+	}
+
+	$setup = array(
+		'args' => array(
+			'id' 				=> 'anva_gallery_options',
+			'title' 		=> __( 'Gallery Options', $domain ),
+			'page'			=> array( 'galleries' ),
+			'context' 	=> 'side',
+			'priority'	=> 'default',
+			'desc'			=> __( 'This is the default placeholder for gallery options.', $domain )
+		),
+		'options' => array(
+			'layout' => array(
+				'id' 			=> 'layout',
+				'name'		=> __( 'Layout', $domain ),
+				'type' 		=> 'heading'
+			),
+			'gallery_password' => array(
+				'id'			=> 'gallery_password',
+				'name' 		=> __( 'Gallery Password', $domain ),
+				'desc'		=> __( 'Protect this gallery with a password.', $domain ),
+				'type' 		=> 'text',
+				'std'			=> ''
+			),
+			'gallery_template' => array(
+				'id'			=> 'gallery_template',
+				'name' 		=> __( 'Gallery Template', $domain ),
+				'desc'		=> __( 'Select gallery template for this gallery.', $domain ),
+				'type' 		=> 'select',
+				'std'			=> '',
+				'options'	=> $galleries
+			),
+		)
+	);
+
+	return apply_filters( 'anva_gallery_meta', $setup );
 }

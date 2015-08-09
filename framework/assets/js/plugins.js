@@ -30,3 +30,4 @@
 //@prepros-append vendor/jquery.appear.min.js
 //@prepros-append vendor/jquery.counto.min.js
 //@prepros-append vendor/jquery.spectragram.min.js
+//@prepros-append vendor/jquery.animsition.min.js

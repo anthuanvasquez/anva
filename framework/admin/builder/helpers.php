@@ -1,14 +1,14 @@
 <?php
 
 function anva_get_builder_field() {
-	$option = false;
-	$id = anva_setup_page_builder_options();
+	$field = false;
+	$builder_meta = anva_setup_page_builder_options();
 
-	if ( isset( $id['args']['id'] ) ) {
-		$option = anva_get_post_meta( $id['args']['id'] );
+	if ( isset( $builder_meta['args']['id'] ) ) {
+		$field = anva_get_post_meta( $builder_meta['args']['id'] );
 	}
 
-	return $option;
+	return $field;
 }
 
 function page_update_custom_meta($postID, $newvalue, $field_name) {
@@ -111,7 +111,7 @@ function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
 			
 			echo '<div id="section-' . $counter . '" class="section-element section-' . $ppb_form_item .' section-' . $short . ' ' . $classes . '">';
 				echo '<div id="element-' . $ppb_form_item . '" class="element element-columns-' . $ppb_form_item_size . '">';
-					echo tg_apply_content( $ppb_shortcode_code );
+					echo anva_apply_content( $ppb_shortcode_code );
 				echo '</div><!-- #element-' . $ppb_form_item . ' (end) -->';
 			echo '</div><!-- .section-' . $ppb_form_item . ' (end) -->';
 		}
@@ -120,19 +120,22 @@ function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
 	return false;
 }
 
-function tg_apply_content( $pp_content ) {
-	$pp_content = apply_filters( 'the_content', $pp_content );
-	$pp_content = str_replace( ']]>', ']]>', $pp_content );
-	return $pp_content;
+function anva_apply_content( $content ) {
+	$content = apply_filters( 'the_content', $content );
+	$content = str_replace( ']]>', ']]>', $content );
+	return $content;
 }
 
-function pp_get_image_id( $image_url ) {
+function pp_get_image_id( $url ) {
+	
 	global $wpdb;
+	
 	$prefix = $wpdb->prefix;
-	$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM " . $prefix . "posts" . " WHERE guid='%s';", $image_url ) );
-	if ( isset( $attachment[0] ) ) {
-		return $attachment[0];
-	} else {
-		return '';
+	$attachment_id = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM " . $prefix . "posts" . " WHERE guid='%s';", $url ) );
+	
+	if ( isset( $attachment_id[0] ) ) {
+		return $attachment_id[0];
 	}
+	
+	return '';
 }

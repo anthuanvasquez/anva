@@ -2,6 +2,8 @@
 
 /**
  * Archive titles
+ * 
+ * @since 1.0.0
  */
 function anva_archive_title() {
 
@@ -57,9 +59,12 @@ function anva_archive_title() {
 }
 
 /**
- * Meta posted on
+ * Posted on
+ * 
+ * @since 1.0.0
  */
 function anva_posted_on() {
+	
 	// Get the time
 	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
 	
@@ -125,8 +130,9 @@ function anva_posted_on() {
 
 /**
  * Display social media profiles
+ * 
+ * @since 1.0.0
  */
-
 function anva_social_media( $buttons = array(), $style = null ) {
 
 	$classes = array();
@@ -199,8 +205,11 @@ function anva_site_search() {
 
 /**
  * Post navigation
+ * 
+ * @since 1.0.0
  */
 function anva_post_nav() {
+	
 	$single_navigation = anva_get_option( 'single_navigation', 'show' );
 	if ( 'show' != $single_navigation ) {
 		return;
@@ -228,8 +237,10 @@ function anva_post_nav() {
 	<?php
 }
 
-/*
- * Get posts in custom posts widget
+/**
+ * Mini posts list
+ * 
+ * @since 1.0.0
  */
 function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
 	global $post;
@@ -243,12 +254,12 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 		'order'						=> $order
 	);
 
-	$the_query = anva_get_query_posts( $args );
+	$query = anva_get_query_posts( $args );
 	
 	$output .= '<ul class="widget-posts-list">';
 
-	while ( $the_query->have_posts() ) {
-		$the_query->the_post();
+	while ( $query->have_posts() ) {
+		$query->the_post();
 
 		if ( $thumbnail ) {
 			$output .= '<li class="sm-post small-post clearfix">';
@@ -275,7 +286,13 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 	wp_reset_postdata();
 }
 
+/**
+ * Blog post author
+ * 
+ * @since 1.0.0
+ */
 function anva_post_author() {
+	
 	$single_author = anva_get_option( 'single_author', 'hide' );
 	if ( 'show' != $single_author ) {
 		return;
@@ -314,7 +331,13 @@ function anva_post_tags() {
 	<?php
 }
 
+/**
+ * Blog post share
+ * 
+ * @since 1.0.0
+ */
 function anva_post_share() {
+	
 	$single_share = anva_get_option( 'single_share', 'show' );
 	if ( 'show' != $single_share ) {
 		return;
@@ -349,7 +372,13 @@ function anva_post_share() {
 	endif;
 }
 
+/**
+ * Blog post related
+ * 
+ * @since 1.0.0
+ */
 function anva_post_related() {
+	
 	$single_related = anva_get_option( 'single_related', 'hide' );
 	if ( 'show' != $single_related ) {
 		return;
@@ -433,7 +462,9 @@ function anva_post_related() {
 }
 
 /**
- * Pagination
+ * Blog post pagination
+ * 
+ * @since 1.0.0
  */
 function anva_pagination( $query = '' ) {
 
@@ -454,7 +485,9 @@ function anva_pagination( $query = '' ) {
 }
 
 /**
- * Num pagination
+ * Blog post pagination number
+ * 
+ * @since 1.0.0
  */
 function anva_num_pagination( $pages = '', $range = 2 ) {
 	
@@ -498,7 +531,9 @@ function anva_num_pagination( $pages = '', $range = 2 ) {
 }
 
 /**
- * Comment pagination
+ * Blog comment pagination
+ * 
+ * @since 1.0.0.
  */
 function anva_comment_pagination() {
 	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
@@ -656,6 +691,8 @@ function anva_get_product_search_form() {
 
 /**
  * Get comment list
+ * 
+ * @since 1.0.0
  */
 function anva_comment_list( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
@@ -727,6 +764,8 @@ function anva_comment_list( $comment, $args, $depth ) {
 
 /**
  * Replace reply link class in comment form
+ * 
+ * @since 1.0.0
  */
 function anva_comment_reply_link_class( $class ){
 	$class = str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-default btn-sm", $class );
@@ -735,6 +774,8 @@ function anva_comment_reply_link_class( $class ){
 
 /**
  * Display a breadcrumb menu after header
+ * 
+ * @since 1.0.0
  */
 function anva_get_breadcrumbs() {
 	
@@ -928,45 +969,57 @@ function anva_get_breadcrumbs() {
 
 /**
  * Display gallery grid
+ * 
+ * @since 1.0.0
  */
-function anva_gallery_grid( $columns, $size, $type = 'grid' ) {
-	$classes 	 = array();
-	$gallery 	 = anva_get_post_meta( '_anva_gallery_images' ); // Get gallery images
-	$gallery 	 = anva_sort_gallery( $gallery ); 					 		 // Sort gallery images
-	$animate 	 = 'data-animate="fadeIn"';
-	$highlight = "data-big='2'";
-	$gallery_image_url 		= '';
-	$gallery_image_desc 	= '';
+function anva_gallery_grid( $post_id, $columns, $thumbnail, $type = 'grid' ) {
+	
+	$classes 	 	= array();
+	$gallery 	 	= get_post_meta( $post_id, '_anva_gallery_images', true ); 	// Get gallery images
+	$gallery 	 	= anva_sort_gallery( $gallery ); 					 		 							// Sort gallery images
+	$animate 	 	= 'data-animate="fadeIn"';																	// Animate gallery images
+	$highlight 	= "data-big='2'";																						// Highlight image
+	$html 			= '';
 
 	if ( 'grid' == $type ) {
 		$classes[] = 'gallery-thumbs';
 	} else {
 		$classes[] = 'masonry-thumbs';
 	}
+
 	$classes[] = $columns;
 	$classes = implode( ' ', $classes );
+	
+	$html .= '<div class="gallery-container">';
+	$html .= '<div class="' . esc_attr( $classes ) . ' clearfix" data-lightbox="gallery">';
 
-	?>
-	<div id="gallery-container">
-		<div class="<?php echo esc_attr( $classes ); ?> clearfix" data-lightbox="gallery">
-		<?php foreach ( $gallery as $id ) :
-			$image_title 	= get_the_title( $id );
-			$image_desc 	= get_post_field( 'post_content', $id );
-			
-			if ( ! empty( $id ) ) :
-				$image_ori = wp_get_attachment_image_src( $id, 'large', true );
-				$image_url = wp_get_attachment_image_src( $id, $size, true );
-			endif;
-		?>
+	foreach ( $gallery as $key => $attachment_id ) {
 		
-		<a href="<?php echo esc_url( $image_ori[0] ); ?>" title="<?php echo esc_attr( $image_title ); ?>" data-lightbox="gallery-item" data-desc="<?php echo esc_attr( $image_desc ); ?>">
-			<img src="<?php echo esc_attr( $image_url[0] ); ?>" alt="<?php echo esc_attr( $image_title ); ?>" />
-		</a>
+		$title 			= get_the_title( $attachment_id );
+		$desc 			= get_post_field( 'post_content', $attachment_id );
+		$thumb_full = anva_get_attachment_image_src( $attachment_id, 'full' );
+		$thumb_size = anva_get_attachment_image_src( $attachment_id, $thumbnail );
+	
+		$html .= '<a href="' . esc_url( $thumb_full ) . '" title="' . esc_attr( $title ) . '" ' . $animate . ' data-lightbox="gallery-item" data-desc="' . esc_attr( $desc ) . '">';
+		$html .= '<img class="gallery-image" src="' . esc_attr( $thumb_size ) . '" alt="' . esc_attr( $title ) . '" />';
+		
+		if ( 'col-1' == $columns ) {
+			
+			$html .= '<div class="gallery-caption">';
+			$html .= '<h4>' . esc_html( $title ) . '</h4>';
+			$html .= '<div class="gallery-desc">' . wpautop( $desc ) . '</div>';
+			$html .= '</div>';
 
-		<?php endforeach; ?>
-		</div>
-	</div>
-	<?php
+		}
+
+		$html .= '</a>';
+	}
+
+	$html .= '</div>';
+	$html .= '</div>';
+
+	return $html;
+	
 }
 
 /*

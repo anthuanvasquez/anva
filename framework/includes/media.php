@@ -152,10 +152,8 @@ function anva_add_image_sizes() {
 
 /**
  * Show theme's image thumb sizes when inserting
- * an image in a post or page.
- *
- * This function gets added as a filter to WP's
- * image_size_names_choose
+ * an image in a post or page. This function gets
+ * added as a filter to WP's image_size_names_choose.
  *
  * @since  1.0.0
  * @return array Framework's image sizes
@@ -180,7 +178,7 @@ function anva_image_size_names_choose( $sizes ) {
 }
 
 /**
- * Get featured image url
+ * Get featured image
  *
  * @since 1.0.0
  */
@@ -189,6 +187,18 @@ function anva_get_featured_image( $post_id, $thumbnail ) {
 	if ( $post_thumbnail_id ) {
 		$post_thumbnail_img = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
 		return $post_thumbnail_img[0];
+	}
+}
+
+/**
+ * Get attachment image src
+ *
+ * @since 1.0.0
+ */
+function anva_get_attachment_image_src( $attachment_id, $thumbnail ) {
+	if ( $attachment_id ) {
+		$attachment_img = wp_get_attachment_image_src( $attachment_id, $thumbnail, true );
+		return $attachment_img[0];
 	}
 }
 

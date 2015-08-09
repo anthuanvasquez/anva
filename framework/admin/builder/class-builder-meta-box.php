@@ -1,41 +1,12 @@
 <?php
-
-require_once( ANVA_FRAMEWORK . '/admin/includes/builder/elements.php' );
-require_once( ANVA_FRAMEWORK . '/admin/includes/builder/options.php' );
-require_once( ANVA_FRAMEWORK . '/admin/includes/builder/helpers.php' );
-
 /**
- * Add page and post meta boxes
+ * Builder Meta Box
  *
- * @since 1.0.0
- * @return class Anva_Meta_box
+ * @since 		 1.0.0
+ * @package    Anva
+ * @subpackage Anva/builder
+ * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-function anva_add_builder_meta_box() {
-
-	// Page meta box
-	$builder_meta = anva_setup_page_builder_options();
-	$builder_meta_box = new Anva_Builder_Meta_Box( $builder_meta['args']['id'], $builder_meta['args'] );
-
-}
-
-/**
- * Page meta setup array
- *
- * @since 1.0.0
- * @return array $setup
- */
-function anva_setup_page_builder_options() {
-	$setup = array(
-		'args' => array(
-			'id' 				=> 'anva_page_builder_options',
-			'title' 		=> __( 'Page Builder', anva_textdomain() ),
-			'page'			=> array( 'page' ),
-			'context' 	=> 'normal',
-			'priority'	=> 'default'
-		)
-	);
-	return apply_filters( 'anva_page_buider_meta', $setup );
-}
 
 class Anva_Builder_Meta_Box {
 
@@ -43,7 +14,7 @@ class Anva_Builder_Meta_Box {
 	 * ID for meta box and post field saved
 	 *
 	 * @since 2.2.0
-	 * @var string
+	 * @var   string
 	 */
 	public $id;
 	
@@ -51,8 +22,17 @@ class Anva_Builder_Meta_Box {
 	 * Arguments to pass to add_meta_box()
 	 *
 	 * @since 1.0.0
+	 * @var   array
 	 */
 	private $args;
+
+	/**
+	 * Options array for page builder elements
+	 *
+	 * @since 1.0.0
+	 * @var   array
+	 */
+	private $options;
 
 	/**
 	 * Constructor
@@ -60,9 +40,10 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $id, $args ) {
+	public function __construct( $id, $args, $options ) {
 
 		$this->id = $id;
+		$this->options = $options;
 
 		$defaults = array(
 			'page'				=> array( 'page' ),		// Can contain post, page, link, or custom post type's slug
@@ -97,7 +78,7 @@ class Anva_Builder_Meta_Box {
 	
 			$builder_dir = anva_get_core_url() . '/admin/includes/builder';
 			$params 		 = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) );
-			$ap_vars 		 = array( 'url' => get_home_url(), 'includes_url' => includes_url() );
+			$vars 		 	 = array( 'url' => get_home_url(), 'includes_url' => includes_url() );
 
 			/* ---------------------------------------------------------------- */
 			/* WordPress
@@ -110,6 +91,7 @@ class Anva_Builder_Meta_Box {
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script( 'jquery-ui-tabs' );
+			wp_enqueue_script( 'jquery-effects-fade' );
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'thickbox' );
 			wp_enqueue_script( 'wplink' );
@@ -120,21 +102,18 @@ class Anva_Builder_Meta_Box {
 			/* ---------------------------------------------------------------- */
 
 			wp_enqueue_style( 'jquery-ui-custom', 		anva_get_core_url() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-			wp_enqueue_style( 'fancybox', 						$builder_dir . "/assets/fancybox215/jquery.fancybox.min.css", array(), '2.1.5', 'all' );
-			wp_enqueue_style( 'builder', 							$builder_dir . "/assets/css/builder.css", array(), ANVA_FRAMEWORK_VERSION, 'all' );
+			wp_enqueue_style( 'fancybox', 						anva_get_core_url() . '/assets/css/admin/jquery.fancybox.min.css', array(), '2.1.5', 'all' );
+			wp_enqueue_style( 'anva-builder', 				anva_get_core_url() . '/assets/css/admin/builder.css', array( 'jquery-ui-custom' ), ANVA_FRAMEWORK_VERSION, 'all' );
 
-			wp_register_script( 'js-wp-editor', 			$builder_dir . '/assets/js/js-wp-editor.js', array( 'jquery' ), '1.1', true );
-			wp_register_script( 'anva-builder', 			$builder_dir . "/assets/js/builder.js", array( 'jquery', 'wp-color-picker', 'fancybox' ), ANVA_FRAMEWORK_VERSION, true );
+			wp_register_script( 'js-wp-editor', 			anva_get_core_url() . '/assets/js/admin/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
+			wp_register_script( 'anva-builder', 			anva_get_core_url() . '/assets/js/admin/builder.js', array( 'jquery', 'wp-color-picker', 'fancybox' ), ANVA_FRAMEWORK_VERSION, true );
 			
-			wp_enqueue_script( 'fancybox', 						$builder_dir . "/assets/fancybox215/jquery.fancybox.min.js", array( 'jquery' ), '2.1.5' );
-			wp_enqueue_script( 'jslider-depend', 			$builder_dir . "/assets/js/jquery.dependClass.min.js", array(), ANVA_FRAMEWORK_VERSION );
-			wp_enqueue_script( 'jslider', 						$builder_dir . "/assets/js/jquery.slider.min.js", array(), ANVA_FRAMEWORK_VERSION );
-
+			wp_enqueue_script( 'fancybox', 						anva_get_core_url() . '/assets/js/admin/jquery.fancybox.min.js', array( 'jquery' ), '2.1.5' );
 			wp_enqueue_script( 'js-wp-editor' );
-			wp_enqueue_script( 'builder_script' );
+			wp_enqueue_script( 'anva-builder' );
 			
-			wp_localize_script( 'anva-builder', 'tgAjax', $params );
-			wp_localize_script( 'js-wp-editor', 'ap_vars', $ap_vars );
+			wp_localize_script( 'anva-builder', 'ANVA_VARS', $params );
+			wp_localize_script( 'js-wp-editor', 'ap_vars', $vars );
 			
 		}
 	}
@@ -161,11 +140,6 @@ class Anva_Builder_Meta_Box {
 		}
 	}
 
-	static public function get_id() {
-		$id = $this->id;
-		return $id;
-	}
-
 	/**
 	 * Renders the content of the meta box
 	 *
@@ -176,10 +150,10 @@ class Anva_Builder_Meta_Box {
 		global $post;
 		
 		$ppb_enable						= 0;
-		$ppb_shortcodes 			= anva_get_builder_options();
+		$ppb_shortcodes 			= $this->options;
 		$dd 									= anva_get_builder_field();
 		$ppb_form_item_arr 		= array();
-		$image_path 					= anva_get_core_url() . '/admin/includes/builder/assets/images/builder/';
+		$image_path 					= anva_get_core_url() . '/assets/images/builder/';
 
 		if ( isset( $dd['enable'] ) ) {
 			$ppb_enable = $dd['enable'];
@@ -268,7 +242,7 @@ class Anva_Builder_Meta_Box {
 					</div><!-- #ppb_tab (end) -->
 				<?php endif; ?>
 
-				<a id="ppb_sortable_add_button" class="button button-primary"><?php _e( 'Add', anva_textdomain() ); ?></a>
+				<a id="ppb_sortable_add_button" class="button button-primary"><?php _e( '+ Add Item', anva_textdomain() ); ?></a>
 
 				<?php
 					if ( isset( $ppb_form_data_order ) ) {
@@ -310,10 +284,11 @@ class Anva_Builder_Meta_Box {
 								}
 								?>
 								<li id="<?php echo esc_attr( $ppb_form_item ); ?>" class="ui-state-default <?php echo esc_attr( $ppb_form_item_size ); ?> <?php echo esc_attr( $ppb_form_item_data_obj->shortcode ); ?>" data-current-size="<?php echo esc_attr( $ppb_form_item_size ); ?>">
-									<!-- <div class="anva-hndle">
-										<span class="dashicons dashicons-edit"></span>
-										<span class="dashicons dashicons-trash"></span>
-									</div> -->
+									<div class="actions">
+										<a href="<?php echo esc_url( admin_url('admin-ajax.php?action=pp_ppb&ppb_post_type=page&shortcode='.$ppb_form_item_data_obj->shortcode.'&rel='.$ppb_form_item.'&width=800&height=900' ) ); ?>" class="ppb_edit" data-rel="<?php echo esc_attr( $ppb_form_item ); ?>"></a>
+										<a href="javascript:;" class="ppb_remove"></a>
+									</div>
+									<span class="spinner"></span>
 									<div class="thumb">
 										<img src="<?php echo esc_url( $image_path . $ppb_shortocde_icon ); ?>" alt="<?php echo esc_attr( $ppb_shortocde_title ); ?>" />
 									</div>
@@ -321,17 +296,19 @@ class Anva_Builder_Meta_Box {
 										<span class="shortcode_title"><?php echo $ppb_shortocde_title; ?></span>
 										<?php echo urldecode( $obj_title_name ); ?>
 									</div>
-									<a href="javascript:;" class="ppb_remove">x</a>
-									<a data-rel="<?php echo esc_attr( $ppb_form_item ); ?>" href="<?php echo esc_url( admin_url('admin-ajax.php?action=pp_ppb&ppb_post_type=page&shortcode='.$ppb_form_item_data_obj->shortcode.'&rel='.$ppb_form_item.'&width=800&height=900' ) ); ?>" class="ppb_edit"></a>
 									<input type="hidden" class="ppb_setting_columns" value="<?php echo esc_attr( $ppb_form_item_size ); ?>" />
+									<div class="clear"></div>
 								</li>
 								<?php
 							endif;
 						endforeach;
 					endif;
 				?>
+				<div class="content-builder-sort-footer">
+					<div class="order_message">Drag and drop to reorder</div>
+				</div>
 				</ul><!-- .sortable (end) -->
-			</div><!-- .meta-content-builder -->
+			</div><!-- .meta-content-builder (end) -->
 			
 			<div class="meta meta-content-builder-export hidden">
 				<div id="meta_tab">
@@ -342,21 +319,34 @@ class Anva_Builder_Meta_Box {
 
 					<div id="meta-tabs-1" class="meta-import">
 						<h4><?php _e( 'Import Page Content Builder', anva_textdomain() ); ?></h4>
-						<div class="pp_widget_description">
-							<?php _e( 'Choose the import file. *Note: Your current content builder content will be overwritten by imported data', anva_textdomain() ); ?>
+						<div class="meta-option">
+							<div class="meta-controls">
+								<input type="file" id="ppb_import_current_file" name="ppb_import_current_file" value="0" size="25"/>
+								<input type="hidden" id="ppb_import_current" name="ppb_import_current"/>
+								<input type="submit" id="ppb_import_current_button" class="button" value="Import"/>
+							</div>
+							<div class="meta-description">
+								<div class="pp_widget_description">
+									<?php _e( 'Choose the import file. *Note: Your current content builder content will be overwritten by imported data', anva_textdomain() ); ?>
+								</div>
+							</div>
 						</div>
-						<input type="file" id="ppb_import_current_file" name="ppb_import_current_file" value="0" size="25"/>
-						<input type="hidden" id="ppb_import_current" name="ppb_import_current"/>
-						<input type="submit" id="ppb_import_current_button" class="button" value="Import"/>
+						
 					</div><!-- .meta-import (end) -->
 				
 					<div id="meta-tabs-2" class="meta-export">
 						<h4><?php _e( 'Export Page Content Builder', anva_textdomain() ); ?></h4>
-						<div class="pp_widget_description">
-							<?php _e( 'Click to export current content builder data. Note: Please make sure you save all changes and no "unsaved" module', anva_textdomain() ); ?>
+						<div class="meta-option">
+							<div class="meta-controls">
+								<input type="hidden" id="ppb_export_current" name="ppb_export_current"/>
+								<input type="submit" id="ppb_export_current_button" name="ppb_export_current_button" class="button" value="Export"/>
+							</div>
+							<div class="meta-description">
+								<div class="pp_widget_description">
+									<?php _e( 'Click to export current content builder data. Note: Please make sure you save all changes and no "unsaved" module', anva_textdomain() ); ?>
+								</div>
+							</div>
 						</div>
-						<input type="hidden" id="ppb_export_current" name="ppb_export_current"/>
-						<input type="submit" id="ppb_export_current_button" name="ppb_export_current_button" class="button" value="Export"/>
 					</div><!-- .meta-export (end) -->
 				</div><!-- #meta_tab (end) -->
 			</div><!-- .meta-content-builder-export (end) -->
@@ -430,7 +420,7 @@ class Anva_Builder_Meta_Box {
 		/* ---------------------------------------------------------------- */
 
 		if ( isset( $_POST['ppb_import_current'] ) && ! empty( $_POST['ppb_import_current_file'] ) ) {
-			//Check if zip file
+			// Check if zip file
 			$import_filename 	= $_FILES['ppb_import_current_file']['name'];
 			$import_type 			= $_FILES['ppb_import_current_file']['type'];
 			$is_zip 					= FALSE;
@@ -444,7 +434,7 @@ class Anva_Builder_Meta_Box {
  
 			foreach ( $accepted_types as $mime_type ) {
 				if ( $mime_type == $import_type ) {
-					$is_zip = TRUE;
+					$is_zip = true;
 					break;
 				}
 			}
@@ -459,7 +449,7 @@ class Anva_Builder_Meta_Box {
 				}
 				
 				move_uploaded_file( $_FILES["ppb_import_current_file"]["tmp_name"], $cache_dir . '/' . $import_filename );
-				// $unzipfile = unzip_file( $cache_dir.'/'.$import_filename, $cache_dir);
+				// $unzipfile = unzip_file( $cache_dir . '/' . $import_filename, $cache_dir );
 				
 				$zip = new ZipArchive();
 				$x = $zip->open( $cache_dir . '/' . $import_filename );
@@ -475,8 +465,8 @@ class Anva_Builder_Meta_Box {
 				}
 
 				$import_options_json = file_get_contents( $cache_dir . '/' . $new_filename );
-				unlink( $cache_dir .'/' . $import_filename );
-				unlink( $cache_dir .'/' . $new_filename );
+				unlink( $cache_dir . '/' . $import_filename );
+				unlink( $cache_dir . '/' . $new_filename );
 			
 			} else {
 				//If .json file then import
@@ -533,11 +523,9 @@ class Anva_Builder_Meta_Box {
 				$ppb_form_item_arr = explode( ',', $ppb_form_data_order );
 			
 				foreach ( $ppb_form_item_arr as $key => $ppb_form_item ) {
-					// $ppb_form_item_data = get_post_meta( $post_id, $ppb_form_item . '_data' );
 					$ppb_form_item_data = $old[$ppb_form_item]['data'];
 					$export_options_arr[$ppb_form_item]['data'] = $ppb_form_item_data;
 					
-					// $ppb_form_item_size = get_post_meta( $post_id, $ppb_form_item . '_size');
 					$ppb_form_item_size = $old[$ppb_form_item]['size'];
 					$export_options_arr[$ppb_form_item]['size'] = $ppb_form_item_size;
 				}
@@ -552,21 +540,18 @@ class Anva_Builder_Meta_Box {
 		/* Saving Page Builder Data
 		/* ---------------------------------------------------------------- */
 
-		$builder = array();
-		$builder_ids = array();
+		$builder_data = array();
 		$enable = 0;
 
 		if ( isset( $_POST['ppb_enable'] ) && ! empty( $_POST['ppb_enable'] ) ) {
 			$enable = $_POST['ppb_enable'];
 		}
 
-		$builder_ids['enable'] = $enable;
+		$builder_data['enable'] = $enable;
 
 		if ( isset( $_POST['ppb_form_data_order'] ) && ! empty( $_POST['ppb_form_data_order'] ) ) {
 			
-			// page_update_custom_meta( $post_id, $_POST['ppb_form_data_order'], 'ppb_form_data_order' );
-			
-			$builder_ids['order'] = $_POST['ppb_form_data_order'];
+			$builder_data['order'] = $_POST['ppb_form_data_order'];
 
 			$ppb_item_arr = explode( ',', $_POST['ppb_form_data_order'] );
 
@@ -574,41 +559,40 @@ class Anva_Builder_Meta_Box {
 				foreach ( $ppb_item_arr as $key => $ppb_item_arr ) {
 
 					if ( isset( $_POST[$ppb_item_arr . '_data'] ) && ! empty( $_POST[$ppb_item_arr . '_data'] ) ) {
-						// page_update_custom_meta( $post_id, $_POST[$ppb_item_arr . '_data'], $ppb_item_arr.'_data' );
-
-						$builder_ids[$ppb_item_arr]['data'] = $_POST[$ppb_item_arr . '_data'];
+						$builder_data[$ppb_item_arr]['data'] = $_POST[$ppb_item_arr . '_data'];
 					}
 					
 					if ( isset( $_POST[$ppb_item_arr . '_size'] ) && ! empty( $_POST[$ppb_item_arr . '_size'] ) ) {
-						// page_update_custom_meta($post_id, $_POST[$ppb_item_arr . '_size'], $ppb_item_arr.'_size');
-
-						$builder_ids[$ppb_item_arr]['size'] = $_POST[$ppb_item_arr . '_size'];
+						$builder_data[$ppb_item_arr]['size'] = $_POST[$ppb_item_arr . '_size'];
 					}
-
-					// $builder_ids[$key][$ppb_item_arr] = $builder;
 
 				}
 			}
-
-		} else {
-			// Is empty
-			page_update_custom_meta( $post_id, '', $this->id );
 		}
-		
-		// Save Array Options
-		update_post_meta( $post_id, $this->id, $builder_ids );
-	
+
+		$new = $builder_data;
+
+		if ( $new && $new != $old ) {
+
+			update_post_meta( $post_id, $id, $new );
+
+		} elseif ( '' == $new && $old ) {
+
+			delete_post_meta( $post_id, $id, $old );
+
+		}
+
 	}
 
 	/**
-	 * Fancy Box Fields
+	 * UI Fields
 	 *
 	 * @since 1.0.0
-   */
+	 */
 	function fields() {
 
 		if ( is_admin() && isset( $_GET['shortcode'] ) && ! empty( $_GET['shortcode'] ) ) :
-			$ppb_shortcodes = anva_get_builder_options();
+			$ppb_shortcodes = $this->options;
 			
 			if ( isset( $ppb_shortcodes[$_GET['shortcode']] ) && ! empty( $ppb_shortcodes[$_GET['shortcode']] ) ) :
 				$selected_shortcode = $_GET['shortcode'];
@@ -621,13 +605,13 @@ class Anva_Builder_Meta_Box {
 				<div class="wrap">
 					<h2><?php echo $selected_shortcode_arr['title']; ?></h2>
 					<a id="save_<?php echo $_GET['rel']; ?>" data-parent="ppb_inline_<?php echo $selected_shortcode; ?>" class="button-primary ppb_inline_save" href="#"><?php _e( 'Update', anva_textdomain() ); ?></a>
-					<a class="button" href="javascript:;" onClick="jQuery.fancybox.close();"><?php _e( 'Cancel', anva_textdomain() ); ?></a>
+					<a class="button button-cancel" href="#"><?php _e( 'Cancel', anva_textdomain() ); ?></a>
 				</div><!-- .wrap (end) -->
 
 				<?php if ( isset( $selected_shortcode_arr['title'] ) && $selected_shortcode_arr['title'] != 'Divider' ) : ?>
 					<div class="field-title">
 						<label for="<?php echo $selected_shortcode; ?>_title"><?php _e( 'Title', anva_textdomain() ); ?></label>
-						<span class="label_desc"><?php _e( 'Enter Title for this content', anva_textdomain() ); ?></span>
+						<span class="desc"><?php _e( 'Enter Title for this content', anva_textdomain() ); ?></span>
 						<input type="text" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="Title" class="ppb_input" />
 					</div>
 				<?php else : ?>
@@ -650,7 +634,7 @@ class Anva_Builder_Meta_Box {
 						<div class="field-slider">
 							<div style="position:relative">
 								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-								<span class="label_desc"><?php echo $attr_item['desc']; ?></span>
+								<span class="desc"><?php echo $attr_item['desc']; ?></span>
 								<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="range" class="ppb_input" min="<?php echo $attr_item['min']; ?>" max="<?php echo $attr_item['max']; ?>" step="<?php echo $attr_item['step']; ?>" value="<?php echo $attr_item['std']; ?>" />
 								<output for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" onforminput="value = foo.valueAsNumber;"></output>
 							</div>
@@ -660,7 +644,7 @@ class Anva_Builder_Meta_Box {
 						case 'file': ?>
 						<div class="field-file">
 							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="label_desc"><?php echo $attr_item['desc']; ?></span>
+							<span class="desc"><?php echo $attr_item['desc']; ?></span>
 							<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text"  class="ppb_input ppb_file" />
 							<a id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" type="button" class="metabox_upload_btn button" rel="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>">Upload</a>
 						</div>
@@ -669,7 +653,7 @@ class Anva_Builder_Meta_Box {
 						case 'select': ?>
 						<div class="field-select">
 							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="label_desc"><?php echo $attr_item['desc']; ?></span>
+							<span class="desc"><?php echo $attr_item['desc']; ?></span>
 							<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input">
 								<?php foreach ( $attr_item['options'] as $attr_key => $attr_item_option ) : ?>
 									<option value="<?php echo $attr_key; ?>"><?php echo ucfirst($attr_item_option); ?></option>
@@ -681,7 +665,7 @@ class Anva_Builder_Meta_Box {
 						case 'select_multiple': ?>
 						<div class="field-select-multiple">
 							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="label_desc"><?php echo $attr_item['desc']; ?></span>
+							<span class="desc"><?php echo $attr_item['desc']; ?></span>
 							<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input" multiple="multiple">
 								<?php foreach($attr_item['options'] as $attr_key => $attr_item_option) : ?>
 									<?php if(!empty($attr_item_option)) : ?>
@@ -695,7 +679,7 @@ class Anva_Builder_Meta_Box {
 						case 'text': ?>
 						<div class="field-text">
 							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="label_desc"><?php echo $attr_item['desc']; ?></span>
+							<span class="desc"><?php echo $attr_item['desc']; ?></span>
 							<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input" />
 						</div>
 						<?php break;
@@ -703,7 +687,7 @@ class Anva_Builder_Meta_Box {
 						case 'colorpicker': ?>
 						<div class="field-colorpicker">
 							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="label_desc"><?php echo $attr_item['desc']; ?></span>
+							<span class="desc"><?php echo $attr_item['desc']; ?></span>
 							<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input color_picker" readonly />
 						</div>
 						<?php break;
@@ -711,7 +695,7 @@ class Anva_Builder_Meta_Box {
 						case 'textarea': ?>
 						<div class="field-textarea">
 							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="label_desc"><?php echo $attr_item['desc']; ?></span>
+							<span class="desc"><?php echo $attr_item['desc']; ?></span>
 							<textarea name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" cols="" rows="3" class="ppb_input"></textarea>
 						</div>
 						<?php break;
@@ -723,7 +707,7 @@ class Anva_Builder_Meta_Box {
 				<?php if ( isset ( $selected_shortcode_arr['content'] ) && $selected_shortcode_arr['content'] ) : ?>
 				<div class="field-content">
 					<label for="<?php echo $selected_shortcode; ?>_content"><?php _e( 'Content', anva_textdomain() ); ?></label>
-					<span class="label_desc"><?php _e( 'Enter text/HTML content to display in this', anva_textdomain() ); ?> "<?php echo $selected_shortcode_arr['title']; ?>"</span>
+					<span class="desc"><?php _e( 'Enter text/HTML content to display in this', anva_textdomain() ); ?> "<?php echo $selected_shortcode_arr['title']; ?>"</span>
 					<textarea id="<?php echo $selected_shortcode; ?>_content" name="<?php echo $selected_shortcode; ?>_content" cols="" rows="7" class="ppb_input"></textarea>
 				</div>
 				<?php endif; ?>
@@ -731,111 +715,105 @@ class Anva_Builder_Meta_Box {
 			</div><!-- .ppb_inline (end) -->
 			
 			<script type="text/javascript">
-			jQuery(document).ready(function(){
+			jQuery(document).ready( function() {
+								
+				// Uploader
 				var formfield = '';
-		
-				jQuery('.metabox_upload_btn').click(function() {
-						jQuery('.fancybox-overlay').css('visibility', 'hidden');
-						jQuery('.fancybox-wrap').css('visibility', 'hidden');
-						formfield = jQuery(this).attr('rel');
-						
-						var send_attachment_bkp = wp.media.editor.send.attachment;
-						wp.media.editor.send.attachment = function(props, attachment) {
-							jQuery('#'+formfield).attr('value', attachment.url);
+				jQuery('.metabox_upload_btn').click(function() {	
+					jQuery('.fancybox-overlay').css('visibility', 'hidden');
+					jQuery('.fancybox-wrap').css('visibility', 'hidden');
+					formfield = jQuery(this).attr('rel');
+					var send_attachment_bkp = wp.media.editor.send.attachment;
+					wp.media.editor.send.attachment = function(props, attachment) {
+						jQuery('#'+formfield).attr('value', attachment.url);
+						wp.media.editor.send.attachment = send_attachment_bkp;
+						jQuery('.fancybox-overlay').css('visibility', 'visible');
+						jQuery('.fancybox-wrap').css('visibility', 'visible');
+					}
+					wp.media.editor.open();
+					return false;
+				});
 				
-								wp.media.editor.send.attachment = send_attachment_bkp;
-								jQuery('.fancybox-overlay').css('visibility', 'visible');
-							jQuery('.fancybox-wrap').css('visibility', 'visible');
-						}
-				
-						wp.media.editor.open();
-						return false;
-					});
-			
-				jQuery("#ppb_inline :input").each(function(){
-					if(typeof jQuery(this).attr('id') != 'undefined')
-					{
-						 jQuery(this).attr('value', '');
+				jQuery("#ppb_inline :input").each(function() {
+					if ( typeof jQuery(this).attr('id') != 'undefined' ) {
+						jQuery(this).attr('value', '');
 					}
 				});
 				
 				var currentItemData = jQuery('#<?php echo $_GET['rel']; ?>').data('ppb_setting');
 				var currentItemOBJ = jQuery.parseJSON(currentItemData);
 				
-				jQuery.each(currentItemOBJ, function(index, value) { 
-						if(typeof jQuery('#'+index) != 'undefined')
-					{
+				jQuery.each(currentItemOBJ, function(index, value) {
+					if ( typeof jQuery('#'+index) != 'undefined' ) {
 						jQuery('#'+index).val(decodeURI(value));
 						
-						//If textarea then convert to visual editor
-						if(jQuery('#'+index).is('textarea'))
-						{
+						// If textarea then convert to visual editor
+						if ( jQuery('#'+index).is('textarea') ) {
 							jQuery('#'+index).wp_editor();
 							jQuery('#'+index).val(decodeURI(value));
-							//switchEditors.go(index, 'tmce');
+							// switchEditors.go(index, 'tmce');
 						}
 					}
 				});
 
+				// Color Picker
 				jQuery('.color_picker').wpColorPicker();
 				
+				// Range
 				var el, newPoint, newPlace, offset;
 	 
-				 jQuery("input[type='range']").change(function() {
-				 
-					 el = jQuery(this);
-					 
-					 width = el.width();
-					 newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
-					 
-					 el
-						 .next("output")
-						 .text(el.val());
-				 })
-				 .trigger('change');
+				jQuery("input[type='range']").change(function() {
+					el = jQuery(this);
+					width = el.width();
+					newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
+					el.next("output").text(el.val());
+				}).trigger('change');
 				
-				jQuery("#save_<?php echo $_GET['rel']; ?>").click(function(){
+				// Save Data
+				jQuery("#save_<?php echo $_GET['rel']; ?>").click( function(e) {
+					e.preventDefault();
+					
 					tinyMCE.triggerSave();
-				
-						var targetItem = jQuery('#ppb_inline_current').attr('value');
-						var parentInline = jQuery(this).attr('data-parent');
-						var currentItemData = jQuery('#'+targetItem).find('.ppb_setting_data').attr('value');
-						var currentShortcode = jQuery('#'+parentInline).attr('data-shortcode');
+			
+					var targetItem = jQuery('#ppb_inline_current').attr('value');
+					var parentInline = jQuery(this).attr('data-parent');
+					var currentItemData = jQuery('#'+targetItem).find('.ppb_setting_data').attr('value');
+					var currentShortcode = jQuery('#'+parentInline).attr('data-shortcode');
+					var itemData = {};
+
+					itemData.id = targetItem;
+					itemData.shortcode = currentShortcode;
+					
+					jQuery("#"+parentInline+" :input.ppb_input").each( function() {
 						
-						var itemData = {};
-						itemData.id = targetItem;
-						itemData.shortcode = currentShortcode;
-						
-						jQuery("#"+parentInline+" :input.ppb_input").each(function(){
-							if(typeof jQuery(this).attr('id') != 'undefined')
-							{	
-								itemData[jQuery(this).attr('id')] = encodeURI(jQuery(this).attr('value'));
-								
-								 if(jQuery(this).attr('data-attr') == 'title')
-								 {
-										jQuery('#'+targetItem).find('.title').html(decodeURI(jQuery(this).attr('value')));
-										if(jQuery('#'+targetItem).find('.ppb_unsave').length==0)
-										{
-											jQuery('<a href="javascript:;" class="ppb_unsave">Unsaved</a>').insertAfter(jQuery('#'+targetItem).find('.title'));
-										}
-								 }
+						if ( typeof jQuery(this).attr('id') != 'undefined' ) {	
+							itemData[jQuery(this).attr('id')] = encodeURI(jQuery(this).attr('value'));
+							
+							if ( jQuery(this).attr('data-attr') == 'title') {
+								jQuery('#'+targetItem).find('.title').html(decodeURI(jQuery(this).attr('value')));
+								if ( jQuery('#'+targetItem).find('.ppb_unsave').length == 0 ) {
+									jQuery('<a href="javascript:;" class="ppb_unsave">Unsaved</a>').insertAfter(jQuery('#'+targetItem).find('.title'));
+								}
 							}
-						});
-						
-						var currentItemDataJSON = JSON.stringify(itemData);
-						jQuery('#'+targetItem).data('ppb_setting', currentItemDataJSON);
-						
-						jQuery.fancybox.close();
+						}
+					});
+					
+					var currentItemDataJSON = JSON.stringify(itemData);
+
+					jQuery('#'+targetItem).data('ppb_setting', currentItemDataJSON);
+
+					jQuery('#inner-<?php echo $_GET['rel']; ?>').slideToggle();
+					setTimeout(function(){
+				  	jQuery('#inner-<?php echo $_GET['rel']; ?>').remove();
+					}, 600)
+
 				});
 				
-				jQuery.fancybox.hideLoading();
 			});
 			</script>
-	<?php
-			endif;
-		endif;
-		
-		die();
+		<?php endif; ?>
+	<?php endif; ?>	
+	<?php die(); // Exit
 	}
 
 } // End Class

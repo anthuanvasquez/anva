@@ -18,8 +18,8 @@
 		
 		<div class="entry-footer">
 			<?php anva_posts_footer(); ?>
-				<?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div>' ) ); ?>
-				<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div>' ) ); ?>
+			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link">', '</span>' ); ?>
 		</div><!-- .entry-footer (end) -->
 	</article><!-- #post-<?php the_ID(); ?> -->
 

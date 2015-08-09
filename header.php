@@ -14,7 +14,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> data-loader="3">
 
 <?php anva_before(); ?>
 

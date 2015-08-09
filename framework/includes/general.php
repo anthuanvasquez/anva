@@ -160,7 +160,7 @@ function anva_get_column_class( $column ) {
 	
 	$column_class 	 = '';
 	$sidebar_layouts = anva_sidebar_layouts();
-	$current_layout  = anva_get_field( 'anva_page_options', 'sidebar_layout' );
+	$current_layout  = anva_get_field( 'sidebar_layout' );
 	
 	// Set default sidebar layout
 	if ( ! is_page() && ! is_single() || empty( $current_layout ) ) {
@@ -516,12 +516,72 @@ function anva_get_post_custom() {
 }
 
 /**
+ * Sort galleries
+ *
+ * @since  1.0.0
+ * @return array Gallery sorted
+ */
+function anva_sort_gallery( $gallery ) {
+	
+	$sorted = array();
+	$order = anva_get_option( 'gallery_order' );
+	
+	if ( ! empty( $order ) && ! empty ( $gallery ) ) {
+		
+		switch ( $order ) {
+			
+			case 'drag':
+				foreach( $gallery as $key => $attachment_id ) {
+					$sorted[$key] = $attachment_id;
+				}
+				break;
+
+			case 'desc':
+				foreach( $gallery as $key => $attachment_id ) {
+					$meta = get_post( $attachment_id );
+					$date = strtotime( $meta->post_date );	
+					$sorted[$date] = $attachment_id;
+					krsort( $sorted );
+				}
+				break;
+			
+			case 'asc':
+				foreach( $gallery as $key => $attachment_id ) {
+					$meta = get_post( $attachment_id );
+					$date = strtotime( $meta->post_date );	
+					$sorted[$date] = $attachment_id;
+					ksort( $sorted );
+				}
+				break;
+			
+			case 'rand':
+				shuffle( $gallery );
+				$sorted = $gallery;
+				break;
+			
+			case 'title':
+				foreach( $gallery as $key => $attachment_id ) {
+					$meta = get_post( $attachment_id );
+					$title = $meta->post_title;
+					$sorted[$title] = $attachment_id;
+					ksort( $sorted );
+				}
+				break;
+		}
+		
+		return $sorted;
+
+	} else {
+		return $gallery;
+	}
+}
+
+/**
  * Get query posts args
  *
  * @since   1.0.0
  * @package Anva
- * @param   array The query arguments.
- * @return  array The post list.
+ * @return  array The post list
  */
 function anva_get_query_posts( $query_args = '' ) {
 	
@@ -543,12 +603,18 @@ function anva_get_query_posts( $query_args = '' ) {
 	}
 
 	$query_args = apply_filters( 'anva_get_query_posts_args', $query_args );
-	
 	$query = new WP_Query( $query_args );
 	
 	return $query;
 }
 
+/**
+ * Get admin modules
+ *
+ * @since   1.0.0
+ * @package Anva
+ * @return  array Admin modules
+ */
 function anva_get_admin_modules() {
 
 	// Options page
@@ -566,6 +632,8 @@ function anva_get_admin_modules() {
 
 /**
  * Add items to admin menu bar
+ *
+ * @since 1.0.0
  */
 function anva_admin_menu_bar() {
 
@@ -588,7 +656,7 @@ function anva_admin_menu_bar() {
 			array(
 				'id'			=> 'anva_theme_options',
 				'parent' 	=> 'appearance',
-				'title'		=> __( 'Theme Options', anva_textdomain() ),
+				'title'		=> sprintf( '%1$s', __( 'Theme Options', anva_textdomain() ) ),
 				'href'		=> admin_url( $modules['options'] )
 			)
 		);
@@ -600,7 +668,7 @@ function anva_admin_menu_bar() {
 			array(
 				'id'		 => 'anva_theme_backup',
 				'parent' => 'appearance',
-				'title'	 => __( 'Backup Options', anva_textdomain() ),
+				'title'	 => sprintf( '%1$s', __( 'Theme Backup', anva_textdomain() ) ),
 				'href'	 => admin_url( $modules['backup'] )
 			)
 		);

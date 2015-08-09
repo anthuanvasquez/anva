@@ -61,10 +61,10 @@ class Anva {
 
 		// Include files
 		include_once ( ANVA_FRAMEWORK . '/admin/options-framework.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/builder.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/fields.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
-		include_once ( ANVA_FRAMEWORK . '/admin/includes/builder/builder.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/scripts.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );
