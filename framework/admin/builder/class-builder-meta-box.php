@@ -85,7 +85,7 @@ class Anva_Builder_Meta_Box {
 			/* ---------------------------------------------------------------- */
 
 			wp_enqueue_style( 'wp-jquery-ui-dialog' );
-			wp_enqueue_style( 'thickbox' );
+			//wp_enqueue_style( 'thickbox' );
 			wp_enqueue_style( 'wp-color-picker' );
 
 			wp_enqueue_script( 'jquery-ui-core' );
@@ -93,7 +93,7 @@ class Anva_Builder_Meta_Box {
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-effects-fade' );
 			wp_enqueue_script( 'media-upload' );
-			wp_enqueue_script( 'thickbox' );
+			//wp_enqueue_script( 'thickbox' );
 			wp_enqueue_script( 'wplink' );
 			wp_enqueue_script( 'wpdialogs-popup' );
 
@@ -243,6 +243,10 @@ class Anva_Builder_Meta_Box {
 				<?php endif; ?>
 
 				<a id="ppb_sortable_add_button" class="button button-primary"><?php _e( '+ Add Item', anva_textdomain() ); ?></a>
+				
+				<div class="content-builder-sort-footer">
+					<div class="order_message">Drag and drop to reorder</div>
+				</div>
 
 				<?php
 					if ( isset( $ppb_form_data_order ) ) {
@@ -257,6 +261,7 @@ class Anva_Builder_Meta_Box {
 				
 				<ul id="content_builder_sort" class="ppb_sortable <?php echo $empty; ?>" rel="content_builder_sort_data"> 
 				<?php
+
 					if ( isset( $ppb_form_item_arr[0] ) && ! empty( $ppb_form_item_arr[0] ) ) :
 						
 						foreach ( $ppb_form_item_arr as $key => $ppb_form_item )	:
@@ -289,7 +294,7 @@ class Anva_Builder_Meta_Box {
 										<a href="javascript:;" class="ppb_remove"></a>
 									</div>
 									<span class="spinner"></span>
-									<div class="thumb">
+									<div class="thumbnail">
 										<img src="<?php echo esc_url( $image_path . $ppb_shortocde_icon ); ?>" alt="<?php echo esc_attr( $ppb_shortocde_title ); ?>" />
 									</div>
 									<div class="title">
@@ -304,9 +309,6 @@ class Anva_Builder_Meta_Box {
 						endforeach;
 					endif;
 				?>
-				<div class="content-builder-sort-footer">
-					<div class="order_message">Drag and drop to reorder</div>
-				</div>
 				</ul><!-- .sortable (end) -->
 			</div><!-- .meta-content-builder (end) -->
 			
@@ -567,19 +569,12 @@ class Anva_Builder_Meta_Box {
 					}
 
 				}
+
+				update_post_meta( $post_id, $id, $builder_data );
+
+			} else {
+				update_post_meta( $post_id, $id, '' );
 			}
-		}
-
-		$new = $builder_data;
-
-		if ( $new && $new != $old ) {
-
-			update_post_meta( $post_id, $id, $new );
-
-		} elseif ( '' == $new && $old ) {
-
-			delete_post_meta( $post_id, $id, $old );
-
 		}
 
 	}
@@ -605,7 +600,7 @@ class Anva_Builder_Meta_Box {
 				<div class="wrap">
 					<h2><?php echo $selected_shortcode_arr['title']; ?></h2>
 					<a id="save_<?php echo $_GET['rel']; ?>" data-parent="ppb_inline_<?php echo $selected_shortcode; ?>" class="button-primary ppb_inline_save" href="#"><?php _e( 'Update', anva_textdomain() ); ?></a>
-					<a class="button button-cancel" href="#"><?php _e( 'Cancel', anva_textdomain() ); ?></a>
+					<a id="cancel_<?php echo $_GET['rel']; ?>" class="button button-cancel" href="#"><?php _e( 'Cancel', anva_textdomain() ); ?></a>
 				</div><!-- .wrap (end) -->
 
 				<?php if ( isset( $selected_shortcode_arr['title'] ) && $selected_shortcode_arr['title'] != 'Divider' ) : ?>
@@ -720,15 +715,11 @@ class Anva_Builder_Meta_Box {
 				// Uploader
 				var formfield = '';
 				jQuery('.metabox_upload_btn').click(function() {	
-					jQuery('.fancybox-overlay').css('visibility', 'hidden');
-					jQuery('.fancybox-wrap').css('visibility', 'hidden');
 					formfield = jQuery(this).attr('rel');
 					var send_attachment_bkp = wp.media.editor.send.attachment;
 					wp.media.editor.send.attachment = function(props, attachment) {
 						jQuery('#'+formfield).attr('value', attachment.url);
 						wp.media.editor.send.attachment = send_attachment_bkp;
-						jQuery('.fancybox-overlay').css('visibility', 'visible');
-						jQuery('.fancybox-wrap').css('visibility', 'visible');
 					}
 					wp.media.editor.open();
 					return false;
@@ -768,10 +759,24 @@ class Anva_Builder_Meta_Box {
 					newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
 					el.next("output").text(el.val());
 				}).trigger('change');
+
+				jQuery("#cancel_<?php echo $_GET['rel']; ?>").on( 'click', function(e){
+					e.preventDefault();
+					jQuery('#inner-<?php echo $_GET['rel']; ?>').slideToggle();
+					setTimeout(function(){
+					  jQuery('#inner-<?php echo $_GET['rel']; ?>').remove();
+					}, 600);
+				});
 				
 				// Save Data
 				jQuery("#save_<?php echo $_GET['rel']; ?>").click( function(e) {
 					e.preventDefault();
+
+					var title = jQuery(this).closest('.ppb_inline').find(".field-title input");
+					if ( title.val() == '' ) {
+						alert('The title field is required.');
+						return false;
+					}
 					
 					tinyMCE.triggerSave();
 			

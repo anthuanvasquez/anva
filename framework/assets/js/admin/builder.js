@@ -37,65 +37,49 @@ function ppbBuildItem() {
 	
 	// Remove Item
 	jQuery("#content_builder_sort li a.ppb_remove").click( function() {
-		jQuery(this).parent('.actions').parent('li').remove();
+		if ( confirm( 'Are you sure you want to delete this item?' ) ) { 
+			jQuery(this).parent('.actions').parent('li').remove();
+		}
+		
 	});
 	
 	// Edit Item
 	jQuery("#content_builder_sort li .actions a.ppb_edit").on( 'click', function(e) {
 
 		e.preventDefault();
-		
-		jQuery('#ppb_inline_current').attr('value', jQuery(this).attr('data-rel'));
-
-		var actionURL = jQuery(this).attr('href');
 		var ele = jQuery(this).parent('.actions').parent('li');
 		var id = ele.attr('id');
-
-		ele.find('span.spinner').css('visibility','visible');
+		var inner = jQuery('#inner-' + id);
 		
-		var ajaxCall = jQuery.ajax({
-			type: "GET",
-			cache: false,
-			url: actionURL,
-			data: '',
-			success: function (data) {
-				ele.append('<div id="inner-'+id+'" style="display:none;">' + data + '</div>');
+		if ( inner.length == 0 ) {
+			jQuery('#ppb_inline_current').attr('value', jQuery(this).attr('data-rel'));
 
-				// jQuery.fancybox(data, {
-				// 	fitToView 	: false,
-				// 	width 			: 800,
-				// 	autoSize 		: false,
-				// 	autoResize 	: true,
-				// 	autoHeight 	: true,
-				// 	closeClick 	: false,
-				// 	closeBtn 		: false,
-				// 	openEffect	: 'fade',
-				// 	closeEffect : 'fade',
-				// 	beforeClose : function( current, previous ) {
-				// 		jQuery("textarea.ppb_input").each( function() {
-				// 			tinymce.EditorManager.execCommand( 'mceRemoveEditor', false, jQuery(this).attr('id') );	
-				// 		});
-				// 		jQuery('#ppb_inline_current').attr('value', '');
-				// 	}
-				// });
+			var actionURL = jQuery(this).attr('href');
 
-			} 
-		});
-
-		jQuery.when( ajaxCall ).then( function() {
-			jQuery('#inner-' + id).slideToggle();
-			ele.find('span.spinner').css('visibility','hidden');
-
-			jQuery(".ppb_inline .button-cancel").on( 'click', function(e){
-				e.preventDefault();
-				jQuery('#inner-' + id).slideToggle();
-				setTimeout(function(){
-				  jQuery('#inner-' + id).remove();
-				}, 600);
-			});
-		});
+			ele.find('span.spinner').css('visibility','visible');
 			
-		return false;
+			var ajaxCall = jQuery.ajax({
+				type: "GET",
+				cache: false,
+				url: actionURL,
+				data: '',
+				success: function (data) {
+					ele.append('<div id="inner-'+id+'" style="display:none;">' + data + '</div>');
+				} 
+			});
+
+			jQuery.when( ajaxCall ).then( function() {
+				jQuery('#inner-' + id).slideToggle();
+				ele.find('span.spinner').css('visibility','hidden');
+			});
+		} else {
+			jQuery('#inner-' + id).slideToggle();
+		}
+
+		jQuery('html, body').animate({
+				scrollTop: jQuery('#' + id).offset().top - 32
+		}, 1000);
+		
 	});
 
 }
@@ -155,7 +139,9 @@ jQuery(document).ready( function() {
 	ppbBuildItem();
 	
 	// Add Item
-	jQuery("#ppb_sortable_add_button").on( 'click', function() {	
+	jQuery("#ppb_sortable_add_button").on( 'click', function(e) {
+
+		e.preventDefault();
 		
 		var targetSelect = jQuery('#ppb_options');
 		var targetTitle  = jQuery('#ppb_options_title');
@@ -178,18 +164,18 @@ jQuery(document).ready( function() {
 			builderItemData.ppb_header_content = '';
 			
 			var builderItemDataJSON = JSON.stringify(builderItemData);
+			var editURL  = ANVA_VARS.ajaxurl+'?action=pp_ppb&ppb_post_type='+postType+'&shortcode='+myCheckId+'&rel='+randomId+'&width=800&height=900';
 
 			builderItem  = '<li id="' + randomId + '" class="ui-state-default one ' + myCheckId + '" data-current-size="one">';
-			builderItem += '<div class="thumb">';
+			builderItem += '<div class="actions">';
+			builderItem += '<a href="' + editURL + '" class="ppb_edit" data-rel="' + randomId + '"></a>';
+			builderItem += '<a href="javascript:;" class="ppb_remove"></a>';
+			builderItem += '</div>';
+			builderItem += '<div class="thumbnail">';
 			builderItem += '<img src="' + myImage + '" alt="' + myCheckTitle + '" />';
 			builderItem += '</div>';
 
 			builderItem += '<div class="title">' + myCheckTitle + '</div>';
-			builderItem += '<a href="javascript:;" class="ppb_remove">Remove</a>';
-			
-			var editURL  = ANVA_VARS.ajaxurl+'?action=pp_ppb&ppb_post_type='+postType+'&shortcode='+myCheckId+'&rel='+randomId+'&width=800&height=900';
-			
-			builderItem += '<a data-rel="' + randomId + '" href="' + editURL + '" class="thickbox ppb_edit"></a>';
 			builderItem += '<input type="hidden" class="ppb_setting_columns" value="one_fourth"/>';
 			builderItem += '<div class="clear"></div>';
 			builderItem += '</li>';
@@ -214,9 +200,12 @@ jQuery(document).ready( function() {
 			if ( myCheckId != 'ppb_divider' && myCheckId != 'ppb_empty_line' ) {
 				jQuery('#' + randomId).find('.ppb_edit').trigger('click');
 			}
+
+			jQuery('html, body').animate({
+				scrollTop: jQuery('#'+randomId).offset().top - 32
+			}, 1000);
 		}
-		
-		return false;
+
 	});
 	
 	// Submit Items
@@ -255,15 +244,6 @@ jQuery(document).ready( function() {
 		jQuery('#ppb_options_title').val(moduleSelectedTitle);
 		jQuery('#ppb_options_image').val(moduleSelectedImage);
 	});
-
-	// jQuery('#ppb_module_wrapper li').on( 'click', function(){
-	// 	jQuery('#ppb_module_wrapper li').removeClass('selected');
-	// 	jQuery(this).addClass('selected');
-	// 	var moduleSelectedId = jQuery(this).data('module');
-	// 	var moduleSelectedTitle = jQuery(this).data('title');
-	// 	jQuery('#ppb_options').val(moduleSelectedId);
-	// 	jQuery('#ppb_options_title').val(moduleSelectedTitle);
-	// });
 	
 	jQuery('body').on('click', '.metabox_link_btn', function(event) {
 		wpActiveEditor = true;
