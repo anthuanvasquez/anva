@@ -162,37 +162,3 @@ class Anva_Widgets {
 	}
 }
 endif;
-
-/* ---------------------------------------------------------------- */
-/* Helpers
-/* ---------------------------------------------------------------- */
-
-/**
- * Add widget
- *
- * @since 1.0.0
- */
-function anva_add_widget( $class ) {
-	$api = Anva_Widgets::instance();
-	$api->add_widget( $class );
-}
-
-/**
- * Remove widget
- *
- * @since 1.0.0
- */
-function anva_remove_widget( $class ) {
-	$api = Anva_Widgets::instance();
-	$api->remove_widget( $class ); 
-}
-
-/**
- * Get widgets
- *
- * @since 1.0.0
- */
-function anva_get_widgets() {
-	$api = Anva_Widgets::instance();
-	return $api->get_widgets();
-}

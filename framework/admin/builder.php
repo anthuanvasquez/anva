@@ -2,9 +2,10 @@
 /**
  * Anva Page Builder
  *
- * @package   Anva
- * @author    Anthuan Vasquez <eigthy@gmail.com>
- * @copyright 2015 WP Theming
+ * @since 		 1.0.0
+ * @package    Anva
+ * @subpackage Anva/builder
+ * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
 // If this file is called directly, abort.
@@ -13,8 +14,10 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! function_exists( 'anva_builder_init' ) ) :
-/*
- * Don't load if optionsframework_init is already defined
+/**
+ * Builder Init
+ * 
+ * @since 1.0.0
  */
 function anva_builder_init() {
 

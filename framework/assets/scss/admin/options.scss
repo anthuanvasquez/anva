@@ -616,3 +616,46 @@
 		}
 	}
 }
+
+@media only screen and (max-width: 960px) {
+	#optionsframework .options-settings {
+	  margin-right: 0;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	#optionsframework-wrap {
+		h2.nav-tab-wrapper {
+			box-sizing: border-box;
+			padding-left: 0;
+			padding-right: 0;
+			.nav-tab {
+				box-sizing: border-box;
+				display: block;
+				padding: 10px;
+				width: 100%;
+			}
+		}
+	}
+	#optionsframework-metabox {
+		padding-top: 20px !important;
+	}
+	#optionsframework .section .controls,
+	#optionsframework .section .explain {
+		float: none;
+		max-width: 100%;
+		padding-right: 0;
+		width: 100%;
+	}
+	#optionsframework .section .controls {
+		&:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	}
+	#optionsframework .section .explain {
+		line-height: 1.5;
+		margin-top: 15px;
+	}
+}

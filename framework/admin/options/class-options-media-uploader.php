@@ -32,8 +32,7 @@ class Options_Framework_Media_Uploader {
 	static function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '' ) {
 
 		// Gets the unique option id
-		$options_framework = new Options_Framework;
-		$option_name = $options_framework->get_option_name();
+		$option_name = anva_get_option_name();
 
 		$output = '';
 		$id = '';

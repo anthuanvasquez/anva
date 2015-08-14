@@ -44,7 +44,7 @@ function optionsframework_init() {
 	require anva_get_core_directory() . '/admin/options/class-options-interface.php';
 	require anva_get_core_directory() . '/admin/options/class-options-media-uploader.php';
 	require anva_get_core_directory() . '/admin/options/class-options-sanitization.php';
-	require anva_get_core_directory() . '/admin/options/class-meta-box.php';
+	require anva_get_core_directory() . '/admin/options/class-anva-meta-box.php';
 
 	// Instantiate the options page.
 	$options_framework_admin = new Options_Framework_Admin;

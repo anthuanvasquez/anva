@@ -251,8 +251,8 @@ function ppb_header_func($atts, $content) {
 	{
 		$html.= '<h2 class="ppb_title" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($title)).'</h2>';
 		$html.= '<div class="or-spacer '.esc_attr($textalign).'">
-		  <div class="mask"></div>
-		  <span></span>
+			<div class="mask"></div>
+			<span></span>
 		</div>';
 	}
 	
@@ -351,8 +351,8 @@ function ppb_header_image_func($atts, $content) {
 	{
 		$html.= '<h2 class="ppb_title" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($title)).'</h2>';
 		$html.= '<div class="or-spacer '.esc_attr($textalign).'">
-		  <div class="mask"></div>
-		  <span></span>
+			<div class="mask"></div>
+			<span></span>
 		</div>';
 	}
 	
@@ -541,21 +541,21 @@ function ppb_animated_gallery_grid_func($atts, $content) {
 	$custom_bg_css = 'style="';
 	if(!empty($bgcolor))
 	{
-	    $ori_bgcolor = $bgcolor;
-	    $opacity = $opacity/100;
-	    $bgcolor = HexToRGB($bgcolor);
+			$ori_bgcolor = $bgcolor;
+			$opacity = $opacity/100;
+			$bgcolor = HexToRGB($bgcolor);
 	
-	    $custom_bg_css.= 'background:'.$ori_bgcolor.';';
-	    $custom_bg_css.= 'background:rgb('.$bgcolor['r'].','.$bgcolor['g'].','.$bgcolor['b'].','.$opacity.');';
-	    $custom_bg_css.= 'background:rgba('.$bgcolor['r'].','.$bgcolor['g'].','.$bgcolor['b'].','.$opacity.');';
+			$custom_bg_css.= 'background:'.$ori_bgcolor.';';
+			$custom_bg_css.= 'background:rgb('.$bgcolor['r'].','.$bgcolor['g'].','.$bgcolor['b'].','.$opacity.');';
+			$custom_bg_css.= 'background:rgba('.$bgcolor['r'].','.$bgcolor['g'].','.$bgcolor['b'].','.$opacity.');';
 	}
 	
 	$custom_border_css = 'style="';
 	if(!empty($bgcolor))
 	{
-	    $opacity = '0.7';
-	    $custom_border_css.= 'border-color:'.$ori_bgcolor.';';
-	    $custom_border_css.= 'border-color:rgba('.$bgcolor['r'].','.$bgcolor['g'].','.$bgcolor['b'].','.$opacity.');';
+			$opacity = '0.7';
+			$custom_border_css.= 'border-color:'.$ori_bgcolor.';';
+			$custom_border_css.= 'border-color:rgba('.$bgcolor['r'].','.$bgcolor['g'].','.$bgcolor['b'].','.$opacity.');';
 	}
 	
 	$custom_bg_css.= '"';
@@ -592,14 +592,14 @@ function ppb_animated_gallery_grid_func($atts, $content) {
 			
 			if(!empty($subtitle))
 			{
-		    	$html.= '<div class="or-spacer">
-				  <div class="mask"></div>
-				  <span></span>
+					$html.= '<div class="or-spacer">
+					<div class="mask"></div>
+					<span></span>
 				</div>';
 			
-	    	    $html.= '<div class="page_tagline grid" '.$custom_font_css.'>'.urldecode($subtitle).'</div>';
-	    	}
-	    	
+						$html.= '<div class="page_tagline grid" '.$custom_font_css.'>'.urldecode($subtitle).'</div>';
+				}
+				
 			$html.= '</div></div></div></div></div>';
 		}
 		
@@ -927,8 +927,8 @@ function ppb_content_half_bg_func($atts, $content) {
 		{
 			$html.= '<h2 class="ppb_title" style="'.esc_attr($custom_css_fontcolor).'">'.urldecode($title).'</h2>';
 			$html.= '<div class="or-spacer">
-			  <div class="mask"></div>
-			  <span></span>
+				<div class="mask"></div>
+				<span></span>
 			</div>';
 		}
 		
@@ -1119,8 +1119,8 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 			}
 			$html.= '>'.esc_html(urldecode($title)).'</h2>';
 			$html.= '<div class="or-spacer '.esc_attr($textalign).'">
-			  <div class="mask"></div>
-			  <span></span>
+				<div class="mask"></div>
+				<span></span>
 			</div>';
 		}
 		if(!empty($subtitle))
@@ -1153,8 +1153,8 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 			}
 			$html.= '>'.esc_html(urldecode($title)).'</h2>';
 			$html.= '<div class="or-spacer '.esc_attr($textalign).'">
-			  <div class="mask"></div>
-			  <span></span>
+				<div class="mask"></div>
+				<span></span>
 			</div>';
 		}
 		if(!empty($subtitle))
@@ -1190,91 +1190,74 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 add_shortcode('ppb_image_half_fullwidth', 'ppb_image_half_fullwidth_func');
 
 
-function ppb_two_cols_images_func($atts, $content) {
-
-	//extract short code attr
-	extract(shortcode_atts(array(
-		'size' => 'one',
-		'slug' => '',
-		'title' => '',
-		'image1' => '',
-		'image2' => '',
+function ppb_two_cols_images_func( $atts, $content ) {
+	// Extract short code attr
+	extract( shortcode_atts( array(
+		'size' 						=> 'one',
+		'slug' 						=> '',
+		'title' 					=> '',
+		'image1' 					=> '',
+		'image2' 					=> '',
 		'display_caption' => 1,
-		'padding' => 0,
-		'bgcolor' => '',
-		'custom_css' => '',
-	), $atts));
+		'padding' 				=> 0,
+		'bgcolor' 				=> '',
+		'custom_css' 			=> '',
+	), $atts ) );
+
+	$images = array();
+	$images[] = $image1;
+	$images[] = $image2;
+	$columns  = 2;
+	$counter  = 0;
 	
 	$sec_id = '';
-	if(!empty($slug))
-	{
-		$sec_id = 'id="'.esc_attr($slug).'"';
+	if ( ! empty( $slug ) ) {
+		$sec_id = 'id="' . esc_attr( $slug ) . '"';
 	}
 
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).'" ';
-	$custom_css.= 'padding:'.esc_attr($padding).'px 0 '.esc_attr($padding).'px 0;';
-	if(!empty($bgcolor))
-	{
-		$custom_css.= 'background-color:'.esc_attr($bgcolor).';';
+	$html = '<div ' . $sec_id . ' class="section-two-cols-images ' . esc_attr( $size ) . '" ';
+	
+	$custom_css .= 'padding:' . esc_attr( $padding ) . 'px 0 ' . esc_attr( $padding ) . 'px 0;';
+	if ( ! empty( $bgcolor ) ) {
+		$custom_css .= 'background-color:' . esc_attr( $bgcolor ) . ';';
 	}
 	
-	if(!empty($custom_css))
-	{
-		$html.= 'style="'.esc_attr(urldecode($custom_css)).'" ';
+	if ( ! empty( $custom_css ) ) {
+		$html .= 'style="' . esc_attr( urldecode( $custom_css ) ) .'" ';
 	}
 	
-	$html.= '><div class="page_content_wrapper"><div class="inner">';
+	$html .= '>';
+	$html .= '<div class="images-wrapper clearfix">';
 	
-	$html.= '<div class="one_half">';
-	if(!empty($image1))
-	{
-	    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image1).'" class="img_frame"><img src="'.esc_url($image1).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image1);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+	foreach ( $images as $key => $image ) {
+
+		if ( ! empty( $image ) ) {
+
+			$html .= '<div class="grid_6 nobottommargin">';
+			$html .= '<div class="image-wrapper" data-lightbox="gallery">';
+			$html .= '<a href="' . esc_url( $image ) . '" data-lightbox="gallery-item" data-animate="fadeIn">';
+			$html .= '<img src="' . esc_url( $image ) . '" alt="" />';
+			$html .= '</a>';
+
+			if ( ! empty( $display_caption ) ) {
+				$image_id = pp_get_image_id( $image );
+				$caption  = get_post_field( 'post_excerpt', $image_id );
+				
+				if ( ! empty( $image_caption ) ) {
+					$html .= '<div class="image-caption">' . esc_html( $image_caption ) . '</div><!-- .image-caption (end) -->';
+				}
+			}
+			$html .= '</div><!-- .image-wrapper (end) -->';
+			$html .= '</div><!-- .grid_6 (end) -->';
+		}
+
 	}
-	$html.= '</div>';
 	
-	$html.= '<div class="one_half last">';
-	if(!empty($image2))
-	{
-	    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image2);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
-	}
-	$html.= '</div>';
-	
-	$html.= '</div>';
-	$html.= '</div>';
-	$html.= '</div>';
+	$html .= '</div><!-- .images-wrapper (end) -->';
+	$html .= '</div><!-- .section-two-cols-images (end) -->';
 
 	return $html;
-
 }
-
 add_shortcode('ppb_two_cols_images', 'ppb_two_cols_images_func');
 
 
@@ -1318,21 +1301,21 @@ function ppb_three_cols_images_func($atts, $content) {
 	$html.= '<div class="one_third">';
 	if(!empty($image1))
 	{
-	    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image1).'" class="img_frame"><img src="'.esc_url($image1).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image1);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+			$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+			$html.= '<a href="'.esc_url($image1).'" class="img_frame"><img src="'.esc_url($image1).'" alt="" class="portfolio_img"/></a>';
+			$html.= '</div>';
+			if(!empty($display_caption))
+			{
+				//Get image meta data
+				$image_id = pp_get_image_id($image1);
+				$image_caption = get_post_field('post_excerpt', $image_id);
+				
+				if(!empty($image_caption))
+				{
+					$html.= '<div class="image_caption">'.$image_caption.'</div>';
+				}
+			}
+			$html.= '</div>';
 	}
 	$html.= '</div>';
 	
@@ -1340,21 +1323,21 @@ function ppb_three_cols_images_func($atts, $content) {
 	$html.= '<div class="one_third">';
 	if(!empty($image2))
 	{
-	    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image2);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+			$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+			$html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
+			$html.= '</div>';
+			if(!empty($display_caption))
+			{
+				//Get image meta data
+				$image_id = pp_get_image_id($image2);
+				$image_caption = get_post_field('post_excerpt', $image_id);
+				
+				if(!empty($image_caption))
+				{
+					$html.= '<div class="image_caption">'.$image_caption.'</div>';
+				}
+			}
+			$html.= '</div>';
 	}
 	$html.= '</div>';
 	
@@ -1362,21 +1345,21 @@ function ppb_three_cols_images_func($atts, $content) {
 	$html.= '<div class="one_third last animate">';
 	if(!empty($image3))
 	{
-	    $html.= '<div class="image_classic_frame expand"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image3);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+			$html.= '<div class="image_classic_frame expand"><div class="image_wrapper">';
+			$html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
+			$html.= '</div>';
+			if(!empty($display_caption))
+			{
+				//Get image meta data
+				$image_id = pp_get_image_id($image3);
+				$image_caption = get_post_field('post_excerpt', $image_id);
+				
+				if(!empty($image_caption))
+				{
+					$html.= '<div class="image_caption">'.$image_caption.'</div>';
+				}
+			}
+			$html.= '</div>';
 	}
 	$html.= '</div>';
 	
@@ -1439,21 +1422,21 @@ function ppb_three_images_block_func($atts, $content) {
 		$html.= '<div class="one_half">';
 		if(!empty($image_portrait))
 		{
-		    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-		    $html.= '<a href="'.esc_url($image_portrait).'" class="img_frame"><img src="'.esc_url($image_portrait).'" alt="" class="portfolio_img"/></a>';
-		    $html.= '</div>';
-		    if(!empty($display_caption))
-		    {
-		    	//Get image meta data
-		    	$image_id = pp_get_image_id($image_portrait);
-		    	$image_caption = get_post_field('post_excerpt', $image_id);
-		    	
-		    	if(!empty($image_caption))
-		    	{
-		    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-		    	}
-		    }
-		    $html.= '</div>';
+				$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+				$html.= '<a href="'.esc_url($image_portrait).'" class="img_frame"><img src="'.esc_url($image_portrait).'" alt="" class="portfolio_img"/></a>';
+				$html.= '</div>';
+				if(!empty($display_caption))
+				{
+					//Get image meta data
+					$image_id = pp_get_image_id($image_portrait);
+					$image_caption = get_post_field('post_excerpt', $image_id);
+					
+					if(!empty($image_caption))
+					{
+						$html.= '<div class="image_caption">'.$image_caption.'</div>';
+					}
+				}
+				$html.= '</div>';
 		}
 		$html.= '</div>';
 		
@@ -1461,42 +1444,42 @@ function ppb_three_images_block_func($atts, $content) {
 		$html.= '<div class="one_half last">';
 		if(!empty($image2))
 		{
-		    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-		    $html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
-		    $html.= '</div>';
-		    if(!empty($display_caption))
-		    {
-		    	//Get image meta data
-		    	$image_id = pp_get_image_id($image2);
-		    	$image_caption = get_post_field('post_excerpt', $image_id);
-		    	
-		    	if(!empty($image_caption))
-		    	{
-		    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-		    	}
-		    }
-		    $html.= '</div>';
+				$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+				$html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
+				$html.= '</div>';
+				if(!empty($display_caption))
+				{
+					//Get image meta data
+					$image_id = pp_get_image_id($image2);
+					$image_caption = get_post_field('post_excerpt', $image_id);
+					
+					if(!empty($image_caption))
+					{
+						$html.= '<div class="image_caption">'.$image_caption.'</div>';
+					}
+				}
+				$html.= '</div>';
 		}
 		
 		$html.= '<br class="clear"/>';
 		
 		if(!empty($image3))
 		{
-		    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-		    $html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
-		    $html.= '</div>';
-		    if(!empty($display_caption))
-		    {
-		    	//Get image meta data
-		    	$image_id = pp_get_image_id($image3);
-		    	$image_caption = get_post_field('post_excerpt', $image_id);
-		    	
-		    	if(!empty($image_caption))
-		    	{
-		    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-		    	}
-		    }
-		    $html.= '</div>';
+				$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+				$html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
+				$html.= '</div>';
+				if(!empty($display_caption))
+				{
+					//Get image meta data
+					$image_id = pp_get_image_id($image3);
+					$image_caption = get_post_field('post_excerpt', $image_id);
+					
+					if(!empty($image_caption))
+					{
+						$html.= '<div class="image_caption">'.$image_caption.'</div>';
+					}
+				}
+				$html.= '</div>';
 		}
 		
 		$html.= '</div>';
@@ -1507,42 +1490,42 @@ function ppb_three_images_block_func($atts, $content) {
 		$html.= '<div class="one_half">';
 		if(!empty($image2))
 		{
-		    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-		    $html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
-		    $html.= '</div>';
-		    if(!empty($display_caption))
-		    {
-		    	//Get image meta data
-		    	$image_id = pp_get_image_id($image2);
-		    	$image_caption = get_post_field('post_excerpt', $image_id);
-		    	
-		    	if(!empty($image_caption))
-		    	{
-		    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-		    	}
-		    }
-		    $html.= '</div>';
+				$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+				$html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
+				$html.= '</div>';
+				if(!empty($display_caption))
+				{
+					//Get image meta data
+					$image_id = pp_get_image_id($image2);
+					$image_caption = get_post_field('post_excerpt', $image_id);
+					
+					if(!empty($image_caption))
+					{
+						$html.= '<div class="image_caption">'.$image_caption.'</div>';
+					}
+				}
+				$html.= '</div>';
 		}
 		
 		$html.= '<br class="clear"/>';
 		
 		if(!empty($image3))
 		{
-		    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-		    $html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
-		    $html.= '</div>';
-		    if(!empty($display_caption))
-		    {
-		    	//Get image meta data
-		    	$image_id = pp_get_image_id($image3);
-		    	$image_caption = get_post_field('post_excerpt', $image_id);
-		    	
-		    	if(!empty($image_caption))
-		    	{
-		    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-		    	}
-		    }
-		    $html.= '</div>';
+				$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+				$html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
+				$html.= '</div>';
+				if(!empty($display_caption))
+				{
+					//Get image meta data
+					$image_id = pp_get_image_id($image3);
+					$image_caption = get_post_field('post_excerpt', $image_id);
+					
+					if(!empty($image_caption))
+					{
+						$html.= '<div class="image_caption">'.$image_caption.'</div>';
+					}
+				}
+				$html.= '</div>';
 		}
 		
 		$html.= '</div>';
@@ -1551,21 +1534,21 @@ function ppb_three_images_block_func($atts, $content) {
 		$html.= '<div class="one_half last">';
 		if(!empty($image_portrait))
 		{
-		    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-		    $html.= '<a href="'.esc_url($image_portrait).'" class="img_frame"><img src="'.esc_url($image_portrait).'" alt="" class="portfolio_img"/></a>';
-		    $html.= '</div>';
-		    if(!empty($display_caption))
-		    {
-		    	//Get image meta data
-		    	$image_id = pp_get_image_id($image_portrait);
-		    	$image_caption = get_post_field('post_excerpt', $image_id);
-		    	
-		    	if(!empty($image_caption))
-		    	{
-		    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-		    	}
-		    }
-		    $html.= '</div>';
+				$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+				$html.= '<a href="'.esc_url($image_portrait).'" class="img_frame"><img src="'.esc_url($image_portrait).'" alt="" class="portfolio_img"/></a>';
+				$html.= '</div>';
+				if(!empty($display_caption))
+				{
+					//Get image meta data
+					$image_id = pp_get_image_id($image_portrait);
+					$image_caption = get_post_field('post_excerpt', $image_id);
+					
+					if(!empty($image_caption))
+					{
+						$html.= '<div class="image_caption">'.$image_caption.'</div>';
+					}
+				}
+				$html.= '</div>';
 		}
 		$html.= '</div>';
 	}
@@ -1623,21 +1606,21 @@ function ppb_four_images_block_func($atts, $content) {
 	$html.= '<div class="one_half">';
 	if(!empty($image1))
 	{
-	    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image1).'" class="img_frame"><img src="'.esc_url($image1).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image1);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+			$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+			$html.= '<a href="'.esc_url($image1).'" class="img_frame"><img src="'.esc_url($image1).'" alt="" class="portfolio_img"/></a>';
+			$html.= '</div>';
+			if(!empty($display_caption))
+			{
+				//Get image meta data
+				$image_id = pp_get_image_id($image1);
+				$image_caption = get_post_field('post_excerpt', $image_id);
+				
+				if(!empty($image_caption))
+				{
+					$html.= '<div class="image_caption">'.$image_caption.'</div>';
+				}
+			}
+			$html.= '</div>';
 	}
 	$html.= '</div>';
 	
@@ -1645,21 +1628,21 @@ function ppb_four_images_block_func($atts, $content) {
 	$html.= '<div class="one_half last">';
 	if(!empty($image2))
 	{
-	    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image2);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+			$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+			$html.= '<a href="'.esc_url($image2).'" class="img_frame"><img src="'.esc_url($image2).'" alt="" class="portfolio_img"/></a>';
+			$html.= '</div>';
+			if(!empty($display_caption))
+			{
+				//Get image meta data
+				$image_id = pp_get_image_id($image2);
+				$image_caption = get_post_field('post_excerpt', $image_id);
+				
+				if(!empty($image_caption))
+				{
+					$html.= '<div class="image_caption">'.$image_caption.'</div>';
+				}
+			}
+			$html.= '</div>';
 	}
 	$html.= '</div>';
 	
@@ -1669,21 +1652,21 @@ function ppb_four_images_block_func($atts, $content) {
 	$html.= '<div class="one_half">';
 	if(!empty($image3))
 	{
-	    $html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image3);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+			$html.= '<div class="image_classic_frame expand animate"><div class="image_wrapper">';
+			$html.= '<a href="'.esc_url($image3).'" class="img_frame"><img src="'.esc_url($image3).'" alt="" class="portfolio_img"/></a>';
+			$html.= '</div>';
+			if(!empty($display_caption))
+			{
+				//Get image meta data
+				$image_id = pp_get_image_id($image3);
+				$image_caption = get_post_field('post_excerpt', $image_id);
+				
+				if(!empty($image_caption))
+				{
+					$html.= '<div class="image_caption">'.$image_caption.'</div>';
+				}
+			}
+			$html.= '</div>';
 	}
 	$html.= '</div>';
 	
@@ -1691,21 +1674,21 @@ function ppb_four_images_block_func($atts, $content) {
 	$html.= '<div class="one_half last animate">';
 	if(!empty($image4))
 	{
-	    $html.= '<div class="image_classic_frame expand"><div class="image_wrapper">';
-	    $html.= '<a href="'.esc_url($image4).'" class="img_frame"><img src="'.esc_url($image4).'" alt="" class="portfolio_img"/></a>';
-	    $html.= '</div>';
-	    if(!empty($display_caption))
-	    {
-	    	//Get image meta data
-	    	$image_id = pp_get_image_id($image4);
-	    	$image_caption = get_post_field('post_excerpt', $image_id);
-	    	
-	    	if(!empty($image_caption))
-	    	{
-	    		$html.= '<div class="image_caption">'.$image_caption.'</div>';
-	    	}
-	    }
-	    $html.= '</div>';
+			$html.= '<div class="image_classic_frame expand"><div class="image_wrapper">';
+			$html.= '<a href="'.esc_url($image4).'" class="img_frame"><img src="'.esc_url($image4).'" alt="" class="portfolio_img"/></a>';
+			$html.= '</div>';
+			if(!empty($display_caption))
+			{
+				//Get image meta data
+				$image_id = pp_get_image_id($image4);
+				$image_caption = get_post_field('post_excerpt', $image_id);
+				
+				if(!empty($image_caption))
+				{
+					$html.= '<div class="image_caption">'.$image_caption.'</div>';
+				}
+			}
+			$html.= '</div>';
 	}
 	$html.= '</div>';
 	
@@ -1762,11 +1745,11 @@ function ppb_blog_grid_func($atts, $content) {
 	$postsperpage = get_option('posts_per_page');
 	
 	$args = array(
-	    'numberposts' => $items,
-	    'order' => 'DESC',
-	    'orderby' => 'post_date',
-	    'post_type' => array('post'),
-	    'suppress_filters' => 0,
+			'numberposts' => $items,
+			'order' => 'DESC',
+			'orderby' => 'post_date',
+			'post_type' => array('post'),
+			'suppress_filters' => 0,
 	);
 
 	if(!empty($cat))
@@ -1786,47 +1769,47 @@ function ppb_blog_grid_func($atts, $content) {
 										
 			if(has_post_thumbnail($ppb_post->ID, 'large'))
 			{
-			    $image_id = get_post_thumbnail_id($ppb_post->ID);
-			    $image_thumb = wp_get_attachment_image_src($image_id, 'large', true);
+					$image_id = get_post_thumbnail_id($ppb_post->ID);
+					$image_thumb = wp_get_attachment_image_src($image_id, 'large', true);
 			}
 			
 			$html.= '<div id="post-'.$ppb_post->ID.'" class="post type-post hentry status-publish">
 			<div class="post_wrapper grid_layout">';
 			
 			if(!empty($image_thumb))
-		    {
-		        $small_image_url = wp_get_attachment_image_src($image_id, 'blog_r', true);
+				{
+						$small_image_url = wp_get_attachment_image_src($image_id, 'blog_r', true);
 		
-		    $html.= '<div class="post_img small">
-		        <a href="'.esc_url(get_permalink($ppb_post->ID)).'">
-		        	<img src="'.esc_url($small_image_url[0]).'" alt="" class=""/>
-		        </a>
-		    </div>';
-		    }
-		    
-		    $html.= '<div class="blog_grid_content">';
-		    
-		    $html.= '<div class="post_header grid_layout">
+				$html.= '<div class="post_img small">
+						<a href="'.esc_url(get_permalink($ppb_post->ID)).'">
+							<img src="'.esc_url($small_image_url[0]).'" alt="" class=""/>
+						</a>
+				</div>';
+				}
+				
+				$html.= '<div class="blog_grid_content">';
+				
+				$html.= '<div class="post_header grid_layout">
 				<div class="post_subtitle">';
 				
-			    $post_categories = wp_get_post_categories($ppb_post->ID);
+					$post_categories = wp_get_post_categories($ppb_post->ID);
 				if(!empty($post_categories))
 				{
-				    foreach($post_categories as $c)
-				    {
-				        $cat = get_category( $c );
-				    	$html.= '<a href="'.esc_url(get_category_link($cat->term_id)).'">'.$cat->name.'</a>';
-				    }
+						foreach($post_categories as $c)
+						{
+								$cat = get_category( $c );
+							$html.= '<a href="'.esc_url(get_category_link($cat->term_id)).'">'.$cat->name.'</a>';
+						}
 				}
-			    		    
+									
 			$html.= '</div>
-			    <h5><a href="'.esc_url(get_permalink($ppb_post->ID)).'" title="'.get_the_title($ppb_post->ID).'">'.get_the_title($ppb_post->ID).'</a></h5>
+					<h5><a href="'.esc_url(get_permalink($ppb_post->ID)).'" title="'.get_the_title($ppb_post->ID).'">'.get_the_title($ppb_post->ID).'</a></h5>
 			</div>';
 			
 			$html.= '<div class="post_grid_excerpt">'.pp_substr(strip_shortcodes(pp_get_the_excerpt($ppb_post->ID)), 150).'</div>';
-		    
-		    $html.= '
-	    </div>    
+				
+				$html.= '
+			</div>    
 	</div>
 </div>';
 		}
@@ -1894,10 +1877,10 @@ function ppb_pricing_func($atts, $content) {
 	
 	//Get portfolio items
 	$args = array(
-	    'numberposts' => $items,
-	    'order' => $pricing_order,
-	    'orderby' => $pricing_order_by,
-	    'post_type' => array('pricing'),
+			'numberposts' => $items,
+			'order' => $pricing_order,
+			'orderby' => $pricing_order_by,
+			'post_type' => array('pricing'),
 	);
 	
 	if(!empty($cat))
@@ -1997,7 +1980,7 @@ function ppb_pricing_func($atts, $content) {
 			$pricing_plan_features_arr = array_filter($pricing_plan_features_arr, 'trim');
 			
 			foreach ($pricing_plan_features_arr as $feature) {
-			    $html.= '<li>'.$feature.'</li>';
+					$html.= '<li>'.$feature.'</li>';
 			}
 			
 			//Get button
@@ -2100,10 +2083,10 @@ function ppb_testimonial_column_func($atts, $content) {
 	
 	//Get testimonial items
 	$args = array(
-	    'numberposts' => $items,
-	    'order' => $testimonials_order,
-	    'orderby' => $testimonials_order_by,
-	    'post_type' => array('testimonials'),
+			'numberposts' => $items,
+			'order' => $testimonials_order,
+			'orderby' => $testimonials_order_by,
+			'post_type' => array('testimonials'),
 	);
 	
 	if(!empty($cat))
@@ -2124,8 +2107,8 @@ function ppb_testimonial_column_func($atts, $content) {
 			//Get customer picture
 			if(has_post_thumbnail($testimonial_ID, 'thumbnail'))
 			{
-			    $image_id = get_post_thumbnail_id($testimonial_ID);
-			    $small_image_url = wp_get_attachment_image_src($image_id, 'thumbnail', true);
+					$image_id = get_post_thumbnail_id($testimonial_ID);
+					$small_image_url = wp_get_attachment_image_src($image_id, 'thumbnail', true);
 			}
 			
 			$last_class = '';
@@ -2216,7 +2199,7 @@ function ppb_testimonial_column_func($atts, $content) {
 			
 			if(($key+1)%$count_column == 0)
 			{
-			    $html.= '<br class="clear"/>';
+					$html.= '<br class="clear"/>';
 			}
 		}
 		
@@ -2295,8 +2278,8 @@ function ppb_contact_map_func($atts, $content) {
 		}
 		$html.= '>'.esc_html(urldecode($title)).'</h2>';
 		$html.= '<div class="or-spacer">
-		  <div class="mask"></div>
-		  <span></span>
+			<div class="mask"></div>
+			<span></span>
 		</div>';
 	}
 	
@@ -2320,135 +2303,135 @@ function ppb_contact_map_func($atts, $content) {
 	//Display contact form
 	//Get contact form random ID
 	$custom_id = time().rand();
-    $pp_contact_form = unserialize(get_option('pp_contact_form_sort_data'));
-    
-    if(!is_ssl())
+		$pp_contact_form = unserialize(get_option('pp_contact_form_sort_data'));
+		
+		if(!is_ssl())
 	{
-	    wp_enqueue_script("google_maps", "http://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
+			wp_enqueue_script("google_maps", "http://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
 	}
 	else
 	{
-	    wp_enqueue_script("google_maps", "https://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
+			wp_enqueue_script("google_maps", "https://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
 	}
-    
-    wp_enqueue_script("jquery.validate", get_template_directory_uri()."/js/jquery.validate.js", false, THEMEVERSION, true);
-    
-    wp_register_script("script-contact-form", get_template_directory_uri()."/templates/script-contact-form.php?form=".$custom_id, false, THEMEVERSION, true);
+		
+		wp_enqueue_script("jquery.validate", get_template_directory_uri()."/js/jquery.validate.js", false, THEMEVERSION, true);
+		
+		wp_register_script("script-contact-form", get_template_directory_uri()."/templates/script-contact-form.php?form=".$custom_id, false, THEMEVERSION, true);
 	$params = array(
-	  'ajaxurl' => admin_url('admin-ajax.php'),
-	  'ajax_nonce' => wp_create_nonce('tgajax-post-contact-nonce'),
+		'ajaxurl' => admin_url('admin-ajax.php'),
+		'ajax_nonce' => wp_create_nonce('tgajax-post-contact-nonce'),
 	);
 	wp_localize_script( 'script-contact-form', 'tgAjax', $params );
 	wp_enqueue_script("script-contact-form", get_template_directory_uri()."/templates/script-contact-form.php?form=".$custom_id, false, THEMEVERSION, true);
 
-    $html.= '<div id="reponse_msg_'.$custom_id.'" class="contact_form_response"><ul></ul></div>';
-    
-    $html.= '<form id="contact_form_'.$custom_id.'" class="contact_form_wrapper" method="post" action="/wp-admin/admin-ajax.php">';
+		$html.= '<div id="reponse_msg_'.$custom_id.'" class="contact_form_response"><ul></ul></div>';
+		
+		$html.= '<form id="contact_form_'.$custom_id.'" class="contact_form_wrapper" method="post" action="/wp-admin/admin-ajax.php">';
 	$html.= '<input type="hidden" id="action" name="action" value="pp_contact_mailer"/>';
 
-    if(is_array($pp_contact_form) && !empty($pp_contact_form))
-    {
-        foreach($pp_contact_form as $form_input)
-        {
-        	switch($form_input)
-        	{
-    				case 1:
-    				
-    				$html.= '<label for="your_name">'.__( 'Name *', anva_textdomain() ).'</label>
-    				<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', anva_textdomain() ).'"/>
-    				';	
+		if(is_array($pp_contact_form) && !empty($pp_contact_form))
+		{
+				foreach($pp_contact_form as $form_input)
+				{
+					switch($form_input)
+					{
+						case 1:
+						
+						$html.= '<label for="your_name">'.__( 'Name *', anva_textdomain() ).'</label>
+						<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', anva_textdomain() ).'"/>
+						';	
 
-    				break;
-    				
-    				case 2:
-    				
-    				$html.= '<label for="email">'.__( 'Email *', anva_textdomain() ).'</label>
-    				<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', anva_textdomain() ).'"/>
-    				';	
+						break;
+						
+						case 2:
+						
+						$html.= '<label for="email">'.__( 'Email *', anva_textdomain() ).'</label>
+						<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', anva_textdomain() ).'"/>
+						';	
 
-    				break;
-    				
-    				case 3:
-    				
-    				$html.= '<label for="message">'.__( 'Message *', anva_textdomain() ).'</label>
-    				<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', anva_textdomain() ).'"></textarea>
-    				';	
+						break;
+						
+						case 3:
+						
+						$html.= '<label for="message">'.__( 'Message *', anva_textdomain() ).'</label>
+						<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', anva_textdomain() ).'"></textarea>
+						';	
 
-    				break;
-    				
-    				case 4:
-    				
-    				$html.= '<label for="address">'.__( 'Address', anva_textdomain() ).'</label>
-    				<input id="address" name="address" type="text" placeholder="'.__( 'Address', anva_textdomain() ).'"/>
-    				';	
+						break;
+						
+						case 4:
+						
+						$html.= '<label for="address">'.__( 'Address', anva_textdomain() ).'</label>
+						<input id="address" name="address" type="text" placeholder="'.__( 'Address', anva_textdomain() ).'"/>
+						';	
 
-    				break;
-    				
-    				case 5:
-    				
-    				$html.= '<label for="phone">'.__( 'Phone', anva_textdomain() ).'</label>
-    				<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', anva_textdomain() ).'"/>
-    				';
+						break;
+						
+						case 5:
+						
+						$html.= '<label for="phone">'.__( 'Phone', anva_textdomain() ).'</label>
+						<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', anva_textdomain() ).'"/>
+						';
 
-    				break;
-    				
-    				case 6:
-    				
-    				$html.= '<label for="mobile">'.__( 'Mobile', anva_textdomain() ).'</label>
-    				<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', anva_textdomain() ).'"/>
-    				';		
+						break;
+						
+						case 6:
+						
+						$html.= '<label for="mobile">'.__( 'Mobile', anva_textdomain() ).'</label>
+						<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', anva_textdomain() ).'"/>
+						';		
 
-    				break;
-    				
-    				case 7:
-    				
-    				$html.= '<label for="company">'.__( 'Company Name', anva_textdomain() ).'</label>
-    				<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', anva_textdomain() ).'"/>
-    				';
+						break;
+						
+						case 7:
+						
+						$html.= '<label for="company">'.__( 'Company Name', anva_textdomain() ).'</label>
+						<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', anva_textdomain() ).'"/>
+						';
 
-    				break;
-    				
-    				case 8:
-    				
-    				$html.= '<label for="country">'.__( 'Country', anva_textdomain() ).'</label>				
-    				<input id="country" name="country" type="text" placeholder="'.__( 'Country', anva_textdomain() ).'"/>
-    				';
-    				break;
-    			}
-    		}
-    	}
+						break;
+						
+						case 8:
+						
+						$html.= '<label for="country">'.__( 'Country', anva_textdomain() ).'</label>				
+						<input id="country" name="country" type="text" placeholder="'.__( 'Country', anva_textdomain() ).'"/>
+						';
+						break;
+					}
+				}
+			}
 
-    	$pp_contact_enable_captcha = get_option('pp_contact_enable_captcha');
-    	
-    	if(!empty($pp_contact_enable_captcha))
-    	{
-    	
-    	$html.= '<div id="captcha-wrap">
-    		<div class="captcha-box">
-    			<img src="'.get_template_directory_uri().'/get_captcha.php" alt="" id="captcha" />
-    		</div>
-    		<div class="text-box">
-    			<label>Type the two words:</label>
-    			<input name="captcha-code" type="text" id="captcha-code">
-    		</div>
-    		<div class="captcha-action">
-    			<img src="'.get_template_directory_uri().'/images/refresh.jpg"  alt="" id="captcha-refresh" />
-    		</div>
-    	</div>';
-    
-    }
-    
-    $html.= '<br/><br/><div class="contact_submit_wrapper">
-    	<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', anva_textdomain() ).'" ';
+			$pp_contact_enable_captcha = get_option('pp_contact_enable_captcha');
+			
+			if(!empty($pp_contact_enable_captcha))
+			{
+			
+			$html.= '<div id="captcha-wrap">
+				<div class="captcha-box">
+					<img src="'.get_template_directory_uri().'/get_captcha.php" alt="" id="captcha" />
+				</div>
+				<div class="text-box">
+					<label>Type the two words:</label>
+					<input name="captcha-code" type="text" id="captcha-code">
+				</div>
+				<div class="captcha-action">
+					<img src="'.get_template_directory_uri().'/images/refresh.jpg"  alt="" id="captcha-refresh" />
+				</div>
+			</div>';
+		
+		}
+		
+		$html.= '<br/><br/><div class="contact_submit_wrapper">
+			<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', anva_textdomain() ).'" ';
 	
 	if(!empty($buttonbgcolor))
 	{
 		$html.= 'style="background-color:'.esc_attr($buttonbgcolor).';border-color:'.esc_attr($buttonbgcolor).'"';
 	}
 	
-    $html.= '/>
-    </div>';
-    
+		$html.= '/>
+		</div>';
+		
 	$html.= '</form>';
 	
 	
@@ -2548,8 +2531,8 @@ function ppb_contact_sidebar_func($atts, $content) {
 	{
 		$html.= '<h2 class="ppb_title">'.esc_html(urldecode($title)).'</h2>';
 		$html.= '<div class="or-spacer">
-		  <div class="mask"></div>
-		  <span></span>
+			<div class="mask"></div>
+			<span></span>
 		</div>';
 	}
 	
@@ -2568,118 +2551,118 @@ function ppb_contact_sidebar_func($atts, $content) {
 	//Display contact form
 	//Get contact form random ID
 	$custom_id = time().rand();
-    $pp_contact_form = unserialize(get_option('pp_contact_form_sort_data'));
-    wp_enqueue_script("jquery.validate", get_template_directory_uri()."/js/jquery.validate.js", false, THEMEVERSION, true);
-    
-    wp_register_script("script-contact-form", get_template_directory_uri()."/templates/script-contact-form.php?form=".$custom_id, false, THEMEVERSION, true);
+		$pp_contact_form = unserialize(get_option('pp_contact_form_sort_data'));
+		wp_enqueue_script("jquery.validate", get_template_directory_uri()."/js/jquery.validate.js", false, THEMEVERSION, true);
+		
+		wp_register_script("script-contact-form", get_template_directory_uri()."/templates/script-contact-form.php?form=".$custom_id, false, THEMEVERSION, true);
 	$params = array(
-	  'ajaxurl' => admin_url('admin-ajax.php'),
-	  'ajax_nonce' => wp_create_nonce('tgajax-post-contact-nonce'),
+		'ajaxurl' => admin_url('admin-ajax.php'),
+		'ajax_nonce' => wp_create_nonce('tgajax-post-contact-nonce'),
 	);
 	wp_localize_script( 'script-contact-form', 'tgAjax', $params );
 	wp_enqueue_script("script-contact-form", get_template_directory_uri()."/templates/script-contact-form.php?form=".$custom_id, false, THEMEVERSION, true);
 
-    $html.= '<div id="reponse_msg_'.$custom_id.'" class="contact_form_response"><ul></ul></div>';
-    
-    $html.= '<form id="contact_form_'.$custom_id.'" class="contact_form_wrapper" method="post" action="/wp-admin/admin-ajax.php">';
+		$html.= '<div id="reponse_msg_'.$custom_id.'" class="contact_form_response"><ul></ul></div>';
+		
+		$html.= '<form id="contact_form_'.$custom_id.'" class="contact_form_wrapper" method="post" action="/wp-admin/admin-ajax.php">';
 	$html.= '<input type="hidden" id="action" name="action" value="pp_contact_mailer"/>';
 
-    if(is_array($pp_contact_form) && !empty($pp_contact_form))
-    {
-        foreach($pp_contact_form as $form_input)
-        {
-        	switch($form_input)
-        	{
-    				case 1:
-    				
-    				$html.= '<label for="your_name">'.__( 'Name *', anva_textdomain() ).'</label>
-    				<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', anva_textdomain() ).'"/>
-    				';	
+		if(is_array($pp_contact_form) && !empty($pp_contact_form))
+		{
+				foreach($pp_contact_form as $form_input)
+				{
+					switch($form_input)
+					{
+						case 1:
+						
+						$html.= '<label for="your_name">'.__( 'Name *', anva_textdomain() ).'</label>
+						<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', anva_textdomain() ).'"/>
+						';	
 
-    				break;
-    				
-    				case 2:
-    				
-    				$html.= '<label for="email">'.__( 'Email *', anva_textdomain() ).'</label>
-    				<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', anva_textdomain() ).'"/>
-    				';	
+						break;
+						
+						case 2:
+						
+						$html.= '<label for="email">'.__( 'Email *', anva_textdomain() ).'</label>
+						<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', anva_textdomain() ).'"/>
+						';	
 
-    				break;
-    				
-    				case 3:
-    				
-    				$html.= '<label for="message">'.__( 'Message *', anva_textdomain() ).'</label>
-    				<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', anva_textdomain() ).'"></textarea>
-    				';	
+						break;
+						
+						case 3:
+						
+						$html.= '<label for="message">'.__( 'Message *', anva_textdomain() ).'</label>
+						<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', anva_textdomain() ).'"></textarea>
+						';	
 
-    				break;
-    				
-    				case 4:
-    				
-    				$html.= '<label for="address">'.__( 'Address', anva_textdomain() ).'</label>
-    				<input id="address" name="address" type="text" placeholder="'.__( 'Address', anva_textdomain() ).'"/>
-    				';	
+						break;
+						
+						case 4:
+						
+						$html.= '<label for="address">'.__( 'Address', anva_textdomain() ).'</label>
+						<input id="address" name="address" type="text" placeholder="'.__( 'Address', anva_textdomain() ).'"/>
+						';	
 
-    				break;
-    				
-    				case 5:
-    				
-    				$html.= '<label for="phone">'.__( 'Phone', anva_textdomain() ).'</label>
-    				<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', anva_textdomain() ).'"/>
-    				';
+						break;
+						
+						case 5:
+						
+						$html.= '<label for="phone">'.__( 'Phone', anva_textdomain() ).'</label>
+						<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', anva_textdomain() ).'"/>
+						';
 
-    				break;
-    				
-    				case 6:
-    				
-    				$html.= '<label for="mobile">'.__( 'Mobile', anva_textdomain() ).'</label>
-    				<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', anva_textdomain() ).'"/>
-    				';		
+						break;
+						
+						case 6:
+						
+						$html.= '<label for="mobile">'.__( 'Mobile', anva_textdomain() ).'</label>
+						<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', anva_textdomain() ).'"/>
+						';		
 
-    				break;
-    				
-    				case 7:
-    				
-    				$html.= '<label for="company">'.__( 'Company Name', anva_textdomain() ).'</label>
-    				<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', anva_textdomain() ).'"/>
-    				';
+						break;
+						
+						case 7:
+						
+						$html.= '<label for="company">'.__( 'Company Name', anva_textdomain() ).'</label>
+						<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', anva_textdomain() ).'"/>
+						';
 
-    				break;
-    				
-    				case 8:
-    				
-    				$html.= '<label for="country">'.__( 'Country', anva_textdomain() ).'</label>				
-    				<input id="country" name="country" type="text" placeholder="'.__( 'Country', anva_textdomain() ).'"/>
-    				';
-    				break;
-    			}
-    		}
-    	}
+						break;
+						
+						case 8:
+						
+						$html.= '<label for="country">'.__( 'Country', anva_textdomain() ).'</label>				
+						<input id="country" name="country" type="text" placeholder="'.__( 'Country', anva_textdomain() ).'"/>
+						';
+						break;
+					}
+				}
+			}
 
-    	$pp_contact_enable_captcha = get_option('pp_contact_enable_captcha');
-    	
-    	if(!empty($pp_contact_enable_captcha))
-    	{
-    	
-    	$html.= '<div id="captcha-wrap">
-    		<div class="captcha-box">
-    			<img src="'.get_template_directory_uri().'/get_captcha.php" alt="" id="captcha" />
-    		</div>
-    		<div class="text-box">
-    			<label>Type the two words:</label>
-    			<input name="captcha-code" type="text" id="captcha-code">
-    		</div>
-    		<div class="captcha-action">
-    			<img src="'.get_template_directory_uri().'/images/refresh.jpg"  alt="" id="captcha-refresh" />
-    		</div>
-    	</div>';
-    
-    }
-    
-    $html.= '<br/><br/><div class="contact_submit_wrapper">
-    	<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', anva_textdomain() ).'"/>
-    </div>';
-    
+			$pp_contact_enable_captcha = get_option('pp_contact_enable_captcha');
+			
+			if(!empty($pp_contact_enable_captcha))
+			{
+			
+			$html.= '<div id="captcha-wrap">
+				<div class="captcha-box">
+					<img src="'.get_template_directory_uri().'/get_captcha.php" alt="" id="captcha" />
+				</div>
+				<div class="text-box">
+					<label>Type the two words:</label>
+					<input name="captcha-code" type="text" id="captcha-code">
+				</div>
+				<div class="captcha-action">
+					<img src="'.get_template_directory_uri().'/images/refresh.jpg"  alt="" id="captcha-refresh" />
+				</div>
+			</div>';
+		
+		}
+		
+		$html.= '<br/><br/><div class="contact_submit_wrapper">
+			<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', anva_textdomain() ).'"/>
+		</div>';
+		
 	$html.= '</form>';
 	
 	
@@ -2766,11 +2749,11 @@ function ppb_map_func($atts) {
 	
 	if(!is_ssl())
 	{
-	    wp_enqueue_script("google_maps", "http://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
+			wp_enqueue_script("google_maps", "http://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
 	}
 	else
 	{
-	    wp_enqueue_script("google_maps", "https://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
+			wp_enqueue_script("google_maps", "https://maps.google.com/maps/api/js?sensor=false", false, THEMEVERSION, true);
 	}
 	
 	wp_enqueue_script("simplegmaps", get_template_directory_uri()."/js/jquery.simplegmaps.min.js", false, THEMEVERSION, true);
@@ -2815,11 +2798,11 @@ function ppb_galleries_func($atts, $content) {
 	
 	//Display galleries items
 	$args = array(
-	    'numberposts' => $items,
-	    'order' => 'ASC',
-	    'orderby' => 'menu_order',
-	    'post_type' => array('galleries'),
-	    'suppress_filters' => 0,
+			'numberposts' => $items,
+			'order' => 'ASC',
+			'orderby' => 'menu_order',
+			'post_type' => array('galleries'),
+			'suppress_filters' => 0,
 	);
 	
 	if(!empty($cat))
@@ -2845,11 +2828,11 @@ function ppb_galleries_func($atts, $content) {
 		{
 			$image_url = '';
 			$gallery_ID = $gallery->ID;
-			    	
+						
 			if(has_post_thumbnail($gallery_ID, 'original'))
 			{
-			    $image_id = get_post_thumbnail_id($gallery_ID);
-			    $small_image_url = wp_get_attachment_image_src($image_id, 'gallery_c', true);
+					$image_id = get_post_thumbnail_id($gallery_ID);
+					$small_image_url = wp_get_attachment_image_src($image_id, 'gallery_c', true);
 			}
 			
 			$permalink_url = get_permalink($gallery_ID);
@@ -2861,20 +2844,20 @@ function ppb_galleries_func($atts, $content) {
 						
 				if(empty($pp_gallery_disable_hover_slide))
 				{
-				    //Get gallery images
-				    $all_photo_arr = get_post_meta($gallery_ID, 'wpsimplegallery_gallery', true);
-				    
-				    //Get only 5 recent photos
-				    $all_photo_arr = array_slice($all_photo_arr, 0, 5);
+						//Get gallery images
+						$all_photo_arr = get_post_meta($gallery_ID, 'wpsimplegallery_gallery', true);
+						
+						//Get only 5 recent photos
+						$all_photo_arr = array_slice($all_photo_arr, 0, 5);
 				}
-			    
-			    $html.= '<div class="image_grid_frame">
-				    <div class="wall_thumbnail post_archive">
-				    	<a href="'.esc_url($permalink_url).'" class="gallery_wrapper">
-				    		<img src="'.esc_url($small_image_url[0]).'" alt="" class="portfolio_img static"/>
-				            <div class="mask transparent">
-							    <div class="mask_frame galleries">
-							    <h3>'.$gallery->post_title.'</h3>
+					
+					$html.= '<div class="image_grid_frame">
+						<div class="wall_thumbnail post_archive">
+							<a href="'.esc_url($permalink_url).'" class="gallery_wrapper">
+								<img src="'.esc_url($small_image_url[0]).'" alt="" class="portfolio_img static"/>
+										<div class="mask transparent">
+									<div class="mask_frame galleries">
+									<h3>'.$gallery->post_title.'</h3>
 								<div class="excerpt">'.strip_tags(pp_get_the_excerpt($gallery_ID)).'</div>
 							</div>';
 
@@ -2895,8 +2878,8 @@ function ppb_galleries_func($atts, $content) {
 				$html.= '
 							</div>
 						</a>
-				    </div>
-			    </div>';
+						</div>
+					</div>';
 			}
 			$html.= '</div>';
 		}

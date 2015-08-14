@@ -154,7 +154,7 @@ function anva_get_builder_options() {
 			'title' => 'Elements',
 		),
 		'ppb_divider' => array(
-			'title' =>  'Paragraph Break',
+			'title' =>  'Divider',
 			'icon' => 'divider.png',
 			'attr' => array(),
 			'desc' => array(),
@@ -200,7 +200,7 @@ function anva_get_builder_options() {
 				),*/
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -279,7 +279,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -326,7 +326,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -390,7 +390,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -430,7 +430,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -463,7 +463,7 @@ function anva_get_builder_options() {
 				),
 				'height' => array(
 					'title' => 'Height',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "600",
 					"min" => 30,
 					"max" => 1000,
@@ -491,7 +491,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -524,7 +524,7 @@ function anva_get_builder_options() {
 				),
 				'height' => array(
 					'title' => 'Height',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "600",
 					"min" => 30,
 					"max" => 1000,
@@ -566,7 +566,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -590,7 +590,7 @@ function anva_get_builder_options() {
 		),
 
 		'ppb_content_half_bg' => array(
-			'title' =>  'One Half Content with Background',
+			'title' =>  '1/2 Content with Background',
 			'icon' => 'half_content_bg.png',
 			'attr' => array(
 				'slug' => array(
@@ -629,7 +629,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 400,
@@ -644,7 +644,7 @@ function anva_get_builder_options() {
 				),
 				'opacity' => array(
 					'title' => 'Content Background Opacity',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "100",
 					"min" => 10,
 					"max" => 100,
@@ -677,7 +677,7 @@ function anva_get_builder_options() {
 		),
 
 		'ppb_image_half_fixed_width' => array(
-			'title' =>  'Image One Half Width',
+			'title' =>  'Image 1/2 Width',
 			'icon' => 'image_half_fixed.png',
 			'attr' => array(
 				'slug' => array(
@@ -701,7 +701,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -725,7 +725,7 @@ function anva_get_builder_options() {
 		),
 
 		'ppb_image_half_fullwidth' => array(
-			'title' =>  'Image One Half Fullwidth',
+			'title' =>  'Image 1/2 Fullwidth',
 			'icon' => 'image_half_full.png',
 			'attr' => array(
 				'slug' => array(
@@ -745,7 +745,7 @@ function anva_get_builder_options() {
 				),
 				'height' => array(
 					'title' => 'Height',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "600",
 					"min" => 30,
 					"max" => 1000,
@@ -763,7 +763,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -822,7 +822,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -880,7 +880,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -947,7 +947,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -1010,7 +1010,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -1054,7 +1054,7 @@ function anva_get_builder_options() {
 					'desc' => 'Select the gallery category (optional)',
 				),
 				'items' => array(
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "12",
 					"min" => 1,
 					"max" => 100,
@@ -1103,7 +1103,7 @@ function anva_get_builder_options() {
 				),
 				'timer' => array(
 					'title' => 'Timer',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "5",
 					"min" => 1,
 					"max" => 60,
@@ -1121,7 +1121,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -1164,7 +1164,7 @@ function anva_get_builder_options() {
 				),
 				'timer' => array(
 					'title' => 'Timer',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "5",
 					"min" => 1,
 					"max" => 60,
@@ -1182,7 +1182,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -1238,7 +1238,7 @@ function anva_get_builder_options() {
 				),
 				'opacity' => array(
 					'title' => 'Content Background Opacity',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "100",
 					"min" => 10,
 					"max" => 100,
@@ -1324,7 +1324,7 @@ function anva_get_builder_options() {
 					'desc' => 'You can choose to display only some posts from selected category',
 				),
 				'items' => array(
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "9",
 					"min" => 1,
 					"max" => 100,
@@ -1333,7 +1333,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -1382,7 +1382,7 @@ function anva_get_builder_options() {
 		// 			'desc' => 'You can choose to display only some testimonials from selected testimonial category',
 		// 		),
 		// 		'items' => array(
-		// 			'type' => 'jslider',
+		// 			'type' => 'slider',
 		// 			"std" => "4",
 		// 			"min" => 1,
 		// 			"max" => 50,
@@ -1391,7 +1391,7 @@ function anva_get_builder_options() {
 		// 		),
 		// 		'padding' => array(
 		// 			'title' => 'Content Padding',
-		// 			'type' => 'jslider',
+		// 			'type' => 'slider',
 		// 			"std" => "30",
 		// 			"min" => 0,
 		// 			"max" => 200,
@@ -1455,7 +1455,7 @@ function anva_get_builder_options() {
 		// 				'desc' => 'Select Number of Pricing Columns',
 		// 			),
 		// 			'items' => array(
-		// 				'type' => 'jslider',
+		// 				'type' => 'slider',
 		// 				"std" => "4",
 		// 				"min" => 1,
 		// 				"max" => 50,
@@ -1464,7 +1464,7 @@ function anva_get_builder_options() {
 		// 			),
 		// 			'padding' => array(
 		// 				'title' => 'Content Padding',
-		// 				'type' => 'jslider',
+		// 				'type' => 'slider',
 		// 				"std" => "30",
 		// 				"min" => 0,
 		// 				"max" => 200,
@@ -1530,7 +1530,7 @@ function anva_get_builder_options() {
 				),
 				'zoom' => array(
 					'title' => 'Zoom Level',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "8",
 					"min" => 1,
 					"max" => 16,
@@ -1597,7 +1597,7 @@ function anva_get_builder_options() {
 				),
 				'padding' => array(
 					'title' => 'Content Padding',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "30",
 					"min" => 0,
 					"max" => 200,
@@ -1636,7 +1636,7 @@ function anva_get_builder_options() {
 				),
 				'height' => array(
 					'title' => 'Height',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "600",
 					"min" => 10,
 					"max" => 1000,
@@ -1655,7 +1655,7 @@ function anva_get_builder_options() {
 				),
 				'zoom' => array(
 					'title' => 'Zoom Level',
-					'type' => 'jslider',
+					'type' => 'slider',
 					"std" => "8",
 					"min" => 1,
 					"max" => 16,

@@ -85,7 +85,6 @@ class Anva_Builder_Meta_Box {
 			/* ---------------------------------------------------------------- */
 
 			wp_enqueue_style( 'wp-jquery-ui-dialog' );
-			//wp_enqueue_style( 'thickbox' );
 			wp_enqueue_style( 'wp-color-picker' );
 
 			wp_enqueue_script( 'jquery-ui-core' );
@@ -93,7 +92,6 @@ class Anva_Builder_Meta_Box {
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-effects-fade' );
 			wp_enqueue_script( 'media-upload' );
-			//wp_enqueue_script( 'thickbox' );
 			wp_enqueue_script( 'wplink' );
 			wp_enqueue_script( 'wpdialogs-popup' );
 
@@ -102,13 +100,11 @@ class Anva_Builder_Meta_Box {
 			/* ---------------------------------------------------------------- */
 
 			wp_enqueue_style( 'jquery-ui-custom', 		anva_get_core_url() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-			wp_enqueue_style( 'fancybox', 						anva_get_core_url() . '/assets/css/admin/jquery.fancybox.min.css', array(), '2.1.5', 'all' );
 			wp_enqueue_style( 'anva-builder', 				anva_get_core_url() . '/assets/css/admin/builder.css', array( 'jquery-ui-custom' ), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			wp_register_script( 'js-wp-editor', 			anva_get_core_url() . '/assets/js/admin/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
-			wp_register_script( 'anva-builder', 			anva_get_core_url() . '/assets/js/admin/builder.js', array( 'jquery', 'wp-color-picker', 'fancybox' ), ANVA_FRAMEWORK_VERSION, true );
+			wp_register_script( 'anva-builder', 			anva_get_core_url() . '/assets/js/admin/builder.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 			
-			wp_enqueue_script( 'fancybox', 						anva_get_core_url() . '/assets/js/admin/jquery.fancybox.min.js', array( 'jquery' ), '2.1.5' );
 			wp_enqueue_script( 'js-wp-editor' );
 			wp_enqueue_script( 'anva-builder' );
 			
@@ -209,7 +205,7 @@ class Anva_Builder_Meta_Box {
 				?>
 
 				<?php	if ( ! empty ( $ppb_tabs ) ) : ?>
-					<div id="ppb_tab">
+					<div id="modules_tabs">
 					<ul>
 					<?php foreach ( $ppb_tabs as $tab_key => $ppb_tab ) :	?>
 						<li><a href="#tabs-<?php echo esc_attr( $tab_key ); ?>"><?php echo $ppb_tab; ?></a></li>
@@ -226,8 +222,8 @@ class Anva_Builder_Meta_Box {
 						
 					<?php if ( isset( $ppb_shortcode['icon'] ) && ! empty( $ppb_shortcode['icon'] ) ) : ?>
 						<li data-module="<?php echo esc_attr( $key ); ?>" data-title="<?php echo esc_attr( $ppb_shortcode['title'] ); ?>">
-							<img src="<?php echo esc_url( $image_path . $ppb_shortcode['icon'] ); ?>" alt="" title="<?php echo esc_attr( $ppb_shortcode['title'] ); ?>" class="builder_thumb" />
-							<span class="builder_title"><?php echo $ppb_shortcode['title']; ?></span>
+							<img src="<?php echo esc_url( $image_path . $ppb_shortcode['icon'] ); ?>" alt="<?php echo esc_attr( $ppb_shortcode['title'] ); ?>" class="icon-thumbnail" />
+							<span class="icon-title"><?php echo $ppb_shortcode['title']; ?></span>
 						</li>
 					<?php endif; ?>
 
@@ -245,8 +241,9 @@ class Anva_Builder_Meta_Box {
 				<a id="ppb_sortable_add_button" class="button button-primary"><?php _e( '+ Add Item', anva_textdomain() ); ?></a>
 				
 				<div class="content-builder-sort-footer">
-					<div class="order_message">Drag and drop to reorder</div>
+					<div class="order_message"><?php _e( 'Drag and drop to reorder', anva_textdomain() ); ?></div>
 				</div>
+				<div class="clear"></div>
 
 				<?php
 					if ( isset( $ppb_form_data_order ) ) {
@@ -274,6 +271,8 @@ class Anva_Builder_Meta_Box {
 								$ppb_shortocde_title = $ppb_shortcodes[$ppb_form_item_data_obj->shortcode]['title'];
 								$ppb_shortocde_icon = $ppb_shortcodes[$ppb_form_item_data_obj->shortcode]['icon'];
 								
+								$shortcode = $ppb_form_item_data_obj->shortcode;
+
 								if ( $ppb_form_item_data_obj->shortcode != 'ppb_divider' ) {
 									$obj_title_name = $ppb_form_item_data_obj->shortcode . '_title';
 									
@@ -284,23 +283,23 @@ class Anva_Builder_Meta_Box {
 									}
 
 								} else {
-									$obj_title_name = '<span class="shortcode_title">' . __( 'Paragraph Break', anva_textdomain() ) . '</span>';
+									$obj_title_name = '<span class="shortcode-type">' . __( 'Divider', anva_textdomain() ) . '</span>';
 									$ppb_shortocde_title = '';
 								}
 								?>
-								<li id="<?php echo esc_attr( $ppb_form_item ); ?>" class="ui-state-default <?php echo esc_attr( $ppb_form_item_size ); ?> <?php echo esc_attr( $ppb_form_item_data_obj->shortcode ); ?>" data-current-size="<?php echo esc_attr( $ppb_form_item_size ); ?>">
+								<li id="<?php echo esc_attr( $ppb_form_item ); ?>" class="item item-<?php echo esc_attr( $ppb_form_item ); ?> ui-state-default <?php echo esc_attr( $ppb_form_item_size ); ?> <?php echo esc_attr( $shortcode ); ?>" data-current-size="<?php echo esc_attr( $ppb_form_item_size ); ?>">
 									<div class="actions">
-										<a href="<?php echo esc_url( admin_url('admin-ajax.php?action=pp_ppb&ppb_post_type=page&shortcode='.$ppb_form_item_data_obj->shortcode.'&rel='.$ppb_form_item.'&width=800&height=900' ) ); ?>" class="ppb_edit" data-rel="<?php echo esc_attr( $ppb_form_item ); ?>"></a>
-										<a href="javascript:;" class="ppb_remove"></a>
+										<a title="<?php esc_html_e( 'Edit Item', anva_textdomain() )?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=pp_ppb&ppb_post_type=page&shortcode=' . $shortcode . '&rel=' . $ppb_form_item ) ); ?>" class="ppb_edit" data-rel="<?php echo esc_attr( $ppb_form_item ); ?>"></a>
+										<a title="<?php esc_html_e( 'Remove Item', anva_textdomain() )?>" href="#" class="ppb_remove"></a>
 									</div>
-									<span class="spinner"></span>
 									<div class="thumbnail">
 										<img src="<?php echo esc_url( $image_path . $ppb_shortocde_icon ); ?>" alt="<?php echo esc_attr( $ppb_shortocde_title ); ?>" />
 									</div>
 									<div class="title">
-										<span class="shortcode_title"><?php echo $ppb_shortocde_title; ?></span>
-										<?php echo urldecode( $obj_title_name ); ?>
+										<span class="shortcode-type"><?php echo $ppb_shortocde_title; ?></span>
+										<span class="shortcode-title"><?php echo urldecode( $obj_title_name ); ?></span>
 									</div>
+									<span class="spinner spinner-<?php echo esc_attr( $ppb_form_item ); ?>"></span>
 									<input type="hidden" class="ppb_setting_columns" value="<?php echo esc_attr( $ppb_form_item_size ); ?>" />
 									<div class="clear"></div>
 								</li>
@@ -313,7 +312,7 @@ class Anva_Builder_Meta_Box {
 			</div><!-- .meta-content-builder (end) -->
 			
 			<div class="meta meta-content-builder-export hidden">
-				<div id="meta_tab">
+				<div id="export_tabs">
 					<ul>
 						<li><a href="#meta-tabs-1"><?php _e( 'Import', anva_textdomain() ); ?></a></li>
 						<li><a href="#meta-tabs-2"><?php _e( 'Export', anva_textdomain() ); ?></a></li>
@@ -586,21 +585,23 @@ class Anva_Builder_Meta_Box {
 	 */
 	function fields() {
 
-		if ( is_admin() && isset( $_GET['shortcode'] ) && ! empty( $_GET['shortcode'] ) ) :
+		if ( isset( $_GET['shortcode'] ) && ! empty( $_GET['shortcode'] ) ) :
+			
 			$ppb_shortcodes = $this->options;
 			
 			if ( isset( $ppb_shortcodes[$_GET['shortcode']] ) && ! empty( $ppb_shortcodes[$_GET['shortcode']] ) ) :
 				$selected_shortcode = $_GET['shortcode'];
 				$selected_shortcode_arr = $ppb_shortcodes[$_GET['shortcode']];
-				// var_dump($selected_shortcode_arr);
 				?>
 
-				<div id="ppb_inline_<?php echo $selected_shortcode; ?>" data-shortcode="<?php echo $selected_shortcode; ?>" class="ppb_inline">
+				<div id="ppb_inline_<?php echo $selected_shortcode; ?>" data-shortcode="<?php echo $selected_shortcode; ?>" class="item-inline item-inline-<?php echo esc_attr( $_GET['rel'] ); ?>">
 				
+				<?php var_dump( $_GET); ?>
+
 				<div class="wrap">
 					<h2><?php echo $selected_shortcode_arr['title']; ?></h2>
-					<a id="save_<?php echo $_GET['rel']; ?>" data-parent="ppb_inline_<?php echo $selected_shortcode; ?>" class="button-primary ppb_inline_save" href="#"><?php _e( 'Update', anva_textdomain() ); ?></a>
-					<a id="cancel_<?php echo $_GET['rel']; ?>" class="button button-cancel" href="#"><?php _e( 'Cancel', anva_textdomain() ); ?></a>
+					<a id="save-<?php echo $_GET['rel']; ?>" data-parent="ppb_inline_<?php echo $selected_shortcode; ?>" class="button button-primary button-save ppb_inline_save" href="#"><?php _e( 'Apply', anva_textdomain() ); ?></a>
+					<a id="cancel-<?php echo $_GET['rel']; ?>" class="button button-secondary button-cancel" href="#"><?php _e( 'Cancel', anva_textdomain() ); ?></a>
 				</div><!-- .wrap (end) -->
 
 				<?php if ( isset( $selected_shortcode_arr['title'] ) && $selected_shortcode_arr['title'] != 'Divider' ) : ?>
@@ -610,7 +611,7 @@ class Anva_Builder_Meta_Box {
 						<input type="text" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="Title" class="ppb_input" />
 					</div>
 				<?php else : ?>
-				<input type="hidden" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="<?php echo $selected_shortcode_arr['title']; ?>" class="ppb_input"/>
+					<input type="hidden" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="<?php echo $selected_shortcode_arr['title']; ?>" class="ppb_input"/>
 				<?php endif; ?>
 				
 				<?php foreach ( $selected_shortcode_arr['attr'] as $attr_name => $attr_item ) : ?>
@@ -623,77 +624,80 @@ class Anva_Builder_Meta_Box {
 						}
 					?>
 
-					<?php switch ($attr_item['type']) :
-						
-					case "jslider": ?>
-						<div class="field-slider">
-							<div style="position:relative">
+					<?php switch ( $attr_item['type'] ) :
+					
+						case "slider": ?>
+							<div class="field-slider">
+								<div style="position:relative">
+									<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+									<span class="desc"><?php echo $attr_item['desc']; ?></span>
+									<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="range" class="rangeslider ppb_input" min="<?php echo $attr_item['min']; ?>" max="<?php echo $attr_item['max']; ?>" step="<?php echo $attr_item['step']; ?>" value="<?php echo $attr_item['std']; ?>" />
+									<output for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" onforminput="value = foo.valueAsNumber;"></output>
+								</div>
+							</div>
+							<?php break;
+							
+						case 'file': ?>
+							<div class="field-file">
 								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
 								<span class="desc"><?php echo $attr_item['desc']; ?></span>
-								<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="range" class="ppb_input" min="<?php echo $attr_item['min']; ?>" max="<?php echo $attr_item['max']; ?>" step="<?php echo $attr_item['step']; ?>" value="<?php echo $attr_item['std']; ?>" />
-								<output for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" onforminput="value = foo.valueAsNumber;"></output>
+								<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text"  class="ppb_input ppb_file" />
+								<a id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" type="button" class="metabox_upload_btn button" rel="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php _e( 'Upload', anva_textdomain() ); ?></a>
+								<div class="screenshot" id="<?php echo $selected_shortcode; ?>_image">
+									
+								</div>
 							</div>
-						</div>
-						<?php break;
-						
-						case 'file': ?>
-						<div class="field-file">
-							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="desc"><?php echo $attr_item['desc']; ?></span>
-							<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text"  class="ppb_input ppb_file" />
-							<a id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" type="button" class="metabox_upload_btn button" rel="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>">Upload</a>
-						</div>
-						<?php break;
-								
+							<?php break;
+									
 						case 'select': ?>
-						<div class="field-select">
-							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="desc"><?php echo $attr_item['desc']; ?></span>
-							<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input">
-								<?php foreach ( $attr_item['options'] as $attr_key => $attr_item_option ) : ?>
-									<option value="<?php echo $attr_key; ?>"><?php echo ucfirst($attr_item_option); ?></option>
-								<?php endforeach; ?>
-							</select>
-						</div>
-						<?php break;
-								
+							<div class="field-select">
+								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+								<span class="desc"><?php echo $attr_item['desc']; ?></span>
+								<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input">
+									<?php foreach ( $attr_item['options'] as $attr_key => $attr_item_option ) : ?>
+										<option value="<?php echo $attr_key; ?>"><?php echo ucfirst( $attr_item_option ); ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+							<?php break;
+									
 						case 'select_multiple': ?>
-						<div class="field-select-multiple">
-							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="desc"><?php echo $attr_item['desc']; ?></span>
-							<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input" multiple="multiple">
-								<?php foreach($attr_item['options'] as $attr_key => $attr_item_option) : ?>
-									<?php if(!empty($attr_item_option)) : ?>
-										<option value="<?php echo $attr_key; ?>"><?php echo ucfirst($attr_item_option); ?></option>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							</select>
-						</div>
-						<?php break;
-								
+							<div class="field-select-multiple">
+								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+								<span class="desc"><?php echo $attr_item['desc']; ?></span>
+								<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input" multiple="multiple">
+									<?php foreach ( $attr_item['options'] as $attr_key => $attr_item_option ) : ?>
+										<?php if ( ! empty( $attr_item_option ) ) : ?>
+											<option value="<?php echo $attr_key; ?>"><?php echo ucfirst( $attr_item_option ); ?></option>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</select>
+							</div>
+							<?php break;
+									
 						case 'text': ?>
-						<div class="field-text">
-							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="desc"><?php echo $attr_item['desc']; ?></span>
-							<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input" />
-						</div>
-						<?php break;
-								
+							<div class="field-text">
+								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+								<span class="desc"><?php echo $attr_item['desc']; ?></span>
+								<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input" />
+							</div>
+							<?php break;
+									
 						case 'colorpicker': ?>
-						<div class="field-colorpicker">
-							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="desc"><?php echo $attr_item['desc']; ?></span>
-							<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input color_picker" readonly />
-						</div>
-						<?php break;
+							<div class="field-colorpicker">
+								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+								<span class="desc"><?php echo $attr_item['desc']; ?></span>
+								<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input colorpicker" readonly />
+							</div>
+							<?php break;
 
 						case 'textarea': ?>
-						<div class="field-textarea">
-							<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
-							<span class="desc"><?php echo $attr_item['desc']; ?></span>
-							<textarea name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" cols="" rows="3" class="ppb_input"></textarea>
-						</div>
-						<?php break;
+							<div class="field-textarea">
+								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+								<span class="desc"><?php echo $attr_item['desc']; ?></span>
+								<textarea name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" rows="3" class="ppb_input"></textarea>
+							</div>
+							<?php break;
 
 					endswitch; ?>
 					
@@ -710,74 +714,51 @@ class Anva_Builder_Meta_Box {
 			</div><!-- .ppb_inline (end) -->
 			
 			<script type="text/javascript">
+			/* <![CDATA[ */
 			jQuery(document).ready( function() {
-								
-				// Uploader
-				var formfield = '';
-				jQuery('.metabox_upload_btn').click(function() {	
-					formfield = jQuery(this).attr('rel');
-					var send_attachment_bkp = wp.media.editor.send.attachment;
-					wp.media.editor.send.attachment = function(props, attachment) {
-						jQuery('#'+formfield).attr('value', attachment.url);
-						wp.media.editor.send.attachment = send_attachment_bkp;
-					}
-					wp.media.editor.open();
-					return false;
-				});
-				
-				jQuery("#ppb_inline :input").each(function() {
-					if ( typeof jQuery(this).attr('id') != 'undefined' ) {
-						jQuery(this).attr('value', '');
-					}
-				});
 				
 				var currentItemData = jQuery('#<?php echo $_GET['rel']; ?>').data('ppb_setting');
 				var currentItemOBJ = jQuery.parseJSON(currentItemData);
 				
-				jQuery.each(currentItemOBJ, function(index, value) {
-					if ( typeof jQuery('#'+index) != 'undefined' ) {
-						jQuery('#'+index).val(decodeURI(value));
+				jQuery.each(currentItemOBJ, function( index, value ) {
+					if ( typeof jQuery('#' + index) != 'undefined' ) {
+						jQuery('#' + index).val( decodeURI(value) );
 						
-						// If textarea then convert to visual editor
-						if ( jQuery('#'+index).is('textarea') ) {
-							jQuery('#'+index).wp_editor();
-							jQuery('#'+index).val(decodeURI(value));
-							// switchEditors.go(index, 'tmce');
+						if ( jQuery('#' + index).is('textarea') ) {
+							jQuery('#' + index).wp_editor();
+							jQuery('#' + index).val( decodeURI( value ) );
 						}
 					}
 				});
 
-				// Color Picker
-				jQuery('.color_picker').wpColorPicker();
-				
-				// Range
-				var el, newPoint, newPlace, offset;
-	 
-				jQuery("input[type='range']").change(function() {
-					el = jQuery(this);
-					width = el.width();
-					newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
-					el.next("output").text(el.val());
-				}).trigger('change');
-
-				jQuery("#cancel_<?php echo $_GET['rel']; ?>").on( 'click', function(e){
+				// Cancel Changes
+				jQuery("#cancel-<?php echo $_GET['rel']; ?>").on( 'click', function(e) {
 					e.preventDefault();
-					jQuery('#inner-<?php echo $_GET['rel']; ?>').slideToggle();
-					setTimeout(function(){
-					  jQuery('#inner-<?php echo $_GET['rel']; ?>').remove();
-					}, 600);
+					var itemInner = jQuery('#item-inner-<?php echo $_GET['rel']; ?>');
+					var parentEle = jQuery('#<?php echo $_GET['rel']; ?>');
+					if ( parentEle.hasClass('has-inline-content') ) {
+						parentEle.removeClass('has-inline-content');
+					}
+					if ( itemInner.length > 0 ) {
+						itemInner.slideToggle();
+						setTimeout( function() {
+						  itemInner.remove();
+						}, 600);
+					}
 				});
 				
-				// Save Data
-				jQuery("#save_<?php echo $_GET['rel']; ?>").click( function(e) {
+				// Apply Changes
+				jQuery("#save-<?php echo $_GET['rel']; ?>").on( 'click', function(e) {
 					e.preventDefault();
 
-					var title = jQuery(this).closest('.ppb_inline').find(".field-title input");
+					// Validate title
+					var title = jQuery(this).closest('.item-inline').find(".field-title input");
 					if ( title.val() == '' ) {
-						alert('The title field is required.');
+						alert( 'The title field is required.' );
 						return false;
 					}
 					
+					// WP Editor
 					tinyMCE.triggerSave();
 			
 					var targetItem = jQuery('#ppb_inline_current').attr('value');
@@ -789,32 +770,39 @@ class Anva_Builder_Meta_Box {
 					itemData.id = targetItem;
 					itemData.shortcode = currentShortcode;
 					
-					jQuery("#"+parentInline+" :input.ppb_input").each( function() {
-						
+					jQuery("#" + parentInline + " :input.ppb_input").each( function() {
 						if ( typeof jQuery(this).attr('id') != 'undefined' ) {	
-							itemData[jQuery(this).attr('id')] = encodeURI(jQuery(this).attr('value'));
+							itemData[jQuery(this).attr('id')] = encodeURI( jQuery(this).attr('value') );
 							
-							if ( jQuery(this).attr('data-attr') == 'title') {
-								jQuery('#'+targetItem).find('.title').html(decodeURI(jQuery(this).attr('value')));
-								if ( jQuery('#'+targetItem).find('.ppb_unsave').length == 0 ) {
-									jQuery('<a href="javascript:;" class="ppb_unsave">Unsaved</a>').insertAfter(jQuery('#'+targetItem).find('.title'));
+							if ( jQuery(this).attr('data-attr') == 'title' ) {
+								jQuery('#' + targetItem).find('.title .shortcode-title').html( decodeURI( jQuery(this).attr('value') ) );
+								
+								if ( jQuery('#' + targetItem).find('.ppb_unsave').length == 0 ) {
+									jQuery('<span class="ppb_unsave">Unsaved</span>').appendTo( jQuery('#' + targetItem).find('.title .shortcode-type') );
+									jQuery('#' + targetItem).addClass('item-unsaved');
 								}
 							}
 						}
 					});
 					
-					var currentItemDataJSON = JSON.stringify(itemData);
+					var currentItemDataJSON = JSON.stringify( itemData );
+					var itemInner = jQuery('#item-inner-<?php echo $_GET['rel']; ?>');
 
-					jQuery('#'+targetItem).data('ppb_setting', currentItemDataJSON);
+					jQuery('#' + targetItem).data('ppb_setting', currentItemDataJSON);
 
-					jQuery('#inner-<?php echo $_GET['rel']; ?>').slideToggle();
-					setTimeout(function(){
-				  	jQuery('#inner-<?php echo $_GET['rel']; ?>').remove();
-					}, 600)
-
+					var parentEle = jQuery('#<?php echo $_GET['rel']; ?>');
+					if ( parentEle.hasClass('has-inline-content') ) {
+						parentEle.removeClass('has-inline-content');
+					}
+					if ( itemInner.length > 0 ) {
+						itemInner.slideToggle();
+						setTimeout( function() {
+							itemInner.remove();
+						}, 600);
+					}
 				});
-				
 			});
+			/* ]]> */
 			</script>
 		<?php endif; ?>
 	<?php endif; ?>	

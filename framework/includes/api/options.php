@@ -11,9 +11,9 @@
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-if ( ! class_exists( 'Anva_Options' ) ) :
+if ( ! class_exists( 'Anva_Core_Options' ) ) :
 
-class Anva_Options {
+class Anva_Core_Options {
 
 	/**
 	 * A single instance of this class
@@ -1124,120 +1124,4 @@ class Anva_Options {
 	}
 
 } // End Class
-endif;
-
-/* ---------------------------------------------------------------- */
-/* Helpers
-/* ---------------------------------------------------------------- */
-
-if ( ! function_exists( 'anva_get_core_options' ) ) :
-/**
- * Get raw options. This helper function is more
- * for backwards compatibility. Realistically, it
- * doesn't have much use unless an old plugin is
- * still using it.
- *
- * @since 1.0.0
- */
-function anva_get_core_options() {
-	$api = Anva_Options::instance();
-	return $api->get_raw_options();
-}
-endif;
-
-if ( ! function_exists( 'anva_get_formatted_options' ) ) :
-/**
- * Get formatted options. Note that options will not be
- * formatted until after WP's after_setup_theme hook.
- *
- * @since 1.0.0
- */
-function anva_get_formatted_options() {
-	$api = Anva_Options::instance();
-	return $api->get_formatted_options();
-}
-endif;
-
-if ( ! function_exists( 'anva_add_option_tab' ) ) :
-/**
- * Add theme option tab
- *
- * @since 1.0.0
- */
-function anva_add_option_tab( $tab_id, $tab_name, $top = false ) {
-	$api = Anva_Options::instance();
-	$api->add_tab( $tab_id, $tab_name, $top );
-}
-endif;
-
-if ( ! function_exists( 'anva_remove_option_tab' ) ) :
-/**
- * Remove theme option tab
- *
- * @since 1.0.0
- */
-function anva_remove_option_tab( $tab_id ) {
-	$api = Anva_Options::instance();
-	$api->remove_tab( $tab_id );
-}
-endif;
-
-if ( ! function_exists( 'anva_add_option_section' ) ) :
-/**
- * Add theme option section
- *
- * @since 1.0.0
- */
-function anva_add_option_section( $tab_id, $section_id, $section_name, $section_desc = null, $options = null, $top = false ) {
-	$api = Anva_Options::instance();
-	$api->add_section( $tab_id, $section_id, $section_name, $section_desc, $options, $top );
-}
-endif;
-
-if ( ! function_exists( 'anva_remove_option_section' ) ) :
-/**
- * Remove theme option section
- *
- * @since 1.0.0
- */
-function anva_remove_option_section( $tab_id, $section_id ) {
-	$api = Anva_Options::instance();
-	$api->remove_section( $tab_id, $section_id );
-}
-endif;
-
-if ( ! function_exists( 'anva_add_option' ) ) :
-/**
- * Add theme option
- *
- * @since 1.0.0
- */
-function anva_add_option( $tab_id, $section_id, $option_id, $option ) {
-	$api = Anva_Options::instance();
-	$api->add_option( $tab_id, $section_id, $option_id, $option );
-}
-endif;
-
-if ( ! function_exists( 'anva_remove_option' ) ) :
-/**
- * Remove theme option
- *
- * @since 1.0.0
- */
-function anva_remove_option( $tab_id, $section_id, $option_id ) {
-	$api = Anva_Options::instance();
-	$api->remove_option( $tab_id, $section_id, $option_id );
-}
-endif;
-
-if ( ! function_exists( 'anva_edit_option' ) ) :
-/**
- * Edit theme option
- *
- * @since 1.0.0
- */
-function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
-	$api = Anva_Options::instance();
-	$api->edit_option( $tab_id, $section_id, $option_id, $att, $value );
-}
 endif;
