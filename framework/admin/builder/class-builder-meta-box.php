@@ -145,14 +145,14 @@ class Anva_Builder_Meta_Box {
 
 		global $post;
 		
-		$ppb_enable						= 0;
-		$ppb_shortcodes 			= $this->options;
+		$enable								= 0;
+		$shortcodes 					= $this->options;
 		$dd 									= anva_get_builder_field();
-		$ppb_form_item_arr 		= array();
+		$items 								= array();
 		$image_path 					= anva_get_core_url() . '/assets/images/builder/';
 
 		if ( isset( $dd['enable'] ) ) {
-			$ppb_enable = $dd['enable'];
+			$enable = $dd['enable'];
 		}
 
 		if ( isset( $dd['order'] ) ) {
@@ -170,10 +170,10 @@ class Anva_Builder_Meta_Box {
 				<h4 class="heading"><?php _e( 'Enable', anva_textdomain() ); ?></h4>
 				<div class="meta-option">
 					<div class="meta-controls">
-						<input type="checkbox" class="enable-builder" name="ppb_enable" id="ppb_enable" value="1" <?php checked( $ppb_enable, 1, true ); ?> />
+						<input type="checkbox" class="enable-builder" name="ppb_enable" value="1" <?php checked( $enable, 1, true ); ?> />
 					</div>
 					<div class="meta-explain description">
-						<?php _e( 'To build this page using content builder, please enable this option.', anva_textdomain() ); ?>
+						<?php _e( 'To use page builder, please enable this option.', anva_textdomain() ); ?>
 					</div>
 				</div>
 			</div><!-- .meta (end) -->
@@ -183,7 +183,7 @@ class Anva_Builder_Meta_Box {
 				<h4 class="heading"><?php _e( 'Content Builder', anva_textdomain() ); ?></h4>
 				<div class="meta-option">
 					<div class="meta-explain description">
-						<?php _e( 'Select below content builder element you want to display and click "Add", it will open popup option for selected element once you finish customizing click "Update" button. You can drag&drop each elements to re order them.', anva_textdomain() ); ?>
+						<?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', anva_textdomain() ); ?>
 					</div>
 				</div>
 			
@@ -195,112 +195,117 @@ class Anva_Builder_Meta_Box {
 				<input type="hidden" id="ppb_form_data_order" name="ppb_form_data_order" value="" />
 			
 				<?php
-					// Find all tabs
-					$ppb_tabs = array();
-					foreach ( $ppb_shortcodes as $key => $ppb_shortcode ) {
-						if ( is_numeric( $key ) && $ppb_shortcode['title'] != 'Close' ) {
-							$ppb_tabs[$key] = $ppb_shortcode['title'];
+					// Tabs
+					$tabs = array();
+					foreach ( $shortcodes as $key => $shortcode ) {
+						if ( is_numeric( $key ) && $shortcode['title'] != 'Close' ) {
+							$tabs[$key] = $shortcode['title'];
 						}
 					}
 				?>
 
-				<?php	if ( ! empty ( $ppb_tabs ) ) : ?>
-					<div id="modules_tabs">
-					<ul>
-					<?php foreach ( $ppb_tabs as $tab_key => $ppb_tab ) :	?>
-						<li><a href="#tabs-<?php echo esc_attr( $tab_key ); ?>"><?php echo $ppb_tab; ?></a></li>
-					<?php	endforeach; ?>
-					</ul><!-- .tabs (end) -->
-				<?php endif; ?>
+				<div class="clear"></div>
 				
-				<?php foreach ( $ppb_shortcodes as $key => $ppb_shortcode ) : ?>
+				<div id="modules-tabs">
 					
-					<?php if ( is_numeric( $key ) && $ppb_shortcode['title'] != 'Close' ) : ?>
-						<div id="tabs-<?php echo esc_attr($key); ?>">
-							<ul id="ppb_module_wrapper">
+					<?php	if ( ! empty ( $tabs ) ) : ?>
+						<ul class="tabs">
+							<?php foreach ( $tabs as $key => $tab ) :	?>
+								<li><a href="#modules-tab-<?php echo esc_attr( $key ); ?>"><?php echo $tab; ?></a></li>
+							<?php	endforeach; ?>
+						</ul><!-- .tabs (end) -->
 					<?php endif; ?>
+					
+					<?php foreach ( $shortcodes as $key => $shortcode ) : ?>
 						
-					<?php if ( isset( $ppb_shortcode['icon'] ) && ! empty( $ppb_shortcode['icon'] ) ) : ?>
-						<li data-module="<?php echo esc_attr( $key ); ?>" data-title="<?php echo esc_attr( $ppb_shortcode['title'] ); ?>">
-							<img src="<?php echo esc_url( $image_path . $ppb_shortcode['icon'] ); ?>" alt="<?php echo esc_attr( $ppb_shortcode['title'] ); ?>" class="icon-thumbnail" />
-							<span class="icon-title"><?php echo $ppb_shortcode['title']; ?></span>
-						</li>
-					<?php endif; ?>
+						<?php if ( is_numeric( $key ) && $shortcode['title'] != 'Close' ) : ?>
+							<div id="modules-tab-<?php echo esc_attr( $key ); ?>">
+								<ul class="builder-modules">
+						<?php endif; ?>
+							
+						<?php if ( isset( $shortcode['icon'] ) && ! empty( $shortcode['icon'] ) ) : ?>
+							<li class="module-icon" data-module="<?php echo esc_attr( $key ); ?>" data-title="<?php echo esc_attr( $shortcode['title'] ); ?>">
+								<img src="<?php echo esc_url( $image_path . $shortcode['icon'] ); ?>" alt="<?php echo esc_attr( $shortcode['title'] ); ?>" class="icon-thumbnail" />
+								<span class="icon-title"><?php echo $shortcode['title']; ?></span>
+							</li>
+						<?php endif; ?>
 
-					<?php if ( is_numeric( $key ) && $ppb_shortcode['title'] == 'Close' ) : ?>
-							</ul><!-- #ppb_module_wrapper (end) -->
-						</div><!-- #tabs (end) -->
-					<?php endif; ?>
+						<?php if ( is_numeric( $key ) && $shortcode['title'] == 'Close' ) : ?>
+								</ul><!-- #builder-modules (end) -->
+							</div><!-- #tabs-<?php echo esc_attr( $key ); ?> (end) -->
+						<?php endif; ?>
 
-				<?php endforeach; ?>
+					<?php endforeach; ?>
 					
-				<?php if ( ! empty( $ppb_tabs ) ) : ?>
-					</div><!-- #ppb_tab (end) -->
-				<?php endif; ?>
+				</div><!-- #modules-tabs (end) -->
 
-				<a id="ppb_sortable_add_button" class="button button-primary"><?php _e( '+ Add Item', anva_textdomain() ); ?></a>
+				<div class="clear"></div>
+
+				<a id="add-builder-item" class="button button-primary button-add-item"><?php _e( '+ Add Item', anva_textdomain() ); ?></a>
+
+				<div class="clear"></div>
 				
-				<div class="content-builder-sort-footer">
+				<div class="sort-footer">
 					<div class="order_message"><?php _e( 'Drag and drop to reorder', anva_textdomain() ); ?></div>
 				</div>
 				<div class="clear"></div>
 
 				<?php
 					if ( isset( $ppb_form_data_order ) ) {
-						$ppb_form_item_arr = explode( ',', $ppb_form_data_order );
+						$items = explode( ',', $ppb_form_data_order );
 					}
 
 					$empty = '';
-					if ( ! isset( $ppb_form_item_arr[0] ) || empty( $ppb_form_item_arr[0] ) ) {
+					if ( ! isset( $items[0] ) || empty( $items[0] ) ) {
 						$empty = 'empty';
 					}
 				?>
 				
-				<ul id="content_builder_sort" class="ppb_sortable <?php echo $empty; ?>" rel="content_builder_sort_data"> 
+				<ul id="content_builder_sort" class="builder-sortable-items sortable-items <?php echo $empty; ?>" rel="content_builder_sort_data"> 
 				<?php
 
-					if ( isset( $ppb_form_item_arr[0] ) && ! empty( $ppb_form_item_arr[0] ) ) :
+					if ( isset( $items[0] ) && ! empty( $items[0] ) ) :
 						
-						foreach ( $ppb_form_item_arr as $key => $ppb_form_item )	:
+						foreach ( $items as $key => $item )	:
 
-							$ppb_form_item_data = $dd[$ppb_form_item]['data'];
-							$ppb_form_item_size = $dd[$ppb_form_item]['size'];
-							$ppb_form_item_data_obj = json_decode( $ppb_form_item_data );
+							$item_data = $dd[$item]['data'];
+							$item_size = $dd[$item]['size'];
+							$item_obj  = json_decode( $item_data );
 						
-							if ( isset( $ppb_form_item[0] ) && isset( $ppb_shortcodes[$ppb_form_item_data_obj->shortcode] ) ) :
-								$ppb_shortocde_title = $ppb_shortcodes[$ppb_form_item_data_obj->shortcode]['title'];
-								$ppb_shortocde_icon = $ppb_shortcodes[$ppb_form_item_data_obj->shortcode]['icon'];
+							if ( isset( $item[0] ) && isset( $shortcodes[$item_obj->shortcode] ) ) :
+								$shortcode_type = $shortcodes[$item_obj->shortcode]['title'];
+								$shortocde_icon = $shortcodes[$item_obj->shortcode]['icon'];
 								
-								$shortcode = $ppb_form_item_data_obj->shortcode;
+								$shortcode = $item_obj->shortcode;
 
-								if ( $ppb_form_item_data_obj->shortcode != 'ppb_divider' ) {
-									$obj_title_name = $ppb_form_item_data_obj->shortcode . '_title';
+								if ( $item_obj->shortcode != 'ppb_divider' ) {
+									$obj_title_name = $item_obj->shortcode . '_title';
 									
-									if ( property_exists( $ppb_form_item_data_obj, $obj_title_name ) ) {
-										$obj_title_name = $ppb_form_item_data_obj->$obj_title_name;
+									if ( property_exists( $item_obj, $obj_title_name ) ) {
+										$obj_title_name = $item_obj->$obj_title_name;
 									} else {
 										$obj_title_name = '';
 									}
 
 								} else {
 									$obj_title_name = '<span class="shortcode-type">' . __( 'Divider', anva_textdomain() ) . '</span>';
-									$ppb_shortocde_title = '';
+									$shortcode_type = '';
 								}
 								?>
-								<li id="<?php echo esc_attr( $ppb_form_item ); ?>" class="item item-<?php echo esc_attr( $ppb_form_item ); ?> ui-state-default <?php echo esc_attr( $ppb_form_item_size ); ?> <?php echo esc_attr( $shortcode ); ?>" data-current-size="<?php echo esc_attr( $ppb_form_item_size ); ?>">
+								<li id="<?php echo esc_attr( $item ); ?>" class="item item-<?php echo esc_attr( $item ); ?> ui-state-default <?php echo esc_attr( $shortcode ); ?>" data-current-size="<?php echo esc_attr( $item_size ); ?>">
 									<div class="actions">
-										<a title="<?php esc_html_e( 'Edit Item', anva_textdomain() )?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=pp_ppb&ppb_post_type=page&shortcode=' . $shortcode . '&rel=' . $ppb_form_item ) ); ?>" class="ppb_edit" data-rel="<?php echo esc_attr( $ppb_form_item ); ?>"></a>
+										<a title="<?php esc_html_e( 'Edit Item', anva_textdomain() )?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=pp_ppb&ppb_post_type=page&shortcode=' . $shortcode . '&rel=' . $item ) ); ?>" class="ppb_edit" data-rel="<?php echo esc_attr( $item ); ?>"></a>
 										<a title="<?php esc_html_e( 'Remove Item', anva_textdomain() )?>" href="#" class="ppb_remove"></a>
 									</div>
 									<div class="thumbnail">
-										<img src="<?php echo esc_url( $image_path . $ppb_shortocde_icon ); ?>" alt="<?php echo esc_attr( $ppb_shortocde_title ); ?>" />
+										<img src="<?php echo esc_url( $image_path . $shortocde_icon ); ?>" alt="<?php echo esc_attr( $shortcode_type ); ?>" />
 									</div>
 									<div class="title">
-										<span class="shortcode-type"><?php echo $ppb_shortocde_title; ?></span>
+										<span class="shortcode-type"><?php echo $shortcode_type; ?></span>
 										<span class="shortcode-title"><?php echo urldecode( $obj_title_name ); ?></span>
 									</div>
-									<span class="spinner spinner-<?php echo esc_attr( $ppb_form_item ); ?>"></span>
-									<input type="hidden" class="ppb_setting_columns" value="<?php echo esc_attr( $ppb_form_item_size ); ?>" />
+									<span class="spinner spinner-<?php echo esc_attr( $item ); ?>"></span>
+									<input type="hidden" class="ppb_setting_columns" value="<?php echo esc_attr( $item_size ); ?>" />
 									<div class="clear"></div>
 								</li>
 								<?php
@@ -312,7 +317,7 @@ class Anva_Builder_Meta_Box {
 			</div><!-- .meta-content-builder (end) -->
 			
 			<div class="meta meta-content-builder-export hidden">
-				<div id="export_tabs">
+				<div id="export-tabs">
 					<ul>
 						<li><a href="#meta-tabs-1"><?php _e( 'Import', anva_textdomain() ); ?></a></li>
 						<li><a href="#meta-tabs-2"><?php _e( 'Export', anva_textdomain() ); ?></a></li>
@@ -352,18 +357,25 @@ class Anva_Builder_Meta_Box {
 				</div><!-- #meta_tab (end) -->
 			</div><!-- .meta-content-builder-export (end) -->
 		
-			<script type="text/javascript">
-			jQuery(document).ready(function() {
-			/* <![CDATA[ */
-			<?php foreach ( $ppb_form_item_arr as $key => $ppb_form_item ) : ?>
-				<?php if ( ! empty( $ppb_form_item ) ) : ?>
-					<?php $ppb_form_item_data = $dd[$ppb_form_item]['data']; ?>
-					jQuery('#<?php echo esc_js( $ppb_form_item ); ?>').data('ppb_setting', '<?php echo addslashes( $ppb_form_item_data ); ?>');
-				<?php endif; ?>
-			<?php endforeach; ?>
-			/* ]]> */
-			});
-			</script>
+			<?php
+			$output  = "";
+			$output .= "<script type='text/javascript'>\n";
+			$output .= "jQuery(document).ready(function() {\n";
+			$output .= "/* <![CDATA[ */\n";
+			
+			foreach ( $items as $key => $item ) {
+				if ( ! empty( $item ) ) {
+					$item_data = $dd[$item]['data'];
+					$output .= "jQuery('#" . esc_js( $item ) . "').data('ppb_setting', '" . addslashes( $item_data ) . "');\n";
+				}
+			}
+			
+			$output .= "/* ]]> */\n";
+			$output .= "});\n";
+			$output .= "</script>";
+
+			echo $output;
+			?>
 		
 		</div><!-- .anva-meta-box (end) -->
 	<?php
@@ -587,16 +599,14 @@ class Anva_Builder_Meta_Box {
 
 		if ( isset( $_GET['shortcode'] ) && ! empty( $_GET['shortcode'] ) ) :
 			
-			$ppb_shortcodes = $this->options;
+			$shortcodes = $this->options;
 			
-			if ( isset( $ppb_shortcodes[$_GET['shortcode']] ) && ! empty( $ppb_shortcodes[$_GET['shortcode']] ) ) :
+			if ( isset( $shortcodes[$_GET['shortcode']] ) && ! empty( $shortcodes[$_GET['shortcode']] ) ) :
 				$selected_shortcode = $_GET['shortcode'];
-				$selected_shortcode_arr = $ppb_shortcodes[$_GET['shortcode']];
+				$selected_shortcode_arr = $shortcodes[$_GET['shortcode']];
 				?>
 
 				<div id="ppb_inline_<?php echo $selected_shortcode; ?>" data-shortcode="<?php echo $selected_shortcode; ?>" class="item-inline item-inline-<?php echo esc_attr( $_GET['rel'] ); ?>">
-				
-				<?php var_dump( $_GET); ?>
 
 				<div class="wrap">
 					<h2><?php echo $selected_shortcode_arr['title']; ?></h2>
@@ -711,7 +721,7 @@ class Anva_Builder_Meta_Box {
 				</div>
 				<?php endif; ?>
 
-			</div><!-- .ppb_inline (end) -->
+			</div><!-- .item-inline (end) -->
 			
 			<script type="text/javascript">
 			/* <![CDATA[ */

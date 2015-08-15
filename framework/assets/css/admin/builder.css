@@ -97,13 +97,13 @@
 /* ---------------------------------------------------------*/
 /* Anva Page Builder
 /* ---------------------------------------------------------*/
-#modules_tabs.ui-tabs .ui-tabs-nav li,
-#export_tabs.ui-tabs .ui-tabs-nav li {
+#modules-tabs.ui-tabs .ui-tabs-nav li,
+#export-tabs.ui-tabs .ui-tabs-nav li {
   margin-right: 5px;
 }
 
-#modules_tabs .ui-tabs-nav li a,
-#export_tabs .ui-tabs-nav li a {
+#modules-tabs .ui-tabs-nav li a,
+#export-tabs .ui-tabs-nav li a {
   padding: 6px 10px;
   font-weight: 700;
   font-family: "Open Sans",sans-serif;
@@ -111,8 +111,8 @@
   line-height: 24px;
 }
 
-#modules_tabs .ui-tabs-nav li.ui-state-active a,
-#export_tabs .ui-tabs-nav li.ui-state-active a {
+#modules-tabs .ui-tabs-nav li.ui-state-active a,
+#export-tabs .ui-tabs-nav li.ui-state-active a {
   color: #000;
 }
 
@@ -141,7 +141,7 @@
 /* ---------------------------------------------------------------- */
 /* Sortable Items
 /* ---------------------------------------------------------------- */
-.ppb_sortable {
+.builder-sortable-items {
   list-style: none;
   margin: 0;
   margin-bottom: 20px;
@@ -159,24 +159,24 @@
   border-top: 0;
 }
 
-.ppb_sortable:after {
+.builder-sortable-items:after {
   content: "";
   display: table;
   clear: both;
 }
 
-.ppb_sortable.empty {
+.builder-sortable-items.empty {
   display: none;
 }
 
-.ppb_sortable .ui-state-highlight {
+.builder-sortable-items .ui-state-highlight {
   height: 48px;
   line-height: 1.2em;
   background: transparent;
   border: 1px dashed #888;
 }
 
-.ppb_sortable li {
+.builder-sortable-items li {
   background: #fff;
   border: 1px solid #ddd;
   -webkit-box-sizing: border-box;
@@ -195,22 +195,22 @@
           transition: all 0.2s ease;
 }
 
-.ppb_sortable li:after {
+.builder-sortable-items li:after {
   content: "";
   display: table;
   clear: both;
 }
 
-.ppb_sortable li:hover {
+.builder-sortable-items li:hover {
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.ppb_sortable li:last-child {
+.builder-sortable-items li:last-child {
   margin-bottom: 0;
 }
 
-.ppb_sortable li .actions {
+.builder-sortable-items li .actions {
   background: rgba(0, 0, 0, 0.1);
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -221,19 +221,19 @@
   text-align: right;
 }
 
-.ppb_sortable li .thumbnail {
+.builder-sortable-items li .thumbnail {
   float: left;
   margin-right: 10px;
   border-right: 1px solid #eee;
   padding: 10px 15px 10px 15px;
 }
 
-.ppb_sortable li .thumbnail img {
+.builder-sortable-items li .thumbnail img {
   border: 1px solid #ddd;
   max-height: 30px;
 }
 
-.ppb_sortable li .title {
+.builder-sortable-items li .title {
   max-width: 100%;
   color: #777;
   font-size: 13px;
@@ -243,45 +243,45 @@
   left: 75px;
 }
 
-.ppb_sortable li.ppb_divider .title {
+.builder-sortable-items li.ppb_divider .title {
   top: 40px;
 }
 
-.ppb_sortable li.ppb_divider .ppb_edit {
+.builder-sortable-items li.ppb_divider .ppb_edit {
   display: none;
 }
 
-.ppb_sortable li .shortcode-type {
+.builder-sortable-items li .shortcode-type {
   color: #000;
   display: block;
   font-weight: normal;
 }
 
-.ppb_sortable li .ppb_edit:after {
+.builder-sortable-items li .ppb_edit:after {
   content: "\f464";
 }
 
-.ppb_sortable li .ppb_edit:hover {
+.builder-sortable-items li .ppb_edit:hover {
   color: #0073aa;
 }
 
-.ppb_sortable li .ppb_remove:after {
+.builder-sortable-items li .ppb_remove:after {
   content: "\f182";
 }
 
-.ppb_sortable li .ppb_remove:hover {
+.builder-sortable-items li .ppb_remove:hover {
   color: #a00;
 }
 
-.ppb_sortable li .ppb_remove,
-.ppb_sortable li .ppb_edit {
+.builder-sortable-items li .ppb_remove,
+.builder-sortable-items li .ppb_edit {
   color: #000;
   display: inline-block;
   margin: 3px 0 3px 5px;
 }
 
-.ppb_sortable li .ppb_remove:after,
-.ppb_sortable li .ppb_edit:after {
+.builder-sortable-items li .ppb_remove:after,
+.builder-sortable-items li .ppb_edit:after {
   display: inherit;
   width: 16px;
   height: 16px;
@@ -297,7 +297,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ppb_sortable li .ppb_unsave {
+.builder-sortable-items li .ppb_unsave {
   display: inline-block;
   font-weight: 700;
   margin-left: 5px;
@@ -305,31 +305,31 @@
   color: #0073aa;
 }
 
-.ppb_sortable li.one_fourth {
+.builder-sortable-items li.one_fourth {
   float: left;
   width: 20%;
 }
 
-.ppb_sortable li.one_half {
+.builder-sortable-items li.one_half {
   float: left;
   width: 45%;
 }
 
-.ppb_sortable li.one_third {
+.builder-sortable-items li.one_third {
   float: left;
   width: 28.5%;
 }
 
-.ppb_sortable li.two_third {
+.builder-sortable-items li.two_third {
   float: left;
   width: 57%;
 }
 
-.ppb_sortable li.one {
+.builder-sortable-items li.one {
   width: 100% !important;
 }
 
-.content-builder-sort-footer {
+.sort-footer {
   background: #eaf2fa;
   border: #c7d7e2 solid 1px;
   margin: 20px 0 0;
@@ -338,7 +338,7 @@
   overflow: hidden;
 }
 
-.content-builder-sort-footer .order_message {
+.sort-footer .order_message {
   color: #7a9bbe;
   float: left;
   font-family: Comic Sans MS, sans-serif;
@@ -448,13 +448,13 @@
   margin-bottom: 0;
 }
 
-#ppb_module_wrapper {
+.builder-modules {
   list-style: none;
   margin: 10px 0;
   width: 100%;
 }
 
-#ppb_module_wrapper li {
+.builder-modules li {
   height: 123px;
   width: 95px;
   vertical-align: top;
@@ -477,19 +477,19 @@
   position: relative;
 }
 
-#ppb_module_wrapper li:hover {
+.builder-modules li:hover {
   border-color: #999;
 }
 
-#ppb_module_wrapper li:hover span {
+.builder-modules li:hover span {
   color: #000;
 }
 
-#ppb_module_wrapper li.selected {
+.builder-modules li.selected {
   border-color: #00a0d2;
 }
 
-#ppb_module_wrapper li.selected:before {
+.builder-modules li.selected:before {
   content: "";
   position: absolute;
   left: 0;
@@ -498,7 +498,7 @@
   width: 100%;
 }
 
-#ppb_module_wrapper li.selected:after {
+.builder-modules li.selected:after {
   content: "\f147";
   font: 400 16px/24px dashicons !important;
   position: absolute;
@@ -517,13 +517,13 @@
   z-index: 1;
 }
 
-#ppb_module_wrapper li img {
+.builder-modules li img {
   max-width: 48px;
   display: block;
   margin: 7px auto 10px;
 }
 
-#ppb_module_wrapper li span {
+.builder-modules li span {
   background: #fff;
   display: table-cell;
   padding: 5px;
@@ -536,7 +536,7 @@
   vertical-align: middle;
 }
 
-#ppb_sortable_add_button {
+#add-builder-item {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
@@ -547,16 +547,16 @@
   width: 100%;
 }
 
-#modules_tabs .ui-widget-header,
-#export_tabs .ui-widget-header {
+#modules-tabs .ui-widget-header,
+#export-tabs .ui-widget-header {
   border: 0;
   border-bottom: 1px solid #ccc;
   padding-bottom: 0;
   padding-left: 10px;
 }
 
-#modules_tabs.ui-tabs .ui-tabs-panel,
-#export_tabs.ui-tabs .ui-tabs-panel {
+#modules-tabs.ui-tabs .ui-tabs-panel,
+#export-tabs.ui-tabs .ui-tabs-panel {
   border-top: 0;
   margin-bottom: 0;
   padding: 10px;

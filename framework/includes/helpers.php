@@ -282,8 +282,8 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 		'id'            => $id,
 		'name'          => $name,
 		'description'		=> $desc,
-		'before_widget' => '<aside id="%1$s" class="widget %2$s '. esc_attr( $classes ) .'"><div class="widget-inner clearfix">',
-		'after_widget'  => '</div></aside>',
+		'before_widget' => '<div id="%1$s" class="widget %2$s '. esc_attr( $classes ) .'"><div class="widget-inner clearfix">',
+		'after_widget'  => '</div></div>',
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	);
@@ -342,20 +342,24 @@ function anva_add_new_meta_box( $id, $args, $options ) {
 /**
  * Get field
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return string The field from meta box
  */
 function anva_get_field( $field, $default = false ) {
 
 	$id = null;
 	
+	// Get meta for page
 	if ( is_page() ) {
 		$page = anva_setup_page_meta();
 	}
 
+	// Get meta for posts
 	if ( is_singular( 'post' ) ) {
 		$page = anva_setup_post_meta();
 	}
 
+	// Get meta for galleries
 	if ( is_singular( 'galleries' ) ) {
 		$page = anva_setup_gallery_meta();
 	}

@@ -13,11 +13,11 @@
 	<?php anva_content_after(); ?>
 	
 	<!--BOTTOM (start) -->
-	<div id="bottom">
+	<footer id="bottom">
 
 		<?php anva_footer_above(); ?>
 		
-		<footer id="footer">
+		<div id="footer">
 			<div class="footer-content">
 				<div class="container clearfix">
 					<?php anva_footer_content(); ?>
@@ -29,11 +29,11 @@
 					<?php anva_footer_copyrights(); ?>
 				</div>
 			</div><!-- #copyrights (end) -->
-		</footer><!-- #footer (end) -->
+		</div><!-- #footer (end) -->
 
 		<?php anva_footer_below(); ?>
 
-	</div><!-- BOTTOM (end) -->
+	</footer><!-- BOTTOM (end) -->
 	
 	<?php anva_bottom_after(); ?>
 

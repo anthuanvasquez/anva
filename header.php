@@ -27,11 +27,11 @@
 	<?php anva_top_before(); ?>
 
 	<!-- TOP (start) -->
-	<div id="top">
+	<header id="top">
 
 		<?php anva_header_above(); ?>
 
-		<header id="header">
+		<div id="header">
 			<div class="header-content">	
 				<div class="container clearfix">
 					<?php anva_header_logo(); ?>
@@ -41,11 +41,11 @@
 			
 			<?php anva_header_primary_menu(); ?>
 
-		</header><!-- #header (end) -->
+		</div><!-- #header (end) -->
 
 		<?php anva_header_below(); ?>
 
-	</div><!-- TOP (end) -->
+	</header><!-- TOP (end) -->
 
 	<?php
 		// After Top

@@ -82,15 +82,6 @@ JSON.stringify = JSON.stringify || function (obj) {
 				builderItem += '</li>';
 
 				cloned = builderItem;
-
-				// if ( myCheckId != 'ppb_divider' && myCheckId != 'ppb_empty_line' ) {
-				// 	$('#' + randomId).find('.ppb_edit').trigger('click');
-				// }
-
-				// $('html, body').animate({
-				// 	scrollTop: $('#' + randomId).offset().top - 32
-				// }, 1000);
-		
 			}
 			
 			return cloned;
@@ -99,9 +90,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 		
 		},
 		stop: function( event, ui ) {
-			// alert(rand);
-			// var id = cloned.attr('id');
-			// alert('done');
+
 		}
 	});
 	
@@ -115,7 +104,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 	});
 	
 	// Tabs
-	$('#modules_tabs, #export_tabs').tabs({
+	$('#modules-tabs, #export-tabs').tabs({
 		hide: {
 			effect: "fade",
 			duration: 400
@@ -127,35 +116,37 @@ JSON.stringify = JSON.stringify || function (obj) {
 	});
 
 	// Sort Items
-	$( '.ppb_sortable' ).sortable({
+	$( '.builder-sortable-items' ).sortable({
 		placeholder: 'ui-state-highlight',
 		revert: true
 	});
 	
 	// Disable item selection
-	$( '.ppb_sortable' ).disableSelection();
+	$( '.builder-sortable-items' ).disableSelection();
 
 	// Thumbnail selected
-	var $moduleWrapper = $('#ppb_module_wrapper li');
-	$moduleWrapper.on( 'click', function(e) {
+	var $module = $('.builder-modules li');
+	$module.on( 'click', function(e) {
 		e.preventDefault();
-		$moduleWrapper.removeClass('selected');
+		$module.removeClass('selected');
 		$(this).addClass('selected');
-		var moduleSelectedId = $(this).data('module');
-		var moduleSelectedTitle = $(this).data('title');
-		var moduleSelectedImage = $(this).find('img').attr('src');	
-		$('#ppb_options').val( moduleSelectedId );
-		$('#ppb_options_title').val( moduleSelectedTitle );
-		$('#ppb_options_image').val( moduleSelectedImage );
+		var $moduleSelectedId = $(this).data('module');
+		var $moduleSelectedTitle = $(this).data('title');
+		var $moduleSelectedImage = $(this).find('img').attr('src');
+		$('#ppb_options').val( $moduleSelectedId );
+		$('#ppb_options_title').val( $moduleSelectedTitle );
+		$('#ppb_options_image').val( $moduleSelectedImage );
 	});
 
 	// Add Item
-	$('#ppb_sortable_add_button').on( 'click', function(e) {
+	$('#add-builder-item').on( 'click', function(e) {
 		e.preventDefault();
 		
 		var $targetSelect = $('#ppb_options');
 		var $targetTitle  = $('#ppb_options_title');
 		var $targetImage  = $('#ppb_options_image');
+
+		alert(JSON.stringify($targetSelect));
 		
 		randomId 			= jQuery.now();
 		myCheckId 		= $targetSelect.val();
@@ -223,6 +214,12 @@ JSON.stringify = JSON.stringify || function (obj) {
 		var $parentEle = $(this).parent('.actions').parent('li');
 		if ( confirm( 'Are you sure you want to delete this item?' ) ) {
 			$parentEle.remove();
+			
+			setTimeout( function() {
+				if ( $('#content_builder_sort li').length == 0 ) {
+					$('#content_builder_sort').addClass('empty');
+				}
+			}, 500 );
 		}
 	});
 	
@@ -274,6 +271,8 @@ JSON.stringify = JSON.stringify || function (obj) {
 					newPoint = ( el.val() - el.attr("min") ) / ( el.attr("max") - el.attr("min") );
 					el.next("output").text( el.val() );
 				}).trigger('change');
+
+				$( '.builder-sortable-items' ).enableSelection();
 
 				// Scroll to item
 				$('html, body').animate({

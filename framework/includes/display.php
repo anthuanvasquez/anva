@@ -267,7 +267,7 @@ function anva_featured_default() {
 function anva_featured_before_default() {
 	?>
 		<!-- FEATURED (start) -->
-		<div id="featured">
+		<section id="featured">
 			<div class="featured-content">
 				<div class="container clearfix">
 	<?php
@@ -277,7 +277,7 @@ function anva_featured_after_default() {
 	?>
 			</div><!-- .container (end) -->
 		</div><!-- .featured-content (end) -->
-	</div><!-- FEATURED (end) -->
+	</section><!-- FEATURED (end) -->
 	<?php
 }
 
