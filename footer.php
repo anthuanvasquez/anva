@@ -1,6 +1,8 @@
 <?php
 /**
  * The template for displaying the footer.
+ *
+ * @version 1.0.0
  */
 
 				anva_below_layout();

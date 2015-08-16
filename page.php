@@ -1,6 +1,8 @@
 <?php
 /**
  * The template file for page.
+ * 
+ * @version 1.0.0
  */
 get_header();
 ?>

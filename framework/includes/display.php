@@ -285,7 +285,7 @@ function anva_featured_after_default() {
  * Display breadcrumbs
  */
 function anva_breadcrumbs_default() {
-	$breadcrumbs = anva_get_option( 'breadcrumbs' );
+	$breadcrumbs = anva_get_option( 'breadcrumbs', 'hide' );
 	if ( 'show' == $breadcrumbs ) {
 		?>
 		<div id="breadcrumbs">
@@ -321,7 +321,6 @@ function anva_below_layout_default() {
 function anva_fixed_sidebars( $position ) {
 
 	$layout = anva_get_field( 'sidebar_layout' );
-	$page = anva_setup_page_meta();
 
 	// Set default layout
 	if ( ! is_page() && ! is_single() || empty( $layout ) ) {

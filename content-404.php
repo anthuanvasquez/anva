@@ -1,6 +1,8 @@
 <?php
 /**
- * The template used is post not found
+ * The template used is post not found.
+ * 
+ * @version 1.0.0
  */
 ?>
 <div class="article-wrapper">

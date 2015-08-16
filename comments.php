@@ -1,6 +1,8 @@
 <?php
 /**
  * The template for displaying Comments.
+ * 
+ * @version 1.0.0
  */
 
 if ( post_password_required() ) {

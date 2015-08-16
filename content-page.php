@@ -1,7 +1,10 @@
 <?php
 /**
  * The template used for displaying page content in page.php
+ * 
+ * @version 1.0.0
  */
+
 $hide_title = anva_get_field( 'hide_title' );
 ?>
 <div class="article-wrapper">

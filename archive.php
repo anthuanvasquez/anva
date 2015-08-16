@@ -1,7 +1,10 @@
 <?php
 /**
- * The template for displaying Archives
+ * The template for displaying Archives.
+ * 
  * Like category, tag, dates, post-formats, etc.
+ * 
+ * @version 1.0.0
  */
 
 get_header();

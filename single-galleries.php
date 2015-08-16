@@ -52,10 +52,10 @@ get_header();
 								// }
 
 								if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
-									$column = $templates[$gallery_template]['layout']['col'];
+									$columns = $templates[$gallery_template]['layout']['col'];
 									$size = $templates[$gallery_template]['layout']['size'];
 									$type = $templates[$gallery_template]['layout']['type'];
-									echo anva_gallery_grid( $id, $column, $size, $type );
+									echo anva_gallery_grid( $id, $columns, $size, $type );
 								}
 							?>
 							<div class="clearfix"></div>

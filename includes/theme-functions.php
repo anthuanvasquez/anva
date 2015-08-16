@@ -8,7 +8,7 @@ define( 'THEME_ID', 'texla' );
 define( 'THEME_NAME', 'Texla' );
 define( 'THEME_VERSION', '1.0.0');
 
-// Modify framework's options
+// Modify framework's core options
 require_once( get_template_directory() . '/includes/options.php' );
 
 /**
@@ -38,6 +38,8 @@ function theme_backup_menu( $menu ) {
 
 /**
  * Change the slider args
+ *
+ *
  */
 // function anva_theme_featured_size( $args ) {
 // 	if ( isset( $args['main'] ) ) {
@@ -74,11 +76,11 @@ function theme_google_fonts() {
 }
 
 function theme_add_stylesheets() {
-	// anva_add_stylesheet( 'test', get_template_directory_uri() . '/assets/css/test.css', 3 );
+	
 }
 
 function theme_add_scripts() {
-	// anva_add_script( 'test', get_template_directory_uri() . '/assets/js/test.js', 4 );
+
 }
 
 /**

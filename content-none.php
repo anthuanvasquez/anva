@@ -1,6 +1,8 @@
 <?php
 /**
  * The template used for displaying page content in 404.php
+ * 
+ * @version 1.0.0
  */
 ?>
 <div class="article-wrapper">

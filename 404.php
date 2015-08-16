@@ -1,6 +1,8 @@
 <?php
 /**
- * The template file for 404's
+ * The template file for 404's.
+ * 
+ * @version 1.0.0
  */
 
 get_header();

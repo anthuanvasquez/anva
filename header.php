@@ -1,6 +1,8 @@
 <?php
 /**
  * The template for displaying the header.
+ *
+ * @version 1.0.0
  */
 ?>
 <!DOCTYPE html>

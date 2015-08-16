@@ -14,24 +14,25 @@
 
 		// General JS strings
 		case 'js':
-			$locals = array (
-				'clear'					=> __( 'By doing this, you will clear your database of this option set. In other words, you will lose any previously saved settings. Are you sure you want to continue?', anva_textdomain() ),
-				'clear_title'		=> __( 'Clear Options', anva_textdomain() ),
-				'no_name'				=> __( 'Oops! You forgot to enter a name.', anva_textdomain() ),
-				'invalid_name'	=> __( 'Oops! The name you entered is either taken or too close to another name you\'ve already used.', anva_textdomain() ),
-				'publish'				=> __( 'Publish', anva_textdomain() ),
-				'primary_query'	=> __( 'Oops! You can only have one primary query element per layout. A paginated post list or paginated post grid would be examples of primary query elements.', anva_textdomain() ),
-				'reset'					=> __( 'By doing this, all of your default theme settings will be saved, and you will lose any previously saved settings. Are you sure you want to continue?', anva_textdomain() ),
+			$locals = array(
 				'reset_title'		=> __( 'Restore Defaults', anva_textdomain() )
+			);
+			break;
+
+		// Metabox JS Strings
+		case 'metabox_js':
+			$locals = array(
+				'ajaxurl' 							=> admin_url( 'admin-ajax.php' ),
+				'builder_empty_options' => __( 'Select an item to add it to the list.', anva_textdomain() )
 			);
 			break;
 
 		// Customizer JS strings
 		case 'customizer_js':
-			$locals = array (
+			$locals = array(
 				'disclaimer'			=> __( 'Note: The customizer provides a simulated preview, and results may vary slightly when published and viewed on your live website.', anva_textdomain() )
 			);
 			break;
 	}
-	return apply_filters( 'anva_locals_' . $type, $locals );
+	return apply_filters( 'anva_admin_locals_' . $type, $locals );
 }

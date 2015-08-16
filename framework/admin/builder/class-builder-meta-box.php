@@ -77,8 +77,11 @@ class Anva_Builder_Meta_Box {
 				return;
 	
 			$builder_dir = anva_get_core_url() . '/admin/includes/builder';
-			$params 		 = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) );
-			$vars 		 	 = array( 'url' => get_home_url(), 'includes_url' => includes_url() );
+			
+			$wp_editor = array(
+				'url' => get_home_url(),
+				'includes_url'	=> includes_url()
+			);
 
 			/* ---------------------------------------------------------------- */
 			/* WordPress
@@ -108,8 +111,8 @@ class Anva_Builder_Meta_Box {
 			wp_enqueue_script( 'js-wp-editor' );
 			wp_enqueue_script( 'anva-builder' );
 			
-			wp_localize_script( 'anva-builder', 'ANVA_VARS', $params );
-			wp_localize_script( 'js-wp-editor', 'ap_vars', $vars );
+			wp_localize_script( 'anva-builder', 'ANVA', anva_get_admin_locals( 'metabox_js' ) );
+			wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
 			
 		}
 	}

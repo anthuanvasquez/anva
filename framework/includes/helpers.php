@@ -1,4 +1,7 @@
 <?php
+/*-----------------------------------------------------------------------------------*/
+/* Helper Functions
+/*-----------------------------------------------------------------------------------*/
 
 /* ---------------------------------------------------------------- */
 /* (1) Helpers - Anva Core Options
@@ -348,6 +351,7 @@ function anva_add_new_meta_box( $id, $args, $options ) {
 function anva_get_field( $field, $default = false ) {
 
 	$id = null;
+	$page = array();
 	
 	// Get meta for page
 	if ( is_page() ) {
@@ -368,10 +372,12 @@ function anva_get_field( $field, $default = false ) {
 		$id = $page['args']['id'];
 	}
 
-	$fields = anva_get_post_meta( $id );
-
-	if ( isset( $fields[$field] ) ) {
-		return $fields[$field];
+	// Validate if ID exist
+	if ( ! is_null( $id ) ) {
+		$fields = anva_get_post_meta( $id );
+		if ( isset( $fields[$field] ) ) {
+			return $fields[$field];
+		}
 	}
 
 	return $default;

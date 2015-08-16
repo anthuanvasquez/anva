@@ -65,6 +65,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/fields.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/includes/locals.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/stylesheets.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/scripts.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/sidebars.php' );

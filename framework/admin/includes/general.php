@@ -1,8 +1,12 @@
 <?php
+/*-----------------------------------------------------------------------------------*/
+/* Admin General Functions
+/*-----------------------------------------------------------------------------------*/
 
 /**
- * Remove trailing char.
+ * Remove trailing char
  *
+ * @since  1.0.0
  * @return string
  */
 function anva_remove_trailing_char( $string, $char = ' ' ) {
@@ -22,8 +26,9 @@ function anva_remove_trailing_char( $string, $char = ' ' ) {
 }
 
 /**
- * Get font stacks.
- *
+ * Get font stacks
+ * 
+ * @since  1.0.0
  * @return array
  */
 function anva_get_font_stacks() {
@@ -45,14 +50,16 @@ function anva_get_font_stacks() {
 }
 
 /**
- * Get font face.
+ * Get font face
  *
+ * @since  1.0.0
  * @return font face name
  */
 function anva_get_font_face( $option ) {
 
 	$stack = '';
 	$stacks = anva_get_font_stacks();
+	$face = 'helvetica'; // Default font face
 
 	if ( isset( $option['face'] ) && $option['face'] == 'google'  ) {
 
@@ -66,21 +73,25 @@ function anva_get_font_face( $option ) {
 		// Add the deafult font stack to the end of the google font.
 		$stack = $name .', ' . $stacks['default'];
 
-	} else {
+	} elseif ( isset( $option['face'] ) && isset( $stacks[$option['face']] ) ) {
 		$stack = $stacks[$option['face']];
+	
+	} else {
+		$stack = $stacks[$face];
 	}
 
 	return apply_filters( 'anva_get_font_face', $stack, $option, $stacks );
 }
 
 /**
- * Get font size and set the default value.
+ * Get font size and set the default value
  *
+ * @since  1.0.0
  * @return string
  */
 function anva_get_font_size( $option ) {
 
-	$size = '14px'; // defuault font size
+	$size = '14px'; // Default font size
 
 	if ( isset( $option['size'] ) ) {
 		$size = $option['size'];
@@ -92,11 +103,12 @@ function anva_get_font_size( $option ) {
 /**
  * Get font style and set the default value.
  *
+ * @since  1.0.0
  * @return string font style
  */
 function anva_get_font_style( $option ) {
 
-	$style = 'normal';
+	$style = 'normal'; // Default font style
 
 	if ( isset( $option['style'] ) && ( $option['style'] == 'italic' || $option['style'] == 'bold-italic' ) ) {
 		$style = 'italic';
@@ -108,6 +120,7 @@ function anva_get_font_style( $option ) {
 /**
  * Get font weight and set the default value.
  *
+ * @since  1.0.0
  * @return string font weight
  */
 function anva_get_font_weight( $option ) {
@@ -122,8 +135,9 @@ function anva_get_font_weight( $option ) {
 }
 
 /**
- * Get background patterns.
+ * Get background patterns
  *
+ * @since  1.0.0
  * @return image url
  */
 function anva_get_background_pattern( $option ) {
@@ -135,6 +149,7 @@ function anva_get_background_pattern( $option ) {
  * Include font from google. Accepts unlimited
  * amount of font arguments.
  *
+ * @since  1.0.0
  * @return stylesheet link
  */
 function anva_enqueue_google_fonts() {
@@ -173,6 +188,7 @@ function anva_enqueue_google_fonts() {
 /**
  * Get social media sources and their respective names.
  *
+ * @since  1.0.0
  * @return array $profiles
  */
 function anva_get_social_media_profiles() {

@@ -1,7 +1,12 @@
 <?php
+/*-----------------------------------------------------------------------------------*/
+/* General Functions
+/*-----------------------------------------------------------------------------------*/
 
 /**
  * Make theme available for translations
+ *
+ * @since 1.0.0
  */
 function anva_load_theme_texdomain() {
 	load_theme_textdomain( anva_textdomain(), get_template_directory() . '/languages' );
@@ -9,6 +14,8 @@ function anva_load_theme_texdomain() {
 
 /**
  * Add theme support features
+ *
+ * @since 1.0.0
  */
 function anva_add_theme_support() {
 	add_theme_support( 'post-thumbnails' );
@@ -17,7 +24,9 @@ function anva_add_theme_support() {
 }
 
 /**
- * Register menus.
+ * Register menus
+ *
+ * @since 1.0.0
  */
 function anva_register_menus() {
 	register_nav_menus( array(
@@ -26,8 +35,10 @@ function anva_register_menus() {
 	));
 }
 
-/*
+/**
  * Get theme info
+ *
+ * @since 1.0.0
  */
 function anva_get_theme( $id ) {
 	
@@ -35,12 +46,12 @@ function anva_get_theme( $id ) {
 	$theme = wp_get_theme();
 
 	$data = array(
-		'name' => $theme->get( 'Name' ),
-		'uri' => $theme->get( 'ThemeURI' ),
-		'desc' => $theme->get( 'Description' ),
-		'version' => $theme->get( 'Version' ),
-		'domain' => $theme->get( 'TextDomain' ),
-		'author' => $theme->get( 'Author' ),
+		'name' 			 => $theme->get( 'Name' ),
+		'uri' 			 => $theme->get( 'ThemeURI' ),
+		'desc' 			 => $theme->get( 'Description' ),
+		'version' 	 => $theme->get( 'Version' ),
+		'domain' 		 => $theme->get( 'TextDomain' ),
+		'author' 		 => $theme->get( 'Author' ),
 		'author_uri' => $theme->get( 'AuthorURI' ),
 	);
 
@@ -51,8 +62,10 @@ function anva_get_theme( $id ) {
 	return $text;
 }
 
-/*
+/**
  * Grid columns
+ *
+ * @since 1.0.0
  */
 function anva_grid_columns() {
 	$columns = array(
@@ -90,8 +103,10 @@ function anva_grid_columns() {
 	return apply_filters( 'anva_grid_columns', $columns );
 }
 
-/*
+/**
  * Sidebar layouts
+ *
+ * @since 1.0.0
  */
 function anva_sidebar_layouts() {
 	$layouts = array(
@@ -153,8 +168,10 @@ function anva_sidebar_layouts() {
 	return apply_filters( 'anva_sidebar_layouts', $layouts );
 }
 
-/*
+/**
  * Get layout column classes
+ *
+ * @since 1.0.0
 */
 function anva_get_column_class( $column ) {
 	
@@ -163,7 +180,7 @@ function anva_get_column_class( $column ) {
 	$current_layout  = anva_get_field( 'sidebar_layout' );
 	
 	// Set default sidebar layout
-	if ( ! is_page() && ! is_single() || empty( $current_layout ) ) {
+	if ( ! is_page() && ! is_single() || empty( $current_layout ) || false == $current_layout ) {
 		$current_layout = anva_get_option( 'sidebar_layout', 'right' );
 	}
 
@@ -176,7 +193,10 @@ function anva_get_column_class( $column ) {
 }
 
 /**
- * Setup the config array for which features the framework supports
+ * Setup the config array for which
+ * features the framework supports
+ * 
+ * @since 1.0.0
  */
 function anva_setup() {
 	$setup = array(
@@ -212,6 +232,8 @@ function anva_setup() {
 
 /**
  * Test whether an feature is currently supported
+ *
+ * @since 1.0.0
  */
 function anva_supports( $group, $feature ) {
 
@@ -225,27 +247,10 @@ function anva_supports( $group, $feature ) {
 	return $supports;
 }
 
-/*
- * Return meta field outside loop
- */
-// function anva_get_field( $field ) {
-
-// 	// Get post ID
-// 	global $wp_query;
-
-// 	$id 		 = $wp_query->post->ID;
-// 	$prefix  = '_';
-// 	$field   = get_post_meta( $id, $prefix . $field, true );
-
-// 	if ( empty( $field ) ) {
-// 		$field = '';
-// 	}
-	
-// 	return $field;
-// }
-
 /**
  * Generates default column widths for column element
+ * 
+ * @since 1.0.0
  */
 function anva_column_widths() {
 	$widths = array(
@@ -379,36 +384,41 @@ function anva_column_widths() {
 	return apply_filters( 'anva_column_widths', $widths );
 }
 
+/**
+ * Get footer widget
+ * 
+ * @since 1.0.0
+ */
 function anva_get_footer_widget_columns() {
 	$columns = array(
 		'footer_1' => array(
 			'id' => 'footer_1',
 			'name' => __( 'Footer 1', 'anva' ),
-			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 1' ),
 			'col' => 1
 		),
 		'footer_2' => array(
 			'id' => 'footer_2',
 			'name' => __( 'Footer 2', 'anva' ),
-			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 2' ),
 			'col' => 2
 		),
 		'footer_3' => array(
 			'id' => 'footer_3',
 			'name' => __( 'Footer 3', 'anva' ),
-			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 3' ),
 			'col' => 3
 		),
 		'footer_4' => array(
 			'id' => 'footer_4',
 			'name' => __( 'Footer 4', 'anva' ),
-			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 4' ),
 			'col' => 4
 		),
 		'footer_5' => array(
 			'id' => 'footer_5',
 			'name' => __( 'Footer 5', 'anva' ),
-			'desc' => __( 'This the default placeholder for footer widgets.' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 5' ),
 			'col' => 5
 		)
 	);
@@ -496,23 +506,14 @@ function anva_columns( $num, $widths, $columns ) {
 	}
 }
 
-/*
- * Return the post meta field 
+/**
+ * Return the post meta field
+ * 
+ * @since 1.0.0
  */
 function anva_get_post_meta( $field ) {
 	global $post;
-	$field = get_post_meta( $post->ID, $field, true );
-	return $field;
-	var_dump($field);
-}
-
-/*
- * Get custom meta fields
- */
-function anva_get_post_custom() {
-	global $post;
-	$fields = get_post_custom( $post->ID );
-	return $fields;
+	return get_post_meta( $post->ID, $field, true );
 }
 
 /**

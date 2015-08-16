@@ -63,7 +63,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 				builderItemData.ppb_header_content = '';
 				
 				var builderItemDataJSON = JSON.stringify( builderItemData );
-				var editURL  = ANVA_VARS.ajaxurl + '?action=pp_ppb&ppb_post_type=' + postType + '&shortcode=' + myCheckId + '&rel=' + randomId;
+				var editURL  = ANVA.ajaxurl + '?action=pp_ppb&ppb_post_type=' + postType + '&shortcode=' + myCheckId + '&rel=' + randomId;
 
 				builderItem  = '<li id="' + randomId + '" class="item item-' + randomId + ' ' + myCheckId + ' ui-state-default one" data-current-size="one">';
 				builderItem += '<div class="actions">';
@@ -133,20 +133,23 @@ JSON.stringify = JSON.stringify || function (obj) {
 		var $moduleSelectedId = $(this).data('module');
 		var $moduleSelectedTitle = $(this).data('title');
 		var $moduleSelectedImage = $(this).find('img').attr('src');
-		$('#ppb_options').val( $moduleSelectedId );
-		$('#ppb_options_title').val( $moduleSelectedTitle );
-		$('#ppb_options_image').val( $moduleSelectedImage );
+		$('#builder_options').val( $moduleSelectedId );
+		$('#builder_options_title').val( $moduleSelectedTitle );
+		$('#builder_options_image').val( $moduleSelectedImage );
 	});
 
 	// Add Item
 	$('#add-builder-item').on( 'click', function(e) {
 		e.preventDefault();
 		
-		var $targetSelect = $('#ppb_options');
-		var $targetTitle  = $('#ppb_options_title');
-		var $targetImage  = $('#ppb_options_image');
+		var $targetSelect = $('#builder_options');
+		var $targetTitle  = $('#builder_options_title');
+		var $targetImage  = $('#builder_options_image');
 
-		alert(JSON.stringify($targetSelect));
+		if ( '' == $targetSelect.val() ) {
+			alert( ANVA.builder_empty_options );
+			return false;
+		}
 		
 		randomId 			= jQuery.now();
 		myCheckId 		= $targetSelect.val();
@@ -165,7 +168,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 			builderItemData.ppb_header_content = '';
 			
 			var builderItemDataJSON = JSON.stringify( builderItemData );
-			var editURL  = ANVA_VARS.ajaxurl + '?action=pp_ppb&ppb_post_type=' + postType + '&shortcode=' + myCheckId + '&rel=' + randomId;
+			var editURL  = ANVA.ajaxurl + '?action=pp_ppb&ppb_post_type=' + postType + '&shortcode=' + myCheckId + '&rel=' + randomId;
 
 			builderItem  = '<li id="' + randomId + '" class="item-' + myCheckId + ' ui-state-default one" data-current-size="one">';
 			builderItem += '<div class="actions">';

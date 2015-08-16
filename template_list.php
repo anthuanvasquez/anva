@@ -2,7 +2,7 @@
 /**
  * Template Name: Posts List
  *
- * The template used for displaying posts in list
+ * The template used for displaying posts in list.
  */
 
  get_header();

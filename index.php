@@ -1,12 +1,15 @@
 <?php
 /**
  * The main template file.
+ * 
+ * @version 1.0.0
  */
 
 get_header();
 ?>
 
 <div class="row grid-columns">
+	
 	<?php if ( ! is_front_page() ) : ?>
 		<div class="page-title">
 			<h1><?php echo __( 'Blog', anva_textdomain() ); ?></h1>
