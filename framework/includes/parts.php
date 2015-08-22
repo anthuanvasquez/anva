@@ -85,15 +85,15 @@ function anva_posted_on() {
 
 	if ( comments_open() ) {
 		if ( $num_comments == 0 ) {
-			$comments = __( 'No Comments', anva_textdomain() );
+			$comments = __( 'No Comments', 'anva' );
 		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __( ' Comments', anva_textdomain() );
+			$comments = $num_comments . __( ' Comments', 'anva' );
 		} else {
-			$comments = __( '1 Comment', anva_textdomain() );
+			$comments = __( '1 Comment', 'anva' );
 		}
 		$write_comments = '<a href="' . get_comments_link() . '"><span class="leave-reply">' . $comments . '</span></a>';
 	} else {
-		$write_comments =  __( 'Comments closed', anva_textdomain() );
+		$write_comments =  __( 'Comments closed', 'anva' );
 	}
 
 	$sep = ' / ';
@@ -346,7 +346,7 @@ function anva_post_share() {
 	if ( is_single() ) :
 	?>
 	<div class="social-share noborder clearfix">
-		<span><?php _e( 'Share this Post:', anva_textdomain() ); ?></span>
+		<span><?php _e( 'Share this Post:', 'anva' ); ?></span>
 		<div>
 			<a href="#" class="social-icon social-noborder social-facebook">
 				<i class="fa fa-facebook"></i>
@@ -386,7 +386,7 @@ function anva_post_related() {
 
 	global $post;
 	?>
-	<h3><?php _e( 'Related Posts', anva_textdomain() ); ?></h3>
+	<h3><?php _e( 'Related Posts', 'anva' ); ?></h3>
 	<div class="related-posts clearfix">
 	<?php
 
@@ -575,7 +575,7 @@ function anva_contact_form() {
 			
 			<div class="form-email form-group">
 				<label for="cemail" class="control-label"><?php echo anva_get_local( 'email' ); ?>:</label>
-				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', anva_textdomain()); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
+				<input id="email" type="email" placeholder="<?php _e('Correo Electr&oacute;nico', 'anva'); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
 			</div>
 
 			<div class="form-subject form-group">						
@@ -1029,11 +1029,11 @@ function anva_the_password_form() {
 	global $post;
 	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
 	$html  = '';
-	$html .= '<p class="lead">' . __( "To view this protected post, enter the password below", anva_textdomain() ) . ':</p>';
+	$html .= '<p class="lead">' . __( "To view this protected post, enter the password below", 'anva' ) . ':</p>';
 	$html .= '<form class="form-inline" role="form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
 	$html .= '<div class="form-group">';
 	$html .= '<input class="form-control" name="post_password" id="' . esc_attr( $label ) . '" type="password" maxlength="20" />';
-	$html .= '<input type="submit" class="btn btn-default" name="Submit" value="' . esc_attr__( "Submit", anva_textdomain() ) . '" />';
+	$html .= '<input type="submit" class="btn btn-default" name="Submit" value="' . esc_attr__( "Submit", 'anva' ) . '" />';
 	$html .= '</div>';
 	$html .= '</form>';
 	return $html;

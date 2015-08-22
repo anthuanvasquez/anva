@@ -9,7 +9,7 @@
  * @since 1.0.0
  */
 function anva_load_theme_texdomain() {
-	load_theme_textdomain( anva_textdomain(), get_template_directory() . '/languages' );
+	load_theme_textdomain( ANVA_FRAMEWORK_DOMAIN, get_template_directory() . '/languages' );
 }
 
 /**
@@ -21,6 +21,7 @@ function anva_add_theme_support() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
+	add_theme_support( 'title-tag' );
 }
 
 /**
@@ -394,37 +395,42 @@ function anva_get_footer_widget_columns() {
 		'footer_1' => array(
 			'id' => 'footer_1',
 			'name' => __( 'Footer 1', 'anva' ),
-			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 1' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 1' ),
 			'col' => 1
 		),
 		'footer_2' => array(
 			'id' => 'footer_2',
 			'name' => __( 'Footer 2', 'anva' ),
-			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 2' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 2' ),
 			'col' => 2
 		),
 		'footer_3' => array(
 			'id' => 'footer_3',
 			'name' => __( 'Footer 3', 'anva' ),
-			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 3' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 3' ),
 			'col' => 3
 		),
 		'footer_4' => array(
 			'id' => 'footer_4',
 			'name' => __( 'Footer 4', 'anva' ),
-			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 4' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 4' ),
 			'col' => 4
 		),
 		'footer_5' => array(
 			'id' => 'footer_5',
 			'name' => __( 'Footer 5', 'anva' ),
-			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), 'Footer 5' ),
+			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 5' ),
 			'col' => 5
 		)
 	);
 	return apply_filters( 'anva_get_footer_widget_columns', $columns );
 }
 
+/**
+ * Register footer sidebars based on number of columns
+ *
+ * @since 1.0.0
+ */
 function anva_register_footer_sidebar_locations() {
 	
 	$footer = anva_get_option( 'footer_setup' );
@@ -445,6 +451,11 @@ function anva_register_footer_sidebar_locations() {
 	}
 }
 
+/**
+ * Display footer sidebat locations
+ *
+ * @since 1.0.0
+ */
 function anva_display_footer_sidebar_locations() {
 
 	$footer_setup = anva_get_option( 'footer_setup' );
@@ -657,7 +668,7 @@ function anva_admin_menu_bar() {
 			array(
 				'id'			=> 'anva_theme_options',
 				'parent' 	=> 'appearance',
-				'title'		=> sprintf( '%1$s', __( 'Theme Options', anva_textdomain() ) ),
+				'title'		=> sprintf( '%1$s', __( 'Theme Options', 'anva' ) ),
 				'href'		=> admin_url( $modules['options'] )
 			)
 		);
@@ -669,7 +680,7 @@ function anva_admin_menu_bar() {
 			array(
 				'id'		 => 'anva_theme_backup',
 				'parent' => 'appearance',
-				'title'	 => sprintf( '%1$s', __( 'Theme Backup', anva_textdomain() ) ),
+				'title'	 => sprintf( '%1$s', __( 'Theme Backup', 'anva' ) ),
 				'href'	 => admin_url( $modules['backup'] )
 			)
 		);

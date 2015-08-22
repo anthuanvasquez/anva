@@ -76,8 +76,8 @@ class OptionsFramework_Backup {
 	function register_admin_screen () {
 
 		$menu = apply_filters( 'optionsframework_backup_menu', array(
-			'page_title' 	=> __( 'Backup Options', anva_textdomain() ),
-			'menu_title' 	=> __( 'Backup Options', anva_textdomain() ),
+			'page_title' 	=> __( 'Backup Options', 'anva' ),
+			'menu_title' 	=> __( 'Backup Options', 'anva' ),
 			'capability' 	=> 'manage_options',
 			'slug' 				=> $this->token,
 			'screen' 			=> array( $this, 'admin_screen' )
@@ -130,13 +130,13 @@ class OptionsFramework_Backup {
 				
 				<div class="column-1">
 				<div id="import-notice" class="section-info">
-					<p><?php printf( __( 'Please note that this backup manager backs up only your theme settings and not your content. To backup your content, please use the %sWordPress Export Tool%s.', anva_textdomain() ), '<a href="' . esc_url( admin_url( 'export.php' ) ) . '">', '</a>' ); ?></p>
+					<p><?php printf( __( 'Please note that this backup manager backs up only your theme settings and not your content. To backup your content, please use the %sWordPress Export Tool%s.', 'anva' ), '<a href="' . esc_url( admin_url( 'export.php' ) ) . '">', '</a>' ); ?></p>
 				</div><!-- #import-notice (end) -->
 
 				<div class="postbox inner-group">
-					<h3><?php _e( 'Import Settings', anva_textdomain() ); ?></h3>
+					<h3><?php _e( 'Import Settings', 'anva' ); ?></h3>
 					<div class="section-description">
-						 <?php _e( 'To get started, upload your backup file to import from below.', anva_textdomain() ); ?>
+						 <?php _e( 'To get started, upload your backup file to import from below.', 'anva' ); ?>
 					</div>
 					<div class="section section-import">
 						<h4 class="heading"><?php printf( __( 'Upload File: (Maximum Size: %s)' ), ini_get( 'post_max_size' ) ); ?></h4>
@@ -146,33 +146,33 @@ class OptionsFramework_Backup {
 									<?php wp_nonce_field( 'OptionsFramework-backup-import' ); ?>
 									<input type="file" id="OptionsFramework-import-file" name="OptionsFramework-import-file" class="anva-input-file" />
 									<input type="hidden" name="OptionsFramework-backup-import" value="1" />
-									<input type="submit" class="button" value="<?php _e( 'Upload File and Import', anva_textdomain() ); ?>" />
+									<input type="submit" class="button" value="<?php _e( 'Upload File and Import', 'anva' ); ?>" />
 								</form>
 							</div>
 							<div class="explain">
-								<?php _e( 'If you have settings in a backup file on your computer, the Import / Export system can import those into this site.', anva_textdomain() ); ?>
+								<?php _e( 'If you have settings in a backup file on your computer, the Import / Export system can import those into this site.', 'anva' ); ?>
 							</div>
 						</div><!-- .import (end) -->
 					</div><!-- .section -->
 				</div><!-- .iinner-group (end) -->
 				
 				<div class="postbox inner-group">
-					<h3><?php _e( 'Export Settings', anva_textdomain() ); ?></h3>
+					<h3><?php _e( 'Export Settings', 'anva' ); ?></h3>
 					<div class="section-description">
-						<?php _e( 'When you click the button below, the Import / Export system will create a text file for you to save to your computer.', anva_textdomain() ); ?>
+						<?php _e( 'When you click the button below, the Import / Export system will create a text file for you to save to your computer.', 'anva' ); ?>
 					</div>
 					<div class="section section-export">
-						<h4 class="heading"><?php _e( 'Export File:', anva_textdomain() ); ?></h4>
+						<h4 class="heading"><?php _e( 'Export File:', 'anva' ); ?></h4>
 						<div class="option option-export">
 							<div class="controls">
 								<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->token ) ); ?>">
 									<?php wp_nonce_field( 'OptionsFramework-backup-export' ); ?>
 									<input type="hidden" name="OptionsFramework-backup-export" value="1" />
-									<input type="submit" class="button" value="<?php _e( 'Download Export File' , anva_textdomain() ); ?>" />
+									<input type="submit" class="button" value="<?php _e( 'Download Export File' , 'anva' ); ?>" />
 								</form>
 							</div>
 							<div class="explain">
-								<?php printf( __( 'This text file can be used to restore your settings here on "%s", or to easily setup another website with the same settings".', anva_textdomain() ), get_bloginfo( 'name' ) ); ?>
+								<?php printf( __( 'This text file can be used to restore your settings here on "%s", or to easily setup another website with the same settings".', 'anva' ), get_bloginfo( 'name' ) ); ?>
 							</div>
 						</div><!-- .export (end) -->
 					</div><!-- .section (end) -->
@@ -203,14 +203,14 @@ class OptionsFramework_Backup {
 		if ( $this->admin_page == $screen->id ) {
 
 		$contextual_help =
-			'<h3>' . sprintf( __( 'Welcome to the %s Backup Manager.', anva_textdomain() ), ucfirst ( $this->name ) ) . '</h3>' .
-			'<p>' . __( 'Here are a few notes on using this screen.', anva_textdomain() ) . '</p>' .
-			'<p>' . __( 'The backup manager allows you to backup or restore your "Theme Options" and other settings to or from a text file.', anva_textdomain() ) . '</p>' .
-			'<p>' . __( 'To create a backup, simply select the setting type you\'d like to backup (or "All Settings") and hit the "Download Export File" button.', anva_textdomain() ) . '</p>' .
-			'<p>' . __( 'To restore your settings from a backup, browse your computer for the file (under the "Import Settings" heading) and hit the "Upload File and Import" button. This will restore only the settings that have changed since the backup.', anva_textdomain() ) . '</p>' .
-			'<p><strong>' . sprintf( __( 'Please note that only valid backup files generated through the %s Backup Manager should be imported.', anva_textdomain() ), ucfirst ( $this->name ) ) . '</strong></p>' .
-			'<p><strong>' . __( 'Looking for assistance?', anva_textdomain() ) . '</strong></p>' .
-			'<p>' . sprintf( __( 'Please post your query on the %sThemeForest Support Item%s where we will do our best to assist you further.', anva_textdomain() ), '<a href="' . esc_url( 'http://www.themeforest.com/user/oidoperfecto/portfolio' ) . '" target="_blank">', '</a>' ) . '</p>';
+			'<h3>' . sprintf( __( 'Welcome to the %s Backup Manager.', 'anva' ), ucfirst ( $this->name ) ) . '</h3>' .
+			'<p>' . __( 'Here are a few notes on using this screen.', 'anva' ) . '</p>' .
+			'<p>' . __( 'The backup manager allows you to backup or restore your "Theme Options" and other settings to or from a text file.', 'anva' ) . '</p>' .
+			'<p>' . __( 'To create a backup, simply select the setting type you\'d like to backup (or "All Settings") and hit the "Download Export File" button.', 'anva' ) . '</p>' .
+			'<p>' . __( 'To restore your settings from a backup, browse your computer for the file (under the "Import Settings" heading) and hit the "Upload File and Import" button. This will restore only the settings that have changed since the backup.', 'anva' ) . '</p>' .
+			'<p><strong>' . sprintf( __( 'Please note that only valid backup files generated through the %s Backup Manager should be imported.', 'anva' ), ucfirst ( $this->name ) ) . '</strong></p>' .
+			'<p><strong>' . __( 'Looking for assistance?', 'anva' ) . '</strong></p>' .
+			'<p>' . sprintf( __( 'Please post your query on the %sThemeForest Support Item%s where we will do our best to assist you further.', 'anva' ), '<a href="' . esc_url( 'http://www.themeforest.com/user/oidoperfecto/portfolio' ) . '" target="_blank">', '</a>' ) . '</p>';
 		}
 
 		return $contextual_help;

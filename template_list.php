@@ -3,6 +3,8 @@
  * Template Name: Posts List
  *
  * The template used for displaying posts in list.
+ * 
+ * @version 1.0.0
  */
 
  get_header();

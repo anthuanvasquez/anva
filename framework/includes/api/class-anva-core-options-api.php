@@ -1,6 +1,9 @@
 <?php
+
+if ( ! class_exists( 'Anva_Core_Options_API' ) ) :
+
 /**
- * Anva Options
+ * Anva Core Options
  *
  * This class establishes all of the framework's theme options,
  * allow these options to be modified from theme side.
@@ -11,9 +14,7 @@
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-if ( ! class_exists( 'Anva_Core_Options' ) ) :
-
-class Anva_Core_Options {
+class Anva_Core_Options_API {
 
 	/**
 	 * A single instance of this class
@@ -56,12 +57,14 @@ class Anva_Core_Options {
 	 */
 	private function __construct() {
 
-		// Setup options
-		$this->set_raw_options();
+		if ( is_admin() ) {
+			
+			// Setup options
+			$this->set_raw_options();
 
-		// Format options, and store saved settings
-		add_action( 'after_setup_theme', array( $this, 'set_formatted_options' ), 1000 );
-
+			// Format options
+			add_action( 'after_setup_theme', array( $this, 'set_formatted_options' ), 1000 );
+		}
 	}
 
 	/**
@@ -77,30 +80,38 @@ class Anva_Core_Options {
 		/* ---------------------------------------------------------------- */
 		/* Helpers
 		/* ---------------------------------------------------------------- */
-
-		// Text Domain
-		$domain = anva_textdomain();
+		
+		// Fill layouts array
+		$layouts = array();
+		if ( is_admin() ) {
+			foreach ( anva_sidebar_layouts() as $key => $value ) {
+				$layouts[$key] = esc_html( $value['name'] );
+			}
+		}
 
 		// Pull all the categories into an array
-		$options_categories = array();
-		$options_categories_obj = get_categories();
-		foreach ( $options_categories_obj as $category ) {
-			$options_categories[$category->cat_ID] = $category->cat_name;
+		$categories = array();
+		if ( is_admin() ) {
+			foreach ( get_categories() as $category ) {
+				$categories[$category->cat_ID] = $category->cat_name;
+			}
 		}
 
 		// Pull all the pages into an array
-		// $options_pages = array();
-		// $options_pages_obj = get_pages( 'sort_column=post_parent,menu_order' );
-		// $options_pages[''] = __( 'Select a page:', anva_textdomain() );
-		// foreach ( $options_pages_obj as $page ) {
-		// 	$options_pages[$page->ID] = $page->post_title;
-		// }
+		$pages = array();
+		if ( is_admin() ) {
+			$pages[''] = __( 'Select a page', 'anva' ) . ':';
+			foreach ( get_pages( 'sort_column=post_parent,menu_order' ) as $page ) {
+				$pages[$page->ID] = $page->post_title;
+			}
+		}
 
 		// Pull all gallery templates
-		$options_galleries = array();
-		$options_galleries_obj = anva_gallery_templates();
-		foreach ( $options_galleries_obj as $key => $gallery ) {
-			$options_galleries[$key] = $gallery['name'];
+		$galleries = array();
+		if ( is_admin() ) {
+			foreach ( anva_gallery_templates() as $key => $gallery ) {
+				$galleries[$key] = $gallery['name'];
+			}
 		}
 
 		/* ---------------------------------------------------------------- */
@@ -118,10 +129,10 @@ class Anva_Core_Options {
 
 		// Template defaults
 		$template_defaults = array(
-			'blog' 				=> __( 'Classic Blog', $domain ),
-			'search' 			=> __( 'Classic Search', $domain ),
-			'2col' 				=> __( '2 Columns', $domain),
-			'3col' 				=> __( '3 Columns', $domain )
+			'blog' 				=> __( 'Classic Blog', 'anva' ),
+			'search' 			=> __( 'Classic Search', 'anva' ),
+			'2col' 				=> __( '2 Columns', 'anva'),
+			'3col' 				=> __( '3 Columns', 'anva' )
 		);
 
 		// Social media buttons defautls
@@ -155,48 +166,48 @@ class Anva_Core_Options {
 			
 			// Layout
 			'layout' => array(
-				'name' => __( 'Layout', $domain ),
-				'desc' => __( 'This is the section of layout inputs.', $domain ),
+				'name' => __( 'Layout', 'anva' ),
+				'desc' => __( 'This is the section of layout inputs.', 'anva' ),
 				'class' => 'group-layout',
 				'options' => array(
 					
 					// Laout Style
 					'layout_style' => array(
-						'name' => __('Layout Style', $domain),
-						'desc' => __('Select the layout style.', $domain),
+						'name' => __('Layout Style', 'anva'),
+						'desc' => __('Select the layout style.', 'anva'),
 						'id' => 'layout_style',
 						'std' => 'boxed',
 						'class' => 'input-select',
 						'type' => 'select',
 						'options' => array(
-							'boxed' => __( 'Boxed', $domain ),
-							'stretched' => __( 'Stretched', $domain )
+							'boxed' => __( 'Boxed', 'anva' ),
+							'stretched' => __( 'Stretched', 'anva' )
 						)
 					),
 					
 					// Social Media Style
 					'social' => array(
-						'name' => __('Social Media Buttons Style', $domain),
-						'desc' => __('Select the style for your social media buttons.', $domain),
+						'name' => __('Social Media Buttons Style', 'anva'),
+						'desc' => __('Select the style for your social media buttons.', 'anva'),
 						'id' => 'social_media_style',
 						'std' => 'light',
 						'type' => 'select',
 						'options' => array(
-							'light' 	=> __('Light', $domain),
-							'colored' => __('Colored', $domain),
-							'dark' 		=> __('Dark', $domain),
+							'light' 	=> __('Light', 'anva'),
+							'colored' => __('Colored', 'anva'),
+							'dark' 		=> __('Dark', 'anva'),
 						)
 					),
 				)
 			), // End Layout
 			
 			'typography' => array(
-				'name' => __( 'Typography', $domain ),
+				'name' => __( 'Typography', 'anva' ),
 				'class' => 'group-typography',
 				'options'	=> array(
 					'body_font' => array(
-						'name' => __('Body Font', $domain),
-						'desc' => __('This applies to most of the text on your site.', $domain),
+						'name' => __('Body Font', 'anva'),
+						'desc' => __('This applies to most of the text on your site.', 'anva'),
 						'id' => "body_font",
 						'std' => array(
 							'size' => '14px',
@@ -209,8 +220,8 @@ class Anva_Core_Options {
 					),
 					
 					'heading_font' => array(
-						'name' => __( 'Headings Font', $domain),
-						'desc' => __( 'This applies to all of the primary headers throughout your site (h1, h2, h3, h4, h5, h6). This would include header tags used in redundant areas like widgets and the content of posts and pages.', $domain),
+						'name' => __( 'Headings Font', 'anva'),
+						'desc' => __( 'This applies to all of the primary headers throughout your site (h1, h2, h3, h4, h5, h6). This would include header tags used in redundant areas like widgets and the content of posts and pages.', 'anva'),
 						'id' => "heading_font",
 						'std' => array(
 							'face' => 'google',
@@ -223,8 +234,8 @@ class Anva_Core_Options {
 					),
 
 					'heading_h1' => array(
-						'name' => __('H1', $domain),
-						'desc' => __('Select the size for H1 tag in px.', $domain),
+						'name' => __('H1', 'anva'),
+						'desc' => __('Select the size for H1 tag in px.', 'anva'),
 						'id' => 'heading_h1',
 						'std' => '27',
 						'type' => 'range',
@@ -237,8 +248,8 @@ class Anva_Core_Options {
 					),
 
 					'heading_h2' => array(
-						'name' => __('H2', $domain),
-						'desc' => __('Select the size for H2 tag in px.', $domain),
+						'name' => __('H2', 'anva'),
+						'desc' => __('Select the size for H2 tag in px.', 'anva'),
 						'id' => 'heading_h2',
 						'std' => '24',
 						'type' => 'range',
@@ -251,8 +262,8 @@ class Anva_Core_Options {
 					),
 
 					'heading_h3' => array(
-						'name' => __('H3', $domain),
-						'desc' => __('Select the size for H3 tag in px.', $domain),
+						'name' => __('H3', 'anva'),
+						'desc' => __('Select the size for H3 tag in px.', 'anva'),
 						'id' => 'heading_h3',
 						'std' => '18',
 						'type' => 'range',
@@ -265,8 +276,8 @@ class Anva_Core_Options {
 					),
 
 					'heading_h4' => array(
-						'name' => __('H4', $domain),
-						'desc' => __('Select the size for H4 tag in px.', $domain),
+						'name' => __('H4', 'anva'),
+						'desc' => __('Select the size for H4 tag in px.', 'anva'),
 						'id' => 'heading_h4',
 						'std' => '14',
 						'type' => 'range',
@@ -279,8 +290,8 @@ class Anva_Core_Options {
 					),
 
 					'heading_h5' => array(
-						'name' => __('H5', $domain),
-						'desc' => __('Select the size for H5 tag in px.', $domain),
+						'name' => __('H5', 'anva'),
+						'desc' => __('Select the size for H5 tag in px.', 'anva'),
 						'id' => 'heading_h5',
 						'std' => '13',
 						'type' => 'range',
@@ -293,8 +304,8 @@ class Anva_Core_Options {
 					),
 
 					'heading_h6' => array(
-						'name' => __('H6', $domain),
-						'desc' => __('Select the size for H6 tag in px.', $domain),
+						'name' => __('H6', 'anva'),
+						'desc' => __('Select the size for H6 tag in px.', 'anva'),
 						'id' => 'heading_h6',
 						'std' => '11',
 						'type' => 'range',
@@ -310,15 +321,15 @@ class Anva_Core_Options {
 			
 			// Links
 			'links' => array(
-				'name' => __( 'Links', $domain ),
+				'name' => __( 'Links', 'anva' ),
 				'class' => 'group-links',
 				'type' 	=> 'group_start',
 				'options' => array(
 					
 					// Link Color
 					'link_color' => array(
-						'name' => __('Link Color', $domain),
-						'desc' => __('Set the link color.', $domain),
+						'name' => __('Link Color', 'anva'),
+						'desc' => __('Set the link color.', 'anva'),
 						'id' => 'link_color',
 						'std' => '#ff0000',
 						'type' => 'color'
@@ -326,8 +337,8 @@ class Anva_Core_Options {
 					
 					// Link Color Hover
 					'link_color_hover' => array(
-						'name' => __('Link Color (:Hover)', $domain),
-						'desc' => __('Set the link color.', $domain),
+						'name' => __('Link Color (:Hover)', 'anva'),
+						'desc' => __('Set the link color.', 'anva'),
 						'id' => 'link_color_hover',
 						'std' => '#ff0000',
 						'type' => 'color'
@@ -337,21 +348,21 @@ class Anva_Core_Options {
 
 			// Background
 			'background' => array(
-				'name' 	=> __( 'Background', $domain ),
+				'name' 	=> __( 'Background', 'anva' ),
 				'class' => 'group-background',
 				'options' => array(
 
 					'background_color' => array(
-						'name' => __('Background Color', $domain),
-						'desc' => __('Select the background color.', $domain),
+						'name' => __('Background Color', 'anva'),
+						'desc' => __('Select the background color.', 'anva'),
 						'id' => 'background_color',
 						'std' => '#dddddd',
 						'type' => 'color'
 					),
 
 					'background_image' => array(
-						'name' => __('Background Image', $domain),
-						'desc' => __('Select the background color.', $domain),
+						'name' => __('Background Image', 'anva'),
+						'desc' => __('Select the background color.', 'anva'),
 						'id' => 'background_image',
 						'std' => array(
 							'color' => '#dddddd',
@@ -364,8 +375,8 @@ class Anva_Core_Options {
 					),
 
 					'background_pattern' => array(
-						'name' => __( 'Background Pattern', $domain ),
-						'desc' => __( 'Select the background pattern.', $domain ),
+						'name' => __( 'Background Pattern', 'anva' ),
+						'desc' => __( 'Select the background pattern.', 'anva' ),
 						'id' => 'background_pattern',
 						'std' => '',
 						'type' => 'select',
@@ -385,18 +396,18 @@ class Anva_Core_Options {
 			), // End Background
 			
 			'custom' => array(
-				'name' 	=> __('Custom', $domain),
+				'name' 	=> __('Custom', 'anva'),
 				'class' => 'group-custom',
 				'options' => array(
 					'css_warning' => array(
-						'name' => __('Warning', $domain),
-						'desc' => __('If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', $domain),
+						'name' => __('Warning', 'anva'),
+						'desc' => __('If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva'),
 						'id' => 'css_warning',
 						'type' => 'info'
 					),
 					'custom_css' => array(
-						'name' => __('Custom CSS', $domain),
-						'desc' => __('If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', $domain),
+						'name' => __('Custom CSS', 'anva'),
+						'desc' => __('If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva'),
 						'id' => 'custom_css',
 						'std' => '',
 						'type' => 'textarea'
@@ -411,21 +422,25 @@ class Anva_Core_Options {
 
 		$layout_options = array(
 			
+			/*--------------------------------------------*/
+			/* Header
+			/*--------------------------------------------*/
+
 			'header' => array(
-				'name' 	=> __( 'Header', $domain ),
+				'name' 	=> __( 'Header', 'anva' ),
 				'class' => 'group-header',
 				'options' => array(
 					'logo' => array(
-						'name' => __( 'Logo', $domain ),
-						'desc' => __( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', $domain ),
+						'name' => __( 'Logo', 'anva' ),
+						'desc' => __( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', 'anva' ),
 						'id' => 'logo',
 						'std' => $logo_defaults,
 						'type' => 'logo'
 					),
 
 					'favicon' => array(
-						'name' => __('Favicon', $domain),
-						'desc' => __('Configure your won favicon.', $domain),
+						'name' => __('Favicon', 'anva'),
+						'desc' => __('Configure your won favicon.', 'anva'),
 						'id' => 'favicon',
 						'std' => '',
 						'class' => 'input-text',
@@ -433,88 +448,93 @@ class Anva_Core_Options {
 					),
 
 					'social_media' => array(
-						"name" => __('Social Media', $domain),  
-						"desc" => __('Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: http://twitter.com/oidoperfecto. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>'.get_feed_link().'</strong>.', $domain),  
+						"name" => __('Social Media', 'anva'),  
+						"desc" => __('Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: http://twitter.com/oidoperfecto. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>'.get_feed_link().'</strong>.', 'anva'),  
 						"id" => "social_media",
 						"type" => "social_media",
 						"std" => $social_media_defaults
 					)
 				)
-			), // End Header
+			),
 			
+			/*--------------------------------------------*/
+			/* Main
+			/*--------------------------------------------*/
+
 			'main' => array(
-				'name' 	=> __( 'Main', $domain ),
+				'name' 	=> __( 'Main', 'anva' ),
 				'class' => 'group-main',
 				'options' => array(
 					'breadcrumbs' => array(
-						'name' => __('Breadcrumbs', $domain),
-						'desc' => __('Select whether youd like breadcrumbs to show throughout the site or not.', $domain),
+						'name' => __('Breadcrumbs', 'anva'),
+						'desc' => __('Select whether youd like breadcrumbs to show throughout the site or not.', 'anva'),
 						'id' => 'breadcrumbs',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show breadcrumbs', $domain),
-							'hide' => __('Hide breadcrumbs', $domain)
+							'show' => __('Show breadcrumbs', 'anva'),
+							'hide' => __('Hide breadcrumbs', 'anva')
 						)
 					),
 
 					'sidebar_layout' => array(
-						'name' => __( 'Default Sidebar Layout', $domain),
-						'desc' => __( 'Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', $domain),
+						'name' => __( 'Default Sidebar Layout', 'anva'),
+						'desc' => __( 'Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', 'anva'),
 						'id' => 'sidebar_layout',
 						'std' => 'right',
 						'type' => 'select',
-						'options' => array(
-							'fullwidth' 		=> __( 'Full Width', $domain ),
-							'right' 				=> __( 'Sidebar Right', $domain ),
-							'left' 					=> __( 'Sidebar Left', $domain ),
-							'double' 				=> __( 'Double Sidebars', $domain ),
-							'double_right' 	=> __( 'Double Right Sidebars', $domain ),
-							'double_left' 	=> __( 'Double Left Sidebars', $domain )
-						)
+						'options' => $layouts
 					),
 				)
-			), // End Main
+			),
+
+			/*--------------------------------------------*/
+			/* Gallery
+			/*--------------------------------------------*/
 
 			'gallery' => array(
-				'name' => __( 'Gallery', $domain ),
+				'name' => __( 'Gallery', 'anva' ),
 				'class' => 'group-gallery',
 				'options' => array(
 
 					'gallery_sort' => array(
-						'name' => __('Images Sorting', $domain),
-						'desc' => __('Select how you want to sort gallery images.', $domain),
+						'name' => __('Images Sorting', 'anva'),
+						'desc' => __('Select how you want to sort gallery images.', 'anva'),
 						'id' => 'gallery_sort',
 						'std' => 'drag',
 						'type' => 'select',
 						'options' => array(
-							'drag' => __('By Drag & Drop', $domain),
-							'desc' => __('By Newest', $domain),
-							'asc' => __('By Oldest', $domain),
-							'rand' => __('By Random', $domain),
-							'title' => __('By Title', $domain)
+							'drag' => __('Drag & Drop', 'anva'),
+							'desc' => __('Newest', 'anva'),
+							'asc' => __('Oldest', 'anva'),
+							'rand' => __('Random', 'anva'),
+							'title' => __('Title', 'anva')
 						)
 					),
 
 					'gallery_template' => array(
-						'name' => __('Default Template', $domain),
-						'desc' => __('Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', $domain),
+						'name' => __('Default Template', 'anva'),
+						'desc' => __('Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', 'anva'),
 						'id' => 'gallery_template',
 						'std' => '3-col',
 						'type' => 'select',
-						'options' => $options_galleries
+						'options' => $galleries
 					),
 				)
-			), // End Gallery
+			),
+
+			/*--------------------------------------------*/
+			/* Flex Slider
+			/*--------------------------------------------*/
 			
 			'slider' => array(
-				'name' => __( 'Flex Slider', $domain ),
+				'name' => __( 'Flex Slider', 'anva' ),
 				'class' => 'group-slider',
 				'options' => array(
 
 					'slider_active' => array(
-						'name' => __( 'Active Flex Slider', $domain),
-						'desc' => __( 'Active the flex slider.', $domain),
+						'name' => __( 'Active Flex Slider', 'anva'),
+						'desc' => __( 'Active the flex slider.', 'anva'),
 						'id' => 'slider_active',
 						'std' => 1,
 						'type' => 'checkbox',
@@ -525,60 +545,64 @@ class Anva_Core_Options {
 					),
 
 					'slider_speed' => array(
-						'name' => __('Speed', $domain),
-						'desc' => __('Set the slider speed. Default is 7000 in milliseconds.', $domain),
+						'name' => __('Speed', 'anva'),
+						'desc' => __('Set the slider speed. Default is 7000 in milliseconds.', 'anva'),
 						'id' => 'slider_speed',
 						'std' => '7000',
 						'type' => 'number'
 					),
 
 					'slider_control' => array(
-						'name' => __('Control Navigation', $domain),
-						'desc' => __('Show or hide the slider control navigation.', $domain),
+						'name' => __('Control Navigation', 'anva'),
+						'desc' => __('Show or hide the slider control navigation.', 'anva'),
 						'id' => 'slider_control',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show the slider control', $domain),
-							'hide' => __('Hide the slider control', $domain)
+							'show' => __('Show the slider control', 'anva'),
+							'hide' => __('Hide the slider control', 'anva')
 						)
 					),
 
 					'slider_direction' => array(
-						'name' => __('Direction Navigation', $domain),
-						'desc' => __('Show or hide the slider direction navigation.', $domain),
+						'name' => __('Direction Navigation', 'anva'),
+						'desc' => __('Show or hide the slider direction navigation.', 'anva'),
 						'id' => 'slider_direction',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show the slider direction', $domain),
-							'hide' => __('Hide the slider direction', $domain)
+							'show' => __('Show the slider direction', 'anva'),
+							'hide' => __('Hide the slider direction', 'anva')
 						)
 					),
 				)
-			), // End Flex Slider
+			),
+
+			/*--------------------------------------------*/
+			/* Footer
+			/*--------------------------------------------*/
 
 			'footer' => array(
-				'name' => __( 'Footer', $domain ),
+				'name' => __( 'Footer', 'anva' ),
 				'class' => 'group-header',
 				'options' => array(
 					
 					'footer_setup' => array(
-						'name'		=> __( 'Setup Columns', $domain ),
-						'desc'		=> __( 'Choose the number of columns along with the corresponding width configurations.', $domain ),
+						'name'		=> __( 'Setup Columns', 'anva' ),
+						'desc'		=> __( 'Choose the number of columns along with the corresponding width configurations.', 'anva' ),
 						'id' 			=> 'footer_setup',
 						'type'		=> 'columns'
 					),
 
 					'footer_copyright' => array(
-						'name' => __( 'Copyright Text', $domain ),
-						'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your site.', $domain ),
+						'name' => __( 'Copyright Text', 'anva' ),
+						'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your site.', 'anva' ),
 						'id' => "footer_copyright",
-						'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', $domain ), date( 'Y' ), get_bloginfo( 'name' ), $author ),
+						'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), get_bloginfo( 'name' ), $author ),
 						'type' => "textarea"
 					),
 				)
-			), // End Footer
+			),
 		);
 
 		/* ---------------------------------------------------------------- */
@@ -588,173 +612,173 @@ class Anva_Core_Options {
 		$content_options = array(
 			
 			'single' => array(
-				'name' => __( 'Single Posts', $domain ),
-				'desc' => __( 'These settings will only apply to vewing single posts.', $domain ),
+				'name' => __( 'Single Posts', 'anva' ),
+				'desc' => __( 'These settings will only apply to vewing single posts.', 'anva' ),
 				'class' => 'group-single-posts',
 				'options' => array(
 
 					'single_meta' => array(
-						'name' => __('Show meta info', $domain),
-						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the post.', $domain),
+						'name' => __('Show meta info', 'anva'),
+						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the post.', 'anva'),
 						'id' => 'single_meta',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show meta info', $domain),
-							'hide' => __('Hide meta info', $domain),
+							'show' => __('Show meta info', 'anva'),
+							'hide' => __('Hide meta info', 'anva'),
 						)
 					),
 
 					'single_thumb' => array(
-						'name' => __('Show featured images', $domain),
-						'desc' => __('Choose how you want your featured images to show at the top of the posts.', $domain),
+						'name' => __('Show featured images', 'anva'),
+						'desc' => __('Choose how you want your featured images to show at the top of the posts.', 'anva'),
 						'id' => 'single_thumb',
 						'std' => 'large',
 						'type' => 'radio',
 						'options' => array(
-							'small' => __('Show small thumbnails', $domain),
-							'large' => __('Show large thumbnails', $domain),
-							'hide' => __('Hide thumbnails', $domain),
+							'small' => __('Show small thumbnails', 'anva'),
+							'large' => __('Show large thumbnails', 'anva'),
+							'hide' => __('Hide thumbnails', 'anva'),
 						)
 					),
 
 					'single_comments' => array(
-						'name' => __('Show comments', $domain),
-						'desc' => __('Select if you\'d like to completely hide comments or not below the post.', $domain),
+						'name' => __('Show comments', 'anva'),
+						'desc' => __('Select if you\'d like to completely hide comments or not below the post.', 'anva'),
 						'id' => 'single_comments',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show comments', $domain),
-							'hide' => __('Hide comments', $domain),
+							'show' => __('Show comments', 'anva'),
+							'hide' => __('Hide comments', 'anva'),
 						)
 					),
 
 					'single_share' => array(
-						'name' => __('Show share buttons', $domain),
-						'desc' => __('Select to display socials sharing in single posts.', $domain),
+						'name' => __('Show share buttons', 'anva'),
+						'desc' => __('Select to display socials sharing in single posts.', 'anva'),
 						'id' => 'single_share',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show share buttons', $domain),
-							'hide' => __('Hide share buttons', $domain)
+							'show' => __('Show share buttons', 'anva'),
+							'hide' => __('Hide share buttons', 'anva')
 						)
 					),
 
 					'single_author' => array(
-						'name' => __('Show about author', $domain),
-						'desc' => __('Select to display about the author in single posts.', $domain),
+						'name' => __('Show about author', 'anva'),
+						'desc' => __('Select to display about the author in single posts.', 'anva'),
 						'id' => 'single_author',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show about author', $domain),
-							'hide' => __('Hide about author', $domain)
+							'show' => __('Show about author', 'anva'),
+							'hide' => __('Hide about author', 'anva')
 						)
 					),
 
 					'single_related' => array(
-						'name' => __('Show related posts', $domain),
-						'desc' => __('Select to display related posts in single posts.', $domain),
+						'name' => __('Show related posts', 'anva'),
+						'desc' => __('Select to display related posts in single posts.', 'anva'),
 						'id' => 'single_related',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show related posts', $domain),
-							'hide' => __('Hide related posts', $domain),
+							'show' => __('Show related posts', 'anva'),
+							'hide' => __('Hide related posts', 'anva'),
 						)
 					),
 
 					'single_navigation' => array(
-						'name' => __('Show navigation posts', $domain),
-						'desc' => __('Select to display next and previous posts in single posts.', $domain),
+						'name' => __('Show navigation posts', 'anva'),
+						'desc' => __('Select to display next and previous posts in single posts.', 'anva'),
 						'id' => 'single_navigation',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show navigation posts', $domain),
-							'hide' => __('Hide navigation posts', $domain),
+							'show' => __('Show navigation posts', 'anva'),
+							'hide' => __('Hide navigation posts', 'anva'),
 						)
 					),
 				)
 			), // End Single
 
 			'primary' => array(
-				'name' 	=> __( 'Primary Posts', $domain ),
-				'desc' 	=> __( 'These settings apply to your primary posts page', $domain ),
+				'name' 	=> __( 'Primary Posts', 'anva' ),
+				'desc' 	=> __( 'These settings apply to your primary posts page', 'anva' ),
 				'class' => 'group-primary-posts',
 				'options' => array(
 
 					'primary_meta' => array(
-						'name' => __('Show meta info', $domain),
-						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the primary posts.', $domain),
+						'name' => __('Show meta info', 'anva'),
+						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the primary posts.', 'anva'),
 						'id' => 'primary_meta',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show meta info', $domain),
-							'hide' => __('Hide meta info', $domain),
+							'show' => __('Show meta info', 'anva'),
+							'hide' => __('Hide meta info', 'anva'),
 						)
 					),
 
 					'primary_thumb' => array(
-						'name' => __('Show featured images', $domain),
-						'desc' => __('Choose how you want your featured images to show in primary posts.', $domain),
+						'name' => __('Show featured images', 'anva'),
+						'desc' => __('Choose how you want your featured images to show in primary posts.', 'anva'),
 						'id' => 'primary_thumb',
 						'std' => 'large',
 						'type' => 'radio',
 						'options' => array(
-							'small' => __('Show small thumbnails', $domain),
-							'large' => __('Show large thumbnails', $domain),
-							'hide' => __('Hide thumbnails', $domain),
+							'small' => __('Show small thumbnails', 'anva'),
+							'large' => __('Show large thumbnails', 'anva'),
+							'hide' => __('Hide thumbnails', 'anva'),
 						)
 					),
 
 					'primary_content' => array(
-						'name' => __('Show excerpt or full content', $domain),
-						'desc' => __('Choose whether you want to show full content or post excerpts only.', $domain),
+						'name' => __('Show excerpt or full content', 'anva'),
+						'desc' => __('Choose whether you want to show full content or post excerpts only.', 'anva'),
 						'id' => 'primary_content',
 						'std' => 'excerpt',
 						'type' => 'radio',
 						'options' => array(
-							'content' => __('Show full content', $domain),
-							'excerpt' => __('Show excerpt', $domain),
+							'content' => __('Show full content', 'anva'),
+							'excerpt' => __('Show excerpt', 'anva'),
 						)
 					),
 
 					'exclude_categories' => array(
-						'name' => __('Exclude Categories', $domain),
-						'desc' => __('Select any categories you\'d like to be excluded from your blog.', $domain),
+						'name' => __('Exclude Categories', 'anva'),
+						'desc' => __('Select any categories you\'d like to be excluded from your blog.', 'anva'),
 						'id' => 'exclude_categories',
 						'std' => array(),
 						'type' => 'multicheck',
-						'options' => $options_categories
+						'options' => $categories
 					),
 				)
 			), // End Primary
 
 			'archives' => array(
-				'name' => __( 'Archives', $domain ),
-				'desc' => __( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', $domain ),
+				'name' => __( 'Archives', 'anva' ),
+				'desc' => __( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', 'anva' ),
 				'class' => 'group-archives',
 				'options' => array(
 					
 					'archive_title' => array(
-						'name' => __('Show titles', $domain),
-						'desc' => __('Choose whether or not you want the title to show on tag archives, category archives, date archives, author archives and search result pages.', $domain),
+						'name' => __('Show titles', 'anva'),
+						'desc' => __('Choose whether or not you want the title to show on tag archives, category archives, date archives, author archives and search result pages.', 'anva'),
 						'id' => 'archive_title',
 						'std' => 'show',
 						'type' => 'radio',
 						'options' => array(
-							'show' => __('Show the title', $domain),
-							'hide' => __('Hide title', $domain),
+							'show' => __('Show the title', 'anva'),
+							'hide' => __('Hide title', 'anva'),
 						)
 					),
 
 					'archive_page' => array(
-						'name' => __('Page Layout', $domain),
-						'desc' => __('Select default layout for archive page.', $domain),
+						'name' => __('Page Layout', 'anva'),
+						'desc' => __('Select default layout for archive page.', 'anva'),
 						'id' => 'archive_page',
 						'std' => 'blog',
 						'type' => 'select',
@@ -771,26 +795,26 @@ class Anva_Core_Options {
 		$advanced_options = array(
 
 			'responsive' => array(
-				'name' 	=> __( 'Responsive', $domain ),
+				'name' 	=> __( 'Responsive', 'anva' ),
 				'class' => 'group-responsive',
 				'type' 	=> 'group_start',
 				'options' => array(
 
 					'responsive' => array(
-						'name' => __( 'Responsive', $domain ),
-						'desc' => __( 'This theme comes with a special stylesheet that will target the screen resolution of your website vistors and show them a slightly modified design if their screen resolution matches common sizes for a tablet or a mobile device.', $domain ),
+						'name' => __( 'Responsive', 'anva' ),
+						'desc' => __( 'This theme comes with a special stylesheet that will target the screen resolution of your website vistors and show them a slightly modified design if their screen resolution matches common sizes for a tablet or a mobile device.', 'anva' ),
 						'id' => "responsive",
 						'std' => 'yes',
 						'type' => 'radio',
 						'options' => array(
-							'yes' => __( 'Yes, apply special styles to tablets and mobile devices', $domain ),
-							'no' 	=> __( 'No, allow website to show normally on tablets and mobile devices', $domain ),
+							'yes' => __( 'Yes, apply special styles to tablets and mobile devices', 'anva' ),
+							'no' 	=> __( 'No, allow website to show normally on tablets and mobile devices', 'anva' ),
 						)
 					),
 
 					'responsive_css_992' => array(
-						'name' => __( 'Add styles to tablet devices only', $domain ),
-						'desc' => __( 'This CSS styles apply to breakpoint @media screen and (max-width: 992px).', $domain ),
+						'name' => __( 'Add styles to tablet devices only', 'anva' ),
+						'desc' => __( 'This CSS styles apply to breakpoint @media screen and (max-width: 992px).', 'anva' ),
 						'id' => 'responsive_css_992',
 						'std' => '',
 						'type' => 'textarea'
@@ -798,8 +822,8 @@ class Anva_Core_Options {
 					),
 
 					'responsive_css_768' => array(
-						'name' => __( 'Add styles to mobile devices only', $domain ),
-						'desc' => __( 'This CSS styles apply to breakpoint @media screen and (max-width: 768px).', $domain ),
+						'name' => __( 'Add styles to mobile devices only', 'anva' ),
+						'desc' => __( 'This CSS styles apply to breakpoint @media screen and (max-width: 768px).', 'anva' ),
 						'id' => 'responsive_css_768',
 						'std' => '',
 						'type' => 'textarea'
@@ -808,29 +832,29 @@ class Anva_Core_Options {
 			), // End Responsive
 
 			'minify' => array(
-				'name' 	=> __( 'Minify', $domain ),
+				'name' 	=> __( 'Minify', 'anva' ),
 				'class' => 'group-minify',
 				'type' 	=> 'group_start',
 				'options' => array(
 
 					'css_warning' => array(
-						'name' => __( 'Warning', $domain),
-						'desc' => __( 'If you have a cache plugin installed in your site desactive this options.', $domain ),
+						'name' => __( 'Warning', 'anva'),
+						'desc' => __( 'If you have a cache plugin installed in your site desactive this options.', 'anva' ),
 						'id' 	 => 'css_warning',
 						'type' => 'info'
 					),
 
 					'compress_css' => array(
-						'name' => __('Combine and Compress CSS files', $domain),
-						'desc' => __('Combine and compress all CSS files to one. Help reduce page load time and increase server resources.', $domain),
+						'name' => __('Combine and Compress CSS files', 'anva'),
+						'desc' => __('Combine and compress all CSS files to one. Help reduce page load time and increase server resources.', 'anva'),
 						'id' => "compress_css",
 						'std' => '0',
 						'type' => 'checkbox'
 					),
 
 					'compress_js' => array(
-						'name' => __('Combine and Compress Javascript files', $domain),
-						'desc' => __('Combine and compress all Javascript files to one. Help reduce page load time and increase server resource.', $domain),
+						'name' => __('Combine and Compress Javascript files', 'anva' ),
+						'desc' => __('Combine and compress all Javascript files to one. Help reduce page load time and increase server resource.', 'anva'),
 						'id' => "compress_js",
 						'std' => '0',
 						'type' => 'checkbox'

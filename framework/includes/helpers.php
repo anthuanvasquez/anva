@@ -3,398 +3,117 @@
 /* Helper Functions
 /*-----------------------------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------- */
-/* (1) Helpers - Anva Core Options
-/* ---------------------------------------------------------------- */
-
-if ( ! function_exists( 'anva_get_core_options' ) ) :
 /**
- * Get raw options. This helper function is more
- * for backwards compatibility. Realistically, it
- * doesn't have much use unless an old plugin is
- * still using it.
- *
- * @since 1.0.0
- */
-function anva_get_core_options() {
-	$api = Anva_Core_Options::instance();
-	return $api->get_raw_options();
-}
-endif;
-
-if ( ! function_exists( 'anva_get_formatted_options' ) ) :
-/**
- * Get formatted options. Note that options will not be
- * formatted until after WP's after_setup_theme hook.
- *
- * @since 1.0.0
- */
-function anva_get_formatted_options() {
-	$api = Anva_Core_Options::instance();
-	return $api->get_formatted_options();
-}
-endif;
-
-if ( ! function_exists( 'anva_add_option_tab' ) ) :
-/**
- * Add theme option tab
- *
- * @since 1.0.0
- */
-function anva_add_option_tab( $tab_id, $tab_name, $top = false ) {
-	$api = Anva_Core_Options::instance();
-	$api->add_tab( $tab_id, $tab_name, $top );
-}
-endif;
-
-if ( ! function_exists( 'anva_remove_option_tab' ) ) :
-/**
- * Remove theme option tab
- *
- * @since 1.0.0
- */
-function anva_remove_option_tab( $tab_id ) {
-	$api = Anva_Core_Options::instance();
-	$api->remove_tab( $tab_id );
-}
-endif;
-
-if ( ! function_exists( 'anva_add_option_section' ) ) :
-/**
- * Add theme option section
- *
- * @since 1.0.0
- */
-function anva_add_option_section( $tab_id, $section_id, $section_name, $section_desc = null, $options = null, $top = false ) {
-	$api = Anva_Core_Options::instance();
-	$api->add_section( $tab_id, $section_id, $section_name, $section_desc, $options, $top );
-}
-endif;
-
-if ( ! function_exists( 'anva_remove_option_section' ) ) :
-/**
- * Remove theme option section
- *
- * @since 1.0.0
- */
-function anva_remove_option_section( $tab_id, $section_id ) {
-	$api = Anva_Core_Options::instance();
-	$api->remove_section( $tab_id, $section_id );
-}
-endif;
-
-if ( ! function_exists( 'anva_add_option' ) ) :
-/**
- * Add theme option
- *
- * @since 1.0.0
- */
-function anva_add_option( $tab_id, $section_id, $option_id, $option ) {
-	$api = Anva_Core_Options::instance();
-	$api->add_option( $tab_id, $section_id, $option_id, $option );
-}
-endif;
-
-if ( ! function_exists( 'anva_remove_option' ) ) :
-/**
- * Remove theme option
- *
- * @since 1.0.0
- */
-function anva_remove_option( $tab_id, $section_id, $option_id ) {
-	$api = Anva_Core_Options::instance();
-	$api->remove_option( $tab_id, $section_id, $option_id );
-}
-endif;
-
-if ( ! function_exists( 'anva_edit_option' ) ) :
-/**
- * Edit theme option
- *
- * @since 1.0.0
- */
-function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
-	$api = Anva_Core_Options::instance();
-	$api->edit_option( $tab_id, $section_id, $option_id, $att, $value );
-}
-endif;
-
-
-/* ---------------------------------------------------------------- */
-/* (2) Helpers - Anva Core Scripts
-/* ---------------------------------------------------------------- */
-
-/**
- * Add custom script
- *
- * @since 1.0.0
- */
-function anva_add_script( $handle, $src, $level = 4, $ver = null, $footer = true ) {
-	$api = Anva_Scripts::instance();
-	$api->add( $handle, $src, $level, $ver, $footer );
-}
-
-/**
- * Remove custom script
- *
- * @since 1.0.0
- */
-function anva_remove_script( $handle ) {
-	$api = Anva_Scripts::instance();
-	$api->remove( $handle );
-}
-
-/**
- * Get scripts
- *
- * @since 1.0.0
- */
-function anva_get_scripts() {
-	$api = Anva_Scripts::instance();
-	$core = $api->get_framework_scripts();
-	$custom = $api->get_custom_scripts();
-	return array_merge( $core, $custom );
-}
-
-/**
- * Print out scripts
- *
- * @since 1.0.0
- */
-function anva_print_scripts( $level ) {
-	$api = Anva_Scripts::instance();
-	$api->print_scripts( $level );
-}
-
-/* ---------------------------------------------------------------- */
-/* (3) Helpers - Anva Core Stylesheets
-/* ---------------------------------------------------------------- */
-
-/**
- * Add custom stylesheet
- * 
- * @since 1.0.0
- */
-function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = 'all' ) {
-	$api = Anva_Stylesheets::instance();
-	$api->add( $handle, $src, $level, $ver, $media );
-}
-
-/**
- * Remove custom stylesheet
- * 
- * @since 1.0.0
- */
-function anva_remove_stylesheet( $handle ) {
-	$api = Anva_Stylesheets::instance();
-	$api->remove( $handle );
-}
-
-/**
- * Get stylesheets
- * 
- * @since 1.0.0
- */
-function anva_get_stylesheets() {
-	$api = Anva_Stylesheets::instance();
-	$core = $api->get_framework_stylesheets();
-	$custom = $api->get_custom_stylesheets();
-	return array_merge( $core, $custom );
-}
-
-/**
- * Print out styles
- * 
- * @since 1.0.0
- */
-function anva_print_styles( $level ) {
-	$api = Anva_Stylesheets::instance();
-	$api->print_styles( $level );
-}
-
-/* ---------------------------------------------------------------- */
-/* (4) Helpers - Anva Core Sidebars
-/* ---------------------------------------------------------------- */
-
-/**
- * Add sidebar location
- * 
- * @since 1.0.0
- */
-function anva_add_sidebar_location( $id, $name, $desc = '' ) {
-	$api = Anva_Sidebars::instance();
-	$api->add_location( $id, $name, $desc );
-}
-
-/**
- * Remove sidebar location
- * 
- * @since 1.0.0
- */
-function anva_remove_sidebar_location( $id ) {
-	$api = Anva_Sidebars::instance();
-	$api->remove_location( $id );
-}
-
-/**
- * Get sidebar locations
- * 
- * @since 1.0.0
- */
-function anva_get_sidebar_locations() {
-	$api = Anva_Sidebars::instance();
-	return $api->get_locations();
-}
-
-/**
- * Get sidebar location name or slug name
- * 
- * @since 1.0.0
- */
-function anva_get_sidebar_location_name( $location, $slug = false ) {
-	$api = Anva_Sidebars::instance();
-	$sidebar = $api->get_locations( $location );
-
-	if ( isset( $sidebar['args']['name'] ) ) {
-		if ( $slug ) {
-			return sanitize_title( $sidebar['args']['name'] );
-		}
-		return $sidebar['args']['name'];
-	}
-
-	return __( 'Widget Area', anva_textdomain() );
-}
-
-/**
- * Display sidebar location
- * 
- * @since 1.0.0
- */
-function anva_display_sidebar( $location ) {
-	$api = Anva_Sidebars::instance();
-	$api->display( $location );
-}
-
-/**
- * Add sidebar args when register locations
- * 
- * @since 1.0.0
- */
-function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {	
-	$args = array(
-		'id'            => $id,
-		'name'          => $name,
-		'description'		=> $desc,
-		'before_widget' => '<div id="%1$s" class="widget %2$s '. esc_attr( $classes ) .'"><div class="widget-inner clearfix">',
-		'after_widget'  => '</div></div>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	);
-	return apply_filters( 'anva_add_sidebar_args', $args );
-}
-
-/* ---------------------------------------------------------------- */
-/* (5) Helpers - Anva Core Widgets
-/* ---------------------------------------------------------------- */
-
-/**
- * Add widget
- *
- * @since 1.0.0
- */
-function anva_add_widget( $class ) {
-	$api = Anva_Widgets::instance();
-	$api->add_widget( $class );
-}
-
-/**
- * Remove widget
- *
- * @since 1.0.0
- */
-function anva_remove_widget( $class ) {
-	$api = Anva_Widgets::instance();
-	$api->remove_widget( $class ); 
-}
-
-/**
- * Get widgets
- *
- * @since 1.0.0
- */
-function anva_get_widgets() {
-	$api = Anva_Widgets::instance();
-	return $api->get_widgets();
-}
-
-
-/* ---------------------------------------------------------------- */
-/* (6) Helpers - Anva Meta Box
-/* ---------------------------------------------------------------- */
-
-/**
- * Helper to add new meta box
+ * Get page builder field meta
  *
  * @since  1.0.0
- * @return Instance of class
+ * @return string The page builder field meta
  */
-function anva_add_new_meta_box( $id, $args, $options ) {
-	$meta_box = new Anva_Meta_Box( $id, $args, $options );
-}
-
-/**
- * Get field
- *
- * @since  1.0.0
- * @return string The field from meta box
- */
-function anva_get_field( $field, $default = false ) {
-
-	$id = null;
-	$page = array();
+function anva_get_page_builder_field() {
 	
-	// Get meta for page
-	if ( is_page() ) {
-		$page = anva_setup_page_meta();
+	$field = false;
+	$page_builder_meta = anva_setup_page_builder_meta();
+
+	if ( isset( $page_builder_meta['args']['id'] ) ) {
+		$field = anva_get_post_meta( $page_builder_meta['args']['id'] );
 	}
 
-	// Get meta for posts
-	if ( is_singular( 'post' ) ) {
-		$page = anva_setup_post_meta();
-	}
-
-	// Get meta for galleries
-	if ( is_singular( 'galleries' ) ) {
-		$page = anva_setup_gallery_meta();
-	}
-
-	if ( isset( $page['args']['id'] ) ) {
-		$id = $page['args']['id'];
-	}
-
-	// Validate if ID exist
-	if ( ! is_null( $id ) ) {
-		$fields = anva_get_post_meta( $id );
-		if ( isset( $fields[$field] ) ) {
-			return $fields[$field];
-		}
-	}
-
-	return $default;
+	return $field;
 }
 
 /**
- * Show field
+ * Generate page builder elements
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return shortcode The shortcode 
  */
-function anva_the_field( $id, $field, $default = false ) {
-	echo anva_get_field( $id, $field, $default );
+function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
+	
+	$settings = anva_get_page_builder_field();
+	$items_order = $settings['order'];
+	$counter = 0;
+	$classes = '';
+	
+	$items = explode( ',', $items_order );
+	$shortcodes = anva_get_elements();
+	
+	if ( is_array( $items ) && count( $items ) > 0 ) {
+			
+		$html = '';
+	
+		foreach ( $items as $key => $item ) {
+
+			$counter++;
+
+			$item_data 				= $settings[$item]['data'];
+			$item_size 				= $settings[$item]['size'];
+			$item_obj 				= json_decode( $item_data );
+			$item_content 		= $item_obj->shortcode . '_content';
+			$shortcode 				= $item_obj->shortcode;
+
+			// Validate if shortcode exist in elements array
+			if ( isset( $shortcodes[$shortcode] ) ) {
+
+				$html .= '[anva_' . $shortcode . ' size="' . esc_attr( $item_size ) . '" ';
+
+				$title = $item_obj->shortcode . '_title';
+				
+				if ( isset( $item_obj->$title ) ) {
+					$html .= 'title="' . esc_attr( urldecode( $item_obj->$title ), ENT_QUOTES, "UTF-8" ) . '" ';
+				}
+				
+				// Get shortcode attributes
+				$attributes = $shortcodes[$shortcode];
+				
+				foreach ( $attributes['attr'] as $attr => $value ) {
+					$shortcode_attr = $item_obj->shortcode . '_' . $attr;
+					
+					if ( isset( $item_obj->$shortcode_attr ) ) {
+						$html .= $attr . '="' . esc_attr( $item_obj->$shortcode_attr ) . '" ';
+					}
+				}
+
+				// Shortcode has content
+				if ( isset( $item_obj->$item_content ) ) {
+					$classes = 'element-has-content';
+					$html .= ']' . wp_kses_post( urldecode( $item_obj->$item_content ) ) . '[/anva_' . $shortcode . ']';
+
+				} else {
+					$html .= ']';
+				}
+
+			}
+			
+			echo '<section id="section-' . $counter . '" class="section-element section-' . $item .' section-' . $shortcode . ' ' . $classes . '">';
+			echo '<div id="element-' . $item . '" class="element element-columns-' . $item_size . '">';
+			echo anva_apply_content( $html );
+			echo '</div><!-- #element-' . $item . ' (end) -->';
+			echo '</section><!-- .section-' . $item . ' (end) -->';
+		}
+	}
+		
+	return false;
 }
 
-/* ---------------------------------------------------------------- */
-/* Common Helpers
-/* ---------------------------------------------------------------- */
+function anva_apply_content( $content ) {
+	$content = apply_filters( 'the_content', $content );
+	$content = str_replace( ']]>', ']]>', $content );
+	return $content;
+}
+
+function pp_get_image_id( $url ) {
+	
+	global $wpdb;
+	
+	$prefix = $wpdb->prefix;
+	$attachment_id = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM " . $prefix . "posts" . " WHERE guid='%s';", $url ) );
+	
+	if ( isset( $attachment_id[0] ) ) {
+		return $attachment_id[0];
+	}
+	
+	return '';
+}
 
 /**
  * Home page args
@@ -664,7 +383,7 @@ function anva_compress( $buffer ) {
 function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 
 	$filename = apply_filters( 'anva_minify_stylesheets_filename', 'all.min.css' );
-	$files 	= array();
+	$files  = array();
 	$stylesheets = anva_get_stylesheets();
 
 	if ( is_array( $merge_styles ) && ! empty( $merge_styles ) ) {
@@ -774,9 +493,42 @@ function anva_get_core_directory() {
  * @since 1.0.0
  */
 function anva_textdomain() {
+	
 	$domain = 'anva';
-	if ( defined( 'ANVA_DOMAIN' ) ) {
-		$domain = ANVA_DOMAIN;
+
+	if ( defined( 'ANVA_FRAMEWORK_DOMAIN' ) ) {
+		$domain = ANVA_FRAMEWORK_DOMAIN;
 	}
+
 	return $domain;
+
+}
+
+function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value, $insert_after_founded_key = true, $append_if_not_found = false ) {
+
+	$new_array = array();
+
+	foreach ( $array as $key => $value ) {
+
+		// INSERT BEFORE THE CURRENT KEY? 
+		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT BEFORE THAT FOUNDED KEY
+		if ( $key === $search_key && ! $insert_after_founded_key )
+			$new_array[ $insert_key ] = $insert_value;
+
+		// COPY THE CURRENT KEY/VALUE FROM OLD ARRAY TO A NEW ARRAY
+		$new_array[ $key ] = $value;
+
+		// INSERT AFTER THE CURRENT KEY? 
+		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT AFTER THAT FOUNDED KEY
+		if ( $key === $search_key && $insert_after_founded_key )
+			$new_array[ $insert_key ] = $insert_value;
+
+	}
+
+	// APPEND IF KEY ISNT FOUNDED
+	if ( $append_if_not_found && count( $array ) == count( $new_array ) )
+		$new_array[ $insert_key ] = $insert_value;
+
+	return $new_array;
+
 }

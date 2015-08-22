@@ -1,4 +1,5 @@
 <?php
+
 /*-----------------------------------------------------------------------------------*/
 /* Theme Functions
 /*-----------------------------------------------------------------------------------*/
@@ -19,8 +20,8 @@ require_once( get_template_directory() . '/includes/options.php' );
 function theme_options_menu( $menu ) {
 	$option_name 				= anva_get_option_name();
 	$menu['mode'] 			= 'menu';
-	$menu['page_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', anva_textdomain() ) );
-	$menu['menu_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', anva_textdomain() ) );
+	$menu['page_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', 'anva' ) );
+	$menu['menu_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', 'anva' ) );
 	$menu['menu_slug']  = $option_name;
 	return $menu;
 }
@@ -39,7 +40,7 @@ function theme_backup_menu( $menu ) {
 /**
  * Change the slider args
  *
- *
+ * @since 1.0.0
  */
 // function anva_theme_featured_size( $args ) {
 // 	if ( isset( $args['main'] ) ) {
@@ -91,7 +92,7 @@ function theme_add_scripts() {
 function theme_stylesheets() {
 
 	// Get stylesheet API
-	$api = Anva_Stylesheets::instance();
+	$api = Anva_Front_End_Stylesheets::instance();
 
 	// Register stylesheets
 	$stylesheets = array();
@@ -178,8 +179,8 @@ function theme_stylesheets() {
  */
 function theme_scripts() {
 
-	// Get stylesheet API
-	$api = Anva_Scripts::instance();
+	// Get scripts API
+	$api = Anva_Front_End_Scripts::instance();
 
 	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.6.2' );
 	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '3.6.2' );
@@ -187,6 +188,8 @@ function theme_scripts() {
 	$GLOBALS['wp_scripts']->add_data( 'html5shiv', 'conditional', 'lt IE 9' );
 	$GLOBALS['wp_scripts']->add_data( 'css3mediaqueriesjs', 'conditional', 'lt IE 9' );
 
+	// Enque Scripts
+	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'html5shiv' );
 	wp_enqueue_script( 'css3mediaqueriesjs' );
 	wp_localize_script( 'anva', 'ANVAJS', anva_get_js_locals() );
@@ -195,7 +198,7 @@ function theme_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
-	// Level 3 
+	// Level 3
 	$api->print_scripts(3);
 }
 

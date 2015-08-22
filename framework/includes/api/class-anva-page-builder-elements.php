@@ -1,169 +1,264 @@
 <?php
 
+if ( ! class_exists( 'Anva_Page_Builder_Elements' ) ) :
+
 /**
- * Builder Options
+ * Anva Page Builder API
  *
- * @since 1.0.0
+ * This sets up the default Builder elements
+ * Also, this class adds and API to add/remove
+ * these elements.
  */
-function anva_get_builder_options() {
 
-	$domain = anva_textdomain();
+class Anva_Page_Builder_Elements {
 
-	//Get all galleries
-	$args = array(
-		'numberposts' => -1,
-		'post_type' 	=> array( 'galleries' )
-	);
+	/**
+	 * A single instance of this class.
+	 *
+	 * @since 1.0.0
+	 */
+	private static $instance = null;
 
-	$galleries_arr = get_posts( $args );
-	$galleries_select = array();
-	if ( count( $galleries_arr ) > 0 ) {
-		$galleries_select[''] = '';
-		foreach ( $galleries_arr as $gallery ) {
-			$galleries_select[$gallery->ID] = $gallery->post_title;
+	/**
+	 * A quick overview of registered elements as the
+	 * API moves along. Can be accesed from admin or
+	 * frontend.
+	 *
+	 * @since 1.0.0
+	 */
+	private $registered_elements = array();
+
+	/**
+	 * Core framework builder elements and settings
+	 * WP-Admin only.
+	 *
+	 * @since 1.0.0
+	 */
+	public $core_elements = array();
+
+	/**
+	 * Elements and settings added
+	 * WP-Admin only.
+	 *
+	 * @since 1.0.0
+	 */
+	private $custom_elements = array();
+
+	/**
+	 * Elements to remove from page builder.
+	 * WP-Admin only.
+	 *
+	 * @since 1.0.0
+	 */
+	private $remove_elements = array();
+
+	/**
+	 * Final array of elements and settings. This combines
+	 * $core_elements and $custom_elements. WP-Admin only.
+	 *
+	 * @since 1.0.0
+	 */
+	private $elements = array();
+
+	/**
+	 * Creates or returns an instance of this class
+	 *
+	 * @since 1.0.0
+	 */
+	public static function instance() {
+		if ( self::$instance == null ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Constructor
+	 * Hook everything in.
+	 *
+	 * @since 1.0.0
+	 */
+	private function __construct() {
+
+
+
+		// Setup registered element reference for admin
+		$this->set_registered_elements();
+
+		//if ( is_admin() ) {
+
+			// Setup framework default elements
+			$this->set_core_elements();
+
+			// Establish elements
+			add_action( 'after_setup_theme', array( $this, 'set_elements' ), 1000 );
+
+		//} //else {
+
+			// Setup registered element reference for frontend
+			// This allows us to keep track of elements without
+			// consuming as much memory on the frontend.
+		//	$this->set_registered_elements();
+
+		//}
+
+
+
+	}
+
+	/**
+	 * Set registered elements
+	 * 
+	 * @since 1.0.0
+	 */
+	private function set_registered_elements() {
+
+		$this->registered_elements = array(
+			'divider',
+			'header',
+			'header_image',
+			'header_background',
+			'text',
+			'text_background',
+			'text_sidebar',
+			'image_fullwidth',
+			'image_parallax',
+			'image_fixed_width',
+			'content_half_bg',
+			'image_half_fixed_width',
+			'image_half_fullwidth',
+			'two_cols_images',
+			'three_cols_images',
+			'three_images_block',
+			'four_images_block',
+			'testimonial_column',
+			'pricing',
+			'blog_grid',
+			'contact_map',
+			'contact_sidebar',
+			'map'
+		);
+
+		// foreach ( $this->core_elements as $element_id => $element ) {
+		// 	$this->registered_elements[] = $element_id;
+		// }
+
+		// Revolution Slider
+		if ( class_exists( 'RevSliderFront' ) || class_exists( 'RevSliderAdmin' ) ) {
+			$this->registered_elements[] = 'revslider';
 		}
 	}
 
-	//Get all categories
-	$categories_arr = get_categories();
-	$categories_select = array();
-	$categories_select[''] = '';
-	foreach ($categories_arr as $cat) {
-		$categories_select[$cat->cat_ID] = $cat->cat_name;
-	}
+	/**
+	 * Set core elements
+	 * 
+	 * These will be later merged with custom elements.
+	 * WP-Admin only.
+	 *
+	 * @since 1.0.0
+	 */
+	private function set_core_elements() {
 
-	//Get all gallery categories
-	$gallery_cats_arr           = get_terms( 'gallery_cat', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order');
-	$gallery_cats_select        = array();
-	if ( count( $gallery_cats_arr ) > 0 ) {
-		$gallery_cats_select['']    = '';
-		foreach ( $gallery_cats_arr as $gallery_cat ) {
-			$gallery_cats_select[$gallery_cat->slug] = $gallery_cat->name;
+		/*--------------------------------------------*/
+		/* Helpers
+		/*--------------------------------------------*/
+
+		$api = Anva_Sidebar_Locations::instance();
+
+		// Get sidebar locations
+		$sidebars = array();
+		$sidebar_locations = $api->get_locations();
+		foreach ( $sidebar_locations as $key => $value ) {
+			$sidebars[$key] = $value['args']['name'];
 		}
-	}
 
-	//Get all testimonials categories
-	// $testimonial_cats_arr = get_terms('testimonialcats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order');
-	// $testimonial_cats_select = array();
-	// if ( count( $testimonial_cats_arr ) > 0 ) {
-	// 	$testimonial_cats_select[''] = '';
-	// 	foreach ($testimonial_cats_arr as $testimonial_cat) {
-	// 		$testimonial_cats_select[$testimonial_cat->slug] = $testimonial_cat->name;
-	// 	}
-	// }
+		// Get dynamic sidebars
+		// $dynamic_sidebars = anva_get_option( 'dynamic_sidebars' );
+		// if ( ! empty( $dynamic_sidebars ) ) {
+		// 	foreach ( $dynamic_sidebars as $sidebar ) {
+		// 		$sidebars[$sidebar] = $sidebar;
+		// 	}
+		// }
 
-	// Get all pricing categories
-	// $pricing_cat_arr = get_terms('pricingcats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order');
-	// $pricing_cat_select = array();
-	// if ( count( $pricing_cat_arr ) > 0 ) {
-	// 	$pricing_cat_select[''] = '';
-	// 	foreach($pricing_cat_arr as $pricing_cat){
-	// 		$pricing_cat_select[$pricing_cat->slug] = $pricing_cat->name;
-	// 	}
-	// }
+		// Pull all the galleries/categories into an array
+		if ( is_admin() && post_type_exists( 'galleries' ) && taxonomy_exists( 'gallery_cat' ) ) {
 
-	//Get all sidebars
-	$theme_sidebar = array(
-		'' => '',
-		'Page Sidebar' => 'Page Sidebar', 
-		'Blog Sidebar' => 'Blog Sidebar', 
-		'Single Post Sidebar' => 'Single Post Sidebar',
-		'Single Image Page Sidebar' => 'Single Image Page Sidebar',
-		'Archive Sidebar' => 'Archive Sidebar',
-		'Category Sidebar' => 'Category Sidebar',
-		'Search Sidebar' => 'Search Sidebar',
-		'Tag Sidebar' => 'Tag Sidebar', 
-		'Footer Sidebar' => 'Footer Sidebar',
-	);
-	$dynamic_sidebar = get_option('pp_sidebar');
+			$galleries = array();
+			$galleries_args = array( 'numberposts' => -1, 'post_type' => array( 'galleries' ) );
+			$gallery_posts = get_posts( $galleries_args );
+			if ( count( $gallery_posts ) > 0 ) {
+				$galleries[''] = __( 'Select a Gallery', 'anva' );
+				foreach ( $gallery_posts as $gallery ) {
+					$galleries[$gallery->ID] = $gallery->post_title;
+				}
+			}
 
-	if(!empty($dynamic_sidebar)){
-		foreach($dynamic_sidebar as $sidebar){
-			$theme_sidebar[$sidebar] = $sidebar;
+			$gallery_cats = array();
+			$terms = get_terms( 'gallery_cat', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
+			if ( count( $terms ) > 0 ) {
+				$gallery_cats[''] = __( 'Select a Gallery', 'anva' );
+				foreach ( $gallery_terms as $cat ) {
+					$gallery_cats[$cat->slug] = $cat->name;
+				}
+			}
 		}
-	}
 
-	//Get order options
-	$order_select = array(
-		'default' 	=> 'By Default',
-		'newest'	=> 'By Newest',
-		'oldest'	=> 'By Oldest',
-		'title'		=> 'By Title',
-		'random'	=> 'By Random',
-	);
+		// Pull all the testimonial categories into an array
+		if ( is_admin() && post_type_exists( 'testimonials' ) && taxonomy_exists( 'testimonial_cats' ) ) {
+			$testimonial_cats = array();
+			$terms = get_terms( 'testimonial_cats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
+			if ( count( $terms ) > 0 ) {
+				$testimonial_cats[''] = __( 'Select a Testimonial', 'anva' );
+				foreach ( $testimonial_cats as $cat ) {
+					$testimonial_cats[$cat->slug] = $cat->name;
+				}
+			}
+		}
 
-	//Get column options
-	$column_select = array(
-		'1' => '1 Column',
-		'2' => '2 Columns',
-		'3'	=> '3 Columns',
-		'4'	=> '4 Columns',
-	);
+		// Get all pricing categories
+		if ( is_admin() && post_type_exists( 'pricing' ) && taxonomy_exists( 'pricing_cats' ) ) {
+			$pricing_cats = array();
+			$terms = get_terms( 'pricing_cats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
+			if ( count( $pricing_cats ) > 0 ) {
+				$pricing_cats[''] = __( 'Select a Pricing Table', 'anva' );
+				foreach ( $pricing_cats as $cat){
+					$pricing_cats[$cat->slug] = $cat->name;
+				}
+			}
+		}
 
-	//Get column options
-	$team_column_select = array(
-		'3'	=> '3 Columns',
-		'4'	=> '4 Columns',
-		'5' => '5 Columns',
-	);
+		// Pull all the blog categories into an array
+		$categories = array();
+		if ( is_admin() ) {
+			foreach ( get_categories() as $category ) {
+				$categories[$category->cat_ID] = $category->cat_name;
+			}
+		}
 
-	$testimonial_column_select = array(
-		'2' => '2 Columns',
-		'3'	=> '3 Columns',
-		'4'	=> '4 Columns',
-	);
+		// Image path
+		$image_path = anva_get_core_url() . '/assets/images/builder/';
 
-	$gallery_column_select = array(
-		'3'	=> '3 Columns',
-		'4'	=> '4 Columns',
-	);
+		/*--------------------------------------------*/
+		/* Divider
+		/*--------------------------------------------*/
 
-	$text_block_layout_select = array(
-		'fixedwidth'=> 'Fixed Width',
-		'fullwidth'	=> 'Fullwidth',
-	);
-
-	$portfolio_column_select = array(
-		'3'	=> '3 Columns',
-		'4'	=> '4 Columns',
-	);
-
-	$portfolio_layout_select = array(
-		'fullwidth'	=> 'Fullwidth',
-		'fixedwidth'=> 'Fixed Width',
-	);
-
-	$gallery_layout_select = array(
-		'fullwidth'	=> 'Fullwidth',
-		'fixedwidth'=> 'Fixed Width',
-	);
-
-	//Get service alignment options
-	$service_align_select = array(
-		'left' => 'Align Left',
-		'center' => 'Align Center',
-		'center_nocircle' => 'Align Center No Circle',
-		'boxed center' => 'Boxed Align Center',
-	);
-
-
-	$ppb_shortcodes = array(
-
-		// Elements
-		1 => array(
-			'title' => 'Elements',
-		),
-		'ppb_divider' => array(
-			'title' =>  'Divider',
-			'icon' => 'divider.png',
+		$this->core_elements['divider'] = array(
+			'title' => 'Divider',
+			'icon' => $image_path . 'divider.png',
+			'type' => 'layout',
 			'attr' => array(),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => __( 'Separate sections with page break.', 'anva' ),
+			'content' => false
+		);
 
-		'ppb_header' => array(
-			'title' =>  'Header',
-			'icon' => 'header.png',
+		/*--------------------------------------------*/
+		/* Header
+		/*--------------------------------------------*/
+
+		$this->core_elements['header'] = array(
+			'title' => 'Header',
+			'icon' => $image_path . 'header.png',
+			'type' => 'content',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -188,16 +283,6 @@ function anva_get_builder_options() {
 					),
 					'desc' => 'Select width in percentage for this content',
 				),
-				/*'textalign' => array(
-					'title' => 'Text Alignment',
-					'type' => 'select',
-					'options' => array(
-						'left' 	=> 'Left',
-						'center' => 'center',
-						'right'	=> 'Right',
-					),
-					'desc' => 'Select width in percentage for this content',
-				),*/
 				'padding' => array(
 					'title' => 'Content Padding',
 					'type' => 'slider',
@@ -205,33 +290,39 @@ function anva_get_builder_options() {
 					"min" => 0,
 					"max" => 200,
 					"step" => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => 'Select padding top and bottom value for this header block.',
 				),
 				'bgcolor' => array(
 					'title' => 'Background Color',
 					'type' => 'colorpicker',
 					"std" => "#f9f9f9",
-					'desc' => 'Select background color for this this block',
+					'desc' => 'Select background color for this this block.',
 				),
 				'fontcolor' => array(
 					'title' => 'Font Color',
 					'type' => 'colorpicker',
 					"std" => "#444444",
-					'desc' => 'Select font color for content on this block',
+					'desc' => 'Select font color for content on this block.',
 				),
 				'custom_css' => array(
 					'title' => 'Custom CSS',
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => 'You can add custom CSS style for this block (advanced user only).',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => __( 'Create a header with some nice text.', 'anva' ),
+			'content' => true
+		);
+		
 
-		'ppb_header_image' => array(
+		/*--------------------------------------------*/
+		/* Header Image
+		/*--------------------------------------------*/
+
+		$this->core_elements['header_image'] = array(
 			'title' =>  'Header With Background Image',
-			'icon' => 'header_image.png',
+			'icon' => $image_path . 'header_image.png',
+			'type' => 'media',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -243,16 +334,6 @@ function anva_get_builder_options() {
 					'type' => 'text',
 					'desc' => 'Enter short description for this header',
 				),
-				/*'textalign' => array(
-					'title' => 'Text Alignment',
-					'type' => 'select',
-					'options' => array(
-						'left' 	=> 'Left',
-						'center' => 'center',
-						'right'	=> 'Right',
-					),
-					'desc' => 'Select width in percentage for this content',
-				),*/
 				'background' => array(
 					'title' => 'Background Image',
 					'type' => 'file',
@@ -298,13 +379,17 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => __( 'Create a header with some nice text using a background image.', 'anva' ),
+			'content' => true
+		);
+		
+		/*--------------------------------------------*/
+		/* Text
+		/*--------------------------------------------*/
 
-		'ppb_text' => array(
+		$this->core_elements['text'] = array(
 			'title' =>  'Text Fullwidth',
-			'icon' => 'text.png',
+			'icon' => $image_path . 'text.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -351,13 +436,17 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_text_image' => array(
-			'title' =>  'Text With Background Image',
-			'icon' => 'text_image.png',
+		/*--------------------------------------------*/
+		/* Text Image
+		/*--------------------------------------------*/
+
+		$this->core_elements['text_image'] = array(
+			'title' => 'Text With Background Image',
+			'icon' => $image_path . 'text_image.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -409,13 +498,17 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_text_sidebar' => array(
+		/*--------------------------------------------*/
+		/* Text Sidebar
+		/*--------------------------------------------*/
+
+		$this->core_elements['text_sidebar'] = array(
 			'title' =>  'Text With Sidebar',
-			'icon' => 'contact_sidebar.png',
+			'icon' => $image_path . 'contact_sidebar.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -425,7 +518,7 @@ function anva_get_builder_options() {
 				'sidebar' => array(
 					'Title' => 'Content Sidebar',
 					'type' => 'select',
-					'options' => $theme_sidebar,
+					'options' => $sidebars,
 					'desc' => 'You can select sidebar to display next to classic blog content',
 				),
 				'padding' => array(
@@ -443,13 +536,17 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_image_fullwidth' => array(
+		/*--------------------------------------------*/
+		/* Image Fullwidth
+		/*--------------------------------------------*/
+
+		$this->core_elements['image_fullwidth'] = array(
 			'title' =>  'Image Fullwidth',
-			'icon' => 'image_full.png',
+			'icon' => $image_path . 'image_full.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -504,13 +601,17 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
+		
+		/*--------------------------------------------*/
+		/* Image Parallax
+		/*--------------------------------------------*/
 
-		'ppb_image_parallax' => array(
+		$this->core_elements['image_parallax'] = array(
 			'title' =>  'Image Parallax',
-			'icon' => 'image_parallax.png',
+			'icon' => $image_path . 'image_parallax.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -537,13 +638,17 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
 
-		'ppb_image_fixed_width' => array(
+		/*--------------------------------------------*/
+		/* Image Fixed Width
+		/*--------------------------------------------*/
+
+		$this->core_elements['image_fixed_width'] = array(
 			'title' =>  'Image Fixed Width',
-			'icon' => 'image_fixed.png',
+			'icon' => $image_path . 'image_fixed.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -585,13 +690,17 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
+		
+		/*--------------------------------------------*/
+		/* 1/2 Content with Background
+		/*--------------------------------------------*/
 
-		'ppb_content_half_bg' => array(
+		$this->core_elements['content_half_bg'] = array(
 			'title' =>  '1/2 Content with Background',
-			'icon' => 'half_content_bg.png',
+			'icon' => $image_path . 'half_content_bg.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -672,13 +781,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_image_half_fixed_width' => array(
+		$this->core_elements['image_half_fixed_width'] = array(
 			'title' =>  'Image 1/2 Width',
-			'icon' => 'image_half_fixed.png',
+			'icon' => $image_path . 'image_half_fixed.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -720,13 +829,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_image_half_fullwidth' => array(
+		$this->core_elements['image_half_fullwidth'] = array(
 			'title' =>  'Image 1/2 Fullwidth',
-			'icon' => 'image_half_full.png',
+			'icon' => $image_path . 'image_half_full.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -788,13 +897,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_two_cols_images' => array(
+		$this->core_elements['two_cols_images'] = array(
 			'title' =>  'Images Two Columns',
-			'icon' => 'images_two_cols.png',
+			'icon' => $image_path . 'images_two_cols.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -841,13 +950,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
 
-		'ppb_three_cols_images' => array(
+		$this->core_elements['three_cols_images'] = array(
 			'title' =>  'Images Three Columns',
-			'icon' => 'images_three_cols.png',
+			'icon' => $image_path . 'images_three_cols.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -899,13 +1008,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
 
-		'ppb_three_images_block' => array(
+		$this->core_elements['three_images_block'] = array(
 			'title' =>  'Images Three blocks',
-			'icon' => 'images_three_block.png',
+			'icon' => $image_path . 'images_three_block.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -966,13 +1075,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
 
-		'ppb_four_images_block' => array(
+		$this->core_elements['four_images_block'] = array(
 			'title' =>  'Images Four blocks',
-			'icon' => 'images_four_block.png',
+			'icon' => $image_path . 'images_four_block.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -1029,288 +1138,280 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
 		
-		2 => array(
-			'title' => 'Close',
-		),
-
-		// Content
-		
-		3 => array(
-			'title' => 'Contents',
-		),
-		
-		'ppb_galleries' => array(
-			'title' =>  'Gallery Archive',
-			'icon' => 'galleries.png',
-			'attr' => array(
-				'cat' => array(
-					'title' => 'Gallery Category',
-					'type' => 'select',
-					'options' => $gallery_cats_select,
-					'desc' => 'Select the gallery category (optional)',
-				),
-				'items' => array(
-					'type' => 'slider',
-					"std" => "12",
-					"min" => 1,
-					"max" => 100,
-					"step" => 1,
-					'desc' => 'Enter number of items to display',
-				),
-				'bgcolor' => array(
-					'title' => 'Background Color (Optional)',
-					'type' => 'colorpicker',
-					"std" => "#f9f9f9",
-					'desc' => 'Select background color for this content block',
-				),
-				'custom_css' => array(
-					'title' => 'Custom CSS',
-					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
-				),
-			),
-			'desc' => array(),
-			'content' => FALSE
-		),
-		
-		'ppb_gallery_slider' => array(
-			'title' =>  'Gallery Slider Fullwidth',
-			'icon' => 'gallery_slider_full.png',
-			'attr' => array(
-				'slug' => array(
-					'title' => 'Slug (Optional)',
-					'type' => 'text',
-					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-				),
-				'gallery' => array(
-					'title' => 'Gallery',
-					'type' => 'select',
-					'options' => $galleries_select,
-					'desc' => 'Select the gallery you want to display',
-				),
-				'autoplay' => array(
-					'title' => 'Auto Play',
-					'type' => 'select',
-					'options' => array(
-						1 => 'Yes',
-						0 => 'No'
+		if ( post_type_exists( 'galleries' ) ) {
+			$this->core_elements['galleries'] = array(
+				'title' =>  'Gallery Archive',
+				'icon' => $image_path . 'galleries.png',
+				'attr' => array(
+					'cat' => array(
+						'title' => 'Gallery Category',
+						'type' => 'select',
+						'options' => $gallery_cats,
+						'desc' => 'Select the gallery category (optional)',
 					),
-					'desc' => 'Auto play gallery image slider',
-				),
-				'timer' => array(
-					'title' => 'Timer',
-					'type' => 'slider',
-					"std" => "5",
-					"min" => 1,
-					"max" => 60,
-					"step" => 1,
-					'desc' => 'Select number of seconds for slider timer',
-				),
-				'caption' => array(
-					'title' => 'Display Image Caption',
-					'type' => 'select',
-					'options' => array(
-						1 => 'Yes',
-						0 => 'No'
+					'items' => array(
+						'type' => 'slider',
+						"std" => "12",
+						"min" => 1,
+						"max" => 100,
+						"step" => 1,
+						'desc' => 'Enter number of items to display',
 					),
-					'desc' => 'Display gallery image caption',
-				),
-				'padding' => array(
-					'title' => 'Content Padding',
-					'type' => 'slider',
-					"std" => "30",
-					"min" => 0,
-					"max" => 200,
-					"step" => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
-				),
-				'custom_css' => array(
-					'title' => 'Custom CSS',
-					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
-				),
-			),
-			'desc' => array(),
-			'content' => FALSE
-		),
-
-		'ppb_gallery_slider_fixed_width' => array(
-			'title' =>  'Gallery Slider Fixed Width',
-			'icon' => 'gallery_slider_fixed.png',
-			'attr' => array(
-				'slug' => array(
-					'title' => 'Slug (Optional)',
-					'type' => 'text',
-					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-				),
-				'gallery' => array(
-					'title' => 'Gallery',
-					'type' => 'select',
-					'options' => $galleries_select,
-					'desc' => 'Select the gallery you want to display',
-				),
-				'autoplay' => array(
-					'title' => 'Auto Play',
-					'type' => 'select',
-					'options' => array(
-						1 => 'Yes',
-						0 => 'No'
+					'bgcolor' => array(
+						'title' => 'Background Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#f9f9f9",
+						'desc' => 'Select background color for this content block',
 					),
-					'desc' => 'Auto play gallery image slider',
-				),
-				'timer' => array(
-					'title' => 'Timer',
-					'type' => 'slider',
-					"std" => "5",
-					"min" => 1,
-					"max" => 60,
-					"step" => 1,
-					'desc' => 'Select number of seconds for slider timer',
-				),
-				'caption' => array(
-					'title' => 'Display Image Caption',
-					'type' => 'select',
-					'options' => array(
-						1 => 'Yes',
-						0 => 'No'
+					'custom_css' => array(
+						'title' => 'Custom CSS',
+						'type' => 'text',
+						'desc' => 'You can add custom CSS style for this block (advanced user only)',
 					),
-					'desc' => 'Display gallery image caption',
 				),
-				'padding' => array(
-					'title' => 'Content Padding',
-					'type' => 'slider',
-					"std" => "30",
-					"min" => 0,
-					"max" => 200,
-					"step" => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
-				),
-				'bgcolor' => array(
-					'title' => 'Background Color',
-					'type' => 'colorpicker',
-					"std" => "#f9f9f9",
-					'desc' => 'Select background color for this header block',
-				),
-				'custom_css' => array(
-					'title' => 'Custom CSS',
-					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
-				),
-			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+				'desc' => '',
+				'content' => false
+			);
 
-		'ppb_animated_gallery_grid' => array(
-			'title' =>  'Animated Gallery Grid',
-			'icon' => 'animated_grid.png',
-			'attr' => array(
-				'slug' => array(
-					'title' => 'Slug (Optional)',
-					'type' => 'text',
-					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+			$this->core_elements['gallery_slider'] = array(
+				'title' =>  'Gallery Slider Fullwidth',
+				'icon' => $image_path . 'gallery_slider_full.png',
+				'attr' => array(
+					'slug' => array(
+						'title' => 'Slug (Optional)',
+						'type' => 'text',
+						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					),
+					'gallery' => array(
+						'title' => 'Gallery',
+						'type' => 'select',
+						'options' => $galleries,
+						'desc' => 'Select the gallery you want to display',
+					),
+					'autoplay' => array(
+						'title' => 'Auto Play',
+						'type' => 'select',
+						'options' => array(
+							1 => 'Yes',
+							0 => 'No'
+						),
+						'desc' => 'Auto play gallery image slider',
+					),
+					'timer' => array(
+						'title' => 'Timer',
+						'type' => 'slider',
+						"std" => "5",
+						"min" => 1,
+						"max" => 60,
+						"step" => 1,
+						'desc' => 'Select number of seconds for slider timer',
+					),
+					'caption' => array(
+						'title' => 'Display Image Caption',
+						'type' => 'select',
+						'options' => array(
+							1 => 'Yes',
+							0 => 'No'
+						),
+						'desc' => 'Display gallery image caption',
+					),
+					'padding' => array(
+						'title' => 'Content Padding',
+						'type' => 'slider',
+						"std" => "30",
+						"min" => 0,
+						"max" => 200,
+						"step" => 5,
+						'desc' => 'Select padding top and bottom value for this header block',
+					),
+					'custom_css' => array(
+						'title' => 'Custom CSS',
+						'type' => 'text',
+						'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					),
 				),
-				'subtitle' => array(
-					'title' => 'Sub Title (Optional)',
-					'type' => 'text',
-					'desc' => 'Enter short description for this header',
-				),
-				'gallery_id' => array(
-					'title' => 'Gallery',
-					'type' => 'select',
-					'options' => $galleries_select,
-					'desc' => 'Select the gallery you want to display',
-				),
-				'logo' => array(
-					'title' => 'Retina Logo or Signature Image (Optional)',
-					'type' => 'file',
-					'desc' => 'Enter custom logo or signature image URL',
-				),
-				'bgcolor' => array(
-					'title' => 'Background Color (Optional)',
-					'type' => 'colorpicker',
-					"std" => "#ffffff",
-					'desc' => 'Select background color for this content block',
-				),
-				'opacity' => array(
-					'title' => 'Content Background Opacity',
-					'type' => 'slider',
-					"std" => "100",
-					"min" => 10,
-					"max" => 100,
-					"step" => 5,
-					'desc' => 'Select background opacity for this content block',
-				),
-				'fontcolor' => array(
-					'title' => 'Font Color (Optional)',
-					'type' => 'colorpicker',
-					"std" => "#444444",
-					'desc' => 'Select font color for this content',
-				),
-			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+				'desc' => '',
+				'content' => false
+			);
 
-		'ppb_gallery_grid' => array(
-			'title' =>  __( 'Gallery Grid', $domain ),
-			'icon' => 'gallery_grid.png',
-			'attr' => array(
-				'slug' => array(
-					'title' => 'Slug (Optional)',
-					'type' => 'text',
-					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+			$this->core_elements['gallery_slider_fixed_width'] = array(
+				'title' =>  'Gallery Slider Fixed Width',
+				'icon' => $image_path . 'gallery_slider_fixed.png',
+				'attr' => array(
+					'slug' => array(
+						'title' => 'Slug (Optional)',
+						'type' => 'text',
+						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					),
+					'gallery' => array(
+						'title' => 'Gallery',
+						'type' => 'select',
+						'options' => $galleries,
+						'desc' => 'Select the gallery you want to display',
+					),
+					'autoplay' => array(
+						'title' => 'Auto Play',
+						'type' => 'select',
+						'options' => array(
+							1 => 'Yes',
+							0 => 'No'
+						),
+						'desc' => 'Auto play gallery image slider',
+					),
+					'timer' => array(
+						'title' => 'Timer',
+						'type' => 'slider',
+						"std" => "5",
+						"min" => 1,
+						"max" => 60,
+						"step" => 1,
+						'desc' => 'Select number of seconds for slider timer',
+					),
+					'caption' => array(
+						'title' => 'Display Image Caption',
+						'type' => 'select',
+						'options' => array(
+							1 => 'Yes',
+							0 => 'No'
+						),
+						'desc' => 'Display gallery image caption',
+					),
+					'padding' => array(
+						'title' => 'Content Padding',
+						'type' => 'slider',
+						"std" => "30",
+						"min" => 0,
+						"max" => 200,
+						"step" => 5,
+						'desc' => 'Select padding top and bottom value for this header block',
+					),
+					'bgcolor' => array(
+						'title' => 'Background Color',
+						'type' => 'colorpicker',
+						"std" => "#f9f9f9",
+						'desc' => 'Select background color for this header block',
+					),
+					'custom_css' => array(
+						'title' => 'Custom CSS',
+						'type' => 'text',
+						'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					),
 				),
-				'gallery_id' => array(
-					'title' => 'Gallery',
-					'type' => 'select',
-					'options' => $galleries_select,
-					'desc' => 'Select the gallery you want to display',
-				),
-				'bgcolor' => array(
-					'title' => 'Background Color (Optional)',
-					'type' => 'colorpicker',
-					"std" => "#ffffff",
-					'desc' => 'Select background color for this content block',
-				),
-			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+				'desc' => '',
+				'content' => false
+			);
 
-		'ppb_gallery_masonry' => array(
-			'title' =>  'Gallery Masonry',
-			'icon' => 'gallery_masonry.png',
-			'attr' => array(
-				'slug' => array(
-					'title' => 'Slug (Optional)',
-					'type' => 'text',
-					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+			$this->core_elements['animated_gallery_grid'] = array(
+				'title' =>  'Animated Gallery Grid',
+				'icon' => $image_path . 'animated_grid.png',
+				'attr' => array(
+					'slug' => array(
+						'title' => 'Slug (Optional)',
+						'type' => 'text',
+						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					),
+					'subtitle' => array(
+						'title' => 'Sub Title (Optional)',
+						'type' => 'text',
+						'desc' => 'Enter short description for this header',
+					),
+					'gallery_id' => array(
+						'title' => 'Gallery',
+						'type' => 'select',
+						'options' => $galleries,
+						'desc' => 'Select the gallery you want to display',
+					),
+					'logo' => array(
+						'title' => 'Retina Logo or Signature Image (Optional)',
+						'type' => 'file',
+						'desc' => 'Enter custom logo or signature image URL',
+					),
+					'bgcolor' => array(
+						'title' => 'Background Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#ffffff",
+						'desc' => 'Select background color for this content block',
+					),
+					'opacity' => array(
+						'title' => 'Content Background Opacity',
+						'type' => 'slider',
+						"std" => "100",
+						"min" => 10,
+						"max" => 100,
+						"step" => 5,
+						'desc' => 'Select background opacity for this content block',
+					),
+					'fontcolor' => array(
+						'title' => 'Font Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#444444",
+						'desc' => 'Select font color for this content',
+					),
 				),
-				'gallery_id' => array(
-					'title' => 'Gallery',
-					'type' => 'select',
-					'options' => $galleries_select,
-					'desc' => 'Select the gallery you want to display',
-				),
-				'bgcolor' => array(
-					'title' => 'Background Color (Optional)',
-					'type' => 'colorpicker',
-					"std" => "#ffffff",
-					'desc' => 'Select background color for this content block',
-				),
-			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+				'desc' => '',
+				'content' => false
+			);
 
-		'ppb_blog_grid' => array(
+			$this->core_elements['gallery_grid'] = array(
+				'title' =>  __( 'Gallery Grid', 'anva' ),
+				'icon' => $image_path . 'gallery_grid.png',
+				'attr' => array(
+					'slug' => array(
+						'title' => 'Slug (Optional)',
+						'type' => 'text',
+						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					),
+					'gallery_id' => array(
+						'title' => 'Gallery',
+						'type' => 'select',
+						'options' => $galleries,
+						'desc' => 'Select the gallery you want to display',
+					),
+					'bgcolor' => array(
+						'title' => 'Background Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#ffffff",
+						'desc' => 'Select background color for this content block',
+					),
+				),
+				'desc' => '',
+				'content' => false
+			);
+
+			$this->core_elements['gallery_masonry'] = array(
+				'title' =>  'Gallery Masonry',
+				'icon' => $image_path . 'gallery_masonry.png',
+				'attr' => array(
+					'slug' => array(
+						'title' => 'Slug (Optional)',
+						'type' => 'text',
+						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					),
+					'gallery_id' => array(
+						'title' => 'Gallery',
+						'type' => 'select',
+						'options' => $galleries,
+						'desc' => 'Select the gallery you want to display',
+					),
+					'bgcolor' => array(
+						'title' => 'Background Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#ffffff",
+						'desc' => 'Select background color for this content block',
+					),
+				),
+				'desc' => '',
+				'content' => false
+			);
+		}
+
+		$this->core_elements['blog_grid'] = array(
 			'title' =>  'Blog Grid',
-			'icon' => 'blog.png',
+			'icon' => $image_path . 'blog.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -1320,7 +1421,7 @@ function anva_get_builder_options() {
 				'cat' => array(
 					'title' => 'Filter by category',
 					'type' => 'select',
-					'options' => $categories_select,
+					'options' => $categories,
 					'desc' => 'You can choose to display only some posts from selected category',
 				),
 				'items' => array(
@@ -1356,146 +1457,150 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
+			'desc' => '',
+			'content' => false
+		);
+		
+		if ( post_type_exists( 'testimonials' ) ) {
+			$this->core_elements['testimonial_column'] = array(
+				'title' =>  'Testimonials',
+				'icon' => $image_path . 'testimonial_column.png',
+				'desc' => '',
+				'content' => false,
+				'attr' => array(
+					'slug' => array(
+						'title' => 'Slug (Optional)',
+						'type' => 'text',
+						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					),
+					'columns' => array(
+						'title' => 'Columns',
+						'type' => 'select',
+						'options' => $testimonial_column,
+						'desc' => 'Select how many columns you want to display service items in a row',
+					),
+					'cat' => array(
+						'title' => 'Filter by testimonials category',
+						'type' => 'select',
+						'options' => $testimonial_cats,
+						'desc' => 'You can choose to display only some testimonials from selected testimonial category',
+					),
+					'items' => array(
+						'type' => 'slider',
+						"std" => "4",
+						"min" => 1,
+						"max" => 50,
+						"step" => 1,
+						'desc' => 'Enter number of items to display',
+					),
+					'padding' => array(
+						'title' => 'Content Padding',
+						'type' => 'slider',
+						"std" => "30",
+						"min" => 0,
+						"max" => 200,
+						"step" => 5,
+						'desc' => 'Select padding top and bottom value for this header block',
+					),
+					'bgcolor' => array(
+						'title' => 'Background Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#f9f9f9",
+						'desc' => 'Select background color for this content block',
+					),
+					'fontcolor' => array(
+						'title' => 'Font Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#444444",
+						'desc' => 'Select font color for this content',
+					),
+					'custom_css' => array(
+						'title' => 'Custom CSS',
+						'type' => 'text',
+						'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					),
+				)
+			);
+		}
 
-		// 'ppb_testimonial_column' => array(
-		// 	'title' =>  'Testimonials',
-		// 	'icon' => 'testimonial_column.png',
-		// 	'attr' => array(
-		// 		'slug' => array(
-		// 			'title' => 'Slug (Optional)',
-		// 			'type' => 'text',
-		// 			'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-		// 		),
-		// 		'columns' => array(
-		// 			'title' => 'Columns',
-		// 			'type' => 'select',
-		// 			'options' => $testimonial_column_select,
-		// 			'desc' => 'Select how many columns you want to display service items in a row',
-		// 		),
-		// 		'cat' => array(
-		// 			'title' => 'Filter by testimonials category',
-		// 			'type' => 'select',
-		// 			'options' => $testimonial_cats_select,
-		// 			'desc' => 'You can choose to display only some testimonials from selected testimonial category',
-		// 		),
-		// 		'items' => array(
-		// 			'type' => 'slider',
-		// 			"std" => "4",
-		// 			"min" => 1,
-		// 			"max" => 50,
-		// 			"step" => 1,
-		// 			'desc' => 'Enter number of items to display',
-		// 		),
-		// 		'padding' => array(
-		// 			'title' => 'Content Padding',
-		// 			'type' => 'slider',
-		// 			"std" => "30",
-		// 			"min" => 0,
-		// 			"max" => 200,
-		// 			"step" => 5,
-		// 			'desc' => 'Select padding top and bottom value for this header block',
-		// 		),
-		// 		'bgcolor' => array(
-		// 			'title' => 'Background Color (Optional)',
-		// 			'type' => 'colorpicker',
-		// 			"std" => "#f9f9f9",
-		// 			'desc' => 'Select background color for this content block',
-		// 		),
-		// 		'fontcolor' => array(
-		// 			'title' => 'Font Color (Optional)',
-		// 			'type' => 'colorpicker',
-		// 			"std" => "#444444",
-		// 			'desc' => 'Select font color for this content',
-		// 		),
-		// 		'custom_css' => array(
-		// 			'title' => 'Custom CSS',
-		// 			'type' => 'text',
-		// 			'desc' => 'You can add custom CSS style for this block (advanced user only)',
-		// 		),
-		// 	),
-		// 	'desc' => array(),
-		// 	'content' => FALSE
-		// ),
+		if ( post_type_exists( 'pricing' ) ) {
+			$this->core_elements['pricing'] = array(
+				'title' => 'Pricing Table',
+				'icon' => $image_path . 'pricing_table.png',
+				'attr' => array(
+					'slug' => array(
+						'title' => 'Slug (Optional)',
+						'type' => 'text',
+						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					),
+					'skin' => array(
+						'title' => 'Skin',
+						'type' => 'select',
+						'options' => array(
+							'light' => 'Light',
+							'normal' => 'Normal',
+						),
+						'desc' => 'Select skin for this content',
+					),
+					'cat' => array(
+						'title' => 'Filter by prciing category',
+						'type' => 'select',
+						'options' => $pricing_cats,
+						'desc' => 'You can choose to display only some items from selected pricing category',
+					),
+					'columns' => array(
+						'title' => 'Columns',
+						'type' => 'select',
+						'options' => array(
+							2 => '2 Columns',
+							3 => '3 Columns',
+							4 => '4 Columns',
+						),
+						'desc' => 'Select Number of Pricing Columns',
+					),
+					'items' => array(
+						'type' => 'slider',
+						"std" => "4",
+						"min" => 1,
+						"max" => 50,
+						"step" => 1,
+						'desc' => 'Enter number of items to display',
+					),
+					'padding' => array(
+						'title' => 'Content Padding',
+						'type' => 'slider',
+						"std" => "30",
+						"min" => 0,
+						"max" => 200,
+						"step" => 5,
+						'desc' => 'Select padding top and bottom value for this header block',
+					),
+					'highlightcolor' => array(
+						'title' => 'Highlight Color',
+						'type' => 'colorpicker',
+						"std" => "#001d2c",
+						'desc' => 'Select hightlight color for this content',
+					),
+					'bgcolor' => array(
+						'title' => 'Background Color (Optional)',
+						'type' => 'colorpicker',
+						"std" => "#f9f9f9",
+						'desc' => 'Select background color for this content block',
+					),
+					'custom_css' => array(
+						'title' => 'Custom CSS',
+						'type' => 'text',
+						'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					),
+				),
+				'desc' => '',
+				'content' => false
+			);
+		}
 
-		// 'ppb_pricing' => array(
-		// 		'title' => 'Pricing Table',
-		// 		'icon' => 'pricing_table.png',
-		// 		'attr' => array(
-		// 			'slug' => array(
-		// 				'title' => 'Slug (Optional)',
-		// 				'type' => 'text',
-		// 				'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-		// 			),
-		// 			'skin' => array(
-		// 				'title' => 'Skin',
-		// 				'type' => 'select',
-		// 				'options' => array(
-		// 					'light' => 'Light',
-		// 					'normal' => 'Normal',
-		// 				),
-		// 				'desc' => 'Select skin for this content',
-		// 			),
-		// 			'cat' => array(
-		// 				'title' => 'Filter by prciing category',
-		// 				'type' => 'select',
-		// 				'options' => $pricing_cat_select,
-		// 				'desc' => 'You can choose to display only some items from selected pricing category',
-		// 			),
-		// 			'columns' => array(
-		// 				'title' => 'Columns',
-		// 				'type' => 'select',
-		// 				'options' => array(
-		// 					2 => '2 Columns',
-		// 					3 => '3 Columns',
-		// 					4 => '4 Columns',
-		// 				),
-		// 				'desc' => 'Select Number of Pricing Columns',
-		// 			),
-		// 			'items' => array(
-		// 				'type' => 'slider',
-		// 				"std" => "4",
-		// 				"min" => 1,
-		// 				"max" => 50,
-		// 				"step" => 1,
-		// 				'desc' => 'Enter number of items to display',
-		// 			),
-		// 			'padding' => array(
-		// 				'title' => 'Content Padding',
-		// 				'type' => 'slider',
-		// 				"std" => "30",
-		// 				"min" => 0,
-		// 				"max" => 200,
-		// 				"step" => 5,
-		// 				'desc' => 'Select padding top and bottom value for this header block',
-		// 			),
-		// 			'highlightcolor' => array(
-		// 				'title' => 'Highlight Color',
-		// 				'type' => 'colorpicker',
-		// 				"std" => "#001d2c",
-		// 				'desc' => 'Select hightlight color for this content',
-		// 			),
-		// 			'bgcolor' => array(
-		// 				'title' => 'Background Color (Optional)',
-		// 				'type' => 'colorpicker',
-		// 				"std" => "#f9f9f9",
-		// 				'desc' => 'Select background color for this content block',
-		// 			),
-		// 			'custom_css' => array(
-		// 				'title' => 'Custom CSS',
-		// 				'type' => 'text',
-		// 				'desc' => 'You can add custom CSS style for this block (advanced user only)',
-		// 			),
-		// 		),
-		// 		'desc' => array(),
-		// 		'content' => FALSE
-		// 	),
-
-		'ppb_contact_map' => array(
+		$this->core_elements['contact_map'] = array(
 			'title' =>  'Contact Form With Map',
-			'icon' => 'contact_map.png',
+			'icon' => $image_path . 'contact_map.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -1521,12 +1626,12 @@ function anva_get_builder_options() {
 				'lat' => array(
 					'title' => 'Latitude',
 					'type' => 'text',
-					'desc' => 'Map latitude <a href="http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/">Find here</a>',
+					'desc' => sprintf( 'Map latitude %s', sprintf( '<a href="' . esc_url( 'http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/">%s</a>.' ) . '">', __( 'Find here', 'anva' )   ) ),
 				),
 				'long' => array(
 					'title' => 'Longtitude',
 					'type' => 'text',
-					'desc' => 'Map longitude <a href="http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/">Find here</a>',
+					'desc' => sprintf( 'Map longitude %s', sprintf( '<a href="' . esc_url( 'http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/">%s</a>.' ) . '">', __( 'Find here', 'anva' )   ) ),
 				),
 				'zoom' => array(
 					'title' => 'Zoom Level',
@@ -1571,13 +1676,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_contact_sidebar' => array(
+		$this->core_elements['contact_sidebar'] = array(
 			'title' =>  'Contact Form With Sidebar',
-			'icon' => 'contact_sidebar.png',
+			'icon' => $image_path . 'contact_sidebar.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -1592,7 +1697,7 @@ function anva_get_builder_options() {
 				'sidebar' => array(
 					'Title' => 'Content Sidebar',
 					'type' => 'select',
-					'options' => $theme_sidebar,
+					'options' => $sidebars,
 					'desc' => 'You can select sidebar to display next to classic blog content',
 				),
 				'padding' => array(
@@ -1610,13 +1715,13 @@ function anva_get_builder_options() {
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',
 				),
 			),
-			'desc' => array(),
-			'content' => TRUE
-		),
+			'desc' => '',
+			'content' => true
+		);
 
-		'ppb_map' => array(
+		$this->core_elements['map'] = array(
 			'title' =>  'Fullwidth Map',
-			'icon' => 'googlemap.png',
+			'icon' => $image_path . 'googlemap.png',
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -1673,14 +1778,175 @@ function anva_get_builder_options() {
 					'desc' => 'Enter custom marker image URL',
 				),
 			),
-			'desc' => array(),
-			'content' => FALSE
-		),
-		
-		4 => array(
-			'title' => 'Close'
-		),
-	);
+			'desc' => '',
+			'content' => false
+		);
 
-	return $ppb_shortcodes;
-}
+		/*--------------------------------------------*/
+		/* Extend
+		/*--------------------------------------------*/
+
+		$this->core_elements = apply_filters( 'anva_core_elements', $this->core_elements );
+
+	}
+
+	/**
+	 * Set elements by combining core elements and custom elements.
+	 * Then remove any elements that have been set to be removed.
+	 *
+	 * @since 1.0.0
+	 */
+	public function set_elements() {
+
+		// Combine core elements with custom elements
+		$this->elements = array_merge( $this->core_elements, $this->custom_elements );
+
+		// Remove elements
+		if ( $this->remove_elements ) {
+			foreach ( $this->remove_elements as $element_id ) {
+				if ( isset( $this->elements[$element_id] ) ) {
+					unset( $this->elements[$element_id] );
+				}
+			}
+		}
+
+		// Extend
+		$this->elements = apply_filters( 'anva_elements', $this->elements );
+
+	}
+
+	/**
+	 * Add element to Builder
+	 *
+	 * @since 1.0.0
+	 */
+	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = true ) {
+
+		$args = array(
+			'id'			=> $id,
+			'name'		=> $name,
+			'icon'		=> $icon,
+			'attr'		=> $attr,
+			'desc'		=> $desc,
+			'content' => $content
+		);
+
+		$defaults = array(
+			'id' 	 => '',
+			'name' => '',
+			'icon' => '',
+			'attr' => array(),
+			'desc' => '',
+			'content'	=> true
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		// Register element
+		$this->registered_elements[] = $args['id'];
+
+		// Add in element
+		//if ( is_admin() ) {
+			//$this->custom_elements['loco'] = $args;
+			$this->custom_elements[$args['id']] = array(
+				'id'			=> $args['id'],
+				'title' 	=> $args['name'],
+				'icon' 		=> $args['icon'],
+				'attr' 		=> $args['attr'],
+				'desc' 		=> $args['desc'],
+				'content' => $args['content']
+			);
+		//}
+
+	}
+
+	/**
+	 * Remove element from Builder
+	 *
+	 * @since 1.0.0
+	 */
+	public function remove_element( $element_id ) {
+
+		// Add to removal array, and process in set_elements()
+		$this->remove_elements[] = $element_id;
+
+		// De-register Element
+		if ( $this->registered_elements ) {
+			foreach ( $this->registered_elements as $key => $value ) {
+				if ( $value == $element_id ) {
+					unset( $this->registered_elements[$key] );
+					break;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Get registered elements
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_registered_elements() {
+		return apply_filters( 'anva_registered_elements', $this->registered_elements );
+	}
+
+	/**
+	 * Get core elements
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_core_elements() {
+		return $this->core_elements;
+	}
+
+	/**
+	 * Get custom elements
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_custom_elements() {
+		return $this->custom_elements;
+	}
+
+	/**
+	 * Get final elements
+	 * 
+	 * This is the merged result of core elements and custom elements.
+	 * 
+	 * @since 1.0.0
+	 */
+	public function get_elements() {
+		return $this->elements;
+	}
+
+	/**
+	 * Check if an element is currently registered
+	 *
+	 * @since 1.0.0
+	 */
+	public function is_element( $element_id ) {
+		return in_array( $element_id, $this->get_registered_elements() );
+	}
+
+	public function add_block() {
+		//if ( $this->is_element( $element_id ) ) {
+			//$this->elements[$element_id]['attr'][$block_id] = $options;
+		//}
+
+		//var_dump($this->get_elements());
+		return $this->elements;
+	}
+
+	/**
+	 * Check if a content block is currently registered.
+	 *
+	 * @since 1.0.0
+	 */
+	public function is_block( $element_id, $block_id ) {
+		$blocks = $this->elements;
+		return array_key_exists( $block_id, $blocks[$element_id]['attr'] );
+	}
+
+} // End class
+
+endif;

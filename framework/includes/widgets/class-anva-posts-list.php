@@ -8,10 +8,10 @@ class Anva_Posts_List extends WP_Widget {
 
 		$widget_ops = array(
 			'classname' 	=> 'widget_anva_posts_list',
-			'description' => __( 'Muestra una lista de los posts mas recientes con una imagen destacada.', anva_textdomain()  )
+			'description' => __( 'Lists most recent posts with thumbnails.', 'anva'  )
 		);
 
-		$this->WP_Widget('Anva_Posts_List', 'Anva Posts List', $widget_ops);
+		parent::__construct( 'Anva_Posts_List', 'Anva Posts List', $widget_ops );
 	}
 
 	/* Call Widget */
@@ -53,7 +53,7 @@ class Anva_Posts_List extends WP_Widget {
 		
 		/* Default Value */
 		$instance 		= wp_parse_args( (array) $instance, array(
-			'title' 		=> __( 'Artículos Recientes', anva_textdomain()  ),
+			'title' 		=> __( 'Recent Articles', 'anva'  ),
 			'number' 		=> '3',
 			'order' 		=> 'desc',
 			'orderby' 	=> 'date',
@@ -71,39 +71,39 @@ class Anva_Posts_List extends WP_Widget {
 		
 		<!-- Title -->
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Titulo:', anva_textdomain() ); ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo anva_get_local( 'title' ); ?>:</label>
 			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
 		</p>
 
 		<!-- Number -->
 		<p>
-			<label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Numero de Posts:', anva_textdomain() ); ?></label>
+			<label for="<?php echo $this->get_field_id('number'); ?>"><?php echo anva_get_local( 'posts_number' ); ?>:</label>
 			<input class="widefat" id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="number" value="<?php echo esc_attr($number); ?>" />
 		</p>
 
 		<!-- Order -->
 		<p>
-			<label for="<?php echo $this->get_field_id('order'); ?>"><?php _e('Orden:', anva_textdomain() ); ?></label>
+			<label for="<?php echo $this->get_field_id('order'); ?>"><?php echo anva_get_local( 'order' ); ?></label>
 			<select class="widefat" id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>">
-				<option <?php if ( 'asc' == $order ) echo 'selected="selected"'; ?> value="asc">ASC</option>
-				<option <?php if ( 'desc' == $order ) echo 'selected="selected"'; ?> value="desc">DESC</option>
+				<option <?php if ( 'asc' == $order ) echo 'selected="selected"'; ?> value="asc"><?php echo anva_get_local( 'asc' ); ?></option>
+				<option <?php if ( 'desc' == $order ) echo 'selected="selected"'; ?> value="desc"><?php echo anva_get_local( 'desc' ); ?></option>
 			</select>
 		</p>
 		
 		<!-- Orderby -->
 		<p>
-			<label for="<?php echo $this->get_field_id('orderby'); ?>"><?php _e('Ordenar Por:', anva_textdomain() ); ?></label>
+			<label for="<?php echo $this->get_field_id('orderby'); ?>"><?php echo anva_get_local( 'order_by' ); ?>:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id('orderby'); ?>" name="<?php echo $this->get_field_name('orderby'); ?>">
-				<option <?php if ( 'date' == $orderby ) echo 'selected="selected"'; ?> value="date">Fecha</option>
-				<option <?php if ( 'rand' == $orderby ) echo 'selected="selected"'; ?> value="rand">Random</option>
-				<option <?php if ( 'title' == $orderby ) echo 'selected="selected"'; ?> value="title">Titile</option>
+				<option <?php if ( 'date' == $orderby ) echo 'selected="selected"'; ?> value="date"><?php echo anva_get_local( 'date' ); ?></option>
+				<option <?php if ( 'rand' == $orderby ) echo 'selected="selected"'; ?> value="rand"><?php echo anva_get_local( 'rand' ); ?></option>
+				<option <?php if ( 'title' == $orderby ) echo 'selected="selected"'; ?> value="title"><?php echo anva_get_local( 'title' ); ?></option>
 			</select>
 		</p>
 		
 		<!-- Thumbnail -->
 		<p>			
 			<input class="widefat" <?php checked( $thumbnail, 'on'); ?> id="<?php echo $this->get_field_id('thumbnail'); ?>" name="<?php echo $this->get_field_name('thumbnail'); ?>" type="checkbox" />
-			<label for="<?php echo $this->get_field_id('thumbnail'); ?>"><?php _e('Mostrar miniaturas', anva_textdomain() ); ?></label>
+			<label for="<?php echo $this->get_field_id('thumbnail'); ?>"><?php echo anva_get_local( 'show_thumbnails' ); ?></label>
 		</p>
 
 		<?php

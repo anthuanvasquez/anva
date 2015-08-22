@@ -1,4 +1,7 @@
 <?php
+
+if ( ! class_exists( 'Anva_Front_End_Scripts' ) ) :
+
 /**
  * Anva Javascripts
  * 
@@ -18,7 +21,8 @@
  * @subpackage Anva/admin
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-class Anva_Scripts {
+
+class Anva_Front_End_Scripts {
 
 	/**
 	 * Properties
@@ -296,3 +300,5 @@ class Anva_Scripts {
 
 	}
 }
+
+endif;

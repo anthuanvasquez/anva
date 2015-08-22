@@ -5,12 +5,12 @@
  */
 function anva_shortcodes_init() {
 	
-	add_shortcode( 'drop', 'anva_dropcap' );
-	add_shortcode( 'button', 'anva_button' );
-	add_shortcode( 'toggle', 'anva_toggle' );
-	add_shortcode( 'counter', 'anva_counter' );	
-	add_shortcode( 'column', 'anva_column' );
-	add_shortcode( 'slides', 'anva_slides' );
+	add_shortcode( 'anva_dropcap', 'anva_dropcap' );
+	add_shortcode( 'anva_button', 'anva_button' );
+	add_shortcode( 'anva_toggle', 'anva_toggle' );
+	add_shortcode( 'anva_counter', 'anva_counter' );	
+	add_shortcode( 'anva_column', 'anva_column' );
+	add_shortcode( 'anva_slides', 'anva_slides' );
 	
 }
 

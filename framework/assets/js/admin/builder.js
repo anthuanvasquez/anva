@@ -36,20 +36,20 @@ JSON.stringify = JSON.stringify || function (obj) {
 
 	var rand = jQuery.now();
 	$("#tabs-1 ul li").draggable({
-		connectToSortable: '#content_builder_sort',
+		connectToSortable: '#builder-sortable-items',
 		cursor: 'move',
 		revert: 'invalid',
 		helper: function () {
 			
 			var cloned;
-			var $targetSelect = $('#ppb_options');
-			var $targetTitle  = $('#ppb_options_title');
-			var $targetImage  = $('#ppb_options_image');
+			var $targetSelect = $('#anva_options');
+			var $targetTitle  = $('#anva_options_title');
+			var $targetImage  = $('#anva_options_image');
 			
 			randomId 			= rand;
 			myCheckId 		= $targetSelect.val();
 			myCheckTitle 	= $targetTitle.val();
-			postType 			= $('#ppb_post_type').val();
+			postType 			= $('#anva_post_type').val();
 			myImage 			= $targetImage.val();
 			
 			if ( myCheckId != '' ) {
@@ -63,12 +63,12 @@ JSON.stringify = JSON.stringify || function (obj) {
 				builderItemData.ppb_header_content = '';
 				
 				var builderItemDataJSON = JSON.stringify( builderItemData );
-				var editURL  = ANVA.ajaxurl + '?action=pp_ppb&ppb_post_type=' + postType + '&shortcode=' + myCheckId + '&rel=' + randomId;
+				var editURL  = ANVA.ajaxurl + '?action=pp_ppb&ppb_post_type=' + $postType + '&shortcode=' + myCheckId + '&rel=' + $randomId;
 
-				builderItem  = '<li id="' + randomId + '" class="item item-' + randomId + ' ' + myCheckId + ' ui-state-default one" data-current-size="one">';
+				builderItem  = '<li id="' + randomId + '" class="item item-' + $randomId + ' ' + myCheckId + ' ui-state-default one" data-current-size="one">';
 				builderItem += '<div class="actions">';
-				builderItem += '<a href="' + editURL + '" class="ppb_edit" data-rel="' + randomId + '"></a>';
-				builderItem += '<a href="#" class="ppb_remove"></a>';
+				builderItem += '<a href="' + editURL + '" class="button-edit" data-rel="' + $randomId + '"></a>';
+				builderItem += '<a href="#" class="button-remove"></a>';
 				builderItem += '</div>';
 				builderItem += '<div class="thumbnail">';
 				builderItem += '<img src="' + myImage + '" alt="' + myCheckTitle + '" />';
@@ -93,18 +93,18 @@ JSON.stringify = JSON.stringify || function (obj) {
 
 		}
 	});
-	
-	// Import / Export
-	$('#ppb_export_current_button').on( 'click', function() {
-		$('#ppb_export_current').val( 1 );
-	});
-	
-	$('#ppb_import_current_button').on( 'click', function() {
-		$('#ppb_import_current').val( 1 );
+
+	$('.tooltip').tooltipster({
+		animation: 'grow',
+		delay: 200,
+		maxWidth: 200,
+		theme: 'tooltipster-light',
+		touchDevices: true,
+		trigger: 'hover'
 	});
 	
 	// Tabs
-	$('#modules-tabs, #export-tabs').tabs({
+	$('#elements-tabs, #export-tabs').tabs({
 		hide: {
 			effect: "fade",
 			duration: 400
@@ -125,109 +125,96 @@ JSON.stringify = JSON.stringify || function (obj) {
 	$( '.builder-sortable-items' ).disableSelection();
 
 	// Thumbnail selected
-	var $module = $('.builder-modules li');
-	$module.on( 'click', function(e) {
+	var $element = $('.builder-elements li');
+	$element.on( 'click', function(e) {
 		e.preventDefault();
-		$module.removeClass('selected');
+		$element.removeClass('selected');
 		$(this).addClass('selected');
-		var $moduleSelectedId = $(this).data('module');
-		var $moduleSelectedTitle = $(this).data('title');
-		var $moduleSelectedImage = $(this).find('img').attr('src');
-		$('#builder_options').val( $moduleSelectedId );
-		$('#builder_options_title').val( $moduleSelectedTitle );
-		$('#builder_options_image').val( $moduleSelectedImage );
+		var $elementId = $(this).data('element');
+		var $elementTitle = $(this).data('title');
+		var $elementImage = $(this).find('img').attr('src');
+		$('#anva_options').val( $elementId );
+		$('#anva_options_title').val( $elementTitle );
+		$('#anva_options_image').val( $elementImage );
 	});
 
 	// Add Item
 	$('#add-builder-item').on( 'click', function(e) {
 		e.preventDefault();
-		
-		var $targetSelect = $('#builder_options');
-		var $targetTitle  = $('#builder_options_title');
-		var $targetImage  = $('#builder_options_image');
 
-		if ( '' == $targetSelect.val() ) {
+		if ( '' == $('#anva_options').val() ) {
 			alert( ANVA.builder_empty_options );
 			return false;
 		}
 		
-		randomId 			= jQuery.now();
-		myCheckId 		= $targetSelect.val();
-		myCheckTitle 	= $targetTitle.val();
-		postType 			= $('#ppb_post_type').val();
-		myImage 			= $targetImage.val();
+		var $randomId 	= jQuery.now();
+		var $shortcode 	= $('#anva_options').val();
+		var $title 			= $('#anva_options_title').val();
+		var $image 			= $('#anva_options_image').val();
+		var $postType 	= $('#anva_post_type').val();
 		
-		if ( myCheckId != '' ) {
+		if ( $shortcode != '' ) {
 			
 			var builderItemData = {};
 			
-			builderItemData.id = randomId;
-			builderItemData.shortcode = myCheckId;
-			builderItemData.ppb_text_title = myCheckTitle;
-			builderItemData.ppb_text_content = '';
-			builderItemData.ppb_header_content = '';
+			builderItemData.id 							= $randomId;
+			builderItemData.shortcode 			= $shortcode;
+			builderItemData.text_title 			= $title;
+			builderItemData.text_content 		= '';
+			builderItemData.header_content 	= '';
 			
 			var builderItemDataJSON = JSON.stringify( builderItemData );
-			var editURL  = ANVA.ajaxurl + '?action=pp_ppb&ppb_post_type=' + postType + '&shortcode=' + myCheckId + '&rel=' + randomId;
+			var ajaxEditURL  = ANVA.ajaxurl + '?action=pp_ppb&ppb_post_type=' + $postType + '&shortcode=' + $shortcode + '&rel=' + $randomId;
 
-			builderItem  = '<li id="' + randomId + '" class="item-' + myCheckId + ' ui-state-default one" data-current-size="one">';
+			builderItem  = '<li id="' + $randomId + '" class="item item-' + $randomId + ' ' + $shortcode + ' ui-state-default" data-current-size="one">';
 			builderItem += '<div class="actions">';
-			builderItem += '<a href="' + editURL + '" class="ppb_edit" data-rel="' + randomId + '"></a>';
-			builderItem += '<a href="#" class="ppb_remove"></a>';
+			builderItem += '<a href="' + ajaxEditURL + '" class="button-edit" data-rel="' + $randomId + '"></a>';
+			builderItem += '<a href="#" class="button-remove"></a>';
 			builderItem += '</div>';
 			builderItem += '<div class="thumbnail">';
-			builderItem += '<img src="' + myImage + '" alt="' + myCheckTitle + '" />';
+			builderItem += '<img src="' + $image + '" alt="' + $title + '" />';
 			builderItem += '</div>';
 			builderItem += '<div class="title">';
-			builderItem += '<span class="shortcode-type">' + myCheckTitle + '</span>';
+			builderItem += '<span class="shortcode-type">' + $title + '</span>';
 			builderItem += '<span class="shortcode-title"></span>';
 			builderItem += '</div>';
-			builderItem += '<span class="spinner spinner-' + randomId + '"></span>';
+			builderItem += '<span class="spinner spinner-' + $randomId + '"></span>';
 			builderItem += '<input type="hidden" class="ppb_setting_columns" value="one_fourth"/>';
 			builderItem += '<div class="clear"></div>';
 			builderItem += '</li>';
 
-			$('#content_builder_sort').append( builderItem );
-			$('#content_builder_sort').removeClass('empty');
-			$('#' + randomId).data('ppb_setting', builderItemDataJSON);
+			$('#builder-sortable-items').append( builderItem );
+			$('#builder-sortable-items').removeClass('empty');
+			$('#' + $randomId).data( 'anva_builder_settings', builderItemDataJSON );
 			
-			// var prev1Li = $('#'+randomId).prev();
-			// var prev2Li = prev1Li.prev();
-			// var prev3Li = prev2Li.prev();
-				
-			// if ( prev1Li.attr('data-current-size') == 'one_third' && prev2Li.attr('data-current-size') == 'one_third' ) {
-			// 	$('#'+randomId).attr('data-current-size', 'one_third last');
-			// 	$('#'+randomId).find('.ppb_setting_columns').attr('value', 'one_third last');
-			// }
-			
-			if ( myCheckId != 'ppb_divider' && myCheckId != 'ppb_empty_line' ) {
-				$('#' + randomId).find('.ppb_edit').trigger('click');
+			if ( $shortcode != 'divider' && $shortcode != 'empty_line' ) {
+				$('#' + $randomId).find('.button-edit').trigger('click');
 			}
 
 			$('html, body').animate({
-				scrollTop: $('#' + randomId).offset().top - 32
+				scrollTop: $('#' + $randomId).offset().top - 32
 			}, 1000);
 			
 		}
 	});
 
 	// Remove Item
-	$(document).on( 'click', '#content_builder_sort li a.ppb_remove', function(e) {
+	$(document).on( 'click', '#builder-sortable-items li a.button-remove', function(e) {
 		e.preventDefault();
 		var $parentEle = $(this).parent('.actions').parent('li');
 		if ( confirm( 'Are you sure you want to delete this item?' ) ) {
 			$parentEle.remove();
 			
 			setTimeout( function() {
-				if ( $('#content_builder_sort li').length == 0 ) {
-					$('#content_builder_sort').addClass('empty');
+				if ( $('#builder-sortable-items li').length == 0 ) {
+					$('#builder-sortable-items').addClass('empty');
 				}
 			}, 500 );
 		}
 	});
 	
 	// Edit Item
-	$(document).on( 'click', '#content_builder_sort li .actions a.ppb_edit', function(e) {
+	$(document).on( 'click', '#builder-sortable-items li .actions a.button-edit', function(e) {
 		e.preventDefault();
 		
 		var ele 			= $(this).parent('.actions').parent('li'),
@@ -235,7 +222,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 				itemInner = $('#item-inner-' + id);
 		
 		if ( itemInner.length == 0 ) {
-			$('#ppb_inline_current').attr('value', $(this).attr('data-rel'));
+			$('#anva_inline_current').attr( 'value', $(this).attr('data-rel') );
 
 			var actionURL = $(this).attr('href');
 
@@ -307,13 +294,13 @@ JSON.stringify = JSON.stringify || function (obj) {
 	
 	// Submit Items
 	$('#publish').on( 'click', function(e) {
-		$("#content_builder_sort > li").each( function() {
-			$(this).append('<textarea style="display:none" id="'+$(this).attr('id')+'_data" name="'+$(this).attr('id')+'_data">'+$(this).data('ppb_setting')+'</textarea>');
-			$(this).append('<input style="display:none" type="text" id="'+$(this).attr('id')+'_size" name="'+$(this).attr('id')+'_size" value="'+$(this).attr('data-current-size')+'"/>');
+		$("#builder-sortable-items > li").each( function() {
+			$(this).append( '<textarea style="display:none" id="' + $(this).attr('id') + '_data" name="' + $(this).attr('id') + '_data">' + $(this).data('anva_builder_settings') + '</textarea>');
+			$(this).append( '<input style="display:none" type="text" id="' + $(this).attr('id') + '_size" name="' + $(this).attr('id') + '_size" value="' + $(this).attr('data-current-size') + '"/>');
 		});
 		
-		var itemOrder = $("#content_builder_sort").sortable('toArray');
-		$('#ppb_form_data_order').attr('value', itemOrder);
+		var itemOrder = $("#builder-sortable-items").sortable('toArray');
+		$('#anva_form_data_order').attr('value', itemOrder);
 	});
 			
 	$('body').on( 'click', '#wp-link-submit', function(e) {

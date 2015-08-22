@@ -1,18 +1,67 @@
 <?php
 
-function ppb_text_func($atts, $content) {
+/*--------------------------------------------*/
+/* Layout Elements
+/*--------------------------------------------*/
 
-	//extract short code attr
-	extract(shortcode_atts(array(
-		'size' => 'one',
-		'slug' => '',
-		'width' => '100%',
-		'padding' => 30,
-		'bgcolor' => '',
-		'fontcolor' => '',
-		'layout' => 'fixedwidth',
-		'custom_css' => '',
-	), $atts));
+add_shortcode( 'anva_divider', 'anva_divider_element' );
+
+/*--------------------------------------------*/
+/* Content Elements
+/*--------------------------------------------*/
+
+add_shortcode( 'anva_text', 'anva_text_element' );
+add_shortcode( 'anva_text_image', 'anva_text_image_element' );
+add_shortcode( 'anva_text_sidebar', 'anva_text_sidebar_element' );
+add_shortcode( 'anva_header', 'anva_header_element' );
+add_shortcode( 'anva_header_image', 'anva_header_image_element' );
+add_shortcode( 'anva_blog_grid', 'anva_blog_grid_element' );
+add_shortcode( 'anva_content_half_bg', 'anva_content_half_bg_element' );
+add_shortcode( 'anva_contact_sidebar', 'anva_contact_sidebar_element' );
+add_shortcode( 'anva_contact_map', 'anva_contact_map_element' );
+add_shortcode( 'anva_map', 'anva_map_element' );
+add_shortcode( 'anva_testimonial_column', 'anva_testimonial_column_element' );
+add_shortcode( 'anva_pricing', 'anva_pricing_element' );
+
+/*--------------------------------------------*/
+/* Media Elements
+/*--------------------------------------------*/
+
+add_shortcode( 'anva_gallery_slider', 'anva_gallery_slider_element' );
+add_shortcode( 'anva_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width_element' );
+add_shortcode( 'anva_gallery_grid', 'anva_gallery_grid_element' );
+add_shortcode( 'anva_gallery_masonry', 'anva_gallery_masonry_element' );
+add_shortcode( 'anva_galleries', 'anva_galleries_element' );
+add_shortcode( 'anva_animated_gallery_grid', 'anva_animated_gallery_grid_element' );
+add_shortcode( 'anva_image_parallax', 'anva_image_parallax_element' );
+add_shortcode( 'anva_image_fullwidth', 'anva_image_fullwidth_element' );
+add_shortcode( 'anva_image_half_fullwidth', 'anva_image_half_fullwidth_element' );
+add_shortcode( 'anva_image_half_fixed_width', 'anva_image_half_fixed_width_element' );
+add_shortcode( 'anva_image_fixed_width', 'anva_image_fixed_width_element' );
+add_shortcode( 'anva_four_images_block', 'anva_four_images_block_element' );
+add_shortcode( 'anva_three_images_block', 'anva_three_images_block_element' );
+add_shortcode( 'anva_three_cols_images', 'anva_three_cols_images_element');
+add_shortcode( 'anva_two_cols_images', 'anva_two_cols_images_element' );
+
+function anva_divider_element( $atts, $content ) {
+	extract( shortcode_atts( array(
+		'size' => 'one'
+	), $atts ) );
+	$html = '<div class="divider clearfix ' . esc_attr( $size ) . '"></div>';
+	return $html;
+}
+
+function anva_text_element( $atts, $content ) {
+	extract( shortcode_atts( array(
+		'size' 				=> 'one',
+		'slug' 				=> '',
+		'width' 			=> '100%',
+		'padding' 		=> 30,
+		'bgcolor' 		=> '',
+		'fontcolor' 	=> '',
+		'layout' 			=> 'fixedwidth',
+		'custom_css' 	=> '',
+	), $atts ) );
 	
 	$sec_id = '';
 	if(!empty($slug))
@@ -20,7 +69,7 @@ function ppb_text_func($atts, $content) {
 		$sec_id = 'id="'.esc_attr($slug).'"';
 	}
 
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding ppb_text ';
+	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding anva_text ';
 	
 	if(!empty($layout) && $layout == 'fullwidth')
 	{
@@ -64,16 +113,14 @@ function ppb_text_func($atts, $content) {
 	{
 		$html.= '</div>';
 	}
-	$html.= '</div><br class="clear"/></div>';
+	$html.= '</div></div>';
 
 	return $html;
 
 }
 
-add_shortcode('ppb_text', 'ppb_text_func');
 
-
-function ppb_text_image_func($atts, $content) {
+function anva_text_image_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -93,7 +140,7 @@ function ppb_text_image_func($atts, $content) {
 		$sec_id = 'id="'.esc_attr($slug).'"';
 	}
 
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding ppb_text ';
+	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding anva_text ';
 	
 	if(!empty($background))
 	{
@@ -139,10 +186,10 @@ function ppb_text_image_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_text_image', 'ppb_text_image_func');
 
 
-function ppb_text_sidebar_func($atts, $content) {
+
+function anva_text_sidebar_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -188,10 +235,10 @@ function ppb_text_sidebar_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_text_sidebar', 'ppb_text_sidebar_func');
 
 
-function ppb_header_func($atts, $content) {
+
+function anva_header_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -213,7 +260,7 @@ function ppb_header_func($atts, $content) {
 		$sec_id = 'id="'.esc_attr($slug).'"';
 	}
 
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding ppb_header ';
+	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding anva_header ';
 	
 	if(!empty($layout) && $layout == 'fullwidth')
 	{
@@ -249,7 +296,7 @@ function ppb_header_func($atts, $content) {
 	//Add title and content
 	if(!empty($title))
 	{
-		$html.= '<h2 class="ppb_title" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($title)).'</h2>';
+		$html.= '<h2 class="anva_title" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($title)).'</h2>';
 		$html.= '<div class="or-spacer '.esc_attr($textalign).'">
 			<div class="mask"></div>
 			<span></span>
@@ -258,12 +305,12 @@ function ppb_header_func($atts, $content) {
 	
 	if(!empty($subtitle))
 	{
-		$html.= '<div class="ppb_subtitle" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($subtitle)).'</div>';
+		$html.= '<div class="anva_subtitle" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($subtitle)).'</div>';
 	}
 	
 	if(!empty($content))
 	{
-		$html.= '<br class="clear"/>'.do_shortcode(anva_apply_content($content));
+		$html.= do_shortcode(anva_apply_content($content));
 	}
 	
 	$html.= '</div>';
@@ -278,10 +325,10 @@ function ppb_header_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_header', 'ppb_header_func');
 
 
-function ppb_header_image_func($atts, $content) {
+
+function anva_header_image_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -305,7 +352,7 @@ function ppb_header_image_func($atts, $content) {
 		$sec_id = 'id="'.esc_attr($slug).'"';
 	}
 
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding ppb_header ';
+	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding anva_header ';
 	
 	if(!empty($background))
 	{
@@ -349,7 +396,7 @@ function ppb_header_image_func($atts, $content) {
 	//Add title and content
 	if(!empty($title))
 	{
-		$html.= '<h2 class="ppb_title" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($title)).'</h2>';
+		$html.= '<h2 class="anva_title" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($title)).'</h2>';
 		$html.= '<div class="or-spacer '.esc_attr($textalign).'">
 			<div class="mask"></div>
 			<span></span>
@@ -358,12 +405,12 @@ function ppb_header_image_func($atts, $content) {
 	
 	if(!empty($subtitle))
 	{
-		$html.= '<div class="ppb_subtitle" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($subtitle)).'</div>';
+		$html.= '<div class="anva_subtitle" style="'.esc_attr($custom_css_fontcolor).'">'.esc_html(urldecode($subtitle)).'</div>';
 	}
 	
 	if(!empty($content))
 	{
-		$html.= '<br class="clear"/>'.do_shortcode(anva_apply_content($content));
+		$html.= ''.do_shortcode(anva_apply_content($content));
 	}
 	
 	$html.= '</div>';
@@ -374,20 +421,9 @@ function ppb_header_image_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_header_image', 'ppb_header_image_func');
 
 
-function ppb_divider_func($atts, $content) {
-	extract( shortcode_atts( array(
-		'size' => 'one'
-	), $atts ) );
-	$html = '<div class="divider clearfix ' . esc_attr( $size ) . '"></div>';
-	return $html;
-}
-add_shortcode( 'ppb_divider', 'ppb_divider_func' );
-
-
-function ppb_gallery_slider_func($atts, $content) {
+function anva_gallery_slider_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -425,10 +461,10 @@ function ppb_gallery_slider_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_gallery_slider', 'ppb_gallery_slider_func');
 
 
-function ppb_gallery_slider_fixed_width_func($atts, $content) {
+
+function anva_gallery_slider_fixed_width_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -473,10 +509,10 @@ function ppb_gallery_slider_fixed_width_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_gallery_slider_fixed_width', 'ppb_gallery_slider_fixed_width_func');
 
 
-function ppb_gallery_grid_func( $atts, $content ) {
+
+function anva_gallery_grid_element( $atts, $content ) {
 
 	// Extract short code attr
 	extract( shortcode_atts( array(
@@ -506,10 +542,8 @@ function ppb_gallery_grid_func( $atts, $content ) {
 	anva_gallery_grid( 15, 3, 'grid_2' );
 }
 
-add_shortcode( 'ppb_gallery_grid', 'ppb_gallery_grid_func' );
 
-
-function ppb_animated_gallery_grid_func($atts, $content) {
+function anva_animated_gallery_grid_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -622,10 +656,9 @@ function ppb_animated_gallery_grid_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_animated_gallery_grid', 'ppb_animated_gallery_grid_func');
 
 
-function ppb_gallery_masonry_func($atts, $content) {
+function anva_gallery_masonry_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -656,10 +689,10 @@ function ppb_gallery_masonry_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_gallery_masonry', 'ppb_gallery_masonry_func');
 
 
-function ppb_image_fullwidth_func($atts, $content) {
+
+function anva_image_fullwidth_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -708,7 +741,7 @@ function ppb_image_fullwidth_func($atts, $content) {
 		
 		if(!empty($image_caption))
 		{
-			$html.= '<div id="gallery_caption" class="ppb_fullwidth"><h2>'.$image_caption.'</h2></div>';
+			$html.= '<div id="gallery_caption" class="anva_fullwidth"><h2>'.$image_caption.'</h2></div>';
 		}
 	}
 	
@@ -719,10 +752,10 @@ function ppb_image_fullwidth_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_image_fullwidth', 'ppb_image_fullwidth_func');
 
 
-function ppb_image_parallax_func($atts, $content) {
+
+function anva_image_parallax_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -762,10 +795,9 @@ function ppb_image_parallax_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_image_parallax', 'ppb_image_parallax_func');
 
 
-function ppb_image_fixed_width_func($atts, $content) {
+function anva_image_fixed_width_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -828,10 +860,10 @@ function ppb_image_fixed_width_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_image_fixed_width', 'ppb_image_fixed_width_func');
 
 
-function ppb_content_half_bg_func($atts, $content) {
+
+function anva_content_half_bg_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -861,7 +893,7 @@ function ppb_content_half_bg_func($atts, $content) {
 		$sec_id = 'id="'.esc_attr($slug).'"';
 	}
 
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding ppb_content_half_bg ';
+	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding anva_content_half_bg ';
 	
 	if(!empty($background))
 	{
@@ -925,7 +957,7 @@ function ppb_content_half_bg_func($atts, $content) {
 		//Add title and content
 		if(!empty($title))
 		{
-			$html.= '<h2 class="ppb_title" style="'.esc_attr($custom_css_fontcolor).'">'.urldecode($title).'</h2>';
+			$html.= '<h2 class="anva_title" style="'.esc_attr($custom_css_fontcolor).'">'.urldecode($title).'</h2>';
 			$html.= '<div class="or-spacer">
 				<div class="mask"></div>
 				<span></span>
@@ -934,12 +966,12 @@ function ppb_content_half_bg_func($atts, $content) {
 		
 		if(!empty($subtitle))
 		{
-			$html.= '<div class="ppb_subtitle" style="'.esc_attr($custom_css_fontcolor).'">'.urldecode($subtitle).'</div>';
+			$html.= '<div class="anva_subtitle" style="'.esc_attr($custom_css_fontcolor).'">'.urldecode($subtitle).'</div>';
 		}
 		
 		if(!empty($content))
 		{
-			$html.= '<br class="clear"/>'.do_shortcode(anva_apply_content($content));
+			$html.= ''.do_shortcode(anva_apply_content($content));
 		}
 		$html.= '</div>';
 	}
@@ -950,10 +982,9 @@ function ppb_content_half_bg_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_content_half_bg', 'ppb_content_half_bg_func');
 
 
-function ppb_image_half_fixed_width_func($atts, $content) {
+function anva_image_half_fixed_width_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -994,7 +1025,7 @@ function ppb_image_half_fixed_width_func($atts, $content) {
 	//Display Title
 	if(!empty($title))
 	{
-		$html.= '<h2 class="ppb_title">'.$title.'</h2>';
+		$html.= '<h2 class="anva_title">'.$title.'</h2>';
 	}
 	
 	if($align=='left')
@@ -1034,7 +1065,7 @@ function ppb_image_half_fixed_width_func($atts, $content) {
 		$html.= '</div>';
 	}
 	
-	$html.= '<br class="clear"/></div>';
+	$html.= '</div>';
 	$html.= '</div>';
 	$html.= '</div>';
 
@@ -1042,10 +1073,9 @@ function ppb_image_half_fixed_width_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_image_half_fixed_width', 'ppb_image_half_fixed_width_func');
 
 
-function ppb_image_half_fullwidth_func($atts, $content) {
+function anva_image_half_fullwidth_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -1112,7 +1142,7 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 		//Display Title
 		if(!empty($title))
 		{
-			$html.= '<h2 class="ppb_title" ';
+			$html.= '<h2 class="anva_title" ';
 			if(!empty($fontcolor))
 			{
 				$html.= 'style="color:'.esc_attr($fontcolor).';"';
@@ -1125,7 +1155,7 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 		}
 		if(!empty($subtitle))
 		{
-			$html.= '<div class="ppb_subtitle" ';
+			$html.= '<div class="anva_subtitle" ';
 			if(!empty($fontcolor))
 			{
 				$html.= 'style="color:'.esc_attr($fontcolor).';"';
@@ -1146,7 +1176,7 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 		//Display Title
 		if(!empty($title))
 		{
-			$html.= '<h2 class="ppb_title" ';
+			$html.= '<h2 class="anva_title" ';
 			if(!empty($fontcolor))
 			{
 				$html.= 'style="color:'.esc_attr($fontcolor).';"';
@@ -1159,7 +1189,7 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 		}
 		if(!empty($subtitle))
 		{
-			$html.= '<div class="ppb_subtitle" ';
+			$html.= '<div class="anva_subtitle" ';
 			if(!empty($fontcolor))
 			{
 				$html.= 'style="color:'.esc_attr($fontcolor).';"';
@@ -1180,17 +1210,17 @@ function ppb_image_half_fullwidth_func($atts, $content) {
 		$html.= '></div>';
 	}
 	
-	$html.= '<br class="clear"/></div>';
+	$html.= '</div>';
 	$html.= '</div>';
 
 	return $html;
 
 }
 
-add_shortcode('ppb_image_half_fullwidth', 'ppb_image_half_fullwidth_func');
 
 
-function ppb_two_cols_images_func( $atts, $content ) {
+
+function anva_two_cols_images_element( $atts, $content ) {
 	// Extract short code attr
 	extract( shortcode_atts( array(
 		'size' 						=> 'one',
@@ -1258,10 +1288,9 @@ function ppb_two_cols_images_func( $atts, $content ) {
 
 	return $html;
 }
-add_shortcode('ppb_two_cols_images', 'ppb_two_cols_images_func');
 
 
-function ppb_three_cols_images_func($atts, $content) {
+function anva_three_cols_images_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -1371,10 +1400,10 @@ function ppb_three_cols_images_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_three_cols_images', 'ppb_three_cols_images_func');
 
 
-function ppb_three_images_block_func($atts, $content) {
+
+function anva_three_images_block_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -1461,7 +1490,7 @@ function ppb_three_images_block_func($atts, $content) {
 				$html.= '</div>';
 		}
 		
-		$html.= '<br class="clear"/>';
+		$html.= '';
 		
 		if(!empty($image3))
 		{
@@ -1507,7 +1536,7 @@ function ppb_three_images_block_func($atts, $content) {
 				$html.= '</div>';
 		}
 		
-		$html.= '<br class="clear"/>';
+		$html.= '';
 		
 		if(!empty($image3))
 		{
@@ -1561,10 +1590,10 @@ function ppb_three_images_block_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_three_images_block', 'ppb_three_images_block_func');
 
 
-function ppb_four_images_block_func($atts, $content) {
+
+function anva_four_images_block_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -1646,7 +1675,7 @@ function ppb_four_images_block_func($atts, $content) {
 	}
 	$html.= '</div>';
 	
-	$html.= '<br class="clear"/><br/>';
+	$html.= '';
 	
 	//Third image
 	$html.= '<div class="one_half">';
@@ -1700,10 +1729,9 @@ function ppb_four_images_block_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_four_images_block', 'ppb_four_images_block_func');
 
 
-function ppb_blog_grid_func($atts, $content) {
+function anva_blog_grid_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -1760,20 +1788,20 @@ function ppb_blog_grid_func($atts, $content) {
 	
 	if(!empty($posts_arr) && is_array($posts_arr))
 	{
-		$html.= '<div class="blog_grid_wrapper sidebar_content full_width ppb_blog_posts">';
+		$html.= '<div class="blog_grid_wrapper sidebar_content full_width anva_blog_posts">';
 	
-		foreach($posts_arr as $key => $ppb_post)
+		foreach($posts_arr as $key => $anva_post)
 		{
 			$animate_layer = $key+7;
 			$image_thumb = '';
 										
-			if(has_post_thumbnail($ppb_post->ID, 'large'))
+			if(has_post_thumbnail($anva_post->ID, 'large'))
 			{
-					$image_id = get_post_thumbnail_id($ppb_post->ID);
+					$image_id = get_post_thumbnail_id($anva_post->ID);
 					$image_thumb = wp_get_attachment_image_src($image_id, 'large', true);
 			}
 			
-			$html.= '<div id="post-'.$ppb_post->ID.'" class="post type-post hentry status-publish">
+			$html.= '<div id="post-'.$anva_post->ID.'" class="post type-post hentry status-publish">
 			<div class="post_wrapper grid_layout">';
 			
 			if(!empty($image_thumb))
@@ -1781,7 +1809,7 @@ function ppb_blog_grid_func($atts, $content) {
 						$small_image_url = wp_get_attachment_image_src($image_id, 'blog_r', true);
 		
 				$html.= '<div class="post_img small">
-						<a href="'.esc_url(get_permalink($ppb_post->ID)).'">
+						<a href="'.esc_url(get_permalink($anva_post->ID)).'">
 							<img src="'.esc_url($small_image_url[0]).'" alt="" class=""/>
 						</a>
 				</div>';
@@ -1792,7 +1820,7 @@ function ppb_blog_grid_func($atts, $content) {
 				$html.= '<div class="post_header grid_layout">
 				<div class="post_subtitle">';
 				
-					$post_categories = wp_get_post_categories($ppb_post->ID);
+					$post_categories = wp_get_post_categories($anva_post->ID);
 				if(!empty($post_categories))
 				{
 						foreach($post_categories as $c)
@@ -1803,10 +1831,10 @@ function ppb_blog_grid_func($atts, $content) {
 				}
 									
 			$html.= '</div>
-					<h5><a href="'.esc_url(get_permalink($ppb_post->ID)).'" title="'.get_the_title($ppb_post->ID).'">'.get_the_title($ppb_post->ID).'</a></h5>
+					<h5><a href="'.esc_url(get_permalink($anva_post->ID)).'" title="'.get_the_title($anva_post->ID).'">'.get_the_title($anva_post->ID).'</a></h5>
 			</div>';
 			
-			$html.= '<div class="post_grid_excerpt">'.pp_substr(strip_shortcodes(pp_get_the_excerpt($ppb_post->ID)), 150).'</div>';
+			$html.= '<div class="post_grid_excerpt">'.pp_substr(strip_shortcodes(pp_get_the_excerpt($anva_post->ID)), 150).'</div>';
 				
 				$html.= '
 			</div>    
@@ -1821,16 +1849,15 @@ function ppb_blog_grid_func($atts, $content) {
 	
 	if(!empty($link_title) && !empty($link_url))
 	{
-		$html.= '<a href="'.esc_url($link_url).'" class="button continue_ppb_blog">'.urldecode($link_title).'</a>';
+		$html.= '<a href="'.esc_url($link_url).'" class="button continue_anva_blog">'.urldecode($link_title).'</a>';
 	}
 	
 	return $html;
 }
 
-add_shortcode('ppb_blog_grid', 'ppb_blog_grid_func');
 
 
-function ppb_pricing_func($atts, $content) {
+function anva_pricing_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -1857,7 +1884,7 @@ function ppb_pricing_func($atts, $content) {
 		$sec_id = 'id="'.esc_attr($slug).'"';
 	}
 	
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' ppb_pricing"';
+	$html = '<div '.$sec_id.' class="'.esc_attr($size).' anva_pricing"';
 	
 	$custom_css.= 'padding:'.esc_attr($padding).'px 0 '.esc_attr($padding).'px 0;';
 	if(!empty($bgcolor))
@@ -2001,10 +2028,9 @@ function ppb_pricing_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_pricing', 'ppb_pricing_func');
 
 
-function ppb_testimonial_column_func($atts, $content) {
+function anva_testimonial_column_element($atts, $content) {
 	remove_filter('the_content', 'pp_formatter', 99);
 
 	//extract short code attr
@@ -2036,7 +2062,7 @@ function ppb_testimonial_column_func($atts, $content) {
 		$sec_id = 'id="'.esc_attr($slug).'"';
 	}
 	
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding ppb_testimonial_column"';
+	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding anva_testimonial_column"';
 	
 	$custom_css.= 'padding:'.esc_attr($padding).'px 0 '.esc_attr($padding).'px 0;';
 	if(!empty($fontcolor))
@@ -2199,7 +2225,7 @@ function ppb_testimonial_column_func($atts, $content) {
 			
 			if(($key+1)%$count_column == 0)
 			{
-					$html.= '<br class="clear"/>';
+					$html.= '';
 			}
 		}
 		
@@ -2211,10 +2237,9 @@ function ppb_testimonial_column_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_testimonial_column', 'ppb_testimonial_column_func');
 
 
-function ppb_contact_map_func($atts, $content) {
+function anva_contact_map_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -2271,7 +2296,7 @@ function ppb_contact_map_func($atts, $content) {
 	//Display Title
 	if(!empty($title))
 	{
-		$html.= '<h2 class="ppb_title" ';
+		$html.= '<h2 class="anva_title" ';
 		if(!empty($fontcolor))
 		{
 			$html.= 'style="color:'.esc_attr($fontcolor).';"';
@@ -2286,7 +2311,7 @@ function ppb_contact_map_func($atts, $content) {
 	//Display Content
 	if(!empty($subtitle))
 	{
-		$html.= '<div class="ppb_subtitle" ';
+		$html.= '<div class="anva_subtitle" ';
 		if(!empty($fontcolor))
 		{
 			$html.= 'style="color:'.esc_attr($fontcolor).';"';
@@ -2297,7 +2322,7 @@ function ppb_contact_map_func($atts, $content) {
 	//Display Content
 	if(!empty($content))
 	{
-		$html.= '<br class="clear"/><div class="ppb_content">'.urldecode($content).'</div>';
+		$html.= '<div class="anva_content">'.urldecode($content).'</div>';
 	}
 	
 	//Display contact form
@@ -2491,10 +2516,8 @@ function ppb_contact_map_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_contact_map', 'ppb_contact_map_func');
 
-
-function ppb_contact_sidebar_func($atts, $content) {
+function anva_contact_sidebar_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -2529,7 +2552,7 @@ function ppb_contact_sidebar_func($atts, $content) {
 	//Display Title
 	if(!empty($title))
 	{
-		$html.= '<h2 class="ppb_title">'.esc_html(urldecode($title)).'</h2>';
+		$html.= '<h2 class="anva_title">'.esc_html(urldecode($title)).'</h2>';
 		$html.= '<div class="or-spacer">
 			<div class="mask"></div>
 			<span></span>
@@ -2539,13 +2562,13 @@ function ppb_contact_sidebar_func($atts, $content) {
 	//Display Content
 	if(!empty($subtitle))
 	{
-		$html.= '<div class="ppb_subtitle">'.esc_html(urldecode($subtitle)).'</div>';
+		$html.= '<div class="anva_subtitle">'.esc_html(urldecode($subtitle)).'</div>';
 	}
 	
 	//Display Content
 	if(!empty($content))
 	{
-		$html.= '<br class="clear"/><div class="ppb_content">'.urldecode($content).'</div>';
+		$html.= '<div class="anva_content">'.urldecode($content).'</div>';
 	}
 	
 	//Display contact form
@@ -2680,10 +2703,10 @@ function ppb_contact_sidebar_func($atts, $content) {
 	return $html;
 }
 
-add_shortcode('ppb_contact_sidebar', 'ppb_contact_sidebar_func');
 
 
-function ppb_map_func($atts) {
+
+function anva_map_element($atts) {
 	//extract short code attr
 	extract(shortcode_atts(array(
 		'height' => 600,
@@ -2763,10 +2786,8 @@ function ppb_map_func($atts) {
 
 }
 
-add_shortcode('ppb_map', 'ppb_map_func');
 
-
-function ppb_galleries_func($atts, $content) {
+function anva_galleries_element($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -2787,7 +2808,7 @@ function ppb_galleries_func($atts, $content) {
 		$custom_css.= 'background-color:'.esc_attr($bgcolor).';';
 	}
 
-	$html = '<div class="'.esc_attr($size).' ppb_galleries nopadding" ';
+	$html = '<div class="'.esc_attr($size).' anva_galleries nopadding" ';
 	
 	if(!empty($custom_css))
 	{
@@ -2893,5 +2914,3 @@ function ppb_galleries_func($atts, $content) {
 
 }
 
-add_shortcode('ppb_galleries', 'ppb_galleries_func');
-?>

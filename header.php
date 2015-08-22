@@ -18,7 +18,12 @@
 
 <body <?php body_class(); ?> data-loader="3">
 
-<?php anva_before(); ?>
+<?php anva_before();
+//var_dump(anva_get_elements());
+
+// var_dump(get_class_methods('Anva_Page_Builder_Elements'));
+var_dump(anva_add_block_element());
+?>
 
 <!-- WRAPPER (start) -->
 <div id="wrapper" class="clearfix">

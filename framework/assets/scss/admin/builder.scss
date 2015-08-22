@@ -95,49 +95,13 @@
 }
 
 /* ---------------------------------------------------------*/
-/* Anva Page Builder
+/* Anva Page Builder Items
 /* ---------------------------------------------------------*/
-
-#modules-tabs.ui-tabs .ui-tabs-nav li,
-#export-tabs.ui-tabs .ui-tabs-nav li {
-	margin-right: 5px;
-}
-
-#modules-tabs .ui-tabs-nav li a,
-#export-tabs .ui-tabs-nav li a {
-	padding: 6px 10px;
-	font-weight: 700;
-	font-family: "Open Sans",sans-serif;
-	font-size: 15px;
-	line-height: 24px;
-}
-
-#modules-tabs .ui-tabs-nav li.ui-state-active a,
-#export-tabs .ui-tabs-nav li.ui-state-active a {
-	color: #000;
-}
 
 .item {
 	.spinner {
 		margin: 18px 10px 0;
 	}
-}
-
-.one_half {
-	width: 50%;
-	float: left;
-	text-align:center;
-	margin-bottom: 50px;
-}
-
-.one_half.last {
-	margin-right: 0;
-}
-
-.one_half img {
-	width: 310px;
-	height: auto;
-	box-shadow: 0px 2px 3px #ccc;
 }
 
 /* ---------------------------------------------------------------- */
@@ -179,7 +143,7 @@
 		background: #fff;
 		border: 1px solid #ddd;
 		box-sizing: border-box;
-		color: #000;
+		color: #23282d;
 		cursor: move;
 		font-size: 1em;
 		line-height: 1.2em;
@@ -187,6 +151,7 @@
 		padding: 0;
 		position: relative;
 		transition: all .2s ease;
+		width: 100%;
 
 		&:after {
 			content: "";
@@ -203,7 +168,7 @@
 		}
 
 		.actions {
-			background: rgba(black, .1);
+			background: rgba(black, .3);
 			box-sizing: border-box;
 			font-size: 12px;
 			position: relative;
@@ -233,23 +198,23 @@
 			left: 75px;
 		}
 
-		&.ppb_divider {
+		&.divider {
 			.title {
 				top: 40px;
 			}
 
-			.ppb_edit {
+			.button-edit {
 				display: none;
 			}
 		}
 
 		.shortcode-type {
-			color: #000;
+			color: #23282d;
 			display: block;
 			font-weight: normal;
 		}
 
-		.ppb_edit {
+		.button-edit {
 			&:after {
 				content: "\f464";
 			}
@@ -258,18 +223,18 @@
 			}
 		}
 
-		.ppb_remove {
+		.button-remove {
 			&:after {
-				content: "\f182";
+				content: "\f158";
 			}
 			&:hover {
 				color: #a00;
 			}
 		}
 
-		.ppb_remove,
-		.ppb_edit {
-			color: #000;
+		.button-remove,
+		.button-edit {
+			color: #222;
 			display: inline-block;
 			margin: 3px 0 3px 5px;
 			&:after {
@@ -289,42 +254,18 @@
 			}
 		}
 
-		.ppb_unsave {
+		.unsave {
 			display: inline-block;
 			font-weight: 700;
 			margin-left: 5px;
 			font-size: 13px;
-			color: #0073aa;
-		}
-
-		&.one_fourth {
-			float: left;
-			width: 20%;
-		}
-
-		&.one_half {
-			float: left;
-			width: 45%;
-		}
-
-		&.one_third {
-			float: left;
-			width: 28.5%;
-		}
-
-		&.two_third {
-			float: left;
-			width: 57%;
-		}
-
-		&.one {
-			width: 100% !important;
+			color: red;
 		}
 
 	}
 }
 
-.sort-footer {
+.sortable-header {
 	background: #eaf2fa;
 	border: #c7d7e2 solid 1px;
 	margin: 20px 0 0;
@@ -332,7 +273,7 @@
 	position: relative;
 	overflow: hidden;
 
-	.order_message {
+	.message {
 		color: #7a9bbe;
 		float: left;
 		font-family: Comic Sans MS, sans-serif;
@@ -384,7 +325,7 @@
 			padding: 0 10px 1px;
 		}
 
-		.ppb_inline_save {
+		.button-save {
 			color: #fff;
 		}
 	}
@@ -395,7 +336,9 @@
 	}
 
 	input[type="range"] {
-		width: 400px;
+		margin-top: 5px;
+		max-width: 400px;
+		width: 100%;
 	}
 
 	output { 
@@ -404,7 +347,7 @@
 		text-align: center; 
 		color: #fff; 
 		background: #0074A5;
-		border-radius: 3px; 
+		border-radius: 2px; 
 		display: inline-block; 
 		bottom: 0;
 		left: 410px;
@@ -412,34 +355,65 @@
 	}
 
 	label {
+		clear: both;
 		display: block;
 		font-size: 1em;
 		font-weight: bold;
+		margin-bottom: 10px;
 	}
 
-	.desc {
-		font-weight: normal;
-		display: block;
-		font-size: 12px;
+	.description {
 		color: #777;
-		margin-top: 8px;
-		margin-bottom: 8px;
+		display: block;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 16px;
 	}
 
-	[class*="field-"] {
-		margin-bottom: 20px;
+	.option {
 		&:after {
 			content: "";
 			display: block;
 			clear: both;
 		}
+		.controls {
+			float: left;
+			margin-right: 4%;
+			width: 64%;
+		}
+		.description {
+			float: left;
+			width: 32%;
+		}
+	}
+
+	.anva-field-content {
+		.description {
+			margin-bottom: 15px;
+		}
+	}
+
+	[class*="field-"] {
+		margin-bottom: 20px;
+		position: relative;
+
+		&:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
 		&:last-child {
 			margin-bottom: 0;
 		}
 	}
 }
 
-.builder-modules {
+/* ---------------------------------------------------------------- */
+/* Draggable Items
+/* ---------------------------------------------------------------- */
+
+.builder-elements {
 	list-style: none;
 	margin: 10px 0;
 	width: 100%;
@@ -465,7 +439,7 @@
 			border-color: #999;
 
 			span {
-				color: #000;
+				color: #23282d;
 			}
 		}
 
@@ -518,6 +492,7 @@
 	}
 }
 
+// Add Items Button
 #add-builder-item {
 	box-sizing: border-box;
 	clear: both;
@@ -527,17 +502,41 @@
 	width: 100%;
 }
 
-#modules-tabs .ui-widget-header,
-#export-tabs .ui-widget-header {
-	border: 0;
-	border-bottom: 1px solid #ccc;
-	padding-bottom: 0;
-	padding-left: 10px;
-}
+/* ---------------------------------------------------------------- */
+/* Tabs
+/* ---------------------------------------------------------------- */
 
-#modules-tabs.ui-tabs .ui-tabs-panel,
-#export-tabs.ui-tabs .ui-tabs-panel {
-	border-top: 0;
-	margin-bottom: 0;
-	padding: 10px;
+#elements-tabs,
+#export-tabs {
+	
+	&.ui-tabs .ui-tabs-nav li {
+		margin-right: 5px;
+		white-space: normal;
+	}
+
+	&.ui-tabs .ui-tabs-panel {
+		border-top: 0;
+		margin-bottom: 0;
+		padding: 10px;
+	}
+
+	.ui-tabs-nav li a {
+		padding: 6px 10px;
+		font-weight: 700;
+		font-family: "Open Sans",sans-serif;
+		font-size: 15px;
+		line-height: 24px;
+	}
+
+	.ui-tabs-nav li.ui-state-active a {
+		color: #23282d;
+	}
+
+	.ui-widget-header {
+		border: 0;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 0;
+		padding-left: 10px;
+	}
+
 }

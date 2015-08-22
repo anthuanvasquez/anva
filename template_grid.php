@@ -3,6 +3,8 @@
  * Template Name: Posts Grid
  *
  * The template used for displaying posts grid.
+ * 
+ * @version 1.0.0
  */
 
 get_header();

@@ -6,7 +6,7 @@
 function anva_admin_theme_activate() {
 	if ( isset( $_GET['activated']) && true == $_GET['activated'] ) :
 	?>
-	<div class="updated"><?php _e( 'The theme is activated.', anva_textdomain() ); ?></div>
+	<div class="updated"><?php _e( 'The theme is activated.', 'anva' ); ?></div>
 	<?php
 	endif;
 }
@@ -23,9 +23,9 @@ function anva_admin_settings_log() {
 
 	// Check if field exists
 	if ( ! empty( $current_time ) ) {
-		$html .= sprintf( '%s' . __( 'Last changed', anva_textdomain() ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $current_time );
+		$html .= sprintf( '%s' . __( 'Last changed', 'anva' ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $current_time );
 	} else {
-		$html .= '<span class="dashicons dashicons-clock"></span> ' . __( 'Your settings has not changed.', anva_textdomain() );
+		$html .= '<span class="dashicons dashicons-clock"></span> ' . __( 'Your settings has not changed.', 'anva' );
 	}
 
 	$html .= '</div><!-- .log (end) -->';
@@ -48,13 +48,13 @@ function anva_admin_footer_credits() {
 		'<div id="optionsframework-credit">%s %s<div class="clear"></div></div>',
 		sprintf(
 			'<span class="alignleft">%2$s %1$s %3$s</span>',
-			__( 'powered by', anva_textdomain() ),
+			__( 'powered by', 'anva' ),
 			$theme_info,
 			$framework_info
 		),
 		sprintf(
 			'<span class="alignright">%1$s %2$s</span>',
-			__( 'Develop by', anva_textdomain() ),
+			__( 'Develop by', 'anva' ),
 			$author_info
 		)
 	);
@@ -68,9 +68,9 @@ function anva_admin_footer_credits() {
 function anva_admin_footer_links() {
 	printf(
 		'<div id="optionsframework-links">%s %s %s</div>',
-		sprintf( '<a href="%s"><span class="dashicons dashicons-megaphone"></span> %s</a>', esc_url( '#' ), __( 'Support', anva_textdomain() ) ),
-		sprintf( '<a href="%s"><span class="dashicons dashicons-book"></span> %s</a>', esc_url( '#' ), __( 'Theme Documentation', anva_textdomain() ) ),
-		sprintf( '<a href="%s"><span class="dashicons dashicons-cart"></span> %s</a>', esc_url( '#' ), __( 'Buy Themes', anva_textdomain() ) )
+		sprintf( '<a href="%s"><span class="dashicons dashicons-megaphone"></span> %s</a>', esc_url( '#' ), __( 'Support', 'anva' ) ),
+		sprintf( '<a href="%s"><span class="dashicons dashicons-book"></span> %s</a>', esc_url( '#' ), __( 'Theme Documentation', 'anva' ) ),
+		sprintf( '<a href="%s"><span class="dashicons dashicons-cart"></span> %s</a>', esc_url( '#' ), __( 'Buy Themes', 'anva' ) )
 	);
 }
 
@@ -210,10 +210,10 @@ function anva_logo_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	$types = array(
-		'title' 				=> __( 'Site Title', anva_textdomain() ),
-		'title_tagline' => __( 'Site Title + Tagline', anva_textdomain() ),
-		'custom' 				=> __( 'Custom Text', anva_textdomain() ),
-		'image' 				=> __( 'Image', anva_textdomain() )
+		'title' 				=> __( 'Site Title', 'anva' ),
+		'title_tagline' => __( 'Site Title + Tagline', 'anva' ),
+		'custom' 				=> __( 'Custom Text', 'anva' ),
+		'image' 				=> __( 'Image', 'anva' )
 	);
 
 	$current_value = '';
@@ -236,9 +236,9 @@ function anva_logo_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	$site_title  = '<p class="note">';
-	$site_title .= __( 'Current Site Title', anva_textdomain() ).': <strong>';
+	$site_title .= __( 'Current Site Title', 'anva' ).': <strong>';
 	$site_title .= get_bloginfo( 'name' ).'</strong><br>';
-	$site_title .= __( 'You can change your site title and tagline by going <a href="options-general.php" target="_blank">here</a>.', anva_textdomain() );
+	$site_title .= __( 'You can change your site title and tagline by going <a href="options-general.php" target="_blank">here</a>.', 'anva' );
 	$site_title .= '</p>';
 
 	/*------------------------------------------------------*/
@@ -246,11 +246,11 @@ function anva_logo_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	$site_title_tagline  = '<p class="note">';
-	$site_title_tagline .= __( 'Current Site Title', anva_textdomain() ).': <strong>';
+	$site_title_tagline .= __( 'Current Site Title', 'anva' ).': <strong>';
 	$site_title_tagline .= get_bloginfo( 'name' ).'</strong><br>';
-	$site_title_tagline .= __( 'Current Tagline', anva_textdomain() ).': <strong>';
+	$site_title_tagline .= __( 'Current Tagline', 'anva' ).': <strong>';
 	$site_title_tagline .= get_bloginfo( 'description' ).'</strong><br>';
-	$site_title_tagline .= __( 'You can change your site title by going <a href="options-general.php" target="_blank">here</a>.', anva_textdomain() );
+	$site_title_tagline .= __( 'You can change your site title by going <a href="options-general.php" target="_blank">here</a>.', 'anva' );
 	$site_title_tagline .= '</p>';
 
 	/*------------------------------------------------------*/
@@ -267,11 +267,11 @@ function anva_logo_option( $id, $name, $val ) {
 		$current_tagline = $val['custom_tagline'];
 	}
 
-	$custom_text  = sprintf( '<p><label class="inner-label"><strong>%s</strong></label>', __( 'Title', anva_textdomain() ) );
+	$custom_text  = sprintf( '<p><label class="inner-label"><strong>%s</strong></label>', __( 'Title', 'anva' ) );
 	$custom_text .= sprintf( '<input type="text" name="%s" value="%s" /></p>', esc_attr( $name.'['.$id.'][custom]' ), esc_attr( $current_value ) );
-	$custom_text .= sprintf( '<p><label class="inner-label"><strong>%s</strong> (%s)</label>', __( 'Tagline', anva_textdomain() ), __( 'optional', anva_textdomain() ) );
+	$custom_text .= sprintf( '<p><label class="inner-label"><strong>%s</strong> (%s)</label>', __( 'Tagline', 'anva' ), __( 'optional', 'anva' ) );
 	$custom_text .= sprintf( '<input type="text" name="%s" value="%s" /></p>', esc_attr( $name.'['.$id.'][custom_tagline]' ), esc_attr( $current_tagline ) );
-	$custom_text .= sprintf( '<p class="note">%s</p>', __( 'Insert your custom text.', anva_textdomain() ) );
+	$custom_text .= sprintf( '<p class="note">%s</p>', __( 'Insert your custom text.', 'anva' ) );
 
 	/*------------------------------------------------------*/
 	/* Image
@@ -289,13 +289,13 @@ function anva_logo_option( $id, $name, $val ) {
 
 	// Standard Image
 	$image_upload  = '<div class="section-upload image-standard">';
-	$image_upload .= '<label class="inner-label"><strong>'.__( 'Standard Image', anva_textdomain() ).'</strong></label>';
+	$image_upload .= '<label class="inner-label"><strong>'.__( 'Standard Image', 'anva' ).'</strong></label>';
 	$image_upload .= anva_media_uploader( array( 'option_name' => $name, 'type' => 'logo', 'id' => $id, 'value' => $current_value['url'], 'name' => 'image' ) );
 	$image_upload .= '</div>';
 
 	// Retina image (2x)
 	$image_upload .= '<div class="section-upload image-2x">';
-	$image_upload .= '<label class="inner-label"><strong>'.__( 'HiDPI-optimized Image (optional)', anva_textdomain() ).'</strong></label>';
+	$image_upload .= '<label class="inner-label"><strong>'.__( 'HiDPI-optimized Image (optional)', 'anva' ).'</strong></label>';
 	$image_upload .= anva_media_uploader( array( 'option_name' => $name, 'type' => 'logo_2x', 'id' => $id, 'value' => $current_retina['url'], 'name' => 'image_2x' ) );
 	$image_upload .= '</div>';
 
@@ -324,27 +324,27 @@ function anva_columns_option( $id, $name, $val ) {
 	// Dropdown for number of columns selection
 	$data_num = array (
 		array(
-			'name' 	=> __( 'Hide Columns', anva_textdomain() ),
+			'name' 	=> __( 'Hide Columns', 'anva' ),
 			'value' => 0,
 		),
 		array(
-			'name' 	=> '1 '.__( 'Column', anva_textdomain() ),
+			'name' 	=> '1 '.__( 'Column', 'anva' ),
 			'value' => 1,
 		),
 		array(
-			'name' 	=> '2 '.__( 'Columns', anva_textdomain() ),
+			'name' 	=> '2 '.__( 'Columns', 'anva' ),
 			'value' => 2,
 		),
 		array(
-			'name' 	=> '3 '.__( 'Columns', anva_textdomain() ),
+			'name' 	=> '3 '.__( 'Columns', 'anva' ),
 			'value' => 3,
 		),
 		array(
-			'name' 	=> '4 '.__( 'Columns', anva_textdomain() ),
+			'name' 	=> '4 '.__( 'Columns', 'anva' ),
 			'value' => 4,
 		),
 		array(
-			'name' 	=> '5 '.__( 'Columns', anva_textdomain() ),
+			'name' 	=> '5 '.__( 'Columns', 'anva' ),
 			'value' => 5,
 		)
 	);
@@ -374,7 +374,7 @@ function anva_columns_option( $id, $name, $val ) {
 
 	// Select column widths
 	$i = 1;
-	$select_widths = '<div class="column-width column-width-0"><p class="inactive">'.__( 'Columns will be hidden.', anva_textdomain() ).'</p></div>';
+	$select_widths = '<div class="column-width column-width-0"><p class="inactive">'.__( 'Columns will be hidden.', 'anva' ).'</p></div>';
 	foreach ( $data_widths as $widths ) {
 
 		$select_widths .= '<div class="tb-fancy-select column-width column-width-'.$i.'">';

@@ -166,7 +166,8 @@ var ANVAMETA = ANVAMETA || {};
 
 })(jQuery);
 
-jQuery(function($) {
+jQuery( function($) {
+	
 	if ( typeof plupload !== 'undefined' && typeof ANVAUploaderInit !== 'undefined' ) {
 		
 		var uploader = new plupload.Uploader(ANVAUploaderInit);
@@ -199,9 +200,12 @@ jQuery(function($) {
 		init: function() {
 			this.admin_thumb_ul = jQuery('#anva_gallery_thumbs');
 			this.admin_thumb_ul_li = jQuery('#anva_gallery_thumbs li');
-			this.admin_thumb_ul.sortable({
-				placeholder: 'anva_gallery_placeholder'
-			});
+			
+			if ( this.admin_thumb_ul.length > 0 ) {
+				this.admin_thumb_ul.sortable({
+					placeholder: 'anva_gallery_placeholder'
+				});
+			}
 			
 			// Remove thumb
 			this.admin_thumb_ul.on( 'click', '.anva_gallery_remove', function() {

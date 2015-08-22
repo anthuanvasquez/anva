@@ -1,4 +1,7 @@
 <?php
+
+if ( ! class_exists( 'Anva_Front_End_Stylesheets' ) ) :
+
 /**
  * Anva Stylesheets
  * 
@@ -19,9 +22,7 @@
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-if ( ! class_exists( 'Anva_Stylesheets' ) ) :
-
-class Anva_Stylesheets {
+class Anva_Front_End_Stylesheets {
 
 	/**
 	 * A single instance of this class

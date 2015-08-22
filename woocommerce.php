@@ -1,6 +1,8 @@
 <?php
 /**
  * This template file is a core part of the Woocommerce plugin.
+ * 
+ * @version 1.0.0
  */
 get_header();
 ?>

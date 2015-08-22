@@ -1,6 +1,8 @@
 <?php
 /**
  * The template file for single gallery posts.
+ * 
+ * @version 1.0.0
  */
 
 // Start session

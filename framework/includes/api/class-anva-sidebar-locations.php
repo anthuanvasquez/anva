@@ -1,11 +1,11 @@
 <?php
 
-if ( ! class_exists( 'Anva_Sidebars' ) ) :
+if ( ! class_exists( 'Anva_Sidebar_Locations' ) ) :
 
 /**
  * Anva Sidebars
  * 
- * This class sets up the framework sidebars location. 
+ * This class sets up the framework sidebar locations. 
  * Additionally, this class provides methods to add and remove locations.
  * 
  * @since 		 1.0.0
@@ -13,7 +13,7 @@ if ( ! class_exists( 'Anva_Sidebars' ) ) :
  * @subpackage Anva/admin
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-class Anva_Sidebars {
+class Anva_Sidebar_Locations {
 
 	/**
 	 * A single instance of this class
@@ -91,8 +91,8 @@ class Anva_Sidebars {
 		$this->core_locations['sidebar_right'] = array(
 			'args' 					=> array(
 				'id' 					=> 'sidebar_right',
-				'name' 				=> __( 'Right', anva_textdomain() ),
-				'description' => __( 'Sidebar right.', anva_textdomain() ),
+				'name' 				=> __( 'Right', 'anva' ),
+				'description' => __( 'Sidebar right.', 'anva' ),
 			)
 		);
 
@@ -100,40 +100,40 @@ class Anva_Sidebars {
 		$this->core_locations['sidebar_left'] = array(
 			'args' => array(
 				'id' => 'sidebar_left',
-				'name' => __( 'Left', anva_textdomain() ),
-				'description' => __( 'Sidebar left.', anva_textdomain() ),
+				'name' => __( 'Left', 'anva' ),
+				'description' => __( 'Sidebar left.', 'anva' ),
 			)
 		);
 
 		$this->core_locations['above_header'] = array(
 			'args' => array(
 				'id' => 'above_header',
-				'name' => __( 'Above Header', anva_textdomain() ),
-				'description' => __( 'Sidebar above header.', anva_textdomain() ),
+				'name' => __( 'Above Header', 'anva' ),
+				'description' => __( 'Sidebar above header.', 'anva' ),
 			)
 		);
 
 		$this->core_locations['above_content'] = array(
 			'args' => array(
 				'id' => 'above_content',
-				'name' => __( 'Above Content', anva_textdomain() ),
-				'description' => __( 'Sidebar above content.', anva_textdomain() ),
+				'name' => __( 'Above Content', 'anva' ),
+				'description' => __( 'Sidebar above content.', 'anva' ),
 			)
 		);
 
 		$this->core_locations['below_content'] = array(
 			'args' => array(
 				'id' => 'below_content',
-				'name' => __( 'Below Content', anva_textdomain() ),
-				'description' => __( 'Sidebar below content.', anva_textdomain() ),
+				'name' => __( 'Below Content', 'anva' ),
+				'description' => __( 'Sidebar below content.', 'anva' ),
 			)
 		);
 
 		$this->core_locations['below_footer'] = array(
 			'args' => array(
 				'id' => 'below_footer',
-				'name' => __( 'Below Footer', anva_textdomain() ),
-				'description' => __( 'Sidebar below footer.', anva_textdomain() ),
+				'name' => __( 'Below Footer', 'anva' ),
+				'description' => __( 'Sidebar below footer.', 'anva' ),
 			)
 		);
 
@@ -167,7 +167,7 @@ class Anva_Sidebars {
 	public function add_location( $id, $name, $desc = '', $class = '' ) {
 
 		if ( ! $desc ) {
-			$desc = sprintf( __( 'This is default placeholder for the "%s" location.', anva_textdomain() ), $name );
+			$desc = sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), $name );
 		}
 
 		// Add Sidebar location
@@ -282,7 +282,7 @@ class Anva_Sidebars {
 		if ( $sidebar['error'] ) {
 
 			$message = sprintf(
-				__( 'This is a fixed sidebar with ID, <strong>%s</strong>, but you haven\'t put any widgets in it yet.', anva_textdomain() ),
+				__( 'This is a fixed sidebar with ID, <strong>%s</strong>, but you haven\'t put any widgets in it yet.', 'anva' ),
 				$sidebar['id']
 			);
 

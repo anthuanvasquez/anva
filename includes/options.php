@@ -27,3 +27,41 @@ function theme_options() {
 	anva_add_option( 'styles', 'layout', 'skin', $skin_option );
 }
 add_action( 'after_setup_theme', 'theme_options' );
+
+function theme_elements() {
+	
+	$image_path = anva_get_core_url() . '/assets/images/builder/';
+	
+	$elements['box'] = array(
+		'id' => 'box',
+		'name' => 'This Box',
+		'icon' => $image_path . 'header.png',
+		'attr' => array(
+			'subtitle' => array(
+				'title' => 'Sub Title (Optional)',
+				'type' => 'text',
+				'desc' => 'Enter short description for this header',
+			)
+		),
+		'desc' => 'This is a Box'
+	);
+	anva_add_builder_element( $elements['box']['id'], $elements['box']['name'], $elements['box']['icon'], $elements['box']['attr'], $elements['box']['desc'], true );
+	
+	// anva_remove_builder_element( 'header' );
+
+	//var_dump(anva_get_elements());
+	// var_dump(anva_is_block_element( 'box', 'subtitle' ));
+	$args_block = array(
+		'title' => 'Font Color (Optional)',
+		'type' => 'colorpicker',
+		"std" => "#444444",
+		'desc' => 'Select font color for this content',
+	);
+	// 'box', 'fontcolor', $args_block 
+	
+}
+add_action( 'after_setup_theme', 'theme_elements' );
+
+var_dump(anva_get_elements());
+
+

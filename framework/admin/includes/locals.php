@@ -4,6 +4,8 @@
  * to have all of the framework's common localized text
  * strings in once place. Also, the following filters can
  * be used to add/remove strings.
+ *
+ * @since 1.0.0
  */
 
  function anva_get_admin_locals( $type ) {
@@ -15,7 +17,7 @@
 		// General JS strings
 		case 'js':
 			$locals = array(
-				'reset_title'		=> __( 'Restore Defaults', anva_textdomain() )
+				'reset_title'		=> __( 'Restore Defaults', 'anva' )
 			);
 			break;
 
@@ -23,16 +25,17 @@
 		case 'metabox_js':
 			$locals = array(
 				'ajaxurl' 							=> admin_url( 'admin-ajax.php' ),
-				'builder_empty_options' => __( 'Select an item to add it to the list.', anva_textdomain() )
+				'builder_empty_options' => __( 'Select an item to add it to the list.', 'anva' )
 			);
 			break;
 
 		// Customizer JS strings
 		case 'customizer_js':
 			$locals = array(
-				'disclaimer'			=> __( 'Note: The customizer provides a simulated preview, and results may vary slightly when published and viewed on your live website.', anva_textdomain() )
+				'disclaimer'			=> __( 'Note: The customizer provides a simulated preview, and results may vary slightly when published and viewed on your live website.', 'anva' )
 			);
 			break;
 	}
+
 	return apply_filters( 'anva_admin_locals_' . $type, $locals );
 }

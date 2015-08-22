@@ -94,8 +94,8 @@ class Options_Framework_Admin {
 			'mode' 				=> 'submenu',
 
 			// Submenu default settings
-			'page_title' 	=> __( 'Theme Options', anva_textdomain() ),
-			'menu_title' 	=> __( 'Theme Options', anva_textdomain() ),
+			'page_title' 	=> __( 'Theme Options', 'anva' ),
+			'menu_title' 	=> __( 'Theme Options', 'anva' ),
 			'capability' 	=> 'edit_theme_options',
 			'menu_slug'  	=> 'options-framework',
 			'parent_slug' => 'themes.php',
@@ -213,13 +213,13 @@ class Options_Framework_Admin {
 							<div class="postbox-wrapper">
 								<?php do_action( 'optionsframework_side_before' ); ?>
 								<div id="optionsframework-submit" class="postbox">
-									<h3><span><?php _e( 'Actions', anva_textdomain() );?></span></h3>
+									<h3><span><?php _e( 'Actions', 'anva' );?></span></h3>
 									<div class="inside">
 										<?php anva_admin_settings_log(); ?>
 										<div class="actions">
-											<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', anva_textdomain() ); ?>" />
+											<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
 											<span class="spinner"></span>
-											<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults', anva_textdomain() ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', anva_textdomain() ) ); ?>' );" />
+											<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults', 'anva' ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', 'anva' ) ); ?>' );" />
 											<div class="clear"></div>
 										</div>
 									</div>
@@ -260,7 +260,7 @@ class Options_Framework_Admin {
 			$option_name = Options_Framework::get_option_name();
 			delete_option( $option_name .'_log' );
 
-			add_settings_error( 'options-framework', 'restore_defaults', __( 'Default options restored.', anva_textdomain() ), 'updated fade' );
+			add_settings_error( 'options-framework', 'restore_defaults', __( 'Default options restored.', 'anva' ), 'updated fade' );
 			return $this->get_default_values();
 		}
 
@@ -318,7 +318,7 @@ class Options_Framework_Admin {
 	 */
 
 	function save_options_notice() {
-		add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', anva_textdomain() ), 'updated fade' );
+		add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', 'anva' ), 'updated fade' );
 	}
 
 	/**

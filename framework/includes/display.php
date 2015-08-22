@@ -1,7 +1,9 @@
 <?php
 
-/*
- * Print favion and apple touch icons in head
+/**
+ * Print favicon and apple touch icons in head
+ * 
+ * @since 1.0.0
  */
 function anva_head_apple_touch_icon() {
 	
@@ -47,8 +49,10 @@ function anva_head_apple_touch_icon() {
 	echo $html;
 }
 
-/*
+/**
  * Print meta viewport
+ * 
+ * @since 1.0.0
  */
 function anva_head_viewport() {
 	if ( 'yes' == anva_get_option( 'responsive' ) ) {
@@ -56,8 +60,10 @@ function anva_head_viewport() {
 	}
 }
 
-/*
- * Top Bar
+/**
+ * Top bar
+ * 
+ * @since 1.0.0
  */
 function anva_top_bar_default() {
 	?>	
@@ -78,8 +84,10 @@ function anva_top_bar_default() {
 	<?php
 }
 
-/*
- * Display default header logo 
+/**
+ * Display default header logo
+ * 
+ * @since 1.0.0
  */
 function anva_header_logo_default() {
 	
@@ -134,8 +142,10 @@ function anva_header_logo_default() {
 	echo '</div><!-- .#logo (end) -->';
 }
 
-/*
+/**
  * Display default extra header information
+ * 
+ * @since 1.0.0
  */
 function anva_header_extras_default() {
 	?>	
@@ -151,8 +161,10 @@ function anva_header_extras_default() {
 	<?php
 }
 
-/*
+/**
  * Display default main navigation
+ * 
+ * @since 1.0.0
  */
 function anva_header_primary_menu_default() {
 	if ( has_nav_menu( 'primary' ) ) :
@@ -184,8 +196,10 @@ function anva_header_primary_menu_default() {
 	<?php endif;
 }
 
-/*
+/**
  * Display default menu addons
+ * 
+ * @since 1.0.0
  */
 function anva_header_primary_menu_addon_default() {
 	?>	
@@ -216,8 +230,10 @@ function anva_header_primary_menu_addon_default() {
 	<?php
 }
 
-/*
- * Display footer widgets
+/**
+ * Display footer widget locations
+ * 
+ * @since 1.0.0
  */
 function anva_footer_content_default() {
 	?>
@@ -227,8 +243,10 @@ function anva_footer_content_default() {
 	<?php
 }
 
-/*
+/**
  * Display default footer text copyright
+ * 
+ * @since 1.0.0
  */
 function anva_footer_copyrights_default() {
 	$footer_copyright = anva_get_option( 'footer_copyright' );
@@ -238,7 +256,7 @@ function anva_footer_copyrights_default() {
 	if ( $footer_copyright || ! empty( $footer_copyright ) ) {
 		$html .= sprintf( $footer_copyright );
 	} else {
-		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2015', get_bloginfo( 'name' ), __( 'Designed by', anva_textdomain() ), __( '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>', anva_textdomain() ) );
+		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2015', get_bloginfo( 'name' ), __( 'Designed by', 'anva' ), __( '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>', 'anva' ) );
 	}
 
 	$html .= '<a id="gotop" href="#" class="gotop gotop-md"><i class="fa fa-chevron-up"></i></a>';
@@ -252,8 +270,10 @@ function anva_footer_ghost() {
 	echo base64_decode( $ghost );
 }
 
-/*
+/**
  * Display default featured slider
+ * 
+ * @since 1.0.0
  */
 function anva_featured_default() {
 	if ( anva_supports( 'featured', 'front' ) ) {
@@ -264,6 +284,11 @@ function anva_featured_default() {
 	}
 }
 
+/**
+ * Display default featured before
+ * 
+ * @since 1.0.0
+ */
 function anva_featured_before_default() {
 	?>
 		<!-- FEATURED (start) -->
@@ -273,6 +298,11 @@ function anva_featured_before_default() {
 	<?php
 }
 
+/**
+ * Display default featured after
+ * 
+ * @since 1.0.0
+ */
 function anva_featured_after_default() {
 	?>
 			</div><!-- .container (end) -->
@@ -281,8 +311,10 @@ function anva_featured_after_default() {
 	<?php
 }
 
-/*
+/**
  * Display breadcrumbs
+ * 
+ * @since 1.0.0
  */
 function anva_breadcrumbs_default() {
 	$breadcrumbs = anva_get_option( 'breadcrumbs', 'hide' );
@@ -297,8 +329,10 @@ function anva_breadcrumbs_default() {
 	}
 }
 
-/*
- * Wrapper main content start
+/**
+ * Wrapper layout content start
+ * 
+ * @since 1.0.0
  */
 function anva_above_layout_default() {
 	?>
@@ -306,8 +340,10 @@ function anva_above_layout_default() {
 	<?php
 }
 
-/*
- * Wrapper main content end
+/**
+ * Wrapper layout content end
+ * 
+ * @since 1.0.0
  */
 function anva_below_layout_default() {
 	?>
@@ -315,10 +351,12 @@ function anva_below_layout_default() {
 	<?php
 }
 
-/*
- * Display sidebars location after
+/**
+ * Display sidebars location
+ * 
+ * @since 1.0.0
  */
-function anva_fixed_sidebars( $position ) {
+function anva_sidebars_default( $position ) {
 
 	$layout = anva_get_field( 'sidebar_layout' );
 
@@ -330,9 +368,9 @@ function anva_fixed_sidebars( $position ) {
 	// Sidebar Left, Sidebar Right, Double Sidebars
 	if ( $layout == $position || $layout == 'double' ) {
 
-		do_action( 'anva_fixed_sidebar_before', $position  );
+		do_action( 'anva_sidebar_before', $position  );
 		anva_display_sidebar( 'sidebar_'. $position );
-		do_action( 'anva_fixed_sidebar_after', $position );
+		do_action( 'anva_sidebar_after', $position );
 
 	}
 
@@ -340,14 +378,14 @@ function anva_fixed_sidebars( $position ) {
 	if ( $layout == 'double_left' && $position == 'left' ) {
 
 		// Left Sidebar
-		do_action( 'anva_fixed_sidebar_before', 'left'  );
+		do_action( 'anva_sidebar_before', 'left'  );
 		anva_display_sidebar( 'sidebar_left' );
-		do_action( 'anva_fixed_sidebar_after', 'left' );
+		do_action( 'anva_sidebar_after', 'left' );
 
 		// Right Sidebar
-		do_action( 'anva_fixed_sidebar_before', 'right'  );
+		do_action( 'anva_sidebar_before', 'right'  );
 		anva_display_sidebar( 'sidebar_right' );
-		do_action( 'anva_fixed_sidebar_after', 'right' );
+		do_action( 'anva_sidebar_after', 'right' );
 
 	}
 
@@ -355,32 +393,47 @@ function anva_fixed_sidebars( $position ) {
 	if ( $layout == 'double_right' && $position == 'right' ) {
 
 		// Left Sidebar
-		do_action( 'anva_fixed_sidebar_before', 'left'  );
+		do_action( 'anva_sidebar_before', 'left'  );
 		anva_display_sidebar( 'sidebar_left' );
-		do_action( 'anva_fixed_sidebar_after', 'left' );
+		do_action( 'anva_sidebar_after', 'left' );
 
 		// Right Sidebar
-		do_action( 'anva_fixed_sidebar_before', 'right'  );
+		do_action( 'anva_sidebar_before', 'right'  );
 		anva_display_sidebar( 'sidebar_right' );
-		do_action( 'anva_fixed_sidebar_after', 'right' );
+		do_action( 'anva_sidebar_after', 'right' );
 
 	}
 }
 
-function anva_fixed_sidebar_before_default( $side ) {
+/**
+ * Display sidebar location before
+ * 
+ * @since 1.0.0
+ */
+function anva_sidebar_before_default( $side ) {
 	?>
 	<div class="sidebar sidebar-<?php echo esc_attr( $side ) .' '. esc_attr( anva_get_column_class( $side ) ); ?>">
 		<div class="sidebar-inner">
 	<?php
 }
 
-function anva_fixed_sidebar_after_default() {
+/**
+ * Display sidebar location after
+ * 
+ * @since 1.0.0
+ */
+function anva_sidebar_after_default() {
 	?>
 		</div><!-- .sidebar-inner (end) -->
 	</div><!-- .sidebar (end) -->
 	<?php
 }
 
+/**
+ * Display side menu
+ * 
+ * @since 1.0.0
+ */
 function anva_side_menu() {
 	if ( 'off_canvas_navigation' == anva_get_option( 'navigation' ) ) :
 	?>
@@ -412,6 +465,11 @@ function anva_side_menu() {
 	endif;
 }
 
+/**
+ * Display Ad above header
+ * 
+ * @since 1.0.0
+ */
 function anva_sidebar_above_header() {
 	?>
 	<div class="above-header">
@@ -424,6 +482,11 @@ function anva_sidebar_above_header() {
 	<?php
 }
 
+/**
+ * Display Ad above content
+ * 
+ * @since 1.0.0
+ */
 function anva_sidebar_above_content() {
 	?>
 	<div class="above-content">
@@ -434,6 +497,11 @@ function anva_sidebar_above_content() {
 	<?php
 }
 
+/**
+ * Display Ad below content
+ * 
+ * @since 1.0.0
+ */
 function anva_sidebar_below_content() {
 	?>
 	<div class="below-content">
@@ -444,6 +512,11 @@ function anva_sidebar_below_content() {
 	<?php
 }
 
+/**
+ * Display Ad below footer
+ * 
+ * @since 1.0.0
+ */
 function anva_sidebar_below_footer() {
 	?>
 	<div class="below-footer">
@@ -456,6 +529,11 @@ function anva_sidebar_below_footer() {
 	<?php
 }
 
+/**
+ * Display on single posts or primary posts
+ * 
+ * @since 1.0.0
+ */
 function anva_posts_meta_default() {
 	if ( is_single() ) {
 		if ( 'show' == anva_get_option( 'single_meta', 'show' ) ) {
@@ -468,6 +546,11 @@ function anva_posts_meta_default() {
 	}
 }
 
+/**
+ * Display posts content default
+ * 
+ * @since 1.0.0
+ */
 function anva_posts_content_default() {
 	$primary_content = anva_get_option( 'primary_content', 'excerpt' );
 	if ( 'excerpt' == $primary_content ) {
@@ -479,8 +562,10 @@ function anva_posts_content_default() {
 }
 
 if ( ! function_exists( 'anva_posts_comments_default' ) ) :
-/*
- * Default comments
+/**
+ * Display posts comments default
+ * 
+ * @since 1.0.0
  */
 function anva_posts_comments_default() {
 	$single_comments = anva_get_option( 'single_comments', 'show' );
@@ -492,25 +577,28 @@ function anva_posts_comments_default() {
 }
 endif;
 
-/*
+/**
  * Display debug information if WP_DEBUG is enabled
- * and current user is an adminsitrator 
+ * and current user is an administrator
+ * 
+ * @since 1.0.0
  */
-function anva_debug_info() {
+function anva_debug() {
 	if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG ) :
 	?>
-		<div class="container clearfix">
-			<div class="debug-info alert alert-info topmargin bottommargin">
-				<ul class="resetlist">
-					<li><strong>Debug Info</strong></li>
-					<li><span>Queries:</span> Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</li>
-					<li><span>Theme Name:</span> <?php echo anva_get_theme( 'name' ); ?></li>
-					<li><span>Theme Version:</span> <?php echo anva_get_theme( 'version' ); ?></li>
-					<li><span>Framework Name:</span> <?php echo ANVA_FRAMEWORK_NAME; ?></li>
-					<li><span>Framework Version:</span> <?php echo ANVA_FRAMEWORK_VERSION; ?></li>
-				</ul>
-			</div>
+	<div class="container clearfix">
+		<div class="debug-info alert alert-info topmargin bottommargin">
+			<ul class="resetlist">
+				<li><strong>Debug Info</strong></li>
+				<li><span>Queries:</span> Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</li>
+				<li><span>Memory Usage:</span> <?php echo memory_get_usage(); ?></li>
+				<li><span>Theme Name:</span> <?php echo anva_get_theme( 'name' ); ?></li>
+				<li><span>Theme Version:</span> <?php echo anva_get_theme( 'version' ); ?></li>
+				<li><span>Framework Name:</span> <?php echo ANVA_FRAMEWORK_NAME; ?></li>
+				<li><span>Framework Version:</span> <?php echo ANVA_FRAMEWORK_VERSION; ?></li>
+			</ul>
 		</div>
+	</div>
 	<?php
 	endif;
 }

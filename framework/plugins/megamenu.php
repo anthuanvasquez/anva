@@ -17,7 +17,7 @@ class Anva_Menu_Item_Fields {
 		
 		// Get current custom sidebars
 		$mega_menu_locations = array();
-		$mega_menu_locations[''] = __( 'Select Sidebar', anva_textdomain() );
+		$mega_menu_locations[''] = __( 'Select Sidebar', 'anva' );
 		$locations = anva_get_sidebar_locations();
 		$columns = array( 'col-1' => '1 Column', 'col-2' => '2 Columns', 'col-3' => '3 Columns', 'col-4' => '4 Columns' );
 		
@@ -30,20 +30,20 @@ class Anva_Menu_Item_Fields {
 		self::$options['fields'] = array(
 			'mega_menu' 				=> array(
 				'name' 						=> 'mega_menu',
-				'label' 					=> __('Active Mega Menu', anva_textdomain() ),
+				'label' 					=> __('Active Mega Menu', 'anva' ),
 				'container_class' => '',
 				'input_type' 			=> 'checkbox',
 			),
 			'mega_menu_columns' => array(
 				'name' 						=> 'mega_menu_columns',
-				'label' 					=> __('Display Columns', anva_textdomain() ),
+				'label' 					=> __('Display Columns', 'anva' ),
 				'container_class' => '',
 				'input_type'		 	=> 'select',
 				'options' 				=> $columns,
 			),
 			'mega_menu_sidebar' => array(
 				'name' 						=> 'mega_menu_sidebar',
-				'label' 					=> __('Display Sidebar Location', anva_textdomain() ),
+				'label' 					=> __('Display Sidebar Location', 'anva' ),
 				'container_class' => '',
 				'input_type'		 	=> 'select',
 				'options' 				=> $mega_menu_locations,

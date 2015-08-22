@@ -1,7 +1,10 @@
 <?php
 /**
  * Template Name: Archives
- * The template used for displaying archives content
+ * 
+ * The template used for displaying archives content.
+ * 
+ * @version 1.0.0
  */
 get_header();
 

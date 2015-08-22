@@ -3,17 +3,17 @@
 /*
  * Contact Widget
  */
-class Anva_Contact extends WP_Widget {
+class Anva_Quick_Contact extends WP_Widget {
 
 	/* Create Widget Function */
-	function Anva_Contact() {
+	function Anva_Quick_Contact() {
 
 		$widget_ops = array(
-			'classname' => 'widget_custom_contact',
-			'description' => __( 'Muestra informacion de contacto.', anva_textdomain() )
+			'classname' => 'widget_anva_quick_contact',
+			'description' => __( 'Shows a contact form.', 'anva' )
 		);
 
-		$this->WP_Widget( 'Anva_Contact', 'Anva Contact', $widget_ops );
+		parent::__construct( 'Anva_Quick_Contact', 'Anva Quick Contact', $widget_ops );
 	}
 
 	/* Call Widget */
@@ -62,7 +62,7 @@ class Anva_Contact extends WP_Widget {
 				<i class="fa fa-skype"></i> <?php echo $skype; ?>
 			</li>
 			<li class="contact-icons">
-				<?php anva_social_icons(); ?>
+				<?php anva_social_media(); ?>
 			</li>
 		</ul>
 		<?php
@@ -89,7 +89,7 @@ class Anva_Contact extends WP_Widget {
 		
 		/* Default Value */
 		$instance = wp_parse_args( (array) $instance, array(
-			'title' => '',
+			'title' => __( 'Quick Contact', 'anva' ),
 			'text' 	=> '',
 			'phone'	=> '',
 			'email'	=> '',
