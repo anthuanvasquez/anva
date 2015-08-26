@@ -50,18 +50,30 @@ function theme_elements() {
 	// anva_remove_builder_element( 'header' );
 
 	//var_dump(anva_get_elements());
-	// var_dump(anva_is_block_element( 'box', 'subtitle' ));
-	$args_block = array(
-		'title' => 'Font Color (Optional)',
-		'type' => 'colorpicker',
-		"std" => "#444444",
-		'desc' => 'Select font color for this content',
-	);
+	//var_dump(anva_is_block_element( 'box', 'subtitle' ));
+	// $args_block = array(
+	// 	'title' => 'Font Color (Optional)',
+	// 	'type' => 'colorpicker',
+	// 	"std" => "#444444",
+	// 	'desc' => 'Select font color for this content',
+	// );
 	// 'box', 'fontcolor', $args_block 
 	
 }
 add_action( 'after_setup_theme', 'theme_elements' );
 
-var_dump(anva_get_elements());
+$args = array(
+	'element_id' => 'header',
+	'block_id' => 'customcolor',
+	'key' => 'bgcolor',
+	'attr' => array(
+		'title' => 'Custom Color (Optional)',
+		'type' => 'colorpicker',
+		"std" => "#ff0000",
+		'desc' => 'Select font color for this content'
+	)
+);
+
+anva_add_block_element( $args );
 
 

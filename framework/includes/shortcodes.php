@@ -5,13 +5,17 @@
  */
 function anva_shortcodes_init() {
 	
-	add_shortcode( 'anva_dropcap', 'anva_dropcap' );
-	add_shortcode( 'anva_button', 'anva_button' );
-	add_shortcode( 'anva_toggle', 'anva_toggle' );
-	add_shortcode( 'anva_counter', 'anva_counter' );	
-	add_shortcode( 'anva_column', 'anva_column' );
-	add_shortcode( 'anva_slides', 'anva_slides' );
+	add_shortcode( 'dropcap', 'anva_dropcap' );
+	add_shortcode( 'button', 	'anva_button' );
+	add_shortcode( 'toggle', 	'anva_toggle' );
+	add_shortcode( 'counter', 'anva_counter' );	
+	add_shortcode( 'column', 	'anva_column' );
+	add_shortcode( 'slides', 	'anva_slides' );
 	
+}
+
+function anva_clearfix() {
+	echo '<div class="clearfix"></div>';
 }
 
 /*
@@ -30,7 +34,8 @@ function anva_shortcodes_init() {
 /*
  * Buttons
  */
-function anva_button( $atts, $content ) {
+function anva_button( $atts, $content = null ) {
+	
 	extract( shortcode_atts( array(
 		'href' 		=> '',
 		'align' 	=> '',
@@ -118,7 +123,8 @@ function anva_button( $atts, $content ) {
 /*
  * Columns
  */
-function anva_column( $atts, $content ) {
+function anva_column( $atts, $content = null ) {
+	
 	extract(shortcode_atts(array(
 		'id'		=> '',
 		'class' => '',
@@ -153,7 +159,8 @@ function anva_column( $atts, $content ) {
 /*
  * Dropcap
  */
-function anva_dropcap( $atts, $content ) {
+function anva_dropcap( $atts, $content = null ) {
+	
 	extract( shortcode_atts( array(
 		'style' => ''
 	), $atts ));
@@ -213,8 +220,10 @@ function anva_toggle( $atts, $content ) {
 /*
  * Counter
  */
-function anva_counter( $atts, $content ) {
+function anva_counter( $atts, $content = null ) {
+	
 	$content = wpautop( trim( $content ) );
+	
 	extract( shortcode_atts( array(
 		'from' 			=> 0,
 		'to' 				=> 100,
@@ -237,13 +246,15 @@ function anva_counter( $atts, $content ) {
 	$html  = '<div class="counter text-center '. $classes .'">';
 	$html .= '<span data-from="'. $from .'" data-to="'. $to .'" data-refresh-interval="'. $interval .'" data-speed="'. $speed .'"></span>';
 	$html .= '</div>';
+
 	return $html;
 }
 
 /*
  * Create slideshows shortcode
  */
-function anva_slides( $atts, $content ) {
+function anva_slides( $atts, $content = null ) {
+	
 	extract(shortcode_atts( array(
 		'id' => '', // Default ID
 	), $atts ));

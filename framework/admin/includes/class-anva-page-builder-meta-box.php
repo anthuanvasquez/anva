@@ -205,16 +205,8 @@ class Anva_Page_Builder_Meta_Box {
 						//	$tabs[$key] = $shortcode['title'];
 						//}
 					//}
-
 					//var_dump(anva_get_elements());
-					// var_dump(anva_is_block_element( 'box', 'subtitle' ));
-					// $args_block = array(
-					// 	'title' => 'Font Color (Optional)',
-					// 	'type' => 'colorpicker',
-					// 	"std" => "#444444",
-					// 	'desc' => 'Select font color for this content',
-					// );
-					// anva_add_block_builder_element( 'box', 'fontcolor', $args_block );
+
 				?>
 
 				<div class="clear"></div>
@@ -765,6 +757,7 @@ class Anva_Page_Builder_Meta_Box {
 				
 				jQuery.each( currentItemOBJ, function( index, value ) {
 					if ( typeof jQuery('#' + index) != 'undefined' ) {
+						alert(index);
 						jQuery('#' + index).val( decodeURI( value ) );
 						
 						if ( jQuery('#' + index).is( 'textarea' ) ) {

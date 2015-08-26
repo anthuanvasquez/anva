@@ -22,12 +22,13 @@
 }());
 
 //@prepros-append vendor/enquire.min.js
-//@prepros-append vendor/slick.min.js
 //@prepros-append vendor/jquery.flexslider.min.js
+//@prepros-append vendor/jquery.owl.carousel.min.js
 //@prepros-append vendor/jquery.magnific-popup.min.js
 //@prepros-append vendor/jquery.hoverIntent.min.js
 //@prepros-append vendor/jquery.superfish.min.js
 //@prepros-append vendor/jquery.appear.min.js
 //@prepros-append vendor/jquery.counto.min.js
-//@prepros-append vendor/jquery.spectragram.min.js
 //@prepros-append vendor/jquery.animsition.min.js
+//@prepros-append vendor/jquery.fitvids.min.js
+//@prepros-append vendor/jquery.spectragram.min.js

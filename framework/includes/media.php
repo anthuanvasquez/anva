@@ -45,7 +45,8 @@ function anva_get_image_sizes() {
 			'name' 		=> __( 'Blog Small', anva_textdomain() ),
 			'width' 	=> 195,
 			'height' 	=> 195,
-			'crop' 		=> false
+			'crop' 		=> false,
+			'position'=> array( 'center', 'top' )
 		),
 		'slider_full' => array(
 			'name' 		=> __( 'Slider Full Width', anva_textdomain() ),
@@ -72,38 +73,43 @@ function anva_get_image_sizes() {
 			'name' 		=> __( '2 Column of Grid', anva_textdomain() ),
 			'width' 	=> 472,
 			'height' 	=> 295,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
 		'grid_3' => array(
 			'name' 		=> __( '3 Column of Grid', anva_textdomain() ),
 			'width' 	=> 320,
 			'height' 	=> 200,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
 		'grid_4' => array(
 			'name' 		=> __( '4 Column of Grid', anva_textdomain() ),
 			'width' 	=> 240,
 			'height' 	=> 150,
 			'crop' 		=> true,
-
+			'position'=> array( 'center', 'top' )
 		),
 		'gallery_2' => array(
 			'name' 		=> __( 'Gallery Grid 2 Columns', anva_textdomain() ),
 			'width' 	=> 480,
 			'height' 	=> 480,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
 		'gallery_3' => array(
 			'name' 		=> __( 'Gallery Grid 3 Columns', anva_textdomain() ),
 			'width' 	=> 440,
 			'height' 	=> 440,
-			'crop' 		=> true
+			'crop' 		=> true,
+			'position'=> array( 'center', 'top' )
 		),
 		'gallery_masonry' => array(
 			'name' 		=> __( 'Gallery Masonry', anva_textdomain() ),
 			'width' 	=> 480,
 			'height' 	=> 9999,
-			'crop' 		=> false
+			'crop' 		=> false,
+			'position'=> array( 'center', 'top' )
 		),
 	);
 
@@ -178,15 +184,15 @@ function anva_image_size_names_choose( $sizes ) {
 }
 
 /**
- * Get featured image
+ * Get featured image src
  *
  * @since 1.0.0
  */
 function anva_get_featured_image( $post_id, $thumbnail ) {
 	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
 	if ( $post_thumbnail_id ) {
-		$post_thumbnail_img = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
-		return $post_thumbnail_img[0];
+		$post_thumbnail = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
+		return $post_thumbnail[0];
 	}
 }
 

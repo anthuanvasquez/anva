@@ -28,6 +28,8 @@ class Anva_Page_Builder_Elements {
 	 */
 	private $registered_elements = array();
 
+	private $blocks = array();
+
 	/**
 	 * Core framework builder elements and settings
 	 * WP-Admin only.
@@ -370,7 +372,7 @@ class Anva_Page_Builder_Elements {
 				'fontcolor' => array(
 					'title' => 'Font Color',
 					'type' => 'colorpicker',
-					"std" => "#444444",
+					"std" => "#dd3333",
 					'desc' => 'Select font color for content on this block',
 				),
 				'custom_css' => array(
@@ -1810,6 +1812,27 @@ class Anva_Page_Builder_Elements {
 			}
 		}
 
+		// Add blocks to elements
+		if ( $this->blocks ) {
+			
+			$blocks = $this->blocks;
+			foreach ( $blocks as $block ) {
+				
+				$this->elements[$block['element_id']]['attr'][$block['block_id']] = $block['attr'];
+
+				// $this->elements = anva_insert_array_key(
+				// 	$this->elements[$block['element_id']],
+				// 	$block['key'],
+				// 	$block['block_id'],
+				// 	$block['attr'],
+				// 	true,
+				// 	false
+				// );
+			}
+		}
+
+		//var_dump( $this->elements );
+		
 		// Extend
 		$this->elements = apply_filters( 'anva_elements', $this->elements );
 
@@ -1881,6 +1904,25 @@ class Anva_Page_Builder_Elements {
 		}
 	}
 
+	public function add_block( $args ) {
+		//if ( $this->is_element( $element_id ) ) {
+		
+		// $this->core_elements[$element_id]['attr'][$block_id] = $attributes;
+
+		// anva_insert_array_key(
+		// 	$this->core_elements[$element_id]['attr'],
+		// 	'bgcolor',
+		// 	'customcolor',
+		// 	'value',
+		// 	true,
+		// 	false
+		// );
+
+		//var_dump($this->core_elements[$element_id]);
+		//}
+		$this->blocks[] = $args;
+	}
+
 	/**
 	 * Get registered elements
 	 *
@@ -1908,6 +1950,8 @@ class Anva_Page_Builder_Elements {
 		return $this->custom_elements;
 	}
 
+
+
 	/**
 	 * Get final elements
 	 * 
@@ -1928,17 +1972,8 @@ class Anva_Page_Builder_Elements {
 		return in_array( $element_id, $this->get_registered_elements() );
 	}
 
-	public function add_block() {
-		//if ( $this->is_element( $element_id ) ) {
-			//$this->elements[$element_id]['attr'][$block_id] = $options;
-		//}
-
-		//var_dump($this->get_elements());
-		return $this->elements;
-	}
-
 	/**
-	 * Check if a content block is currently registered.
+	 * Check if a attribute block is currently registered
 	 *
 	 * @since 1.0.0
 	 */

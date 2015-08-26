@@ -7,6 +7,12 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Anva' ) ) :
 
+/**
+ * Anva Initialize Framework
+ * 
+ * @since  1.0.0
+ * @author Anthuan Vasquez <eigthy@gmail.com>
+ */
 class Anva {
 
 	/**
@@ -111,7 +117,7 @@ class Anva {
 		
 		// General
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/class-anva-page-builder-meta-box.php' );
-		include_once ( ANVA_FRAMEWORK . '/admin/includes/class-anva-meta-box.php' );
+		include_once ( ANVA_FRAMEWORK . '/admin/includes/class-anva-page-meta-box.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/fields.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK . '/admin/includes/display.php' );
@@ -123,6 +129,7 @@ class Anva {
 
 		include_once ( ANVA_FRAMEWORK . '/includes/api/class-anva-core-options-api.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/class-anva-sidebar-locations.php' );
+		include_once ( ANVA_FRAMEWORK . '/includes/api/class-anva-core-sliders-api.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/class-anva-page-builder-elements.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/class-anva-front-end-stylesheets.php' );
 		include_once ( ANVA_FRAMEWORK . '/includes/api/class-anva-front-end-scripts.php' );
@@ -149,7 +156,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK . '/includes/elements.php' );
 
 		// Plugins
-		include_once ( ANVA_FRAMEWORK . '/plugins/class-anva-slideshows.php' );
+		include_once ( ANVA_FRAMEWORK . '/plugins/class-anva-slider.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/class-anva-gallery.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/login.php' );
 		include_once ( ANVA_FRAMEWORK . '/plugins/woocommerce.php' );
@@ -265,7 +272,6 @@ class Anva {
 		/* ---------------------------------------------------------------- */
 
 		add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
-		add_action( 'after_setup_theme', 'anva_slideshows_setup' );
 
 	}
 

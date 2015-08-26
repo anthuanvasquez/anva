@@ -10,6 +10,9 @@ function anva_api_init() {
 	// Setup Framework Core Options API
 	Anva_Core_Options_API::instance();
 
+	// Setup Framework Core Sliders API
+	Anva_Core_Sliders_API::instance();
+
 	// Setup Framework Page Builder Elements API
 	Anva_Page_Builder_Elements::instance();
 
@@ -25,7 +28,7 @@ function anva_api_init() {
 }
 
 /* ---------------------------------------------------------------- */
-/* (0)) Helpers - Options Framework
+/* (0) Helpers - Options Framework
 /* ---------------------------------------------------------------- */
 
 if ( ! function_exists( 'anva_get_option' ) ) :
@@ -260,7 +263,7 @@ function anva_get_registered_elements() {
  */
 function anva_get_elements() {
 	$api = Anva_Page_Builder_Elements::instance();
-	return $api->add_block();
+	return $api->get_elements();
 }
 
 /**
@@ -298,9 +301,9 @@ function anva_remove_builder_element( $element_id ) {
  *
  * @since 1.0.0
  */
-function anva_add_block_element() {
+function anva_add_block_element( $args ) {
 	$api = Anva_Page_Builder_Elements::instance();
-	return $api->add_block();
+	$api->add_block( $args );
 }
 
 function anva_is_block_element( $element_id, $block_id ) {
@@ -485,6 +488,40 @@ function anva_print_scripts( $level ) {
 }
 
 /* ---------------------------------------------------------------- */
+/* (6.5) Helpers - Sliders
+/* ---------------------------------------------------------------- */
+
+/**
+ * Add slider type
+ *
+ * @since 1.0.0
+ */
+function anva_add_slider( $slider_id, $slider_name, $slide_types, $media_positions, $elements, $options ) {
+	$api = Anva_Core_Sliders_API::instance();
+	$api->add( $slider_id, $slider_name, $slide_types, $media_positions, $elements, $options );
+}
+
+/**
+ * Remove slider type
+ *
+ * @since 1.0.0
+ */
+function anva_remove_slider( $slider_id ) {
+	$api = Anva_Core_Sliders_API::instance();
+	$api->remove( $slider_id );
+}
+
+/**
+ * Get sliders
+ *
+ * @since 1.0.0
+ */
+function anva_get_sliders( $type = '' ) {
+	$api = Anva_Core_Sliders_API::instance();
+	return $api->get_sliders( $type );
+}
+
+/* ---------------------------------------------------------------- */
 /* (6) Helpers - Anva Meta Box API
 /* ---------------------------------------------------------------- */
 
@@ -495,7 +532,7 @@ function anva_print_scripts( $level ) {
  * @return Instance of Class
  */
 function anva_add_new_meta_box( $id, $args, $options ) {
-	$meta_box = new Anva_Meta_Box( $id, $args, $options );
+	$meta_box = new Anva_Page_Meta_Box( $id, $args, $options );
 }
 
 /**
@@ -508,6 +545,11 @@ function anva_get_field( $field, $default = false ) {
 
 	$id = null;
 	$page = array();
+	$typenow = '';
+
+	if ( is_admin() ) {
+		global $typenow;
+	}
 	
 	// Get meta for page
 	if ( is_page() ) {
@@ -524,6 +566,12 @@ function anva_get_field( $field, $default = false ) {
 		$page = anva_setup_gallery_meta();
 	}
 
+	// Get meta for slider
+	if ( is_singular( 'slideshows' ) || 'slideshows' == get_post_type() || isset( $typenow ) && 'slideshows' == $typenow ) {
+		$page = anva_setup_slider_meta();
+	}
+
+	// Get ID
 	if ( isset( $page['args']['id'] ) ) {
 		$id = $page['args']['id'];
 	}

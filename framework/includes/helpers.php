@@ -1,4 +1,5 @@
 <?php
+
 /*-----------------------------------------------------------------------------------*/
 /* Helper Functions
 /*-----------------------------------------------------------------------------------*/
@@ -315,7 +316,8 @@ function anva_truncate_string( $string, $length = 100 ) {
 	}
 }
 
-function HexToRGB( $hex ) {
+function anva_hex_to_rgb( $hex ) {
+	
 	$hex = str_replace( '#', '', $hex );
 	$color = array();
 	
@@ -323,7 +325,7 @@ function HexToRGB( $hex ) {
 		$color['r'] = hexdec( substr( $hex, 0, 1 ) . $r );
 		$color['g'] = hexdec( substr( $hex, 1, 1 ) . $g );
 		$color['b'] = hexdec( substr( $hex, 2, 1 ) . $b );
-	} else if( strlen( $hex ) == 6 ) {
+	} else if ( strlen( $hex ) == 6 ) {
 		$color['r'] = hexdec( substr( $hex, 0, 2 ) );
 		$color['g'] = hexdec( substr( $hex, 2, 2 ) );
 		$color['b'] = hexdec( substr( $hex, 4, 2 ) );
@@ -504,7 +506,11 @@ function anva_textdomain() {
 
 }
 
-function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value, $insert_after_founded_key = true, $append_if_not_found = false ) {
+function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value, $insert_after = true, $append = false ) {
+
+	if ( ! is_array( $array ) ) {
+		return;
+	}
 
 	$new_array = array();
 
@@ -512,7 +518,7 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 
 		// INSERT BEFORE THE CURRENT KEY? 
 		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT BEFORE THAT FOUNDED KEY
-		if ( $key === $search_key && ! $insert_after_founded_key )
+		if ( $key === $search_key && ! $insert_after )
 			$new_array[ $insert_key ] = $insert_value;
 
 		// COPY THE CURRENT KEY/VALUE FROM OLD ARRAY TO A NEW ARRAY
@@ -520,13 +526,13 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 
 		// INSERT AFTER THE CURRENT KEY? 
 		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT AFTER THAT FOUNDED KEY
-		if ( $key === $search_key && $insert_after_founded_key )
+		if ( $key === $search_key && $insert_after )
 			$new_array[ $insert_key ] = $insert_value;
 
 	}
 
 	// APPEND IF KEY ISNT FOUNDED
-	if ( $append_if_not_found && count( $array ) == count( $new_array ) )
+	if ( $append && count( $array ) == count( $new_array ) )
 		$new_array[ $insert_key ] = $insert_value;
 
 	return $new_array;

@@ -285,7 +285,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 		var send_attachment_bkp = wp.media.editor.send.attachment;
 		wp.media.editor.send.attachment = function( props, attachment ) {
 			$('#' + formfield).attr( 'value', attachment.url );
-			$('<img src="'+attachment.url+'" />').insertAfter('#' + formfield + '_button');
+			$('<img src="' + attachment.url + '" />').insertAfter('#' + formfield + '_button');
 			wp.media.editor.send.attachment = send_attachment_bkp;
 		}
 		wp.media.editor.open();

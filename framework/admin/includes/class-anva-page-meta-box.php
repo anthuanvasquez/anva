@@ -10,9 +10,9 @@
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-if ( ! class_exists( 'Anva_Meta_Box' ) ) :
+if ( ! class_exists( 'Anva_Page_Meta_Box' ) ) :
 
-class Anva_Meta_Box {
+class Anva_Page_Meta_Box {
 
 	/**
 	 * ID for meta box and post field saved

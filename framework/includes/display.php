@@ -276,12 +276,8 @@ function anva_footer_ghost() {
  * @since 1.0.0
  */
 function anva_featured_default() {
-	if ( anva_supports( 'featured', 'front' ) ) {
-		$slideshows = anva_get_slideshows();
-		if ( function_exists( 'anva_put_slideshows' ) && isset( $slideshows['main'] ) ) {
-			echo anva_put_slideshows( 'main' );
-		}
-	}
+	$slider = anva_get_option( 'slider' );
+	anva_sliders( $slider );
 }
 
 /**
@@ -291,10 +287,9 @@ function anva_featured_default() {
  */
 function anva_featured_before_default() {
 	?>
-		<!-- FEATURED (start) -->
-		<section id="featured">
-			<div class="featured-content">
-				<div class="container clearfix">
+		<!-- SLIDER (start) -->
+		<section id="slider" class="slider-boxed">
+			<div class="container clearfix">
 	<?php
 }
 
@@ -305,8 +300,7 @@ function anva_featured_before_default() {
  */
 function anva_featured_after_default() {
 	?>
-			</div><!-- .container (end) -->
-		</div><!-- .featured-content (end) -->
+		</div><!-- .container (end) -->
 	</section><!-- FEATURED (end) -->
 	<?php
 }
@@ -578,12 +572,14 @@ function anva_posts_comments_default() {
 endif;
 
 /**
- * Display debug information if WP_DEBUG is enabled
- * and current user is an administrator
+ * Display debug information
+ * 
+ * Only if WP_DEBUG is enabled and czurrent user is an administrator.
  * 
  * @since 1.0.0
  */
 function anva_debug() {
+	return;
 	if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG ) :
 	?>
 	<div class="container clearfix">
