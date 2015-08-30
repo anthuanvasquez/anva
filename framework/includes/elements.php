@@ -4,121 +4,90 @@
 /* Layout Elements
 /*--------------------------------------------*/
 
-add_shortcode( 'anva_divider', 'anva_divider_element' );
+add_action( 'anva_element_divider', 'anva_divider', 10, 2 );
 
 /*--------------------------------------------*/
 /* Content Elements
 /*--------------------------------------------*/
 
-add_shortcode( 'anva_text', 'anva_text_element' );
-add_shortcode( 'anva_text_image', 'anva_text_image_element' );
-add_shortcode( 'anva_text_sidebar', 'anva_text_sidebar_element' );
-add_shortcode( 'anva_header', 'anva_header_element' );
-add_shortcode( 'anva_header_image', 'anva_header_image_element' );
-add_shortcode( 'anva_blog_grid', 'anva_blog_grid_element' );
-add_shortcode( 'anva_content_half_bg', 'anva_content_half_bg_element' );
-add_shortcode( 'anva_contact_sidebar', 'anva_contact_sidebar_element' );
-add_shortcode( 'anva_contact_map', 'anva_contact_map_element' );
-add_shortcode( 'anva_map', 'anva_map_element' );
-add_shortcode( 'anva_testimonial_column', 'anva_testimonial_column_element' );
-add_shortcode( 'anva_pricing', 'anva_pricing_element' );
+add_action( 'anva_element_text', 'anva_text', 10, 2 );
+add_action( 'anva_element_text_image', 'anva_text_image_element' );
+add_action( 'anva_element_text_sidebar', 'anva_text_sidebar_element' );
+add_action( 'anva_element_header', 'anva_header_element' );
+add_action( 'anva_element_header_image', 'anva_header_image_element' );
+add_action( 'anva_element_blog_grid', 'anva_blog_grid_element' );
+add_action( 'anva_element_content_half_bg', 'anva_content_half_bg_element' );
+add_action( 'anva_element_contact_sidebar', 'anva_contact_sidebar_element' );
+add_action( 'anva_element_contact_map', 'anva_contact_map_element' );
+add_action( 'anva_element_map', 'anva_map_element' );
+add_action( 'anva_element_testimonial_column', 'anva_testimonial_column_element' );
+add_action( 'anva_element_pricing', 'anva_pricing_element' );
 
 /*--------------------------------------------*/
 /* Media Elements
 /*--------------------------------------------*/
 
-add_shortcode( 'anva_gallery_slider', 'anva_gallery_slider_element' );
-add_shortcode( 'anva_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width_element' );
-add_shortcode( 'anva_gallery_grid', 'anva_gallery_grid_element' );
-add_shortcode( 'anva_gallery_masonry', 'anva_gallery_masonry_element' );
-add_shortcode( 'anva_galleries', 'anva_galleries_element' );
-add_shortcode( 'anva_animated_gallery_grid', 'anva_animated_gallery_grid_element' );
-add_shortcode( 'anva_image_parallax', 'anva_image_parallax_element' );
-add_shortcode( 'anva_image_fullwidth', 'anva_image_fullwidth_element' );
-add_shortcode( 'anva_image_half_fullwidth', 'anva_image_half_fullwidth_element' );
-add_shortcode( 'anva_image_half_fixed_width', 'anva_image_half_fixed_width_element' );
-add_shortcode( 'anva_image_fixed_width', 'anva_image_fixed_width_element' );
-add_shortcode( 'anva_four_images_block', 'anva_four_images_block_element' );
-add_shortcode( 'anva_three_images_block', 'anva_three_images_block_element' );
-add_shortcode( 'anva_three_cols_images', 'anva_three_cols_images_element');
-add_shortcode( 'anva_two_cols_images', 'anva_two_cols_images_element' );
+add_action( 'anva_element_gallery_slider', 'anva_gallery_slider_element' );
+add_action( 'anva_element_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width_element' );
+add_action( 'anva_element_gallery_grid', 'anva_gallery_grid_element' );
+add_action( 'anva_element_gallery_masonry', 'anva_gallery_masonry_element' );
+add_action( 'anva_element_galleries', 'anva_galleries_element' );
+add_action( 'anva_element_animated_gallery_grid', 'anva_animated_gallery_grid_element' );
+add_action( 'anva_element_image_parallax', 'anva_image_parallax_element' );
+add_action( 'anva_element_image_fullwidth', 'anva_image_fullwidth_element' );
+add_action( 'anva_element_image_half_fullwidth', 'anva_image_half_fullwidth_element' );
+add_action( 'anva_element_image_half_fixed_width', 'anva_image_half_fixed_width_element' );
+add_action( 'anva_element_image_fixed_width', 'anva_image_fixed_width_element' );
+add_action( 'anva_element_four_images_block', 'anva_four_images_block_element' );
+add_action( 'anva_element_three_images_block', 'anva_three_images_block_element' );
+add_action( 'anva_element_three_cols_images', 'anva_three_cols_images_element');
+add_action( 'anva_element_two_cols_images', 'anva_two_cols_images_element' );
 
-function anva_divider_element( $atts, $content ) {
-	extract( shortcode_atts( array(
-		'size' => 'one'
-	), $atts ) );
-	$html = '<div class="divider clearfix ' . esc_attr( $size ) . '"></div>';
-	return $html;
+
+function anva_divider( $atts, $content = null ) {
+	$html = '<div class="divider divider-center clearfix"><i class="fa fa-circle"></i></div>';
+	echo $html;
 }
 
-function anva_text_element( $atts, $content ) {
-	extract( shortcode_atts( array(
-		'size' 				=> 'one',
-		'slug' 				=> '',
-		'width' 			=> '100%',
-		'padding' 		=> 30,
-		'bgcolor' 		=> '',
-		'fontcolor' 	=> '',
-		'layout' 			=> 'fixedwidth',
-		'custom_css' 	=> '',
-	), $atts ) );
+function anva_text( $atts, $content ) {
 	
-	$sec_id = '';
-	if(!empty($slug))
-	{
-		$sec_id = 'id="'.esc_attr($slug).'"';
+	extract( $atts );
+
+	$html = '';
+	$id = '';
+
+	if ( ! empty( $slug ) ) {
+		$id = 'id="' . esc_attr( $slug ) . '"';
+	}
+	
+	$custom_css .= 'padding:' . $padding .'px 0;';
+
+	if ( ! empty( $bgcolor ) ) {
+		$custom_css .= 'background-color:' . $bgcolor . ';';
 	}
 
-	$html = '<div '.$sec_id.' class="'.esc_attr($size).' withsmallpadding anva_text ';
-	
-	if(!empty($layout) && $layout == 'fullwidth')
-	{
-		$html.= 'fullwidth ';
-	}
-	$html.= '"';
-	
-	$custom_css.= 'padding:'.esc_attr($padding).'px 0 '.esc_attr($padding).'px 0;';
-	if(!empty($bgcolor))
-	{
-		$custom_css.= 'background-color:'.esc_attr($bgcolor).';';
-	}
-	if(!empty($fontcolor))
-	{
-		$custom_css.= 'color:'.esc_attr($fontcolor).' !important;';
-	}
-	
-	if(!empty($custom_css))
-	{
-		$html.= ' style="'.esc_attr(urldecode($custom_css)).'" ';
-	}
-	
-	$html.= '><div class="page_content_wrapper ';
-	if(!empty($layout) && $layout == 'fullwidth')
-	{
-		$html.= 'nopadding';
-	}
-	$html.= '"><div class="inner" ';
-	if($layout == 'fullwidth')
-	{
-		$html.= 'style="width:100%;"';
+	if ( ! empty( $fontcolor ) ) {
+		$custom_css .= 'color:' . $fontcolor . ' !important;';
 	}
 
-	$html.= '>';
-	if(!empty($width))
-	{
-		$html.= '<div style="margin:auto;width:'.esc_attr(urldecode($width)).'">';
-	}
-	$html.= do_shortcode(anva_apply_content($content)).'</div>';
-	if(!empty($width))
-	{
-		$html.= '</div>';
-	}
-	$html.= '</div></div>';
+	$custom_css = anva_compress( $custom_css );
+	
+	$html .= '<div ' . $id . ' class="" style="' . esc_attr ( $custom_css ) . '">';
+	$html .= '<div class="element-wrapper">';
 
-	return $html;
+	if ( ! empty( $width ) ) {
+		$width = 'width:' . $width;
+	}
+
+	$html .= '<div class="automargin" style="' . esc_attr( $width ) . '">';
+	$html .= $content;
+	$html .= '</div>';
+	$html .= '</div>';
+	$html .= '</div>';
+
+	echo $html;
 
 }
-
 
 function anva_text_image_element($atts, $content) {
 

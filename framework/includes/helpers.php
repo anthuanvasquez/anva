@@ -5,6 +5,24 @@
 /*-----------------------------------------------------------------------------------*/
 
 /**
+ * Get gallery field meta
+ *
+ * @since  1.0.0
+ * @return string The page builder field meta
+ */
+function anva_get_gallery_field() {
+	
+	$field = false;
+	$gallery_meta = anva_setup_gallery_attachments_meta();
+
+	if ( isset( $gallery_meta['args']['id'] ) ) {
+		$field = anva_get_post_meta( $gallery_meta['args']['id'] );
+	}
+
+	return $field;
+}
+
+/**
  * Get page builder field meta
  *
  * @since  1.0.0
@@ -44,6 +62,8 @@ function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
 	
 		foreach ( $items as $key => $item ) {
 
+			$atts = array();
+
 			$counter++;
 
 			$item_data 				= $settings[$item]['data'];
@@ -51,6 +71,7 @@ function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
 			$item_obj 				= json_decode( $item_data );
 			$item_content 		= $item_obj->shortcode . '_content';
 			$shortcode 				= $item_obj->shortcode;
+			$content 					= null;
 
 			// Validate if shortcode exist in elements array
 			if ( isset( $shortcodes[$shortcode] ) ) {
@@ -71,6 +92,7 @@ function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
 					
 					if ( isset( $item_obj->$shortcode_attr ) ) {
 						$html .= $attr . '="' . esc_attr( $item_obj->$shortcode_attr ) . '" ';
+						$atts[$attr] = esc_attr( urldecode( $item_obj->$shortcode_attr ) );
 					}
 				}
 
@@ -78,16 +100,23 @@ function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
 				if ( isset( $item_obj->$item_content ) ) {
 					$classes = 'element-has-content';
 					$html .= ']' . wp_kses_post( urldecode( $item_obj->$item_content ) ) . '[/anva_' . $shortcode . ']';
+					$content = urldecode( $item_obj->$item_content );
 
 				} else {
 					$html .= ']';
 				}
 
 			}
+
+			//var_dump($shortcode);
+			// var_dump($atts);
 			
 			echo '<section id="section-' . $counter . '" class="section-element section-' . $item .' section-' . $shortcode . ' ' . $classes . '">';
 			echo '<div id="element-' . $item . '" class="element element-columns-' . $item_size . '">';
-			echo anva_apply_content( $html );
+			
+			// echo anva_apply_content( $html );
+			do_action( 'anva_element_' . $shortcode, $atts, $content );
+			
 			echo '</div><!-- #element-' . $item . ' (end) -->';
 			echo '</section><!-- .section-' . $item . ' (end) -->';
 		}
@@ -248,6 +277,8 @@ function anva_post_classes( $class, $paged = true ) {
 			$classes[] = 'post-list-small';
 		} elseif ( 'large' == $thumb ) {
 			$classes[] = 'post-list-large';
+		} elseif ( 'full' == $thumb ) {
+			$classes[] = 'post-list-full-width';
 		}
 	}
 
@@ -466,13 +497,13 @@ function anva_get_template_part( $name ) {
  *
  * @since 1.0.0
  */
-function anva_get_core_url() {
-	if ( defined( 'ANVA_FRAMEWORK_URL' ) ) {
-		$url = ANVA_FRAMEWORK_URL;
+function anva_get_core_uri() {
+	if ( defined( 'ANVA_FRAMEWORK_URI' ) ) {
+		$uri = ANVA_FRAMEWORK_URI;
 	} else {
-		$url = get_template_directory_uri() . '/framework';
+		$uri = get_template_directory_uri() . '/framework';
 	}
-	return $url;
+	return $uri;
 }
 
 /**
@@ -481,29 +512,12 @@ function anva_get_core_url() {
  * @since 1.0.0
  */
 function anva_get_core_directory() {
-	if ( defined( 'ANVA_FRAMEWORK' ) ) {
-		$path = ANVA_FRAMEWORK;
+	if ( defined( 'ANVA_FRAMEWORK_DIR' ) ) {
+		$path = ANVA_FRAMEWORK_DIR;
 	} else {
 		$path = get_template_directory() . '/framework';
 	}
 	return $path;
-}
-
-/**
- * Textdomain
- *
- * @since 1.0.0
- */
-function anva_textdomain() {
-	
-	$domain = 'anva';
-
-	if ( defined( 'ANVA_FRAMEWORK_DOMAIN' ) ) {
-		$domain = ANVA_FRAMEWORK_DOMAIN;
-	}
-
-	return $domain;
-
 }
 
 function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value, $insert_after = true, $append = false ) {

@@ -144,7 +144,6 @@
 		border: 1px solid #ddd;
 		box-sizing: border-box;
 		color: #23282d;
-		cursor: move;
 		font-size: 1em;
 		line-height: 1.2em;
 		margin: 0 0 10px;
@@ -177,6 +176,7 @@
 		}
 
 		.thumbnail {
+			cursor: move;
 			float: left;
 			margin-right: 10px;
 			border-right: 1px solid #eee;

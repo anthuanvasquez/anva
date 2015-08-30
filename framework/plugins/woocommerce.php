@@ -7,6 +7,8 @@
 
 if ( class_exists( 'Woocommerce' ) ) :
 
+add_action( 'after_setup_theme', 'anva_add_woocommerce_support' );
+
 /* ---------------------------------------------------------------- */
 /* Acitions
 /* ---------------------------------------------------------------- */
@@ -24,7 +26,7 @@ function anva_woocommerce_sidebar_after() {
 /* ---------------------------------------------------------------- */
 
 function anva_add_woocommerce_support() {
-	add_theme_support( 'Woocommerce' );
+	add_theme_support( 'woocommerce' );
 }
 
 /* ---------------------------------------------------------------- */

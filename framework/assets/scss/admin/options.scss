@@ -63,8 +63,11 @@
 
 	.section-columns {
 		.select-wrap {
-			margin-right: 3%;
-			width: 47%;
+			margin-right: 4%;
+			width: 48%;
+			&.last {
+				margin-right: 0;
+			}
 		}
 		.inactive {
 			margin: 0;
@@ -204,7 +207,6 @@
 				outline: none;
 				display: inline-block;
 				height: 33px;
-				appearance: none;
 				cursor: pointer;
 			}
 		}

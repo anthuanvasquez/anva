@@ -276,8 +276,10 @@ function anva_footer_ghost() {
  * @since 1.0.0
  */
 function anva_featured_default() {
-	$slider = anva_get_option( 'slider' );
-	anva_sliders( $slider );
+	if ( anva_supports( 'featured', 'front' ) ) {
+		$slider = anva_get_option( 'slider_id' );
+		anva_sliders( $slider );
+	}
 }
 
 /**
@@ -363,7 +365,7 @@ function anva_sidebars_default( $position ) {
 	if ( $layout == $position || $layout == 'double' ) {
 
 		do_action( 'anva_sidebar_before', $position  );
-		anva_display_sidebar( 'sidebar_'. $position );
+		anva_display_sidebar( 'sidebar_' . $position );
 		do_action( 'anva_sidebar_after', $position );
 
 	}

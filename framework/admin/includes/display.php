@@ -40,7 +40,7 @@ function anva_admin_settings_log() {
  * @since 1.0.0
  */
 function anva_admin_footer_credits() {
-	$theme_info 		= THEME_NAME .' '. THEME_VERSION;
+	$theme_info 		= ANVA_THEME_NAME .' '. ANVA_THEME_VERSION;
 	$framework_info = ANVA_FRAMEWORK_NAME .' '. ANVA_FRAMEWORK_VERSION;
 	$author_info 		= '<a href="' . esc_url( 'http://anthuanvasquez.net/' ) . '">Anthuan Vasquez</a>';
 
@@ -379,7 +379,7 @@ function anva_columns_option( $id, $name, $val ) {
 
 		$select_widths .= '<div class="tb-fancy-select column-width column-width-'.$i.'">';
 		$select_widths .= '<select name= "'.esc_attr( $name.'['.$id.'][width]['.$i.']' ).'">';
-
+		
 		$current_value = '';
 		if ( ! empty( $val ) && ! empty( $val['width'][$i] ) ) {
 			$current_value = $val['width'][$i];
@@ -399,7 +399,7 @@ function anva_columns_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	$output  = sprintf( '<div class="select-wrap alignleft">%s</div>', $select_number );
-	$output .= sprintf( '<div class="select-wrap alignleft">%s</div>', $select_widths );
+	$output .= sprintf( '<div class="select-wrap alignleft last">%s</div>', $select_widths );
 	$output .= '<div class="clear"></div>';
 
 	return $output;

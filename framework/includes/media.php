@@ -3,11 +3,6 @@
 /**
  * Get Image Sizes
  *
- * By having this in a separate function, hopefully
- * it can be extended upon better. If any plugin or
- * other feature of the framework requires these
- * image sizes, they can grab 'em.
- *
  * @since 1.0.0
  */
 function anva_get_image_sizes() {
@@ -16,100 +11,72 @@ function anva_get_image_sizes() {
 
 	// Content Width
 	// Default width of primary content area
-	$content_width = apply_filters( 'anva_content_width', 1110 );
+	$content_width = apply_filters( 'anva_content_width', 1140 );
 
 	// Crop sizes
 	$sizes = array(
-		'blog_full' => array(
-			'name' 		=> __( 'Blog Full Width', anva_textdomain() ),
-			'width' 	=> 2000,
-			'height' 	=> 1333,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
+		'anva_full' => array(
+			'name' 		 => __( 'Anva Full Width', 'anva' ),
+			'width' 	 => 2000,
+			'height' 	 => 1333,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'blog_lg' => array(
-			'name' 		=> __( 'Blog Large', anva_textdomain() ),
-			'width' 	=> 860,
-			'height' 	=> 400,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
+		'anva_lg' => array(
+			'name' 		 => __( 'Anva Large', 'anva' ),
+			'width' 	 => $content_width,
+			'height' 	 => 500,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'blog_md' => array(
-			'name' 		=> __( 'Blog Medium', anva_textdomain() ),
-			'width' 	=> 400,
-			'height'	=> 300,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
+		'anva_md' => array(
+			'name' 		 => __( 'Anva Medium', 'anva' ),
+			'width' 	 => 860,
+			'height' 	 => 400,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'blog_sm' => array(
-			'name' 		=> __( 'Blog Small', anva_textdomain() ),
-			'width' 	=> 195,
-			'height' 	=> 195,
-			'crop' 		=> false,
-			'position'=> array( 'center', 'top' )
+		'anva_sm' => array(
+			'name' 		 => __( 'Anva Small', 'anva' ),
+			'width' 	 => 400,
+			'height' 	 => 300,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'slider_full' => array(
-			'name' 		=> __( 'Slider Full Width', anva_textdomain() ),
-			'width' 	=> 1600,
-			'height' 	=> 500,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
+		'anva_grid_2' => array(
+			'name' 		 => __( 'Anva Grid 2', 'anva' ),
+			'width' 	 => 800,
+			'height'	 => 600,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'slider_lg' => array(
-			'name' 		=> __( 'Slider Large', anva_textdomain() ),
-			'width' 	=> 1140,
-			'height' 	=> 500,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
+		'anva_grid_3' => array(
+			'name' 		 => __( 'Anva Grid 3', 'anva' ),
+			'width' 	 => 600,
+			'height'	 => 450,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'slider_md' => array(
-			'name' 		=> __( 'Slider Medium', anva_textdomain() ),
-			'width' 	=> 564,
-			'height' 	=> 400,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
+		'anva_post_grid'  => array(
+			'name' 		 => __( 'Anva Post Grid', 'anva' ),
+			'width' 	 => 520,
+			'height'	 => 280,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'grid_2' => array(
-			'name' 		=> __( '2 Column of Grid', anva_textdomain() ),
-			'width' 	=> 472,
-			'height' 	=> 295,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
+		'anva_masonry' => array(
+			'name' 		 => __( 'Anva Masonry', 'anva' ),
+			'width' 	 => 500,
+			'height'	 => 500,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
-		'grid_3' => array(
-			'name' 		=> __( '3 Column of Grid', anva_textdomain() ),
-			'width' 	=> 320,
-			'height' 	=> 200,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
-		),
-		'grid_4' => array(
-			'name' 		=> __( '4 Column of Grid', anva_textdomain() ),
-			'width' 	=> 240,
-			'height' 	=> 150,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
-		),
-		'gallery_2' => array(
-			'name' 		=> __( 'Gallery Grid 2 Columns', anva_textdomain() ),
-			'width' 	=> 480,
-			'height' 	=> 480,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
-		),
-		'gallery_3' => array(
-			'name' 		=> __( 'Gallery Grid 3 Columns', anva_textdomain() ),
-			'width' 	=> 440,
-			'height' 	=> 440,
-			'crop' 		=> true,
-			'position'=> array( 'center', 'top' )
-		),
-		'gallery_masonry' => array(
-			'name' 		=> __( 'Gallery Masonry', anva_textdomain() ),
-			'width' 	=> 480,
-			'height' 	=> 9999,
-			'crop' 		=> false,
-			'position'=> array( 'center', 'top' )
+		'anva_masonry_2' => array(
+			'name' 		 => __( 'Anva Masonry Vertical', 'anva' ),
+			'width' 	 => 500,
+			'height'	 => 700,
+			'crop' 		 => true,
+			'position' => array( 'center', 'top' )
 		),
 	);
 
@@ -147,7 +114,7 @@ function anva_add_image_sizes() {
 
 	// Add image sizes
 	foreach ( $sizes as $size => $atts ) {
-		if ( version_compare( $wp_version, '3.9', '>=' ) && isset( $atts['position'] ) ) {
+		if ( version_compare( $wp_version, '3.9', '>=' ) ) {
 			add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'], $atts['position'] );
 		} else {
 			add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'] );
@@ -162,7 +129,6 @@ function anva_add_image_sizes() {
  * added as a filter to WP's image_size_names_choose.
  *
  * @since  1.0.0
- * @return array Framework's image sizes
  */
 function anva_image_size_names_choose( $sizes ) {
 
@@ -177,7 +143,7 @@ function anva_image_size_names_choose( $sizes ) {
 	}
 
 	// Apply filter - Filter in filter... I know, I know.
-	$image_sizes = apply_filters( 'anva_image_choose_sizes', $image_sizes );
+	$image_sizes = apply_filters( 'anva_image_size_names_choose', $image_sizes );
 
 	// Return merged with original WP sizes
 	return array_merge( $sizes, $image_sizes );
@@ -220,13 +186,27 @@ function anva_the_post_thumbnail( $thumb ) {
 	// Output
 	$html = '';
 	
-	// Default size
-	$size = 'blog_lg';
+	// Default thumbnail size
+	$thumbnail = 'anva_lg';
 
 	if ( 'small' == $thumb ) {
-		$size = 'blog_md';
+		$thumbnail = 'anva_sm';
 	} elseif ( 'large' == $thumb ) {
-		$size = 'blog_lg';
+		$thumbnail = 'anva_md';
+	}
+
+	switch ( $thumb ) {
+		case 'small':
+			$thumbnail = 'anva_sm';
+			break;
+
+		case 'large':
+			$thumbnail = 'anva_md';
+			break;
+
+		case 'full':
+			$thumbnail = 'anva_large';
+			break;
 	}
 
 	if ( $thumb != 'hide' && has_post_thumbnail() ) {
@@ -234,9 +214,9 @@ function anva_the_post_thumbnail( $thumb ) {
 		$html .= '<div class="entry-image">';
 		
 		if ( is_single() ) {
-			$html .= '<a data-lightbox="image" href="' . anva_get_featured_image( $post->ID, 'large' ) . '">' . get_the_post_thumbnail( $post->ID, $size, array( 'title' => get_the_title() ) ) . '</a>';
+			$html .= '<a data-lightbox="image" href="' . anva_get_featured_image( $post->ID, 'full' ) . '">' . get_the_post_thumbnail( $post->ID, $thumbnail, array( 'title' => get_the_title() ) ) . '</a>';
 		} else {
-			$html .= '<a href="' . get_permalink() . '">' . get_the_post_thumbnail( $post->ID, $size, array( 'title' => get_the_title() ) ) . '</a>';
+			$html .= '<a href="' . get_permalink() . '">' . get_the_post_thumbnail( $post->ID, $thumbnail, array( 'title' => get_the_title() ) ) . '</a>';
 		}
 
 		$html .= '</div><!-- .entry-image (end) -->';
@@ -251,7 +231,7 @@ function anva_the_post_thumbnail( $thumb ) {
  *
  * @since 1.0.0
  */
-function anva_the_post_grid_thumbnail( $size ) {
+function anva_the_post_grid_thumbnail( $thumbnail ) {
 	
 	global $post;
 	
@@ -259,11 +239,11 @@ function anva_the_post_grid_thumbnail( $size ) {
 
 	if ( has_post_thumbnail() ) {
 		$html .= '<div class="entry-image">';
-		$html .= '<a href="'. get_permalink( $post->ID ) .'" title="'. get_the_title( $post->ID ) .'">'. get_the_post_thumbnail( $post->ID, $size ) .'</a>';
+		$html .= '<a href="'. get_permalink( $post->ID ) .'" title="'. get_the_title( $post->ID ) .'">'. get_the_post_thumbnail( $post->ID, $thumbnail ) .'</a>';
 		$html .= '</div><!-- .entry-image (end) -->';
 	}
 	
-	return $html;
+	echo $html;
 }
 
 /**
@@ -271,7 +251,7 @@ function anva_the_post_grid_thumbnail( $size ) {
  *
  * @since 1.0.0
  */
-function anva_animations() {
+function anva_get_animations() {
 	$animations = array(
 		'bounce',
 		'flash',

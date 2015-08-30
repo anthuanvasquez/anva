@@ -57,8 +57,12 @@
 }
 
 #optionsframework .section-columns .select-wrap {
-  margin-right: 3%;
-  width: 47%;
+  margin-right: 4%;
+  width: 48%;
+}
+
+#optionsframework .section-columns .select-wrap.last {
+  margin-right: 0;
 }
 
 #optionsframework .section-columns .inactive {
@@ -208,9 +212,6 @@
   outline: none;
   display: inline-block;
   height: 33px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
   cursor: pointer;
 }
 

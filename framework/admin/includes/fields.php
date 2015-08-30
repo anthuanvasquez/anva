@@ -8,28 +8,30 @@
  * Add page and post meta boxes
  *
  * @since  1.0.0
- * @return class Anva_Page_Meta_Box
  */
 function anva_add_meta_boxes_default() {
 
 	// Page Meta Box
 	$page_meta = anva_setup_page_meta();
-	$page_meta_box = new Anva_Page_Meta_Box( $page_meta['args']['id'], $page_meta['args'], $page_meta['options'] );
+	$page_meta_box = new Anva_Meta_Box( $page_meta['args']['id'], $page_meta['args'], $page_meta['options'] );
 
 	// Post Meta Box
 	$post_meta = anva_setup_post_meta();
-	$post_meta_box = new Anva_Page_Meta_Box( $post_meta['args']['id'], $post_meta['args'], $post_meta['options'] );
+	$post_meta_box = new Anva_Meta_Box( $post_meta['args']['id'], $post_meta['args'], $post_meta['options'] );
 
 	if ( post_type_exists( 'galleries' ) ) {
 		// Gallery Meta Box
 		$gallery_meta = anva_setup_gallery_meta();
-		$gallery_meta_box = new Anva_Page_Meta_Box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['options'] );
+		$gallery_meta_box = new Anva_Meta_Box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['options'] );
+	
+		$gallery_attachments_meta = anva_setup_gallery_attachments_meta();
+		$gallery_attachments_meta_box = new Anva_Gallery_Meta_Box( $gallery_attachments_meta['args']['id'], $gallery_attachments_meta['args'] );
 	}
 
 	if ( post_type_exists( 'slideshows' ) ) {
 		// Slider Meta Box
 		$slider_meta = anva_setup_slider_meta();
-		$slider_meta_box = new Anva_Page_Meta_Box( $slider_meta['args']['id'], $slider_meta['args'], $slider_meta['options'] );
+		$slider_meta_box = new Anva_Meta_Box( $slider_meta['args']['id'], $slider_meta['args'], $slider_meta['options'] );
 	}
 }
 
@@ -37,18 +39,18 @@ function anva_add_meta_boxes_default() {
  * Add page and post meta boxes
  *
  * @since 1.0.0
- * @return class Anva_Page_Meta_box
+ * @return class Anva_Meta_box
  */
 function anva_add_page_builder_meta_box() {
 
 	// Page Builder Meta Box
 	$page_builder_meta = anva_setup_page_builder_meta();
-	$page_builder_meta_box = new Anva_Page_Builder_Meta_Box( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
+	$page_builder_meta_box = new Anva_Builder_Meta_Box( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
 
 }
 
 /**
- * Post meta setup array
+ * Post meta setup
  *
  * @since  1.0.0
  * @return array $setup
@@ -88,7 +90,7 @@ function anva_setup_post_meta() {
 }
 
 /**
- * Page meta setup array
+ * Page meta setup
  *
  * @since  1.0.0
  * @return array $setup
@@ -100,11 +102,9 @@ function anva_setup_page_meta() {
 
 	// Fill columns array
 	$columns[''] = esc_html__( 'Default Grid Columns', 'anva' );
-	foreach ( anva_grid_columns() as $key => $value ) {
+	foreach ( anva_get_grid_columns() as $key => $value ) {
 		$columns[$key] = esc_html( $value['name'] );
 	}
-	// Remove 1 Column Grid
-	unset( $columns[1] );
 
 	// Fill layouts array
 	$layouts[''] = esc_html__( 'Default Sidebar Layout', 'anva' );
@@ -154,65 +154,6 @@ function anva_setup_page_meta() {
 				'std'			=> '',
 				'options'	=> $columns
 			),
-
-			'others' => array(
-				'id' 			=> 'others',
-				'name'		=> __( 'Others', 'anva' ),
-				'type' 		=> 'heading'
-			),
-			'textarea' => array(
-				'name' => 'Textarea',
-				'desc'  => 'A description for the field.',
-				'id'    => 'textarea',
-				'type'  => 'textarea',
-				'std'			=> 'Hello'
-			),
-			'checkbox' => array(
-				'name' => 'Checkbox Input',
-				'desc'  => 'A description for the field.',
-				'id'    => 'checkbox',
-				'type'  => 'checkbox',
-				'std'		=> '1',
-			),
-			'radio' => array(
-				'name' => 'Radio Group',
-				'desc'  => 'A description for the field.',
-				'id'    => 'radio',
-				'std'		=> 'value2',
-				'type'  => 'radio',
-				'options' => array(
-					'value1' => 'One',
-					'value2' => 'Two',
-					'value3' => 'Three'
-				)
-			),
-			'multicheck' => array(
-				'name' => 'Checkbox Group',
-				'desc'  => 'A description for the field.',
-				'id'    => 'multicheck',
-				'type'  => 'multicheck',
-				'std'		=> array( 'one' => '1' ),
-				'options' => array(
-					'one' => __( 'French Toast', 'theme-textdomain' ),
-					'two' => __( 'Pancake', 'theme-textdomain' ),
-					'three' => __( 'Omelette', 'theme-textdomain' ),
-					'four' => __( 'Crepe', 'theme-textdomain' ),
-					'five' => __( 'Waffle', 'theme-textdomain' )
-				)
-			),
-			'date' => array(
-				'name' => 'Date',
-				'desc'  => 'A description for the field.',
-				'id'    => 'date',
-				'type'  => 'date',
-				'std'		=> '07/11/2018'
-			),
-			'repeatable' => array(
-				'name' => 'Repeatable',
-				'desc'  => 'A description for the field.',
-				'id'    => 'repeatable',
-				'type'  => 'repeatable'
-			)
 		)
 	);
 
@@ -220,7 +161,7 @@ function anva_setup_page_meta() {
 }
 
 /**
- * Gallery meta setup array
+ * Gallery meta setup
  *
  * @since  1.0.0
  * @return array $setup
@@ -249,10 +190,10 @@ function anva_setup_gallery_meta() {
 				'name'		=> __( 'Layout', 'anva' ),
 				'type' 		=> 'heading'
 			),
-			'gallery_password' => array(
-				'id'			=> 'gallery_password',
-				'name' 		=> __( 'Gallery Password', 'anva' ),
-				'desc'		=> __( 'Protect this gallery with a password.', 'anva' ),
+			'gallery_highlight' => array(
+				'id'			=> 'gallery_highlight',
+				'name' 		=> __( 'Highlight Image', 'anva' ),
+				'desc'		=> __( 'Enter the number of image than want to highlight.', 'anva' ),
 				'type' 		=> 'text',
 				'std'			=> ''
 			),
@@ -271,7 +212,28 @@ function anva_setup_gallery_meta() {
 }
 
 /**
- * Slider meta setup array
+ * Gallery attachements meta setup
+ *
+ * @since  1.0.0
+ * @return array $setup
+ */
+function anva_setup_gallery_attachments_meta() {
+
+	$setup = array(
+		'args' => array(
+			'id' 				=> 'anva_gallery_attachments_options',
+			'title' 		=> __( 'Gallery Attachments Options', 'anva' ),
+			'page'			=> array( 'galleries' ),
+			'context' 	=> 'advanced',
+			'priority'	=> 'high'
+		)
+	);
+
+	return apply_filters( 'anva_gallery_attachments_meta', $setup );
+}
+
+/**
+ * Slider meta setup
  *
  * @since  1.0.0
  * @return array $setup
@@ -287,9 +249,9 @@ function anva_setup_slider_meta() {
 			'priority'	=> 'high',
 		),
 		'options'			=> array(
-			'layout' => array(
-				'id' 			=> 'layout',
-				'name'		=> __( 'Layout', 'anva' ),
+			'main' => array(
+				'id' 			=> 'main',
+				'name'		=> __( 'Main', 'anva' ),
 				'type' 		=> 'heading'
 			),
 			'type' => array(
@@ -350,7 +312,7 @@ function anva_setup_slider_meta() {
 }
 
 /**
- * Page meta setup array
+ * Page Builder meta setup
  *
  * @since 1.0.0
  * @return array $setup
@@ -359,7 +321,7 @@ function anva_setup_page_builder_meta() {
 	
 	$setup = array(
 		'args' => array(
-			'id' 				=> 'anva__builder_options',
+			'id' 				=> 'anva_builder_options',
 			'title' 		=> __( 'Anva Page Builder', 'anva' ),
 			'page'			=> array( 'page' ),
 			'context' 	=> 'normal',

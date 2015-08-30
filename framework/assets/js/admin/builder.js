@@ -117,12 +117,13 @@ JSON.stringify = JSON.stringify || function (obj) {
 
 	// Sort Items
 	$( '.builder-sortable-items' ).sortable({
+		handle: '.thumbnail',
 		placeholder: 'ui-state-highlight',
-		revert: true
+		revert: false
 	});
 	
 	// Disable item selection
-	$( '.builder-sortable-items' ).disableSelection();
+	$( '.builder-sortable-items .thumbnail' ).disableSelection();
 
 	// Thumbnail selected
 	var $element = $('.builder-elements li');

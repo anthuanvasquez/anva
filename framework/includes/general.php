@@ -9,7 +9,7 @@
  * @since 1.0.0
  */
 function anva_load_theme_texdomain() {
-	load_theme_textdomain( ANVA_FRAMEWORK_DOMAIN, get_template_directory() . '/languages' );
+	load_theme_textdomain( 'anva', get_template_directory() . '/languages' );
 }
 
 /**
@@ -68,7 +68,7 @@ function anva_get_theme( $id ) {
  *
  * @since 1.0.0
  */
-function anva_grid_columns() {
+function anva_get_grid_columns() {
 	$columns = array(
 		'1' => array(
 			'name' => '1 Column',
@@ -209,23 +209,22 @@ function anva_setup() {
 			'page'				=> false,
 			'single'			=> false
 		),
-		'comments' 			=> array(
-			'posts'				=> true,
-			'pages'				=> false,
-			'attachments'	=> false
-		),
-		'display' 			=> array(
-			'responsive' 	=> true
-		)
 	);
 
 	if ( is_front_page() ) {
 		$setup['featured']['front'] = true;
 	}
 
+	if ( is_home() ) {
+		$setup['featured']['blog'] = true;
+	}
+
 	if ( is_page() ) {
-		$setup['featured']['front'] = false;
-		$setup['comments']['posts'] = true;
+		$setup['featured']['page'] = true;
+	}
+
+	if ( is_single() ) {
+		$setup['featured']['single'] = true;
 	}
 
 	return apply_filters( 'anva_setup', $setup );
@@ -524,85 +523,44 @@ function anva_columns( $num, $widths, $columns ) {
  */
 function anva_gallery_templates() {
 	$templates = array(
-		'grid_1'  => array(
-			'name' => __( 'Gallery 1 Column', 'anva' ),
-			'id'	 => 'grid_1',
-			'layout' => array(
-				'size' => 'blog_full',
-				'col'	 => 'col-1',
-				'type' => 'grid'
-			)
-		),
 		'grid_2'  => array(
 			'name' => __( 'Gallery 2 Columns', 'anva' ),
 			'id'	 => 'grid_2',
 			'layout' => array(
-				'size' => 'gallery_2',
-				'col'	 => 'col-2',
-				'type' => 'grid'
+				'size' => 'anva_grid_2',
+				'col'	 => 'col-2'
 			)
 		),
 		'grid_3'  => array(
 			'name' => __( 'Gallery 3 Columns', 'anva' ),
 			'id'	 => 'grid_3',
 			'layout' => array(
-				'size' => 'gallery_2',
-				'col'	 => 'col-3',
-				'type' => 'grid'
+				'size' => 'anva_grid_3',
+				'col'	 => 'col-3'
 			)
 		),
 		'grid_4'  => array(
 			'name' => __( 'Gallery 4 Columns', 'anva' ),
 			'id'	 => 'grid_4',
 			'layout' => array(
-				'size' => 'gallery_2',
-				'col'	 => 'col-4',
-				'type' => 'grid'
+				'size' => 'anva_sm',
+				'col'	 => 'col-4'
 			)
 		),
 		'grid_5'  => array(
 			'name' => __( 'Gallery 5 Columns', 'anva' ),
 			'id'	 => 'grid_5',
 			'layout' => array(
-				'size' => 'gallery_3',
-				'col'	 => 'col-5',
-				'type' => 'grid'
+				'size' => 'anva_sm',
+				'col'	 => 'col-5'
 			)
 		),
-		'masonry_2' => array(
-			'name' => __( 'Masonry 2 Columns', 'anva' ),
-			'id'	 => 'masonry_2',
+		'grid_6'  => array(
+			'name' => __( 'Gallery 6 Columns', 'anva' ),
+			'id'	 => 'grid_6',
 			'layout' => array(
-				'size' => 'gallery_masonry',
-				'col'	 => 'col-2',
-				'type' => 'masonry'
-			)
-		),
-		'masonry_3' => array(
-			'name' => __( 'Masonry 3 Columns', 'anva' ),
-			'id'	 => 'masonry_3',
-			'layout' => array(
-				'size' => 'gallery_masonry',
-				'col'	 => 'col-3',
-				'type' => 'masonry'
-			)
-		),
-		'masonry_4' => array(
-			'name' => __( 'Masonry 4 Columns', 'anva' ),
-			'id'	 => 'masonry_4',
-			'layout' => array(
-				'size' => 'gallery_masonry',
-				'col'	 => 'col-4',
-				'type' => 'masonry'
-			)
-		),
-		'masonry_5' => array(
-			'name' => __( 'Masonry 5 Columns', 'anva' ),
-			'id'	 => 'masonry_5',
-			'layout' => array(
-				'size' => 'gallery_masonry',
-				'col'	 => 'col-5',
-				'type' => 'masonry'
+				'size' => 'anva_sm',
+				'col'	 => 'col-6'
 			)
 		)
 	);

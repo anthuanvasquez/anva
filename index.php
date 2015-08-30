@@ -12,7 +12,7 @@ get_header();
 	
 	<?php if ( ! is_front_page() ) : ?>
 		<div class="page-title">
-			<h1><?php echo __( 'Blog', anva_textdomain() ); ?></h1>
+			<h1><?php echo anva_get_local( 'blog' ); ?></h1>
 		</div><!-- .page-title -->
 	<?php endif; ?>
 
@@ -26,7 +26,7 @@ get_header();
 						the_post();
 						get_template_part( 'content', 'post' );
 					}
-					anva_num_pagination();				
+					anva_num_pagination();
 				} else {
 					get_template_part( 'content', 'none' );
 				}

@@ -7,8 +7,7 @@
  * @subpackage Anva/builder
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-
-class Anva_Page_Builder_Meta_Box {
+class Anva_Builder_Meta_Box {
 
 	/**
 	 * ID for meta box and post field saved
@@ -76,7 +75,7 @@ class Anva_Page_Builder_Meta_Box {
 			if ( $typenow != $page )
 				return;
 	
-			$builder_dir = anva_get_core_url() . '/admin/includes/builder';
+			$builder_dir = anva_get_core_uri() . '/admin/includes/builder';
 			
 			$wp_editor = array(
 				'url' => get_home_url(),
@@ -102,13 +101,13 @@ class Anva_Page_Builder_Meta_Box {
 			/* Custom
 			/* ---------------------------------------------------------------- */
 
-			wp_enqueue_style( 'jquery-ui-custom', 		anva_get_core_url() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-			wp_enqueue_style( 'tooltipster', 					anva_get_core_url() . '/assets/css/admin/tooltipster.min.css', array(), '3.3.0', 'all' );
-			wp_enqueue_style( 'anva-builder', 				anva_get_core_url() . '/assets/css/admin/builder.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
+			wp_enqueue_style( 'jquery-ui-custom', 		anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
+			wp_enqueue_style( 'tooltipster', 					anva_get_core_uri() . '/assets/css/admin/tooltipster.min.css', array(), '3.3.0', 'all' );
+			wp_enqueue_style( 'anva-builder', 				anva_get_core_uri() . '/assets/css/admin/builder.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
 
-			wp_register_script( 'tooltipster', 			anva_get_core_url() . '/assets/js/admin/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
-			wp_register_script( 'js-wp-editor', 			anva_get_core_url() . '/assets/js/admin/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
-			wp_register_script( 'anva-builder', 			anva_get_core_url() . '/assets/js/admin/builder.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
+			wp_register_script( 'tooltipster', 				anva_get_core_uri() . '/assets/js/admin/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
+			wp_register_script( 'js-wp-editor', 			anva_get_core_uri() . '/assets/js/admin/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
+			wp_register_script( 'anva-builder', 			anva_get_core_uri() . '/assets/js/admin/builder.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 			
 			wp_enqueue_script( 'tooltipster' );
 			wp_enqueue_script( 'js-wp-editor' );
@@ -614,7 +613,7 @@ class Anva_Page_Builder_Meta_Box {
 						<label for="<?php echo $selected_shortcode; ?>_title"><?php _e( 'Title', 'anva' ); ?></label>
 						<div class="option">
 							<div class="controls">
-								<input type="text" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="Title" class="ppb_input" />
+								<input type="text" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="<?php echo $selected_shortcode_arr['title']; ?>" class="ppb_input" />
 							</div>
 							<div class="description"><?php _e( 'Enter title for this content.', 'anva' ); ?></div>
 						</div>
@@ -754,10 +753,9 @@ class Anva_Page_Builder_Meta_Box {
 				
 				var currentItemData = jQuery('#<?php echo $_GET['rel']; ?>').data('anva_builder_settings');
 				var currentItemOBJ = jQuery.parseJSON( currentItemData );
-				
+
 				jQuery.each( currentItemOBJ, function( index, value ) {
 					if ( typeof jQuery('#' + index) != 'undefined' ) {
-						alert(index);
 						jQuery('#' + index).val( decodeURI( value ) );
 						
 						if ( jQuery('#' + index).is( 'textarea' ) ) {

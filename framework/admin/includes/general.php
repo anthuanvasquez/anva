@@ -46,7 +46,7 @@ function anva_get_font_stacks() {
 		'verdana'   	=> 'Verdana, Geneva, sans-serif',
 		'google'			=> 'Google Font'
 	);
-	return apply_filters( 'anva_get_font_stacks', $stacks );
+	return apply_filters( 'anva_font_stacks', $stacks );
 }
 
 /**
@@ -80,7 +80,7 @@ function anva_get_font_face( $option ) {
 		$stack = $stacks[$face];
 	}
 
-	return apply_filters( 'anva_get_font_face', $stack, $option, $stacks );
+	return apply_filters( 'anva_font_face', $stack, $option, $stacks );
 }
 
 /**
@@ -97,7 +97,7 @@ function anva_get_font_size( $option ) {
 		$size = $option['size'];
 	}
 
-	return apply_filters( 'anva_get_font_size', $size, $option );
+	return apply_filters( 'anva_font_size', $size, $option );
 }
 
 /**

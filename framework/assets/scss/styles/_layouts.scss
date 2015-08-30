@@ -31,10 +31,10 @@
 	}
 }
 
-.password-content {
+.password-form {
 	text-align: center;
 
-	.lock-icon {
+	span {
 		background: $theme-color;
 		width: 144px;
 		height: 144px;
@@ -48,6 +48,17 @@
 		cursor: default;
 		border: 1px solid #cdbfe3;
 		border-radius: 15%;
+		&:before {
+			margin-left: 8px;
+		}
+	}
+
+	label {
+		margin-right: 3px;
+	}
+
+	.form-group + p {
+		display: inline;
 	}
 
 	.password-error {

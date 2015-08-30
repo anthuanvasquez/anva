@@ -150,6 +150,10 @@
 		clear: both;
 	}
 
+	span {
+		color: #777;
+	}
+
 	li {
 		box-sizing: border-box;
 		float: left;
@@ -171,12 +175,11 @@
 		}
 
 		img {
-			border: 2px solid transparent;
 			height: auto;
 			max-width: 100%;
 			transition: all .2s ease;
 			&:hover {
-				border-color: #0073aa;
+				opacity: .8;
 			}
 		}
 	}
@@ -198,6 +201,7 @@
 	top: -6px;
 	width: 16px;
 	transition: opacity .2s linear;
+	z-index: 9;
 
 	&:hover {
 		color: #fff;
@@ -212,46 +216,7 @@
   margin: 5px auto;
 }
 
-// Meta
-
-.meta-wrapper {
-	margin-top: 10px;
-}
-
-.meta-input-wrapper {
-	margin-bottom: 10px;
-
-	input[type=text],
-	input[type=password],
-	input[type=email],
-	input[type=datetime],
-	input[type=date],
-	input[type=time],
-	input[type=number],
-	input[type=tel],
-	input[type=url],
-	select,
-	textarea {
-		box-sizing: border-box;
-		width: 100%
-	}
-
-}
-
-.meta-label {
-  border-bottom: 1px solid #eee;
-	display: block;
-	font-weight: 700;
-  padding-bottom: 5px; 
-}
-
-.meta-description {
-	color: #999;
-  font-size: 12px;
-  font-style: italic;
-}
-
-.meta-input-actions {
+.anva-gallery-actions {
 	border: 1px solid #e5e5e5;
   padding: 10px 18px ;
   clear: both;

@@ -5,9 +5,9 @@
 /*-----------------------------------------------------------------------------------*/
 
 // Define theme constants
-define( 'THEME_ID', 'texla' );
-define( 'THEME_NAME', 'Texla' );
-define( 'THEME_VERSION', '1.0.0');
+define( 'ANVA_THEME_ID', 'eren' );
+define( 'ANVA_THEME_NAME', 'Eren' );
+define( 'ANVA_THEME_VERSION', '1.0.0');
 
 // Modify framework's core options
 require_once( get_template_directory() . '/includes/options.php' );
@@ -20,8 +20,8 @@ require_once( get_template_directory() . '/includes/options.php' );
 function theme_options_menu( $menu ) {
 	$option_name 				= anva_get_option_name();
 	$menu['mode'] 			= 'menu';
-	$menu['page_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', 'anva' ) );
-	$menu['menu_title'] = sprintf( '%1$s %2$s', THEME_NAME, __( 'Options', 'anva' ) );
+	$menu['page_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
+	$menu['menu_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
 	$menu['menu_slug']  = $option_name;
 	return $menu;
 }
@@ -32,8 +32,8 @@ function theme_options_menu( $menu ) {
  * @since 1.0.0
  */
 function theme_backup_menu( $menu ) {
-	$menu['page_title'] = THEME_NAME . ' ' . __( 'Backup', 'anva' );
-	$menu['menu_title'] = THEME_NAME . ' ' . __( 'Backup', 'anva' );
+	$menu['page_title'] = ANVA_THEME_NAME . ' ' . __( 'Backup', 'anva' );
+	$menu['menu_title'] = ANVA_THEME_NAME . ' ' . __( 'Backup', 'anva' );
 	return $menu;
 }
 
@@ -92,7 +92,7 @@ function theme_add_scripts() {
 function theme_stylesheets() {
 
 	// Get stylesheet API
-	$api = Anva_Front_End_Stylesheets::instance();
+	$api = Anva_Stylesheets_API::instance();
 
 	// Register stylesheets
 	$stylesheets = array();
@@ -101,7 +101,7 @@ function theme_stylesheets() {
 		'handle' => 'theme_screen',
 		'src' => get_template_directory_uri() . '/assets/css/styles.css',
 		'deps' => $api->get_framework_deps(),
-		'ver' => THEME_VERSION,
+		'ver' => ANVA_THEME_VERSION,
 		'media' => 'all'
 	);
 
@@ -109,7 +109,7 @@ function theme_stylesheets() {
 		'handle' => 'theme_colors',
 		'src' => get_template_directory_uri() . '/assets/css/colors.css',
 		'deps' => array( 'theme_screen' ),
-		'ver' => THEME_VERSION,
+		'ver' => ANVA_THEME_VERSION,
 		'media' => 'all'
 	);
 
@@ -117,7 +117,7 @@ function theme_stylesheets() {
 		'handle' => 'theme_responsive',
 		'src' => get_template_directory_uri() . '/assets/css/responsive.css',
 		'deps' => array( 'theme_screen' ),
-		'ver' => THEME_VERSION,
+		'ver' => ANVA_THEME_VERSION,
 		'media' => 'all'
 	);
 
@@ -125,7 +125,7 @@ function theme_stylesheets() {
 		'handle' => 'theme_ie',
 		'src' => get_template_directory_uri() . '/assets/css/ie.css',
 		'deps' => array( 'theme_screen' ),
-		'ver' => THEME_VERSION,
+		'ver' => ANVA_THEME_VERSION,
 		'media' => 'all'
 	);
 
@@ -180,7 +180,7 @@ function theme_stylesheets() {
 function theme_scripts() {
 
 	// Get scripts API
-	$api = Anva_Front_End_Scripts::instance();
+	$api = Anva_Scripts_API::instance();
 
 	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.6.2' );
 	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '3.6.2' );
@@ -276,12 +276,31 @@ function theme_styles() {
 	return anva_compress( $styles );
 }
 
+function theme_remove_columns( $columns ) {
+
+	global $pagenow;
+	
+	if ( ( $pagenow == 'post.php' ) && ( $_GET['post_type'] == 'page' ) ) {
+		unset( $columns[1] );
+		unset( $columns[5] );
+		unset( $columns[6] );
+	}
+
+	if ( ( $pagenow == 'nav-menus.php' ) ) {
+		unset( $columns[6] );
+	}
+
+	return $columns;
+}
+
+
 /*-----------------------------------------------------------------------------------*/
 /* Hooks
 /*-----------------------------------------------------------------------------------*/
 
 add_filter( 'optionsframework_menu', 'theme_options_menu' );
 add_filter( 'optionsframework_backup_menu', 'theme_backup_menu' );
+add_filter( 'anva_grid_columns', 'theme_remove_columns' );
 add_filter( 'body_class', 'theme_body_classes' );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
 add_action( 'after_setup_theme', 'theme_add_stylesheets' );

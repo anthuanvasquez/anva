@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Core_Options_API' ) ) :
+if ( ! class_exists( 'Anva_Options_API' ) ) :
 
 /**
  * Anva Core Options
@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Core_Options_API' ) ) :
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-class Anva_Core_Options_API {
+class Anva_Options_API {
 
 	/**
 	 * A single instance of this class
@@ -57,14 +57,14 @@ class Anva_Core_Options_API {
 	 */
 	private function __construct() {
 
-		if ( is_admin() ) {
+		//if ( is_admin() ) {
 			
 			// Setup options
 			$this->set_raw_options();
 
 			// Format options
 			add_action( 'after_setup_theme', array( $this, 'set_formatted_options' ), 1000 );
-		}
+		//}
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Anva_Core_Options_API {
 	 * Note: The framework used to reference these as
 	 * "core options" before this class existed.
 	 */
-	private function set_raw_options() {
+	public function set_raw_options() {
 
 
 		/* ---------------------------------------------------------------- */
@@ -113,6 +113,27 @@ class Anva_Core_Options_API {
 				$galleries[$key] = $gallery['name'];
 			}
 		}
+
+		// Pull all sliders
+		$sliders = array();
+		if ( is_admin() ) {
+			foreach ( anva_get_sliders() as $key => $slider ) {
+				$sliders[$key] = $slider['name'];
+			}
+			$sliders['revslider'] = 'Revolution Slider';
+		}
+
+
+		$animations = array();
+		if ( is_admin() ) {
+			foreach ( anva_get_animations() as $key => $value ) {
+				$animations[$value] = $value; 
+			}
+		}
+
+		// $api = Anva_Sliders_API::instance();
+		
+		// var_dump( $api->get_remove_sliders() );	
 
 		/* ---------------------------------------------------------------- */
 		/* Defaults
@@ -520,28 +541,47 @@ class Anva_Core_Options_API {
 						'type' => 'select',
 						'options' => $galleries
 					),
+
+					'gallery_animate' => array(
+						'name' => __( 'Animate', 'anva' ),
+						'desc' => __( 'Choose the default animation for gallery images.', 'anva' ),
+						'id' => 'gallery_animate',
+						'std' => 'fadeIn',
+						'type' => 'select',
+						'options' => $animations
+					),
+
+					'gallery_delay' => array(
+						'name' => __( 'Delay', 'anva' ),
+						'desc' => __( 'Choose the default delay for animation.', 'anva' ),
+						'id' => 'gallery_delay',
+						'std' => '400',
+						'type' => 'range',
+						'options' => array(
+							'min' => 400,
+							'max' => 2000,
+							'step' => 100,
+						)
+					),
 				)
 			),
 
 			/*--------------------------------------------*/
-			/* Flex Slider
+			/* Sliders
 			/*--------------------------------------------*/
 			
 			'slider' => array(
-				'name' => __( 'Flex Slider', 'anva' ),
+				'name' => __( 'Sliders', 'anva' ),
 				'class' => 'group-slider',
 				'options' => array(
 
-					'slider_active' => array(
-						'name' => __( 'Active Flex Slider', 'anva'),
-						'desc' => __( 'Active the flex slider.', 'anva'),
-						'id' => 'slider_active',
-						'std' => 1,
-						'type' => 'checkbox',
-						'options' => array(
-							'show' => 1,
-							'hide' => 0
-						)
+					'slider_id' => array(
+						'name' => __( 'Slider', 'anva'),
+						'desc' => __( 'Select the slider.', 'anva'),
+						'id' => 'slider_id',
+						'std' => 'standard',
+						'type' => 'select',
+						'options' => $sliders
 					),
 
 					'slider_speed' => array(
@@ -574,6 +614,14 @@ class Anva_Core_Options_API {
 							'show' => __('Show the slider direction', 'anva'),
 							'hide' => __('Hide the slider direction', 'anva')
 						)
+					),
+
+					'revslider_id' => array(
+						'name' => __( 'Revolution Slider ID', 'anva' ),
+						'desc' => __( 'Show or hide the slider direction navigation.', 'anva' ),
+						'id' => 'revslider_id',
+						'std' => '',
+						'type' => 'text',
 					),
 				)
 			),
@@ -638,6 +686,7 @@ class Anva_Core_Options_API {
 						'options' => array(
 							'small' => __('Show small thumbnails', 'anva'),
 							'large' => __('Show large thumbnails', 'anva'),
+							'full' => __('Show full width thumbnails', 'anva'),
 							'hide' => __('Hide thumbnails', 'anva'),
 						)
 					),
@@ -731,6 +780,7 @@ class Anva_Core_Options_API {
 						'options' => array(
 							'small' => __('Show small thumbnails', 'anva'),
 							'large' => __('Show large thumbnails', 'anva'),
+							'full' => __('Show full width thumbnails', 'anva'),
 							'hide' => __('Hide thumbnails', 'anva'),
 						)
 					),

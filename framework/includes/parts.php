@@ -243,6 +243,7 @@ function anva_post_nav() {
  * @since 1.0.0
  */
 function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', $thumbnail = true ) {
+	
 	global $post;
 
 	$output = '';
@@ -281,9 +282,12 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 		$output .= '</li><!-- .mini-posts (end) -->';
 	}
 
-	$output .= '</ul>';
-	echo $output;
 	wp_reset_postdata();
+
+	$output .= '</ul>';
+
+	echo $output;
+	
 }
 
 /**
@@ -650,6 +654,21 @@ function anva_contact_form() {
 	<?php
 }
 
+function anva_password_form() {
+	global $post;
+	$label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
+	$o  = '<form class="form-inline password-form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
+	$o .= '<span class="glyphicon glyphicon-lock"></span>';
+	$o .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';
+	$o .= '<div class="form-group">';
+	$o .= '<label for="' . $label . '">' . __( "Password", 'anva' ) . ' </label>';
+	$o .= '<input class="form-control" name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" />';
+	$o .= '</div>';
+	$o .= '<input class="btn btn-default" type="submit" name="Submit" value="' . esc_attr__( "Submit", 'anva' ) . '" />';
+	$o .= '</form>';
+	return $o;
+}
+
 /**
  * Search form
  */
@@ -972,69 +991,408 @@ function anva_get_breadcrumbs() {
  * 
  * @since 1.0.0
  */
-function anva_gallery_grid( $post_id, $columns, $thumbnail, $type = 'grid' ) {
+function anva_gallery_grid( $post_id, $columns, $thumbnail ) {
 	
 	$classes 	 	= array();
-	$gallery 	 	= get_post_meta( $post_id, '_anva_gallery_images', true ); 	// Get gallery images
-	$gallery 	 	= anva_sort_gallery( $gallery ); 					 		 							// Sort gallery images
-	$animate 	 	= 'data-animate="fadeIn"';																	// Animate gallery images
-	$highlight 	= "data-big='2'";																						// Highlight image
+	$gallery 	 	= anva_get_gallery_field();
+	$gallery 	 	= anva_sort_gallery( $gallery );
+	$animate 	 	= anva_get_option( 'gallery_animate' );
+	$delay 	 		= anva_get_option( 'gallery_delay' );
+	$highlight 	= anva_get_field( 'gallery_highlight' );
 	$html 			= '';
-
-	if ( 'grid' == $type ) {
-		$classes[] = 'gallery-thumbs';
-	} else {
-		$classes[] = 'masonry-thumbs';
-	}
 
 	$classes[] = $columns;
 	$classes = implode( ' ', $classes );
-	
-	$html .= '<div class="gallery-container">';
-	$html .= '<div class="' . esc_attr( $classes ) . ' clearfix" data-lightbox="gallery">';
 
-	foreach ( $gallery as $key => $attachment_id ) {
+	$query_args = array(
+		'post_type'   => 'attachment',
+		'post_status' => 'inherit',
+		'post__in'		=> $gallery,
+	);
+
+	$query = anva_get_query_posts( $query_args );
+
+	if ( $query->have_posts() ) {
+
+		$html .= '<div class="gallery-container">';
+		$html .= '<div class="masonry-thumbs ' . esc_attr( $classes ) . ' clearfix" data-lightbox="gallery" data-big="' . esc_attr( $highlight ) . '">';
+
+		while ( $query->have_posts() ) {
+
+			$query->the_post();
+
+			$title 			= get_the_title();
+			$thumb_full = anva_get_attachment_image_src( get_the_ID(), 'full' );
+			$thumb_size = anva_get_attachment_image_src( get_the_ID(), $thumbnail );
 		
-		$title 			= get_the_title( $attachment_id );
-		$desc 			= get_post_field( 'post_content', $attachment_id );
-		$thumb_full = anva_get_attachment_image_src( $attachment_id, 'full' );
-		$thumb_size = anva_get_attachment_image_src( $attachment_id, $thumbnail );
-	
-		$html .= '<a href="' . esc_url( $thumb_full ) . '" title="' . esc_attr( $title ) . '" ' . $animate . ' data-lightbox="gallery-item" data-desc="' . esc_attr( $desc ) . '">';
-		$html .= '<img class="gallery-image" src="' . esc_attr( $thumb_size ) . '" alt="' . esc_attr( $title ) . '" />';
-		
-		if ( 'col-1' == $columns ) {
-			
-			$html .= '<div class="gallery-caption">';
-			$html .= '<h4>' . esc_html( $title ) . '</h4>';
-			$html .= '<div class="gallery-desc">' . wpautop( $desc ) . '</div>';
-			$html .= '</div>';
+			$html .= '<a href="' . esc_url( $thumb_full ) . '" title="' . esc_attr( $title ) . '" data-animate="' . esc_attr( $animate ) . '" data-delay="' . esc_attr( $delay ) . '" data-lightbox="gallery-item">';
+			$html .= '<img class="gallery-image" src="' . esc_attr( $thumb_size ) . '" alt="' . esc_attr( $title ) . '" />';
+			$html .= '</a>';
 
 		}
 
-		$html .= '</a>';
-	}
+		wp_reset_postdata();
 
-	$html .= '</div>';
-	$html .= '</div>';
+		$html .= '</div><!-- .masonry-thumbs (end) -->';
+		$html .= '</div><!-- .gallery-container (end) -->';
+
+	}
 
 	return $html;
 	
 }
 
-/*
- * Custom Password Form
+/**
+ * Display slider
+ *
+ * @since 1.0.0
  */
-function anva_the_password_form() {
-	global $post;
-	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
-	$html  = '';
-	$html .= '<p class="lead">' . __( "To view this protected post, enter the password below", 'anva' ) . ':</p>';
-	$html .= '<form class="form-inline" role="form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
-	$html .= '<div class="form-group">';
-	$html .= '<input class="form-control" name="post_password" id="' . esc_attr( $label ) . '" type="password" maxlength="20" />';
-	$html .= '<input type="submit" class="btn btn-default" name="Submit" value="' . esc_attr__( "Submit", 'anva' ) . '" />';
-	$html .= '</div>';
-	$html .= '</form>';
-	return $html;
+function anva_sliders( $slider ) {
+
+	// Kill it if there's no slider
+	if ( ! $slider ) {
+		printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'No slider selected.', 'anva' ) );
+		return;
+	}
+
+	if ( 'revslider' != $slider ) {
+
+		$sliders = anva_get_sliders();
+
+		if ( ! isset( $sliders[$slider]['id'] ) || 'revslider' == $slider ) {
+			printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'No slider found.', 'anva' ) );
+			return;
+		}
+
+		// Get Slider ID
+		$slider_id = $sliders[$slider]['id'];
+
+		// Gather info
+		$type = $sliders[$slider]['types'];;
+		$settings = $sliders[$slider]['options'];
+
+		// Display slider based on its slider type
+		do_action( 'anva_slider_' . $slider_id, $slider, $settings );
+
+	} else {
+		anva_revolution_slider();
+	}
+
+}
+
+function anva_revolution_slider() {
+	
+	if ( ! class_exists( 'RevSliderFront' ) ) {
+		printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'Revolution Slider not found.', 'anva' ) );
+		return;
+	}
+
+	$revslider_id = anva_get_option( 'revslider_id' );
+
+	if ( ! empty( $revslider_id ) ) {
+		putRevSlider( $revslider_id );
+	}
+}
+
+/*
+ * Output slides from slideshows array
+ */
+function anva_slider_standard_default( $slider, $settings ) {
+
+	// Global Options
+	$pause = anva_get_option( 'slider_speed' );
+	$arrows = anva_get_option( 'slider_direction' );
+	$animation = 'slide';
+	$speed = '1000';
+	$thumbs = 'true';
+	$thumbnail = 'anva_lg';
+
+
+	
+	// Query arguments
+	$query_args = array(
+		'post_type' 			=> array( 'slideshows' ),
+		'order' 					=> 'ASC',
+		'posts_per_page' 	=> -1,
+	);
+
+	$query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
+	
+	$query = anva_get_query_posts( $query_args );
+
+	// Output
+	$html = '';
+	
+	if ( $query->have_posts() ) {
+		
+		$html .= '<div class="fslider flex-thumb-grid grid-6" data-animation="' . esc_attr( $animation ) . '" data-thumbs="' . esc_attr( $thumbs ) . '" data-arrows="' . esc_attr( $arrows ) . '" data-speed="' . esc_attr( $speed ) . '" data-pause="'. esc_attr( $pause ) . '">';
+		$html .= '<div class="flexslider">';
+		$html .= '<ul class="slider-wrap slides">';
+		
+		while ( $query->have_posts() ) {
+
+			$query->the_post();
+			
+			$id 		 = get_the_ID();
+			$title 	 = get_the_title();
+			$desc 	 = anva_get_field( 'description' );
+			$url 		 = anva_get_field( 'url' );
+			$content = anva_get_field( 'content' );
+			$image   = anva_get_featured_image( $id, 'anva_sm' );
+			$a_tag   = '<a href="' . esc_url( $url ) . '">';
+			
+			$html .= '<div class="slide slide-'. esc_attr( $id ) . '" data-thumb="'. esc_attr( $image ) .'">';
+			
+			if ( has_post_thumbnail() ) {
+				
+				if ( $url ) {
+					$html .= $a_tag;
+				}
+
+				$html .= get_the_post_thumbnail( $id, $thumbnail , array( 'class' => 'slide-image' ) );
+
+				// Close anchor
+				if ( $url ) {
+					$html .= '</a>';
+				}
+			}
+			
+			switch ( $content ) {
+				case 'title':
+					$html .= '<div class="flex-caption slider-caption-bg slider-caption-top-left">';
+					$html .= esc_html( $title );
+					$html .= '</div>';
+					break;
+
+				case 'desc':
+					$html .= '<div class="flex-caption slider-caption-bg slider-caption-top-left">';
+					$html .= esc_html( $desc );
+					$html .= '</div>';
+					break;
+
+				case 'both':
+					$html .= '<div class="flex-caption slider-caption-bg slider-caption-top-left">';
+					$html .= esc_html( $title );
+					$html .= '<span>' . esc_html( $desc ) . '</span>';
+					$html .= '</div>';
+					break;
+			}
+			
+			$html .= '</div>';
+		}
+
+		wp_reset_postdata();
+
+		$html .= '</ul><!-- .slider-wrap (end) -->';
+		$html .= '</div><!-- .flexslider (end) -->';
+		$html .= '</div><!-- .fslider (end) -->';
+	}
+
+	echo $html;
+}
+
+function anva_slider_owl_default( $slider, $settings ) {
+
+	$thumbnail = 'anva_lg';
+
+	// Query arguments
+	$query_args = array(
+		'post_type' 			=> array( 'slideshows' ),
+		'order' 					=> 'ASC',
+		'posts_per_page' 	=> -1,
+	);
+
+	$query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
+	
+	$query = anva_get_query_posts( $query_args );
+
+	// Output
+	$html = '';
+	
+	if ( $query->have_posts() ) {
+		
+		$html .= '<div id="oc-slider" class="owl-carousel">';
+
+		while ( $query->have_posts() ) {
+
+			$query->the_post();
+
+			$id 		 = get_the_ID();
+			$title 	 = get_the_title();
+			$desc 	 = anva_get_field( 'description' );
+			$url 		 = anva_get_field( 'url' );
+			$a_tag   = '<a href="' . esc_url( $url ) . '">';
+
+			if ( has_post_thumbnail() ) {
+				
+				if ( $url ) {
+					$html .= $a_tag;
+				}
+
+				$html .= get_the_post_thumbnail( $id, $thumbnail , array( 'class' => 'slide-image' ) );
+
+				if ( $url ) {
+					$html .= '</a>';
+				}
+			}
+		
+		}
+
+		wp_reset_postdata();
+
+		$html .= '</div><!-- #oc-slider (end) -->';
+		
+	}
+	
+	echo $html;
+
+}
+
+function anva_slider_nivo_default( $slider, $settings ) {
+	
+	$thumbnail = 'anva_lg';
+
+	// Query arguments
+	$query_args = array(
+		'post_type' 			=> array( 'slideshows' ),
+		'order' 					=> 'ASC',
+		'posts_per_page' 	=> -1,
+	);
+
+	$query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
+	
+	$query = anva_get_query_posts( $query_args );
+
+	// Output
+	$html = '';
+	$caption = '';
+	
+	if ( $query->have_posts() ) {
+
+		$count = 0;
+		$html .= '<div class="nivoSlider">';
+
+		while ( $query->have_posts() ) {
+
+			$query->the_post();
+
+			$post_id = get_the_ID();
+			$title 	 = get_the_title();
+			
+			$count++;
+
+			if ( has_post_thumbnail() ) {
+				$html .= get_the_post_thumbnail( $post_id, $thumbnail , array( 'class' => 'slide-image', 'title' => '#nivocaption' . $count ) );
+			}
+
+			$caption .= '<div id="nivocaption' . $count . '" class="nivo-html-caption">' . $title .' </div>';
+			
+		}
+
+		wp_reset_postdata();
+	
+		$html .= '</div><!-- .nivoSlider (end) -->';
+		$html .= $caption;
+
+	}
+
+	echo $html;
+}
+
+function anva_slider_bootstrap_default( $slider, $settings ) {
+
+	$thumbnail = 'anva_lg';
+
+	// Query arguments
+	$query_args = array(
+		'post_type' 			=> array( 'slideshows' ),
+		'order' 					=> 'ASC',
+		'posts_per_page' 	=> -1,
+	);
+
+	$query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
+	
+	$query = anva_get_query_posts( $query_args );
+
+	// Output
+	$html = '';
+	$count = 0;
+	$li = '';
+	$class = '';
+
+	$post_count = count( $query->posts );
+	for ( $i = 0; $i < $post_count; $i++ ) {
+		if ( 0 == $i ) {
+			$class = 'class="' . esc_attr( $class ) . '"';
+		}
+		$li .= '<li data-target="#bootstrap-carousel" data-slide-to="' . esc_attr( $i ) . '" ' . $class . '></li>';
+	}
+
+	// Reset class
+	$class = '';
+	
+	if ( $query->have_posts() ) {
+
+		$html .= '<div id="bootstrap-carousel" class="boostrap-carousel carousel slide" data-ride="carousel">';
+		
+		$html .= '<ol class="carousel-indicators">';
+		$html .= $li;
+		$html .= '</ol><!-- .carousel-indicators (end) -->';
+
+		$html .= '<div class="carousel-inner" role="listbox">';
+
+		while ( $query->have_posts() ) {
+
+			$query->the_post();
+
+			$post_id = get_the_ID();
+			$title 	 = get_the_title();
+			$desc 	 = anva_get_field( 'description' );
+
+			if ( 0 == $count ) {
+				$class = 'active';
+			}
+
+			$html .= '<div class="item ' . esc_attr( $class ) . '">';
+			
+			if ( has_post_thumbnail() ) {
+				$html .= get_the_post_thumbnail( $post_id, $thumbnail );
+			}
+
+			// $html .= '<div class="carousel-caption">';
+			// $html .= '<h3>' . $title . '</h3>';
+			
+			// if ( ! empty( $desc ) ) {
+			// 	$html .= '<p>' . $desc . '</p>';
+			// }
+
+			// $html .= '</div>';
+			$html .= '</div>';
+
+			// Reset class
+			$class = '';
+			
+			$count++;
+
+		}
+
+		wp_reset_postdata();
+
+		$html .= '</div><!-- .carousel-inner (end) -->';
+
+		$html .= '<a class="left carousel-control" href="#bootstrap-carousel" role="button" data-slide="prev">';
+		$html .= '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
+		$html .= '<span class="sr-only">Previous</span>';
+		$html .= '</a>';
+		$html .= '<a class="right carousel-control" href="#bootstrap-carousel" role="button" data-slide="next">';
+		$html .= '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
+		$html .= '<span class="sr-only">Next</span>';
+		$html .= '</a>';
+		
+		$html .= '</div><!-- .boostrap-carousel (end) -->';
+
+	}
+
+	echo $html;
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Front_End_Stylesheets' ) ) :
+if ( ! class_exists( 'Anva_Stylesheets_API' ) ) :
 
 /**
  * Anva Stylesheets
@@ -22,7 +22,7 @@ if ( ! class_exists( 'Anva_Front_End_Stylesheets' ) ) :
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-class Anva_Front_End_Stylesheets {
+class Anva_Stylesheets_API {
 
 	/**
 	 * A single instance of this class
@@ -98,7 +98,7 @@ class Anva_Front_End_Stylesheets {
 		// Boostrap
 		$this->framework_stylesheets['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
-			'src'			=> anva_get_core_url() .'/assets/css/bootstrap.min.css',
+			'src'			=> anva_get_core_uri() .'/assets/css/bootstrap.min.css',
 			'deps'		=> array(),
 			'ver'			=> '3.3.5',
 			'media'		=> 'all'
@@ -108,7 +108,7 @@ class Anva_Front_End_Stylesheets {
 		// Font Awesome
 		$this->framework_stylesheets['fontawesome'] = array(
 			'handle'	=> 'fontawesome',
-			'src'			=> anva_get_core_url() .'/assets/css/font-awesome.min.css',
+			'src'			=> anva_get_core_uri() .'/assets/css/font-awesome.min.css',
 			'deps'		=> array(),
 			'ver'			=> '4.4.0',
 			'media'		=> 'all'
@@ -117,7 +117,7 @@ class Anva_Front_End_Stylesheets {
 		// Animate
 		$this->framework_stylesheets['animate'] = array(
 			'handle'	=> 'animate',
-			'src'			=> anva_get_core_url() .'/assets/css/animate.min.css',
+			'src'			=> anva_get_core_uri() .'/assets/css/animate.min.css',
 			'deps'		=> array(),
 			'ver'			=> '3.4.0',
 			'media'		=> 'all'
@@ -126,7 +126,7 @@ class Anva_Front_End_Stylesheets {
 		// Magnific Popup
 		$this->framework_stylesheets['magnificpopup'] = array(
 			'handle'	=> 'magnificpopup',
-			'src'			=> anva_get_core_url() .'/assets/css/magnific-popup.min.css',
+			'src'			=> anva_get_core_uri() .'/assets/css/magnific-popup.min.css',
 			'deps'		=> array(),
 			'ver'			=> '0.9.9',
 			'media'		=> 'all'
@@ -135,7 +135,7 @@ class Anva_Front_End_Stylesheets {
 		// Framework styles
 		$this->framework_stylesheets['anva'] = array(
 			'handle'	=> 'anva',
-			'src'			=> anva_get_core_url() .'/assets/css/anva.min.css',
+			'src'			=> anva_get_core_uri() .'/assets/css/anva.min.css',
 			'deps'		=> array(),
 			'ver'			=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'

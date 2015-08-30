@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Page_Builder_Elements' ) ) :
+if ( ! class_exists( 'Anva_Builder_Elements_API' ) ) :
 
 /**
  * Anva Page Builder API
@@ -10,7 +10,7 @@ if ( ! class_exists( 'Anva_Page_Builder_Elements' ) ) :
  * these elements.
  */
 
-class Anva_Page_Builder_Elements {
+class Anva_Builder_Elements_API {
 
 	/**
 	 * A single instance of this class.
@@ -36,7 +36,7 @@ class Anva_Page_Builder_Elements {
 	 *
 	 * @since 1.0.0
 	 */
-	public $core_elements = array();
+	private $core_elements = array();
 
 	/**
 	 * Elements and settings added
@@ -113,7 +113,7 @@ class Anva_Page_Builder_Elements {
 	 * 
 	 * @since 1.0.0
 	 */
-	private function set_registered_elements() {
+	public function set_registered_elements() {
 
 		$this->registered_elements = array(
 			'divider',
@@ -159,13 +159,13 @@ class Anva_Page_Builder_Elements {
 	 *
 	 * @since 1.0.0
 	 */
-	private function set_core_elements() {
+	public function set_core_elements() {
 
 		/*--------------------------------------------*/
 		/* Helpers
 		/*--------------------------------------------*/
 
-		$api = Anva_Sidebar_Locations::instance();
+		$api = Anva_Sidebars_API::instance();
 
 		// Get sidebar locations
 		$sidebars = array();
@@ -238,7 +238,7 @@ class Anva_Page_Builder_Elements {
 		}
 
 		// Image path
-		$image_path = anva_get_core_url() . '/assets/images/builder/';
+		$image_path = anva_get_core_uri() . '/assets/images/builder/';
 
 		/*--------------------------------------------*/
 		/* Divider

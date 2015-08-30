@@ -75,6 +75,10 @@
 	margin-top: 50px;
 }
 
+.automargin {
+	margin: auto;
+}
+
 
 /*
  * Border
@@ -124,12 +128,4 @@
   width: 100%;
   margin: 60px 0;
   border-top: 1px solid #eee;
-}
-
-.divider {
-  position: relative;
-  overflow: hidden;
-  margin: 35px 0;
-  color: #e5e5e5;
-  width: 100%;
 }

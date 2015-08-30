@@ -10,11 +10,11 @@
 get_header();
 
 $class 					= '';
-$column 				= 2;
+$column 				= 2; // Default Column
 $hide_title   	= anva_get_field( 'hide_title' );
 $current_grid 	= anva_get_field( 'grid_column' );
-$grid_columns 	= anva_grid_columns();
-$thumbnail 			= 'blog_md';
+$grid_columns 	= anva_get_grid_columns();
+$thumbnail 			= 'anva_post_grid';
 
 if ( isset( $grid_columns[$current_grid]['class'] ) ) {
 	$class = $grid_columns[$current_grid]['class'];
@@ -57,7 +57,7 @@ $limit = count( $query->posts() );
 					<div class="article-wrapper">
 						<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 							<div class="entry-content">
-								<?php echo anva_the_post_grid_thumbnail( $thumbnail ); ?>
+								<?php anva_the_post_grid_thumbnail( $thumbnail ); ?>
 								<div class="entry-title">
 									<h2 class="h3"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 								</div>

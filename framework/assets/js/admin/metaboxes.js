@@ -112,45 +112,11 @@ var ANVAMETA = ANVAMETA || {};
 
 		init: function() {
 			ANVAMETA.widgets.picker();
-			ANVAMETA.widgets.repeatable();
 		},
 
 		picker: function() {
 			if ( $(".meta-date-picker").length > 0 ) {
 				$(".meta-date-picker").datepicker();
-			}
-		},
-
-		repeatable: function() {
-			if ( $('.field-repeatable').length > 0 ) {
-				$('.repeatable-add').click( function() {
-					field = $(this).closest('.meta-controls').find('.custom_repeatable li:last').clone(true);
-					fieldLocation = $(this).closest('.meta-controls').find('.custom_repeatable li:last');
-					$('input', field).val('').attr('name', function(index, name) {
-						return name.replace(/(\d+)/, function(fullMatch, n) {
-							return Number(n) + 1;
-						});
-					});
-					field.insertAfter(fieldLocation, $(this).closest('.meta-controls'))
-					return false;
-				});
-			 
-				$('.repeatable-remove').click( function() {
-					var numInput = $(":input[id^=custom_repeatable]").length;
-					if (numInput !== 1) {
-						$(this).parent().remove();
-						return false;
-					}
-				});
-				
-				if ( $('.custom_repeatable').length > 0 ) {
-					$('.custom_repeatable').sortable({
-						opacity: 0.6,
-						revert: true,
-						cursor: 'move',
-						handle: '.sort'
-					});
-				}
 			}
 		}
 	};

@@ -10,9 +10,9 @@
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-if ( ! class_exists( 'Anva_Page_Meta_Box' ) ) :
+if ( ! class_exists( 'Anva_Meta_Box' ) ) :
 
-class Anva_Page_Meta_Box {
+class Anva_Meta_Box {
 
 	/**
 	 * ID for meta box and post field saved
@@ -79,8 +79,8 @@ class Anva_Page_Meta_Box {
 				return;
 			
 			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_url() . '/assets/js/admin/metaboxes.min.js' );
-			wp_enqueue_style( 'anva-metaboxes', anva_get_core_url() . '/assets/css/admin/metaboxes.min.css' );
+			wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js' );
+			wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css' );
 		}
 	}
 
@@ -115,7 +115,7 @@ class Anva_Page_Meta_Box {
 		// Make sure options framework exists so we can show
 		// the options form.
 		if ( ! method_exists( $this, 'fields' ) ) {
-			echo __( 'Options framework not found.', anva_textdomain() );
+			echo __( 'Options not found.', 'anva' );
 			return;
 		}
 
@@ -442,28 +442,6 @@ class Anva_Page_Meta_Box {
 				case 'slider':
 					$output .= '<div id="' . esc_attr( $field['id'] ) . '-slider"></div>';
 					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input meta-slider" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
-					break;
-
-				// Repeatable
-				case 'repeatable':
-					$output .= '<a class="repeatable-add button" href="#">+</a>';
-					$output .= '<ul id="' . esc_attr( $field['id'] ) . '-repeatable" class="custom_repeatable">';
-					
-					$i = 0;
-					if ( is_array( $val ) && $val ) {
-						foreach ( $val as $row) {
-							$output .= '<li><span class="sort hndle">##</span>';
-							$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '['.$i.']" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $row ) . '" />';
-							$output .= '<a class="repeatable-remove button" href="#">-</a></li>';
-							$i++;
-						}
-					} else {
-						$output .= '<li><span class="sort hndle">##</span>';
-						$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '[' . $i . ']" id="' . esc_attr( $field['id'] ) . '" value="" />';
-						$output .= '<a class="repeatable-remove button" href="#">-</a></li>';
-					}
-					
-					$output .= '</ul>';
 					break;
 
 				// Tab

@@ -424,7 +424,7 @@ var ANVA = ANVA || {};
 									 'animation-duration',
 									 '-webkit-animation-duration',
 									 '-o-animation-duration'
-								   ],
+									 ],
 					overlay : false,
 					overlayClass : 'animsition-overlay-slide',
 					overlayParentElement : 'body'
@@ -652,9 +652,10 @@ var ANVA = ANVA || {};
 	ANVA.slider = {
 
 		init: function() {
-			ANVA.slider.loadFlexSlider();
 			ANVA.slider.loadOwl();
 			ANVA.slider.loadOwlCaption();
+			ANVA.slider.loadNivo();
+			ANVA.slider.loadFlexSlider();
 		},
 
 		loadOwl: function() {
@@ -666,7 +667,8 @@ var ANVA = ANVA || {};
 					navText : ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
 					animateOut: 'slideOutDown',
 					animateIn: 'zoomIn',
-					smartSpeed: 450
+					smartSpeed: 450,
+					loop: true
 				});
 			}
 		},
@@ -681,6 +683,25 @@ var ANVA = ANVA || {};
 					}
 				});
 			}
+		},
+
+		loadNivo: function() {
+			$('.nivoSlider').nivoSlider({
+				effect: 'random',
+				slices: 15,
+				boxCols: 12,
+				boxRows: 6,
+				animSpeed: 500,
+				pauseTime: 7000,
+				directionNav: true,
+				controlNav: true,
+				pauseOnHover: true,
+				prevText: '<i class="fa fa-angle-left"></i>',
+				nextText: '<i class="fa fa-angle-right"></i>',
+				afterLoad: function() {
+					$('#slider').find('.nivo-caption').addClass('slider-caption-bg');
+				}
+			});
 		},
 
 		loadFlexSlider: function() {

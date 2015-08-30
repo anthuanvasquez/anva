@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Front_End_Scripts' ) ) :
+if ( ! class_exists( 'Anva_Scripts_API' ) ) :
 
 /**
  * Anva Javascripts
@@ -22,7 +22,7 @@ if ( ! class_exists( 'Anva_Front_End_Scripts' ) ) :
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-class Anva_Front_End_Scripts {
+class Anva_Scripts_API {
 
 	/**
 	 * Properties
@@ -71,7 +71,7 @@ class Anva_Front_End_Scripts {
 		// Boostrap
 		$this->framework_scripts['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
-			'src'			=> anva_get_core_url() .'/assets/js/vendor/bootstrap.min.js',
+			'src'			=> anva_get_core_uri() .'/assets/js/vendor/bootstrap.min.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'			=> '3.3.5',
 			'footer'	=> true
@@ -81,25 +81,16 @@ class Anva_Front_End_Scripts {
 		// jQuery Validate
 		$this->framework_scripts['jquery_validate'] = array(
 			'handle'	=> 'jquery_validate',
-			'src'			=> anva_get_core_url() .'/assets/js/vendor/jquery.validate.min.js',
+			'src'			=> anva_get_core_uri() .'/assets/js/vendor/jquery.validate.min.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'			=> '1.12.0',
-			'footer'	=> true
-		);
-
-		// Isotope
-		$this->framework_scripts['isotope'] = array(
-			'handle'	=> 'isotope',
-			'src'			=> anva_get_core_url() .'/assets/js/vendor/isotope.min.js',
-			'deps'		=> array(),
-			'ver'			=> '2.2.0',
 			'footer'	=> true
 		);
 
 		// Plugins
 		$this->framework_scripts['anva_plugins'] = array(
 			'handle'	=> 'anva_plugins',
-			'src'			=> anva_get_core_url() .'/assets/js/plugins.min.js',
+			'src'			=> anva_get_core_uri() .'/assets/js/plugins.min.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'			=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true
@@ -108,7 +99,7 @@ class Anva_Front_End_Scripts {
 		// Main JS
 		$this->framework_scripts['anva_main'] = array(
 			'handle'	=> 'anva',
-			'src'			=> anva_get_core_url() .'/assets/js/anva.min.js',
+			'src'			=> anva_get_core_uri() .'/assets/js/anva.min.js',
 			'deps'		=> array( 'jquery', 'anva_plugins' ),
 			'ver'			=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true

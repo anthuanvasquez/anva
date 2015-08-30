@@ -15,16 +15,17 @@ class Anva_Menu_Item_Fields {
 
 	static function setup() {
 		
-		// Get current custom sidebars
+		// Get columns
+		$columns = anva_get_grid_columns();
+		foreach ( anva_get_grid_columns() as $key => $column ) {
+			$columns[$key] = $column['name'];
+		}
+
+		// Get sidebar locations
 		$mega_menu_locations = array();
 		$mega_menu_locations[''] = __( 'Select Sidebar', 'anva' );
-		$locations = anva_get_sidebar_locations();
-		$columns = array( 'col-1' => '1 Column', 'col-2' => '2 Columns', 'col-3' => '3 Columns', 'col-4' => '4 Columns' );
-		
-		if ( ! empty( $locations ) ) {
-			foreach ( $locations as $key => $sidebar ) {
-				$mega_menu_locations[$key] = $sidebar['args']['name'];
-			}
+		foreach ( anva_get_sidebar_locations() as $key => $sidebar ) {
+			$mega_menu_locations[$key] = $sidebar['args']['name'];
 		}
 	
 		self::$options['fields'] = array(
@@ -188,7 +189,7 @@ class Anva_Walker_Nav_Menu_Edit extends Walker_Nav_Menu_Edit {
 
 if ( ! function_exists( 'get_dynamic_sidebar' ) ) :
 function get_dynamic_sidebar( $index = 1 ) {
-	$sidebar_contents = "";
+	$sidebar_contents = '';
 	ob_start();
 	dynamic_sidebar( $index );
 	$sidebar_contents = ob_get_clean();

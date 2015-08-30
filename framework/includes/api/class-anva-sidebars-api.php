@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Sidebar_Locations' ) ) :
+if ( ! class_exists( 'Anva_Sidebars_API' ) ) :
 
 /**
  * Anva Sidebars
@@ -13,7 +13,7 @@ if ( ! class_exists( 'Anva_Sidebar_Locations' ) ) :
  * @subpackage Anva/admin
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-class Anva_Sidebar_Locations {
+class Anva_Sidebars_API {
 
 	/**
 	 * A single instance of this class
@@ -83,7 +83,7 @@ class Anva_Sidebar_Locations {
 	/**
 	 * Set core framework sidebar locations
 	 */
-	private function set_core_locations() {
+	public function set_core_locations() {
 
 		$this->core_locations = array();
 

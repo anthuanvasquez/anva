@@ -8,12 +8,11 @@
 function anva_get_text_locals() {
 	
 	$localize = array(
+		'blog'										=> __( 'Blog', 'anva' ),
 		'asc'											=> __( 'ASC', 'anva' ),
 		'desc'										=> __( 'DESC', 'anva' ),
 		'posts_number'						=> __( 'Posts Number', 'anva' ),
-		'order'										=> __( 'Order', 'anva' ),
 		'order_by'								=> __( 'Order by', 'anva' ),
-		'date'										=> __( 'Date', 'anva' ),
 		'rand'										=> __( 'Random', 'anva' ),
 		'show_thumbnails'					=> __( 'Show Thumbnails', 'anva' ),
 		'menu'										=> __( 'Menu', 'anva' ),
@@ -25,11 +24,11 @@ function anva_get_text_locals() {
 		'not_found'								=> __( 'No posts found', 'anva' ),
 		'not_found_content'				=> __( 'No posts found.', 'anva' ),
 		'read_more'								=> __( 'Read More', 'anva' ),
-		'prev'										=> __( '&larr; Anterior', 'anva' ),
-		'next'										=> __( 'Siguiente &rarr;', 'anva' ),
-		'comment_prev'						=> __( '&larr; Comentarios Anteriores', 'anva' ),
-		'comment_next'						=> __( 'Comentarios Siguientes &rarr;', 'anva' ),
-		'no_comment'							=> __( 'Comentarios cerrado.', 'anva' ),
+		'prev'										=> __( 'Previous', 'anva' ),
+		'next'										=> __( 'Next', 'anva' ),
+		'comment_prev'						=> __( 'Previous Comments', 'anva' ),
+		'comment_next'						=> __( 'Next Comments', 'anva' ),
+		'no_comment'							=> __( 'Comments close.', 'anva' ),
 		'search_for' 							=> __( 'Search for:', 'anva' ),
 		'search_result'						=> __( 'Search Results for:', 'anva' ),
 		'search'		 							=> __( 'Search', 'anva' ),
@@ -38,9 +37,9 @@ function anva_get_text_locals() {
 		'pages'										=> __( 'Pages', 'anva' ),
 		'edit_post'								=> __( 'Edit Post', 'anva' ),
 		'page_options'						=> __( 'Page Options', 'anva'),
-		'page_title'							=> __( 'Page Title' ),
-		'page_title_show'					=> __( 'Show Title' ),
-		'page_title_hide'					=> __( 'Hide Title' ),
+		'page_title'							=> __( 'Page Title', 'anva' ),
+		'page_title_show'					=> __( 'Show Title', 'anva' ),
+		'page_title_hide'					=> __( 'Hide Title', 'anva' ),
 		'sidebar_title'						=> __( 'Columna del Sidebar', 'anva' ),
 		'sidebar_left'						=> __( 'Sidebar Left', 'anva' ),
 		'sidebar_right'						=> __( 'Sidebar Right', 'anva' ),
@@ -48,7 +47,7 @@ function anva_get_text_locals() {
 		'sidebar_double'					=> __( 'Double Sidebar', 'anva' ),
 		'sidebar_double_left'			=> __( 'Double Sidebar Left', 'anva' ),
 		'sidebar_double_right'		=> __( 'Double Sidebar Right', 'anva' ),
-		'post_grid'								=> __( 'Post Grid' ),
+		'post_grid'								=> __( 'Post Grid', 'anva' ),
 		'grid_2_columns'					=> __( '2 Columns', 'anva' ),
 		'grid_3_columns'					=> __( '3 Columns', 'anva' ),
 		'grid_4_columns'					=> __( '4 Columns', 'anva' ),
@@ -70,70 +69,54 @@ function anva_get_text_locals() {
 		'archives'								=> __( 'Archivos', 'anva' ),
 		'name' 										=> __( 'Name', 'anva' ),
 		'name_place' 							=> __( 'Complete Name', 'anva' ),
-		'name_required'						=> __( 'Por favor entre su nombre.', 'anva' ),
+		'name_required'						=> __( 'Please enter your name.', 'anva' ),
 		'email' 									=> __( 'Email', 'anva' ),
-		'email_place' 						=> __( 'Correo Electrónico', 'anva' ),
-		'email_required'					=> __( 'Por favor entre un correo electrónico válido.', 'anva'),
-		'email_error'							=> __( 'El correo electrónico debe tener un formato válido ej. nombre@email.com.', 'anva' ),
-		'subject' 								=> __( 'Asunto', 'anva' ),
-		'subject_required'				=> __( 'Por favor entre un asunto.', 'anva' ),
-		'message' 								=> __( 'Mensaje', 'anva' ),
-		'message_place' 					=> __( 'Mensaje', 'anva' ),
-		'message_required'				=> __( 'Por favor entre un mensaje.', 'anva' ),
-		'message_min'							=> __( 'Debe introducir un mínimo de 10 caracteres.', 'anva' ),
-		'captcha_place'						=> __( 'Entre el resultado', 'anva' ),
-		'captcha_required'				=> __( 'Por favor entre el resultado.', 'anva' ),
-		'captcha_number'					=> __( 'La respuesta debe ser un numero entero.', 'anva' ),
-		'captcha_equalto'					=> __( 'No es la repuesta correcta.', 'anva' ),
-		'submit' 									=> __( 'Enviar Mensaje', 'anva' ),
-		'submit_message'					=> __( 'Gracias, su email fue enviado con éxito.', 'anva' ),
-		'submit_error'						=> __( '<strong>Lo sentimos</strong>, ha ocurrido un error, verfica que no haya campos en blanco.', 'anva' ),
-		'footer_copyright'				=> __( 'Todos los Derechos Reservados' , 'anva' ),
+		'email_place' 						=> __( 'Email', 'anva' ),
+		'email_required'					=> __( 'Please enter a valid Email.', 'anva'),
+		'email_error'							=> __( 'The Email must have a valid format ex. namee@email.com.', 'anva' ),
+		'subject' 								=> __( 'Subject', 'anva' ),
+		'subject_required'				=> __( 'Please enter a subject.', 'anva' ),
+		'message' 								=> __( 'Mesage', 'anva' ),
+		'message_place' 					=> __( 'Mesage', 'anva' ),
+		'message_required'				=> __( 'Please enter your message.', 'anva' ),
+		'message_min'							=> __( 'Must enter minimun char lenth 10.', 'anva' ),
+		'captcha_place'						=> __( 'Enter the result', 'anva' ),
+		'captcha_required'				=> __( 'Enter the captcha result.', 'anva' ),
+		'captcha_number'					=> __( 'The answer must a integer number.', 'anva' ),
+		'captcha_equalto'					=> __( 'Incorrect answer.', 'anva' ),
+		'submit' 									=> __( 'Submit Message', 'anva' ),
+		'submit_message'					=> __( 'Thanks, your Email send succefully.', 'anva' ),
+		'submit_error'						=> __( '<strong>Sorry</strong>, verify the required fields.', 'anva' ),
+		'footer_copyright'				=> __( 'All Rights Reserved' , 'anva' ),
 		'footer_text'							=> __( 'Design by', 'anva' ),
-		'get_in_touch'						=> __( 'Ponte en Contacto', 'anva' ),
-		'main_sidebar_title'			=> __( 'Principal', 'anva' ),
-		'main_sidebar_desc'				=> __( 'Area de widgets principal. Por defecto en el lado derecho.', 'anva' ),
-		'home_sidebar_title'			=> __( 'Portada', 'anva' ),
+		'get_in_touch'						=> __( 'Get in Touch', 'anva' ),
 		'home'										=> __( 'Home', 'anva' ),
-		'home_sidebar_desc'				=> __( 'Area de widgets en la portada.', 'anva' ),
-		'sidebar_left_title'			=> __( 'Left', 'anva' ),
-		'sidebar_left_desc'				=> __( 'Area de widgets en el lado izquierdo.', 'anva' ),
-		'sidebar_right_title'			=> __( 'Right', 'anva' ),
-		'sidebar_right_desc'			=> __( 'Area de widgets en el lado derecho.', 'anva' ),
-		'footer_sidebar_title'		=> __( 'Footer', 'anva' ),
-		'footer_sidebar_desc'			=> __( 'Area de widgets en el footer.', 'anva' ),
-		'shop_sidebar_title'			=> __( 'Tienda', 'anva' ),
-		'shop_sidebar_desc'				=> __( 'Area de widgets para la tienda de los productos de woocommerce.', 'anva' ),
-		'product_sidebar_title'		=> __( 'Productos', 'anva' ),
-		'product_sidebar_desc'		=> __( 'Area de widgets para los productos individuales de woocommerce.', 'anva' ),
-		'product_featured'				=> __( 'Productos Destacados', 'anva' ),
-		'product_latest'					=> __( 'Productos Recientes', 'anva' ),
-		'add_autop'								=> __( 'A&ntilde;adir p&aacute;rrafos autom&aacute;ticamente', 'anva' ),
-		'featured_image'					=> __( 'Imagen Destacada', 'anva' ),
-		'options'									=> __( 'Opciones', 'anva' ),
-		'browsehappy'							=> __( 'Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="%s">mejorar tu experiencia</a> en la web.' ),
+		'add_autop'								=> __( 'Add automatic Paragraph', 'anva' ),
+		'featured_image'					=> __( 'Feature Image', 'anva' ),
+		'options'									=> __( 'Options', 'anva' ),
+		'browsehappy'							=> __( 'Estas utilizando un navegador obsoleto. Actualiza tu navegador para <a href="%s">mejorar tu experiencia</a> en la web.', 'anva' ),
 		'skype'										=> __( 'Skype', 'anva' ),
-		'phone'										=> __( 'Telefono', 'anva' ),
-		'title'										=> __( 'Título', 'anva' ),
-		'date'										=> __( 'Fecha', 'anva' ),
-		'order'										=> __( 'Orden', 'anva' ),
-		'image'										=> __( 'Imagen', 'anva' ),
-		'link'										=> __( 'Enlace', 'anva' ),
-		'image_url'								=> __( 'URL de la Imagen', 'anva' ),
+		'phone'										=> __( 'Phone', 'anva' ),
+		'title'										=> __( 'Title', 'anva' ),
+		'date'										=> __( 'Date', 'anva' ),
+		'order'										=> __( 'Order', 'anva' ),
+		'image'										=> __( 'Image', 'anva' ),
+		'link'										=> __( 'Link', 'anva' ),
+		'image_url'								=> __( 'Image URL', 'anva' ),
 		'url'											=> __( 'URL', 'anva' ),
 		'slide_id'								=> __( 'Slide ID', 'anva' ),
 		'slide_area'							=> __( 'Selecciona el Area del Slide', 'anva' ),
 		'slide_content'						=> __( 'Ocultar o Mostrar Contenido', 'anva' ),
 		'slide_shortcode'					=> __( 'Por favor incluye un slug como parámetro por e.j. [slideshows slug="homepage"]', 'anva' ),
 		'slide_message'						=> __( 'No se han configurado rotadores para los slideshows. Contacta con tu Desarrollador.', 'anva' ),
-		'slide_title' 						=> __( 'Mostrar solo el título', 'anva' ),
-		'slide_desc' 							=> __( 'Mostrar solo la descripción', 'anva' ),
-		'slide_show' 							=> __( 'Mostrar título y descripción', 'anva' ),
-		'slide_hide' 							=> __( 'Ocultar ambos', 'anva' ),
-		'slide_meta'							=> __( 'Opciones de Slide', 'anva' )
+		'slide_title' 						=> __( 'Show title only', 'anva' ),
+		'slide_desc' 							=> __( 'Show description only', 'anva' ),
+		'slide_show' 							=> __( 'Show title and description', 'anva' ),
+		'slide_hide' 							=> __( 'Hide Both', 'anva' ),
+		'slide_meta'							=> __( 'Slide Options', 'anva' )
 	);
 
-	return apply_filters( 'anva_get_text_locals', $localize );
+	return apply_filters( 'anva_text_locals', $localize );
 
 }
 
@@ -160,24 +143,11 @@ function anva_get_local( $id ) {
  * @since 1.0.0
  */
 function anva_get_js_locals() {
-
-	$foodlist = 0;
-	$woocommerce = 0;
-
-	if ( defined( 'FOODLIST_VERSION' ) ) {
-		$foodlist = 1;
-	}
-
-	if ( class_exists( 'Woocommerce' ) ) {
-		$woocommerce = 1;
-	}
 	
 	$localize = array(
 		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 		'themeUrl' => get_template_directory_uri(),
 		'themeImages' => get_template_directory_uri() . '/assets/images',
-		'pluginFoodlist' => $foodlist,
-		'pluginWoocommerce' => $woocommerce
 	);
 
 	return apply_filters( 'anva_get_js_locals', $localize );
