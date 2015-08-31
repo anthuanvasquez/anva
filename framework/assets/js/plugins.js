@@ -23,6 +23,7 @@
 
 //@prepros-append vendor/enquire.min.js
 //@prepros-append vendor/isotope.min.js
+//@prepros-append vendor/jquery.easing.min.js
 //@prepros-append vendor/jquery.flexslider.min.js
 //@prepros-append vendor/jquery.nivo.slider.min.js
 //@prepros-append vendor/jquery.owl.carousel.min.js

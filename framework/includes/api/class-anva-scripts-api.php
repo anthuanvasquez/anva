@@ -78,6 +78,15 @@ class Anva_Scripts_API {
 
 		);
 
+		// Plugins
+		$this->framework_scripts['anva_plugins'] = array(
+			'handle'	=> 'anva_plugins',
+			'src'			=> anva_get_core_uri() .'/assets/js/plugins.min.js',
+			'deps'		=> array( 'jquery' ),
+			'ver'			=> ANVA_FRAMEWORK_VERSION,
+			'footer'	=> true
+		);
+
 		// jQuery Validate
 		$this->framework_scripts['jquery_validate'] = array(
 			'handle'	=> 'jquery_validate',
@@ -87,12 +96,12 @@ class Anva_Scripts_API {
 			'footer'	=> true
 		);
 
-		// Plugins
-		$this->framework_scripts['anva_plugins'] = array(
-			'handle'	=> 'anva_plugins',
-			'src'			=> anva_get_core_uri() .'/assets/js/plugins.min.js',
+		// jQuery Camera Slideshow
+		$this->framework_scripts['camera'] = array(
+			'handle'	=> 'camera',
+			'src'			=> anva_get_core_uri() .'/assets/js/vendor/jquery.camera.js',
 			'deps'		=> array( 'jquery' ),
-			'ver'			=> ANVA_FRAMEWORK_VERSION,
+			'ver'			=> '1.4.0',
 			'footer'	=> true
 		);
 

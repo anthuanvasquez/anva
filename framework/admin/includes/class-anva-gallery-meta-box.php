@@ -57,10 +57,6 @@ class Anva_Gallery_Meta_Box {
 		$this->args = wp_parse_args( $args, $defaults );
 
 		// Hooks
-
-		add_image_size( 'anva_gallery_admin_thumb', $this->size, $this->size, true );
-		add_image_size( 'anva_gallery_thumb', $this->width, $this->height, true );
-
 		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 			add_action( 'add_meta_boxes', array( $this, 'add' ) );
@@ -174,8 +170,8 @@ class Anva_Gallery_Meta_Box {
 					</ul>
 				</div>
 				<div class="anva-gallery-actions">
-					<input id="anva_gallery_upload_button" data-uploader_title="<?php echo __( 'Upload Image', 'anva' ); ?>" data-uploader_button_text="Select" class="primary_button button button-primary" type="button" value="<?php echo __('Upload Image', 'anva'); ?>" rel="" />
 					<input id="anva_gallery_delete_all_button" class="button secondary_button button-secondary" type="button" value="<?php echo __('Delete All Images', 'anva'); ?>" rel="" />
+					<input id="anva_gallery_upload_button" data-uploader_title="<?php echo __( 'Upload Image', 'anva' ); ?>" data-uploader_button_text="Select" class="primary_button button button-primary" type="button" value="<?php echo __('Upload Image', 'anva'); ?>" rel="" />
 				</div>
 				<script type="text/javascript">
 					/* <![CDATA[ */
@@ -287,57 +283,22 @@ class Anva_Gallery_Meta_Box {
 	}
 
 	/**
-	 * Get thumbnail content
-	 * 
-	 * @since 1.0.0
-	 */
-	private function thumb( $id, $post_id ) {
-		
-		$info = get_posts( array(
-			'p' 					=> $id,
-			'post_type' 	=> 'attachment'
-		));
-
-		$url 						= wp_get_attachment_url( $id );
-		$image 					= wp_get_attachment_image_src( $id );
-		$string 				= '%title%';
-		$alt 						= get_post_meta( $id, '_wp_attachment_image_alt', true );
-		$data 					= array(
-			'%title%' 		=> $info[0]->post_title,
-			'%alt%' 			=> $alt,
-			'%filename%' 	=> basename( $url ),
-			'%caption%' 	=> $info[0]->post_excerpt,
-			"\n" 					=> ' - '
-		);
-
-		$title = str_replace( array_keys( $data ), $data, $string );
-
-		$html = sprintf(
-			'<li><a href="%1$s" title="%2$s" data-gallery="gallery-group-%3$s"><img src="%4$s" width="%5$s" height="%6$s" alt="%7$s" /></a></li>',
-			$url,
-			$title,
-			$post_id,
-			$image[0],
-			$image[1],
-			$image[2],
-			$info[0]->post_title
-		);
-
-		return $html;
-	}
-
-	/**
 	 * Get admin thumbnail
 	 * 
 	 * @since 1.0.0
 	 */
 	private function admin_thumb( $attachment_id ) {
-		$image = wp_get_attachment_image_src( $attachment_id, 'thumbnail', true );
+		$image = wp_get_attachment_image_src( $attachment_id, 'medium', true );
 		?>
 		<li>
-			<a class="anva_gallery_image" href="<?php echo esc_url( admin_url( '/post.php?post=' ) . $attachment_id . '&action=edit' ); ?>" target="_blank">
-				<img src="<?php echo esc_url( $image[0] ); ?>" width="<?php echo $image[1]; ?>" height="<?php echo $image[2]; ?>" />
-			</a>
+			<div class="attachment-preview">
+				<div class="thumbnail">
+					<div class="centered">
+							<img src="<?php echo esc_url( $image[0] ); ?>" width="<?php echo $image[1]; ?>" height="<?php echo $image[2]; ?>" />
+						
+					</div>
+				</div>
+			</div>
 			<a href="#" class="anva_gallery_remove">X</a>
 			<input type="hidden" name="anva_gallery_thumb[]" value="<?php echo $attachment_id; ?>" />
 		</li>

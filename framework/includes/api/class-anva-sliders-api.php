@@ -1,38 +1,39 @@
 <?php
-/**
- * Anva Core Sliders API
- *
- * This sets up the default slider types and provides
- * an API to add custom slider types.
- */
-if ( ! class_exists( 'Anva_Sliders_API' ) ) :
 
+if ( ! class_exists( 'Anva_Sliders_API' ) ) :
+/**
+ * Anva Sliders API
+ *
+ * This sets up the default slider and provides
+ * an API to add custom slider.
+ * 
+ * @since 1.0.0
+ */
 class Anva_Sliders_API {
 
 	/**
-	 * A single instance of this class.
+	 * A single instance of this class
 	 *
 	 * @since 1.0.0
 	 */
 	private static $instance = null;
 
 	/**
-	 * Core slider types.
+	 * Core slider types
 	 *
 	 * @since 1.0.0
 	 */
 	private $core_sliders = array();
 
 	/**
-	 * Slider types added through client API
-	 * mutators.
+	 * Custom slider types
 	 *
 	 * @since 1.0.0
 	 */
 	private $custom_sliders = array();
 
 	/**
-	 * Slider types to be removed.
+	 * Slider types to be removed
 	 *
 	 * @since 1.0.0
 	 */
@@ -40,17 +41,17 @@ class Anva_Sliders_API {
 
 	/**
 	 * Final slider types, core combined
-	 * with client API-added slider types.
+	 * with custom slider types.
 	 *
 	 * @since 1.0.0
 	 */
 	private $sliders = array();
 
 	/**
-		 * Creates or returns an instance of this class.
-		 *
-		 * @since 1.0.0
-		 */
+	 * Creates or returns an instance of this class
+	 *
+	 * @since 1.0.0
+	 */
 	public static function instance() {
 
 		if ( self::$instance == null ) {
@@ -62,6 +63,7 @@ class Anva_Sliders_API {
 
 	/**
 	 * Constructor
+	 * 
 	 * Hook everything in.
 	 *
 	 * @since 1.0.0
@@ -83,7 +85,7 @@ class Anva_Sliders_API {
 	}
 
 	/**
-	 * Set plugin default slider types
+	 * Set default slider types
 	 *
 	 * @since 1.0.0
 	 */
@@ -108,6 +110,16 @@ class Anva_Sliders_API {
 			'bootstrap' => array(
 				'name' 					=> 'Bootstrap Carousel',
 				'id'						=> 'bootstrap',
+				'custom_size' 	=> false
+			),
+			'swiper' => array(
+				'name' 					=> 'Swiper',
+				'id'						=> 'swiper',
+				'custom_size' 	=> false
+			),
+			'camera' => array(
+				'name' 					=> 'Camera',
+				'id'						=> 'camera',
 				'custom_size' 	=> false
 			),
 		);
@@ -342,6 +354,54 @@ class Anva_Sliders_API {
 		);
 
 		/*--------------------------------------------*/
+		/* Swiper
+		/*--------------------------------------------*/
+
+		// Slider Options
+		$this->core_sliders['swiper']['options'] = array(
+			array(
+				'id'			=> 'interval',
+				'name' 		=> __( 'Seconds between each transition?', 'anva' ),
+				'std'			=> '5',
+				'type'		=> 'text'
+			),
+			array(
+				'id'			=> 'pause',
+				'name'		=> __( 'Enable pause on hover?', 'anva' ),
+				'std'			=> 'true',
+				'type'		=> 'select',
+				'options'	=> array(
+					'hover'	=> __( 'Yes, pause slider on hover.', 'anva' ),
+					'false'	=> __( 'No, don\'t pause slider on hover.', 'anva' )
+				)
+			),
+		);
+
+		/*--------------------------------------------*/
+		/* Camera
+		/*--------------------------------------------*/
+
+		// Slider Options
+		$this->core_sliders['camera']['options'] = array(
+			array(
+				'id'			=> 'interval',
+				'name' 		=> __( 'Seconds between each transition?', 'anva' ),
+				'std'			=> '5',
+				'type'		=> 'text'
+			),
+			array(
+				'id'			=> 'pause',
+				'name'		=> __( 'Enable pause on hover?', 'anva' ),
+				'std'			=> 'true',
+				'type'		=> 'select',
+				'options'	=> array(
+					'hover'	=> __( 'Yes, pause slider on hover.', 'anva' ),
+					'false'	=> __( 'No, don\'t pause slider on hover.', 'anva' )
+				)
+			),
+		);
+
+		/*--------------------------------------------*/
 		/* Extend
 		/*--------------------------------------------*/
 
@@ -350,10 +410,9 @@ class Anva_Sliders_API {
 	}
 
 	/**
-	 * Set slider types by combining core elements and client-added
-	 * slider types. Then remove any types that have been set to
-	 * be removed. This happens at the "after_setup_theme" hook
-	 * with a priority of 1000.
+	 * Set slider types
+	 * 
+	 * Then remove any types that have been set to be removed.
 	 *
 	 * @since 1.0.0
 	 */
@@ -377,7 +436,7 @@ class Anva_Sliders_API {
 	}
 
 	/**
-	 * Add slider
+	 * Add custom slider
 	 *
 	 * @since 1.0.0
 	 */

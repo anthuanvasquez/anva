@@ -268,6 +268,8 @@ class Anva {
 		add_action( 'anva_slider_nivo', 'anva_slider_nivo_default', 9, 2 );
 		add_action( 'anva_slider_bootstrap', 'anva_slider_bootstrap_default', 9, 2 );
 
+		add_action( 'anva_slider_camera', 'anva_slider_camera_default', 9, 2 );
+
 		// Textdomain
 		do_action( 'anva_textdomain' );
 	}

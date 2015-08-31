@@ -141,10 +141,6 @@ class Anva_Builder_Elements_API {
 			'map'
 		);
 
-		// foreach ( $this->core_elements as $element_id => $element ) {
-		// 	$this->registered_elements[] = $element_id;
-		// }
-
 		// Revolution Slider
 		if ( class_exists( 'RevSliderFront' ) || class_exists( 'RevSliderAdmin' ) ) {
 			$this->registered_elements[] = 'revslider';

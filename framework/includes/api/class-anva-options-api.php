@@ -120,7 +120,11 @@ class Anva_Options_API {
 			foreach ( anva_get_sliders() as $key => $slider ) {
 				$sliders[$key] = $slider['name'];
 			}
-			$sliders['revslider'] = 'Revolution Slider';
+
+			// Revolution Slider
+			if ( class_exists( 'RevSliderAdmin' ) ) {
+				$sliders['revslider'] = 'Revolution Slider';
+			}
 		}
 
 

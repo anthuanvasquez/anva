@@ -879,7 +879,7 @@ function anva_get_breadcrumbs() {
 		// Archive: Month
 		} elseif ( is_month() ) {  
 			echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $delimiter;  
-			echo $before . get_the_time('F') . $after;  
+			echo $before . get_the_time('F') . $after; 
 		
 		// Archive: Year
 		} elseif ( is_year() ) {  
@@ -1003,11 +1003,13 @@ function anva_gallery_grid( $post_id, $columns, $thumbnail ) {
 
 	$classes[] = $columns;
 	$classes = implode( ' ', $classes );
-
+	
 	$query_args = array(
-		'post_type'   => 'attachment',
-		'post_status' => 'inherit',
-		'post__in'		=> $gallery,
+		'post_type'   	 => 'attachment',
+		'post_status' 	 => 'inherit',
+		'post__in'			 => $gallery,
+		'post_mime_type' => 'image',
+		'posts_per_page' => -1,
 	);
 
 	$query = anva_get_query_posts( $query_args );
@@ -1055,35 +1057,44 @@ function anva_sliders( $slider ) {
 		return;
 	}
 
-	if ( 'revslider' != $slider ) {
+	if ( anva_is_slider( $slider ) ) {
 
+		// Get sliders data
 		$sliders = anva_get_sliders();
 
-		if ( ! isset( $sliders[$slider]['id'] ) || 'revslider' == $slider ) {
-			printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'No slider found.', 'anva' ) );
-			return;
-		}
-
 		// Get Slider ID
-		$slider_id = $sliders[$slider]['id'];
+		$slider_id = $slider;
 
-		// Gather info
-		$type = $sliders[$slider]['types'];;
-		$settings = $sliders[$slider]['options'];
+		// Gather settings
+		$settings = $sliders[$slider_id]['options'];
 
 		// Display slider based on its slider type
 		do_action( 'anva_slider_' . $slider_id, $slider, $settings );
 
+	} elseif ( 'revslider' == $slider ) {
+		anva_revolution_slider_default();
+	
+	} elseif ( 'layerslider' == $slider ) {
+		/**
+		 * anva_layer_slider_default()
+		 * @todo create function to support Layer Slider
+		 */
 	} else {
-		anva_revolution_slider();
+		printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'No slider found.', 'anva' ) );
+		return;
 	}
 
 }
 
-function anva_revolution_slider() {
+/**
+ * Get Revolution Slider ID
+ *
+ * @since 1.0.0
+ */
+function anva_revolution_slider_default() {
 	
 	if ( ! class_exists( 'RevSliderFront' ) ) {
-		printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'Revolution Slider not found.', 'anva' ) );
+		printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated.', 'anva' ) );
 		return;
 	}
 
@@ -1094,8 +1105,10 @@ function anva_revolution_slider() {
 	}
 }
 
-/*
- * Output slides from slideshows array
+/**
+ * Standard slider type
+ *
+ * @since 1.0.0
  */
 function anva_slider_standard_default( $slider, $settings ) {
 
@@ -1107,8 +1120,6 @@ function anva_slider_standard_default( $slider, $settings ) {
 	$thumbs = 'true';
 	$thumbnail = 'anva_lg';
 
-
-	
 	// Query arguments
 	$query_args = array(
 		'post_type' 			=> array( 'slideshows' ),
@@ -1191,6 +1202,11 @@ function anva_slider_standard_default( $slider, $settings ) {
 	echo $html;
 }
 
+/**
+ * OWL slider type
+ *
+ * @since 1.0.0
+ */
 function anva_slider_owl_default( $slider, $settings ) {
 
 	$thumbnail = 'anva_lg';
@@ -1248,6 +1264,11 @@ function anva_slider_owl_default( $slider, $settings ) {
 
 }
 
+/**
+ * Nivo slider type
+ *
+ * @since 1.0.0
+ */
 function anva_slider_nivo_default( $slider, $settings ) {
 	
 	$thumbnail = 'anva_lg';
@@ -1299,6 +1320,11 @@ function anva_slider_nivo_default( $slider, $settings ) {
 	echo $html;
 }
 
+/**
+ * Boostrap carousel slider type
+ *
+ * @since 1.0.0
+ */
 function anva_slider_bootstrap_default( $slider, $settings ) {
 
 	$thumbnail = 'anva_lg';
@@ -1395,4 +1421,31 @@ function anva_slider_bootstrap_default( $slider, $settings ) {
 
 	echo $html;
 
+}
+
+function anva_slider_camera_default() {
+	?>
+	 <div class="camera_wrap" id="camera_wrap_1">
+			<div data-thumb="/wp-content/uploads/2015/08/photographer_girl_2-wallpaper-1600x900.jpg">
+					<div class="camera_caption fadeFromBottom flex-caption slider-caption-bg" style="left: 0; border-radius: 0; max-width: none;">
+							<div class="container">Powerful Layout with Responsive functionality that can be adapted to any screen size.</div>
+					</div>
+			</div>
+			<div data-thumb="/wp-content/uploads/2015/08/photographer_girl_2-wallpaper-1600x900.jpg">
+					<div class="camera_caption fadeFromBottom flex-caption slider-caption-bg" style="left: 0; border-radius: 0; max-width: none;">
+							<div class="container">Looks beautiful &amp; ultra-sharp on Retina Screen Displays.</div>
+					</div>
+			</div>
+			<div data-thumb="/wp-content/uploads/2015/08/photographer_girl_2-wallpaper-1600x900.jpg">
+					<div class="camera_caption fadeFromBottom flex-caption slider-caption-bg" style="left: 0; border-radius: 0; max-width: none;">
+							<div class="container">Included 20+ custom designed Slider Pages with Premium Sliders like Layer, Revolution, Swiper &amp; others.</div>
+					</div>
+			</div>
+	</div>
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#camera_wrap_1').camera();
+	});
+	</script>
+	<?php
 }

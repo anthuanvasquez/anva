@@ -39,6 +39,9 @@
 
 #header {
 	border-bottom: 1px solid #eee;
+	.container {
+  	position: relative;
+	}
 }
 
 .header-content {
@@ -138,17 +141,17 @@
 	float: right !important;
   margin: 20px 0 20px 15px !important;
 
-  li {
+  div {
+  	float: left;
 		margin-left: 15px;
+		position: inherit;
   }
 
   a {
   	display: block !important;
-  	position: relative;
 		font-size: 14px;
   	line-height: 20px;
   	display: block;
-	  position: relative;
 	  min-width: 14px;
 	  height: 14px;
 	  text-align: center;
@@ -156,9 +159,59 @@
   }
 }
 
+#top-search {
+	form {
+		opacity: 0;
+		z-index: -2;
+		position: absolute;
+		width: 100% !important;
+		height: 100% !important;
+		padding: 0 15px;
+		margin: 0;
+		top: 0;
+		left: 0;
+		transition: opacity .3s ease-in-out;
+
+		input {
+			box-shadow: none !important;
+			pointer-events: none;
+			border-radius: 0;
+			border: 0;
+			outline: 0 !important;
+			font-size: 32px;
+			padding: 10px 120px 10px 0;
+			height: 100%;
+			background-color: transparent;
+			color: #333;
+			font-weight: 700;
+			margin-top: 0 !important;
+			letter-spacing: 2px;
+		}
+	}
+}
+
+body.top-search-open #top-search form {
+	opacity: 1;
+	z-index: 20;
+}
+
 #top-cart {
 	.badge {
 		background-color: $theme-color;
 		font-weight: 300;
 	}
+}
+
+body.top-search-open #top-search a i.icon-search3,
+#top-search a i.icon-line-cross {
+
+}
+
+// Hide header elements
+body.top-search-open #header-wrap #logo,
+body.top-search-open #primary-menu > ul,
+body.top-search-open #primary-menu > .container > ul,
+body.top-search-open #top-cart,
+body.top-search-open #top-lang {
+  opacity: 0;
 }

@@ -521,6 +521,16 @@ function anva_get_sliders( $slider_id = '' ) {
 	return $api->get_sliders( $slider_id );
 }
 
+/**
+ * Check if slider type
+ *
+ * @since 1.0.0
+ */
+function anva_is_slider( $slider_id ) {
+	$api = Anva_Sliders_API::instance();
+	return $api->is_slider( $slider_id );
+}
+
 /* ---------------------------------------------------------------- */
 /* (6) Helpers - Anva Meta Box API
 /* ---------------------------------------------------------------- */

@@ -1,12 +1,10 @@
 if ( typeof jQuery === 'undefined' ) {
-	throw new Error( 'JavaScript requires $' )
+	throw new Error( 'JavaScript requires $' );
 }
-
-$ = jQuery.noConflict();
 
 var ANVA = ANVA || {};
 
-(function($){
+(function($) {
 
 	"use strict";
 
@@ -433,6 +431,39 @@ var ANVA = ANVA || {};
 		}
 	};
 
+	ANVA.header = {
+
+		init: function() {
+			ANVA.header.topsearch();
+		},
+
+		topsearch: function() {
+
+			$(document).on( 'click', function(e) {
+				if ( ! $(e.target).closest('#top-search').length) {
+					$body.toggleClass('top-search-open', false);
+				}
+				if ( ! $(e.target).closest('#top-cart').length) {
+					$topCart.toggleClass('top-cart-open', false);
+				}
+			});
+
+			$('#top-search-trigger').click( function(e) {
+
+				$body.toggleClass('top-search-open');
+				$topCart.toggleClass('top-cart-open', false);
+
+				if ( $body.hasClass('top-search-open') ) {
+					$topSearch.find('input').focus();
+				}
+
+				e.stopPropagation();
+				e.preventDefault();
+			});
+
+		}
+	};
+
 	ANVA.widget = {
 		
 		init: function() {
@@ -616,6 +647,8 @@ var ANVA = ANVA || {};
 				container: 'body'
 			});
 
+
+
 			if ( ANVA.isMobile.any() ) {
 				$body.addClass('device-touch');
 			}
@@ -659,9 +692,9 @@ var ANVA = ANVA || {};
 		},
 
 		loadOwl: function() {
-			var ocSlider = $("#oc-slider");
-			if ( ocSlider.length > 0 ) {
-				ocSlider.owlCarousel({
+			var $ocSlider = $("#oc-slider");
+			if ( $ocSlider.length > 0 ) {
+				$ocSlider.owlCarousel({
 					items: 1,
 					nav: true,
 					navText : ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
@@ -685,23 +718,43 @@ var ANVA = ANVA || {};
 			}
 		},
 
+		loadCamera: function() {
+			var $cameraEle = $('#camera_wrap_1');
+			if ( $cameraEle.length > 0 ) {
+				$cameraEle.camera({
+					thumbnails: true,
+					height: '40%',
+					loader: 'pie',
+					loaderPadding: 1,
+					loaderStroke: 5,
+					onLoaded: function() {
+						$cameraEle.find('.camera_next').html('<i class="fa fa-angle-right"></i>');
+						$cameraEle.find('.camera_prev').html('<i class="fa fa-angle-left"></i>');
+					}
+				});
+			}
+		},
+
 		loadNivo: function() {
-			$('.nivoSlider').nivoSlider({
-				effect: 'random',
-				slices: 15,
-				boxCols: 12,
-				boxRows: 6,
-				animSpeed: 500,
-				pauseTime: 7000,
-				directionNav: true,
-				controlNav: true,
-				pauseOnHover: true,
-				prevText: '<i class="fa fa-angle-left"></i>',
-				nextText: '<i class="fa fa-angle-right"></i>',
-				afterLoad: function() {
-					$('#slider').find('.nivo-caption').addClass('slider-caption-bg');
-				}
-			});
+			var $nivoSlider = $('.nivoSlider');
+			if ( $nivoSlider.length > 0 ) {
+				$nivoSlider.nivoSlider({
+					effect: 'random',
+					slices: 15,
+					boxCols: 12,
+					boxRows: 6,
+					animSpeed: 500,
+					pauseTime: 7000,
+					directionNav: true,
+					controlNav: true,
+					pauseOnHover: true,
+					prevText: '<i class="fa fa-angle-left"></i>',
+					nextText: '<i class="fa fa-angle-right"></i>',
+					afterLoad: function() {
+						$('#slider').find('.nivo-caption').addClass('slider-caption-bg');
+					}
+				});
+			}
 		},
 
 		loadFlexSlider: function() {
@@ -770,7 +823,9 @@ var ANVA = ANVA || {};
 		
 		init: function() {
 			ANVA.initialize.init();
+			ANVA.header.init();
 			ANVA.widget.init();
+			//ANVA.slider.loadCamera();
 			ANVA.isBrowser.any();
 			ANVA.documentOnReady.windowScroll();	
 		},
@@ -811,10 +866,12 @@ var ANVA = ANVA || {};
 		$body 						= $('body'),
 		$wrapper 					= $('#wrapper'),
 		$header 					= $('#header'),
+		$topSearch 				= $('#top-search'),
+		$topCart 					= $('#top-cart'),
 		$contain 					= $('#container'),
 		$footer 					= $('#footer'),
 		$goTop						= $('#gotop'),
-		$menuNavigation 	= $('ul.sf-menu'),
+		$menuNavigation 	= $('#primary-menu ul.sf-menu'),
 		$wpCalendar				= $('#wp-calendar'),
 		$buttonNav				= $('.next a[rel="next"], .previous a[rel="prev"]');
 

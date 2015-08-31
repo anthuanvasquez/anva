@@ -222,7 +222,7 @@ function anva_setup_gallery_attachments_meta() {
 	$setup = array(
 		'args' => array(
 			'id' 				=> 'anva_gallery_attachments_options',
-			'title' 		=> __( 'Gallery Attachments Options', 'anva' ),
+			'title' 		=> __( 'Gallery Attachments', 'anva' ),
 			'page'			=> array( 'galleries' ),
 			'context' 	=> 'advanced',
 			'priority'	=> 'high'

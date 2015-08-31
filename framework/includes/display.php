@@ -203,30 +203,29 @@ function anva_header_primary_menu_default() {
  */
 function anva_header_primary_menu_addon_default() {
 	?>	
-	<ul id="header-menu-addon">
-		<li>
-			<div id="top-search">
-				<a href="#" id="top-search-trigger">
-					<i class="fa fa-search"></i>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div id="top-cart">
-				<a href="#" id="top-cart-trigger">
-					<i class="fa fa-shopping-cart"></i>
-					<span class="badge">0</span>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div id="top-lang">
-				<a href="#" id="top-lang-trigger">
-					<i class="fa fa-flag"></i>
-				</a>
-			</div>
-		</li>
-	</ul><!-- #menu-addon (end) -->
+	<div id="header-menu-addon">
+		<div id="top-search">
+			<a href="#" id="top-search-trigger">
+				<i class="fa fa-search"></i>
+			</a>
+			<form action="search.html" method="get">
+				<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+			</form>
+		</div>
+		<div id="top-cart">
+			<a href="#" id="top-cart-trigger">
+				<i class="fa fa-shopping-cart"></i>
+				<span class="badge">0</span>
+			</a>
+			<div id="top-cart-content"></div>
+		</div>
+		<div id="top-lang">
+			<a href="#" id="top-lang-trigger">
+				<i class="fa fa-flag"></i>
+			</a>
+			<div id="top-lang-content"></div>
+		</div>
+	</div><!-- #menu-addon (end) -->
 	<?php
 }
 

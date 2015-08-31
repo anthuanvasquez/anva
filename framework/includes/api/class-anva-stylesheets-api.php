@@ -132,6 +132,15 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
+		// Camera Slideshow
+		$this->framework_stylesheets['camera'] = array(
+			'handle'	=> 'camera',
+			'src'			=> anva_get_core_uri() .'/assets/css/camera.min.css',
+			'deps'		=> array(),
+			'ver'			=> '1.4.0',
+			'media'		=> 'all'
+		);
+
 		// Framework styles
 		$this->framework_stylesheets['anva'] = array(
 			'handle'	=> 'anva',

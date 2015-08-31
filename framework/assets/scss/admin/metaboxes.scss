@@ -21,15 +21,15 @@
 
 	input.checkbox,
 	input.meta-radio {
-	  margin: 0 10px 5px 0;
-	  float: left;
-	  clear: both;
+		margin: 0 10px 5px 0;
+		float: left;
+		clear: both;
 	}
 
 	.nav-tab-wrapper {
 		border-bottom: 1px solid #ccc;
-  	padding-bottom: 0 !important;
-  	padding-left: 10px !important;
+		padding-bottom: 0 !important;
+		padding-left: 10px !important;
 	}
 
 	.nav-tab-active {
@@ -39,10 +39,10 @@
 
 	.field-radio label,
 	.field-multicheck label {
-	  float: left;
-	  max-width: 90%;
-	  line-height: 16px;
-	  margin-bottom: 5px;
+		float: left;
+		max-width: 90%;
+		line-height: 16px;
+		margin-bottom: 5px;
 	}
 
 	h4 {
@@ -67,8 +67,8 @@
 	.meta-explain {
 		font-size: 12px;
 		margin-top: 10px;
-  	line-height: 16px;
-  	color: #777;
+		line-height: 16px;
+		color: #777;
 	}
 
 	.field-multicheck {
@@ -150,61 +150,165 @@
 		clear: both;
 	}
 
-	span {
-		color: #777;
-	}
-
 	li {
-		box-sizing: border-box;
-		float: left;
-		margin-bottom: 0;
-		max-width: 150px;
-		padding: 0 5px 10px;
 		position: relative;
+		float: left;
+		padding: 8px;
+		margin: 0;
+		color: #464646;
+		cursor: pointer;
+		list-style: none;
+		text-align: center;
+		user-select: none;
 		width: 20%;
-
+		box-sizing: border-box;
 		&:hover {
-			> .anva_gallery_remove {
+			.anva_gallery_remove {
 				opacity: 1;
 			}
 		}
 
-		> a.anva_gallery_image {
-			display: block;
-			line-height: 0;
+		.attachment-preview {
+			position: relative;
+			box-shadow: inset 0 0 15px rgba(black,.1),inset 0 0 0 1px rgba(black,.05);
+			background: #eee;
+			cursor: pointer;
+			&:before {
+			  content: '';
+			  display: block;
+			  padding-top: 100%;
+			}
 		}
 
-		img {
-			height: auto;
-			max-width: 100%;
-			transition: all .2s ease;
-			&:hover {
-				opacity: .8;
+		.thumbnail {
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			opacity: 1;
+			transition: opacity .1s;
+			&:after {
+			  content: '';
+			  display: block;
+			  position: absolute;
+			  top: 0;
+			  left: 0;
+			  right: 0;
+			  bottom: 0;
+			  box-shadow: inset 0 0 0 1px rgba(black,.1);
+			  overflow: hidden;
 			}
+
+			.centered {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				transform: translate(50%,50%);
+
+				img {
+					position: absolute;
+					left: 0;
+					top: 0;
+					max-height: 100%;
+					width: auto;
+  				transform: translate(-50%,-50%);
+				}
+			}
+		}
+	}
+
+	span {
+		color: #777;
+	}
+}
+
+@media screen and (min-width: 1384px) {
+	#anva_gallery_thumbs {
+		li {
+			width: 16.66%;
+		}
+	}
+}
+
+@media screen and (min-width: 1595px) {
+	#anva_gallery_thumbs {
+		li {
+			width: 14.28%;
+		}
+	}
+}
+
+@media screen and (min-width: 1715px) {
+	#anva_gallery_thumbs {
+		li {
+			width: 12.5%;
+		}
+	}
+}
+
+@media screen and (min-width: 1895px) {
+	#anva_gallery_thumbs {
+		li {
+			width: 11.11%;
+		}
+	}
+}
+
+@media screen and (max-width: 960px) {
+	#anva_gallery_thumbs {
+		li {
+			width: 25%;
+		}
+	}
+}
+
+@media screen and (max-width: 565px) {
+	#anva_gallery_thumbs {
+		li {
+			width: 33.33%;
+		}
+	}
+}
+
+@media screen and (max-width: 415px) {
+	#anva_gallery_thumbs {
+		li {
+			width: 50%;
 		}
 	}
 }
 
 .anva_gallery_remove {
-	background: #d54e21;
-	border-radius: 50%;
-	color: #fff;
-	font-size: 11px;
-	height: 16px;
-	line-height: 16px;
-	padding: 3px;
-	position: absolute;
-	right: -6px;
 	opacity: 0;
-	text-align: center;
+	display: block;
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+  padding: 0;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  outline: 0;
+  background: #eee;
+  box-shadow: 0 0 0 1px #fff,0 0 0 2px rgba(0,0,0,.15);
+  transition: opacity .1s ease;
+  color: #222;
+	font-weight: 700;
 	text-decoration: none;
-	top: -6px;
-	width: 16px;
-	transition: opacity .2s linear;
-	z-index: 9;
-
 	&:hover {
-		color: #fff;
+		color: red;
+	}
+  .icon {
+	  display: block;
+	  background-position: -1px 0;
+	  height: 15px;
+	  width: 15px;
+	  margin: 5px;
 	}
 }
 
@@ -212,15 +316,16 @@
 #anva_gallery_spinner .spinner {
 	display: none;
 	visibility: visible !important;
-  float: none;
-  margin: 5px auto;
+	float: none;
+	margin: 5px auto;
 }
 
 .anva-gallery-actions {
 	border: 1px solid #e5e5e5;
-  padding: 10px 18px ;
-  clear: both;
-  border-top: 1px solid #ddd;
-  background: #f5f5f5;
-  margin: 0 -12px -24px;
+	padding: 10px 18px ;
+	clear: both;
+	border-top: 1px solid #ddd;
+	background: #f5f5f5;
+	margin: 0 -12px -24px;
+	text-align: right;
 }
