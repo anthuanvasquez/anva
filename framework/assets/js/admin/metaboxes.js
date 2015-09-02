@@ -261,22 +261,6 @@ jQuery( function($) {
 			});
 		},
 
-		get_all_thumbnails: function( post_id, included ) {
-			var data = {
-				action: 'anva_gallery_get_all_thumbnail',
-				post_id: post_id,
-				included: included
-			};
-
-			jQuery('#anva_gallery_spinner').css('display', 'block');
-			jQuery.post( ajaxurl, data, function( response ) {
-				anva_gallery.admin_thumb_ul.append(response);
-				anva_gallery.empty_gallery();
-			}).done( function() {
-				jQuery('#anva_gallery_spinner').hide();
-			});
-		},
-
 		empty_gallery: function() {
 			this.admin_thumb_ul = jQuery('#anva_gallery_thumbs');
 			this.admin_thumb_ul_li = jQuery('#anva_gallery_thumbs li');

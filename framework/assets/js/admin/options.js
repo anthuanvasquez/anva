@@ -105,6 +105,21 @@ jQuery(document).ready(function($) {
 	});
 
 	/* ---------------------------------------------------------------- */
+	/* Sliders
+	/* ---------------------------------------------------------------- */
+	$('.group-slider').each(function() {
+		var el = $(this), value = el.find('#slider_id').val();
+		el.find('.slider-item').hide();
+		el.find('.' + value).show();
+	});
+
+	$('.group-slider #slider_id').live( 'change', function() {
+		var el = $(this), parent = el.closest('.group-slider'), value = el.val();
+		parent.find('.slider-item').hide();
+		parent.find('.' + value).show();
+	});
+
+	/* ---------------------------------------------------------------- */
 	/* Loads tabbed sections if they exist
 	/* ---------------------------------------------------------------- */
 	if ( $('.nav-tab-wrapper').length > 0 ) {

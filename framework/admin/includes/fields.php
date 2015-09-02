@@ -221,10 +221,10 @@ function anva_setup_gallery_attachments_meta() {
 
 	$setup = array(
 		'args' => array(
-			'id' 				=> 'anva_gallery_attachments_options',
+			'id' 				=> 'anva_gallery_attachments',
 			'title' 		=> __( 'Gallery Attachments', 'anva' ),
-			'page'			=> array( 'galleries' ),
-			'context' 	=> 'advanced',
+			'page'			=> array( 'galleries', 'portfolio' ), // Use gallery in portfolio?
+			'context' 	=> 'normal',
 			'priority'	=> 'high'
 		)
 	);

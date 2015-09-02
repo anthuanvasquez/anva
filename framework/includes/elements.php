@@ -1,15 +1,13 @@
 <?php
 
-/*--------------------------------------------*/
-/* Layout Elements
-/*--------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/
+/* Action Elements
+/*-----------------------------------------------------------------------------------*/
 
+// Layout Elements
 add_action( 'anva_element_divider', 'anva_divider', 10, 2 );
 
-/*--------------------------------------------*/
-/* Content Elements
-/*--------------------------------------------*/
-
+// Content Elements
 add_action( 'anva_element_text', 'anva_text', 10, 2 );
 add_action( 'anva_element_text_image', 'anva_text_image_element' );
 add_action( 'anva_element_text_sidebar', 'anva_text_sidebar_element' );
@@ -23,14 +21,11 @@ add_action( 'anva_element_map', 'anva_map_element' );
 add_action( 'anva_element_testimonial_column', 'anva_testimonial_column_element' );
 add_action( 'anva_element_pricing', 'anva_pricing_element' );
 
-/*--------------------------------------------*/
-/* Media Elements
-/*--------------------------------------------*/
-
-add_action( 'anva_element_gallery_slider', 'anva_gallery_slider_element' );
-add_action( 'anva_element_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width_element' );
+// Media Elements
+add_action( 'anva_element_gallery_slider', 'anva_gallery_slider' );
+add_action( 'anva_element_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width' );
 add_action( 'anva_element_gallery_grid', 'anva_gallery_grid_element' );
-add_action( 'anva_element_gallery_masonry', 'anva_gallery_masonry_element' );
+add_action( 'anva_element_gallery_masonry', 'anva_gallery_masonry' );
 add_action( 'anva_element_galleries', 'anva_galleries_element' );
 add_action( 'anva_element_animated_gallery_grid', 'anva_animated_gallery_grid_element' );
 add_action( 'anva_element_image_parallax', 'anva_image_parallax_element' );
@@ -43,6 +38,9 @@ add_action( 'anva_element_three_images_block', 'anva_three_images_block_element'
 add_action( 'anva_element_three_cols_images', 'anva_three_cols_images_element');
 add_action( 'anva_element_two_cols_images', 'anva_two_cols_images_element' );
 
+/*-----------------------------------------------------------------------------------*/
+/* Element Functions
+/*-----------------------------------------------------------------------------------*/
 
 function anva_divider( $atts, $content = null ) {
 	$html = '<div class="divider divider-center clearfix"><i class="fa fa-circle"></i></div>';

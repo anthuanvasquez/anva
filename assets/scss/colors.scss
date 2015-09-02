@@ -2,16 +2,17 @@
 /* Colors
 /* ---------------------------------------------------------------- */
 
-$theme-skins: ( orange: #EB9C4D, green: #59BA41 );
+$theme-colors: ( orange: #EB9C4D, green: #59BA41 );
 
-@mixin theme-skin( $color ) {
+// Customize the colors
+@mixin theme-colors( $color ) {
 	a {
 		color: $color;
 	}
 }
 
-@each $skin, $color in $theme-skins {
-	.skin-#{$skin} {
-		@include theme-skin( $color );
+@each $base-color, $color in $theme-colors {
+	.base-color-#{$base-color} {
+		@include theme-colors( $color );
 	}
 }

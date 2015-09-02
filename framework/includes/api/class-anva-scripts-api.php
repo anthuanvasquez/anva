@@ -75,7 +75,6 @@ class Anva_Scripts_API {
 			'deps'		=> array( 'jquery' ),
 			'ver'			=> '3.3.5',
 			'footer'	=> true
-
 		);
 
 		// Plugins
@@ -96,7 +95,16 @@ class Anva_Scripts_API {
 			'footer'	=> true
 		);
 
-		// jQuery Camera Slideshow
+		// Swiper
+		$this->framework_scripts['swiper'] = array(
+			'handle'	=> 'swiper',
+			'src'			=> anva_get_core_uri() .'/assets/js/vendor/swiper.min.js',
+			'deps'		=> array(),
+			'ver'			=> '3.1.2',
+			'footer'	=> true
+		);
+
+		// Camera
 		$this->framework_scripts['camera'] = array(
 			'handle'	=> 'camera',
 			'src'			=> anva_get_core_uri() .'/assets/js/vendor/jquery.camera.js',

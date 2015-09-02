@@ -586,7 +586,7 @@ function anva_get_post_meta( $field ) {
 function anva_sort_gallery( $gallery ) {
 	
 	$sorted = array();
-	$order = anva_get_option( 'gallery_order' );
+	$order = anva_get_option( 'gallery_sort' );
 	
 	if ( ! empty( $order ) && ! empty ( $gallery ) ) {
 		
@@ -633,9 +633,9 @@ function anva_sort_gallery( $gallery ) {
 		
 		return $sorted;
 
-	} else {
-		return $gallery;
 	}
+	
+	return $gallery;
 }
 
 /**

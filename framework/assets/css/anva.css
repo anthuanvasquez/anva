@@ -623,7 +623,6 @@ body.stretched #container {
   font-size: 14px;
   line-height: 20px;
   display: block;
-  position: relative;
   min-width: 14px;
   height: 14px;
   text-align: center;
@@ -3690,6 +3689,11 @@ html[xmlns] .slider-wrap {
   -webkit-backface-visibility: hidden;
 }
 
+.full-screen > .container {
+  padding: 0;
+  width: 100%;
+}
+
 /* ------------------- */
 /* Boxed Slider
 /* ------------------- */
@@ -3805,7 +3809,6 @@ html[xmlns] .slider-wrap {
   width: 100%;
   height: 100%;
   margin: 0;
-  background: url("images/pattern2.png") repeat;
 }
 
 .swiper_wrapper .swiper-slide {
@@ -3846,6 +3849,39 @@ html[xmlns] .slider-wrap {
 #slider.canvas-slider a {
   display: block;
   height: 100%;
+}
+
+.swiper-pagination {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  margin: 0;
+  top: auto;
+  bottom: 20px;
+  text-align: center;
+  line-height: 1;
+}
+
+.swiper-pagination span {
+  display: inline-block;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  opacity: 1;
+  background-color: transparent;
+  border: 1px solid #FFF;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  -webkit-transition: all 0.3s ease;
+     -moz-transition: all 0.3s ease;
+       -o-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.swiper-pagination span:hover,
+.swiper-pagination span.swiper-pagination-bullet-active {
+  background-color: #FFF !important;
 }
 
 /* Revolution Slider

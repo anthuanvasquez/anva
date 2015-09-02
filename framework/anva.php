@@ -204,7 +204,7 @@ class Anva {
 		/* Header
 		/* ---------------------------------------------------------------- */
 
-		add_action( 'anva_top_before', 'anva_side_menu' );
+		// add_action( 'anva_top_before', 'anva_side_menu' );
 		add_action( 'anva_header_above', 'anva_top_bar_default' );
 		add_action( 'anva_header_above', 'anva_sidebar_above_header' );
 		add_action( 'anva_header_extras', 'anva_header_extras_default' );
@@ -267,7 +267,7 @@ class Anva {
 		add_action( 'anva_slider_owl', 'anva_slider_owl_default', 9, 2 );
 		add_action( 'anva_slider_nivo', 'anva_slider_nivo_default', 9, 2 );
 		add_action( 'anva_slider_bootstrap', 'anva_slider_bootstrap_default', 9, 2 );
-
+		add_action( 'anva_slider_swiper', 'anva_slider_swiper_default', 9, 2 );
 		add_action( 'anva_slider_camera', 'anva_slider_camera_default', 9, 2 );
 
 		// Textdomain

@@ -16,7 +16,7 @@ var ANVA = ANVA || {};
 			ANVA.initialize.responsiveLogo();
 			ANVA.initialize.responsiveClasses();
 			ANVA.initialize.lightbox();
-			ANVA.initialize.menuNavigation();
+			ANVA.initialize.primaryMenu();
 			ANVA.initialize.menuTrigger();
 			ANVA.initialize.removeEmptyEl('div.fl-thumbnail');
 			ANVA.initialize.removeEmptyEl('p');
@@ -254,8 +254,8 @@ var ANVA = ANVA || {};
 			});
 		},
 
-		menuNavigation: function() {
-			$menuNavigation.superfish({
+		primaryMenu: function() {
+			$primaryMenu.superfish({
 				popUpSelector: 'ul,.mega-menu-content',
 				delay: 250,
 				speed: 350,
@@ -472,6 +472,7 @@ var ANVA = ANVA || {};
 			ANVA.widget.wpCalendar();
 			// ANVA.widget.instagramPhotos( ANVA.config.instagramID, ANVA.config.instagramSecret );
 			ANVA.widget.toggles();
+			ANVA.widget.youtubeBgVideo();
 			ANVA.widget.extras();
 		},
 
@@ -642,6 +643,58 @@ var ANVA = ANVA || {};
 			});
 		},
 
+		youtubeBgVideo: function() {
+			if ( $youtubeBgPlayerEl.length > 0 ) {
+				$youtubeBgPlayerEl.each( function() {
+					var element = $(this),
+						ytbgVideo = element.attr('data-video'),
+						ytbgMute = element.attr('data-mute'),
+						ytbgRatio = element.attr('data-ratio'),
+						ytbgQuality = element.attr('data-quality'),
+						ytbgOpacity = element.attr('data-opacity'),
+						ytbgContainer = element.attr('data-container'),
+						ytbgOptimize = element.attr('data-optimize'),
+						ytbgLoop = element.attr('data-loop'),
+						ytbgVolume = element.attr('data-volume'),
+						ytbgStart = element.attr('data-start'),
+						ytbgStop = element.attr('data-stop'),
+						ytbgAutoPlay = element.attr('data-autoplay'),
+						ytbgFullScreen = element.attr('data-fullscreen');
+
+					if ( ytbgMute == 'false' ) { ytbgMute = false; } else { ytbgMute = true; }
+					if ( !ytbgRatio ) { ytbgRatio = '16/9'; }
+					if ( !ytbgQuality ) { ytbgQuality = 'hd720'; }
+					if ( !ytbgOpacity ) { ytbgOpacity = 1; }
+					if ( !ytbgContainer ) { ytbgContainer = 'self'; }
+					if ( ytbgOptimize == 'false' ) { ytbgOptimize = false; } else { ytbgOptimize = true; }
+					if ( ytbgLoop == 'false' ) { ytbgLoop = false; } else { ytbgLoop = true; }
+					if ( !ytbgVolume ) { ytbgVolume = 1; }
+					if ( !ytbgStart ) { ytbgStart = 0; }
+					if ( !ytbgStop ) { ytbgStop = 0; }
+					if ( ytbgAutoPlay == 'false' ) { ytbgAutoPlay = false; } else { ytbgAutoPlay = true; }
+					if ( ytbgFullScreen == 'true' ) { ytbgFullScreen = true; } else { ytbgFullScreen = false; }
+
+					element.mb_YTPlayer({
+						videoURL: ytbgVideo,
+						mute: ytbgMute,
+						ratio: ytbgRatio,
+						quality: ytbgQuality,
+						opacity: ytbgOpacity,
+						containment: ytbgContainer,
+						optimizeDisplay: ytbgOptimize,
+						loop: ytbgLoop,
+						vol: ytbgVolume,
+						startAt: ytbgStart,
+						stopAt: ytbgStop,
+						autoplay: ytbgAutoPlay,
+						realfullscreen: ytbgFullScreen,
+						showYTLogo: false,
+						showControls: false
+					});
+				});
+			}
+		},
+
 		extras: function() {
 			$('[data-toggle="tooltip"]').tooltip({
 				container: 'body'
@@ -689,6 +742,7 @@ var ANVA = ANVA || {};
 			ANVA.slider.loadOwlCaption();
 			ANVA.slider.loadNivo();
 			ANVA.slider.loadFlexSlider();
+			ANVA.slider.loadSwiper();
 		},
 
 		loadOwl: function() {
@@ -816,6 +870,98 @@ var ANVA = ANVA || {};
 					});
 				});
 			}
+		},
+
+		loadSwiper: function() {
+			if ( $('.swiper-container').length > 0 ) {
+				var mySwiper = new Swiper ('.swiper-container', {
+					pagination: '.swiper-pagination',
+					nextButton: '#slider-arrow-left',
+					prevButton: '#slider-arrow-right',
+					slidesPerView: 1,
+					paginationClickable: true,
+					spaceBetween: 30,
+					loop: true,
+					onInit: function(swiper) {
+						$('[data-caption-animate]').each(function(){
+							var $toAnimateElement = $(this);
+							var toAnimateDelay = $(this).attr('data-caption-delay');
+							var toAnimateDelayTime = 0;
+							
+							if ( toAnimateDelay ) {
+								toAnimateDelayTime = Number( toAnimateDelay ) + 750;
+							} else {
+								toAnimateDelayTime = 750;
+							}
+
+							if ( !$toAnimateElement.hasClass('animated') ) {
+								$toAnimateElement.addClass('not-animated');
+								var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+								setTimeout(function() {
+									$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
+								}, toAnimateDelayTime );
+							}
+					});
+				},
+				onSlideChangeStart: function(swiper) {
+					$('#slide-number-current').html(swiper.activeIndex + 1);
+					$('[data-caption-animate]').each(function() {
+						var $toAnimateElement = $(this);
+						var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+						$toAnimateElement.removeClass('animated').removeClass(elementAnimation).addClass('not-animated');
+					});
+				},
+				onSlideChangeEnd: function(swiper) {
+						$('#slider').find('.swiper-slide').each(function() {
+							if ( $(this).find('video').length > 0) {
+								$(this).find('video').get(0).pause();
+							}
+							if ( $(this).find('.yt-bg-player').length > 0) {
+								$(this).find('.yt-bg-player').pauseYTP();
+							}
+						});
+
+						$('#slider').find('.swiper-slide:not(".swiper-slide-active")').each(function() {
+							if ( $(this).find('video').length > 0) {
+								if ( $(this).find('video').get(0).currentTime != 0 ) {
+									$(this).find('video').get(0).currentTime = 0;
+								}
+							}
+							if ( $(this).find('.yt-bg-player').length > 0) {
+								$(this).find('.yt-bg-player').getPlayer().seekTo( $(this).find('.yt-bg-player').attr('data-start') );
+							}
+						});
+						
+						if ( $('#slider').find('.swiper-slide.swiper-slide-active').find('video').length > 0 ) {
+							$('#slider').find('.swiper-slide.swiper-slide-active').find('video').get(0).play();
+						}
+						
+						if ( $('#slider').find('.swiper-slide.swiper-slide-active').find('.yt-bg-player').length > 0 ) {
+							$('#slider').find('.swiper-slide.swiper-slide-active').find('.yt-bg-player').playYTP();
+						}
+
+						$('#slider .swiper-slide.swiper-slide-active [data-caption-animate]').each(function(){
+							var $toAnimateElement = $(this);
+							var toAnimateDelay = $(this).attr('data-caption-delay');
+							var toAnimateDelayTime = 0;
+							
+							if ( toAnimateDelay ) {
+								toAnimateDelayTime = Number( toAnimateDelay ) + 300;
+							} else {
+								toAnimateDelayTime = 300;
+							}
+
+							if ( !$toAnimateElement.hasClass('animated') ) {
+								$toAnimateElement.addClass('not-animated');
+								var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+								setTimeout(function() {
+									$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
+								}, toAnimateDelayTime );
+							}
+						});
+					}
+				});
+			}
 		}
 	};
 
@@ -825,7 +971,6 @@ var ANVA = ANVA || {};
 			ANVA.initialize.init();
 			ANVA.header.init();
 			ANVA.widget.init();
-			//ANVA.slider.loadCamera();
 			ANVA.isBrowser.any();
 			ANVA.documentOnReady.windowScroll();	
 		},
@@ -861,19 +1006,20 @@ var ANVA = ANVA || {};
 		flickrSecret: ""
 	};
 
-	var $window 				= $(window),
-		$root 						= $('html, body'),
-		$body 						= $('body'),
-		$wrapper 					= $('#wrapper'),
-		$header 					= $('#header'),
-		$topSearch 				= $('#top-search'),
-		$topCart 					= $('#top-cart'),
-		$contain 					= $('#container'),
-		$footer 					= $('#footer'),
-		$goTop						= $('#gotop'),
-		$menuNavigation 	= $('#primary-menu ul.sf-menu'),
-		$wpCalendar				= $('#wp-calendar'),
-		$buttonNav				= $('.next a[rel="next"], .previous a[rel="prev"]');
+	var $window 				 = $(window),
+		$root 						 = $('html, body'),
+		$body 						 = $('body'),
+		$wrapper 					 = $('#wrapper'),
+		$header 					 = $('#header'),
+		$topSearch 				 = $('#top-search'),
+		$topCart 					 = $('#top-cart'),
+		$contain 					 = $('#container'),
+		$footer 					 = $('#footer'),
+		$goTop						 = $('#gotop'),
+		$primaryMenu 	 		 = $('#primary-menu ul.sf-menu'),
+		$wpCalendar				 = $('#wp-calendar'),
+		$buttonNav				 = $('.next a[rel="next"], .previous a[rel="prev"]'),
+		$youtubeBgPlayerEl = $('.yt-bg-player');
 
 	$(document).ready( ANVA.documentOnReady.init );
 	$(window).load( ANVA.documentOnLoad.init );

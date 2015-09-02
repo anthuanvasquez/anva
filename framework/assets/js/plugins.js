@@ -35,3 +35,4 @@
 //@prepros-append vendor/jquery.animsition.min.js
 //@prepros-append vendor/jquery.fitvids.min.js
 //@prepros-append vendor/jquery.spectragram.min.js
+//@prepros-append vendor/jquery.mb.YTPlayer.min.js

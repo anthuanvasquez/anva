@@ -75,12 +75,13 @@ class Anva_Meta_Box {
 		foreach ( $this->args['page'] as $page ) {
 			
 			// Add scripts only if page match with post type
-			if ( $typenow != $page )
-				return;
+			if ( $typenow == $page ) {
 			
-			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js' );
-			wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css' );
+				wp_enqueue_script( 'jquery-ui-datepicker' );
+				wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js' );
+				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css' );
+
+			}
 		}
 	}
 

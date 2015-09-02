@@ -16,25 +16,12 @@ class Anva_Gallery_Meta_Box {
 	public $id;
 
 	/**
-	 * Image admin thumbnail size
-	 * 
+	 * Arguments to pass to add_meta_box()
+	 *
 	 * @since 1.0.0
+	 * @var array
 	 */
-	private $size = 150;
-
-	/**
-	 * Image thumbnail size width
-	 * 
-	 * @since 1.0.0
-	 */
-	private $width = 150;
-
-	/**
-	 * Image thumbnail size height
-	 * 
-	 * @since 1.0.0
-	 */
-	private $height = 150;
+	private $args;
 
 	/**
 	 * Constructor
@@ -45,8 +32,6 @@ class Anva_Gallery_Meta_Box {
 	public function __construct( $id, $args ) {
 		
 		$this->id = $id;
-		$this->width  = 100;
-		$this->height = 100;
 
 		$defaults = array(
 			'page'				=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
@@ -60,9 +45,8 @@ class Anva_Gallery_Meta_Box {
 		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 			add_action( 'add_meta_boxes', array( $this, 'add' ) );
-			add_action( 'save_post', array( $this, 'save' ), 9, 1 );
+			add_action( 'save_post', array( $this, 'save' ) );
 			add_action( 'wp_ajax_anva_gallery_get_thumbnail', array( $this, 'ajax_get_thumbnail' ) );
-			add_action( 'wp_ajax_anva_gallery_get_all_thumbnail', array( $this, 'ajax_get_all_attachments' ) );
 		}
 	}
 
@@ -74,14 +58,15 @@ class Anva_Gallery_Meta_Box {
 		global $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
-			
-			// Add scripts only if page match with post type
-			if ( $typenow != $page )
-				return;
 
-			wp_enqueue_script( 'media-upload' );
-			wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js' );
-			wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css' );
+			// Add scripts only if page match with post type
+			if ( $typenow == $page ) {
+
+				wp_enqueue_script( 'media-upload' );
+				wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js' );
+				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css' );
+
+			}
 		}
 	}
 
@@ -105,8 +90,10 @@ class Anva_Gallery_Meta_Box {
 		}
 	}
 
-	/*
-	 * Metabox advanced
+	/**
+	 * Renders the content of the meta box
+	 *
+	 * @since 1.0.0
 	 */
 	public function display( $post ) {
 		
@@ -160,10 +147,11 @@ class Anva_Gallery_Meta_Box {
 				<div id="anva_gallery_container">
 					<ul id="anva_gallery_thumbs">
 						<?php
+							add_thickbox();
 							$gallery = ( is_string( $gallery ) ) ? @unserialize( $gallery ) : $gallery;
 							if ( is_array( $gallery ) && count( $gallery ) > 0 ) {
-								foreach ( $gallery as $id ) {
-									echo $this->admin_thumb( $id );
+								foreach ( $gallery as $attachment_id ) {
+									$this->admin_thumb( $attachment_id );
 								}
 							}
 						?>
@@ -241,44 +229,23 @@ class Anva_Gallery_Meta_Box {
 
 	}
 
+	private function get_attachment( $attachment_id ) {
+		
+		$id = array();
+		
+		$id[] = $attachment_id;
+		$image = wp_get_attachment_image_src( $attachment_id, 'medium', true );
+		
+		return array_merge( $id, $image );
+	}
+
 	/*
 	 * Ajax get thumbnail
 	 */
 	public function ajax_get_thumbnail() {
 		header( 'Cache-Control: no-cache, must-revalidate' );
 		header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
-		echo $this->admin_thumb( $_POST['imageid'] );
-		die;
-	}
-
-	/*
-	 * Ajax get attachments
-	 */
-	public function ajax_get_all_attachments() {
-		
-		$post_id = $_POST['post_id'];
-		$included = ( isset( $_POST['included'] ) ) ? $_POST['included'] : array();
-
-		// Do only if there are attachments of these qualifications
-		$attachments = get_children( array(
-			'post_parent' 		=> $post_id,
-			'post_type' 			=> 'attachment',
-			'numberposts' 		=> -1,
-			'order' 					=> 'ASC',
-			'post_mime_type' 	=> 'image', // MIME Type condition
-		) );
-
-		header( 'Cache-Control: no-cache, must-revalidate' );
-		header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
-		
-		if ( count( $attachments ) > 0 ) {
-			foreach ( $attachments as $a ) {
-				if ( !in_array( $a->ID, $included ) ) {
-					echo $this->admin_thumb( $a->ID );
-				}
-			}
-		}
-
+		$this->admin_thumb( $_POST['imageid'] );
 		die;
 	}
 
@@ -288,19 +255,20 @@ class Anva_Gallery_Meta_Box {
 	 * @since 1.0.0
 	 */
 	private function admin_thumb( $attachment_id ) {
-		$image = wp_get_attachment_image_src( $attachment_id, 'medium', true );
+		$image = $this->get_attachment( $attachment_id );
 		?>
 		<li>
-			<div class="attachment-preview">
-				<div class="thumbnail">
-					<div class="centered">
-							<img src="<?php echo esc_url( $image[0] ); ?>" width="<?php echo $image[1]; ?>" height="<?php echo $image[2]; ?>" />
-						
+			<a href="<?php echo admin_url( 'post.php?post=' . $image[0] . '&action=edit' ); ?>">
+				<div class="attachment-preview">
+					<div class="thumbnail">
+						<div class="centered">
+							<img src="<?php echo esc_url( $image[1] ); ?>" width="<?php echo $image[2]; ?>" height="<?php echo $image[3]; ?>" />
+						</div>
 					</div>
 				</div>
-			</div>
+			</a>
 			<a href="#" class="anva_gallery_remove">X</a>
-			<input type="hidden" name="anva_gallery_thumb[]" value="<?php echo $attachment_id; ?>" />
+			<input type="hidden" name="anva_gallery_thumb[]" value="<?php echo $image[0]; ?>" />
 		</li>
 		<?php
 	}

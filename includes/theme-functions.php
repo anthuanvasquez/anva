@@ -60,7 +60,7 @@ function theme_backup_menu( $menu ) {
  */
 function theme_body_classes( $classes ) {
 	$classes[] = anva_get_option( 'layout_style' );
-	$classes[] = 'skin-'. anva_get_option( 'skin' );
+	$classes[] = 'base-color-'. anva_get_option( 'base_colors' );
 	return $classes;
 }
 
@@ -74,20 +74,6 @@ function theme_google_fonts() {
 		anva_get_option( 'body_font' ),
 		anva_get_option( 'heading_font' )
 	);
-}
-
-/**
- * Remove Scripts
- * 
- * @since 1.0.0
- */
-function theme_remove_scripts() {
-	$slider = anva_get_option( 'slider_id' );
-	if ( 'camera' != $slider ) {
-	 // 	anva_remove_stylesheet( 'camera' );
-		// anva_remove_script( 'camera' );
-		// anva_remove_script( 'jquery_mobile' );
-	}
 }
 
 /**
@@ -282,20 +268,42 @@ function theme_styles() {
 	return anva_compress( $styles );
 }
 
-function theme_remove_columns( $columns ) {
+/**
+ * Remove Scripts
+ * 
+ * @since 1.0.0
+ */
+function theme_remove_scripts() {
+	$slider = anva_get_option( 'slider_id' );
+	// Camera
+	if ( 'camera' != $slider ) {
+	 	anva_remove_stylesheet( 'camera' );
+		anva_remove_script( 'camera' );
+	}
+	// Swiper
+	if ( 'swiper' != $slider ) {
+	 	anva_remove_stylesheet( 'swiper' );
+		anva_remove_script( 'swiper' );
+	}
+}
 
+/**
+ * Remove grid columns that are not needed
+ * 
+ * @since 1.0.0
+ */
+function theme_remove_grid_columns( $columns ) {
 	global $pagenow;
-	
+	// Admin Pages
 	if ( ( $pagenow == 'post.php' ) && ( isset( $_GET['post_type'] ) ) && ( $_GET['post_type'] == 'page' ) ) {
 		unset( $columns[1] );
 		unset( $columns[5] );
 		unset( $columns[6] );
 	}
-
+	// Admin Nav Menu
 	if ( ( $pagenow == 'nav-menus.php' ) ) {
 		unset( $columns[6] );
 	}
-
 	return $columns;
 }
 
@@ -305,7 +313,7 @@ function theme_remove_columns( $columns ) {
 
 add_filter( 'optionsframework_menu', 'theme_options_menu' );
 add_filter( 'optionsframework_backup_menu', 'theme_backup_menu' );
-add_filter( 'anva_grid_columns', 'theme_remove_columns' );
+add_filter( 'anva_grid_columns', 'theme_remove_grid_columns' );
 add_filter( 'body_class', 'theme_body_classes' );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
 add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );

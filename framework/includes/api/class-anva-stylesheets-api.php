@@ -132,7 +132,16 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
-		// Camera Slideshow
+		// Swiper
+		$this->framework_stylesheets['swiper'] = array(
+			'handle'	=> 'swiper',
+			'src'			=> anva_get_core_uri() .'/assets/css/swiper.min.css',
+			'deps'		=> array(),
+			'ver'			=> '3.1.2',
+			'media'		=> 'all'
+		);
+
+		// Camera
 		$this->framework_stylesheets['camera'] = array(
 			'handle'	=> 'camera',
 			'src'			=> anva_get_core_uri() .'/assets/css/camera.min.css',

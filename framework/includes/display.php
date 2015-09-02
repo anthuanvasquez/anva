@@ -287,10 +287,29 @@ function anva_featured_default() {
  * @since 1.0.0
  */
 function anva_featured_before_default() {
+	
+	$classes[] = anva_get_option( 'slider_style' );
+	
+	if ( 'true' == anva_get_option( 'slider_parallax' ) ) {
+		$classes[] = 'slider-parallax';
+	}
+
+	$slider_id = anva_get_option( 'slider_id' );
+
+	if ( 'swiper' == $slider_id ) {
+		$classes[] = 'swiper_wrapper has-swiper-slider';
+	}
+
+	if ( $slider_id ) {
+		$classes[] = 'has-' . $slider_id . '-slider';
+	}
+
+	$classes = implode( ' ', $classes );
+
 	?>
-		<!-- SLIDER (start) -->
-		<section id="slider" class="slider-boxed">
-			<div class="container clearfix">
+	<!-- SLIDER (start) -->
+	<section id="slider" class="<?php echo esc_attr( $classes ); ?> clearfix">
+		<div class="container clearfix">
 	<?php
 }
 
@@ -422,42 +441,6 @@ function anva_sidebar_after_default() {
 		</div><!-- .sidebar-inner (end) -->
 	</div><!-- .sidebar (end) -->
 	<?php
-}
-
-/**
- * Display side menu
- * 
- * @since 1.0.0
- */
-function anva_side_menu() {
-	if ( 'off_canvas_navigation' == anva_get_option( 'navigation' ) ) :
-	?>
-	<a href="#" id="off-canvas-trigger">
-		<i class="fa fa-bars"></i>
-	</a>
-	<!-- OFF-CANVAS (start) -->
-	<div id="off-canvas">	
-		<div  class="off-canvas-inner">
-			<div class="off-canvas-content off-canvas-left">
-				<?php
-					if ( has_nav_menu( 'primary' ) ) {
-						wp_nav_menu( array( 
-							'theme_location'  => 'primary',
-							'container'       => 'div',
-							'container_class' => 'off-canvas-navigation',
-							'container_id'    => '',
-							'menu_class'      => 'off-canvas-menu sf-menu',
-							'menu_id'         => '',
-							'echo'            => true,
-							'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
-						);
-					}
-				?>
-			</div>
-		</div>
-	</div><!-- OFF-CANVAS (end) -->
-	<?php
-	endif;
 }
 
 /**

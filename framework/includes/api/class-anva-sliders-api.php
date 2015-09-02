@@ -115,12 +115,12 @@ class Anva_Sliders_API {
 			'swiper' => array(
 				'name' 					=> 'Swiper',
 				'id'						=> 'swiper',
-				'custom_size' 	=> false
+				'custom_size' 	=> true
 			),
 			'camera' => array(
 				'name' 					=> 'Camera',
 				'id'						=> 'camera',
-				'custom_size' 	=> false
+				'custom_size' 	=> true
 			),
 		);
 
@@ -155,34 +155,73 @@ class Anva_Sliders_API {
 
 		// Slider Options
 		$this->core_sliders['standard']['options'] = array(
-			array(
-				'type'		=> 'subgroup_start',
-				'class'		=> 'show-hide-toggle'
-			),
-			array(
-				'id'			=> 'fx',
+			'standard_fx' => array(
+				'id'			=> 'standard_fx',
 				'name'		=> __( 'How to transition between slides?', 'anva' ),
+				'desc'		=> __( 'Select the transition effect for slides.', 'anva' ),
 				'std'			=> 'fade',
 				'type'		=> 'select',
 				'options'	=> array(
 					'fade' 	=> 'Fade',
 					'slide'	=> 'Slide'
 				),
-				'class' 	=> 'trigger'
+				'class' 	=> 'slider-item standard hide'
 			),
-			array(
-				'id'			=> 'smoothheight',
-				'name'		=> __( 'Allow height to adjust on each transition?', 'anva' ),
-				'std'			=> 'false',
+			'standard_thumbs' => array(
+				'id'			=> 'standard_thumbs',
+				'name'		=> __( 'Show thumbnails?', 'anva' ),
+				'desc'		=> __( 'Enable or disable the thumbnails for slides.', 'anva' ),
+				'std'			=> 'true',
 				'type'		=> 'select',
 				'options'	=> array(
-					'true' 	=> 'Yes, enable smoothHeight.',
-					'false'	=> 'No, display as height of tallest slide.'
+					'true' 	=> 'Yes, enable thumbnails.',
+					'false'	=> 'No, disable thumbnails.'
 				),
-				'class'		=> 'hide receiver receiver-slide'
+				'class'		=> 'slider-item standard hide'
 			),
-			array(
-				'type'		=> 'subgroup_end'
+			'standard_grid' => array(
+				'id'			=> 'standard_grid',
+				'name'		=> __( 'Thumbnails Grid', 'anva' ),
+				'desc'		=> __( 'The columns grid for display the thumbnails.', 'anva' ),
+				'std'			=> 'grid-6',
+				'type'		=> 'select',
+				'options'	=> array(
+					'grid-3' 	=> 'Grid 3',
+					'grid-5' 	=> 'Grid 5',
+					'grid-6' 	=> 'Grid 6',
+					'grid-8' 	=> 'Grid 8',
+					'grid-10' => 'Grid 10',
+					'grid-12'	=> 'Grid 12',
+				),
+				'class'		=> 'slider-item standard hide'
+			),
+			'standard_pause' => array(
+				'id'			=> 'standard_pause',
+				'name'		=> __( 'Pause', 'anva' ),
+				'desc'		=> __( 'Enter the time duration for slider pause.', 'anva' ),
+				'std'			=> 7000,
+				'type'		=> 'number',
+				'class'		=> 'slider-item standard hide'
+			),
+			'standard_speed' => array(
+				'id'			=> 'standard_speed',
+				'name'		=> __( 'Speed', 'anva' ),
+				'desc'		=> __( 'Enter speed for slides.', 'anva' ),
+				'std'			=> 1000,
+				'type'		=> 'number',
+				'class'		=> 'slider-item standard hide'
+			),
+			'standard_arrows' => array(
+				'id'			=> 'standard_arrows',
+				'name'		=> __( 'Arrows', 'anva' ),
+				'desc'		=> __( 'Enter the time duration for slider pause.', 'anva' ),
+				'std'			=> 'true',
+				'type'		=> 'select',
+				'options'	=> array(
+					'true' 	=> 'Yes, enable arrows.',
+					'false'	=> 'No, disable arrows.'
+				),
+				'class'		=> 'slider-item standard hide'
 			),
 		);
 
@@ -210,27 +249,30 @@ class Anva_Sliders_API {
 
 		// Slider Options
 		$this->core_sliders['owl']['options'] = array(
-			array(
-				'id'			=> 'nav_arrows',
-				'name'		=> __( 'Show next/prev arrows?', 'anva' ),
-				'std'			=> '1',
+			'owl_fx' => array(
+				'id'			=> 'owl_fx',
+				'name'		=> __( 'How to transition between slides?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'fade',
 				'type'		=> 'select',
 				'options'	=> array(
-					'1'	=> __( 'Yes, show arrows.', 'anva' ),
-					'0'	=> __( 'No, don\'t show them.', 'anva' )
-				)
+					'fade' 	=> 'Fade',
+					'slide'	=> 'Slide'
+				),
+				'class' 	=> 'slider-item owl hide'
 			),
-			array(
-				'id'			=> 'mobile_fallback',
-				'name'		=> __( 'How to display on mobile devices?', 'anva' ),
-				'std'			=> 'full_list',
-				'type'		=> 'radio',
+			'owl_smoothheight' => array(
+				'id'			=> 'owl_smoothheight',
+				'name'		=> __( 'Allow height to adjust on each transition?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'false',
+				'type'		=> 'select',
 				'options'	=> array(
-					'full_list'		=> __( 'List out slides for a more user-friendly mobile experience.', 'anva' ),
-					'first_slide'	=> __( 'Show first slide only for a more simple mobile experience.', 'anva' ),
-					'display'			=> __( 'Attempt to show full animated slider on mobile devices.', 'anva' )
-				)
-			)
+					'true' 	=> 'Yes, enable smoothHeight.',
+					'false'	=> 'No, display as height of tallest slide.'
+				),
+				'class'		=> 'slider-item owl hide'
+			),
 		);
 
 		/*--------------------------------------------*/
@@ -258,44 +300,29 @@ class Anva_Sliders_API {
 
 		// Slider Options
 		$this->core_sliders['nivo']['options'] = array(
-			array(
-				'type'		=> 'subgroup_start',
-				'class'		=> 'show-hide-toggle'
-			),
-			array(
-				'id'				=> 'fx',
-				'name'			=> __( 'How to transition between slides?', 'anva' ),
-				'std'				=> 'random',
-				'type'			=> 'select',
-				'options'		=> array(
-					'boxRandom'				=> 'boxRandom',
-					'boxRain'				=> 'boxRain',
-					'boxRainReverse'		=> 'boxRainReverse',
-					'boxRainGrow'			=> 'boxRainGrow',
-					'boxRainGrowReverse'	=> 'boxRainGrowReverse',
-					'fold'					=> 'fold',
-					'fade'					=> 'fade',
-					'random'				=> 'random',
-					'sliceDown'				=> 'sliceDown',
-					'sliceDownLeft'			=> 'sliceDownLeft',
-					'sliceUp'				=> 'sliceUp',
-					'sliceUpLeft'			=> 'sliceUpLeft',
-					'sliceUpDown'			=> 'sliceUpDown',
-					'sliceUpDownLeft'		=> 'sliceUpDownLeft',
-					'slideInRight'			=> 'slideInRight',
-					'slideInLeft'			=> 'slideInLeft'
+			'nivo_fx' => array(
+				'id'			=> 'nivo_fx',
+				'name'		=> __( 'How to transition between slides?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'fade',
+				'type'		=> 'select',
+				'options'	=> array(
+					'fade' 	=> 'Fade',
+					'slide'	=> 'Slide'
 				),
-				'class' 	=> 'trigger'
+				'class' 	=> 'slider-item nivo hide'
 			),
-			array(
-				'id'		=> 'boxcols',
-				'name' 		=> __( 'Number of box columns for transition?', 'anva' ),
-				'std'		=> '8',
-				'type'		=> 'text',
-				'class'		=> 'hide receiver receiver-boxRandom receiver-boxRain receiver-boxRainReverse receiver-boxRainGrow receiver-boxRainGrowReverse'
-			),
-			array(
-				'type'		=> 'subgroup_end'
+			'nivo_smoothheight' => array(
+				'id'			=> 'nivo_smoothheight',
+				'name'		=> __( 'Allow height to adjust on each transition?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'false',
+				'type'		=> 'select',
+				'options'	=> array(
+					'true' 	=> 'Yes, enable smoothHeight.',
+					'false'	=> 'No, display as height of tallest slide.'
+				),
+				'class'		=> 'slider-item nivo hide'
 			),
 		);
 		
@@ -325,31 +352,29 @@ class Anva_Sliders_API {
 
 		// Slider Options
 		$this->core_sliders['bootstrap']['options'] = array(
-			array(
-				'id'			=> 'interval',
-				'name' 		=> __( 'Seconds between each transition?', 'anva' ),
-				'std'			=> '5',
-				'type'		=> 'text'
-			),
-			array(
-				'id'			=> 'pause',
-				'name'		=> __( 'Enable pause on hover?', 'anva' ),
-				'std'			=> 'true',
+			'bootstrap_fx' => array(
+				'id'			=> 'bootstrap_fx',
+				'name'		=> __( 'How to transition between slides?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'fade',
 				'type'		=> 'select',
 				'options'	=> array(
-					'hover'	=> __( 'Yes, pause slider on hover.', 'anva' ),
-					'false'	=> __( 'No, don\'t pause slider on hover.', 'anva' )
-				)
+					'fade' 	=> 'Fade',
+					'slide'	=> 'Slide'
+				),
+				'class' 	=> 'slider-item bootstrap hide'
 			),
-			array(
-				'id'			=> 'wrap',
-				'name'		=> __( 'Cycle carousel continuously?', 'anva' ),
-				'std'			=> 'true',
+			'smoothheight' => array(
+				'id'			=> 'smoothheight',
+				'name'		=> __( 'Allow height to adjust on each transition?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'false',
 				'type'		=> 'select',
 				'options'	=> array(
-					'true'	=> __( 'Yes, cycle continuously.', 'anva' ),
-					'false'	=> __( 'No, stop cycling.', 'anva' )
-				)
+					'true' 	=> 'Yes, enable smoothHeight.',
+					'false'	=> 'No, display as height of tallest slide.'
+				),
+				'class'		=> 'slider-item bootstrap hide'
 			),
 		);
 
@@ -359,21 +384,29 @@ class Anva_Sliders_API {
 
 		// Slider Options
 		$this->core_sliders['swiper']['options'] = array(
-			array(
-				'id'			=> 'interval',
-				'name' 		=> __( 'Seconds between each transition?', 'anva' ),
-				'std'			=> '5',
-				'type'		=> 'text'
-			),
-			array(
-				'id'			=> 'pause',
-				'name'		=> __( 'Enable pause on hover?', 'anva' ),
-				'std'			=> 'true',
+			'swiper_fx' => array(
+				'id'			=> 'swiper_fx',
+				'name'		=> __( 'How to transition between slides?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'fade',
 				'type'		=> 'select',
 				'options'	=> array(
-					'hover'	=> __( 'Yes, pause slider on hover.', 'anva' ),
-					'false'	=> __( 'No, don\'t pause slider on hover.', 'anva' )
-				)
+					'fade' 	=> 'Fade',
+					'slide'	=> 'Slide'
+				),
+				'class' 	=> 'slider-item swiper hide'
+			),
+			'swiper_smoothheight' => array(
+				'id'			=> 'swiper_smoothheight',
+				'name'		=> __( 'Allow height to adjust on each transition?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'false',
+				'type'		=> 'select',
+				'options'	=> array(
+					'true' 	=> 'Yes, enable smoothHeight.',
+					'false'	=> 'No, display as height of tallest slide.'
+				),
+				'class'		=> 'slider-item swiper hide'
 			),
 		);
 
@@ -383,21 +416,29 @@ class Anva_Sliders_API {
 
 		// Slider Options
 		$this->core_sliders['camera']['options'] = array(
-			array(
-				'id'			=> 'interval',
-				'name' 		=> __( 'Seconds between each transition?', 'anva' ),
-				'std'			=> '5',
-				'type'		=> 'text'
-			),
-			array(
-				'id'			=> 'pause',
-				'name'		=> __( 'Enable pause on hover?', 'anva' ),
-				'std'			=> 'true',
+			'camera_fx' => array(
+				'id'			=> 'camera_fx',
+				'name'		=> __( 'How to transition between slides?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'fade',
 				'type'		=> 'select',
 				'options'	=> array(
-					'hover'	=> __( 'Yes, pause slider on hover.', 'anva' ),
-					'false'	=> __( 'No, don\'t pause slider on hover.', 'anva' )
-				)
+					'fade' 	=> 'Fade',
+					'slide'	=> 'Slide'
+				),
+				'class' 	=> 'slider-item camera hide'
+			),
+			'smoothheight' => array(
+				'id'			=> 'smoothheight',
+				'name'		=> __( 'Allow height to adjust on each transition?', 'anva' ),
+				'desc'		=> __( 'Hello', 'anva' ),
+				'std'			=> 'false',
+				'type'		=> 'select',
+				'options'	=> array(
+					'true' 	=> 'Yes, enable smoothHeight.',
+					'false'	=> 'No, display as height of tallest slide.'
+				),
+				'class'		=> 'slider-item camera hide'
 			),
 		);
 

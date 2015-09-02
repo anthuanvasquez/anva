@@ -8,6 +8,7 @@
  */
 
 add_filter( 'anva_sanitize_text', 'sanitize_text_field' );
+add_filter( 'anva_sanitize_number', 'anva_sanitize_number' );
 add_filter( 'anva_sanitize_password', 'sanitize_text_field' );
 add_filter( 'anva_sanitize_range', 'sanitize_text_field' );
 add_filter( 'anva_sanitize_select', 'anva_sanitize_enum', 10, 2 );
@@ -164,8 +165,8 @@ function anva_sanitize_enum( $input, $option ) {
  * @returns string $output
  */
 function anva_sanitize_number( $input ) {
-	$output = '';
-	if ( 0 == intval( $input ) ) {
+	$output = 0;
+	if ( 0 != absint( $input ) ) {
 		$output = $input;
 	}
 	return $output;

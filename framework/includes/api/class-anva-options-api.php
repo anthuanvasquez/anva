@@ -57,22 +57,19 @@ class Anva_Options_API {
 	 */
 	private function __construct() {
 
-		//if ( is_admin() ) {
+		if ( is_admin() ) {
 			
 			// Setup options
 			$this->set_raw_options();
 
 			// Format options
 			add_action( 'after_setup_theme', array( $this, 'set_formatted_options' ), 1000 );
-		//}
+		}
 	}
 
 	/**
 	 * Setup raw options array for the start of the
-	 * API process.
-	 *
-	 * Note: The framework used to reference these as
-	 * "core options" before this class existed.
+	 * API process
 	 */
 	public function set_raw_options() {
 
@@ -105,39 +102,6 @@ class Anva_Options_API {
 				$pages[$page->ID] = $page->post_title;
 			}
 		}
-
-		// Pull all gallery templates
-		$galleries = array();
-		if ( is_admin() ) {
-			foreach ( anva_gallery_templates() as $key => $gallery ) {
-				$galleries[$key] = $gallery['name'];
-			}
-		}
-
-		// Pull all sliders
-		$sliders = array();
-		if ( is_admin() ) {
-			foreach ( anva_get_sliders() as $key => $slider ) {
-				$sliders[$key] = $slider['name'];
-			}
-
-			// Revolution Slider
-			if ( class_exists( 'RevSliderAdmin' ) ) {
-				$sliders['revslider'] = 'Revolution Slider';
-			}
-		}
-
-
-		$animations = array();
-		if ( is_admin() ) {
-			foreach ( anva_get_animations() as $key => $value ) {
-				$animations[$value] = $value; 
-			}
-		}
-
-		// $api = Anva_Sliders_API::instance();
-		
-		// var_dump( $api->get_remove_sliders() );	
 
 		/* ---------------------------------------------------------------- */
 		/* Defaults
@@ -514,123 +478,6 @@ class Anva_Options_API {
 			),
 
 			/*--------------------------------------------*/
-			/* Gallery
-			/*--------------------------------------------*/
-
-			'gallery' => array(
-				'name' => __( 'Gallery', 'anva' ),
-				'class' => 'group-gallery',
-				'options' => array(
-
-					'gallery_sort' => array(
-						'name' => __('Images Sorting', 'anva'),
-						'desc' => __('Select how you want to sort gallery images.', 'anva'),
-						'id' => 'gallery_sort',
-						'std' => 'drag',
-						'type' => 'select',
-						'options' => array(
-							'drag' => __('Drag & Drop', 'anva'),
-							'desc' => __('Newest', 'anva'),
-							'asc' => __('Oldest', 'anva'),
-							'rand' => __('Random', 'anva'),
-							'title' => __('Title', 'anva')
-						)
-					),
-
-					'gallery_template' => array(
-						'name' => __('Default Template', 'anva'),
-						'desc' => __('Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', 'anva'),
-						'id' => 'gallery_template',
-						'std' => '3-col',
-						'type' => 'select',
-						'options' => $galleries
-					),
-
-					'gallery_animate' => array(
-						'name' => __( 'Animate', 'anva' ),
-						'desc' => __( 'Choose the default animation for gallery images.', 'anva' ),
-						'id' => 'gallery_animate',
-						'std' => 'fadeIn',
-						'type' => 'select',
-						'options' => $animations
-					),
-
-					'gallery_delay' => array(
-						'name' => __( 'Delay', 'anva' ),
-						'desc' => __( 'Choose the default delay for animation.', 'anva' ),
-						'id' => 'gallery_delay',
-						'std' => '400',
-						'type' => 'range',
-						'options' => array(
-							'min' => 400,
-							'max' => 2000,
-							'step' => 100,
-						)
-					),
-				)
-			),
-
-			/*--------------------------------------------*/
-			/* Sliders
-			/*--------------------------------------------*/
-			
-			'slider' => array(
-				'name' => __( 'Sliders', 'anva' ),
-				'class' => 'group-slider',
-				'options' => array(
-
-					'slider_id' => array(
-						'name' => __( 'Slider', 'anva'),
-						'desc' => __( 'Select the slider.', 'anva'),
-						'id' => 'slider_id',
-						'std' => 'standard',
-						'type' => 'select',
-						'options' => $sliders
-					),
-
-					'slider_speed' => array(
-						'name' => __('Speed', 'anva'),
-						'desc' => __('Set the slider speed. Default is 7000 in milliseconds.', 'anva'),
-						'id' => 'slider_speed',
-						'std' => '7000',
-						'type' => 'number'
-					),
-
-					'slider_control' => array(
-						'name' => __('Control Navigation', 'anva'),
-						'desc' => __('Show or hide the slider control navigation.', 'anva'),
-						'id' => 'slider_control',
-						'std' => 'show',
-						'type' => 'select',
-						'options' => array(
-							'show' => __('Show the slider control', 'anva'),
-							'hide' => __('Hide the slider control', 'anva')
-						)
-					),
-
-					'slider_direction' => array(
-						'name' => __('Direction Navigation', 'anva'),
-						'desc' => __('Show or hide the slider direction navigation.', 'anva'),
-						'id' => 'slider_direction',
-						'std' => 'show',
-						'type' => 'select',
-						'options' => array(
-							'show' => __('Show the slider direction', 'anva'),
-							'hide' => __('Hide the slider direction', 'anva')
-						)
-					),
-
-					'revslider_id' => array(
-						'name' => __( 'Revolution Slider ID', 'anva' ),
-						'desc' => __( 'Show or hide the slider direction navigation.', 'anva' ),
-						'id' => 'revslider_id',
-						'std' => '',
-						'type' => 'text',
-					),
-				)
-			),
-
-			/*--------------------------------------------*/
 			/* Footer
 			/*--------------------------------------------*/
 
@@ -853,7 +700,6 @@ class Anva_Options_API {
 				'class' => 'group-responsive',
 				'type' 	=> 'group_start',
 				'options' => array(
-
 					'responsive' => array(
 						'name' => __( 'Responsive', 'anva' ),
 						'desc' => __( 'This theme comes with a special stylesheet that will target the screen resolution of your website vistors and show them a slightly modified design if their screen resolution matches common sizes for a tablet or a mobile device.', 'anva' ),
@@ -865,56 +711,8 @@ class Anva_Options_API {
 							'no' 	=> __( 'No, allow website to show normally on tablets and mobile devices', 'anva' ),
 						)
 					),
-
-					'responsive_css_992' => array(
-						'name' => __( 'Add styles to tablet devices only', 'anva' ),
-						'desc' => __( 'This CSS styles apply to breakpoint @media screen and (max-width: 992px).', 'anva' ),
-						'id' => 'responsive_css_992',
-						'std' => '',
-						'type' => 'textarea'
-
-					),
-
-					'responsive_css_768' => array(
-						'name' => __( 'Add styles to mobile devices only', 'anva' ),
-						'desc' => __( 'This CSS styles apply to breakpoint @media screen and (max-width: 768px).', 'anva' ),
-						'id' => 'responsive_css_768',
-						'std' => '',
-						'type' => 'textarea'
-					)
 				)
 			), // End Responsive
-
-			'minify' => array(
-				'name' 	=> __( 'Minify', 'anva' ),
-				'class' => 'group-minify',
-				'type' 	=> 'group_start',
-				'options' => array(
-
-					'css_warning' => array(
-						'name' => __( 'Warning', 'anva'),
-						'desc' => __( 'If you have a cache plugin installed in your site desactive this options.', 'anva' ),
-						'id' 	 => 'css_warning',
-						'type' => 'info'
-					),
-
-					'compress_css' => array(
-						'name' => __('Combine and Compress CSS files', 'anva'),
-						'desc' => __('Combine and compress all CSS files to one. Help reduce page load time and increase server resources.', 'anva'),
-						'id' => "compress_css",
-						'std' => '0',
-						'type' => 'checkbox'
-					),
-
-					'compress_js' => array(
-						'name' => __('Combine and Compress Javascript files', 'anva' ),
-						'desc' => __('Combine and compress all Javascript files to one. Help reduce page load time and increase server resource.', 'anva'),
-						'id' => "compress_js",
-						'std' => '0',
-						'type' => 'checkbox'
-					)
-				)
-			)// End Minify
 		);
 
 		/* ---------------------------------------------------------------- */
@@ -1072,6 +870,8 @@ class Anva_Options_API {
 		if ( ! isset( $this->raw_options[$tab_id] ) )
 			return;
 
+		$class = 'group-' . $section_id;
+
 		// Format options array
 		$new_options = array();
 		if ( $options ) {
@@ -1096,6 +896,7 @@ class Anva_Options_API {
 			$this->raw_options[$tab_id]['sections'] = array(
 				$section_id => array(
 					'name' 		=> $section_name,
+					'class'		=> $class,
 					'desc' 		=> $section_desc,
 					'options' => $new_options
 				)
@@ -1107,6 +908,7 @@ class Anva_Options_API {
 
 			$this->raw_options[$tab_id]['sections'][$section_id] = array(
 				'name'		=> $section_name,
+				'class'		=> $class,
 				'desc'		=> $section_desc,
 				'options'	=> $new_options
 			);
@@ -1127,6 +929,8 @@ class Anva_Options_API {
 	 */
 	public function add_option( $tab_id, $section_id, $option_id, $option ) {
 
+		
+
 		if ( ! isset( $this->raw_options[$tab_id] ) ) {
 			return;
 		}
@@ -1136,6 +940,7 @@ class Anva_Options_API {
 		}
 
 		$this->raw_options[$tab_id]['sections'][$section_id]['options'][$option_id] = $option;
+
 	}
 
 	/**

@@ -1007,9 +1007,10 @@ function anva_gallery_grid( $post_id, $columns, $thumbnail ) {
 	$query_args = array(
 		'post_type'   	 => 'attachment',
 		'post_status' 	 => 'inherit',
-		'post__in'			 => $gallery,
-		'post_mime_type' => 'image',
+		'post_mime_type' => 'image/jpeg',
 		'posts_per_page' => -1,
+		'post__in'			 => $gallery,
+		'orderby'				 => 'post__in',
 	);
 
 	$query = anva_get_query_posts( $query_args );
@@ -1113,11 +1114,12 @@ function anva_revolution_slider_default() {
 function anva_slider_standard_default( $slider, $settings ) {
 
 	// Global Options
-	$pause = anva_get_option( 'slider_speed' );
-	$arrows = anva_get_option( 'slider_direction' );
-	$animation = 'slide';
-	$speed = '1000';
-	$thumbs = 'true';
+	$pause = anva_get_option( 'standard_pause' );
+	$arrows = anva_get_option( 'standard_arrows' );
+	$animation = anva_get_option( 'standard_fx' );
+	$speed = anva_get_option( 'standard_speed' );
+	$thumbs = anva_get_option( 'standard_thumbs' );
+	$grid = anva_get_option( 'standard_grid' );
 	$thumbnail = 'anva_lg';
 
 	// Query arguments
@@ -1136,7 +1138,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 	
 	if ( $query->have_posts() ) {
 		
-		$html .= '<div class="fslider flex-thumb-grid grid-6" data-animation="' . esc_attr( $animation ) . '" data-thumbs="' . esc_attr( $thumbs ) . '" data-arrows="' . esc_attr( $arrows ) . '" data-speed="' . esc_attr( $speed ) . '" data-pause="'. esc_attr( $pause ) . '">';
+		$html .= '<div class="fslider flex-thumb-grid ' . esc_attr( $grid ) . '" data-animation="' . esc_attr( $animation ) . '" data-thumbs="' . esc_attr( $thumbs ) . '" data-arrows="' . esc_attr( $arrows ) . '" data-speed="' . esc_attr( $speed ) . '" data-pause="'. esc_attr( $pause ) . '">';
 		$html .= '<div class="flexslider">';
 		$html .= '<ul class="slider-wrap slides">';
 		
@@ -1421,6 +1423,35 @@ function anva_slider_bootstrap_default( $slider, $settings ) {
 
 	echo $html;
 
+}
+
+function anva_slider_swiper_default() {
+	?>
+	
+	<div class="swiper-container swiper-parent">
+		<!-- Additional required wrapper -->
+		<div class="swiper-wrapper">
+			<!-- Slides -->
+			<div class="swiper-slide" style="background-image: url('/wp-content/uploads/2015/08/photographer_girl_2-wallpaper-1600x900.jpg')"></div>
+			<div class="swiper-slide" style="background-image: url('/wp-content/uploads/2015/08/photographer_girl_2-wallpaper-1600x900.jpg')"></div>
+			<div class="swiper-slide" style="background-image: url('/wp-content/uploads/2015/08/photographer_girl_2-wallpaper-1600x900.jpg')">
+				<div class="slide-container clearfix">
+					<div class="slider-caption slider-caption-center">
+						<h2 data-caption-animate="fadeInUp">Welcome to Canvas</h2>
+						<p data-caption-animate="fadeInUp" data-caption-delay="200">Create just what you need for your Perfect Website. Choose from a wide range of Elements &amp; simply put them on our Canvas.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- If we need pagination -->
+		<div class="swiper-pagination"></div>
+		
+		<!-- If we need navigation buttons -->
+		<div id="slider-arrow-left"><i class="fa fa-angle-left"></i></div>
+		<div id="slider-arrow-right"><i class="fa fa-angle-right"></i></div>
+		
+	</div>
+	<?php
 }
 
 function anva_slider_camera_default() {
