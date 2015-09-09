@@ -9,27 +9,22 @@
 
 get_header();
 
-// Get current page ID
-$page_id = '';
-$page = get_page( $post->ID );
-if ( isset( $page->ID ) ) {
-  $page_id = $page->ID;
-}
-
 // Verify is Page Builder is enabled
-$enable = anva_get_page_builder_field();
+$settings = anva_get_page_builder_field();
 ?>
 
-<?php if ( empty( $enable['enable'] ) ) : ?>
+<?php if ( ! isset( $settings['enable'] ) || ! $settings['enable'] ) : ?>
 
 	<div class="row grid-columns">
 		<div class="content-area col-sm-12">
-			<?php _e( 'Anva Page Builder is Empty.' ); ?>
+			<?php printf( '<div class="alert alert-warning">%s</div>', __( 'The Anva Page Builder is empty or is disabled.', 'anva' ) ) ; ?>
 		</div><!-- .content-area (end) -->
 	</div><!-- .grid-columns (end) -->
 
 <?php else : ?>
-		<?php anva_page_builder_elements( $page_id  ); ?>
+
+	<?php anva_elements(); ?>
+
 <?php endif; ?>
 
 <?php get_footer(); ?>

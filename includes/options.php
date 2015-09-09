@@ -163,10 +163,10 @@ function eren_options() {
 	/* ---------------------------------------------------------------- */
 
 	$minify_options = array(
-		'css_warning' => array(
+		'minify_warning' => array(
 			'name' => __( 'Warning', 'anva' ),
 			'desc' => __( 'If you have a cache plugin installed in your site desactive this options.', 'anva' ),
-			'id' 	 => 'css_warning',
+			'id' 	 => 'minify_warning',
 			'type' => 'info'
 		),
 

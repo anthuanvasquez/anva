@@ -19,8 +19,12 @@ function anva_add_meta_boxes_default() {
 	$post_meta = anva_setup_post_meta();
 	$post_meta_box = new Anva_Meta_Box( $post_meta['args']['id'], $post_meta['args'], $post_meta['options'] );
 
+	// Page Builder Meta Box
+	$page_builder_meta = anva_setup_page_builder_meta();
+	$page_builder_meta_box = new Anva_Builder_Meta_Box( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
+
+	// Gallery Meta Box
 	if ( post_type_exists( 'galleries' ) ) {
-		// Gallery Meta Box
 		$gallery_meta = anva_setup_gallery_meta();
 		$gallery_meta_box = new Anva_Meta_Box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['options'] );
 	
@@ -28,25 +32,11 @@ function anva_add_meta_boxes_default() {
 		$gallery_attachments_meta_box = new Anva_Gallery_Meta_Box( $gallery_attachments_meta['args']['id'], $gallery_attachments_meta['args'] );
 	}
 
+	// Slider Meta Box
 	if ( post_type_exists( 'slideshows' ) ) {
-		// Slider Meta Box
 		$slider_meta = anva_setup_slider_meta();
 		$slider_meta_box = new Anva_Meta_Box( $slider_meta['args']['id'], $slider_meta['args'], $slider_meta['options'] );
 	}
-}
-
-/**
- * Add page and post meta boxes
- *
- * @since 1.0.0
- * @return class Anva_Meta_box
- */
-function anva_add_page_builder_meta_box() {
-
-	// Page Builder Meta Box
-	$page_builder_meta = anva_setup_page_builder_meta();
-	$page_builder_meta_box = new Anva_Builder_Meta_Box( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
-
 }
 
 /**

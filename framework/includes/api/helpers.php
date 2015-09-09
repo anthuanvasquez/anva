@@ -576,7 +576,7 @@ function anva_get_field( $field, $default = false ) {
 		$page = anva_setup_gallery_meta();
 	}
 
-	// Get meta for slider
+	// Get meta for sliders
 	if ( is_singular( 'slideshows' ) || 'slideshows' == get_post_type() || isset( $typenow ) && 'slideshows' == $typenow ) {
 		$page = anva_setup_slider_meta();
 	}

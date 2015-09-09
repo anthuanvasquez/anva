@@ -311,7 +311,6 @@ class Anva_Builder_Elements_API {
 			'desc' => __( 'Create a header with some nice text.', 'anva' ),
 			'content' => true
 		);
-		
 
 		/*--------------------------------------------*/
 		/* Header Image

@@ -1,14 +1,9 @@
 <?php
 /**
- * The template file for single gallery posts.
+ * The template file for single galleries.
  * 
  * @version 1.0.0
  */
-
-// Start session
-if ( session_id() == '' ) {
-	session_start();
-}
 
 get_header();
 ?>

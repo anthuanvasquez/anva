@@ -325,11 +325,11 @@ function anva_post_author() {
 }
 
 function anva_post_tags() {
-	$margin = 'entry-tags clearfix';
+	$classes = 'entry-tags clearfix';
 	if ( is_single() )
-		$margin .= ' bottommargin';
+		$classes .= ' bottommargin';
 	?>
-	<span class="<?php echo esc_attr( $margin ); ?>">
+	<span class="<?php echo esc_attr( $classes ); ?>">
 		<?php the_tags( '<i class="fa fa-tags"></i> ', ' ' ); ?>
 	</span><!-- .entry-tags (end) -->
 	<?php

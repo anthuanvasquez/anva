@@ -63,8 +63,10 @@ class Anva_Gallery_Meta_Box {
 			if ( $typenow == $page ) {
 
 				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js' );
-				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css' );
+				wp_enqueue_script( 'anva-media-gallery', anva_get_core_uri() . '/assets/js/admin/media-gallery.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_localize_script( 'anva-media-gallery', 'ANVA', anva_get_admin_locals( 'metabox_js' ) );
+				wp_enqueue_style( 'anva-animate', anva_get_core_uri() . '/assets/css/admin/animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}
@@ -100,45 +102,6 @@ class Anva_Gallery_Meta_Box {
 		$gallery = get_post_meta( $post->ID, $this->id, true );
 
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
-
-		$upload_size_unit = $max_upload_size = wp_max_upload_size();
-		$sizes = array( 'KB', 'MB', 'GB' );
-
-		for ( $u = -1; $upload_size_unit > 1024 && $u < count( $sizes ) - 1; $u++ ) {
-			$upload_size_unit /= 1024;
-		}
-
-		if ( $u < 0 ) {
-			$upload_size_unit = 0;
-			$u = 0;
-		} else {
-			$upload_size_unit = (int) $upload_size_unit;
-		}
-
-		$upload_action_url = admin_url( 'async-upload.php' );
-		
-		$post_params 	= array(
-			'post_id' 	=> $post->ID,
-			'_wpnonce' 	=> wp_create_nonce( 'media-form' ),
-			'short' 		=> '1',
-		);
-
-		$post_params 	= apply_filters( 'upload_post_params', $post_params );
-
-		$plupload_init = array(
-			'runtimes' 						=> 'html5, silverlight, flash, html4',
-			'browse_button' 			=> 'anva-plupload-browse-button',
-			'file_data_name' 			=> 'async-upload',
-			'multiple_queues' 		=> true,
-			'max_file_size' 			=> $max_upload_size . 'b',
-			'url' 								=> $upload_action_url,
-			'flash_swf_url' 			=> includes_url( 'js/plupload/plupload.flash.swf'),
-			'silverlight_xap_url' => includes_url( 'js/plupload/plupload.silverlight.xap' ),
-			'filters' 						=> array( array( 'title' => __( 'Allowed Files', 'anva' ), 'extensions' => '*' ) ),
-			'multipart' 					=> true,
-			'urlstream_upload' 		=> true,
-			'multipart_params' 		=> $post_params
-		);
 		?>
 		
 		<div class="anva-meta-box">
@@ -147,7 +110,6 @@ class Anva_Gallery_Meta_Box {
 				<div id="anva_gallery_container">
 					<ul id="anva_gallery_thumbs">
 						<?php
-							add_thickbox();
 							$gallery = ( is_string( $gallery ) ) ? @unserialize( $gallery ) : $gallery;
 							if ( is_array( $gallery ) && count( $gallery ) > 0 ) {
 								foreach ( $gallery as $attachment_id ) {
@@ -158,15 +120,9 @@ class Anva_Gallery_Meta_Box {
 					</ul>
 				</div>
 				<div class="anva-gallery-actions">
-					<input id="anva_gallery_delete_all_button" class="button secondary_button button-secondary" type="button" value="<?php echo __('Delete All Images', 'anva'); ?>" rel="" />
-					<input id="anva_gallery_upload_button" data-uploader_title="<?php echo __( 'Upload Image', 'anva' ); ?>" data-uploader_button_text="Select" class="primary_button button button-primary" type="button" value="<?php echo __('Upload Image', 'anva'); ?>" rel="" />
+					<input type="button" id="anva_gallery_remove_all_buttons" class="button button-secondary" value="<?php echo __('Remove All Images', 'anva'); ?>" />
+					<input type="button" id="anva_gallery_upload_button" class="button button-primary" value="<?php echo __('Upload Image', 'anva'); ?>" data-uploader_title="<?php echo __( 'Upload Image', 'anva' ); ?>" data-uploader_button_text="<?php _e( 'Select Image', 'anva' ); ?>" />
 				</div>
-				<script type="text/javascript">
-					/* <![CDATA[ */
-					var POST_ID = <?php echo $post->ID; ?>;
-					var ANVAUploaderInit = <?php echo json_encode( $plupload_init ); ?>;
-					/* ]]> */
-				</script>
 			</div>
 		</div>
 
@@ -223,9 +179,12 @@ class Anva_Gallery_Meta_Box {
 					$images_ids[] = $attachment_id;
 				}
 			}
+			update_post_meta( $post_id, $id, $images_ids );
+
+			return $post_id;
 		}
 
-		update_post_meta( $post_id, $id, $images_ids );
+		delete_post_meta( $post_id, $id );
 
 	}
 
@@ -244,7 +203,7 @@ class Anva_Gallery_Meta_Box {
 	 */
 	public function ajax_get_thumbnail() {
 		header( 'Cache-Control: no-cache, must-revalidate' );
-		header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
+		header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' );
 		$this->admin_thumb( $_POST['imageid'] );
 		die;
 	}
@@ -256,10 +215,19 @@ class Anva_Gallery_Meta_Box {
 	 */
 	private function admin_thumb( $attachment_id ) {
 		$image = $this->get_attachment( $attachment_id );
+		$class = 'landscape squre';
+	
+		if ( $image[2] > $image[3] ) {
+			$class = 'landscape';
+		}
+
+		if ( $image[2] < $image[3] ){
+			$class = 'portrait';
+		}	
 		?>
-		<li>
+		<li class="attachment animated fadeIn" data-id="<?php echo esc_attr( $image[0] ); ?>">
 			<a href="<?php echo admin_url( 'post.php?post=' . $image[0] . '&action=edit' ); ?>">
-				<div class="attachment-preview">
+				<div class="attachment-preview <?php echo esc_attr( $class ); ?>">
 					<div class="thumbnail">
 						<div class="centered">
 							<img src="<?php echo esc_url( $image[1] ); ?>" width="<?php echo $image[2]; ?>" height="<?php echo $image[3]; ?>" />

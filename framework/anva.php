@@ -51,6 +51,17 @@ class Anva {
 	}
 
 	/**
+	 * Throw error on object clone
+	 *
+	 * Singleton design pattern. Only one object, so no clones for you.
+	 *
+	 * @since  1.0.0
+	 */
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin\' huh?', 'anva' ), '1.0.0' );
+	}
+
+	/**
 	 * Constructor
 	 * Hook everything in.
 	 *
@@ -80,7 +91,7 @@ class Anva {
 	 *
 	 * @since 1.0.0
 	 */
-	public function set_constants() {
+	private function set_constants() {
 
 		define( 'ANVA_FRAMEWORK_NAME', self::NAME );
 		define( 'ANVA_FRAMEWORK_VERSION', self::VERSION );
@@ -89,7 +100,7 @@ class Anva {
 		
 	}
 
-	public function set_files() {
+	private function set_files() {
 
 		/* ---------------------------------------------------------------- */
 		/* Vendor
@@ -160,7 +171,7 @@ class Anva {
 	 *
 	 * @since 1.0.0
 	 */
-	public function set_hooks() {
+	private function set_hooks() {
 
 		/* ---------------------------------------------------------------- */
 		/* Admin / Options
@@ -189,7 +200,6 @@ class Anva {
 		add_action( 'wp_footer', 'anva_footer_ghost', 1000 );
 		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
 		add_action( 'admin_init', 'anva_add_meta_boxes_default' );
-		add_action( 'admin_init', 'anva_add_page_builder_meta_box' );
 		add_filter( 'the_password_form', 'anva_password_form' );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'body_class', 'anva_body_class' );
@@ -258,10 +268,8 @@ class Anva {
 		add_action( 'anva_after', 'anva_debug' );
 		
 		/* ---------------------------------------------------------------- */
-		/* Plugins
+		/* Sliders
 		/* ---------------------------------------------------------------- */
-
-		add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
 		
 		add_action( 'anva_slider_standard', 'anva_slider_standard_default', 9, 2 );
 		add_action( 'anva_slider_owl', 'anva_slider_owl_default', 9, 2 );
@@ -269,6 +277,9 @@ class Anva {
 		add_action( 'anva_slider_bootstrap', 'anva_slider_bootstrap_default', 9, 2 );
 		add_action( 'anva_slider_swiper', 'anva_slider_swiper_default', 9, 2 );
 		add_action( 'anva_slider_camera', 'anva_slider_camera_default', 9, 2 );
+
+		// Shortcodes
+		add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
 
 		// Textdomain
 		do_action( 'anva_textdomain' );
@@ -309,5 +320,3 @@ function Anva_Framework() {
 
 // Here We Go!
 Anva_Framework();
-
-Anva_Sliders_API::instance();

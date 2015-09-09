@@ -46,80 +46,77 @@ function anva_get_page_builder_field() {
  * @since  1.0.0
  * @return shortcode The shortcode 
  */
-function anva_page_builder_elements( $page_id, $post_type = 'page' ) {
-	
+function anva_elements() {
+
+	// Get settings
 	$settings = anva_get_page_builder_field();
-	$items_order = $settings['order'];
+
+	var_dump($settings);
+
+	// Kill it if there's no order
+	if ( isset( $settings['order'] ) && empty( $settings['order'] ) ) {
+		return;
+	}
+	
+	// Kill it if not a array with keys
+	if ( ! is_array( $settings['order'] ) ) {
+		return;
+	}
+
+	// Set items order
+	$items 	 = explode( ',', $settings['order'] );
 	$counter = 0;
-	$classes = '';
-	
-	$items = explode( ',', $items_order );
-	$shortcodes = anva_get_elements();
-	
-	if ( is_array( $items ) && count( $items ) > 0 ) {
+
+	foreach ( $items as $key => $item ) {
+
+		$atts 		= array();
+		$classes 	= array();
+
+		$counter++;
+
+		$data 			= $settings[$item]['data'];
+		$obj 				= json_decode( $data );
+		$content 		= $obj->shortcode . '_content';
+		$shortcode 	= $obj->shortcode;
+
+		// Validate if elements exist
+		if ( anva_is_element( $shortcode ) ) {
+
+			$shortcodes = anva_get_elements();
 			
-		$html = '';
-	
-		foreach ( $items as $key => $item ) {
+			// Shortcode has attributes
+			if ( isset( $shortcodes[$shortcode]['attr'] ) ) {
 
-			$atts = array();
+				$classes[] = 'element-has-attributes';
 
-			$counter++;
-
-			$item_data 				= $settings[$item]['data'];
-			$item_size 				= $settings[$item]['size'];
-			$item_obj 				= json_decode( $item_data );
-			$item_content 		= $item_obj->shortcode . '_content';
-			$shortcode 				= $item_obj->shortcode;
-			$content 					= null;
-
-			// Validate if shortcode exist in elements array
-			if ( isset( $shortcodes[$shortcode] ) ) {
-
-				$html .= '[anva_' . $shortcode . ' size="' . esc_attr( $item_size ) . '" ';
-
-				$title = $item_obj->shortcode . '_title';
-				
-				if ( isset( $item_obj->$title ) ) {
-					$html .= 'title="' . esc_attr( urldecode( $item_obj->$title ), ENT_QUOTES, "UTF-8" ) . '" ';
-				}
-				
 				// Get shortcode attributes
-				$attributes = $shortcodes[$shortcode];
-				
-				foreach ( $attributes['attr'] as $attr => $value ) {
-					$shortcode_attr = $item_obj->shortcode . '_' . $attr;
-					
-					if ( isset( $item_obj->$shortcode_attr ) ) {
-						$html .= $attr . '="' . esc_attr( $item_obj->$shortcode_attr ) . '" ';
-						$atts[$attr] = esc_attr( urldecode( $item_obj->$shortcode_attr ) );
-					}
-				}
+				$attributes = $shortcodes[$shortcode]['attr'];
 
-				// Shortcode has content
-				if ( isset( $item_obj->$item_content ) ) {
-					$classes = 'element-has-content';
-					$html .= ']' . wp_kses_post( urldecode( $item_obj->$item_content ) ) . '[/anva_' . $shortcode . ']';
-					$content = urldecode( $item_obj->$item_content );
-
-				} else {
-					$html .= ']';
+				foreach ( $attributes as $attribute_id => $attribute ) {
+					$obj_attribute = $obj->shortcode . '_' . $attribute_id;
+					$atts[$attribute_id] = esc_attr( urldecode( $obj->$obj_attribute ) );
 				}
 
 			}
 
-			//var_dump($shortcode);
-			// var_dump($atts);
-			
-			echo '<section id="section-' . $counter . '" class="section-element section-' . $item .' section-' . $shortcode . ' ' . $classes . '">';
-			echo '<div id="element-' . $item . '" class="element element-columns-' . $item_size . '">';
-			
-			// echo anva_apply_content( $html );
-			do_action( 'anva_element_' . $shortcode, $atts, $content );
-			
-			echo '</div><!-- #element-' . $item . ' (end) -->';
-			echo '</section><!-- .section-' . $item . ' (end) -->';
+			// Shortcode has content
+			if ( isset( $obj->$content ) ) {
+				$classes[] = 'element-has-content';
+				$content   = urldecode( $obj->$content );
+			}
+
 		}
+
+		$classes = implode( ' ', $classes );
+		
+		echo '<section id="section-' . esc_attr( $counter ) . '" class="section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
+		echo '<div id="element-' .  esc_attr( $item ) . '" class="element">';
+		
+		// echo anva_apply_content( $html );
+		do_action( 'anva_element_' . $shortcode, $atts, $content );
+		
+		echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
+		echo '</section><!-- .section-' . esc_attr( $item ) . ' (end) -->';
 	}
 		
 	return false;

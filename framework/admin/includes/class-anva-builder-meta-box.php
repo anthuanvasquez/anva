@@ -1,4 +1,6 @@
 <?php
+
+if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
 /**
  * Builder Meta Box
  *
@@ -56,8 +58,10 @@ class Anva_Builder_Meta_Box {
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add' ) );
 		add_action( 'save_post', array( $this, 'save' ) );
-		add_action( 'wp_ajax_pp_ppb', array( $this, 'fields' ) );
-		add_action( 'wp_ajax_nopriv_pp_ppb', array( $this, 'fields' ) );
+		add_action( 'wp_ajax_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
+		add_action( 'wp_ajax_nopriv_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notices' ), 10 );
+
 	}
 
 	/**
@@ -87,26 +91,24 @@ class Anva_Builder_Meta_Box {
 
 				wp_enqueue_style( 'wp-jquery-ui-dialog' );
 				wp_enqueue_style( 'wp-color-picker' );
-
 				wp_enqueue_script( 'jquery-ui-core' );
 				wp_enqueue_script( 'jquery-ui-sortable' );
 				wp_enqueue_script( 'jquery-ui-tabs' );
 				wp_enqueue_script( 'jquery-effects-fade' );
-				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( 'wplink' );
-				wp_enqueue_script( 'wpdialogs-popup' );
+				wp_enqueue_media();
 
 				/* ---------------------------------------------------------------- */
-				/* Custom
+				/* Builder
 				/* ---------------------------------------------------------------- */
 
-				wp_enqueue_style( 'jquery-ui-custom', 		anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-				wp_enqueue_style( 'tooltipster', 					anva_get_core_uri() . '/assets/css/admin/tooltipster.min.css', array(), '3.3.0', 'all' );
-				wp_enqueue_style( 'anva-builder', 				anva_get_core_uri() . '/assets/css/admin/builder.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'jquery-ui-custom', anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
+				wp_enqueue_style( 'tooltipster', anva_get_core_uri() . '/assets/css/admin/tooltipster.min.css', array(), '3.3.0', 'all' );
+				wp_enqueue_style( 'anva-animate',	anva_get_core_uri() . '/assets/css/admin/animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva-builder', anva_get_core_uri() . '/assets/css/admin/builder.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
 
-				wp_register_script( 'tooltipster', 				anva_get_core_uri() . '/assets/js/admin/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
-				wp_register_script( 'js-wp-editor', 			anva_get_core_uri() . '/assets/js/admin/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
-				wp_register_script( 'anva-builder', 			anva_get_core_uri() . '/assets/js/admin/builder.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
+				wp_register_script( 'tooltipster', anva_get_core_uri() . '/assets/js/admin/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
+				wp_register_script( 'js-wp-editor', anva_get_core_uri() . '/assets/js/admin/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
+				wp_register_script( 'anva-builder', anva_get_core_uri() . '/assets/js/admin/builder.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 				
 				wp_enqueue_script( 'tooltipster' );
 				wp_enqueue_script( 'js-wp-editor' );
@@ -146,68 +148,46 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	public function display() {
+	public function display( $post ) {
 		
-		$enable								= 0;
-		$shortcodes 					= $this->options;
-		$settings 						= anva_get_page_builder_field();
-		$items 								= array();
+		$enable			= '0';
+		$shortcodes = $this->options;
+		$settings 	= get_post_meta( $post->ID, $this->id, true );
+		$items 			= array();
 
 		if ( isset( $settings['enable'] ) ) {
 			$enable = $settings['enable'];
 		}
 
 		if ( isset( $settings['order'] ) ) {
-			$ppb_form_data_order = $settings['order'];
+			$order = $settings['order'];
 		}
 
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
 
 		?>
-		
-		<div class="anva-meta-box anva-meta-context-normal">
+		<input type="hidden" id="anva_builder_id" name="anva_builder_id" value="<?php echo esc_attr( $this->id ); ?>" />
+		<input type="hidden" id="anva_shortcode" name="anva_shortcode" value="" />
+		<input type="hidden" id="anva_shortcode_title" name="anva_shortcode_title"  value="" />
+		<input type="hidden" id="anva_shortcode_image" name="anva_shortcode_image" value="" />
+		<input type="hidden" id="anva_shortcode_order" name="<?php echo esc_attr( $this->id . '[order]' ); ?>" value="" />
+		<input type="hidden" id="anva_current_item" name="anva_current_item" value="" />
 
-			<div class="meta field-checkbox">
-				<h4 class="heading"><?php _e( 'Enable', 'anva' ); ?></h4>
-				<div class="meta-option">
-					<div class="meta-controls">
-						<input type="checkbox" class="enable-builder" name="ppb_enable" value="1" <?php checked( $enable, 1, true ); ?> />
-					</div>
-					<div class="meta-explain description">
-						<?php _e( 'To use page builder, please enable this option.', 'anva' ); ?>
-					</div>
+		<div class="anva-meta-box">
+
+			<div class="anva-input-checkbox">
+				<a id="anva-builder-button" href="#" class="button button-primary button-large" data-enable="<?php _e( 'Page Builder', 'anva' ); ?>" data-disable="<?php _e( 'Default Editor', 'anva' ); ?>"><?php _e( 'Page Builder' ); ?></a>
+				<input type="checkbox" name="<?php echo esc_attr( $this->id . '[enable]' ); ?>" value="1" <?php checked( $enable, 1, true ); ?> class="anva-builder-enable hidden" />
+				<div class="anva-tooltip-info-html hidden">
+					<h3>Quick Info</h3>
+					<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
 				</div>
-			</div><!-- .meta (end) -->
+				<a href="#" class="anva-tooltip-info"><span class="dashicons dashicons-info"></span></a>
+			</div><!-- .anva-input-checkbox (end) -->
 		
-			<div class="meta meta-content-builder hidden">
-
-				<h4 class="heading"><?php _e( 'Content Builder', 'anva' ); ?></h4>
-				<div class="meta-option">
-					<div class="meta-explain description">
-						<?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?>
-					</div>
-				</div>
-			
-				<input type="hidden" id="anva_post_type" name="ppb_post_type" value="page" />
-				<input type="hidden" id="anva_options" name="ppb_options" value="" />
-				<input type="hidden" id="anva_options_title" name="ppb_options_title"  value="" />
-				<input type="hidden" id="anva_options_image" name="ppb_options_image" value="" />
-				<input type="hidden" id="anva_inline_current" name="ppb_inline_current" value="" />
-				<input type="hidden" id="anva_form_data_order" name="ppb_form_data_order" value="" />
-			
-				<?php
-					// Tabs
-					$tabs = array();
-					//foreach ( $shortcodes as $key => $shortcode ) {
-						//if ( is_numeric( $key ) && $shortcode['title'] != 'Close' ) {
-						//	$tabs[$key] = $shortcode['title'];
-						//}
-					//}
-					//var_dump(anva_get_elements());
-
-				?>
-
+			<div class="anva-input-builder hidden">
+				
 				<div class="clear"></div>
 				
 				<div id="elements-wrapper">
@@ -225,28 +205,42 @@ class Anva_Builder_Meta_Box {
 							<?php foreach ( $shortcodes as $key => $shortcode ) : ?>
 								<?php if ( isset( $shortcode['icon'] ) && ! empty( $shortcode['icon'] ) ) : ?>
 									<li class="tooltip" title="<?php echo esc_attr( $shortcode['desc'] ); ?>" data-element="<?php echo esc_attr( $key ); ?>" data-title="<?php echo esc_attr( $shortcode['title'] ); ?>">
-										<img class="icon-thumbnail" src="<?php echo esc_url( $shortcode['icon'] ); ?>" alt="<?php echo esc_attr( $shortcode['title'] ); ?>" />
-										<span class="icon-title"><?php echo $shortcode['title']; ?></span>
+										<div class="element">
+											<img class="icon-thumbnail" src="<?php echo esc_url( $shortcode['icon'] ); ?>" alt="<?php echo esc_attr( $shortcode['title'] ); ?>" />
+											<span class="icon-title"><?php echo $shortcode['title']; ?></span>
+										</div>
 									</li>
 								<?php endif; ?>
 							<?php endforeach; ?>
-						</ul><!-- .builder-elements (end) -->
-						<div class="clear"></div>
-					</div><!-- #elements-tab (end) -->	
-					
+						</ul>
+					</div><!-- #elements-tab (end) -->
 				</div><!-- #elements-tabs (end) -->
-
-				<a id="add-builder-item" class="button button-primary button-add-item"><?php _e( '+ Add Item', 'anva' ); ?></a>
 				
-				<div class="sortable-header">
-					<div class="message"><?php _e( 'Drag and drop to reorder', 'anva' ); ?></div>
+				<div class="anva-input-builder-action">
+					
+					<div class="anva-backup-container">
+						<a href="#" class="button button-toggle"><?php _e( 'Backup', 'anva' ); ?></a>
+						<div class="anva-backup-inner">
+							<span class="anva-arrow"></span>
+							<div class="anva-export-wrap">
+								<input type="hidden" id="anva-export" name="anva_export" />
+								<input type="submit" class="button button-primary button-export" value="<?php _e( 'Export', 'anva' ); ?>" />
+							</div>
+							<div class="anva-import-wrap">
+								<input type="hidden" id="anva-import" name="anva_import" />
+								<input type="submit" class="button button-secondary button-import" value="<?php _e( 'Import', 'anva' ); ?>" />
+								<input type="file" id="anva-import-file" name="anva_import_file" />
+							</div>
+						</div>
+					</div>
+					
+					<a id="remove-all-items" class="button button-secondary button-remove-all"><?php _e( 'Remove All Items', 'anva' ); ?></a>
+					<a id="add-builder-item" class="button button-primary button-add-item"><?php _e( 'Add New Item', 'anva' ); ?></a>
 				</div>
 				
-				<div class="clear"></div>
-
 				<?php
-					if ( isset( $ppb_form_data_order ) ) {
-						$items = explode( ',', $ppb_form_data_order );
+					if ( isset( $order ) ) {
+						$items = explode( ',', $order );
 					}
 
 					$empty = '';
@@ -260,23 +254,24 @@ class Anva_Builder_Meta_Box {
 
 					if ( isset( $items[0] ) && ! empty( $items[0] ) ) :
 						
-						foreach ( $items as $key => $item )	:
+						foreach ( $items as $item_id => $item )	:
 
-							$item_data = $settings[$item]['data'];
-							$item_size = $settings[$item]['size'];
-							$item_obj  = json_decode( $item_data );
-						
-							if ( isset( $item[0] ) && isset( $shortcodes[$item_obj->shortcode] ) ) :
-								$shortcode_type = $shortcodes[$item_obj->shortcode]['title'];
-								$shortocde_icon = $shortcodes[$item_obj->shortcode]['icon'];
+							$data = $settings[$item]['data'];
+							$obj  = json_decode( $data );
+
+							if ( isset( $item[0] ) && isset( $shortcodes[$obj->shortcode] ) ) :
 								
-								$shortcode = $item_obj->shortcode;
+								$shortcode_type = $shortcodes[$obj->shortcode]['title'];
+								$shortocde_icon = $shortcodes[$obj->shortcode]['icon'];
+								$shortcode = $obj->shortcode;
+								$obj_title_name = '';
 
-								if ( $item_obj->shortcode != 'ppb_divider' ) {
-									$obj_title_name = $item_obj->shortcode . '_title';
+								if ( $obj->shortcode != 'divider' ) {
+									$obj_title_name = $obj->shortcode . '_title';
 									
-									if ( property_exists( $item_obj, $obj_title_name ) ) {
-										$obj_title_name = $item_obj->$obj_title_name;
+									if ( property_exists( $obj, $obj_title_name ) ) {
+										$obj_title_name = $obj->$obj_title_name;
+										
 									} else {
 										$obj_title_name = '';
 									}
@@ -286,9 +281,9 @@ class Anva_Builder_Meta_Box {
 									$shortcode_type = '';
 								}
 								?>
-								<li id="<?php echo esc_attr( $item ); ?>" class="item item-<?php echo esc_attr( $item ); ?> ui-state-default <?php echo esc_attr( $shortcode ); ?>" data-current-size="<?php echo esc_attr( $item_size ); ?>">
+								<li id="<?php echo esc_attr( $item ); ?>" class="item item-<?php echo esc_attr( $item ); ?> ui-state-default <?php echo esc_attr( $shortcode ); ?>">
 									<div class="actions">
-										<a title="<?php esc_html_e( 'Edit Item', 'anva' ); ?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=pp_ppb&ppb_post_type=page&shortcode=' . $shortcode . '&rel=' . $item ) ); ?>" class="button-edit" data-rel="<?php echo esc_attr( $item ); ?>"></a>
+										<a title="<?php esc_html_e( 'Edit Item', 'anva' ); ?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=anva_builder_get_fields&shortcode=' . $shortcode . '&rel=' . $item ) ); ?>" class="button-edit" data-id="<?php echo esc_attr( $item ); ?>"></a>
 										<a title="<?php esc_html_e( 'Remove Item', 'anva' )?>" href="#" class="button-remove"></a>
 									</div>
 									<div class="thumbnail">
@@ -299,7 +294,6 @@ class Anva_Builder_Meta_Box {
 										<span class="shortcode-title"><?php echo urldecode( $obj_title_name ); ?></span>
 									</div>
 									<span class="spinner spinner-<?php echo esc_attr( $item ); ?>"></span>
-									<input type="hidden" class="ppb_setting_columns" value="<?php echo esc_attr( $item_size ); ?>" />
 									<div class="clear"></div>
 								</li>
 								<?php
@@ -308,59 +302,31 @@ class Anva_Builder_Meta_Box {
 					endif;
 				?>
 				</ul><!-- .sortable (end) -->
-			</div><!-- .meta-content-builder (end) -->
-			
-			<div class="meta meta-content-builder-export hidden">
-				<div id="export-tabs">
-					<ul>
-						<li><a href="#meta-tabs-1"><?php _e( 'Import', 'anva' ); ?></a></li>
-						<li><a href="#meta-tabs-2"><?php _e( 'Export', 'anva' ); ?></a></li>
-					</ul>
-
-					<div id="meta-tabs-1" class="meta-import">
-						<h4><?php _e( 'Import Page Content Builder', 'anva' ); ?></h4>
-						<div class="meta-option">
-							<div class="meta-controls">
-								<input type="file" id="ppb_import_current_file" name="ppb_import_current_file" value="0" />
-								<input type="hidden" id="ppb_import_current" name="ppb_import_current" value="1"/>
-								<input type="submit" id="ppb_import_current_button" class="button" value="<?php _e( 'Import', 'anva' ); ?>" />
-							</div>
-							<div class="meta-description">
-								<div class="pp_widget_description">
-									<?php _e( 'Choose the import file. *Note: Your current content builder content will be overwritten by imported data', 'anva' ); ?>
-								</div>
-							</div>
-						</div>
-						
-					</div><!-- .meta-import (end) -->
-				
-					<div id="meta-tabs-2" class="meta-export">
-						<h4><?php _e( 'Export Page Content Builder', 'anva' ); ?></h4>
-						<div class="meta-option">
-							<div class="meta-controls">
-								<input type="hidden" id="ppb_export_current" name="ppb_export_current" value="1" />
-								<input type="submit" id="ppb_export_current_button" name="ppb_export_current_button" class="button" value="<?php _e( 'Export', 'anva' ); ?>" />
-							</div>
-							<div class="meta-description">
-								<div class="pp_widget_description">
-									<?php _e( 'Click to export current content builder data. Note: Please make sure you save all changes and no "unsaved" module', 'anva' ); ?>
-								</div>
-							</div>
-						</div>
-					</div><!-- .meta-export (end) -->
-				</div><!-- #meta_tab (end) -->
-			</div><!-- .meta-content-builder-export (end) -->
+				<div class="sortable-footer">
+					<div class="message">
+						<?php
+							printf(
+								'%s %s <span class="alignright">%s %s</span>',
+								__( 'Anva Page Builder powered by Anva Framework', 'anva' ),
+								ANVA_FRAMEWORK_VERSION,
+								__( 'Develop by', 'anva' ),
+								sprintf( '<a href="http://anthuanvasquez.net/">%s</a>', 'Anthuan Vasquez' )
+							);
+						?>
+					</div>
+				</div>
+			</div><!-- .anva-input-builder (end) -->
 		
 			<?php
 			$output  = "";
 			$output .= "<script type='text/javascript'>\n";
-			$output .= "jQuery(document).ready(function() {\n";
+			$output .= "jQuery(document).ready(function($) {\n";
 			$output .= "/* <![CDATA[ */\n";
 			
 			foreach ( $items as $key => $item ) {
 				if ( ! empty( $item ) ) {
 					$item_data = $settings[$item]['data'];
-					$output .= "jQuery('#" . esc_js( $item ) . "').data('anva_builder_settings', '" . addslashes( $item_data ) . "');\n";
+					$output .= "$('#" . esc_js( $item ) . "').data('anva_builder_settings', '" . addslashes( $item_data ) . "');\n";
 				}
 			}
 			
@@ -419,328 +385,333 @@ class Anva_Builder_Meta_Box {
 		 * OK, its safe!
 		 */
 
-		$id  = $this->id;
-		$old = get_post_meta( $post_id, $id, true );
+		$this->backup_content();
 
-		/* ---------------------------------------------------------------- */
-		/* Import page content builder
-		/* ---------------------------------------------------------------- */
+		$data = array();
+		
+		if ( isset( $_POST[$this->id] ) && ! empty( $_POST[$this->id] ) ) {
+			foreach ( $_POST[$this->id] as $id => $value ) {
+				$data[$id] = $value;
+			}
+			update_post_meta( $post_id, $this->id, $data );
 
-		// if ( isset( $_POST['ppb_import_current'] ) && ! empty( $_POST['ppb_import_current_file'] ) ) {
-		// 	// Check if zip file
-		// 	$import_filename 	= $_FILES['ppb_import_current_file']['name'];
-		// 	$import_type 			= $_FILES['ppb_import_current_file']['type'];
-		// 	$is_zip 					= FALSE;
-		// 	$new_filename 		= basename( $import_filename, '_.zip' );
-		// 	$accepted_types 	= array(
-		// 		'application/zip', 
-		// 		'application/x-zip-compressed', 
-		// 		'multipart/x-zip', 
-		// 		'application/s-compressed'
-		// 	);
- 
-		// 	foreach ( $accepted_types as $mime_type ) {
-		// 		if ( $mime_type == $import_type ) {
-		// 			$is_zip = true;
-		// 			break;
-		// 		}
-		// 	}
-			
-		// 	if ( $is_zip ) {
-		// 		WP_Filesystem();
-		// 		$upload_dir = wp_upload_dir();
-		// 		$cache_dir 	= '';
-				
-		// 		if ( isset( $upload_dir['basedir'] ) ) {
-		// 			$cache_dir = $upload_dir['basedir'] . '/meteors';
-		// 		}
-				
-		// 		move_uploaded_file( $_FILES["ppb_import_current_file"]["tmp_name"], $cache_dir . '/' . $import_filename );
-		// 		// $unzipfile = unzip_file( $cache_dir . '/' . $import_filename, $cache_dir );
-				
-		// 		$zip = new ZipArchive();
-		// 		$x = $zip->open( $cache_dir . '/' . $import_filename );
-				
-		// 		for ( $i = 0; $i < $zip->numFiles; $i++ ) {
-		// 			$new_filename = $zip->getNameIndex($i);
-		// 			break;
-		// 		}  
-				
-		// 		if ( $x === true ) {
-		// 			$zip->extractTo( $cache_dir ); 
-		// 			$zip->close();
-		// 		}
-
-		// 		$import_options_json = file_get_contents( $cache_dir . '/' . $new_filename );
-		// 		unlink( $cache_dir . '/' . $import_filename );
-		// 		unlink( $cache_dir . '/' . $new_filename );
-			
-		// 	} else {
-		// 		//If .json file then import
-		// 		$import_options_json = file_get_contents( $_FILES["ppb_import_current_file"]["tmp_name"] );
-		// 	}
-			
-		// 	$import_options_arr = json_decode( $import_options_json, true );
-			
-		// 	if ( isset( $import_options_arr['ppb_form_data_order'][0] ) && ! empty( $import_options_arr['ppb_form_data_order'][0] ) ) {
-		// 		page_update_custom_meta( $post_id, $import_options_arr['ppb_form_data_order'][0], 'ppb_form_data_order' );
-		// 	}
-			
-		// 	$ppb_item_arr = explode( ',', $import_options_arr['ppb_form_data_order'][0] );
-			
-		// 	if ( is_array( $ppb_item_arr ) && !empty( $ppb_item_arr ) ) {
-		// 		foreach ( $ppb_item_arr as $key => $ppb_item_arr ) {
-					
-		// 			if ( isset( $import_options_arr[$ppb_item_arr . '_data'][0] ) && ! empty( $import_options_arr[$ppb_item_arr . '_data'][0] ) ) {
-		// 				page_update_custom_meta( $post_id, $import_options_arr[$ppb_item_arr.'_data'][0], $ppb_item_arr . '_data' );
-		// 			}
-					
-		// 			if ( isset( $import_options_arr[$ppb_item_arr . '_size'][0] ) && ! empty( $import_options_arr[$ppb_item_arr . '_size'][0] ) ) {
-		// 				page_update_custom_meta( $post_id, 'one', $ppb_item_arr . '_size' );
-		// 			}
-		// 		}
-		// 	}
-			
-		// 	header( "Location: " . $_SERVER['HTTP_REFERER'] );
-		// 	exit;
-		// }
-
-		/* ---------------------------------------------------------------- */
-		/* Export page content builder
-		/* ---------------------------------------------------------------- */
-
-		// if ( isset( $_POST['ppb_export_current'] ) && ! empty( $_POST['ppb_export_current'] ) ) {
-			
-		// 	$page_slug = get_the_title( $post_id );
-		// 	$page_slug = sanitize_title( $page_slug );
-		// 	$option_name = anva_get_option_name();
-		// 	$json_file_name = strtolower( $option_name ) . '_page_builder_' . $page_slug . '_' . date( 'Y-m-d_hia' );
-	
-		// 	header( 'Content-disposition: attachment; filename=' . $json_file_name . '.json' );
-		// 	header( 'Content-type: application/json' );
-			
-		// 	//Get current content builder data
-		// 	$ppb_form_data_order = $old['order'];
-		// 	$export_options_arr = array();
-			
-		// 	if ( ! empty( $ppb_form_data_order ) ) {
-		// 		$export_options_arr['ppb_form_data_order'] = $ppb_form_data_order;
-
-		// 		//Get each builder module data
-		// 		$ppb_form_item_arr = explode( ',', $ppb_form_data_order );
-			
-		// 		foreach ( $ppb_form_item_arr as $key => $ppb_form_item ) {
-		// 			$ppb_form_item_data = $old[$ppb_form_item]['data'];
-		// 			$export_options_arr[$ppb_form_item]['data'] = $ppb_form_item_data;
-					
-		// 			$ppb_form_item_size = $old[$ppb_form_item]['size'];
-		// 			$export_options_arr[$ppb_form_item]['size'] = $ppb_form_item_size;
-		// 		}
-		// 	}
-			
-		// 	echo json_encode( $export_options_arr );
-			
-		// 	exit;
-		// }
-
-		/* ---------------------------------------------------------------- */
-		/* Saving Page Builder Data
-		/* ---------------------------------------------------------------- */
-
-		$builder_data = array();
-		$enable = 0;
-
-		if ( isset( $_POST['ppb_enable'] ) && ! empty( $_POST['ppb_enable'] ) ) {
-			$enable = $_POST['ppb_enable'];
+			return $post_id;
 		}
 
-		$builder_data['enable'] = $enable;
+		delete_post_meta( $post_id, $this->id );
 
-		if ( isset( $_POST['ppb_form_data_order'] ) && ! empty( $_POST['ppb_form_data_order'] ) ) {
-			
-			$builder_data['order'] = $_POST['ppb_form_data_order'];
+	}
+	
+	/**
+	 * Admin notices
+	 *
+	 * @since 1.0.0
+	 */
+	public function admin_notices() {
+		if ( isset( $_GET['imported'] ) && $_GET['imported'] == 'true' ) {
+			printf( '<div id="message" class="updated"><p>%s</p></div>', __( 'Content has successfully imported.', 'anva' ) );
+		
+		} else if ( isset( $_GET['error'] ) && $_GET['error'] == 'true' ) {
+			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your content. Please Try again.' ) . '</p></div>';
 
-			$ppb_item_arr = explode( ',', $_POST['ppb_form_data_order'] );
+		}
+	}
 
-			if ( is_array( $ppb_item_arr ) && ! empty( $ppb_item_arr ) ) {
-				foreach ( $ppb_item_arr as $key => $ppb_item_arr ) {
+	/**
+	 * Export or Import builder content
+	 *
+	 * @since 1.0.0
+	 */
+	public function backup_content () {
+		if ( isset( $_POST['anva_import'] ) && ( $_POST['anva_import'] == '1' ) ) {
+			$this->import();
+		}
 
-					if ( isset( $_POST[$ppb_item_arr . '_data'] ) && ! empty( $_POST[$ppb_item_arr . '_data'] ) ) {
-						$builder_data[$ppb_item_arr]['data'] = $_POST[$ppb_item_arr . '_data'];
-					}
-					
-					if ( isset( $_POST[$ppb_item_arr . '_size'] ) && ! empty( $_POST[$ppb_item_arr . '_size'] ) ) {
-						$builder_data[$ppb_item_arr]['size'] = $_POST[$ppb_item_arr . '_size'];
-					}
+		if ( isset( $_POST['anva_export'] ) && ( $_POST['anva_export'] == '1' ) ) {
+			$this->export();
+		}
+	}
 
-				}
+	/**
+	 * Import builder content
+	 *
+	 * @since 1.0.0
+	 */
+	public function import() {
 
-				update_post_meta( $post_id, $id, $builder_data );
+		global $post;
+		
+		if ( ! isset( $_FILES['anva_import_file'] ) || $_FILES['anva_import_file']['error'] > 0 ) {
+			wp_redirect( admin_url( 'post.php?post=' . $post->ID . '&action=edit&error=true' ) );
+			return;
+		}
 
-			} else {
-				update_post_meta( $post_id, $id, '' );
+		// Check if zip file
+		$import_filename 	= $_FILES['anva_import_file']['name'];
+		$import_type 			= $_FILES['anva_import_file']['type'];
+		$is_zip 					= false;
+		$new_filename 		= basename( $import_filename, '_.zip' );
+		$accepted_types 	= array(
+			'application/zip', 
+			'application/x-zip-compressed', 
+			'multipart/x-zip', 
+			'application/s-compressed'
+		);
+
+		foreach ( $accepted_types as $mime_type ) {
+			if ( $mime_type == $import_type ) {
+				$is_zip = true;
+				break;
 			}
 		}
+		
+		// ZIP file
+		if ( $is_zip ) {
+			
+			$option_name = anva_get_option_name();
+
+			WP_Filesystem();
+			$upload_dir = wp_upload_dir();
+			$cache_dir 	= '';
+			
+			if ( isset( $upload_dir['basedir'] ) ) {
+				$cache_dir = $upload_dir['basedir'] . '/' . $option_name;
+			}
+			
+			move_uploaded_file( $_FILES['anva_import_file']['tmp_name'], $cache_dir . '/' . $import_filename );
+			// $unzipfile = unzip_file( $cache_dir . '/' . $import_filename, $cache_dir );
+			
+			$zip = new ZipArchive();
+			$x 	 = $zip->open( $cache_dir . '/' . $import_filename );
+			
+			for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+				$new_filename = $zip->getNameIndex($i);
+				break;
+			}  
+			
+			if ( $x === true ) {
+				$zip->extractTo( $cache_dir ); 
+				$zip->close();
+			}
+
+			$import_options = file_get_contents( $cache_dir . '/' . $new_filename );
+
+			unlink( $cache_dir . '/' . $import_filename );
+			unlink( $cache_dir . '/' . $new_filename );
+		
+		} else {
+			$import_options = file_get_contents( $_FILES['anva_import_file']['tmp_name'] );
+		}
+		
+		$import_options = json_decode( $import_options, true );
+		
+		update_post_meta( $post->ID, $this->id, $import_options );
+
+		wp_redirect( admin_url( 'post.php?post=' . $post->ID . '&action=edit&imported=true' ) );
+		
+		exit;
 
 	}
 
 	/**
-	 * UI Fields
+	 * Export builder content
 	 *
 	 * @since 1.0.0
 	 */
-	function fields() {
+	public function export() {
+
+		global $post;
+		
+		$page_slug = get_the_title( $post->ID );
+		$page_slug = sanitize_title( $page_slug );
+		$option_name = anva_get_option_name();
+		$filename = strtolower( $option_name ) . '_page_builder_' . $page_slug . '_' . date( 'Y-m-d_hia' );
+		
+		// Get current content
+		$export_options = get_post_meta( $post->ID, $this->id, true );
+
+		// Convert to JSON
+		$output = json_encode( $export_options );
+		
+		header( 'Content-Description: File Transfer' );
+		header( 'Cache-Control: public, must-revalidate' );
+		header( 'Pragma: hack' );
+		header( 'Content-Type: application/json' );
+		header( 'Content-Disposition: attachment; filename="' . $filename . '.json"' );
+		header( 'Content-Length: ' . strlen( $output ) );
+		echo $output;
+		exit;
+
+	}
+
+	/**
+	 * Get ajax fields
+	 *
+	 * @since 1.0.0
+	 */
+	function ajax_get_fields() {
 
 		if ( isset( $_GET['shortcode'] ) && ! empty( $_GET['shortcode'] ) ) :
 			
 			$shortcodes = $this->options;
-			
-			if ( isset( $shortcodes[$_GET['shortcode']] ) && ! empty( $shortcodes[$_GET['shortcode']] ) ) :
-				$selected_shortcode = $_GET['shortcode'];
-				$selected_shortcode_arr = $shortcodes[$_GET['shortcode']];
+
+			if ( isset( $shortcodes[$_GET['shortcode']] ) ) :
+				$id 					 = $_GET['rel'];
+				$shortcode 		 = $_GET['shortcode'];
+				$shortcode_arr = $shortcodes[$shortcode];
 				?>
 
-				<div id="ppb_inline_<?php echo $selected_shortcode; ?>" data-shortcode="<?php echo $selected_shortcode; ?>" class="item-inline item-inline-<?php echo esc_attr( $_GET['rel'] ); ?>">
-
+				<div id="item-inline-<?php echo esc_attr( $id ); ?>" data-shortcode="<?php echo esc_attr( $shortcode ); ?>" class="item-inline item-inline-<?php echo esc_attr( $id); ?>">
+				
 				<div class="wrap">
-					<h2><?php echo $selected_shortcode_arr['title']; ?></h2>
-					<a id="save-<?php echo $_GET['rel']; ?>" data-parent="ppb_inline_<?php echo $selected_shortcode; ?>" class="button button-primary button-save ppb_inline_save" href="#"><?php _e( 'Apply', 'anva' ); ?></a>
-					<a id="cancel-<?php echo $_GET['rel']; ?>" class="button button-secondary button-cancel" href="#"><?php _e( 'Cancel', 'anva' ); ?></a>
+					<h2><?php echo $shortcode_arr['title']; ?></h2>
+					<a id="save-<?php echo esc_attr( $id ); ?>" class="button button-primary button-save" href="#"><?php _e( 'Apply', 'anva' ); ?></a>
+					<a id="cancel-<?php echo esc_attr( $id ); ?>" class="button button-secondary button-cancel" href="#"><?php _e( 'Cancel', 'anva' ); ?></a>
 				</div><!-- .wrap (end) -->
 
-				<?php if ( isset( $selected_shortcode_arr['title'] ) && $selected_shortcode_arr['title'] != 'Divider' ) : ?>
-					<div class="anva-field anva-field-title">
-						<label for="<?php echo $selected_shortcode; ?>_title"><?php _e( 'Title', 'anva' ); ?></label>
+				<?php
+					if ( isset( $shortcode_arr['title'] ) && $shortcode_arr['title'] != 'Divider' ) :
+					$title = $shortcode . '_title';
+					$value = $shortcode_arr['title'];
+				?>
+					<div class="section section-title">
+						<label for="<?php echo $title; ?>"><?php _e( 'Title', 'anva' ); ?></label>
 						<div class="option">
 							<div class="controls">
-								<input type="text" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="<?php echo $selected_shortcode_arr['title']; ?>" class="ppb_input" />
+								<input type="text" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
 							</div>
-							<div class="description"><?php _e( 'Enter title for this content.', 'anva' ); ?></div>
+							<div class="explain"><?php _e( 'Enter title for this content.', 'anva' ); ?></div>
 						</div>
 					</div>
 				<?php else : ?>
-					<input type="hidden" id="<?php echo $selected_shortcode; ?>_title" name="<?php echo $selected_shortcode; ?>_title" data-attr="title" value="<?php echo $selected_shortcode_arr['title']; ?>" class="ppb_input"/>
-				<?php endif; ?>
-				
-				<?php foreach ( $selected_shortcode_arr['attr'] as $attr_name => $attr_item ) : ?>
+					<input type="hidden" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
+				<?php endif;
 
-					<?php
-						if ( ! isset( $attr_item['title'] ) ) {
-							$attr_title = ucfirst( $attr_name );
-						} else {
-							$attr_title = $attr_item['title'];
-						}
-					?>
+				foreach ( $shortcode_arr['attr'] as $attr_id => $attr ) :
 
-					<?php switch ( $attr_item['type'] ) :
-					
+					$title = ucfirst( $attr_id );
+					$name  = $shortcode . '_' . $attr_id;
+					$desc  = $attr['desc'];
+					$value = '';
+
+					if ( isset( $attr['std'] ) ) {
+						$value = $attr['std'];
+					}
+
+					if ( isset( $attr['title'] ) ) {
+						$title = $attr['title'];
+					}
+
+					switch ( $attr['type'] ) :
+						
 						case "slider": ?>
-							<div class="anva-field anva-field-slider">
-								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+							<div class="section section-slider">
+								<label for="<?php echo $name; ?>"><?php echo $title; ?></label>
 								<div class="option">
 									<div class="controls">
-										<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="range" class="rangeslider ppb_input" min="<?php echo $attr_item['min']; ?>" max="<?php echo $attr_item['max']; ?>" step="<?php echo $attr_item['step']; ?>" value="<?php echo $attr_item['std']; ?>" />
-										<output for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" onforminput="value = foo.valueAsNumber;"></output>
+										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="range" class="rangeslider anva-input" min="<?php echo $attr['min']; ?>" max="<?php echo $attr['max']; ?>" step="<?php echo $attr['step']; ?>" value="<?php echo $value; ?>" />
+										<output for="<?php echo $name; ?>" onforminput="value = foo.valueAsNumber;"></output>
 									</div>
-									<div class="description"><?php echo $attr_item['desc']; ?></div>
+									<div class="explain"><?php echo $desc; ?></div>
 								</div>
 							</div>
 							<?php break;
 							
 						case 'file': ?>
-							<div class="anva-field anva-field-file">
-								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+							<div class="section section-file">
+								<label for="<?php echo $name; ?>"><?php echo $title; ?></label>
 								<div class="option">
 									<div class="controls">
-										<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text"  class="ppb_input ppb_file" />
-										<a id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>_button" type="button" class="metabox_upload_btn button" rel="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php _e( 'Upload', 'anva' ); ?></a>
-										<div class="screenshot" id="<?php echo $selected_shortcode; ?>_image"></div>
+										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text"  class="anva-input anva-file" />
+										<a id="<?php echo $name; ?>_button" name="<?php echo $name; ?>_button" type="button" class="button anva-upload-button" rel="<?php echo $name; ?>"><?php _e( 'Upload', 'anva' ); ?></a>
+										<div class="screenshot" id="<?php echo $name; ?>_image"></div>
 									</div>
-									<div class="description"><?php echo $attr_item['desc']; ?></div>
+									<div class="explain"><?php echo $desc; ?></div>
 								</div>
 							</div>
 							<?php break;
 									
 						case 'select': ?>
-							<div class="anva-field anva-field-select">
-								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+							<div class="section section-select">
+								<label for="<?php echo $name; ?>"><?php echo $title; ?></label>
 								<div class="option">
 									<div class="controls">
-										<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input">
-											<?php foreach ( $attr_item['options'] as $attr_key => $attr_item_option ) : ?>
-												<option value="<?php echo $attr_key; ?>"><?php echo ucfirst( $attr_item_option ); ?></option>
+										<select name="<?php echo $name; ?>" id="<?php echo $name; ?>" class="anva-input">
+											<?php foreach ( $attr['options'] as $key => $value ) : ?>
+												<option value="<?php echo $key; ?>"><?php echo ucfirst( $value ); ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
-									<div class="description"><?php echo $attr_item['desc']; ?></div>
+									<div class="explain"><?php echo $desc; ?></div>
 								</div>
 							</div>
 							<?php break;
 									
 						case 'select_multiple': ?>
-							<div class="anva-field anva-field-select-multiple">
-								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+							<div class="section section-select-multiple">
+								<label for="<?php echo $name; ?>"><?php echo $title; ?></label>
 								<div class="option">
 									<div class="controls">
-										<select name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" class="ppb_input" multiple="multiple">
-											<?php foreach ( $attr_item['options'] as $attr_key => $attr_item_option ) : ?>
-												<?php if ( ! empty( $attr_item_option ) ) : ?>
-													<option value="<?php echo $attr_key; ?>"><?php echo ucfirst( $attr_item_option ); ?></option>
+										<select name="<?php echo $name; ?>" id="<?php echo $name; ?>" class="anva-input" multiple="multiple">
+											<?php foreach ( $attr['options'] as $key => $value ) : ?>
+												<?php if ( ! empty( $value ) ) : ?>
+													<option value="<?php echo $key; ?>"><?php echo ucfirst( $value ); ?></option>
 												<?php endif; ?>
 											<?php endforeach; ?>
 										</select>
 									</div>
-									<div class="description"><?php echo $attr_item['desc']; ?></div>
+									<div class="explain"><?php echo $desc; ?></div>
 								</div>
 							</div>
 							<?php break;
 									
 						case 'text': ?>
-							<div class="anva-field anva-field-text">
-								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+							<div class="section section-text">
+								<label for="<?php echo $name; ?>"><?php echo $title; ?></label>
 								<div class="option">
 									<div class="controls">
-										<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input" />
+										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text" class="anva-input" />
 									</div>
-									<div class="description"><?php echo $attr_item['desc']; ?></div>
+									<div class="explain"><?php echo $desc; ?></div>
 								</div>
 							</div>
 							<?php break;
 									
 						case 'colorpicker': ?>
-							<div class="anva-field anva-field-colorpicker">
-								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+							<div class="section section-colorpicker">
+								<label for="<?php echo $name; ?>"><?php echo $title; ?></label>
 								<div class="option">
 									<div class="controls">
-										<input name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" type="text" class="ppb_input colorpicker" readonly />
+										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text" class="anva-input colorpicker" value="<?php echo esc_attr( $value ); ?>" readonly />
 									</div>
-									<div class="description"><?php echo $attr_item['desc']; ?></div>
+									<div class="explain"><?php echo $desc; ?></div>
 								</div>
 							</div>
 							<?php break;
 
 						case 'textarea': ?>
-							<div class="anva-field anva-field-textarea">
-								<label for="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>"><?php echo $attr_title; ?></label>
+							<div class="section section-textarea">
+								<label for="<?php echo $name; ?>"><?php echo $title; ?></label>
 								<div class="option">
 									<div class="controls">
-										<textarea name="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" id="<?php echo $selected_shortcode; ?>_<?php echo $attr_name; ?>" rows="3" class="ppb_input"></textarea>
+										<textarea name="<?php echo $name; ?>" id="<?php echo $name; ?>" rows="3" class="anva-input"></textarea>
 									</div>
-									<div class="description"><?php echo $attr_item['desc']; ?></div>
+									<div class="explain"><?php echo $desc; ?></div>
 								</div>
 							</div>
 							<?php break;
-
-					endswitch; ?>
-					
-				<?php endforeach; ?>
+					endswitch;	
+				endforeach; ?>
 				
-				<?php if ( isset ( $selected_shortcode_arr['content'] ) && $selected_shortcode_arr['content'] ) : ?>
-				<div class="anva-field anva-field-content">
-					<label for="<?php echo $selected_shortcode; ?>_content"><?php _e( 'Content', 'anva' ); ?></label>
-					<div class="description"><?php printf( '%s %s', _e( 'Enter text/HTML content to display in this item', 'anva' ), $selected_shortcode_arr['title'] ); ?></div>
+				<?php if ( isset ( $shortcode_arr['content'] ) && $shortcode_arr['content'] ) : ?>
+				<?php
+					$editor_id = $shortcode . '_content';
+				?>
+				<div class="section section-content">
+					<label for="<?php echo $editor_id; ?>"><?php _e( 'Content', 'anva' ); ?></label>
+					<div class="explain"><?php printf( '%s <strong>%s</strong>.', __( 'Enter text/HTML content to display in this item', 'anva' ), $shortcode_arr['title'] ); ?></div>
 					<div class="controls">
-						<textarea id="<?php echo $selected_shortcode; ?>_content" name="<?php echo $selected_shortcode; ?>_content" cols="" rows="7" class="ppb_input"></textarea>
+						<textarea id="<?php echo esc_attr( $editor_id ); ?>" name="<?php echo esc_attr( $editor_id ); ?>" rows="10" class="anva-input anva-textarea anva-wp-editor"></textarea>
 					</div>
 				</div>
 				<?php endif; ?>
@@ -749,81 +720,75 @@ class Anva_Builder_Meta_Box {
 			
 			<script type="text/javascript">
 			/* <![CDATA[ */
-			jQuery(document).ready( function() {
-				
-				var currentItemData = jQuery('#<?php echo $_GET['rel']; ?>').data('anva_builder_settings');
-				var currentItemOBJ = jQuery.parseJSON( currentItemData );
+			jQuery(document).ready( function($) {
 
-				jQuery.each( currentItemOBJ, function( index, value ) {
-					if ( typeof jQuery('#' + index) != 'undefined' ) {
-						jQuery('#' + index).val( decodeURI( value ) );
-						
-						if ( jQuery('#' + index).is( 'textarea' ) ) {
-							jQuery('#' + index).wp_editor();
-							jQuery('#' + index).val( decodeURI( value ) );
-						}
+				var currentItemData = $('#<?php echo esc_js( $id ); ?>').data('anva_builder_settings');
+				var currentItemOBJ = $.parseJSON( currentItemData );
+
+				$.each( currentItemOBJ, function( index, value ) {
+					if ( typeof $('#' + index) != 'undefined' ) {
+						$('#' + index).val( decodeURI( value ) );
 					}
 				});
 
 				// Cancel Changes
-				jQuery("#cancel-<?php echo $_GET['rel']; ?>").on( 'click', function(e) {
+				$("#cancel-<?php echo esc_js( $id ); ?>").on( 'click', function(e) {
 					e.preventDefault();
-					var itemInner = jQuery('#item-inner-<?php echo $_GET['rel']; ?>');
-					var parentEle = jQuery('#<?php echo $_GET['rel']; ?>');
+					var itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>');
+					var parentEle = $('#<?php echo esc_js( $id ); ?>');
 					if ( parentEle.hasClass('has-inline-content') ) {
 						parentEle.removeClass('has-inline-content');
 					}
 					if ( itemInner.length > 0 ) {
 						itemInner.slideToggle();
 						setTimeout( function() {
-						  itemInner.remove();
+							itemInner.remove();
 						}, 600);
 					}
 				});
 				
 				// Apply Changes
-				jQuery("#save-<?php echo $_GET['rel']; ?>").on( 'click', function(e) {
+				$("#save-<?php echo esc_js( $id ); ?>").on( 'click', function(e) {
 					e.preventDefault();
 
 					// Validate title
-					var title = jQuery(this).closest('.item-inline').find(".field-title input");
+					var title = $(this).closest('.item-inline').find(".section-title input");
 					if ( title.val() == '' ) {
 						alert( 'The title field is required.' );
 						return false;
 					}
 					
 					// WP Editor
-					tinyMCE.triggerSave();
+					// tinyMCE.triggerSave();
 			
-					var targetItem = jQuery('#anva_inline_current').attr('value');
-					var parentInline = jQuery(this).attr('data-parent');
-					var currentShortcode = jQuery('#' + parentInline).attr('data-shortcode');
+					var targetItem = $('#anva_current_item').val();
+					var currentShortcode = $('#item-inline-<?php echo esc_js( $id ); ?>').attr('data-shortcode');
 					var itemData = {};
 
 					itemData.id = targetItem;
 					itemData.shortcode = currentShortcode;
 					
-					jQuery("#" + parentInline + " :input.ppb_input").each( function() {
-						if ( typeof jQuery(this).attr('id') != 'undefined' ) {	
-							itemData[jQuery(this).attr('id')] = encodeURI( jQuery(this).attr('value') );
+					$('#item-inline-<?php echo esc_js( $id ); ?> :input.anva-input').each( function() {
+						if ( typeof $(this).attr('id') != 'undefined' ) {
+							itemData[$(this).attr('id')] = encodeURI( $(this).val() );
 							
-							if ( jQuery(this).attr('data-attr') == 'title' ) {
-								jQuery('#' + targetItem).find('.title .shortcode-title').html( decodeURI( jQuery(this).attr('value') ) );
+							if ( $(this).attr('data-attr') == 'title' ) {
+								$('#' + targetItem).find('.title .shortcode-title').html( decodeURI( $(this).val() ) );
 								
-								if ( jQuery('#' + targetItem).find('.unsave').length == 0 ) {
-									jQuery('<span class="unsave">Unsaved</span>').appendTo( jQuery('#' + targetItem).find('.title .shortcode-type') );
-									jQuery('#' + targetItem).addClass('item-unsaved');
+								if ( $('#' + targetItem).find('.unsave').length == 0 ) {
+									$('<span class="unsave">' + ANVA.builder_unsaved + '</span>').appendTo( $('#' + targetItem).find('.title .shortcode-type') );
+									$('#' + targetItem).addClass('item-unsaved');
 								}
 							}
 						}
 					});
 					
 					var currentItemDataJSON = JSON.stringify( itemData );
-					var itemInner = jQuery('#item-inner-<?php echo $_GET['rel']; ?>');
+					var itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>');
 
-					jQuery('#' + targetItem).data( 'anva_builder_settings', currentItemDataJSON );
+					$('#' + targetItem).data( 'anva_builder_settings', currentItemDataJSON );
 
-					var parentEle = jQuery('#<?php echo $_GET['rel']; ?>');
+					var parentEle = $('#<?php echo esc_js( $id ); ?>');
 					
 					if ( parentEle.hasClass('has-inline-content') ) {
 						parentEle.removeClass('has-inline-content');
@@ -843,5 +808,33 @@ class Anva_Builder_Meta_Box {
 	<?php endif; ?>	
 	<?php die(); // Exit
 	}
+}
+endif;
 
-} // End Class
+function contact_details_meta() {
+
+}
+
+function foo_deck( $post_type ) {
+	if ( in_array( $post_type, array( 'post', 'page' ) ) ) {
+		add_meta_box(
+			'contact_details_meta',
+			'Contact Details',
+			'contact_details_meta',
+			$post_type,
+			'test', // change to something other then normal, advanced or side
+			'high'
+		);
+	}
+}
+add_action( 'add_meta_boxes', 'foo_deck' );
+
+function foo_move_deck() {
+	# Get the globals:
+	global $post, $wp_meta_boxes;
+	# Output the "advanced" meta boxes:
+	do_meta_boxes( get_current_screen(), 'test', $post );
+	# Remove the initial "advanced" meta boxes:
+	unset($wp_meta_boxes['post']['test']);
+}
+add_action( 'edit_form_after_title', 'foo_move_deck' );
