@@ -726,7 +726,7 @@ class Anva_Options_API {
 				'sections' 	=> $styles_options
 			),
 			'layout' 			=> array(
-				'icon'			=> 'grid-view',
+				'icon'			=> 'layout',
 				'name' 			=> __( 'Layout', 'anva' ),
 				'sections' 	=> $layout_options
 			),

@@ -122,13 +122,12 @@ class Anva_Builder_Elements_API {
 			'header_background',
 			'text',
 			'text_background',
-			'text_sidebar',
 			'image_fullwidth',
 			'image_parallax',
 			'image_fixed_width',
-			'content_half_bg',
 			'image_half_fixed_width',
 			'image_half_fullwidth',
+			'content_half_bg',
 			'two_cols_images',
 			'three_cols_images',
 			'three_images_block',
@@ -137,7 +136,6 @@ class Anva_Builder_Elements_API {
 			'pricing',
 			'blog_grid',
 			'contact_map',
-			'contact_sidebar',
 			'map'
 		);
 
@@ -161,25 +159,8 @@ class Anva_Builder_Elements_API {
 		/* Helpers
 		/*--------------------------------------------*/
 
-		$api = Anva_Sidebars_API::instance();
-
-		// Get sidebar locations
-		$sidebars = array();
-		$sidebar_locations = $api->get_locations();
-		foreach ( $sidebar_locations as $key => $value ) {
-			$sidebars[$key] = $value['args']['name'];
-		}
-
-		// Get dynamic sidebars
-		// $dynamic_sidebars = anva_get_option( 'dynamic_sidebars' );
-		// if ( ! empty( $dynamic_sidebars ) ) {
-		// 	foreach ( $dynamic_sidebars as $sidebar ) {
-		// 		$sidebars[$sidebar] = $sidebar;
-		// 	}
-		// }
-
 		// Pull all the galleries/categories into an array
-		if ( is_admin() && post_type_exists( 'galleries' ) && taxonomy_exists( 'gallery_cat' ) ) {
+		//if ( is_admin() && post_type_exists( 'galleries' ) && taxonomy_exists( 'gallery_cat' ) ) {
 
 			$galleries = array();
 			$galleries_args = array( 'numberposts' => -1, 'post_type' => array( 'galleries' ) );
@@ -193,16 +174,16 @@ class Anva_Builder_Elements_API {
 
 			$gallery_cats = array();
 			$terms = get_terms( 'gallery_cat', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
-			if ( count( $terms ) > 0 ) {
-				$gallery_cats[''] = __( 'Select a Gallery', 'anva' );
-				foreach ( $gallery_terms as $cat ) {
-					$gallery_cats[$cat->slug] = $cat->name;
-				}
-			}
-		}
+			// if ( count( $terms ) > 0 ) {
+			// 	$gallery_cats[''] = __( 'Select a Gallery', 'anva' );
+			// 	foreach ( $terms as $cat ) {
+			// 		$gallery_cats[$cat->slug] = $cat->name;
+			// 	}
+			// }
+		//}
 
 		// Pull all the testimonial categories into an array
-		if ( is_admin() && post_type_exists( 'testimonials' ) && taxonomy_exists( 'testimonial_cats' ) ) {
+		if ( is_admin() && post_type_exists( 'testimonials' ) && taxonomy_exists( 'testimonial_cat' ) ) {
 			$testimonial_cats = array();
 			$terms = get_terms( 'testimonial_cats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
 			if ( count( $terms ) > 0 ) {
@@ -214,7 +195,7 @@ class Anva_Builder_Elements_API {
 		}
 
 		// Get all pricing categories
-		if ( is_admin() && post_type_exists( 'pricing' ) && taxonomy_exists( 'pricing_cats' ) ) {
+		if ( is_admin() && post_type_exists( 'pricing' ) && taxonomy_exists( 'pricing_cat' ) ) {
 			$pricing_cats = array();
 			$terms = get_terms( 'pricing_cats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
 			if ( count( $pricing_cats ) > 0 ) {
@@ -498,45 +479,7 @@ class Anva_Builder_Elements_API {
 			'desc' => '',
 			'content' => true
 		);
-
-		/*--------------------------------------------*/
-		/* Text Sidebar
-		/*--------------------------------------------*/
-
-		$this->core_elements['text_sidebar'] = array(
-			'title' =>  'Text With Sidebar',
-			'icon' => $image_path . 'contact_sidebar.png',
-			'attr' => array(
-				'slug' => array(
-					'title' => 'Slug (Optional)',
-					'type' => 'text',
-					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-				),
-				'sidebar' => array(
-					'Title' => 'Content Sidebar',
-					'type' => 'select',
-					'options' => $sidebars,
-					'desc' => 'You can select sidebar to display next to classic blog content',
-				),
-				'padding' => array(
-					'title' => 'Content Padding',
-					'type' => 'slider',
-					"std" => "30",
-					"min" => 0,
-					"max" => 200,
-					"step" => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
-				),
-				'custom_css' => array(
-					'title' => 'Custom CSS',
-					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
-				),
-			),
-			'desc' => '',
-			'content' => true
-		);
-
+		
 		/*--------------------------------------------*/
 		/* Image Fullwidth
 		/*--------------------------------------------*/
@@ -1139,7 +1082,6 @@ class Anva_Builder_Elements_API {
 			'content' => false
 		);
 		
-		if ( post_type_exists( 'galleries' ) ) {
 			$this->core_elements['galleries'] = array(
 				'title' =>  'Gallery Archive',
 				'icon' => $image_path . 'galleries.png',
@@ -1404,7 +1346,6 @@ class Anva_Builder_Elements_API {
 				'desc' => '',
 				'content' => false
 			);
-		}
 
 		$this->core_elements['blog_grid'] = array(
 			'title' =>  'Blog Grid',
@@ -1677,45 +1618,6 @@ class Anva_Builder_Elements_API {
 			'content' => true
 		);
 
-		$this->core_elements['contact_sidebar'] = array(
-			'title' =>  'Contact Form With Sidebar',
-			'icon' => $image_path . 'contact_sidebar.png',
-			'attr' => array(
-				'slug' => array(
-					'title' => 'Slug (Optional)',
-					'type' => 'text',
-					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-				),
-				'subtitle' => array(
-					'title' => 'Sub Title (Optional)',
-					'type' => 'text',
-					'desc' => 'Enter short description for this header',
-				),
-				'sidebar' => array(
-					'Title' => 'Content Sidebar',
-					'type' => 'select',
-					'options' => $sidebars,
-					'desc' => 'You can select sidebar to display next to classic blog content',
-				),
-				'padding' => array(
-					'title' => 'Content Padding',
-					'type' => 'slider',
-					"std" => "30",
-					"min" => 0,
-					"max" => 200,
-					"step" => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
-				),
-				'custom_css' => array(
-					'title' => 'Custom CSS',
-					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
-				),
-			),
-			'desc' => '',
-			'content' => true
-		);
-
 		$this->core_elements['map'] = array(
 			'title' =>  'Fullwidth Map',
 			'icon' => $image_path . 'googlemap.png',
@@ -1812,17 +1714,7 @@ class Anva_Builder_Elements_API {
 			
 			$blocks = $this->blocks;
 			foreach ( $blocks as $block ) {
-				
 				$this->elements[$block['element_id']]['attr'][$block['block_id']] = $block['attr'];
-
-				// $this->elements = anva_insert_array_key(
-				// 	$this->elements[$block['element_id']],
-				// 	$block['key'],
-				// 	$block['block_id'],
-				// 	$block['attr'],
-				// 	true,
-				// 	false
-				// );
 			}
 		}
 
@@ -1838,7 +1730,7 @@ class Anva_Builder_Elements_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = true ) {
+	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = false ) {
 
 		$args = array(
 			'id'			=> $id,
@@ -1945,8 +1837,6 @@ class Anva_Builder_Elements_API {
 		return $this->custom_elements;
 	}
 
-
-
 	/**
 	 * Get final elements
 	 * 
@@ -1978,5 +1868,4 @@ class Anva_Builder_Elements_API {
 	}
 
 } // End class
-
 endif;

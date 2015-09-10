@@ -199,22 +199,97 @@ add_action( 'after_setup_theme', 'eren_options' );
  */
 function eren_elements() {
 	
-	$image_path = anva_get_core_uri() . '/assets/images/builder/';
+	// Get framework assets path
+	$image_path = anva_get_core_uri() . '/assets/images/builder';
+
+	// Get sidebar locations
+	$sidebars = array();
+	foreach ( anva_get_sidebar_locations() as $key => $value ) {
+		$sidebars[$key] = $value['args']['name'];
+	}
+
+	// Get dynamic sidebars
+	// $dynamic_sidebars = anva_get_option( 'dynamic_sidebars' );
+	// if ( ! empty( $dynamic_sidebars ) ) {
+	// 	foreach ( $dynamic_sidebars as $sidebar ) {
+	// 		$sidebars[$sidebar] = $sidebar;
+	// 	}
+	// }
 	
-	$elements['box'] = array(
-		'id' => 'box',
-		'name' => 'This Box',
-		'icon' => $image_path . 'header.png',
-		'attr' => array(
-			'subtitle' => array(
-				'title' => 'Sub Title (Optional)',
-				'type' => 'text',
-				'desc' => 'Enter short description for this header',
-			)
+	/*--------------------------------------------*/
+	/* Text Sidebar
+	/*--------------------------------------------*/
+
+	$text_sidebar_icon = $image_path . '/contact_sidebar.png';
+	$text_sidebar_desc = __( 'Create a text block with sidebar.', 'anva' );
+	$text_sidebar_atts = array(
+		'slug' => array(
+			'title' => 'Slug (Optional)',
+			'type' => 'text',
+			'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
 		),
-		'desc' => 'This is a Box'
+		'sidebar' => array(
+			'Title' => 'Content Sidebar',
+			'type' => 'select',
+			'options' => $sidebars,
+			'desc' => 'You can select sidebar to display next to classic blog content',
+		),
+		'padding' => array(
+			'title' => 'Content Padding',
+			'type' => 'slider',
+			"std" => "30",
+			"min" => 0,
+			"max" => 200,
+			"step" => 5,
+			'desc' => 'Select padding top and bottom value for this header block',
+		),
+		'custom_css' => array(
+			'title' => 'Custom CSS',
+			'type' => 'text',
+			'desc' => 'You can add custom CSS style for this block (advanced user only)',
+		)
 	);
-	anva_add_builder_element( $elements['box']['id'], $elements['box']['name'], $elements['box']['icon'], $elements['box']['attr'], $elements['box']['desc'], true );
-	
+	anva_add_builder_element( 'text_sidebar', __( 'Text With Sidebar' ), $text_sidebar_icon, $text_sidebar_atts, $text_sidebar_desc, true );
+
+	/*--------------------------------------------*/
+	/* Contact Sidebar
+	/*--------------------------------------------*/
+
+	$contact_sidebar_icon = $image_path . '/contact_sidebar.png';
+	$contact_sidebar_desc = __( 'Create a contact form with sidebar.', 'anva' );
+	$contact_sidebar_atts = array(
+		'slug' => array(
+			'title' => 'Slug (Optional)',
+			'type' => 'text',
+			'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers and hyphens.',
+		),
+		'subtitle' => array(
+			'title' => 'Sub Title (Optional)',
+			'type' => 'text',
+			'desc' => 'Enter short description for this header.',
+		),
+		'sidebar' => array(
+			'Title' => 'Content Sidebar',
+			'type' => 'select',
+			'options' => $sidebars,
+			'desc' => 'You can select sidebar to display next to classic blog content.',
+		),
+		'padding' => array(
+			'title' => 'Content Padding',
+			'type' => 'slider',
+			"std" => "30",
+			"min" => 0,
+			"max" => 200,
+			"step" => 5,
+			'desc' => 'Select padding top and bottom value for this header block',
+		),
+		'custom_css' => array(
+			'title' => 'Custom CSS',
+			'type' => 'text',
+			'desc' => 'You can add custom CSS style for this block (advanced user only)',
+		),
+	);
+	anva_add_builder_element( 'contact_sidebar', __( 'Contact Form With Sidebar', 'anva' ), $contact_sidebar_icon, $contact_sidebar_atts, $contact_sidebar_desc, true );
+
 }
 add_action( 'after_setup_theme', 'eren_elements' );

@@ -94,6 +94,10 @@
 /* ---------------------------------------------------------------- */
 /* Sortable Items
 /* ---------------------------------------------------------------- */
+.anva-meta-box .anva-builder-enable {
+  display: none;
+}
+
 .anva-tooltip-info {
   float: right;
   color: #999;
@@ -127,11 +131,14 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
   width: 100%;
-  background: #fff;
+  background: #ffffff;
+  background: #f9f9f9;
   -webkit-border-radius: 0;
           border-radius: 0;
   border: 1px solid #ddd;
   border-top: 0;
+  -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1) inset;
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1) inset;
 }
 
 .builder-sortable-items:after {
@@ -144,11 +151,16 @@
   display: none;
 }
 
+.builder-sortable-items.empty:after {
+  content: "Theere is no items.";
+  display: block;
+  width: 100%;
+}
+
 .builder-sortable-items .ui-state-highlight {
-  height: 54px;
-  line-height: 1.2em;
+  height: 80px;
   background: transparent;
-  border: 1px dashed #888;
+  border: 1px dashed #ccc;
 }
 
 .builder-sortable-items li {
@@ -177,16 +189,25 @@
 }
 
 .builder-sortable-items li:hover {
-  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.builder-sortable-items li:hover .thumbnail:before {
+  opacity: 1;
 }
 
 .builder-sortable-items li:last-child {
   margin-bottom: 0;
 }
 
+.builder-sortable-items li.ui-sortable-helper {
+  border: 1px dashed #ddd;
+}
+
 .builder-sortable-items li .actions {
   background: rgba(0, 0, 0, 0.2);
+  background: #F2F2F2;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
@@ -202,6 +223,34 @@
   margin-right: 10px;
   border-right: 1px solid #eee;
   padding: 10px 15px 10px 15px;
+  position: relative;
+}
+
+.builder-sortable-items li .thumbnail:before {
+  opacity: 0;
+  background: #fff;
+  color: #C0C0C0;
+  font-size: 14px;
+  content: "\f211";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 55px;
+  font-family: dashicons;
+  text-decoration: none;
+  font-weight: 400;
+  font-style: normal;
+  vertical-align: top;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition: opacity 0.2s ease;
+     -moz-transition: opacity 0.2s ease;
+       -o-transition: opacity 0.2s ease;
+          transition: opacity 0.2s ease;
 }
 
 .builder-sortable-items li .thumbnail img {
@@ -230,7 +279,23 @@
 .builder-sortable-items li .shortcode-type {
   color: #23282d;
   display: block;
-  font-weight: normal;
+  font-weight: bold;
+}
+
+.builder-sortable-items li .button-move-up:after {
+  content: "\f142";
+}
+
+.builder-sortable-items li .button-move-up:hover {
+  color: #0073aa;
+}
+
+.builder-sortable-items li .button-move-down:after {
+  content: "\f140";
+}
+
+.builder-sortable-items li .button-move-down:hover {
+  color: #0073aa;
 }
 
 .builder-sortable-items li .button-edit:after {
@@ -249,6 +314,8 @@
   color: #a00;
 }
 
+.builder-sortable-items li .button-move-down,
+.builder-sortable-items li .button-move-up,
 .builder-sortable-items li .button-remove,
 .builder-sortable-items li .button-edit {
   color: #222;
@@ -256,6 +323,16 @@
   margin: 3px 0 3px 5px;
 }
 
+.builder-sortable-items li .button-move-down:focus,
+.builder-sortable-items li .button-move-up:focus,
+.builder-sortable-items li .button-remove:focus,
+.builder-sortable-items li .button-edit:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.builder-sortable-items li .button-move-down:after,
+.builder-sortable-items li .button-move-up:after,
 .builder-sortable-items li .button-remove:after,
 .builder-sortable-items li .button-edit:after {
   display: inherit;
@@ -520,7 +597,7 @@
           transition: all 0.2s ease-in-out;
   position: relative;
   overflow: hidden;
-  background: #e4e4e4;
+  background: #eee;
   border: 1px solid #ccc;
 }
 
@@ -594,7 +671,7 @@
 }
 
 .anva-input-builder {
-  margin: 27px 0 15px;
+  margin: 27px 0 0;
 }
 
 .anva-input-builder-action {

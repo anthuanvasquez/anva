@@ -307,7 +307,7 @@ class Options_Framework_Admin {
 		do_action( 'optionsframework_after_validate', $clean );
 
 		// Create log option
-		$option_name = Options_Framework::get_option_name();
+		$option_name = anva_get_option_name();
 		update_option( $option_name .'_log', current_time( 'mysql' ) );
 
 		return $clean;

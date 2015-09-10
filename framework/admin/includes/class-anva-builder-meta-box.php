@@ -283,6 +283,8 @@ class Anva_Builder_Meta_Box {
 								?>
 								<li id="<?php echo esc_attr( $item ); ?>" class="item item-<?php echo esc_attr( $item ); ?> ui-state-default <?php echo esc_attr( $shortcode ); ?>">
 									<div class="actions">
+										<a title="<?php esc_html_e( 'Move Item Up', 'anva' ); ?>" href="#" class="button-move-up"></a>
+										<a title="<?php esc_html_e( 'Move Item Down', 'anva' ); ?>" href="#" class="button-move-down"></a>
 										<a title="<?php esc_html_e( 'Edit Item', 'anva' ); ?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=anva_builder_get_fields&shortcode=' . $shortcode . '&rel=' . $item ) ); ?>" class="button-edit" data-id="<?php echo esc_attr( $item ); ?>"></a>
 										<a title="<?php esc_html_e( 'Remove Item', 'anva' )?>" href="#" class="button-remove"></a>
 									</div>
@@ -810,31 +812,3 @@ class Anva_Builder_Meta_Box {
 	}
 }
 endif;
-
-function contact_details_meta() {
-
-}
-
-function foo_deck( $post_type ) {
-	if ( in_array( $post_type, array( 'post', 'page' ) ) ) {
-		add_meta_box(
-			'contact_details_meta',
-			'Contact Details',
-			'contact_details_meta',
-			$post_type,
-			'test', // change to something other then normal, advanced or side
-			'high'
-		);
-	}
-}
-add_action( 'add_meta_boxes', 'foo_deck' );
-
-function foo_move_deck() {
-	# Get the globals:
-	global $post, $wp_meta_boxes;
-	# Output the "advanced" meta boxes:
-	do_meta_boxes( get_current_screen(), 'test', $post );
-	# Remove the initial "advanced" meta boxes:
-	unset($wp_meta_boxes['post']['test']);
-}
-add_action( 'edit_form_after_title', 'foo_move_deck' );

@@ -41,6 +41,7 @@ jQuery(document).ready(function($) {
 			anvaBuilder.sortItems();
 			anvaBuilder.addItem();
 			anvaBuilder.editItem();
+			anvaBuilder.moveItem();
 			anvaBuilder.removeItem();
 			anvaBuilder.removeAllItems();
 			anvaBuilder.itemData();
@@ -64,24 +65,6 @@ jQuery(document).ready(function($) {
 				e.preventDefault();
 				$checked.trigger('click');
 			});
-
-			// $('#anva-builder-button').on( 'click', function(e) {
-			// 	e.preventDefault();
-			// 	var $enable = $(this).data('enable'), $disable = $(this).data('disable');
-			// 	if ( $(this).text() == $enable ) {
-			// 		$(this).text($disable);
-			// 		$(this).toggleClass('anva-builder-active');
-			// 		$('.anva-input-builder').slideToggle();
-			// 		$('.anva-enable-builder').val('1');
-			// 		$('#postdivrich').css('paddingTop', '20px');
-			// 	}	else if ( $(this).text() == $disable ) {
-			// 		$(this).text($enable);
-			// 		$(this).toggleClass('anva-builder-active');
-			// 		$('.anva-input-builder').slideToggle();
-			// 		$('.anva-enable-builder').val('0');
-			// 	}
-			// });
-
 		},
 
 		checked: function( $target ) {
@@ -95,7 +78,7 @@ jQuery(document).ready(function($) {
 				// $target.val('0');
 				$('.anva-input-builder').slideDown();
 				$('#postdivrich').fadeOut( 'fast', function() {
-					$(this).css('paddingTop', '40px');
+					$(this).css('paddingTop', '80px');
 				});;
 
 			} else if ( ! $target.is(':checked') ) {
@@ -246,6 +229,22 @@ jQuery(document).ready(function($) {
 				} else {
 					$('#item-inner-' + $id).slideToggle();
 				}
+			});
+		},
+
+		moveItem: function() {
+			$('#builder-sortable-items li a.button-move-down').on( 'click', function(e) {
+				e.preventDefault();
+				var $curr = $(this).parent('.actions').parent('li').attr('id');
+				var $next = $('#' + $curr).next().attr('id');
+				$('#' + $next).insertBefore('#' + $curr);
+			});
+
+			$('#builder-sortable-items li a.button-move-up').on( 'click', function(e) {
+				e.preventDefault();
+				var $curr = $(this).parent('.actions').parent('li').attr('id'); 
+				var $prev = $('#' + $curr).prev().attr('id'); 
+				$('#' + $prev).insertAfter('#' + $curr);
 			});
 		},
 
