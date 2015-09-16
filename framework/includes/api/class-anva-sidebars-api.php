@@ -85,8 +85,6 @@ class Anva_Sidebars_API {
 	 */
 	public function set_core_locations() {
 
-		$this->core_locations = array();
-
 		// Default Right Sidebar
 		$this->core_locations['sidebar_right'] = array(
 			'args' 					=> array(

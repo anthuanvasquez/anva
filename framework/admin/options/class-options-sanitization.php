@@ -11,6 +11,7 @@ add_filter( 'anva_sanitize_text', 'sanitize_text_field' );
 add_filter( 'anva_sanitize_number', 'anva_sanitize_number' );
 add_filter( 'anva_sanitize_password', 'sanitize_text_field' );
 add_filter( 'anva_sanitize_range', 'sanitize_text_field' );
+add_filter( 'anva_sanitize_date', 'sanitize_text_field' );
 add_filter( 'anva_sanitize_select', 'anva_sanitize_enum', 10, 2 );
 add_filter( 'anva_sanitize_radio', 'anva_sanitize_enum', 10, 2 );
 add_filter( 'anva_sanitize_images', 'anva_sanitize_enum', 10, 2 );

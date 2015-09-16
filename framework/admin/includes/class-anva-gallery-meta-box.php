@@ -66,7 +66,7 @@ class Anva_Gallery_Meta_Box {
 				wp_enqueue_script( 'anva-media-gallery', anva_get_core_uri() . '/assets/js/admin/media-gallery.js', array(), ANVA_FRAMEWORK_VERSION, false );
 				wp_localize_script( 'anva-media-gallery', 'ANVA', anva_get_admin_locals( 'metabox_js' ) );
 				wp_enqueue_style( 'anva-animate', anva_get_core_uri() . '/assets/css/admin/animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
-				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva-gallery', anva_get_core_uri() . '/assets/css/admin/gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}
@@ -106,7 +106,6 @@ class Anva_Gallery_Meta_Box {
 		
 		<div class="anva-meta-box">
 			<div class="anva-input-gallery">
-				<span id="anva_gallery_spinner" class="spinner"></span>
 				<div id="anva_gallery_container">
 					<ul id="anva_gallery_thumbs">
 						<?php
@@ -120,8 +119,9 @@ class Anva_Gallery_Meta_Box {
 					</ul>
 				</div>
 				<div class="anva-gallery-actions">
+					<span id="anva-gallery-spinner" class="spinner"></span>
 					<input type="button" id="anva_gallery_remove_all_buttons" class="button button-secondary" value="<?php echo __('Remove All Images', 'anva'); ?>" />
-					<input type="button" id="anva_gallery_upload_button" class="button button-primary" value="<?php echo __('Upload Image', 'anva'); ?>" data-uploader_title="<?php echo __( 'Upload Image', 'anva' ); ?>" data-uploader_button_text="<?php _e( 'Select Image', 'anva' ); ?>" />
+					<input type="button" id="anva_gallery_upload_button" class="button button-primary" value="<?php echo __('Upload Image', 'anva'); ?>" data-title="<?php echo __( 'Upload Image', 'anva' ); ?>" data-text="<?php _e( 'Select Image', 'anva' ); ?>" />
 				</div>
 			</div>
 		</div>

@@ -1,44 +1,80 @@
 jQuery(document).ready(function($) {
 	
-	var anvaMeta = anvaMeta || {};
+	// Settings
+	var s;
 	
-	anvaMeta.initialize = {
+	// Anva Meta Object
+	var AnvaMeta = {
+
+		// Default Settings
+		settings: {
+			template: $('#page_template'),
+			grid: 		$('#meta-grid_column'),
+			sidebar: 	$('#meta-sidebar_layout')
+		},
 
 		init: function() {
-			anvaMeta.initialize.pageTemplate();
-			anvaMeta.initialize.tabs();
+
+			// Set Settings
+			s = this.settings;
+
+			AnvaMeta.pageTemplate();
+			AnvaMeta.tabs();
+			AnvaMeta.datePicker();
+			AnvaMeta.spinner();
+
 		},
 
 		pageTemplate: function() {
-			var $template = $("#page_template");
-			if ( $template.length > 0 ) {
-				anvaMeta.initialize.checkTemplate( $template.val() );
-				$template.live( "change", function() {
-					anvaMeta.initialize.checkTemplate( $(this).val() );
+			if ( s.template.length > 0 ) {
+				AnvaMeta.checkTemplate( s.template.val() );
+				s.template.live( 'change', function() {
+					AnvaMeta.checkTemplate( $(this).val() );
 				});
 			}
 		},
 
 		checkTemplate: function( val ) {
-			var $inputGrid = $("#meta-grid_column"),
-			 		$inputSidebar = $("#meta-sidebar_layout");
 
+			var templates = [
+				'default', // Default template
+				'template_archives.php',
+				'template_list.php'
+			];
+
+			// Show grid option
 			if ( 'template_grid.php' == val ) {
-				$inputGrid.show();
+				s.grid.show();
 			} else {
-				$inputGrid.hide();
+				s.grid.hide();
 			}
-			
-			if ( 'default' == val || 'template_list.php' == val || 'template_archives.php' == val || 'template_grid.php' == val ) {
-				$inputSidebar.show();
+
+			// Show sidebar layout option
+			if ( -1 != $.inArray( val, templates ) ) {
+				s.sidebar.show();
 			} else {
-				$inputSidebar.hide();
+				s.sidebar.hide();
 			}
 		},
 
 		tabs: function() {
 			if ( $('.nav-tab-wrapper').length > 0 ) {
-				anvaMeta.initialize.navTabs();
+				AnvaMeta.navTabs();
+			}
+		},
+
+		spinner: function() {
+			if ( $('.anva-spinner').length > 0 ) {
+				$('.anva-spinner').spinner();
+			}
+		},
+
+		datePicker: function() {
+			if ( $('.anva-datepicker').length > 0 ) {
+				$('.anva-datepicker').datepicker({
+					showAnim: 'slideDown',
+					dateFormat: 'd MM, yy'
+				});
 			}
 		},
 
@@ -85,26 +121,6 @@ jQuery(document).ready(function($) {
 		}
 	};
 
-	anvaMeta.widgets = {
-
-		init: function() {
-			anvaMeta.widgets.picker();
-		},
-
-		picker: function() {
-			if ( $(".meta-date-picker").length > 0 ) {
-				$(".meta-date-picker").datepicker();
-			}
-		}
-	};
-
-	anvaMeta.documentOnReady = {
-		init: function() {
-			anvaMeta.initialize.init();
-			anvaMeta.widgets.init();
-		}
-	};
-
-	anvaMeta.documentOnReady.init();
+	AnvaMeta.init();
 
 });

@@ -1,6 +1,5 @@
 <?php
 
-if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
 /**
  * Builder Meta Box
  *
@@ -8,6 +7,14 @@ if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
  * @package    Anva
  * @subpackage Anva/builder
  * @author     Anthuan Vasquez <eigthy@gmail.com>
+ */
+
+if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
+
+/**
+ * Anva Builder Meta Box
+ *
+ * @since 1.0.0
  */
 class Anva_Builder_Meta_Box {
 
@@ -56,11 +63,11 @@ class Anva_Builder_Meta_Box {
 
 		// Hooks
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notices' ), 10 );
 		add_action( 'add_meta_boxes', array( $this, 'add' ) );
 		add_action( 'save_post', array( $this, 'save' ) );
 		add_action( 'wp_ajax_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
 		add_action( 'wp_ajax_nopriv_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notices' ), 10 );
 
 	}
 
@@ -89,11 +96,12 @@ class Anva_Builder_Meta_Box {
 				/* WordPress
 				/* ---------------------------------------------------------------- */
 
-				wp_enqueue_style( 'wp-jquery-ui-dialog' );
 				wp_enqueue_style( 'wp-color-picker' );
-				wp_enqueue_script( 'jquery-ui-core' );
+				wp_enqueue_script( 'jquery-ui-draggable' );
+				wp_enqueue_script( 'jquery-ui-droppable' );
 				wp_enqueue_script( 'jquery-ui-sortable' );
 				wp_enqueue_script( 'jquery-ui-tabs' );
+				wp_enqueue_script( 'jquery-effects-core' );
 				wp_enqueue_script( 'jquery-effects-fade' );
 				wp_enqueue_media();
 
@@ -143,6 +151,79 @@ class Anva_Builder_Meta_Box {
 		}
 	}
 
+	private function tabs() {
+
+		$layout = apply_filters( 'anva_builder_layout_elements', array(
+			'divider',
+		) );
+
+		$content = apply_filters( 'anva_builder_content_elements', array(
+			'header',
+			'header_image',
+			'text',
+			'text_image',
+			'text_sidebar',
+			'content_half_bg',
+			'blog_grid',
+			'contact_map',
+			'contact_sidebar',
+			'map',
+		) );
+
+		$media = apply_filters( 'anva_builder_media_elements', array(
+			'image_fullwidth',
+			'image_parallax',
+			'image_fixed_width',
+			'image_half_fixed_width',
+			'image_half_fullwidth',
+			'two_cols_images',
+			'three_cols_images',
+			'three_images_block',
+			'four_images_block',
+			'galleries',
+			'gallery_slider',
+			'gallery_slider_fixed_width',
+			'animated_gallery_grid',
+			'gallery_grid',
+			'gallery_masonry',
+		) );
+
+		$layout_elements = array();
+		$content_elements = array();
+		$media_elements = array();
+
+		foreach ( $this->options as $key => $value ) {
+			if ( in_array( $key, $layout ) ) {
+				$layout_elements[$key] = $value;
+			}
+
+			if ( in_array( $key, $content ) ) {
+				$content_elements[$key] = $value;
+			}
+			
+			if ( in_array( $key, $media ) ) {
+				$media_elements[$key] = $value;
+			}
+		}
+
+		$tabs = array(
+			'content' 		=> array(
+				'name' 			=> __( 'Content Elements', 'anva' ),
+				'elements' 	=> $content_elements
+			),
+			'media' 			=> array(
+				'name' 			=> __( 'Media Elements', 'anva' ),
+				'elements' 	=> $media_elements
+			),
+			'layout' 			=> array(
+				'name' 			=> __( 'Layout Elements', 'anva' ),
+				'elements' 	=> $layout_elements
+			),
+		);
+
+		return $tabs;
+	}
+
 	/**
 	 * Renders the content of the meta box
 	 *
@@ -167,6 +248,7 @@ class Anva_Builder_Meta_Box {
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
 
 		?>
+		<input type="hidden" id="anva_post_id" name="anva_post_id" value="<?php echo esc_attr( $post->ID ); ?>" />
 		<input type="hidden" id="anva_builder_id" name="anva_builder_id" value="<?php echo esc_attr( $this->id ); ?>" />
 		<input type="hidden" id="anva_shortcode" name="anva_shortcode" value="" />
 		<input type="hidden" id="anva_shortcode_title" name="anva_shortcode_title"  value="" />
@@ -177,10 +259,10 @@ class Anva_Builder_Meta_Box {
 		<div class="anva-meta-box">
 
 			<div class="anva-input-checkbox">
-				<a id="anva-builder-button" href="#" class="button button-primary button-large" data-enable="<?php _e( 'Page Builder', 'anva' ); ?>" data-disable="<?php _e( 'Default Editor', 'anva' ); ?>"><?php _e( 'Page Builder' ); ?></a>
+				<a id="anva-builder-button" href="#" class="button button-primary button-large" data-enable="<?php _e( 'Page Builder Editor', 'anva' ); ?>" data-disable="<?php _e( 'Default Editor', 'anva' ); ?>"><?php _e( 'Page Builder Editor' ); ?></a>
 				<input type="checkbox" name="<?php echo esc_attr( $this->id . '[enable]' ); ?>" value="1" <?php checked( $enable, 1, true ); ?> class="anva-builder-enable hidden" />
 				<div class="anva-tooltip-info-html hidden">
-					<h3>Quick Info</h3>
+					<h3><?php _e( 'Quick Info', 'anva' ); ?></h3>
 					<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
 				</div>
 				<a href="#" class="anva-tooltip-info"><span class="dashicons dashicons-info"></span></a>
@@ -191,35 +273,43 @@ class Anva_Builder_Meta_Box {
 				<div class="clear"></div>
 				
 				<div id="elements-wrapper">
+
+					<?php $tabs = $this->tabs(); ?>
 					
-					<?php	if ( ! empty ( $tabs ) ) : ?>
+					<?php	if ( count( $tabs ) > 0 ) : ?>
 						<ul class="anva-tabs">
-							<?php foreach ( $tabs as $key => $tab ) :	?>
-								<li><a href="#elements-tab-<?php echo esc_attr( $key ); ?>"><?php echo $tab; ?></a></li>
+							<?php foreach ( $tabs as $tab_id => $tab ) :	?>
+								<li><a href="#elements-group-<?php echo esc_attr( $tab_id ); ?>"><?php echo $tab['name']; ?></a></li>
 							<?php	endforeach; ?>
 						</ul><!-- .tabs (end) -->
 					<?php endif; ?>
-					
-					<div id="elements-tabs">
+
+					<?php foreach ( $tabs as $tab_id => $tab ) : ?>
+						<div id="elements-group-<?php echo $tab_id; ?>">
 						<ul class="builder-elements">
-							<?php foreach ( $shortcodes as $key => $shortcode ) : ?>
-								<?php if ( isset( $shortcode['icon'] ) && ! empty( $shortcode['icon'] ) ) : ?>
-									<li class="tooltip" title="<?php echo esc_attr( $shortcode['desc'] ); ?>" data-element="<?php echo esc_attr( $key ); ?>" data-title="<?php echo esc_attr( $shortcode['title'] ); ?>">
-										<div class="element">
-											<img class="icon-thumbnail" src="<?php echo esc_url( $shortcode['icon'] ); ?>" alt="<?php echo esc_attr( $shortcode['title'] ); ?>" />
-											<span class="icon-title"><?php echo $shortcode['title']; ?></span>
+
+							<?php foreach ( $tab['elements'] as $element_id => $element ) : ?>
+								
+								<?php if ( isset( $element['icon'] ) && ! empty( $element['icon'] ) ) : ?>
+									<li>
+										<div class="tooltip element-shortcode" data-element="<?php echo esc_attr( $element_id ); ?>" data-title="<?php echo esc_attr( $element['title'] ); ?>" title="<?php echo esc_attr( $element['desc'] ); ?>">
+											<img class="icon-thumbnail" src="<?php echo esc_url( $element['icon'] ); ?>" alt="<?php echo esc_attr( $element['title'] ); ?>" />
+											<span class="icon-title"><?php echo $element['title']; ?></span>
 										</div>
 									</li>
 								<?php endif; ?>
+
 							<?php endforeach; ?>
-						</ul>
-					</div><!-- #elements-tab (end) -->
-				</div><!-- #elements-tabs (end) -->
+							</ul>
+						</div>
+					<?php endforeach; ?>
+
+				</div><!-- #elements-wrapper (end) -->
 				
 				<div class="anva-input-builder-action">
 					
 					<div class="anva-backup-container">
-						<a href="#" class="button button-toggle"><?php _e( 'Backup', 'anva' ); ?></a>
+						<a href="#" class="button button-toggle"><?php _e( 'Template', 'anva' ); ?></a>
 						<div class="anva-backup-inner">
 							<span class="anva-arrow"></span>
 							<div class="anva-export-wrap">
@@ -567,7 +657,7 @@ class Anva_Builder_Meta_Box {
 				
 				<div class="wrap">
 					<h2><?php echo $shortcode_arr['title']; ?></h2>
-					<a id="save-<?php echo esc_attr( $id ); ?>" class="button button-primary button-save" href="#"><?php _e( 'Apply', 'anva' ); ?></a>
+					<a id="save-<?php echo esc_attr( $id ); ?>" class="button button-primary button-save" href="#"><?php _e( 'Apply Changes', 'anva' ); ?></a>
 					<a id="cancel-<?php echo esc_attr( $id ); ?>" class="button button-secondary button-cancel" href="#"><?php _e( 'Cancel', 'anva' ); ?></a>
 				</div><!-- .wrap (end) -->
 
@@ -582,7 +672,7 @@ class Anva_Builder_Meta_Box {
 							<div class="controls">
 								<input type="text" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
 							</div>
-							<div class="explain"><?php _e( 'Enter title for this content.', 'anva' ); ?></div>
+							<div class="explain"><?php _e( 'Enter title for this element.', 'anva' ); ?></div>
 						</div>
 					</div>
 				<?php else : ?>
@@ -625,8 +715,8 @@ class Anva_Builder_Meta_Box {
 								<div class="option">
 									<div class="controls">
 										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text"  class="anva-input anva-file" />
-										<a id="<?php echo $name; ?>_button" name="<?php echo $name; ?>_button" type="button" class="button anva-upload-button" rel="<?php echo $name; ?>"><?php _e( 'Upload', 'anva' ); ?></a>
-										<div class="screenshot" id="<?php echo $name; ?>_image"></div>
+										<a id="<?php echo $name; ?>_button" name="<?php echo $name; ?>_button" class="button anva-upload-button" data-id="<?php echo $name; ?>" data-remove="<?php _e( 'Remove', 'anva' ); ?>" data-upload="<?php _e( 'Upload', 'anva' ); ?>"><?php _e( 'Upload', 'anva' ); ?></a>
+										<div class="screenshot" id="<?php echo $name; ?>_image" style="display:none;"></div>
 									</div>
 									<div class="explain"><?php echo $desc; ?></div>
 								</div>
@@ -730,6 +820,12 @@ class Anva_Builder_Meta_Box {
 				$.each( currentItemOBJ, function( index, value ) {
 					if ( typeof $('#' + index) != 'undefined' ) {
 						$('#' + index).val( decodeURI( value ) );
+						
+						if ( $('#' + index).hasClass('anva-file') ) {
+							$remove = $('#' + index + '_button').data('remove');
+							$('#' + index + '_button').text( $remove );
+							$('#' + index + '_image').append('<img src="' + value + '" /><a href="#" class="anva-remove-image">X</a>').slideDown('fast');
+						}
 					}
 				});
 
@@ -761,10 +857,15 @@ class Anva_Builder_Meta_Box {
 					}
 					
 					// WP Editor
-					// tinyMCE.triggerSave();
-			
+					tinyMCE.triggerSave();
+					
+					// Get urrent item ID
 					var targetItem = $('#anva_current_item').val();
+					
+					// Get current item shortcode
 					var currentShortcode = $('#item-inline-<?php echo esc_js( $id ); ?>').attr('data-shortcode');
+					
+					// Create Object
 					var itemData = {};
 
 					itemData.id = targetItem;

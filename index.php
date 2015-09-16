@@ -26,7 +26,7 @@ get_header();
 						the_post();
 						get_template_part( 'content', 'post' );
 					}
-					anva_num_pagination();
+					anva_pagination();
 				} else {
 					get_template_part( 'content', 'none' );
 				}

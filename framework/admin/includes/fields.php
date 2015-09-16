@@ -32,6 +32,15 @@ function anva_add_meta_boxes_default() {
 		$gallery_attachments_meta_box = new Anva_Gallery_Meta_Box( $gallery_attachments_meta['args']['id'], $gallery_attachments_meta['args'] );
 	}
 
+	// Portfolio Meta Box
+	if ( post_type_exists( 'portfolio' ) ) {
+		$portfolio_meta = anva_setup_portfolio_meta();
+		$portfolio_meta_box = new Anva_Meta_Box( $portfolio_meta['args']['id'], $portfolio_meta['args'], $portfolio_meta['options'] );
+	
+		$portfolio_media_meta = anva_setup_portfolio_media_meta();
+		$portfolio_media_meta_box = new Anva_Media_Meta_Box( $portfolio_media_meta['args']['id'], $portfolio_media_meta['args'] );
+	}
+
 	// Slider Meta Box
 	if ( post_type_exists( 'slideshows' ) ) {
 		$slider_meta = anva_setup_slider_meta();
@@ -151,6 +160,90 @@ function anva_setup_page_meta() {
 }
 
 /**
+ * Portfolio meta setup
+ *
+ * @since  1.0.0
+ * @return array $setup
+ */
+function anva_setup_portfolio_meta() {
+
+	$setup = array(
+		'args' => array(
+			'id' 				=> 'anva_portfolio_options',
+			'title' 		=> __( 'Portfolio Options', 'anva' ),
+			'page'			=> array( 'portfolio' ),
+			'context' 	=> 'side',
+			'priority'	=> 'default',
+			'desc'			=> __( 'This is the default placeholder for portfolio options.', 'anva' )
+		),
+		'options' => array(
+			'layout' => array(
+				'id' 			=> 'layout',
+				'name'		=> __( 'Layout', 'anva' ),
+				'type' 		=> 'heading'
+			),
+			'hide_title' => array(
+				'id'			=> 'hide_title',
+				'name' 		=> __( 'Page Title', 'anva' ),
+				'desc'		=> __( 'Show or hide page\'s titles.', 'anva' ),
+				'type' 		=> 'select',
+				'std'			=> 'show',
+				'options'	=> array(
+					'show' 	=> __( 'Show page\'s title', 'anva' ),
+					'hide'	=> __( 'Hide page\'s title', 'anva' )
+				),
+			),
+			'author' => array(
+				'id'			=> 'author',
+				'name' 		=> __( 'Author', 'anva' ),
+				'desc'		=> __( 'Enter the porfolio author.', 'anva' ),
+				'type' 		=> 'text',
+				'std'			=> ''
+			),
+			'client' => array(
+				'id'			=> 'client',
+				'name' 		=> __( 'Client', 'anva' ),
+				'desc'		=> __( 'Select the date on which the project was completed.', 'anva' ),
+				'type' 		=> 'text',
+				'std'			=> ''
+			),
+			'client_url' => array(
+				'id'			=> 'client_url',
+				'name' 		=> __( 'Client URL', 'anva' ),
+				'desc'		=> __( 'Select the date on which the project was completed.', 'anva' ),
+				'type' 		=> 'text',
+				'std'			=> 'http://'
+			),
+			'date' => array(
+				'id'			=> 'date',
+				'name' 		=> __( 'Date', 'anva' ),
+				'desc'		=> __( 'Select the date Enter the porfolio client.', 'anva' ),
+				'type' 		=> 'date',
+				'std'			=> ''
+			),
+		)
+	);
+
+	return apply_filters( 'anva_portfolio_meta', $setup );
+}
+
+function anva_setup_portfolio_media_meta() {
+
+	$setup = array(
+		'args' => array(
+			'id' 				=> 'anva_portfolio_media_options',
+			'title' 		=> __( 'Portfolio Media Options', 'anva' ),
+			'page'			=> array( 'portfolio' ),
+			'context' 	=> 'normal',
+			'priority'	=> 'high',
+			'desc'			=> __( 'This is the default placeholder for portfolio media options.', 'anva' )
+		),
+	);
+
+	return apply_filters( 'anva_portfolio_media_meta', $setup );
+}
+
+/**
  * Gallery meta setup
  *
  * @since  1.0.0
@@ -184,7 +277,7 @@ function anva_setup_gallery_meta() {
 				'id'			=> 'gallery_highlight',
 				'name' 		=> __( 'Highlight Image', 'anva' ),
 				'desc'		=> __( 'Enter the number of image than want to highlight.', 'anva' ),
-				'type' 		=> 'text',
+				'type' 		=> 'number',
 				'std'			=> ''
 			),
 			'gallery_template' => array(

@@ -532,7 +532,7 @@ function anva_is_slider( $slider_id ) {
 }
 
 /* ---------------------------------------------------------------- */
-/* (6) Helpers - Anva Meta Box API
+/* (6) Helpers - Meta Box API
 /* ---------------------------------------------------------------- */
 
 /**
@@ -557,11 +557,12 @@ function anva_get_field( $field, $default = false ) {
 	$page = array();
 	$typenow = '';
 
+	// Only WP Admin
 	if ( is_admin() ) {
 		global $typenow;
 	}
 	
-	// Get meta for page
+	// Get meta for pages
 	if ( is_page() ) {
 		$page = anva_setup_page_meta();
 	}
@@ -571,12 +572,17 @@ function anva_get_field( $field, $default = false ) {
 		$page = anva_setup_post_meta();
 	}
 
+	// Get meta for portfolio
+	if ( is_singular( 'portfolio' ) ) {
+		$page = anva_setup_portfolio_meta();
+	}
+
 	// Get meta for galleries
 	if ( is_singular( 'galleries' ) ) {
 		$page = anva_setup_gallery_meta();
 	}
 
-	// Get meta for sliders
+	// Get meta for slideshows
 	if ( is_singular( 'slideshows' ) || 'slideshows' == get_post_type() || isset( $typenow ) && 'slideshows' == $typenow ) {
 		$page = anva_setup_slider_meta();
 	}
@@ -603,6 +609,42 @@ function anva_get_field( $field, $default = false ) {
  * @since  1.0.0
  * @return string The field from anva_get_field()
  */
-function anva_the_field( $id, $field, $default = false ) {
-	echo anva_get_field( $id, $field, $default );
+function anva_the_field( $field, $default = false ) {
+	echo anva_get_field( $field, $default );
+}
+
+/**
+ * Get gallery field meta
+ *
+ * @since  1.0.0
+ * @return string The page builder field meta
+ */
+function anva_get_gallery_field() {
+	
+	$field = false;
+	$gallery_meta = anva_setup_gallery_attachments_meta();
+
+	if ( isset( $gallery_meta['args']['id'] ) ) {
+		$field = anva_get_post_meta( $gallery_meta['args']['id'] );
+	}
+
+	return $field;
+}
+
+/**
+ * Get page builder field meta
+ *
+ * @since  1.0.0
+ * @return string The page builder field meta
+ */
+function anva_get_page_builder_field() {
+	
+	$field = false;
+	$page_builder_meta = anva_setup_page_builder_meta();
+
+	if ( isset( $page_builder_meta['args']['id'] ) ) {
+		$field = anva_get_post_meta( $page_builder_meta['args']['id'] );
+	}
+
+	return $field;
 }

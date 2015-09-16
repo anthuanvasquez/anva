@@ -204,17 +204,9 @@ function eren_elements() {
 
 	// Get sidebar locations
 	$sidebars = array();
-	foreach ( anva_get_sidebar_locations() as $key => $value ) {
-		$sidebars[$key] = $value['args']['name'];
+	foreach ( anva_sidebar_layouts() as $key => $value ) {
+		$sidebars[$key] = $value['name'];
 	}
-
-	// Get dynamic sidebars
-	// $dynamic_sidebars = anva_get_option( 'dynamic_sidebars' );
-	// if ( ! empty( $dynamic_sidebars ) ) {
-	// 	foreach ( $dynamic_sidebars as $sidebar ) {
-	// 		$sidebars[$sidebar] = $sidebar;
-	// 	}
-	// }
 	
 	/*--------------------------------------------*/
 	/* Text Sidebar

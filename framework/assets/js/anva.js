@@ -24,9 +24,6 @@ var ANVA = ANVA || {};
 			ANVA.initialize.paginationButtons();
 			ANVA.initialize.pageTransition();
 			
-			if ( 1 == ANVAJS.pluginFoodlist ) {
-				ANVA.initialize.menuTable();
-			}
 		},
 
 		responsiveLogo: function() {

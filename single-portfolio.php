@@ -22,12 +22,8 @@ get_header();
 							<h1><?php the_title(); ?></h1>
 						</div><!-- .entry-title (end) -->
 						
-						<?php anva_posts_meta(); ?>
 						<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
-						
-						<div class="entry-content">
-							<?php the_content(); ?>
-							
+
 							<?php
 								// Get galleries
 								if ( is_singular( 'portfolio' ) ) :
@@ -35,21 +31,31 @@ get_header();
 									var_dump($gallery);
 								endif;
 							?>
+						
+						<div class="entry-content portfolio-single-content row clearfix">
+							
+							<div class="col-sm-7">
+								<div class="portfolio-title">
+									<h2><?php _e( 'Project', 'anva' ); ?></h2>
+								</div>
+								<?php the_content(); ?>
+							</div>
+
+							<div class="col-sm-5">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<ul class="portfolio-meta nobottommargin">
+											<li><span><i class="fa fa-user"></i> Created by:</span> <?php anva_the_field( 'author' ); ?></li>
+											<li><span><i class="fa fa-calendar"></i> Completed on:</span> <?php anva_the_field( 'date' ); ?></li>
+											<li><span><i class="fa fa-lightbulb-o"></i> Skills:</span> HTML5 / PHP / CSS3</li>
+											<li><span><i class="fa fa-link"></i> Client:</span> <a href="<?php echo esc_url( anva_get_field( 'client_url' ) ); ?>"><?php anva_the_field( 'client' ); ?></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
 
 						</div><!-- .entry-content (end) -->
-						
-						<div class="entry-footer">
-							<?php anva_posts_footer(); ?>
-							<?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-link (end) -->' ) ); ?>
-							<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link">', '</span>' ); ?>
-						</div><!-- .entry-footer (end) -->
 					</article><!-- #post-<?php the_ID(); ?> -->
-
-					<?php
-						anva_post_nav();
-						anva_post_author();
-						anva_post_related();
-					?>
 
 				</div><!-- .article-wrapper (end) -->
 				<?php anva_posts_comments(); ?>

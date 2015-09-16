@@ -224,14 +224,12 @@ function anva_post_nav() {
 	}
 	?>
 	<nav class="post-navigation" role="navigation">
-		<div class="post-navigation-inner">
-			<div class="pager navigation-content clearfix">
-				<?php
-					previous_post_link( '<div class="previous">%link</div>', anva_get_local( 'prev' ) );
-					next_post_link( '<div class="next">%link</div>', anva_get_local( 'next' ) );
-				?>
-			</div>
-		</div>
+		<ul class="pager navigation-content clearfix">
+			<?php
+				previous_post_link( '<li class="previous">%link</li>', anva_get_local( 'prev' ) );
+				next_post_link( '<li class="next">%link</li>', anva_get_local( 'next' ) );
+			?>
+		</ul>
 	</nav><!-- .post-navigation (end) -->
 	<div class="line"></div>
 	<?php

@@ -70,10 +70,10 @@ jQuery(document).ready(function($){
 
 	$('.remove-image, .remove-file').on('click', function() {
 		optionsframework_remove_file( $(this).closest('.section-upload') );
-    });
+	});
 
-    $('.upload-button').click( function( event ) {
-    	optionsframework_add_file(event, $(this).closest('.section-upload'));
-    });
+	$('.upload-button').click( function( event ) {
+		optionsframework_add_file(event, $(this).closest('.section-upload'));
+	});
 
 });

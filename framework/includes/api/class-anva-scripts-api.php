@@ -14,14 +14,12 @@ if ( ! class_exists( 'Anva_Scripts_API' ) ) :
  *	- Level 1: Before Framework scripts
  *	- Level 2: After Framework scripts
  *	- Level 3: After Theme scripts (implemented at theme level)
- *	- Level 4: After everything. (end of wp_head)
+ *	- Level 4: After everything (end of wp_head)
  *
  * @since 		 1.0.0
  * @package    Anva
- * @subpackage Anva/admin
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-
 class Anva_Scripts_API {
 
 	/**
@@ -65,8 +63,6 @@ class Anva_Scripts_API {
 	 * Set core framework script
 	 */
 	public function set_framework_scripts() {
-
-		$this->framework_scripts = array();
 
 		// Boostrap
 		$this->framework_scripts['bootstrap'] = array(

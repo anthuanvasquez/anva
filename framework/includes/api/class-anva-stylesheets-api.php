@@ -3,25 +3,22 @@
 if ( ! class_exists( 'Anva_Stylesheets_API' ) ) :
 
 /**
- * Anva Stylesheets
+ * Anva Stylesheets API
  * 
  * This class sets up the framework stylesheets that get
  * enqueued on the frontend of the website.
  * 
  * Additionally, this class provides methods to add and
- * remove stylesheets. Custom API-added stylesheets are organized
- * within four levels.
+ * remove stylesheets. Stylesheets are organized within four levels.
  *	- Level 1: Before Framework styles
  *	- Level 2: After Framework styles
  *	- Level 3: After Theme styles (implemented at theme level)
- *	- Level 4: After everything. (end of wp_head)
+ *	- Level 4: After everything (end of wp_head)
  * 
  * @since 		 1.0.0
  * @package    Anva
- * @subpackage Anva/admin
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-
 class Anva_Stylesheets_API {
 
 	/**
@@ -92,8 +89,6 @@ class Anva_Stylesheets_API {
 	 * Set core framework stylesheet
 	 */
 	public function set_framework_stylesheets() {
-
-		$this->framework_stylesheets = array();
 
 		// Boostrap
 		$this->framework_stylesheets['bootstrap'] = array(

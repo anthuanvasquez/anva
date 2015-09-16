@@ -1,17 +1,24 @@
 <?php
-
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
+/**
+ * Anva - A WordPress theme development framework.
+ * Anva is a framework for developing WordPress themes.
+ * 
+ * @package   Anva
+ * @version   1.0.0
+ * @author    Anthuan Vasquez <eigthyn@gmail.com>
+ * @copyright Copyright (c) 2015, Anthuan Vasquez
+ * @link      http://anthuanvasquez.net/
+ */
 
 if ( ! class_exists( 'Anva' ) ) :
 
 /**
- * Anva Initialize Framework
+ * Anva class launches the framework. It's the organizational structure behind the
+ * entire framework. This class should be loaded and initialized before anything else within
+ * the theme is called to properly use the framework.
  * 
  * @since  1.0.0
- * @author Anthuan Vasquez <eigthy@gmail.com>
+ * @access public
  */
 class Anva {
 
@@ -28,27 +35,6 @@ class Anva {
 	 * @since 1.0.0
 	 */
 	const VERSION = '1.0.0';
-	
-	/**
-	 * A single instance of this class
-	 * 
-	 * @since 1.0.0
-	 */
-	private static $instance = null;
-
-	/**
-	 * Creates or returns an instance of this class
-	 *
-	 * @since 1.0.0
-	 */
-	public static function instance() {
-
-		if ( self::$instance == null ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
 
 	/**
 	 * Throw error on object clone
@@ -58,7 +44,7 @@ class Anva {
 	 * @since  1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin\' huh?', 'anva' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin\' huh?', 'anva' ), self::VERSION );
 	}
 
 	/**
@@ -67,7 +53,7 @@ class Anva {
 	 *
 	 * @since 1.0.0
 	 */
-	private function __construct() {
+	public function __construct() {
 
 		// Setup framework constants
 		$this->set_constants();
@@ -78,12 +64,6 @@ class Anva {
 		// Setup hooks and filters
 		$this->set_hooks();
 
-		// Setup api init
-		$this->set_api();
-
-		// Setup theme functions
-		$this->set_theme_functions();
-
 	}
 
 	/**
@@ -91,7 +71,7 @@ class Anva {
 	 *
 	 * @since 1.0.0
 	 */
-	private function set_constants() {
+	public function set_constants() {
 
 		define( 'ANVA_FRAMEWORK_NAME', self::NAME );
 		define( 'ANVA_FRAMEWORK_VERSION', self::VERSION );
@@ -100,7 +80,12 @@ class Anva {
 		
 	}
 
-	private function set_files() {
+	/**
+	 * Include files
+	 *
+	 * @since 1.0.0
+	 */
+	public function set_files() {
 
 		/* ---------------------------------------------------------------- */
 		/* Vendor
@@ -110,22 +95,6 @@ class Anva {
 			include_once ( ANVA_FRAMEWORK_DIR . '/vendor/cssmin.php' );
 			include_once ( ANVA_FRAMEWORK_DIR . '/vendor/jsmin.php' );
 		}
-
-		/* ---------------------------------------------------------------- */
-		/* Admin
-		/* ---------------------------------------------------------------- */
-
-		// Options Framework
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/options/options-framework.php' );
-		
-		// General
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-builder-meta-box.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-gallery-meta-box.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-meta-box.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/fields.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/general.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/display.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/locals.php' );
 
 		/* ---------------------------------------------------------------- */
 		/* API - Back End / Front End
@@ -138,6 +107,23 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-builder-elements-api.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-sliders-api.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/helpers.php' );
+
+		/* ---------------------------------------------------------------- */
+		/* Admin
+		/* ---------------------------------------------------------------- */
+
+		// Options Framework
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/options/options-framework.php' );
+		
+		// General
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-builder-meta-box.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-gallery-meta-box.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-media-meta-box.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-meta-box.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/fields.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/general.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/display.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/locals.php' );
 
 		/* ---------------------------------------------------------------- */
 		/* Front End
@@ -171,11 +157,15 @@ class Anva {
 	 *
 	 * @since 1.0.0
 	 */
-	private function set_hooks() {
+	public function set_hooks() {
 
 		/* ---------------------------------------------------------------- */
 		/* Admin / Options
 		/* ---------------------------------------------------------------- */
+
+		add_action( 'anva_textdomain', 'anva_load_theme_texdomain' );
+		add_action( 'anva_api', 'anva_api_init' );
+		
 
 		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
 		add_action( 'optionsframework_after', 'anva_admin_footer_credits' );
@@ -186,6 +176,13 @@ class Anva {
 		/* ---------------------------------------------------------------- */
 		/* Init
 		/* ---------------------------------------------------------------- */
+		add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
+		add_filter( 'wp_title', 'anva_wp_title', 10, 2 );
+		add_filter( 'the_password_form', 'anva_password_form' );
+		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
+		add_filter( 'body_class', 'anva_body_class' );
+		add_filter( 'body_class', 'anva_browser_class' );
+		add_filter( 'comment_reply_link', 'anva_comment_reply_link_class' );
 
 		add_action( 'init', 'anva_register_menus' );
 		add_action( 'init', 'anva_contact_send_email' );
@@ -196,19 +193,10 @@ class Anva {
 		add_action( 'after_setup_theme', 'anva_add_theme_support' );
 		add_action( 'wp_head', 'anva_head_apple_touch_icon' );
 		add_action( 'wp_head', 'anva_head_viewport', 8 );
-		add_filter( 'wp_title', 'anva_wp_title', 10, 2 );
 		add_action( 'wp_footer', 'anva_footer_ghost', 1000 );
 		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
 		add_action( 'admin_init', 'anva_add_meta_boxes_default' );
-		add_filter( 'the_password_form', 'anva_password_form' );
-		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
-		add_filter( 'body_class', 'anva_body_class' );
-		add_filter( 'body_class', 'anva_browser_class' );
-		add_filter( 'comment_reply_link', 'anva_comment_reply_link_class' );
 		add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
-		add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
-		add_action( 'anva_init', 'anva_api_init' );
-		add_action( 'anva_textdomain', 'anva_load_theme_texdomain' );
 
 		/* ---------------------------------------------------------------- */
 		/* Header
@@ -279,44 +267,15 @@ class Anva {
 		add_action( 'anva_slider_camera', 'anva_slider_camera_default', 9, 2 );
 
 		// Shortcodes
-		add_filter( 'after_setup_theme', 'anva_shortcodes_init' );
+		add_action( 'after_setup_theme', 'anva_shortcodes_init' );
 
 		// Textdomain
 		do_action( 'anva_textdomain' );
-	}
 
-	/**
-	 * Initialize Framework API
-	 *
-	 * @since 1.0.0
-	 */
-	public function set_api() {
-		do_action( 'anva_before_init' );
-		do_action( 'anva_init' );
-		do_action( 'anva_after_init' );
-	}
-
-	/**
-	 * Theme functions
-	 *
-	 * @since 1.0.0
-	 */
-	public function set_theme_functions() {
-		include_once( get_template_directory() . '/includes/theme-functions.php' );
+		// API
+		do_action( 'anva_api_before' );
+		do_action( 'anva_api' );
 	}
 
 }
-endif; // End Class Anva
-
-/**
- * Init Anva Framework
- *
- * @since 1.0.0
- */
-function Anva_Framework() {
-	return Anva::instance();
-}
-
-
-// Here We Go!
-Anva_Framework();
+endif;

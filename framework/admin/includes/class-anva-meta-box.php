@@ -76,9 +76,12 @@ class Anva_Meta_Box {
 			
 			// Add scripts only if page match with post type
 			if ( $typenow == $page ) {
-			
+				
+				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 				wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				
+				wp_enqueue_style( 'jquery-ui-custom', anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
 				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
@@ -378,7 +381,12 @@ class Anva_Meta_Box {
 
 				// Text
 				case 'text':
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-text" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
+					break;
+
+				// Number
+				case 'number':
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-number anva-spinner" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="number" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
 					break;
 
 				// Textarea
@@ -391,18 +399,18 @@ class Anva_Meta_Box {
 						}
 					}
 					$val = stripslashes( $val );
-					$output .= '<textarea id="' . esc_attr( $field['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" rows="' . $rows . '"' . $placeholder . '>' . esc_textarea( $val ) . '</textarea>';
+					$output .= '<textarea id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-textarea" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" rows="' . $rows . '"' . $placeholder . '>' . esc_textarea( $val ) . '</textarea>';
 					break;
 
 				// Checkbox
-				case "checkbox":
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="checkbox meta-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
+				case 'checkbox':
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-checkbox" type="checkbox" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
 					$output .= '<label class="explain" for="' . esc_attr( $field['id'] ) . '">' . wp_kses( $explain_value, $allowedtags ) . '</label>';
 					break;
 
 				// Select Box
 				case 'select':
-					$output .= '<select class="of-input" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" id="' . esc_attr( $field['id'] ) . '">';
+					$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" id="' . esc_attr( $field['id'] ) . '">';
 					foreach ( $field['options'] as $key => $option ) {
 						$output .= '<option'. selected( $val, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
 					}
@@ -410,11 +418,11 @@ class Anva_Meta_Box {
 					break;
 
 				// Radio
-				case "radio":
+				case 'radio':
 					$name = $option_name .'['. $field['id'] .']';
 					foreach ( $field['options'] as $key => $option ) {
 						$id = $option_name . '-' . $field['id'] .'-'. $key;
-						$output .= '<input class="meta-input meta-radio" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" '. checked( $val, $key, false) .' /><label for="' . esc_attr( $id ) . '">' . esc_html( $option ) . '</label>';
+						$output .= '<input class="anva-input anva-radio" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" '. checked( $val, $key, false) .' /><label for="' . esc_attr( $id ) . '">' . esc_html( $option ) . '</label>';
 					}
 					break;
 
@@ -430,19 +438,19 @@ class Anva_Meta_Box {
 						if ( isset( $val[$option] ) ) {
 							$checked = checked( $val[$option], 1, false );
 						}
-						$output .= '<input id="' . esc_attr( $id ) . '" class="checkbox meta-input" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
+						$output .= '<input id="' . esc_attr( $id ) . '" class="anva-input anva-multicheck" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
 					}
 					break;
 
 				// Date
 				case 'date':
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input meta-date meta-date-picker" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-date anva-datepicker" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
 					break;
 
 				// Slider
 				case 'slider':
 					$output .= '<div id="' . esc_attr( $field['id'] ) . '-slider"></div>';
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="meta-input meta-slider" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
+					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-slider" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
 					break;
 
 				// Tab

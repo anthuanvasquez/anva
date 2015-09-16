@@ -5,42 +5,6 @@
 /*-----------------------------------------------------------------------------------*/
 
 /**
- * Get gallery field meta
- *
- * @since  1.0.0
- * @return string The page builder field meta
- */
-function anva_get_gallery_field() {
-	
-	$field = false;
-	$gallery_meta = anva_setup_gallery_attachments_meta();
-
-	if ( isset( $gallery_meta['args']['id'] ) ) {
-		$field = anva_get_post_meta( $gallery_meta['args']['id'] );
-	}
-
-	return $field;
-}
-
-/**
- * Get page builder field meta
- *
- * @since  1.0.0
- * @return string The page builder field meta
- */
-function anva_get_page_builder_field() {
-	
-	$field = false;
-	$page_builder_meta = anva_setup_page_builder_meta();
-
-	if ( isset( $page_builder_meta['args']['id'] ) ) {
-		$field = anva_get_post_meta( $page_builder_meta['args']['id'] );
-	}
-
-	return $field;
-}
-
-/**
  * Generate page builder elements
  *
  * @since  1.0.0
@@ -51,17 +15,15 @@ function anva_elements() {
 	// Get settings
 	$settings = anva_get_page_builder_field();
 
-	var_dump($settings);
-
 	// Kill it if there's no order
 	if ( isset( $settings['order'] ) && empty( $settings['order'] ) ) {
 		return;
 	}
 	
 	// Kill it if not a array with keys
-	if ( ! is_array( $settings['order'] ) ) {
-		return;
-	}
+	// if ( ! is_array( $settings['order'] ) ) {
+	// 	return;
+	// }
 
 	// Set items order
 	$items 	 = explode( ',', $settings['order'] );
@@ -85,7 +47,7 @@ function anva_elements() {
 			$shortcodes = anva_get_elements();
 			
 			// Shortcode has attributes
-			if ( isset( $shortcodes[$shortcode]['attr'] ) ) {
+			if ( isset( $shortcodes[$shortcode]['attr'] ) && ! empty( $shortcodes[$shortcode]['attr'] ) ) {
 
 				$classes[] = 'element-has-attributes';
 
@@ -112,7 +74,6 @@ function anva_elements() {
 		echo '<section id="section-' . esc_attr( $counter ) . '" class="section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
 		echo '<div id="element-' .  esc_attr( $item ) . '" class="element">';
 		
-		// echo anva_apply_content( $html );
 		do_action( 'anva_element_' . $shortcode, $atts, $content );
 		
 		echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
