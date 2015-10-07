@@ -4,9 +4,6 @@
 
 #posts {
 	position: relative;
-	.entry-content {
-		margin-top: 30px;
-	}
 }
 
 .post,
@@ -33,11 +30,7 @@
  */
 
 .page-title {
-	margin: 0 -15px 30px;
-	padding: 50px 30px;
-	clear: both;
-	background-color: #f5f5f5;
-	border-bottom: 1px solid #eee;
+	margin: 0 -0 30px;
 	position: relative;
 
 	h1 {
@@ -106,7 +99,7 @@
 	margin: 10px -10px -15px 0;
 
 	span {
-		float: left;
+		display: inline;
 		font-size: 13px;
 		line-height: 14px;
 		margin: 0 10px 15px 0;
@@ -249,6 +242,11 @@ time.updated {
 		width: 84px;
 		height: 84px;
 	}
+}
+
+.author-description {
+	position: relative;
+	overflow: hidden;
 }
 
 /* Small Post

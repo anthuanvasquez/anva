@@ -326,10 +326,10 @@ class Anva_Meta_Box {
 				$field['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $field['id'] ) );
 				$id = 'meta-' . $field['id'];
 
-				$class = 'meta';
+				$class = 'section';
 
 				if ( isset( $field['type'] ) ) {
-					$class .= ' field-' . $field['type'];
+					$class .= ' section-' . $field['type'];
 				}
 
 				if ( isset( $field['class'] ) ) {
@@ -343,10 +343,10 @@ class Anva_Meta_Box {
 				}
 				
 				if ( $field['type'] != 'editor' ) {
-					$output .= '<div class="meta-option">' . "\n" . '<div class="meta-controls"><!-- .meta-controls (end) -->' . "\n";
+					$output .= '<div class="option">' . "\n" . '<div class="controls"><!-- .controls (end) -->' . "\n";
 				}
 				else {
-					$output .= '<div class="meta-option">' . "\n" . '<div><!-- .meta-option (end) -->' . "\n";
+					$output .= '<div class="option">' . "\n" . '<div><!-- .option (end) -->' . "\n";
 				}
 			}
 
@@ -410,11 +410,58 @@ class Anva_Meta_Box {
 
 				// Select Box
 				case 'select':
+
+					// Layout
 					$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" id="' . esc_attr( $field['id'] ) . '">';
 					foreach ( $field['options'] as $key => $option ) {
 						$output .= '<option'. selected( $val, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
 					}
 					$output .= '</select>';
+					break;
+
+				case 'layout':
+
+						// Fill layouts array
+						$layouts[''] = esc_html__( 'Default Sidebar Layout', 'anva' );
+						foreach ( anva_get_sidebar_layouts() as $key => $value ) {
+							$layouts[$key] = esc_html( $value['name'] );
+						}
+
+						// Fill sidebars array
+						$sidebars[''] = esc_html__( 'Default Sidebar Location', 'anva' );
+						foreach ( anva_get_sidebar_locations() as $key => $value ) {
+							$sidebars[$key] = esc_html( $value['args']['name'] );
+						}
+
+						// Layout
+						$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . '][layout]' ) . '" id="' . esc_attr( $field['id'] ) . '">';
+						foreach ( $layouts as $key => $option ) {
+							$output .= '<option'. selected( $val['layout'], $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+						}
+						$output .= '</select>';
+
+						// Right
+						$output .= '<div class="sidebar-layout">';
+						$output .= '<div class="item item-right">';
+						$output .= '<label>' . __( 'Right', 'anva' ) . '</label>';
+						$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . '][right]' ) . '" id="' . esc_attr( $field['id'] . '_right' ) . '">';
+						foreach ( $sidebars as $key => $option ) {
+							$output .= '<option'. selected( $val['right'], $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+						}
+						$output .= '</select>';
+						$output .= '</div>';
+
+						// Left
+						$output .= '<div class="item item-left">';
+						$output .= '<label>' . __( 'Left', 'anva' ) . '</label>';
+						$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . '][left]' ) . '" id="' . esc_attr( $field['id'] . '_left' ) . '">';
+						foreach ( $sidebars as $key => $option ) {
+							$output .= '<option'. selected( $val['left'], $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+						}
+						$output .= '</select>';
+						$output .= '</div>';
+						$output .= '</div>';
+
 					break;
 
 				// Radio
@@ -468,11 +515,11 @@ class Anva_Meta_Box {
 			} // End Switch
 
 			if ( ( $field['type'] != "heading" ) && ( $field['type'] != "info" ) ) {
-				$output .= '</div><!-- .meta-controls (end) -->';
+				$output .= '</div><!-- .controls (end) -->';
 				if ( ( $field['type'] != "checkbox" ) && ( $field['type'] != "editor" ) ) {
-					$output .= '<div class="meta-explain description">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .meta-explain (end) -->'."\n";
+					$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .explain (end) -->'."\n";
 				}
-				$output .= '</div><!-- .meta-option (end) --></div><!-- .meta (end) -->'."\n";
+				$output .= '</div><!-- .option (end) --></div><!-- .section (end) -->'."\n";
 			}
 
 		} // End Foreach

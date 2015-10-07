@@ -13,10 +13,10 @@
   background: #eee;
   -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
           box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
-  -webkit-transition: opacity 0.1s ease;
-     -moz-transition: opacity 0.1s ease;
-       -o-transition: opacity 0.1s ease;
-          transition: opacity 0.1s ease;
+  -webkit-transition: none;
+     -moz-transition: none;
+       -o-transition: none;
+          transition: none;
   color: #222;
   font-weight: 700;
   text-decoration: none;
@@ -127,10 +127,10 @@
   bottom: 0;
   left: 0;
   opacity: 1;
-  -webkit-transition: opacity 0.1s;
-     -moz-transition: opacity 0.1s;
-       -o-transition: opacity 0.1s;
-          transition: opacity 0.1s;
+  -webkit-transition: none;
+     -moz-transition: none;
+       -o-transition: none;
+          transition: none;
 }
 
 #anva_gallery_thumbs li .thumbnail:after {

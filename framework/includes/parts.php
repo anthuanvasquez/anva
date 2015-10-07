@@ -309,15 +309,19 @@ function anva_post_author() {
 	?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Posted by <span><a href="<?php echo esc_attr( $url ); ?>"><?php echo esc_attr( $name ); ?></a></span></h3>
+			<h3 class="panel-title">
+				<?php printf( 'Posted by <span><a href="%1$s">%2$s</a></span>', esc_url( $url ), esc_html( $name ) ); ?>
+			</h3>
 		</div>
 		<div class="panel-body">
 			<div class="author-image">
-				<?php echo $avatar; ?>
+				<?php echo $avatar ; ?>
 			</div>
-			<?php echo esc_html( $desc ); ?>
+			<div class="author-description">
+				<?php echo wpautop( esc_html( $desc ) ); ?>
+			</div>
 		</div>
-	</div><!-- .author (end) -->
+	</div><!-- .panel (end) -->
 	<div class="line"></div>
 	<?php
 }

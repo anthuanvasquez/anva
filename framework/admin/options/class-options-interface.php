@@ -247,10 +247,13 @@ class Options_Framework_Interface {
 					if ( $val != '' && ($val == $key) ) {
 						$selected = ' anva-radio-img-selected';
 					}
-					$output .= '<div class="anva-radio-img-box">';
+					
+					$slug = str_replace( '_', ' ', $key );
+
+					$output .= '<div class="anva-radio-img-box ' . esc_attr( $selected ) . '">';
+					$output .= '<img src="' . esc_url( $option ) . '" alt="' . esc_attr( $key ) .'" class="anva-radio-img-img" onclick="document.getElementById(\''. esc_attr ($value['id'] .'_'. $key ) .'\').checked=true;" />';
+					$output .= '<div class="anva-radio-img-label">' . esc_html( $slug ) . '</div>';
 					$output .= '<input type="radio" id="' . esc_attr( $value['id'] .'_'. $key) . '" class="anva-radio-img-radio" value="' . esc_attr( $key ) . '" name="' . esc_attr( $name ) . '" '. checked( $val, $key, false ) .' />';
-					$output .= '<div class="anva-radio-img-label">' . esc_html( $key ) . '</div>';
-					$output .= '<img src="' . esc_url( $option ) . '" alt="' . $key .'" class="anva-radio-img-img' . $selected .'" onclick="document.getElementById(\''. esc_attr($value['id'] .'_'. $key) .'\').checked=true;" />';
 					$output .= '</div>';
 				}
 				$output .= '<div class="clear"></div>';
@@ -261,7 +264,7 @@ class Options_Framework_Interface {
 			| Checkbox
 			|--------------------------------------------------------------------------
 			*/
-			case "checkbox":
+			case 'checkbox':
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox anva-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
 				$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
 				break;
@@ -276,7 +279,7 @@ class Options_Framework_Interface {
 				break;
 
 			// Social Media
-			case "social_media":
+			case 'social_media':
 				$output .= anva_social_media_option( $value['id'], $option_name, $val );
 				break;
 
@@ -287,6 +290,74 @@ class Options_Framework_Interface {
 			*/
 			case 'columns' :
 				$output .= anva_columns_option( $value['id'], $option_name, $val );
+				break;
+
+			case 'sidebar':
+				?>
+
+				<script type='text/javascript'>
+				jQuery(document).ready(function($) {
+
+					// Remove sidebar
+					$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
+						e.preventDefault();
+						var $ele = $(this).parent();
+						if ( confirm( 'You sure want delete this item?' )	) {
+							$ele.fadeOut();
+							setTimeout( function() {
+								$ele.remove();
+								if ( $('.dynamic-sidebars ul li').length == 0 ) {
+									$('.dynamic-sidebars ul').addClass('empty');
+								}
+							}, 500 );
+						}
+					});
+
+					// Add new sidebar
+					$('#add_sidebar').click( function() {
+						var $new = $('#new_sidebar_name').val();
+
+						if ( '' == $new ) {
+							alert( 'Enter the name for custom sidebar.' );
+							return false;
+						}
+
+						$('.dynamic-sidebars ul').removeClass('empty');
+
+						var $sidebarId = $('#dynamic_sidebar_id').val(), $sidebarName = $('#dynamic_sidebar_name').val();
+						$('.dynamic-sidebars ul').append( '<li class="animated bounceIn">' + $new + ' <a href="#" class="delete">Delete</a> <input type="hidden" name="' + $sidebarName + '[' + $sidebarId + '][]' + '" value="' + $new + '" /></li>' );
+						$('#new_sidebar_name').val('');
+					}); 
+				});
+				</script>
+				
+				<?php
+				$class = '';
+				if ( ! $val ) {
+					$class = 'class="empty"';
+				}
+
+				$output .= '<input type="text" id="new_sidebar_name" placeholder="' . __( 'Enter the sidebar name', 'anva' ) . '" />';
+				$output .= '<input type="button" class="button" id="add_sidebar" value="' . __( 'Add', 'anva' ) . '" />';
+				$output .= '<input type="hidden" id="dynamic_sidebar_name" value="' . esc_attr( $option_name ) . '" />';
+				$output .= '<input type="hidden" id="dynamic_sidebar_id" value="' . esc_attr( $value['id'] ) . '" />';
+				$output .= '<div class="dynamic-sidebars">';
+				$output .= '<ul ' . $class . '>';
+		 
+				// Display every custom sidebar
+				if ( $val ) {
+					$i = 0;
+					foreach ( $val as $sidebar ) {
+						$output .= '<li>' . $sidebar . '<a href="#" class="delete">' . __( 'Delete', 'anva' ) . '</a>';
+						$output .= '<input type="hidden" name="' . esc_attr( $option_name . '[' . $value['id'] . '][]' ) . '" value="' . $sidebar . '" />';
+						$output .= '</li>';
+						$i++;
+					}
+				}
+				 
+				$output .= '</ul>';
+				$output .= '</div><!-- .dynamic-sidebars (end) -->';
+				
 				break;
 
 			/*
@@ -464,13 +535,14 @@ class Options_Framework_Interface {
 				// Background Color
 				$default_color = '';
 				if ( isset( $value['std']['color'] ) ) {
-					if ( $val !=  $value['std']['color'] )
-						$default_color = ' data-default-color="' .$value['std']['color'] . '" ';
+					if ( $val !=  $value['std']['color'] ) {
+						$default_color = ' data-default-color="' . $value['std']['color'] . '" ';
+					}
+					$output .= '<input name="' . esc_attr( $option_name . '[' . $value['id'] . '][color]' ) . '" id="' . esc_attr( $value['id'] . '_color' ) . '" class="anva-color anva-background-color"  type="text" value="' . esc_attr( $background['color'] ) . '"' . $default_color .' />';
 				}
-				$output .= '<input name="' . esc_attr( $option_name . '[' . $value['id'] . '][color]' ) . '" id="' . esc_attr( $value['id'] . '_color' ) . '" class="anva-color anva-background-color"  type="text" value="' . esc_attr( $background['color'] ) . '"' . $default_color .' />';
 
 				// Background Image
-				if ( !isset($background['image']) ) {
+				if ( ! isset( $background['image'] ) ) {
 					$background['image'] = '';
 				}
 
@@ -533,6 +605,7 @@ class Options_Framework_Interface {
 				$editor_settings = array_merge( $default_editor_settings, $editor_settings );
 				wp_editor( $val, $value['id'], $editor_settings );
 				$output = '';
+
 				break;
 
 			/*
@@ -561,6 +634,7 @@ class Options_Framework_Interface {
 					$output .= '<p>' . $value['desc'] . "</p>\n";
 				}
 				$output .= '</div>' . "\n";
+				
 				break;
 
 			/*

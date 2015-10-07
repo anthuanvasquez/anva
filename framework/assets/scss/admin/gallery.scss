@@ -14,7 +14,7 @@
 	outline: 0;
 	background: #eee;
 	box-shadow: 0 0 0 1px #fff,0 0 0 2px rgba(0,0,0,.15);
-	transition: opacity .1s ease;
+	transition: none;
 	color: #222;
 	font-weight: 700;
 	text-decoration: none;
@@ -100,7 +100,7 @@
 
 		.attachment-preview {
 			position: relative;
-			box-shadow: inset 0 0 15px rgba(black,.1),inset 0 0 0 1px rgba(black,.05);
+			box-shadow: inset 0 0 15px rgba(black,.1), inset 0 0 0 1px rgba(black,.05);
 			background: #eee;
 			cursor: pointer;
 			&:before {
@@ -118,7 +118,7 @@
 			bottom: 0;
 			left: 0;
 			opacity: 1;
-			transition: opacity .1s;
+			transition: none;
 			&:after {
 				content: '';
 				display: block;

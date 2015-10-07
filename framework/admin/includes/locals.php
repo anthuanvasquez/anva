@@ -25,6 +25,7 @@
 		case 'metabox_js':
 			$locals = array(
 				'ajaxurl' 							=> admin_url( 'admin-ajax.php' ),
+				'builder_title'					=> __( 'The title field is required.', 'anva' ),
 				'builder_empty' 				=> __( 'Select an item to add it to the list.', 'anva' ),
 				'builder_remove' 				=> __( 'Are you sure you want to remove this item?', 'anva' ),
 				'builder_remove_all' 		=> __( 'Are you sure you want to remove all items?', 'anva' ),

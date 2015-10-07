@@ -697,7 +697,7 @@ var ANVA = ANVA || {};
 				container: 'body'
 			});
 
-
+			$('#wrapper').fitVids();
 
 			if ( ANVA.isMobile.any() ) {
 				$body.addClass('device-touch');

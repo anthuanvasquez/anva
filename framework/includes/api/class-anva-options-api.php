@@ -81,8 +81,8 @@ class Anva_Options_API {
 		// Fill layouts array
 		$layouts = array();
 		if ( is_admin() ) {
-			foreach ( anva_sidebar_layouts() as $key => $value ) {
-				$layouts[$key] = esc_html( $value['name'] );
+			foreach ( anva_get_sidebar_layouts() as $key => $value ) {
+				$layouts[$key] = $value['icon'];
 			}
 		}
 
@@ -106,15 +106,6 @@ class Anva_Options_API {
 		/* ---------------------------------------------------------------- */
 		/* Defaults
 		/* ---------------------------------------------------------------- */
-
-		// Background defaults
-		$background_defaults = array(
-			'color' 			=> '',
-			'image' 			=> '',
-			'repeat' 			=> 'repeat',
-			'position' 		=> 'top center',
-			'attachment' 	=> 'scroll'
-		);
 
 		// Template defaults
 		$template_defaults = array(
@@ -145,22 +136,17 @@ class Anva_Options_API {
 
 		// If using image radio buttons, define a directory path
 		$image_path = get_template_directory_uri() . '/assets/images/';
-		$skin_path  = $image_path . 'skins/';
 
 		/* ---------------------------------------------------------------- */
 		/* Tab #1: Styles
 		/* ---------------------------------------------------------------- */
 
 		$styles_options = array(
-			
-			// Layout
-			'layout' => array(
-				'name' => __( 'Layout', 'anva' ),
-				'desc' => __( 'This is the section of layout inputs.', 'anva' ),
+			'main' => array(
+				'name' => __( 'Main', 'anva' ),
+				'desc' => __( 'You can further customize the entire look of your theme by using the options below.', 'anva' ),
 				'class' => 'group-layout',
 				'options' => array(
-					
-					// Laout Style
 					'layout_style' => array(
 						'name' => __('Layout Style', 'anva'),
 						'desc' => __('Select the layout style.', 'anva'),
@@ -173,8 +159,6 @@ class Anva_Options_API {
 							'stretched' => __( 'Stretched', 'anva' )
 						)
 					),
-					
-					// Social Media Style
 					'social' => array(
 						'name' => __('Social Media Buttons Style', 'anva'),
 						'desc' => __('Select the style for your social media buttons.', 'anva'),
@@ -188,221 +172,7 @@ class Anva_Options_API {
 						)
 					),
 				)
-			), // End Layout
-			
-			'typography' => array(
-				'name' => __( 'Typography', 'anva' ),
-				'class' => 'group-typography',
-				'options'	=> array(
-					'body_font' => array(
-						'name' => __('Body Font', 'anva'),
-						'desc' => __('This applies to most of the text on your site.', 'anva'),
-						'id' => "body_font",
-						'std' => array(
-							'size' => '14px',
-							'face' => 'google',
-							'google' => 'Lato',
-							'style' => 'normal',
-						),
-						'type' => 'typography',
-						'options' => array( 'size', 'style', 'face' )
-					),
-					
-					'heading_font' => array(
-						'name' => __( 'Headings Font', 'anva'),
-						'desc' => __( 'This applies to all of the primary headers throughout your site (h1, h2, h3, h4, h5, h6). This would include header tags used in redundant areas like widgets and the content of posts and pages.', 'anva'),
-						'id' => "heading_font",
-						'std' => array(
-							'face' => 'google',
-							'google' => 'Raleway',
-							'style' => 'normal'
-						),
-						'type' => 'typography',
-						'options' => array( 'style', 'face' )
-						
-					),
-
-					'heading_h1' => array(
-						'name' => __('H1', 'anva'),
-						'desc' => __('Select the size for H1 tag in px.', 'anva'),
-						'id' => 'heading_h1',
-						'std' => '27',
-						'type' => 'range',
-						'options' => array(
-							'min' => 9,
-							'max' => 72,
-							'step' => 1,
-							'format' => 'px',
-						)
-					),
-
-					'heading_h2' => array(
-						'name' => __('H2', 'anva'),
-						'desc' => __('Select the size for H2 tag in px.', 'anva'),
-						'id' => 'heading_h2',
-						'std' => '24',
-						'type' => 'range',
-						'options' => array(
-							'min' => 9,
-							'max' => 72,
-							'step' => 1,
-							'format' => 'px',
-						)
-					),
-
-					'heading_h3' => array(
-						'name' => __('H3', 'anva'),
-						'desc' => __('Select the size for H3 tag in px.', 'anva'),
-						'id' => 'heading_h3',
-						'std' => '18',
-						'type' => 'range',
-						'options' => array(
-							'min' => 9,
-							'max' => 72,
-							'step' => 1,
-							'format' => 'px',
-						)
-					),
-
-					'heading_h4' => array(
-						'name' => __('H4', 'anva'),
-						'desc' => __('Select the size for H4 tag in px.', 'anva'),
-						'id' => 'heading_h4',
-						'std' => '14',
-						'type' => 'range',
-						'options' => array(
-							'min' => 9,
-							'max' => 72,
-							'step' => 1,
-							'format' => 'px',
-						)
-					),
-
-					'heading_h5' => array(
-						'name' => __('H5', 'anva'),
-						'desc' => __('Select the size for H5 tag in px.', 'anva'),
-						'id' => 'heading_h5',
-						'std' => '13',
-						'type' => 'range',
-						'options' => array(
-							'min' => 9,
-							'max' => 72,
-							'step' => 1,
-							'format' => 'px',
-						)
-					),
-
-					'heading_h6' => array(
-						'name' => __('H6', 'anva'),
-						'desc' => __('Select the size for H6 tag in px.', 'anva'),
-						'id' => 'heading_h6',
-						'std' => '11',
-						'type' => 'range',
-						'options' => array(
-							'min' => 9,
-							'max' => 72,
-							'step' => 1,
-							'format' => 'px',
-						)
-					),
-				)
-			), // End Typography
-			
-			// Links
-			'links' => array(
-				'name' => __( 'Links', 'anva' ),
-				'class' => 'group-links',
-				'type' 	=> 'group_start',
-				'options' => array(
-					
-					// Link Color
-					'link_color' => array(
-						'name' => __('Link Color', 'anva'),
-						'desc' => __('Set the link color.', 'anva'),
-						'id' => 'link_color',
-						'std' => '#ff0000',
-						'type' => 'color'
-					),
-					
-					// Link Color Hover
-					'link_color_hover' => array(
-						'name' => __('Link Color (:Hover)', 'anva'),
-						'desc' => __('Set the link color.', 'anva'),
-						'id' => 'link_color_hover',
-						'std' => '#ff0000',
-						'type' => 'color'
-					)
-				)
-			), // End Links
-
-			// Background
-			'background' => array(
-				'name' 	=> __( 'Background', 'anva' ),
-				'class' => 'group-background',
-				'options' => array(
-
-					'background_color' => array(
-						'name' => __('Background Color', 'anva'),
-						'desc' => __('Select the background color.', 'anva'),
-						'id' => 'background_color',
-						'std' => '#dddddd',
-						'type' => 'color'
-					),
-
-					'background_image' => array(
-						'name' => __('Background Image', 'anva'),
-						'desc' => __('Select the background color.', 'anva'),
-						'id' => 'background_image',
-						'std' => array(
-							'color' => '#dddddd',
-							'image' => '',
-							'repeat' => 'repeat',
-							'position' => 'top center',
-							'attachment'=> 'scroll',
-						),
-						'type' => 'background'
-					),
-
-					'background_pattern' => array(
-						'name' => __( 'Background Pattern', 'anva' ),
-						'desc' => __( 'Select the background pattern.', 'anva' ),
-						'id' => 'background_pattern',
-						'std' => '',
-						'type' => 'select',
-						'options' => array(
-							'' 								=> __( 'None' ),
-							'binding_light' 	=> 'Binding Light',
-							'dimension_@2X' 	=> 'Dimension',
-							'hoffman_@2X' 		=> 'Hoffman',
-							'knitting250px' 	=> 'Knitting',
-							'noisy_grid' 			=> 'Noisy Grid',
-							'pixel_weave_@2X' => 'Pixel Weave',
-							'struckaxiom' 		=> 'Struckaxiom',
-							'subtle_stripes' 	=> 'Subtle Stripes',
-						)
-					)
-				)
-			), // End Background
-			
-			'custom' => array(
-				'name' 	=> __('Custom', 'anva'),
-				'class' => 'group-custom',
-				'options' => array(
-					'css_warning' => array(
-						'name' => __('Warning', 'anva'),
-						'desc' => __('If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva'),
-						'id' => 'css_warning',
-						'type' => 'info'
-					),
-					'custom_css' => array(
-						'name' => __('Custom CSS', 'anva'),
-						'desc' => __('If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva'),
-						'id' => 'custom_css',
-						'std' => '',
-						'type' => 'textarea'
-					)
-				)
-			), // End Custom
+			),
 		);
 
 		/* ---------------------------------------------------------------- */
@@ -410,41 +180,6 @@ class Anva_Options_API {
 		/* ---------------------------------------------------------------- */
 
 		$layout_options = array(
-			
-			/*--------------------------------------------*/
-			/* Header
-			/*--------------------------------------------*/
-
-			'header' => array(
-				'name' 	=> __( 'Header', 'anva' ),
-				'class' => 'group-header',
-				'options' => array(
-					'logo' => array(
-						'name' => __( 'Logo', 'anva' ),
-						'desc' => __( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', 'anva' ),
-						'id' => 'logo',
-						'std' => $logo_defaults,
-						'type' => 'logo'
-					),
-
-					'favicon' => array(
-						'name' => __('Favicon', 'anva'),
-						'desc' => __('Configure your won favicon.', 'anva'),
-						'id' => 'favicon',
-						'std' => '',
-						'class' => 'input-text',
-						'type' => 'upload'
-					),
-
-					'social_media' => array(
-						"name" => __('Social Media', 'anva'),  
-						"desc" => __('Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: http://twitter.com/oidoperfecto. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>'.get_feed_link().'</strong>.', 'anva'),  
-						"id" => "social_media",
-						"type" => "social_media",
-						"std" => $social_media_defaults
-					)
-				)
-			),
 			
 			/*--------------------------------------------*/
 			/* Main
@@ -465,15 +200,46 @@ class Anva_Options_API {
 							'hide' => __('Hide breadcrumbs', 'anva')
 						)
 					),
-
 					'sidebar_layout' => array(
 						'name' => __( 'Default Sidebar Layout', 'anva'),
 						'desc' => __( 'Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', 'anva'),
 						'id' => 'sidebar_layout',
 						'std' => 'right',
-						'type' => 'select',
+						'type' => 'images',
 						'options' => $layouts
 					),
+					'dynamic_sidebar' => array(
+						'name' => __( 'Custom Sidebars', 'anva' ),
+						'desc' => __( 'Add a custom sidebar.', 'anva' ),
+						'id' => 'dynamic_sidebar',
+						'std' => '',
+						'type' => 'sidebar'
+					),
+				)
+			),
+
+			/*--------------------------------------------*/
+			/* Header
+			/*--------------------------------------------*/
+
+			'header' => array(
+				'name' 	=> __( 'Header', 'anva' ),
+				'class' => 'group-header',
+				'options' => array(
+					'logo' => array(
+						'name' => __( 'Logo', 'anva' ),
+						'desc' => __( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', 'anva' ),
+						'id' => 'logo',
+						'std' => $logo_defaults,
+						'type' => 'logo'
+					),
+					'social_media' => array(
+						"name" => __('Social Media', 'anva'),  
+						"desc" => __('Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: http://twitter.com/oidoperfecto. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>'.get_feed_link().'</strong>.', 'anva'),  
+						"id" => "social_media",
+						"type" => "social_media",
+						"std" => $social_media_defaults
+					)
 				)
 			),
 
@@ -492,12 +258,11 @@ class Anva_Options_API {
 						'id' 			=> 'footer_setup',
 						'type'		=> 'columns'
 					),
-
 					'footer_copyright' => array(
 						'name' => __( 'Copyright Text', 'anva' ),
 						'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your site.', 'anva' ),
 						'id' => "footer_copyright",
-						'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), get_bloginfo( 'name' ), $author ),
+						'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), $author ),
 						'type' => "textarea"
 					),
 				)
@@ -509,7 +274,6 @@ class Anva_Options_API {
 		/* ---------------------------------------------------------------- */
 
 		$content_options = array(
-			
 			'single' => array(
 				'name' => __( 'Single Posts', 'anva' ),
 				'desc' => __( 'These settings will only apply to vewing single posts.', 'anva' ),
@@ -602,7 +366,7 @@ class Anva_Options_API {
 						)
 					),
 				)
-			), // End Single
+			),
 
 			'primary' => array(
 				'name' 	=> __( 'Primary Posts', 'anva' ),
@@ -657,7 +421,7 @@ class Anva_Options_API {
 						'options' => $categories
 					),
 				)
-			), // End Primary
+			),
 
 			'archives' => array(
 				'name' => __( 'Archives', 'anva' ),
@@ -686,7 +450,7 @@ class Anva_Options_API {
 						'options' => $template_defaults
 					),
 				)
-			), // End Archives
+			),
 		);
 
 		/* ---------------------------------------------------------------- */
@@ -694,7 +458,6 @@ class Anva_Options_API {
 		/* ---------------------------------------------------------------- */
 
 		$advanced_options = array(
-
 			'responsive' => array(
 				'name' 	=> __( 'Responsive', 'anva' ),
 				'class' => 'group-responsive',
@@ -712,7 +475,7 @@ class Anva_Options_API {
 						)
 					),
 				)
-			), // End Responsive
+			),
 		);
 
 		/* ---------------------------------------------------------------- */
@@ -726,7 +489,7 @@ class Anva_Options_API {
 				'sections' 	=> $styles_options
 			),
 			'layout' 			=> array(
-				'icon'			=> 'layout',
+				'icon'			=> 'screenoptions',
 				'name' 			=> __( 'Layout', 'anva' ),
 				'sections' 	=> $layout_options
 			),

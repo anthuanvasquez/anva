@@ -58,10 +58,10 @@ class Options_Framework_Media_Uploader {
 		if ( $value ) {
 			$class = ' has-file';
 		}
-		$output .= '<input id="' . $id . '" class="upload' . $class . '" type="text" name="'.$name.'" value="' . $value . '" placeholder="' . __('No file chosen', 'anva') .'" />' . "\n";
+		$output .= '<input id="' . $id . '" class="upload' . $class . '" type="text" name="'.$name.'" value="' . $value . '" placeholder="' . __( 'No file chosen', 'anva' ) .'" />' . "\n";
 		if ( function_exists( 'wp_enqueue_media' ) ) {
 			if ( ( $value == '' ) ) {
-				$output .= '<input id="upload-' . $id . '" class="upload-button button" type="button" value="' . __( 'Upload', 'anva' ) . '" />' . "\n";
+				$output .= '<input id="upload-' . $id . '" class="upload-button button" type="button" value="' . __( 'Browse', 'anva' ) . '" />' . "\n";
 			} else {
 				$output .= '<input id="remove-' . $id . '" class="remove-file button" type="button" value="' . __( 'Remove', 'anva' ) . '" />' . "\n";
 			}
@@ -76,7 +76,7 @@ class Options_Framework_Media_Uploader {
 		$output .= '<div class="screenshot" id="' . $id . '-image">' . "\n";
 
 		if ( $value != '' ) {
-			$remove = '<a class="remove-image">Remove</a>';
+			$remove = '<a class="remove-image">X</a>';
 			$image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $value );
 			if ( $image ) {
 				$output .= '<img src="' . $value . '" alt="" />' . $remove;
@@ -111,10 +111,10 @@ class Options_Framework_Media_Uploader {
 		if ( function_exists( 'wp_enqueue_media' ) )
 			wp_enqueue_media();
 
-		wp_register_script( 'anva-media-uploader', anva_get_core_uri() . '/assets/js/admin/media-uploader.js', array( 'jquery' ), Options_Framework::VERSION );
+		wp_register_script( 'anva-media-uploader', anva_get_core_uri() . '/assets/js/admin/media-uploader.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
 		wp_enqueue_script( 'anva-media-uploader' );
 		wp_localize_script( 'anva-media-uploader', 'optionsframework_l10n', array(
-			'upload' => __( 'Upload', 'anva' ),
+			'upload' => __( 'Browse', 'anva' ),
 			'remove' => __( 'Remove', 'anva' )
 		) );
 	}
@@ -178,7 +178,7 @@ function anva_media_uploader( $args ) {
 	$data = array(
 		'title' 	=> __( 'Select Media', 'anva' ),
 		'select'	=> __( 'Select', 'anva' ),
-		'upload'	=> __( 'Upload', 'anva' ),
+		'upload'	=> __( 'Browse', 'anva' ),
 		'remove'	=> __( 'Remove', 'anva' ),
 		'class'		=> 'modal-hide-settings'
 	);
@@ -244,7 +244,7 @@ function anva_media_uploader( $args ) {
 	$output .= '<div class="screenshot" id="' . $formfield . '-image">' . "\n";
 
 	if ( $value && $type != 'video' ) {
-		$remove = '<a class="remove-image">Remove</a>';
+		$remove = '<a class="remove-image">X</a>';
 		$image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $value );
 
 		if ( $image ) {

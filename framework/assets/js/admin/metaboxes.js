@@ -1,4 +1,6 @@
 jQuery(document).ready(function($) {
+
+	"use strict";
 	
 	// Settings
 	var s;
@@ -8,9 +10,12 @@ jQuery(document).ready(function($) {
 
 		// Default Settings
 		settings: {
-			template: $('#page_template'),
-			grid: 		$('#meta-grid_column'),
-			sidebar: 	$('#meta-sidebar_layout')
+			template: 			$('#page_template'),
+			layout: 				$('#sidebar_layout'),
+			grid: 					$('#meta-grid_column'),
+			sidebar: 				$('#meta-sidebar_layout'),
+			locationRight: 	$('.sidebar-layout .item-right'),
+			locationLeft: 	$('.sidebar-layout .item-left')
 		},
 
 		init: function() {
@@ -19,18 +24,53 @@ jQuery(document).ready(function($) {
 			s = this.settings;
 
 			AnvaMeta.pageTemplate();
+			AnvaMeta.sidebarLayout();
 			AnvaMeta.tabs();
 			AnvaMeta.datePicker();
 			AnvaMeta.spinner();
 
 		},
 
+		sidebarLayout: function() {
+			if ( s.layout.length > 0 ) {
+				s.layout.on( 'change', function() {
+					AnvaMeta.checkLayout( s.layout.val() );
+				}).trigger('change');
+			}
+		},
+
+		checkLayout: function( val ) {
+			switch ( val ) {
+				case 'double':
+				case 'double_right':
+				case 'double_left':
+					s.locationRight.show();
+					s.locationLeft.show();
+					break;
+				
+				case 'right':
+					s.locationRight.show();
+					s.locationLeft.hide();
+					break;
+
+				case 'left':
+					s.locationRight.hide();
+					s.locationLeft.show();
+					break;
+
+				case '':
+				case 'fullwidth':
+					s.locationRight.hide();
+					s.locationLeft.hide();
+					break;
+			}
+		},
+
 		pageTemplate: function() {
 			if ( s.template.length > 0 ) {
-				AnvaMeta.checkTemplate( s.template.val() );
-				s.template.live( 'change', function() {
-					AnvaMeta.checkTemplate( $(this).val() );
-				});
+				s.template.on( 'change', function() {
+					AnvaMeta.checkTemplate( s.template.val() );
+				}).trigger('change');
 			}
 		},
 

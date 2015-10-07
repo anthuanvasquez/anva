@@ -553,6 +553,8 @@ function anva_add_new_meta_box( $id, $args, $options ) {
  */
 function anva_get_field( $field, $default = false ) {
 
+	global $post;
+
 	$id = null;
 	$page = array();
 	$typenow = '';
@@ -568,22 +570,22 @@ function anva_get_field( $field, $default = false ) {
 	}
 
 	// Get meta for posts
-	if ( is_singular( 'post' ) ) {
+	if ( $post->post_type == 'post' ) {
 		$page = anva_setup_post_meta();
 	}
 
 	// Get meta for portfolio
-	if ( is_singular( 'portfolio' ) ) {
+	if ( $post->post_type == 'portfolio' ) {
 		$page = anva_setup_portfolio_meta();
 	}
 
 	// Get meta for galleries
-	if ( is_singular( 'galleries' ) ) {
+	if ( $post->post_type == 'galleries' ) {
 		$page = anva_setup_gallery_meta();
 	}
 
 	// Get meta for slideshows
-	if ( is_singular( 'slideshows' ) || 'slideshows' == get_post_type() || isset( $typenow ) && 'slideshows' == $typenow ) {
+	if ( $post->post_type == 'slideshows' || isset( $typenow ) && 'slideshows' == $typenow ) {
 		$page = anva_setup_slider_meta();
 	}
 
@@ -623,7 +625,7 @@ function anva_get_gallery_field() {
 	
 	$field = false;
 	$gallery_meta = anva_setup_gallery_attachments_meta();
-
+	
 	if ( isset( $gallery_meta['args']['id'] ) ) {
 		$field = anva_get_post_meta( $gallery_meta['args']['id'] );
 	}

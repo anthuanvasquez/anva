@@ -4,7 +4,7 @@
 /*-----------------------------------------------------------------------------------*/
 
 function anva_admin_theme_activate() {
-	if ( isset( $_GET['activated']) && true == $_GET['activated'] ) :
+	if ( isset( $_GET['activated'] ) && true == $_GET['activated'] ) :
 	?>
 	<div class="updated"><?php _e( 'The theme is activated.', 'anva' ); ?></div>
 	<?php
@@ -17,13 +17,13 @@ function anva_admin_settings_log() {
 
 	// Get current info
 	$option_name = anva_get_option_name();
-	$current_time = get_option( $option_name .'_log' );
+	$option_log = get_option( $option_name . '_log' );
 
 	$html .= '<div class="log">';
 
 	// Check if field exists
-	if ( ! empty( $current_time ) ) {
-		$html .= sprintf( '%s' . __( 'Last changed', 'anva' ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $current_time );
+	if ( ! empty( $option_log ) ) {
+		$html .= sprintf( '%s' . __( 'Last changed', 'anva' ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $option_log );
 	} else {
 		$html .= '<span class="dashicons dashicons-clock"></span> ' . __( 'Your settings has not changed.', 'anva' );
 	}
@@ -68,9 +68,9 @@ function anva_admin_footer_credits() {
 function anva_admin_footer_links() {
 	printf(
 		'<div id="optionsframework-links">%s %s %s</div>',
-		sprintf( '<a href="%s"><span class="dashicons dashicons-megaphone"></span> %s</a>', esc_url( '#' ), __( 'Support', 'anva' ) ),
+		sprintf( '<a href="%s"><span class="dashicons dashicons-megaphone"></span> %s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Support', 'anva' ) ),
 		sprintf( '<a href="%s"><span class="dashicons dashicons-book"></span> %s</a>', esc_url( '#' ), __( 'Theme Documentation', 'anva' ) ),
-		sprintf( '<a href="%s"><span class="dashicons dashicons-cart"></span> %s</a>', esc_url( '#' ), __( 'Buy Themes', 'anva' ) )
+		sprintf( '<a href="%s"><span class="dashicons dashicons-cart"></span> %s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Buy Themes', 'anva' ) )
 	);
 }
 
@@ -84,8 +84,7 @@ function anva_admin_head_scripts() {
 	$val = '';
 	?>
 	<script type="text/javascript">
-	jQuery.noConflict();
-	jQuery(document).ready(function() {
+	jQuery(document).ready(function($) {
 	<?php
 		foreach ( $options as $value ) :
 			if ( isset( $value['id'] ) ) {
@@ -106,11 +105,11 @@ function anva_admin_head_scripts() {
 				}
 			}
 		 
-			 if ( 'range' == $value['type'] ) : ?>
+			if ( 'range' == $value['type'] ) : ?>
 				// Range Slider
 				var <?php echo $id; ?> = {
-					input: jQuery("#<?php echo $id; ?>"),
-					slider: jQuery("#<?php echo $id; ?>_range")
+					input: $("#<?php echo $id; ?>"),
+					slider: $("#<?php echo $id; ?>_range")
 				}
 
 				<?php
@@ -137,11 +136,10 @@ function anva_admin_head_scripts() {
 				<?php echo $id; ?>.slider.slider("pips");
 				<?php echo $id; ?>.slider.slider("float", { pips: true });
 			<?php endif; ?>
+			
 		<?php endforeach; ?>
 	});
 	</script>
-	?>
-	<link rel="stylesheet" id="google-css" href="<?php echo esc_url( '//fonts.googleapis.com/css?family=Open+Sans' ); ?>" type="text/css" media="all">
 	<?php
 }
 
@@ -202,6 +200,8 @@ function anva_social_media_option( $id, $name, $val ) {
 
 /**
  * Generates option to edit a logo
+ *
+ * @since  1.0.0
  */
 function anva_logo_option( $id, $name, $val ) {
 
@@ -288,14 +288,14 @@ function anva_logo_option( $id, $name, $val ) {
 	}
 
 	// Standard Image
-	$image_upload  = '<div class="section-upload image-standard">';
+	$image_upload  = '<div class="section image-standard">';
 	$image_upload .= '<label class="inner-label"><strong>'.__( 'Standard Image', 'anva' ).'</strong></label>';
 	$image_upload .= anva_media_uploader( array( 'option_name' => $name, 'type' => 'logo', 'id' => $id, 'value' => $current_value['url'], 'name' => 'image' ) );
 	$image_upload .= '</div>';
 
 	// Retina image (2x)
-	$image_upload .= '<div class="section-upload image-2x">';
-	$image_upload .= '<label class="inner-label"><strong>'.__( 'HiDPI-optimized Image (optional)', 'anva' ).'</strong></label>';
+	$image_upload .= '<div class="section image-2x">';
+	$image_upload .= '<label class="inner-label"><strong>'.__( '2x Image (optional)', 'anva' ).'</strong></label>';
 	$image_upload .= anva_media_uploader( array( 'option_name' => $name, 'type' => 'logo_2x', 'id' => $id, 'value' => $current_retina['url'], 'name' => 'image_2x' ) );
 	$image_upload .= '</div>';
 
@@ -314,6 +314,8 @@ function anva_logo_option( $id, $name, $val ) {
 
 /**
  * Generates option for configuring columns
+ *
+ * @since  1.0.0
  */
 function anva_columns_option( $id, $name, $val ) {
 

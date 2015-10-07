@@ -16,38 +16,39 @@ class Anva_Menu_Item_Fields {
 	static function setup() {
 		
 		// Get columns
-		$columns = anva_get_grid_columns();
+		$columns = array();
+		$columns[''] = __( 'Select Columns', 'anva' );
 		foreach ( anva_get_grid_columns() as $key => $column ) {
 			$columns[$key] = $column['name'];
 		}
 
 		// Get sidebar locations
-		$mega_menu_locations = array();
-		$mega_menu_locations[''] = __( 'Select Sidebar', 'anva' );
+		$locations = array();
+		$locations[''] = __( 'Select Sidebar', 'anva' );
 		foreach ( anva_get_sidebar_locations() as $key => $sidebar ) {
-			$mega_menu_locations[$key] = $sidebar['args']['name'];
+			$locations[$key] = $sidebar['args']['name'];
 		}
 	
 		self::$options['fields'] = array(
 			'mega_menu' 				=> array(
 				'name' 						=> 'mega_menu',
-				'label' 					=> __('Active Mega Menu', 'anva' ),
+				'label' 					=> __( 'Active Mega Menu', 'anva' ),
 				'container_class' => '',
 				'input_type' 			=> 'checkbox',
 			),
 			'mega_menu_columns' => array(
 				'name' 						=> 'mega_menu_columns',
-				'label' 					=> __('Display Columns', 'anva' ),
+				'label' 					=> __( 'Display Columns', 'anva' ),
 				'container_class' => '',
 				'input_type'		 	=> 'select',
 				'options' 				=> $columns,
 			),
 			'mega_menu_sidebar' => array(
 				'name' 						=> 'mega_menu_sidebar',
-				'label' 					=> __('Display Sidebar Location', 'anva' ),
+				'label' 					=> __( 'Display Sidebar Location', 'anva' ),
 				'container_class' => '',
 				'input_type'		 	=> 'select',
-				'options' 				=> $mega_menu_locations,
+				'options' 				=> $locations,
 			),
 		);
 
@@ -147,15 +148,16 @@ class Anva_Menu_Item_Fields {
 		foreach ( $fields_schema as $field_schema ) {
 
 			$form_field_name = 'menu-item-' . $field_schema['name'];
-			
-			if ( isset( $_POST[$form_field_name][$post_id] ) ) {
-				$key = self::get_menu_item_postmeta_key( $field_schema['name'] );
+
+			$key = self::get_menu_item_postmeta_key( $field_schema['name'] );
+
+			if ( isset( $_POST[$form_field_name][$post_id] ) && ! empty( $_POST[$form_field_name][$post_id] ) ) {
 				$value = stripslashes( $_POST[$form_field_name][$post_id] );
 				update_post_meta( $post_id, $key, $value );
 			
 			} else {
-				$key = self::get_menu_item_postmeta_key( $field_schema['name'] );
-				update_post_meta( $post_id, $key, '' );
+				var_dump($key);
+				delete_post_meta( $post_id, $key );
 			}
 		}
 	}
@@ -225,8 +227,10 @@ class Anva_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$mega_menu_column = get_post_meta( $item->ID, $menu_item->get_menu_item_postmeta_key( 'mega_menu_columns' ), true );
 			
 			if ( ! empty( $mega_menu_column ) ) {
-				$mega_menu_classes[] .= $mega_menu_column;
-			}	
+				$mega_menu_classes[] = $mega_menu_column;
+			}	 else {
+				$mega_menu_classes[] = 2; // Default columns 
+			}
 		}
 
 		$mega_menu_classes = implode( ' ', $mega_menu_classes );
@@ -257,8 +261,9 @@ class Anva_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		if ( ! empty( $mega_menu ) ) {
 			$mega_menu_sidebar = get_post_meta( $item->ID, $menu_item->get_menu_item_postmeta_key( 'mega_menu_sidebar' ), true );
+			
 			if ( ! empty( $mega_menu_sidebar ) ) {
-				$item_output .= '<ul class="sub-menu sub-menu-widget">';
+				$item_output .= '<ul class="sub-menu sub-menu-sidebar">';
 				$item_output .= get_dynamic_sidebar( $mega_menu_sidebar );
 				$item_output .= '</ul>';
 			}

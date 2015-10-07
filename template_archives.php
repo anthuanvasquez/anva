@@ -8,7 +8,7 @@
  */
 get_header();
 
-$hide_title = anva_get_post_meta( '_hide_title' );
+$hide_title = anva_get_field( 'hide_title' );
 ?>
 
 <div class="row grid-columns">
@@ -28,7 +28,7 @@ $hide_title = anva_get_post_meta( '_hide_title' );
 					<?php rewind_posts(); ?>
 					<?php the_content(); ?>
 					
-					<h2><?php _e( 'Latest Posts', anva_textdomain() ); ?></h2>
+					<h2><?php _e( 'Latest Posts', 'anva' ); ?></h2>
 						<ul>
 							<?php query_posts( 'showposts=20' ); ?>
 							<?php if ( have_posts() ) : ?>
@@ -42,12 +42,12 @@ $hide_title = anva_get_post_meta( '_hide_title' );
 							<?php wp_reset_query(); ?>
 						</ul>
 						
-						<h2><?php _e( 'Categories' ); ?></h2>
+						<h2><?php _e( 'Categories', 'anva' ); ?></h2>
 						<ul>
 							<?php wp_list_categories( 'title_li=&hierarchical=0&show_count=1' ) ?>
 						</ul>
 						
-						<h2><?php _e( 'Monthly Archives' ); ?></h2>
+						<h2><?php _e( 'Monthly Archives', 'anva' ); ?></h2>
 						<ul>
 							<?php wp_get_archives( 'type=monthly&show_post_count=1' ) ?>
 						</ul>

@@ -56,6 +56,12 @@ function anva_add_meta_boxes_default() {
  */
 function anva_setup_post_meta() {
 
+	$layouts_default = array(
+		'layout' => '',
+		'right' => '',
+		'left' => ''
+	);
+
 	$setup = array(
 		'args' => array(
 			'id' 				=> 'anva_post_options',
@@ -82,6 +88,13 @@ function anva_setup_post_meta() {
 					'hide'	=> __( 'Hide page\'s title', 'anva' )
 				)
 			),
+			'sidebar_layout' => array(
+				'id'			=> 'sidebar_layout',
+				'name' 		=> __( 'Sidebar Layout', 'anva' ),
+				'desc'		=> __( 'Select a sidebar layout.', 'anva' ),
+				'type' 		=> 'layout',
+				'std'			=> $layouts_default,
+			),
 		)
 	);
 
@@ -97,18 +110,16 @@ function anva_setup_post_meta() {
 function anva_setup_page_meta() {
 	
 	$columns = array();
-	$layouts = array();
+	$layouts_default = array(
+		'layout' => '',
+		'right' => '',
+		'left' => ''
+	);
 
 	// Fill columns array
 	$columns[''] = esc_html__( 'Default Grid Columns', 'anva' );
 	foreach ( anva_get_grid_columns() as $key => $value ) {
 		$columns[$key] = esc_html( $value['name'] );
-	}
-
-	// Fill layouts array
-	$layouts[''] = esc_html__( 'Default Sidebar Layout', 'anva' );
-	foreach ( anva_sidebar_layouts() as $key => $value ) {
-		$layouts[$key] = esc_html( $value['name'] );
 	}
 
 	$setup = array(
@@ -141,9 +152,8 @@ function anva_setup_page_meta() {
 				'id'			=> 'sidebar_layout',
 				'name' 		=> __( 'Sidebar Layout', 'anva' ),
 				'desc'		=> __( 'Select a sidebar layout.', 'anva' ),
-				'type' 		=> 'select',
-				'std'			=> '',
-				'options'	=> $layouts
+				'type' 		=> 'layout',
+				'std'			=> $layouts_default,
 			),
 			'grid_column' => array(
 				'id'			=> 'grid_column',
@@ -236,7 +246,7 @@ function anva_setup_portfolio_media_meta() {
 			'page'			=> array( 'portfolio' ),
 			'context' 	=> 'normal',
 			'priority'	=> 'high',
-			'desc'			=> __( 'This is the default placeholder for portfolio media options.', 'anva' )
+			'desc'			=> ''
 		),
 	);
 

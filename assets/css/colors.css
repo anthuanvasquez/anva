@@ -1,10 +1,41 @@
 /* ---------------------------------------------------------------- */
 /* Colors
 /* ---------------------------------------------------------------- */
-.skin-orange a {
+.base-color-blue .header-extras li .text span {
+  color: #4285f4;
+}
+
+.base-color-blue .button,
+.base-color-blue #top-cart .badge {
+  background-color: #4285f4;
+}
+
+.base-color-blue #primary-menu > div > ul > li ul {
+  border-top-color: #4285f4;
+}
+
+.base-color-orange .header-extras li .text span {
   color: #EB9C4D;
 }
 
-.skin-green a {
+.base-color-orange .button,
+.base-color-orange #top-cart .badge {
+  background-color: #EB9C4D;
+}
+
+.base-color-orange #primary-menu > div > ul > li ul {
+  border-top-color: #EB9C4D;
+}
+
+.base-color-green .header-extras li .text span {
   color: #59BA41;
+}
+
+.base-color-green .button,
+.base-color-green #top-cart .badge {
+  background-color: #59BA41;
+}
+
+.base-color-green #primary-menu > div > ul > li ul {
+  border-top-color: #59BA41;
 }

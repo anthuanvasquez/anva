@@ -382,7 +382,7 @@
   width: 100%;
 }
 
-.item-inline .wrap {
+.item-inline .section-header {
   border-bottom: 1px solid #eee;
   border-top: 1px solid #eee;
   margin: 0 -15px 25px;
@@ -390,29 +390,20 @@
   width: 100%;
 }
 
-.item-inline .wrap:after {
+.item-inline .section-header:after {
   content: "";
   display: block;
   clear: both;
 }
 
-.item-inline .wrap h2 {
+.item-inline .section-header h2 {
   float: left;
 }
 
-.item-inline .wrap .button {
+.item-inline .section-header .button {
   float: right;
-  font-weight: normal;
-  height: 28px;
-  line-height: 26px;
   margin-top: 18px;
   margin-left: 10px;
-  margin-right: 0;
-  padding: 0 10px 1px;
-}
-
-.item-inline .wrap .button-save {
-  color: #fff;
 }
 
 .item-inline input[type="text"].anva-file {
@@ -432,7 +423,7 @@
   -webkit-box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
   background: #eee;
-  margin-top: 10px;
+  margin-top: 15px;
   max-width: 344px;
   position: relative;
 }
@@ -483,40 +474,38 @@
   color: red;
 }
 
-.item-inline input[type="range"] {
+.item-inline .section-slider input[type="range"] {
   margin-top: 5px;
-  max-width: 400px;
-  width: 100%;
+  width: 86%;
+  height: 30px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  top: 10px;
+  position: relative;
+  margin: 0 2% 0 0;
 }
 
-.item-inline output {
-  position: absolute;
-  width: 40px;
+.item-inline .section-slider output {
+  width: 11%;
   text-align: center;
   color: #fff;
-  background: #0074A5;
+  background: #999;
   -webkit-border-radius: 2px;
           border-radius: 2px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
   display: inline-block;
-  bottom: 0;
-  left: 410px;
+  padding: 0 5px;
   line-height: 30px;
-}
-
-.item-inline label {
-  clear: both;
-  display: block;
-  font-size: 1em;
-  font-weight: bold;
-  margin-bottom: 10px;
 }
 
 .item-inline .explain {
   color: #777;
   display: block;
-  font-weight: normal;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 1.4;
 }
 
 .item-inline .option:after {
@@ -527,16 +516,23 @@
 
 .item-inline .option .controls {
   float: left;
-  margin-right: 4%;
-  width: 64%;
+  padding-right: 4%;
+  width: 54%;
 }
 
 .item-inline .option .explain {
   float: left;
-  width: 32%;
+  max-width: 42%;
+}
+
+.item-inline .section-content .controls {
+  float: none;
+  padding-right: 0;
+  width: 100%;
 }
 
 .item-inline .section-content .explain {
+  float: right;
   margin-bottom: 15px;
 }
 
@@ -689,48 +685,6 @@
   z-index: 1;
 }
 
-@media screen and (min-width: 1384px) {
-  .builder-elements li {
-    width: 16.66%;
-  }
-}
-
-@media screen and (min-width: 1595px) {
-  .builder-elements li {
-    width: 14.28%;
-  }
-}
-
-@media screen and (min-width: 1715px) {
-  .builder-elements li {
-    width: 12.5%;
-  }
-}
-
-@media screen and (min-width: 1895px) {
-  .builder-elements li {
-    width: 11.11%;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .builder-elements li {
-    width: 25%;
-  }
-}
-
-@media screen and (max-width: 565px) {
-  .builder-elements li {
-    width: 33.33%;
-  }
-}
-
-@media screen and (max-width: 415px) {
-  .builder-elements li {
-    width: 50%;
-  }
-}
-
 .anva-builder-active .anva-input-checkbox {
   margin: 12px 0;
 }
@@ -858,4 +812,59 @@
 
 .anva-import-wrap input[type="file"]:hover:before {
   color: red;
+}
+
+@media screen and (min-width: 1384px) {
+  .builder-elements li {
+    width: 16.66%;
+  }
+}
+
+@media screen and (min-width: 1595px) {
+  .builder-elements li {
+    width: 14.28%;
+  }
+}
+
+@media screen and (min-width: 1715px) {
+  .builder-elements li {
+    width: 12.5%;
+  }
+}
+
+@media screen and (min-width: 1895px) {
+  .builder-elements li {
+    width: 11.11%;
+  }
+}
+
+@media screen and (max-width: 1225px) {
+  #normal-sortables .controls,
+  #normal-sortables .explain {
+    float: none;
+    padding-right: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  #normal-sortables .explain {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .builder-elements li {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 565px) {
+  .builder-elements li {
+    width: 33.33%;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .builder-elements li {
+    width: 50%;
+  }
 }

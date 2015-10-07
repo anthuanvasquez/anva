@@ -106,6 +106,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-scripts-api.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-builder-elements-api.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-sliders-api.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/customizer.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/helpers.php' );
 
 		/* ---------------------------------------------------------------- */
@@ -168,8 +169,8 @@ class Anva {
 		
 
 		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
-		add_action( 'optionsframework_after', 'anva_admin_footer_credits' );
-		add_action( 'optionsframework_after', 'anva_admin_footer_links' );
+		add_action( 'optionsframework_after_fields', 'anva_admin_footer_credits' );
+		add_action( 'optionsframework_after_fields', 'anva_admin_footer_links' );
 		add_action( 'optionsframework_importer_after', 'anva_admin_footer_credits' );
 		add_action( 'optionsframework_importer_after', 'anva_admin_footer_links' );
 
@@ -183,6 +184,11 @@ class Anva {
 		add_filter( 'body_class', 'anva_body_class' );
 		add_filter( 'body_class', 'anva_browser_class' );
 		add_filter( 'comment_reply_link', 'anva_comment_reply_link_class' );
+
+		add_action( 'customize_register', 'anva_customizer_init' );
+		add_action( 'customize_controls_print_styles', 'anva_customizer_styles' );
+		add_action( 'customize_controls_print_scripts', 'anva_customizer_scripts' );
+		add_action( 'wp_loaded', 'anva_customizer_preview' );
 
 		add_action( 'init', 'anva_register_menus' );
 		add_action( 'init', 'anva_contact_send_email' );

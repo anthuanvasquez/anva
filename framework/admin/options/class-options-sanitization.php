@@ -31,6 +31,8 @@ add_filter( 'anva_sanitize_color', 'anva_sanitize_hex' );
 add_filter( 'anva_sanitize_social_media', 'anva_sanitize_social_media' );
 add_filter( 'anva_sanitize_logo', 'anva_sanitize_logo' );
 add_filter( 'anva_sanitize_columns', 'anva_sanitize_columns' );
+add_filter( 'anva_sanitize_sidebar', 'anva_sanitize_sidebar' );
+add_filter( 'anva_sanitize_layout', 'anva_sanitize_layout' );
 
 /**
  * Sanitization for textarea field
@@ -188,7 +190,10 @@ function anva_sanitize_background( $input ) {
 		'attachment' => 'scroll'
 	) );
 
-	$output['color'] = apply_filters( 'anva_sanitize_hex', $input['color'] );
+	if ( isset( $input['color'] ) ) {
+		$output['color'] = apply_filters( 'anva_sanitize_hex', $input['color'] );
+	}
+	
 	$output['image'] = apply_filters( 'anva_sanitize_upload', $input['image'] );
 	$output['repeat'] = apply_filters( 'anva_background_repeat', $input['repeat'] );
 	$output['position'] = apply_filters( 'anva_background_position', $input['position'] );
@@ -309,7 +314,7 @@ function anva_recognized_background_repeat() {
 		'repeat-x'  => __( 'Repeat Horizontally', 'anva' ),
 		'repeat-y'  => __( 'Repeat Vertically', 'anva' ),
 		'repeat'    => __( 'Repeat All', 'anva' ),
-		);
+	);
 	return apply_filters( 'anva_recognized_background_repeat', $default );
 }
 
@@ -329,7 +334,7 @@ function anva_recognized_background_position() {
 		'bottom left'   => __( 'Bottom Left', 'anva' ),
 		'bottom center' => __( 'Bottom Center', 'anva' ),
 		'bottom right'  => __( 'Bottom Right', 'anva')
-		);
+	);
 	return apply_filters( 'anva_recognized_background_position', $default );
 }
 
@@ -342,7 +347,7 @@ function anva_recognized_background_attachment() {
 	$default = array(
 		'scroll' => __( 'Scroll Normally', 'anva' ),
 		'fixed'  => __( 'Fixed in Place', 'anva')
-		);
+	);
 	return apply_filters( 'anva_recognized_background_attachment', $default );
 }
 
@@ -388,17 +393,6 @@ function anva_recognized_font_sizes() {
  * @return   array
  */
 function anva_recognized_font_faces() {
-	// $default = array(
-	// 	'arial'     => 'Arial',
-	// 	'verdana'   => 'Verdana, Geneva',
-	// 	'trebuchet' => 'Trebuchet',
-	// 	'georgia'   => 'Georgia',
-	// 	'times'     => 'Times New Roman',
-	// 	'tahoma'    => 'Tahoma, Geneva',
-	// 	'palatino'  => 'Palatino',
-	// 	'helvetica' => 'Helvetica*',
-	// 	'google' 		=> 'Google Font'
-	// );
 	$default = anva_get_font_stacks();
 	return apply_filters( 'anva_recognized_font_faces', $default );
 }
@@ -418,7 +412,7 @@ function anva_recognized_font_styles() {
 		'italic'      => __( 'Italic', 'anva' ),
 		'bold'        => __( 'Bold', 'anva' ),
 		'bold-italic' => __( 'Bold Italic', 'anva' )
-		);
+	);
 	return apply_filters( 'anva_recognized_font_styles', $default );
 }
 
@@ -470,6 +464,28 @@ function anva_sanitize_social_media( $input ) {
 	return $output;
 }
 
+function anva_sanitize_layout( $input ) {
+
+	$output = array();
+
+	// Layout
+	if ( is_array( $input ) && isset( $input['layout'] ) ) {
+		$output['layout'] = $input['layout'];
+	}
+
+	// Right
+	if ( isset( $input['right'] ) ) {
+		$output['right'] = $input['right'];
+	}
+
+	// Left
+	if ( isset( $input['left'] ) ) {
+		$output['left'] = $input['left'];
+	}
+
+	return $output;
+}
+
 /**
  * Logo
  */
@@ -511,6 +527,22 @@ function anva_sanitize_logo( $input ) {
 		}
 	}
 
+	return $output;
+}
+
+function anva_sanitize_sidebar( $input ) {
+	
+	$output = array();
+	
+	if ( ! is_array( $input ) ) {
+		return;	
+	}
+	
+	foreach ( $input as $sidebar ) {
+		$title = sanitize_text_field( $sidebar );
+		$output[] = esc_html( $title );
+	}
+	
 	return $output;
 }
 

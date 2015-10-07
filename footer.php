@@ -4,7 +4,6 @@
  *
  * @version 1.0.0
  */
-
 				anva_below_layout();
 				?>
 				
@@ -18,8 +17,15 @@
 	<footer id="bottom">
 
 		<?php anva_footer_above(); ?>
+		<?php
+			$class = '';
+			$footer_color = anva_get_option( 'footer_color' );
+			if ( $footer_color ) {
+				$class = 'class="' . esc_attr( $footer_color ) . '"';
+			}
+		?>
 		
-		<div id="footer">
+		<div id="footer" <?php echo $class; ?>>
 			<div class="footer-content">
 				<div class="container clearfix">
 					<?php anva_footer_content(); ?>

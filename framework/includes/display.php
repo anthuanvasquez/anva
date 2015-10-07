@@ -9,9 +9,12 @@ function anva_head_apple_touch_icon() {
 	
 	$html  		= '';
 	$sizes 		= '';
+	$links 		= array();
 	$favicon 	= anva_get_option( 'favicon' );
-	$image 		= get_template_directory_uri() . '/assets/images';
-	
+	$icon76		= anva_get_option( 'apple_icon_76' );
+	$icon120	= anva_get_option( 'apple_icon_120' );
+	$icon152	= anva_get_option( 'apple_icon_152' );
+
 	if ( $favicon ) {
 		$links[] = array(
 			'rel' => 'shortcut icon',
@@ -20,30 +23,40 @@ function anva_head_apple_touch_icon() {
 		);
 	}
 
-	$links[] = array(
-		'rel' => 'apple-touch-icon',
-		'image' => $image . '/apple-touch-icon-76x76.png',
-		'size' => '76x76',
-	);
+	if ( $icon76 ) {
+		$links[] = array(
+			'rel' => 'apple-touch-icon',
+			'image' => $icon76,
+			'size' => '76x76',
+		);
+	}
 
-	$links[] = array(
-		'rel' => 'apple-touch-icon',
-		'image' => $image . '/apple-touch-icon-120x120.png',
-		'size' => '120x120',
-	);
+	if ( $icon120 ) {
+		$links[] = array(
+			'rel' => 'apple-touch-icon',
+			'image' => $icon120,
+			'size' => '120x120',
+		);
+	}
 
-	$links[] = array(
-		'rel' => 'apple-touch-icon',
-		'image' => $image . '/apple-touch-icon-152x152.png',
-		'size' => '152x152',
-	);
+	if ( $icon152 ) {
+		$links[] = array(
+			'rel' => 'apple-touch-icon',
+			'image' => $icon152,
+			'size' => '152x152',
+		);
+	}
 
-	foreach ( $links as $key => $value ) {
-		if ( isset( $value['size'] ) && ! empty( $value['size'] ) )
-			$sizes = ' sizes="'. esc_attr( $value['size'] ) .'" ';
+	if ( ! empty( $links ) ) {
+		foreach ( $links as $key => $value ) {
+			if ( isset( $value['size'] ) && ! empty( $value['size'] ) ) {
+				$sizes = ' sizes="'. esc_attr( $value['size'] ) .'" ';
+			}
 
-		if ( file_exists( $value['image'] ) )
-			$html .= '<link rel="'. esc_attr( $value['rel'] ) .'"'. $sizes .'href="'. esc_attr( $value['image'] ) .'" />';
+			if ( isset( $value['image'] ) && anva_url_file_exists( $value['image'] ) ) {
+				$html .= '<link rel="'. esc_attr( $value['rel'] ) .'"'. $sizes .'href="'. esc_url( $value['image'] ) .'" />';
+			}
+		}
 	}
 
 	echo $html;
@@ -372,18 +385,51 @@ function anva_below_layout_default() {
  */
 function anva_sidebars_default( $position ) {
 
-	$layout = anva_get_field( 'sidebar_layout' );
+	$layout = '';
+	$sidebar_right = '';
+	$sidebar_left = '';
+
+	$right = apply_filters( 'anva_default_sidebar_right', 'sidebar_right' );
+	$left = apply_filters( 'anva_default_sidebar_left', 'sidebar_left' );
+
+	// Get sidebar layout meta
+	$sidebar_layout = anva_get_field( 'sidebar_layout' );
+
+	// Get sidebar locations
+	if ( isset( $sidebar_layout['layout'] ) ) {
+		$layout = $sidebar_layout['layout'];
+		$sidebar_right = $sidebar_layout['right'];
+		$sidebar_left = $sidebar_layout['left'];
+	}
 
 	// Set default layout
-	if ( ! is_page() && ! is_single() || empty( $layout ) ) {
-		$layout = anva_get_option( 'sidebar_layout', 'right' );
+	if ( empty( $layout ) ) {
+		$layout = anva_get_option( 'sidebar_layout', 'left' );
+		$sidebar_right = $right;
+		$sidebar_left = $left;
+	}
+
+	// Set default sidebar right
+	if ( empty( $sidebar_right ) ) {
+		$sidebar_right = $right;
+	}
+
+	// Set default sidebar left
+	if ( empty( $sidebar_left ) ) {
+		$sidebar_left = $left;
 	}
 
 	// Sidebar Left, Sidebar Right, Double Sidebars
 	if ( $layout == $position || $layout == 'double' ) {
 
 		do_action( 'anva_sidebar_before', $position  );
-		anva_display_sidebar( 'sidebar_' . $position );
+		
+		if ( 'right' == $position ) {
+			anva_display_sidebar( $sidebar_right );
+		} elseif ( 'left' == $position ) {
+			anva_display_sidebar( $sidebar_left );
+		}
+
 		do_action( 'anva_sidebar_after', $position );
 
 	}
@@ -393,12 +439,12 @@ function anva_sidebars_default( $position ) {
 
 		// Left Sidebar
 		do_action( 'anva_sidebar_before', 'left'  );
-		anva_display_sidebar( 'sidebar_left' );
+		anva_display_sidebar( $sidebar_left );
 		do_action( 'anva_sidebar_after', 'left' );
 
 		// Right Sidebar
 		do_action( 'anva_sidebar_before', 'right'  );
-		anva_display_sidebar( 'sidebar_right' );
+		anva_display_sidebar( $sidebar_right );
 		do_action( 'anva_sidebar_after', 'right' );
 
 	}
@@ -408,12 +454,12 @@ function anva_sidebars_default( $position ) {
 
 		// Left Sidebar
 		do_action( 'anva_sidebar_before', 'left'  );
-		anva_display_sidebar( 'sidebar_left' );
+		anva_display_sidebar( $sidebar_left );
 		do_action( 'anva_sidebar_after', 'left' );
 
 		// Right Sidebar
 		do_action( 'anva_sidebar_before', 'right'  );
-		anva_display_sidebar( 'sidebar_right' );
+		anva_display_sidebar( $sidebar_right );
 		do_action( 'anva_sidebar_after', 'right' );
 
 	}

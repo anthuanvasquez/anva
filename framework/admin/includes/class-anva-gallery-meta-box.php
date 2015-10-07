@@ -103,7 +103,8 @@ class Anva_Gallery_Meta_Box {
 
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
 		?>
-		
+
+		<input type="hidden" id="anva_gallery_id" name="anva_gallery_id" value="<?php echo esc_attr( $this->id ); ?>" />
 		<div class="anva-meta-box">
 			<div class="anva-input-gallery">
 				<div id="anva_gallery_container">

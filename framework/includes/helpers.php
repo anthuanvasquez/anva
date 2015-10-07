@@ -19,11 +19,6 @@ function anva_elements() {
 	if ( isset( $settings['order'] ) && empty( $settings['order'] ) ) {
 		return;
 	}
-	
-	// Kill it if not a array with keys
-	// if ( ! is_array( $settings['order'] ) ) {
-	// 	return;
-	// }
 
 	// Set items order
 	$items 	 = explode( ',', $settings['order'] );
@@ -509,4 +504,12 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 
 	return $new_array;
 
+}
+
+function anva_url_file_exists( $file ) {
+	$file_headers = @get_headers( $file );
+	if ( preg_match( "|200|", $file_headers[0] ) ) {
+		return true;
+	}
+	return false;
 }

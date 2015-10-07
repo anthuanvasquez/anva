@@ -145,9 +145,10 @@ class Options_Framework_Admin {
 			return;
 
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'optionsframework', anva_get_core_uri() . '/assets/css/admin/options.min.css', array(), Options_Framework::VERSION );
-		wp_enqueue_style( 'jquery-slider-pips', anva_get_core_uri(). '/assets/css/admin/jquery-ui-slider-pips.min.css', array(),  '' );
-		wp_enqueue_style( 'jquery-ui-custom', anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '' );
+		wp_enqueue_style( 'anva-animate', anva_get_core_uri() . '/assets/css/admin/animate.min.css', array(), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_style( 'optionsframework', anva_get_core_uri() . '/assets/css/admin/options.min.css', array(), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_style( 'jquery-slider-pips', anva_get_core_uri(). '/assets/css/admin/jquery-ui-slider-pips.min.css', array(),  '1.7.2' );
+		wp_enqueue_style( 'jquery-ui-custom', anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4' );
 		
 	}
 
@@ -162,8 +163,9 @@ class Options_Framework_Admin {
 			return;
 
 		// Enqueue custom option panel JS
-		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_uri() . '/assets/js/admin/jquery-ui-slider-pips.min.js', array( 'jquery' ), '' );
-		wp_enqueue_script( 'options-custom',  anva_get_core_uri() . '/assets/js/admin/options.js', array( 'jquery','wp-color-picker' ), Options_Framework::VERSION );
+		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_uri() . '/assets/js/admin/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2' );
+		wp_enqueue_script( 'jquery-collapsible',  anva_get_core_uri() . '/assets/js/admin/jquery.collapsible.js', array( 'jquery' ), '1.2.1' );
+		wp_enqueue_script( 'options-custom',  anva_get_core_uri() . '/assets/js/admin/options.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION );
 		
 		// Inline scripts from options-interface.php
 		add_action( 'admin_head', array( $this, 'anva_admin_head' ) );
@@ -197,7 +199,7 @@ class Options_Framework_Admin {
 			<?php do_action( 'optionsframework_top' ); ?>
 
 			<h2 class="nav-tab-wrapper">
-					<?php echo Options_Framework_Interface::optionsframework_tabs(); ?>
+				<?php echo Options_Framework_Interface::optionsframework_tabs(); ?>
 			</h2>
 
 			<?php settings_errors( 'options-framework' ); ?>
@@ -205,11 +207,12 @@ class Options_Framework_Admin {
 			<div id="optionsframework-metabox" class="metabox-holder">
 				<div id="optionsframework">
 					<form class="options-settings" action="options.php" method="post">
-						<div class="column-1">
+						<div class="columns-1">
 							<?php settings_fields( 'optionsframework' ); ?>
 							<?php Options_Framework_Interface::optionsframework_fields(); /* Settings */ ?>
-						</div><!-- .column-1 (end) -->
-						<div class="column-2">
+							<?php do_action( 'optionsframework_after_fields' ); ?>
+						</div><!-- .columns-1 (end) -->
+						<div class="columns-2">
 							<div class="postbox-wrapper">
 								<?php do_action( 'optionsframework_side_before' ); ?>
 								<div id="optionsframework-submit" class="postbox">
@@ -217,16 +220,16 @@ class Options_Framework_Admin {
 									<div class="inside">
 										<?php anva_admin_settings_log(); ?>
 										<div class="actions">
-											<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
+											<input type="submit" class="button button-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
 											<span class="spinner"></span>
-											<input type="submit" class="reset-button button-secondary" name="reset" value="<?php esc_attr_e( 'Restore Defaults', 'anva' ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', 'anva' ) ); ?>' );" />
+											<input type="submit" class="button button-secondary reset-button" name="reset" value="<?php esc_attr_e( 'Restore Defaults', 'anva' ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', 'anva' ) ); ?>' );" />
 											<div class="clear"></div>
 										</div>
 									</div>
 								</div>
 								<?php do_action( 'optionsframework_side_after' ); ?>
 							</div>
-						</div><!-- .column-2 (end) -->
+						</div><!-- .columns-2 (end) -->
 						<div class="clear"></div>
 					</form>
 				</div> <!-- #optionsframework (end) -->

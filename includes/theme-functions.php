@@ -12,6 +12,9 @@ define( 'ANVA_THEME_VERSION', '1.0.0');
 // Recommend plugins
 require_once( get_template_directory() . '/includes/install.php' );
 
+// Modify customizer options
+require_once( get_template_directory() . '/includes/customizer.php' );
+
 // Modify framework's core options
 require_once( get_template_directory() . '/includes/options.php' );
 
@@ -203,7 +206,10 @@ function theme_scripts() {
  * @since 1.0.0
  */
 function theme_styles() {
+	
 	$styles 						= '';
+
+	// Get styles options
 	$custom_css 				= anva_get_option( 'custom_css' );
 	$body_font 					= anva_get_option( 'body_font' );
 	$heading_font 			= anva_get_option( 'heading_font' );
@@ -214,7 +220,11 @@ function theme_styles() {
 	$heading_h5 				= anva_get_option( 'heading_h5', '13' );
 	$heading_h6 				= anva_get_option( 'heading_h6', '11' );
 	$background_color 	= anva_get_option( 'background_color' );
+	$background_image 	= anva_get_option( 'background_image', array( 'image' => '' ) );
+	$background_cover 	= anva_get_option( 'background_cover' );
 	$background_pattern = anva_get_option( 'background_pattern' );
+	$link_color					= anva_get_option( 'link_color' );
+	$link_color_hover		= anva_get_option( 'link_color_hover' );
 	ob_start();
 	?>
 	/* Typography */
@@ -225,7 +235,7 @@ function theme_styles() {
 		font-style: <?php echo anva_get_font_style( $body_font ); ?>;
 		font-weight: <?php echo anva_get_font_weight( $body_font ); ?>;
 	}
-	h1, h2, h3, h4, h5, h6, .slide-title, .entry-title h1, .entry-title h2 {
+	h1, h2, h3, h4, h5, h6, .entry-title h1, .entry-title h2 {
 		font-family: <?php echo anva_get_font_face( $heading_font ); ?>;
 		font-style: <?php echo anva_get_font_style( $heading_font ); ?>;
 		font-weight: <?php echo anva_get_font_weight( $heading_font ); ?>;
@@ -250,13 +260,35 @@ function theme_styles() {
 	}
 	/* Background */
 	body {
-		background: <?php echo esc_html( $background_color ); ?>;
-		<?php if ( '' == $background_pattern ) : ?>
-		background-image: none;
-		<?php else : ?>
-		background-image: url(<?php echo anva_get_background_pattern( $background_pattern ); ?>);
-		background-repeat: repeat;
+		background-color: <?php echo esc_html( $background_color ); ?>;
+		<?php if ( ! empty( $background_image['image'] ) ) : ?>
+		background-image: url('<?php echo esc_url( $background_image['image'] );?>');
+		background-repeat: <?php echo esc_html( $background_image['repeat'] );?>;
+		background-position: <?php echo esc_html( $background_image['position'] );?>;
+		background-attachment: <?php echo esc_html( $background_image['attachment'] );?>;
 		<?php endif; ?>
+	}
+	<?php if ( $background_cover && ! empty( $background_image['image'] ) ) : ?>
+	body {
+		background: url('<?php echo esc_url( $background_image['image'] );?>') no-repeat center center fixed; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+	<?php endif; ?>
+	<?php if ( empty( $background_image['image'] ) && ! empty( $background_pattern ) ) : ?>
+	body {
+		background-image: url('<?php echo anva_get_background_pattern( $background_pattern ); ?>');
+		background-repeat: repeat;
+	}
+	<?php endif; ?>
+	/* Links */
+	a {
+		color: <?php anva_the_option( 'link_color' ); ?>
+	}
+	a:hover {
+		color: <?php anva_the_option( 'link_color_hover' ); ?>
 	}
 	<?php
 	$styles = ob_get_clean();
@@ -280,12 +312,12 @@ function theme_remove_scripts() {
 	$slider = anva_get_option( 'slider_id' );
 	// Camera
 	if ( 'camera' != $slider ) {
-	 	anva_remove_stylesheet( 'camera' );
+		anva_remove_stylesheet( 'camera' );
 		anva_remove_script( 'camera' );
 	}
 	// Swiper
 	if ( 'swiper' != $slider ) {
-	 	anva_remove_stylesheet( 'swiper' );
+		anva_remove_stylesheet( 'swiper' );
 		anva_remove_script( 'swiper' );
 	}
 }
@@ -297,16 +329,20 @@ function theme_remove_scripts() {
  */
 function theme_remove_grid_columns( $columns ) {
 	global $pagenow;
+	
 	// Admin Pages
 	if ( ( $pagenow == 'post.php' ) && ( isset( $_GET['post_type'] ) ) && ( $_GET['post_type'] == 'page' ) ) {
 		unset( $columns[1] );
 		unset( $columns[5] );
 		unset( $columns[6] );
 	}
+	
 	// Admin Nav Menu
 	if ( ( $pagenow == 'nav-menus.php' ) ) {
+		unset( $columns[1] );
 		unset( $columns[6] );
 	}
+	
 	return $columns;
 }
 

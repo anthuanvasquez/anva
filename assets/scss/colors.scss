@@ -2,12 +2,29 @@
 /* Colors
 /* ---------------------------------------------------------------- */
 
-$theme-colors: ( orange: #EB9C4D, green: #59BA41 );
+$theme-colors: (
+	blue: 	#4285f4,
+	orange: #eb9c4d,
+	green: 	#59ba41
+);
 
 // Customize the colors
 @mixin theme-colors( $color ) {
-	a {
+	
+	// Color Selector
+	.header-extras li .text span {
 		color: $color;
+	}
+
+	// Background Color Selectors
+	.button,
+	#top-cart .badge {
+		background-color: $color;
+	}
+
+	// Border Color Selector
+	#primary-menu > div > ul > li ul {
+		border-top-color: $color;
 	}
 }
 

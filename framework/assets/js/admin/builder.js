@@ -35,6 +35,8 @@ JSON.stringify = JSON.stringify || function ( obj ) {
 
 jQuery(document).ready(function($) {
 
+	"use strict";
+	
 	// WP Media Frame
 	var frame;
 
@@ -90,7 +92,6 @@ jQuery(document).ready(function($) {
 
 			s.button.on( 'click', function(e) {
 				e.preventDefault();
-				console.log( $( this ).serialize() );
 				s.checked.trigger('click');
 			});
 		},
@@ -184,6 +185,8 @@ jQuery(document).ready(function($) {
 				var ajaxEditURL = ANVA.ajaxurl + '?action=anva_builder_get_fields&&shortcode=' + $shortcode + '&rel=' + $randomId;
 
 				// Generate Item HTML
+				var builderItem;
+				
 				builderItem  = '<li id="' + $randomId + '" class="item item-' + $randomId + ' ' + $shortcode + ' ui-state-default animated bounceIn">';
 				builderItem += '<div class="actions">';
 				builderItem += '<a href="#" class="button-move-up"></a>';
@@ -328,13 +331,10 @@ jQuery(document).ready(function($) {
 						}
 
 						// HTML5 Range Input
-						$('.rangeslider').live( 'change', function() {
-							var $ele, newPoint, newPlace, offset;
-							$ele = $(this);
-							width = $ele.width();
-							newPoint = ( $ele.val() - $ele.attr("min") ) / ( $ele.attr("max") - $ele.attr("min") );
-							$ele.next("output").text( $ele.val() );
-						}).trigger('change');
+						$('.rangeslider').on( 'mousemove', function() {
+							var $ele = $(this);
+							$ele.next('output').text( $ele.val() );
+						}).trigger('mousemove');
 
 						// Scroll to item
 						s.root.animate({
@@ -552,7 +552,7 @@ jQuery(document).ready(function($) {
 
 					// When an image is selected, run a callback
 					frame.on( 'select', function() {
-						attachment = frame.state().get('selection').first().toJSON();
+						var attachment = frame.state().get('selection').first().toJSON();
 						$('#' + $file).val( attachment.url );
 						$image.append('<img src="' + attachment.url + '" /><a href="#" class="anva-remove-image">X</a>').slideDown('fast');
 						$button.text( $remove );

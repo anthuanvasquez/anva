@@ -145,7 +145,7 @@ class Anva_Sidebars_API {
 	 */
 	public function set_locations() {
 
-		// Merge core locations with custom locations.
+		// Merge core locations with custom locations
 		$this->locations = array_merge( $this->core_locations, $this->custom_locations );
 
 		// Remove locations
@@ -154,6 +154,27 @@ class Anva_Sidebars_API {
 				unset( $this->locations[$location] );
 			}
 		}
+
+		// Get dynamic sidebars from options API
+		$dynamic_sidebars = anva_get_option( 'dynamic_sidebar' );
+		$dynamic_locations = array();
+
+		if ( $dynamic_sidebars ) {
+			foreach ( $dynamic_sidebars as $key => $sidebar ) {
+				$id = sanitize_title( $sidebar );
+				$id = str_replace( '-', '_', $id );
+				$dynamic_locations[$id] = array(
+					'args' => array(
+						'id' => $id,
+						'name' => __( $sidebar, 'anva' ),
+						'description' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), $sidebar )
+					)
+				);
+			}
+		}
+
+		// Merge core and custom location with dynamic locations
+		$this->locations = array_merge( $this->locations, $dynamic_locations );
 
 		$this->locations = apply_filters( 'anva_sidebar_locations', $this->locations );
 
@@ -214,6 +235,8 @@ class Anva_Sidebars_API {
 	 */
 	public function get_locations( $location_id = '' ) {
 
+		// $locations = array_merge( $this->locations, $dynamic_sidebars );
+
 		if ( ! $location_id ) {
 			return $this->locations;
 		}
@@ -263,8 +286,8 @@ class Anva_Sidebars_API {
 			$config[$location_id]['error'] = false;
 
 			if ( ! is_active_sidebar( $sidebar_id ) ) {
-	    	$config[$location_id]['error'] = true;
-	    }
+				$config[$location_id]['error'] = true;
+			}
 		}
 
 		$sidebar = $config[$location];

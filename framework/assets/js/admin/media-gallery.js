@@ -1,5 +1,7 @@
 jQuery(document).ready(function($) {
 
+	"use strict";
+
 	// WP Media Frame
 	var frame;
 
