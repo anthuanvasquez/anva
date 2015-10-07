@@ -1,0 +1,233 @@
+/* ----------------------------------------------------------------
+	Base Colors
+-----------------------------------------------------------------*/
+/* ---------------------------------------------------------------- */
+/* Line Height Variables
+/* ---------------------------------------------------------------- */
+/* ----------------------------------------------------------------
+	Margins
+-----------------------------------------------------------------*/
+/* ----------------------------------------------------------------
+	Font Families
+-----------------------------------------------------------------*/
+/* ----------------------------------------------------------------
+	Font Sizes
+-----------------------------------------------------------------*/
+/* ----------------------------------------------------------------
+	Layouts
+-----------------------------------------------------------------*/
+/* ----------------------------------------------------------------
+	Helpers
+-----------------------------------------------------------------*/
+/* ---------------------------------------------------------------- */
+/* Responsive
+/* ---------------------------------------------------------------- */
+/*
+ * Medium devices (desktops, 992px and below)
+ * Change container width to 750px with 12 columns
+ */
+@media screen and (max-width: 992px) {
+  /*
+	 * Off Canvas
+	 */
+  .off_canvas_navigation #off-canvas-trigger,
+  .off_canvas_navigation #off-canvas {
+    display: block;
+  }
+  .off_canvas_navigation #primary-menu-trigger,
+  .off_canvas_navigation #primary-menu {
+    display: none;
+  }
+  .toggle_navigation #off-canvas-trigger,
+  .toggle_navigation #off-canvas {
+    display: none;
+  }
+  .toggle_navigation #primary-menu-trigger {
+    display: inline-block;
+    /* IE7/8 Hack */
+    *display: inline;
+    *zoom: 1;
+  }
+  .toggle_navigation #primary-menu {
+    display: none;
+  }
+  .admin-bar .off-canvas {
+    top: 32px;
+  }
+  /*
+	 * Navigation
+	 */
+  nav.navigation {
+    float: none;
+  }
+  ul.navigation-menu > li {
+    border-right: 0;
+    border-top: 1px solid rgba(245, 245, 245, 0.4);
+    display: block;
+    float: none;
+    margin-left: 0px;
+  }
+  ul.navigation-menu > li > a {
+    line-height: 38px;
+    padding: 0 12px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  ul.navigation-menu > li ul.sub-menu {
+    border: 0;
+    margin: 0;
+    position: relative;
+    width: auto;
+  }
+  ul.navigation-menu > li ul.sub-menu li ul.sub-menu {
+    left: 0;
+    position: relative;
+    width: auto;
+  }
+  /*
+	 * Slides
+	 */
+  .slide-caption {
+    display: none;
+  }
+  .flex-direction-nav .flex-prev {
+    display: none;
+    opacity: 0;
+    left: 10px;
+  }
+  .flex-direction-nav .flex-next {
+    display: none;
+    opacity: 0;
+    right: 10px;
+  }
+  /*
+	 * Galleries
+	 */
+  .gallery-3-col .gallery-item {
+    margin-right: 1.6%;
+    width: 49.2%;
+  }
+  .gallery-3-col .gallery-item:nth-child(3n) {
+    margin-right: 1.6%;
+  }
+  .gallery-3-col .gallery-item:nth-child(2n) {
+    margin-right: 0;
+  }
+  .gallery-4-col .gallery-item {
+    margin-right: 1.6%;
+    margin-bottom: 1.6%;
+    width: 49.2%;
+  }
+  .gallery-4-col .gallery-item:nth-child(4n) {
+    margin-right: 1.6%;
+  }
+  .gallery-4-col .gallery-item:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
+/*
+ * Small devices (tablets, 768px and below)
+ * Change container width to 480px with 8 columns
+ */
+@media screen and (max-width: 768px) {
+  .admin-bar .off-canvas {
+    top: 46px;
+  }
+  /*
+	 * Order columns
+	 */
+  #sidebar-layout .grid-columns {
+    box-orient: vertical;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+       -moz-box-orient: vertical;
+       -moz-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .content-area {
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+       -moz-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+  .sidebar {
+    -webkit-box-ordinal-group: 3;
+    -webkit-order: 2;
+       -moz-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+  /*
+	 * Footer
+	 */
+  .footer-widgets .widget {
+    margin-bottom: 30px;
+  }
+  /*
+	 * Grid Columns
+	 */
+  .grid-columns [class*="grid_"] {
+    float: none;
+    margin-right: 0;
+    width: 100%;
+  }
+  /*
+	 * Gallery Item
+	 */
+  .gallery-2-col .gallery-item,
+  .gallery-3-col .gallery-item,
+  .gallery-4-col .gallery-item,
+  .gallery-5-col .gallery-item,
+  .gallery-masonry-2-col .gallery-item {
+    float: none;
+    margin-bottom: 10px;
+    margin-right: 0;
+    width: 100%;
+  }
+  .gallery-2-col .gallery-item:nth-child(2n),
+  .gallery-2-col .gallery-item:nth-child(3n),
+  .gallery-2-col .gallery-item:nth-child(4n),
+  .gallery-2-col .gallery-item:nth-child(5n),
+  .gallery-3-col .gallery-item:nth-child(2n),
+  .gallery-3-col .gallery-item:nth-child(3n),
+  .gallery-3-col .gallery-item:nth-child(4n),
+  .gallery-3-col .gallery-item:nth-child(5n),
+  .gallery-4-col .gallery-item:nth-child(2n),
+  .gallery-4-col .gallery-item:nth-child(3n),
+  .gallery-4-col .gallery-item:nth-child(4n),
+  .gallery-4-col .gallery-item:nth-child(5n),
+  .gallery-5-col .gallery-item:nth-child(2n),
+  .gallery-5-col .gallery-item:nth-child(3n),
+  .gallery-5-col .gallery-item:nth-child(4n),
+  .gallery-5-col .gallery-item:nth-child(5n),
+  .gallery-masonry-2-col .gallery-item:nth-child(2n),
+  .gallery-masonry-2-col .gallery-item:nth-child(3n),
+  .gallery-masonry-2-col .gallery-item:nth-child(4n),
+  .gallery-masonry-2-col .gallery-item:nth-child(5n) {
+    margin-right: 0;
+  }
+  /*
+	 * Slides
+	 */
+  .flex-control-nav,
+  .flex-pauseplay {
+    display: none;
+  }
+  /*
+	 * Comments
+	 */
+  .comment-form input.form-control {
+    margin-right: 0;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+}

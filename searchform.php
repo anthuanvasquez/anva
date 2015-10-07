@@ -1,4 +1,11 @@
-<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+<?php
+/**
+ * The template file search form.
+ *
+ * @version 1.0.0
+ */
+?>
+<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 	<div class="input-group">
 		<input type="search" class="search-field form-control" placeholder="<?php echo anva_get_local( 'search' ); ?>" value="" name="s" title="<?php echo anva_get_local( 'search_for' ); ?>" />
 		<span class="input-group-btn">

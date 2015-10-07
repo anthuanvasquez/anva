@@ -1,5 +1,8 @@
-<div class="sidebar-inner">
-	<div class="widget-area widget-area-right">
-		<?php if ( dynamic_sidebar( 'sidebar_right' ) ) : endif; ?>
-	</div>
-</div><!-- .sidebar-inner (end) -->
+<?php
+/**
+ * The template file for any sidebars to appear left
+ * of the main content.
+ * 
+ * @version 1.0.0
+ */
+anva_sidebars( 'right' );

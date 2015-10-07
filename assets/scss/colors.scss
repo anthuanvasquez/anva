@@ -1,0 +1,35 @@
+/* ---------------------------------------------------------------- */
+/* Colors
+/* ---------------------------------------------------------------- */
+
+$theme-colors: (
+	blue: 	#4285f4,
+	orange: #eb9c4d,
+	green: 	#59ba41
+);
+
+// Customize the colors
+@mixin theme-colors( $color ) {
+	
+	// Color Selector
+	.header-extras li .text span {
+		color: $color;
+	}
+
+	// Background Color Selectors
+	.button,
+	#top-cart .badge {
+		background-color: $color;
+	}
+
+	// Border Color Selector
+	#primary-menu > div > ul > li ul {
+		border-top-color: $color;
+	}
+}
+
+@each $base-color, $color in $theme-colors {
+	.base-color-#{$base-color} {
+		@include theme-colors( $color );
+	}
+}

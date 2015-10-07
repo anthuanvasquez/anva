@@ -1,37 +1,26 @@
 <?php
 /**
  * The default template for displaying content in blogroll.
+ *
+ * @version 1.0.0
  */
 ?>
+
 <div class="article-wrapper">
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header">
-			<h2 class="entry-title">
-				<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
-			</h2>
-			<div class="meta-wrapper">
-				<?php
-					$single_meta = anva_get_option( 'single_meta' );
-					if ( 1 == $single_meta ) :
-						anva_posted_on();
-					endif;
-				?>
-			</div>
-		</header><!-- .entry-header (end) -->
+	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+		<?php anva_the_post_thumbnail( anva_get_option( 'primary_thumb' ) ); ?>
 		<div class="entry-content">
-			<?php echo anva_post_thumbnails( anva_get_option( 'posts_thumb' ) ); ?>
-			<div class="entry-summary">
-				<?php anva_excerpt(); ?>
-				<a class="btn btn-default" href="<?php the_permalink(); ?>">
-					<?php echo anva_get_local( 'read_more' ); ?>
-				</a>
+			<div class="entry-title">
+				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+			</div><!-- .entry-title (end) -->
+			<?php anva_posts_meta(); ?>
+			<div class="entry-summary">	
+				<?php anva_posts_content(); ?>
 			</div><!-- .entry-summary (end) -->
-			<div class="clearfix"></div>
+			<div class="entry-footer">
+				<?php anva_posts_footer(); ?>
+				<div class="clearfix"></div>
+			</div><!-- .entry-footer (end) -->
 		</div><!-- .entry-content (end) -->
-		<footer class="entry-footer">
-			<span class="tag">
-				<?php the_tags( '<i class="fa fa-tags"></i> ', ', ' ); ?>
-			</span>
-		</footer><!-- .entry-footer (end) -->
-	</article><!-- #post-<?php the_ID(); ?> -->
+	</article><!-- .entry -->
 </div><!-- .article-wrapper (end) -->

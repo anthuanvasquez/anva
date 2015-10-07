@@ -1,6 +1,8 @@
 <?php
 /**
  * The template for displaying the header.
+ *
+ * @version 1.0.0
  */
 ?>
 <!DOCTYPE html>
@@ -11,91 +13,57 @@
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-	<!--[if lt IE 9]>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-	<![endif]-->
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> data-loader="3">
 
-<?php anva_layout_before(); ?>
+<?php anva_before(); ?>
 
-<div id="off-canvas" class="off-canvas">	
-	<div  class="off-canvas-inner">
-		<div class="off-canvas-content">
-			<?php
-				if ( has_nav_menu( 'primary' ) ) {
-					wp_nav_menu( array( 
-						'theme_location'  => 'primary',
-						'container'       => 'div',
-						'container_class' => 'off-canvas-menu-wrapper',
-						'container_id'    => '',
-						'menu_class'      => 'off-canvas-menu sf-menu',
-						'menu_id'         => '',
-						'echo'            => true,
-						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
-					);
-				}
-			?>
-		</div>
-	</div>
-</div><!-- #off-canvas (end) -->
+<!-- WRAPPER (start) -->
+<div id="wrapper" class="clearfix">
 
 <!-- CONTAINER (start) -->
 <div id="container">
-
-	<a href="#" id="off-canvas-toggle" class="off-canvas-toggle">
-		<i class="fa fa-bars"></i>
-		<span class="sr-only"><?php echo anva_get_local( 'menu' ); ?></span>
-	</a>
+	
+	<?php anva_top_before(); ?>
 
 	<!-- TOP (start) -->
-	<div id="top">
-		<header id="header">
-			<div class="header-inner inner">
-				
-				<div class="header-content">
-					<div class="header-content-inner">
-						
-						<div class="header-content-group group">
+	<header id="top">
 
-							<div id="brand" class="brand">
-								<?php anva_header_logo(); ?>
-							</div><!-- #brand (end) -->
+		<?php anva_header_above(); ?>
 
-							<div id="addon" class="addon">
-								<?php anva_header_addon(); ?>
-							</div><!-- #addon (end) -->
-
-						</div>
-
-					</div><!-- .header-content-inner (end) -->
+		<div id="header">
+			<div class="header-content">	
+				<div class="container clearfix">
+					<?php anva_header_logo(); ?>
+					<?php anva_header_extras(); ?>
 				</div><!-- .header-content (end) -->
+			</div><!-- .container (end) -->
+			
+			<?php anva_header_primary_menu(); ?>
 
-				<?php anva_main_navigation(); ?>
+		</div><!-- #header (end) -->
 
-			</div><!-- .header-inner (end) -->
-		</header><!-- #header (end) -->
-	</div><!-- TOP (end) -->
+		<?php anva_header_below(); ?>
+
+	</header><!-- TOP (end) -->
+
+	<?php
+		// After Top
+		anva_top_after();
+
+		// Featured
+		anva_featured_before();
+		anva_featured();
+		anva_featured_after();
+	?>
 	
-	<?php if ( is_front_page() ) : ?>
-		<!-- FEATURED (start) -->
-		<div id="featured">
-			<div class="featured-inner">
-				<?php
-					if ( function_exists( 'anva_slideshows_featured' ) ) {
-						echo anva_slideshows_featured( 'homepage' );
-					}
-				?>
-			</div><!-- .featured-inner (end) -->
-		</div><!-- FEATURED (end) -->
-	<?php endif; ?>
+	<?php anva_content_before(); ?>
 
-	<!-- MAIN (start) -->
-	<div id="main">
-		<div class="main-inner">
-			<div class="main-content">
-				
-				<?php anva_content_before(); ?>
+	<!-- CONTENT (start) -->
+	<section id="content">
+		<div class="main-content">
+			<div class="container clearfix">
+				<?php anva_breadcrumbs(); ?>
+				<?php anva_above_layout(); ?>

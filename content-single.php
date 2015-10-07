@@ -1,40 +1,34 @@
 <?php
 /**
  * The template used for displaying single post content in single.php
+ *
+ * @version 1.0.0
  */
 ?>
 <div class="article-wrapper">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header">
-			<h1 class="entry-title"><?php the_title(); ?></h1>
-			<div class="meta-wrapper">
-				<?php
-					$single_meta = anva_get_option( 'single_meta' );
-					if ( 1 == $single_meta ) :
-						anva_posted_on();
-					endif;
-				?>
-			</div>
-		</header><!-- .entry-header (end) -->
+		<div class="entry-title">
+			<h1><?php the_title(); ?></h1>
+		</div><!-- .entry-title (end) -->
+		
+		<?php anva_posts_meta(); ?>
+		<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 		
 		<div class="entry-content">
-			<div class="featured-image-wrapper">
-				<div class="featured-image">
-					<div class="featured-image-inner">
-						<?php echo anva_post_thumbnails( anva_get_option( 'single_thumb' ) ); ?>
-					</div>
-				</div>
-			</div><!-- .featured-image-wrapper (end) -->
 			<?php the_content(); ?>
-			<div class="clearfix"></div>
-			<footer class="entry-footer">
-				<div class="tag">
-					<div class="tag-inner">
-						<?php the_tags( '<i class="fa fa-tags"></i> ', ', ' ); ?>
-					</div>
-				</div>
-				<?php anva_post_nav(); ?>
-			</footer><!-- .entry-footer (end) -->
 		</div><!-- .entry-content (end) -->
+		
+		<div class="entry-footer">
+			<?php anva_posts_footer(); ?>
+			<?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-link (end) -->' ) ); ?>
+			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link">', '</span>' ); ?>
+		</div><!-- .entry-footer (end) -->
 	</article><!-- #post-<?php the_ID(); ?> -->
-</div><!-- .article-container (end) -->
+
+	<?php
+		anva_post_nav();
+		anva_post_author();
+		anva_post_related();
+	?>
+
+</div><!-- .article-wrapper (end) -->

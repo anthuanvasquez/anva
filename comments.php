@@ -1,6 +1,8 @@
 <?php
 /**
- * The template for displaying Comments
+ * The template for displaying Comments.
+ * 
+ * @version 1.0.0
  */
 
 if ( post_password_required() ) {
@@ -9,12 +11,14 @@ if ( post_password_required() ) {
 
 ?>
 
+<?php anva_comments_before(); ?>
+
 <div id="comments" class="comments-area">
 
 	<?php if ( have_comments() ) : ?>
 		<h2 class="comments-title">
 			<?php
-				printf( _nx( 'Una respuesta en &ldquo;%2$s&rdquo;', '%1$s respuestas en &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', ANVA_DOMAIN ),
+				printf( _nx( 'Una respuesta en &ldquo;%2$s&rdquo;', '%1$s respuestas en &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'anva' ),
 					number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
 			?>
 		</h2>
@@ -23,7 +27,7 @@ if ( post_password_required() ) {
 
 		<ol class="comment-list">
 			<?php
-		wp_list_comments( 'type=comment&callback=anva_comment_list' );
+				wp_list_comments( 'type=comment&callback=anva_comment_list' );
 			?>
 		</ol><!-- .comment-list (end) -->
 
@@ -36,12 +40,12 @@ if ( post_password_required() ) {
 	<?php endif; ?>
 
 	<?php
-		$required_text = __( 'Los campos marcados con <span class="required">*</span> son requeridos.', ANVA_DOMAIN );
+		$required_text = __( 'Los campos marcados con <span class="required">*</span> son requeridos.', 'anva' );
 		$aria_req = 'required';
 		$args = array(
 			'id_form'           => 'commentform',
 			'id_submit'         => 'submit',
-			'class_submit'      => 'btn btn-default',
+			'class_submit'      => 'button butotn-3d no-margin',
 			'title_reply'       => __( 'Leave a Reply' ),
 			'title_reply_to'    => __( 'Leave a Reply to %s' ),
 			'cancel_reply_link' => __( 'Cancel Reply' ),
@@ -103,7 +107,9 @@ if ( post_password_required() ) {
 			),
 		);
 
-		comment_form($args);
+		comment_form( $args );
 	?>
 
 </div><!-- #comments (end) -->
+
+<?php anva_comments_after(); ?>

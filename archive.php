@@ -1,37 +1,43 @@
 <?php
 /**
- * The template for displaying Archives
+ * The template for displaying Archives.
+ * 
  * Like category, tag, dates, post-formats, etc.
+ * 
+ * @version 1.0.0
  */
 
 get_header();
+$archive_title = anva_get_field( 'archive_title' );
 ?>
 
 <div class="row grid-columns">
-	<div class="content-area col-sm-8">
-		<div class="main">
+	
+	<?php if ( 'hide' != $archive_title ) : ?>
+	<div class="page-title col-sm-12">
+		<h1><?php anva_archive_title(); ?></h1>
+	</div><!-- .page-title -->
+	<?php endif; ?>
 
-			<header class="entry-header">
-				<h1 class="entry-title">
-					<?php anva_archive_title(); ?>
-				</h1>
-			</header><!-- .page-header -->
+	<?php get_sidebar( 'left' ); ?>
 
-			<div class="archive-post-list post-list-paginated post-list">
-				<?php if ( have_posts() ) : ?>
-					<?php while ( have_posts() ) : the_post(); ?>
-						<?php get_template_part( 'content', 'post' ); ?>
-					<?php endwhile; ?>
-					<?php anva_num_pagination(); ?>
-				<?php else : ?>
-					<?php get_template_part( 'content', 'none' ); ?>
-				<?php endif; ?>
-			</div><!-- .archive-post-list (end) -->
-
-		</div><!-- .main (end) -->
+	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
+		<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'archive' ) ); ?>">
+			<?php
+				if ( have_posts() ) {
+					while ( have_posts() ) {
+						the_post();
+						get_template_part( 'content', 'post' );
+					}
+					anva_num_pagination();				
+				} else {
+					get_template_part( 'content', 'none' );
+				}
+			?>
+		</div><!-- #posts (end) -->
 	</div><!-- .content-area (end) -->
 	
-	<?php anva_sidebars( 'right', '4' ); ?>
+	<?php get_sidebar( 'right' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 

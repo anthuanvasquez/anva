@@ -1,19 +1,23 @@
 <?php
 /**
  * The template used for displaying page content in page.php
+ * 
+ * @version 1.0.0
  */
-$hide_title = anva_get_post_meta( '_hide_title' );
+
+$hide_title = anva_get_field( 'hide_title' );
 ?>
 <div class="article-wrapper">
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<?php if ( 'hide' != $hide_title ) : ?>
-			<header class="entry-header">
-				<h1 class="entry-title"><?php the_title(); ?></h1>
-			</header><!-- .entry-header (end) -->
-		<?php endif; ?>
+	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 		<div class="entry-content">
-			<?php the_content(); ?>
-			<div class="clearfix"></div>
+			<?php if ( 'hide' != $hide_title ) : ?>
+				<div class="entry-title">
+					<h1><?php the_title(); ?></h1>
+				</div><!-- .entry-title (end) -->
+			<?php endif; ?>
+			<div class="entry-summary">
+				<?php the_content(); ?>
+			</div><!-- .entry-summary -->
 		</div><!-- .entry-content -->
 	</article><!-- #post-<?php the_ID(); ?> -->
 </div><!-- .article-wrapper (end) -->
