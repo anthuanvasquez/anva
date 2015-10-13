@@ -1,28 +1,43 @@
 <?php
 
 /**
- * Setup theme for customizer
+ * Setup theme options for customizer
  */
-function eren_customizer() {
+function eren_customizer_options() {
 
 	$background_options = array(
 		'background_color' => array(
-			'name' 		=> __( 'Background Color', 'anva' ),
-			'id' 		=> 'background_color',
-			'type' 		=> 'color',
+			'name' 			=> __( 'Background Color', 'anva' ),
+			'id' 				=> 'background_color',
+			'type' 			=> 'color',
 			'transport'	=> 'postMessage',
 			'priority'	=> 1
 		),
-		'body_text' => array(
-			'name' 		=> __( 'Background Color Brightness', 'anva' ),
-			'id' 		=> 'body_text',
-			'type' 		=> 'radio',
-			'options'	=> array(
-				'body_text_light' => __( 'I chose a dark color in the previous option.', 'anva' ),
-				'body_text_dark' => __( 'I chose a light color in the previous option.', 'anva' )
-			),
+		'background_image' => array(
+			'name' 			=> __( 'Background Image', 'anva' ),
+			'id' 				=> 'background_image',
+			'type' 			=> 'image',
 			'transport'	=> 'postMessage',
 			'priority'	=> 2
+		),
+		'background_pattern' => array(
+			'name' 			=> __( 'Background Patterns', 'anva' ),
+			'id' 				=> 'background_pattern',
+			'type' 			=> 'select',
+			'options' => array(
+				'' 										 => __( 'None', 'anva' ),
+				'binding_light' 			 => 'Binding Light',
+				'dimension_@2X' 			 => 'Dimension',
+				'hoffman_@2X' 				 => 'Hoffman',
+				'knitting250px' 			 => 'Knitting',
+				'noisy_grid' 					 => 'Noisy Grid',
+				'pixel_weave_@2X' 		 => 'Pixel Weave',
+				'struckaxiom' 				 => 'Struckaxiom',
+				'subtle_stripes' 			 => 'Subtle Stripes',
+				'white_brick_wall_@2X' => 'White Brick Wall'
+			),
+			'transport'	=> 'postMessage',
+			'priority'	=> 3
 		),
 	);
 	anva_add_customizer_section( 'background', __( 'Background', 'anva' ), $background_options, 1 );
@@ -30,28 +45,20 @@ function eren_customizer() {
 	// Setup logo options
 	$header_options = array(
 		'logo' => array(
-			'name' 		=> __( 'Logo', 'anva' ),
-			'id' 		=> 'logo',
-			'type' 		=> 'logo',
+			'name' 			=> __( 'Logo', 'anva' ),
+			'id' 				=> 'logo',
+			'type' 			=> 'logo',
 			'transport'	=> 'postMessage',
 			'priority'	=> 1
 		),
-		'header_text' => array(
-			'name' 		=> __( 'Header Text', 'anva' ),
-			'id'		=> 'header_text',
-			'type' 		=> 'text',
-			'transport'	=> 'postMessage',
-			'priority'	=> 20
-		),
 		'social_media_style' => array(
-			'name' 		=> __( 'Socia Media Button Style', 'anva' ),
-			'id'		=> 'social_media_style',
-			'type' 		=> 'select',
-			'options'	=> array(
-				'color' => __( 'Color', 'anva' ),
-				'light' => __( 'Light', 'anva' ),
-				'dark' => __( 'Dark', 'anva' ),
-				'grey' => __( 'Grey', 'anva' )
+			'name' 			=> __( 'Socia Media Buttons Style', 'anva' ),
+			'id'				=> 'social_media_style',
+			'type' 			=> 'select',
+			'options'		=> array(
+				'light' 	=> __( 'Light', 'anva' ),
+				'colored' => __( 'Colored', 'anva' ),
+				'dark' 		=> __( 'Dark', 'anva' )
 			),
 			'transport'	=> 'postMessage',
 			'priority'	=> 21
@@ -60,93 +67,78 @@ function eren_customizer() {
 	anva_add_customizer_section( 'header', __( 'Header', 'anva' ), $header_options, 2 );
 
 	$main_styles_options = array(
-		'layout_style' => array(
-			'name' 		=> __( 'Layout Style', 'anva' ),
-			'id'		=> 'layout_style',
-			'type' 		=> 'select',
-			'options'	=> array(
-				'boxed' => __( 'Boxed', 'anva' ),
+		'layout_style' 	=> array(
+			'name' 				=> __( 'Layout Style', 'anva' ),
+			'id'					=> 'layout_style',
+			'type' 				=> 'select',
+			'options'			=> array(
+				'boxed' 		=> __( 'Boxed', 'anva' ),
 				'stretched' => __( 'Stretched', 'anva' )
 			),
-			'transport'	=> 'postMessage',
-			'priority'	=> 1
+			'transport'		=> 'postMessage',
+			'priority'		=> 1
 		),
-		'menu_style' => array(
-			'name' 		=> __( 'Main Menu Style', 'anva' ),
-			'id' 		=> 'menu_style',
-			'type' 		=> 'select',
-			'options'	=> array(
-				'menu_style_block' => __( 'Block', 'anva' ),
-				'menu_style_classic' => __( 'Classic', 'anva' )
+		'base_color' 		=> array(
+			'name' 				=> __( 'Base Color Scheme', 'anva' ),
+			'id'					=> 'base_color',
+			'type' 				=> 'select',
+			'options'			=> array(
+				'black' 		=> __( 'Black', 'anva' ),
+				'blue' 			=> __( 'Blue', 'anva' ),
+				'brown' 		=> __( 'Brown', 'anva' ),
+				'green' 		=> __( 'Green', 'anva' ),
+				'navy' 			=> __( 'Navy', 'anva' ),
+				'orange' 		=> __( 'Orange', 'anva' ),
+				'pink' 			=> __( 'Pink', 'anva' ),
+				'purple' 		=> __( 'Purple', 'anva' ),
+				'red' 			=> __( 'Red', 'anva' ),
+				'slate' 		=> __( 'Slate Grey', 'anva' ),
+				'teal' 			=> __( 'Teal', 'anva' )
 			),
-			'transport'	=> 'postMessage',
-			'priority'	=> 2
+			'transport'		=> 'postMessage',
+			'priority'		=> 2
 		),
-		'style' => array(
-			'name' 		=> __( 'Primary Color', 'anva' ),
-			'id'		=> 'style',
-			'type' 		=> 'select',
-			'options'	=> array(
-				'style_black' 		=> __( 'Black', 'anva' ),
-				'style_blue' 		=> __( 'Blue', 'anva' ),
-				'style_brown' 		=> __( 'Brown', 'anva' ),
-				'style_dark_purple' => __( 'Dark Purple', 'anva' ),
-				'style_dark' 		=> __( 'Dark', 'anva' ),
-				'style_green' 		=> __( 'Green', 'anva' ),
-				'style_light_blue' 	=> __( 'Light Blue', 'anva' ),
-				'style_light' 		=> __( 'Light', 'anva' ),
-				'style_navy' 		=> __( 'Navy', 'anva' ),
-				'style_orange' 		=> __( 'Orange', 'anva' ),
-				'style_pink' 		=> __( 'Pink', 'anva' ),
-				'style_purple' 		=> __( 'Purple', 'anva' ),
-				'style_red' 		=> __( 'Red', 'anva' ),
-				'style_slate' 		=> __( 'Slate Grey', 'anva' ),
-				'style_teal' 		=> __( 'Teal', 'anva' )
+		'footer_color' 	=> array(
+			'name' 				=> __( 'Footer Color Scheme', 'anva' ),
+			'id'					=> 'footer_color',
+			'type' 				=> 'select',
+			'options'			=> array(
+				'light' 		=> __( 'Light', 'anva' ),
+				'dark' 			=> __( 'Dark', 'anva' )
 			),
-			'transport'	=> 'postMessage',
-			'priority'	=> 3
+			'transport'		=> 'postMessage',
+			'priority'		=> 3
 		),
-		'content_color' => array(
-			'name' 		=> __( 'Content Style', 'anva' ),
-			'id' 		=> 'content_color',
-			'type' 		=> 'select',
-			'options'	=> array(
-				'content_light' => __( 'Light', 'anva' ),
-				'content_dark' => __( 'Dark', 'anva' )
-			),
-			'transport'	=> 'refresh',
-			'priority'	=> 4
-		)
 	);
 	anva_add_customizer_section( 'main_styles', __( 'Main Styles', 'anva' ), $main_styles_options, 101 );
 
-	// Setup primary font options
-	$font_options = array(
-		'typography_body' => array(
-			'name' 		=> __( 'Primary Font', 'anva' ),
-			'id' 		=> 'typography_body',
-			'atts'		=> array('size', 'style', 'face'),
-			'type' 		=> 'typography',
-			'transport'	=> 'postMessage'
+	//  Font options
+	$font_options 		= array(
+		'body_font' 		=> array(
+			'name' 				=> __( 'Body Font', 'anva' ),
+			'id' 					=> 'body_font',
+			'atts'				=> array( 'size', 'style', 'face' ),
+			'type' 				=> 'typography',
+			'transport'		=> 'postMessage'
 		),
-		'typography_header' => array(
-			'name' 		=> __( 'Header Font', 'anva' ),
-			'id' 		=> 'typography_header',
-			'atts'		=> array('style', 'face'),
-			'type' 		=> 'typography',
-			'transport'	=> 'postMessage'
+		'heading_font' 	=> array(
+			'name' 				=> __( 'Headings Font', 'anva' ),
+			'id' 					=> 'heading_font',
+			'atts'				=> array('style', 'face'),
+			'type' 				=> 'typography',
+			'transport'		=> 'postMessage'
 		),
-		'typography_special' => array(
-			'name' 		=> __( 'Special Font', 'anva' ),
-			'id' 		=> 'typography_special',
-			'atts'		=> array('style', 'face'),
-			'type' 		=> 'typography',
-			'transport'	=> 'postMessage'
+		'menu_font' 		=> array(
+			'name' 				=> __( 'Menu Font', 'anva' ),
+			'id' 					=> 'menu_font',
+			'atts'				=> array( 'style', 'face' ),
+			'type' 				=> 'typography',
+			'transport'		=> 'postMessage'
 		)
 	);
 	anva_add_customizer_section( 'typography', __( 'Typography', 'anva' ), $font_options, 102 );
 
-	// Setup link options
+	// Link options
 	$link_options = array(
 		'link_color' => array(
 			'name' 		=> __( 'Link Color', 'anva' ),
@@ -160,46 +152,34 @@ function eren_customizer() {
 			'type' 		=> 'color',
 			'priority'	=> 2
 		),
-		'featured_link_color' => array(
-			'name' 		=> __( 'Featured Area Link Color', 'anva' ),
-			'id' 		=> 'featured_link_color',
-			'type' 		=> 'color',
-			'priority'	=> 3
-		),
-		'featured_link_hover_color' => array(
-			'name' 		=> __( 'Featured Area Link Hover Color', 'anva' ),
-			'id' 		=> 'featured_link_hover_color',
-			'type' 		=> 'color',
-			'priority'	=> 4
-		),
 		'footer_link_color' => array(
 			'name' 		=> __( 'Footer Link Color', 'anva' ),
 			'id' 		=> 'footer_link_color',
 			'type' 		=> 'color',
-			'priority'	=> 5
+			'priority'	=> 3
 		),
 		'footer_link_hover_color' => array(
 			'name' 		=> __( 'Footer Link Hover Color', 'anva' ),
 			'id' 		=> 'footer_link_hover_color',
 			'type' 		=> 'color',
-			'priority'	=> 6
+			'priority'	=> 4
 		)
 	);
 	anva_add_customizer_section( 'links', __( 'Links', 'anva' ), $link_options, 103 );
 
 	// Setup custom styles option
 	$custom_css_options = array(
-		'custom_css' => array(
-			'name' 		=> __( 'Enter styles to preview their results.', 'anva' ),
-			'id' 		=> 'custom_css',
-			'type' 		=> 'textarea',
+		'custom_css' 	=> array(
+			'name' 			=> __( 'Enter styles to preview their results.', 'anva' ),
+			'id' 				=> 'custom_css',
+			'type' 			=> 'textarea',
 			'transport'	=> 'postMessage'
 		)
 	);
 	anva_add_customizer_section( 'custom_css', __( 'Custom CSS', 'anva' ), $custom_css_options, 121 );
 
 }
-add_action( 'after_setup_theme', 'eren_customizer' );
+add_action( 'after_setup_theme', 'eren_customizer_options' );
 
 /**
  * Add specific theme elements to customizer
@@ -207,8 +187,8 @@ add_action( 'after_setup_theme', 'eren_customizer' );
 function eren_customizer_init( $wp_customize ) {
 
 	// Remove custom background options
-	$wp_customize->remove_section( 'colors' );
-	$wp_customize->remove_section( 'background_image' );
+	// $wp_customize->remove_section( 'colors' );
+	// $wp_customize->remove_section( 'background_image' );
 
 	// Add real-time option edits
 	if ( $wp_customize->is_preview() ) {
@@ -226,38 +206,42 @@ function eren_customizer_preview() {
 	// Global option name
 	$option_name = anva_get_option_name();
 
-	// Begin output
 	?>
 	<script type="text/javascript">
-	window.onload = function() { // window.onload for silly IE9 bug fix
+	// window.onload for silly IE9 bug fix
+	window.onload = function() {
 		(function($) {
 
 			// Variables
 			var template_url = "<?php echo get_template_directory_uri(); ?>";
+			var framework_url = '<?php echo anva_get_core_uri(); ?>';
 
 			// ---------------------------------------------------------
 			// Background
 			// ---------------------------------------------------------
 
-			/* Body Color */
+			/* Body BG Color */
 			wp.customize('<?php echo $option_name; ?>[background_color]',function( value ) {
-				value.bind(function(color) {
+				value.bind(function( color ) {
 					$('body').css('background-color', color );
 				});
 			});
 
-			/* Body BG Color Brightness */
-			wp.customize('<?php echo $option_name; ?>[body_text]',function( value ) {
-				value.bind(function(brightness) {
-					$('body').removeClass('body_text_light body_text_dark');
-					$('body').addClass(brightness);
+			/* Body BG Image */
+			wp.customize('<?php echo $option_name; ?>[background_image]',function( value ) {
+				value.bind(function( image ) {
+					$('body').css('background', 'url(' + image + ') center center no-repeat fixed');
 				});
 			});
 
-			/* Body Texture */
-			wp.customize('<?php echo $option_name; ?>[bg_texture]',function( value ) {
-				value.bind(function(texture) {
-					$('body').css('background-image', 'url('+template_url+'/framework/frontend/assets/images/textures/'+texture+'.png)' );
+			/* Body BG Pattern */
+			wp.customize('<?php echo $option_name; ?>[background_pattern]',function( value ) {
+				value.bind(function( pattern ) {
+					if ( '' != pattern ) {
+						$('body').css('background', 'url(' + template_url + '/assets/images/patterns/' + pattern + '.png) repeat');
+					} else {
+						$('body').css('background-image', 'none');
+					}
 				});
 			});
 
@@ -267,21 +251,11 @@ function eren_customizer_preview() {
 
 			<?php anva_customizer_preview_logo(); ?>
 
-			/* Header Tagline */
-			wp.customize('<?php echo $option_name; ?>[header_text]',function( value ) {
-				value.bind(function(to) {
-					$('.header-text').html(to);
-				});
-			});
-
 			/* Social Media Style */
 			wp.customize('<?php echo $option_name; ?>[social_media_style]',function( value ) {
-				value.bind(function(value) {
-					$('#branding .anva-contact-bar li a').css({
-						'background-image' : 'url('+template_url+'/framework/frontend/assets/images/parts/social-media-'+value+'_48x48.png)',
-						'background-size' : '24px 744px'
-					});
-
+				value.bind(function( style ) {
+					$('#top-bar .social-icons a').removeClass('social-light social-dark social-colored');
+					$('#top-bar .social-icons a').addClass( 'social-' + style );
 				});
 			});
 
@@ -291,25 +265,25 @@ function eren_customizer_preview() {
 
 			/* Layout Style */
 			wp.customize('<?php echo $option_name; ?>[layout_style]',function( value ) {
-				value.bind(function(value) {
+				value.bind(function( value ) {
 					$('body').removeClass('boxed stretched');
-					$('body').addClass(value);
+					$('body').addClass( value );
 				});
 			});
 
-			/* Main Menu Style */
-			wp.customize('<?php echo $option_name; ?>[menu_style]',function( value ) {
-				value.bind(function(value) {
-					$('.menu_style').removeClass('menu_style_block menu_style_classic');
-					$('.menu_style').addClass(value);
+			/* Base Color Scheme */
+			wp.customize('<?php echo $option_name; ?>[base_color]',function( value ) {
+				value.bind(function( color ) {
+					$('body').removeClass('base-color-black base-color-blue base-color-brown base-color-dark_purple base-color-dark base-color-green base-color-light_blue base-color-light base-color-navy base-color-orange base-color-pink base-color-purple base-color-red base-color-slate base-color-teal');
+					$('body').addClass( 'base-color-' + color );
 				});
 			});
 
-			/* Primary Color */
-			wp.customize('<?php echo $option_name; ?>[style]',function( value ) {
-				value.bind(function(value) {
-					$('body').removeClass('style_black style_blue style_brown style_dark_purple style_dark style_green style_light_blue style_light style_navy style_orange style_pink style_purple style_red style_slate style_teal');
-					$('body').addClass(value);
+			/* Footer Color Scheme */
+			wp.customize('<?php echo $option_name; ?>[footer_color]',function( value ) {
+				value.bind(function( color ) {
+					$('#footer').removeClass('dark');
+					$('#footer').addClass( color );
 				});
 			});
 
@@ -401,7 +375,12 @@ function eren_customizer_preview() {
 			// Custom CSS
 			// ---------------------------------------------------------
 
-			<?php anva_customizer_preview_styles(); ?>
+			wp.customize( '<?php echo $option_name; ?>[custom_css]', function( value ) {
+				value.bind( function( css ) {
+					$('.preview_custom_css').remove();
+					$('head').append( '<style class="preview_custom_css">' + css + '</style>' );
+				});
+			});
 
 		})(jQuery);
 	} // End window.onload for silly IE9 bug

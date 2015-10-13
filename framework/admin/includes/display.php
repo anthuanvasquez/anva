@@ -23,7 +23,9 @@ function anva_admin_settings_log() {
 
 	// Check if field exists
 	if ( ! empty( $option_log ) ) {
-		$html .= sprintf( '%s' . __( 'Last changed', 'anva' ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $option_log );
+		$time = strtotime( $option_log );
+		$time = date( 'M d, Y @ g:i A', $time );
+		$html .= sprintf( '%s' . __( 'Last changed', 'anva' ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $time );
 	} else {
 		$html .= '<span class="dashicons dashicons-clock"></span> ' . __( 'Your settings has not changed.', 'anva' );
 	}
@@ -80,7 +82,7 @@ function anva_admin_footer_links() {
 function anva_admin_head_scripts() {
 	$option_name = anva_get_option_name();
 	$settings = get_option( $option_name );
-	$options = & Options_Framework::_optionsframework_options();
+	$options = anva_get_options();
 	$val = '';
 	?>
 	<script type="text/javascript">

@@ -14,14 +14,14 @@
 	
 	switch ( $type ) {
 
-		// General JS strings
+		// Admin General JS strings
 		case 'js':
 			$locals = array(
 				'reset_title'		=> __( 'Restore Defaults', 'anva' )
 			);
 			break;
 
-		// Metabox JS Strings
+		// Meta Box JS Strings
 		case 'metabox_js':
 			$locals = array(
 				'ajaxurl' 							=> admin_url( 'admin-ajax.php' ),
@@ -44,7 +44,7 @@
 		// Customizer JS strings
 		case 'customizer_js':
 			$locals = array(
-				'disclaimer'			=> __( 'Note: The customizer provides a simulated preview, and results may vary slightly when published and viewed on your live website.', 'anva' )
+				'disclaimer'						=> __( 'Note: The customizer provides a simulated preview, and results may vary slightly when published and viewed on your live website.', 'anva' )
 			);
 			break;
 	}

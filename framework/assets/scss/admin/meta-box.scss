@@ -43,15 +43,24 @@
 	}
 
 	.nav-tab-wrapper {
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid #ddd;
 		padding-bottom: 0 !important;
-		padding-left: 10px !important;
+	}
+
+	.nav-tab {
+		background: #f6f6f6 url("images/ui-bg_highlight-soft_100_f6f6f6_1x100.png") 50% 50% repeat-x;;
+		border: 1px solid #ddd;
+		font-size: 13px;
+		font-family: "Open Sans", sans-serif;
+		font-weight: normal;
+	  line-height: 24px;
+	  min-width: 48px;
+  	text-align: center;
 	}
 
 	.nav-tab-active {
 		background: #fff;
 		border-bottom: 1px solid #fff;
-		font-size: 13px;
 	}
 
 	.section-radio label,
@@ -62,11 +71,16 @@
 		margin-bottom: 5px;
 	}
 
+	h3 {
+		display: none;
+		padding: 8px 0 !important;
+	}
+
 	h4 {
 		margin-bottom: 10px;
 	}
 
-	.meta-group {
+	.group {
 		margin-bottom: 8px;
 	}
 
@@ -108,15 +122,22 @@
 		}
 	}
 
+	.postbox {
+		min-width: 0;
+		border: 0;
+		box-shadow: none;
+		background: transparent;
+	}
+
 }
 
-.anva-meta-desc {
+.section-description {
 	border-bottom: 1px solid #e5e5e5;
 	color: #888;
 	font-size: 13px;
 	font-style: italic;
-	margin: 0 -12px;
-	padding: 8px 12px 12px;
+	margin: 0;
+	padding: 8px 0 12px;
 }
 
 // Context

@@ -15,27 +15,131 @@
 }
 
 .base-color-orange .header-extras li .text span {
-  color: #EB9C4D;
+  color: #eb9c4d;
 }
 
 .base-color-orange .button,
 .base-color-orange #top-cart .badge {
-  background-color: #EB9C4D;
+  background-color: #eb9c4d;
 }
 
 .base-color-orange #primary-menu > div > ul > li ul {
-  border-top-color: #EB9C4D;
+  border-top-color: #eb9c4d;
 }
 
 .base-color-green .header-extras li .text span {
-  color: #59BA41;
+  color: #59ba41;
 }
 
 .base-color-green .button,
 .base-color-green #top-cart .badge {
-  background-color: #59BA41;
+  background-color: #59ba41;
 }
 
 .base-color-green #primary-menu > div > ul > li ul {
-  border-top-color: #59BA41;
+  border-top-color: #59ba41;
+}
+
+.base-color-teal .header-extras li .text span {
+  color: #62A09B;
+}
+
+.base-color-teal .button,
+.base-color-teal #top-cart .badge {
+  background-color: #62A09B;
+}
+
+.base-color-teal #primary-menu > div > ul > li ul {
+  border-top-color: #62A09B;
+}
+
+.base-color-red .header-extras li .text span {
+  color: #BD4636;
+}
+
+.base-color-red .button,
+.base-color-red #top-cart .badge {
+  background-color: #BD4636;
+}
+
+.base-color-red #primary-menu > div > ul > li ul {
+  border-top-color: #BD4636;
+}
+
+.base-color-slate .header-extras li .text span {
+  color: #708090;
+}
+
+.base-color-slate .button,
+.base-color-slate #top-cart .badge {
+  background-color: #708090;
+}
+
+.base-color-slate #primary-menu > div > ul > li ul {
+  border-top-color: #708090;
+}
+
+.base-color-purple .header-extras li .text span {
+  color: #69359C;
+}
+
+.base-color-purple .button,
+.base-color-purple #top-cart .badge {
+  background-color: #69359C;
+}
+
+.base-color-purple #primary-menu > div > ul > li ul {
+  border-top-color: #69359C;
+}
+
+.base-color-pink .header-extras li .text span {
+  color: #FF66CC;
+}
+
+.base-color-pink .button,
+.base-color-pink #top-cart .badge {
+  background-color: #FF66CC;
+}
+
+.base-color-pink #primary-menu > div > ul > li ul {
+  border-top-color: #FF66CC;
+}
+
+.base-color-navy .header-extras li .text span {
+  color: #000080;
+}
+
+.base-color-navy .button,
+.base-color-navy #top-cart .badge {
+  background-color: #000080;
+}
+
+.base-color-navy #primary-menu > div > ul > li ul {
+  border-top-color: #000080;
+}
+
+.base-color-brown .header-extras li .text span {
+  color: #964B00;
+}
+
+.base-color-brown .button,
+.base-color-brown #top-cart .badge {
+  background-color: #964B00;
+}
+
+.base-color-brown #primary-menu > div > ul > li ul {
+  border-top-color: #964B00;
+}
+
+.base-color-black .header-extras li .text span {
+  color: #000000;
+}
+
+.base-color-black .button,
+.base-color-black #top-cart .badge {
+  background-color: #000000;
+}
+
+.base-color-black #primary-menu > div > ul > li ul {
+  border-top-color: #000000;
 }

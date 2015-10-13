@@ -1,15 +1,23 @@
 <?php
 
+// Customizer Extensions
+include_once ( 'customizer/custom-controls.php' );
+
+// Customizer Previews
+include_once ( 'customizer/preview.php' );
+
 /**
  * Add option section for theme customizer added in WP 3.4
+ *
+ * @since 1.0.0
  */
 function anva_add_customizer_section( $section_id, $section_name, $options, $priority = null ) {
 
 	global $_anva_customizer_sections;
 
 	$_anva_customizer_sections[$section_id] = array(
-		'id' 		=> $section_id,
-		'name' 		=> $section_name,
+		'id' 				=> $section_id,
+		'name' 			=> $section_name,
 		'options' 	=> $options,
 		'priority'	=> $priority
 	);
@@ -17,7 +25,10 @@ function anva_add_customizer_section( $section_id, $section_name, $options, $pri
 }
 
 /**
- * Format options for customizer into array organized with all sections together
+ * Format options for customizer into array
+ * organized with all sections together
+ *
+ * @since 1.0.0
  */
 function anva_registered_customizer_options( $sections ) {
 	$registered_options = array();
@@ -35,6 +46,8 @@ function anva_registered_customizer_options( $sections ) {
 
 /**
  * Setup everything we need for WordPress customizer
+ *
+ * @since 1.0.0
  */
 function anva_customizer_init( $wp_customize ) {
 
@@ -42,7 +55,7 @@ function anva_customizer_init( $wp_customize ) {
 
 	// Get current theme settings
 	$option_name = anva_get_option_name();
-	$theme_settings = & Options_Framework::_optionsframework_options();
+	$theme_settings = anva_get_options();
 
 	// Register sections of options
 	if ( $_anva_customizer_sections ) {
@@ -66,11 +79,12 @@ function anva_customizer_init( $wp_customize ) {
 
 						// Setup defaults
 						$defaults = array(
-							'type' 				=> '',
-							'custom' 			=> '',
+							'type' 						=> '',
+							'custom' 					=> '',
 							'custom_tagline' 	=> '',
-							'image' 			=> ''
+							'image' 					=> ''
 						);
+
 						if ( isset( $theme_settings[$option['id']] ) ) {
 							foreach ( $defaults as $key => $value ) {
 								if ( isset( $theme_settings[$option['id']][$key] ) ) {
@@ -128,7 +142,6 @@ function anva_customizer_init( $wp_customize ) {
 							'capability' 	=> 'edit_theme_options',
 							'transport'		=> $transport
 						) );
-
 						$wp_customize->add_control( $option['id'].'_custom_tagline', array(
 							'priority'		=> 3,
 							'settings'		=> $option_name.'['.$option['id'].'][custom_tagline]',
@@ -146,8 +159,8 @@ function anva_customizer_init( $wp_customize ) {
 						$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $option['id'].'_image', array(
 							'priority'		=> 4,
 							'settings'		=> $option_name.'['.$option['id'].'][image]',
-							'label'   => $option['name'].' '.__( 'Image', 'anva' ),
-							'section' => $section['id'],
+							'label'   		=> $option['name'].' '.__( 'Image', 'anva' ),
+							'section' 		=> $section['id'],
 						) ) );
 
 					} else if ( $option['type'] == 'typography' ) {
@@ -163,6 +176,7 @@ function anva_customizer_init( $wp_customize ) {
 							'color' 	=> '',
 							'google' 	=> ''
 						);
+
 						if ( isset( $theme_settings[$option['id']] ) ) {
 							$defaults = $theme_settings[$option['id']];
 						}
@@ -204,7 +218,7 @@ function anva_customizer_init( $wp_customize ) {
 									break;
 
 								case 'face' :
-									$wp_customize->add_control( new WP_Customize_anva_Font_Face( $wp_customize, $option['id'].'_'.$attribute, array(
+									$wp_customize->add_control( new WP_Customize_Anva_Font_Face( $wp_customize, $option['id'].'_'.$attribute, array(
 										'priority'		=> $font_counter,
 										'settings'		=> $option_name.'['.$option['id'].']['.$attribute.']',
 										'label'   		=> $option['name'].' '.ucfirst($attribute),
@@ -218,7 +232,7 @@ function anva_customizer_init( $wp_customize ) {
 										'capability' 	=> 'edit_theme_options',
 										'transport'		=> $transport
 									) );
-									$wp_customize->add_control( new WP_Customize_anva_Google_Font( $wp_customize, $option['id'].'_'.$attribute.'_google', array(
+									$wp_customize->add_control( new WP_Customize_Anva_Google_Font( $wp_customize, $option['id'].'_'.$attribute.'_google', array(
 										'priority'		=> $font_counter,
 										'settings'		=> $option_name.'['.$option['id'].'][google]',
 										'label'   		=> __( 'Google Font Name', 'anva' ),
@@ -256,11 +270,12 @@ function anva_customizer_init( $wp_customize ) {
 								'capability' 	=> 'edit_theme_options',
 								'transport'		=> $transport
 							) );
-							$wp_customize->add_control( new WP_Customize_anva_Divider( $wp_customize, $option['id'].'_divider', array(
+							$wp_customize->add_control( new WP_Customize_Anva_Divider( $wp_customize, $option['id'].'_divider', array(
 								'priority'		=> $font_counter,
 								'settings'		=> $option_name.'['.$option['id'].'][divider]',
 								'section'		=> $section['id']
 							) ) );
+
 							$font_counter++;
 
 						}
@@ -288,10 +303,10 @@ function anva_customizer_init( $wp_customize ) {
 
 						// Register option
 						$wp_customize->add_setting( $option_name.'['.$option['id'].']', array(
-							'default'    	=> esc_attr( $default ),
-							'type'       	=> 'option',
-							'capability' 	=> 'edit_theme_options',
-							'transport'		=> $transport
+							'default'    		=> esc_attr( $default ),
+							'type'       		=> 'option',
+							'capability' 		=> 'edit_theme_options',
+							'transport'			=> $transport
 						) );
 
 						// Add controls
@@ -300,8 +315,8 @@ function anva_customizer_init( $wp_customize ) {
 							// Standard text option
 							case 'text' :
 								$wp_customize->add_control( $option['id'], array(
-									'priority'		=> $priority,
-									'settings'		=> $option_name.'['.$option['id'].']',
+									'priority'	=> $priority,
+									'settings'	=> $option_name.'['.$option['id'].']',
 									'label'			=> $option['name'],
 									'section'		=> $section['id']
 								) );
@@ -309,19 +324,19 @@ function anva_customizer_init( $wp_customize ) {
 
 							// Textarea
 							case 'textarea' :
-								$wp_customize->add_control( new WP_Customize_anva_Textarea( $wp_customize, $option['id'], array(
-									'priority'		=> $priority,
-									'settings'		=> $option_name.'['.$option['id'].']',
-									'label'   		=> $option['name'],
-									'section' 		=> $section['id']
+								$wp_customize->add_control( new WP_Customize_Anva_Textarea( $wp_customize, $option['id'], array(
+									'priority'	=> $priority,
+									'settings'	=> $option_name.'['.$option['id'].']',
+									'label'   	=> $option['name'],
+									'section' 	=> $section['id']
 								) ) );
 								break;
 
 							// Select box
 							case 'select' :
 								$wp_customize->add_control( $option['id'], array(
-									'priority'		=> $priority,
-									'settings'		=> $option_name.'['.$option['id'].']',
+									'priority'	=> $priority,
+									'settings'	=> $option_name.'['.$option['id'].']',
 									'label'			=> $option['name'],
 									'section'		=> $section['id'],
 									'type'			=> 'select',
@@ -332,8 +347,8 @@ function anva_customizer_init( $wp_customize ) {
 							// Radio set
 							case 'radio' :
 								$wp_customize->add_control( $option['id'], array(
-									'priority'		=> $priority,
-									'settings'		=> $option_name.'['.$option['id'].']',
+									'priority'	=> $priority,
+									'settings'	=> $option_name.'['.$option['id'].']',
 									'label'			=> $option['name'],
 									'section'		=> $section['id'],
 									'type'			=> 'radio',
@@ -344,10 +359,20 @@ function anva_customizer_init( $wp_customize ) {
 							// Color
 							case 'color' :
 								$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $option['id'], array(
-									'priority'		=> $priority,
-									'settings'		=> $option_name.'['.$option['id'].']',
+									'priority'	=> $priority,
+									'settings'	=> $option_name.'['.$option['id'].']',
 									'label'			=> $option['name'],
 									'section'		=> $section['id']
+								) ) );
+								break;
+
+							// Image
+							case 'image' :
+								$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $option['id'], array(
+									'priority'	=> $priority,
+									'settings'	=> $option_name.'['.$option['id'].']',
+									'label'   	=> $option['name'],
+									'section' 	=> $section['id']
 								) ) );
 								break;
 						}
@@ -421,570 +446,13 @@ function anva_customizer_init( $wp_customize ) {
 
 					$wp_customize->add_control( 'homepage_custom_layout', array(
 						'settings'		=> $option_name.'[homepage_custom_layout]',
-						'label'			=> __( 'Homepage Custom Layout', 'anva' ),
-						'section'		=> 'static_front_page',
-						'type'			=> 'select',
-						'choices'		=> $custom_layouts
+						'label'				=> __( 'Homepage Custom Layout', 'anva' ),
+						'section'			=> 'static_front_page',
+						'type'				=> 'select',
+						'choices'			=> $custom_layouts
 					) );
 					break;
 			}
 		}
 	}
-}
-
-/**
- * Styles for WordPress cusomizer
- */
-function anva_customizer_styles() {
-	wp_register_style( 'anva_customizer', anva_get_core_uri() . '/assets/css/admin/customizer.min.css', false, ANVA_FRAMEWORK_VERSION );
-	wp_enqueue_style( 'anva_customizer' );
-}
-
-/**
- * Scripts for WordPress cusomizer
- */
-function anva_customizer_scripts() {
-	wp_register_script( 'anva_customizer', anva_get_core_uri().'/assets/js/admin/customizer.min.js', array('jquery'), ANVA_FRAMEWORK_VERSION );
-	wp_enqueue_script( 'anva_customizer' );
-}
-
-/**
- * Customizer control extensions
- */
-if ( class_exists( 'WP_Customize_Control' ) ) {
-
-	/**
-	 * Add control for textarea
-	 */
-	class WP_Customize_Anva_Textarea extends WP_Customize_Control {
-
-		public $type = 'textarea';
-		public $statuses;
-
-		public function __construct( $manager, $id, $args = array() ) {
-			$this->statuses = array( '' => __('Default', 'anva' ) );
-			parent::__construct( $manager, $id, $args );
-		}
-
-		public function to_json() {
-			parent::to_json();
-			$this->json['statuses'] = $this->statuses;
-		}
-
-		public function render_content() {
-			?>
-			<label>
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-				<textarea <?php $this->link(); ?>><?php echo esc_attr( $this->value() ); ?></textarea>
-			</label>
-			<?php
-		}
-
-	}
-
-	/**
-	 * Add control to select font face
-	 */
-	class WP_Customize_Anva_Font_Face extends WP_Customize_Control {
-
-		public $type = 'font_face';
-		public $statuses;
-
-		public function __construct( $manager, $id, $args = array() ) {
-			$this->statuses = array( '' => __( 'Default', 'anva' ) );
-			parent::__construct( $manager, $id, $args );
-		}
-
-		public function enqueue() {
-			wp_enqueue_script( 'anva_customizer' );
-			wp_enqueue_style( 'anva_customizer' );
-		}
-
-		public function to_json() {
-			parent::to_json();
-			$this->json['statuses'] = $this->statuses;
-		}
-
-		public function render_content() {
-			if ( empty( $this->choices ) ) {
-				return;
-			}
-			?>
-			<label class="anva-font-face">
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-				<select <?php $this->link(); ?>>
-					<?php
-					foreach ( $this->choices as $value => $label ) {
-						printf( '<option value="%s"%s>%s</option>', esc_attr($value), selected( $this->value(), $value, false ), $label );
-					}
-					?>
-				</select>
-			</label>
-			<?php
-		}
-
-	}
-
-	/**
-	 * Add control to input Google font name
-	 */
-	class WP_Customize_Anva_Google_Font extends WP_Customize_Control {
-
-		public $type = 'google_font';
-		public $statuses;
-
-		public function __construct( $manager, $id, $args = array() ) {
-			$this->statuses = array( '' => __('Default', 'anva' ) );
-			parent::__construct( $manager, $id, $args );
-		}
-
-		public function enqueue() {
-			wp_enqueue_script( 'anva_customizer' );
-			wp_enqueue_style( 'anva_customizer' );
-		}
-
-		public function to_json() {
-			parent::to_json();
-			$this->json['statuses'] = $this->statuses;
-		}
-
-		public function render_content() {
-			?>
-			<label class="anva-google-font">
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-				<input type="text" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
-				<p><?php _e( 'Example', 'anva' ); ?>: Pontano Sans</p>
-				<p><a href="http://www.google.com/webfonts" target="_blank"><?php _e( 'Browse Google Fonts', 'anva' ); ?></a></p>
-			</label>
-			<?php
-		}
-
-	}
-
-	/**
-	 * Add control for divider
-	 */
-	class WP_Customize_Anva_Divider extends WP_Customize_Control {
-
-		public $type = 'divider';
-		public $statuses;
-
-		public function __construct( $manager, $id, $args = array() ) {
-			$this->statuses = array( '' => __('Default', 'anva' ) );
-			parent::__construct( $manager, $id, $args );
-		}
-
-		public function render_content() {
-			?>
-			<div class="anva-divider"></div>
-			<?php
-		}
-
-	}
-
-} // End Class
-
-/**
- * Logo Customizer Preview
- */
-function anva_customizer_preview_logo() {
-
-	// Global option name
-	$option_name = anva_get_option_name();
-
-	// Setup for logo
-	$logo_options = anva_get_option('logo');
-	$logo_atts = array(
-		'type' 				=> '',
-		'site_url'			=> home_url(),
-		'title'				=> get_bloginfo('name'),
-		'tagline'			=> get_bloginfo('description'),
-		'custom' 			=> '',
-		'custom_tagline' 	=> '',
-		'image' 			=> '',
-	);
-
-	foreach ( $logo_atts as $key => $value ) {
-		if ( isset($logo_options[$key]) ) {
-			$logo_atts[$key] = $logo_options[$key];
-		}
-	}
-
-	// Begin output
-	?>
-	// Logo atts object
-	Logo = <?php echo json_encode($logo_atts); ?>;
-
-	/* Logo - Type */
-	wp.customize('<?php echo $option_name; ?>[logo][type]',function( value ) {
-		value.bind(function(value) {
-			// Set global marker. This allows us to
-			// know the currently selected logo type
-			// from any other option.
-			Logo.type = value;
-
-			// Remove classes specific to type so we
-			// can add tehm again depending on new type.
-			$('#branding .header_logo').removeClass('header_logo_title header_logo_title_tagline header_logo_custom header_logo_image header_logo_has_tagline');
-
-			// Display markup depending on type of
-			// logo selected.
-			if ( value == 'title' )
-			{
-				$('#branding .header_logo').addClass('header_logo_title');
-				$('#branding .header_logo').html('<h1 class="tb-text-logo"><a href="'+Logo.site_url+'" title="'+Logo.title+'">'+Logo.title+'</a></h1>');
-			}
-			else if ( value == 'title_tagline' )
-			{
-				$('#branding .header_logo').addClass('header_logo_title_tagline');
-				$('#branding .header_logo').addClass('header_logo_has_tagline');
-				$('#branding .header_logo').html('<h1 class="tb-text-logo"><a href="'+Logo.site_url+'" title="'+Logo.title+'">'+Logo.title+'</a></h1><span class="tagline">'+Logo.tagline+'</span>');
-			}
-			else if ( value == 'custom' )
-			{
-				var html = '<h1 class="tb-text-logo"><a href="'+Logo.site_url+'" title="'+Logo.custom+'">'+Logo.custom+'</a></h1>';
-				if (Logo.custom_tagline)
-				{
-					$('#branding .header_logo').addClass('header_logo_has_tagline');
-					html = html+'<span class="tagline">'+Logo.custom_tagline+'</span>';
-				}
-				$('#branding .header_logo').addClass('header_logo_custom');
-				$('#branding .header_logo').html(html);
-			}
-			else if ( value == 'image' )
-			{
-				var html;
-				if (Logo.image)
-				{
-					html = '<a href="'+Logo.site_url+'" title="'+Logo.title+'" class="tb-image-logo"><img src="'+Logo.image+'" alt="'+Logo.title+'" /></a>';
-				}
-				else
-				{
-					html = '<strong>Oops! You still need to upload an image.</strong>';
-				}
-				$('#branding .header_logo').addClass('header_logo_image');
-				$('#branding .header_logo').html(html);
-			}
-		});
-	});
-
-	/* Logo - Custom Title */
-	wp.customize('<?php echo $option_name; ?>[logo][custom]',function( value ) {
-		value.bind(function(value) {
-			// Set global marker
-			Logo.custom = value;
-
-			// Only do if anything if the proper logo
-			// type is currently selected.
-			if ( Logo.type == 'custom' ) {
-				$('#branding .header_logo h1 a').text(value);
-			}
-		});
-	});
-
-	/* Logo - Custom Tagline */
-	wp.customize('<?php echo $option_name; ?>[logo][custom_tagline]',function( value ) {
-		value.bind(function(value) {
-			// Set global marker
-			Logo.custom_tagline = value;
-
-			// Remove previous tagline if needed.
-			$('#branding .header_logo').removeClass('header_logo_has_tagline');
-			$('#branding .header_logo .tagline').remove();
-
-			// Only do if anything if the proper logo
-			// type is currently selected.
-			if ( Logo.type == 'custom' ) {
-				if (value)
-				{
-					$('#branding .header_logo').addClass('header_logo_has_tagline');
-					$('#branding .header_logo').append('<span class="tagline">'+value+'</span>');
-				}
-			}
-		});
-	});
-
-	/* Logo - Image */
-	wp.customize('<?php echo $option_name; ?>[logo][image]',function( value ) {
-		value.bind(function(value) {
-			// Set global marker
-			Logo.image = value;
-
-			// Only do if anything if the proper logo
-			// type is currently selected.
-			if ( Logo.type == 'image' ) {
-				var html;
-				if (value)
-				{
-					html = '<a href="'+Logo.site_url+'" title="'+Logo.title+'" class="tb-image-logo"><img src="'+Logo.image+'" alt="'+Logo.title+'" /></a>';
-				}
-				else
-				{
-					html = '<strong>Oops! You still need to upload an image.</strong>';
-				}
-				$('#branding .header_logo').addClass('header_logo_image');
-				$('#branding .header_logo').html(html);
-			}
-		});
-	});
-	<?php
-}
-
-/**
- * Font Prep for customizer preview
- */
-function anva_customizer_preview_font_prep() {
-
-	// Global option name
-	$option_name = anva_get_option_name();
-
-	// Setup font stacks
-	$font_stacks = anva_get_font_stacks();
-	unset( $font_stacks['google'] );
-
-	// Determine current google fonts with fake
-	// booleans to be used in printed JS object.
-	$types = array('body', 'header', 'special');
-	$google_fonts = array();
-	foreach ( $types as $type ) {
-		$font = anva_get_option('typography_'.$type);
-		$google_fonts[$type.'Name'] = !empty($font['google']) && $font['google'] ? $font['google'] : '';
-		$google_fonts[$type.'Toggle'] = !empty($font['face']) && $font['face'] == 'google' ? 'true' : 'false';
-	}
-	?>
-	// Font stacks
-	fontStacks = <?php echo json_encode($font_stacks); ?>;
-
-	// Google font toggles
-	googleFonts = <?php echo json_encode($google_fonts); ?>;
-	<?php
-}
-
-/**
- * Primary (Body) Font Customizer Preview
- */
-function anva_customizer_preview_primary_font() {
-
-	// Global option name
-	$option_name = anva_get_option_name();
-
-	// Begin output
-	?>
-	// ---------------------------------------------------------
-	// Body Typography
-	// ---------------------------------------------------------
-
-	/* Body Typography - Size */
-	wp.customize('<?php echo $option_name; ?>[typography_body][size]',function( value ) {
-		value.bind(function(size) {
-			// We're doing this odd-ball way so jQuery
-			// doesn't apply body font to other elements.
-			$('.preview_body_font_size').remove();
-			$('head').append('<style class="preview_body_font_size">body{ font-size: '+size+'; }</style>');
-		});
-	});
-
-	/* Body Typography - Style */
-	wp.customize('<?php echo $option_name; ?>[typography_body][style]',function( value ) {
-		value.bind(function(style) {
-
-			// We're doing this odd-ball way so jQuery
-			// doesn't apply body font to other elements.
-			$('.preview_body_font_style').remove();
-
-			// Possible choices: normal, bold, italic, bold-italic
-			var body_css_props;
-			if ( style == 'normal' )
-				body_css_props = 'font-weight: normal; font-style: normal;';
-			else if ( style == 'bold' )
-				body_css_props = 'font-weight: bold; font-style: normal;';
-			else if ( style == 'italic' )
-				body_css_props = 'font-weight: normal; font-style: italic;';
-			else if ( style == 'bold-italic' )
-				body_css_props = 'font-weight: bold; font-style: italic;';
-
-			$('head').append('<style class="preview_body_font_style">body{'+body_css_props+'}</style>');
-
-		});
-	});
-
-	/* Body Typography - Face */
-	wp.customize('<?php echo $option_name; ?>[typography_body][face]',function( value ) {
-		value.bind(function(face) {
-			var header_font_face = $('h1, h2, h3, h4, h5, h6').css('font-family');
-			if ( face == 'google' ) {
-				googleFonts.bodyToggle = true;
-				var google_font = googleFonts.bodyName.split(":"),
-					google_font = google_font[0];
-				$('body').css('font-family', google_font);
-				$('h1, h2, h3, h4, h5, h6').css('font-family', header_font_face); // Maintain header font when body font switches
-			}
-			else
-			{
-				googleFonts.bodyToggle = false;
-				$('body').css('font-family', fontStacks[face]);
-				$('h1, h2, h3, h4, h5, h6').css('font-family', header_font_face); // Maintain header font when body font switches
-			}
-		});
-	});
-
-	/* Body Typography - Google */
-	wp.customize('<?php echo $option_name; ?>[typography_body][google]',function( value ) {
-		value.bind(function(google_font) {
-			// Only proceed if user has actually selected for
-			// a google font to show in previous option.
-			if (googleFonts.bodyToggle)
-			{
-				// Set global google font for reference in
-				// other options.
-				googleFonts.bodyName = google_font;
-
-				// Determine current header font so we don't
-				// override it with our new body font.
-				var header_font_face = $('h1, h2, h3, h4, h5, h6').css('font-family');
-
-				// Remove previous google font to avoid clutter.
-				$('.preview_google_body_font').remove();
-
-				// Format font name for inclusion
-				var include_google_font = google_font.replace(/ /g,'+');
-
-				// Include font
-				$('head').append('<link href="http://fonts.googleapis.com/css?family='+include_google_font+'" rel="stylesheet" type="text/css" class="preview_google_body_font" />');
-
-				// Format for CSS
-				google_font = google_font.split(":");
-				google_font = google_font[0];
-
-				// Apply font in CSS
-				$('body').css('font-family', google_font);
-				$('h1, h2, h3, h4, h5, h6').css('font-family', header_font_face); // Maintain header font when body font switches
-			}
-		});
-	});
-	<?php
-}
-
-/**
- * Header (h1, h2, h3, h4, h5) Font Customizer Preview
- */
-function anva_customizer_preview_header_font() {
-
-	// Global option name
-	$option_name = anva_get_option_name();
-
-	// Begin Output
-	?>
-	// ---------------------------------------------------------
-	// Header Typography
-	// ---------------------------------------------------------
-
-	/* Header Typography - Style */
-	wp.customize('<?php echo $option_name; ?>[typography_header][style]',function( value ) {
-		value.bind(function(style) {
-			// Possible choices: normal, bold, italic, bold-italic
-			if ( style == 'normal' ) {
-				$('h1, h2, h3, h4, h5, h6').css('font-weight', 'normal');
-				$('h1, h2, h3, h4, h5, h6').css('font-style', 'normal');
-			} else if ( style == 'bold' ) {
-				$('h1, h2, h3, h4, h5, h6').css('font-weight', 'bold');
-				$('h1, h2, h3, h4, h5, h6').css('font-style', 'normal');
-			} else if ( style == 'italic' ) {
-				$('h1, h2, h3, h4, h5, h6').css('font-weight', 'normal');
-				$('h1, h2, h3, h4, h5, h6').css('font-style', 'italic');
-			} else if ( style == 'bold-italic' ) {
-				$('h1, h2, h3, h4, h5, h6').css('font-weight', 'bold');
-				$('h1, h2, h3, h4, h5, h6').css('font-style', 'italic');
-			}
-		});
-	});
-
-	/* Header Typography - Face */
-	wp.customize('<?php echo $option_name; ?>[typography_header][face]',function( value ) {
-		value.bind(function(face) {
-			if ( face == 'google' ) {
-				googleFonts.headerToggle = true;
-				var google_font = googleFonts.headerName.split(":"),
-					google_font = google_font[0];
-				$('h1, h2, h3, h4, h5, h6').css('font-family', google_font);
-			}
-			else
-			{
-				googleFonts.headerToggle = false;
-				$('h1, h2, h3, h4, h5, h6').css('font-family', fontStacks[face]);
-			}
-		});
-	});
-
-	/* Header Typography - Google */
-	wp.customize('<?php echo $option_name; ?>[typography_header][google]',function( value ) {
-		value.bind(function(google_font) {
-			// Only proceed if user has actually selected for
-			// a google font to show in previous option.
-			if (googleFonts.headerToggle)
-			{
-				// Set global google font for reference in
-				// other options.
-				googleFonts.headerName = google_font;
-
-				// Remove previous google font to avoid clutter.
-				$('.preview_google_header_font').remove();
-
-				// Format font name for inclusion
-				var include_google_font = google_font.replace(/ /g,'+');
-
-				// Include font
-				$('head').append('<link href="http://fonts.googleapis.com/css?family='+include_google_font+'" rel="stylesheet" type="text/css" class="preview_google_header_font" />');
-
-				// Format for CSS
-				google_font = google_font.split(":");
-				google_font = google_font[0];
-
-				// Apply font in CSS
-				$('h1, h2, h3, h4, h5, h6').css('font-family', google_font);
-			}
-		});
-	});
-	<?php
-}
-
-/**
- * Custom CSS Customizer Preview
- */
-function anva_customizer_preview_styles() {
-
-	// Global option name
-	$option_name = anva_get_option_name();
-
-	// Output
-	?>
-	/* Custom CSS */
-	wp.customize( '<?php echo $option_name; ?>[custom_styles]', function( value ) {
-		value.bind( function( css ) {
-			$('.preview_custom_styles').remove();
-			$('head').append( '<style class="preview_custom_styles">' + css + '</style>' );
-		});
-	});
-	<?php
-}
-
-/**
- * Allow "refresh" transport type settings to work right in the Customizer
- */
-function anva_customizer_preview() {
-
-	global $wp_customize;
-
-	// Check if customizer is running.
-	if ( ! is_a( $wp_customize, 'WP_Customize_Manager' ) ) {
-		return;
-	}
-
-	// Reset settings after Customizer
-	// has applied filters.
-	if ( $wp_customize->is_preview() ) {
-		$api = Anva_Options_API::instance();
-		// $api->set_settings();
-	}
-
 }

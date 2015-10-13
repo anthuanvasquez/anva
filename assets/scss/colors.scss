@@ -5,13 +5,21 @@
 $theme-colors: (
 	blue: 	#4285f4,
 	orange: #eb9c4d,
-	green: 	#59ba41
+	green: 	#59ba41,
+	teal:		#62A09B,
+	red:		#BD4636,
+	slate: 	#708090,
+	purple: #69359C,
+	pink:		#FF66CC,
+	navy:		#000080,
+	brown: 	#964B00,
+	black: 	#000000
 );
 
 // Customize the colors
 @mixin theme-colors( $color ) {
 	
-	// Color Selector
+	// Color Selectors
 	.header-extras li .text span {
 		color: $color;
 	}
@@ -22,7 +30,7 @@ $theme-colors: (
 		background-color: $color;
 	}
 
-	// Border Color Selector
+	// Border Color Selectors
 	#primary-menu > div > ul > li ul {
 		border-top-color: $color;
 	}

@@ -52,28 +52,36 @@ class Options_Framework_Media_Uploader {
 			$name = $_name;
 		}
 		else {
-			$name = $option_name.'['.$id.']';
+			$name = $option_name . '[' . $id . ']';
 		}
 
 		if ( $value ) {
 			$class = ' has-file';
 		}
-		$output .= '<input id="' . $id . '" class="upload' . $class . '" type="text" name="'.$name.'" value="' . $value . '" placeholder="' . __( 'No file chosen', 'anva' ) .'" />' . "\n";
+		$output .= '<div class="group-button">';
+		$output .= '<input id="' . esc_attr( $id ) . '" class="upload' . esc_attr( $class ) . '" type="text" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" placeholder="' . __( 'No file chosen', 'anva' ) .'" />' . "\n";
+		
 		if ( function_exists( 'wp_enqueue_media' ) ) {
 			if ( ( $value == '' ) ) {
-				$output .= '<input id="upload-' . $id . '" class="upload-button button" type="button" value="' . __( 'Browse', 'anva' ) . '" />' . "\n";
+				$output .= '<span>';
+				$output .= '<input id="upload-' . esc_attr( $id ) . '" class="upload-button button" type="button" value="' . __( 'Browse', 'anva' ) . '" />' . "\n";
+				$output .= '</span>';
 			} else {
-				$output .= '<input id="remove-' . $id . '" class="remove-file button" type="button" value="' . __( 'Remove', 'anva' ) . '" />' . "\n";
+				$output .= '<span>';
+				$output .= '<input id="remove-' . esc_attr( $id ) . '" class="remove-file button" type="button" value="' . __( 'Remove', 'anva' ) . '" />' . "\n";
+				$output .= '</span>';
 			}
 		} else {
-			$output .= '<p><i>' . __( 'Upgrade your version of WordPress for full media support.', 'anva' ) . '</i></p>';
+			$output .= '<p class="anva-disclaimer"><i>' . __( 'Upgrade your version of WordPress for full media support.', 'anva' ) . '</i></p>';
 		}
+
+		$output .= '</div>';
 
 		if ( $_desc != '' ) {
-			$output .= '<span class="anva-metabox-desc">' . $_desc . '</span>' . "\n";
+			$output .= '<span class="anva-metabox-desc">' . esc_html( $_desc ) . '</span>' . "\n";
 		}
 
-		$output .= '<div class="screenshot" id="' . $id . '-image">' . "\n";
+		$output .= '<div class="screenshot" id="' . esc_attr( $id ) . '-image">' . "\n";
 
 		if ( $value != '' ) {
 			$remove = '<a class="remove-image">X</a>';
@@ -91,7 +99,7 @@ class Options_Framework_Media_Uploader {
 
 				// Standard generic output if it's not an image.
 				$title = __( 'View File', 'anva' );
-				$output .= '<div class="no-image"><span class="file_link"><a href="' . $value . '" target="_blank" rel="external">'.$title.'</a></span></div>';
+				$output .= '<div class="no-image"><span class="file_link"><a href="' . esc_url( $value ) . '" target="_blank" rel="external">' . esc_html( $title ) . '</a></span></div>';
 			}
 		}
 		$output .= '</div>' . "\n";
@@ -183,33 +191,10 @@ function anva_media_uploader( $args ) {
 		'class'		=> 'modal-hide-settings'
 	);
 
+	$output .= '<div class="group-button">';
+
 	// Start output
 	switch ( $type ) {
-
-		case 'slider' :
-			$data['title'] = __('Slide Image', 'anva');
-			$data['select'] = __('Use for Slide', 'anva');
-			$data['upload'] = __('Get Image', 'anva');
-			$help = __( 'You must use the \'Get Image\' button to insert an image for this slide to ensure that a proper image ID is used. This is what the locked icon represents.', 'anva' );
-			$output .= '<span class="locked"><span></span>';
-			$output .= '<a href="#" class="help-icon tooltip-link" title="'.$help.'">Help</a>';
-			$output .= '<input id="'.$formfield.'_id" class="image-id locked upload'.$class.'" type="text" name="'.$name.'[id]" placeholder="'.__('Image ID', 'anva').'" value="'.$args['value_id'].'" /></span>'."\n";
-			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="hidden" name="'.$name.'[url]" value="'.$value.'" />'."\n";
-			$output .= '<input id="'.$formfield.'_title" class="image-title upload'.$class.'" type="hidden" name="'.$name.'[title]" value="'.$args['value_title'].'" />'."\n";
-			break;
-
-		case 'video' :
-			$data['title'] = __('Slide Video', 'anva');
-			$data['select'] = __('Use for Slide', 'anva');
-			$data['upload'] = __('Get Video', 'anva');
-			$output .= '<input id="'.$formfield.'" class="video-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Video Link', 'anva') .'" />'."\n";
-			break;
-
-		case 'quick_slider' :
-			$data['title'] = __('Quick Slider', 'anva');
-			$data['select'] = __('Use selected images', 'anva');
-			$data['class'] = '';
-			break;
 
 		case 'logo' :
 			$data['title'] = __('Logo Image', 'anva');
@@ -235,11 +220,10 @@ function anva_media_uploader( $args ) {
 
 	$data = apply_filters( 'anva_media_uploader_data', $data, $type );
 
-	if ( ! $value || $type == 'video' ) {
-		$output .= '<input id="upload-'.$formfield.'" class="trigger upload-button button" type="button" data-type="'.$type.'" data-title="'.$data['title'].'" data-select="'.$data['select'].'" data-class="'.$data['class'].'" data-upload="'.$data['upload'].'" data-remove="'.$data['remove'].'" value="'.$data['upload'].'" />'."\n";
-	} else {
-		$output .= '<input id="remove-'.$formfield.'" class="trigger remove-file button" type="button" data-type="'.$type.'" data-title="'.$data['title'].'" data-select="'.$data['select'].'" data-class="'.$data['class'].'" data-upload="'.$data['upload'].'" data-remove="'.$data['remove'].'" value="'.$data['remove'].'" />'."\n";
-	}
+	$output .= '<span>';
+	$output .= '<input id="remove-'.$formfield.'" class="trigger remove-file button" type="button" data-type="'.$type.'" data-title="'.$data['title'].'" data-select="'.$data['select'].'" data-class="'.$data['class'].'" data-upload="'.$data['upload'].'" data-remove="'.$data['remove'].'" value="'.$data['remove'].'" />'."\n";
+	$output .= '</span>';
+	$output .= '</div>';
 
 	$output .= '<div class="screenshot" id="' . $formfield . '-image">' . "\n";
 

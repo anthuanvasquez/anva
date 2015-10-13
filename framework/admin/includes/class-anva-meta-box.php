@@ -31,12 +31,20 @@ class Anva_Meta_Box {
 	private $args;
 
 	/**
-	 * Options array for fields
+	 * Raw options array
 	 *
 	 * @since 1.0.0
 	 * @var array
 	 */
 	private $options;
+
+	/**
+	 * Formatted options array
+	 *
+	 * @since 1.0.0
+	 * @var array
+	 */
+	private $formatted_options;
 
 	/**
 	 * Constructor
@@ -47,7 +55,7 @@ class Anva_Meta_Box {
 	public function __construct( $id, $args, $options ) {
 
 		$this->id = $id;
-		$this->options = $options;
+		$this->options = $this->get_formatted( $options );
 
 		$defaults = array(
 			'page'				=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
@@ -79,10 +87,10 @@ class Anva_Meta_Box {
 				
 				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
-				wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_script( 'anva-meta-box-js', anva_get_core_uri() . '/assets/js/admin/meta-box.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
 				
 				wp_enqueue_style( 'jquery-ui-custom', anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva-meta-box', anva_get_core_uri() . '/assets/css/admin/meta-box.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}
@@ -109,43 +117,81 @@ class Anva_Meta_Box {
 		}
 	}
 
+	function get_formatted( $options ) {
+
+		$formatted_options = array();
+
+		foreach ( $options as $tab_id => $tab ) {
+
+			// Insert Tab Heading
+			$formatted_options[] = array(
+				'id' 		=> $tab_id,
+				'name' 	=> $tab['name'],
+				'type' 	=> 'heading'
+			);
+
+			// Section Level
+			if ( $tab['sections'] ) {
+				foreach ( $tab['sections'] as $section_id => $section ) {
+
+					$desc = '';
+					$class = '';
+
+					// Start section
+					$formatted_options[] = array(
+						'id'	 => $section_id,
+						'name' => $section['name'],
+						'type' => 'group_start'
+					);
+
+					// Options Level
+					if ( $section['options'] ) {
+						foreach ( $section['options'] as $option_id => $option ) {
+							$formatted_options[] = $option;
+						}
+					}
+
+					// End section
+					$formatted_options[] = array(
+						'type' => 'group_end'
+					);
+				}
+			}
+		}
+
+		// Set formatted options
+		return $formatted_options;
+	}
+
 	/**
 	 * Renders the content of the meta box
 	 *
 	 * @since 1.0.0
 	 */
-	public function display() {
+	public function display( $post ) {
 
-		// Make sure options framework exists so we can show
-		// the options form.
-		if ( ! method_exists( $this, 'fields' ) ) {
-			echo __( 'Options not found.', 'anva' );
+		// Make sure options framework exists so we can show the options form
+		if ( ! function_exists( 'anva_get_options_fields' ) ) {
+			echo __( 'Options Framework not found.', 'anva' );
 			return;
 		}
 
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 		$this->options = apply_filters( 'anva_meta_options_' . $this->id, $this->options );
 
-		// Add an nonce field so we can check for it later.
+		// Add an nonce field so we can check for it later
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
 
 		// Start content
 		echo '<div class="anva-meta-box">';
 
-		if ( ! empty( $this->args['desc'] ) ) {
-			printf( '<p class="anva-meta-desc">%s</p><!-- .anva-meta-desc (end) -->', $this->args['desc'] );
-		}
-
 		// Display tabs
-		echo '<h2 class="nav-tab-wrapper">' . $this->tabs() . '</h2>';
+		echo '<h2 class="nav-tab-wrapper">' . anva_get_options_tabs( $this->options ) . '</h2>';
+
+		$settings = get_post_meta( $post->ID, $this->id, true );
 
 		// Use options framework to display form elements
-		echo $this->fields();
-
-		// Outputs closing div if there tabs
-		if ( $this->tabs() != '' ) {
-			echo '</div><!-- .meta-group (end) -->';
-		}
+		echo anva_get_options_fields( $this->id, $settings, $this->options );
 
 		//  Finish content
 		echo '</div><!-- .anva-meta-box (end) -->';
@@ -228,35 +274,35 @@ class Anva_Meta_Box {
 	private function validate( $input ) {
 
 		$clean = array();
-		$fields = $this->options;
+		$options = $this->options;
 		
-		foreach ( $fields as $field ) {
+		foreach ( $options as $option ) {
 			
-			if ( ! isset( $field['id'] ) ) {
+			if ( ! isset( $option['id'] ) ) {
 				continue;
 			}
 
-			if ( ! isset( $field['type'] ) ) {
+			if ( ! isset( $option['type'] ) ) {
 				continue;
 			}
 
-			$id = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $field['id'] ) );
+			$id = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $option['id'] ) );
 
 			// Set checkbox to false if it wasn't sent in the $_POST
-			if ( 'checkbox' == $field['type'] && ! isset( $input[$id] ) ) {
+			if ( 'checkbox' == $option['type'] && ! isset( $input[$id] ) ) {
 				$input[$id] = false;
 			}
 
 			// Set each item in the multicheck to false if it wasn't sent in the $_POST
-			if ( 'multicheck' == $field['type'] && ! isset( $input[$id] ) ) {
-				foreach ( $field['options'] as $key => $value ) {
+			if ( 'multicheck' == $option['type'] && ! isset( $input[$id] ) ) {
+				foreach ( $option['options'] as $key => $value ) {
 					$input[$id][$key] = false;
 				}
 			}
 
 			// For a value to be submitted to database it must pass through a sanitization filter
-			if ( has_filter( 'anva_sanitize_' . $field['type'] ) ) {
-				$clean[$id] = apply_filters( 'anva_sanitize_' . $field['type'], $input[$id], $field );
+			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
+				$clean[$id] = apply_filters( 'anva_sanitize_' . $option['type'], $input[$id], $option );
 			}
 		}
 
@@ -264,268 +310,6 @@ class Anva_Meta_Box {
 		do_action( 'anva_meta_validate_options_after', $clean );
 
 		return $clean;
-	}
-
-	/**
-	 * Tabs
-	 *
-	 * @since 1.0.0
-	 */
-	public function tabs() {
-		$fields = $this->options;
-		$counter = 0;
-		$tabs = '';
-
-		foreach ( $fields as $field ) {
-			// Heading for Navigation
-			if ( $field['type'] == "heading" ) {
-				
-				$icon = '';
-				if ( isset( $field['icon'] ) && ! empty( $field['icon'] ) ) {
-					$icon = '<span class="dashicons dashicons-'. esc_attr( $field['icon'] ) .'"></span> ';
-				}
-
-				$counter++;
-				$class = '';
-				$class = ! empty( $field['id'] ) ? $field['id'] : $field['name'];
-				$class = 'tab-' . preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
-				$tabs .= '<a id="meta-group-'.  esc_attr( $counter ) . '-tab" class="nav-tab ' . $class .'" title="' . esc_attr( $field['name'] ) . '" href="' . esc_attr( '#meta-group-' .  $counter ) . '">' . $icon . esc_html( $field['name'] ) . '</a>';
-			}
-		}
-
-		return $tabs;
-	}
-
-	/**
-	 * Interface
-	 *
-	 * @since 1.0.0
-	 */
-	public function fields() {
-
-		$option_name = $this->id;
-		$fields = $this->options;
-
-		global $post, $allowedtags;
-
-		// get value of this field if it exists for this post
-		$meta = get_post_meta( $post->ID, $option_name, true );
-		$output = '';
-		$counter = 0;
-
-		// Begin the field table and loop
-		foreach ( $fields as $field ) {
-
-			$val = '';
-			$select_value = '';
-
-			// Wrap all options
-			if ( ( $field['type'] != "heading" ) && ( $field['type'] != "info" ) ) {
-				
-				// Keep all ids lowercase with no spaces
-				$field['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $field['id'] ) );
-				$id = 'meta-' . $field['id'];
-
-				$class = 'section';
-
-				if ( isset( $field['type'] ) ) {
-					$class .= ' section-' . $field['type'];
-				}
-
-				if ( isset( $field['class'] ) ) {
-					$class .= ' ' . $field['class'];
-				}
-
-				$output .= '<div id="' . esc_attr( $id ) .'" class="' . esc_attr( $class ) . '">'."\n";
-
-				if ( isset( $field['name'] ) ) {
-					$output .= '<h4 class="heading">' . esc_html( $field['name'] ) . '</h4>' . "\n";
-				}
-				
-				if ( $field['type'] != 'editor' ) {
-					$output .= '<div class="option">' . "\n" . '<div class="controls"><!-- .controls (end) -->' . "\n";
-				}
-				else {
-					$output .= '<div class="option">' . "\n" . '<div><!-- .option (end) -->' . "\n";
-				}
-			}
-
-			// Set default value to $val
-			if ( isset( $field['std'] ) ) {
-				$val = $field['std'];
-			}
-
-			if ( ( $field['type'] != 'heading' ) && ( $field['type'] != 'info') ) {
-				if ( isset( $meta[($field['id'])]) ) {
-					$val = $meta[($field['id'])];
-					// Striping slashes of non-array options
-					if ( ! is_array( $val ) ) {
-						$val = stripslashes( $val );
-					}
-				}
-			}
-			
-			// If there is a description save it for labels
-			$explain_value = '';
-			if ( isset( $field['desc'] ) ) {
-				$explain_value = $field['desc'];
-			}
-
-			// Set the placeholder if one exists
-			$placeholder = '';
-			if ( isset( $field['placeholder'] ) ) {
-				$placeholder = ' placeholder="' . esc_attr( $field['placeholder'] ) . '"';
-			}
-		
-			switch ( $field['type'] ) {
-
-				// Text
-				case 'text':
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-text" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
-					break;
-
-				// Number
-				case 'number':
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-number anva-spinner" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="number" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
-					break;
-
-				// Textarea
-				case 'textarea':
-					$rows = '8';
-					if ( isset( $field['settings']['rows'] ) ) {
-						$custom_rows = $field['settings']['rows'];
-						if ( is_numeric( $custom_rows ) ) {
-							$rows = $custom_rows;
-						}
-					}
-					$val = stripslashes( $val );
-					$output .= '<textarea id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-textarea" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" rows="' . $rows . '"' . $placeholder . '>' . esc_textarea( $val ) . '</textarea>';
-					break;
-
-				// Checkbox
-				case 'checkbox':
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-checkbox" type="checkbox" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
-					$output .= '<label class="explain" for="' . esc_attr( $field['id'] ) . '">' . wp_kses( $explain_value, $allowedtags ) . '</label>';
-					break;
-
-				// Select Box
-				case 'select':
-
-					// Layout
-					$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" id="' . esc_attr( $field['id'] ) . '">';
-					foreach ( $field['options'] as $key => $option ) {
-						$output .= '<option'. selected( $val, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
-					}
-					$output .= '</select>';
-					break;
-
-				case 'layout':
-
-						// Fill layouts array
-						$layouts[''] = esc_html__( 'Default Sidebar Layout', 'anva' );
-						foreach ( anva_get_sidebar_layouts() as $key => $value ) {
-							$layouts[$key] = esc_html( $value['name'] );
-						}
-
-						// Fill sidebars array
-						$sidebars[''] = esc_html__( 'Default Sidebar Location', 'anva' );
-						foreach ( anva_get_sidebar_locations() as $key => $value ) {
-							$sidebars[$key] = esc_html( $value['args']['name'] );
-						}
-
-						// Layout
-						$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . '][layout]' ) . '" id="' . esc_attr( $field['id'] ) . '">';
-						foreach ( $layouts as $key => $option ) {
-							$output .= '<option'. selected( $val['layout'], $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
-						}
-						$output .= '</select>';
-
-						// Right
-						$output .= '<div class="sidebar-layout">';
-						$output .= '<div class="item item-right">';
-						$output .= '<label>' . __( 'Right', 'anva' ) . '</label>';
-						$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . '][right]' ) . '" id="' . esc_attr( $field['id'] . '_right' ) . '">';
-						foreach ( $sidebars as $key => $option ) {
-							$output .= '<option'. selected( $val['right'], $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
-						}
-						$output .= '</select>';
-						$output .= '</div>';
-
-						// Left
-						$output .= '<div class="item item-left">';
-						$output .= '<label>' . __( 'Left', 'anva' ) . '</label>';
-						$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $field['id'] . '][left]' ) . '" id="' . esc_attr( $field['id'] . '_left' ) . '">';
-						foreach ( $sidebars as $key => $option ) {
-							$output .= '<option'. selected( $val['left'], $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
-						}
-						$output .= '</select>';
-						$output .= '</div>';
-						$output .= '</div>';
-
-					break;
-
-				// Radio
-				case 'radio':
-					$name = $option_name .'['. $field['id'] .']';
-					foreach ( $field['options'] as $key => $option ) {
-						$id = $option_name . '-' . $field['id'] .'-'. $key;
-						$output .= '<input class="anva-input anva-radio" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" '. checked( $val, $key, false) .' /><label for="' . esc_attr( $id ) . '">' . esc_html( $option ) . '</label>';
-					}
-					break;
-
-				// Multicheck
-				case 'multicheck':
-					foreach ( $field['options'] as $key => $option ) {
-						$checked = '';
-						$label = $option;
-						$option = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $key ) );
-						$id = $option_name . '-' . $field['id'] . '-'. $option;
-						$name = $option_name . '[' . $field['id'] . '][' . $option .']';
-
-						if ( isset( $val[$option] ) ) {
-							$checked = checked( $val[$option], 1, false );
-						}
-						$output .= '<input id="' . esc_attr( $id ) . '" class="anva-input anva-multicheck" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
-					}
-					break;
-
-				// Date
-				case 'date':
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-date anva-datepicker" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
-					break;
-
-				// Slider
-				case 'slider':
-					$output .= '<div id="' . esc_attr( $field['id'] ) . '-slider"></div>';
-					$output .= '<input id="' . esc_attr( $field['id'] ) . '" class="anva-input anva-slider" name="' . esc_attr( $option_name . '[' . $field['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
-					break;
-
-				// Tab
-				case "heading":
-					$counter++;
-					if ( $counter >= 2 ) {
-						$output .= '</div><!-- .meta-group (end) -->'."\n";
-					}
-					$class = '';
-					$class = ! empty( $field['id'] ) ? $field['id'] : $field['name'];
-					$class = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
-					$output .= '<div id="meta-group-' . esc_attr( $counter ) . '" class="meta-group ' . esc_attr( $class ) . '">';
-					break;
-
-			} // End Switch
-
-			if ( ( $field['type'] != "heading" ) && ( $field['type'] != "info" ) ) {
-				$output .= '</div><!-- .controls (end) -->';
-				if ( ( $field['type'] != "checkbox" ) && ( $field['type'] != "editor" ) ) {
-					$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .explain (end) -->'."\n";
-				}
-				$output .= '</div><!-- .option (end) --></div><!-- .section (end) -->'."\n";
-			}
-
-		} // End Foreach
-		
-		return $output;
-
 	}
 
 } // End Class

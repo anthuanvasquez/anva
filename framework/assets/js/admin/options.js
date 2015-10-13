@@ -20,6 +20,37 @@ jQuery(document).ready(function($) {
 
 		extras: function() {
 
+			// Remove sidebar
+			$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
+				e.preventDefault();
+				var $ele = $(this).parent();
+				if ( confirm( 'You sure want delete this item?' )	) {
+					$ele.fadeOut();
+					setTimeout( function() {
+						$ele.remove();
+						if ( $('.dynamic-sidebars ul li').length == 0 ) {
+							$('.dynamic-sidebars ul').addClass('empty');
+						}
+					}, 500 );
+				}
+			});
+
+			// Add new sidebar
+			$('#add-sidebar').click( function() {
+				var $new = $('.sidebar').val();
+
+				if ( '' == $new ) {
+					alert( 'Enter the name for custom sidebar.' );
+					return false;
+				}
+
+				$('.dynamic-sidebars ul').removeClass('empty');
+
+				var $sidebarId = $('#dynamic_sidebar_id').val(), $sidebarName = $('#dynamic_sidebar_name').val();
+				$('.dynamic-sidebars ul').append( '<li class="animated bounceIn">' + $new + ' <a href="#" class="delete">Delete</a> <input type="hidden" name="' + $sidebarName + '[' + $sidebarId + '][]' + '" value="' + $new + '" /></li>' );
+				$('.sidebar').val('');
+			});
+
 			// Show spinner on submit form
 			$('#optionsframework-submit input.button-primary').click( function() {
 				$('#optionsframework-submit .spinner').addClass('is-active');
@@ -41,6 +72,7 @@ jQuery(document).ready(function($) {
 			if ( $('.nav-tab-wrapper').length > 0 ) {
 				AnvaOptions.optionsFrameworkTabs();
 			}
+
 		},
 
 		optionsFrameworkTabs: function() {

@@ -33,7 +33,8 @@ function anva_api_init() {
 
 if ( ! function_exists( 'anva_get_option' ) ) :
 /**
- * Helper function to return the theme option value.
+ * Get theme option value
+ * 
  * If no value has been saved, it returns $default.
  * Needed because options are saved as serialized strings.
  *
@@ -68,7 +69,7 @@ endif;
 
 if ( ! function_exists( 'anva_the_option' ) ) :
 /**
- * This is for print option value
+ * This is for print theme option value
  * 
  * @since 1.0.0
  */
@@ -79,7 +80,7 @@ endif;
 
 if ( ! function_exists( 'anva_get_option_name' ) ) :
 /**
- * Helper function to return the theme option name
+ * Get theme option name
  * 
  * @since 1.0.0
  */
@@ -89,9 +90,41 @@ function anva_get_option_name() {
 }
 endif;
 
+if ( ! function_exists( 'anva_get_options' ) ) :
+/**
+ * Get core and theme options
+ * 
+ * @since 1.0.0
+ */
+function anva_get_options() {
+	$options_framework = new Options_Framework;
+	return $options_framework->get_options();
+}
+endif;
+
+/**
+ * Optiosframework tabs
+ * 
+ * @since 1.0.0
+ */
+function anva_get_options_tabs( $options ) {
+	$options_framework_interface = new Options_Framework_Interface;
+	return $options_framework_interface->get_tabs( $options );
+}
+
+/**
+ * Get optionsframework fields
+ * 
+ * @since 1.0.0
+ */
+function anva_get_options_fields(  $option_name, $settings, $options ) {
+	$options_framework_interface = new Options_Framework_Interface;
+	return $options_framework_interface->get_fields(  $option_name, $settings, $options );
+}
+
 if ( ! function_exists( 'anva_get_option_defaults' ) ) :
 /**
- * Helper function to return the default options
+ * Get default options
  * 
  * @since 1.0.0
  */
@@ -103,7 +136,7 @@ endif;
 
 if ( ! function_exists( 'anva_get_admin_menu_settings' ) ) :
 /**
- * Helper function to get menu settings for options page
+ * Get optionsframework menu settings
  * 
  * @since 1.0.0
  */

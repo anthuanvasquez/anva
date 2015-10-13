@@ -12,14 +12,14 @@ class Options_Framework_Interface {
 	/**
 	 * Generates the tabs that are used in the options menu
 	 */
-	static function optionsframework_tabs() {
+	function get_tabs( $options ) {
+		
 		$counter = 0;
-		$options = & Options_Framework::_optionsframework_options();
 		$menu = '';
 
 		foreach ( $options as $value ) {
 			// Heading for Navigation
-			if ( $value['type'] == "heading" ) {
+			if ( $value['type'] == 'heading' ) {
 				
 				$icon = '';
 				if ( isset( $value['icon'] ) && ! empty( $value['icon'] ) ) {
@@ -40,13 +40,9 @@ class Options_Framework_Interface {
 	/**
 	 * Generates the options fields that are used in the form.
 	 */
-	static function optionsframework_fields() {
+	function get_fields( $option_name, $settings, $options ) {
 
 		global $allowedtags;
-
-		$option_name = anva_get_option_name();
-		$settings = get_option( $option_name );
-		$options = & Options_Framework::_optionsframework_options();
 
 		$counter = 0;
 		$menu = '';
@@ -189,6 +185,15 @@ class Options_Framework_Interface {
 
 			/*
 			|--------------------------------------------------------------------------
+			| Date Input
+			|--------------------------------------------------------------------------
+			*/
+			case 'date':
+				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-date anva-datepicker" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '" />';
+				break;
+
+			/*
+			|--------------------------------------------------------------------------
 			| Textarea
 			|--------------------------------------------------------------------------
 			*/
@@ -251,7 +256,9 @@ class Options_Framework_Interface {
 					$slug = str_replace( '_', ' ', $key );
 
 					$output .= '<div class="anva-radio-img-box ' . esc_attr( $selected ) . '">';
+					$output .= '<span>';
 					$output .= '<img src="' . esc_url( $option ) . '" alt="' . esc_attr( $key ) .'" class="anva-radio-img-img" onclick="document.getElementById(\''. esc_attr ($value['id'] .'_'. $key ) .'\').checked=true;" />';
+					$output .= '</span>';
 					$output .= '<div class="anva-radio-img-label">' . esc_html( $slug ) . '</div>';
 					$output .= '<input type="radio" id="' . esc_attr( $value['id'] .'_'. $key) . '" class="anva-radio-img-radio" value="' . esc_attr( $key ) . '" name="' . esc_attr( $name ) . '" '. checked( $val, $key, false ) .' />';
 					$output .= '</div>';
@@ -292,53 +299,25 @@ class Options_Framework_Interface {
 				$output .= anva_columns_option( $value['id'], $option_name, $val );
 				break;
 
+			/*
+			|--------------------------------------------------------------------------
+			| Custom Sidebars
+			|--------------------------------------------------------------------------
+			*/
 			case 'sidebar':
-				?>
 
-				<script type='text/javascript'>
-				jQuery(document).ready(function($) {
-
-					// Remove sidebar
-					$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
-						e.preventDefault();
-						var $ele = $(this).parent();
-						if ( confirm( 'You sure want delete this item?' )	) {
-							$ele.fadeOut();
-							setTimeout( function() {
-								$ele.remove();
-								if ( $('.dynamic-sidebars ul li').length == 0 ) {
-									$('.dynamic-sidebars ul').addClass('empty');
-								}
-							}, 500 );
-						}
-					});
-
-					// Add new sidebar
-					$('#add_sidebar').click( function() {
-						var $new = $('#new_sidebar_name').val();
-
-						if ( '' == $new ) {
-							alert( 'Enter the name for custom sidebar.' );
-							return false;
-						}
-
-						$('.dynamic-sidebars ul').removeClass('empty');
-
-						var $sidebarId = $('#dynamic_sidebar_id').val(), $sidebarName = $('#dynamic_sidebar_name').val();
-						$('.dynamic-sidebars ul').append( '<li class="animated bounceIn">' + $new + ' <a href="#" class="delete">Delete</a> <input type="hidden" name="' + $sidebarName + '[' + $sidebarId + '][]' + '" value="' + $new + '" /></li>' );
-						$('#new_sidebar_name').val('');
-					}); 
-				});
-				</script>
-				
-				<?php
 				$class = '';
 				if ( ! $val ) {
 					$class = 'class="empty"';
 				}
 
-				$output .= '<input type="text" id="new_sidebar_name" placeholder="' . __( 'Enter the sidebar name', 'anva' ) . '" />';
-				$output .= '<input type="button" class="button" id="add_sidebar" value="' . __( 'Add', 'anva' ) . '" />';
+				$output .= '<div class="group-button">';
+				$output .= '<input type="text" class="sidebar" placeholder="' . __( 'Enter the sidebar name', 'anva' ) . '" />';
+				$output .= '<span>';
+				$output .= '<input type="button" class="button" id="add-sidebar" value="' . __( 'Add', 'anva' ) . '" />';
+				$output .= '</span>';
+				$output .= '</div>';
+
 				$output .= '<input type="hidden" id="dynamic_sidebar_name" value="' . esc_attr( $option_name ) . '" />';
 				$output .= '<input type="hidden" id="dynamic_sidebar_id" value="' . esc_attr( $value['id'] ) . '" />';
 				$output .= '<div class="dynamic-sidebars">';
@@ -358,6 +337,72 @@ class Options_Framework_Interface {
 				$output .= '</ul>';
 				$output .= '</div><!-- .dynamic-sidebars (end) -->';
 				
+				break;
+
+			/*
+			|--------------------------------------------------------------------------
+			| Sidebar Layout (Meta Box)
+			|--------------------------------------------------------------------------
+			*/
+			case 'layout':
+				
+				$layout = '';
+				$right = '';
+				$left = '';
+
+				if ( isset( $val['layout'] ) ) {
+					$layout = $val['layout'];
+				}
+
+				if ( isset( $val['right'] ) ) {
+					$right = $val['right'];
+				}
+
+				if ( isset( $val['left'] ) ) {
+					$left = $val['left'];
+				}
+
+				// Fill layouts array
+				$layouts[''] = esc_html__( 'Default Sidebar Layout', 'anva' );
+				foreach ( anva_get_sidebar_layouts() as $sidebar_id => $sidebar ) {
+					$layouts[$sidebar_id] = esc_html( $sidebar['name'] );
+				}
+
+				// Fill sidebars array
+				$sidebars[''] = esc_html__( 'Default Sidebar Location', 'anva' );
+				foreach ( anva_get_sidebar_locations() as $location_id => $location ) {
+					$sidebars[$location_id] = esc_html( $location['args']['name'] );
+				}
+
+				// Layout
+				$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $value['id'] . '][layout]' ) . '" id="' . esc_attr( $value['id'] ) . '">';
+				foreach ( $layouts as $key => $option ) {
+					$output .= '<option'. selected( $layout, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+				}
+				$output .= '</select>';
+
+				// Right
+				$output .= '<div class="sidebar-layout">';
+				$output .= '<div class="item item-right">';
+				$output .= '<label>' . __( 'Right', 'anva' ) . '</label>';
+				$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $value['id'] . '][right]' ) . '" id="' . esc_attr( $value['id'] . '_right' ) . '">';
+				foreach ( $sidebars as $key => $option ) {
+					$output .= '<option'. selected( $right, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+				}
+				$output .= '</select>';
+				$output .= '</div>';
+
+				// Left
+				$output .= '<div class="item item-left">';
+				$output .= '<label>' . __( 'Left', 'anva' ) . '</label>';
+				$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $value['id'] . '][left]' ) . '" id="' . esc_attr( $value['id'] . '_left' ) . '">';
+				foreach ( $sidebars as $key => $option ) {
+					$output .= '<option'. selected( $left, $key, false ) .' value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+				}
+				$output .= '</select>';
+				$output .= '</div>';
+				$output .= '</div>';
+
 				break;
 
 			/*
@@ -676,7 +721,7 @@ class Options_Framework_Interface {
 		endforeach;
 
 		// Outputs closing div if there tabs
-		if ( Options_Framework_Interface::optionsframework_tabs() != '' ) {
+		if ( $this->get_tabs( $options ) != '' ) {
 			echo '</div><!-- .group (end) -->';
 		}
 	}

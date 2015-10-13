@@ -66,7 +66,7 @@ function theme_backup_menu( $menu ) {
  */
 function theme_body_classes( $classes ) {
 	$classes[] = anva_get_option( 'layout_style' );
-	$classes[] = 'base-color-'. anva_get_option( 'base_colors' );
+	$classes[] = 'base-color-' . anva_get_option( 'base_color' );
 	return $classes;
 }
 

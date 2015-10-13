@@ -12,8 +12,8 @@ jQuery(document).ready(function($) {
 		settings: {
 			template: 			$('#page_template'),
 			layout: 				$('#sidebar_layout'),
-			grid: 					$('#meta-grid_column'),
-			sidebar: 				$('#meta-sidebar_layout'),
+			grid: 					$('#section-grid_column'),
+			sidebar: 				$('#section-sidebar_layout'),
 			locationRight: 	$('.sidebar-layout .item-right'),
 			locationLeft: 	$('.sidebar-layout .item-left')
 		},
@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
 			AnvaMeta.tabs();
 			AnvaMeta.datePicker();
 			AnvaMeta.spinner();
-
+			AnvaMeta.extras();
 		},
 
 		sidebarLayout: function() {
@@ -118,8 +118,14 @@ jQuery(document).ready(function($) {
 			}
 		},
 
+		extras: function() {
+			if ( $('.anva-meta-box .nav-tab-wrapper > a').length == 1 ) {
+				$('.anva-meta-box .nav-tab-wrapper').hide();
+			}
+		},
+
 		navTabs: function() {
-			var $group = $('.meta-group'),
+			var $group = $('.group'),
 				$navtabs = $('.nav-tab-wrapper a'),
 				active_tab = '';
 
@@ -136,7 +142,7 @@ jQuery(document).ready(function($) {
 				$(active_tab).fadeIn();
 				$(active_tab + '-tab').addClass('nav-tab-active');
 			} else {
-				$('.meta-group:first').fadeIn();
+				$('.group:first').fadeIn();
 				$('.nav-tab-wrapper a:first').addClass('nav-tab-active');
 			}
 

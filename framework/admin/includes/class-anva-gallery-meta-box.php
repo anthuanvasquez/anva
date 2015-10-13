@@ -64,7 +64,7 @@ class Anva_Gallery_Meta_Box {
 
 				wp_enqueue_script( 'media-upload' );
 				wp_enqueue_script( 'anva-media-gallery', anva_get_core_uri() . '/assets/js/admin/media-gallery.js', array(), ANVA_FRAMEWORK_VERSION, false );
-				wp_localize_script( 'anva-media-gallery', 'ANVA', anva_get_admin_locals( 'metabox_js' ) );
+				wp_localize_script( 'anva-media-gallery', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
 				wp_enqueue_style( 'anva-animate', anva_get_core_uri() . '/assets/css/admin/animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 				wp_enqueue_style( 'anva-gallery', anva_get_core_uri() . '/assets/css/admin/gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 

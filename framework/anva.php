@@ -171,8 +171,6 @@ class Anva {
 		add_action( 'optionsframework_custom_scripts', 'anva_admin_head_scripts' );
 		add_action( 'optionsframework_after_fields', 'anva_admin_footer_credits' );
 		add_action( 'optionsframework_after_fields', 'anva_admin_footer_links' );
-		add_action( 'optionsframework_importer_after', 'anva_admin_footer_credits' );
-		add_action( 'optionsframework_importer_after', 'anva_admin_footer_links' );
 
 		/* ---------------------------------------------------------------- */
 		/* Init

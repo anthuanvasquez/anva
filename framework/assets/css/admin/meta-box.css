@@ -68,15 +68,24 @@
 }
 
 .anva-meta-box .nav-tab-wrapper {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
   padding-bottom: 0 !important;
-  padding-left: 10px !important;
+}
+
+.anva-meta-box .nav-tab {
+  background: #f6f6f6 url("images/ui-bg_highlight-soft_100_f6f6f6_1x100.png") 50% 50% repeat-x;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  line-height: 24px;
+  min-width: 48px;
+  text-align: center;
 }
 
 .anva-meta-box .nav-tab-active {
   background: #fff;
   border-bottom: 1px solid #fff;
-  font-size: 13px;
 }
 
 .anva-meta-box .section-radio label,
@@ -87,11 +96,16 @@
   margin-bottom: 5px;
 }
 
+.anva-meta-box h3 {
+  display: none;
+  padding: 8px 0 !important;
+}
+
 .anva-meta-box h4 {
   margin-bottom: 10px;
 }
 
-.anva-meta-box .meta-group {
+.anva-meta-box .group {
   margin-bottom: 8px;
 }
 
@@ -127,13 +141,21 @@
   margin-bottom: 10px;
 }
 
-.anva-meta-desc {
+.anva-meta-box .postbox {
+  min-width: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background: transparent;
+}
+
+.section-description {
   border-bottom: 1px solid #e5e5e5;
   color: #888;
   font-size: 13px;
   font-style: italic;
-  margin: 0 -12px;
-  padding: 8px 12px 12px;
+  margin: 0;
+  padding: 8px 0 12px;
 }
 
 #normal-sortables .controls,

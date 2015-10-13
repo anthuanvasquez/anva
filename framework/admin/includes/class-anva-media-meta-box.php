@@ -72,8 +72,8 @@ class Anva_Media_Meta_Box {
 			if ( $typenow == $page ) {
 				
 				wp_enqueue_script( 'anva-media', anva_get_core_uri() . '/assets/js/admin/media.js', array(), ANVA_FRAMEWORK_VERSION, false );
-				wp_enqueue_script( 'anva-metaboxes-js', anva_get_core_uri() . '/assets/js/admin/metaboxes.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
-				wp_enqueue_style( 'anva-metaboxes', anva_get_core_uri() . '/assets/css/admin/metaboxes.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_script( 'anva-meta-box-js', anva_get_core_uri() . '/assets/js/admin/meta-box.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_style( 'anva-meta-box', anva_get_core_uri() . '/assets/css/admin/meta-box.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}

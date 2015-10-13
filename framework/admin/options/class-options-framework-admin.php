@@ -25,7 +25,7 @@ class Options_Framework_Admin {
 	public function init() {
 
 		// Gets options to load
-		$options = & Options_Framework::_optionsframework_options();
+		$options = anva_get_options();
 
 		// Checks if options are available
 		if ( $options ) {
@@ -164,8 +164,7 @@ class Options_Framework_Admin {
 
 		// Enqueue custom option panel JS
 		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_uri() . '/assets/js/admin/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2' );
-		wp_enqueue_script( 'jquery-collapsible',  anva_get_core_uri() . '/assets/js/admin/jquery.collapsible.js', array( 'jquery' ), '1.2.1' );
-		wp_enqueue_script( 'options-custom',  anva_get_core_uri() . '/assets/js/admin/options.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_script( 'optionsframework',  anva_get_core_uri() . '/assets/js/admin/options.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION );
 		
 		// Inline scripts from options-interface.php
 		add_action( 'admin_head', array( $this, 'anva_admin_head' ) );
@@ -192,14 +191,17 @@ class Options_Framework_Admin {
 		
 		<div id="optionsframework-wrap" class="wrap">
 
-			<?php $menu = $this->menu_settings(); ?>
+			<?php
+				$menu = $this->menu_settings();
+				$options = anva_get_options();
+			?>
 			
-			<h2><?php echo $menu['page_title']; ?> <span>v<?php echo ANVA_THEME_VERSION; ?></span></h2>
+			<h2><?php echo $menu['page_title']; ?> <span>v<?php echo anva_get_theme( 'version' ); ?></span></h2>
 			
 			<?php do_action( 'optionsframework_top' ); ?>
 
 			<h2 class="nav-tab-wrapper">
-				<?php echo Options_Framework_Interface::optionsframework_tabs(); ?>
+				<?php echo anva_get_options_tabs( $options ); ?>
 			</h2>
 
 			<?php settings_errors( 'options-framework' ); ?>
@@ -209,14 +211,19 @@ class Options_Framework_Admin {
 					<form class="options-settings" action="options.php" method="post">
 						<div class="columns-1">
 							<?php settings_fields( 'optionsframework' ); ?>
-							<?php Options_Framework_Interface::optionsframework_fields(); /* Settings */ ?>
+							<?php
+								/* Settings */
+								$option_name = anva_get_option_name();
+								$settings = get_option( $option_name );
+								anva_get_options_fields( $option_name, $settings, $options );
+							?>
 							<?php do_action( 'optionsframework_after_fields' ); ?>
 						</div><!-- .columns-1 (end) -->
 						<div class="columns-2">
 							<div class="postbox-wrapper">
 								<?php do_action( 'optionsframework_side_before' ); ?>
 								<div id="optionsframework-submit" class="postbox">
-									<h3><span><?php _e( 'Actions', 'anva' );?></span></h3>
+									<h3><span><?php esc_html_e( 'Actions', 'anva' );?></span></h3>
 									<div class="inside">
 										<?php anva_admin_settings_log(); ?>
 										<div class="actions">
@@ -232,10 +239,10 @@ class Options_Framework_Admin {
 						</div><!-- .columns-2 (end) -->
 						<div class="clear"></div>
 					</form>
-				</div> <!-- #optionsframework (end) -->
+				</div><!-- #optionsframework (end) -->
 			</div><!-- #optionsframework-metabox (end) -->
 			<?php do_action( 'optionsframework_after' ); ?>
-		</div><!-- .wrap -->
+		</div><!-- .wrap (end) -->
 
 	<?php
 	}
@@ -250,20 +257,25 @@ class Options_Framework_Admin {
 	 */
 	function validate_options( $input ) {
 
+		// Need it to create log for the changed settings
+		$option_name = anva_get_option_name();
+
 		/*
-		 * Restore Defaults.
+		 * Restore Defaults
 		 *
 		 * In the event that the user clicked the "Restore Defaults"
 		 * button, the options defined in the theme's options.php
 		 * file will be added to the option for the active theme.
+		 * 
 		 */
-
 		if ( isset( $_POST['reset'] ) ) {
-			// Delete log option
-			$option_name = Options_Framework::get_option_name();
-			delete_option( $option_name .'_log' );
 
+			// Delete log
+			delete_option( $option_name . '_log' );
+
+			// Add notice
 			add_settings_error( 'options-framework', 'restore_defaults', __( 'Default options restored.', 'anva' ), 'updated fade' );
+
 			return $this->get_default_values();
 		}
 
@@ -275,7 +287,7 @@ class Options_Framework_Admin {
 		 */
 
 		$clean = array();
-		$options = & Options_Framework::_optionsframework_options();
+		$options = anva_get_options();
 		foreach ( $options as $option ) {
 
 			if ( ! isset( $option['id'] ) ) {
@@ -309,9 +321,8 @@ class Options_Framework_Admin {
 		// Hook to run after validation
 		do_action( 'optionsframework_after_validate', $clean );
 
-		// Create log option
-		$option_name = anva_get_option_name();
-		update_option( $option_name .'_log', current_time( 'mysql' ) );
+		// Create or update the last changed settings
+		update_option( $option_name . '_log', current_time( 'mysql' ) );
 
 		return $clean;
 	}
@@ -338,7 +349,7 @@ class Options_Framework_Admin {
 	 */
 	function get_default_values() {
 		$output = array();
-		$config = & Options_Framework::_optionsframework_options();
+		$config = anva_get_options();
 		foreach ( (array) $config as $option ) {
 			if ( ! isset( $option['id'] ) ) {
 				continue;

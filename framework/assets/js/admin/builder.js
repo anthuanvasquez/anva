@@ -182,7 +182,7 @@ jQuery(document).ready(function($) {
 				var builderItemDataJSON = JSON.stringify( builderItemData );
 				
 				// Get Ajax URL
-				var ajaxEditURL = ANVA.ajaxurl + '?action=anva_builder_get_fields&&shortcode=' + $shortcode + '&rel=' + $randomId;
+				var ajaxEditURL = anvaJs.ajaxurl + '?action=anva_builder_get_fields&&shortcode=' + $shortcode + '&rel=' + $randomId;
 
 				// Generate Item HTML
 				var builderItem;
@@ -232,7 +232,7 @@ jQuery(document).ready(function($) {
 
 				// Return if dont item select
 				if ( '' == $('#anva_shortcode').val() ) {
-					alert( ANVA.builder_empty );
+					alert( anvaJs.builder_empty );
 					return false;
 				}
 
@@ -368,7 +368,7 @@ jQuery(document).ready(function($) {
 			$(document).on( 'click', '#builder-sortable-items a.button-remove', function(e) {
 				e.preventDefault();
 				var $parentEle = $(this).parent('.actions').parent('li');
-				if ( confirm( ANVA.builder_remove ) ) {
+				if ( confirm( anvaJs.builder_remove ) ) {
 					$parentEle.fadeOut();
 					setTimeout( function() {
 						$parentEle.remove();
@@ -385,10 +385,10 @@ jQuery(document).ready(function($) {
 				e.preventDefault();
 
 				if ( $('#builder-sortable-items li').length == 0 ) {
-					alert( ANVA.builder_remove_empty );
+					alert( anvaJs.builder_remove_empty );
 					return false;
 				}
-				if ( confirm( ANVA.builder_remove_all ) ) {
+				if ( confirm( anvaJs.builder_remove_all ) ) {
 					$('#builder-sortable-items li').remove();
 					setTimeout( function() {
 						if ( $('#builder-sortable-items li').length == 0 ) {
@@ -479,7 +479,7 @@ jQuery(document).ready(function($) {
 			$(document).on( 'click', '.button-export', function(e) {
 				$('#builder-sortable-items li').each( function() {
 					if ( $(this).hasClass('item-unsaved') ) {
-						alert( ANVA.builder_unsave );
+						alert( anvaJs.builder_unsave );
 						e.preventDefault();
 					}
 				});
@@ -489,7 +489,7 @@ jQuery(document).ready(function($) {
 			// Import Content
 			$(document).on( 'click', '.button-import', function(e) {
 				if ( $('#anva-import-file').val() == '' ) {
-					alert( ANVA.builder_import );
+					alert( anvaJs.builder_import );
 					e.preventDefault();
 				}
 				$('.wrap > form').attr('enctype', 'multipart/form-data');
@@ -542,9 +542,9 @@ jQuery(document).ready(function($) {
 
 					// Create the media frame
 					frame = wp.media({
-						title: ANVA.builder_upload,
+						title: anvaJs.builder_upload,
 						button: {
-							text: ANVA.builder_select_image,
+							text: anvaJs.builder_select_image,
 							close: false
 						},
 						multiple: false

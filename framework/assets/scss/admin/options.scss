@@ -96,12 +96,6 @@
 	}
 
 	.section-sidebar {
-		.controls {
-			input[type="text"] {
-				margin: 0 5px 0 0;
-				width: 75%;
-			}
-		}
 		.dynamic-sidebars {
 			ul {
 				background: #f9f9f9;
@@ -448,13 +442,12 @@
 	margin-bottom:10px;
 }
 
-
-
 #optionsframework .controls .anva-radio-img-label {
 	margin: 5px 0 0;
 	color: #777;
 	text-align: center;
 	text-transform: capitalize;
+	display: none;
 }
 
 #optionsframework .controls .anva-radio-img-box {
@@ -464,12 +457,37 @@
 	box-sizing: border-box;
 	background-color: #f9f9f9;
 	border: 1px solid #ddd;
-}
+	box-shadow: 0 1px 0 rgba(black,.08);
 
-#optionsframework .controls .anva-radio-img-img {
-	border: 3px solid transparent;
-	display: none;
-	cursor: pointer;
+	.anva-radio-img-img {
+		border: 0;
+		display: none;
+		cursor: pointer;
+		border-radius: 2px;
+	}
+
+	span {
+		border-radius: 2px;
+		display: table-cell;
+		line-height: 0;
+		cursor: pointer;
+		position: relative;
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			border: 1px solid rgba(white, .1);
+			border-bottom: 0;
+			-webkit-background-origin: border-box;
+			-moz-background-origin: border;
+			background-origin: border-box;
+			background-image: linear-gradient(top, rgba(white, .15), rgba(0, 0, 0, .25)), linear-gradient(left top, rgba(white, 0), rgba(white, .15) 50%, rgba(white, 0) 50%, rgba(white, 0));
+		}
+	}
 }
 
 #optionsframework .controls .anva-radio-img-radio {
@@ -488,13 +506,13 @@
 }
 
 #optionsframework .controls .anva-border-width {
-	width:80px;
-	float:left;
+	width: 80px;
+	float: left;
 }
 
 #optionsframework .controls .anva-border-style {
-	width:120px;
-	float:left;
+	width: 120px;
+	float: left;
 }
 
 #optionsframework .hide {
@@ -518,7 +536,7 @@
 }
 
 #optionsframework .mini .explain {
-	max-width:74%;
+	max-width: 74%;
 }
 
 /* Editor */
@@ -529,67 +547,89 @@
 }
 
 /* Image Uploader */
-#optionsframework .controls input.upload {
-	width: 75%;
-}
-
-#optionsframework .screenshot {
-	float: left;
-	margin-left: 1px;
-	position: relative;
-	max-width: 344px;
-	margin: 10px 0;
-}
-
-#optionsframework .screenshot:hover .remove-image {
-	opacity: 1;
-}
-
-#optionsframework .screenshot img {
-	background: #fafafa;
-	border: 1px solid #eee;
-	box-sizing: border-box;
-	float: left;
-	padding: 4px;
-	max-width: 100%;
-}
-
-#optionsframework .screenshot .remove-image {
-	opacity: 0;
-	cursor: pointer;
-	display: block;
-	height: 24px;
-	width: 24px;
-	line-height: 24px;
-	padding: 0;
-	position: absolute;
-	z-index: 10;
-	top: -5px;
-	right: -5px;
-	outline: 0;
-	background: #eee;
-	box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(black,.15);
-	transition: opacity .1s ease;
-	color: #222;
-	font-weight: 700;
-	text-decoration: none;
-	text-align: center;
-	&:hover {
-		color: red;
+#optionsframework {
+	.group-button {
+		position: relative;
+		display: table;
+		border-collapse: separate;
+		span {
+			display: table-cell;
+			position: relative;
+			font-size: 0;
+			white-space: nowrap;
+			width: 1%;
+			vertical-align: middle;
+			.button {
+				margin-left: 5px;
+			}
+		}
 	}
-}
+	.controls input.sidebar,
+	.controls input.upload {
+		display: table-cell;
+		position: relative;
+		z-index: 2;
+		float: left;
+		width: 100%;
+		margin-bottom: 0;
+	}
 
-#optionsframework .anva-input-file {
-	margin-bottom: 10px;
-	background: #fff;
-	border: 1px solid #eee;
-	border-radius: 5px;
-	box-sizing: border-box;
-	font-size: 13px;
-	line-height: 13px;
-	margin-bottom: 10px;
-	padding: 5px 8px 6px 8px;
-	width: 100%;
+	.screenshot {
+		float: left;
+		margin-left: 1px;
+		position: relative;
+		max-width: 344px;
+		margin: 10px 0;
+		&:hover .remove-image {
+			opacity: 1;
+		}
+		img {
+			background: #fafafa;
+			border: 1px solid #eee;
+			box-sizing: border-box;
+			float: left;
+			padding: 4px;
+			max-width: 100%;
+		}
+		.remove-image {
+			opacity: 0;
+			cursor: pointer;
+			display: block;
+			height: 24px;
+			width: 24px;
+			line-height: 24px;
+			padding: 0;
+			position: absolute;
+			z-index: 10;
+			top: -5px;
+			right: -5px;
+			outline: 0;
+			background: #eee;
+			box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(black,.15);
+			transition: opacity .1s ease;
+			color: #222;
+			font-weight: 700;
+			text-decoration: none;
+			text-align: center;
+			&:hover {
+				color: red;
+			}
+		}
+	}
+
+	.anva-input-file {
+		margin-bottom: 10px;
+		background: #fff;
+		border: 1px solid #eee;
+		border-radius: 5px;
+		box-sizing: border-box;
+		font-size: 13px;
+		line-height: 13px;
+		margin-bottom: 10px;
+		padding: 5px 8px 6px 8px;
+		width: 100%;
+	}
+
 }
 
 #optionsframework .import-export-settings .section-info p {

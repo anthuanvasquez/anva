@@ -1,6 +1,10 @@
-jQuery(document).ready(function($){
+jQuery(document).ready(function($) {
 
-	
+	// Check if text is present before show
+	if ( anvaJs.disclaimer ) {
+		$('.wp-full-overlay-sidebar-content').append('<span class="anva-disclaimer">' + anvaJs.disclaimer + '</span>');
+	}
+
 	// ---------------------------------------------------------
 	// Logo
 	// ---------------------------------------------------------
@@ -8,17 +12,14 @@ jQuery(document).ready(function($){
 	// Initial page load
 	var logo_type = $('#customize-control-logo_type').find('select').val();
 	
-	if( logo_type == 'custom' )
-	{
+	if( logo_type == 'custom' ) {
 		$('#customize-control-logo_image').hide();
 	}
-	else if( logo_type == 'image' )
-	{
+	else if( logo_type == 'image' ) {
 		$('#customize-control-logo_custom').hide();
 		$('#customize-control-logo_custom_tagline').hide();
 	}
-	else
-	{
+	else {
 		$('#customize-control-logo_custom').hide();
 		$('#customize-control-logo_custom_tagline').hide();
 		$('#customize-control-logo_image').hide();
@@ -26,20 +27,17 @@ jQuery(document).ready(function($){
 	
 	$('#customize-control-logo_type').find('select').change(function(){
 		logo_type = $(this).val();
-		if( logo_type == 'custom' )
-		{
+		if( logo_type == 'custom' ) {
 			$('#customize-control-logo_custom').show();
 			$('#customize-control-logo_custom_tagline').show();
 			$('#customize-control-logo_image').hide();
 		}
-		else if( logo_type == 'image' )
-		{
+		else if( logo_type == 'image' ) {
 			$('#customize-control-logo_custom').hide();
 			$('#customize-control-logo_custom_tagline').hide();
 			$('#customize-control-logo_image').show();
 		}
-		else
-		{
+		else {
 			$('#customize-control-logo_custom').hide();
 			$('#customize-control-logo_custom_tagline').hide();
 			$('#customize-control-logo_image').hide();
@@ -51,7 +49,7 @@ jQuery(document).ready(function($){
 	// ---------------------------------------------------------
 	
 	// Initial page load.
-	$('.customize-control-font_face').each(function(){
+	$('.customize-control-font_face').each(function() {
 		
 		var el = $(this),
 			font_type = el.find('select').val();
@@ -65,7 +63,7 @@ jQuery(document).ready(function($){
 	});
 	
 	// On change of font face select box.
-	$('.customize-control-font_face select').change(function(){
+	$('.customize-control-font_face select').change(function() {
 		
 		var el = $(this),
 			parent = el.closest('.customize-control-font_face'),

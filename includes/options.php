@@ -14,10 +14,10 @@ function eren_options() {
 	/* Layout
 	/* ---------------------------------------------------------------- */
 
-	$base_colors = array(
+	$base_color = array(
 		'name' => __( 'Base Color Scheme', 'anva' ),
-		'desc' => __( 'Choose skin color for the theme.', 'anva' ),
-		'id' => 'base_colors',
+		'desc' => __( 'Choose skin color for the theme. Check live preview in the <a href="' . esc_url( admin_url( '/customize.php' ) ) . '">Customizer.</a>', 'anva' ),
+		'id' => 'base_color',
 		'std' => 'blue',
 		'type' => 'images',
 		'options' => array(
@@ -28,7 +28,7 @@ function eren_options() {
 			'teal' 		=> $skin_path . 'teal.png',
 		)
 	);
-	anva_add_option( 'styles', 'main', 'base_colors', $base_colors );
+	anva_add_option( 'styles', 'main', 'base_colors', $base_color );
 
 	$footer_color = array(
 		'name' => __( 'Footer Color Scheme', 'anva' ),
@@ -127,9 +127,9 @@ function eren_options() {
 
 	$typography_options = array(
 		'body_font' => array(
-			'name' => __('Body Font', 'anva'),
-			'desc' => __('This applies to most of the text on your site.', 'anva'),
-			'id' => "body_font",
+			'name' => __( 'Body Font', 'anva' ),
+			'desc' => __( 'This applies to most of the text on your site.', 'anva' ),
+			'id' => 'body_font',
 			'std' => array(
 				'size' => '14px',
 				'face' => 'google',
@@ -140,9 +140,9 @@ function eren_options() {
 			'options' => array( 'size', 'style', 'face' )
 		),
 		'heading_font' => array(
-			'name' => __( 'Headings Font', 'anva'),
-			'desc' => __( 'This applies to all of the primary headers throughout your site (h1, h2, h3, h4, h5, h6). This would include header tags used in redundant areas like widgets and the content of posts and pages.', 'anva'),
-			'id' => "heading_font",
+			'name' => __( 'Headings Font', 'anva' ),
+			'desc' => __( 'This applies to all of the primary headers throughout your site (h1, h2, h3, h4, h5, h6). This would include header tags used in redundant areas like widgets and the content of posts and pages.', 'anva' ),
+			'id' => 'heading_font',
 			'std' => array(
 				'face' => 'google',
 				'google' => 'Raleway',
@@ -153,8 +153,8 @@ function eren_options() {
 			
 		),
 		'heading_h1' => array(
-			'name' => __('H1', 'anva'),
-			'desc' => __('Select the size for H1 tag in px.', 'anva'),
+			'name' => __( 'H1', 'anva' ),
+			'desc' => __( 'Select the size for H1 tag in px.', 'anva' ),
 			'id' => 'heading_h1',
 			'std' => '27',
 			'type' => 'range',
@@ -166,8 +166,8 @@ function eren_options() {
 			)
 		),
 		'heading_h2' => array(
-			'name' => __('H2', 'anva'),
-			'desc' => __('Select the size for H2 tag in px.', 'anva'),
+			'name' => __( 'H2', 'anva' ),
+			'desc' => __( 'Select the size for H2 tag in px.', 'anva' ),
 			'id' => 'heading_h2',
 			'std' => '24',
 			'type' => 'range',
@@ -432,7 +432,7 @@ function eren_options() {
 add_action( 'after_setup_theme', 'eren_options' );
 
 /**
- * Use Anva Builder Elements API to add elements onto elements already
+ * Use Anva_Builder_Elements_API to add elements onto elements already
  * present in framework
  *
  * @since 1.0.0
@@ -444,8 +444,8 @@ function eren_elements() {
 
 	// Get sidebar locations
 	$sidebars = array();
-	foreach ( anva_get_sidebar_layouts() as $key => $value ) {
-		$sidebars[$key] = $value['name'];
+	foreach ( anva_get_sidebar_layouts() as $sidebar_id => $sidebar ) {
+		$sidebars[$sidebar_id] = $sidebar['name'];
 	}
 	
 	/*--------------------------------------------*/

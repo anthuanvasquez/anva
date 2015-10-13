@@ -133,7 +133,7 @@ class Anva_Builder_Meta_Box {
 				wp_enqueue_script( 'js-wp-editor' );
 				wp_enqueue_script( 'anva-builder' );
 				
-				wp_localize_script( 'anva-builder', 'ANVA', anva_get_admin_locals( 'metabox_js' ) );
+				wp_localize_script( 'anva-builder', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
 				wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
 
 			}

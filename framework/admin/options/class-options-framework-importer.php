@@ -177,6 +177,7 @@ class OptionsFramework_Backup {
 						</div><!-- .export (end) -->
 					</div><!-- .section (end) -->
 				</div><!-- .inner-group (end) -->
+				<?php do_action( 'optionsframework_after_fields' ); ?>
 				</div><!-- .column-1 (end) -->
 
 				<div class="column-2">
