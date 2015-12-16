@@ -9,15 +9,13 @@ get_header();
 
 <div class="row grid-columns">
 
-	<?php anva_woocommerce_sidebar_after(); ?>
+	<?php get_sidebar( 'left' ); ?>
 
 	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
-		<div id="products">
-			<?php woocommerce_content(); ?>
-		</div><!-- #products (end) -->
+		<?php woocommerce_content(); ?>
 	</div><!-- .content-area (end) -->
-	
-	<?php anva_woocommerce_sidebar_after(); ?>
+
+	<?php get_sidebar( 'right' ); ?>
 	
 </div><!-- .grid-columns (end) -->
 
