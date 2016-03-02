@@ -23,14 +23,14 @@ if ( ! class_exists( 'Anva' ) ) :
 class Anva {
 
 	/**
-	 * Framework name
+	 * Framework Name
 	 *
 	 * @since 1.0.0
 	 */
 	const NAME = 'Anva Framework';
 
 	/**
-	 * Framework version
+	 * Framework Version
 	 *
 	 * @since 1.0.0
 	 */
@@ -48,8 +48,7 @@ class Anva {
 	}
 
 	/**
-	 * Constructor
-	 * Hook everything in.
+	 * Constructor Hook everything in.
 	 *
 	 * @since 1.0.0
 	 */
@@ -92,20 +91,20 @@ class Anva {
 		/* ---------------------------------------------------------------- */
 
 		if ( ! is_admin() ) {
-			include_once ( ANVA_FRAMEWORK_DIR . '/vendor/cssmin.php' );
-			include_once ( ANVA_FRAMEWORK_DIR . '/vendor/jsmin.php' );
+			include_once ( ANVA_FRAMEWORK_DIR . '/vendor/CSSMin.php' );
+			include_once ( ANVA_FRAMEWORK_DIR . '/vendor/JSMin.php' );
 		}
 
 		/* ---------------------------------------------------------------- */
 		/* API - Back End / Front End
 		/* ---------------------------------------------------------------- */
 
-		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-options-api.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-sidebars-api.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-stylesheets-api.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-scripts-api.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-builder-elements-api.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-sliders-api.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/AnvaOptionsApi.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/AnvaSidebarsApi.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/AnvaStylesheetsApi.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/AnvaScriptsApi.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/AnvaBuilderElementsApi.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/AnvaSlidersApi.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/customizer.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/api/helpers.php' );
 
@@ -117,10 +116,10 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK_DIR . '/admin/options/options-framework.php' );
 		
 		// General
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-builder-meta-box.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-gallery-meta-box.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-media-meta-box.php' );
-		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/class-anva-meta-box.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/AnvaBuilderMetaBox.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/AnvaGlleryMetaBox.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/AnvaMediaMtaBox.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/AnvaMetaBox.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/fields.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/general.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/admin/includes/display.php' );
