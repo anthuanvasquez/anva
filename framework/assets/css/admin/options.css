@@ -1,4 +1,10 @@
 /* Options Framework Admin Styles */
+#optionsframework-wrap .settings-error {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
 #optionsframework-wrap .nav-tab-wrapper a span {
   position: relative;
   top: 2px;
@@ -508,7 +514,7 @@
           border-radius: 4px;
   -o-background-origin: border-box;
      background-origin: border-box;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(rgba(255, 255, 255, 0.15)), to(rgba(0, 0, 0, 0.25))), -webkit-gradient(linear, left top, right bottom, from(rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0.15)), color-stop(50%, rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0)));
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.15)), to(rgba(0, 0, 0, 0.25))), -webkit-gradient(linear, left top, left bottom, color-stop(top, left), color-stop(top, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0.15)), color-stop(50%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), -webkit-linear-gradient(left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
   background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), -moz-linear-gradient(left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
   background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), -o-linear-gradient(left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
@@ -641,10 +647,10 @@
   background: #eee;
   -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
           box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
-  -webkit-transition: opacity 0.1s ease;
-     -moz-transition: opacity 0.1s ease;
-       -o-transition: opacity 0.1s ease;
-          transition: opacity 0.1s ease;
+  -webkit-transition: opacity .1s ease;
+  -moz-transition: opacity .1s ease;
+  -o-transition: opacity .1s ease;
+  transition: opacity .1s ease;
   color: #222;
   font-weight: 700;
   text-decoration: none;

@@ -38,12 +38,12 @@ function optionsframework_init() {
 	}
 
 	// Loads the required Options Framework classes.
-	require anva_get_core_directory() . '/admin/options/class-options-framework.php';
-	require anva_get_core_directory() . '/admin/options/class-options-framework-admin.php';
-	require anva_get_core_directory() . '/admin/options/class-options-framework-importer.php';
-	require anva_get_core_directory() . '/admin/options/class-options-interface.php';
-	require anva_get_core_directory() . '/admin/options/class-options-media-uploader.php';
-	require anva_get_core_directory() . '/admin/options/class-options-sanitization.php';
+	require anva_get_core_directory() . '/admin/options/OptionsFramework.php';
+	require anva_get_core_directory() . '/admin/options/OptionsFrameworkAdmin.php';
+	require anva_get_core_directory() . '/admin/options/OptionsFrameworkImporter.php';
+	require anva_get_core_directory() . '/admin/options/OptionsInterface.php';
+	require anva_get_core_directory() . '/admin/options/OptionsMediaUploader.php';
+	require anva_get_core_directory() . '/admin/options/sanitization.php';
 
 	// Instantiate the options page.
 	$options_framework_admin = new Options_Framework_Admin;

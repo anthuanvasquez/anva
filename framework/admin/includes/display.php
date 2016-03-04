@@ -11,6 +11,29 @@ function anva_admin_theme_activate() {
 	endif;
 }
 
+/**
+ * Show flash message after update/reset settings.
+ *
+ * @since  1.0.0.
+ * @return void
+ */
+function anva_add_settings_flash() {
+	if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true ) : ?>
+		<script type="text/javascript">
+		window.onload = function() {
+			swal({
+				title: "<?php echo esc_js( __( 'Done!', 'anva' ) ); ?>",
+				text: "<?php echo esc_js( __( 'Options has been updated.', '' ) ); ?>",
+				type: "success",
+				timer: 2000,
+				showConfirmButton: false
+			});
+		};
+		</script>
+	<?php endif;
+}
+add_action( 'optionsframework_before', 'anva_add_settings_flash' );
+
 function anva_admin_settings_log() {
 	
 	$html = '';
@@ -238,9 +261,9 @@ function anva_logo_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	$site_title  = '<p class="note">';
-	$site_title .= __( 'Current Site Title', 'anva' ).': <strong>';
+	$site_title .= __( 'Current Site Title', 'anva' ) . ': <strong>';
 	$site_title .= get_bloginfo( 'name' ).'</strong><br>';
-	$site_title .= __( 'You can change your site title and tagline by going <a href="options-general.php" target="_blank">here</a>.', 'anva' );
+	$site_title .= sprintf( __( 'You can change your site title and tagline by going %shere%s.', 'anva' ), '<a href="' . esc_url( 'options-general.php' ) . '" target="_blank">', '</a>' );
 	$site_title .= '</p>';
 
 	/*------------------------------------------------------*/
@@ -252,7 +275,7 @@ function anva_logo_option( $id, $name, $val ) {
 	$site_title_tagline .= get_bloginfo( 'name' ).'</strong><br>';
 	$site_title_tagline .= __( 'Current Tagline', 'anva' ).': <strong>';
 	$site_title_tagline .= get_bloginfo( 'description' ).'</strong><br>';
-	$site_title_tagline .= __( 'You can change your site title by going <a href="options-general.php" target="_blank">here</a>.', 'anva' );
+	$site_title_tagline .= sprintf( __( 'You can change your site title by going %here%.', 'anva' ), '<a href="' . esc_url( 'options-general.php' ) . '" target="_blank">', '</a>' );
 	$site_title_tagline .= '</p>';
 
 	/*------------------------------------------------------*/

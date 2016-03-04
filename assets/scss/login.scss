@@ -1,17 +1,10 @@
-// ---------------------------------------------------------------- //
-// Framework - Variables / Mixins / Functions
-// ---------------------------------------------------------------- //
-
-@import "framework";
-
 // Login variables
-$width: 267px;
-$height: 99px;
-$max-width: 380px;
-$font-color: #444;
-$link-color: $theme-color;
-$background: #444;
-
+$width: 			267px;
+$height: 			99px;
+$max-width: 	380px;
+$font-color: 	#444;
+$link-color: 	#777;
+$background: 	#444;
 
 /* ---------------------------------------------------------------- */
 /* Login
@@ -22,10 +15,25 @@ body {
 	background: $background; 
 }
 
+body.login .login-footer {
+	color: #fff;
+	background: $background;
+	margin: 20px auto;
+	max-width: $max-width;
+	text-align: center;
+	width: 100%;
+
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+}
+
 body.login {
 	div#login {
 		max-width: $max-width;
 		width: 100%;
+
 		h1 {
 			background: #fff;
 			padding: 20px 40px;
@@ -35,9 +43,9 @@ body.login {
 				background-size: $width $height;
 				background-position: center top;
 				background-repeat: no-repeat;
-				color: $theme-color;
+				color: $link-color;
 				height: $height;
-				font-size: $padding;
+				font-size: 20px;
 				font-weight: normal;
 				line-height: 1.3em;
 				margin: 0 auto;
@@ -81,16 +89,20 @@ body.login {
 			
 			p.forgetmenot {
 				float: right;
+
 				label {
 					color: #444;
 				}
+
 				input#rememberme {
 					position: relative;
 					top: 0;
 				}
 			}
+
 			p.submit {
 				float: left;
+
 				input#wp-submit {
 					background: #111;
 					padding: 0 22px;
@@ -102,13 +114,16 @@ body.login {
 					color: #fff;
 					border-radius: 2px;
 					border: 0;
+					text-shadow: none;
 					transition: all .3s ease;
+
 					&:hover {
 						background: #444;
 					}
 				}
 			}
 		}
+
 		p#nav {
 			background: #fff;
 			border: 0;
@@ -116,6 +131,7 @@ body.login {
 			margin: 0;
 			padding: 20px 40px 20px;
 			text-align: center;
+
 			a {
 				color: $link-color;
 				font-weight: 700;
@@ -124,11 +140,14 @@ body.login {
 				}
 			}
 		}
+
 		p#backtoblog {
 			background: #fff;
 			margin-top: 0;
+			margin-bottom: 0;
 			padding: 0 40px 20px;
 			text-align: center;
+
 			a {
 				color: $link-color;
 				font-weight: 700;
@@ -162,15 +181,17 @@ body.login {
 
 #copyright {
 	margin: auto;
-	padding-top: $padding;
-	padding-bottom: $padding;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	max-width: $max-width;
 	width: 100%;
+
 	p {
 		color: #fff;
 		font-size: 12px;
 		font-weight: 400;
 		text-align: center;
+
 		a {
 			color: #fff;
 			font-weight: 700;

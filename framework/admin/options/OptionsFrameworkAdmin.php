@@ -145,6 +145,7 @@ class Options_Framework_Admin {
 
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'anva-animate', anva_get_core_uri() . '/assets/css/admin/animate.min.css', array(), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_style( 'sweetalert', anva_get_core_uri() . '/assets/css/admin/sweetalert.min.css', array(), '1.1.3' );
 		wp_enqueue_style( 'optionsframework', anva_get_core_uri() . '/assets/css/admin/options.min.css', array(), ANVA_FRAMEWORK_VERSION );
 		wp_enqueue_style( 'jquery-slider-pips', anva_get_core_uri(). '/assets/css/admin/jquery-ui-slider-pips.min.css', array(),  '1.7.2' );
 		wp_enqueue_style( 'jquery-ui-custom', anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4' );
@@ -164,6 +165,7 @@ class Options_Framework_Admin {
 		wp_enqueue_script( 'optionsframework',  anva_get_core_uri() . '/assets/js/admin/options.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION );
 
 		// Enqueue custom option panel JS
+		wp_enqueue_script( 'sweetalert',  anva_get_core_uri() . '/assets/js/admin/sweetalert.min.js', array( 'jquery' ), '1.1.3' );
 		wp_enqueue_script( 'jquery-slider-pips',  anva_get_core_uri() . '/assets/js/admin/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2' );
 		wp_enqueue_script( 'optionsframework' );
 		wp_localize_script( 'optionsframework', 'anvaJs', anva_get_admin_locals( 'js' ) );
@@ -206,9 +208,11 @@ class Options_Framework_Admin {
 			<h2 class="nav-tab-wrapper">
 				<?php echo anva_get_options_tabs( $options ); ?>
 			</h2>
-
+			
 			<?php settings_errors( 'options-framework' ); ?>
+			
 			<?php do_action( 'optionsframework_before' ); ?>
+
 			<div id="optionsframework-metabox" class="metabox-holder">
 				<div id="optionsframework">
 					<form class="options-settings" action="options.php" method="post">
@@ -232,7 +236,7 @@ class Options_Framework_Admin {
 										<div class="actions">
 											<input type="submit" class="button button-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
 											<span class="spinner"></span>
-											<input type="submit" class="button button-secondary reset-button" name="reset" value="<?php esc_attr_e( 'Restore Defaults', 'anva' ); ?>" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!', 'anva' ) ); ?>' );" />
+											<input type="submit" class="button button-secondary reset-button" name="reset" value="<?php esc_attr_e( 'Restore Defaults', 'anva' ); ?>" />
 											<div class="clear"></div>
 										</div>
 									</div>
@@ -273,6 +277,14 @@ class Options_Framework_Admin {
 		 */
 		if ( isset( $_POST['reset'] ) ) {
 
+			global $_anva_settings_error;
+
+			$_anva_settings_error = array(
+				'title' => __( 'Options Restored!', 'anva' ),
+				'message' => __( 'Default options restored.', 'anva' ),
+				'type' => 'success',
+			);
+
 			// Delete log
 			delete_option( $option_name . '_log' );
 
@@ -290,7 +302,9 @@ class Options_Framework_Admin {
 		 */
 
 		$clean = array();
+		
 		$options = anva_get_options();
+		
 		foreach ( $options as $option ) {
 
 			if ( ! isset( $option['id'] ) ) {
@@ -335,6 +349,14 @@ class Options_Framework_Admin {
 	 */
 
 	function save_options_notice() {
+		global $_anva_settings_error;
+
+		$_anva_settings_error = array(
+			'title' => __( 'Options Saved!', 'anva' ),
+			'message' => __( 'Options has been saved successfully.', 'anva' ),
+			'type' => 'success',
+		);
+
 		add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', 'anva' ), 'updated fade' );
 	}
 

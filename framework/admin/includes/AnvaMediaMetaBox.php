@@ -215,15 +215,19 @@ class Anva_Media_Meta_Box {
 		do_action( 'tzp_portfolio_settings_meta_box_fields', $post->ID );
 
 		echo '<div id="tzp-portfolio-metabox-audio" class="tzp-metabox">';
-		printf( '<p class="tzp-intro">%1$s</p>', __('Set up your audio media for display in your portfolio. Only 1 file type is required for audio to work in all browsers, but the providing additional file types will ensure that users view an HTML5 audio element if available.', 'zilla') );
+		
+		printf( '<p class="tzp-intro">%1$s</p>', __( 'Set up your audio media for display in your portfolio. Only 1 file type is required for audio to work in all browsers, but the providing additional file types will ensure that users view an HTML5 audio element if available.', 'anva' ) );
 
 		do_action( 'tzp_portfolio_audio_meta_box_fields', $post->ID );
+
 		echo '</div>';
 
 		echo '<div id="tzp-portfolio-metabox-video" class="tzp-metabox">';
-		printf( '<p class="tzp-intro">%1$s</p>', __('Set up your video media for display in your portfolio. Adding to the video embed field will override the self hosted options. For self hosted video, the more file types you provide the more likely a user will view an HTML5 video element. However, only one file type is required.', 'zilla-portfolio') );
+		
+		printf( '<p class="tzp-intro">%1$s</p>', __( 'Set up your video media for display in your portfolio. Adding to the video embed field will override the self hosted options. For self hosted video, the more file types you provide the more likely a user will view an HTML5 video element. However, only one file type is required.', 'anva' ) );
 
 		do_action( 'tzp_portfolio_video_meta_box_fields', $post->ID );
+
 		echo '</div>';
 
 	}
@@ -238,32 +242,32 @@ add_action( 'tzp_portfolio_video_meta_box_fields', 'tzp_render_portfolio_video_f
 function tzp_render_portfolio_settings_fields( $post_id ) {
 	?>
 	<div class="tzp-field">
-		<h4><?php _e('Project Media', 'zilla-portfolio'); ?></h4>
+		<h4><?php _e('Project Media', 'anva'); ?></h4>
 		<div class="tzp-left">
 			
 			<?php 
-				$display_gallery = get_post_meta( $post_id, '_tzp_display_gallery', true );
-				$display_audio = get_post_meta( $post_id, '_tzp_display_audio', true );
-				$display_video = get_post_meta( $post_id, '_tzp_display_video', true );
+				$display_gallery  = get_post_meta( $post_id, '_tzp_display_gallery', true );
+				$display_audio 		= get_post_meta( $post_id, '_tzp_display_audio', true );
+				$display_video 		= get_post_meta( $post_id, '_tzp_display_video', true );
 			?>
 
 			<ul class="tzp-inline-checkboxes">
 				<li>
 					<input type="checkbox" name="_tzp_display_gallery" id="_tzp_display_gallery"<?php checked( 1, $display_gallery ); ?> data-related-metabox-id="" value="1" />
-					<label for="_tzp_display_gallery"><?php _e('Display Gallery', 'zilla-portfolio'); ?></label>					
+					<label for="_tzp_display_gallery"><?php _e('Display Gallery', 'anva'); ?></label>					
 				</li>
 				<li>
 					<input type="checkbox" name="_tzp_display_audio" id="_tzp_display_audio"<?php checked( 1, $display_audio ); ?> data-related-metabox-id="tzp-portfolio-metabox-audio" value="1" />
-					<label for="_tzp_display_audio"><?php _e('Display Audio', 'zilla-portfolio'); ?></label>					
+					<label for="_tzp_display_audio"><?php _e('Display Audio', 'anva'); ?></label>					
 				</li>
 				<li>
 					<input type="checkbox" name="_tzp_display_video" id="_tzp_display_video"<?php checked( 1, $display_video ); ?> data-related-metabox-id="tzp-portfolio-metabox-video" value="1" />
-					<label for="_tzp_display_video"><?php _e('Display Video', 'zilla-portfolio'); ?></label>					
+					<label for="_tzp_display_video"><?php _e('Display Video', 'anva'); ?></label>					
 				</li>
 			</ul>
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Select the media formats that should be displayed.', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Select the media formats that should be displayed.', 'anva'); ?></p>
 		</div>
 	</div>
 	<?php
@@ -281,35 +285,35 @@ function tzp_render_portfolio_audio_fields( $post_id ) {
 ?>
 
 	<div class="tzp-field">
-		<h4><?php _e('Poster Image:', 'zilla-portfolio'); ?></h4>	
+		<h4><?php _e('Poster Image:', 'anva'); ?></h4>	
 		<div class="tzp-left">
 			<input type="text" name="_tzp_audio_poster_url" id="_tzp_audio_poster_url" value="<?php echo esc_attr( get_post_meta( $post_id, '_tzp_audio_poster_url', true ) ); ?>" class="file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-			<input type="button" class="tzp-upload-file-button button" name="_tzp_audio_poster_url_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_audio_poster_url_button" value="<?php esc_attr_e( 'Browse', 'zilla-portfolio' ); ?>" />
+			<input type="button" class="tzp-upload-file-button button" name="_tzp_audio_poster_url_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_audio_poster_url_button" value="<?php esc_attr_e( 'Browse', 'anva' ); ?>" />
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Add a poster image to your audio player (optional).', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Add a poster image to your audio player (optional).', 'anva'); ?></p>
 		</div>
 	</div>
 
 	<div class="tzp-field">
-		<h4><?php _e('.mp3 File:', 'zilla-portfolio'); ?></h4>
+		<h4><?php _e('.mp3 File:', 'anva'); ?></h4>
 		<div class="tzp-left">
 			<input type="text" name="_tzp_audio_file_mp3" id="_tzp_audio_file_mp3" value="<?php echo esc_attr( get_post_meta( $post_id, '_tzp_audio_file_mp3', true ) ); ?>" class="file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-			<input type="button" class="tzp-upload-file-button button" name="_tzp_audio_file_mp3_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_audio_file_mp3_button" value="<?php esc_attr_e( 'Browse', 'zilla-portfolio' ); ?>" />
+			<input type="button" class="tzp-upload-file-button button" name="_tzp_audio_file_mp3_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_audio_file_mp3_button" value="<?php esc_attr_e( 'Browse', 'anva' ); ?>" />
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Insert an .mp3 file, if desired.', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Insert an .mp3 file, if desired.', 'anva'); ?></p>
 		</div>
 	</div>
 
 	<div class="tzp-field">
-		<h4><?php _e('.ogg File:', 'zilla-portfolio'); ?></h4>
+		<h4><?php _e('.ogg File:', 'anva'); ?></h4>
 		<div class="tzp-left">
 			<input type="text" name="_tzp_audio_file_ogg" id="_tzp_audio_file_ogg" value="<?php echo esc_attr( get_post_meta( $post_id, '_tzp_audio_file_ogg', true ) ); ?>" class="file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-			<input type="button" class="tzp-upload-file-button button" name="_tzp_audio_file_ogg_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_audio_file_ogg_button" value="<?php esc_attr_e( 'Browse', 'zilla-portfolio' ); ?>" />
+			<input type="button" class="tzp-upload-file-button button" name="_tzp_audio_file_ogg_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_audio_file_ogg_button" value="<?php esc_attr_e( 'Browse', 'anva' ); ?>" />
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Insert an .ogg file, if desired.', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Insert an .ogg file, if desired.', 'anva'); ?></p>
 		</div>
 	</div>
 <?php
@@ -326,56 +330,56 @@ function tzp_render_portfolio_audio_fields( $post_id ) {
 function tzp_render_portfolio_video_fields( $post_id ) {
 ?>
 	<div class="tzp-field">
-		<h4><?php _e('Poster Image:', 'zilla-portfolio'); ?></h4>
+		<h4><?php _e('Poster Image:', 'anva'); ?></h4>
 		<div class="tzp-left">
 			<input type="text" name="_tzp_video_poster_url" id="_tzp_video_poster_url" value="<?php echo esc_attr( get_post_meta( $post_id, '_tzp_video_poster_url', true ) ); ?>" class="file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_poster_url_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_poster_url_button" value="<?php esc_attr_e( 'Browse', 'zilla-portfolio' ); ?>" />
+			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_poster_url_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_poster_url_button" value="<?php esc_attr_e( 'Browse', 'anva' ); ?>" />
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Add a poster image for your video player (optional).', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Add a poster image for your video player (optional).', 'anva'); ?></p>
 		</div>
 	</div>
 
 	<div class="tzp-field">
-		<h4><?php _e('.m4v File:', 'zilla-portfolio'); ?></h4>	
+		<h4><?php _e('.m4v File:', 'anva'); ?></h4>	
 		<div class="tzp-left">
 			<input type="text" name="_tzp_video_file_m4v" id="_tzp_video_file_m4v" value="<?php echo esc_attr( get_post_meta( $post_id, '_tzp_video_file_m4v', true ) ); ?>" class="file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_file_m4v_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_file_m4v_button" value="<?php esc_attr_e( 'Browse', 'zilla-portfolio' ); ?>" />
+			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_file_m4v_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_file_m4v_button" value="<?php esc_attr_e( 'Browse', 'anva' ); ?>" />
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Insert an .m4v file, if desired.', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Insert an .m4v file, if desired.', 'anva'); ?></p>
 		</div>
 	</div>
 
 	<div class="tzp-field">
-		<h4><?php _e('.ogv File:', 'zilla-portfolio'); ?></h4>
+		<h4><?php _e('.ogv File:', 'anva'); ?></h4>
 		<div class="tzp-left">
 			<input type="text" name="_tzp_video_file_ogv" id="_tzp_video_file_ogv" value="<?php echo esc_attr( get_post_meta( $post_id, '_tzp_video_file_ogv', true ) ); ?>" class="file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_file_ogv_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_file_ogv_button" value="<?php esc_attr_e( 'Browse', 'zilla-portfolio' ); ?>" />
+			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_file_ogv_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_file_ogv_button" value="<?php esc_attr_e( 'Browse', 'anva' ); ?>" />
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Insert an .ogv file, if desired.', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Insert an .ogv file, if desired.', 'anva'); ?></p>
 		</div>
 	</div>
 
 	<div class="tzp-field">
-		<h4><?php _e('.mp4 File:', 'zilla-portfolio'); ?></h4>
+		<h4><?php _e('.mp4 File:', 'anva'); ?></h4>
 		<div class="tzp-left">
 			<input type="text" name="_tzp_video_file_mp4" id="_tzp_video_file_mp4" value="<?php echo esc_attr( get_post_meta( $post_id, '_tzp_video_file_mp4', true ) ); ?>" class="file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_file_mp4_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_file_mp4_button" value="<?php esc_attr_e( 'Browse', 'zilla-portfolio' ); ?>" />
+			<input type="button" class="tzp-upload-file-button button" name="_tzp_video_file_mp4_button" data-post-id="<?php echo $post_id; ?>" id="_tzp_video_file_mp4_button" value="<?php esc_attr_e( 'Browse', 'anva' ); ?>" />
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php _e('Insert an .mp4 file, if desired.', 'zilla-portfolio'); ?></p>
+			<p class='tzp-desc howto'><?php _e('Insert an .mp4 file, if desired.', 'anva'); ?></p>
 		</div>
 	</div>
 
 	<div class="tzp-field">
-		<h4><?php _e('Video Embed:', 'zilla-portfolio'); ?></h4>
+		<h4><?php _e('Video Embed:', 'anva'); ?></h4>
 		<div class="tzp-left">
 			<textarea name="_tzp_video_embed" id="_tzp_video_embed" rows="8" cols="5"><?php echo esc_textarea( get_post_meta( $post_id , '_tzp_video_embed', true ) ); ?></textarea>
 		</div>
 		<div class="tzp-right">
-			<p class='tzp-desc howto'><?php printf( '%1$s <br /><br /><strong>%2$s</strong>.', __('Embed iframe code from YouTube, Vimeo or other trusted source. HTML tags are limited to iframe, div, img, a, em, strong and br.', 'zilla-portfolio'), __('Note: This field overrides the previous fields.', 'zilla-portfolio') ); ?></p>
+			<p class='tzp-desc howto'><?php printf( '%1$s <br /><br /><strong>%2$s</strong>.', __('Embed iframe code from YouTube, Vimeo or other trusted source. HTML tags are limited to iframe, div, img, a, em, strong and br.', 'anva'), __('Note: This field overrides the previous fields.', 'anva') ); ?></p>
 		</div>
 	</div>
 <?php

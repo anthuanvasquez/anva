@@ -21,8 +21,22 @@ function anva_add_theme_support() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
-	// add_theme_support( 'title-tag' );
+	add_theme_support( 'custom-background' );
+	add_theme_support( 'title-tag' );
 }
+
+/**
+ * Enable support in existing themes without breaking backwards compatibility.
+ *
+ * @since  1.0.0.
+ * @return string The site title.
+ */
+if ( ! function_exists( '_wp_render_title_tag' ) ) :
+	function anva_render_title() {
+		echo "<title><?php wp_title( '|', true, 'right' ); ?></title>";
+	}
+	add_action( 'wp_head', 'anva_render_title' );
+endif;
 
 /**
  * Register menus
@@ -757,7 +771,7 @@ function anva_contact_send_email() {
 	global $email_sended_message;
 
 	// Submit form
-	if ( isset( $_POST['contact-submission'] ) && 1 == $_POST['contact-submission'] ) {
+	if ( isset( $_POST['contact-submission'] ) && 1 == $_POST['contact-submission'] && wp_verify_nonce( 'contact_form_nonce', 'contact_form' ) ) {
 
 		// Fields
 		$name 		= $_POST['cname'];

@@ -20,19 +20,60 @@ jQuery(document).ready(function($) {
 
 		extras: function() {
 
+			$(document).on( 'click', '.reset-button', function(e) {
+				// return confirm( 'Click OK to reset. Any theme settings will be lost!' );
+				
+				e.preventDefault();
+    		var form = $(this).closest('form');
+
+    		swal({
+					title: "Are you sure?",
+					text: "You will not be able to recover the options!",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#0085ba",
+					confirmButtonText: "Yes, restore it!",
+					cancelButtonText: "Nooo, wait!",
+					cancelButtonColor: "##f7f7f7",
+					closeOnConfirm: true,
+					closeOnCancel: true
+				}, function( isConfirm ) {
+					
+					if ( isConfirm ) {
+						form.submit();
+					}
+
+				});
+			});
+
 			// Remove sidebar
 			$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
 				e.preventDefault();
 				var $ele = $(this).parent();
-				if ( confirm( 'You sure want delete this item?' )	) {
-					$ele.fadeOut();
-					setTimeout( function() {
-						$ele.remove();
-						if ( $('.dynamic-sidebars ul li').length == 0 ) {
-							$('.dynamic-sidebars ul').addClass('empty');
-						}
-					}, 500 );
-				}
+				swal({
+					title: "Sure?",
+					text: "You sure want delete this item?",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#0085ba",
+					confirmButtonText: "Yes",
+					cancelButtonText: "Cancel",
+					cancelButtonColor: "##f7f7f7",
+					closeOnConfirm: true,
+					closeOnCancel: true
+				}, function( isConfirm ) {
+					
+					if ( isConfirm ) {
+						$ele.fadeOut();
+						setTimeout( function() {
+							$ele.remove();
+							if ( $('.dynamic-sidebars ul li').length == 0 ) {
+								$('.dynamic-sidebars ul').addClass('empty');
+							}
+						}, 500 );
+					}
+
+				});
 			});
 
 			// Add new sidebar
@@ -40,7 +81,7 @@ jQuery(document).ready(function($) {
 				var $new = $('.sidebar').val();
 
 				if ( '' == $new ) {
-					alert( 'Enter the name for custom sidebar.' );
+					swal('Input is Empty!', 'Enter the name for custom sidebar.');
 					return false;
 				}
 

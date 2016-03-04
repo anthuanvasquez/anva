@@ -15,6 +15,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Textarea extends WP_Customize_Control {
 
 		public $type = 'textarea';
+		
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {
@@ -46,6 +47,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Font_Face extends WP_Customize_Control {
 
 		public $type = 'font_face';
+		
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {
@@ -91,6 +93,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Google_Font extends WP_Customize_Control {
 
 		public $type = 'google_font';
+		
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {
@@ -114,7 +117,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 				<input type="text" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
 				<p><?php _e( 'Example', 'anva' ); ?>: <?php _e( 'Open Sans', 'anva' ); ?></p>
-				<p><a href="http://www.google.com/webfonts" target="_blank"><?php _e( 'Browse Google Webfonts', 'anva' ); ?></a></p>
+				<p><a href="<?php echo esc_url( 'http://www.google.com/webfonts' ); ?>" target="_blank"><?php _e( 'Browse Google Webfonts', 'anva' ); ?></a></p>
 			</label>
 			<?php
 		}
@@ -129,6 +132,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Divider extends WP_Customize_Control {
 
 		public $type = 'divider';
+		
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {
@@ -144,4 +148,4 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 	}
 
-} // End Class
+}

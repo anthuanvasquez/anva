@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Options_API' ) ) :
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-class Anva_Options_API {
+class AnvaOptionsAPI {
 
 	/**
 	 * A single instance of this class
@@ -235,7 +235,7 @@ class Anva_Options_API {
 					),
 					'social_media' => array(
 						"name" => __('Social Media', 'anva'),  
-						"desc" => __('Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: http://twitter.com/oidoperfecto. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>'.get_feed_link().'</strong>.', 'anva'),  
+						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),  
 						"id" => "social_media",
 						"type" => "social_media",
 						"std" => $social_media_defaults

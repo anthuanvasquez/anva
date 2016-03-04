@@ -15,7 +15,7 @@ function anva_head_apple_touch_icon() {
 	$icon120	= anva_get_option( 'apple_icon_120' );
 	$icon152	= anva_get_option( 'apple_icon_152' );
 
-	if ( $favicon ) {
+	if ( ! empty( $favicon ) ) {
 		$links[] = array(
 			'rel' => 'shortcut icon',
 			'image' => $favicon,
@@ -23,7 +23,7 @@ function anva_head_apple_touch_icon() {
 		);
 	}
 
-	if ( $icon76 ) {
+	if ( ! empty( $icon76 ) ) {
 		$links[] = array(
 			'rel' => 'apple-touch-icon',
 			'image' => $icon76,
@@ -31,7 +31,7 @@ function anva_head_apple_touch_icon() {
 		);
 	}
 
-	if ( $icon120 ) {
+	if ( ! empty( $icon120 ) ) {
 		$links[] = array(
 			'rel' => 'apple-touch-icon',
 			'image' => $icon120,
@@ -39,7 +39,7 @@ function anva_head_apple_touch_icon() {
 		);
 	}
 
-	if ( $icon152 ) {
+	if ( ! empty( $icon152 ) ) {
 		$links[] = array(
 			'rel' => 'apple-touch-icon',
 			'image' => $icon152,
@@ -52,7 +52,7 @@ function anva_head_apple_touch_icon() {
 			if ( isset( $value['size'] ) && ! empty( $value['size'] ) ) {
 				$sizes = ' sizes="'. esc_attr( $value['size'] ) .'" ';
 			}
-
+			
 			if ( isset( $value['image'] ) && anva_url_file_exists( $value['image'] ) ) {
 				$html .= '<link rel="'. esc_attr( $value['rel'] ) .'"'. $sizes .'href="'. esc_url( $value['image'] ) .'" />';
 			}
@@ -120,21 +120,26 @@ function anva_header_logo_default() {
 		$classes .= ' logo-has-tagline';
 	}
 
-	echo '<div id="logo" class="'. esc_attr( $classes ) .'">';
+	if ( $option['type'] == 'image' ) {
+		$classes = ' logo-has-image';
+	}
+
+	echo '<div id="logo" class="' . esc_attr( $classes ) .' ">';
+	
 	if ( ! empty( $option['type'] ) ) {
 		switch ( $option['type'] ) {
 
 			case 'title' :
-				echo '<h1 class="text-logo"><a href="'. home_url() .'">'. $name .'</a></h1>';
+				echo '<h1 class="text-logo"><a href="' . home_url() . '">' . $name . '</a></h1>';
 				break;
 
 			case 'title_tagline' :
-				echo '<h1 class="text-logo"><a href="'. home_url() .'">'. $name .'</a></h1>';
-				echo '<span class="logo-tagline">'. get_bloginfo('description') .'</span>';
+				echo '<h1 class="text-logo"><a href="' . home_url() .'">' . $name . '</a></h1>';
+				echo '<span class="logo-tagline">' . get_bloginfo( 'description' ) . '</span>';
 				break;
 
 			case 'custom' :
-				echo '<h1 class="text-logo"><a href="'. home_url() .'">'. $option['custom'] .'</a></h1>';
+				echo '<h1 class="text-logo"><a href="' . home_url() .'">' . $option['custom'] . '</a></h1>';
 				if ( $option['custom_tagline'] ) {
 					echo '<span class="logo-tagline">'. $option['custom_tagline'] .'</span>';
 				}
@@ -268,7 +273,7 @@ function anva_footer_copyrights_default() {
 	if ( $footer_copyright || ! empty( $footer_copyright ) ) {
 		$html .= sprintf( $footer_copyright );
 	} else {
-		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2015', get_bloginfo( 'name' ), __( 'Designed by', 'anva' ), __( '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>', 'anva' ) );
+		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2015', get_bloginfo( 'name' ), __( 'Designed by', 'anva' ), '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>' );
 	}
 
 	$html .= '<a id="gotop" href="#" class="gotop gotop-md"><i class="fa fa-chevron-up"></i></a>';

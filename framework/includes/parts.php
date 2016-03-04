@@ -296,6 +296,7 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 function anva_post_author() {
 	
 	$single_author = anva_get_option( 'single_author', 'hide' );
+	
 	if ( 'show' != $single_author ) {
 		return;
 	}
@@ -310,7 +311,7 @@ function anva_post_author() {
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<?php printf( 'Posted by <span><a href="%1$s">%2$s</a></span>', esc_url( $url ), esc_html( $name ) ); ?>
+				<?php printf( '%1$s <span><a href="%2$s">%3$s</a></span>', __( 'Posted by', 'anva' ), esc_url( $url ), esc_html( $name ) ); ?>
 			</h3>
 		</div>
 		<div class="panel-body">
@@ -554,6 +555,8 @@ function anva_comment_pagination() {
 
 /**
  * Contact form
+ *
+ * @since 1.0.0.
  */
 function anva_contact_form() {
 	
@@ -571,7 +574,9 @@ function anva_contact_form() {
 		<?php if ( ! empty( $email_sended_message ) ) : ?>
 			<div id="email_message" class="alert alert-warning"><?php echo $email_sended_message; ?></div>
 		<?php endif; ?>
-
+		
+		<?php wp_nonce_field( 'contact_form', 'contact_form_nonce' ); ?>
+		
 		<form id="contactform" class="contact-form"  role="form" method="post" action="<?php the_permalink(); ?>#contactform">
 
 			<div class="form-name form-group">
@@ -607,15 +612,15 @@ function anva_contact_form() {
 		</form>
 	</div><!-- .contact-form-wrapper -->
 
-	<script>
-	jQuery(document).ready(function(){ 
+	<script type="text/javascript">
+	jQuery(document).ready(function($){ 
 		
 		setTimeout(function(){
-			jQuery("#email_message").fadeOut("slow");
+			$("#email_message").fadeOut("slow");
 		}, 3000);
 
-		jQuery('#contactform input[type="text"]').attr('autocomplete', 'off');
-		jQuery('#contactform').validate({
+		$('#contactform input[type="text"]').attr('autocomplete', 'off');
+		$('#contactform').validate({
 			rules: {
 				cname: "required",
 				csubject: "required",
@@ -697,10 +702,10 @@ function anva_get_product_search_form() {
 	?>
 	<form role="search" method="get" id="searchform" class="form-inline search-form" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
 		<div class="input-group">
-		<input type="text" id="s" name="s" class="search-field form-control" value="<?php echo get_search_query(); ?>"  placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
+		<input type="text" id="s" name="s" class="search-field form-control" value="<?php echo get_search_query(); ?>"  placeholder="<?php _e( 'Search for products', 'anva' ); ?>" />
 			<span class="input-group-btn">
 				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
-					<span class="sr-only"><?php echo esc_attr__( 'Search' ); ?></span>
+					<span class="sr-only"><?php echo esc_attr__( 'Search', 'anva' ); ?></span>
 					<i class="fa fa-search"></i>
 				</button>
 				<input type="hidden" name="post_type" value="product" />
@@ -756,13 +761,13 @@ function anva_comment_list( $comment, $args, $depth ) {
 
 		<div class="comment-meta">
 			<a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ); ?>">
-				<?php printf( __('%1$s at %2$s'), get_comment_date(),  get_comment_time() ); ?>
-				<?php edit_comment_link( __( '(Edit)' ), '  ', '' ); ?>
+				<?php printf( __( '%1$s at %2$s', 'anva' ), get_comment_date(),  get_comment_time() ); ?>
+				<?php edit_comment_link( __( 'Edit', 'anva' ), '  ', '' ); ?>
 			</a>
 		</div>
 
 		<?php if ( $comment->comment_approved == '0' ) : ?>
-			<em class="comment-awaiting-moderation well well-sm"><?php _e( 'Your comment is awaiting moderation.' ); ?></em>
+			<em class="comment-awaiting-moderation well well-sm"><?php _e( 'Your comment is awaiting moderation.', 'anva' ); ?></em>
 		<?php endif; ?>
 		
 		<div class="comment-text">
@@ -794,197 +799,142 @@ function anva_comment_reply_link_class( $class ){
 }
 
 /**
- * Display a breadcrumb menu after header
+ * Display breadcrumbs.
  * 
- * @since 1.0.0
+ * @since  1.0.0.
+ * @param  array  $args
+ * @return string $html
  */
-function anva_get_breadcrumbs() {
-	
+function anva_get_breadcrumbs( $args = array() ) {
+
+	if ( is_front_page() ) {
+		return;
+	}
+
 	global $post;
 
-	$text['home']   		= anva_get_local( 'home' );
-	$text['category'] 	= anva_get_local( 'category_archive' ) . ' "%s"';
-	$text['search']  		= anva_get_local( 'search_results' ) . ' "%s"';
-	$text['tag']   			= anva_get_local( 'tag_archive' ) . ' "%s"';
-	$text['author']  		= anva_get_local( 'author_archive' ) . ' "%s"';
-	$text['404']   			= anva_get_local( '404' );
+	$defaults  = array(
+		'separator_icon'      => '/',
+		'breadcrumbs_id'      => 'breadcrumb',
+		'breadcrumbs_classes' => 'breadcrumb-trail breadcrumb',
+		'home_title'          => __( 'Home', 'anva' )
+	);
+
+	$args      = apply_filters( 'anva_get_breadcrumbs_args', wp_parse_args( $args, $defaults ) );
+	$separator = '<li class="separator"> ' . esc_attr( $args['separator_icon'] ) . ' </li>';
 	
-	$show_current  			= 1; // 1 - show current post/page/category title in breadcrumbs, 0 - don't show
-	$show_on_home  			= 0; // 1 - show breadcrumbs on the homepage, 0 - don't show
-	$show_home_link			= 1; // 1 - show the 'Home' link, 0 - don't show
-	$show_title   			= 1; // 1 - show the title for the links, 0 - don't show
-	$delimiter   				= '<li class="separator"> / </li>'; // delimiter between crumbs
-	$before     				= '<li class="current">'; // tag before the current crumb
-	$after     					= '</li>'; // tag after the current crumb
-	$home_link  				= home_url( '/' );
-	$link_before 				= '<li typeof="v:Breadcrumb">';  
-	$link_after  				= '</li>';  
-	$link_attr  				= ' rel="v:url" property="v:title"';  
-	$link     					= $link_before . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $link_after;  
-	$parent_id  				= $parent_id_2 = $post->post_parent;  
-	$frontpage_id 			= get_option( 'page_on_front' );  
+
+	// Open the breadcrumbs
+	$html = '<ol id="' . esc_attr( $args['breadcrumbs_id'] ) . '" class="' . esc_attr( $args['breadcrumbs_classes'] ) . '">';
 	
-	// Home or Front Page
-	if ( is_home() || is_front_page() ) {
+	// Add Homepage link & separator (always present)
+	$html .= '<li class="item-home"><a class="bread-link bread-home" href="' . get_home_url() . '" title="' . esc_attr( $args['home_title'] ) . '">' . esc_attr( $args['home_title'] ) . '</a></li>';
+	$html .= $separator;
 	
-		if ( $show_on_home == 1 ) echo '<ol class="breadcrumb"><li><a href="' . $home_link . '">' . $text['home'] . '</a></li></ol>';  
-	
-	} else {
-	
-		echo '<ol class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">';
+	// Post
+	if ( is_singular( 'post' ) ) {
 		
-		if ( $show_home_link == 1 ) {
-			
-			echo '<li><a href="' . $home_link . '" rel="v:url" property="v:title">' . $text['home'] . '</a></li>';
-			
-			if ( $frontpage_id == 0 || $parent_id != $frontpage_id )
-				echo $delimiter;
-		} 
+		$category = get_the_category();
+		$category_values = array_values( $category );
+		$last_category = end( $category_values );
+		$cat_parents = rtrim( get_category_parents( $last_category->term_id, true, ',' ), ',' );
+		$cat_parents = explode( ',', $cat_parents );
+
+		foreach ( $cat_parents as $parent ) {
+			$html .= '<li class="item-cat">' . wp_kses( $parent, wp_kses_allowed_html( 'a' ) ) . '</li>';
+			$html .= $separator;
+		}
+
+		$html .= '<li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
 	
-		// Category Navigation
-		if ( is_category() ) {
-			
-			$this_cat = get_category( get_query_var( 'cat' ), false );
+	} elseif ( is_singular( 'page' ) ) {
 
-			if ( $this_cat->parent != 0 ) {  
-				
-				$cats = get_category_parents( $this_cat->parent, true, $delimiter );
+		if ( $post->post_parent ) {
 
-				if ( $show_current == 0 ) {
-					$cats = preg_replace( "#^(.+)$delimiter$#", "$1", $cats );
-				}
-				
-				$cats = str_replace('<a', $link_before . '<a' . $link_attr, $cats);
-				
-				$cats = str_replace('</a>', '</a>' . $link_after, $cats);
-				
-				if ( $show_title == 0 ) {
-					$cats = preg_replace('/ title="(.*?)"/', '', $cats);
-				}
-				
-				echo $cats;
+			$parents = get_post_ancestors( $post->ID );
+			$parents = array_reverse( $parents );
+
+			foreach ( $parents as $parent ) {
+				$html .= '<li class="item-parent item-parent-' . esc_attr( $parent ) . '"><a class="bread-parent bread-parent-' . esc_attr( $parent ) . '" href="' . esc_url( get_permalink( $parent ) ) . '" title="' . get_the_title( $parent ) . '">' . get_the_title( $parent ) . '</a></li>';
+				$html .= $separator;
 			}
-			
-			if ( $show_current == 1 )
-				echo $before . sprintf($text['category'], single_cat_title('', false)) . $after;
+
+		}
+
+		$html .= '<li class="item-current item-' . $post->ID . '"><span title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
+
+	} elseif ( is_singular( 'attachment' ) ) {
+
+		$parent_id        = $post->post_parent;
+		$parent_title     = get_the_title( $parent_id );
+		$parent_permalink = esc_url( get_permalink( $parent_id ) );
 		
-		// Search Navigation
-		} elseif ( is_search() ) {
-			echo $before . sprintf($text['search'], get_search_query()) . $after;  
+		$html .= '<li class="item-parent"><a class="bread-parent" href="' . esc_url( $parent_permalink ) . '" title="' . esc_attr( $parent_title ) . '">' . esc_attr( $parent_title ) . '</a></li>';
+		$html .= $separator;
+		$html .= '<li class="item-current item-' . $post->ID . '"><span title="' . get_the_title() . '"> ' . get_the_title() . '</span></li>';
+
+	} elseif ( is_singular() ) {
+
+		$post_type         = get_post_type();
+		$post_type_object  = get_post_type_object( $post_type );
+		$post_type_archive = get_post_type_archive_link( $post_type );
+
+		$html .= '<li class="item-cat item-custom-post-type-' . esc_attr( $post_type ) . '"><a class="bread-cat bread-custom-post-type-' . esc_attr( $post_type ) . '" href="' . esc_url( $post_type_archive ) . '" title="' . esc_attr( $post_type_object->labels->name ) . '">' . esc_attr( $post_type_object->labels->name ) . '</a></li>';
+
+		$html .= $separator;
+
+		$html .= 'li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . $post->post_title . '">' . $post->post_title . '</span></li>';
+
+	} elseif ( is_category() ) {
+
+		$parent = get_queried_object()->category_parent;
+
+		if ( $parent !== 0 ) {
+
+			$parent_category = get_category( $parent );
+			$category_link   = get_category_link( $parent );
+
+			$html .= '<li class="item-parent item-parent-' . esc_attr( $parent_category->slug ) . '"><a class="bread-parent bread-parent-' . esc_attr( $parent_category->slug ) . '" href="' . esc_url( $category_link ) . '" title="' . esc_attr( $parent_category->name ) . '">' . esc_attr( $parent_category->name ) . '</a></li>';
+			$html .= $separator;
+
+		}
 		
-		// Archive: Day
-		} elseif ( is_day() ) {
-			echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $delimiter;  
-			echo sprintf($link, get_month_link(get_the_time('Y'),get_the_time('m')), get_the_time('F')) . $delimiter;  
-			echo $before . get_the_time('d') . $after;  
-		
-		// Archive: Month
-		} elseif ( is_month() ) {  
-			echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $delimiter;  
-			echo $before . get_the_time('F') . $after; 
-		
-		// Archive: Year
-		} elseif ( is_year() ) {  
-			echo $before . get_the_time('Y') . $after;  
-		
-		// Single Post
-		} elseif ( is_single() && ! is_attachment() ) {  
-			
-			if ( get_post_type() != 'post' ) {
-				
-				$post_type = get_post_type_object(get_post_type());  
-				
-				$slug = $post_type->rewrite;  
-				
-				printf($link, $home_link . $slug['slug'] . '/', $post_type->labels->singular_name);  
-				
-				if ( $show_current == 1) {
-					echo $delimiter . $before . get_the_title() . $after;  
-				}
-			
-			} else {  
-				$cat = get_the_category(); $cat = $cat[0];  
-				$cats = get_category_parents($cat, TRUE, $delimiter);  
-				if ($show_current == 0) $cats = preg_replace("#^(.+)$delimiter$#", "$1", $cats);  
-				$cats = str_replace('<a', $link_before . '<a' . $link_attr, $cats);  
-				$cats = str_replace('</a>', '</a>' . $link_after, $cats);  
-				if ($show_title == 0) $cats = preg_replace('/ title="(.*?)"/', '', $cats);  
-				echo $cats;  
-				if ($show_current == 1) echo $before . get_the_title() . $after;  
-			}  
-	
-		} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {  
-			$post_type = get_post_type_object(get_post_type());  
-			echo $before . $post_type->labels->singular_name . $after;  
-		
-		// Single Attachment
-		} elseif ( is_attachment() ) {  
-			$parent = get_post($parent_id);  
-			$cat = get_the_category($parent->ID); $cat = $cat[0];  
-			if ($cat) {  
-				$cats = get_category_parents($cat, TRUE, $delimiter);  
-				$cats = str_replace('<a', $link_before . '<a' . $link_attr, $cats);  
-				$cats = str_replace('</a>', '</a>' . $link_after, $cats);  
-				if ($show_title == 0) $cats = preg_replace('/ title="(.*?)"/', '', $cats);  
-				echo $cats;  
-			}  
-			printf($link, get_permalink($parent), $parent->post_title);  
-			if ($show_current == 1) echo $delimiter . $before . get_the_title() . $after;  
-		
-		// Single Page
-		} elseif ( is_page() && !$parent_id ) {  
-			if ($show_current == 1) echo $before . get_the_title() . $after;  
-	
-		} elseif ( is_page() && $parent_id ) {  
-			if ($parent_id != $frontpage_id) {  
-				$breadcrumbs = array();  
-				while ($parent_id) {  
-					$page = get_page($parent_id);  
-					if ($parent_id != $frontpage_id) {  
-						$breadcrumbs[] = sprintf($link, get_permalink($page->ID), get_the_title($page->ID));  
-					}  
-					$parent_id = $page->post_parent;  
-				}  
-				$breadcrumbs = array_reverse($breadcrumbs);  
-				for ($i = 0; $i < count($breadcrumbs); $i++) {  
-					echo $breadcrumbs[$i];  
-					if ($i != count($breadcrumbs)-1) echo $delimiter;  
-				}  
-			}  
-			if ($show_current == 1) {  
-				if ($show_home_link == 1 || ($parent_id_2 != 0 && $parent_id_2 != $frontpage_id)) echo $delimiter;  
-				echo $before . get_the_title() . $after;  
-			}  
-		
-		// Tag Navigation
-		} elseif ( is_tag() ) {  
-			echo $before . sprintf($text['tag'], single_tag_title('', false)) . $after;  
-		
-		// Single Author Navigation
-		} elseif ( is_author() ) {
-			global $author;  
-			$userdata = get_userdata($author);  
-			echo $before . sprintf($text['author'], $userdata->display_name) . $after;  
-		
-		// 404 Page
-		} elseif ( is_404() ) {  
-			echo $before . $text['404'] . $after;  
-		
-		// Single Page
-		} elseif ( has_post_format() && ! is_singular() ) {  
-			echo get_post_format_string( get_post_format() );  
-		}  
-		
-		// Is Paged
-		// if ( get_query_var('paged') ) {  
-		// 	if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';  
-		// 	echo __('Page') . ' ' . get_query_var('paged');  
-		// 	if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';  
-		// }
-	
-		echo '</ol><!-- .breadcrumb (end) -->';
-	
+		$html .= '<li class="item-current item-cat"><span class="bread-current bread-cat" title="' . $post->ID . '">' . single_cat_title( '', false ) . '</span></li>';
+
+	} elseif ( is_tag() ) {
+		$html .= '<li class="item-current item-tag"><span class="bread-current bread-tag">' . single_tag_title( '', false ) . '</span></li>';
+
+	} elseif ( is_author() ) {
+		$html .= '<li class="item-current item-author"><span class="bread-current bread-author">' . get_queried_object()->display_name . '</span></li>';
+
+	} elseif ( is_day() ) {
+		$html .= '<li class="item-current item-day"><span class="bread-current bread-day">' . get_the_date() . '</span></li>';
+
+	} elseif ( is_month() ) {
+		$html .= '<li class="item-current item-month"><span class="bread-current bread-month">' . get_the_date( 'F Y' ) . '</span></li>';
+
+	} elseif ( is_year() ) {
+		$html .= '<li class="item-current item-year"><span class="bread-current bread-year">' . get_the_date( 'Y' ) . '</span></li>';
+
+	} elseif ( is_archive() ) {
+		$custom_tax_name = get_queried_object()->name;
+		$html .= '<li class="item-current item-archive"><span class="bread-current bread-archive">' . esc_attr( $custom_tax_name ) . '</span></li>';
+
+	} elseif ( is_search() ) {
+		$html .= '<sliclass="item-current item-search"><span class="bread-current bread-search">' . __( 'Search results for', 'anva' ) . ': ' . get_search_query() . '</span></li>';
+
+	} elseif ( is_404() ) {
+		$html .= '<li>' . __( 'Error 404', 'ignite' ) . '</li>';
+
+	} elseif ( is_home() ) {
+		$html .= '<li>' . get_the_title( get_option( 'page_for_posts' ) ) . '</li>';
 	}
+
+	$html .= '</ol>';
+	
+	$html = apply_filters( 'anva_get_breadcrumbs', $html );
+	
+	echo wp_kses_post( $html );
 }
 
 

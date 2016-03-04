@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used is post not found.
+ * The template used for displaying 404 error.
  * 
  * @version 1.0.0
  */

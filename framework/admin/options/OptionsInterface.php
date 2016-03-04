@@ -526,7 +526,8 @@ class Options_Framework_Interface {
 					if ( in_array( 'face', $value['options'] ) ) {
 						// Google Font support
 						$output .= '<div class="google-font hidden">';
-						$output .= '<h5>' . __( 'Enter the name of a font from the <a href="' . esc_url( 'http://www.google.com/webfonts' ) . '" target="_blank">Google Font Directory</a> . ', 'anva' ) . '</h5>';
+						$output .= '<h5>' . 
+						sprintf( __( 'Enter the name of a font from the %s.', 'anva' ), sprintf( '<a href="' . esc_url( 'http://www.google.com/webfonts' ) . '" target="_blank">%s</a>', __( 'Google Font Directory', 'anva' ) ) ) . '</h5>';
 						$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $value['id'] . '][google]' ) . '" value="' . esc_attr( $typography_stored['google'] ) . '" />';
 						$output .= '<p class="note">' . esc_html__( 'Example Font Name', 'anva' ) . ': ' . '"Open Sans"</p>';
 						$output .= '</div>';

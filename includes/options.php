@@ -5,7 +5,7 @@
  *
  * @since 1.0.0
  */
-function eren_options() {
+function anva_options() {
 
 	$pattern_path = get_template_directory_uri() . '/assets/images/patterns/';
 	$skin_path = get_template_directory_uri() . '/assets/images/skins/';
@@ -16,7 +16,10 @@ function eren_options() {
 
 	$base_color = array(
 		'name' => __( 'Base Color Scheme', 'anva' ),
-		'desc' => __( 'Choose skin color for the theme. Check live preview in the <a href="' . esc_url( admin_url( '/customize.php' ) ) . '">Customizer.</a>', 'anva' ),
+		'desc' => sprintf(
+			__( 'Choose skin color for the theme. Check live preview in the %s.', 'anva' ),
+			sprintf( '<a href="' . esc_url( admin_url( '/customize.php' ) ) . '">%s</a>', __( 'Customizer', 'anva' ) )
+		),
 		'id' => 'base_color',
 		'std' => 'blue',
 		'type' => 'images',
@@ -56,7 +59,7 @@ function eren_options() {
 	);
 
 	$background_options = array(
-		'background_color' => array(
+		'bg_color' => array(
 			'name' => __('Background Color', 'anva'),
 			'desc' => __('Select the background color.', 'anva'),
 			'id' => 'background_color',
@@ -310,7 +313,10 @@ function eren_options() {
 			),
 			'gallery_animate' => array(
 				'name' => __( 'Animate', 'anva' ),
-				'desc' => __( 'Choose the default animation for gallery images. Get a <a href="' . esc_url( 'https://daneden.github.io/animate.css/' ) . '" target="_blank">preview</a> of the animations.', 'anva' ),
+				'desc' => sprintf(
+					__( 'Choose the default animation for gallery images. Get a %s of the animations.', 'anva' ),
+					sprintf( '<a href="' . esc_url( 'https://daneden.github.io/animate.css/' ) . '" target="_blank">%s</a>', __( 'preview', 'anva' ) )
+				),
 				'id' => 'gallery_animate',
 				'std' => 'fadeIn',
 				'type' => 'select',
@@ -396,6 +402,37 @@ function eren_options() {
 			'class' => 'revslider hide'
 		);
 		anva_add_option_section( 'layout', 'slider', __( 'Sliders', 'anva' ), null, $slider_options, false );
+
+		/* ---------------------------------------------------------------- */
+		/* Login
+		/* ---------------------------------------------------------------- */
+
+		// Author default credtis
+		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>';
+
+		$login_options = array(
+			'login_style' => array(
+				'name' => __( 'Style', 'anva'),
+				'desc' => __( 'Select the login style.', 'anva'),
+				'id' => 'login_style',
+				'std' => '',
+				'type' => 'select',
+				'options' => array(
+					'' 			 => __( 'None', 'anva' ),
+					'style1' => __( 'Style 1', 'anva' ),
+					'style2' => __( 'Style 2', 'anva' ),
+					'style3' => __( 'Style 3', 'anva' )
+				)
+			),
+			'login_copyright' => array(
+				'name' => __( 'Copyright Text', 'anva'),
+				'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your login page.', 'anva'),
+				'id' => 'login_copyright',
+				'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), $author ),
+				'type' => 'textarea',
+			),
+		);
+		anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), null, $login_options, false );
 	}
 
 	/* ---------------------------------------------------------------- */
@@ -429,7 +466,7 @@ function eren_options() {
 	anva_add_option_section( 'advanced', 'minify', __( 'Minify', 'anva' ), null, $minify_options, false );
 
 }
-add_action( 'after_setup_theme', 'eren_options' );
+add_action( 'after_setup_theme', 'anva_options' );
 
 /**
  * Use Anva_Builder_Elements_API to add elements onto elements already
@@ -437,7 +474,7 @@ add_action( 'after_setup_theme', 'eren_options' );
  *
  * @since 1.0.0
  */
-function eren_elements() {
+function anva_theme_elements() {
 	
 	// Get framework assets path
 	$image_path = anva_get_core_uri() . '/assets/images/builder';
@@ -481,7 +518,7 @@ function eren_elements() {
 			'desc' => 'You can add custom CSS style for this block (advanced user only)',
 		)
 	);
-	anva_add_builder_element( 'text_sidebar', __( 'Text With Sidebar' ), $text_sidebar_icon, $text_sidebar_atts, $text_sidebar_desc, true );
+	anva_add_builder_element( 'text_sidebar', __( 'Text With Sidebar', 'anva' ), $text_sidebar_icon, $text_sidebar_atts, $text_sidebar_desc, true );
 
 	/*--------------------------------------------*/
 	/* Contact Sidebar
@@ -524,4 +561,4 @@ function eren_elements() {
 	anva_add_builder_element( 'contact_sidebar', __( 'Contact Form With Sidebar', 'anva' ), $contact_sidebar_icon, $contact_sidebar_atts, $contact_sidebar_desc, true );
 
 }
-add_action( 'after_setup_theme', 'eren_elements' );
+add_action( 'after_setup_theme', 'anva_theme_elements' );

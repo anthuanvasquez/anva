@@ -142,26 +142,56 @@ function anva_featured() {
 /* Footer
 /* ---------------------------------------------------------------- */
 
+/**
+ * Bottom before
+ *
+ * @since 1.0.0
+ */
 function anva_bottom_before() {
 	do_action( 'anva_bottom_before' );
 }
 
+/**
+ * Bottom after
+ *
+ * @since 1.0.0
+ */
 function anva_bottom_after() {
 	do_action( 'anva_bottom_after' );
 }
 
+/**
+ * Footer above
+ *
+ * @since 1.0.0
+ */
 function anva_footer_above() {
 	do_action( 'anva_footer_above' );
 }
 
+/**
+ * Footer below
+ *
+ * @since 1.0.0
+ */
 function anva_footer_below() {
 	do_action( 'anva_footer_below' );
 }
 
+/**
+ * Footer content
+ *
+ * @since 1.0.0
+ */
 function anva_footer_content() {
 	do_action( 'anva_footer_content' );
 }
 
+/**
+ * Footer footer copyrights
+ *
+ * @since 1.0.0
+ */
 function anva_footer_copyrights() {
 	do_action( 'anva_footer_copyrights' );
 }
@@ -170,6 +200,11 @@ function anva_footer_copyrights() {
 /* Sidebars
 /* ---------------------------------------------------------------- */
 
+/**
+ * Sidebars
+ *
+ * @since 1.0.0
+ */
 function anva_sidebars( $position ) {
 	do_action( 'anva_sidebars', $position );
 }

@@ -34,11 +34,6 @@ function anva_login_logo_url_title() {
  * Add custom text in login footer page.
  */
 function anva_login_footer() {
-	printf(
-		'<div id="copyright"><p>&copy %1$s %2$s %3$s %4$s</p></div>',
-		date( 'Y' ),
-		anva_get_local( 'footer_copyright' ),
-		anva_get_local( 'by' ),
-		apply_filters( 'anva_login_author', esc_html( 'Anthuan Vasquez' )  )
-	);
+	$login_copyright = anva_get_option( 'login_copyright' );
+	printf( '<div class="login-footer">%s</div>', $login_copyright );
 }

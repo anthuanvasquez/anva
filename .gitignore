@@ -10,7 +10,7 @@
 .htaccess
 Thumbs.db
 Desktop.ini
-
+prepros.cfg
 /node_modules
 /readme.html
 /license.txt

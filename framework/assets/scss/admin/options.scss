@@ -1,7 +1,12 @@
 /* Options Framework Admin Styles */
 
 #optionsframework-wrap {
-
+	// Hide settings error
+	.settings-error {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 #optionsframework-wrap .nav-tab-wrapper a span {

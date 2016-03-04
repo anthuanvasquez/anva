@@ -18,8 +18,8 @@ JSON.stringify = JSON.stringify || function ( obj ) {
 		var n, v, json = [], arr = ( obj && obj.constructor == Array );
 		
 		for ( n in obj ) {
-			v = obj[n];
-			t = typeof(v);
+			v = obj[ n ];
+			t = typeof( v );
 
 			if ( t == "string" ) {
 				v = '"'+v+'"';
@@ -539,6 +539,7 @@ jQuery(document).ready(function($) {
 					$image.slideUp('fast');
 					$button.text( $upload );
 					$button.removeClass('remove-image');
+					
 					setTimeout( function() {
 						$image.find('img').remove();
 						$image.find('a').remove();

@@ -19,7 +19,7 @@ if ( ! class_exists( 'Anva_Stylesheets_API' ) ) :
  * @package    Anva
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-class Anva_Stylesheets_API {
+class AnvaStylesheetsAPI {
 
 	/**
 	 * A single instance of this class

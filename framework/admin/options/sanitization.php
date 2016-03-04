@@ -255,17 +255,19 @@ function anva_sanitize_typography( $input, $option ) {
 	) );
 
 	if ( isset( $option['options']['faces'] ) && isset( $input['face'] ) ) {
+		
 		if ( !( array_key_exists( $input['face'], $option['options']['faces'] ) ) ) {
 			$output['face'] = '';
 		}
-	}
-	else {
+
+	} else {
 		$output['face']  = apply_filters( 'anva_font_face', $output['face'] );
 	}
 
 	$output['size']  = apply_filters( 'anva_font_size', $output['size'] );
 	$output['style'] = apply_filters( 'anva_font_style', $output['style'] );
 	$output['color'] = apply_filters( 'anva_sanitize_color', $output['color'] );
+	
 	return $output;
 }
 

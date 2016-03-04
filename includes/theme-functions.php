@@ -5,8 +5,8 @@
 /*-----------------------------------------------------------------------------------*/
 
 // Define theme constants
-define( 'ANVA_THEME_ID', 'eren' );
-define( 'ANVA_THEME_NAME', 'Eren' );
+define( 'ANVA_THEME_ID', 'anva' );
+define( 'ANVA_THEME_NAME', 'Anva' );
 define( 'ANVA_THEME_VERSION', '1.0.0');
 
 // Recommend plugins
@@ -74,7 +74,7 @@ function theme_google_fonts() {
 function theme_stylesheets() {
 
 	// Get stylesheet API
-	$api = Anva_Stylesheets_API::instance();
+	$api = AnvaStylesheetsAPI::instance();
 
 	// Register stylesheets for later use
 	wp_register_style( 'theme_styles', get_template_directory_uri() . '/assets/css/styles.css', $api->get_framework_deps(), ANVA_THEME_VERSION, 'all' );
@@ -127,7 +127,7 @@ function theme_stylesheets() {
 function theme_scripts() {
 
 	// Get scripts API
-	$api = Anva_Scripts_API::instance();
+	$api = AnvaScriptsAPI::instance();
 
 	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.6.2' );
 	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '3.6.2' );
@@ -169,7 +169,7 @@ function theme_styles() {
 	$heading_h4 				= anva_get_option( 'heading_h4', '14' );
 	$heading_h5 				= anva_get_option( 'heading_h5', '13' );
 	$heading_h6 				= anva_get_option( 'heading_h6', '11' );
-	$background_color 	= anva_get_option( 'background_color' );
+	$background_color 	= anva_get_option( 'bg_color' );
 	$background_image 	= anva_get_option( 'background_image', array( 'image' => '' ) );
 	$background_cover 	= anva_get_option( 'background_cover' );
 	$background_pattern = anva_get_option( 'background_pattern' );

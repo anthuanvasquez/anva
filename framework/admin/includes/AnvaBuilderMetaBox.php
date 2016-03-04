@@ -321,13 +321,18 @@ class Anva_Builder_Meta_Box {
 		<div class="anva-meta-box">
 
 			<div class="anva-input-checkbox">
-				<a id="anva-builder-button" href="#" class="button button-primary button-large" data-enable="<?php _e( 'Page Builder Editor', 'anva' ); ?>" data-disable="<?php _e( 'Default Editor', 'anva' ); ?>"><?php _e( 'Page Builder Editor' ); ?></a>
+				
+				<a id="anva-builder-button" href="#" class="button button-primary button-large" data-enable="<?php _e( 'Page Builder Editor', 'anva' ); ?>" data-disable="<?php _e( 'Default Editor', 'anva' ); ?>"><?php _e( 'Page Builder Editor', 'anva' ); ?></a>
+
 				<input type="checkbox" name="<?php echo esc_attr( $this->id . '[enable]' ); ?>" value="1" <?php checked( $enable, 1 ); ?> class="anva-builder-enable hidden" />
+				
 				<div class="anva-tooltip-info-html hidden">
 					<h3><?php _e( 'Quick Info', 'anva' ); ?></h3>
 					<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
 				</div>
+
 				<a href="#" class="anva-tooltip-info"><span class="dashicons dashicons-info"></span></a>
+			
 			</div><!-- .anva-input-checkbox (end) -->
 		
 			<div class="anva-input-builder hidden">
@@ -463,7 +468,7 @@ class Anva_Builder_Meta_Box {
 								__( 'Anva Page Builder powered by Anva Framework', 'anva' ),
 								ANVA_FRAMEWORK_VERSION,
 								__( 'Develop by', 'anva' ),
-								sprintf( '<a href="http://anthuanvasquez.net/">%s</a>', 'Anthuan Vasquez' )
+								sprintf( '<a href="' . esc_url( 'http://anthuanvasquez.net/' ) . '">%s</a>', __( 'Anthuan Vasquez', 'anva' ) )
 							);
 						?>
 					</div>
@@ -544,7 +549,7 @@ class Anva_Builder_Meta_Box {
 			printf( '<div id="message" class="updated"><p>%s</p></div>', __( 'Content has successfully imported.', 'anva' ) );
 		
 		} else if ( isset( $_GET['error'] ) && $_GET['error'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your content. Please Try again.' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your content. Please Try again.', 'anva' ) . '</p></div>';
 
 		}
 	}
@@ -754,9 +759,13 @@ class Anva_Builder_Meta_Box {
 								<h4><?php echo $title; ?></h4>
 								<div class="option">
 									<div class="controls">
-										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text"  class="anva-input anva-file" placeholder="<?php _e( 'No file chosen' ); ?>" />
+										
+										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text"  class="anva-input anva-file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
+
 										<a id="<?php echo $name; ?>_button" name="<?php echo $name; ?>_button" class="button anva-upload-button" data-id="<?php echo $name; ?>" data-remove="<?php _e( 'Remove', 'anva' ); ?>" data-upload="<?php _e( 'Browse', 'anva' ); ?>"><?php _e( 'Browse', 'anva' ); ?></a>
+
 										<div class="screenshot" id="<?php echo $name; ?>_image" style="display:none;"></div>
+										
 									</div>
 									<div class="explain"><?php echo $desc; ?></div>
 								</div>

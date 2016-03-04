@@ -2265,64 +2265,64 @@ function anva_contact_map($atts, $content) {
 					{
 						case 1:
 						
-						$html.= '<label for="your_name">'.__( 'Name *', anva_textdomain() ).'</label>
-						<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', anva_textdomain() ).'"/>
+						$html.= '<label for="your_name">'.__( 'Name *', 'anva' ).'</label>
+						<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', 'anva' ).'"/>
 						';	
 
 						break;
 						
 						case 2:
 						
-						$html.= '<label for="email">'.__( 'Email *', anva_textdomain() ).'</label>
-						<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', anva_textdomain() ).'"/>
+						$html.= '<label for="email">'.__( 'Email *', 'anva' ).'</label>
+						<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', 'anva' ).'"/>
 						';	
 
 						break;
 						
 						case 3:
 						
-						$html.= '<label for="message">'.__( 'Message *', anva_textdomain() ).'</label>
-						<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', anva_textdomain() ).'"></textarea>
+						$html.= '<label for="message">'.__( 'Message *', 'anva' ).'</label>
+						<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', 'anva' ).'"></textarea>
 						';	
 
 						break;
 						
 						case 4:
 						
-						$html.= '<label for="address">'.__( 'Address', anva_textdomain() ).'</label>
-						<input id="address" name="address" type="text" placeholder="'.__( 'Address', anva_textdomain() ).'"/>
+						$html.= '<label for="address">'.__( 'Address', 'anva' ).'</label>
+						<input id="address" name="address" type="text" placeholder="'.__( 'Address', 'anva' ).'"/>
 						';	
 
 						break;
 						
 						case 5:
 						
-						$html.= '<label for="phone">'.__( 'Phone', anva_textdomain() ).'</label>
-						<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', anva_textdomain() ).'"/>
+						$html.= '<label for="phone">'.__( 'Phone', 'anva' ).'</label>
+						<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', 'anva' ).'"/>
 						';
 
 						break;
 						
 						case 6:
 						
-						$html.= '<label for="mobile">'.__( 'Mobile', anva_textdomain() ).'</label>
-						<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', anva_textdomain() ).'"/>
+						$html.= '<label for="mobile">'.__( 'Mobile', 'anva' ).'</label>
+						<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', 'anva' ).'"/>
 						';		
 
 						break;
 						
 						case 7:
 						
-						$html.= '<label for="company">'.__( 'Company Name', anva_textdomain() ).'</label>
-						<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', anva_textdomain() ).'"/>
+						$html.= '<label for="company">'.__( 'Company Name', 'anva' ).'</label>
+						<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', 'anva' ).'"/>
 						';
 
 						break;
 						
 						case 8:
 						
-						$html.= '<label for="country">'.__( 'Country', anva_textdomain() ).'</label>				
-						<input id="country" name="country" type="text" placeholder="'.__( 'Country', anva_textdomain() ).'"/>
+						$html.= '<label for="country">'.__( 'Country', 'anva' ).'</label>				
+						<input id="country" name="country" type="text" placeholder="'.__( 'Country', 'anva' ).'"/>
 						';
 						break;
 					}
@@ -2350,7 +2350,7 @@ function anva_contact_map($atts, $content) {
 		}
 		
 		$html.= '<br/><br/><div class="contact_submit_wrapper">
-			<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', anva_textdomain() ).'" ';
+			<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', 'anva' ).'" ';
 	
 	if(!empty($buttonbgcolor))
 	{
@@ -2501,64 +2501,64 @@ function anva_contact_sidebar($atts, $content) {
 					{
 						case 1:
 						
-						$html.= '<label for="your_name">'.__( 'Name *', anva_textdomain() ).'</label>
-						<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', anva_textdomain() ).'"/>
+						$html.= '<label for="your_name">'.__( 'Name *', 'anva' ).'</label>
+						<input id="your_name" name="your_name" type="text" class="required_field" placeholder="'.__( 'Name *', 'anva' ).'"/>
 						';	
 
 						break;
 						
 						case 2:
 						
-						$html.= '<label for="email">'.__( 'Email *', anva_textdomain() ).'</label>
-						<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', anva_textdomain() ).'"/>
+						$html.= '<label for="email">'.__( 'Email *', 'anva' ).'</label>
+						<input id="email" name="email" type="text" class="required_field email" placeholder="'.__( 'Email *', 'anva' ).'"/>
 						';	
 
 						break;
 						
 						case 3:
 						
-						$html.= '<label for="message">'.__( 'Message *', anva_textdomain() ).'</label>
-						<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', anva_textdomain() ).'"></textarea>
+						$html.= '<label for="message">'.__( 'Message *', 'anva' ).'</label>
+						<textarea id="message" name="message" rows="7" cols="10" class="required_field" placeholder="'.__( 'Message *', 'anva' ).'"></textarea>
 						';	
 
 						break;
 						
 						case 4:
 						
-						$html.= '<label for="address">'.__( 'Address', anva_textdomain() ).'</label>
-						<input id="address" name="address" type="text" placeholder="'.__( 'Address', anva_textdomain() ).'"/>
+						$html.= '<label for="address">'.__( 'Address', 'anva' ).'</label>
+						<input id="address" name="address" type="text" placeholder="'.__( 'Address', 'anva' ).'"/>
 						';	
 
 						break;
 						
 						case 5:
 						
-						$html.= '<label for="phone">'.__( 'Phone', anva_textdomain() ).'</label>
-						<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', anva_textdomain() ).'"/>
+						$html.= '<label for="phone">'.__( 'Phone', 'anva' ).'</label>
+						<input id="phone" name="phone" type="text" placeholder="'.__( 'Phone', 'anva' ).'"/>
 						';
 
 						break;
 						
 						case 6:
 						
-						$html.= '<label for="mobile">'.__( 'Mobile', anva_textdomain() ).'</label>
-						<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', anva_textdomain() ).'"/>
+						$html.= '<label for="mobile">'.__( 'Mobile', 'anva' ).'</label>
+						<input id="mobile" name="mobile" type="text" placeholder="'.__( 'Mobile', 'anva' ).'"/>
 						';		
 
 						break;
 						
 						case 7:
 						
-						$html.= '<label for="company">'.__( 'Company Name', anva_textdomain() ).'</label>
-						<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', anva_textdomain() ).'"/>
+						$html.= '<label for="company">'.__( 'Company Name', 'anva' ).'</label>
+						<input id="company" name="company" type="text" placeholder="'.__( 'Company Name', 'anva' ).'"/>
 						';
 
 						break;
 						
 						case 8:
 						
-						$html.= '<label for="country">'.__( 'Country', anva_textdomain() ).'</label>				
-						<input id="country" name="country" type="text" placeholder="'.__( 'Country', anva_textdomain() ).'"/>
+						$html.= '<label for="country">'.__( 'Country', 'anva' ).'</label>				
+						<input id="country" name="country" type="text" placeholder="'.__( 'Country', 'anva' ).'"/>
 						';
 						break;
 					}
@@ -2586,7 +2586,7 @@ function anva_contact_sidebar($atts, $content) {
 		}
 		
 		$html.= '<br/><br/><div class="contact_submit_wrapper">
-			<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', anva_textdomain() ).'"/>
+			<input id="contact_submit_btn'.$custom_id.'" name="contact_submit_btn'.$custom_id.'" type="submit" class="solidbg" value="'.__( 'Send Message', 'anva' ).'"/>
 		</div>';
 		
 	$html.= '</form>';

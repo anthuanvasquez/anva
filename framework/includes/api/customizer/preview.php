@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Styles for WordPress customizer
+ * Styles for WordPress customizer.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_customizer_styles() {
 	wp_register_style( 'anva_customizer', anva_get_core_uri() . '/assets/css/admin/customizer.min.css', false, ANVA_FRAMEWORK_VERSION );
@@ -11,9 +12,10 @@ function anva_customizer_styles() {
 }
 
 /**
- * Scripts for WordPress customizer
+ * Scripts for WordPress customizer.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_customizer_scripts() {
 	wp_register_script( 'anva_customizer', anva_get_core_uri() . '/assets/js/admin/customizer.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
@@ -22,9 +24,10 @@ function anva_customizer_scripts() {
 }
 
 /**
- * Logo Customizer Preview is core option
+ * Logo for customizer preview.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_customizer_preview_logo() {
 
@@ -33,30 +36,31 @@ function anva_customizer_preview_logo() {
 
 	// Setup for logo
 	$logo_options = anva_get_option('logo');
+	
 	$logo_atts = array(
-		'type' 				=> '',
-		'site_url'			=> home_url(),
-		'title'				=> get_bloginfo('name'),
-		'tagline'			=> get_bloginfo('description'),
-		'custom' 			=> '',
+		'type' 						=> '',
+		'site_url'				=> home_url(),
+		'title'						=> get_bloginfo( 'name' ),
+		'tagline'					=> get_bloginfo( 'description' ),
+		'custom' 					=> '',
 		'custom_tagline' 	=> '',
-		'image' 			=> '',
+		'image' 					=> '',
 	);
 
 	foreach ( $logo_atts as $key => $value ) {
-		if ( isset($logo_options[$key]) ) {
-			$logo_atts[$key] = $logo_options[$key];
+		if ( isset( $logo_options[ $key ] ) ) {
+			$logo_atts[ $key ] = $logo_options[ $key ];
 		}
 	}
 
 	// Begin output
 	?>
 	// Logo atts object
-	Logo = <?php echo json_encode($logo_atts); ?>;
+	Logo = <?php echo json_encode( $logo_atts ); ?>;
 
 	/* Logo - Type */
-	wp.customize('<?php echo $option_name; ?>[logo][type]',function( value ) {
-		value.bind(function(value) {
+	wp.customize('<?php echo $option_name; ?>[logo][type]', function( value ) {
+		value.bind( function( value ) {
 			// Set global marker. This allows us to
 			// know the currently selected logo type
 			// from any other option.
@@ -64,45 +68,44 @@ function anva_customizer_preview_logo() {
 
 			// Remove classes specific to type so we
 			// can add tehm again depending on new type.
-			$('#branding .header_logo').removeClass('header_logo_title header_logo_title_tagline header_logo_custom header_logo_image header_logo_has_tagline');
+			$('#logo').removeAttr('class');
 
-			// Display markup depending on type of
-			// logo selected.
+			// Display markup depending on type of logo selected.
 			if ( value == 'title' )
 			{
-				$('#branding .header_logo').addClass('header_logo_title');
-				$('#branding .header_logo').html('<h1 class="tb-text-logo"><a href="'+Logo.site_url+'" title="'+Logo.title+'">'+Logo.title+'</a></h1>');
+				$('#logo').addClass('logo-text');
+				$('#logo').html('<h1 class="text-logo"><a href="'+Logo.site_url+'" title="'+Logo.title+'">'+Logo.title+'</a></h1>');
 			}
 			else if ( value == 'title_tagline' )
 			{
-				$('#branding .header_logo').addClass('header_logo_title_tagline');
-				$('#branding .header_logo').addClass('header_logo_has_tagline');
-				$('#branding .header_logo').html('<h1 class="tb-text-logo"><a href="'+Logo.site_url+'" title="'+Logo.title+'">'+Logo.title+'</a></h1><span class="tagline">'+Logo.tagline+'</span>');
+				$('#logo').addClass('logo-tagline');
+				$('#logo').addClass('logo-has-tagline');
+				$('#logo').html('<h1 class="text-logo"><a href="'+Logo.site_url+'" title="'+Logo.title+'">'+Logo.title+'</a></h1><span class="logo-tagline">'+Logo.tagline+'</span>');
 			}
 			else if ( value == 'custom' )
 			{
-				var html = '<h1 class="tb-text-logo"><a href="'+Logo.site_url+'" title="'+Logo.custom+'">'+Logo.custom+'</a></h1>';
+				var html = '<h1 class="text-logo"><a href="'+Logo.site_url+'" title="'+Logo.custom+'">'+Logo.custom+'</a></h1>';
 				if (Logo.custom_tagline)
 				{
-					$('#branding .header_logo').addClass('header_logo_has_tagline');
-					html = html+'<span class="tagline">'+Logo.custom_tagline+'</span>';
+					$('#logo').addClass('logo-has-tagline');
+					html = html+'<span class="logo-tagline">'+Logo.custom_tagline+'</span>';
 				}
-				$('#branding .header_logo').addClass('header_logo_custom');
-				$('#branding .header_logo').html(html);
+				$('#logo').addClass('logo-text');
+				$('#logo').html(html);
 			}
 			else if ( value == 'image' )
 			{
 				var html;
 				if (Logo.image)
 				{
-					html = '<a href="'+Logo.site_url+'" title="'+Logo.title+'" class="tb-image-logo"><img src="'+Logo.image+'" alt="'+Logo.title+'" /></a>';
+					html = '<a href="'+Logo.site_url+'" title="'+Logo.title+'"><img src="'+Logo.image+'" alt="'+Logo.title+'" /></a>';
 				}
 				else
 				{
 					html = '<strong>Oops! You still need to upload an image.</strong>';
 				}
-				$('#branding .header_logo').addClass('header_logo_image');
-				$('#branding .header_logo').html(html);
+				$('#logo').addClass('logo-image logo-has-image');
+				$('#logo').html(html);
 			}
 		});
 	});
@@ -116,7 +119,7 @@ function anva_customizer_preview_logo() {
 			// Only do if anything if the proper logo
 			// type is currently selected.
 			if ( Logo.type == 'custom' ) {
-				$('#branding .header_logo h1 a').text(value);
+				$('#logo h1 a').text( value );
 			}
 		});
 	});
@@ -128,16 +131,16 @@ function anva_customizer_preview_logo() {
 			Logo.custom_tagline = value;
 
 			// Remove previous tagline if needed.
-			$('#branding .header_logo').removeClass('header_logo_has_tagline');
-			$('#branding .header_logo .tagline').remove();
+			$('#logo').removeAttr('class');
+			$('#logo .logo-tagline').remove();
 
 			// Only do if anything if the proper logo
 			// type is currently selected.
 			if ( Logo.type == 'custom' ) {
 				if (value)
 				{
-					$('#branding .header_logo').addClass('header_logo_has_tagline');
-					$('#branding .header_logo').append('<span class="tagline">'+value+'</span>');
+					$('#logo').addClass('logo-has-tagline');
+					$('#logo').append('<span class="logo-tagline">'+value+'</span>');
 				}
 			}
 		});
@@ -145,7 +148,7 @@ function anva_customizer_preview_logo() {
 
 	/* Logo - Image */
 	wp.customize('<?php echo $option_name; ?>[logo][image]',function( value ) {
-		value.bind(function(value) {
+		value.bind( function( value ) {
 			// Set global marker
 			Logo.image = value;
 
@@ -153,16 +156,17 @@ function anva_customizer_preview_logo() {
 			// type is currently selected.
 			if ( Logo.type == 'image' ) {
 				var html;
-				if (value)
+				if ( value )
 				{
-					html = '<a href="'+Logo.site_url+'" title="'+Logo.title+'" class="tb-image-logo"><img src="'+Logo.image+'" alt="'+Logo.title+'" /></a>';
+					html = '<a href="'+Logo.site_url+'" title="'+Logo.title+'"><img src="'+Logo.image+'" alt="'+Logo.title+'" /></a>';
 				}
 				else
 				{
 					html = '<strong>Oops! You still need to upload an image.</strong>';
 				}
-				$('#branding .header_logo').addClass('header_logo_image');
-				$('#branding .header_logo').html(html);
+				$('#logo').removeAttr('class');
+				$('#logo').addClass('logo-image logo-has-image');
+				$('#logo').html(html);
 			}
 		});
 	});
@@ -170,9 +174,10 @@ function anva_customizer_preview_logo() {
 }
 
 /**
- * Font Prep for customizer preview
+ * Font prep for customizer preview.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_customizer_preview_font_prep() {
 
@@ -185,28 +190,30 @@ function anva_customizer_preview_font_prep() {
 
 	// Determine current google fonts with fake
 	// booleans to be used in printed JS object.
-	$types = array('body', 'header', 'special');
+	$types = array('body', 'heading');
 	$google_fonts = array();
+	
 	foreach ( $types as $type ) {
-		$font = anva_get_option('typography_'.$type);
-		$google_fonts[$type.'Name'] = !empty($font['google']) && $font['google'] ? $font['google'] : '';
-		$google_fonts[$type.'Toggle'] = !empty($font['face']) && $font['face'] == 'google' ? 'true' : 'false';
+		$font = anva_get_option( $type . '_font' );
+		$google_fonts[ $type .'Name' ] = ! empty( $font['google'] ) && $font['google'] ? $font['google'] : '';
+		$google_fonts[ $type . 'Toggle' ] = ! empty( $font['face'] ) && $font['face'] == 'google' ? 'true' : 'false';
 	}
 	?>
 	// Font stacks
-	fontStacks = <?php echo json_encode($font_stacks); ?>;
+	fontStacks = <?php echo json_encode( $font_stacks ); ?>;
 
 	// Google font toggles
-	googleFonts = <?php echo json_encode($google_fonts); ?>;
+	googleFonts = <?php echo json_encode( $google_fonts ); ?>;
 	<?php
 }
 
 /**
- * Body Font Customizer Preview is a Core Option
+ * Body font for customizer preview.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
-function anva_customizer_preview_primary_font() {
+function anva_customizer_preview_body_font() {
 
 	// Global option name
 	$option_name = anva_get_option_name();
@@ -218,43 +225,45 @@ function anva_customizer_preview_primary_font() {
 	// ---------------------------------------------------------
 
 	/* Body Typography - Size */
-	wp.customize('<?php echo $option_name; ?>[typography_body][size]',function( value ) {
-		value.bind(function(size) {
+	wp.customize('<?php echo $option_name; ?>[body_font][size]', function( value ) {
+		value.bind( function( size ) {
 			// We're doing this odd-ball way so jQuery
 			// doesn't apply body font to other elements.
 			$('.preview_body_font_size').remove();
-			$('head').append('<style class="preview_body_font_size">body{ font-size: '+size+'; }</style>');
+			$('head').append( '<style class="preview_body_font_size">body{ font-size: ' + size + '; }</style>' );
 		});
 	});
 
 	/* Body Typography - Style */
-	wp.customize('<?php echo $option_name; ?>[typography_body][style]',function( value ) {
-		value.bind(function(style) {
+	wp.customize('<?php echo $option_name; ?>[body_font][style]', function( value ) {
+		value.bind( function( style ) {
 
 			// We're doing this odd-ball way so jQuery
 			// doesn't apply body font to other elements.
 			$('.preview_body_font_style').remove();
 
 			// Possible choices: normal, bold, italic, bold-italic
-			var body_css_props;
-			if ( style == 'normal' )
-				body_css_props = 'font-weight: normal; font-style: normal;';
-			else if ( style == 'bold' )
-				body_css_props = 'font-weight: bold; font-style: normal;';
-			else if ( style == 'italic' )
-				body_css_props = 'font-weight: normal; font-style: italic;';
-			else if ( style == 'bold-italic' )
-				body_css_props = 'font-weight: bold; font-style: italic;';
+			var body_font_style;
 
-			$('head').append('<style class="preview_body_font_style">body{'+body_css_props+'}</style>');
+			if ( style == 'normal' )
+				body_font_style = 'font-weight: normal; font-style: normal;';
+			else if ( style == 'bold' )
+				body_font_style = 'font-weight: bold; font-style: normal;';
+			else if ( style == 'italic' )
+				body_font_style = 'font-weight: normal; font-style: italic;';
+			else if ( style == 'bold-italic' )
+				body_font_style = 'font-weight: bold; font-style: italic;';
+
+			$('head').append( '<style class="preview_body_font_style">body{' + body_font_style + '}</style>' );
 
 		});
 	});
 
 	/* Body Typography - Face */
-	wp.customize('<?php echo $option_name; ?>[typography_body][face]',function( value ) {
-		value.bind(function(face) {
+	wp.customize('<?php echo $option_name; ?>[body_font][face]', function( value ) {
+		value.bind( function( face ) {
 			var header_font_face = $('h1, h2, h3, h4, h5, h6').css('font-family');
+			
 			if ( face == 'google' ) {
 				googleFonts.bodyToggle = true;
 				var google_font = googleFonts.bodyName.split(":"),
@@ -272,11 +281,11 @@ function anva_customizer_preview_primary_font() {
 	});
 
 	/* Body Typography - Google */
-	wp.customize('<?php echo $option_name; ?>[typography_body][google]',function( value ) {
-		value.bind(function(google_font) {
+	wp.customize('<?php echo $option_name; ?>[body_font][google]', function( value ) {
+		value.bind( function( google_font ) {
 			// Only proceed if user has actually selected for
 			// a google font to show in previous option.
-			if (googleFonts.bodyToggle)
+			if ( googleFonts.bodyToggle )
 			{
 				// Set global google font for reference in
 				// other options.
@@ -293,7 +302,9 @@ function anva_customizer_preview_primary_font() {
 				var include_google_font = google_font.replace(/ /g,'+');
 
 				// Include font
-				$('head').append('<link href="http://fonts.googleapis.com/css?family='+include_google_font+'" rel="stylesheet" type="text/css" class="preview_google_body_font" />');
+				setTimeout( function() {
+					$('head').append('<link href="http://fonts.googleapis.com/css?family='+include_google_font+'" rel="stylesheet" type="text/css" class="preview_google_body_font" />');
+				}, 1000 );
 
 				// Format for CSS
 				google_font = google_font.split(":");
@@ -309,11 +320,12 @@ function anva_customizer_preview_primary_font() {
 }
 
 /**
- * Headings Font Customizer Preview is a Core Option
+ * Headings font for cutomizer preview.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
-function anva_customizer_preview_header_font() {
+function anva_customizer_preview_heading_font() {
 
 	// Global option name
 	$option_name = anva_get_option_name();
@@ -325,7 +337,7 @@ function anva_customizer_preview_header_font() {
 	// ---------------------------------------------------------
 
 	/* Header Typography - Style */
-	wp.customize('<?php echo $option_name; ?>[typography_header][style]',function( value ) {
+	wp.customize('<?php echo $option_name; ?>[heading_font][style]',function( value ) {
 		value.bind(function(style) {
 			// Possible choices: normal, bold, italic, bold-italic
 			if ( style == 'normal' ) {
@@ -345,32 +357,32 @@ function anva_customizer_preview_header_font() {
 	});
 
 	/* Header Typography - Face */
-	wp.customize('<?php echo $option_name; ?>[typography_header][face]',function( value ) {
-		value.bind(function(face) {
+	wp.customize('<?php echo $option_name; ?>[heading_font][face]', function( value ) {
+		value.bind( function( face ) {
 			if ( face == 'google' ) {
-				googleFonts.headerToggle = true;
-				var google_font = googleFonts.headerName.split(":"),
+				googleFonts.headingToggle = true;
+				var google_font = googleFonts.headingName.split(":"),
 					google_font = google_font[0];
 				$('h1, h2, h3, h4, h5, h6').css('font-family', google_font);
 			}
 			else
 			{
-				googleFonts.headerToggle = false;
+				googleFonts.headingToggle = false;
 				$('h1, h2, h3, h4, h5, h6').css('font-family', fontStacks[face]);
 			}
 		});
 	});
 
 	/* Header Typography - Google */
-	wp.customize('<?php echo $option_name; ?>[typography_header][google]',function( value ) {
+	wp.customize('<?php echo $option_name; ?>[heading_font][google]',function( value ) {
 		value.bind(function(google_font) {
 			// Only proceed if user has actually selected for
 			// a google font to show in previous option.
-			if (googleFonts.headerToggle)
+			if ( googleFonts.headingToggle )
 			{
 				// Set global google font for reference in
 				// other options.
-				googleFonts.headerName = google_font;
+				googleFonts.headingName = google_font;
 
 				// Remove previous google font to avoid clutter.
 				$('.preview_google_header_font').remove();
@@ -379,7 +391,9 @@ function anva_customizer_preview_header_font() {
 				var include_google_font = google_font.replace(/ /g,'+');
 
 				// Include font
-				$('head').append('<link href="http://fonts.googleapis.com/css?family='+include_google_font+'" rel="stylesheet" type="text/css" class="preview_google_header_font" />');
+				setTimeout( function() {
+					$('head').append('<link href="http://fonts.googleapis.com/css?family='+include_google_font+'" rel="stylesheet" type="text/css" class="preview_google_header_font" />');
+				}, 1000 );
 
 				// Format for CSS
 				google_font = google_font.split(":");
@@ -394,9 +408,22 @@ function anva_customizer_preview_header_font() {
 }
 
 /**
- * Allow "refresh" transport type settings to work right in the Customizer
+ * Add postMessage support for site title and description for the Theme Customizer.
  *
- * @since 1.0.0
+ * @since  1.0.0.
+ * @param  WP_Customize_Manager $wp_customize Theme Customizer object.
+ * @return void
+ */
+function anva_customizer_register_blog( $wp_customize ) {
+	$wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
+	$wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
+}
+
+/**
+ * Allow "refresh" transport type settings to work right in the customizer.
+ *
+ * @since  1.0.0
+ * @return void
  */
 function anva_customizer_preview() {
 
@@ -407,10 +434,9 @@ function anva_customizer_preview() {
 		return;
 	}
 
-	// Reset settings after Customizer
-	// has applied filters.
+	// Reset settings after Customizer has applied filters.
 	if ( $wp_customize->is_preview() ) {
-		$api = Anva_Options_API::instance();
+		$api = AnvaOptionsAPI::instance();
 		// $api->set_settings();
 	}
 

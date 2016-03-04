@@ -20,7 +20,7 @@ if ( ! class_exists( 'Anva_Scripts_API' ) ) :
  * @package    Anva
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-class Anva_Scripts_API {
+class AnvaScriptsAPI {
 
 	/**
 	 * Properties

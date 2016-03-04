@@ -10,7 +10,7 @@ if ( ! class_exists( 'Anva_Builder_Elements_API' ) ) :
  * these elements.
  */
 
-class Anva_Builder_Elements_API {
+class AnvaBuilderElementsAPI {
 
 	/**
 	 * A single instance of this class.
@@ -1650,12 +1650,12 @@ class Anva_Builder_Elements_API {
 				'lat' => array(
 					'title' => 'Latitude',
 					'type' => 'text',
-					'desc' => 'Map latitude <a href="http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/">Find here</a>',
+					'desc' => 'Map latitude <a href="' . esc_url( 'http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/') . '">' . __( 'Find here', 'anva' ) . '</a>',
 				),
 				'long' => array(
 					'title' => 'Longtitude',
 					'type' => 'text',
-					'desc' => 'Map longitude <a href="http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/">Find here</a>',
+					'desc' => 'Map longitude <a href="'. esc_url( 'http://www.tech-recipes.com/rx/5519/the-easy-way-to-find-latitude-and-longitude-values-in-google-maps/') . '">' . __( 'Find here', 'anva' ) . '</a>',
 				),
 				'zoom' => array(
 					'title' => 'Zoom Level',

@@ -121,7 +121,7 @@ class OptionsFramework_Backup {
 	function admin_screen () {
 	?>
 	<div id="optionsframework-wrap" class="wrap">
-		<h2><?php _e( 'Import / Export' ); ?></h2>
+		<h2><?php _e( 'Import / Export', 'anva' ); ?></h2>
 		
 		<div id="optionsframework-metabox" class="metabox-holder">
 		<?php do_action( 'optionsframework_importer_before' ); ?>
@@ -139,7 +139,7 @@ class OptionsFramework_Backup {
 						 <?php _e( 'To get started, upload your backup file to import from below.', 'anva' ); ?>
 					</div>
 					<div class="section section-import">
-						<h4 class="heading"><?php printf( __( 'Upload File: (Maximum Size: %s)' ), ini_get( 'post_max_size' ) ); ?></h4>
+						<h4 class="heading"><?php printf( __( 'Upload File: (Maximum Size: %s)', 'anva' ), ini_get( 'post_max_size' ) ); ?></h4>
 						<div class="option option-import">
 							<div class="controls">
 								<form enctype="multipart/form-data" method="post" action="<?php echo admin_url( 'admin.php?page=' . $this->token ); ?>">
@@ -229,16 +229,16 @@ class OptionsFramework_Backup {
 		}
 
 		if ( isset( $_GET['error'] ) && $_GET['error'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your settings. Please Try again.' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your settings. Please Try again.', 'anva' ) . '</p></div>';
 
 		} else if ( isset( $_GET['error-export'] ) && $_GET['error-export'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem exporting your settings. Please Try again.' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'There was a problem exporting your settings. Please Try again.', 'anva' ) . '</p></div>';
 
 		} else if ( isset( $_GET['invalid'] ) && $_GET['invalid'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'The import file you\'ve provided is invalid. Please try again.' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'The import file you\'ve provided is invalid. Please try again.', 'anva' ) . '</p></div>';
 
 		} else if ( isset( $_GET['imported'] ) && $_GET['imported'] == 'true' ) {
-			echo '<div id="message" class="updated"><p>' . sprintf( __( 'Settings successfully imported. | Return to %sTheme Options%s', 'options-framework-importer' ), '<a href="' . admin_url( 'admin.php?page=options-framework' ) . '">', '</a>' ) . '</p></div>';
+			echo '<div id="message" class="updated"><p>' . sprintf( __( 'Settings successfully imported. | Return to %sTheme Options%s', 'anva' ), '<a href="' . admin_url( 'admin.php?page=options-framework' ) . '">', '</a>' ) . '</p></div>';
 		}
 	}
 
