@@ -3,7 +3,7 @@
  * Class CSSMin
  * Minify stylesheets.
  */
-class CSSMin {
+class CSS_Min {
 
 	private $original_css;
 	private $compressed_css;

@@ -20,7 +20,7 @@
 /**
  * Include the TGM_Plugin_Activation class.
  */
-require_once ANVA_FRAMEWORK_DIR . '/vendor/class-tgm-plugin-activation.php';
+require_once ( anva_get_core_directory() . '/vendor/class-tgm-plugin-activation.php' );
 
 add_action( 'tgmpa_register', 'anva_register_required_plugins' );
 /**

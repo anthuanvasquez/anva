@@ -7,24 +7,7 @@
  * @license   GPL-2.0+
  * @link      http://wptheming.com
  * @copyright 2010-2014 WP Theming
- *
- * @wordpress-plugin
- * Plugin Name: Options Framework
- * Plugin URI:  http://wptheming.com
- * Description: A framework for building theme options.
- * Version:     1.9.0
- * Author:      Devin Price
- * Author URI:  http://wptheming.com
- * License:     GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: optionsframework
- * Domain Path: /languages
  */
-
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
 
 if ( ! function_exists( 'optionsframework_init' ) ) :
 /*
@@ -38,11 +21,11 @@ function optionsframework_init() {
 	}
 
 	// Loads the required Options Framework classes.
-	require anva_get_core_directory() . '/admin/options/OptionsFramework.php';
-	require anva_get_core_directory() . '/admin/options/OptionsFrameworkAdmin.php';
-	require anva_get_core_directory() . '/admin/options/OptionsFrameworkImporter.php';
-	require anva_get_core_directory() . '/admin/options/OptionsInterface.php';
-	require anva_get_core_directory() . '/admin/options/OptionsMediaUploader.php';
+	require anva_get_core_directory() . '/admin/options/class-options-framework.php';
+	require anva_get_core_directory() . '/admin/options/class-options-framework-admin.php';
+	require anva_get_core_directory() . '/admin/options/class-options-framework-importer.php';
+	require anva_get_core_directory() . '/admin/options/class-options-interface.php';
+	require anva_get_core_directory() . '/admin/options/class-options-media-uploader.php';
 	require anva_get_core_directory() . '/admin/options/sanitization.php';
 
 	// Instantiate the options page.
@@ -55,6 +38,6 @@ function optionsframework_init() {
 
 }
 
-add_action( 'init', 'optionsframework_init', 20 );
+add_action( 'init', 'optionsframework_init', 1 );
 
 endif;

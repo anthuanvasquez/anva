@@ -9,7 +9,7 @@ if ( ! class_exists( 'Anva_Sliders_API' ) ) :
  * 
  * @since 1.0.0
  */
-class AnvaSlidersAPI {
+class Anva_Sliders_API {
 
 	/**
 	 * A single instance of this class

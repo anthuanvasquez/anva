@@ -13,7 +13,7 @@ if ( ! class_exists( 'Anva_Sidebars_API' ) ) :
  * @subpackage Anva/admin
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
-class AnvaSidebarsAPI {
+class Anva_Sidebars_API {
 
 	/**
 	 * A single instance of this class

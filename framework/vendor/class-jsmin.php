@@ -45,7 +45,7 @@
  * @link http://code.google.com/p/jsmin-php/
  */
 
-class JSMin {
+class JS_Min {
 	const ORD_LF    = 10;
 	const ORD_SPACE = 32;
 
@@ -60,7 +60,7 @@ class JSMin {
 	// -- Public Static Methods --------------------------------------------------
 
 	public static function minify($js) {
-		$jsmin = new JSMin($js);
+		$jsmin = new JS_Min($js);
 		return $jsmin->min();
 	}
 
@@ -98,7 +98,7 @@ class JSMin {
 						}
 
 						if (ord($this->a) <= self::ORD_LF) {
-							throw new JSMinException('Unterminated string literal.');
+							throw new JS_Min_Exception('Unterminated string literal.');
 						}
 
 						if ($this->a === '\\') {
@@ -138,7 +138,7 @@ class JSMin {
 									$this->output .= $this->a;
 									$this->a       = $this->get();
 								} elseif (ord($this->a) <= self::ORD_LF) {
-									throw new JSMinException('Unterminated regular expression set in regex literal.');
+									throw new JS_Min_Exception('Unterminated regular expression set in regex literal.');
 								}
 							}
 						} elseif ($this->a === '/') {
@@ -147,7 +147,7 @@ class JSMin {
 							$this->output .= $this->a;
 							$this->a       = $this->get();
 						} elseif (ord($this->a) <= self::ORD_LF) {
-							throw new JSMinException('Unterminated regular expression literal.');
+							throw new JS_Min_Exception('Unterminated regular expression literal.');
 						}
 
 						$this->output .= $this->a;
@@ -300,7 +300,7 @@ class JSMin {
 								break;
 
 							case null:
-								throw new JSMinException('Unterminated comment.');
+								throw new JS_Min_Exception('Unterminated comment.');
 						}
 					}
 
@@ -320,4 +320,4 @@ class JSMin {
 
 // -- Exceptions ---------------------------------------------------------------
 
-class JSMinException extends Exception {}
+class JS_Min_Exception extends Exception {}

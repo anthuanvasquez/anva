@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Options_API' ) ) :
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 
-class AnvaOptionsAPI {
+class Anva_Options_API {
 
 	/**
 	 * A single instance of this class

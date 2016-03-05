@@ -10,7 +10,7 @@ if ( ! class_exists( 'Anva_Builder_Elements_API' ) ) :
  * these elements.
  */
 
-class AnvaBuilderElementsAPI {
+class Anva_Builder_Elements_API {
 
 	/**
 	 * A single instance of this class.

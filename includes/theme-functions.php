@@ -9,14 +9,17 @@ define( 'ANVA_THEME_ID', 'anva' );
 define( 'ANVA_THEME_NAME', 'Anva' );
 define( 'ANVA_THEME_VERSION', '1.0.0');
 
-// Recommend plugins
-require_once( get_template_directory() . '/includes/install.php' );
-
 // Modify customizer options
 require_once( get_template_directory() . '/includes/customizer.php' );
 
 // Modify framework's core options
 require_once( get_template_directory() . '/includes/options.php' );
+
+// Add theme updates
+require_once( get_template_directory() . '/includes/updates.php' );
+
+// Recommend plugins
+require_once( get_template_directory() . '/includes/install.php' );
 
 /**
  * Filtering theme options menu
@@ -74,7 +77,7 @@ function theme_google_fonts() {
 function theme_stylesheets() {
 
 	// Get stylesheet API
-	$api = AnvaStylesheetsAPI::instance();
+	$api = Anva_Stylesheets_API::instance();
 
 	// Register stylesheets for later use
 	wp_register_style( 'theme_styles', get_template_directory_uri() . '/assets/css/styles.css', $api->get_framework_deps(), ANVA_THEME_VERSION, 'all' );
@@ -98,6 +101,11 @@ function theme_stylesheets() {
 		wp_add_inline_style( 'theme_colors', theme_styles() );
 
 	} else {
+
+		// Include CSS Min
+		if ( ! class_exists( 'CSS_Min' ) ) {
+			include_once( anva_get_core_directory() . '/vendor/class-cssmin.php' );
+		}
 		
 		// Ignore stylesheets in compressed file
 		$ignore = array( 'theme_ie' => '' );
@@ -127,7 +135,7 @@ function theme_stylesheets() {
 function theme_scripts() {
 
 	// Get scripts API
-	$api = AnvaScriptsAPI::instance();
+	$api = Anva_Scripts_API::instance();
 
 	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.6.2' );
 	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '3.6.2' );

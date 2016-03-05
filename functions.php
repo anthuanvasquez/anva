@@ -8,7 +8,7 @@
 $anva_base_dir = trailingslashit( get_template_directory() );
 
 // Load Anva framework
-require_once( $anva_base_dir . 'framework/Anva.php' 					);
+require_once( $anva_base_dir . 'framework/class-anva.php' 	  );
 
 // Launch Anva framework
 new Anva();

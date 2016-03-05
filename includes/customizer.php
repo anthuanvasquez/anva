@@ -138,7 +138,14 @@ function theme_customizer_options() {
 			'atts'									 => array( 'style', 'face' ),
 			'type' 									 => 'typography',
 			'transport'							 => 'postMessage'
-		)
+		),
+		// 'heading_h1' 							 => array(
+		// 	'label' 								 => __( 'H1', 'anva' ),
+		// 	'id' 										 => 'heading_h1',
+		// 	'choices'								 => range(),
+		// 	'type' 									 => 'select',
+		// 	'transport'							 => 'postMessage'
+		// )
 	);
 	anva_add_customizer_section( 'typography', __( 'Typography', 'anva' ), $font_options, 102 );
 
