@@ -104,7 +104,7 @@ function theme_stylesheets() {
 
 		// Include CSS Min
 		if ( ! class_exists( 'CSS_Min' ) ) {
-			include_once( anva_get_core_directory() . '/vendor/class-cssmin.php' );
+			include_once( anva_get_core_directory() . '/vendor/class-css-min.php' );
 		}
 		
 		// Ignore stylesheets in compressed file
@@ -137,8 +137,8 @@ function theme_scripts() {
 	// Get scripts API
 	$api = Anva_Scripts_API::instance();
 
-	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.6.2' );
-	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '3.6.2' );
+	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.7.2' );
+	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '1.0.0' );
 	
 	$GLOBALS['wp_scripts']->add_data( 'html5shiv', 'conditional', 'lt IE 9' );
 	$GLOBALS['wp_scripts']->add_data( 'css3mediaqueriesjs', 'conditional', 'lt IE 9' );
@@ -193,28 +193,28 @@ function theme_styles() {
 		font-style: <?php echo anva_get_font_style( $body_font ); ?>;
 		font-weight: <?php echo anva_get_font_weight( $body_font ); ?>;
 	}
-	.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .entry-title h1, .entry-title h2 {
+	.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .entry-title h1, .entry-title h2, .page-title h1 {
 		font-family: <?php echo anva_get_font_face( $heading_font ); ?>;
 		font-style: <?php echo anva_get_font_style( $heading_font ); ?>;
 		font-weight: <?php echo anva_get_font_weight( $heading_font ); ?>;
 	}
 	h1 {
-		font-size: <?php echo $heading_h1; ?>;
+		font-size: <?php echo anva_get_font_size( $heading_h1 ); ?>;
 	}
 	h2 {
-		font-size: <?php echo $heading_h2; ?>;
+		font-size: <?php echo anva_get_font_size( $heading_h2 ); ?>;
 	}
 	h3 {
-		font-size: <?php echo $heading_h3; ?>;
+		font-size: <?php echo anva_get_font_size( $heading_h3 ); ?>;
 	}
 	h4 {
-		font-size: <?php echo $heading_h4; ?>;
+		font-size: <?php echo anva_get_font_size( $heading_h4 ); ?>;
 	}
 	h5 {
-		font-size: <?php echo $heading_h5; ?>;
+		font-size: <?php echo anva_get_font_size( $heading_h5 ); ?>;
 	}
 	h6 {
-		font-size: <?php echo $heading_h6; ?>;
+		font-size: <?php echo anva_get_font_size( $heading_h6 ); ?>;
 	}
 	/* Background */
 	body {

@@ -19,6 +19,32 @@ function anva_customizer_get_options() {
 	}
 }
 
+function anva_customizer_add_panel( $panel, $wp_customize ) {
+
+	$panels_default = array(
+		'title'          	 => NULL,
+		'description'    	 => NULL,
+		'capability'     	 => 'edit_theme_options',
+		'theme_supports' 	 => '',
+		'priority'       	 => 10,
+	);
+
+	$panels = array_merge( $panels_default, $panel );
+
+	$wp_customize->add_panel(
+		$panels['id'], array(
+			'title' 				 => $panels['title'],
+			'description' 	 => $panels['description'],
+			'capability'     => $panels['capability'],
+			'theme_supports' => $panels['theme_supports'],
+			'priority' 			 => $panels['priority'],
+		)
+	);
+
+	var_dump($panels['id']);
+
+}
+
 /**
  * Add the setting and proper sanitization.
  *
@@ -61,7 +87,8 @@ function anva_customizer_add_setting( $option, $wp_customize ) {
 
 /**
  * Sanitize a value from a list of allowed values.
- *
+ * @todo   Create sanitize validations
+ * 
  * @since  1.0.0.
  * @param  mixed $value    The value to sanitize.
  * @param  mixed $setting  The setting for which the sanitizing is occurring.
@@ -82,8 +109,8 @@ function anva_customizer_get_default( $setting ) {
 
 	$options = anva_customizer_get_options();
 
-	if ( isset( $options[$setting]['default'] ) ) {
-		return $options[$setting]['default'];
+	if ( isset( $options[ $setting ]['default'] ) ) {
+		return $options[ $setting ]['default'];
 	}
 
 }

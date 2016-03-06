@@ -408,6 +408,110 @@ function anva_customizer_preview_heading_font() {
 }
 
 /**
+ * Menu font for customizer preview.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function anva_customizer_preview_menu_font() {
+
+	// Global option name
+	$option_name = anva_get_option_name();
+
+	// Begin output
+	?>
+	// ---------------------------------------------------------
+	// Menu Typography
+	// ---------------------------------------------------------
+
+	/* Menu Typography - Size */
+	wp.customize('<?php echo $option_name; ?>[menu_font][size]', function( value ) {
+		value.bind( function( size ) {
+			// We're doing this odd-ball way so jQuery
+			// doesn't apply body font to other elements.
+			$('.preview_menu_font_size').remove();
+			$('head').append( '<style class="preview_menu_font_size">#primary-menu > div > ul { font-size: ' + size + '; }</style>' );
+		});
+	});
+
+	/* Menu Typography - Style */
+	wp.customize('<?php echo $option_name; ?>[menu_font][style]', function( value ) {
+		value.bind( function( style ) {
+
+			// We're doing this odd-ball way so jQuery
+			// doesn't apply body font to other elements.
+			$('.preview_menu_font_style').remove();
+			
+			// Possible choices: normal, bold, italic, bold-italic
+			var menu_font_style;
+
+			if ( style == 'normal' )
+				menu_font_style = 'font-weight: normal; font-style: normal;';
+			else if ( style == 'bold' )
+				menu_font_style = 'font-weight: bold; font-style: normal;';
+			else if ( style == 'italic' )
+				menu_font_style = 'font-weight: normal; font-style: italic;';
+			else if ( style == 'bold-italic' )
+				menu_font_style = 'font-weight: bold; font-style: italic;';
+
+			$('head').append( '<style class="preview_menu_font_style">#primary-menu > div > ul {' + menu_font_style + '}</style>' );
+
+		});
+	});
+
+	/* Menu Typography - Face */
+	wp.customize('<?php echo $option_name; ?>[menu_font][face]', function( value ) {
+		value.bind( function( face ) {
+			
+			if ( face == 'google' ) {
+				googleFonts.menuToggle = true;
+				var google_font = googleFonts.menuName.split(":"),
+					google_font = google_font[0];
+				$('#primary-menu > div > ul').css('font-family', google_font);
+			}
+			else
+			{
+				googleFonts.menuToggle = false;
+				$('#primary-menu > div > ul').css('font-family', fontStacks[face]);
+			}
+		});
+	});
+
+	/* Menu Typography - Google */
+	wp.customize('<?php echo $option_name; ?>[menu_font][google]', function( value ) {
+		value.bind( function( google_font ) {
+			// Only proceed if user has actually selected for
+			// a google font to show in previous option.
+			if ( googleFonts.menuToggle )
+			{
+				// Set global google font for reference in
+				// other options.
+				googleFonts.menuName = google_font;
+
+				// Remove previous google font to avoid clutter.
+				$('.preview_google_body_font').remove();
+
+				// Format font name for inclusion
+				var include_google_font = google_font.replace(/ /g,'+');
+
+				// Include font
+				setTimeout( function() {
+					$('head').append('<link href="http://fonts.googleapis.com/css?family='+include_google_font+'" rel="stylesheet" type="text/css" class="preview_google_body_font" />');
+				}, 1000 );
+
+				// Format for CSS
+				google_font = google_font.split(":");
+				google_font = google_font[0];
+
+				// Apply font in CSS
+				$('#primary-menu > div > ul').css('font-family', google_font);
+			}
+		});
+	});
+	<?php
+}
+
+/**
  * Add postMessage support for site title and description for the Theme Customizer.
  *
  * @since  1.0.0.
@@ -434,10 +538,6 @@ function anva_customizer_preview() {
 		return;
 	}
 
-	// Reset settings after Customizer has applied filters.
-	if ( $wp_customize->is_preview() ) {
-		$api = AnvaOptionsAPI::instance();
-		// $api->set_settings();
-	}
+	$wp_customize->is_preview();
 
 }

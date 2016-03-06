@@ -243,7 +243,13 @@ jQuery(document).ready(function($) {
 
 				// Return if dont item select
 				if ( '' == $('#anva_shortcode').val() ) {
-					alert( anvaJs.builder_empty );
+					swal({
+						title: 'Builder',
+						text: anvaJs.builder_empty,
+						type: "info",
+						showConfirmButton: true,
+						confirmButtonColor: "#0085ba",
+					});
 					return false;
 				}
 
@@ -396,17 +402,39 @@ jQuery(document).ready(function($) {
 				e.preventDefault();
 
 				if ( $('#builder-sortable-items li').length == 0 ) {
-					alert( anvaJs.builder_remove_empty );
+					swal({
+						title: 'Builder',
+						text: anvaJs.builder_remove_empty,
+						type: "info",
+						showConfirmButton: true,
+						confirmButtonColor: "#0085ba",
+					});
 					return false;
 				}
-				if ( confirm( anvaJs.builder_remove_all ) ) {
-					$('#builder-sortable-items li').remove();
-					setTimeout( function() {
-						if ( $('#builder-sortable-items li').length == 0 ) {
-							$('#builder-sortable-items').addClass('empty');
-						}
-					}, 500 );
-				}
+
+				swal({
+					title: 'Builder',
+					text: anvaJs.builder_remove_all,
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#0085ba",
+					confirmButtonText: anvaJs.confirm,
+					cancelButtonText: anvaJs.cancel,
+					cancelButtonColor: "#f7f7f7",
+					closeOnConfirm: true,
+					closeOnCancel: true
+				}, function( isConfirm ) {
+					
+					if ( isConfirm ) {
+						$('#builder-sortable-items li').remove();
+						setTimeout( function() {
+							if ( $('#builder-sortable-items li').length == 0 ) {
+								$('#builder-sortable-items').addClass('empty');
+							}
+						}, 500 );
+					}
+
+				});
 			});
 		},
 

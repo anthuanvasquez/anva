@@ -6,53 +6,47 @@ include_once ( 'customizer/custom-controls.php' );
 // Customizer Previews
 include_once ( 'customizer/preview.php' );
 
+// Customizer Utilities
 include_once ( 'customizer/utilities.php' );
 
 /**
- * Add option section for theme customizer added in WP 3.4
+ * Add option section for theme customizer added in WP 3.4.
  *
- * @since 1.0.0
+ * @since  1.0.0.
+ * @param  string          $section_id
+ * @param  string          $title
+ * @param  array           $options
+ * @param  integer|null    $priority
+ * @param  string|boolean  $description
+ * @return void
  */
-function anva_add_customizer_section( $section_id, $section_name, $options, $priority = null ) {
+function anva_add_customizer_section( $section_id, $title, $options, $priority = null, $description = '' ) {
 
 	global $_anva_customizer_sections;
 
+	if ( empty( $section_desc ) ) {
+		$description = FALSE;
+	}
+
 	$_anva_customizer_sections[ $section_id ] = array(
-		'id' 				=> $section_id,
-		'name' 			=> $section_name,
-		'options' 	=> $options,
-		'priority'	=> $priority
+		'id' 					=> $section_id,
+		'title' 			=> $title,
+		'options' 		=> $options,
+		'priority'		=> $priority,
+		'description'	=> $description,
 	);
 
 }
 
 /**
- * Format options for customizer into array
- * organized with all sections together
- *
- * @since 1.0.0
+ * @todo anva_add_customizer_panel()
  */
-function anva_registered_customizer_options( $sections ) {
-	
-	$registered_options = array();
-	
-	if ( $sections ) {
-		foreach ( $sections as $section ) {
-			if ( $section['options'] ) {
-				foreach ( $section['options'] as $option ) {
-					$registered_options[ $option['id'] ] = $option;
-				}
-			}
-		}
-	}
-
-	return $registered_options;
-}
 
 /**
  * Setup everything we need for WordPress customizer
  *
- * @since 1.0.0
+ * @since 1.0.0.
+ * @return void
  */
 function anva_customizer_init( $wp_customize ) {
 
@@ -68,17 +62,19 @@ function anva_customizer_init( $wp_customize ) {
 		foreach ( $_anva_customizer_sections as $section ) {
 
 			// Add section
-			$wp_customize->add_section( $section['id'], array(
-				'title'    => $section['name'],
-				'priority' => $section['priority'],
-			) );
+			$wp_customize->add_section( $section['id'], $section );
 
 			$font_counter = 1;
 
 			// Add Options
 			if ( $section['options'] ) {
-				
+
 				foreach ( $section['options'] as $option ) {
+
+					// Set section if one isn't set
+					if ( ! isset( $option['section'] ) ) {
+						$option['section'] = $section['id'];
+					}
 
 					// Set blank description if one isn't set
 					if ( ! isset( $option['description'] ) ) {
@@ -90,15 +86,10 @@ function anva_customizer_init( $wp_customize ) {
 						$option['active_callback'] = '';
 					}
 
-					// Set section if one isn't set
-					if ( ! isset( $option['section'] ) ) {
-						$option['section'] = $section['id'];
-					}
-
 					if ( isset( $option['type'] ) ) {
 
 						// Apply a default sanitization if one isn't set
-						if ( ! isset( $option['sanitize_callback'] ) && $option['type'] != 'select' ) {
+						if ( ! isset( $option['sanitize_callback'] ) ) {
 							$option['sanitize_callback'] = anva_customizer_get_sanitization( $option['type'] );
 						}
 
@@ -132,12 +123,14 @@ function anva_customizer_init( $wp_customize ) {
 							}
 
 							// Logo Type
-							$wp_customize->add_setting( $option_name . '[' . $option['id'] . '][type]', array(
-								'default'    	=> esc_attr( $defaults['type'] ),
-								'type'       	=> 'option',
-								'capability' 	=> 'edit_theme_options',
-								'transport'		=> $transport
-							) );
+							$wp_customize->add_setting(
+								$option_name . '[' . $option['id'] . '][type]', array(
+									'default'    	=> esc_attr( $defaults['type'] ),
+									'type'       	=> 'option',
+									'capability' 	=> 'edit_theme_options',
+									'transport'		=> $transport,
+								)
+							);
 
 							$wp_customize->add_control(
 								$option['id'] . '_type', array(
@@ -156,12 +149,14 @@ function anva_customizer_init( $wp_customize ) {
 							);
 
 							// Custom Title
-							$wp_customize->add_setting( $option_name . '[' . $option['id'] . '][custom]', array(
-								'default'    	=> esc_attr( $defaults['custom'] ),
-								'type'       	=> 'option',
-								'capability' 	=> 'edit_theme_options',
-								'transport'		=> $transport
-							) );
+							$wp_customize->add_setting(
+								$option_name . '[' . $option['id'] . '][custom]', array(
+									'default'    	=> esc_attr( $defaults['custom'] ),
+									'type'       	=> 'option',
+									'capability' 	=> 'edit_theme_options',
+									'transport'		=> $transport,
+								)
+							);
 
 							$wp_customize->add_control(
 								$option['id'] . '_custom', array(
@@ -173,12 +168,14 @@ function anva_customizer_init( $wp_customize ) {
 							);
 
 							// Custom Tagline
-							$wp_customize->add_setting( $option_name . '[' . $option['id'] . '][custom_tagline]', array(
-								'default'    	=> esc_attr( $defaults['custom_tagline'] ),
-								'type'       	=> 'option',
-								'capability' 	=> 'edit_theme_options',
-								'transport'		=> $transport
-							) );
+							$wp_customize->add_setting(
+								$option_name . '[' . $option['id'] . '][custom_tagline]', array(
+									'default'    	=> esc_attr( $defaults['custom_tagline'] ),
+									'type'       	=> 'option',
+									'capability' 	=> 'edit_theme_options',
+									'transport'		=> $transport,
+								)
+							);
 
 							$wp_customize->add_control(
 								$option['id'] . '_custom_tagline', array(
@@ -190,12 +187,14 @@ function anva_customizer_init( $wp_customize ) {
 							);
 
 							// Logo Image
-							$wp_customize->add_setting( $option_name . '[' . $option['id'] . '][image]', array(
-								'default'    	=> esc_attr( $defaults['image'] ),
-								'type'       	=> 'option',
-								'capability' 	=> 'edit_theme_options',
-								'transport'		=> $transport
-							) );
+							$wp_customize->add_setting(
+								$option_name . '[' . $option['id'] . '][image]', array(
+									'default'    	=> esc_attr( $defaults['image'] ),
+									'type'       	=> 'option',
+									'capability' 	=> 'edit_theme_options',
+									'transport'		=> $transport
+								)
+							);
 
 							$wp_customize->add_control(
 								new WP_Customize_Image_Control(
@@ -220,6 +219,7 @@ function anva_customizer_init( $wp_customize ) {
 								'style'		=> '',
 								'face' 		=> '',
 								'color' 	=> '',
+								'select' 	=> '',
 								'google' 	=> ''
 							);
 
@@ -234,118 +234,190 @@ function anva_customizer_init( $wp_customize ) {
 								$transport = $option['transport'];
 							}
 
-							// Loop through included attributes
-							foreach ( $option['atts'] as $attribute ) {
+							if ( isset( $option['atts'] ) ) {
 
-								// Register options
-								$wp_customize->add_setting( $option_name . '[' . $option['id'] . '][' . $attribute . ']', array(
-									'default'    	=> esc_attr( $defaults[ $attribute ] ),
-									'type'       	=> 'option',
-									'capability' 	=> 'edit_theme_options',
-									'transport'		=> $transport
-								) );
+								// Loop through included attributes
+								foreach ( $option['atts'] as $attribute ) {
 
-								switch ( $attribute ) {
+									// Register options
+									if ( 'select' != $attribute  ) {
+										$wp_customize->add_setting(
+											$option_name . '[' . $option['id'] . '][' . $attribute . ']', array(
+												'default'    	=> esc_attr( $defaults[ $attribute ] ),
+												'type'       	=> 'option',
+												'capability' 	=> 'edit_theme_options',
+												'transport'		=> $transport,
+											)
+										);
+									} else {
+										$wp_customize->add_setting(
+											$option_name . '[' . $option['id'] . ']', array(
+												'default'    	=> esc_attr( $defaults[ $attribute ] ),
+												'type'       	=> 'option',
+												'capability' 	=> 'edit_theme_options',
+												'transport'		=> $transport,
+											)
+										);
+									}
 
-									case 'size' :
-										
-										$size_options = array();
-										
-										for ( $i = 9; $i < 71; $i++ ) {
-											$size = $i . 'px';
-											$size_options[ $size ] = $size;
-										}
+									switch ( $attribute ) {
 
-										$wp_customize->add_control( $option['id'] . '_' . $attribute, array(
-											'priority'		=> $font_counter,
-											'settings'		=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
-											'label'   		=> $option['label'] . ' ' . ucfirst( $attribute ),
-											'section'    	=> $section['id'],
-											'type'       	=> 'select',
-											'choices'    	=> $size_options
-										) );
-
-										$font_counter++;
-										
-										break;
-
-									case 'face' :
-										
-										$wp_customize->add_control(
-											new WP_Customize_Anva_Font_Face(
-												$wp_customize, $option['id'] . '_' . $attribute, array(
-													'priority'	=> $font_counter,
-													'settings'	=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
-													'label'   	=> $option['label'] .' ' . ucfirst( $attribute ),
-													'section' 	=> $section['id'],
-													'choices'   => anva_recognized_font_faces()
+										case 'size' :
+											
+											$wp_customize->add_control(
+												$option['id'] . '_' . $attribute, array(
+													'priority'		=> $font_counter,
+													'settings'		=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
+													'label'   		=> $option['label'] . ' ' . ucfirst( $attribute ),
+													'section'    	=> $section['id'],
+													'type'       	=> 'select',
+													'choices'    	=> anva_recognized_font_sizes(),
 												)
+											);
+
+											$font_counter++;
+											
+											break;
+
+										case 'face' :
+											
+											$wp_customize->add_control(
+												new WP_Customize_Anva_Font_Face(
+													$wp_customize, $option['id'] . '_' . $attribute, array(
+														'priority'	=> $font_counter,
+														'settings'	=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
+														'label'   	=> $option['label'] .' ' . ucfirst( $attribute ),
+														'section' 	=> $section['id'],
+														'choices'   => anva_recognized_font_faces(),
+													)
+												)
+											);
+
+											$font_counter++;
+
+											$wp_customize->add_setting(
+												$option_name . '[' . $option['id'] . '][google]', array(
+													'default'    	=> esc_attr( $defaults['google'] ),
+													'type'       	=> 'option',
+													'capability' 	=> 'edit_theme_options',
+													'transport'		=> $transport,
+												)
+											);
+
+											$wp_customize->add_control(
+												new WP_Customize_Anva_Google_Font(
+													$wp_customize, $option['id'] . '_' . $attribute . '_google', array(
+														'priority'	=> $font_counter,
+														'settings'	=> $option_name . '[' . $option['id'] . '][google]',
+														'label'   	=> __( 'Google Font Name', 'anva' ),
+														'section' 	=> $section['id'],
+													)
+												)
+											);
+
+											$font_counter++;
+											
+											break;
+
+										case 'style' :
+											
+											$wp_customize->add_control(
+												$option['id'] . '_' . $attribute, array(
+													'priority'		=> $font_counter,
+													'settings'		=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
+													'label'   		=> $option['label'] . ' ' . ucfirst( $attribute ),
+													'section'    	=> $section['id'],
+													'type'       	=> 'select',
+													'choices'    	=> anva_recognized_font_styles(),
+												)
+											);
+
+											$font_counter++;
+											
+											break;
+
+										case 'color' :
+											
+											$wp_customize->add_control(
+												new WP_Customize_Color_Control(
+													$wp_customize, $option['id'] . '_' . $attribute, array(
+														'priority'	=> $font_counter,
+														'settings'	=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
+														'label'   	=> $option['label'] . ' ' . ucfirst( $attribute ),
+														'section' 	=> $section['id'],
+													)
+												)
+											);
+
+											$font_counter++;
+											
+											break;
+
+										case 'select' :
+											
+											$wp_customize->add_control(
+												$option['id'], array(
+													'priority'		=> $font_counter,
+													'settings'		=> $option_name . '[' . $option['id'] . ']',
+													'label'   		=> $option['label'],
+													'section'    	=> $section['id'],
+													'type'       	=> 'select',
+													'choices'    	=> anva_recognized_font_sizes(),
+												)
+											);
+
+											$font_counter++;
+											
+											break;
+									}
+
+									if ( 'select' != $attribute ) {
+										// Divider line below each font	
+										$wp_customize->add_setting(
+											$option_name . '[' . $option['id'] . '][divider]', array(
+												'type'       	=> 'option',
+												'capability' 	=> 'edit_theme_options',
+												'transport'		=> $transport,
 											)
 										);
 
-										$font_counter++;
+										$wp_customize->add_control(
+											new WP_Customize_Anva_Divider(
+												$wp_customize, $option['id'] . '_divider', array(
+													'priority'	=> $font_counter,
+													'settings'	=> $option_name . '[' . $option['id'] . '][divider]',
+													'section'		=> $section['id'],
+												)
+											)
+										);
+									}
 
-										$wp_customize->add_setting( $option_name . '[' . $option['id'] . '][google]', array(
-											'default'    	=> esc_attr( $defaults['google'] ),
-											'type'       	=> 'option',
-											'capability' 	=> 'edit_theme_options',
-											'transport'		=> $transport
-										) );
-
-										$wp_customize->add_control( new WP_Customize_Anva_Google_Font( $wp_customize, $option['id'] . '_' . $attribute . '_google', array(
-											'priority'		=> $font_counter,
-											'settings'		=> $option_name . '[' . $option['id'] . '][google]',
-											'label'   		=> __( 'Google Font Name', 'anva' ),
-											'section' 		=> $section['id']
-										) ) );
-
-										$font_counter++;
-										
-										break;
-
-									case 'style' :
-										
-										$wp_customize->add_control( $option['id'] . '_' . $attribute, array(
-											'priority'		=> $font_counter,
-											'settings'		=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
-											'label'   		=> $option['label'] . ' ' . ucfirst( $attribute ),
-											'section'    	=> $section['id'],
-											'type'       	=> 'select',
-											'choices'    	=> anva_recognized_font_styles()
-										) );
-
-										$font_counter++;
-										
-										break;
-
-									case 'color' :
-										
-										$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $option['id'] . '_' . $attribute, array(
-											'priority'		=> $font_counter,
-											'settings'		=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
-											'label'   		=> $option['label'] . ' ' . ucfirst( $attribute ),
-											'section' 		=> $section['id']
-										) ) );
-
-										$font_counter++;
-										
-										break;
 								}
+								
+							} else {
 
-								// Divider line below each font
-								$wp_customize->add_setting( $option_name . '[' . $option['id'] . '][divider]', array(
-									'type'       	=> 'option',
-									'capability' 	=> 'edit_theme_options',
-									'transport'		=> $transport
-								) );
+								// $font_counter++;
 
-								$wp_customize->add_control( new WP_Customize_Anva_Divider( $wp_customize, $option['id'] . '_divider', array(
-									'priority'		=> $font_counter,
-									'settings'		=> $option_name . '[' . $option['id'] . '][divider]',
-									'section'			=> $section['id']
-								) ) );
+								// $wp_customize->add_setting(
+								// 	$option_name . '[' . $option['id'] . ']', array(
+								// 		'type'       	=> 'option',
+								// 		'capability' 	=> 'edit_theme_options',
+								// 		'transport'		=> $transport,
+								// 	)
+								// );
 
-								$font_counter++;
+								var_dump($option);
+
+								// $wp_customize->add_control(
+								// 	$option['id'], array(
+								// 		'priority'		=> $font_counter,
+								// 		'settings'		=> $option_name . '[' . $option['id'] . ']',
+								// 		'label'   		=> $option['label'],
+								// 		'section'    	=> $section['id'],
+								// 		'type'       	=> 'select',
+								// 		'choices'    	=> anva_recognized_font_sizes(),
+								// 	)
+								// );
 
 							}
 
@@ -384,9 +456,10 @@ function anva_customizer_init( $wp_customize ) {
 							}
 
 							anva_customizer_add_setting( $option, $wp_customize );
-							
+
 							// Add controls based on control type
 							switch ( $option['type'] ) {
+
 
 								case 'text' :
 								case 'url' :
@@ -415,11 +488,13 @@ function anva_customizer_init( $wp_customize ) {
 
 									else :
 
-										$wp_customize->add_control( 'setting_id', array(
-											$wp_customize->add_control(
-												$option['id'], $option
+										$wp_customize->add_control(
+											'setting_id', array(
+												$wp_customize->add_control(
+													$option['id'], $option
+												)
 											)
-										) );
+										);
 
 									endif;
 									
@@ -502,61 +577,6 @@ function anva_customizer_init( $wp_customize ) {
 			switch ( $section ) {
 				
 				case 'static_front_page' :
-
-					// Modify section's title
-					$wp_customize->add_section( 'static_front_page', array(
-						'title'         => __( 'Homepage', 'anva' ),
-						'priority'      => 120,
-						'description'   => __( 'Your theme supports a static front page.', 'anva' ),
-					) );
-
-					// Add custom homepage option
-					$wp_customize->add_setting( $option_name.'[homepage_content]', array(
-						'default'    	=> '',
-						'type'       	=> 'option',
-						'capability' 	=> 'edit_theme_options'
-					) );
-
-					$wp_customize->add_control( 'homepage_content', array(
-						'settings'		=> $option_name.'[homepage_content]',
-						'label'			=> __( 'Homepage Content', 'anva' ),
-						'section'		=> 'static_front_page',
-						'type'			=> 'radio',
-						'choices'		=> array(
-							'posts'			=> __( 'WordPress Default', 'anva' ),
-							'custom_layout' => __( 'Custom Layout', 'anva' )
-						)
-					) );
-
-					// Add custom layout selection
-					// Custom Layouts
-					$custom_layouts = array();
-					
-					$custom_layout_posts = get_posts('post_type=tb_layout&numberposts=-1');
-
-					if ( ! empty( $custom_layout_posts ) ) {
-						
-						foreach ( $custom_layout_posts as $layout ) {
-							$custom_layouts[$layout->post_name] = $layout->post_title;
-						}
-
-					} else {
-						$custom_layouts['null'] = __( 'You haven\'t created any custom layouts yet.', 'anva' );
-					}
-
-					$wp_customize->add_setting( $option_name.'[homepage_custom_layout]', array(
-						'default'    	=> '',
-						'type'       	=> 'option',
-						'capability' 	=> 'edit_theme_options'
-					) );
-
-					$wp_customize->add_control( 'homepage_custom_layout', array(
-						'settings'		=> $option_name.'[homepage_custom_layout]',
-						'label'				=> __( 'Homepage Custom Layout', 'anva' ),
-						'section'			=> 'static_front_page',
-						'type'				=> 'select',
-						'choices'			=> $custom_layouts
-					) );
 
 					break;
 			}

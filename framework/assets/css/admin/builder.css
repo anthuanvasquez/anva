@@ -166,10 +166,12 @@
   margin: 0 0 10px;
   padding: 0;
   position: relative;
-  -webkit-transition: -webkit-box-shadow 0.2s ease;
-     -moz-transition: box-shadow 0.2s ease;
-       -o-transition: box-shadow 0.2s ease;
-          transition: box-shadow 0.2s ease;
+  -webkit-transition: -webkit-box-shadow .2s ease;
+  transition: -webkit-box-shadow .2s ease;
+  -moz-transition: box-shadow .2s ease;
+  -o-transition: box-shadow .2s ease;
+  transition: box-shadow .2s ease;
+  transition: box-shadow .2s ease, -webkit-box-shadow .2s ease;
   width: 100%;
 }
 
@@ -238,10 +240,10 @@
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transition: opacity 0.2s ease;
-     -moz-transition: opacity 0.2s ease;
-       -o-transition: opacity 0.2s ease;
-          transition: opacity 0.2s ease;
+  -webkit-transition: opacity .2s ease;
+  -moz-transition: opacity .2s ease;
+  -o-transition: opacity .2s ease;
+  transition: opacity .2s ease;
 }
 
 .builder-sortable-items li .thumbnail img {
@@ -402,8 +404,12 @@
   clear: both;
 }
 
-.item-inline .section-header h2 {
+.item-inline .section-header > h2 {
+  font-size: 23px !important;
   float: left;
+  line-height: 1.4 !important;
+  margin-top: 8px !important;
+  padding: 8px 12px !important;
 }
 
 .item-inline .section-header .button {
@@ -466,10 +472,10 @@
   background: #eee;
   -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
           box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
-  -webkit-transition: opacity 0.1s ease;
-     -moz-transition: opacity 0.1s ease;
-       -o-transition: opacity 0.1s ease;
-          transition: opacity 0.1s ease;
+  -webkit-transition: opacity .1s ease;
+  -moz-transition: opacity .1s ease;
+  -o-transition: opacity .1s ease;
+  transition: opacity .1s ease;
   color: #222;
   font-weight: 700;
   text-decoration: none;
@@ -628,10 +634,12 @@
   position: relative;
   overflow: hidden;
   text-align: center;
-  -webkit-transition: -webkit-box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
-     -moz-transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
-       -o-transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
-          transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -webkit-transition: border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  transition: border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  -moz-transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+  -o-transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
 }
 
 .element-shortcode:hover span {
@@ -658,10 +666,10 @@
   vertical-align: middle;
   position: absolute;
   bottom: -67px;
-  -webkit-transition: all 0.2s ease;
-     -moz-transition: all 0.2s ease;
-       -o-transition: all 0.2s ease;
-          transition: all 0.2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
   color: #777;
 }
 
@@ -701,7 +709,8 @@
 }
 
 .anva-builder > h3,
-.anva-builder > .handlediv {
+.anva-builder > .handlediv,
+.anva-builder h2.hndle {
   display: none;
 }
 

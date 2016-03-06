@@ -22,7 +22,7 @@
  */
 require_once ( anva_get_core_directory() . '/vendor/class-tgm-plugin-activation.php' );
 
-add_action( 'tgmpa_register', 'anva_register_required_plugins' );
+add_action( 'tgmpa_register', 'anva_register_required_plugins', 100 );
 /**
  * Register the required plugins for this theme.
  *

@@ -24,11 +24,11 @@ function anva_options() {
 		'std' => 'blue',
 		'type' => 'images',
 		'options' => array(
-			'blue' 		=> $skin_path . 'blue.png',
-			'green' 	=> $skin_path . 'green.png',
-			'orange' 	=> $skin_path . 'orange.png',
-			'red' 		=> $skin_path . 'red.png',
-			'teal' 		=> $skin_path . 'teal.png',
+			'blue' 		=> esc_url( $skin_path . 'blue.png' ),
+			'green' 	=> esc_url( $skin_path . 'green.png' ),
+			'orange' 	=> esc_url( $skin_path . 'orange.png' ),
+			'red' 		=> esc_url( $skin_path . 'red.png' ),
+			'teal' 		=> esc_url( $skin_path . 'teal.png' ),
 		)
 	);
 	anva_add_option( 'styles', 'main', 'base_colors', $base_color );
@@ -62,7 +62,7 @@ function anva_options() {
 		'bg_color' => array(
 			'name' => __('Background Color', 'anva'),
 			'desc' => __('Select the background color.', 'anva'),
-			'id' => 'background_color',
+			'id' => 'bg_color',
 			'std' => '#dddddd',
 			'type' => 'color'
 		),
@@ -111,14 +111,14 @@ function anva_options() {
 			'name' => __( 'Link Color', 'anva' ),
 			'desc' => __( 'Set the link color.', 'anva' ),
 			'id' => 'link_color',
-			'std' => '',
+			'std' => '#3498db',
 			'type' => 'color'
 		),
 		'link_color_hover' => array(
 			'name' => __( 'Link Color (:Hover)', 'anva' ),
 			'desc' => __( 'Set the link color.', 'anva' ),
 			'id' => 'link_color_hover',
-			'std' => '',
+			'std' => '#222222',
 			'type' => 'color'
 		)
 	);
@@ -138,9 +138,10 @@ function anva_options() {
 				'face' => 'google',
 				'google' => 'Lato',
 				'style' => 'normal',
+				'color' => '#555555'
 			),
 			'type' => 'typography',
-			'options' => array( 'size', 'style', 'face' )
+			'options' => array( 'size', 'style', 'face', 'color' )
 		),
 		'heading_font' => array(
 			'name' => __( 'Headings Font', 'anva' ),
@@ -149,11 +150,23 @@ function anva_options() {
 			'std' => array(
 				'face' => 'google',
 				'google' => 'Raleway',
+				'style' => 'normal',
+				'color' => '#333333'
+			),
+			'type' => 'typography',
+			'options' => array( 'style', 'face', 'color' )
+		),
+		'menu_font' => array(
+			'name' => __( 'Menu Font', 'anva' ),
+			'desc' => __( 'This applies to all of the primary headers throughout your site (h1, h2, h3, h4, h5, h6). This would include header tags used in redundant areas like widgets and the content of posts and pages.', 'anva' ),
+			'id' => 'menu_font',
+			'std' => array(
+				'face' => 'google',
+				'google' => 'Raleway',
 				'style' => 'normal'
 			),
 			'type' => 'typography',
 			'options' => array( 'style', 'face' )
-			
 		),
 		'heading_h1' => array(
 			'name' => __( 'H1', 'anva' ),
@@ -165,7 +178,6 @@ function anva_options() {
 				'min' => 9,
 				'max' => 72,
 				'step' => 1,
-				'format' => 'px',
 			)
 		),
 		'heading_h2' => array(
@@ -178,7 +190,6 @@ function anva_options() {
 				'min' => 9,
 				'max' => 72,
 				'step' => 1,
-				'format' => 'px',
 			)
 		),
 		'heading_h3' => array(
@@ -191,7 +202,6 @@ function anva_options() {
 				'min' => 9,
 				'max' => 72,
 				'step' => 1,
-				'format' => 'px',
 			)
 		),
 		'heading_h4' => array(
@@ -204,7 +214,6 @@ function anva_options() {
 				'min' => 9,
 				'max' => 72,
 				'step' => 1,
-				'format' => 'px',
 			)
 		),
 		'heading_h5' => array(
@@ -217,7 +226,6 @@ function anva_options() {
 				'min' => 9,
 				'max' => 72,
 				'step' => 1,
-				'format' => 'px',
 			)
 		),
 		'heading_h6' => array(
@@ -230,7 +238,6 @@ function anva_options() {
 				'min' => 9,
 				'max' => 72,
 				'step' => 1,
-				'format' => 'px',
 			)
 		),
 	);
@@ -270,6 +277,36 @@ function anva_options() {
 		'type' => 'upload'
 	);
 	anva_add_option( 'layout', 'header', 'favicon', $favicon );
+
+	$apple_touch_icon_76 = array(
+		'name' => __('Appe Touch Icon 76px', 'anva'),
+		'desc' => __('Configure the apple touch icon in 76px.', 'anva'),
+		'id' => 'apple_touch_icon_76',
+		'std' => '',
+		'class' => 'input-text',
+		'type' => 'upload'
+	);
+	anva_add_option( 'layout', 'header', 'apple_touch_icon_76', $apple_touch_icon_76 );
+
+	$apple_touch_icon_120 = array(
+		'name' => __('Appe Touch Icon 120px', 'anva'),
+		'desc' => __('Configure the apple touch icon in 152px.', 'anva'),
+		'id' => 'apple_touch_icon_120',
+		'std' => '',
+		'class' => 'input-text',
+		'type' => 'upload'
+	);
+	anva_add_option( 'layout', 'header', 'apple_touch_icon_120', $apple_touch_icon_120 );
+
+	$apple_touch_icon_152 = array(
+		'name' => __('Appe Touch Icon 152px', 'anva'),
+		'desc' => __('Configure the apple touch icon in 152px.', 'anva'),
+		'id' => 'apple_touch_icon_152',
+		'std' => '',
+		'class' => 'input-text',
+		'type' => 'upload'
+	);
+	anva_add_option( 'layout', 'header', 'apple_touch_icon_152', $apple_touch_icon_152 );
 
 	/* ---------------------------------------------------------------- */
 	/* Galleries

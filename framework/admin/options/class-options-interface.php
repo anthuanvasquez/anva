@@ -460,14 +460,9 @@ class Options_Framework_Interface {
 					$max = $value['options']['max'];
 					$min = $value['options']['min'];
 					$step = $value['options']['step'];
-					$format = '';
-
-					if ( isset( $value['options']['format'] ) ) {
-						$format = $value['options']['format'];
-					}
 					
 					$output .= '<div id="' . esc_attr( $value['id'] ) . '_range" class="anva-range-slider" data-range="' . esc_attr( $value['id'] ) . '"></div>';
-					$output .= '<input id="' . esc_attr( $value['id'] ) .'" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" class="anva-input-range hidden" type="text" value="' . esc_attr( $val ) . '" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '" data-format="' . esc_attr( $format ) . '" />';
+					$output .= '<input id="' . esc_attr( $value['id'] ) .'" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" class="anva-input-range hidden" type="text" value="' . esc_attr( $val ) . '" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '" />';
 					
 					break;
 

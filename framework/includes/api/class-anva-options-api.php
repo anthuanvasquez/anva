@@ -8,10 +8,8 @@ if ( ! class_exists( 'Anva_Options_API' ) ) :
  * This class establishes all of the framework's theme options,
  * allow these options to be modified from theme side.
  *
- * @since 		 1.0.0
- * @package    Anva
- * @subpackage Anva/admin
- * @author     Anthuan Vasquez <eigthy@gmail.com>
+ * @since 		 1.0.0.
+ * @author     Anthuan Vásquez <me@anthuanvasquez.net>
  */
 
 class Anva_Options_API {
@@ -132,7 +130,7 @@ class Anva_Options_API {
 		);
 
 		// Author default credtis
-		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>';
+		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan ásquez</a>';
 
 		// If using image radio buttons, define a directory path
 		$image_path = get_template_directory_uri() . '/assets/images/';

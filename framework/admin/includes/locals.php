@@ -18,7 +18,18 @@
 		case 'js':
 			$locals = array(
 				'save_button'							=> __( 'Saving...', 'anva' ),
-				'reset_title'							=> __( 'Restore Defaults', 'anva' )
+				'reset_title'							=> __( 'Restore Defaults', 'anva' ),
+				'delete'									=> __( 'Delete', 'anva' ),
+				'sidebar_error_title'			=> __( 'Input is Empty!', 'anva' ),
+				'sidebar_error_text' 			=> __( 'Enter the name for custom sidebar.', 'anva' ),
+				'sidebar_button_title' 		=> __( 'Sure?', 'anva' ),
+				'sidebar_button_text' 		=> __( 'You sure want delete this item?', 'anva' ),
+				'sidebar_button_confirm' 	=> __( 'Yes', 'anva' ),
+				'sidebar_button_cancel' 	=> __( 'Cancel', 'anva' ),
+				'save_button_title' 			=> __( 'Are you sure?', 'anva' ),
+				'save_button_text' 				=> __( 'You will not be able to recover the options!', 'anva' ),
+				'save_button_confirm' 		=> __( 'Yes, restore it!', 'anva' ),
+				'save_button_cancel' 			=> __( 'Nooo, wait!', 'anva' ),
 			);
 			break;
 
@@ -41,6 +52,8 @@
 				'gallery_empty'						=> __( 'The gallery is empty, add some image first.', 'anva' ),
 				'gallery_confirm'					=> __( 'Are you sure you want to remove all the images in the gallery?', 'anva' ),
 				'gallery_selected'				=> __( 'No images have been selected yet.', 'anva' ),
+				'confirm' 								=> __( 'Yes', 'anva' ),
+				'cancel' 									=> __( 'Cancel', 'anva' ),
 			);
 			break;
 

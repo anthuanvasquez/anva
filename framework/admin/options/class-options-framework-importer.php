@@ -1,31 +1,16 @@
 <?php
 /*
-Plugin Name: Options Framework Backup
-Plugin URI:
-Description: Backup your "Theme Options" to a downloadable text file.
-Version: 1.0
-Author: Kathy Darling
-Author URI: http://kathyisawesome.com
-Requires at least: 3.5.1
-Tested up to: 3.5.1
-
-Plugin version of the Options Framework Fork by Gilles Vauvarin
-
-This code is a plugin version of the Options Framework Fork by Gilles Vauvarinfork
-which itself borrows heavily from the WooThemes Framework admin-backup.php file.
-
-Copyright: © 2012 Kathy Darling.
-License: GNU General Public License v3.0
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * Backup your "Theme Options" to a downloadable text file.
+ */
 
 // Don't load directly
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'OptionsFramework_Backup' ) ) :
-class OptionsFramework_Backup {
+if ( ! class_exists( 'Options_Framework_Backup' ) ) :
+
+class Options_Framework_Backup {
 
 	/**
 	 * Admin page.
@@ -54,6 +39,7 @@ class OptionsFramework_Backup {
 		$this->admin_page = '';
 		$this->token = $option_name . '_backup';
 		$this->name = $option_name;
+
 	}
 
 	/**
@@ -62,9 +48,9 @@ class OptionsFramework_Backup {
 	 * @since 1.0.0
 	 */
 	function init () {
-		if ( is_admin() ) {
-			// Register the admin screen.
-			add_action( 'admin_menu', array( $this, 'register_admin_screen' ), 20 );
+		// Register the admin screen.
+		if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
+			add_action( 'admin_menu', array( $this, 'register_admin_screen' ) );
 		}
 	}
 
@@ -203,15 +189,16 @@ class OptionsFramework_Backup {
 
 		if ( $this->admin_page == $screen->id ) {
 
-		$contextual_help =
-			'<h3>' . sprintf( __( 'Welcome to the %s Backup Manager.', 'anva' ), ucfirst ( $this->name ) ) . '</h3>' .
-			'<p>' . __( 'Here are a few notes on using this screen.', 'anva' ) . '</p>' .
-			'<p>' . __( 'The backup manager allows you to backup or restore your "Theme Options" and other settings to or from a text file.', 'anva' ) . '</p>' .
-			'<p>' . __( 'To create a backup, simply select the setting type you\'d like to backup (or "All Settings") and hit the "Download Export File" button.', 'anva' ) . '</p>' .
-			'<p>' . __( 'To restore your settings from a backup, browse your computer for the file (under the "Import Settings" heading) and hit the "Upload File and Import" button. This will restore only the settings that have changed since the backup.', 'anva' ) . '</p>' .
-			'<p><strong>' . sprintf( __( 'Please note that only valid backup files generated through the %s Backup Manager should be imported.', 'anva' ), ucfirst ( $this->name ) ) . '</strong></p>' .
-			'<p><strong>' . __( 'Looking for assistance?', 'anva' ) . '</strong></p>' .
-			'<p>' . sprintf( __( 'Please post your query on the %sThemeForest Support Item%s where we will do our best to assist you further.', 'anva' ), '<a href="' . esc_url( 'http://www.themeforest.com/user/oidoperfecto/portfolio' ) . '" target="_blank">', '</a>' ) . '</p>';
+			$contextual_help =
+				'<h3>' . sprintf( __( 'Welcome to the %s Backup Manager.', 'anva' ), ucfirst ( $this->name ) ) . '</h3>' .
+				'<p>' . __( 'Here are a few notes on using this screen.', 'anva' ) . '</p>' .
+				'<p>' . __( 'The backup manager allows you to backup or restore your "Theme Options" and other settings to or from a text file.', 'anva' ) . '</p>' .
+				'<p>' . __( 'To create a backup, simply select the setting type you\'d like to backup (or "All Settings") and hit the "Download Export File" button.', 'anva' ) . '</p>' .
+				'<p>' . __( 'To restore your settings from a backup, browse your computer for the file (under the "Import Settings" heading) and hit the "Upload File and Import" button. This will restore only the settings that have changed since the backup.', 'anva' ) . '</p>' .
+				'<p><strong>' . sprintf( __( 'Please note that only valid backup files generated through the %s Backup Manager should be imported.', 'anva' ), ucfirst ( $this->name ) ) . '</strong></p>' .
+				'<p><strong>' . __( 'Looking for assistance?', 'anva' ) . '</strong></p>' .
+				'<p>' . sprintf( __( 'Please post your query on the %s where we will do our best to assist you further.', 'anva' ), sprintf( '<a href="' . esc_url( 'http://www.themeforest.com/user/oidoperfecto/portfolio' ) . '" target="_blank">%s</a>', __( 'ThemeForest Support Item', 'anva' ) ) ) . '</p>';
+		
 		}
 
 		return $contextual_help;
@@ -356,12 +343,3 @@ class OptionsFramework_Backup {
 	}
 }
 endif;
-
-/**
- * Create $anva_backup Object.
- *
- * @since 1.0.0
- * @uses OptionsFramework_Backup
- */
-$anva_backup = new OptionsFramework_Backup();
-$anva_backup->init();

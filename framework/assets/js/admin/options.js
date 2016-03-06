@@ -24,23 +24,24 @@ jQuery(document).ready(function($) {
 				// return confirm( 'Click OK to reset. Any theme settings will be lost!' );
 				
 				e.preventDefault();
-    		var form = $(this).closest('form');
+				var $form = $(this).closest('form');
 
-    		swal({
-					title: "Are you sure?",
-					text: "You will not be able to recover the options!",
+				swal({
+					title: anvaJs.save_button_title,
+					text: anvaJs.save_button_text,
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#0085ba",
-					confirmButtonText: "Yes, restore it!",
-					cancelButtonText: "Nooo, wait!",
-					cancelButtonColor: "##f7f7f7",
+					confirmButtonText: anvaJs.save_button_confirm,
+					cancelButtonText: anvaJs.save_button_cancel,
+					cancelButtonColor: "#f7f7f7",
 					closeOnConfirm: true,
 					closeOnCancel: true
 				}, function( isConfirm ) {
 					
 					if ( isConfirm ) {
-						form.submit();
+						$form.append('<input type="hidden" name="reset" value="true" />');
+						$form.submit();
 					}
 
 				});
@@ -51,13 +52,13 @@ jQuery(document).ready(function($) {
 				e.preventDefault();
 				var $ele = $(this).parent();
 				swal({
-					title: "Sure?",
-					text: "You sure want delete this item?",
+					title: anvaJs.sidebar_button_title,
+					text: anvaJs.sidebar_button_text,
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#0085ba",
-					confirmButtonText: "Yes",
-					cancelButtonText: "Cancel",
+					confirmButtonText: anvaJs.sidebar_button_confirm,
+					cancelButtonText: anvaJs.sidebar_button_cancel,
 					cancelButtonColor: "##f7f7f7",
 					closeOnConfirm: true,
 					closeOnCancel: true
@@ -81,14 +82,14 @@ jQuery(document).ready(function($) {
 				var $new = $('.sidebar').val();
 
 				if ( '' == $new ) {
-					swal('Input is Empty!', 'Enter the name for custom sidebar.');
+					swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
 					return false;
 				}
 
 				$('.dynamic-sidebars ul').removeClass('empty');
 
 				var $sidebarId = $('#dynamic_sidebar_id').val(), $sidebarName = $('#dynamic_sidebar_name').val();
-				$('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">Delete</a> <input type="hidden" name="' + $sidebarName + '[' + $sidebarId + '][]' + '" value="' + $new + '" /></li>' );
+				$('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $sidebarName + '[' + $sidebarId + '][]' + '" value="' + $new + '" /></li>' );
 				$('.sidebar').val('');
 			});
 

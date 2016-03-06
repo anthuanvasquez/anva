@@ -18,7 +18,7 @@ class Anva_Envato_Updates {
 	public function __construct( $args ) {
 
 		// Debug
-		set_site_transient( 'update_themes', null );
+		// set_site_transient( 'update_themes', null );
 
 		// Arguments
 		$defaults = array(
@@ -69,8 +69,6 @@ class Anva_Envato_Updates {
 		// Tap into Envato API
 		$envato_api = new Envato_Protected_API( $this->args['envato_username'], $this->args['envato_api_key'] );
 
-		var_dump($envato_api);
-
 		// Get themes purchased from this Envato user and re-format
 		// as an array we can use to pull directly from.
 		$purchased_themes = array();
@@ -87,17 +85,8 @@ class Anva_Envato_Updates {
 			}
 		}
 
-		// Debug
-		$purchased_themes[ 'Anva' ] = array(
-			'item_id' 			=> '234254545',
-			'author_name' 	=> 'Anthuan Vásquez',
-			'version' 			=> '1.0.1'
-		);
-
 		// Get themes currently present in WordPress
 		$installed_themes = wp_get_themes();
-
-		var_dump($installed_themes);
 
 		// Loop through current themes in WP directory and
 		// check if we need to apply our updates.
@@ -111,9 +100,8 @@ class Anva_Envato_Updates {
 					$current_theme = $purchased_themes[ $installed_theme->Name ];
 
 					if ( version_compare( $installed_theme->Version, $current_theme['version'], '<' ) ) {
-						//if ( $url = $envato_api->wp_download( $current_theme['item_id'] ) ) {
-						$url = $current_theme['item_id'];
-
+						if ( $url = $envato_api->wp_download( $current_theme['item_id'] ) ) {
+						
 							// Get update rolling with WP
 							$updates->response[ $installed_theme->Stylesheet ] = array(
 								'url' 					=> apply_filters( 'anva_envato_updates_changelog', 'http://themes.anthuanvasquez.net/changelog/?theme='. $installed_theme->Template, $installed_theme, $current_theme ),
@@ -123,7 +111,7 @@ class Anva_Envato_Updates {
 								'type'					=> apply_filters( 'anva_envato_updates_type', 'themeblvd-envato' )
 							);
 
-						//}
+						}
 					}
 				}
 			}
@@ -190,7 +178,7 @@ class Anva_Envato_Updates {
 		$result = copy_dir( $from, $to );
 		if ( is_wp_error( $result ) ) {
 			// @todo Can we delete temporary downloaded theme at /upgrades/ if error?
-			wp_die($result->get_error_message());
+			wp_die( $result->get_error_message() );
 		}
 
 		// End the process

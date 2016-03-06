@@ -2,94 +2,81 @@
 /* Colors
 /* ---------------------------------------------------------------- */
 .base-color-blue .header-extras li .text span {
-  color: #4285f4;
+  color: #3498db;
 }
 
 .base-color-blue .button,
 .base-color-blue #top-cart .badge {
-  background-color: #4285f4;
+  background-color: #3498db;
 }
 
 .base-color-blue #primary-menu > div > ul > li ul {
-  border-top-color: #4285f4;
+  border-top-color: #3498db;
 }
 
 .base-color-orange .header-extras li .text span {
-  color: #eb9c4d;
+  color: #e67e22;
 }
 
 .base-color-orange .button,
 .base-color-orange #top-cart .badge {
-  background-color: #eb9c4d;
+  background-color: #e67e22;
 }
 
 .base-color-orange #primary-menu > div > ul > li ul {
-  border-top-color: #eb9c4d;
+  border-top-color: #e67e22;
 }
 
 .base-color-green .header-extras li .text span {
-  color: #59ba41;
+  color: #019875;
 }
 
 .base-color-green .button,
 .base-color-green #top-cart .badge {
-  background-color: #59ba41;
+  background-color: #019875;
 }
 
 .base-color-green #primary-menu > div > ul > li ul {
-  border-top-color: #59ba41;
-}
-
-.base-color-teal .header-extras li .text span {
-  color: #62A09B;
-}
-
-.base-color-teal .button,
-.base-color-teal #top-cart .badge {
-  background-color: #62A09B;
-}
-
-.base-color-teal #primary-menu > div > ul > li ul {
-  border-top-color: #62A09B;
+  border-top-color: #019875;
 }
 
 .base-color-red .header-extras li .text span {
-  color: #BD4636;
+  color: #c0392b;
 }
 
 .base-color-red .button,
 .base-color-red #top-cart .badge {
-  background-color: #BD4636;
+  background-color: #c0392b;
 }
 
 .base-color-red #primary-menu > div > ul > li ul {
-  border-top-color: #BD4636;
-}
-
-.base-color-slate .header-extras li .text span {
-  color: #708090;
-}
-
-.base-color-slate .button,
-.base-color-slate #top-cart .badge {
-  background-color: #708090;
-}
-
-.base-color-slate #primary-menu > div > ul > li ul {
-  border-top-color: #708090;
+  border-top-color: #c0392b;
 }
 
 .base-color-purple .header-extras li .text span {
-  color: #69359C;
+  color: #9b59b6;
 }
 
 .base-color-purple .button,
 .base-color-purple #top-cart .badge {
-  background-color: #69359C;
+  background-color: #9b59b6;
 }
 
 .base-color-purple #primary-menu > div > ul > li ul {
-  border-top-color: #69359C;
+  border-top-color: #9b59b6;
+}
+
+.base-color-teal .header-extras li .text span {
+  color: #336E7B;
+}
+
+.base-color-teal .button,
+.base-color-teal #top-cart .badge {
+  background-color: #336E7B;
+}
+
+.base-color-teal #primary-menu > div > ul > li ul {
+  border-top-color: #336E7B;
 }
 
 .base-color-pink .header-extras li .text span {
@@ -105,19 +92,6 @@
   border-top-color: #FF66CC;
 }
 
-.base-color-navy .header-extras li .text span {
-  color: #000080;
-}
-
-.base-color-navy .button,
-.base-color-navy #top-cart .badge {
-  background-color: #000080;
-}
-
-.base-color-navy #primary-menu > div > ul > li ul {
-  border-top-color: #000080;
-}
-
 .base-color-brown .header-extras li .text span {
   color: #964B00;
 }
@@ -131,15 +105,41 @@
   border-top-color: #964B00;
 }
 
+.base-color-slate .header-extras li .text span {
+  color: #708090;
+}
+
+.base-color-slate .button,
+.base-color-slate #top-cart .badge {
+  background-color: #708090;
+}
+
+.base-color-slate #primary-menu > div > ul > li ul {
+  border-top-color: #708090;
+}
+
+.base-color-navy .header-extras li .text span {
+  color: #000080;
+}
+
+.base-color-navy .button,
+.base-color-navy #top-cart .badge {
+  background-color: #000080;
+}
+
+.base-color-navy #primary-menu > div > ul > li ul {
+  border-top-color: #000080;
+}
+
 .base-color-black .header-extras li .text span {
-  color: #000000;
+  color: #111111;
 }
 
 .base-color-black .button,
 .base-color-black #top-cart .badge {
-  background-color: #000000;
+  background-color: #111111;
 }
 
 .base-color-black #primary-menu > div > ul > li ul {
-  border-top-color: #000000;
+  border-top-color: #111111;
 }

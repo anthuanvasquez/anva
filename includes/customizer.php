@@ -8,6 +8,7 @@
  */
 function theme_customizer_options() {
 
+	// Setup background options
 	$background_options = array(
 		'bg_color' 				 				 => array(
 			'label' 								 => __( 'Background Color', 'anva' ),
@@ -139,13 +140,46 @@ function theme_customizer_options() {
 			'type' 									 => 'typography',
 			'transport'							 => 'postMessage'
 		),
-		// 'heading_h1' 							 => array(
-		// 	'label' 								 => __( 'H1', 'anva' ),
-		// 	'id' 										 => 'heading_h1',
-		// 	'choices'								 => range(),
-		// 	'type' 									 => 'select',
-		// 	'transport'							 => 'postMessage'
-		// )
+		'heading_h1' 							 => array(
+			'label' 								 => __( 'H1', 'anva' ),
+			'id' 										 => 'heading_h1',
+			'type'									 => 'typography',
+			'atts'									 => array( 'select' ),
+			'transport'							 => 'postMessage'
+		),
+		'heading_h2' 							 => array(
+			'label' 								 => __( 'H2', 'anva' ),
+			'id' 										 => 'heading_h2',
+			'type'									 => 'typography',
+			'atts'									 => array( 'select' ),
+			'transport'							 => 'postMessage'
+		),
+		'heading_h3' 							 => array(
+			'label' 								 => __( 'H3', 'anva' ),
+			'id' 										 => 'heading_h3',
+			'type'									 => 'typography',
+			'atts'									 => array( 'select' ),
+			'transport'							 => 'postMessage'
+		),
+		'heading_h4' 							 => array(
+			'label' 								 => __( 'H4', 'anva' ),
+			'id' 										 => 'heading_h4',
+			'type'									 => 'typography',
+			'atts'									 => array( 'select' ),
+			'transport'							 => 'postMessage'
+		),
+		'heading_h5' 							 => array(
+			'label' 								 => __( 'H5', 'anva' ),
+			'id' 										 => 'heading_h5',
+			'transport'							 => 'postMessage'
+		),
+		'heading_h6' 							 => array(
+			'label' 								 => __( 'H6', 'anva' ),
+			'id' 										 => 'heading_h6',
+			'type'									 => 'typography',
+			'atts'									 => array( 'select' ),
+			'transport'							 => 'postMessage'
+		),
 	);
 	anva_add_customizer_section( 'typography', __( 'Typography', 'anva' ), $font_options, 102 );
 
@@ -290,7 +324,7 @@ function theme_customizer_preview() {
 			});
 
 			/* Base Color Scheme */
-			wp.customize('<?php echo $option_name; ?>[base_color]',function( value ) {
+			wp.customize('<?php echo $option_name; ?>[base_color]', function( value ) {
 				value.bind(function( color ) {
 					$('body').removeClass('base-color-black base-color-blue base-color-brown base-color-dark_purple base-color-dark base-color-green base-color-light_blue base-color-light base-color-navy base-color-orange base-color-pink base-color-purple base-color-red base-color-slate base-color-teal');
 					$('body').addClass( 'base-color-' + color );
@@ -298,7 +332,7 @@ function theme_customizer_preview() {
 			});
 
 			/* Footer Color Scheme */
-			wp.customize('<?php echo $option_name; ?>[footer_color]',function( value ) {
+			wp.customize('<?php echo $option_name; ?>[footer_color]', function( value ) {
 				value.bind(function( color ) {
 					$('#footer').removeClass('dark');
 					$('#footer').addClass( color );
@@ -312,6 +346,49 @@ function theme_customizer_preview() {
 			<?php anva_customizer_preview_font_prep(); ?>
 			<?php anva_customizer_preview_body_font(); ?>
 			<?php anva_customizer_preview_heading_font(); ?>
+			<?php anva_customizer_preview_menu_font(); ?>
+
+			/* H1 Font */
+			wp.customize('<?php echo $option_name; ?>[heading_h1]', function( value ) {
+				value.bind(function( size ) {
+					$('h1, .h1, .page-title h1, .entry-title h1').css('font-size', size + 'px' );
+				});
+			});
+
+			/* H2 Font */
+			wp.customize('<?php echo $option_name; ?>[heading_h2]', function( value ) {
+				value.bind(function( size ) {
+					$('h2, .h2, .entry-title h2').css('font-size', size + 'px' );
+				});
+			});
+
+			/* H3 Font */
+			wp.customize('<?php echo $option_name; ?>[heading_h3]', function( value ) {
+				value.bind(function( size ) {
+					$('h3, .h3').css('font-size', size + 'px' );
+				});
+			});
+
+			/* H4 Font */
+			wp.customize('<?php echo $option_name; ?>[heading_h4]', function( value ) {
+				value.bind(function( size ) {
+					$('h4, .h4').css('font-size', size + 'px' );
+				});
+			});
+
+			/* H5 Font */
+			wp.customize('<?php echo $option_name; ?>[heading_h5]', function( value ) {
+				value.bind(function( size ) {
+					$('h5, .h5').css('font-size', size + 'px' );
+				});
+			});
+
+			/* H6 Font */
+			wp.customize('<?php echo $option_name; ?>[heading_h6]', function( value ) {
+				value.bind(function( size ) {
+					$('h6, .h6').css('font-size', size + 'px' );
+				});
+			});
 
 			// ---------------------------------------------------------
 			// Custom CSS

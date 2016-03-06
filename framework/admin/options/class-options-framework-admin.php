@@ -234,9 +234,9 @@ class Options_Framework_Admin {
 									<div class="inside">
 										<?php anva_admin_settings_log(); ?>
 										<div class="actions">
-											<input type="submit" class="button button-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
+											<input type="submit" class="button button-primary update-button" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
 											<span class="spinner"></span>
-											<input type="submit" class="button button-secondary reset-button" name="reset" value="<?php esc_attr_e( 'Restore Defaults', 'anva' ); ?>" />
+											<input type="submit" class="button button-secondary reset-button" value="<?php esc_attr_e( 'Restore Defaults', 'anva' ); ?>" />
 											<div class="clear"></div>
 										</div>
 									</div>
@@ -349,14 +349,6 @@ class Options_Framework_Admin {
 	 */
 
 	function save_options_notice() {
-		global $_anva_settings_error;
-
-		$_anva_settings_error = array(
-			'title' => __( 'Options Saved!', 'anva' ),
-			'message' => __( 'Options has been saved successfully.', 'anva' ),
-			'type' => 'success',
-		);
-
 		add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', 'anva' ), 'updated fade' );
 	}
 
@@ -373,8 +365,10 @@ class Options_Framework_Admin {
 	 *
 	 */
 	function get_default_values() {
+		
 		$output = array();
 		$config = anva_get_options();
+		
 		foreach ( (array) $config as $option ) {
 			if ( ! isset( $option['id'] ) ) {
 				continue;

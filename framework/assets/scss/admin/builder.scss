@@ -383,8 +383,12 @@
 			clear: both;
 		}
 
-		h2 {
+		> h2 {
+			font-size: 23px !important;
 			float: left;
+			line-height: 1.4 !important;
+			margin-top: 8px !important;
+			padding: 8px 12px !important;
 		}
 
 		.button {
@@ -679,7 +683,8 @@
 
 .anva-builder {
 	> h3,
-	> .handlediv {
+	> .handlediv,
+	h2.hndle {
 		display: none;
 	}
 }
