@@ -217,6 +217,7 @@ class Options_Framework_Admin {
 				<div id="optionsframework">
 					<form class="options-settings" action="options.php" method="post">
 						<div class="columns-1">
+							<?php echo '<input type="hidden" id="option_name" value="' . anva_get_option_name()  . '" >';  ?>
 							<?php settings_fields( 'optionsframework' ); ?>
 							<?php
 								/* Settings */

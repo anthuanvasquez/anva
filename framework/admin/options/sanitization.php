@@ -7,37 +7,68 @@
  * @copyright 2010-2014 WP Theming
  */
 
-add_filter( 'anva_sanitize_text', 'sanitize_text_field' );
-add_filter( 'anva_sanitize_number', 'anva_sanitize_number' );
-add_filter( 'anva_sanitize_password', 'sanitize_text_field' );
-add_filter( 'anva_sanitize_range', 'sanitize_text_field' );
-add_filter( 'anva_sanitize_date', 'sanitize_text_field' );
-add_filter( 'anva_sanitize_select', 'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_radio', 'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_images', 'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_textarea', 'anva_sanitize_textarea' );
-add_filter( 'anva_sanitize_checkbox', 'anva_sanitize_checkbox' );
-add_filter( 'anva_sanitize_multicheck', 'anva_sanitize_multicheck', 10, 2 );
-add_filter( 'anva_sanitize_upload', 'anva_sanitize_upload' );
-add_filter( 'anva_sanitize_editor', 'anva_sanitize_editor' );
-add_filter( 'anva_sanitize_background', 'anva_sanitize_background' );
-add_filter( 'anva_background_position', 'anva_sanitize_background_position' );
-add_filter( 'anva_background_attachment', 'anva_sanitize_background_attachment' );
-add_filter( 'anva_font_size', 'anva_sanitize_font_size' );
-add_filter( 'anva_sanitize_typography', 'anva_sanitize_typography', 10, 2 );
-add_filter( 'anva_font_style', 'anva_sanitize_font_style' );
-add_filter( 'anva_font_face', 'anva_sanitize_font_face' );
-add_filter( 'anva_sanitize_color', 'anva_sanitize_hex' );
-add_filter( 'anva_sanitize_social_media', 'anva_sanitize_social_media' );
-add_filter( 'anva_sanitize_logo', 'anva_sanitize_logo' );
-add_filter( 'anva_sanitize_columns', 'anva_sanitize_columns' );
-add_filter( 'anva_sanitize_sidebar', 'anva_sanitize_sidebar' );
-add_filter( 'anva_sanitize_layout', 'anva_sanitize_layout' );
+add_filter( 'anva_sanitize_text', 						'sanitize_text_field' );
+add_filter( 'anva_sanitize_tel', 							'sanitize_text_field' );
+add_filter( 'anva_sanitize_password', 				'sanitize_text_field' );
+add_filter( 'anva_sanitize_range', 						'sanitize_text_field' );
+add_filter( 'anva_sanitize_date', 						'sanitize_text_field' );
+add_filter( 'anva_sanitize_email', 						'sanitize_email' );
+add_filter( 'anva_sanitize_number', 					'anva_sanitize_number' );
+add_filter( 'anva_sanitize_select', 					'anva_sanitize_enum', 10, 2 );
+add_filter( 'anva_sanitize_radio', 						'anva_sanitize_enum', 10, 2 );
+add_filter( 'anva_sanitize_images', 					'anva_sanitize_enum', 10, 2 );
+add_filter( 'anva_sanitize_textarea', 				'anva_sanitize_textarea' );
+add_filter( 'anva_sanitize_url', 							'anva_sanitize_url' );
+add_filter( 'anva_sanitize_checkbox', 				'anva_sanitize_checkbox' );
+add_filter( 'anva_sanitize_multicheck', 			'anva_sanitize_multicheck', 10, 2 );
+add_filter( 'anva_sanitize_upload', 					'anva_sanitize_upload' );
+add_filter( 'anva_sanitize_editor', 					'anva_sanitize_editor' );
+add_filter( 'anva_sanitize_background', 			'anva_sanitize_background' );
+add_filter( 'anva_background_position', 			'anva_sanitize_background_position' );
+add_filter( 'anva_background_attachment', 		'anva_sanitize_background_attachment' );
+add_filter( 'anva_font_size', 								'anva_sanitize_font_size' );
+add_filter( 'anva_sanitize_typography', 			'anva_sanitize_typography', 10, 2 );
+add_filter( 'anva_font_style', 								'anva_sanitize_font_style' );
+add_filter( 'anva_font_face', 								'anva_sanitize_font_face' );
+add_filter( 'anva_sanitize_color', 						'anva_sanitize_hex' );
+add_filter( 'anva_sanitize_social_media', 		'anva_sanitize_social_media' );
+add_filter( 'anva_sanitize_logo', 						'anva_sanitize_logo' );
+add_filter( 'anva_sanitize_columns', 					'anva_sanitize_columns' );
+add_filter( 'anva_sanitize_double_text', 			'anva_sanitize_double_text' );
+add_filter( 'anva_sanitize_sidebar', 					'anva_sanitize_sidebar' );
+add_filter( 'anva_sanitize_contact_fields', 	'anva_sanitize_sidebar' );
+add_filter( 'anva_sanitize_layout', 					'anva_sanitize_layout' );
 
 /**
- * Sanitization for textarea field
+ * Sanitization for url field.
  *
- * @param $input string
+ * @param  $input  string
+ * @return $output sanitized string
+ */
+function anva_sanitize_url( $input ) {
+	if ( ! preg_match( "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $input ) ) {
+		$output = '';
+	} else {
+		$output = $input;
+	}
+	return $output;
+}
+
+function anva_sanitize_double_text( $input ) {
+	$output = array();
+	if ( is_array( $input ) ) {
+		foreach ( $input as $value ) {
+			$text = sanitize_text_field( $value );
+			$output[] = esc_html( $text );
+		}
+	}
+	return $output;
+}
+
+/**
+ * Sanitization for textarea field.
+ *
+ * @param  $input string
  * @return $output sanitized string
  */
 function anva_sanitize_textarea( $input ) {
@@ -47,9 +78,9 @@ function anva_sanitize_textarea( $input ) {
 }
 
 /**
- * Sanitization for checkbox input
+ * Sanitization for checkbox input.
  *
- * @param $input string (1 or empty) checkbox state
+ * @param  $input string (1 or empty) checkbox state
  * @return $output '1' or false
  */
 function anva_sanitize_checkbox( $input ) {
@@ -62,9 +93,9 @@ function anva_sanitize_checkbox( $input ) {
 }
 
 /**
- * Sanitization for multicheck
+ * Sanitization for multicheck.
  *
- * @param array of checkbox values
+ * @param  array of checkbox values
  * @return array of sanitized values ('1' or false)
  */
 function anva_sanitize_multicheck( $input, $option ) {
@@ -87,8 +118,8 @@ function anva_sanitize_multicheck( $input, $option ) {
  *
  * Returns a sanitized filepath if it has a valid extension.
  *
- * @param string $input filepath
- * @returns string $output filepath
+ * @param  string $input filepath
+ * @return string $output filepath
  */
 function anva_sanitize_upload( $input ) {
 	$output = '';
@@ -104,8 +135,8 @@ function anva_sanitize_upload( $input ) {
  *
  * Returns unfiltered HTML if user has permissions.
  *
- * @param string $input
- * @returns string $output
+ * @param  string $input
+ * @return string $output
  */
 function anva_sanitize_editor( $input ) {
 	if ( current_user_can( 'unfiltered_html' ) ) {
@@ -123,8 +154,8 @@ function anva_sanitize_editor( $input ) {
  *
  * Allows allowed tags in html input and ensures tags close properly.
  *
- * @param string $input
- * @returns string $output
+ * @param  string $input
+ * @return string $output
  */
 function anva_sanitize_allowedtags( $input ) {
 	global $allowedtags;
@@ -137,8 +168,8 @@ function anva_sanitize_allowedtags( $input ) {
  *
  * Allows allowed post tags in html input and ensures tags close properly.
  *
- * @param string $input
- * @returns string $output
+ * @param  string $input
+ * @return string $output
  */
 function anva_sanitize_allowedposttags( $input ) {
 	global $allowedposttags;
@@ -150,8 +181,8 @@ function anva_sanitize_allowedposttags( $input ) {
  * Validates that the $input is one of the avilable choices
  * for that specific option.
  *
- * @param string $input
- * @returns string $output
+ * @param  string $input
+ * @return string $output
  */
 function anva_sanitize_enum( $input, $option ) {
 	$output = '';
@@ -164,8 +195,8 @@ function anva_sanitize_enum( $input, $option ) {
 /**
  * Validates that the $input is a integer number
  *
- * @param string $input
- * @returns string $output
+ * @param  string $input
+ * @return string $output
  */
 function anva_sanitize_number( $input ) {
 	$output = 0;
@@ -178,7 +209,7 @@ function anva_sanitize_number( $input ) {
 /**
  * Sanitization for background option.
  *
- * @returns array $output
+ * @return array $output
  */
 function anva_sanitize_background( $input ) {
 
@@ -205,7 +236,7 @@ function anva_sanitize_background( $input ) {
 /**
  * Sanitization for background repeat
  *
- * @returns string $value if it is valid
+ * @return string $value if it is valid
  */
 function anva_sanitize_background_repeat( $value ) {
 	$recognized = anva_recognized_background_repeat();
@@ -219,7 +250,7 @@ add_filter( 'anva_background_repeat', 'anva_sanitize_background_repeat' );
 /**
  * Sanitization for background position
  *
- * @returns string $value if it is valid
+ * @return string $value if it is valid
  */
 function anva_sanitize_background_position( $value ) {
 	$recognized = anva_recognized_background_position();
@@ -232,7 +263,7 @@ function anva_sanitize_background_position( $value ) {
 /**
  * Sanitization for background attachment
  *
- * @returns string $value if it is valid
+ * @return string $value if it is valid
  */
 function anva_sanitize_background_attachment( $value ) {
 	$recognized = anva_recognized_background_attachment();
@@ -368,22 +399,7 @@ function anva_sanitize_hex( $hex, $default = '' ) {
 	return $default;
 }
 
-/**
- * Get recognized font sizes.
- *
- * Returns an indexed array of all recognized font sizes.
- * Values are integers and represent a range of sizes from
- * smallest to largest.
- *
- * @return   array
- */
 
-function anva_recognized_font_sizes() {
-	$sizes = range( 9, 71 );
-	$sizes = apply_filters( 'anva_recognized_font_sizes', $sizes );
-	$sizes = array_map( 'absint', $sizes );
-	return $sizes;
-}
 
 /**
  * Get recognized font faces.
@@ -413,7 +429,16 @@ function anva_recognized_font_styles() {
 		'normal'      => __( 'Normal', 'anva' ),
 		'italic'      => __( 'Italic', 'anva' ),
 		'bold'        => __( 'Bold', 'anva' ),
-		'bold-italic' => __( 'Bold Italic', 'anva' )
+		'bold-italic' => __( 'Bold Italic', 'anva' ),
+		'100' 				=> '100',
+		'200' 				=> '200',
+		'300' 				=> '300',
+		'400' 				=> '400',
+		'500' 				=> '500',
+		'600' 				=> '600',
+		'700' 				=> '700',
+		'800' 				=> '800',
+		'900' 				=> '900',
 	);
 	return apply_filters( 'anva_recognized_font_styles', $default );
 }
@@ -537,7 +562,7 @@ function anva_sanitize_sidebar( $input ) {
 	$output = array();
 	
 	if ( ! is_array( $input ) ) {
-		return;	
+		return $output;
 	}
 	
 	foreach ( $input as $sidebar ) {

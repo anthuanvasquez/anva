@@ -388,8 +388,8 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 	$url .= '://';
 
 	foreach ( $merged as $key => $value ) {
-		if ( isset( $ignore[$key] ) ) {
-			unset( $merged[$key] );
+		if ( isset( $ignore[ $key ] ) ) {
+			unset( $merged[ $key ] );
 		} elseif ( isset( $value['src'] ) ) {
 			$string = str_replace( $url . $_SERVER['SERVER_NAME'], $_SERVER['DOCUMENT_ROOT'], $value['src']);
 			if ( file_exists( $string ) ) {
@@ -399,23 +399,23 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 	}
 
 	// Get file path
-	$path = get_template_directory() .'/assets/css/'. $filename;
+	$path = get_template_directory() . '/assets/css/' . $filename;
 		
 	// Create compressed file if don't exists
 	if ( ! file_exists( $path ) ) {
-		$cssmin = new CSSMin();
+		$cssmin = new CSS_Mininify();
 
 		// Add files
-		$cssmin->addFiles( $files );
+		$cssmin->add_files( $files );
 
 		// Set original CSS from all files
-		$cssmin->setOriginalCSS();
+		$cssmin->set_original_css();
 
 		// Compress CSS
-		$cssmin->compressCSS();
+		$cssmin->compress_css();
 
 		// Get compressed and combined css
-		$css = $cssmin->printCompressedCSS();
+		$css = $cssmin->print_compressed_css();
 
 		// Create compressed file
 		file_put_contents( $path, $css );
@@ -429,8 +429,13 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 		}
 	}
 
+	$version = ANVA_FRAMEWORK_VERSION;
+	if ( defined( 'ANVA_THEME_VERSION' ) ) {
+		$version = ANVA_THEME_VERSION;
+	}
+
 	// Enqueue compressed file
-	wp_enqueue_style( 'anva-all-in-one', get_template_directory_uri() .'/assets/css/'. $filename, array(), THEME_VERSION, 'all' );
+	wp_enqueue_style( 'anva-all-in-one', get_template_directory_uri() . '/assets/css/' . $filename, array(), $version, 'all' );
 	
 }
 

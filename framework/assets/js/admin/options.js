@@ -1,18 +1,26 @@
 jQuery(document).ready(function($) {
 
 	"use strict";
+	
+	// Settings
+	var s;
 
 	// Anva Options Object
 	var AnvaOptions = {
 
 		// Default Settings
 		settings: {
-			template: $('#page_template'),
-			grid: 		$('#meta-grid_column'),
-			sidebar: 	$('#meta-sidebar_layout')
+			template: 		$('#page_template'),
+			grid: 				$('#meta-grid_column'),
+			sidebar: 			$('#meta-sidebar_layout'),
+			optionName:   $('#option_name').val()
 		},
 
 		init: function() {
+
+			// Set Settings
+			s = this.settings;
+
 			AnvaOptions.extras();
 			AnvaOptions.stickyActions();
 			AnvaOptions.sections.init();
@@ -48,6 +56,8 @@ jQuery(document).ready(function($) {
 			});
 
 			// Remove sidebar
+			$('.dynamic-sidebars ul').sortable();
+    	$('.dynamic-sidebars ul').disableSelection();
 			$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
 				e.preventDefault();
 				var $ele = $(this).parent();
@@ -57,8 +67,8 @@ jQuery(document).ready(function($) {
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.sidebar_button_confirm,
-					cancelButtonText: anvaJs.sidebar_button_cancel,
+					confirmButtonText: anvaJs.confirm,
+					cancelButtonText: anvaJs.cancel,
 					cancelButtonColor: "##f7f7f7",
 					closeOnConfirm: true,
 					closeOnCancel: true
@@ -80,16 +90,63 @@ jQuery(document).ready(function($) {
 			// Add new sidebar
 			$('#add-sidebar').click( function() {
 				var $new = $('.sidebar').val();
-
 				if ( '' == $new ) {
 					swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
 					return false;
 				}
-
 				$('.dynamic-sidebars ul').removeClass('empty');
+				var $sidebarName = $('#dynamic_sidebar_name').val();
+				var $optionName = s.optionName;
+				$('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
+				$('.sidebar').val('');
+			});
 
-				var $sidebarId = $('#dynamic_sidebar_id').val(), $sidebarName = $('#dynamic_sidebar_name').val();
-				$('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $sidebarName + '[' + $sidebarId + '][]' + '" value="' + $new + '" /></li>' );
+			// Contact fields
+			$('.dynamic-contact-fields ul.contact-fields').sortable();
+    	$('.dynamic-contact-fields ul.contact-fields').disableSelection();
+			$(document).on( 'click', '.dynamic-contact-fields .delete', function(e) {
+				e.preventDefault();
+				var $ele = $(this).parent();
+				swal({
+					title: anvaJs.contact_button_title,
+					text: anvaJs.contact_button_text,
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#0085ba",
+					confirmButtonText: anvaJs.confirm,
+					cancelButtonText: anvaJs.cancel,
+					cancelButtonColor: "##f7f7f7",
+					closeOnConfirm: true,
+					closeOnCancel: true
+				}, function( isConfirm ) {
+					if ( isConfirm ) {
+						$ele.fadeOut();
+						setTimeout( function() {
+							$ele.remove();
+							if ( $('.dynamic-contact-fields ul li').length == 0 ) {
+								$('.dynamic-contact-fields ul').addClass('empty');
+							}
+						}, 500 );
+					}
+				});
+			});
+
+			$(document).on( 'click', '#add-contact-field', function() {
+				var $new = $('#contact_fields option:selected').text();
+				var $value = $('#contact_fields option:selected').val();
+
+				if ( '' == $new ) {
+					swal( anvaJs.contact_error_title, anvaJs.contact_error_text );
+					return false;
+				}
+				if ( $('.dynamic-contact-fields ul.contact-fields').children('#field-' + $value ).length > 0 ) {
+					swal( anvaJs.contact_exists_title, anvaJs.contact_exists_text + ' "' + $new + '".' );
+					return false;
+				}
+				$('.dynamic-contact-fields ul').removeClass('empty');
+				var $contactFieldName = $('#contact_field_name').val();
+				var $optionName = s.optionName;
+				$('.dynamic-contact-fields ul').append( '<li id="field-' + $value + '">' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $contactFieldName + '][]' + '" value="' + $value + '" /></li>' );
 				$('.sidebar').val('');
 			});
 

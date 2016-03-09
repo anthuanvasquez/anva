@@ -1,16 +1,16 @@
 <?php
 
-if ( ! class_exists( 'Anva_Options_API' ) ) :
-
 /**
- * Anva Core Options
+ * Anva Core Options API
  *
  * This class establishes all of the framework's theme options,
  * allow these options to be modified from theme side.
  *
- * @since 		 1.0.0.
- * @author     Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since   1.0.0
+ * @author  Anthuan Vásquez <me@anthuanvasquez.net>
  */
+
+if ( ! class_exists( 'Anva_Options_API' ) ) :
 
 class Anva_Options_API {
 
@@ -449,6 +449,90 @@ class Anva_Options_API {
 					),
 				)
 			),
+
+			'contactform' => array(
+				'name' => __( 'Contact Form', 'anva' ),
+				'desc' => __( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', 'anva' ),
+				'class' => 'group-contactform',
+				'options' => array(
+					
+					'contact_email' => array(
+						'name' => __('Your Email Address', 'anva'),
+						'desc' => __('Enter which email address will be sent from the contact form.', 'anva'),
+						'id' => 'contact_email',
+						'std' => '',
+						'type' => 'text',
+					),
+
+					'contact_fields' => array(
+						'name' => __('Contact Form Fields', 'anva'),
+						'desc' => __('Select and sort fields for your contact page. Use fields you want to show on your contact form.', 'anva'),
+						'id' => 'contact_fields',
+						'std' => array(
+							'name',
+							'email',
+							'subject',
+							'message',
+						),
+						'type' => 'contact_fields',
+					),
+
+					'contact_captcha' => array(
+						'name' => __('Captcha', 'anva'),
+						'desc' => __('Enable this option to display captcha image to prevent possible spam in contact page.', 'anva'),
+						'id' => 'contact_captcha',
+						'std' => 'no',
+						'type' => 'select',
+						'options' => array(
+							'no' => __( 'No, disable', 'anva' ),
+							'yes' => __( 'Enable the captcha', 'anva' ),
+						),
+					),
+
+					'contact_map_html' => array(
+						'name' => __('Office or Company Name', 'anva'),
+						'desc' => __('Enter your office name, brand or address. It displays as popup inside the map.', 'anva'),
+						'id' => 'contact_map_html',
+						'std' => '',
+						'type' => 'text',
+					),
+
+					'contact_map_type' => array(
+						'name' => __('Map Type', 'anva'),
+						'desc' => __('Enter the map coordinates. Latitude and Longitude address.', 'anva'),
+						'id' => 'contact_map_type',
+						'std' => 'ROADMAP',
+						'options' => array(
+							'HYBRID' => __( 'Hybrid', 'anva' ),
+							'TERRAIN' => __( 'Terrain', 'anva' ),
+							'SATELLITE' => __( 'Satellite', 'anva' ),
+							'ROADMAP' => __( 'Roadmap', 'anva' ),
+						),
+						'type' => 'select',
+					),
+
+					'contact_map_address' => array(
+						'name' => __('Map Coordinates', 'anva'),
+						'desc' => __('Enter the map coordinates. Latitude and Longitude address.', 'anva'),
+						'id' => 'contact_map_address',
+						'std' => '',
+						'type' => 'double_text',
+					),
+
+					'contact_map_zoom' => array(
+						'name' => __('Map Zoom', 'anva'),
+						'desc' => __('Select zoom level for the contact map..', 'anva'),
+						'id' => 'contact_map_zoom',
+						'std' => '10',
+						'type' => 'range',
+						'options' => array(
+							'min' => 1,
+							'max' => 19,
+							'step' => 1,
+						)
+					),
+				)
+			),
 		);
 
 		/* ---------------------------------------------------------------- */
@@ -767,5 +851,5 @@ class Anva_Options_API {
 		return $this->formatted_options;
 	}
 
-} // End Class
+}
 endif;

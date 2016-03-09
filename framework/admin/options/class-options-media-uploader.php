@@ -243,6 +243,7 @@ function anva_media_uploader( $args ) {
 			$output .= '<div class="no-image"><span class="file_link"><a href="' . $value . '" target="_blank" rel="external">'.$title.'</a></span></div>';
 		}
 	}
+	
 	$output .= '</div>' . "\n";
 	return $output;
 }

@@ -127,11 +127,35 @@ function anva_get_font_weight( $option ) {
 
 	$weight = 'normal';
 
-	if ( isset( $option['style'] ) && ( $option['style'] == 'bold' || $option['style'] == 'bold-italic' ) ) {
-		$weight = 'bold';
+	if ( isset( $option['style'] ) ) {
+		
+		if ( $option['style'] == 'bold' || $option['style'] == 'bold-italic' ) {
+			$weight = 'bold';
+		}
+
+		if ( is_numeric( $option['style'] ) ) {
+			$weight = intval( $option['style'] );
+		}
+
 	}
 
 	return apply_filters( 'anva_get_font_weight', $weight, $option );
+}
+
+/**
+ * Get recognized font sizes.
+ *
+ * Returns an indexed array of all recognized font sizes.
+ * Values are integers and represent a range of sizes from
+ * smallest to largest.
+ *
+ * @return   array
+ */
+function anva_recognized_font_sizes() {
+	$sizes = range( 9, 71 );
+	$sizes = apply_filters( 'anva_recognized_font_sizes', $sizes );
+	$sizes = array_map( 'absint', $sizes );
+	return $sizes;
 }
 
 /**

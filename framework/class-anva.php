@@ -1,6 +1,10 @@
 <?php
 /**
  * Anva is a WordPress Theme Development Framework.
+ *
+ * Anva class launches the framework. It's the organizational structure behind the
+ * entire framework. This class should be loaded and initialized before anything else within
+ * the theme is called to properly use the framework.
  * 
  * @since   	1.0.0
  * @author    Anthuan Vásquez <me@anthuanvasquez.net>
@@ -10,14 +14,6 @@
 
 if ( ! class_exists( 'Anva' ) ) :
 
-/**
- * Anva class launches the framework. It's the organizational structure behind the
- * entire framework. This class should be loaded and initialized before anything else within
- * the theme is called to properly use the framework.
- * 
- * @since  1.0.0
- * @access public
- */
 class Anva {
 
 	/**
@@ -129,7 +125,7 @@ class Anva {
 		include_once ( ANVA_FRAMEWORK_DIR . '/includes/elements.php' );
 
 		// Extensions
-		include_once ( ANVA_FRAMEWORK_DIR . '/extensions/login.php' );
+		include_once ( ANVA_FRAMEWORK_DIR . '/extensions/class-login.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/extensions/class-megamenu.php' );
 		include_once ( ANVA_FRAMEWORK_DIR . '/extensions/woocommerce.php' );
 

@@ -22,7 +22,7 @@ class Options_Framework {
 	 *
 	 * @since 1.9.0
 	 */
-	function get_option_name() {
+	public function get_option_name() {
 
 		$name = '';
 
@@ -49,7 +49,7 @@ class Options_Framework {
 	 *
 	 * @return array (by reference)
 	 */
-	function get_options() {
+	public function get_options() {
 
 		// Get options from api class Anva_Options_API
 		$options = anva_get_formatted_options();

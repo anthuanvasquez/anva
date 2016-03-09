@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Get all theme locals
+ * Get all theme locals.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array $localize 
  */
 function anva_get_text_locals() {
 	
@@ -80,6 +81,8 @@ function anva_get_text_locals() {
 		'message_place' 					=> __( 'Message', 'anva' ),
 		'message_required'				=> __( 'Please enter your message.', 'anva' ),
 		'message_min'							=> __( 'Must enter minimun char lenth 10.', 'anva' ),
+		'mobile' 									=> __( 'Mobile', 'anva' ),
+		'company_name' 						=> __( 'Company Name', 'anva' ),
 		'captcha_place'						=> __( 'Enter the result', 'anva' ),
 		'captcha_required'				=> __( 'Enter the captcha result.', 'anva' ),
 		'captcha_number'					=> __( 'The answer must a integer number.', 'anva' ),
@@ -119,26 +122,29 @@ function anva_get_text_locals() {
 }
 
 /**
- * Get separate local
+ * Get separate local.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  string $id
+ * @return string $text
  */
 function anva_get_local( $id ) {
 
 	$text = null;
 	$localize = anva_get_text_locals();
 
-	if ( isset( $localize[$id] ) ) {
-		$text = $localize[$id];
+	if ( isset( $localize[ $id ] ) ) {
+		$text = $localize[ $id ];
 	}
 
 	return $text;
 }
 
 /**
- * Get all js locals
+ * Get all js locals.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array $localize
  */
 function anva_get_js_locals() {
 	

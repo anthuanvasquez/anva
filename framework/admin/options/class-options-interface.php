@@ -1,5 +1,8 @@
 <?php
 /**
+ *
+ * Create the options interface from array options
+ * 
  * @package   Options_Framework
  * @author    Devin Price <devin@wptheming.com>
  * @license   GPL-2.0+
@@ -10,9 +13,13 @@
 class Options_Framework_Interface {
 
 	/**
-	 * Generates the tabs that are used in the options menu
+	 * Generates the tabs that are used in the options menu.
+	 *
+	 * @since  1.0.0
+	 * @param  array $options
+	 * @return array $menu
 	 */
-	function get_tabs( $options ) {
+	public function get_tabs( $options ) {
 		
 		$counter = 0;
 		$menu = '';
@@ -39,6 +46,12 @@ class Options_Framework_Interface {
 
 	/**
 	 * Generates the options fields that are used in the form.
+	 *
+	 * @since 1.0.0
+	 * @param  string 		 $option_name
+	 * @param  array  		 $settings
+	 * @param  array  		 $options
+	 * @return string|html $output
 	 */
 	function get_fields( $option_name, $settings, $options ) {
 
@@ -194,6 +207,57 @@ class Options_Framework_Interface {
 
 				/*
 				|--------------------------------------------------------------------------
+				| URL Input
+				|--------------------------------------------------------------------------
+				*/
+				case 'url':
+					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-url" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="url" value="' . esc_attr( $val ) . '" />';
+					break;
+
+				/*
+				|--------------------------------------------------------------------------
+				| Tel Input
+				|--------------------------------------------------------------------------
+				*/
+				case 'tel':
+					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-tel" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="tel" value="' . esc_attr( $val ) . '" />';
+					break;
+
+				/*
+				|--------------------------------------------------------------------------
+				| Email Input
+				|--------------------------------------------------------------------------
+				*/
+				case 'email':
+					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-email" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="email" value="' . esc_attr( $val ) . '" />';
+					break;
+
+				/*
+				|--------------------------------------------------------------------------
+				| Double Inputs Value
+				|--------------------------------------------------------------------------
+				*/
+				case 'double_text':
+					$val_1 = '';
+					$val_2 = '';
+					if ( isset( $val[ 0 ] ) ) {
+						$val_1 = $val[ 0 ];
+					}
+					if ( isset( $val[ 1 ] ) ) {
+						$val_2 = $val[ 1 ];
+					}
+					$output .= '<div class="double-inputs">';
+					$output .= '<div class="input-col">';
+					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-text" name="' . esc_attr( $option_name . '[' . $value['id'] . '][]' ) . '" type="text" value="' . esc_attr( $val_1 ) . '" />';
+					$output .= '</div>';
+					$output .= '<div class="input-col last">';
+					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-text" name="' . esc_attr( $option_name . '[' . $value['id'] . '][]' ) . '" type="text" value="' . esc_attr( $val_2 ) . '" />';
+					$output .= '</div>';
+					$output .= '</div>';
+					break;
+
+				/*
+				|--------------------------------------------------------------------------
 				| Textarea
 				|--------------------------------------------------------------------------
 				*/
@@ -317,9 +381,7 @@ class Options_Framework_Interface {
 					$output .= '<input type="button" class="button" id="add-sidebar" value="' . __( 'Add', 'anva' ) . '" />';
 					$output .= '</span>';
 					$output .= '</div>';
-
-					$output .= '<input type="hidden" id="dynamic_sidebar_name" value="' . esc_attr( $option_name ) . '" />';
-					$output .= '<input type="hidden" id="dynamic_sidebar_id" value="' . esc_attr( $value['id'] ) . '" />';
+					$output .= '<input type="hidden" id="dynamic_sidebar_name" value="' . esc_attr( $value['id'] ) . '" />';
 					$output .= '<div class="dynamic-sidebars">';
 					$output .= '<ul ' . $class . '>';
 			 
@@ -336,6 +398,61 @@ class Options_Framework_Interface {
 					 
 					$output .= '</ul>';
 					$output .= '</div><!-- .dynamic-sidebars (end) -->';
+					
+					break;
+
+				/*
+				|--------------------------------------------------------------------------
+				| Contact Fields
+				|--------------------------------------------------------------------------
+				*/
+				case 'contact_fields':
+
+					$default_fields = apply_filters( 'anva_contact_fields', array(
+						'name' 					=> __( 'Name', 'anva' ),
+						'email' 				=> __( 'Email', 'anva' ),
+						'subject' 			=> __( 'Subject', 'anva' ),
+						'message' 			=> __( 'Message', 'anva' ),
+						'phone' 				=> __( 'Phone', 'anva' ),
+						'mobile' 				=> __( 'Mobile', 'anva' ),
+						'company_name' 	=> __( 'Company Name', 'anva' ),
+						'country' 			=> __( 'Country', 'anva' ),
+					));
+
+					$class = 'contact-fields';
+					if ( ! $val ) {
+						$class .= ' empty';
+					}
+
+					$output .= '<div class="group-button">';
+					$output .= '<label class="anva-input-label" for="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '">';
+					$output .= '<select class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '">';
+					foreach ( $default_fields as $key => $option ) {
+						$output .= '<option value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+					}
+					$output .= '</select>';
+					$output .= '</label>';
+					$output .= '<span>';
+					$output .= '<input type="button" class="button" id="add-contact-field" value="' . __( 'Add', 'anva' ) . '" />';
+					$output .= '</span>';
+					$output .= '</div><!-- .group-button (end) -->';
+					$output .= '<input type="hidden" id="contact_field_name" value="' . esc_attr( $value['id'] ) . '" />';
+					$output .= '<div class="dynamic-contact-fields">';
+					$output .= '<ul class="' . $class . '">';
+			 
+					// Display every field
+					if ( $val ) {
+						foreach ( $val as $field ) {
+							if ( isset( $default_fields[ $field ] ) ) {
+								$output .= '<li id="field-' . esc_attr( $field ) . '">' . esc_html( $default_fields[ $field ] ) . '<a href="#" class="delete">' . __( 'Delete', 'anva' ) . '</a>';
+								$output .= '<input type="hidden" name="' . esc_attr( $option_name . '[' . $value['id'] . '][]' ) . '" value="' . esc_attr( $field ) . '" />';
+								$output .= '</li>';
+							}
+						}
+					}
+					 
+					$output .= '</ul>';
+					$output .= '</div><!-- .dynamic-contact-fields (end) -->';
 					
 					break;
 
@@ -691,4 +808,5 @@ class Options_Framework_Interface {
 			echo '</div><!-- .group (end) -->';
 		}
 	}
+
 }

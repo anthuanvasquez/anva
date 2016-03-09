@@ -1,12 +1,23 @@
 <?php
-/*
- * Class CSSMin
- * Minify stylesheets.
+/**
+ * CSS Minify Stylesheets.
+ *
+ * @package     WordPress
+ * @subpackage  Envato WordPress Toolkit
+ * @author      Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since       1.0.0
  */
-class CSS_Min {
+class CSS_Minify {
 
+	/**
+	 * $original_css
+	 * 
+	 * @var [type]
+	 */
 	private $original_css;
+
 	private $compressed_css;
+	
 	private $files;
 
 	/* Constructor for CSSMin class */
@@ -17,21 +28,23 @@ class CSS_Min {
 	}
 
 	/* Add file as string (path and filename) */
-	public function addFile( $file = null ) {
-		if ( $file != null && $file != "" && substr(strrchr($file, '.'), 1) == "css" && is_file($file) ) {
+	public function add_file( $file = null ) {
+		
+		if ( $file != null && $file != "" && substr( strrchr( $file, '.' ), 1) == "css" && is_file( $file ) ) {
 			$this->files[] = $file;
 			return true;
 		} else {
 			return false;
 		}
+
 	}
 
 	/* Add multiple files array */
-	public function addFiles( $files = null ) {
-		if ( $files != null && is_array($files) ) {
+	public function add_files( $files = null ) {
+		if ( $files != null && is_array( $files ) ) {
 			$ok = true;
-			foreach ($files as $file) {
-				$ok = $this->addFile($file);
+			foreach ( $files as $file ) {
+				$ok = $this->add_fle( $file );
 			}
 			return $ok;
 		} else {
@@ -40,32 +53,32 @@ class CSS_Min {
 	}
 
 	/* Print original css files concatenated */
-	public function printOriginalCSS( $header = false ) {
-		if ($header) {
-			header('Content-type: text/css');
+	public function print_original_css( $header = false ) {
+		if ( $header ) {
+			header( 'Content-type: text/css' );
 		}
 		return $this->original_css;
 	}
 
 	/* Print compressed css files concatenated */
-	public function printCompressedCSS( $header = false ) {
-		if ($header) {
-			header('Content-type: text/css');
+	public function print_compressed_css( $header = false ) {
+		if ( $header ) {
+			header( 'Content-type: text/css' );
 		}
 		return $this->compressed_css;
 	}
 
 	/* Sets original css loop thru all added files */
-	public function setOriginalCSS() {
+	public function set_original_css() {
 		foreach ( $this->files as $file ) {
-			$fh = fopen($file, 'r');
-			$this->original_css .= fread($fh, filesize($file));
-			fclose($fh);
+			$fh = fopen( $file, 'r' );
+			$this->original_css .= fread( $fh, filesize( $file ) );
+			fclose( $fh );
 		}
 	}
 
 	/* Make simple compression with regexp. */
-	public function compressCSS() {
+	public function compress_css() {
 		$patterns = array();
 		$replacements = array();
 
@@ -92,6 +105,6 @@ class CSS_Min {
 		$replacements[] = ',';
 
 		/* compress */
-		$this->compressed_css = preg_replace($patterns, $replacements, $this->original_css);
+		$this->compressed_css = preg_replace( $patterns, $replacements, $this->original_css );
 	}
 }

@@ -20,7 +20,10 @@
 		}
 	}
 }());
-
+/**
+ * The files below are compiled automatic for dev propose.
+ * Check plugins.min.js
+ */
 //@prepros-append vendor/enquire.min.js
 //@prepros-append vendor/isotope.min.js
 //@prepros-append vendor/jquery.easing.min.js
@@ -36,3 +39,4 @@
 //@prepros-append vendor/jquery.fitvids.min.js
 //@prepros-append vendor/jquery.spectragram.min.js
 //@prepros-append vendor/jquery.mb.YTPlayer.min.js
+//@prepros-append vendor/jquery.gmap.min.js

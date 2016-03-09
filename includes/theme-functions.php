@@ -70,6 +70,16 @@ function theme_google_fonts() {
 }
 
 /**
+ * Add custom editor styles.
+ *
+ * @since 1.0.0.
+ * @return void
+ */
+function theme_add_editor_styles() {
+	add_editor_style( 'assets/css/editor-style.css' );
+}
+
+/**
  * Custom Stylesheets
  * 
  * @since 1.0.0
@@ -103,7 +113,7 @@ function theme_stylesheets() {
 	} else {
 
 		// Include CSS Min
-		if ( ! class_exists( 'CSS_Min' ) ) {
+		if ( ! class_exists( 'CSS_Minify' ) ) {
 			include_once( anva_get_core_directory() . '/vendor/class-css-min.php' );
 		}
 		
@@ -139,14 +149,14 @@ function theme_scripts() {
 
 	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.7.2' );
 	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '1.0.0' );
-	
+
 	$GLOBALS['wp_scripts']->add_data( 'html5shiv', 'conditional', 'lt IE 9' );
 	$GLOBALS['wp_scripts']->add_data( 'css3mediaqueriesjs', 'conditional', 'lt IE 9' );
 
 	// Enqueue Scripts
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'html5shiv' );
-	wp_enqueue_script( 'css3mediaqueriesjs' );
+	wp_enqueue_script( 'google-map-api', '//maps.google.com/maps/api/js', array(), '3.0.0' );
 	wp_localize_script( 'anva', 'ANVAJS', anva_get_js_locals() );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -322,3 +332,4 @@ add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );
 add_action( 'after_setup_theme', 'theme_remove_scripts', 11 );
+add_action( 'after_setup_theme', 'theme_add_editor_styles' );

@@ -18,18 +18,24 @@
 		case 'js':
 			$locals = array(
 				'save_button'							=> __( 'Saving...', 'anva' ),
-				'reset_title'							=> __( 'Restore Defaults', 'anva' ),
-				'delete'									=> __( 'Delete', 'anva' ),
-				'sidebar_error_title'			=> __( 'Input is Empty!', 'anva' ),
-				'sidebar_error_text' 			=> __( 'Enter the name for custom sidebar.', 'anva' ),
-				'sidebar_button_title' 		=> __( 'Sure?', 'anva' ),
-				'sidebar_button_text' 		=> __( 'You sure want delete this item?', 'anva' ),
-				'sidebar_button_confirm' 	=> __( 'Yes', 'anva' ),
-				'sidebar_button_cancel' 	=> __( 'Cancel', 'anva' ),
 				'save_button_title' 			=> __( 'Are you sure?', 'anva' ),
 				'save_button_text' 				=> __( 'You will not be able to recover the options!', 'anva' ),
 				'save_button_confirm' 		=> __( 'Yes, restore it!', 'anva' ),
 				'save_button_cancel' 			=> __( 'Nooo, wait!', 'anva' ),
+				'reset_title'							=> __( 'Restore Defaults', 'anva' ),
+				'delete'									=> __( 'Delete', 'anva' ),
+				'confirm' 								=> __( 'Yes', 'anva' ),
+				'cancel' 									=> __( 'Cancel', 'anva' ),
+				'sidebar_error_title'			=> __( 'Sidebar input is empty!', 'anva' ),
+				'sidebar_error_text' 			=> __( 'Enter the name for custom sidebar.', 'anva' ),
+				'sidebar_button_title' 		=> __( 'Sure?', 'anva' ),
+				'sidebar_button_text' 		=> __( 'You sure want delete this item?', 'anva' ),
+				'contact_error_title'			=> __( 'Contact input is empty!', 'anva' ),
+				'contact_error_text' 			=> __( 'Enter the name for contact field.', 'anva' ),
+				'contact_button_title' 		=> __( 'Sure?', 'anva' ),
+				'contact_button_text' 		=> __( 'You sure want delete this field?', 'anva' ),
+				'contact_exists_title' 		=> __( 'This Field Exists', 'anva' ),
+				'contact_exists_text' 		=> __( 'You have already added', 'anva' ),
 			);
 			break;
 
