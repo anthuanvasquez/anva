@@ -1,6 +1,6 @@
 <?php
 /**
- * The default template for displaying content in blogroll.
+ * The default template used for displaying content in blogroll.
  *
  * @version 1.0.0
  */

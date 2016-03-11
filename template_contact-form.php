@@ -2,7 +2,7 @@
 /**
  * Template Name: Contact Form
  * 
- * The template file for page.
+ * The template file for contact page.
  * 
  * @version 1.0.0
  */
@@ -28,8 +28,10 @@ get_header();
 						<div class="entry-summary">
 							
 							<?php the_content(); ?>
-
+							
+							<!-- CONTACT FORM (start)-->
 							<?php anva_contact_form(); ?>
+							<!-- CONTACT FORM (end) -->
 
 						</div><!-- .entry-summary -->
 					</div><!-- .entry-content -->

@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying page content in search.php
+ * The default template used for displaying page content in search.php
  * 
  * @version 1.0.0
  */

@@ -1,8 +1,11 @@
 <?php
-/*-----------------------------------------------------------------------------------*/
-/* Admin Display Functions
-/*-----------------------------------------------------------------------------------*/
 
+/**
+ * Show message when the theme is activated.
+ *
+ * @since  1.0.0
+ * @return void
+ */
 function anva_admin_theme_activate() {
 	if ( isset( $_GET['activated'] ) && true == $_GET['activated'] ) :
 	?>
@@ -349,29 +352,29 @@ function anva_columns_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	// Dropdown for number of columns selection
-	$data_num = array (
+	$data_num = array(
 		array(
 			'name' 	=> __( 'Hide Columns', 'anva' ),
 			'value' => 0,
 		),
 		array(
-			'name' 	=> '1 '.__( 'Column', 'anva' ),
+			'name' 	=> '1 '. __( 'Column', 'anva' ),
 			'value' => 1,
 		),
 		array(
-			'name' 	=> '2 '.__( 'Columns', 'anva' ),
+			'name' 	=> '2 '. __( 'Columns', 'anva' ),
 			'value' => 2,
 		),
 		array(
-			'name' 	=> '3 '.__( 'Columns', 'anva' ),
+			'name' 	=> '3 '. __( 'Columns', 'anva' ),
 			'value' => 3,
 		),
 		array(
-			'name' 	=> '4 '.__( 'Columns', 'anva' ),
+			'name' 	=> '4 '. __( 'Columns', 'anva' ),
 			'value' => 4,
 		),
 		array(
-			'name' 	=> '5 '.__( 'Columns', 'anva' ),
+			'name' 	=> '5 '. __( 'Columns', 'anva' ),
 			'value' => 5,
 		)
 	);

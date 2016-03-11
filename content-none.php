@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying page content in 404.php
+ * The default template used for displaying page content in 404.php
  * 
  * @version 1.0.0
  */

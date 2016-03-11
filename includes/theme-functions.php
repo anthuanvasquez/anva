@@ -1,9 +1,5 @@
 <?php
 
-/*-----------------------------------------------------------------------------------*/
-/* Theme Functions
-/*-----------------------------------------------------------------------------------*/
-
 // Define theme constants
 define( 'ANVA_THEME_ID', 'anva' );
 define( 'ANVA_THEME_NAME', 'Anva' );
@@ -18,13 +14,15 @@ require_once( get_template_directory() . '/includes/options.php' );
 // Add theme updates
 require_once( get_template_directory() . '/includes/updates.php' );
 
-// Recommend plugins
+// Add recommended plugins
 require_once( get_template_directory() . '/includes/install.php' );
 
 /**
- * Filtering theme options menu
+ * Filtering theme options menu.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  array $menu
+ * @return array $menu
  */
 function theme_options_menu( $menu ) {
 	$option_name 				= anva_get_option_name();
@@ -36,9 +34,11 @@ function theme_options_menu( $menu ) {
 }
 
 /**
- * Filtering theme backup menu
+ * Filtering theme backup menu.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  array $menu
+ * @return array $menu
  */
 function theme_backup_menu( $menu ) {
 	$menu['page_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Backup', 'anva' ) );
@@ -47,9 +47,11 @@ function theme_backup_menu( $menu ) {
 }
 
 /**
- * Body Classes
+ * Add theme body classes.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  array $classes
+ * @return array $classes
  */
 function theme_body_classes( $classes ) {
 	$classes[] = anva_get_option( 'layout_style' );
@@ -60,7 +62,8 @@ function theme_body_classes( $classes ) {
 /**
  * Google fonts using by the theme
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function theme_google_fonts() {
 	anva_enqueue_google_fonts(
@@ -72,17 +75,21 @@ function theme_google_fonts() {
 /**
  * Add custom editor styles.
  *
- * @since 1.0.0.
+ * @since  1.0.0
  * @return void
  */
-function theme_add_editor_styles() {
+function theme_add_theme_support() {
 	add_editor_style( 'assets/css/editor-style.css' );
+	add_theme_support( 'anva-login-styles' );
+	add_theme_support( 'anva-megamenu' );
+	add_theme_support( 'anva-woocommerce' );
 }
 
 /**
- * Custom Stylesheets
+ * Include the themes stylesheets.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function theme_stylesheets() {
 
@@ -138,9 +145,10 @@ function theme_stylesheets() {
 }
 
 /**
- * Theme scripts
+ * Include the theme scripts.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function theme_scripts() {
 
@@ -169,9 +177,10 @@ function theme_scripts() {
 }
 
 /**
- * Custom Styles
+ * Theme custom styles options.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return string $styles
  */
 function theme_styles() {
 	
@@ -274,9 +283,10 @@ function theme_styles() {
 }
 
 /**
- * Remove Scripts
+ * Remove camera and swiper scripts if their not uses.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function theme_remove_scripts() {
 	$slider = anva_get_option( 'slider_id' );
@@ -293,9 +303,11 @@ function theme_remove_scripts() {
 }
 
 /**
- * Remove grid columns that are not needed
+ * Remove grid columns that are not needed.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  array $columns
+ * @return array $columns
  */
 function theme_remove_grid_columns( $columns ) {
 	
@@ -332,4 +344,4 @@ add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );
 add_action( 'after_setup_theme', 'theme_remove_scripts', 11 );
-add_action( 'after_setup_theme', 'theme_add_editor_styles' );
+add_action( 'after_setup_theme', 'theme_add_theme_support', 10 );

@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying single post content in single.php
+ * The default template used for displaying single post content in single.php
  *
  * @version 1.0.0
  */

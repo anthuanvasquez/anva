@@ -311,8 +311,8 @@ function anva_options() {
 	/* ---------------------------------------------------------------- */
 	/* Galleries
 	/* ---------------------------------------------------------------- */
-
-	if ( is_admin() ) {
+	
+	if ( is_admin() && post_type_exists( 'galleries' ) ) {
 
 		// Pull all gallery templates
 		$galleries = array();
@@ -469,7 +469,11 @@ function anva_options() {
 				'type' => 'textarea',
 			),
 		);
-		anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), null, $login_options, false );
+
+		if ( anva_support( 'anva-login-styles' ) ) {
+			anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), null, $login_options, false );
+		}
+
 	}
 
 	/* ---------------------------------------------------------------- */
@@ -503,7 +507,7 @@ function anva_options() {
 	anva_add_option_section( 'advanced', 'minify', __( 'Minify', 'anva' ), null, $minify_options, false );
 
 }
-add_action( 'after_setup_theme', 'anva_options' );
+add_action( 'after_setup_theme', 'anva_options', 11 );
 
 /**
  * Use Anva_Builder_Elements_API to add elements onto elements already

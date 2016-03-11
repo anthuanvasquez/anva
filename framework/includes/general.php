@@ -13,16 +13,27 @@ function anva_load_theme_texdomain() {
 }
 
 /**
- * Add theme support features
+ * Add default theme support features
  *
  * @since 1.0.0
  */
 function anva_add_theme_support() {
+    add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'automatic-feed-links' );
-	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
-	add_theme_support( 'custom-background' );
-	add_theme_support( 'title-tag' );
+    add_theme_support( 'automatic-feed-links' );
+    add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
+    add_theme_support( 'custom-background' );
+}
+
+/**
+ * Add custom theme support features
+ *
+ * @since 1.0.0
+ */
+function anva_require_theme_supports() {
+    require_if_theme_supports( 'anva-login-styles', ANVA_FRAMEWORK_EXT . 'class-login.php' );
+    require_if_theme_supports( 'anva-megamenu', ANVA_FRAMEWORK_EXT . 'class-megamenu.php' );
+    require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce-config.php' );
 }
 
 /**
@@ -742,8 +753,7 @@ function anva_admin_menu_bar() {
 	if ( isset( $modules['options'] ) ) {
 		$wp_admin_bar->add_node(
 			array(
-				'id'			=> 'anva_theme_options',
-				'parent' 	=> 'appearance',
+				'id'		=> 'anva_theme_options',
 				'title'		=> sprintf( '%1$s', __( 'Theme Options', 'anva' ) ),
 				'href'		=> admin_url( $modules['options'] )
 			)
@@ -754,10 +764,9 @@ function anva_admin_menu_bar() {
 	if ( isset( $modules['backup'] ) ) {
 		$wp_admin_bar->add_node(
 			array(
-				'id'		 => 'anva_theme_backup',
-				'parent' => 'appearance',
-				'title'	 => sprintf( '%1$s', __( 'Theme Backup', 'anva' ) ),
-				'href'	 => admin_url( $modules['backup'] )
+				'id'	 	=> 'anva_theme_backup',
+				'title'	 	=> sprintf( '%1$s', __( 'Theme Backup', 'anva' ) ),
+				'href'	 	=> admin_url( $modules['backup'] )
 			)
 		);
 	}

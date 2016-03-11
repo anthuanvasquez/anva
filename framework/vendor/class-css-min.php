@@ -3,34 +3,36 @@
  * CSS Minify Stylesheets.
  *
  * @package     WordPress
- * @subpackage  Envato WordPress Toolkit
+ * @subpackage  CSS Minify
  * @author      Anthuan Vásquez <me@anthuanvasquez.net>
  * @since       1.0.0
  */
-class CSS_Minify {
+class CSS_Minify
+{
 
-	/**
-	 * $original_css
-	 * 
-	 * @var [type]
-	 */
 	private $original_css;
 
 	private $compressed_css;
-	
+
 	private $files;
 
 	/* Constructor for CSSMin class */
-	public function __construct() {
-		$this->original_css = "";
-		$this->compressed_css = "";
+	public function __construct()
+	{
+		$this->original_css = '';
+		$this->compressed_css = '';
 		$this->files = array();
 	}
 
-	/* Add file as string (path and filename) */
-	public function add_file( $file = null ) {
-		
-		if ( $file != null && $file != "" && substr( strrchr( $file, '.' ), 1) == "css" && is_file( $file ) ) {
+	/**
+	 * Add file as string (path and filename).
+	 * 
+	 * @param string|null $file
+	 */
+	public function add_file( $file = null )
+	{
+
+		if ( $file != null && $file != '' && substr( strrchr( $file, '.' ), 1 ) == 'css' && is_file( $file ) ) {
 			$this->files[] = $file;
 			return true;
 		} else {
@@ -39,8 +41,13 @@ class CSS_Minify {
 
 	}
 
-	/* Add multiple files array */
-	public function add_files( $files = null ) {
+	/**
+	 * Add multiple files array.
+	 * 
+	 * @param array|null $files [description]
+	 */
+	public function add_files( $files = null )
+	{
 		if ( $files != null && is_array( $files ) ) {
 			$ok = true;
 			foreach ( $files as $file ) {
@@ -52,24 +59,39 @@ class CSS_Minify {
 		}
 	}
 
-	/* Print original css files concatenated */
-	public function print_original_css( $header = false ) {
+	/**
+	 * Print original css files concatenated.
+	 * 
+	 * @param  boolean $header
+	 * @return string
+	 */
+	public function print_original_css( $header = false )
+	{
 		if ( $header ) {
 			header( 'Content-type: text/css' );
 		}
 		return $this->original_css;
 	}
 
-	/* Print compressed css files concatenated */
-	public function print_compressed_css( $header = false ) {
+	/**
+	 * Print compressed css files concatenated.
+	 * 
+	 * @param  boolean $header
+	 * @return string
+	 */
+	public function print_compressed_css( $header = false )
+	{
 		if ( $header ) {
 			header( 'Content-type: text/css' );
 		}
 		return $this->compressed_css;
 	}
 
-	/* Sets original css loop thru all added files */
-	public function set_original_css() {
+	/**
+	 * Sets original css loop thru all added files.
+	 */
+	public function set_original_css()
+	{
 		foreach ( $this->files as $file ) {
 			$fh = fopen( $file, 'r' );
 			$this->original_css .= fread( $fh, filesize( $file ) );
@@ -77,34 +99,37 @@ class CSS_Minify {
 		}
 	}
 
-	/* Make simple compression with regexp. */
-	public function compress_css() {
+	/**
+	 * Make simple compression with regexp.
+	 */
+	public function compress_css()
+	{
 		$patterns = array();
 		$replacements = array();
 
-		/* remove multiline comments */
+		/* Remove multiline comments */
 		$patterns[] = '/\/\*.*?\*\//s';
 		$replacements[] = '';
 
-		/* remove tabs, spaces, newlines, etc. */
+		/* Remove tabs, spaces, newlines, etc. */
 		$patterns[] = '/\r\n|\r|\n|\t|\s\s+/';
 		$replacements[] = '';
 
-		/* remove whitespace on both sides of colons :*/
+		/* Remove whitespace on both sides of colons :*/
 		$patterns[] = '/\s?\:\s?/';
 		$replacements[] = ':';
 
-		/* remove whitespace on both sides of curly brackets {} */
+		/* Remove whitespace on both sides of curly brackets {} */
 		$patterns[] = '/\s?\{\s?/';
 		$replacements[] = '{';
 		$patterns[] = '/\s?\}\s?/';
 		$replacements[] = '}';
 
-		/* remove whitespace on both sides of commas , */
+		/* Remove whitespace on both sides of commas , */
 		$patterns[] = '/\s?\,\s?/';
 		$replacements[] = ',';
 
-		/* compress */
+		/* Compress */
 		$this->compressed_css = preg_replace( $patterns, $replacements, $this->original_css );
 	}
 }

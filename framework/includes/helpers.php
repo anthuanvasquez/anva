@@ -8,7 +8,7 @@
  * Generate page builder elements
  *
  * @since  1.0.0
- * @return shortcode The shortcode 
+ * @return shortcode The shortcode
  */
 function anva_elements() {
 
@@ -40,7 +40,7 @@ function anva_elements() {
 		if ( anva_is_element( $shortcode ) ) {
 
 			$shortcodes = anva_get_elements();
-			
+
 			// Shortcode has attributes
 			if ( isset( $shortcodes[$shortcode]['attr'] ) && ! empty( $shortcodes[$shortcode]['attr'] ) ) {
 
@@ -53,7 +53,6 @@ function anva_elements() {
 					$obj_attribute = $obj->shortcode . '_' . $attribute_id;
 					$atts[$attribute_id] = esc_attr( urldecode( $obj->$obj_attribute ) );
 				}
-
 			}
 
 			// Shortcode has content
@@ -61,20 +60,19 @@ function anva_elements() {
 				$classes[] = 'element-has-content';
 				$content   = urldecode( $obj->$content );
 			}
-
 		}
 
 		$classes = implode( ' ', $classes );
-		
+
 		echo '<section id="section-' . esc_attr( $counter ) . '" class="section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
 		echo '<div id="element-' .  esc_attr( $item ) . '" class="element">';
-		
+
 		do_action( 'anva_element_' . $shortcode, $atts, $content );
-		
+
 		echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
 		echo '</section><!-- .section-' . esc_attr( $item ) . ' (end) -->';
 	}
-		
+
 	return false;
 }
 
@@ -85,16 +83,16 @@ function anva_apply_content( $content ) {
 }
 
 function pp_get_image_id( $url ) {
-	
+
 	global $wpdb;
-	
+
 	$prefix = $wpdb->prefix;
-	$attachment_id = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM " . $prefix . "posts" . " WHERE guid='%s';", $url ) );
-	
+	$attachment_id = $wpdb->get_col( $wpdb->prepare( 'SELECT ID FROM ' . $prefix . 'posts' . " WHERE guid='%s';", $url ) );
+
 	if ( isset( $attachment_id[0] ) ) {
 		return $attachment_id[0];
 	}
-	
+
 	return '';
 }
 
@@ -117,19 +115,19 @@ function anva_page_menu_args( $args ) {
  * @return  array Body classes.
  */
 function anva_body_class( $classes ) {
-	
+
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
 
 	$classes[] = anva_get_option( 'navigation' );
 	$classes[] = 'lang-' . strtolower( get_bloginfo( 'language' ) );
-	
+
 	$footer = anva_get_option( 'footer_setup' );
 	if (  isset( $footer['num'] ) && $footer['num'] > 0  ) {
 		$classes[] = 'has-footer-content';
 	}
-	
+
 	return $classes;
 }
 
@@ -141,43 +139,43 @@ function anva_body_class( $classes ) {
  * @return  array Body classes.
  */
 function anva_browser_class( $classes ) {
-	
+
 	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
-	
+
 	// Browsers
-	if ( $is_lynx )
-		$classes[] = 'lynx';
-	elseif ( $is_gecko )
-		$classes[] = 'gecko';
-	elseif ( $is_opera )
-		$classes[] = 'opera';
-	elseif ( $is_NS4 )
-		$classes[] = 'ns4';
-	elseif ( $is_safari )
-		$classes[] = 'safari';
-	elseif ( $is_chrome )
-		$classes[] = 'chrome';
+	if ( $is_lynx ) {
+		$classes[] = 'lynx'; }
+	elseif ( $is_gecko ) {
+		$classes[] = 'gecko'; }
+	elseif ( $is_opera ) {
+		$classes[] = 'opera'; }
+	elseif ( $is_NS4 ) {
+		$classes[] = 'ns4'; }
+	elseif ( $is_safari ) {
+		$classes[] = 'safari'; }
+	elseif ( $is_chrome ) {
+		$classes[] = 'chrome'; }
 	elseif ( $is_IE ) {
 		$classes[] = 'ie';
-		if ( preg_match( '/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version ) )
-			$classes[] = 'ie'.$browser_version[1];
+		if ( preg_match( '/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version ) ) {
+			$classes[] = 'ie'.$browser_version[1]; }
 	} else {
 		$classes[] = 'unknown';
 	}
-	
+
 	// iPhone
-	if ( $is_iphone )
-		$classes[] = 'iphone';
+	if ( $is_iphone ) {
+		$classes[] = 'iphone'; }
 
 	// OS
-	if ( stristr( $_SERVER['HTTP_USER_AGENT'], "mac" ) ) {
+	if ( stristr( $_SERVER['HTTP_USER_AGENT'], 'mac' ) ) {
 		$classes[] = 'osx';
-	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "linux" ) ) {
+	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], 'linux' ) ) {
 		$classes[] = 'linux';
-	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], "windows" ) ) {
+	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], 'windows' ) ) {
 		$classes[] = 'windows';
 	}
-	
+
 	return $classes;
 }
 
@@ -221,7 +219,7 @@ function anva_post_classes( $class, $paged = true ) {
 			$classes[] = $default_classes[$class]['paged'];
 		}
 	}
-	
+
 	$thumb = anva_get_option( 'primary_thumb' );
 
 	// Ignore posts grid
@@ -236,7 +234,7 @@ function anva_post_classes( $class, $paged = true ) {
 	}
 
 	$classes = implode( ' ', $classes );
-	
+
 	return apply_filters( 'anva_post_classes', $classes );
 }
 
@@ -286,13 +284,24 @@ function anva_setup_author() {
 }
 
 /**
+ * Check if a feature is supported by the theme.
+ *
+ * @since  1.0.0
+ * @param  string  $feature
+ * @return void
+ */
+function anva_support( $feature ) {
+	return current_theme_supports( $feature );
+}
+
+/**
  * Limit chars in string
  *
  * @since 1.0.0
  */
 function anva_truncate_string( $string, $length = 100 ) {
 	$string = trim( $string );
-	if ( strlen( $string ) <= $length) {
+	if ( strlen( $string ) <= $length ) {
 		return $string;
 	} else {
 		$string = substr( $string, 0, $length ) . '...';
@@ -301,10 +310,10 @@ function anva_truncate_string( $string, $length = 100 ) {
 }
 
 function anva_hex_to_rgb( $hex ) {
-	
+
 	$hex = str_replace( '#', '', $hex );
 	$color = array();
-	
+
 	if ( strlen( $hex ) == 3 ) {
 		$color['r'] = hexdec( substr( $hex, 0, 1 ) . $r );
 		$color['g'] = hexdec( substr( $hex, 1, 1 ) . $g );
@@ -314,7 +323,7 @@ function anva_hex_to_rgb( $hex ) {
 		$color['g'] = hexdec( substr( $hex, 2, 2 ) );
 		$color['b'] = hexdec( substr( $hex, 4, 2 ) );
 	}
-	
+
 	return $color;
 }
 
@@ -351,10 +360,10 @@ function anva_get_current_year( $year ) {
 function anva_compress( $buffer ) {
 
 	// Remove comments
-	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
+	$buffer = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer );
 
 	// Remove tabs, spaces, newlines, etc.
-	$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
+	$buffer = str_replace( array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer );
 
 	return $buffer;
 }
@@ -391,7 +400,7 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 		if ( isset( $ignore[ $key ] ) ) {
 			unset( $merged[ $key ] );
 		} elseif ( isset( $value['src'] ) ) {
-			$string = str_replace( $url . $_SERVER['SERVER_NAME'], $_SERVER['DOCUMENT_ROOT'], $value['src']);
+			$string = str_replace( $url . $_SERVER['SERVER_NAME'], $_SERVER['DOCUMENT_ROOT'], $value['src'] );
 			if ( file_exists( $string ) ) {
 				$files[] = $string;
 			}
@@ -400,7 +409,7 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 
 	// Get file path
 	$path = get_template_directory() . '/assets/css/' . $filename;
-		
+
 	// Create compressed file if don't exists
 	if ( ! file_exists( $path ) ) {
 		$cssmin = new CSS_Mininify();
@@ -436,7 +445,7 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 
 	// Enqueue compressed file
 	wp_enqueue_style( 'anva-all-in-one', get_template_directory_uri() . '/assets/css/' . $filename, array(), $version, 'all' );
-	
+
 }
 
 /**
@@ -459,7 +468,7 @@ function anva_get_core_uri() {
 	if ( defined( 'ANVA_FRAMEWORK_URI' ) ) {
 		$uri = ANVA_FRAMEWORK_URI;
 	} else {
-		$uri = get_template_directory_uri() . '/framework';
+		$uri = trailingslashit( et_template_directory_uri() ) . 'framework';
 	}
 	return $uri;
 }
@@ -473,7 +482,7 @@ function anva_get_core_directory() {
 	if ( defined( 'ANVA_FRAMEWORK_DIR' ) ) {
 		$path = ANVA_FRAMEWORK_DIR;
 	} else {
-		$path = get_template_directory() . '/framework';
+		$path = trailingslashit( get_template_directory() ) . 'framework';
 	}
 	return $path;
 }
@@ -488,24 +497,23 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 
 	foreach ( $array as $key => $value ) {
 
-		// INSERT BEFORE THE CURRENT KEY? 
+		// INSERT BEFORE THE CURRENT KEY?
 		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT BEFORE THAT FOUNDED KEY
-		if ( $key === $search_key && ! $insert_after )
-			$new_array[ $insert_key ] = $insert_value;
+		if ( $key === $search_key && ! $insert_after ) {
+			$new_array[ $insert_key ] = $insert_value; }
 
 		// COPY THE CURRENT KEY/VALUE FROM OLD ARRAY TO A NEW ARRAY
 		$new_array[ $key ] = $value;
 
-		// INSERT AFTER THE CURRENT KEY? 
+		// INSERT AFTER THE CURRENT KEY?
 		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT AFTER THAT FOUNDED KEY
-		if ( $key === $search_key && $insert_after )
-			$new_array[ $insert_key ] = $insert_value;
-
+		if ( $key === $search_key && $insert_after ) {
+			$new_array[ $insert_key ] = $insert_value; }
 	}
 
 	// APPEND IF KEY ISNT FOUNDED
-	if ( $append && count( $array ) == count( $new_array ) )
-		$new_array[ $insert_key ] = $insert_value;
+	if ( $append && count( $array ) == count( $new_array ) ) {
+		$new_array[ $insert_key ] = $insert_value; }
 
 	return $new_array;
 
@@ -513,7 +521,7 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 
 function anva_url_file_exists( $file ) {
 	$file_headers = @get_headers( $file );
-	if ( preg_match( "|200|", $file_headers[0] ) ) {
+	if ( preg_match( '|200|', $file_headers[0] ) ) {
 		return true;
 	}
 	return false;

@@ -1,5 +1,6 @@
 /* Options Framework Admin Styles */
-#optionsframework-wrap .settings-error {
+#optionsframework-wrap #setting-error-save_options,
+#optionsframework-wrap #setting-error-restore_defaults {
   display: none;
   opacity: 0;
   visibility: hidden;

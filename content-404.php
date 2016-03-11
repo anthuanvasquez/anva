@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying 404 error.
+ * The default template used for displaying 404 error.
  * 
  * @version 1.0.0
  */
