@@ -7,54 +7,63 @@
  */
 function anva_head_apple_touch_icon() {
 	
-	$html  		= '';
-	$sizes 		= '';
-	$links 		= array();
-	$favicon 	= anva_get_option( 'favicon' );
-	$icon76		= anva_get_option( 'apple_icon_76' );
-	$icon120	= anva_get_option( 'apple_icon_120' );
-	$icon152	= anva_get_option( 'apple_icon_152' );
+	$html  			= '';
+	$sizes 			= '';
+	$links 			= array();
+	$favicon 		= anva_get_option( 'favicon' );
+	$touch_icon		= anva_get_option( 'apple_touch_icon' );
+	$touch_icon76	= anva_get_option( 'apple_touch_icon_76' );
+	$touch_icon120	= anva_get_option( 'apple_touch_icon_120' );
+	$touch_icon152	= anva_get_option( 'apple_touch_icon_152' );
 
-	if ( ! empty( $favicon ) ) {
+	if ( $favicon ) {
 		$links[] = array(
 			'rel' => 'shortcut icon',
 			'image' => $favicon,
-			'size' => '',
+			'size' => '16x16',
 		);
 	}
 
-	if ( ! empty( $icon76 ) ) {
+	if ( $touch_icon ) {
 		$links[] = array(
 			'rel' => 'apple-touch-icon',
-			'image' => $icon76,
+			'image' => $touch_icon
+		);
+	}
+
+	if ( $touch_icon76 ) {
+		$links[] = array(
+			'rel' => 'apple-touch-icon',
+			'image' => $touch_icon76,
 			'size' => '76x76',
 		);
 	}
 
-	if ( ! empty( $icon120 ) ) {
+	if ( $touch_icon120 ) {
 		$links[] = array(
 			'rel' => 'apple-touch-icon',
-			'image' => $icon120,
+			'image' => $touch_icon120,
 			'size' => '120x120',
 		);
 	}
 
-	if ( ! empty( $icon152 ) ) {
+	if ( $touch_icon152 ) {
 		$links[] = array(
 			'rel' => 'apple-touch-icon',
-			'image' => $icon152,
+			'image' => $touch_icon152,
 			'size' => '152x152',
 		);
 	}
 
-	if ( ! empty( $links ) ) {
-		foreach ( $links as $key => $value ) {
-			if ( isset( $value['size'] ) && ! empty( $value['size'] ) ) {
-				$sizes = ' sizes="'. esc_attr( $value['size'] ) .'" ';
+	if ( $links ) {
+		foreach ( $links as $link_id => $link ) {
+			if ( isset( $link['size'] ) ) {
+				$sizes = ' sizes="' . esc_attr( $link['size'] ) . '" ';
 			}
 			
-			if ( isset( $value['image'] ) && anva_url_file_exists( $value['image'] ) ) {
-				$html .= '<link rel="'. esc_attr( $value['rel'] ) .'"'. $sizes .'href="'. esc_url( $value['image'] ) .'" />';
+			if ( isset( $link['image'] ) ) {
+				$html .= '<link rel="' . esc_attr( $link['rel'] ) . '"' . $sizes . 'href="' . esc_url( $link['image'] ) . '" />';
+				$sizes = ''; // Reset sizes
 			}
 		}
 	}
@@ -189,23 +198,20 @@ function anva_header_primary_menu_default() {
 	$trigger = '<a href="#" id="primary-menu-trigger"><i class="fa fa-bars"></i></a>';
 	?>
 		<nav id="primary-menu" role="navigation">
-			<div class="container cleafix">
-				<?php
-					wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
-						'theme_location'  => 'primary',
-						'container'       => '',
-						'container_class' => '',
-						'container_id'    => '',
-						'menu_class'      => 'sf-menu clearfix',
-						'menu_id'         => '',
-						'echo'            => true,
-						'walker' 					=> new Anva_Walker_Nav_Menu(),
-						'items_wrap'      => $trigger .'<ul id="%1$s" class="%2$s">%3$s</ul>' )
-					));
+			<?php
+				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
+					'theme_location'  => 'primary',
+					'container'       => '',
+					'container_class' => '',
+					'container_id'    => '',
+					'menu_class'      => 'sf-menu clearfix',
+					'menu_id'         => '',
+					'echo'            => true,
+					'items_wrap'      => $trigger . '<ul id="%1$s" class="%2$s">%3$s</ul>' )
+				));
 
-					anva_header_primary_menu_addon();
-				?>
-			</div>
+				anva_header_primary_menu_addon();
+			?>
 		</nav><!-- #main-navigation (end) -->
 	<?php else : ?>
 		<div class="container clearfix">
@@ -248,16 +254,20 @@ function anva_header_primary_menu_addon_default() {
 }
 
 /**
- * Display footer widget locations
+ * Display footer widget locations.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_footer_content_default() {
+	$footer_setup = anva_get_option( 'footer_setup' );
+	if ( $footer_setup ) :
 	?>
 	<div class="footer-widgets grid-columns">
 		<?php anva_display_footer_sidebar_locations(); ?>
 	</div>
 	<?php
+	endif;
 }
 
 /**
@@ -273,7 +283,7 @@ function anva_footer_copyrights_default() {
 	if ( $footer_copyright || ! empty( $footer_copyright ) ) {
 		$html .= sprintf( $footer_copyright );
 	} else {
-		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2015', get_bloginfo( 'name' ), __( 'Designed by', 'anva' ), '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>' );
+		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2016', get_bloginfo( 'name' ), __( 'Designed by', 'anva' ), '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>' );
 	}
 
 	$html .= '<a id="gotop" href="#" class="gotop gotop-md"><i class="fa fa-chevron-up"></i></a>';

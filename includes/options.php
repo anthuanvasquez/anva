@@ -37,7 +37,7 @@ function anva_options() {
 		'name' => __( 'Footer Color Scheme', 'anva' ),
 		'desc' => __( 'Choose the color for the footer.', 'anva' ),
 		'id' => 'footer_color',
-		'std' => 'light',
+		'std' => 'dark',
 		'type' => 'select',
 		'options' => array(
 			'light' => __( 'Light', 'anva' ),
@@ -263,50 +263,6 @@ function anva_options() {
 		)
 	);
 	anva_add_option_section( 'styles', 'custom', __( 'Custom', 'anva' ), null, $custom_options, false );
-
-	/* ---------------------------------------------------------------- */
-	/* Header
-	/* ---------------------------------------------------------------- */
-
-	$favicon = array(
-		'name' => __('Favicon', 'anva'),
-		'desc' => __('Configure your won favicon.', 'anva'),
-		'id' => 'favicon',
-		'std' => '',
-		'class' => 'input-text',
-		'type' => 'upload'
-	);
-	anva_add_option( 'layout', 'header', 'favicon', $favicon );
-
-	$apple_touch_icon_76 = array(
-		'name' => __('Appe Touch Icon 76px', 'anva'),
-		'desc' => __('Configure the apple touch icon in 76px.', 'anva'),
-		'id' => 'apple_touch_icon_76',
-		'std' => '',
-		'class' => 'input-text',
-		'type' => 'upload'
-	);
-	anva_add_option( 'layout', 'header', 'apple_touch_icon_76', $apple_touch_icon_76 );
-
-	$apple_touch_icon_120 = array(
-		'name' => __('Appe Touch Icon 120px', 'anva'),
-		'desc' => __('Configure the apple touch icon in 152px.', 'anva'),
-		'id' => 'apple_touch_icon_120',
-		'std' => '',
-		'class' => 'input-text',
-		'type' => 'upload'
-	);
-	anva_add_option( 'layout', 'header', 'apple_touch_icon_120', $apple_touch_icon_120 );
-
-	$apple_touch_icon_152 = array(
-		'name' => __('Appe Touch Icon 152px', 'anva'),
-		'desc' => __('Configure the apple touch icon in 152px.', 'anva'),
-		'id' => 'apple_touch_icon_152',
-		'std' => '',
-		'class' => 'input-text',
-		'type' => 'upload'
-	);
-	anva_add_option( 'layout', 'header', 'apple_touch_icon_152', $apple_touch_icon_152 );
 
 	/* ---------------------------------------------------------------- */
 	/* Galleries

@@ -1,25 +1,21 @@
 
 #wrapper {
-	min-width: $theme-minwidth;
-}
-
-#container {
-	position: relative;
-	float: none;
-	width: $theme-maxwidth;
-	margin: 0 auto;
 	background-color: #fff;
 	box-shadow: 0 0 10px rgba(black, .1);
+	float: none;
+	margin: 0 auto;
+	min-width: $theme-minwidth;
+	width: $theme-maxwidth;
 
 	body.stretched & {
-  	box-shadow: none;
+  		box-shadow: none;
 		margin: 0;
 		width: 100%;
 	}
 }
 
 /* Main Content */
-.main-content {
+.content-wrap {
 	padding: 40px 0;
 }
 

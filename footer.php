@@ -12,43 +12,43 @@
 	</section><!-- CONTENT (end) -->
 
 	<?php anva_content_after(); ?>
-	
+
+	<?php
+		$class = '';
+		$footer_color = anva_get_option( 'footer_color', 'dark' );
+		if ( $footer_color ) {
+			$class = 'class="' . esc_attr( $footer_color ) . '"';
+		}
+	?>
+
+	<?php anva_footer_above(); ?>
+
 	<!--BOTTOM (start) -->
-	<footer id="bottom">
-
-		<?php anva_footer_above(); ?>
-		<?php
-			$class = '';
-			$footer_color = anva_get_option( 'footer_color' );
-			if ( $footer_color ) {
-				$class = 'class="' . esc_attr( $footer_color ) . '"';
-			}
-		?>
+	<footer id="bottom" <?php echo $class; ?>>
 		
-		<div id="footer" <?php echo $class; ?>>
-			<div class="footer-content">
-				<div class="container clearfix">
-					<?php anva_footer_content(); ?>
-				</div><!-- .footer-content (end) -->
+		<div id="footer-content" class="container clearfix">
+			<?php anva_footer_content(); ?>
+		</div><!-- .footer-content (end) -->
+
+		<div id="copyrights">
+			<div class="container clearfix">
+				<?php anva_footer_copyrights(); ?>
 			</div>
-
-			<div id="copyrights">
-				<div class="container clearfix">
-					<?php anva_footer_copyrights(); ?>
-				</div>
-			</div><!-- #copyrights (end) -->
-		</div><!-- #footer (end) -->
-
-		<?php anva_footer_below(); ?>
+		</div><!-- #copyrights (end) -->
 
 	</footer><!-- BOTTOM (end) -->
-	
-	<?php anva_bottom_after(); ?>
+
+	<?php
+		anva_footer_below();	
+		anva_bottom_after();
+	?>
 
 	</div><!-- CONTAINER (end) -->
 </div><!-- WRAPPER (end) -->
 
-<?php anva_after(); ?>
-<?php wp_footer(); ?>
+<?php
+	anva_after();
+	wp_footer();
+?>
 </body>
 </html>

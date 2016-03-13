@@ -22,47 +22,43 @@
 <!-- WRAPPER (start) -->
 <div id="wrapper" class="clearfix">
 
-<!-- CONTAINER (start) -->
-<div id="container">
-	
-	<?php anva_top_before(); ?>
+	<!-- CONTAINER (start) -->
+	<div id="container">
+		
+		<?php anva_top_before(); ?>
 
-	<!-- TOP (start) -->
-	<header id="top">
+		<!-- TOP (start) -->
+		<header id="top">
 
-		<?php anva_header_above(); ?>
+			<?php anva_header_above(); ?>
 
-		<div id="header">
-			<div class="header-content">	
+			<div class="header-wrap">
 				<div class="container clearfix">
 					<?php anva_header_logo(); ?>
-					<?php anva_header_extras(); ?>
-				</div><!-- .header-content (end) -->
-			</div><!-- .container (end) -->
-			
-			<?php anva_header_primary_menu(); ?>
+					<?php // anva_header_extras(); ?>
+					<?php anva_header_primary_menu(); ?>
+				</div>
+			</div><!-- .header-wrap (end) -->
+		</header><!-- TOP (end) -->
 
-		</div><!-- #header (end) -->
+		<?php
+			// Below Header
+			anva_header_below();
 
-		<?php anva_header_below(); ?>
+			// After Top
+			anva_top_after();
 
-	</header><!-- TOP (end) -->
+			// Featured
+			anva_featured_before();
+			anva_featured();
+			anva_featured_after();
+		?>
+		
+		<?php anva_content_before(); ?>
 
-	<?php
-		// After Top
-		anva_top_after();
-
-		// Featured
-		anva_featured_before();
-		anva_featured();
-		anva_featured_after();
-	?>
-	
-	<?php anva_content_before(); ?>
-
-	<!-- CONTENT (start) -->
-	<section id="content">
-		<div class="main-content">
-			<div class="container clearfix">
-				<?php anva_breadcrumbs(); ?>
-				<?php anva_above_layout(); ?>
+		<!-- CONTENT (start) -->
+		<section id="content">
+			<div class="content-wrap">
+				<div class="container clearfix">
+					<?php anva_breadcrumbs(); ?>
+					<?php anva_above_layout(); ?>

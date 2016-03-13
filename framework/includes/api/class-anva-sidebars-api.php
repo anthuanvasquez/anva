@@ -191,11 +191,11 @@ class Anva_Sidebars_API {
 
 		// Add Sidebar location
 		$this->custom_locations[$id] = array(
-			'args' 					=> array(
-				'id' 					=> $id,
-				'name' 				=> $name,
-				'description' => $desc,
-				'class'				=> $class,
+			'args' 					 => array(
+				'id' 				 => $id,
+				'name' 				 => $name,
+				'description'	 	 => $desc,
+				'class'				 => $class,
 			)
 		);
 
@@ -282,11 +282,15 @@ class Anva_Sidebars_API {
 
 			$sidebar_id = apply_filters( 'anva_custom_sidebar_id', $location_id );
 			
-			$config[$location_id]['id'] = $sidebar_id;
-			$config[$location_id]['error'] = false;
+			$config[ $location_id ]['id'] = $sidebar_id;
+			$config[ $location_id ]['error'] = false;
 
 			if ( ! is_active_sidebar( $sidebar_id ) ) {
-				$config[$location_id]['error'] = true;
+				$config[ $location_id ]['error'] = true;
+			}
+
+			if ( anva_get_option( 'sidebar_message' ) ) {
+				$config[ $location_id ]['error'] = false;
 			}
 		}
 
@@ -296,15 +300,15 @@ class Anva_Sidebars_API {
 			return;
 		}
 
-		do_action( 'anva_sidebar_'. $location .'_before' );
+		do_action( 'anva_sidebar_' . $location . '_before' );
 		
 		echo '<div class="widget-area widget-area-'. esc_attr( $location ) .' clearfix">';
 		
 		if ( $sidebar['error'] ) {
 
 			$message = sprintf(
-				__( 'This is a fixed sidebar with ID, <strong>%s</strong>, but you haven\'t put any widgets in it yet.', 'anva' ),
-				$sidebar['id']
+				__( 'This is a fixed sidebar with ID, %s, but you haven\'t put any widgets in it yet.', 'anva' ),
+				'<strong>' . $sidebar['id'] . '</strong>'
 			);
 
 			echo '<div class="alert alert-warning">';

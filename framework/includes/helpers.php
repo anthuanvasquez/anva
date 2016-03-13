@@ -518,11 +518,3 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 	return $new_array;
 
 }
-
-function anva_url_file_exists( $file ) {
-	$file_headers = @get_headers( $file );
-	if ( preg_match( '|200|', $file_headers[0] ) ) {
-		return true;
-	}
-	return false;
-}

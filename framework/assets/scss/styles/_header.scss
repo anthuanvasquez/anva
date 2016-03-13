@@ -4,10 +4,10 @@
 
 #top-bar {
 	position: relative;
-  border-bottom: 1px solid #EEE;
-  height: 45px;
-  line-height: 44px;
-  font-size: 13px;
+  	border-bottom: 1px solid #EEE;
+  	height: 45px;
+  	line-height: 44px;
+  	font-size: 13px;
 
 	.grid_6 {
 		width: auto;
@@ -27,26 +27,21 @@
 			font-size: 16px;
 			margin: 0;
 			display: block;
-		  position: relative;
-		  float: left;
-		  width: 40px;
-		  overflow: hidden;
-		  height: 44px;
-		  line-height: 44px;
+		  	position: relative;
+		  	float: left;
+		  	width: 40px;
+		  	overflow: hidden;
+		  	height: 44px;
+		  	line-height: 44px;
 		}
 	}
 }
 
-#header {
+#top {
 	border-bottom: 1px solid #eee;
 	.container {
-  	position: relative;
+  		position: relative;
 	}
-}
-
-.header-content {
-	padding: 20px 0;
-	position: relative;
 }
 
 /*

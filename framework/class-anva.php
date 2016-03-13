@@ -76,10 +76,10 @@ class Anva
         define( 'ANVA_FRAMEWORK_INC', trailingslashit( ANVA_FRAMEWORK_DIR . 'includes' ) );
         define( 'ANVA_FRAMEWORK_EXT', trailingslashit( ANVA_FRAMEWORK_DIR . 'extensions' ) );
         define( 'ANVA_FRAMEWORK_VENDOR', trailingslashit( ANVA_FRAMEWORK_DIR . 'vendor' ) );
-        define( 'ANVA_FRAMEWORK_URI', trailingslashit( get_template_directory_uri() ) . 'framework');
-        define( 'ANVA_FRAMEWORK_CSS', trailingslashit( get_template_directory_uri() ) . 'assets/css');
-        define( 'ANVA_FRAMEWORK_JS', trailingslashit( get_template_directory_uri() ) . 'assets/js');
-        define( 'ANVA_FRAMEWORK_IMG', trailingslashit( get_template_directory_uri() ) . 'assets/images');
+        define( 'ANVA_FRAMEWORK_URI', trailingslashit( get_template_directory_uri() . '/framework' ) );
+        define( 'ANVA_FRAMEWORK_CSS', trailingslashit( ANVA_FRAMEWORK_URI . 'assets/css' ) );
+        define( 'ANVA_FRAMEWORK_JS', trailingslashit( ANVA_FRAMEWORK_URI . 'assets/js' ) );
+        define( 'ANVA_FRAMEWORK_IMG', trailingslashit( ANVA_FRAMEWORK_URI . 'assets/images' ) );
     }
 
     /**

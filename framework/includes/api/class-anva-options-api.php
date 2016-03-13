@@ -80,7 +80,7 @@ class Anva_Options_API {
 		$layouts = array();
 		if ( is_admin() ) {
 			foreach ( anva_get_sidebar_layouts() as $key => $value ) {
-				$layouts[$key] = $value['icon'];
+				$layouts[ $key ] = $value['icon'];
 			}
 		}
 
@@ -88,7 +88,7 @@ class Anva_Options_API {
 		$categories = array();
 		if ( is_admin() ) {
 			foreach ( get_categories() as $category ) {
-				$categories[$category->cat_ID] = $category->cat_name;
+				$categories[ $category->cat_ID ] = $category->cat_name;
 			}
 		}
 
@@ -97,7 +97,7 @@ class Anva_Options_API {
 		if ( is_admin() ) {
 			$pages[''] = __( 'Select a page', 'anva' ) . ':';
 			foreach ( get_pages( 'sort_column=post_parent,menu_order' ) as $page ) {
-				$pages[$page->ID] = $page->post_title;
+				$pages[ $page->ID ] = $page->post_title;
 			}
 		}
 
@@ -114,20 +114,20 @@ class Anva_Options_API {
 		);
 
 		// Social media buttons defautls
-		$social_media_defaults = array(
+		$social_media_defaults = apply_filters( 'anva_social_media_defaults', array(
 			'dribbble'		=> 'https://dribbble.com/oidoperfecto',
-			'google-plus' => 'https://plus.google.com/+AnthuanVasquez',
+			'google-plus' 	=> 'https://plus.google.com/+AnthuanVasquez',
 			'twitter' 		=> 'https://twitter.com/oidoperfecto', // Follow Me! :)
-			'rss'					=> get_feed_link()
-		);
+			'rss'			=> get_feed_link()
+		) );
 
 		// Logo defaults
-		$logo_defaults = array(
-			'type' 				=> 'image',
-			'custom' 			=> '',
-			'image' 			=> get_template_directory_uri() . '/assets/images/logo.png',
-			'image_2x' 		=> get_template_directory_uri() . '/assets/images/logo@2x.png'
-		);
+		$logo_defaults = apply_filters( 'anva_logo_defaults', array(
+			'type' 			=> 'image',
+			'custom' 		=> '',
+			'image' 		=> ANVA_FRAMEWORK_IMG . 'logo.png',
+			'image_2x' 		=> ANVA_FRAMEWORK_IMG . 'logo@2x.png'
+		) );
 
 		// Author default credtis
 		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>';
@@ -206,6 +206,17 @@ class Anva_Options_API {
 						'type' => 'images',
 						'options' => $layouts
 					),
+					'sidebar_message' => array(
+						'name' => __( 'Default Sidebar Layout', 'anva'),
+						'desc' => __( 'Select if you want display a message when the sidebars don\'t have any widgets.', 'anva'),
+						'id' => 'sidebar_message',
+						'std' => 'no',
+						'type' => 'select',
+						'options' => array(
+							'yes' => __( 'Yes, display a message' ),
+							'no'  => __( 'No, I don\'t want show messages' )
+						)
+					),
 					'dynamic_sidebar' => array(
 						'name' => __( 'Custom Sidebars', 'anva' ),
 						'desc' => __( 'Add a custom sidebar.', 'anva' ),
@@ -237,6 +248,46 @@ class Anva_Options_API {
 						"id" => "social_media",
 						"type" => "social_media",
 						"std" => $social_media_defaults
+					),
+					'favicon' => array(
+						'name' => __('Favicon', 'anva'),
+						'desc' => __('Configure your won favicon. Recommended size is 16x16px.', 'anva'),
+						'id' => 'favicon',
+						'std' => '',
+						'class' => 'input-upload',
+						'type' => 'upload'
+					),
+					'apple_touch_icon' => array(
+						'name' => __('Appe Touch Icon (iPhone)', 'anva'),
+						'desc' => __('Configure the apple touch icon for iphones (non retina display). Recommended size is 57x57px.', 'anva'),
+						'id' => 'apple_touch_icon',
+						'std' => '',
+						'class' => 'input-upload',
+						'type' => 'upload'
+					),
+					'apple_touch_icon_76' => array(
+						'name' => __('Appe Touch Icon (iPad)', 'anva'),
+						'desc' => __('Configure the apple touch icon for ipads (non retina display). Recommended size is 76x76px.', 'anva'),
+						'id' => 'apple_touch_icon_76',
+						'std' => '',
+						'class' => 'input-upload',
+						'type' => 'upload'
+					),
+					'apple_touch_icon_120' => array(
+						'name' => __('Appe Touch Icon (iPhone Retina)', 'anva'),
+						'desc' => __('Configure the apple touch icon for iphones (retina display). Recommended size is 120x120px.', 'anva'),
+						'id' => 'apple_touch_icon_120',
+						'std' => '',
+						'class' => 'input-upload',
+						'type' => 'upload'
+					),
+					'apple_touch_icon_152' => array(
+						'name' => __('Appe Touch Icon (iPad Retina)', 'anva'),
+						'desc' => __('Configure the apple touch icon for ipads (retina display). Recommended size is 152x152px.', 'anva'),
+						'id' => 'apple_touch_icon_152',
+						'std' => '',
+						'class' => 'input-upload',
+						'type' => 'upload'
 					)
 				)
 			),

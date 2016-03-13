@@ -492,7 +492,7 @@ function anva_get_footer_widget_columns() {
 }
 
 /**
- * Register footer sidebars based on number of columns
+ * Register footer sidebars based on number of columns.
  *
  * @since 1.0.0
  */
@@ -517,9 +517,10 @@ function anva_register_footer_sidebar_locations() {
 }
 
 /**
- * Display footer sidebat locations
+ * Display footer sidebat locations.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_display_footer_sidebar_locations() {
 
