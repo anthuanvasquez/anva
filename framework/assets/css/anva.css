@@ -421,15 +421,6 @@ body.stretched #container {
   padding: 40px 0;
 }
 
-.ad-widget {
-  display: none;
-  margin: 20px 0;
-}
-
-.ad-widget .alert {
-  margin-bottom: 0;
-}
-
 .password-form {
   text-align: center;
 }
@@ -2684,6 +2675,7 @@ body:not(.device-touch) .button {
 .widget {
   position: relative;
   margin-top: 50px;
+  word-wrap: break-word;
 }
 
 .widget:first-child {
@@ -2709,6 +2701,19 @@ body:not(.device-touch) .button {
 .widget-title {
   margin-top: 0;
   margin-bottom: 25px;
+}
+
+.ad-widget {
+  margin: 20px 0;
+}
+
+.ad-widget .alert {
+  margin-bottom: 0;
+}
+
+.ad-widget-below-footer {
+  margin: 0;
+  padding: 20px 0;
 }
 
 /* -----------------------------------------------------------------*/
@@ -3065,6 +3070,12 @@ a img.aligncenter {
   line-height: 17px;
   margin: 0;
   padding: 0 4px 5px;
+}
+
+.sticky {
+  background-color: #F5F5F5;
+  border-top: 3px solid transparent;
+  padding: 30px 30px 50px;
 }
 
 .screen-reader-text {

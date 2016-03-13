@@ -76,7 +76,7 @@ class Anva_Sidebars_API {
 		$this->set_core_locations();
 
 		add_action( 'after_setup_theme', array( $this, 'set_locations' ), 1001 );
-		add_action( 'after_setup_theme', array( $this, 'register' ), 1001 );
+		add_action( 'widgets_init', array( $this, 'register' ), 1001 );
 
 	}
 

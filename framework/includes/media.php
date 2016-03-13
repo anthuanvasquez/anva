@@ -246,6 +246,37 @@ function anva_the_post_grid_thumbnail( $thumbnail ) {
 	echo $html;
 }
 
+function anva_get_colors_scheme( $skin_path = '' ) {
+	$colors = array(
+		'blue' 		=> array(
+			'name' 	=> __( 'Blue', 'anva' ),
+			'color' => "#",
+			'image' => esc_url( $skin_path . 'blue.png' ),
+		),
+		'green' 	=> array(
+			'name' 	=> __( 'Green', 'anva' ),
+			'color' => "#",
+			'image' => esc_url( $skin_path . 'green.png' ),
+		),
+		'orange' 	=> array(
+			'name' 	=> __( 'Orange', 'anva' ),
+			'color' => "#",
+			'image' => esc_url( $skin_path . 'orange.png' ),
+		),
+		'red' 		=> array(
+			'name' 	=> __( 'Red', 'anva' ),
+			'color' => "#",
+			'image' => esc_url( $skin_path . 'red.png' ),
+		),
+		'teal' 		=> array(
+			'name' 	=> __( 'Teal', 'anva' ),
+			'color' => "#",
+			'image' => esc_url( $skin_path . 'teal.png' ),
+		),
+	);
+	return apply_filters( 'anva_colors_scheme', $colors );
+}
+
 /**
  * Get animations
  *

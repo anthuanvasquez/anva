@@ -10,10 +10,10 @@ jQuery(document).ready(function($) {
 
 		// Default Settings
 		settings: {
-			template: 		$('#page_template'),
-			grid: 				$('#meta-grid_column'),
-			sidebar: 			$('#meta-sidebar_layout'),
-			optionName:   $('#option_name').val()
+			template: 	$('#page_template'),
+			grid: 		$('#meta-grid_column'),
+			sidebar: 	$('#meta-sidebar_layout'),
+			optionName: $('#option_name').val()
 		},
 
 		init: function() {
@@ -103,7 +103,7 @@ jQuery(document).ready(function($) {
 
 			// Contact fields
 			$('.dynamic-contact-fields ul.contact-fields').sortable();
-    	$('.dynamic-contact-fields ul.contact-fields').disableSelection();
+    		$('.dynamic-contact-fields ul.contact-fields').disableSelection();
 			$(document).on( 'click', '.dynamic-contact-fields .delete', function(e) {
 				e.preventDefault();
 				var $ele = $(this).parent();

@@ -14,9 +14,8 @@
 
 class Anva
 {
-
     /**
-     * Framework Name
+     * Framework's Name.
      *
      * @since 1.0.0
      * @var   string
@@ -24,7 +23,7 @@ class Anva
     const NAME = 'Anva Framework';
 
     /**
-     * Framework Version.
+     * Framework's Version.
      *
      * @since 1.0.0
      * @var   string
@@ -39,7 +38,7 @@ class Anva
      */
     public function __clone()
     {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin\' huh?', 'anva' ), self::VERSION );
+        _doing_it_wrong( __FUNCTION__, __( 'Cheating Huh?', 'anva' ), self::VERSION );
     }
 
     /**
@@ -100,10 +99,8 @@ class Anva
         include_once(ANVA_FRAMEWORK_DIR . '/admin/includes/general.php');
         include_once(ANVA_FRAMEWORK_DIR . '/admin/includes/display.php');
         include_once(ANVA_FRAMEWORK_DIR . '/admin/includes/locals.php');
-        include_once(ANVA_FRAMEWORK_DIR . '/vendor/class-envato-protected-api.php');
-
-        // Options Framework
         include_once(ANVA_FRAMEWORK_DIR . '/admin/options/init.php');
+        include_once(ANVA_FRAMEWORK_DIR . '/vendor/class-envato-protected-api.php');
 
         // API nd helpers
         include_once(ANVA_FRAMEWORK_DIR . '/includes/api/class-anva-options-api.php');

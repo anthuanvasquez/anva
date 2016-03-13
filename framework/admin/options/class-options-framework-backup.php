@@ -3,11 +3,6 @@
  * Backup your "Theme Options" to a downloadable text file.
  */
 
-// Don't load directly
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
 if ( ! class_exists( 'Options_Framework_Backup' ) ) :
 
 class Options_Framework_Backup {
@@ -37,19 +32,18 @@ class Options_Framework_Backup {
 
 		// Setup properties
 		$this->admin_page = '';
-		$this->token = $option_name . '_backup';
-		$this->name = $option_name;
+		$this->token 	  = $option_name . '_backup';
+		$this->name 	  = $option_name;
 
 	}
 
 	/**
-	 * Initialize the class.
+	 * Register the admin screen..
 	 *
 	 * @since 1.0.0
 	 */
 	function init () {
-		// Register the admin screen.
-		if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
+		if ( is_admin() && current_user_can( anva_admin_module_cap( 'backup' ) ) ) {
 			add_action( 'admin_menu', array( $this, 'register_admin_screen' ) );
 		}
 	}
@@ -65,8 +59,8 @@ class Options_Framework_Backup {
 			'page_title' 	=> __( 'Backup Options', 'anva' ),
 			'menu_title' 	=> __( 'Backup Options', 'anva' ),
 			'capability' 	=> 'manage_options',
-			'slug' 				=> $this->token,
-			'screen' 			=> array( $this, 'admin_screen' )
+			'slug' 			=> $this->token,
+			'screen' 		=> array( $this, 'admin_screen' )
 		));
 
 		$this->admin_page = add_theme_page(

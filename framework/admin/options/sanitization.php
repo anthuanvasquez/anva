@@ -1,43 +1,37 @@
 <?php
-/**
- * @package   Options_Framework
- * @author    Devin Price <devin@wptheming.com>
- * @license   GPL-2.0+
- * @link      http://wptheming.com
- * @copyright 2010-2014 WP Theming
- */
 
-add_filter( 'anva_sanitize_text', 						'sanitize_text_field' );
-add_filter( 'anva_sanitize_tel', 							'sanitize_text_field' );
-add_filter( 'anva_sanitize_password', 				'sanitize_text_field' );
-add_filter( 'anva_sanitize_range', 						'sanitize_text_field' );
-add_filter( 'anva_sanitize_date', 						'sanitize_text_field' );
-add_filter( 'anva_sanitize_email', 						'sanitize_email' );
-add_filter( 'anva_sanitize_number', 					'anva_sanitize_number' );
-add_filter( 'anva_sanitize_select', 					'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_radio', 						'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_images', 					'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_textarea', 				'anva_sanitize_textarea' );
-add_filter( 'anva_sanitize_url', 							'anva_sanitize_url' );
-add_filter( 'anva_sanitize_checkbox', 				'anva_sanitize_checkbox' );
-add_filter( 'anva_sanitize_multicheck', 			'anva_sanitize_multicheck', 10, 2 );
-add_filter( 'anva_sanitize_upload', 					'anva_sanitize_upload' );
-add_filter( 'anva_sanitize_editor', 					'anva_sanitize_editor' );
-add_filter( 'anva_sanitize_background', 			'anva_sanitize_background' );
-add_filter( 'anva_background_position', 			'anva_sanitize_background_position' );
+// Sanitize filtersß
+add_filter( 'anva_sanitize_text', 				'sanitize_text_field' );
+add_filter( 'anva_sanitize_tel', 				'sanitize_text_field' );
+add_filter( 'anva_sanitize_password', 			'sanitize_text_field' );
+add_filter( 'anva_sanitize_range', 				'sanitize_text_field' );
+add_filter( 'anva_sanitize_date', 				'sanitize_text_field' );
+add_filter( 'anva_sanitize_email', 				'sanitize_email' );
+add_filter( 'anva_sanitize_number', 			'anva_sanitize_number' );
+add_filter( 'anva_sanitize_select', 			'anva_sanitize_enum', 10, 2 );
+add_filter( 'anva_sanitize_radio', 				'anva_sanitize_enum', 10, 2 );
+add_filter( 'anva_sanitize_images', 			'anva_sanitize_enum', 10, 2 );
+add_filter( 'anva_sanitize_textarea', 			'anva_sanitize_textarea' );
+add_filter( 'anva_sanitize_url', 				'anva_sanitize_url' );
+add_filter( 'anva_sanitize_checkbox', 			'anva_sanitize_checkbox' );
+add_filter( 'anva_sanitize_multicheck', 		'anva_sanitize_multicheck', 10, 2 );
+add_filter( 'anva_sanitize_upload', 			'anva_sanitize_upload' );
+add_filter( 'anva_sanitize_editor', 			'anva_sanitize_editor' );
+add_filter( 'anva_sanitize_background', 		'anva_sanitize_background' );
+add_filter( 'anva_background_position', 		'anva_sanitize_background_position' );
 add_filter( 'anva_background_attachment', 		'anva_sanitize_background_attachment' );
-add_filter( 'anva_font_size', 								'anva_sanitize_font_size' );
-add_filter( 'anva_sanitize_typography', 			'anva_sanitize_typography', 10, 2 );
-add_filter( 'anva_font_style', 								'anva_sanitize_font_style' );
-add_filter( 'anva_font_face', 								'anva_sanitize_font_face' );
-add_filter( 'anva_sanitize_color', 						'anva_sanitize_hex' );
+add_filter( 'anva_font_size', 					'anva_sanitize_font_size' );
+add_filter( 'anva_sanitize_typography', 		'anva_sanitize_typography', 10, 2 );
+add_filter( 'anva_font_style', 					'anva_sanitize_font_style' );
+add_filter( 'anva_font_face', 					'anva_sanitize_font_face' );
+add_filter( 'anva_sanitize_color', 				'anva_sanitize_hex' );
 add_filter( 'anva_sanitize_social_media', 		'anva_sanitize_social_media' );
-add_filter( 'anva_sanitize_logo', 						'anva_sanitize_logo' );
-add_filter( 'anva_sanitize_columns', 					'anva_sanitize_columns' );
-add_filter( 'anva_sanitize_double_text', 			'anva_sanitize_double_text' );
-add_filter( 'anva_sanitize_sidebar', 					'anva_sanitize_sidebar' );
+add_filter( 'anva_sanitize_logo', 				'anva_sanitize_logo' );
+add_filter( 'anva_sanitize_columns', 			'anva_sanitize_columns' );
+add_filter( 'anva_sanitize_double_text', 		'anva_sanitize_double_text' );
+add_filter( 'anva_sanitize_sidebar', 			'anva_sanitize_sidebar' );
 add_filter( 'anva_sanitize_contact_fields', 	'anva_sanitize_sidebar' );
-add_filter( 'anva_sanitize_layout', 					'anva_sanitize_layout' );
+add_filter( 'anva_sanitize_layout', 			'anva_sanitize_layout' );
 
 /**
  * Sanitization for url field.

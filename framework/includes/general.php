@@ -285,6 +285,35 @@ function anva_supports( $group, $feature ) {
 }
 
 /**
+ * Get capability for admin module so WordPress
+ * can test this against current user-role.
+ *
+ * @since  1.0.0
+ * @param  string $module
+ * @return string $cap
+ */
+function anva_admin_module_cap( $module ) {
+
+	// Setup default capabilities
+	$module_caps = array(
+		'builder' 	=> 'edit_theme_options', // Role: Administrator
+		'options' 	=> 'edit_theme_options', // Role: Administrator
+		'backup' 	=> 'manage_options', 	 // Role: Administrator
+		'updates' 	=> 'manage_options', 	 // Role: Administrator
+	);
+	
+	$module_caps = apply_filters( 'anva_admin_module_caps', $module_caps );
+
+	// Setup capability
+	$cap = '';
+	if ( isset( $module_caps[ $module ] ) ) {
+		$cap = $module_caps[ $module ];
+	}
+
+	return $cap;
+}
+
+/**
  * Generates default column widths for column element
  * 
  * @since 1.0.0
@@ -750,7 +779,7 @@ function anva_admin_menu_bar() {
 	}
 
 	// Theme Options
-	if ( isset( $modules['options'] ) ) {
+	if ( isset( $modules['options'] ) && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
 		$wp_admin_bar->add_node(
 			array(
 				'id'		=> 'anva_theme_options',
@@ -761,7 +790,7 @@ function anva_admin_menu_bar() {
 	}
 
 	// Theme Backup
-	if ( isset( $modules['backup'] ) ) {
+	if ( isset( $modules['backup'] ) && current_user_can( anva_admin_module_cap( 'backup' ) ) ) {
 		$wp_admin_bar->add_node(
 			array(
 				'id'	 	=> 'anva_theme_backup',

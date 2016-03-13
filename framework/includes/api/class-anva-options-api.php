@@ -130,7 +130,7 @@ class Anva_Options_API {
 		);
 
 		// Author default credtis
-		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan ásquez</a>';
+		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>';
 
 		// If using image radio buttons, define a directory path
 		$image_path = get_template_directory_uri() . '/assets/images/';

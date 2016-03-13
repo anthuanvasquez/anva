@@ -5,9 +5,8 @@
  * 
  * WP's built-in add_meta_box() functionality.
  *
- * @since 		 1.0.0
+ * @since 	   1.0.0
  * @package    Anva
- * @subpackage Anva/admin
  * @author     Anthuan Vasquez <eigthy@gmail.com>
  */
 

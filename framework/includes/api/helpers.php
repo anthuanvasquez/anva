@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Init framework API
+ * Init framework's API.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_api_init() {
 

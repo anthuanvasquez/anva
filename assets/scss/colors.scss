@@ -31,7 +31,8 @@ $theme-colors: (
 	}
 
 	// Border Color Selectors
-	#primary-menu > div > ul > li ul {
+	#primary-menu > div > ul > li ul,
+	article.sticky {
 		border-top-color: $color;
 	}
 }

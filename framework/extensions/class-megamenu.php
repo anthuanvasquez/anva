@@ -156,7 +156,6 @@ class Anva_Menu_Item_Fields {
 				update_post_meta( $post_id, $key, $value );
 			
 			} else {
-				var_dump($key);
 				delete_post_meta( $post_id, $key );
 			}
 		}

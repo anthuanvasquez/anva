@@ -24,8 +24,8 @@ class Anva_Envato_Updates {
 		$defaults = array(
 			'envato_username'	=> '',
 			'envato_api_key'	=> '',
-			'author_name'			=> 'Anthuan Vásquez',
-			'backup'					=> true
+			'author_name'		=> 'Anthuan Vasquez',
+			'backup'			=> true
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );

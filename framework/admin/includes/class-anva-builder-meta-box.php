@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Builder Meta Box
+ * Anva Builder Meta Box
  *
- * @since 		 1.0.0
- * @package    Anva
- * @subpackage Anva/builder
- * @author     Anthuan Vasquez <eigthy@gmail.com>
+ * @since 	  1.0.0
+ * @package   Anva
+ * @author    Anthuan Vasquez <me@anthuanvasquez.net>
  */
 
 if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
@@ -19,7 +18,7 @@ if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
 class Anva_Builder_Meta_Box {
 
 	/**
-	 * ID for meta box and post field saved
+	 * ID for meta box and post field saved.
 	 *
 	 * @since 2.2.0
 	 * @var   string
@@ -27,7 +26,7 @@ class Anva_Builder_Meta_Box {
 	public $id;
 	
 	/**
-	 * Arguments to pass to add_meta_box()
+	 * Arguments to pass to add_meta_box().
 	 *
 	 * @since 1.0.0
 	 * @var   array
@@ -35,7 +34,7 @@ class Anva_Builder_Meta_Box {
 	private $args;
 
 	/**
-	 * Options array for page builder elements
+	 * Options array for page builder elements.
 	 *
 	 * @since 1.0.0
 	 * @var   array
@@ -43,7 +42,7 @@ class Anva_Builder_Meta_Box {
 	private $options;
 
 	/**
-	 * Settings from database
+	 * Settings from database.
 	 *
 	 * @since 1.0.0
 	 * @var   array
@@ -51,35 +50,35 @@ class Anva_Builder_Meta_Box {
 	private $settings;
 
 	/**
-	 * Constructor
-	 * Hook in meta box to start the process.
+	 * Constructor hook in meta box to start the process.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct( $id, $args, $options ) {
+		if ( current_user_can( anva_admin_module_cap( 'builder' ) ) ) {
+			
+			global $post;
 
-		global $post;
+			$this->id = $id;
+			$this->options = $options;
 
-		$this->id = $id;
-		$this->options = $options;
+			$defaults = array(
+				'page'				=> array( 'page' ),		// Can contain post, page, link, or custom post type's slug
+				'context'			=> 'normal',			// Normal, advanced, or side
+				'priority'		=> 'high'					// Priority
+			);
 
-		$defaults = array(
-			'page'				=> array( 'page' ),		// Can contain post, page, link, or custom post type's slug
-			'context'			=> 'normal',					// Normal, advanced, or side
-			'priority'		=> 'high'							// Priority
-		);
+			$this->args = wp_parse_args( $args, $defaults );
 
-		$this->args = wp_parse_args( $args, $defaults );
-
-		// Hooks
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
-		add_action( 'admin_head', array( $this, 'head' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notices' ), 10 );
-		add_action( 'add_meta_boxes', array( $this, 'add' ) );
-		add_action( 'save_post', array( $this, 'save' ) );
-		add_action( 'wp_ajax_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
-		add_action( 'wp_ajax_nopriv_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
-
+			// Hooks
+			add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+			add_action( 'admin_head', array( $this, 'head' ) );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ), 10 );
+			add_action( 'add_meta_boxes', array( $this, 'add' ) );
+			add_action( 'save_post', array( $this, 'save' ) );
+			add_action( 'wp_ajax_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
+			add_action( 'wp_ajax_nopriv_anva_builder_get_fields', array( $this, 'ajax_get_fields' ) );
+		}
 	}
 
 	/**
@@ -553,7 +552,6 @@ class Anva_Builder_Meta_Box {
 		
 		} else if ( isset( $_GET['error'] ) && $_GET['error'] == 'true' ) {
 			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your content. Please Try again.', 'anva' ) . '</p></div>';
-
 		}
 	}
 

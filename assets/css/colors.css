@@ -10,7 +10,8 @@
   background-color: #3498db;
 }
 
-.base-color-blue #primary-menu > div > ul > li ul {
+.base-color-blue #primary-menu > div > ul > li ul,
+.base-color-blue article.sticky {
   border-top-color: #3498db;
 }
 
@@ -23,7 +24,8 @@
   background-color: #e67e22;
 }
 
-.base-color-orange #primary-menu > div > ul > li ul {
+.base-color-orange #primary-menu > div > ul > li ul,
+.base-color-orange article.sticky {
   border-top-color: #e67e22;
 }
 
@@ -36,7 +38,8 @@
   background-color: #019875;
 }
 
-.base-color-green #primary-menu > div > ul > li ul {
+.base-color-green #primary-menu > div > ul > li ul,
+.base-color-green article.sticky {
   border-top-color: #019875;
 }
 
@@ -49,7 +52,8 @@
   background-color: #c0392b;
 }
 
-.base-color-red #primary-menu > div > ul > li ul {
+.base-color-red #primary-menu > div > ul > li ul,
+.base-color-red article.sticky {
   border-top-color: #c0392b;
 }
 
@@ -62,7 +66,8 @@
   background-color: #9b59b6;
 }
 
-.base-color-purple #primary-menu > div > ul > li ul {
+.base-color-purple #primary-menu > div > ul > li ul,
+.base-color-purple article.sticky {
   border-top-color: #9b59b6;
 }
 
@@ -75,7 +80,8 @@
   background-color: #336E7B;
 }
 
-.base-color-teal #primary-menu > div > ul > li ul {
+.base-color-teal #primary-menu > div > ul > li ul,
+.base-color-teal article.sticky {
   border-top-color: #336E7B;
 }
 
@@ -88,7 +94,8 @@
   background-color: #FF66CC;
 }
 
-.base-color-pink #primary-menu > div > ul > li ul {
+.base-color-pink #primary-menu > div > ul > li ul,
+.base-color-pink article.sticky {
   border-top-color: #FF66CC;
 }
 
@@ -101,7 +108,8 @@
   background-color: #964B00;
 }
 
-.base-color-brown #primary-menu > div > ul > li ul {
+.base-color-brown #primary-menu > div > ul > li ul,
+.base-color-brown article.sticky {
   border-top-color: #964B00;
 }
 
@@ -114,7 +122,8 @@
   background-color: #708090;
 }
 
-.base-color-slate #primary-menu > div > ul > li ul {
+.base-color-slate #primary-menu > div > ul > li ul,
+.base-color-slate article.sticky {
   border-top-color: #708090;
 }
 
@@ -127,7 +136,8 @@
   background-color: #000080;
 }
 
-.base-color-navy #primary-menu > div > ul > li ul {
+.base-color-navy #primary-menu > div > ul > li ul,
+.base-color-navy article.sticky {
   border-top-color: #000080;
 }
 
@@ -140,6 +150,7 @@
   background-color: #111111;
 }
 
-.base-color-black #primary-menu > div > ul > li ul {
+.base-color-black #primary-menu > div > ul > li ul,
+.base-color-black article.sticky {
   border-top-color: #111111;
 }

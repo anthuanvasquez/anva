@@ -14,7 +14,7 @@ body.stop-scrolling {
   top: 0;
   bottom: 0;
   display: none;
-  z-index: 10000; }
+  z-index: 100009; }
 
 .sweet-alert {
   background-color: white;
@@ -30,7 +30,7 @@ body.stop-scrolling {
   margin-top: -200px;
   overflow: hidden;
   display: none;
-  z-index: 99999; }
+  z-index: 999999; }
   @media all and (max-width: 540px) {
     .sweet-alert {
       width: auto;

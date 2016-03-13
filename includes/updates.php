@@ -17,37 +17,37 @@ function anva_envato_updates() {
 	}
 
 	// Admin page
-	if ( current_user_can( 'edit_theme_options' ) ) {
+	if ( class_exists( 'Options_Framework_Admin' ) && current_user_can( anva_admin_module_cap( 'updates' ) ) ) {
 
 		// Options to display on page
 		$update_options = array(
 			'envato_info' => array(
 				'name'			=> __( 'Configuration', 'anva' ),
-				'id' 				=> 'envato_info',
+				'id' 			=> 'envato_info',
 				'type' 			=> 'info',
 				'desc'			=> __('<strong>Warning:</strong> Although there is a backup option below, we recommend that you still always backup your theme files before running any automatic updates. Additionally, it\'s a good idea to never update any plugin or theme on a live website without first testing its compatibility with your specific WordPress site.', 'anva' )
 			),
-			'username' 		=> array(
+			'username' 			=> array(
 				'name'			=> __( 'Envato Username', 'anva' ),
-				'id'				=> 'username',
+				'id'			=> 'username',
 				'desc'			=> __( 'Enter the username that you have purchased the theme with through ThemeForest.', 'anva' ),
 				'type' 			=> 'text'
 			),
 			'api' 				=> array(
 				'name'			=> __( 'Envato API Key', 'anva' ),
-				'id'				=> 'api',
-				'desc'			=> sprintf( __( 'Enter an %s key associated with your Envato username.', 'anva' ), '<a href="http://extras.envato.com/api/" target="_blank">Envato API</a>' ),
+				'id'			=> 'api',
+				'desc'			=> sprintf( __( 'Enter an %s key associated with your Envato username.', 'anva' ), sprintf( '<a href="' . esc_url( 'http://extras.envato.com/api/' ) . '" target="_blank">%s</a>', __( 'Envato API', 'anva' ) ) ),
 				'type' 			=> 'text'
 			),
 			'backup' 			=> array(
 				'name'			=> __( 'Backups', 'anva' ),
-				'id'				=> 'backup',
+				'id'			=> 'backup',
 				'desc'			=> __( 'Select if you\'d like a backup made of the previous theme version on your server before updating to the new version.', 'anva' ),
-				'std'				=> 'yes',
+				'std'			=> 'yes',
 				'type' 			=> 'radio',
 				'options'		=> array(
 					'yes' 		=> __( 'Yes, make theme backups when updating.', 'anva' ),
-					'no' 			=> __( 'No, do not make theme backups.', 'anva' )
+					'no' 		=> __( 'No, do not make theme backups.', 'anva' )
 				)
 			),
 		);

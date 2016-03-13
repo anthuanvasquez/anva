@@ -986,7 +986,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 		
 		$html .= '<li class="item-parent"><a class="bread-parent" href="' . esc_url( $parent_permalink ) . '" title="' . esc_attr( $parent_title ) . '">' . esc_attr( $parent_title ) . '</a></li>';
 		$html .= $separator;
-		$html .= '<li class="item-current item-' . $post->ID . '"><span title="' . get_the_title() . '"> ' . get_the_title() . '</span></li>';
+		$html .= '<li class="item-current item-' . $post->ID . '"><span title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
 
 	} elseif ( is_singular() ) {
 
@@ -1039,7 +1039,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 		$html .= '<sliclass="item-current item-search"><span class="bread-current bread-search">' . __( 'Search results for', 'anva' ) . ': ' . get_search_query() . '</span></li>';
 
 	} elseif ( is_404() ) {
-		$html .= '<li>' . __( 'Error 404', 'ignite' ) . '</li>';
+		$html .= '<li>' . __( 'Error 404', 'anva' ) . '</li>';
 
 	} elseif ( is_home() ) {
 		$html .= '<li>' . get_the_title( get_option( 'page_for_posts' ) ) . '</li>';

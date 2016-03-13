@@ -79,6 +79,12 @@ a {
 	}
 }
 
+.sticky {
+	background-color: #F5F5F5;
+	border-top: 3px solid transparent;
+	padding: 30px 30px 50px
+}
+
 .screen-reader-text {
 	clip: rect(1px, 1px, 1px, 1px);
 	position: absolute !important;

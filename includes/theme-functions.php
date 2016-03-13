@@ -282,6 +282,48 @@ function theme_styles() {
 	return anva_compress( $styles );
 }
 
+add_action('optionsframework_custom_scripts', 'theme_base_colors');
+function theme_base_colors() {
+	?>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			// Color Scheme Options - These array names should match
+			// the values in base_color_scheme of options.php
+			
+			// Dark Color Options
+			var dark = new Array();
+			dark['bg_color']='#e4ff31';
+			
+			// Light Color Options
+			var light = new Array();
+			light['bg_color']='#6cff00';
+			
+			// Vibrant Color Options
+			var vibrant = new Array();
+			vibrant['bg_color']='#065667';
+			
+			// When the select box #base_color_scheme changes
+			// it checks which value was selected and calls of_update_color
+			$('#section-base_color .anva-radio-img-radio').click(function() {
+			    colorscheme = $(this).val();
+			    if (colorscheme == 'blue') { colorscheme = dark; }
+			    if (colorscheme == 'red') { colorscheme = light; }
+			    if (colorscheme == 'green') { colorscheme = vibrant; }
+			    for (id in colorscheme) {
+			        of_update_color(id,colorscheme[id]);
+			    }
+			});
+
+			// This does the heavy lifting of updating all the colorpickers and text
+	        function of_update_color(id,hex) {
+	            $('#' + id).wpColorPicker('color',hex);
+	        }
+		});
+	</script>
+	<?php
+}
+
+
 /**
  * Remove camera and swiper scripts if their not uses.
  * 

@@ -23,28 +23,28 @@ class Options_Framework_Admin {
 	 * @since 1.7.0
 	 */
 	public function init() {
+		if ( is_admin() && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
+			// Gets options to load
+			$options = anva_get_options();
 
-		// Gets options to load
-		$options = anva_get_options();
+			// Checks if options are available
+			if ( $options ) {
 
-		// Checks if options are available
-		if ( $options ) {
+				// Add the options page and menu item.
+				add_action( 'admin_menu', array( $this, 'add_custom_options_page' ) );
 
-			// Add the options page and menu item.
-			add_action( 'admin_menu', array( $this, 'add_custom_options_page' ) );
+				// Add the required scripts and styles
+				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
-			// Add the required scripts and styles
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+				// Settings need to be registered after admin_init
+				add_action( 'admin_init', array( $this, 'settings_init' ) );
 
-			// Settings need to be registered after admin_init
-			add_action( 'admin_init', array( $this, 'settings_init' ) );
+				// Adds options menu to the admin bar
+				add_action( 'wp_before_admin_bar_render', array( $this, 'optionsframework_admin_bar' ) );
 
-			// Adds options menu to the admin bar
-			add_action( 'wp_before_admin_bar_render', array( $this, 'optionsframework_admin_bar' ) );
-
+			}
 		}
-
 	}
 
 	/**
