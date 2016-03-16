@@ -1,13 +1,34 @@
 <?php
-/*-----------------------------------------------------------------------------------*/
-/* Admin General Functions
-/*-----------------------------------------------------------------------------------*/
 
 /**
- * Remove trailing char
+ * Init admin modules
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function anva_admin_init() {
+
+	// Instantiate the options page
+	$options_page = new Anva_Options_Page;
+	$options_page->init();
+	
+	// Instantiate the options backup
+	$options_backup = new Anva_Options_Backup();
+	$options_backup->init();
+
+	// Instantiate the media uploader class
+	$options_media_uploader = new Anva_Options_Media_Uploader;
+	$options_media_uploader->init();
+
+}
+
+/**
+ * Remove trailing char.
  *
  * @since  1.0.0
- * @return string
+ * @param  string $string
+ * @param  string $char
+ * @return string $string
  */
 function anva_remove_trailing_char( $string, $char = ' ' ) {
 
@@ -29,11 +50,11 @@ function anva_remove_trailing_char( $string, $char = ' ' ) {
  * Get font stacks
  * 
  * @since  1.0.0
- * @return array
+ * @return array $stacks
  */
 function anva_get_font_stacks() {
 	$stacks = array(
-		'default'			=> 'Arial, sans-serif', // Used to chain onto end of google font
+		'default'		=> 'Arial, sans-serif', // Used to chain onto end of google font
 		'arial'     	=> 'Arial, "Helvetica Neue", Helvetica, sans-serif',
 		'baskerville'	=> 'Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif',
 		'georgia'   	=> 'Georgia, Times, "Times New Roman", serif',
@@ -44,7 +65,7 @@ function anva_get_font_stacks() {
 		'times'     	=> 'TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif',
 		'trebuchet' 	=> '"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif',
 		'verdana'   	=> 'Verdana, Geneva, sans-serif',
-		'google'			=> 'Google Font'
+		'google'		=> 'Google Font'
 	);
 	return apply_filters( 'anva_font_stacks', $stacks );
 }
@@ -53,6 +74,7 @@ function anva_get_font_stacks() {
  * Get font face
  *
  * @since  1.0.0
+ * @param  array $option
  * @return font face name
  */
 function anva_get_font_face( $option ) {
@@ -71,23 +93,25 @@ function anva_get_font_face( $option ) {
 		$name = anva_remove_trailing_char( $name[0] );
 
 		// Add the deafult font stack to the end of the google font.
-		$stack = $name .', ' . $stacks['default'];
+		$stack = $name . ', ' . $stacks['default'];
 
-	} elseif ( isset( $option['face'] ) && isset( $stacks[$option['face']] ) ) {
-		$stack = $stacks[$option['face']];
-	
-	} else {
-		$stack = $stacks[$face];
-	}
+	} elseif ( isset( $option['face'] ) && isset( $stacks[ $option['face'] ] ) ) {
+		$stack = $stacks[ $option['face'] ];
 
-	return apply_filters( 'anva_font_face', $stack, $option, $stacks );
+ 	} else {
+		$stack = $stacks[ $face ];
+ 	}
+
+
+	return apply_filters( 'anva_get_font_face', $stack, $option, $stacks );
 }
 
 /**
- * Get font size and set the default value
+ * Get font size and set the default value.
  *
  * @since  1.0.0
- * @return string
+ * @param  array  $option
+ * @return string $size
  */
 function anva_get_font_size( $option ) {
 
@@ -97,14 +121,15 @@ function anva_get_font_size( $option ) {
 		$size = $option['size'];
 	}
 
-	return apply_filters( 'anva_font_size', $size, $option );
+	return apply_filters( 'anva_get_font_size', $size, $option );
 }
 
 /**
  * Get font style and set the default value.
  *
  * @since  1.0.0
- * @return string font style
+ * @param  array  $option
+ * @return string $style
  */
 function anva_get_font_style( $option ) {
 
@@ -121,7 +146,8 @@ function anva_get_font_style( $option ) {
  * Get font weight and set the default value.
  *
  * @since  1.0.0
- * @return string font weight
+ * @param  array  $option
+ * @return string $weight
  */
 function anva_get_font_weight( $option ) {
 
@@ -142,39 +168,25 @@ function anva_get_font_weight( $option ) {
 	return apply_filters( 'anva_get_font_weight', $weight, $option );
 }
 
-/**
- * Get recognized font sizes.
- *
- * Returns an indexed array of all recognized font sizes.
- * Values are integers and represent a range of sizes from
- * smallest to largest.
- *
- * @return   array
- */
-function anva_recognized_font_sizes() {
-	$sizes = range( 9, 71 );
-	$sizes = apply_filters( 'anva_recognized_font_sizes', $sizes );
-	$sizes = array_map( 'absint', $sizes );
-	return $sizes;
-}
 
 /**
- * Get background patterns
+ * Get background patterns url fron option value.
  *
  * @since  1.0.0
- * @return image url
+ * @param  string $option
+ * @return string $output
  */
 function anva_get_background_pattern( $option ) {
-	$output = esc_url( get_template_directory_uri() . '/assets/images/patterns/' . $option . '.png' );
+	$image = esc_url( get_template_directory_uri() . '/assets/images/patterns/' . $option . '.png' );
+	$output = apply_filters( 'anva_background_pattern', $url );
 	return $output;
 }
 
 /**
- * Include font from google. Accepts unlimited
- * amount of font arguments.
+ * Include font from google. Accepts unlimited amount of font arguments.
  *
  * @since  1.0.0
- * @return stylesheet link
+ * @return void
  */
 function anva_enqueue_google_fonts() {
 

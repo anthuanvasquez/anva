@@ -76,7 +76,7 @@ class Anva_Scripts_API {
 		// Plugins
 		$this->framework_scripts['anva_plugins'] = array(
 			'handle'	=> 'anva_plugins',
-			'src'			=> anva_get_core_uri() .'/assets/js/plugins.min.js',
+			'src'			=> anva_get_core_uri() .'/assets/js/plugins.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'			=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true
@@ -112,9 +112,9 @@ class Anva_Scripts_API {
 		// Main JS
 		$this->framework_scripts['anva_main'] = array(
 			'handle'	=> 'anva',
-			'src'			=> anva_get_core_uri() .'/assets/js/anva.min.js',
+			'src'		=> anva_get_core_uri() .'/assets/js/functions.js',
 			'deps'		=> array( 'jquery', 'anva_plugins' ),
-			'ver'			=> ANVA_FRAMEWORK_VERSION,
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true
 		);
 

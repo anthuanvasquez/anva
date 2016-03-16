@@ -8,16 +8,16 @@
 get_header();
 ?>
 
-<div class="row grid-columns">
+<div class="container clearfix">
 
 	<?php get_sidebar( 'left' ); ?>
 	
-	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
-		<div id="posts">
+	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
+		<div id="portfolio">
 			<?php anva_posts_content_before(); ?>
 			<?php while ( have_posts() ) : the_post(); ?>
-				<div class="article-wrapper">
-					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+				<div class="entry-wrap">
+					<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 						<div class="entry-title">
 							<h1><?php the_title(); ?></h1>
 						</div><!-- .entry-title (end) -->
@@ -120,15 +120,15 @@ get_header();
 						</div><!-- .entry-content (end) -->
 					</article><!-- #post-<?php the_ID(); ?> -->
 
-				</div><!-- .article-wrapper (end) -->
+				</div><!-- .entry-wrapp (end) -->
 				<?php anva_posts_comments(); ?>
 			<?php endwhile; ?>
 			<?php anva_posts_content_after(); ?>
-		</div><!-- #posts (end) -->
-	</div><!-- .content-area (end) -->
+		</div><!-- #portfolio (end) -->
+	</div><!-- .postcontent (end) -->
 	
 	<?php get_sidebar( 'right' ); ?>
 
-</div><!-- .grid-columns (end) -->
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

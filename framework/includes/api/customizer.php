@@ -29,8 +29,8 @@ function anva_add_customizer_section( $section_id, $title, $options, $priority =
 	}
 
 	$_anva_customizer_sections[ $section_id ] = array(
-		'id' 					=> $section_id,
-		'title' 			=> $title,
+		'id' 			=> $section_id,
+		'title' 		=> $title,
 		'options' 		=> $options,
 		'priority'		=> $priority,
 		'description'	=> $description,

@@ -88,21 +88,58 @@ function anva_head_viewport() {
  * @since 1.0.0
  */
 function anva_top_bar_default() {
-	?>	
+	?>
+	<!-- Top Bar -->
 	<div id="top-bar">
 		<div class="container clearfix">
-			<div class="grid_6">
-				<div id="top-links">
-					<?php anva_header_secondary_menu(); ?>
-				</div>
+			<div class="col_half nobottommargin">
+				<!-- Top Links -->
+				<div class="top-links">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="faqs.html">FAQs</a></li>
+						<li><a href="contact.html">Contact</a></li>
+						<li><a href="login-register.html">Login</a>
+							<div class="top-link-section">
+								<form id="top-login" role="form">
+									<div class="input-group" id="top-login-username">
+										<span class="input-group-addon"><i class="icon-user"></i></span>
+										<input type="email" class="form-control" placeholder="Email address" required="">
+									</div>
+									<div class="input-group" id="top-login-password">
+										<span class="input-group-addon"><i class="icon-key"></i></span>
+										<input type="password" class="form-control" placeholder="Password" required="">
+									</div>
+									<label class="checkbox">
+									  <input type="checkbox" value="remember-me"> Remember me
+									</label>
+									<button class="btn btn-danger btn-block" type="submit">Sign in</button>
+								</form>
+							</div>
+						</li>
+					</ul>
+				</div><!-- .top-links end -->
 			</div>
-			<div class="grid_6 grid_last fright nobottommargin">
+
+			<div class="col_half fright col_last nobottommargin">
+
+				<!-- Top Social
+				============================================= -->
 				<div id="top-social">
-					<?php echo anva_social_media(); ?>
-				</div>
+					<ul>
+						<li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
+						<li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
+						<li><a href="#" class="si-dribbble"><span class="ts-icon"><i class="icon-dribbble"></i></span><span class="ts-text">Dribbble</span></a></li>
+						<li><a href="#" class="si-github"><span class="ts-icon"><i class="icon-github-circled"></i></span><span class="ts-text">Github</span></a></li>
+						<li><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span class="ts-text">Pinterest</span></a></li>
+						<li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
+						<li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
+						<li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text">info@canvas.com</span></a></li>
+					</ul>
+				</div><!-- #top-social end -->
 			</div>
 		</div>
-	</div><!-- #addon (end) -->
+	</div><!-- #top-bar end -->
 	<?php
 }
 
@@ -155,14 +192,17 @@ function anva_header_logo_default() {
 				break;
 
 			case 'image' :
-				$image_1x = $option['image'];
+				$image_1x = esc_url( $option['image'] );
 				$image_2x = '';
+				$logo_2x  = '';
 
 				if ( ! empty( $option['image_2x'] ) ) {
 					$image_2x = $option['image_2x'];
+					$logo_2x = '<a class="retina-logo" href="' . home_url() . '"><img src="' . $image_2x . '" alt="' . $name . '" /></a>';
 				}
 
-				echo '<a href="'. home_url() .'"><img src="'. $image_1x .'" alt="'. $name .'" data-image-2x="'. $image_2x .'" /></a>';
+				echo '<a class="standard-logo" href="' . home_url() . '"><img src="' . $image_1x . '" alt="' . $name . '" /></a>';
+				echo $logo_2x;
 				break;
 		}
 	}
@@ -195,7 +235,6 @@ function anva_header_extras_default() {
  */
 function anva_header_primary_menu_default() {
 	if ( has_nav_menu( 'primary' ) ) :
-	$trigger = '<a href="#" id="primary-menu-trigger"><i class="fa fa-bars"></i></a>';
 	?>
 		<nav id="primary-menu" role="navigation">
 			<?php
@@ -207,7 +246,7 @@ function anva_header_primary_menu_default() {
 					'menu_class'      => 'sf-menu clearfix',
 					'menu_id'         => '',
 					'echo'            => true,
-					'items_wrap'      => $trigger . '<ul id="%1$s" class="%2$s">%3$s</ul>' )
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
 				));
 
 				anva_header_primary_menu_addon();
@@ -227,29 +266,49 @@ function anva_header_primary_menu_default() {
  */
 function anva_header_primary_menu_addon_default() {
 	?>	
-	<div id="header-menu-addon">
-		<div id="top-search">
-			<a href="#" id="top-search-trigger">
-				<i class="fa fa-search"></i>
-			</a>
-			<form action="search.html" method="get">
-				<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-			</form>
+	<!-- Top Cart -->
+	<div id="top-cart">
+		<a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
+		<div class="top-cart-content">
+			<div class="top-cart-title">
+				<h4>Shopping Cart</h4>
+			</div>
+			<div class="top-cart-items">
+				<div class="top-cart-item clearfix">
+					<div class="top-cart-item-image">
+						<a href="#"><img src="images/shop/small/1.jpg" alt="Blue Round-Neck Tshirt" /></a>
+					</div>
+					<div class="top-cart-item-desc">
+						<a href="#">Blue Round-Neck Tshirt</a>
+						<span class="top-cart-item-price">$19.99</span>
+						<span class="top-cart-item-quantity">x 2</span>
+					</div>
+				</div>
+				<div class="top-cart-item clearfix">
+					<div class="top-cart-item-image">
+						<a href="#"><img src="images/shop/small/6.jpg" alt="Light Blue Denim Dress" /></a>
+					</div>
+					<div class="top-cart-item-desc">
+						<a href="#">Light Blue Denim Dress</a>
+						<span class="top-cart-item-price">$24.99</span>
+						<span class="top-cart-item-quantity">x 3</span>
+					</div>
+				</div>
+			</div>
+			<div class="top-cart-action clearfix">
+				<span class="fleft top-checkout-price">$114.95</span>
+				<button class="button button-3d button-small nomargin fright">View Cart</button>
+			</div>
 		</div>
-		<div id="top-cart">
-			<a href="#" id="top-cart-trigger">
-				<i class="fa fa-shopping-cart"></i>
-				<span class="badge">0</span>
-			</a>
-			<div id="top-cart-content"></div>
-		</div>
-		<div id="top-lang">
-			<a href="#" id="top-lang-trigger">
-				<i class="fa fa-flag"></i>
-			</a>
-			<div id="top-lang-content"></div>
-		</div>
-	</div><!-- #menu-addon (end) -->
+	</div><!-- #top-cart end -->
+
+	<!-- Top Search -->
+	<div id="top-search">
+		<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+		<form action="search.html" method="get">
+			<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+		</form>
+	</div><!-- #top-search end -->
 	<?php
 }
 
@@ -261,9 +320,9 @@ function anva_header_primary_menu_addon_default() {
  */
 function anva_footer_content_default() {
 	$footer_setup = anva_get_option( 'footer_setup' );
-	if ( $footer_setup ) :
+	if ( isset( $footer_setup['num'] ) && $footer_setup['num'] ) :
 	?>
-	<div class="footer-widgets grid-columns">
+	<div class="footer-widgets-wrap clearfix">
 		<?php anva_display_footer_sidebar_locations(); ?>
 	</div>
 	<?php
@@ -278,16 +337,63 @@ function anva_footer_content_default() {
 function anva_footer_copyrights_default() {
 	$footer_copyright = anva_get_option( 'footer_copyright' );
 	$html  = '';
-	$html .= '<div class="grid_6">';
+	$html .= '<div class="col_half">';
 
 	if ( $footer_copyright || ! empty( $footer_copyright ) ) {
 		$html .= sprintf( $footer_copyright );
 	} else {
 		$html .= sprintf( 'Copyright %1$s <strong>%2$s</strong> %3$s %4$s.', '2016', get_bloginfo( 'name' ), __( 'Designed by', 'anva' ), '<a href="'. esc_url( 'http://anthuanvasquez.net/' ) .'">Anthuan Vasquez</a>' );
 	}
-
-	$html .= '<a id="gotop" href="#" class="gotop gotop-md"><i class="fa fa-chevron-up"></i></a>';
+	$html .= '<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>';
 	$html .= '</div>';
+	
+	$html .= '<div class="col_half col_last tright">
+		<div class="fright clearfix">
+			<a href="#" class="social-icon si-small si-borderless si-facebook">
+				<i class="icon-facebook"></i>
+				<i class="icon-facebook"></i>
+			</a>
+
+			<a href="#" class="social-icon si-small si-borderless si-twitter">
+				<i class="icon-twitter"></i>
+				<i class="icon-twitter"></i>
+			</a>
+
+			<a href="#" class="social-icon si-small si-borderless si-gplus">
+				<i class="icon-gplus"></i>
+				<i class="icon-gplus"></i>
+			</a>
+
+			<a href="#" class="social-icon si-small si-borderless si-pinterest">
+				<i class="icon-pinterest"></i>
+				<i class="icon-pinterest"></i>
+			</a>
+
+			<a href="#" class="social-icon si-small si-borderless si-vimeo">
+				<i class="icon-vimeo"></i>
+				<i class="icon-vimeo"></i>
+			</a>
+
+			<a href="#" class="social-icon si-small si-borderless si-github">
+				<i class="icon-github"></i>
+				<i class="icon-github"></i>
+			</a>
+
+			<a href="#" class="social-icon si-small si-borderless si-yahoo">
+				<i class="icon-yahoo"></i>
+				<i class="icon-yahoo"></i>
+			</a>
+
+			<a href="#" class="social-icon si-small si-borderless si-linkedin">
+				<i class="icon-linkedin"></i>
+				<i class="icon-linkedin"></i>
+			</a>
+		</div>
+
+		<div class="clear"></div>
+
+		<i class="icon-envelope2"></i> info@canvas.com <span class="middot">&middot;</span> <i class="icon-headphones"></i> +91-11-6541-6369 <span class="middot">&middot;</span> <i class="icon-skype2"></i> CanvasOnSkype
+	</div>';
 
 	echo $html;
 }
@@ -361,42 +467,40 @@ function anva_featured_after_default() {
 function anva_breadcrumbs_default() {
 	$breadcrumbs = anva_get_option( 'breadcrumbs', 'hide' );
 	if ( 'show' == $breadcrumbs ) {
-		?>
-		<div id="breadcrumbs">
-			<div class="breadcrumbs-content">
-				<?php anva_get_breadcrumbs(); ?>
-			</div><!-- .breadcrumbs-content (end) -->
-		</div><!-- #breadcrumbs (end) -->
-		<?php
+		anva_get_breadcrumbs();
 	}
 }
 
 /**
  * Wrapper layout content start
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_above_layout_default() {
 	?>
-	<div id="sidebar-layout">
+	<div id="sidebar-layout-wrap">
 	<?php
 }
 
 /**
  * Wrapper layout content end
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_below_layout_default() {
 	?>
-	</div><!-- #sidebar-layout (end) -->
+	</div><!-- #sidebar-layout-wrap (end) -->
 	<?php
 }
 
 /**
  * Display sidebars location
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  string $position
+ * @return void
  */
 function anva_sidebars_default( $position ) {
 
@@ -481,25 +585,27 @@ function anva_sidebars_default( $position ) {
 }
 
 /**
- * Display sidebar location before
+ * Display sidebar location before.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_sidebar_before_default( $side ) {
 	?>
-	<div class="sidebar sidebar-<?php echo esc_attr( $side ) .' '. esc_attr( anva_get_column_class( $side ) ); ?>">
-		<div class="sidebar-inner">
+	<div class="sidebar-<?php echo esc_attr( $side ) .' '. esc_attr( anva_get_column_class( $side ) ); ?>">
+		<div class="sidebar-widgets-wrap">
 	<?php
 }
 
 /**
- * Display sidebar location after
+ * Display sidebar location after.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_sidebar_after_default() {
 	?>
-		</div><!-- .sidebar-inner (end) -->
+		</div><!-- .sidebar-widgets-wrap (end) -->
 	</div><!-- .sidebar (end) -->
 	<?php
 }
@@ -511,13 +617,11 @@ function anva_sidebar_after_default() {
  */
 function anva_sidebar_above_header() {
 	?>
-	<div class="above-header">
-		<div class="ad-widget ad-widget-above-header">
-			<div class="container clearfix">
-				<?php anva_display_sidebar( 'above_header' ); ?>
-			</div>
+	<div id="above-header">
+		<div class="container clearfix">
+			<?php anva_display_sidebar( 'above_header' ); ?>
 		</div>
-	</div><!-- .above-header (end) -->
+	</div><!-- #above-header (end) -->
 	<?php
 }
 
@@ -528,11 +632,11 @@ function anva_sidebar_above_header() {
  */
 function anva_sidebar_above_content() {
 	?>
-	<div class="above-content">
-		<div class="ad-widget ad-widget-above-content clearfix">
+	<div id="above-content">
+		<div class="container clearfix">
 			<?php anva_display_sidebar( 'above_content' ); ?>
 		</div>
-	</div><!-- .above-content (end) -->
+	</div><!-- #above-content (end) -->
 	<?php
 }
 
@@ -543,11 +647,11 @@ function anva_sidebar_above_content() {
  */
 function anva_sidebar_below_content() {
 	?>
-	<div class="below-content">
-		<div class="ad-widget ad-widget-below-content clearfix">
+	<div id="below-content">
+		<div class="container clearfix">
 			<?php anva_display_sidebar( 'below_content' ); ?>
 		</div>
-	</div><!-- .below-content (end) -->
+	</div><!-- #below-content (end) -->
 	<?php
 }
 
@@ -558,13 +662,11 @@ function anva_sidebar_below_content() {
  */
 function anva_sidebar_below_footer() {
 	?>
-	<div class="below-footer">
-		<div class="ad-widget ad-widget-below-footer">
-			<div class="container clearfix">
-				<?php anva_display_sidebar( 'below_footer' ); ?>
-			</div>
+	<div id="below-footer">
+		<div class="container clearfix">
+			<?php anva_display_sidebar( 'below_footer' ); ?>
 		</div>
-	</div><!-- .below-footer (end) -->
+	</div><!-- #below-footer (end) -->
 	<?php
 }
 
@@ -586,15 +688,18 @@ function anva_posts_meta_default() {
 }
 
 /**
- * Display posts content default
+ * Display posts content default.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_posts_content_default() {
 	$primary_content = anva_get_option( 'primary_content', 'excerpt' );
 	if ( 'excerpt' == $primary_content ) {
+		echo '<div class="entry-summary">';
 		anva_excerpt();
-		echo '<a class="button button-mini" href="'. get_the_permalink() .'">'. anva_get_local( 'read_more' ) .'</a>';
+		echo '</div>';
+		echo '<a class="more-link" href="' . get_the_permalink() . '">' . anva_get_local( 'read_more' ) . '</a>';
 	} else {
 		the_content( anva_get_local( 'read_more' ) );
 	}
@@ -604,7 +709,8 @@ if ( ! function_exists( 'anva_posts_comments_default' ) ) :
 /**
  * Display posts comments default
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_posts_comments_default() {
 	$single_comments = anva_get_option( 'single_comments', 'show' );

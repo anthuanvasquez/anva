@@ -66,10 +66,10 @@ function anva_archive_title() {
 function anva_posted_on() {
 	
 	// Get the time
-	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="fa fa-calendar"></i> %2$s</time>';
+	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="icon-calendar3"></i> %2$s</time>';
 	
 	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-		$time_string .= '<time class="entry-date-updated updated" datetime="%3$s"><i class="fa fa-calendar"></i> %4$s</time>';
+		$time_string .= '<time class="entry-date-updated updated" datetime="%3$s"><i class="icon-calendar3"></i> %4$s</time>';
 	}
 
 	$time_string = sprintf(
@@ -96,18 +96,13 @@ function anva_posted_on() {
 		$write_comments =  __( 'Comments closed', 'anva' );
 	}
 
-	$sep = ' / ';
-
 	printf(
-		'<div class="entry-meta clearfix">
-			<span class="posted-on">%1$s</span>
-			<span class="sep">%5$s</span>
-			<span class="byline"><i class="fa fa-user"></i> %2$s</span>
-			<span class="sep">%5$s</span>
-			<span class="category"><i class="fa fa-bars"></i> %3$s</span>
-			<span class="sep">%5$s</span>
-			<span class="comments-link"><i class="fa fa-comments"></i> %4$s</span>
-		</div><!-- .entry-meta (end) -->',
+		'<ul class="entry-meta clearfix">
+			<li class="posted-on">%1$s</li>
+			<li class="byline"><i class="icon-user"></i> %2$s</li>
+			<li class="category"><i class="icon-folder-open"></i> %3$s</li>
+			<li class="comments-link"><i class="icon-comments"></i> %4$s</li>
+		</ul><!-- .entry-meta (end) -->',
 		sprintf(
 			'%1$s', $time_string
 		),
@@ -121,9 +116,6 @@ function anva_posted_on() {
 		),
 		sprintf(
 			'%1$s', $write_comments
-		),
-		sprintf(
-			'%1$s', $sep
 		)
 	);
 }
@@ -180,7 +172,7 @@ function anva_social_media( $buttons = array(), $style = null ) {
 				}
 			}
 
-			$output .= sprintf( '<li><a href="%1$s" class="social-icon social-%3$s %5$s" target="%4$s"><i class="fa fa-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target, $classes );
+			$output .= sprintf( '<li><a href="%1$s" class="social-icon social-%3$s %5$s" target="%4$s"><i class="icon-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target, $classes );
 		}
 
 		$output .= '</ul><!-- .social-icons (end) -->';
@@ -204,7 +196,7 @@ function anva_site_search() {
 }
 
 /**
- * Post navigation
+ * Post navigation.
  * 
  * @since 1.0.0
  */
@@ -219,18 +211,20 @@ function anva_post_nav() {
 	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
 	$next = get_adjacent_post( false, '', false );
 
+	
 	if ( ! $next && ! $previous ) {
 		return;
 	}
+
+	$previous_title = $previous->post_title;
+	$next_title = $next->post_title;
 	?>
-	<nav class="post-navigation" role="navigation">
-		<ul class="pager navigation-content clearfix">
-			<?php
-				previous_post_link( '<li class="previous">%link</li>', anva_get_local( 'prev' ) );
-				next_post_link( '<li class="next">%link</li>', anva_get_local( 'next' ) );
-			?>
-		</ul>
-	</nav><!-- .post-navigation (end) -->
+	<div class="post-navigation clearfix">
+		<?php
+			previous_post_link( '<div class="col_half nobottommargin">%link</div>', $previous_title );
+			next_post_link( '<div class="col_half col_last tright nobottommargin">%link</div>', $next_title );
+		?>
+	</div><!-- .post-navigation (end) -->
 	<div class="line"></div>
 	<?php
 }
@@ -247,10 +241,10 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 	$output = '';
 
 	$args = array(
-		'posts_per_page' 	=> $number,
-		'post_type' 			=> array( 'post' ),
-		'orderby'					=> $orderby,
-		'order'						=> $order
+		'posts_per_page' => $number,
+		'post_type' 	 => array( 'post' ),
+		'orderby'		 => $orderby,
+		'order'			 => $order
 	);
 
 	$query = anva_get_query_posts( $args );
@@ -302,9 +296,9 @@ function anva_post_author() {
 	}
 
 	global $post;
-	$id 		= $post->post_author;
+	$id 	= $post->post_author;
 	$avatar = get_avatar( $id, '96' );
-	$url 		= get_the_author_meta( 'user_url', $id );
+	$url 	= get_the_author_meta( 'user_url', $id );
 	$name 	= get_the_author_meta( 'display_name', $id );
 	$desc 	= get_the_author_meta( 'description', $id );
 	?>
@@ -328,13 +322,14 @@ function anva_post_author() {
 }
 
 function anva_post_tags() {
-	$classes = 'entry-tags clearfix';
+	$classes = 'tagcloud clearfix';
 	if ( is_single() )
 		$classes .= ' bottommargin';
 	?>
-	<span class="<?php echo esc_attr( $classes ); ?>">
-		<?php the_tags( '<i class="fa fa-tags"></i> ', ' ' ); ?>
-	</span><!-- .entry-tags (end) -->
+
+	<div class="<?php echo esc_attr( $classes ); ?>">
+		<?php the_tags( '', ' ' ); ?>
+	</div><!-- .tagcloud (end) -->
 	<?php
 }
 
@@ -350,31 +345,49 @@ function anva_post_share() {
 		return;
 	}
 
+	$twitter = anva_get_option( 'social_media' );
+
+	$url = get_permalink();
+	$title = get_the_title();
+	$thumbnail_url = anva_get_featured_image( get_the_ID(), 'medium' );
+
 	if ( is_single() ) :
 	?>
-	<div class="social-share noborder clearfix">
+	<div class="clear"></div>
+	<div class="si-share noborder clearfix">
 		<span><?php _e( 'Share this Post:', 'anva' ); ?></span>
 		<div>
-			<a href="#" class="social-icon social-noborder social-facebook">
-				<i class="fa fa-facebook"></i>
+			<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_url( $url ); ?>&t=<?php echo esc_attr( $title ); ?>"
+   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="<?php _e( 'Share on Facebook', 'anva' ); ?>" class="social-icon si-borderless si-facebook">
+				<i class="icon-facebook"></i>
+				<i class="icon-facebook"></i>
 			</a>
-			<a href="#" class="social-icon social-noborder social-twitter">
-				<i class="fa fa-twitter"></i>
+			<a href="https://twitter.com/share?url=<?php echo esc_url( $url ); ?>&via=TWITTER_HANDLE&text=<?php echo esc_attr( $title ); ?>"
+   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+   target="_blank" title="<?php _e( 'Share on Twitter', 'anva' ); ?>" class="social-icon si-borderless si-twitter">
+				<i class="icon-twitter"></i>
+				<i class="icon-twitter"></i>
 			</a>
-			<a href="#" class="social-icon social-noborder social-pinterest">
-				<i class="fa fa-pinterest"></i>
+			<a href="http://pinterest.com/pin/create/button/?url=<?php echo esc_url( $url ); ?>&media=<?php echo esc_url( $thumbnail_url ); ?>&description=<?php echo esc_attr( $title ); ?>" target="_blank" class="social-icon si-borderless si-pinterest">
+				<i class="icon-pinterest"></i>
+				<i class="icon-pinterest"></i>
 			</a>
-			<a href="#" class="social-icon social-noborder social-google-plus">
-				<i class="fa fa-google-plus"></i>
+			<a href="https://plus.google.com/share?url=<?php echo esc_url( $url ); ?>"
+   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=350,width=480');return false;"
+   target="_blank" title="<?php _e( 'Share on Google+', 'anva' ); ?>" class="social-icon si-borderless si-gplus">
+				<i class="icon-gplus"></i>
+				<i class="icon-gplus"></i>
 			</a>
-			<a href="#" class="social-icon social-noborder social-rss">
-				<i class="fa fa-rss"></i>
+			<a href="<?php echo get_feed_link( 'rss2' ); ?>" class="social-icon si-borderless si-rss">
+				<i class="icon-rss"></i>
+				<i class="icon-rss"></i>
 			</a>
-			<a href="#" class="social-icon social-noborder social-envelope">
-				<i class="fa fa-envelope"></i>
+			<a href="#" class="social-icon si-borderless si-email3">
+				<i class="icon-email3"></i>
+				<i class="icon-email3"></i>
 			</a>
 		</div>
-	</div><!-- .social-share (end) -->
+	</div><!-- .si-share (end) -->
 	<?php
 	endif;
 }
@@ -402,8 +415,9 @@ function anva_post_related() {
 	$column = 2;
 	$categories = get_the_category( $post->ID );
 
-	$open_row = '<div class="grid_6 nomarginbottom">';
-	$close_row = '</div><!-- .grid_6 (end) -->';
+	$open_row = '<div class="col_half nobottommargin">';
+	$open_row_last = '<div class="col_half nobottommargin col_last">';
+	$close_row = '</div><!-- .col_half (end) -->';
 
 	if ( $categories ) :
 		
@@ -430,29 +444,28 @@ function anva_post_related() {
 
 				<?php if ( 1 == $count ): echo $open_row; endif ?>
 				
-				<div class="md-post clearfix">
+				<div class="mpost clearfix">
 					<div class="entry-image">
 						<a href="<?php the_permalink(); ?>">
 							<?php the_post_thumbnail( 'blog_md' ); ?>
 						</a>
-					</div><!-- .entry-image (end) -->
+					</div>
 					<div class="entry-c">
 						<div class="entry-title">
 							<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
 						</div>
-						<div class="entry-meta clearfix">
-							<span><i class="fa fa-calendar"></i> <?php the_time( 'jS F Y' ); ?></span>
-							<span class="sep">/</span>
-							<span><a href="<?php the_permalink(); ?>/#comments"><i class="fa fa-comments"></i> <?php echo get_comments_number(); ?></a></span>
-						</div>
+						<ul class="entry-meta clearfix">
+							<li><i class="icon-calendar3"></i> <?php the_time( 'jS F Y' ); ?></li>
+							<li><a href="<?php the_permalink(); ?>/#comments"><i class="icon-comments"></i> <?php echo get_comments_number(); ?></a></li>
+						</ul>
 						<div class="entry-content">
 							<?php anva_excerpt( 90 ); ?>
 						</div>
-					</div><!-- .entry-c (end) -->
+					</div>
 				</div><!-- .md-post (end) -->
 
 				<?php if ( 0 == $count % $column ): echo $close_row; endif ?>
-				<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row; endif; ?>
+				<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row_last; endif; ?>
 
 				<?php $count++; ?>
 
@@ -802,7 +815,7 @@ function anva_get_search_form() {
 			<span class="input-group-btn">
 				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
 					<span class="sr-only"><?php echo anva_get_local( 'search_for' ); ?></span>
-					<i class="fa fa-search"></i>
+					<i class="icon-search"></i>
 				</button>
 			</span>
 		</div>
@@ -821,7 +834,7 @@ function anva_get_product_search_form() {
 			<span class="input-group-btn">
 				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
 					<span class="sr-only"><?php echo esc_attr__( 'Search', 'anva' ); ?></span>
-					<i class="fa fa-search"></i>
+					<i class="icon-search"></i>
 				</button>
 				<input type="hidden" name="post_type" value="product" />
 			</span>
@@ -931,12 +944,12 @@ function anva_get_breadcrumbs( $args = array() ) {
 	$defaults  = array(
 		'separator_icon'      => '/',
 		'breadcrumbs_id'      => 'breadcrumb',
-		'breadcrumbs_classes' => 'breadcrumb-trail breadcrumb',
+		'breadcrumbs_classes' => 'breadcrumb',
 		'home_title'          => __( 'Home', 'anva' )
 	);
 
 	$args      = apply_filters( 'anva_get_breadcrumbs_args', wp_parse_args( $args, $defaults ) );
-	$separator = '<li class="separator"> ' . esc_attr( $args['separator_icon'] ) . ' </li>';
+	$separator = '<li class="separator hidden"> ' . esc_attr( $args['separator_icon'] ) . ' </li>';
 	
 
 	// Open the breadcrumbs
@@ -960,7 +973,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 			$html .= $separator;
 		}
 
-		$html .= '<li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
+		$html .= '<li class="active item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
 	
 	} elseif ( is_singular( 'page' ) ) {
 
@@ -976,7 +989,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 
 		}
 
-		$html .= '<li class="item-current item-' . $post->ID . '"><span title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
+		$html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
 
 	} elseif ( is_singular( 'attachment' ) ) {
 
@@ -986,7 +999,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 		
 		$html .= '<li class="item-parent"><a class="bread-parent" href="' . esc_url( $parent_permalink ) . '" title="' . esc_attr( $parent_title ) . '">' . esc_attr( $parent_title ) . '</a></li>';
 		$html .= $separator;
-		$html .= '<li class="item-current item-' . $post->ID . '"><span title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
+		$html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
 
 	} elseif ( is_singular() ) {
 
@@ -998,7 +1011,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 
 		$html .= $separator;
 
-		$html .= 'li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . $post->post_title . '">' . $post->post_title . '</span></li>';
+		$html .= 'li class="active item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . $post->post_title . '">' . $post->post_title . '</span></li>';
 
 	} elseif ( is_category() ) {
 
@@ -1014,29 +1027,29 @@ function anva_get_breadcrumbs( $args = array() ) {
 
 		}
 		
-		$html .= '<li class="item-current item-cat"><span class="bread-current bread-cat" title="' . $post->ID . '">' . single_cat_title( '', false ) . '</span></li>';
+		$html .= '<li class="active item-cat"><span class="bread-current bread-cat" title="' . $post->ID . '">' . single_cat_title( '', false ) . '</span></li>';
 
 	} elseif ( is_tag() ) {
-		$html .= '<li class="item-current item-tag"><span class="bread-current bread-tag">' . single_tag_title( '', false ) . '</span></li>';
+		$html .= '<li class="active item-tag"><span class="bread-current bread-tag">' . single_tag_title( '', false ) . '</span></li>';
 
 	} elseif ( is_author() ) {
-		$html .= '<li class="item-current item-author"><span class="bread-current bread-author">' . get_queried_object()->display_name . '</span></li>';
+		$html .= '<li class="active item-author"><span class="bread-current bread-author">' . get_queried_object()->display_name . '</span></li>';
 
 	} elseif ( is_day() ) {
-		$html .= '<li class="item-current item-day"><span class="bread-current bread-day">' . get_the_date() . '</span></li>';
+		$html .= '<li class="active item-day"><span class="bread-current bread-day">' . get_the_date() . '</span></li>';
 
 	} elseif ( is_month() ) {
-		$html .= '<li class="item-current item-month"><span class="bread-current bread-month">' . get_the_date( 'F Y' ) . '</span></li>';
+		$html .= '<li class="active item-month"><span class="bread-current bread-month">' . get_the_date( 'F Y' ) . '</span></li>';
 
 	} elseif ( is_year() ) {
-		$html .= '<li class="item-current item-year"><span class="bread-current bread-year">' . get_the_date( 'Y' ) . '</span></li>';
+		$html .= '<li class="active item-year"><span class="bread-current bread-year">' . get_the_date( 'Y' ) . '</span></li>';
 
 	} elseif ( is_archive() ) {
 		$custom_tax_name = get_queried_object()->name;
-		$html .= '<li class="item-current item-archive"><span class="bread-current bread-archive">' . esc_attr( $custom_tax_name ) . '</span></li>';
+		$html .= '<li class="active item-archive"><span class="bread-current bread-archive">' . esc_attr( $custom_tax_name ) . '</span></li>';
 
 	} elseif ( is_search() ) {
-		$html .= '<sliclass="item-current item-search"><span class="bread-current bread-search">' . __( 'Search results for', 'anva' ) . ': ' . get_search_query() . '</span></li>';
+		$html .= '<sliclass="active item-search"><span class="bread-current bread-search">' . __( 'Search results for', 'anva' ) . ': ' . get_search_query() . '</span></li>';
 
 	} elseif ( is_404() ) {
 		$html .= '<li>' . __( 'Error 404', 'anva' ) . '</li>';
@@ -1514,8 +1527,8 @@ function anva_slider_swiper_default() {
 		<div class="swiper-pagination"></div>
 		
 		<!-- If we need navigation buttons -->
-		<div id="slider-arrow-left"><i class="fa fa-angle-left"></i></div>
-		<div id="slider-arrow-right"><i class="fa fa-angle-right"></i></div>
+		<div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
+		<div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
 		
 	</div>
 	<?php

@@ -96,18 +96,14 @@ function theme_stylesheets() {
 	// Get stylesheet API
 	$api = Anva_Stylesheets_API::instance();
 
-	// Register stylesheets for later use
-	wp_register_style( 'theme_styles', get_template_directory_uri() . '/assets/css/styles.css', $api->get_framework_deps(), ANVA_THEME_VERSION, 'all' );
-	wp_register_style( 'theme_responsive', get_template_directory_uri() . '/assets/css/responsive.css', array( 'theme_styles' ), ANVA_THEME_VERSION, 'all' );
-	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.css', array( 'theme_styles' ), ANVA_THEME_VERSION, 'all' );
-	wp_register_style( 'theme_ie', get_template_directory_uri() . '/assets/css/ie.css', array( 'theme_styles', 'theme_responsive' ), ANVA_THEME_VERSION, 'all' );
+	// Register theme stylesheets
+	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.css', array(), ANVA_THEME_VERSION, 'all' );
+	wp_register_style( 'theme_ie', get_template_directory_uri() . '/assets/css/ie.css', array(), ANVA_THEME_VERSION, 'all' );
 
 	// Compress CSS
 	if ( '1' != anva_get_option( 'compress_css' ) ) {
 		
 		// Enqueue theme stylesheets
-		wp_enqueue_style( 'theme_styles' );
-		wp_enqueue_style( 'theme_responsive' );
 		wp_enqueue_style( 'theme_colors' );
 		
 		// IE
@@ -184,24 +180,24 @@ function theme_scripts() {
  */
 function theme_styles() {
 	
-	$styles 						= '';
+	$styles 			= '';
 
 	// Get styles options
-	$custom_css 				= anva_get_option( 'custom_css' );
-	$body_font 					= anva_get_option( 'body_font' );
-	$heading_font 			= anva_get_option( 'heading_font' );
-	$heading_h1 				= anva_get_option( 'heading_h1', '27' );
-	$heading_h2 				= anva_get_option( 'heading_h2', '24' );
-	$heading_h3 				= anva_get_option( 'heading_h3', '18' );
-	$heading_h4 				= anva_get_option( 'heading_h4', '14' );
-	$heading_h5 				= anva_get_option( 'heading_h5', '13' );
-	$heading_h6 				= anva_get_option( 'heading_h6', '11' );
+	$custom_css 		= anva_get_option( 'custom_css' );
+	$body_font 			= anva_get_option( 'body_font' );
+	$heading_font 		= anva_get_option( 'heading_font' );
+	$heading_h1 		= anva_get_option( 'heading_h1', '27' );
+	$heading_h2 		= anva_get_option( 'heading_h2', '24' );
+	$heading_h3 		= anva_get_option( 'heading_h3', '18' );
+	$heading_h4 		= anva_get_option( 'heading_h4', '14' );
+	$heading_h5 		= anva_get_option( 'heading_h5', '13' );
+	$heading_h6 		= anva_get_option( 'heading_h6', '11' );
 	$background_color 	= anva_get_option( 'bg_color' );
 	$background_image 	= anva_get_option( 'background_image', array( 'image' => '' ) );
 	$background_cover 	= anva_get_option( 'background_cover' );
 	$background_pattern = anva_get_option( 'background_pattern' );
-	$link_color					= anva_get_option( 'link_color' );
-	$link_color_hover		= anva_get_option( 'link_color_hover' );
+	$link_color			= anva_get_option( 'link_color' );
+	$link_color_hover	= anva_get_option( 'link_color_hover' );
 	ob_start();
 	?>
 	/* Typography */

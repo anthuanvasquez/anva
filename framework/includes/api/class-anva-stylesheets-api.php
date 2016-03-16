@@ -93,9 +93,9 @@ class Anva_Stylesheets_API {
 		// Boostrap
 		$this->framework_stylesheets['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
-			'src'			=> anva_get_core_uri() .'/assets/css/bootstrap.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/bootstrap.css',
 			'deps'		=> array(),
-			'ver'			=> '3.3.5',
+			'ver'		=> '3.3.5',
 			'media'		=> 'all'
 
 		);
@@ -103,54 +103,72 @@ class Anva_Stylesheets_API {
 		// Font Awesome
 		$this->framework_stylesheets['fontawesome'] = array(
 			'handle'	=> 'fontawesome',
-			'src'			=> anva_get_core_uri() .'/assets/css/font-awesome.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/font-icons.css',
 			'deps'		=> array(),
-			'ver'			=> '4.4.0',
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'media'		=> 'all'
+		);
+
+		$this->framework_stylesheets['dark'] = array(
+			'handle'	=> 'dark',
+			'src'		=> anva_get_core_uri() .'/assets/css/dark.css',
+			'deps'		=> array(),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'
 		);
 
 		// Animate
 		$this->framework_stylesheets['animate'] = array(
 			'handle'	=> 'animate',
-			'src'			=> anva_get_core_uri() .'/assets/css/animate.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/animate.css',
 			'deps'		=> array(),
-			'ver'			=> '3.4.0',
+			'ver'		=> '3.4.0',
 			'media'		=> 'all'
 		);
 
 		// Magnific Popup
 		$this->framework_stylesheets['magnificpopup'] = array(
 			'handle'	=> 'magnificpopup',
-			'src'			=> anva_get_core_uri() .'/assets/css/magnific-popup.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/magnific-popup.css',
 			'deps'		=> array(),
-			'ver'			=> '0.9.9',
+			'ver'		=> '0.9.9',
 			'media'		=> 'all'
 		);
 
 		// Swiper
 		$this->framework_stylesheets['swiper'] = array(
 			'handle'	=> 'swiper',
-			'src'			=> anva_get_core_uri() .'/assets/css/swiper.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/swiper.css',
 			'deps'		=> array(),
-			'ver'			=> '3.1.2',
+			'ver'		=> '3.1.2',
 			'media'		=> 'all'
 		);
 
 		// Camera
 		$this->framework_stylesheets['camera'] = array(
 			'handle'	=> 'camera',
-			'src'			=> anva_get_core_uri() .'/assets/css/camera.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/camera.css',
 			'deps'		=> array(),
-			'ver'			=> '1.4.0',
+			'ver'		=> '1.4.0',
 			'media'		=> 'all'
 		);
 
 		// Framework styles
 		$this->framework_stylesheets['anva'] = array(
 			'handle'	=> 'anva',
-			'src'			=> anva_get_core_uri() .'/assets/css/anva.min.css',
+			//'src'		=> anva_get_core_uri() .'/assets/css/anva.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/styles.min.css',
 			'deps'		=> array(),
-			'ver'			=> ANVA_FRAMEWORK_VERSION,
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'media'		=> 'all'
+		);
+
+		$this->framework_stylesheets['anvaresponsive'] = array(
+			'handle'	=> 'anvaresponsive',
+			//'src'		=> anva_get_core_uri() .'/assets/css/anva.min.css',
+			'src'		=> anva_get_core_uri() .'/assets/css/responsive.css',
+			'deps'		=> array(),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'
 		);
 

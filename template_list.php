@@ -10,11 +10,11 @@
  get_header();
  ?>
 
-<div class="row grid-columns">
+<div class="container clearfix">
 	
 	<?php get_sidebar( 'left' ); ?>
 
-	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
+	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
 		<?php anva_posts_content_before(); ?>
 		<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'list' ) ); ?>">
 			<?php
@@ -30,10 +30,10 @@
 			?>
 		</div><!-- #posts (end) -->
 		<?php anva_posts_content_after(); ?>
-	</div><!-- .content-area (end) -->
+	</div><!-- .postcontent (end) -->
 
 	<?php get_sidebar( 'right' ); ?>
 
-</div><!-- .grid-columns (end) -->
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

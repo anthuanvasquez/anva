@@ -18,11 +18,11 @@ function anva_load_theme_texdomain() {
  * @since 1.0.0
  */
 function anva_add_theme_support() {
-    add_theme_support( 'title-tag' );
+	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
-    add_theme_support( 'automatic-feed-links' );
-    add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
-    add_theme_support( 'custom-background' );
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
+	add_theme_support( 'custom-background' );
 }
 
 /**
@@ -31,9 +31,9 @@ function anva_add_theme_support() {
  * @since 1.0.0
  */
 function anva_require_theme_supports() {
-    require_if_theme_supports( 'anva-login-styles', ANVA_FRAMEWORK_EXT . 'class-login.php' );
-    require_if_theme_supports( 'anva-megamenu', ANVA_FRAMEWORK_EXT . 'class-megamenu.php' );
-    require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce-config.php' );
+	require_if_theme_supports( 'anva-login-styles', ANVA_FRAMEWORK_EXT . 'class-login.php' );
+	require_if_theme_supports( 'anva-megamenu', ANVA_FRAMEWORK_EXT . 'class-megamenu.php' );
+	require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce-config.php' );
 }
 
 /**
@@ -61,10 +61,20 @@ function anva_register_menus() {
 	));
 }
 
+add_filter('nav_menu_css_class' , 'anvaa_nav_class' , 10 , 2);
+function anvaa_nav_class( $classes, $item ) {
+	if ( in_array( 'current-menu-item', $classes ) ) {
+		$classes[] = 'current';
+	}
+	return $classes;
+}
+
 /**
- * Get theme info
+ * Get theme data.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  string  $id
+ * @return string  $text
  */
 function anva_get_theme( $id ) {
 	
@@ -72,17 +82,17 @@ function anva_get_theme( $id ) {
 	$theme = wp_get_theme();
 
 	$data = array(
-		'name' 			 => $theme->get( 'Name' ),
-		'uri' 			 => $theme->get( 'ThemeURI' ),
-		'desc' 			 => $theme->get( 'Description' ),
-		'version' 	 => $theme->get( 'Version' ),
-		'domain' 		 => $theme->get( 'TextDomain' ),
-		'author' 		 => $theme->get( 'Author' ),
-		'author_uri' => $theme->get( 'AuthorURI' ),
+		'name' 			=> $theme->get( 'Name' ),
+		'uri' 			=> $theme->get( 'ThemeURI' ),
+		'desc' 			=> $theme->get( 'Description' ),
+		'version' 	 	=> $theme->get( 'Version' ),
+		'domain' 		=> $theme->get( 'TextDomain' ),
+		'author' 		=> $theme->get( 'Author' ),
+		'author_uri' 	=> $theme->get( 'AuthorURI' ),
 	);
 
-	if ( isset( $data[$id]) ) {
-		$text = $data[$id];
+	if ( isset( $data[ $id ] ) ) {
+		$text = $data[ $id ];
 	}
 
 	return $text;
@@ -91,7 +101,8 @@ function anva_get_theme( $id ) {
 /**
  * Grid columns
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array  $columns
  */
 function anva_get_grid_columns() {
 	$columns = array(
@@ -130,71 +141,72 @@ function anva_get_grid_columns() {
 }
 
 /**
- * Sidebar layouts
+ * Sidebar layouts.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array  $layouts
  */
 function anva_get_sidebar_layouts() {
 	$layouts = array(
-		'fullwidth' 	=> array(
+		'fullwidth' 		=> array(
 			'name' 			=> 'Full Width',
-			'id'				=> 'fullwidth',
+			'id'			=> 'fullwidth',
 			'columns'		=> array(
-				'content' => 'col-sm-12',
+				'content' 	=> 'postcontent fullwidth nobottommargin clearfix',
 				'left' 		=> '',
 				'right' 	=> ''
 			),
-			'icon'			=> anva_get_core_uri() . '/assets/images/sidebar/fullwidth.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/fullwidth.png'
 		),
 		'right' 			=> array(
 			'name' 			=> 'Sidebar Right',
-			'id'				=> 'sidebar_right',
+			'id'			=> 'sidebar_right',
 			'columns'		=> array(
-				'content' => 'col-sm-9',
+				'content' 	=> 'postcontent nobottommargin clearfix',
 				'left' 		=> '',
-				'right' 	=> 'col-sm-3'
+				'right' 	=> 'sidebar nobottommargin col_last clearfix'
 			),
-			'icon'			=> anva_get_core_uri() . '/assets/images/sidebar/right.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/right.png'
 		),
 		'left' 				=> array(
 			'name' 			=> 'Sidebar Left',
-			'id'				=> 'sidebar_left',
+			'id'			=> 'sidebar_left',
 			'columns'		=> array(
-				'content' => 'col-sm-9',
-				'left' 		=> 'col-sm-3',
+				'content' 	=> 'postcontent nobottommargin col_last clearfix',
+				'left' 		=> 'sidebar nobottommargin clearfix',
 				'right' 	=> ''
 			),
-			'icon'			=> anva_get_core_uri() . '/assets/images/sidebar/left.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/left.png'
 		),
 		'double' 			=> array(
 			'name' 			=> 'Double Sidebars',
-			'id'				=> 'double',
+			'id'			=> 'double',
 			'columns'		=> array(
-				'content' => 'col-sm-6',
-				'left' 		=> 'col-sm-3',
-				'right' 	=> 'col-sm-3'
+				'content' 	=> 'postcontent bothsidebar nobottommargin clearfix',
+				'left' 		=> 'sidebar nobottommargin clearfix',
+				'right' 	=> 'sidebar nobottommargin col_last clearfix'
 			),
-			'icon'			=> anva_get_core_uri() . '/assets/images/sidebar/double.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double.png'
 		),
-		'double_right'=> array(
+		'double_right'		=> array(
 			'name' 			=> 'Double Right Sidebars',
-			'id'				=> 'double_right',
+			'id'			=> 'double_right',
 			'columns'		=> array(
-				'content' => 'col-sm-6',
-				'left' 		=> 'col-sm-3',
-				'right' 	=> 'col-sm-3'
+				'content' 	=> 'postcontent bothsidebar nobottommargin clearfix',
+				'left' 		=> 'sidebar nobottommargin clearfix',
+				'right' 	=> 'sidebar nobottommargin col_last clearfix'
 			),
-			'icon'			=> anva_get_core_uri() . '/assets/images/sidebar/double_right.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double_right.png'
 		),
-		'double_left' => array(
+		'double_left' 		=> array(
 			'name' 			=> 'Double Left Sidebars',
-			'id'				=> 'double_left',
+			'id'			=> 'double_left',
 			'columns'		=> array(
-				'content' => 'col-sm-6',
-				'left' 		=> 'col-sm-3',
-				'right' 	=> 'col-sm-3'
+				'content' 	=> 'postcontent bothsidebar nobottommargin col_last clearfix',
+				'left' 		=> 'sidebar nobottommargin clearfix',
+				'right' 	=> 'sidebar nobottommargin clearfix'
 			),
-			'icon'			=> anva_get_core_uri() . '/assets/images/sidebar/double_left.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double_left.png'
 		)
 	);
 	return apply_filters( 'anva_sidebar_layouts', $layouts );
@@ -203,7 +215,9 @@ function anva_get_sidebar_layouts() {
 /**
  * Get layout column classes
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  string  $column
+ * @return string  $column_class
 */
 function anva_get_column_class( $column ) {
 	
@@ -285,12 +299,11 @@ function anva_supports( $group, $feature ) {
 }
 
 /**
- * Get capability for admin module so WordPress
- * can test this against current user-role.
+ * Get capability for admin module.
  *
  * @since  1.0.0
- * @param  string $module
- * @return string $cap
+ * @param  string  $module
+ * @return string  $cap
  */
 function anva_admin_module_cap( $module ) {
 
@@ -314,9 +327,10 @@ function anva_admin_module_cap( $module ) {
 }
 
 /**
- * Generates default column widths for column element
+ * Generates default column widths for column element.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array $widths
  */
 function anva_column_widths() {
 	$widths = array(
@@ -329,7 +343,7 @@ function anva_column_widths() {
 		'2-col' => array(
 			array(
 				'name' 	=> '20% | 80%',
-				'value' => 'grid_fifth_1,grid_fifth_4',
+				'value' => 'col_fifth_one,col_fifth_4',
 			),
 			array(
 				'name' 	=> '25% | 75%',
@@ -367,7 +381,7 @@ function anva_column_widths() {
 		'3-col' => array(
 			array(
 				'name' 	=> '33% | 33% | 33%',
-				'value' => 'grid_4,grid_4,grid_4',
+				'value' => 'col_one_third,col_one_third,col_one_third',
 			),
 			array(
 				'name' 	=> '25% | 25% | 50%',
@@ -451,9 +465,10 @@ function anva_column_widths() {
 }
 
 /**
- * Get footer widget
+ * Get footer widget columns.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array  $columns
  */
 function anva_get_footer_widget_columns() {
 	$columns = array(
@@ -494,7 +509,8 @@ function anva_get_footer_widget_columns() {
 /**
  * Register footer sidebars based on number of columns.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_register_footer_sidebar_locations() {
 	
@@ -551,18 +567,22 @@ function anva_display_footer_sidebar_locations() {
 
 /**
  * Display set of columns
+ *
+ * @since  1.0.0
+ * @param  integer  $num
+ * @param  array    $widths
+ * @param  array    $columns
+ * @return void
  */
 function anva_columns( $num, $widths, $columns ) {
 
-	// Kill it if number of columns doesn't match the
-	// number of widths exploded from the string.
+	// Kill it if number of columns doesn't match the number of widths exploded from the string.
 	$widths = explode( ',', $widths );
 	if ( $num != count( $widths ) ) {
 		return;
 	}
 
-	// Kill it if number of columns doesn't match the
-	// number of columns feed into the function.
+	// Kill it if number of columns doesn't match the number of columns feed into the function.
 	if ( $num != count( $columns ) ) {
 		return;
 	}
@@ -572,9 +592,9 @@ function anva_columns( $num, $widths, $columns ) {
 
 	foreach ( $columns as $key => $column ) {
 		// Set CSS classes for column
-		$classes = 'grid_column ' . $widths[$key];
+		$classes = 'grid_column ' . $widths[ $key ];
 		if ( $last == $key ) {
-			$classes .= ' grid_last';
+			$classes .= ' col_last';
 		}
 
 		echo '<div class="' . esc_attr( $classes ) .'">';
@@ -584,9 +604,10 @@ function anva_columns( $num, $widths, $columns ) {
 }
 
 /**
- * Get gallery templates
+ * Get gallery templates.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array  $templates
  */
 function anva_gallery_templates() {
 	$templates = array(
@@ -648,7 +669,8 @@ function anva_get_post_meta( $field ) {
  * Sort galleries
  *
  * @since  1.0.0
- * @return array Gallery sorted
+ * @param  array  $gallery
+ * @return array  $gallery  The sorted galleries
  */
 function anva_sort_gallery( $gallery ) {
 	
@@ -706,11 +728,10 @@ function anva_sort_gallery( $gallery ) {
 }
 
 /**
- * Get query posts args
+ * Get query posts args.
  *
- * @since   1.0.0
- * @package Anva
- * @return  array The post list
+ * @since  1.0.0
+ * @return array The post list
  */
 function anva_get_query_posts( $query_args = '' ) {
 	
@@ -721,8 +742,8 @@ function anva_get_query_posts( $query_args = '' ) {
 	if ( empty( $query_args ) ) {
 		$query_args = array(
 			'post_type'  			=> array( 'post' ),
-			'post_status' 		=> 'publish',
-			'posts_per_page' 	=> $number,
+			'post_status' 			=> 'publish',
+			'posts_per_page' 		=> $number,
 			'orderby'    			=> 'date',
 			'order'      			=> 'desc',
 			'number'     			=> $number,
@@ -738,11 +759,10 @@ function anva_get_query_posts( $query_args = '' ) {
 }
 
 /**
- * Get admin modules
+ * Get admin modules.
  *
- * @since   1.0.0
- * @package Anva
- * @return  array Admin modules
+ * @since  1.0.0
+ * @return array $modules  Admin modules
  */
 function anva_get_admin_modules() {
 
@@ -803,7 +823,12 @@ function anva_admin_menu_bar() {
 }
 
 /**
- * Contact email
+ * Contact email.
+ * 
+ * @todo Move to extensions
+ *
+ * @since  1.0.0
+ * @return void
  */
 function anva_contact_send_email() {
 	

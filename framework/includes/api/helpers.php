@@ -25,11 +25,14 @@ function anva_api_init() {
 	
 	// Setup Framework Page Builder Elements API
 	Anva_Builder_Elements_API::instance();
+
+	// Setup customizer API
+	$GLOBALS['_anva_customizer_sections'] = array();
 	
 }
 
 /* ---------------------------------------------------------------- */
-/* (0) Helpers - Options Framework
+/* (0) Helpers - Options
 /* ---------------------------------------------------------------- */
 
 if ( ! function_exists( 'anva_get_option' ) ) :
@@ -86,7 +89,7 @@ if ( ! function_exists( 'anva_get_option_name' ) ) :
  * @since 1.0.0
  */
 function anva_get_option_name() {
-	$options_framework = new Options_Framework;
+	$options_framework = new Anva_Options;
 	return $options_framework->get_option_name();
 }
 endif;
@@ -98,7 +101,7 @@ if ( ! function_exists( 'anva_get_options' ) ) :
  * @since 1.0.0
  */
 function anva_get_options() {
-	$options_framework = new Options_Framework;
+	$options_framework = new Anva_Options;
 	return $options_framework->get_options();
 }
 endif;
@@ -109,7 +112,7 @@ endif;
  * @since 1.0.0
  */
 function anva_get_options_tabs( $options ) {
-	$options_framework_interface = new Options_Framework_Interface;
+	$options_framework_interface = new Anva_Options_Interface;
 	return $options_framework_interface->get_tabs( $options );
 }
 
@@ -119,7 +122,7 @@ function anva_get_options_tabs( $options ) {
  * @since 1.0.0
  */
 function anva_get_options_fields(  $option_name, $settings, $options ) {
-	$options_framework_interface = new Options_Framework_Interface;
+	$options_framework_interface = new Anva_Options_Interface;
 	return $options_framework_interface->get_fields(  $option_name, $settings, $options );
 }
 
@@ -130,7 +133,7 @@ if ( ! function_exists( 'anva_get_option_defaults' ) ) :
  * @since 1.0.0
  */
 function anva_get_option_defaults() {
-	$options_framework = new Options_Framework_Admin;
+	$options_framework = new Anva_Options_Page;
 	return $options_framework->get_default_values();
 }
 endif;
@@ -142,7 +145,7 @@ if ( ! function_exists( 'anva_get_admin_menu_settings' ) ) :
  * @since 1.0.0
  */
 function anva_get_admin_menu_settings() {
-	$options_framework = new Options_Framework_Admin;
+	$options_framework = new Anva_Options_Page;
 	return $options_framework->menu_settings();
 }
 endif;
@@ -421,10 +424,10 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 		'id'            => $id,
 		'name'          => $name,
 		'description'   => $desc,
-		'before_widget' => '<div id="%1$s" class="widget %2$s'. esc_attr( $classes ) .'"><div class="widget-inner clearfix">',
-		'after_widget'  => '</div></div>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
+		'before_widget' => '<div id="%1$s" class="widget %2$s'. esc_attr( $classes ) .'">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	);
 	return apply_filters( 'anva_add_sidebar_args', $args );
 }

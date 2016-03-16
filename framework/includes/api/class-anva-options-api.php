@@ -304,7 +304,7 @@ class Anva_Options_API {
 					'footer_setup' => array(
 						'name'		=> __( 'Setup Columns', 'anva' ),
 						'desc'		=> __( 'Choose the number of columns along with the corresponding width configurations.', 'anva' ),
-						'id' 			=> 'footer_setup',
+						'id' 		=> 'footer_setup',
 						'type'		=> 'columns'
 					),
 					'footer_copyright' => array(

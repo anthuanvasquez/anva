@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-<div class="row grid-columns">
+<div class="container clearfix">
 
 	<div class="page-title">
 		<h1><?php printf( anva_get_local( 'search_result' ) . ' %s', get_search_query() ); ?></h1>
@@ -16,7 +16,7 @@ get_header();
 
 	<?php get_sidebar( 'left' ); ?>
 
-	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
+	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
 		<?php anva_posts_content_before(); ?>
 		<div class="<?php echo esc_attr( anva_post_classes( 'search' ) ); ?>">
 			<?php if ( have_posts() ) : ?>
@@ -29,10 +29,10 @@ get_header();
 			<?php endif; ?>
 		</div><!-- .search-post-list (end) -->
 		<?php anva_posts_content_after(); ?>
-	</div><!-- .content-area (end) -->
+	</div><!-- .postcontent (end) -->
 	
 	<?php get_sidebar( 'right' ); ?>
 	
-</div><!-- .grid-columns (end) -->
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

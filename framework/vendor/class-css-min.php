@@ -2,10 +2,10 @@
 /**
  * CSS Minify Stylesheets.
  *
- * @package     WordPress
- * @subpackage  CSS Minify
- * @author      Anthuan Vásquez <me@anthuanvasquez.net>
- * @since       1.0.0
+ * @since      1.0.0
+ * @author     Anthuan Vásquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2015, Anthuan Vásquez
+ * @link       http://anthuanvasquez.net/
  */
 class CSS_Minify
 {
@@ -16,7 +16,9 @@ class CSS_Minify
 
 	private $files;
 
-	/* Constructor for CSSMin class */
+	/**
+	 * Constructor
+	 */
 	public function __construct()
 	{
 		$this->original_css = '';

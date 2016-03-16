@@ -4,11 +4,9 @@
  *
  * @version 1.0.0
  */
-				anva_below_layout();
-				?>
-				
-			</div><!-- .container (end) -->
-		</div><!-- .main-content (end) -->
+			anva_below_layout();
+		?>
+		</div><!-- .content-wrap (end) -->
 	</section><!-- CONTENT (end) -->
 
 	<?php anva_content_after(); ?>
@@ -23,12 +21,12 @@
 
 	<?php anva_footer_above(); ?>
 
-	<!--BOTTOM (start) -->
-	<footer id="bottom" <?php echo $class; ?>>
+	<!--FOOTER (start) -->
+	<footer id="footer" <?php echo $class; ?>>
 		
-		<div id="footer-content" class="container clearfix">
+		<div class="container clearfix">
 			<?php anva_footer_content(); ?>
-		</div><!-- .footer-content (end) -->
+		</div><!-- .container (end) -->
 
 		<div id="copyrights">
 			<div class="container clearfix">
@@ -36,19 +34,18 @@
 			</div>
 		</div><!-- #copyrights (end) -->
 
-	</footer><!-- BOTTOM (end) -->
+	</footer><!-- FOOTER (end) -->
 
-	<?php
-		anva_footer_below();	
-		anva_bottom_after();
-	?>
+	<?php anva_footer_below(); ?>
+	<?php anva_bottom_after(); ?>
 
 	</div><!-- CONTAINER (end) -->
+
+	<div id="gotoTop" class="icon-angle-up"></div>
+
 </div><!-- WRAPPER (end) -->
 
-<?php
-	anva_after();
-	wp_footer();
-?>
+<?php anva_after(); ?>
+<?php wp_footer(); ?>
 </body>
 </html>

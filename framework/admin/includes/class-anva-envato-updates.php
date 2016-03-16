@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Blvd Envato Updates
+ * Anva Envato Updates
  *
  * Allows current theme to be updated from ThemeForest
  * marketplace through WordPress theme updater system
@@ -108,7 +108,7 @@ class Anva_Envato_Updates {
 								'new_version' 	=> $current_theme['version'],
 								'old_version'		=> $installed_theme->Version,
 								'package' 			=> $url,
-								'type'					=> apply_filters( 'anva_envato_updates_type', 'themeblvd-envato' )
+								'type'					=> apply_filters( 'anva_envato_updates_type', 'anva-envato' )
 							);
 
 						}
@@ -143,7 +143,7 @@ class Anva_Envato_Updates {
 		$current_update = $current_update->response[$theme];
 
 		// Is this one of our themes?
-		$type = apply_filters( 'anva_envato_updates_type', 'themeblvd-envato' );
+		$type = apply_filters( 'anva_envato_updates_type', 'anva-envato' );
 		if ( ! isset( $current_update['type'] ) || $current_update['type'] != $type ) {
 			return;
 		}

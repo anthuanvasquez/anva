@@ -57,9 +57,9 @@ class Anva_Meta_Box {
 		$this->options = $this->get_formatted( $options );
 
 		$defaults = array(
-			'page'				=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
-			'context'			=> 'normal',					// Normal, advanced, or side
-			'priority'		=> 'high'							// Priority
+			'page'			=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
+			'context'		=> 'normal',			// Normal, advanced, or side
+			'priority'		=> 'high'				// Priority
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
@@ -86,10 +86,10 @@ class Anva_Meta_Box {
 				
 				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
-				wp_enqueue_script( 'anva-meta-box-js', anva_get_core_uri() . '/assets/js/admin/meta-box.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_script( 'anva-meta-box-js', ANVA_FRAMEWORK_ADMIN_JS . 'meta-box.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
 				
-				wp_enqueue_style( 'jquery-ui-custom', anva_get_core_uri() . '/assets/css/admin/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-				wp_enqueue_style( 'anva-meta-box', anva_get_core_uri() . '/assets/css/admin/meta-box.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
+				wp_enqueue_style( 'anva-meta-box', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-box.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}

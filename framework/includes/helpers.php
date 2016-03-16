@@ -28,13 +28,12 @@ function anva_elements() {
 
 		$atts 		= array();
 		$classes 	= array();
+		$data 		= $settings[$item]['data'];
+		$obj 		= json_decode( $data );
+		$content 	= $obj->shortcode . '_content';
+		$shortcode 	= $obj->shortcode;
 
 		$counter++;
-
-		$data 			= $settings[$item]['data'];
-		$obj 				= json_decode( $data );
-		$content 		= $obj->shortcode . '_content';
-		$shortcode 	= $obj->shortcode;
 
 		// Validate if elements exist
 		if ( anva_is_element( $shortcode ) ) {
@@ -180,11 +179,12 @@ function anva_browser_class( $classes ) {
 }
 
 /**
- * Get primary post classes
+ * Get post list classes.
  *
- * @since   1.0.0
- * @package Anva
- * @return  string Body classes.
+ * @since  1.0.0
+ * @param  string  $class
+ * @param  boolean $paged
+ * @return string  $classes
  */
 function anva_post_classes( $class, $paged = true ) {
 
@@ -200,11 +200,11 @@ function anva_post_classes( $class, $paged = true ) {
 			'paged' => 'post-list-paginated',
 		),
 		'grid' => array(
-			'default' => 'primary-post-grid post-grid',
+			'default' => 'template-post-grid post-grid grid-container',
 			'paged' => 'post-grid-paginated',
 		),
 		'list' => array(
-			'default' => 'template-post-list post-list',
+			'default' => 'template-post-list post-list post-list container',
 			'paged' => 'post-list-paginated',
 		),
 		'search' => array(
@@ -213,10 +213,10 @@ function anva_post_classes( $class, $paged = true ) {
 		),
 	);
 
-	if ( isset( $default_classes[$class]['default'] ) ) {
-		$classes[] = $default_classes[$class]['default'];
-		if ( $paged && isset( $default_classes[$class]['paged'] ) ) {
-			$classes[] = $default_classes[$class]['paged'];
+	if ( isset( $default_classes[ $class ]['default'] ) ) {
+		$classes[] = $default_classes[ $class ]['default'];
+		if ( $paged && isset( $default_classes[ $class ]['paged'] ) ) {
+			$classes[] = $default_classes[ $class ]['paged'];
 		}
 	}
 
@@ -239,12 +239,12 @@ function anva_post_classes( $class, $paged = true ) {
 }
 
 /**
- * Display name and description in title
+ * Display name and description in title.
  *
- * @since   1.0.0
- * @package Anva
- * @param   string The title of the site, string Separator.
- * @return  string The title content.
+ * @since  1.0.0
+ * @param  string $title
+ * @param  string $sep
+ * @return string $title
  */
 function anva_wp_title( $title, $sep ) {
 	if ( is_feed() ) {
@@ -274,7 +274,6 @@ function anva_wp_title( $title, $sep ) {
  * Setup author page
  *
  * @since   1.0.0
- * @package Anva
  */
 function anva_setup_author() {
 	global $wp_query;
@@ -288,7 +287,7 @@ function anva_setup_author() {
  *
  * @since  1.0.0
  * @param  string  $feature
- * @return void
+ * @return boolean current theme supprot feature
  */
 function anva_support( $feature ) {
 	return current_theme_supports( $feature );

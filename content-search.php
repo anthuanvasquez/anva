@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 ?>
-<div class="article-wrapper">
+<div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 		<div class="entry-content">
 			<div class="entry-title">
@@ -20,4 +20,4 @@
 			</div><!-- .entry-footer (end) -->
 		</div><!-- .entry-content (end) -->
 	</article><!-- .entry -->
-</div><!-- .article-wrapper (end) -->
+</div><!-- .entry-wrap (end) -->

@@ -34,9 +34,9 @@ class Anva_Gallery_Meta_Box {
 		$this->id = $id;
 
 		$defaults = array(
-			'page'				=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
-			'context'			=> 'normal',					// Normal, advanced, or side
-			'priority'		=> 'high'							// Priority
+			'page'			=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
+			'context'		=> 'normal',			// Normal, advanced, or side
+			'priority'		=> 'high'				// Priority
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
@@ -63,10 +63,11 @@ class Anva_Gallery_Meta_Box {
 			if ( $typenow == $page ) {
 
 				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( 'anva-media-gallery', anva_get_core_uri() . '/assets/js/admin/media-gallery.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'media-gallery.js', array(), ANVA_FRAMEWORK_VERSION, false );
 				wp_localize_script( 'anva-media-gallery', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
-				wp_enqueue_style( 'anva-animate', anva_get_core_uri() . '/assets/css/admin/animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
-				wp_enqueue_style( 'anva-gallery', anva_get_core_uri() . '/assets/css/admin/gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				
+				wp_enqueue_style( 'anva-animate', ANVA_FRAMEWORK_ADMIN_CSS . 'animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva-gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}

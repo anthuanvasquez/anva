@@ -43,9 +43,9 @@ class Anva_Media_Meta_Box {
 		$this->id = $id;
 
 		$defaults = array(
-			'page'				=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
-			'context'			=> 'normal',					// Normal, advanced, or side
-			'priority'		=> 'high'							// Priority
+			'page'			=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
+			'context'		=> 'normal',			// Normal, advanced, or side
+			'priority'		=> 'high'				// Priority
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
@@ -70,9 +70,9 @@ class Anva_Media_Meta_Box {
 			// Add scripts only if page match with post type
 			if ( $typenow == $page ) {
 				
-				wp_enqueue_script( 'anva-media', anva_get_core_uri() . '/assets/js/admin/media.js', array(), ANVA_FRAMEWORK_VERSION, false );
-				wp_enqueue_script( 'anva-meta-box-js', anva_get_core_uri() . '/assets/js/admin/meta-box.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
-				wp_enqueue_style( 'anva-meta-box', anva_get_core_uri() . '/assets/css/admin/meta-box.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_script( 'anva-media', ANVA_FRAMEWORK_ADMIN_JS . 'media.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_script( 'anva-meta-box-js', ANVA_FRAMEWORK_ADMIN_JS . 'meta-box.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_style( 'anva-meta-box', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-box.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}
