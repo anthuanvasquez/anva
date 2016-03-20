@@ -19,7 +19,9 @@ function anva_options() {
 
 	// Transitions
 	$transitions = array();
-	$transitions = range( 0, 14 );
+	foreach ( range( 0, 14 ) as $key ) {
+		$transitions[ $key ] = __( 'Loader Style', 'anva' ) . ' ' . $key;
+	}
 	$transitions[0] = __( 'Disable Transition', 'anva' );
 
 	// Animations

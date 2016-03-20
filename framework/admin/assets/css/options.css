@@ -704,12 +704,18 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 #anva-framework input[type="url"],
 #anva-framework input[type="datetime"],
 #anva-framework input[type="number"] {
-  height: 33px;
   -webkit-box-shadow: 0 0 4px #eee;
           box-shadow: 0 0 4px #eee;
+  color: #666;
+  height: 33px;
   margin-bottom: 10px;
   outline: 0;
   width: 100%;
+}
+
+#anva-framework select,
+#anva-framework textarea {
+  color: #666;
 }
 
 #anva-framework input[type="radio"],
