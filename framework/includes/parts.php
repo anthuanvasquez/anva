@@ -7,7 +7,13 @@
  */
 function anva_archive_title() {
 
-	if ( is_category() ) :
+	if ( is_front_page() )
+		return;
+
+	if ( is_single() || is_page() ) :
+		the_title();
+
+	elseif ( is_category() ) :
 		single_cat_title();
 
 	elseif ( is_tag() ) :
@@ -24,6 +30,10 @@ function anva_archive_title() {
 
 	elseif ( is_year() ) :
 		printf( anva_get_local( 'year' ) . ' %s', '<span>' . get_the_date( 'Y' ) . '</span>' );
+
+	elseif ( is_tax( 'gallery_cat' ) ) :
+		$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+		echo esc_html( $term->name );
 
 	elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
 		echo anva_get_local( 'asides' );
@@ -52,6 +62,8 @@ function anva_archive_title() {
 	elseif ( is_tax( 'post_format', 'post-format-chat' ) ) :
 		echo anva_get_local( 'chats' );
 
+	elseif ( is_404() ) :
+		echo anva_get_local( '404_title' );
 	else :
 		echo anva_get_local( 'archives' );
 	endif;
@@ -973,7 +985,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 			$html .= $separator;
 		}
 
-		$html .= '<li class="active item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
+		$html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
 	
 	} elseif ( is_singular( 'page' ) ) {
 
@@ -1011,7 +1023,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 
 		$html .= $separator;
 
-		$html .= 'li class="active item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . $post->post_title . '">' . $post->post_title . '</span></li>';
+		$html .= '<li class="active item-' . $post->ID . '">' . $post->post_title . '</li>';
 
 	} elseif ( is_category() ) {
 
@@ -1027,35 +1039,35 @@ function anva_get_breadcrumbs( $args = array() ) {
 
 		}
 		
-		$html .= '<li class="active item-cat"><span class="bread-current bread-cat" title="' . $post->ID . '">' . single_cat_title( '', false ) . '</span></li>';
+		$html .= '<li class="active item-cat">' . single_cat_title( '', false ) . '</li>';
 
 	} elseif ( is_tag() ) {
-		$html .= '<li class="active item-tag"><span class="bread-current bread-tag">' . single_tag_title( '', false ) . '</span></li>';
+		$html .= '<li class="active item-tag">' . single_tag_title( '', false ) . '</li>';
 
 	} elseif ( is_author() ) {
-		$html .= '<li class="active item-author"><span class="bread-current bread-author">' . get_queried_object()->display_name . '</span></li>';
+		$html .= '<li class="active item-author">' . get_queried_object()->display_name . '</li>';
 
 	} elseif ( is_day() ) {
-		$html .= '<li class="active item-day"><span class="bread-current bread-day">' . get_the_date() . '</span></li>';
+		$html .= '<li class="active item-day">' . get_the_date() . '</li>';
 
 	} elseif ( is_month() ) {
-		$html .= '<li class="active item-month"><span class="bread-current bread-month">' . get_the_date( 'F Y' ) . '</span></li>';
+		$html .= '<li class="active item-month">' . get_the_date( 'F Y' ) . '</li>';
 
 	} elseif ( is_year() ) {
-		$html .= '<li class="active item-year"><span class="bread-current bread-year">' . get_the_date( 'Y' ) . '</span></li>';
+		$html .= '<li class="active item-year">' . get_the_date( 'Y' ) . '</li>';
 
 	} elseif ( is_archive() ) {
 		$custom_tax_name = get_queried_object()->name;
-		$html .= '<li class="active item-archive"><span class="bread-current bread-archive">' . esc_attr( $custom_tax_name ) . '</span></li>';
+		$html .= '<li class="active item-archive">' . esc_attr( $custom_tax_name ) . '</li>';
 
 	} elseif ( is_search() ) {
-		$html .= '<sliclass="active item-search"><span class="bread-current bread-search">' . __( 'Search results for', 'anva' ) . ': ' . get_search_query() . '</span></li>';
+		$html .= '<li class="active item-search">' . __( 'Search results for', 'anva' ) . ': ' . get_search_query() . '</li>';
 
 	} elseif ( is_404() ) {
-		$html .= '<li>' . __( 'Error 404', 'anva' ) . '</li>';
+		$html .= '<li class="item-404">' . __( 'Error 404', 'anva' ) . '</li>';
 
 	} elseif ( is_home() ) {
-		$html .= '<li>' . get_the_title( get_option( 'page_for_posts' ) ) . '</li>';
+		$html .= '<li class="item-home">' . get_the_title( get_option( 'page_for_posts' ) ) . '</li>';
 	}
 
 	$html .= '</ol>';
@@ -1078,7 +1090,7 @@ function anva_gallery_grid( $post_id, $columns, $thumbnail ) {
 	$gallery 	 	= anva_sort_gallery( $gallery );
 	$animate 	 	= anva_get_option( 'gallery_animate' );
 	$delay 	 		= anva_get_option( 'gallery_delay' );
-	$highlight 	= anva_get_field( 'gallery_highlight' );
+	$highlight 		= anva_get_field( 'gallery_highlight' );
 	$html 			= '';
 
 	$classes[] = $columns;
@@ -1089,8 +1101,8 @@ function anva_gallery_grid( $post_id, $columns, $thumbnail ) {
 		'post_status' 	 => 'inherit',
 		'post_mime_type' => 'image/jpeg',
 		'posts_per_page' => -1,
-		'post__in'			 => $gallery,
-		'orderby'				 => 'post__in',
+		'post__in'		 => $gallery,
+		'orderby'		 => 'post__in',
 	);
 
 	$query = anva_get_query_posts( $query_args );
@@ -1098,13 +1110,13 @@ function anva_gallery_grid( $post_id, $columns, $thumbnail ) {
 	if ( $query->have_posts() ) {
 
 		$html .= '<div class="gallery-container">';
-		$html .= '<div class="masonry-thumbs ' . esc_attr( $classes ) . ' clearfix" data-lightbox="gallery" data-big="' . esc_attr( $highlight ) . '">';
+		$html .= '<div class="masonry-thumbs ' . esc_attr( $classes ) . '" data-lightbox="gallery" data-big="' . esc_attr( $highlight ) . '">';
 
 		while ( $query->have_posts() ) {
 
 			$query->the_post();
 
-			$title 			= get_the_title();
+			$title 		= get_the_title();
 			$thumb_full = anva_get_attachment_image_src( get_the_ID(), 'full' );
 			$thumb_size = anva_get_attachment_image_src( get_the_ID(), $thumbnail );
 		
@@ -1138,7 +1150,7 @@ function anva_sliders( $slider ) {
 		return;
 	}
 
-	if ( anva_is_slider( $slider ) ) {
+	if ( anva_slider_exists( $slider ) ) {
 
 		// Get sliders data
 		$sliders = anva_get_sliders();
@@ -1147,7 +1159,7 @@ function anva_sliders( $slider ) {
 		$slider_id = $slider;
 
 		// Gather settings
-		$settings = $sliders[$slider_id]['options'];
+		$settings = $sliders[ $slider_id ]['options'];
 
 		// Display slider based on its slider type
 		do_action( 'anva_slider_' . $slider_id, $slider, $settings );
@@ -1158,24 +1170,25 @@ function anva_sliders( $slider ) {
 	} elseif ( 'layerslider' == $slider ) {
 		/**
 		 * anva_layer_slider_default()
-		 * @todo create function to support Layer Slider
+		 * @todo create function to support Layer Slider.
 		 */
 	} else {
-		printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'No slider found.', 'anva' ) );
+		printf( '<div class="alert alert-warning">%s</div>', __( 'No slider found.', 'anva' ) );
 		return;
 	}
 
 }
 
 /**
- * Get Revolution Slider ID
+ * Get Revolution Slider ID.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_revolution_slider_default() {
 	
 	if ( ! class_exists( 'RevSliderFront' ) ) {
-		printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated.', 'anva' ) );
+		printf( '<div class="alert alert-warning">%s.</div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated', 'anva' ) );
 		return;
 	}
 
@@ -1187,25 +1200,28 @@ function anva_revolution_slider_default() {
 }
 
 /**
- * Standard slider type
+ * Standard slider type.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  string $slider
+ * @param  array  $settings
+ * @return string $html
  */
 function anva_slider_standard_default( $slider, $settings ) {
 
 	// Global Options
-	$pause = anva_get_option( 'standard_pause' );
-	$arrows = anva_get_option( 'standard_arrows' );
-	$animation = anva_get_option( 'standard_fx' );
-	$speed = anva_get_option( 'standard_speed' );
-	$thumbs = anva_get_option( 'standard_thumbs' );
-	$grid = anva_get_option( 'standard_grid' );
-	$thumbnail = 'anva_lg';
+	$pause 		= anva_get_option( 'standard_pause' );
+	$arrows 	= anva_get_option( 'standard_arrows' );
+	$animation 	= anva_get_option( 'standard_fx' );
+	$speed 		= anva_get_option( 'standard_speed' );
+	$thumbs 	= anva_get_option( 'standard_thumbs' );
+	$grid 		= anva_get_option( 'standard_grid' );
+	$thumbnail 	= 'anva_lg';
 
 	// Query arguments
 	$query_args = array(
-		'post_type' 			=> array( 'slideshows' ),
-		'order' 					=> 'ASC',
+		'post_type' 		=> array( 'slideshows' ),
+		'order' 			=> 'ASC',
 		'posts_per_page' 	=> -1,
 	);
 
@@ -1214,22 +1230,37 @@ function anva_slider_standard_default( $slider, $settings ) {
 	$query = anva_get_query_posts( $query_args );
 
 	// Output
-	$html = '';
+	$html  = '';
+	$data  = '';
+	$data .= 'data-animation="' . esc_attr( $animation ) . '"';
+	$data .= 'data-thumbs="' . esc_attr( $thumbs ) . '"';
+	$data .= 'data-arrows="' . esc_attr( $arrows ) . '"';
+	$data .= 'data-speed="' . esc_attr( $speed ) . '"';
+	$data .= 'data-pause="' . esc_attr( $pause ) . '"';
+	
+	$classes[] = 'fslider';
+
+	if ( 'true' == $thumbs ) {
+		$classes[] = 'flex-thumb-grid';
+		$classes[] = $grid;
+	}
+
+	$classes = implode( ' ', $classes );
 	
 	if ( $query->have_posts() ) {
 		
-		$html .= '<div class="fslider flex-thumb-grid ' . esc_attr( $grid ) . '" data-animation="' . esc_attr( $animation ) . '" data-thumbs="' . esc_attr( $thumbs ) . '" data-arrows="' . esc_attr( $arrows ) . '" data-speed="' . esc_attr( $speed ) . '" data-pause="'. esc_attr( $pause ) . '">';
+		$html .= '<div class="' . esc_attr( $classes ) . '" ' . $data . '>';
 		$html .= '<div class="flexslider">';
-		$html .= '<ul class="slider-wrap slides">';
+		$html .= '<div class="slider-wrap">';
 		
 		while ( $query->have_posts() ) {
 
 			$query->the_post();
 			
-			$id 		 = get_the_ID();
+			$id 	 = get_the_ID();
 			$title 	 = get_the_title();
 			$desc 	 = anva_get_field( 'description' );
-			$url 		 = anva_get_field( 'url' );
+			$url 	 = anva_get_field( 'url' );
 			$content = anva_get_field( 'content' );
 			$image   = anva_get_featured_image( $id, 'anva_sm' );
 			$a_tag   = '<a href="' . esc_url( $url ) . '">';
@@ -1238,6 +1269,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 			
 			if ( has_post_thumbnail() ) {
 				
+				// Open anchor
 				if ( $url ) {
 					$html .= $a_tag;
 				}
@@ -1248,6 +1280,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 				if ( $url ) {
 					$html .= '</a>';
 				}
+
 			}
 			
 			switch ( $content ) {
@@ -1276,7 +1309,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 
 		wp_reset_postdata();
 
-		$html .= '</ul><!-- .slider-wrap (end) -->';
+		$html .= '</div><!-- .slider-wrap (end) -->';
 		$html .= '</div><!-- .flexslider (end) -->';
 		$html .= '</div><!-- .fslider (end) -->';
 	}
@@ -1291,12 +1324,22 @@ function anva_slider_standard_default( $slider, $settings ) {
  */
 function anva_slider_owl_default( $slider, $settings ) {
 
-	$thumbnail = 'anva_lg';
+	$margin 		= anva_get_option( 'owl_margin', 0 );
+	$items 			= anva_get_option( 'owl_items', 1 );
+	$pagi 			= anva_get_option( 'owl_pagi', 'false' );
+	$loop 			= anva_get_option( 'owl_loop', 'true' );
+	$animate_in 	= anva_get_option( 'owl_animate_in' );
+	$animate_out 	= anva_get_option( 'owl_animate_out' );
+	$speed 			= anva_get_option( 'owl_speed', 450 );
+	$autoplay 		= anva_get_option( 'owl_autoplay', 5000 );
+	$thumbnail 		= 'anva_lg';
+
+	$data = '';
 
 	// Query arguments
 	$query_args = array(
-		'post_type' 			=> array( 'slideshows' ),
-		'order' 					=> 'ASC',
+		'post_type' 		=> array( 'slideshows' ),
+		'order' 			=> 'ASC',
 		'posts_per_page' 	=> -1,
 	);
 
@@ -1305,20 +1348,34 @@ function anva_slider_owl_default( $slider, $settings ) {
 	$query = anva_get_query_posts( $query_args );
 
 	// Output
-	$html = '';
+	$html  = '';
+	$data  = '';
+	$data .= 'data-margin="' . esc_attr( $margin ) . '"';
+	$data .= 'data-items="' . esc_attr( $items ) . '"';
+	$data .= 'data-pagi="' . esc_attr( $pagi ) . '"';
+	$data .= 'data-loop="' . esc_attr( $loop ) . '"';
+	$data .= 'data-animate-in="' . esc_attr( $animate_in ) . '"';
+	$data .= 'data-animate-out="' . esc_attr( $animate_out ) . '"';
+	$data .= 'data-speed="' . esc_attr( $speed ) . '"';
+	$data .= 'data-autoplay="' . esc_attr( $autoplay ) . '"';
+
+	$classes[] = 'owl-carousel';
+	$classes[] = 'carousel-widget';
+
+	$classes = implode( ' ', $classes );
 	
 	if ( $query->have_posts() ) {
 		
-		$html .= '<div id="oc-slider" class="owl-carousel">';
+		$html .= '<div id="oc-slider" class="' . esc_attr( $classes ) . '" ' . $data . '>';
 
 		while ( $query->have_posts() ) {
 
 			$query->the_post();
 
-			$id 		 = get_the_ID();
+			$id 	 = get_the_ID();
 			$title 	 = get_the_title();
 			$desc 	 = anva_get_field( 'description' );
-			$url 		 = anva_get_field( 'url' );
+			$url 	 = anva_get_field( 'url' );
 			$a_tag   = '<a href="' . esc_url( $url ) . '">';
 
 			if ( has_post_thumbnail() ) {

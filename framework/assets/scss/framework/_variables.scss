@@ -1,45 +1,37 @@
-// --------------------------------------------------------------------------------- //
-//	variables.less
-// --------------------------------------------------------------------------------- //
+// ----------------------------------------------------------------
+//	Base Colors
+// ----------------------------------------------------------------
 
-
-/* ----------------------------------------------------------------
-	Base Colors
------------------------------------------------------------------*/
-
-$theme-color:                   #4285f4;
+$theme-color:                   #3498db; // default color for Canvas 4 is #1ABC9C
 $body-color:                    #555;
 $heading-color:                 #444;
 
-/* ---------------------------------------------------------------- */
-/* Line Height Variables
-/* ---------------------------------------------------------------- */
+// ----------------------------------------------------------------
+//	Line Height Variables
+// ----------------------------------------------------------------
 
 $line-height-base:              1.5;
 $line-height-content:           1.8;
 
-/* ----------------------------------------------------------------
-	Margins
------------------------------------------------------------------*/
+// ----------------------------------------------------------------
+//	Margins
+// ----------------------------------------------------------------
 
 $margin-base:                   50px;
 $margin-small:                  30px;
 $margin-big:                    80px;
 
-/* ----------------------------------------------------------------
-	Font Families
------------------------------------------------------------------*/
+// ----------------------------------------------------------------
+//	Font Families
+// ----------------------------------------------------------------
 
 $body-font:                     'Lato', sans-serif;
 $heading-font:                  'Raleway', sans-serif;
 $secondary-font:                'Crete Round', serif;
-$font-awesome: 									"FontAwesome";
-$helvetica: 	 									"Helvetica Neue", Helvetica, Arial, sans-serif;
-$georgia: 		 									Georgia, Times, "Times New Roman", serif;
 
-/* ----------------------------------------------------------------
-	Font Sizes
------------------------------------------------------------------*/
+// ----------------------------------------------------------------
+//	Font Sizes
+// ----------------------------------------------------------------
 
 $font-size-base:                14px;
 $font-size-h1:                  36px;
@@ -49,12 +41,9 @@ $font-size-h4:                  18px;
 $font-size-h5:                  $font-size-base;
 $font-size-h6:                  12px;
 
-/* ----------------------------------------------------------------
-	Layouts
------------------------------------------------------------------*/
-
-$theme-minwidth: 320px;
-$theme-maxwidth: 1200px;
+// ----------------------------------------------------------------
+//	Layouts
+// ----------------------------------------------------------------
 
 $postcontent:                   860px;
 $postcontent-margin:            40px;
@@ -62,124 +51,130 @@ $postcontent-margin:            40px;
 $sidebar:                       1140px - ($postcontent + $postcontent-margin);
 $bothsidebar:                   1140px - ( ( $sidebar * 2 ) + ( $postcontent-margin * 2 ) );
 
-$postcontent-md:								690px;
-$postcontent-margin-md:					40px;
+$postcontent-md:				690px;
+$postcontent-margin-md:			40px;
 
-$sidebar-md:										940px - ($postcontent-md + $postcontent-margin-md);
-$bothsidebar-md:								940px - ( ( $sidebar-md * 2 ) + ( $postcontent-margin-md * 2 ) );
+$sidebar-md:					940px - ($postcontent-md + $postcontent-margin-md);
+$bothsidebar-md:				940px - ( ( $sidebar-md * 2 ) + ( $postcontent-margin-md * 2 ) );
 
-$section-padding:								60px;
-$section-margin:								60px;
-$section-bg:										#F9F9F9;
+$section-padding:				60px;
+$section-margin:				60px;
+$section-bg:					#F9F9F9;
 
-/* ----------------------------------------------------------------
-	Helpers
------------------------------------------------------------------*/
+// ----------------------------------------------------------------
+//	Top Bar
+// ----------------------------------------------------------------
 
-$border-radius: 4px;
-$padding: 20px;
+$topbar-height:                 45px;
+$topbar-line-height:            ($topbar-height - 1);
 
-// Configuration
-// ------------------------------------------------
-$configuration: (
-	layout: 12,
-	min-width: 320px,
-	max-width: 1170px,
-	debug: false
-);
+// ----------------------------------------------------------------
+//	Header
+// ----------------------------------------------------------------
 
-// Minimum Browser Support
-// ------------------------------------------------
-$browser-minimum-versions: (
-	'chrome':  '30',
-	'firefox': '30',
-	'ie':      '8',
-	'safari':  '5',
-	'opera':   '12'
-) !global;
+$header-height:                 100px;
 
-// Fonts
-// ------------------------------------------------
+// Sticky Header
+$sticky-header-height:          60px;
 
-// Base
-$base-font-size: 14px;
-$base-line-height: 1.5;
-$base-font-color: #444;
-$base-font-family: $helvetica;
-$base-font-weight: 400;
-$base-background-color: #f5f5f5;
+// Floating Header Offset
+$header-floating-offset:        60px;
 
-// Headings
-$heading-font-color: #444;
-$heading-font-family: $helvetica;
-$heading-font-line-height: 1.1;
-$heading-font-weight: 700;
+// Side Header
+$side-header-width:             260px;
+$side-header-bg:                #FFF;
 
-// Menu
-$primary-menu-submenu-width: 220px;
-$primary-menu-font-size: 13px;
-$primary-menu-font-weight: 600;
-$primary-menu-font-family: $body-font;
-$primary-menu-text-shadow: none;
-$primary-menu-text-transform: uppercase;
-$primary-menu-line-height: 60px;
+// ----------------------------------------------------------------
+//	Primary Menu
+// ----------------------------------------------------------------
 
-// Footer
-$footer-font-color: #333;
-$footer-font-size: 14px;
-$footer-link-color: $theme-color;
-$footer-heading-font-size: 18px;
-$footer-heading-font-color: #444;
+$primary-menu-padding:					( $header-height - 22 ) / 2;
+$sticky-menu-padding:					( $sticky-header-height - 22 ) / 2;
 
-// Buttons
-// ------------------------------------------------
-$button-bg-color: $theme-color;
-$button-border-radius: $border-radius;
-$button-border-color: darken($button-bg-color, 8%);
-$button-font-color: #fff;
-$button-font-size: 14px;
-$button-font-weight: normal;
-$button-padding-box: 6px 12px;
+$primary-menu-font:             		$heading-font;
+$primary-menu-font-weight:      		bold;
+$primary-menu-font-size:        		13px;
+$primary-menu-font-tt:          		uppercase;
+$primary-menu-font-color:       		#444;
+$primary-menu-font-spacing:     		1px;
 
-// Neat
-// ------------------------------------------------
-$min-width: config(min-width) !default;
-$max-width: config(max-width) !default;
-$grid-columns: config(layout) !default;
-$border-box-sizing: false !default;
-$default-feature: max-width !default;
-$gutter: $padding !default;
-$column: 60px !default;
+// Primary Menu Sub Menu
+$primary-menu-submenu-width:            220px;
+$primary-menu-submenu-font:             $body-font;
+$primary-menu-submenu-font-size:        12px;
+$primary-menu-submenu-font-weight:      600;
 
-$all-breakpoints: (
-	phone-small: 320px,
-	phone-medium: 480px,
-	tablet-small: 750px,
-	tablet-medium: 768px,
-	desktop-small: 992px,
-	desktop-medium: 1200px,
-	desktop-large: 1600px
-);
+// Primary Mega menu
+$mega-menu-title:               		$heading-font;
 
-$all-layout-columns: (
-	phone: 4,
-	tablet: 8,
-	desktop: 12
-);
+// ----------------------------------------------------------------
+//	Page Title
+// ----------------------------------------------------------------
 
-// Medium devices (desktops, 992px and below)
-$desktop: max-width break(desktop-small) layout-column(desktop);
+$page-title-padding:					50px;
+$page-title-parallax-padding:			100px;
+$page-title-mini-padding:				20px;
 
-// Small devices (tablets, 768px and below)
-$tablet: max-width break(tablet-medium) layout-column(tablet);
+$page-title-bg:							#F5F5F5;
+$page-title-bg-dark:					#333;
 
-// Extra small devices (phones, less than 768px)
-$phone: max-width break(phone-medium) layout-column(phone);
+$page-title-size:						28px;
+$page-title-subtitle-size:				18px;
 
-// Debug grid columns
-@if config(debug) {
-	$visual-grid: true !default;
-	$visual-grid-color: red !default;
-	$visual-grid-index: front !default;
-	$visual-grid-opacity: 0.1 !default;
-}
+$page-title-parallax-size:				40px;
+$page-title-parallax-subtitle-size:		22px;
+
+$page-title-mini-size:					18px;
+
+// ----------------------------------------------------------------
+//	Portfolio
+// ----------------------------------------------------------------
+
+// Columns Margin
+$portfolio-2-margin:            20px;
+$portfolio-3-margin:            15px;
+$portfolio-4-margin:            12px;
+$portfolio-5-margin:            10px;
+$portfolio-6-margin:            6px;
+
+// Columns Margin for Sidebar
+$portfolio-2-margin-sb:         20px;
+$portfolio-3-margin-sb:         15px;
+$portfolio-4-margin-sb:         12px;
+$portfolio-5-margin-sb:         0;
+
+// Columns Margin for Both Sidebar
+$portfolio-2-margin-bs:         20px;
+$portfolio-3-margin-bs:         11px;
+$portfolio-4-margin-bs:         0;
+
+// ----------------------------------------------------------------
+//	Shop
+// ----------------------------------------------------------------
+
+// Columns Margin
+$shop-3-margin:            30px;
+$shop-4-margin:            20px;
+
+// Columns Margin for Sidebar
+$shop-2-margin-sb:         40px;
+$shop-3-margin-sb:         25px;
+
+// Columns Margin for Both Sidebar
+$shop-2-margin-bs:         40px;
+
+// ----------------------------------------------------------------
+//	Blog
+// ----------------------------------------------------------------
+
+// Columns Margin
+$blog-2-margin:            40px;
+$blog-3-margin:            30px;
+$blog-4-margin:            28px;
+
+// Columns Margin for Sidebar
+$blog-2-margin-sb:         40px;
+$blog-3-margin-sb:         25px;
+
+// Columns Margin for Both Sidebar
+$blog-2-margin-bs:         40px;

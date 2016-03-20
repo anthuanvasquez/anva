@@ -261,3 +261,31 @@ function anva_get_social_media_profiles() {
 	$profiles = apply_filters( 'anva_get_social_media_profiles', $profiles );
 	return $profiles;
 }
+
+/**
+ * Get capability for admin module.
+ *
+ * @since  1.0.0
+ * @param  string $module
+ * @return string $cap
+ */
+function anva_admin_module_cap( $module ) {
+
+	// Setup default capabilities
+	$module_caps = array(
+		'builder' 	=> 'edit_theme_options', // Role: Administrator
+		'options' 	=> 'edit_theme_options', // Role: Administrator
+		'backup' 	=> 'manage_options', 	 // Role: Administrator
+		'updates' 	=> 'manage_options', 	 // Role: Administrator
+	);
+	
+	$module_caps = apply_filters( 'anva_admin_module_caps', $module_caps );
+
+	// Setup capability
+	$cap = '';
+	if ( isset( $module_caps[ $module ] ) ) {
+		$cap = $module_caps[ $module ];
+	}
+
+	return $cap;
+}

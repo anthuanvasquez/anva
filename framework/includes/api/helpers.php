@@ -138,13 +138,13 @@ function anva_get_option_defaults() {
 }
 endif;
 
-if ( ! function_exists( 'anva_get_admin_menu_settings' ) ) :
+if ( ! function_exists( 'anva_get_options_page_menu' ) ) :
 /**
  * Get optionsframework menu settings
  * 
  * @since 1.0.0
  */
-function anva_get_admin_menu_settings() {
+function anva_get_options_page_menu() {
 	$options_framework = new Anva_Options_Page;
 	return $options_framework->menu_settings();
 }
@@ -304,11 +304,29 @@ function anva_get_elements() {
 }
 
 /**
- * Check if element is currently registered
+ * Check that the element ID exists.
  *
- * @since 1.0.0
+ * @deprecated use anva_element_exists()
+ *
+ * @since  1.0.0
+ * @param  string $element_id
+ * @return string $element_id
  */
 function anva_is_element( $element_id ) {
+	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_slider_exists() instead.', 'anva' ) );
+	$api = Anva_Builder_Elements_API::instance();
+	return $api->is_element( $element_id );
+}
+
+/**
+ * Check that the element ID exists.
+ *
+ * @since  1.0.0
+ * @param  string $element_id
+ * @return string $element_id
+ */
+function anva_element_exists( $element_id ) {
+	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_slider_exists() instead.', 'anva' ) );
 	$api = Anva_Builder_Elements_API::instance();
 	return $api->is_element( $element_id );
 }
@@ -559,11 +577,28 @@ function anva_get_sliders( $slider_id = '' ) {
 }
 
 /**
- * Check if slider type
+ * Check that the slider ID exists.
  *
- * @since 1.0.0
+ * @deprecated use anva_slider_exists()
+ *
+ * @since  1.0.0
+ * @param  string $slider_id
+ * @return string $sldier_id
  */
 function anva_is_slider( $slider_id ) {
+	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_slider_exists() instead.', 'anva' ) );
+	$api = Anva_Sliders_API::instance();
+	return $api->is_slider( $slider_id );
+}
+
+/**
+ * Check that the slider ID exists.
+ *
+ * @since  1.0.0
+ * @param  string $slider_id
+ * @return string $sldier_id
+ */
+function anva_slider_exists( $slider_id ) {
 	$api = Anva_Sliders_API::instance();
 	return $api->is_slider( $slider_id );
 }
@@ -583,14 +618,21 @@ function anva_add_new_meta_box( $id, $args, $options ) {
 }
 
 /**
- * Get field
+ * Get field.
  *
  * @since  1.0.0
- * @return string The field from meta box array settings
+ * @param  string  $field
+ * @param  boolean $default
+ * @return array   $field
  */
 function anva_get_field( $field, $default = false ) {
 
 	global $post;
+
+	if ( is_null( $post ) ) {
+		global $wp_query;
+		$post = $wp_query->post;
+	}
 
 	$id = null;
 	$page = array();
@@ -634,8 +676,8 @@ function anva_get_field( $field, $default = false ) {
 	// Validate if ID exist
 	if ( ! is_null( $id ) ) {
 		$fields = anva_get_post_meta( $id );
-		if ( isset( $fields[$field] ) ) {
-			return $fields[$field];
+		if ( isset( $fields[ $field ] ) ) {
+			return $fields[ $field ];
 		}
 	}
 
@@ -643,17 +685,19 @@ function anva_get_field( $field, $default = false ) {
 }
 
 /**
- * Show field
+ * Show field.
  *
  * @since  1.0.0
- * @return string The field from anva_get_field()
+ * @param  string  $field
+ * @param  boolean $default
+ * @return array   $field
  */
 function anva_the_field( $field, $default = false ) {
 	echo anva_get_field( $field, $default );
 }
 
 /**
- * Get gallery field meta
+ * Get the galleries field.
  *
  * @since  1.0.0
  * @return string The page builder field meta

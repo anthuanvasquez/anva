@@ -124,7 +124,7 @@ class Anva_Meta_Box {
 
 			// Insert Tab Heading
 			$formatted_options[] = array(
-				'id' 		=> $tab_id,
+				'id' 	=> $tab_id,
 				'name' 	=> $tab['name'],
 				'type' 	=> 'heading'
 			);
@@ -171,7 +171,7 @@ class Anva_Meta_Box {
 
 		// Make sure options framework exists so we can show the options form
 		if ( ! function_exists( 'anva_get_options_fields' ) ) {
-			echo __( 'Options Framework not found.', 'anva' );
+			echo __( 'Anva Options Interface not found.', 'anva' );
 			return;
 		}
 

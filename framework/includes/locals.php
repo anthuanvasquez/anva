@@ -67,7 +67,7 @@ function anva_get_text_locals() {
 		'status'									=> __( 'Estatus', 'anva' ),
 		'audios'									=> __( 'Audios', 'anva' ),
 		'chats'										=> __( 'Chats', 'anva' ),
-		'archives'								=> __( 'Archivos', 'anva' ),
+		'archives'								=> __( 'Archives', 'anva' ),
 		'name' 										=> __( 'Name', 'anva' ),
 		'name_place' 							=> __( 'Complete Name', 'anva' ),
 		'name_required'						=> __( 'Please enter your name.', 'anva' ),

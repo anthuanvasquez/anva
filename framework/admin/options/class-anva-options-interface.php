@@ -179,10 +179,10 @@ class Anva_Options_Interface {
 					break;
 
 				/*
-				|--------------------------------------------------------------------------
-				| Number Input
-				|--------------------------------------------------------------------------
-				*/
+				 * --------------------------------------------------------------------------
+				 *  Number Input
+				 * --------------------------------------------------------------------------
+				 */
 				case 'number':
 					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="number" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
 					break;
@@ -234,7 +234,7 @@ class Anva_Options_Interface {
 
 				/*
 				|--------------------------------------------------------------------------
-				| Double Inputs Value
+				| Double Input Values
 				|--------------------------------------------------------------------------
 				*/
 				case 'double_text':
@@ -277,7 +277,7 @@ class Anva_Options_Interface {
 
 				/*
 				|--------------------------------------------------------------------------
-				| Select Box
+				| Select
 				|--------------------------------------------------------------------------
 				*/
 				case 'select':
@@ -293,14 +293,16 @@ class Anva_Options_Interface {
 				
 				/*
 				|--------------------------------------------------------------------------
-				| Radio Box
+				| Radio
 				|--------------------------------------------------------------------------
 				*/
 				case "radio":
 					$name = $option_name .'['. $value['id'] .']';
-					foreach ($value['options'] as $key => $option) {
+					foreach ( $value['options'] as $key => $option ) {
 						$id = $option_name . '-' . $value['id'] .'-'. $key;
-						$output .= '<input class="anva-input anva-radio" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" '. checked( $val, $key, false) .' /><label for="' . esc_attr( $id ) . '">' . esc_html( $option ) . '</label>';
+						$output .= '<div class="anva-radio-input-group">';
+						$output .= '<input class="anva-input anva-radio radio-style" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" ' . checked( $val, $key, false) . ' /><label for="' . esc_attr( $id ) . '" class="radio-style-1-label radio-small">' . esc_html( $option ) . '</label>';
+						$output .= '</div>';
 					}
 					break;
 
@@ -336,8 +338,41 @@ class Anva_Options_Interface {
 				|--------------------------------------------------------------------------
 				*/
 				case 'checkbox':
-					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox anva-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
+					$output .= '<div class="anva-checkbox-input-group">';
+					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox anva-input anva-checkbox checkbox-style" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
 					$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
+					$output .= '</div>';
+					break;
+
+				/*
+				|--------------------------------------------------------------------------
+				| Multicheck
+				|--------------------------------------------------------------------------
+				*/
+				case "multicheck":
+					foreach ( $value['options'] as $key => $option ) {
+						$checked = '';
+						$label = $option;
+						$option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $key ) );
+
+						$id = $option_name . '-' . $value['id'] . '-'. $option;
+						$name = $option_name . '[' . $value['id'] . '][' . $option .']';
+
+						if ( isset( $val[$option] ) ) {
+							$checked = checked($val[$option], 1, false);
+						}
+						$output .= '<div class="anva-checkbox-input-group">';
+						$output .= '<input id="' . esc_attr( $id ) . '" class="checkbox anva-input anva-checkbox checkbox-style" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '" class="checkbox-style-1-label checkbox-small">' . esc_html( $label ) . '</label>';
+						$output .= '</div>';
+					}
+					break;
+
+				case 'switch':
+				var_dump($val);
+					$output .= '<div class="switch">';
+					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="switch-toggle switch-rounded-mini switch-toggle-round" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .'>';
+					$output .= '<label for="' . esc_attr( $value['id'] ) . '"></label>';
+					$output .= '</div>';
 					break;
 
 				/*
@@ -424,7 +459,6 @@ class Anva_Options_Interface {
 						$class .= ' empty';
 					}
 
-					$output .= '<div class="group-button">';
 					$output .= '<label class="anva-input-label" for="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '">';
 					$output .= '<select class="anva-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '">';
 					foreach ( $default_fields as $key => $option ) {
@@ -432,10 +466,9 @@ class Anva_Options_Interface {
 					}
 					$output .= '</select>';
 					$output .= '</label>';
-					$output .= '<span>';
+					$output .= '<div>';
 					$output .= '<input type="button" class="button" id="add-contact-field" value="' . __( 'Add', 'anva' ) . '" />';
-					$output .= '</span>';
-					$output .= '</div><!-- .group-button (end) -->';
+					$output .= '</div>';
 					$output .= '<input type="hidden" id="contact_field_name" value="' . esc_attr( $value['id'] ) . '" />';
 					$output .= '<div class="dynamic-contact-fields">';
 					$output .= '<ul class="' . $class . '">';
@@ -524,28 +557,6 @@ class Anva_Options_Interface {
 
 				/*
 				|--------------------------------------------------------------------------
-				| Multicheck
-				|--------------------------------------------------------------------------
-				*/
-				case "multicheck":
-					foreach ( $value['options'] as $key => $option ) {
-						$checked = '';
-						$label = $option;
-						$option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $key ) );
-
-						$id = $option_name . '-' . $value['id'] . '-'. $option;
-						$name = $option_name . '[' . $value['id'] . '][' . $option .']';
-
-						if ( isset( $val[$option] ) ) {
-							$checked = checked($val[$option], 1, false);
-						}
-
-						$output .= '<input id="' . esc_attr( $id ) . '" class="checkbox anva-input" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
-					}
-					break;
-
-				/*
-				|--------------------------------------------------------------------------
 				| Color Picker
 				|--------------------------------------------------------------------------
 				*/
@@ -564,7 +575,7 @@ class Anva_Options_Interface {
 				|--------------------------------------------------------------------------
 				*/
 				case "upload":
-					$output .= Anva_Options_Media_Uploader::optionsframework_uploader( $value['id'], $val, null );
+					$output .= Anva_Options_Media_Uploader::uploader( $value['id'], $val, null );
 
 					break;
 
@@ -578,7 +589,7 @@ class Anva_Options_Interface {
 					$min = $value['options']['min'];
 					$step = $value['options']['step'];
 					
-					$output .= '<div id="' . esc_attr( $value['id'] ) . '_range" class="anva-range-slider" data-range="' . esc_attr( $value['id'] ) . '"></div>';
+					$output .= '<div id="' . esc_attr( $value['id'] ) . '_range" class="anva-input anva-range-slider" data-range="' . esc_attr( $value['id'] ) . '"></div>';
 					$output .= '<input id="' . esc_attr( $value['id'] ) .'" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" class="anva-input-range hidden" type="text" value="' . esc_attr( $val ) . '" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '" />';
 					
 					break;
@@ -594,6 +605,7 @@ class Anva_Options_Interface {
 
 					// Font Size
 					if ( in_array( 'size', $value['options'] ) ) {
+						$output .= '<label for="' . $value['id'] . '_size" class="anva-input-label">';
 						$output .= '<select class="anva-typography anva-typography-size" name="' . esc_attr( $option_name . '[' . $value['id'] . '][size]' ) . '" id="' . esc_attr( $value['id'] . '_size' ) . '">';
 						$sizes = anva_recognized_font_sizes();
 						foreach ( $sizes as $i ) {
@@ -601,26 +613,31 @@ class Anva_Options_Interface {
 							$output .= '<option value="' . esc_attr( $size ) . '" ' . selected( $typography_stored['size'], $size, false ) . '>' . esc_html( $size ) . '</option>';
 						}
 						$output .= '</select>';
+						$output .= '</label>';
 					}
 
 					// Font Styles
 					if ( in_array( 'style', $value['options'] ) ) {
+						$output .= '<label for="' . $value['id'] . '_style" class="anva-input-label">';
 						$output .= '<select class="anva-typography anva-typography-style" name="'.$option_name.'['.$value['id'].'][style]" id="'. $value['id'].'_style">';
 						$styles = anva_recognized_font_styles();
 						foreach ( $styles as $key => $style ) {
 							$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $typography_stored['style'], $key, false ) . '>'. $style .'</option>';
 						}
 						$output .= '</select>';
+						$output .= '</label>';
 					}
 
 					// Font Face
 					if ( in_array( 'face', $value['options'] ) ) {
+						$output .= '<label for="' . $value['id'] . '_face" class="anva-input-label">';
 						$output .= '<select class="anva-typography anva-typography-face" name="' . esc_attr( $option_name . '[' . $value['id'] . '][face]' ) . '" id="' . esc_attr( $value['id'] . '_face' ) . '">';
 						$faces = anva_recognized_font_faces();
 						foreach ( $faces as $key => $face ) {
 							$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $typography_stored['face'], $key, false ) . '>' . esc_html( $face ) . '</option>';
 						}
 						$output .= '</select>';
+						$output .= '</label>';
 					}
 
 					// Font Color
@@ -635,8 +652,8 @@ class Anva_Options_Interface {
 
 					$output .= '<div class="clear"></div>';
 
+					// Google Font support
 					if ( in_array( 'face', $value['options'] ) ) {
-						// Google Font support
 						$output .= '<div class="google-font hidden">';
 						$output .= '<h5>' . 
 						sprintf( __( 'Enter the name of a font from the %s.', 'anva' ), sprintf( '<a href="' . esc_url( 'http://www.google.com/webfonts' ) . '" target="_blank">%s</a>', __( 'Google Font Directory', 'anva' ) ) ) . '</h5>';
@@ -674,7 +691,7 @@ class Anva_Options_Interface {
 						$background['image'] = '';
 					}
 
-					$output .= Anva_Options_Media_Uploader::optionsframework_uploader( $value['id'], $background['image'], null, esc_attr( $option_name . '[' . $value['id'] . '][image]' ) );
+					$output .= Anva_Options_Media_Uploader::uploader( $value['id'], $background['image'], null, esc_attr( $option_name . '[' . $value['id'] . '][image]' ) );
 
 					$class = 'anva-background-properties';
 					if ( '' == $background['image'] ) {
@@ -683,6 +700,7 @@ class Anva_Options_Interface {
 					$output .= '<div class="' . esc_attr( $class ) . '">';
 
 					// Background Repeat
+					$output .= '<label for="' . $value['id'] . '" class="anva-input-label">';
 					$output .= '<select class="anva-background anva-background-repeat" name="' . esc_attr( $option_name . '[' . $value['id'] . '][repeat]'  ) . '" id="' . esc_attr( $value['id'] . '_repeat' ) . '">';
 					$repeats = anva_recognized_background_repeat();
 
@@ -690,8 +708,10 @@ class Anva_Options_Interface {
 						$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $background['repeat'], $key, false ) . '>'. esc_html( $repeat ) . '</option>';
 					}
 					$output .= '</select>';
+					$output .= '</label>';
 
 					// Background Position
+					$output .= '<label for="' . $value['id'] . '" class="anva-input-label">';
 					$output .= '<select class="anva-background anva-background-position" name="' . esc_attr( $option_name . '[' . $value['id'] . '][position]' ) . '" id="' . esc_attr( $value['id'] . '_position' ) . '">';
 					$positions = anva_recognized_background_position();
 
@@ -699,8 +719,10 @@ class Anva_Options_Interface {
 						$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $background['position'], $key, false ) . '>'. esc_html( $position ) . '</option>';
 					}
 					$output .= '</select>';
+					$output .= '</label>';
 
 					// Background Attachment
+					$output .= '<label for="' . $value['id'] . '" class="anva-input-label">';
 					$output .= '<select class="anva-background anva-background-attachment" name="' . esc_attr( $option_name . '[' . $value['id'] . '][attachment]' ) . '" id="' . esc_attr( $value['id'] . '_attachment' ) . '">';
 					$attachments = anva_recognized_background_attachment();
 
@@ -708,6 +730,7 @@ class Anva_Options_Interface {
 						$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $background['attachment'], $key, false ) . '>' . esc_html( $attachment ) . '</option>';
 					}
 					$output .= '</select>';
+					$output .= '</label>';
 					$output .= '</div>';
 
 					break;
@@ -744,12 +767,15 @@ class Anva_Options_Interface {
 				case "info":
 					$id = '';
 					$class = 'section';
+					
 					if ( isset( $value['id'] ) ) {
 						$id = 'id="' . esc_attr( $value['id'] ) . '" ';
 					}
+					
 					if ( isset( $value['type'] ) ) {
 						$class .= ' section-' . $value['type'];
 					}
+					
 					if ( isset( $value['class'] ) ) {
 						$class .= ' ' . $value['class'];
 					}

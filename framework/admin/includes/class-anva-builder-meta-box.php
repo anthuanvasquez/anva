@@ -547,10 +547,17 @@ class Anva_Builder_Meta_Box {
 	 * @since 1.0.0
 	 */
 	public function admin_notices() {
+
+		global $typenow;
+		
+		if ( ! isset( $_GET['page'] ) || ( $_GET['page'] != $typenow ) ) {
+			return;
+		}
+
 		if ( isset( $_GET['imported'] ) && $_GET['imported'] == 'true' ) {
 			printf( '<div id="message" class="updated"><p>%s</p></div>', __( 'Content has successfully imported.', 'anva' ) );
 		
-		} else if ( isset( $_GET['error'] ) && $_GET['error'] == 'true' ) {
+		} else if ( isset( $_GET['error-import'] ) && $_GET['error-import'] == 'true' ) {
 			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your content. Please Try again.', 'anva' ) . '</p></div>';
 		}
 	}
@@ -580,7 +587,7 @@ class Anva_Builder_Meta_Box {
 		global $post;
 		
 		if ( ! isset( $_FILES['anva_import_file'] ) || $_FILES['anva_import_file']['error'] > 0 ) {
-			wp_redirect( admin_url( 'post.php?post=' . $post->ID . '&action=edit&error=true' ) );
+			wp_redirect( admin_url( 'post.php?post=' . $post->ID . '&action=edit&error-builder=true' ) );
 			return;
 		}
 

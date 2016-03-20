@@ -1,30 +1,42 @@
 <?php
-/*
- * Backup your "Theme Options" to a downloadable text file.
+
+/**
+ * Backup your theme options to a downloadable json file.
+ *
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
-
-class Anva_Options_Backup {
-
+class Anva_Options_Backup
+{
 	/**
 	 * Admin page.
+	 *
+	 * @access private
+	 * @var string
 	 */
 	private $admin_page;
 
 	/**
 	 * Current slug of the page.
+	 *
+	 * @access private
+	 * @var string
 	 */
 	private $token = '';
 
 	/**
 	 * Default option name from DB.
+	 *
+	 * @access private
+	 * @var string
 	 */
 	private $name = '';
 
 	/**
 	 * Constructor. Setup settings.
 	 */
-	function __construct() {
-
+	public function __construct()
+	{
 		// Get default option name
 		$option_name = anva_get_option_name();
 
@@ -32,15 +44,15 @@ class Anva_Options_Backup {
 		$this->admin_page = '';
 		$this->token 	  = $option_name . '_backup';
 		$this->name 	  = $option_name;
-
 	}
 
 	/**
-	 * Register the admin screen..
+	 * Register the admin screen.
 	 *
 	 * @since 1.0.0
 	 */
-	function init () {
+	public function init ()
+	{
 		if ( is_admin() && current_user_can( anva_admin_module_cap( 'backup' ) ) ) {
 			add_action( 'admin_menu', array( $this, 'register_admin_screen' ) );
 		}
@@ -51,12 +63,12 @@ class Anva_Options_Backup {
 	 *
 	 * @since 1.0.0
 	 */
-	function register_admin_screen () {
-
-		$menu = apply_filters( 'optionsframework_backup_menu', array(
+	function register_admin_screen ()
+	{
+		$menu = apply_filters( 'anva_options_backup_menu', array(
 			'page_title' 	=> __( 'Backup Options', 'anva' ),
 			'menu_title' 	=> __( 'Backup Options', 'anva' ),
-			'capability' 	=> 'manage_options',
+			'capability' 	=> anva_admin_module_cap( 'backup' ),
 			'slug' 			=> $this->token,
 			'screen' 		=> array( $this, 'admin_screen' )
 		));
@@ -70,7 +82,7 @@ class Anva_Options_Backup {
 		);
 
 		// Adds actions to hook in the required css and javascript
-		add_action( "admin_print_styles-$this->admin_page", array( $this, 'optionsframework_load_adminstyles' ) );
+		add_action( "admin_print_styles-$this->admin_page", array( $this, 'load_adminstyles' ) );
 
 		// Admin screen logic.
 		add_action( 'load-' . $this->admin_page, array( $this, 'admin_screen_logic' ) );
@@ -79,7 +91,6 @@ class Anva_Options_Backup {
 		add_action( 'contextual_help', array( $this, 'admin_screen_help' ), 10, 3 );
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 10 );
-
 	}
 
 	/**
@@ -87,8 +98,11 @@ class Anva_Options_Backup {
 	 *
 	 * @since 1.0.0
 	 */
-	function optionsframework_load_adminstyles() {
-		wp_enqueue_style( 'optionsframework', ANVA_FRAMEWORK_ADMIN_CSS . 'options.css', array(), ANVA_FRAMEWORK_VERSION::VERSION );
+	public function load_adminstyles()
+	{
+		wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'sweetalert.min.css', array(), '1.1.3' );
+		wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3' );
+		wp_enqueue_style( 'anva-options', ANVA_FRAMEWORK_ADMIN_CSS . 'options.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 	}
 
 	/**
@@ -96,79 +110,81 @@ class Anva_Options_Backup {
 	 *
 	 * @since 1.0.0
 	 */
-	function admin_screen () {
+	public function admin_screen ()
+	{
 	?>
-	<div id="optionsframework-wrap" class="wrap">
-		<h2><?php _e( 'Import / Export', 'anva' ); ?></h2>
+	<div id="anva-framework-wrap" class="wrap">
 		
-		<div id="optionsframework-metabox" class="metabox-holder">
-		<?php do_action( 'optionsframework_importer_before' ); ?>
-		<div id="optionsframework">
-			<div class="options-settings import-export-settings">
-				
-				<div class="column-1">
-				<div id="import-notice" class="section-info">
-					<p><?php printf( __( 'Please note that this backup manager backs up only your theme settings and not your content. To backup your content, please use the %sWordPress Export Tool%s.', 'anva' ), '<a href="' . esc_url( admin_url( 'export.php' ) ) . '">', '</a>' ); ?></p>
-				</div><!-- #import-notice (end) -->
-
-				<div class="postbox inner-group">
-					<h3><?php _e( 'Import Settings', 'anva' ); ?></h3>
-					<div class="section-description">
-						 <?php _e( 'To get started, upload your backup file to import from below.', 'anva' ); ?>
-					</div>
-					<div class="section section-import">
-						<h4 class="heading"><?php printf( __( 'Upload File: (Maximum Size: %s)', 'anva' ), ini_get( 'post_max_size' ) ); ?></h4>
-						<div class="option option-import">
-							<div class="controls">
-								<form enctype="multipart/form-data" method="post" action="<?php echo admin_url( 'admin.php?page=' . $this->token ); ?>">
-									<?php wp_nonce_field( 'OptionsFramework-backup-import' ); ?>
-									<input type="file" id="OptionsFramework-import-file" name="OptionsFramework-import-file" class="anva-input-file" />
-									<input type="hidden" name="OptionsFramework-backup-import" value="1" />
-									<input type="submit" class="button" value="<?php _e( 'Upload File and Import', 'anva' ); ?>" />
-								</form>
-							</div>
-							<div class="explain">
-								<?php _e( 'If you have settings in a backup file on your computer, the Import / Export system can import those into this site.', 'anva' ); ?>
-							</div>
-						</div><!-- .import (end) -->
-					</div><!-- .section -->
-				</div><!-- .iinner-group (end) -->
-				
-				<div class="postbox inner-group">
-					<h3><?php _e( 'Export Settings', 'anva' ); ?></h3>
-					<div class="section-description">
-						<?php _e( 'When you click the button below, the Import / Export system will create a text file for you to save to your computer.', 'anva' ); ?>
-					</div>
-					<div class="section section-export">
-						<h4 class="heading"><?php _e( 'Export File:', 'anva' ); ?></h4>
-						<div class="option option-export">
-							<div class="controls">
-								<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->token ) ); ?>">
-									<?php wp_nonce_field( 'OptionsFramework-backup-export' ); ?>
-									<input type="hidden" name="OptionsFramework-backup-export" value="1" />
-									<input type="submit" class="button" value="<?php _e( 'Download Export File' , 'anva' ); ?>" />
-								</form>
-							</div>
-							<div class="explain">
-								<?php printf( __( 'This text file can be used to restore your settings here on "%s", or to easily setup another website with the same settings".', 'anva' ), get_bloginfo( 'name' ) ); ?>
-							</div>
-						</div><!-- .export (end) -->
-					</div><!-- .section (end) -->
-				</div><!-- .inner-group (end) -->
-				<?php do_action( 'optionsframework_after_fields' ); ?>
-				</div><!-- .column-1 (end) -->
-
-				<div class="column-2">
+		<h2><?php _e( 'Import / Export Settings', 'anva' ); ?></h2>
+		
+		<div id="anva-framework-metabox" class="metabox-holder">
+			<?php do_action( 'anva_options_backup_importer_before' ); ?>
+			<div id="anva-framework">
+				<div class="options-settings import-export-settings">
 					
-				</div><!-- .column-2 (end) -->
+					<div class="column-1">
+						
+						<div id="import-notice" class="section-info warning">
+							<p><?php printf( __( 'Please note that this backup manager backs up only your theme settings and not your content. To backup your content, please use the %sWordPress Export Tool%s.', 'anva' ), '<a href="' . esc_url( admin_url( 'export.php' ) ) . '">', '</a>' ); ?></p>
+						</div><!-- #import-notice (end) -->
 
-				<div class="clear"></div>
+						<div class="postbox inner-group">
+							<h3><?php _e( 'Import Settings', 'anva' ); ?></h3>
+							<div class="section-description">
+								 <?php _e( 'To get started, upload your backup file to import from below.', 'anva' ); ?>
+							</div>
+							<div class="section section-import">
+								<h4 class="heading"><?php printf( __( 'Upload File: (Maximum Size: %s)', 'anva' ), ini_get( 'post_max_size' ) ); ?></h4>
+								<div class="option option-import">
+									<div class="controls">
+										<form enctype="multipart/form-data" method="post" action="<?php echo admin_url( 'admin.php?page=' . $this->token ); ?>">
+											<?php wp_nonce_field( 'anva-options-backup-import' ); ?>
+											<input type="file" id="anva-options-import-file" name="anva-options-import-file" class="anva-input-file" />
+											<input type="hidden" name="anva-options-backup-import" value="1" />
+											<input type="submit" class="button" value="<?php _e( 'Upload File and Import', 'anva' ); ?>" />
+										</form>
+									</div>
+									<div class="explain">
+										<?php _e( 'If you have settings in a backup file on your computer, the Import / Export system can import those into this site.', 'anva' ); ?>
+									</div>
+								</div><!-- .import (end) -->
+							</div><!-- .section -->
+						</div><!-- .iinner-group (end) -->
+						
+						<div class="postbox inner-group">
+							<h3><?php _e( 'Export Settings', 'anva' ); ?></h3>
+							<div class="section-description">
+								<?php _e( 'When you click the button below, the Import / Export system will create a json file for you to save to your computer.', 'anva' ); ?>
+							</div>
+							<div class="section section-export">
+								<h4 class="heading"><?php _e( 'Export File:', 'anva' ); ?></h4>
+								<div class="option option-export">
+									<div class="controls">
+										<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->token ) ); ?>">
+											<?php wp_nonce_field( 'anva-options-backup-export' ); ?>
+											<input type="hidden" name="anva-options-backup-export" value="1" />
+											<input type="submit" class="button" value="<?php _e( 'Download Export File' , 'anva' ); ?>" />
+										</form>
+									</div>
+									<div class="explain">
+										<?php printf( __( 'This json file can be used to restore your settings here on "%s", or to easily setup another website with the same settings. Note: te file encrypted to protect your settings data.', 'anva' ), get_bloginfo( 'name' ) ); ?>
+									</div>
+								</div><!-- .export (end) -->
+							</div><!-- .section (end) -->
+						</div><!-- .inner-group (end) -->
+						<?php do_action( 'anva_options_backup_after_fields' ); ?>
+					</div><!-- .column-1 (end) -->
 
-			</div><!-- .import-export-settings (end) -->
-		</div><!-- #optionsframework (end) -->
-		<?php do_action( 'optionsframework_importer_after' ); ?>
-		</div><!-- #optionsframework-metabox (nd) -->
-	</div><!--/.wrap-->
+					<div class="column-2">
+					</div><!-- .column-2 (end) -->
+
+					<div class="clear"></div>
+
+				</div><!-- .import-export-settings (end) -->
+			</div>
+			<?php do_action( 'anva_options_backup_importer_after' ); ?>
+		</div><!-- #anva-framework-metabox (nd) -->
+	</div><!-- #anva-framework-wrap-->
 	<?php
 	}
 
@@ -177,10 +193,9 @@ class Anva_Options_Backup {
 	 *
 	 * @since 1.0.0
 	 */
-	function admin_screen_help ( $contextual_help, $screen_id, $screen ) {
-
+	public function admin_screen_help ( $contextual_help, $screen_id, $screen )
+	{
 		if ( $this->admin_page == $screen->id ) {
-
 			$contextual_help =
 				'<h3>' . sprintf( __( 'Welcome to the %s Backup Manager.', 'anva' ), ucfirst ( $this->name ) ) . '</h3>' .
 				'<p>' . __( 'Here are a few notes on using this screen.', 'anva' ) . '</p>' .
@@ -190,9 +205,7 @@ class Anva_Options_Backup {
 				'<p><strong>' . sprintf( __( 'Please note that only valid backup files generated through the %s Backup Manager should be imported.', 'anva' ), ucfirst ( $this->name ) ) . '</strong></p>' .
 				'<p><strong>' . __( 'Looking for assistance?', 'anva' ) . '</strong></p>' .
 				'<p>' . sprintf( __( 'Please post your query on the %s where we will do our best to assist you further.', 'anva' ), sprintf( '<a href="' . esc_url( 'http://www.themeforest.com/user/oidoperfecto/portfolio' ) . '" target="_blank">%s</a>', __( 'ThemeForest Support Item', 'anva' ) ) ) . '</p>';
-		
 		}
-
 		return $contextual_help;
 	}
 
@@ -201,23 +214,30 @@ class Anva_Options_Backup {
 	 *
 	 * @since 1.0.0
 	 */
-	function admin_notices () {
-
+	public function admin_notices ()
+	{
 		if ( ! isset( $_GET['page'] ) || ( $_GET['page'] != $this->token ) ) {
 			return;
 		}
 
-		if ( isset( $_GET['error'] ) && $_GET['error'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your settings. Please Try again.', 'anva' ) . '</p></div>';
+		if ( isset( $_GET['error-import'] ) && $_GET['error-import'] == 'true' ) {
+			anva_flash_message( __( 'Error', 'anva' ), __( 'There was a problem importing your settings. Please Try again.', 'anva' ), 'error' );
+		}
 
-		} else if ( isset( $_GET['error-export'] ) && $_GET['error-export'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem exporting your settings. Please Try again.', 'anva' ) . '</p></div>';
+		if ( isset( $_GET['error-export'] ) && $_GET['error-export'] == 'true' ) {
+			anva_flash_message( __( 'Error', 'anva' ), __( 'There was a problem exporting your settings. Please Try again.', 'anva' ), 'error' );		
+		}
 
-		} else if ( isset( $_GET['invalid'] ) && $_GET['invalid'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'The import file you\'ve provided is invalid. Please try again.', 'anva' ) . '</p></div>';
+		if ( isset( $_GET['invalid'] ) && $_GET['invalid'] == 'true' ) {
+			anva_flash_message( __( 'Invalid', 'anva' ), __( 'The import file you\'ve provided is invalid. Please try again.', 'anva' ), 'error' );
+		}
+		
+		if ( isset( $_GET['imported'] ) && $_GET['imported'] == 'true' ) {
+			anva_flash_message( __( 'Pass!', 'anva' ), __( 'Settings successfully imported.', 'anva' ), 'success' );
+		}
 
-		} else if ( isset( $_GET['imported'] ) && $_GET['imported'] == 'true' ) {
-			echo '<div id="message" class="updated"><p>' . sprintf( __( 'Settings successfully imported. | Return to %sTheme Options%s', 'anva' ), '<a href="' . admin_url( 'admin.php?page=options-framework' ) . '">', '</a>' ) . '</p></div>';
+		if ( isset( $_GET['imported-error'] ) && $_GET['imported-error'] == 'true' ) {
+			anva_flash_message( __( 'Error', 'anva' ), __( 'Import settings failed when it tried to update the options.', 'anva' ), 'error' );
 		}
 	}
 
@@ -226,12 +246,12 @@ class Anva_Options_Backup {
 	 *
 	 * @since 1.0.0
 	 */
-	function admin_screen_logic () {
-		if ( ! isset( $_POST['OptionsFramework-backup-export'] ) && isset( $_POST['OptionsFramework-backup-import'] ) && ( $_POST['OptionsFramework-backup-import'] == true ) ) {
+	public function admin_screen_logic () {
+		if ( isset( $_POST['anva-options-backup-import'] ) && ( $_POST['anva-options-backup-import'] == true ) ) {
 			$this->import();
 		}
 
-		if ( ! isset( $_POST['OptionsFramework-backup-import'] ) && isset( $_POST['OptionsFramework-backup-export'] ) && ( $_POST['OptionsFramework-backup-export'] == true ) ) {
+		if ( isset( $_POST['anva-options-backup-export'] ) && ( $_POST['anva-options-backup-export'] == true ) ) {
 			$this->export();
 		}
 	}
@@ -239,15 +259,16 @@ class Anva_Options_Backup {
 	/**
 	 * Import settings from a backup file.
 	 *
-	 * @since 1.0.0
+	 * @return void
 	 */
-	function import() {
-		check_admin_referer( 'OptionsFramework-backup-import' ); // Security check.
+	public function import()
+	{
+		check_admin_referer( 'anva-options-backup-import' ); // Security check.
 
-		if ( ! isset( $_FILES['OptionsFramework-import-file'] ) ) { return; } // We can't import the settings without a settings file.
+		if ( ! isset( $_FILES['anva-options-import-file'] ) ) { return; } // We can't import the settings without a settings file.
 
 		// Extract file contents
-		$upload = file_get_contents( $_FILES['OptionsFramework-import-file']['tmp_name'] );
+		$upload = file_get_contents( $_FILES['anva-options-import-file']['tmp_name'] );
 
 		// Decode base64
 		$data = base64_decode( $upload );
@@ -256,19 +277,20 @@ class Anva_Options_Backup {
 		$datafile = json_decode( $data, true );
 
 		// Check for errors
-		if ( ! $datafile || $_FILES['OptionsFramework-import-file']['error'] ) {
-			wp_redirect( admin_url( 'admin.php?page=' . $this->token . '&error=true' ) );
+		if ( $_FILES['anva-options-import-file']['error'] ) {
+			wp_redirect( admin_url( 'admin.php?page=' . $this->token . '&error-import=true' ) );
 			exit;
 		}
 
 		// Make sure this is a valid backup file.
-		if ( ! isset( $datafile['OptionsFramework-backup-validator'] ) ) {
+		if ( ! isset( $datafile['anva-options-backup-validator'] ) ) {
 			wp_redirect( admin_url( 'admin.php?page=' . $this->token . '&invalid=true' ) );
 			exit;
+		
 		} else {
 			// Now that we've checked it.
 			// We don't need the field anymore.
-			unset( $datafile['OptionsFramework-backup-validator'] );
+			unset( $datafile['anva-options-backup-validator'] );
 		}
 
 		// Get the theme name from database.
@@ -282,7 +304,7 @@ class Anva_Options_Backup {
 			exit;
 
 		} else {
-			wp_redirect( admin_url( 'admin.php?page=' . $this->token . '&error=true' ) );
+			wp_redirect( admin_url( 'admin.php?page=' . $this->token . '&imported-error=true' ) );
 			exit;
 		}
 	}
@@ -292,10 +314,9 @@ class Anva_Options_Backup {
 	 *
 	 * @return void
 	 */
-	function export() {
-		global $wpdb;
-		
-		check_admin_referer( 'OptionsFramework-backup-export' ); // Security check.
+	public function export()
+	{	
+		check_admin_referer( 'anva-options-backup-export' ); // Security check.
 
 		// Get option name
 		$option_name = $this->name;
@@ -312,7 +333,7 @@ class Anva_Options_Backup {
 		}
 
 		// Add our custom marker, to ensure only valid files are imported successfully.
-		$database_options['OptionsFramework-backup-validator'] = date( 'Y-m-d h:i:s' );
+		$database_options['anva-options-backup-validator'] = date( 'Y-m-d h:i:s' );
 
 		// Generate the export file to json.
 		$json = json_encode( (array)$database_options );
@@ -331,6 +352,5 @@ class Anva_Options_Backup {
 		header( 'Content-Length: ' . strlen( $output ) );
 		echo $output;
 		exit;
-
 	}
 }

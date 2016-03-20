@@ -236,9 +236,9 @@ function anva_header_extras_default() {
 function anva_header_primary_menu_default() {
 	if ( has_nav_menu( 'primary' ) ) :
 	?>
-		<nav id="primary-menu" role="navigation">
+		<nav id="primary-menu">
 			<?php
-				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array( 
+				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array(
 					'theme_location'  => 'primary',
 					'container'       => '',
 					'container_class' => '',
@@ -246,8 +246,9 @@ function anva_header_primary_menu_default() {
 					'menu_class'      => 'sf-menu clearfix',
 					'menu_id'         => '',
 					'echo'            => true,
-					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' )
-				));
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'walker'	  	  => new Anva_Walker_Nav_Menu()
+				) ) );
 
 				anva_header_primary_menu_addon();
 			?>
@@ -422,13 +423,17 @@ function anva_featured_default() {
  */
 function anva_featured_before_default() {
 	
-	$classes[] = anva_get_option( 'slider_style' );
+	$slider_id = anva_get_option( 'slider_id' );
+	$slider_style = anva_get_option( 'slider_style' );
+	$slider_parallax = anva_get_option( 'slider_parallax' );
+
+	if ( 'swiper' != $slider_id && 'full-screen' != $slider_style ) {
+		$classes[] = $slider_style;
+	}
 	
-	if ( 'true' == anva_get_option( 'slider_parallax' ) ) {
+	if ( 'true' == $slider_parallax ) {
 		$classes[] = 'slider-parallax';
 	}
-
-	$slider_id = anva_get_option( 'slider_id' );
 
 	if ( 'swiper' == $slider_id ) {
 		$classes[] = 'swiper_wrapper has-swiper-slider';
@@ -443,7 +448,9 @@ function anva_featured_before_default() {
 	?>
 	<!-- SLIDER (start) -->
 	<section id="slider" class="<?php echo esc_attr( $classes ); ?> clearfix">
+		<?php if ( 'slider-boxed' == $slider_style ) : ?>
 		<div class="container clearfix">
+		<?php endif ?>
 	<?php
 }
 
@@ -453,12 +460,42 @@ function anva_featured_before_default() {
  * @since 1.0.0
  */
 function anva_featured_after_default() {
+	$slider_style = anva_get_option( 'slider_style' );
+	$slider_parallax = anva_get_option( 'slider_parallax' );
 	?>
-		</div><!-- .container (end) -->
+	<?php if ( 'slider-boxed' == $slider_style ) : ?>
+	</div><!-- .container (end) -->
+	<?php endif ?>
 	</section><!-- FEATURED (end) -->
 	<?php
 }
 
+
+function anva_title_default() {
+
+	if ( is_front_page() ) {
+		return;
+	}
+
+	$hide_title = anva_get_field( 'hide_title' );
+	$page_desc = anva_get_field( 'page_desc' );
+
+	if ( is_404() ) {
+		$page_desc = __( 'Page not found', '' );
+	}
+
+	?>
+	<section id="page-title">
+		<div class="container clearfix">
+			<h1><?php anva_archive_title(); ?></h1>
+			<?php if ( $page_desc ) : ?>
+				<span><?php echo esc_html( $page_desc ); ?></span>
+			<?php endif; ?>
+			<?php anva_breadcrumbs(); ?>
+		</div>
+	</section><!-- #page-title (end) -->
+	<?php
+}
 /**
  * Display breadcrumbs
  * 
@@ -676,14 +713,13 @@ function anva_sidebar_below_footer() {
  * @since 1.0.0
  */
 function anva_posts_meta_default() {
-	if ( is_single() ) {
-		if ( 'show' == anva_get_option( 'single_meta', 'show' ) ) {
-			anva_posted_on();
-		}
-	} else {
-		if ( 'show' == anva_get_option( 'prmary_meta', 'show' ) ) {
-			anva_posted_on();
-		}
+	if ( is_single() && 'show' == anva_get_option( 'single_meta', 'show' ) ) {
+		anva_posted_on();
+		return;
+	}
+
+	if ( 'show' == anva_get_option( 'prmary_meta', 'show' ) ) {
+		anva_posted_on();
 	}
 }
 
@@ -694,15 +730,18 @@ function anva_posts_meta_default() {
  * @return void
  */
 function anva_posts_content_default() {
+	
 	$primary_content = anva_get_option( 'primary_content', 'excerpt' );
+	
 	if ( 'excerpt' == $primary_content ) {
 		echo '<div class="entry-summary">';
 		anva_excerpt();
 		echo '</div>';
 		echo '<a class="more-link" href="' . get_the_permalink() . '">' . anva_get_local( 'read_more' ) . '</a>';
-	} else {
-		the_content( anva_get_local( 'read_more' ) );
+		return;
 	}
+
+	the_content( anva_get_local( 'read_more' ) );
 }
 
 if ( ! function_exists( 'anva_posts_comments_default' ) ) :
@@ -730,12 +769,11 @@ endif;
  * @since 1.0.0
  */
 function anva_debug() {
-	return;
 	if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG ) :
 	?>
 	<div class="container clearfix">
 		<div class="debug-info alert alert-info topmargin bottommargin">
-			<ul class="resetlist">
+			<ul>
 				<li><strong>Debug Info</strong></li>
 				<li><span>Queries:</span> Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</li>
 				<li><span>Memory Usage:</span> <?php echo memory_get_usage(); ?></li>

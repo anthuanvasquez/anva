@@ -50,8 +50,7 @@ class Anva_Options_API {
 	}
 
 	/**
-	 * Constructor
-	 * Hook everything in.
+	 * Constructor Hook everything in.
 	 */
 	private function __construct() {
 

@@ -28,6 +28,18 @@ jQuery(document).ready(function($) {
 
 		extras: function() {
 
+			$('.anva-input-label').each(function(){
+				var el = $(this),
+					value = el.find('select').val(),
+					text = el.find('option[value="' + value + '"]').text();
+				el.prepend('<span>' + text + '</span>');
+			});
+
+			$('.anva-input-label select').live('change', function(){
+				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
+				el.closest('.anva-input-label').find('span').text(text);
+			});
+
 			$(document).on( 'click', '.reset-button', function(e) {
 				// return confirm( 'Click OK to reset. Any theme settings will be lost!' );
 				
@@ -57,7 +69,7 @@ jQuery(document).ready(function($) {
 
 			// Remove sidebar
 			$('.dynamic-sidebars ul').sortable();
-    	$('.dynamic-sidebars ul').disableSelection();
+    		$('.dynamic-sidebars ul').disableSelection();
 			$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
 				e.preventDefault();
 				var $ele = $(this).parent();
@@ -150,10 +162,30 @@ jQuery(document).ready(function($) {
 				$('.sidebar').val('');
 			});
 
+			$('.animsition').animsition({
+			    inClass: 'fade-in',
+			    outClass: 'fade-out',
+			    inDuration: 1500,
+			    outDuration: 800,
+			    linkElement: '.animsition-link',
+			    loading: true,
+			    loadingParentElement: 'body',
+			    loadingClass: 'animsition-loading',
+			    loadingInner: '',
+			    timeout: false,
+			    timeoutCountdown: 5000,
+			    onLoadEvent: true,
+			    browser: [ 'animation-duration', '-webkit-animation-duration'],
+			    overlay : false,
+			    overlayClass : 'animsition-overlay-slide',
+			    overlayParentElement : 'body',
+			    transition: function( url ) { window.location.href = url; }
+			});
+
 			// Show spinner on submit form
-			$('#optionsframework-submit input.button-primary').click( function() {
+			$('#anva-framework-submit input.button-primary').click( function() {
 				$(this).val( anvaJs.save_button );
-				$('#optionsframework-submit .spinner').addClass('is-active');
+				$('#anva-framework-submit .spinner').addClass('is-active');
 			});
 
 			$('.inner-group > h3').on( 'click', function(e) {
@@ -162,7 +194,7 @@ jQuery(document).ready(function($) {
 			});;
 
 			// Hide admin notices
-			var $error = $('#optionsframework-wrap .settings-error');
+			var $error = $('#anva-framework-wrap .settings-error');
 			if ( $error.length > 0 ) {
 				setTimeout( function() {
 					$error.fadeOut(500);
@@ -170,12 +202,12 @@ jQuery(document).ready(function($) {
 			}
 
 			if ( $('.nav-tab-wrapper').length > 0 ) {
-				AnvaOptions.optionsFrameworkTabs();
+				AnvaOptions.tabs();
 			}
 
 		},
 
-		optionsFrameworkTabs: function() {
+		tabs: function() {
 			var $group = $('.group'),
 				$navtabs = $('.nav-tab-wrapper a'),
 				active_tab = '';
@@ -226,8 +258,8 @@ jQuery(document).ready(function($) {
 		},
 
 		stickyActions: function() {
-			var $cache = $('#optionsframework .options-settings > .columns-2');
-			var $postBox = $('#optionsframework .postbox-wrapper');
+			var $cache = $('#anva-framework .options-settings > .columns-2');
+			var $postBox = $('#anva-framework .postbox-wrapper');
 			if ( $(window).scrollTop() > 115 ) {
 				$cache.css({
 					'position': 'absolute',
@@ -260,6 +292,7 @@ jQuery(document).ready(function($) {
 			AnvaOptions.sections.socialMedia();
 			AnvaOptions.sections.columns();
 			AnvaOptions.sections.slider();
+			AnvaOptions.sections.rangeSlider();
 		},
 
 		colorPicker: function() {
@@ -365,6 +398,29 @@ jQuery(document).ready(function($) {
 				parent.find('.' + value).show();
 			});
 		},
+
+		rangeSlider: function() {
+			$('.section-range').each(function() {
+				var el = $(this),
+				value = el.find('.anva-input-range').val(),
+				id = el.find('.anva-input-range').attr('id'),
+				min = el.find('.anva-input-range').data('min'),
+				max = el.find('.anva-input-range').data('max'),
+				step = el.find('.anva-input-range').data('step');
+				$('#' + id + '_range').slider({
+	                min: min,
+	                max: max,
+	                step: step,
+	                value: value,
+	                slide: function( e, ui ) {
+	                    $('#' + id).val( ui.value );
+	                }
+	            });
+	            $('#' + id).val( $('#' + id + '_range').slider( "value" ) );
+            	$('#' + id + '_range').slider("pips");
+            	$('#' + id + '_range').slider("float", { pips: true });
+			});
+		}
 	};
 
 	AnvaOptions.init();

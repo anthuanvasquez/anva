@@ -7,8 +7,26 @@
  */
 function anva_options() {
 
+	// Assets
 	$pattern_path = get_template_directory_uri() . '/assets/images/patterns/';
 	$skin_path = get_template_directory_uri() . '/assets/images/skins/';
+
+	// Skin Colors
+	$schemes = array();
+	foreach ( anva_get_colors_scheme( $skin_path, 'jpg' ) as $color_id => $color ) {
+		$schemes[ $color_id ] = $color['image'];
+	}
+
+	// Transitions
+	$transitions = array();
+	$transitions = range( 0, 14 );
+	$transitions[0] = __( 'Disable Transition', 'anva' );
+
+	// Animations
+	$animations = array();
+	foreach ( anva_get_animations() as $animation_id => $animation ) {
+		$animations[ $animation ] = $animation;
+	}
 
 	/* ---------------------------------------------------------------- */
 	/* Layout
@@ -23,18 +41,28 @@ function anva_options() {
 		'id' => 'base_color',
 		'std' => 'blue',
 		'type' => 'images',
+		'options' => $schemes
+	);
+	anva_add_option( 'styles', 'main', 'base_color', $base_color );
+
+	$base_color_style = array(
+		'name' => __( 'Base Color Style', 'anva' ),
+		'desc' => sprintf(
+			__( 'Choose skin style for the theme. Check live preview in the %s.', 'anva' ),
+			sprintf( '<a href="' . esc_url( admin_url( '/customize.php' ) ) . '">%s</a>', __( 'Customizer', 'anva' ) )
+		),
+		'id' => 'base_color_style',
+		'std' => 'light',
+		'type' => 'select',
 		'options' => array(
-			'blue' 		=> esc_url( $skin_path . 'blue.png' ),
-			'green' 	=> esc_url( $skin_path . 'green.png' ),
-			'orange' 	=> esc_url( $skin_path . 'orange.png' ),
-			'red' 		=> esc_url( $skin_path . 'red.png' ),
-			'teal' 		=> esc_url( $skin_path . 'teal.png' ),
+			'light' => __( 'Light', 'anva' ),
+			'dark' => __( 'Dark', 'anva' ),
 		)
 	);
-	anva_add_option( 'styles', 'main', 'base_colors', $base_color );
+	anva_add_option( 'styles', 'main', 'base_color_style', $base_color_style );
 
 	$footer_color = array(
-		'name' => __( 'Footer Color Scheme', 'anva' ),
+		'name' => __( 'Footer Style', 'anva' ),
 		'desc' => __( 'Choose the color for the footer.', 'anva' ),
 		'id' => 'footer_color',
 		'std' => 'dark',
@@ -44,7 +72,64 @@ function anva_options() {
 			'dark' 	=> __( 'Dark', 'anva' )
 		)
 	);
-	anva_add_option( 'styles', 'main', 'base_color', $footer_color );
+	anva_add_option( 'styles', 'main', 'footer_color', $footer_color );
+
+	$page_loading_options = array(
+		'page_loader' => array(
+			'name' => __( 'Loader', 'anva' ),
+			'desc' => __( 'Choose the loading styles of the Animation you want to show to your visitors while the pages of you Website loads in the background.', 'anva' ),
+			'id' => 'page_loader',
+			'std' => '1',
+			'type' => 'select',
+			'options' => $transitions
+		),
+		'page_loader_color' => array(
+			'name' => __( 'Color', 'anva' ),
+			'desc' => __( 'Set the page transition color.', 'anva' ),
+			'id' => 'page_loader_color',
+			'std' => '#DDDDDD',
+			'type' => 'color',
+		),
+		'page_loader_timeout' => array(
+			'name' => __( 'Timeout', 'anva' ),
+			'desc' => __( 'Enter the timeOut in milliseconds to end the page preloader immaturely. Default is 1000.', 'anva' ),
+			'id' => 'page_loader_timeout',
+			'std' => 1000,
+			'type' => 'number',
+		),
+		'page_loader_speed_in' => array(
+			'name' => __( 'Speed In', 'anva' ),
+			'desc' => __( 'Enter the speed of the animation in milliseconds on page load. Default is 800.', 'anva' ),
+			'id' => 'page_loader_speed_in',
+			'std' => 800,
+			'type' => 'number',
+		),
+		'page_loader_speed_out' => array(
+			'name' => __( 'Speed Out', 'anva' ),
+			'desc' => __( 'Enter the speed of the animation in milliseconds on page load. Default is 800.', 'anva' ),
+			'id' => 'page_loader_speed_out',
+			'std' => 800,
+			'type' => 'number',
+		),
+		'page_loader_animation_in' => array(
+			'name' => __( 'Animation In', 'anva' ),
+			'desc' => __( 'Choose the animation style on page load.', 'anva' ),
+			'id' => 'page_loader_animation_in',
+			'std' => 'fadeIn',
+			'type' => 'select',
+			'options' => $animations,
+		),
+		'page_loader_animation_out' => array(
+			'name' => __( 'Animation Out', 'anva' ),
+			'desc' => __( 'Choose the animation style on page out.', 'anva' ),
+			'id' => 'page_loader_animation_out',
+			'std' => 'fadeOut',
+			'type' => 'select',
+			'options' => $animations
+		),
+	);
+	anva_add_option_section( 'styles', 'page_loader_transition', __( 'Page Loading Transition', 'anva' ), null, $page_loading_options, false );
+
 
 	/* ---------------------------------------------------------------- */
 	/* Background
@@ -77,8 +162,8 @@ function anva_options() {
 			'name' => __( 'Background Cover', 'anva' ),
 			'desc' => __( 'Use background size cover.', 'anva' ),
 			'id' => 'background_cover',
-			'std' => '',
-			'type' => 'checkbox'
+			'std' => '1',
+			'type' => 'switch'
 		),
 		'background_pattern' => array(
 			'name' => __( 'Background Pattern', 'anva' ),
@@ -249,14 +334,14 @@ function anva_options() {
 
 	$custom_options = array(
 		'css_warning' => array(
-			'name' => __( 'Warning', 'anva'),
+			'name' => __( 'Info', 'anva'),
 			'desc' => __( 'If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva'),
 			'id' => 'css_warning',
-			'type' => 'info'
+			'type' => 'info',
 		),
 		'custom_css' => array(
 			'name' => __( 'Custom CSS', 'anva'),
-			'desc' => __( 'If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva'),
+			'desc' => __( 'Use custom CSS to override the theme styles.', 'anva'),
 			'id' => 'custom_css',
 			'std' => '',
 			'type' => 'textarea'
@@ -268,7 +353,7 @@ function anva_options() {
 	/* Galleries
 	/* ---------------------------------------------------------------- */
 	
-	if ( is_admin() && post_type_exists( 'galleries' ) ) {
+	if ( is_admin() ) {
 
 		// Pull all gallery templates
 		$galleries = array();
@@ -338,7 +423,7 @@ function anva_options() {
 		// Pull all sliders
 		$slider_select = array();
 		foreach ( $sliders as $slider_id => $slider ) {
-			$slider_select[$slider_id] = $slider['name'];
+			$slider_select[ $slider_id ] = $slider['name'];
 		}
 
 		// Revolution Slider
@@ -373,8 +458,8 @@ function anva_options() {
 				'std' => 'true',
 				'type' => 'select',
 				'options'	=> array(
-					'true' 	=> 'Yes, enable parallax.',
-					'false'	=> 'No, disable parallax.'
+					'true' 	=> 'Yes, enable parallax',
+					'false'	=> 'No, disable parallax'
 				),
 			),
 		);
@@ -382,7 +467,7 @@ function anva_options() {
 		// Get dynamic slider options
 		foreach ( $sliders as $slider_id => $slider ) {
 			foreach ( $slider['options'] as $option_id => $option ) {
-				$slider_options[$option_id] = $option;
+				$slider_options[ $option_id ] = $option;
 			}
 		}
 
@@ -392,7 +477,7 @@ function anva_options() {
 			'id' => 'revslider_id',
 			'std' => '',
 			'type' => 'text',
-			'class' => 'revslider hide'
+			'class' => 'slider-item revslider hide'
 		);
 		anva_add_option_section( 'layout', 'slider', __( 'Sliders', 'anva' ), null, $slider_options, false );
 
@@ -439,9 +524,10 @@ function anva_options() {
 	$minify_options = array(
 		'minify_warning' => array(
 			'name' => __( 'Warning', 'anva' ),
-			'desc' => __( 'If you have a cache plugin installed in your site desactive this options.', 'anva' ),
+			'desc' => __( 'If you have a cache plugin installed in your site desactive these options.', 'anva' ),
 			'id' 	 => 'minify_warning',
-			'type' => 'info'
+			'type' => 'info',
+			'class' => 'warning',
 		),
 
 		'compress_css' => array(
@@ -449,7 +535,7 @@ function anva_options() {
 			'desc' => __( 'Combine and compress all CSS files to one. Help reduce page load time and increase server resources.', 'anva'),
 			'id' => "compress_css",
 			'std' => '0',
-			'type' => 'checkbox'
+			'type' => 'switch',
 		),
 
 		'compress_js' => array(
@@ -457,7 +543,7 @@ function anva_options() {
 			'desc' => __( 'Combine and compress all Javascript files to one. Help reduce page load time and increase server resource.', 'anva'),
 			'id' => "compress_js",
 			'std' => '0',
-			'type' => 'checkbox'
+			'type' => 'switch',
 		)
 	);
 	anva_add_option_section( 'advanced', 'minify', __( 'Minify', 'anva' ), null, $minify_options, false );

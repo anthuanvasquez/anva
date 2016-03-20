@@ -1,36 +1,33 @@
 <?php
 /**
- * @package   Options_Framework
- * @author    Devin Price <devin@wptheming.com>
- * @license   GPL-2.0+
- * @link      http://wptheming.com
- * @copyright 2010-2014 WP Theming
+ * Media uploader.
+ *
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
-
 class Anva_Options_Media_Uploader {
 
 	/**
-	 * Initialize the media uploader class
+	 * Initialize the media uploader class.
 	 *
-	 * @since 1.7.0
+	 * @since 1.0.0
 	 */
 	public function init() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'optionsframework_media_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'media_scripts' ) );
 	}
 
 	/**
 	 * Media Uploader Using the WordPress Media Library.
 	 *
-	 * Parameters:
-	 *
-	 * string $_id - A token to identify this field (the name).
-	 * string $_value - The value of the field, if present.
-	 * string $_desc - An optional description of the field.
-	 *
+	 * @since  1.0.0
+	 * @param  string $_id
+	 * @param  string $_value
+	 * @param  string $_desc
+	 * @param  string $_name
+	 * @return string $output
 	 */
-
-	static function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '' ) {
-
+	public static function uploader( $_id, $_value, $_desc = '', $_name = '' )
+	{
 		// Gets the unique option id
 		$option_name = anva_get_option_name();
 
@@ -107,11 +104,14 @@ class Anva_Options_Media_Uploader {
 	}
 
 	/**
-	 * Enqueue scripts for file uploader
+	 * Enqueue scripts for file uploader.
+	 *
+	 * @since 1.0.0
+	 * @param object $hook
 	 */
-	function optionsframework_media_scripts( $hook ) {
+	public function media_scripts( $hook ) {
 
-		$menu = Anva_Options_Page::menu_settings();
+		$menu = anva_get_options_page_menu();
 
 		if ( substr( $hook, -strlen( $menu['menu_slug'] ) ) !== $menu['menu_slug'] )
 			return;
@@ -121,7 +121,7 @@ class Anva_Options_Media_Uploader {
 
 		wp_register_script( 'anva-media-uploader', ANVA_FRAMEWORK_ADMIN_JS . 'media-uploader.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
 		wp_enqueue_script( 'anva-media-uploader' );
-		wp_localize_script( 'anva-media-uploader', 'optionsframework_l10n', array(
+		wp_localize_script( 'anva-media-uploader', 'anvaMediaJs', array(
 			'upload' => __( 'Browse', 'anva' ),
 			'remove' => __( 'Remove', 'anva' )
 		) );
@@ -129,7 +129,11 @@ class Anva_Options_Media_Uploader {
 }
 
 /**
- * Media Uploader Using the WordPress Media Library in 3.5+
+ * Media uploader using the WordPress Media Library in 3.5+ tp handle the logo section.
+ *
+ * @since  1.0.0
+ * @param  array $args
+ * @return string $output
  */
 function anva_media_uploader( $args ) {
 
@@ -206,7 +210,7 @@ function anva_media_uploader( $args ) {
 		case 'logo_2x' :
 			$data['title'] = __('Logo HiDPI Image', 'anva');
 			$data['select'] = __('Use for Logo', 'anva');
-			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('URL for image twice the size of standard image', 'anva') .'" />'."\n";
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('2x size of standard image', 'anva') .'" />'."\n";
 			break;
 
 		case 'background' :

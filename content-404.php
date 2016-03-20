@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 ?>
-<div class="article-wrapper">
+<div class="entry-wrap">
 	<article id="page-404" class="page page-404">
 		<div class="entry-content">
 			<div class="entry-title">

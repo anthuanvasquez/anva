@@ -25,11 +25,8 @@ require_once( get_template_directory() . '/includes/install.php' );
  * @return array $menu
  */
 function theme_options_menu( $menu ) {
-	$option_name 				= anva_get_option_name();
-	$menu['mode'] 			= 'menu';
 	$menu['page_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
 	$menu['menu_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
-	$menu['menu_slug']  = $option_name;
 	return $menu;
 }
 
@@ -373,8 +370,8 @@ function theme_remove_grid_columns( $columns ) {
 /* Hooks
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'optionsframework_menu', 'theme_options_menu' );
-add_filter( 'optionsframework_backup_menu', 'theme_backup_menu' );
+add_filter( 'anva_options_page_menu', 'theme_options_menu' );
+add_filter( 'anva_options_backup_menu', 'theme_backup_menu' );
 add_filter( 'anva_grid_columns', 'theme_remove_grid_columns' );
 add_filter( 'body_class', 'theme_body_classes' );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );

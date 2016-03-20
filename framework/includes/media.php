@@ -253,41 +253,96 @@ function anva_the_post_grid_thumbnail( $thumbnail ) {
 	echo $html;
 }
 
-function anva_get_colors_scheme( $skin_path = '' ) {
+/**
+ * Get colors scheme. The skin images don't exists in the framework
+ * make sure you have a assets/images/skins folder in theme level.
+ *
+ * @since  1.0.0
+ * @param  string $skin_path
+ * @return array  $colors
+ */
+function anva_get_colors_scheme( $skin_path = '', $ext = 'png' ) {
+
+	if ( empty( $skin_path ) ) {
+		$skin_path = trailingslashit( ANVA_FRAMEWORK_URI . 'assets/images/skins' );
+	}
+
+	// Set the extension
+	$ext = '.' . $ext;
+
+	// Change the skin path with filters
+	$skin_path = apply_filters( 'anva_colors_scheme_skin_path', $skin_path );
+
 	$colors = array(
-		'blue' 		=> array(
-			'name' 	=> __( 'Blue', 'anva' ),
-			'color' => "#",
-			'image' => esc_url( $skin_path . 'blue.png' ),
+		'blue' 			=> array(
+			'name' 		=> __( 'Blue', 'anva' ),
+			'color' 	=> "#3498db",
+			'image' 	=> esc_url( $skin_path . 'blue' . $ext ),
 		),
-		'green' 	=> array(
-			'name' 	=> __( 'Green', 'anva' ),
-			'color' => "#",
-			'image' => esc_url( $skin_path . 'green.png' ),
+		'light_blue' 	=> array(
+			'name' 		=> __( 'Light Blue', 'anva' ),
+			'color' 	=> "#83d6ff",
+			'image' 	=> esc_url( $skin_path . 'light_blue' . $ext ),
 		),
-		'orange' 	=> array(
-			'name' 	=> __( 'Orange', 'anva' ),
-			'color' => "#",
-			'image' => esc_url( $skin_path . 'orange.png' ),
+		'navy_blue' 	=> array(
+			'name' 		=> __( 'Navy Blue', 'anva' ),
+			'color' 	=> "#0f68b7",
+			'image' 	=> esc_url( $skin_path . 'navy_blue' . $ext ),
 		),
-		'red' 		=> array(
-			'name' 	=> __( 'Red', 'anva' ),
-			'color' => "#",
-			'image' => esc_url( $skin_path . 'red.png' ),
+		'teal' 			=> array(
+			'name' 		=> __( 'Teal', 'anva' ),
+			'color' 	=> "#16807a",
+			'image' 	=> esc_url( $skin_path . 'teal' . $ext ),
 		),
-		'teal' 		=> array(
-			'name' 	=> __( 'Teal', 'anva' ),
-			'color' => "#",
-			'image' => esc_url( $skin_path . 'teal.png' ),
+		'green' 		=> array(
+			'name' 		=> __( 'Green', 'anva' ),
+			'color' 	=> "#019875",
+			'image' 	=> esc_url( $skin_path . 'green' . $ext ),
+		),
+		'turquoise' 	=> array(
+			'name' 		=> __( 'Turquoise', 'anva' ),
+			'color' 	=> "#5ae898",
+			'image' 	=> esc_url( $skin_path . 'turquoise' . $ext ),
+		),
+		'chelseagem'	=> array(
+			'name' 		=> __( 'Chelsea Gem', 'anva' ),
+			'color' 	=> "#975732",
+			'image' 	=> esc_url( $skin_path . 'chelseagem' . $ext ),
+		),
+		'orange' 		=> array(
+			'name' 		=> __( 'Orange', 'anva' ),
+			'color' 	=> "#e67e22",
+			'image' 	=> esc_url( $skin_path . 'orange' . $ext ),
+		),
+		'sunglow' 		=> array(
+			'name' 		=> __( 'Sunglow', 'anva' ),
+			'color' 	=> "#ffd324",
+			'image' 	=> esc_url( $skin_path . 'sunglow' . $ext ),
+		),
+		'red' 			=> array(
+			'name' 		=> __( 'Red', 'anva' ),
+			'color' 	=> "#c0392b",
+			'image' 	=> esc_url( $skin_path . 'red' . $ext ),
+		),
+		'violet' 		=> array(
+			'name' 		=> __( 'Violet', 'anva' ),
+			'color' 	=> "#9b59b6",
+			'image' 	=> esc_url( $skin_path . 'violet' . $ext ),
+		),
+		'pink' 			=> array(
+			'name' 		=> __( 'Pink', 'anva' ),
+			'color' 	=> "#ea4c89",
+			'image' 	=> esc_url( $skin_path . 'pink' . $ext ),
 		),
 	);
 	return apply_filters( 'anva_colors_scheme', $colors );
 }
 
 /**
- * Get animations
+ * Get animations.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array $animations
  */
 function anva_get_animations() {
 	$animations = array(

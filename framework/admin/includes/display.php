@@ -35,7 +35,21 @@ function anva_add_settings_flash() {
 		</script>
 	<?php endif;
 }
-add_action( 'optionsframework_before', 'anva_add_settings_flash' );
+
+function anva_flash_message( $title, $message, $type = 'info', $confirm = true ) {
+	?>
+	<script type="text/javascript">
+	window.onload = function() {
+		swal({
+			title: "<?php echo esc_js( $title ); ?>",
+			text: "<?php echo esc_js( $message ); ?>",
+			type: "<?php echo esc_js( $type ); ?>",
+			showConfirmButton: <?php echo esc_js( $confirm ); ?>
+		});
+	};
+	</script>
+	<?php
+}
 
 function anva_admin_settings_log() {
 	
@@ -68,12 +82,12 @@ function anva_admin_settings_log() {
  * @since 1.0.0
  */
 function anva_admin_footer_credits() {
-	$theme_info 		= ANVA_THEME_NAME .' '. ANVA_THEME_VERSION;
-	$framework_info = ANVA_FRAMEWORK_NAME .' '. ANVA_FRAMEWORK_VERSION;
-	$author_info 		= '<a href="' . esc_url( 'http://anthuanvasquez.net/' ) . '">Anthuan Vasquez</a>';
+	$theme_info 	= ANVA_THEME_NAME . ' ' . ANVA_THEME_VERSION;
+	$framework_info = ANVA_FRAMEWORK_NAME . ' ' . ANVA_FRAMEWORK_VERSION;
+	$author_info 	= '<a href="' . esc_url( 'http://anthuanvasquez.net/' ) . '">Anthuan Vasquez</a>';
 
 	printf(
-		'<div id="optionsframework-credit">%s %s<div class="clear"></div></div>',
+		'<div id="anva-options-page-credit">%s %s<div class="clear"></div></div>',
 		sprintf(
 			'<span class="alignleft">%2$s %1$s %3$s</span>',
 			__( 'powered by', 'anva' ),
@@ -95,80 +109,11 @@ function anva_admin_footer_credits() {
  */
 function anva_admin_footer_links() {
 	printf(
-		'<div id="optionsframework-links">%s %s %s</div>',
+		'<div id="anva-options-page-links">%s %s %s</div>',
 		sprintf( '<a href="%s"><span class="dashicons dashicons-megaphone"></span> %s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Support', 'anva' ) ),
 		sprintf( '<a href="%s"><span class="dashicons dashicons-book"></span> %s</a>', esc_url( '#' ), __( 'Theme Documentation', 'anva' ) ),
 		sprintf( '<a href="%s"><span class="dashicons dashicons-cart"></span> %s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Buy Themes', 'anva' ) )
 	);
-}
-
-/**
- * Custom admin javascripts
- */
-function anva_admin_head_scripts() {
-	$option_name = anva_get_option_name();
-	$settings = get_option( $option_name );
-	$options = anva_get_options();
-	$val = '';
-	?>
-	<script type="text/javascript">
-	jQuery(document).ready(function($) {
-	<?php
-		foreach ( $options as $value ) :
-			if ( isset( $value['id'] ) ) {
-				// Set the id
-				$id = $value['id'];
-
-				// Set default value to $val
-				if ( isset( $value['std'] ) ) {
-					$val = $value['std'];
-				}
-				// If the option is already saved, override $val
-				if ( isset( $settings[($value['id'])] ) ) {
-					$val = $settings[($value['id'])];
-					// Striping slashes of non-array options
-					if ( ! is_array($val) ) {
-						$val = stripslashes( $val );
-					}
-				}
-			}
-		 
-			if ( 'range' == $value['type'] ) : ?>
-				// Range Slider
-				var <?php echo $id; ?> = {
-					input: $("#<?php echo $id; ?>"),
-					slider: $("#<?php echo $id; ?>_range")
-				}
-
-				<?php
-					// Remove all formats from the value
-					$val = strtr( $val, ['px' => '', 'em' => '', '%' => '', 'rem' => ''] );
-					$plus = '+';
-					$format = '';
-					if ( isset( $value['options']['format'] ) ) {
-						$format = $value['options']['format'];
-					}
-				?>
-
-				// Update input range slider
-				<?php echo $id; ?>.slider.slider({
-					min: <?php echo esc_js( $value['options']['min'] ); ?>,
-					max: <?php echo esc_js( $value['options']['max'] ); ?>,
-					step: <?php echo esc_js( $value['options']['step'] ); ?>,
-					value: <?php echo esc_js( $val ); ?>,
-					slide: function(e, ui) {
-						<?php echo $id; ?>.input.val( ui.value <?php echo esc_js( $plus ); ?> '<?php echo esc_js( $format ); ?>' );
-					}
-				});
-				<?php echo $id; ?>.input.val( <?php echo $id; ?>.slider.slider( "value" ) <?php echo esc_js( $plus ); ?> '<?php echo esc_js( $format ); ?>' );
-				<?php echo $id; ?>.slider.slider("pips");
-				<?php echo $id; ?>.slider.slider("float", { pips: true });
-			<?php endif; ?>
-			
-		<?php endforeach; ?>
-	});
-	</script>
-	<?php
 }
 
 /**
@@ -177,9 +122,9 @@ function anva_admin_head_scripts() {
 function anva_social_media_option( $id, $name, $val ) {
 
 	$profiles = anva_get_social_media_profiles();
-	$counter 	= 1;
-	$divider 	= round( count( $profiles ) / 2 );
-	$output  	= '<div class="column-1">';
+	$counter  = 1;
+	$divider  = round( count( $profiles ) / 2 );
+	$output   = '<div class="column-1">';
 
 	foreach ( $profiles as $key => $profile ) {
 
@@ -208,11 +153,11 @@ function anva_social_media_option( $id, $name, $val ) {
 
 		$output .= '<div class="item">';
 		$output .= '<span>';
-		$output .= sprintf( '<input class="checkbox anva-input" value="%s" type="checkbox" %s name="%s" />', $key, checked( $checked, true, false ), esc_attr( $name.'['.$id.'][includes][]' ) );
-		$output .= $profile;
+		$output .= sprintf( '<input id="%s" class="checkbox anva-input anva-checkbox checkbox-style" value="%s" type="checkbox" %s name="%s" />', 'social-' . $key, $key, checked( $checked, true, false ), esc_attr( $name.'['.$id.'][includes][]' ) );
+		$output .= '<label for="' . 'social-' . $key . '" class="checkbox-style-1-label checkbox-small">' . esc_html( $profile ) . '</label>';
 		$output .= '</span>';
 		$output .= sprintf( '<input class="anva-input social_media-input" value="%s" type="text" name="%s" />', esc_attr( $value ), esc_attr( $name.'['.$id.'][profiles]['.$key.']' ) );
-		$output .= '</div><!-- .item (end) -->';
+		$output .= '</div>';
 
 		if ( $counter == $divider ) {
 			$output .= '</div><!-- .column-1 (end) -->';
@@ -238,10 +183,10 @@ function anva_logo_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	$types = array(
-		'title' 				=> __( 'Site Title', 'anva' ),
+		'title' 		=> __( 'Site Title', 'anva' ),
 		'title_tagline' => __( 'Site Title + Tagline', 'anva' ),
-		'custom' 				=> __( 'Custom Text', 'anva' ),
-		'image' 				=> __( 'Image', 'anva' )
+		'custom' 		=> __( 'Custom Text', 'anva' ),
+		'image' 		=> __( 'Image', 'anva' )
 	);
 
 	$current_value = '';
@@ -249,7 +194,7 @@ function anva_logo_option( $id, $name, $val ) {
 		$current_value = $val['type'];
 	}
 
-	$select_type  = '<div class="anva-select">';
+	$select_type  = '<label for="' . $id . '" class="anva-input-label anva-select">';
 	$select_type .= '<select name="'.esc_attr( $name.'['.$id.'][type]' ).'">';
 
 	foreach ( $types as $key => $type ) {
@@ -257,7 +202,7 @@ function anva_logo_option( $id, $name, $val ) {
 	}
 
 	$select_type .= '</select>';
-	$select_type .= '</div><!-- .anva-select (end) -->';
+	$select_type .= '</label><!-- .anva-select (end) -->';
 
 	/*------------------------------------------------------*/
 	/* Site Title
@@ -278,7 +223,7 @@ function anva_logo_option( $id, $name, $val ) {
 	$site_title_tagline .= get_bloginfo( 'name' ).'</strong><br>';
 	$site_title_tagline .= __( 'Current Tagline', 'anva' ).': <strong>';
 	$site_title_tagline .= get_bloginfo( 'description' ).'</strong><br>';
-	$site_title_tagline .= sprintf( __( 'You can change your site title by going %here%.', 'anva' ), '<a href="' . esc_url( 'options-general.php' ) . '" target="_blank">', '</a>' );
+	$site_title_tagline .= sprintf( __( 'You can change your site title by going %shere%s.', 'anva' ), '<a href="' . esc_url( 'options-general.php' ) . '" target="_blank">', '</a>' );
 	$site_title_tagline .= '</p>';
 
 	/*------------------------------------------------------*/
@@ -387,7 +332,7 @@ function anva_columns_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	// Select number of columns
-	$select_number  = '<div class="tb-fancy-select">';
+	$select_number  = '<label for="' . $id . '" class="anva-input-label">';
 	$select_number .= '<select class="column-num" name="'.esc_attr( $name.'['.$id.'][num]' ).'">';
 
 	$current_value = '';
@@ -400,14 +345,14 @@ function anva_columns_option( $id, $name, $val ) {
 	}
 
 	$select_number .= '</select>';
-	$select_number .= '</div><!-- .tb-fancy-select (end) -->';
+	$select_number .= '</label>';
 
 	// Select column widths
 	$i = 1;
 	$select_widths = '<div class="column-width column-width-0"><p class="inactive">'.__( 'Columns will be hidden.', 'anva' ).'</p></div>';
 	foreach ( $data_widths as $widths ) {
 
-		$select_widths .= '<div class="tb-fancy-select column-width column-width-'.$i.'">';
+		$select_widths .= '<label for="' . $id . '" class="anva-input-label column-width column-width-' . $i . '">';
 		$select_widths .= '<select name= "'.esc_attr( $name.'['.$id.'][width]['.$i.']' ).'">';
 		
 		$current_value = '';
@@ -420,7 +365,7 @@ function anva_columns_option( $id, $name, $val ) {
 		}
 
 		$select_widths .= '</select>';
-		$select_widths .= '</div><!-- .tb-fancy-select (end) -->';
+		$select_widths .= '</label>';
 		$i++;
 	}
 

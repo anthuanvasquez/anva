@@ -91,35 +91,44 @@ class Anva_Sliders_API {
 	 */
 	public function set_core_sliders() {
 
+		/*--------------------------------------------*/
+		/* Helpers
+		/*--------------------------------------------*/
+
+		$animations = array();
+		foreach ( anva_get_animations() as $animation_id => $animation ) {
+			$animations[ $animation ] = $animation;
+		}
+
 		$this->core_sliders = array(
 			'standard' => array(
-				'name' 					=> 'Standard',
-				'id'						=> 'standard',
+				'name' 			=> 'Standard',
+				'id'			=> 'standard',
 				'custom_size' 	=> true
 			),
 			'owl' => array(
-				'name' 					=> 'OWL',
-				'id'						=> 'owl',
+				'name' 			=> 'OWL',
+				'id'			=> 'owl',
 				'custom_size' 	=> false
 			),
 			'nivo' => array(
-				'name' 					=> 'Nivo',
-				'id'						=> 'nivo',
+				'name' 			=> 'Nivo',
+				'id'			=> 'nivo',
 				'custom_size' 	=> true
 			),
 			'bootstrap' => array(
-				'name' 					=> 'Bootstrap Carousel',
-				'id'						=> 'bootstrap',
+				'name' 			=> 'Bootstrap Carousel',
+				'id'			=> 'bootstrap',
 				'custom_size' 	=> false
 			),
 			'swiper' => array(
-				'name' 					=> 'Swiper',
-				'id'						=> 'swiper',
+				'name' 			=> 'Swiper',
+				'id'			=> 'swiper',
 				'custom_size' 	=> true
 			),
 			'camera' => array(
-				'name' 					=> 'Camera',
-				'id'						=> 'camera',
+				'name' 			=> 'Camera',
+				'id'			=> 'camera',
 				'custom_size' 	=> true
 			),
 		);
@@ -128,7 +137,7 @@ class Anva_Sliders_API {
 		/* Standard - Flex Slider
 		/*--------------------------------------------*/
 
-		// Slide Types
+		// Slider fields
 		$this->core_sliders['standard']['fields'] = array(
 			'general' => array(
 				'id' 			=> 'general',
@@ -190,7 +199,7 @@ class Anva_Sliders_API {
 			)
 		);
 
-		// Slider Options
+		// Slider options
 		$this->core_sliders['standard']['options'] = array(
 			'standard_fx' => array(
 				'id'			=> 'standard_fx',
@@ -266,48 +275,142 @@ class Anva_Sliders_API {
 		/* OWL Slider
 		/*--------------------------------------------*/
 
-		// Slide Types
-		$this->core_sliders['owl']['types'] = array(
-			'image' => array(
-				'name' 			=> __( 'Image Slide', 'anva' ),
-				'main_title' 	=> __( 'Setup Image', 'anva' )
+		// Slider fields
+		$this->core_sliders['owl']['fields'] = array(
+			'general' => array(
+				'id' 		=> 'general',
+				'name'		=> __( 'General', 'anva' ),
+				'type' 		=> 'heading',
+				'options' => array(
+					'type' => array(
+						'name' 		=> __( 'Slide Type', 'anva' ),
+						'desc'		=> __( 'Select content type.', 'anva' ),
+						'id'			=> 'type',
+						'type' 		=> 'select',
+						'std'			=> '',
+						'options'	=> array(
+							'image' => __( 'Image Slide', 'anva' ),
+							'video' => __( 'Video Slide', 'anva' )
+						)
+					),
+					'link' => array(
+						'name' 		=> __( 'Image Link', 'anva' ),
+						'desc'		=> __( 'Where should the link open?.', 'anva' ),
+						'id'			=> 'link',
+						'type' 		=> 'select',
+						'std'			=> 'same',
+						'options'	=> array(
+							'same' 	=> __( 'Same Windows', 'anva' ),
+							'new' 	=> __( 'New Windows', 'anva' ),
+							'image' => __( 'Lightbox Image', 'anva' ),
+							'video' => __( 'Lightbox Video', 'anva' )
+						)
+					),
+					'url' => array(
+						'name' 		=> __( 'URL', 'anva' ),
+						'desc'		=> __( 'Where should the link go?.', 'anva' ),
+						'id'			=> 'url',
+						'type' 		=> 'text',
+						'std'			=> ''
+					),
+					'description' => array(
+						'name' 		=> __( 'Description', 'anva' ),
+						'desc'		=> __( 'What should the description say?.', 'anva' ),
+						'id'			=> 'description',
+						'type' 		=> 'textarea',
+						'std'			=> ''
+					),
+					'content' => array(
+						'name' 		=> __( 'Content', 'anva' ),
+						'desc'		=> __( 'Select a option to show the content.', 'anva' ),
+						'id'			=> 'content',
+						'type' 		=> 'select',
+						'std'			=> 'hide',
+						'options'	=> array(
+							'title' => anva_get_local( 'slide_title'),
+							'desc' 	=> anva_get_local( 'slide_desc' ),
+							'both' 	=> anva_get_local( 'slide_show' ),
+							'hide' 	=> anva_get_local( 'slide_hide' )
+						)
+					),
+				)
 			)
 		);
 
-		// Slide Media Positions
-		$this->core_sliders['owl']['positions'] = array(
-			'full' => 'grid_4' // Default
-		);
-
-		// Slide Elements
-		$this->core_sliders['owl']['elements'] = array(
-			'image_link'
-		);
-
-		// Slider Options
+		// Slider options
 		$this->core_sliders['owl']['options'] = array(
-			'owl_fx' => array(
-				'id'			=> 'owl_fx',
-				'name'		=> __( 'How to transition between slides?', 'anva' ),
-				'desc'		=> __( 'Hello', 'anva' ),
-				'std'			=> 'fade',
+			'owl_items' => array(
+				'id'		=> 'owl_items',
+				'name'		=> __( 'Items', 'anva' ),
+				'desc'		=> __( 'Enter the number of items you want to see on the screen.', 'anva' ),
+				'std'		=> '1',
+				'type'		=> 'number',
+				'class' 	=> 'slider-item owl hide'
+			),
+			'owl_margin' => array(
+				'id'		=> 'owl_margin',
+				'name'		=> __( 'Margin', 'anva' ),
+				'desc'		=> __( 'Enter the margin-right(px) on item.', 'anva' ),
+				'std'		=> '0',
+				'type'		=> 'number',
+				'class' 	=> 'slider-item owl hide'
+			),
+			'owl_animate_in' => array(
+				'id'		=> 'owl_animate_in',
+				'name'		=> __( 'Animation In', 'anva' ),
+				'desc'		=> __( 'Select the animation input.', 'anva' ),
+				'std'		=> 'zoomIn',
+				'type'		=> 'select',
+				'options'	=> $animations,
+				'class' 	=> 'slider-item owl hide'
+			),
+			'owl_animate_out' => array(
+				'id'		=> 'owl_animate_out',
+				'name'		=> __( 'Animation Out', 'anva' ),
+				'desc'		=> __( 'Select the animation output.', 'anva' ),
+				'std'		=> 'zoomOut',
+				'type'		=> 'select',
+				'options'	=> $animations,
+				'class' 	=> 'slider-item owl hide'
+			),
+			'owl_loop' => array(
+				'id'		=> 'owl_loop',
+				'name'		=> __( 'Loop', 'anva' ),
+				'desc'		=> __( 'Select if you want enable the infinity loop.', 'anva' ),
+				'std'		=> 'true',
 				'type'		=> 'select',
 				'options'	=> array(
-					'fade' 	=> 'Fade',
-					'slide'	=> 'Slide'
+					'true' => __( 'Yes, enable inifnity loop', 'anva' ),
+					'false' => __( 'No, disable infinity loop', 'anva' ),
 				),
 				'class' 	=> 'slider-item owl hide'
 			),
-			'owl_smoothheight' => array(
-				'id'			=> 'owl_smoothheight',
-				'name'		=> __( 'Allow height to adjust on each transition?', 'anva' ),
-				'desc'		=> __( 'Hello', 'anva' ),
-				'std'			=> 'false',
+			'owl_pagi' => array(
+				'id'		=> 'owl_pagi',
+				'name'		=> __( 'Pagination', 'anva' ),
+				'desc'		=> __( 'Select if you want enable the pagination dots.', 'anva' ),
+				'std'		=> 'false',
 				'type'		=> 'select',
 				'options'	=> array(
-					'true' 	=> 'Yes, enable smoothHeight.',
-					'false'	=> 'No, display as height of tallest slide.'
+					'true' => __( 'Yes, enable pagination', 'anva' ),
+					'false' => __( 'No, disable pagination', 'anva' ),
 				),
+				'class' 	=> 'slider-item owl hide'
+			),
+			'owl_speed' => array(
+				'id'		=> 'owl_speed',
+				'name'		=> __( 'Speed', 'anva' ),
+				'desc'		=> __( 'Enter the speed. Default is 450.', 'anva' ),
+				'std'		=> 450,
+				'type'		=> 'number',
+				'class'		=> 'slider-item owl hide'
+			),
+			'owl_autoplay' => array(
+				'id'		=> 'owl_autoplay',
+				'name'		=> __( 'Autoplay', 'anva' ),
+				'desc'		=> __( 'Enter the autoplay interval timeout. Default is 5000 in milliseconds.', 'anva' ),
+				'std'		=> 5000,
+				'type'		=> 'number',
 				'class'		=> 'slider-item owl hide'
 			),
 		);

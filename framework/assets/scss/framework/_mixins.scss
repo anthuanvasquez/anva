@@ -1,30 +1,41 @@
-// Font Family for HTML Doc and Body
+// ----------------------------------------------------------------
+//	Font Stacks
+// ----------------------------------------------------------------
+
+// Body
 @mixin font-stack-body {
-	font-family: $base-font-family;
-	font-weight: $base-font-weight;
+	font-family: $body-font;
+	font-weight: 400;
 }
 
 // Font for Headings
-@mixin font-stack-headers {
-	font-family: $heading-font-family;
-	font-weight: $heading-font-weight;
+@mixin font-stack-heading {
+	font-family: $heading-font;
+	font-weight: 700;
 }
 
 // Font Icons
 @mixin font-stack-icon {
-	font-family: $font-awesome;
+	font-family: 'font-icons';
+	speak: none;
 	font-style: normal;
 	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: inherit;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
+
+// ----------------------------------------------------------------
+//	Helpers
+// ----------------------------------------------------------------
 
 // Base Containers Width
-@mixin container-width( $width, $pad ) {
+@mixin container-width( $width, $padding ) {
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: $pad;
-	padding-right: $pad;
+	padding-left: $padding;
+	padding-right: $padding;
 	width: $width;
 }
 
@@ -61,17 +72,19 @@
 	}
 }
 
-// Display elements to inline-block
+// Display elements inline-block
 @mixin inline-block() {
 	display: inline-block;
-	@if browser('ie') == '8' {
-		/* IE7/8 Hack */
-		*display: inline;
-		*zoom: 1;
-	}
+	/* IE7/8 Hack */
+	*display: inline;
+	*zoom: 1;
 }
 
-// Group inputs
+// ----------------------------------------------------------------
+//	Group Inputs
+// ----------------------------------------------------------------
+
+// Inputs
 @mixin group-inputs() {
 	input[type="text"],
 	input[type="datetime"],
@@ -88,7 +101,7 @@
 	}
 }
 
-// Group buttons
+// Buttons
 @mixin group-buttons() {
 	.button,
 	a.button,
@@ -101,12 +114,12 @@
 	}
 }
 
-// Animation
-@mixin animation($animation) {
-	animation-name: $animation;
-}
 
-// Keyframes Animations
+// ----------------------------------------------------------------
+//	Animation
+// ----------------------------------------------------------------
+
+// Keyframes
 @mixin animation-keyframes($name) {
 	@-webkit-keyframes #{$name} {
 		@content;
@@ -123,6 +136,11 @@
 	@keyframes #{$name} {
 		@content;
 	}
+}
+
+// Animation
+@mixin animation($animation) {
+	animation-name: $animation;
 }
 
 // Animation Delay

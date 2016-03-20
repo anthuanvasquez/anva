@@ -25,7 +25,8 @@ function anva_envato_updates() {
 				'name'			=> __( 'Configuration', 'anva' ),
 				'id' 			=> 'envato_info',
 				'type' 			=> 'info',
-				'desc'			=> __('<strong>Warning:</strong> Although there is a backup option below, we recommend that you still always backup your theme files before running any automatic updates. Additionally, it\'s a good idea to never update any plugin or theme on a live website without first testing its compatibility with your specific WordPress site.', 'anva' )
+				'desc'			=> __('Although there is a backup option below, we recommend that you still always backup your theme files before running any automatic updates. Additionally, it\'s a good idea to never update any plugin or theme on a live website without first testing its compatibility with your specific WordPress site.', 'anva' ),
+				'class' => 'danger'
 			),
 			'username' 			=> array(
 				'name'			=> __( 'Envato Username', 'anva' ),
@@ -60,7 +61,7 @@ function anva_envato_updates() {
 
 	// Setup arguments for Theme_Blvd_Envato_Updates class based on user-configured options.
 	$settings = array(
-		'username' => anva_get_option( 'username' ),
+		'username' 	 => anva_get_option( 'username' ),
 		'api' 		 => anva_get_option( 'api' ),
 		'backup'	 => anva_get_option( 'backup' ),
 	);
@@ -83,7 +84,7 @@ function anva_envato_updates() {
 	$args = array(
 		'envato_username'	=> $username,
 		'envato_api_key'	=> $api_key,
-		'backup'					=> $backup
+		'backup'			=> $backup
 	);
 
 	$args = apply_filters( 'anva_envato_update_args', $args );
