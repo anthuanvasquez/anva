@@ -312,20 +312,25 @@ class Anva_Options_Page {
 			$id = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $option['id'] ) );
 
 			// Set checkbox to false if it wasn't sent in the $_POST
-			if ( 'checkbox' == $option['type'] && ! isset( $input[$id] ) ) {
-				$input[$id] = false;
+			if ( 'checkbox' == $option['type'] && ! isset( $input[ $id ] ) ) {
+				$input[ $id ] = false;
+			}
+
+			// Set switch to false if it wasn't sent in the $_POST
+			if ( 'switch' == $option['type'] && ! isset( $input[ $id ] ) ) {
+				$input[ $id ] = false;
 			}
 
 			// Set each item in the multicheck to false if it wasn't sent in the $_POST
-			if ( 'multicheck' == $option['type'] && ! isset( $input[$id] ) ) {
+			if ( 'multicheck' == $option['type'] && ! isset( $input[ $id ] ) ) {
 				foreach ( $option['options'] as $key => $value ) {
-					$input[$id][$key] = false;
+					$input[ $id ][ $key ] = false;
 				}
 			}
 
 			// For a value to be submitted to database it must pass through a sanitization filter
 			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
-				$clean[$id] = apply_filters( 'anva_sanitize_' . $option['type'], $input[$id], $option );
+				$clean[ $id ] = apply_filters( 'anva_sanitize_' . $option['type'], $input[ $id ], $option );
 			}
 		}
 

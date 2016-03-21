@@ -106,7 +106,7 @@ class Anva_Media_Meta_Box {
 	 */
 	public function display() {
 
-		// Make sure options framework exists so we can show
+		// Make sure options exists so we can show
 		// the options form.
 		if ( ! method_exists( $this, 'media' ) ) {
 			echo __( 'Options not found.', 'anva' );
@@ -126,7 +126,7 @@ class Anva_Media_Meta_Box {
 			printf( '<p class="anva-meta-desc">%s</p><!-- .anva-meta-desc (end) -->', $this->args['desc'] );
 		}
 
-		// Use options framework to display form elements
+		// Display form elements
 		echo $this->media();
 
 		//  Finish content

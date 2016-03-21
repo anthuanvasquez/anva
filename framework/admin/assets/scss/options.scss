@@ -132,6 +132,17 @@
 	.section {
 		margin-bottom: 10px;
 		padding: 0;
+
+		> .option {
+			&:before,
+			&:after {
+				content: " ";
+				display: table;
+			}
+			&:after {
+				clear: both;
+			}
+		}
 	}
 	
 	.section-description {

@@ -28,21 +28,8 @@ jQuery(document).ready(function($) {
 
 		extras: function() {
 
-			$('.anva-input-label').each(function(){
-				var el = $(this),
-					value = el.find('select').val(),
-					text = el.find('option[value="' + value + '"]').text();
-				el.prepend('<span>' + text + '</span>');
-			});
-
-			$('.anva-input-label select').live('change', function(){
-				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
-				el.closest('.anva-input-label').find('span').text(text);
-			});
-
+			// Reset Button
 			$(document).on( 'click', '.reset-button', function(e) {
-				// return confirm( 'Click OK to reset. Any theme settings will be lost!' );
-				
 				e.preventDefault();
 				var $form = $(this).closest('form');
 
@@ -67,119 +54,25 @@ jQuery(document).ready(function($) {
 				});
 			});
 
-			// Remove sidebar
-			$('.dynamic-sidebars ul').sortable();
-    		$('.dynamic-sidebars ul').disableSelection();
-			$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
-				e.preventDefault();
-				var $ele = $(this).parent();
-				swal({
-					title: anvaJs.sidebar_button_title,
-					text: anvaJs.sidebar_button_text,
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.confirm,
-					cancelButtonText: anvaJs.cancel,
-					cancelButtonColor: "##f7f7f7",
-					closeOnConfirm: true,
-					closeOnCancel: true
-				}, function( isConfirm ) {
-					
-					if ( isConfirm ) {
-						$ele.fadeOut();
-						setTimeout( function() {
-							$ele.remove();
-							if ( $('.dynamic-sidebars ul li').length == 0 ) {
-								$('.dynamic-sidebars ul').addClass('empty');
-							}
-						}, 500 );
-					}
-
-				});
-			});
-
-			// Add new sidebar
-			$('#add-sidebar').click( function() {
-				var $new = $('.sidebar').val();
-				if ( '' == $new ) {
-					swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
-					return false;
-				}
-				$('.dynamic-sidebars ul').removeClass('empty');
-				var $sidebarName = $('#dynamic_sidebar_name').val();
-				var $optionName = s.optionName;
-				$('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
-				$('.sidebar').val('');
-			});
-
-			// Contact fields
-			$('.dynamic-contact-fields ul.contact-fields').sortable();
-    		$('.dynamic-contact-fields ul.contact-fields').disableSelection();
-			$(document).on( 'click', '.dynamic-contact-fields .delete', function(e) {
-				e.preventDefault();
-				var $ele = $(this).parent();
-				swal({
-					title: anvaJs.contact_button_title,
-					text: anvaJs.contact_button_text,
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.confirm,
-					cancelButtonText: anvaJs.cancel,
-					cancelButtonColor: "##f7f7f7",
-					closeOnConfirm: true,
-					closeOnCancel: true
-				}, function( isConfirm ) {
-					if ( isConfirm ) {
-						$ele.fadeOut();
-						setTimeout( function() {
-							$ele.remove();
-							if ( $('.dynamic-contact-fields ul li').length == 0 ) {
-								$('.dynamic-contact-fields ul').addClass('empty');
-							}
-						}, 500 );
-					}
-				});
-			});
-
-			$(document).on( 'click', '#add-contact-field', function() {
-				var $new = $('#contact_fields option:selected').text();
-				var $value = $('#contact_fields option:selected').val();
-
-				if ( '' == $new ) {
-					swal( anvaJs.contact_error_title, anvaJs.contact_error_text );
-					return false;
-				}
-				if ( $('.dynamic-contact-fields ul.contact-fields').children('#field-' + $value ).length > 0 ) {
-					swal( anvaJs.contact_exists_title, anvaJs.contact_exists_text + ' "' + $new + '".' );
-					return false;
-				}
-				$('.dynamic-contact-fields ul').removeClass('empty');
-				var $contactFieldName = $('#contact_field_name').val();
-				var $optionName = s.optionName;
-				$('.dynamic-contact-fields ul').append( '<li id="field-' + $value + '">' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $contactFieldName + '][]' + '" value="' + $value + '" /></li>' );
-				$('.sidebar').val('');
-			});
-
+			// Load transition
 			$('.animsition').animsition({
-			    inClass: 'fade-in',
-			    outClass: 'fade-out',
-			    inDuration: 1500,
-			    outDuration: 800,
-			    linkElement: '.animsition-link',
-			    loading: true,
-			    loadingParentElement: 'body',
-			    loadingClass: 'animsition-loading',
-			    loadingInner: '',
-			    timeout: false,
-			    timeoutCountdown: 5000,
-			    onLoadEvent: true,
-			    browser: [ 'animation-duration', '-webkit-animation-duration'],
-			    overlay : false,
-			    overlayClass : 'animsition-overlay-slide',
-			    overlayParentElement : 'body',
-			    transition: function( url ) { window.location.href = url; }
+				inClass: 'fade-in',
+				outClass: 'fade-out',
+				inDuration: 1500,
+				outDuration: 800,
+				linkElement: '.animsition-link',
+				loading: true,
+				loadingParentElement: 'body',
+				loadingClass: 'animsition-loading',
+				loadingInner: '',
+				timeout: false,
+				timeoutCountdown: 5000,
+				onLoadEvent: true,
+				browser: [ 'animation-duration', '-webkit-animation-duration'],
+				overlay : false,
+				overlayClass : 'animsition-overlay-slide',
+				overlayParentElement : 'body',
+				transition: function( url ) { window.location.href = url; }
 			});
 
 			// Show spinner on submit form
@@ -293,6 +186,9 @@ jQuery(document).ready(function($) {
 			AnvaOptions.sections.columns();
 			AnvaOptions.sections.slider();
 			AnvaOptions.sections.rangeSlider();
+			AnvaOptions.sections.select();
+			AnvaOptions.sections.sidebars();
+			AnvaOptions.sections.contactFields();
 		},
 
 		colorPicker: function() {
@@ -408,17 +304,131 @@ jQuery(document).ready(function($) {
 				max = el.find('.anva-input-range').data('max'),
 				step = el.find('.anva-input-range').data('step');
 				$('#' + id + '_range').slider({
-	                min: min,
-	                max: max,
-	                step: step,
-	                value: value,
-	                slide: function( e, ui ) {
-	                    $('#' + id).val( ui.value );
-	                }
-	            });
-	            $('#' + id).val( $('#' + id + '_range').slider( "value" ) );
-            	$('#' + id + '_range').slider("pips");
-            	$('#' + id + '_range').slider("float", { pips: true });
+					min: min,
+					max: max,
+					step: step,
+					value: value,
+					slide: function( e, ui ) {
+						$('#' + id).val( ui.value );
+					}
+				});
+				$('#' + id).val( $('#' + id + '_range').slider( "value" ) );
+				$('#' + id + '_range').slider("pips");
+				$('#' + id + '_range').slider("float", { pips: true });
+			});
+		},
+
+		select: function() {
+			// Fancy Select
+			$('.anva-input-label').each(function(){
+				var el = $(this),
+					value = el.find('select').val(),
+					text = el.find('option[value="' + value + '"]').text();
+				el.prepend('<span>' + text + '</span>');
+			});
+
+			$('.anva-input-label select').live('change', function(){
+				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
+				el.closest('.anva-input-label').find('span').text(text);
+			});
+		},
+
+		sidebars: function() {
+			// Remove sidebar
+			$('.dynamic-sidebars ul').sortable();
+			$('.dynamic-sidebars ul').disableSelection();
+			$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
+				e.preventDefault();
+				var $ele = $(this).parent();
+				swal({
+					title: anvaJs.sidebar_button_title,
+					text: anvaJs.sidebar_button_text,
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#0085ba",
+					confirmButtonText: anvaJs.confirm,
+					cancelButtonText: anvaJs.cancel,
+					cancelButtonColor: "##f7f7f7",
+					closeOnConfirm: true,
+					closeOnCancel: true
+				}, function( isConfirm ) {
+					
+					if ( isConfirm ) {
+						$ele.fadeOut();
+						setTimeout( function() {
+							$ele.remove();
+							if ( $('.dynamic-sidebars ul li').length == 0 ) {
+								$('.dynamic-sidebars ul').addClass('empty');
+							}
+						}, 500 );
+					}
+
+				});
+			});
+
+			// Add new sidebar
+			$('#add-sidebar').click( function() {
+				var $new = $('.sidebar').val();
+				if ( '' == $new ) {
+					swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
+					return false;
+				}
+				$('.dynamic-sidebars ul').removeClass('empty');
+				var $sidebarName = $('#dynamic_sidebar_name').val();
+				var $optionName = s.optionName;
+				$('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
+				$('.sidebar').val('');
+			});
+		},
+
+		contactFields: function() {
+			// Contact fields
+			$('.dynamic-contact-fields ul.contact-fields').sortable();
+			$('.dynamic-contact-fields ul.contact-fields').disableSelection();
+			$(document).on( 'click', '.dynamic-contact-fields .delete', function(e) {
+				e.preventDefault();
+				var $ele = $(this).parent();
+				swal({
+					title: anvaJs.contact_button_title,
+					text: anvaJs.contact_button_text,
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#0085ba",
+					confirmButtonText: anvaJs.confirm,
+					cancelButtonText: anvaJs.cancel,
+					cancelButtonColor: "##f7f7f7",
+					closeOnConfirm: true,
+					closeOnCancel: true
+				}, function( isConfirm ) {
+					if ( isConfirm ) {
+						$ele.fadeOut();
+						setTimeout( function() {
+							$ele.remove();
+							if ( $('.dynamic-contact-fields ul li').length == 0 ) {
+								$('.dynamic-contact-fields ul').addClass('empty');
+							}
+						}, 500 );
+					}
+				});
+			});
+			
+			$(document).on( 'click', '#add-contact-field', function() {
+				var $new = $('#contact_fields option:selected').text();
+				var $value = $('#contact_fields option:selected').val();
+
+				if ( '' == $new ) {
+					swal( anvaJs.contact_error_title, anvaJs.contact_error_text );
+					return false;
+				}
+				if ( $('.dynamic-contact-fields ul.contact-fields').children('#field-' + $value ).length > 0 ) {
+					swal( anvaJs.contact_exists_title, anvaJs.contact_exists_text + ' "' + $new + '".' );
+					return false;
+				}
+				$('.dynamic-contact-fields ul').removeClass('empty');
+				var $contactFieldName = $('#contact_field_name').val();
+				var $optionName = s.optionName;
+				$('.dynamic-contact-fields ul').append( '<li id="field-' + $value + '">' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $contactFieldName + '][]' + '" value="' + $value + '" /></li>' );
+				$('.sidebar').val('');
 			});
 		}
 	};

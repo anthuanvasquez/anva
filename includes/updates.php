@@ -59,7 +59,7 @@ function anva_envato_updates() {
 
 	}
 
-	// Setup arguments for Theme_Blvd_Envato_Updates class based on user-configured options.
+	// Setup arguments for Anva_Envato_Updates class based on user-configured options.
 	$settings = array(
 		'username' 	 => anva_get_option( 'username' ),
 		'api' 		 => anva_get_option( 'api' ),

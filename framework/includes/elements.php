@@ -15,7 +15,7 @@ add_action( 'anva_element_text_image', 'anva_text_image' );
 add_action( 'anva_element_text_sidebar', 'anva_text_sidebar' );
 add_action( 'anva_element_blog_grid', 'anva_blog_grid' );
 add_action( 'anva_element_content_half_bg', 'anva_content_half_bg' );
-add_action( 'anva_element_contact_sidebar', 'anva_contact_sidebar' );
+add_action( 'anva_element_contact_sidebar', 'anva_contact_sidebar', 10, 2 );
 add_action( 'anva_element_contact_map', 'anva_contact_map' );
 add_action( 'anva_element_map', 'anva_map' );
 add_action( 'anva_element_testimonial_column', 'anva_testimonial_column' );
@@ -167,10 +167,11 @@ function anva_header_image( $atts, $content = null ) {
 }
 
 /**
- * [anva_text description]
- * @param  [type] $atts    [description]
- * @param  [type] $content [description]
- * @return [type]          [description]
+ * Text Fullwidth.
+ * 
+ * @param  array  $atts
+ * @param  string $content
+ * @return string $html
  */
 function anva_text( $atts, $content ) {
 	
@@ -196,14 +197,17 @@ function anva_text( $atts, $content ) {
 	$custom_css = anva_compress( $custom_css );
 	
 	$html .= '<div ' . $id . ' class="" style="' . esc_attr ( $custom_css ) . '">';
-	$html .= '<div class="element-wrapper">';
+	$html .= '<div class="element-wrapper nobottommargin">';
+	$html .= '<div class="container clearfix">';
 
 	if ( ! empty( $width ) ) {
 		$width = 'width:' . $width;
 	}
 
-	$html .= '<div class="automargin" style="' . esc_attr( $width ) . '">';
+	$html .= '<div class="divcenter" style="' . esc_attr( $width ) . '">';
 	$html .= wpautop( $content );
+	$html .= '</div>';
+	
 	$html .= '</div>';
 	$html .= '</div>';
 	$html .= '</div>';
@@ -2420,7 +2424,7 @@ function anva_contact_map($atts, $content) {
 }
 
 
-function anva_contact_sidebar($atts, $content) {
+function anva_contact_sidebar( $atts, $content ) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(

@@ -275,7 +275,7 @@ function theme_styles() {
 	return anva_compress( $styles );
 }
 
-add_action('optionsframework_custom_scripts', 'theme_base_colors');
+add_action('anva_options_page_custom_scripts', 'theme_base_colors');
 function theme_base_colors() {
 	?>
 	<script type="text/javascript">

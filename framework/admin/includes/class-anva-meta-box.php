@@ -169,7 +169,7 @@ class Anva_Meta_Box {
 	 */
 	public function display( $post ) {
 
-		// Make sure options framework exists so we can show the options form
+		// Make sure options interface exists so we can show the options form
 		if ( ! function_exists( 'anva_get_options_fields' ) ) {
 			echo __( 'Anva Options Interface not found.', 'anva' );
 			return;
@@ -189,7 +189,7 @@ class Anva_Meta_Box {
 
 		$settings = get_post_meta( $post->ID, $this->id, true );
 
-		// Use options framework to display form elements
+		// Use options interface to display form elements
 		echo anva_get_options_fields( $this->id, $settings, $this->options );
 
 		//  Finish content

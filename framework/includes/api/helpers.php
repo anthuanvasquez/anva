@@ -42,15 +42,16 @@ if ( ! function_exists( 'anva_get_option' ) ) :
  * If no value has been saved, it returns $default.
  * Needed because options are saved as serialized strings.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return string|array|boolean $options
  */
 function anva_get_option( $name, $default = false ) {
 
 	$option_name = '';
 
 	// Gets option name as defined in the theme
-	if ( function_exists( 'optionsframework_option_name' ) ) {
-		$option_name = optionsframework_option_name();
+	if ( function_exists( 'anva_option_name' ) ) {
+		$option_name = anva_option_name();
 	}
 
 	// Fallback option name
@@ -63,8 +64,8 @@ function anva_get_option( $name, $default = false ) {
 	$options = get_option( $option_name );
 
 	// Return specific option
-	if ( isset( $options[$name] ) ) {
-		return $options[$name];
+	if ( isset( $options[ $name ] ) ) {
+		return $options[ $name ];
 	}
 	
 	return $default;
@@ -89,8 +90,8 @@ if ( ! function_exists( 'anva_get_option_name' ) ) :
  * @since 1.0.0
  */
 function anva_get_option_name() {
-	$options_framework = new Anva_Options;
-	return $options_framework->get_option_name();
+	$options = new Anva_Options;
+	return $options->get_option_name();
 }
 endif;
 
@@ -101,52 +102,54 @@ if ( ! function_exists( 'anva_get_options' ) ) :
  * @since 1.0.0
  */
 function anva_get_options() {
-	$options_framework = new Anva_Options;
-	return $options_framework->get_options();
+	$options = new Anva_Options;
+	return $options->get_options();
 }
 endif;
 
 /**
- * Optiosframework tabs
+ * Get tabs from options interface.
  * 
  * @since 1.0.0
  */
 function anva_get_options_tabs( $options ) {
-	$options_framework_interface = new Anva_Options_Interface;
-	return $options_framework_interface->get_tabs( $options );
+	$options_interface = new Anva_Options_Interface;
+	return $options_interface->get_tabs( $options );
 }
 
 /**
- * Get optionsframework fields
+ * Get fields from options interface.
  * 
  * @since 1.0.0
  */
-function anva_get_options_fields(  $option_name, $settings, $options ) {
-	$options_framework_interface = new Anva_Options_Interface;
-	return $options_framework_interface->get_fields(  $option_name, $settings, $options );
+function anva_get_options_fields( $option_name, $settings, $options ) {
+	$options_interface = new Anva_Options_Interface;
+	return $options_interface->get_fields( $option_name, $settings, $options );
 }
 
 if ( ! function_exists( 'anva_get_option_defaults' ) ) :
 /**
- * Get default options
+ * Get default options.
  * 
  * @since 1.0.0
+ * 
  */
 function anva_get_option_defaults() {
-	$options_framework = new Anva_Options_Page;
-	return $options_framework->get_default_values();
+	$options_page = new Anva_Options_Page;
+	return $options_page->get_default_values();
 }
 endif;
 
 if ( ! function_exists( 'anva_get_options_page_menu' ) ) :
 /**
- * Get optionsframework menu settings
+ * Get options page menu settings.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array $options_page
  */
 function anva_get_options_page_menu() {
-	$options_framework = new Anva_Options_Page;
-	return $options_framework->menu_settings();
+	$options_page = new Anva_Options_Page;
+	return $options_page->menu_settings();
 }
 endif;
 

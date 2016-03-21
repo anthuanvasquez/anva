@@ -796,6 +796,15 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 0;
 }
 
+#anva-framework .section > .option:before, #anva-framework .section > .option:after {
+  content: " ";
+  display: table;
+}
+
+#anva-framework .section > .option:after {
+  clear: both;
+}
+
 #anva-framework .section-description {
   background: #f9f9f9;
   border-bottom: 1px solid #e5e5e5;

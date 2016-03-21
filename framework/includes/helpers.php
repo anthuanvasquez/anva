@@ -63,8 +63,8 @@ function anva_elements() {
 
 		$classes = implode( ' ', $classes );
 
-		echo '<section id="section-' . esc_attr( $counter ) . '" class="section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
-		echo '<div id="element-' .  esc_attr( $item ) . '" class="element">';
+		echo '<section id="section-' . esc_attr( $counter ) . '" class="section section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
+		echo '<div id="element-' .  esc_attr( $item ) . '" class="element element-' . esc_attr( $item ) . ' element-' .  esc_attr( $shortcode ) . '">';
 
 		do_action( 'anva_element_' . $shortcode, $atts, $content );
 
@@ -459,33 +459,76 @@ function anva_get_template_part( $name ) {
 }
 
 /**
- * Get framework url
+ * Get core framework url.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return string $uri
  */
 function anva_get_core_uri() {
 	if ( defined( 'ANVA_FRAMEWORK_URI' ) ) {
 		$uri = ANVA_FRAMEWORK_URI;
 	} else {
-		$uri = trailingslashit( et_template_directory_uri() ) . 'framework';
+		$uri = trailingslashit( get_template_directory_uri() . '/framework' );
 	}
 	return $uri;
 }
 
 /**
- * Get templates part
+ * Get core framework admin url.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return string $uri
+ */
+function anva_get_core_admin_uri() {
+	if ( defined( 'ANVA_FRAMEWORK_ADMIN_URI' ) ) {
+		$uri = ANVA_FRAMEWORK_ADMIN_URI;
+	} else {
+		$uri = trailingslashit( get_template_directory_uri() . '/framework/admin' );
+	}
+	return $uri;
+}
+
+/**
+ * Get core framework directory.
+ *
+ * @since  1.0.0
+ * @return string $path
  */
 function anva_get_core_directory() {
 	if ( defined( 'ANVA_FRAMEWORK_DIR' ) ) {
 		$path = ANVA_FRAMEWORK_DIR;
 	} else {
-		$path = trailingslashit( get_template_directory() ) . 'framework';
+		$path = trailingslashit( get_template_directory() . '/framework' );
 	}
 	return $path;
 }
 
+/**
+ * Get core framework admin directory.
+ *
+ * @since  1.0.0
+ * @return string $path
+ */
+function anva_get_core_admin_directory() {
+	if ( defined( 'ANVA_FRAMEWORK_ADMIN' ) ) {
+		$path = ANVA_FRAMEWORK_ADMIN;
+	} else {
+		$path = trailingslashit( get_template_directory() . '/framework/admin' );
+	}
+	return $path;
+}
+
+/**
+ * Insert a key in array.
+ * 
+ * @param  array   $array 
+ * @param  string  $search_key
+ * @param  string  $insert_key
+ * @param  string  $insert_value
+ * @param  boolean $insert_after
+ * @param  boolean $append
+ * @return array   $new_array
+ */
 function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value, $insert_after = true, $append = false ) {
 
 	if ( ! is_array( $array ) ) {

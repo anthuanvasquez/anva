@@ -3,25 +3,17 @@
 class Anva_Options {
 
 	/**
-	 * Plugin version, used for cache-busting of style and script file references.
+	 * Gets option name.
 	 *
-	 * @since 1.7.0
-	 * @type string
-	 */
-	const VERSION = '1.9.0';
-
-	/**
-	 * Gets option name
-	 *
-	 * @since 1.9.0
+	 * @since 1.0.0
 	 */
 	public function get_option_name() {
 
 		$name = '';
 
 		// Gets option name as defined in the theme
-		if ( function_exists( 'optionsframework_option_name' ) ) {
-			$name = optionsframework_option_name();
+		if ( function_exists( 'anva_option_name' ) ) {
+			$name = anva_option_name();
 		}
 
 		// Fallback
@@ -30,17 +22,15 @@ class Anva_Options {
 			$name = preg_replace( "/\W/", "_", strtolower( $name ) );
 		}
 
-		return apply_filters( 'options_framework_option_name', $name );
+		return apply_filters( 'anva_option_name', $name );
 
 	}
 
 	/**
-	 * Wrapper for optionsframework_options()
+	 * Allows for manipulating or setting options via 'anva_options' filter.
 	 *
-	 * Allows for manipulating or setting options via 'anva_options' filter
-	 * For example:
-	 *
-	 * @return array (by reference)
+	 * @since  1.0.0
+	 * @return array $options
 	 */
 	public function get_options() {
 

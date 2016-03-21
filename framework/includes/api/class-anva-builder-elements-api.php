@@ -3,13 +3,15 @@
 if ( ! class_exists( 'Anva_Builder_Elements_API' ) ) :
 
 /**
- * Anva Page Builder API
+ * Anva Page Builder API.
  *
  * This sets up the default Builder elements
  * Also, this class adds and API to add/remove
  * these elements.
+ *
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
-
 class Anva_Builder_Elements_API {
 
 	/**
@@ -81,8 +83,6 @@ class Anva_Builder_Elements_API {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-
-
 
 		// Setup registered element reference for admin
 		$this->set_registered_elements();
@@ -215,7 +215,7 @@ class Anva_Builder_Elements_API {
 		}
 
 		// Image path
-		$image_path = anva_get_core_uri() . '/assets/images/builder/';
+		$image_path = trailingslashit( anva_get_core_admin_uri() . 'assets/images/builder' );
 
 		/*--------------------------------------------*/
 		/* Divider

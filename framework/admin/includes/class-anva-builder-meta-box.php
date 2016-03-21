@@ -1,51 +1,48 @@
 <?php
 
-/**
- * Anva Builder Meta Box
- *
- * @since 	  1.0.0
- * @package   Anva
- * @author    Anthuan Vasquez <me@anthuanvasquez.net>
- */
-
 if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
 
 /**
  * Anva Builder Meta Box
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
-class Anva_Builder_Meta_Box {
-
+class Anva_Builder_Meta_Box
+{
 	/**
-	 * ID for meta box and post field saved.
+	 * ID for meta box and post field.
 	 *
-	 * @since 2.2.0
-	 * @var   string
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
 	 */
 	public $id;
 	
 	/**
-	 * Arguments to pass to add_meta_box().
+	 * Arguments for add_meta_box().
 	 *
-	 * @since 1.0.0
-	 * @var   array
+	 * @since  1.0.0
+	 * @access private
+	 * @var    array
 	 */
 	private $args;
 
 	/**
 	 * Options array for page builder elements.
 	 *
-	 * @since 1.0.0
-	 * @var   array
+	 * @since  1.0.0
+	 * @access private
+	 * @var    array
 	 */
 	private $options;
 
 	/**
 	 * Settings from database.
 	 *
-	 * @since 1.0.0
-	 * @var   array
+	 * @since  1.0.0
+	 * @access private
+	 * @var    array
 	 */
 	private $settings;
 
@@ -54,7 +51,8 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $id, $args, $options ) {
+	public function __construct( $id, $args, $options )
+	{
 		if ( current_user_can( anva_admin_module_cap( 'builder' ) ) ) {
 			
 			global $post;
@@ -82,11 +80,15 @@ class Anva_Builder_Meta_Box {
 	}
 
 	/**
-	 * Enqueue scripts
+	 * Enqueue scripts.
 	 *
-	 * @since 1.0.0
+	 * @global $post
+	 *
+	 * @since  1.0.0
+	 * @param  object $hook
 	 */
-	public function scripts( $hook ) {
+	public function scripts( $hook )
+	{
 		
 		global $typenow;
 
@@ -94,8 +96,6 @@ class Anva_Builder_Meta_Box {
 			
 			// Add scripts only if page match with post type
 			if ( $typenow == $page ) {
-	
-				$builder_dir = anva_get_core_uri() . '/admin/includes/builder';
 				
 				$wp_editor = array(
 					'url' => get_home_url(),
@@ -143,12 +143,14 @@ class Anva_Builder_Meta_Box {
 	}
 
 	/**
-	 * Get elements data from database
+	 * Get elements data from database.
 	 *
-	 * @since 1.0.0
+	 * @global $post, $typenow
+	 *
+	 * @since  1.0.0
 	 */
-	public function head() {
-
+	public function head()
+	{
 		global $post, $typenow;
 
 		$output = '';
@@ -174,7 +176,7 @@ class Anva_Builder_Meta_Box {
 
 				foreach ( $items as $item_id => $item ) {
 					if ( ! empty( $item ) ) {
-						$data = $settings[$item]['data'];
+						$data = $settings[ $item ]['data'];
 						$output .= "$('#" . esc_js( $item ) . "').data( 'anva_builder_settings', '" . addslashes( $data ) . "' );\n";
 					}
 				}
@@ -193,8 +195,8 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add() {
-
+	public function add()
+	{
 		// Filters
 		$this->args = apply_filters( 'anva_builder_args_' . $this->id, $this->args );
 
@@ -215,8 +217,8 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	private function tabs() {
-
+	private function tabs()
+	{
 		$layout = apply_filters( 'anva_builder_layout_elements', array(
 			'divider',
 		) );
@@ -293,12 +295,12 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	public function display( $post ) {
-		
-		$enable			= '';
+	public function display( $post )
+	{	
+		$enable		= '';
 		$shortcodes = $this->options;
 		$settings 	= get_post_meta( $post->ID, $this->id, true );
-		$items 			= array();
+		$items 		= array();
 
 		if ( isset( $settings['enable'] ) ) {
 			$enable = $settings['enable'];
@@ -486,8 +488,8 @@ class Anva_Builder_Meta_Box {
 	 * @since 1.0.0
 	 * @param integer The post ID
 	 */
-	public function save( $post_id ) {
-
+	public function save( $post_id )
+	{
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
@@ -546,7 +548,8 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	public function admin_notices() {
+	public function admin_notices()
+	{
 
 		global $typenow;
 		
@@ -593,8 +596,8 @@ class Anva_Builder_Meta_Box {
 
 		// Check if zip file
 		$import_filename 	= $_FILES['anva_import_file']['name'];
-		$import_type 			= $_FILES['anva_import_file']['type'];
-		$is_zip 					= false;
+		$import_type 		= $_FILES['anva_import_file']['type'];
+		$is_zip 			= false;
 		$new_filename 		= basename( $import_filename, '_.zip' );
 		$accepted_types 	= array(
 			'application/zip', 
@@ -694,8 +697,8 @@ class Anva_Builder_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	function ajax_get_fields() {
-
+	function ajax_get_fields()
+	{
 		if ( isset( $_GET['shortcode'] ) && ! empty( $_GET['shortcode'] ) ) :
 			
 			$shortcodes = $this->options;

@@ -1,15 +1,10 @@
 <?php
 /**
- *
- * Create the options interface from array options
+ * Create the options interface from array options.
  * 
- * @package   Options_Framework
- * @author    Devin Price <devin@wptheming.com>
- * @license   GPL-2.0+
- * @link      http://wptheming.com
- * @copyright 2010-2014 WP Theming
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>  
  */
-
 class Anva_Options_Interface {
 
 	/**
@@ -19,11 +14,11 @@ class Anva_Options_Interface {
 	 * @param  array $options
 	 * @return array $menu
 	 */
-	public function get_tabs( $options ) {
-		
+	public function get_tabs( $options )
+	{	
 		$counter = 0;
 		$menu = '';
-
+		
 		foreach ( $options as $value ) {
 			// Heading for Navigation
 			if ( $value['type'] == 'heading' ) {
@@ -40,21 +35,22 @@ class Anva_Options_Interface {
 				$menu .= '<a id="options-group-'.  $counter . '-tab" class="nav-tab ' . $class .'" title="' . esc_attr( $value['name'] ) . '" href="' . esc_attr( '#options-group-'.  $counter ) . '">' . $icon . esc_html( $value['name'] ) . '</a>';
 			}
 		}
-
 		return $menu;
 	}
 
 	/**
 	 * Generates the options fields that are used in the form.
 	 *
-	 * @since 1.0.0
-	 * @param  string 		 $option_name
-	 * @param  array  		 $settings
-	 * @param  array  		 $options
-	 * @return string|html $output
+	 * @global $allowedtags
+	 *
+	 * @since  1.0.0
+	 * @param  string $option_name
+	 * @param  array  $settings
+	 * @param  array  $options
+	 * @return string $output
 	 */
-	function get_fields( $option_name, $settings, $options ) {
-
+	function get_fields( $option_name, $settings, $options )
+	{
 		global $allowedtags;
 
 		$counter = 0;
@@ -160,13 +156,7 @@ class Anva_Options_Interface {
 				$placeholder = ' placeholder="' . esc_attr( $value['placeholder'] ) . '"';
 			}
 
-			if ( has_filter( 'optionsframework_' . $value['type'] ) ) {
-				$output .= apply_filters( 'optionsframework_' . $value['type'], $option_name, $value, $val );
-			}
-
-			/*
-			 * Generate options type
-			 */
+			// Generate options type
 			switch ( $value['type'] ) :
 
 				/*
@@ -368,7 +358,6 @@ class Anva_Options_Interface {
 					break;
 
 				case 'switch':
-				var_dump($val);
 					$output .= '<div class="switch">';
 					$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="switch-toggle switch-rounded-mini switch-toggle-round" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .'>';
 					$output .= '<label for="' . esc_attr( $value['id'] ) . '"></label>';
@@ -785,7 +774,7 @@ class Anva_Options_Interface {
 						$output .= '<h4 class="heading">' . esc_html( $value['name'] ) . '</h4>' . "\n";
 					}
 					if ( isset( $value['desc'] ) ) {
-						$output .= '<p>' . $value['desc'] . "</p>\n";
+						$output .= '<p>' . wp_kses( $value['desc'], $allowedtags ) . "</p>\n";
 					}
 					$output .= '</div>' . "\n";
 					

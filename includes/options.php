@@ -8,7 +8,6 @@
 function anva_options() {
 
 	// Assets
-	$pattern_path = get_template_directory_uri() . '/assets/images/patterns/';
 	$skin_path = get_template_directory_uri() . '/assets/images/skins/';
 
 	// Skin Colors
@@ -139,8 +138,8 @@ function anva_options() {
 
 	// Background defaults
 	$background_defaults = array(
-		'image' 			=> '',
-		'repeat' 			=> 'repeat',
+		'image' 		=> '',
+		'repeat' 		=> 'repeat',
 		'position' 		=> 'top center',
 		'attachment' 	=> 'scroll'
 	);
@@ -148,14 +147,14 @@ function anva_options() {
 	$background_options = array(
 		'bg_color' => array(
 			'name' => __('Background Color', 'anva'),
-			'desc' => __('Select the background color.', 'anva'),
+			'desc' => __('Choose the background color.', 'anva'),
 			'id' => 'bg_color',
 			'std' => '#dddddd',
 			'type' => 'color'
 		),
 		'background_image' => array(
 			'name' => __('Background Image', 'anva'),
-			'desc' => __('Select the background image. This option only take effect if layout style is boxed.', 'anva'),
+			'desc' => __('Choose the background image. Note: this option only take effect if layout style is boxed.', 'anva'),
 			'id' => 'background_image',
 			'std' => $background_defaults,
 			'type' => 'background'
@@ -164,26 +163,32 @@ function anva_options() {
 			'name' => __( 'Background Cover', 'anva' ),
 			'desc' => __( 'Use background size cover.', 'anva' ),
 			'id' => 'background_cover',
-			'std' => '1',
+			'std' => '0',
 			'type' => 'switch'
 		),
 		'background_pattern' => array(
 			'name' => __( 'Background Pattern', 'anva' ),
-			'desc' => __( 'Select the background pattern. Note: this option is only applied if the braclground image option is empty.', 'anva' ),
+			'desc' => sprintf( __( 'Choose the background pattern. Note: this option is only applied if the braclground image option is empty. Check live preview in the %s.', 'anva' ), sprintf( '<a href="' . esc_url( admin_url( '/customize.php' ) ) . '">%s</a>', __( 'Customizer', 'anva' ) ) ),
 			'id' => 'background_pattern',
 			'std' => '',
 			'type' => 'select',
 			'options' => array(
-				'' 										 => __( 'None', 'anva' ),
-				'binding_light' 			 => 'Binding Light',
-				'dimension_@2X' 			 => 'Dimension',
-				'hoffman_@2X' 				 => 'Hoffman',
-				'knitting250px' 			 => 'Knitting',
-				'noisy_grid' 					 => 'Noisy Grid',
-				'pixel_weave_@2X' 		 => 'Pixel Weave',
-				'struckaxiom' 				 => 'Struckaxiom',
-				'subtle_stripes' 			 => 'Subtle Stripes',
-				'white_brick_wall_@2X' => 'White Brick Wall'
+				'' 						=> __( 'None', 'anva' ),
+				'binding_light' 		=> 'Binding Light',
+				'dimension_@2X' 		=> 'Dimension',
+				'hoffman_@2X' 			=> 'Hoffman',
+				'knitting250px' 		=> 'Knitting',
+				'noisy_grid' 			=> 'Noisy Grid',
+				'pixel_weave_@2X' 		=> 'Pixel Weave',
+				'struckaxiom' 			=> 'Struckaxiom',
+				'subtle_stripes' 		=> 'Subtle Stripes',
+				'white_brick_wall_@2X' 	=> 'White Brick Wall',
+				'gplaypattern'			=> 'G Play Pattern',
+				'blackmamba'			=> 'Black Mamba',
+				'carbon_fibre' 			=> 'Carbon Fibre',
+				'congruent_outline' 	=> 'Congruent Outline',
+				'moulin' 				=> 'Moulin',
+				'wild_oliva' 			=> 'Wild Oliva',
 			)
 		)
 	);
@@ -562,7 +567,7 @@ add_action( 'after_setup_theme', 'anva_options', 11 );
 function anva_theme_elements() {
 	
 	// Get framework assets path
-	$image_path = anva_get_core_uri() . '/assets/images/builder';
+	$image_path = trailingslashit( anva_get_core_admin_uri() . 'assets/images/builder' );
 
 	// Get sidebar locations
 	$sidebars = array();
