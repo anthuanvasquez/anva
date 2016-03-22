@@ -77,9 +77,9 @@ class Anva_Envato_Updates {
 			foreach ( $purchased as $theme ) {
 				if ( $theme->author_name == $this->args['author_name'] ) {
 					$purchased_themes[ $theme->theme_name ] = array(
-						'item_id' 			=> $theme->item_id,
+						'item_id' 		=> $theme->item_id,
 						'author_name' 	=> $theme->author_name,
-						'version' 			=> $theme->version
+						'version' 		=> $theme->version
 					);
 				}
 			}

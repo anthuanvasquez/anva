@@ -1,47 +1,52 @@
 <?php
 
+if ( ! class_exists( 'Anva_Options_API' ) ) :
+
 /**
  * Anva Core Options API
  *
  * This class establishes all of the framework's theme options,
  * allow these options to be modified from theme side.
  *
- * @since   1.0.0
- * @author  Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
-
-if ( ! class_exists( 'Anva_Options_API' ) ) :
-
-class Anva_Options_API {
-
+class Anva_Options_API
+{
 	/**
 	 * A single instance of this class
  	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
+	 * @access private
+	 * @var    object
 	 */
 	private static $instance = null;
 
 	/**
-	 * Raw options
+	 * Raw options.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
+	 * @access private
+	 * @var    array
 	 */
 	private $raw_options = array();
 
 	/**
-	 * Formatted options
+	 * Formatted options.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
+	 * @access private
+	 * @var    array
 	 */
 	private $formatted_options = array();
 
 	/**
-	 * Creates or returns an instance of this class
+	 * Creates or returns an instance of this class.
 	 *
 	 * @since 1.0.0
 	 */
-	public static function instance() {
-
+	public static function instance()
+	{
 		if ( self::$instance == null ) {
 			self::$instance = new self;
 		}
@@ -52,8 +57,8 @@ class Anva_Options_API {
 	/**
 	 * Constructor Hook everything in.
 	 */
-	private function __construct() {
-
+	private function __construct()
+	{
 		if ( is_admin() ) {
 			
 			// Setup options
@@ -65,12 +70,10 @@ class Anva_Options_API {
 	}
 
 	/**
-	 * Setup raw options array for the start of the
-	 * API process
+	 * Setup raw options array for the start of the API process.
 	 */
-	public function set_raw_options() {
-
-
+	public function set_raw_options()
+	{
 		/* ---------------------------------------------------------------- */
 		/* Helpers
 		/* ---------------------------------------------------------------- */
@@ -212,8 +215,8 @@ class Anva_Options_API {
 						'std' => 'no',
 						'type' => 'select',
 						'options' => array(
-							'yes' => __( 'Yes, display a message' ),
-							'no'  => __( 'No, I don\'t want show messages' )
+							'yes' => __( 'Yes, display a message', 'anva' ),
+							'no'  => __( 'No, I don\'t want show messages', 'anva' )
 						)
 					),
 					'dynamic_sidebar' => array(
@@ -234,10 +237,10 @@ class Anva_Options_API {
 				'name' 	=> __( 'Header', 'anva' ),
 				'class' => 'group-header',
 				'options' => array(
-					'logo' => array(
+					'custom_logo' => array(
 						'name' => __( 'Logo', 'anva' ),
 						'desc' => __( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', 'anva' ),
-						'id' => 'logo',
+						'id' => 'custom_logo',
 						'std' => $logo_defaults,
 						'type' => 'logo'
 					),

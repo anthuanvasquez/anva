@@ -23,6 +23,7 @@ function anva_add_theme_support() {
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
 	add_theme_support( 'custom-background' );
+	add_theme_support( 'custom-header' );
 }
 
 /**

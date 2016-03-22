@@ -7,7 +7,7 @@
  * @return void
  */
 function anva_customizer_styles() {
-	wp_register_style( 'anva_customizer', anva_get_core_uri() . '/assets/css/admin/customizer.min.css', false, ANVA_FRAMEWORK_VERSION );
+	wp_register_style( 'anva_customizer', anva_get_core_admin_uri() . 'assets/css/customizer.min.css', false, ANVA_FRAMEWORK_VERSION );
 	wp_enqueue_style( 'anva_customizer' );
 }
 
@@ -18,7 +18,7 @@ function anva_customizer_styles() {
  * @return void
  */
 function anva_customizer_scripts() {
-	wp_register_script( 'anva_customizer', anva_get_core_uri() . '/assets/js/admin/customizer.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
+	wp_register_script( 'anva_customizer', anva_get_core_admin_uri() . 'assets/js/customizer.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
 	wp_enqueue_script( 'anva_customizer' );
 	wp_localize_script( 'anva_customizer', 'anvaJs', anva_get_admin_locals( 'customizer_js' ) );
 }

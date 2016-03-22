@@ -37,7 +37,7 @@ function anva_options() {
 		'name' => __( 'Base Color Scheme', 'anva' ),
 		'desc' => sprintf(
 			__( 'Choose skin color for the theme. Check live preview in the %s.', 'anva' ),
-			sprintf( '<a href="' . esc_url( admin_url( '/customize.php' ) ) . '">%s</a>', __( 'Customizer', 'anva' ) )
+			sprintf( '<a href="' . admin_url( 'customize.php?autofocus[control]=base_color' ) . '">%s</a>', __( 'Customizer', 'anva' ) )
 		),
 		'id' => 'base_color',
 		'std' => 'blue',
@@ -50,7 +50,7 @@ function anva_options() {
 		'name' => __( 'Base Color Style', 'anva' ),
 		'desc' => sprintf(
 			__( 'Choose skin style for the theme. Check live preview in the %s.', 'anva' ),
-			sprintf( '<a href="' . esc_url( admin_url( '/customize.php' ) ) . '">%s</a>', __( 'Customizer', 'anva' ) )
+			sprintf( '<a href="' . admin_url( 'customize.php?autofocus[control]=base_color_style' ) . '">%s</a>', __( 'Customizer', 'anva' ) )
 		),
 		'id' => 'base_color_style',
 		'std' => 'light',
@@ -62,9 +62,35 @@ function anva_options() {
 	);
 	anva_add_option( 'styles', 'main', 'base_color_style', $base_color_style );
 
+	$header_color = array(
+		'name' => __( 'Header Style', 'anva' ),
+		'desc' => __( 'Choose the color style for the header.', 'anva' ),
+		'id' => 'header_color',
+		'std' => 'light',
+		'type' => 'select',
+		'options' => array(
+			'light' => __( 'Light', 'anva' ),
+			'dark' => __( 'Dark', 'anva' ),
+		)
+	);
+	anva_add_option( 'styles', 'main', 'header_color', $header_color );
+
+	$primary_menu_color = array(
+		'name' => __( 'Primary Menu Style', 'anva' ),
+		'desc' => __( 'Choose the color style for the primary menu.', 'anva' ),
+		'id' => 'primary_menu_color',
+		'std' => 'light',
+		'type' => 'select',
+		'options' => array(
+			'light' => __( 'Light', 'anva' ),
+			'dark' => __( 'Dark', 'anva' ),
+		)
+	);
+	anva_add_option( 'styles', 'main', 'primary_menu_color', $primary_menu_color );
+
 	$footer_color = array(
 		'name' => __( 'Footer Style', 'anva' ),
-		'desc' => __( 'Choose the color for the footer.', 'anva' ),
+		'desc' => __( 'Choose the color style for the footer.', 'anva' ),
 		'id' => 'footer_color',
 		'std' => 'dark',
 		'type' => 'select',
@@ -168,7 +194,7 @@ function anva_options() {
 		),
 		'background_pattern' => array(
 			'name' => __( 'Background Pattern', 'anva' ),
-			'desc' => sprintf( __( 'Choose the background pattern. Note: this option is only applied if the braclground image option is empty. Check live preview in the %s.', 'anva' ), sprintf( '<a href="' . esc_url( admin_url( '/customize.php' ) ) . '">%s</a>', __( 'Customizer', 'anva' ) ) ),
+			'desc' => sprintf( __( 'Choose the background pattern. Note: this option is only applied if the braclground image option is empty. Check live preview in the %s.', 'anva' ), sprintf( '<a href="' . admin_url( 'customize.php?autofocus[control]=background_pattern' ) . '">%s</a>', __( 'Customizer', 'anva' ) ) ),
 			'id' => 'background_pattern',
 			'std' => '',
 			'type' => 'select',
@@ -250,7 +276,7 @@ function anva_options() {
 		),
 		'menu_font' => array(
 			'name' => __( 'Menu Font', 'anva' ),
-			'desc' => __( 'This applies to all of the primary headers throughout your site (h1, h2, h3, h4, h5, h6). This would include header tags used in redundant areas like widgets and the content of posts and pages.', 'anva' ),
+			'desc' => __( 'This applies to the menu items on your site.', 'anva' ),
 			'id' => 'menu_font',
 			'std' => array(
 				'face' => 'google',
@@ -352,6 +378,17 @@ function anva_options() {
 			'id' => 'custom_css',
 			'std' => '',
 			'type' => 'textarea'
+		),
+		'custom_css_stylesheet' => array(
+			'name' => __( 'Custom CSS Stylesheet', 'anva'),
+			'desc' => __( 'Add a custom stylesheet with all your custom styled CSS for new styles or overwriting default theme styles for better hanlding updates.', 'anva' ),
+			'id' => 'custom_css_stylesheet',
+			'std' => 'no',
+			'type' => 'select',
+			'options' => array(
+				'yes' => __( 'Yes, add custom stylesheet in the head', 'anva' ),
+				'no' => __( 'No, I don\'t add custom stylesheet in the head', 'anva' ),		
+			)
 		)
 	);
 	anva_add_option_section( 'styles', 'custom', __( 'Custom', 'anva' ), null, $custom_options, false );
@@ -462,7 +499,7 @@ function anva_options() {
 				'name' => __( 'Parallax', 'anva'),
 				'desc' => __( 'If you use the parallax effect for sliders enable this option.', 'anva'),
 				'id' => 'slider_parallax',
-				'std' => 'true',
+				'std' => 'false',
 				'type' => 'select',
 				'options'	=> array(
 					'true' 	=> 'Yes, enable parallax',
@@ -523,37 +560,6 @@ function anva_options() {
 		}
 
 	}
-
-	/* ---------------------------------------------------------------- */
-	/* Minify
-	/* ---------------------------------------------------------------- */
-
-	$minify_options = array(
-		'minify_warning' => array(
-			'name' => __( 'Warning', 'anva' ),
-			'desc' => __( 'If you have a cache plugin installed in your site desactive these options.', 'anva' ),
-			'id' 	 => 'minify_warning',
-			'type' => 'info',
-			'class' => 'warning',
-		),
-
-		'compress_css' => array(
-			'name' => __( 'Combine and Compress CSS files', 'anva'),
-			'desc' => __( 'Combine and compress all CSS files to one. Help reduce page load time and increase server resources.', 'anva'),
-			'id' => "compress_css",
-			'std' => '0',
-			'type' => 'switch',
-		),
-
-		'compress_js' => array(
-			'name' => __( 'Combine and Compress Javascript files', 'anva' ),
-			'desc' => __( 'Combine and compress all Javascript files to one. Help reduce page load time and increase server resource.', 'anva'),
-			'id' => "compress_js",
-			'std' => '0',
-			'type' => 'switch',
-		)
-	);
-	anva_add_option_section( 'advanced', 'minify', __( 'Minify', 'anva' ), null, $minify_options, false );
 
 }
 add_action( 'after_setup_theme', 'anva_options', 11 );

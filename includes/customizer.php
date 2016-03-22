@@ -10,36 +10,42 @@ function theme_customizer_options() {
 
 	// Setup background options
 	$background_options = array(
-		'bg_color' 				 				 => array(
-			'label' 								 => __( 'Background Color', 'anva' ),
-			'id' 										 => 'bg_color',
-			'type' 									 => 'color',
-			'transport'							 => 'postMessage',
-			'priority'							 => 1
+		'bg_color' 				 		=> array(
+			'label' 					=> __( 'Background Color', 'anva' ),
+			'id' 						=> 'bg_color',
+			'type' 						=> 'color',
+			'transport'					=> 'postMessage',
+			'priority'					=> 1
 		),
-		'background_image' 				 => array(
-			'label' 								 => __( 'Background Image', 'anva' ),
-			'id' 										 => 'background_image',
-			'type' 									 => 'image',
-			'transport'							 => 'postMessage',
-			'priority'							 => 2
+		'background_image' 				=> array(
+			'label' 					=> __( 'Background Image', 'anva' ),
+			'id' 						=> 'background_image',
+			'type' 						=> 'image',
+			'transport'					=> 'postMessage',
+			'priority'					=> 2
 		),
-		'background_pattern' 			 => array(
-			'label' 								 => __( 'Background Patterns', 'anva' ),
-			'description' 					 => __( 'Select the background patterns.', 'anva' ),
-			'id' 										 => 'background_pattern',
-			'type' 									 => 'select',
-			'choices' 							 => array(
-				'' 										 => __( 'None', 'anva' ),
-				'binding_light' 			 => 'Binding Light',
-				'dimension_@2X' 			 => 'Dimension',
-				'hoffman_@2X' 				 => 'Hoffman',
-				'knitting250px' 			 => 'Knitting',
-				'noisy_grid' 					 => 'Noisy Grid',
-				'pixel_weave_@2X' 		 => 'Pixel Weave',
-				'struckaxiom' 				 => 'Struckaxiom',
-				'subtle_stripes' 			 => 'Subtle Stripes',
-				'white_brick_wall_@2X' => 'White Brick Wall'
+		'background_pattern' 			=> array(
+			'label' 					=> __( 'Background Patterns', 'anva' ),
+			'description' 				=> __( 'Select the background patterns.', 'anva' ),
+			'id' 						=> 'background_pattern',
+			'type' 						=> 'select',
+			'choices' 					=> array(
+				'' 						=> __( 'None', 'anva' ),
+				'binding_light' 		=> 'Binding Light',
+				'dimension_@2X' 		=> 'Dimension',
+				'hoffman_@2X' 			=> 'Hoffman',
+				'knitting250px' 		=> 'Knitting',
+				'noisy_grid' 			=> 'Noisy Grid',
+				'pixel_weave_@2X' 		=> 'Pixel Weave',
+				'struckaxiom' 			=> 'Struckaxiom',
+				'subtle_stripes' 		=> 'Subtle Stripes',
+				'white_brick_wall_@2X' 	=> 'White Brick Wall',
+				'gplaypattern'			=> 'G Play Pattern',
+				'blackmamba'			=> 'Black Mamba',
+				'carbon_fibre' 			=> 'Carbon Fibre',
+				'congruent_outline' 	=> 'Congruent Outline',
+				'moulin' 				=> 'Moulin',
+				'wild_oliva' 			=> 'Wild Oliva',
 			),
 			'transport'							 => 'postMessage',
 			'priority'							 => 3
@@ -49,24 +55,24 @@ function theme_customizer_options() {
 
 	// Setup logo options
 	$header_options = array(
-		'logo' => array(
-			'label' 								 => __( 'Logo', 'anva' ),
-			'id' 										 => 'logo',
-			'type' 									 => 'logo',
-			'transport'							 => 'postMessage',
-			'priority'							 => 1
+		'custom_logo' => array(
+			'label' 					=> __( 'Logo', 'anva' ),
+			'id' 						=> 'custom_logo',
+			'type' 						=> 'logo',
+			'transport'					=> 'postMessage',
+			'priority'					=> 1
 		),
-		'social_media_style' 			 => array(
-			'label' 								 => __( 'Socia Media Buttons Style', 'anva' ),
-			'id'										 => 'social_media_style',
-			'type' 									 => 'select',
-			'choices'								 => array(
-				'light' 							 => __( 'Light', 'anva' ),
-				'colored' 						 => __( 'Colored', 'anva' ),
-				'dark' 								 => __( 'Dark', 'anva' )
+		'social_media_style' 			=> array(
+			'label' 					=> __( 'Socia Media Buttons Style', 'anva' ),
+			'id'						=> 'social_media_style',
+			'type' 						=> 'select',
+			'choices'					=> array(
+				'light' 				=> __( 'Light', 'anva' ),
+				'colored' 				=> __( 'Colored', 'anva' ),
+				'dark' 					=> __( 'Dark', 'anva' )
 			),
-			'transport'							 => 'postMessage',
-			'priority'							 => 21
+			'transport'					=> 'postMessage',
+			'priority'					=> 21
 		)
 	);
 	anva_add_customizer_section( 'header', __( 'Header', 'anva' ), $header_options, 2 );
@@ -238,6 +244,7 @@ function theme_customizer_init( $wp_customize ) {
 	// Remove custom background options
 	$wp_customize->remove_section( 'colors' );
 	$wp_customize->remove_section( 'background_image' );
+	$wp_customize->remove_section( 'header_image' );
 
 	// Add real-time option edits
 	if ( $wp_customize->is_preview() ) {

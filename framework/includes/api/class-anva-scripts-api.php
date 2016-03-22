@@ -3,22 +3,13 @@
 if ( ! class_exists( 'Anva_Scripts_API' ) ) :
 
 /**
- * Anva Javascripts
+ * Anva Javascripts API.
  * 
  * This class sets up the framework scripts that get
  * enqueued on the frontend of the website.
  *
- * Additionally, this class provides methods to add and
- * remove scripts. Custom API-added scripts are organized
- * within four levels.
- *	- Level 1: Before Framework scripts
- *	- Level 2: After Framework scripts
- *	- Level 3: After Theme scripts (implemented at theme level)
- *	- Level 4: After everything (end of wp_head)
- *
- * @since 		 1.0.0
- * @package    Anva
- * @author     Anthuan Vasquez <eigthy@gmail.com>
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
 class Anva_Scripts_API {
 
@@ -32,8 +23,8 @@ class Anva_Scripts_API {
 	private $custom_scripts = array();
 
 	/**
-		* Creates or returns an instance of this class
-		*/
+	 * Creates or returns an instance of this class
+	 */
 	public static function instance() {
 
 		if ( self::$instance == null ) {
@@ -67,51 +58,42 @@ class Anva_Scripts_API {
 		// Boostrap
 		$this->framework_scripts['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
-			'src'			=> anva_get_core_uri() .'/assets/js/vendor/bootstrap.min.js',
+			'src'		=> anva_get_core_uri() . 'assets/js/vendor/bootstrap.js',
 			'deps'		=> array( 'jquery' ),
-			'ver'			=> '3.3.5',
+			'ver'		=> '3.3.6',
 			'footer'	=> true
 		);
 
 		// Plugins
 		$this->framework_scripts['anva_plugins'] = array(
 			'handle'	=> 'anva_plugins',
-			'src'			=> anva_get_core_uri() .'/assets/js/plugins.js',
+			'src'		=> anva_get_core_uri() .'/assets/js/plugins.js',
 			'deps'		=> array( 'jquery' ),
-			'ver'			=> ANVA_FRAMEWORK_VERSION,
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true
 		);
 
 		// jQuery Validate
 		$this->framework_scripts['jquery_validate'] = array(
 			'handle'	=> 'jquery_validate',
-			'src'			=> anva_get_core_uri() .'/assets/js/vendor/jquery.validate.min.js',
+			'src'		=> anva_get_core_uri() . 'assets/js/vendor/jquery.validation.js',
 			'deps'		=> array( 'jquery' ),
-			'ver'			=> '1.12.0',
-			'footer'	=> true
-		);
-
-		// Swiper
-		$this->framework_scripts['swiper'] = array(
-			'handle'	=> 'swiper',
-			'src'			=> anva_get_core_uri() .'/assets/js/vendor/swiper.min.js',
-			'deps'		=> array(),
-			'ver'			=> '3.1.2',
+			'ver'		=> '1.12.0',
 			'footer'	=> true
 		);
 
 		// Camera
 		$this->framework_scripts['camera'] = array(
 			'handle'	=> 'camera',
-			'src'			=> anva_get_core_uri() .'/assets/js/vendor/jquery.camera.js',
+			'src'		=> anva_get_core_uri() .'/assets/js/jquery.camera.js',
 			'deps'		=> array( 'jquery' ),
-			'ver'			=> '1.4.0',
+			'ver'		=> '1.4.0',
 			'footer'	=> true
 		);
 
 		// Main JS
-		$this->framework_scripts['anva_main'] = array(
-			'handle'	=> 'anva',
+		$this->framework_scripts['anva_functions'] = array(
+			'handle'	=> 'anva_functions',
 			'src'		=> anva_get_core_uri() .'/assets/js/functions.js',
 			'deps'		=> array( 'jquery', 'anva_plugins' ),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,

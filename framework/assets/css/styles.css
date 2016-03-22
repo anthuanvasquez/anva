@@ -131,6 +131,7 @@ a img {
 }
 img {
   max-width: 100%;
+  height: auto;
 }
 iframe {
   border: none !important;
@@ -935,6 +936,24 @@ body.stretched #header.full-header .container {
   font-size: 36px;
   line-height: 100%;
   margin-right: 40px;
+}
+#logo > div > a {
+  display: block;
+  line-height: 22px;
+  padding: 39px 15px;
+  color: #444;
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+#logo.logo-has-tagline > div > a {
+  padding: 28px 15px 0;
+}
+#logo.logo-has-tagline span.logo-tagline {
+  line-height: 22px;
+  font-size: 13px;
+  display: block;
+  padding: 0 15px 28px;
 }
 #header.full-header #logo {
   padding-right: 30px;
@@ -9977,7 +9996,7 @@ body:not(.device-touch) .rounded-skill {
 .owl-carousel.owl-loading {
   display: block;
   min-height: 100px;
-  background: url('images/preloader.gif') no-repeat center center;
+  background: url('../images/preloader.gif') no-repeat center center;
 }
 .owl-carousel .owl-refresh .owl-item {
   display: none;
@@ -11240,7 +11259,7 @@ body:not(.device-touch) #gotoTop {
   display: block;
   width: 100%;
   height: 100%;
-  background: url("images/preloader.gif") center center no-repeat #FFF;
+  background: url("../images/preloader.gif") center center no-repeat #FFF;
 }
 .preloader2 {
   background-color: transparent;
@@ -11659,7 +11678,7 @@ body:not(.device-touch) .tagcloud a {
 .widget_recent_comments li a {
   display: inline-block;
   padding: 0 3px 0 12px;
-  background: url("images/icons/widget-link.png") left top no-repeat;
+  background: url("../images/icons/widget-link.png") left top no-repeat;
   border: none !important;
   color: #444;
   font-size: 14px;
@@ -11677,7 +11696,7 @@ body:not(.device-touch) .tagcloud a {
 }
 .widget_recent_comments li {
   display: block;
-  background: url("images/icons/widget-comment.png") left top no-repeat;
+  background: url("../images/icons/widget-comment.png") left top no-repeat;
   padding: 4px 0 4px 20px;
 }
 .widget_recent_comments li a {

@@ -53,7 +53,7 @@ class CSS_Minify
 		if ( $files != null && is_array( $files ) ) {
 			$ok = true;
 			foreach ( $files as $file ) {
-				$ok = $this->add_fle( $file );
+				$ok = $this->add_file( $file );
 			}
 			return $ok;
 		} else {

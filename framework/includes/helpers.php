@@ -370,48 +370,53 @@ function anva_compress( $buffer ) {
 /**
  * Minify stylesheets output and combine into one
  *
- * @since   1.0.0
- * @package Anva
- * @return  Enqueue stysheets
+ * @since  1.0.0
+ * @param  array $merge_styles
+ * @param  array $ignore
+ * @return Enqueue stysheets
  */
 function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 
-	$filename = apply_filters( 'anva_minify_stylesheets_filename', 'all.min.css' );
-	$files  = array();
+	// Get framework stylesheets
 	$stylesheets = anva_get_stylesheets();
 
-	if ( is_array( $merge_styles ) && ! empty( $merge_styles ) ) {
-		$merged = array_merge( $stylesheets, $merge_styles );
-	}
+	// Set filename
+	$filename = apply_filters( 'anva_minify_stylesheets_filename', 'all.min.css' );
 
-	// Set URL
-	$url = '';
+	// Set file path and URL
+	$file_path = get_template_directory() . '/assets/css/min/' . $filename;
+	$file_url = get_template_directory_uri() . '/assets/css/min/' . $filename;
 
-	if ( isset( $_SERVER['HTTPS'] ) && filter_var( $_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN ) ) {
-		$url .= 'https';
-	} else {
-		$url .= 'http';
-	}
+	if ( ! file_exists( $file_path ) ) {
 
-	$url .= '://';
+		$files = array();
 
-	foreach ( $merged as $key => $value ) {
-		if ( isset( $ignore[ $key ] ) ) {
-			unset( $merged[ $key ] );
-		} elseif ( isset( $value['src'] ) ) {
-			$string = str_replace( $url . $_SERVER['SERVER_NAME'], $_SERVER['DOCUMENT_ROOT'], $value['src'] );
-			if ( file_exists( $string ) ) {
-				$files[] = $string;
+		if ( is_array( $merge_styles ) && $merge_styles ) {
+			$merged = array_merge( $stylesheets, $merge_styles );
+		}
+
+		// Set URL
+		$url = 'http';
+
+		if ( isset( $_SERVER['HTTPS'] ) && filter_var( $_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN ) ) {
+			$url .= 'https';
+		}
+
+		$url .= '://';
+
+		foreach ( $merged as $key => $value ) {
+			if ( isset( $ignore[ $key ] ) ) {
+				unset( $merged[ $key ] );
+			} elseif ( isset( $value['src'] ) ) {
+				$string = str_replace( $url . $_SERVER['SERVER_NAME'], $_SERVER['DOCUMENT_ROOT'], $value['src'] );
+				if ( file_exists( $string ) ) {
+					$files[] = $string;
+				}
 			}
 		}
-	}
 
-	// Get file path
-	$path = get_template_directory() . '/assets/css/' . $filename;
-
-	// Create compressed file if don't exists
-	if ( ! file_exists( $path ) ) {
-		$cssmin = new CSS_Mininify();
+		// Create compressed file if don't exists
+		$cssmin = new CSS_Minify();
 
 		// Add files
 		$cssmin->add_files( $files );
@@ -426,7 +431,7 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 		$css = $cssmin->print_compressed_css();
 
 		// Create compressed file
-		file_put_contents( $path, $css );
+		file_put_contents( $file_path, $css );
 	}
 
 	// Dequeue framework stylesheets to clear the HEAD
@@ -442,8 +447,8 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 		$version = ANVA_THEME_VERSION;
 	}
 
-	// Enqueue compressed file
-	wp_enqueue_style( 'anva-all-in-one', get_template_directory_uri() . '/assets/css/' . $filename, array(), $version, 'all' );
+	// Enqueue compressed files
+	wp_enqueue_style( 'anva-all-in-one', $file_url, array(), $version, 'all' );
 
 }
 

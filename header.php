@@ -6,7 +6,7 @@
  */
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="no-js">
+<html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,13 +18,12 @@
 	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 </head>
 
-
 <?php
 	$data = '';
 	$classes = '';
 	$loader = anva_get_option( 'page_loader', 1 );
 	$color = anva_get_option( 'page_loader_color', 1 );
-	$timeout = anva_get_option( 'page_loader_tomeout', 1000 );
+	$timeout = anva_get_option( 'page_loader_timeout', 1000 );
 	$speed_in = anva_get_option( 'page_loader_speed_in', 800 );
 	$speed_out = anva_get_option( 'page_loader_speed_out', 800 );
 	$animation_in = anva_get_option( 'page_loader_animation_in', 'fadeIn' );
@@ -60,9 +59,17 @@
 	<?php anva_top_before(); ?>
 
 	<?php anva_header_above(); ?>
+
+	<?php
+		$class = 'full-header';
+		$header_color = anva_get_option( 'header_color', 'light' );
+		if ( 'dark' == $header_color ) {
+			$class .= ' ' . $header_color;
+		}
+	?>
 	
 	<!-- HEADER (start) -->
-	<header id="header" class="full-header">
+	<header id="header" class="<?php echo esc_attr( $class ); ?>">
 		<div id="header-wrap">
 			<div class="container clearfix">
 				<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>

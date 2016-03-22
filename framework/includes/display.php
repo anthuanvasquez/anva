@@ -72,18 +72,20 @@ function anva_head_apple_touch_icon() {
 }
 
 /**
- * Print meta viewport
+ * Print meta viewport.
  * 
  * @since 1.0.0
  */
 function anva_head_viewport() {
-	if ( 'yes' == anva_get_option( 'responsive' ) ) {
-		echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">';
-	}
+	if ( 'yes' == anva_get_option( 'responsive' ) ) :
+	?>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<?php
+	endif;
 }
 
 /**
- * Top bar
+ * Top bar.
  * 
  * @since 1.0.0
  */
@@ -144,50 +146,53 @@ function anva_top_bar_default() {
 }
 
 /**
- * Display default header logo
+ * Display default header custom logo.
  * 
  * @since 1.0.0
  */
 function anva_header_logo_default() {
 	
-	$option 	= anva_get_option( 'logo' );
-	$classes 	= 'logo-'. $option['type'];
+	$option 	= anva_get_option( 'custom_logo' );
 	$name 		= get_bloginfo( 'name' );
+	$classes 	= array();
+	$classes[] 	= 'logo-' . $option['type'];
 	
 	if ( $option['type'] == 'custom' || $option['type'] == 'title' || $option['type'] == 'title_tagline' ) {
-		$classes .= ' logo-text';
+		$classes[] = 'logo-text';
 	}
 
 	if ( $option['type'] == 'custom' && ! empty( $option['custom_tagline'] ) ) {
-		$classes .= ' logo-has-tagline';
+		$classes[] = 'logo-has-tagline';
 	}
 
 	if ( $option['type'] == 'title_tagline' ) {
-		$classes .= ' logo-has-tagline';
+		$classes[] = 'logo-has-tagline';
 	}
 
 	if ( $option['type'] == 'image' ) {
-		$classes = ' logo-has-image';
+		$classes[] = 'logo-has-image';
 	}
 
-	echo '<div id="logo" class="' . esc_attr( $classes ) .' ">';
+	$classes = implode( ' ', $classes );
+
+	echo '<div id="logo" class="' . esc_attr( $classes ) . '">';
 	
 	if ( ! empty( $option['type'] ) ) {
 		switch ( $option['type'] ) {
 
 			case 'title' :
-				echo '<h1 class="text-logo"><a href="' . home_url() . '">' . $name . '</a></h1>';
+				echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
 				break;
 
 			case 'title_tagline' :
-				echo '<h1 class="text-logo"><a href="' . home_url() .'">' . $name . '</a></h1>';
+				echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
 				echo '<span class="logo-tagline">' . get_bloginfo( 'description' ) . '</span>';
 				break;
 
 			case 'custom' :
-				echo '<h1 class="text-logo"><a href="' . home_url() .'">' . $option['custom'] . '</a></h1>';
+				echo '<div class="text-logo"><a href="' . home_url() . '">' . $option['custom'] . '</a></div>';
 				if ( $option['custom_tagline'] ) {
-					echo '<span class="logo-tagline">'. $option['custom_tagline'] .'</span>';
+					echo '<span class="logo-tagline">' . $option['custom_tagline'] . '</span>';
 				}
 				break;
 
@@ -206,11 +211,11 @@ function anva_header_logo_default() {
 				break;
 		}
 	}
-	echo '</div><!-- .#logo (end) -->';
+	echo '</div><!-- #logo (end) -->';
 }
 
 /**
- * Display default extra header information
+ * Display default extra header information.
  * 
  * @since 1.0.0
  */
@@ -235,8 +240,13 @@ function anva_header_extras_default() {
  */
 function anva_header_primary_menu_default() {
 	if ( has_nav_menu( 'primary' ) ) :
+		$class = '';
+		$primary_menu_color = anva_get_option( 'primary_menu_color', 'light' );
+		if ( 'dark' == $primary_menu_color ) {
+			$class = 'class="' . esc_attr( $primary_menu_color ) . '"';
+		}
 	?>
-		<nav id="primary-menu">
+		<nav id="primary-menu" <?php echo $class; ?>>
 			<?php
 				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array(
 					'theme_location'  => 'primary',
@@ -277,7 +287,7 @@ function anva_header_primary_menu_addon_default() {
 			<div class="top-cart-items">
 				<div class="top-cart-item clearfix">
 					<div class="top-cart-item-image">
-						<a href="#"><img src="images/shop/small/1.jpg" alt="Blue Round-Neck Tshirt" /></a>
+						<a href="#"><img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/1.jpg'; ?>" alt="Blue Round-Neck Tshirt" /></a>
 					</div>
 					<div class="top-cart-item-desc">
 						<a href="#">Blue Round-Neck Tshirt</a>
@@ -287,7 +297,7 @@ function anva_header_primary_menu_addon_default() {
 				</div>
 				<div class="top-cart-item clearfix">
 					<div class="top-cart-item-image">
-						<a href="#"><img src="images/shop/small/6.jpg" alt="Light Blue Denim Dress" /></a>
+						<a href="#"><img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/6.jpg'; ?>" alt="Light Blue Denim Dress" /></a>
 					</div>
 					<div class="top-cart-item-desc">
 						<a href="#">Light Blue Denim Dress</a>

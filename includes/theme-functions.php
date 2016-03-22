@@ -53,6 +53,9 @@ function theme_backup_menu( $menu ) {
 function theme_body_classes( $classes ) {
 	$classes[] = anva_get_option( 'layout_style' );
 	$classes[] = 'base-color-' . anva_get_option( 'base_color' );
+	if ( 'dark' == anva_get_option( 'base_color_style' ) ) {
+		$classes[] = anva_get_option( 'base_color_style' );
+	}
 	return $classes;
 }
 
@@ -94,43 +97,26 @@ function theme_stylesheets() {
 	$api = Anva_Stylesheets_API::instance();
 
 	// Register theme stylesheets
+	wp_register_style( 'theme_dark', get_template_directory_uri() . '/assets/css/dark.css', array(), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.css', array(), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_ie', get_template_directory_uri() . '/assets/css/ie.css', array(), ANVA_THEME_VERSION, 'all' );
-
-	// Compress CSS
-	if ( '1' != anva_get_option( 'compress_css' ) ) {
+	wp_register_style( 'theme_custom', get_template_directory_uri() . '/assets/css/custom.css', array(), ANVA_THEME_VERSION, 'all' );
 		
-		// Enqueue theme stylesheets
-		wp_enqueue_style( 'theme_colors' );
-		
-		// IE
-		$GLOBALS['wp_styles']->add_data( 'theme_ie', 'conditional', 'lt IE 9' );
-		wp_enqueue_style( 'theme_ie' );
-
-		// Inline theme styles
-		wp_add_inline_style( 'theme_colors', theme_styles() );
-
-	} else {
-
-		// Include CSS Min
-		if ( ! class_exists( 'CSS_Minify' ) ) {
-			include_once( anva_get_core_directory() . '/vendor/class-css-min.php' );
-		}
-		
-		// Ignore stylesheets in compressed file
-		$ignore = array( 'theme_ie' => '' );
-
-		// Compress CSS files
-		anva_minify_stylesheets( $stylesheets, $ignore );
-		
-		// Add IE conditional
-		$GLOBALS['wp_styles']->add_data( 'theme_ie', 'conditional', 'lt IE 9' );
-		wp_enqueue_style( 'theme_ie' );
-		
-		// Inline theme styles
-		wp_add_inline_style( 'all-in-one', theme_styles() );
-
+	// Enqueue theme stylesheets
+	wp_enqueue_style( 'theme_dark' );
+	wp_enqueue_style( 'theme_colors' );
+	
+	// Custom Stylesheet
+	if ( 'yes' == anva_get_option( 'custom_css_stylesheet' ) ) {
+		wp_enqueue_style( 'theme_custom' );
 	}
+	
+	// IE
+	$GLOBALS['wp_styles']->add_data( 'theme_ie', 'conditional', 'lt IE 9' );
+	wp_enqueue_style( 'theme_ie' );
+
+	// Inline theme styles
+	wp_add_inline_style( 'theme_colors', theme_styles() );
 	
 	// Level 3 
 	$api->print_styles(3);
@@ -157,7 +143,6 @@ function theme_scripts() {
 	// Enqueue Scripts
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'html5shiv' );
-	wp_enqueue_script( 'google-map-api', '//maps.google.com/maps/api/js', array(), '3.0.0' );
 	wp_localize_script( 'anva', 'ANVAJS', anva_get_js_locals() );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -333,7 +318,6 @@ function theme_remove_scripts() {
 	// Swiper
 	if ( 'swiper' != $slider ) {
 		anva_remove_stylesheet( 'swiper' );
-		anva_remove_script( 'swiper' );
 	}
 }
 

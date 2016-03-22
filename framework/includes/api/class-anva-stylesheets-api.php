@@ -3,21 +3,13 @@
 if ( ! class_exists( 'Anva_Stylesheets_API' ) ) :
 
 /**
- * Anva Stylesheets API
+ * Anva Stylesheets API.
  * 
  * This class sets up the framework stylesheets that get
  * enqueued on the frontend of the website.
  * 
- * Additionally, this class provides methods to add and
- * remove stylesheets. Stylesheets are organized within four levels.
- *	- Level 1: Before Framework styles
- *	- Level 2: After Framework styles
- *	- Level 3: After Theme styles (implemented at theme level)
- *	- Level 4: After everything (end of wp_head)
- * 
- * @since 		 1.0.0
- * @package    Anva
- * @author     Anthuan Vasquez <eigthy@gmail.com>
+ * @since  1.0.0
+ * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
 class Anva_Stylesheets_API {
 
@@ -93,25 +85,43 @@ class Anva_Stylesheets_API {
 		// Boostrap
 		$this->framework_stylesheets['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
-			'src'		=> anva_get_core_uri() .'/assets/css/bootstrap.css',
+			'src'		=> anva_get_core_uri() . 'assets/css/bootstrap.css',
 			'deps'		=> array(),
-			'ver'		=> '3.3.5',
+			'ver'		=> '3.3.6',
 			'media'		=> 'all'
-
 		);
 
-		// Font Awesome
-		$this->framework_stylesheets['fontawesome'] = array(
-			'handle'	=> 'fontawesome',
-			'src'		=> anva_get_core_uri() .'/assets/css/font-icons.css',
+		// Framework styles
+		$this->framework_stylesheets['anva'] = array(
+			'handle'	=> 'anva',
+			'src'		=> anva_get_core_uri() . 'assets/css/styles.min.css',
 			'deps'		=> array(),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'
 		);
 
-		$this->framework_stylesheets['dark'] = array(
-			'handle'	=> 'dark',
-			'src'		=> anva_get_core_uri() .'/assets/css/dark.css',
+		// Swiper
+		$this->framework_stylesheets['swiper'] = array(
+			'handle'	=> 'swiper',
+			'src'		=> anva_get_core_uri() . 'assets/css/swiper.css',
+			'deps'		=> array(),
+			'ver'		=> '3.3.1',
+			'media'		=> 'all'
+		);
+
+		// Camera
+		$this->framework_stylesheets['camera'] = array(
+			'handle'	=> 'camera',
+			'src'		=> anva_get_core_uri() . '/assets/css/camera.css',
+			'deps'		=> array(),
+			'ver'		=> '1.4.0',
+			'media'		=> 'all'
+		);
+
+		// Font Icons
+		$this->framework_stylesheets['fonticons'] = array(
+			'handle'	=> 'fonticons',
+			'src'		=> anva_get_core_uri() . 'assets/css/font-icons.css',
 			'deps'		=> array(),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'
@@ -120,54 +130,26 @@ class Anva_Stylesheets_API {
 		// Animate
 		$this->framework_stylesheets['animate'] = array(
 			'handle'	=> 'animate',
-			'src'		=> anva_get_core_uri() .'/assets/css/animate.css',
+			'src'		=> anva_get_core_uri() . 'assets/css/animate.css',
 			'deps'		=> array(),
-			'ver'		=> '3.4.0',
+			'ver'		=> '3.5.1',
 			'media'		=> 'all'
 		);
 
 		// Magnific Popup
 		$this->framework_stylesheets['magnificpopup'] = array(
 			'handle'	=> 'magnificpopup',
-			'src'		=> anva_get_core_uri() .'/assets/css/magnific-popup.css',
+			'src'		=> anva_get_core_uri() . 'assets/css/magnific-popup.css',
 			'deps'		=> array(),
-			'ver'		=> '0.9.9',
+			'ver'		=> '1.1.0',
 			'media'		=> 'all'
 		);
 
-		// Swiper
-		$this->framework_stylesheets['swiper'] = array(
-			'handle'	=> 'swiper',
-			'src'		=> anva_get_core_uri() .'/assets/css/swiper.css',
-			'deps'		=> array(),
-			'ver'		=> '3.1.2',
-			'media'		=> 'all'
-		);
-
-		// Camera
-		$this->framework_stylesheets['camera'] = array(
-			'handle'	=> 'camera',
-			'src'		=> anva_get_core_uri() .'/assets/css/camera.css',
-			'deps'		=> array(),
-			'ver'		=> '1.4.0',
-			'media'		=> 'all'
-		);
-
-		// Framework styles
-		$this->framework_stylesheets['anva'] = array(
-			'handle'	=> 'anva',
-			//'src'		=> anva_get_core_uri() .'/assets/css/anva.min.css',
-			'src'		=> anva_get_core_uri() .'/assets/css/styles.min.css',
-			'deps'		=> array(),
-			'ver'		=> ANVA_FRAMEWORK_VERSION,
-			'media'		=> 'all'
-		);
-
-		$this->framework_stylesheets['anvaresponsive'] = array(
-			'handle'	=> 'anvaresponsive',
-			//'src'		=> anva_get_core_uri() .'/assets/css/anva.min.css',
-			'src'		=> anva_get_core_uri() .'/assets/css/responsive.css',
-			'deps'		=> array(),
+		// Responsive
+		$this->framework_stylesheets['anva_responsive'] = array(
+			'handle'	=> 'anva_responsive',
+			'src'		=> anva_get_core_uri() . 'assets/css/responsive.css',
+			'deps'		=> array( 'anva' ),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'
 		);

@@ -38,13 +38,15 @@
 }
 
 #anva-framework {
-
+	
+	// Inputs
 	input[type="text"],
 	input[type="tel"],
 	input[type="email"],
 	input[type="url"],
 	input[type="datetime"],
-	input[type="number"] {
+	input[type="number"],
+	input[type="password"] {
 		box-shadow: 0 0 4px #eee;
 		color: #666;
 		height: 33px;
@@ -58,17 +60,12 @@
 		color: #666;
 	}
 	
-	// Radio / checkbox
 	input[type="radio"],
 	input[type="checkbox"] {
+	    box-sizing: border-box;
 	    margin: 4px 0 0;
 	    margin-top: 1px \9;
 	    line-height: normal;
-	}
-
-	input[type="checkbox"],
-	input[type="radio"] {
-	    box-sizing: border-box;
 	    padding: 0 !important;
 	}
 	
@@ -95,9 +92,9 @@
 	
 	// Sections
 	.inner-group {
-		padding: 10px;
+		padding: 10px 15px;
 		 > h3 {
-			margin: -10px -10px 0;
+			margin: -10px -15px 0;
 			cursor: pointer;
 			user-select: none;
 
@@ -132,7 +129,6 @@
 	.section {
 		margin-bottom: 10px;
 		padding: 0;
-
 		> .option {
 			&:before,
 			&:after {
@@ -149,8 +145,8 @@
 		background: #f9f9f9;
 		border-bottom: 1px solid #e5e5e5;
 		color: #777;
-		margin: 0 -10px;
-		padding: 20px 10px;
+		margin: 0 -15px;
+		padding: 20px 15px;
 	}
 
 	.section-logo {
