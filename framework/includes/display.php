@@ -253,16 +253,25 @@ function anva_header_primary_menu_default() {
 					'container'       => '',
 					'container_class' => '',
 					'container_id'    => '',
-					'menu_class'      => 'sf-menu clearfix',
+					'menu_class'      => '',
 					'menu_id'         => '',
 					'echo'            => true,
-					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-					'walker'	  	  => new Anva_Walker_Nav_Menu()
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>'
 				) ) );
 
 				anva_header_primary_menu_addon();
 			?>
 		</nav><!-- #main-navigation (end) -->
+		
+		<?php
+		$side_icons = anva_get_option( 'side_icons' );
+		$header_style = anva_get_header_style();
+		if (  'side' == $header_style && $side_icons ) : ?>
+			<div class="clearfix visible-md visible-lg">
+				<?php anva_social_icons(); ?>
+			</div>
+		<?php endif; ?>
+
 	<?php else : ?>
 		<div class="container clearfix">
 			<div class="navigation-message well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
@@ -276,7 +285,11 @@ function anva_header_primary_menu_default() {
  * @since 1.0.0
  */
 function anva_header_primary_menu_addon_default() {
-	?>	
+	$header_classes = anva_get_header_class();
+	if ( in_array( 'no-sticky', $header_classes ) ) {
+		return;
+	}
+	?>
 	<!-- Top Cart -->
 	<div id="top-cart">
 		<a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
@@ -772,26 +785,29 @@ function anva_posts_comments_default() {
 endif;
 
 /**
- * Display debug information
+ * Display debug information.
  * 
- * Only if WP_DEBUG is enabled and czurrent user is an administrator.
+ * Only if WP_DEBUG is enabled and current user is an administrator.
  * 
  * @since 1.0.0
  */
 function anva_debug() {
-	if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG ) :
+	if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG && current_user_can( 'manage_options' ) ) :
 	?>
 	<div class="container clearfix">
-		<div class="debug-info alert alert-info topmargin bottommargin">
-			<ul>
-				<li><strong>Debug Info</strong></li>
-				<li><span>Queries:</span> Page generated in <?php timer_stop(1); ?> seconds with <?php echo get_num_queries(); ?> database queries.</li>
-				<li><span>Memory Usage:</span> <?php echo memory_get_usage(); ?></li>
-				<li><span>Theme Name:</span> <?php echo anva_get_theme( 'name' ); ?></li>
-				<li><span>Theme Version:</span> <?php echo anva_get_theme( 'version' ); ?></li>
-				<li><span>Framework Name:</span> <?php echo ANVA_FRAMEWORK_NAME; ?></li>
-				<li><span>Framework Version:</span> <?php echo ANVA_FRAMEWORK_VERSION; ?></li>
-			</ul>
+		<div class="debug-info style-msg2 infomsg topmargin bottommargin">
+			<div class="msgtitle"><i class="icon-info-sign"></i>Debug Info</div>
+			<div class="sb-msg">
+				<ul>
+					<li><span>Queries:</span> <?php echo get_num_queries(); ?> database queries.</li>
+					<li><span>Speed:</span> Page generated in <?php timer_stop(1); ?> seconds.</li>
+					<li><span>Memory Usage:</span> <?php echo anva_convert_memory_use( memory_get_usage( true ) ); ?></li>
+					<li><span>Theme Name:</span> <?php echo anva_get_theme( 'name' ); ?></li>
+					<li><span>Theme Version:</span> <?php echo anva_get_theme( 'version' ); ?></li>
+					<li><span>Framework Name:</span> <?php echo ANVA_FRAMEWORK_NAME; ?></li>
+					<li><span>Framework Version:</span> <?php echo ANVA_FRAMEWORK_VERSION; ?></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<?php

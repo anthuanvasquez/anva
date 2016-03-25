@@ -60,16 +60,8 @@
 
 	<?php anva_header_above(); ?>
 
-	<?php
-		$class = 'full-header';
-		$header_color = anva_get_option( 'header_color', 'light' );
-		if ( 'dark' == $header_color ) {
-			$class .= ' ' . $header_color;
-		}
-	?>
-	
 	<!-- HEADER (start) -->
-	<header id="header" class="<?php echo esc_attr( $class ); ?>">
+	<header id="header" <?php anva_header_class(); ?>>
 		<div id="header-wrap">
 			<div class="container clearfix">
 				<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>

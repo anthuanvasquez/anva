@@ -227,7 +227,7 @@ function anva_enqueue_google_fonts() {
  * @since  1.0.0
  * @return array $profiles
  */
-function anva_get_social_media_profiles() {
+function anva_get_social_icons_profiles() {
 	$profiles = array(
 		'bitbucket'		=> 'Bitbucket',
 		'codepen'		=> 'Codepen',
@@ -235,12 +235,12 @@ function anva_get_social_media_profiles() {
 		'deviantart' 	=> 'DeviantArt',
 		'digg' 			=> 'Digg',
 		'dribbble' 		=> 'Dribbble',
-		'email' 		=> 'Email',
+		'email3' 		=> 'Email',
 		'facebook' 		=> 'Facebook',
 		'flickr' 		=> 'Flickr',
 		'foursquare' 	=> 'Foursquare',
 		'github' 		=> 'Github',
-		'google-plus' 	=> 'Google+',
+		'gplus' 		=> 'Google+',
 		'instagram' 	=> 'Instagram',
 		'linkedin' 		=> 'Linkedin',
 		'paypal' 		=> 'Paypal',

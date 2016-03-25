@@ -116,7 +116,7 @@ class Anva_Options_API
 		);
 
 		// Social media buttons defautls
-		$social_media_defaults = apply_filters( 'anva_social_media_defaults', array(
+		$social_media_defaults = apply_filters( 'anva_social_icons_defaults', array(
 			'dribbble'		=> 'https://dribbble.com/oidoperfecto',
 			'google-plus' 	=> 'https://plus.google.com/+AnthuanVasquez',
 			'twitter' 		=> 'https://twitter.com/oidoperfecto', // Follow Me! :)
@@ -151,24 +151,12 @@ class Anva_Options_API
 						'name' => __('Layout Style', 'anva'),
 						'desc' => __('Select the layout style.', 'anva'),
 						'id' => 'layout_style',
-						'std' => 'boxed',
+						'std' => 'stretched',
 						'class' => 'input-select',
 						'type' => 'select',
 						'options' => array(
 							'boxed' => __( 'Boxed', 'anva' ),
 							'stretched' => __( 'Stretched', 'anva' )
-						)
-					),
-					'social' => array(
-						'name' => __('Social Media Buttons Style', 'anva'),
-						'desc' => __('Select the style for your social media buttons.', 'anva'),
-						'id' => 'social_media_style',
-						'std' => 'light',
-						'type' => 'select',
-						'options' => array(
-							'light' 	=> __('Light', 'anva'),
-							'colored' => __('Colored', 'anva'),
-							'dark' 		=> __('Dark', 'anva'),
 						)
 					),
 				)
@@ -244,10 +232,10 @@ class Anva_Options_API
 						'std' => $logo_defaults,
 						'type' => 'logo'
 					),
-					'social_media' => array(
-						"name" => __('Social Media', 'anva'),  
+					'social_icons_profiles' => array(
+						"name" => __('Social Media Profiles', 'anva'),  
 						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),  
-						"id" => "social_media",
+						"id" => "social_icons_profiles",
 						"type" => "social_media",
 						"std" => $social_media_defaults
 					),

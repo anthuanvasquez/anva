@@ -2,6 +2,11 @@
 	10. Header
 -----------------------------------------------------------------*/
 
+// Anva Menu Modules
+#wpadminbar #wp-admin-bar-anva_node_optons>.ab-item:before {
+    content: "\f540";
+    top: 2px;
+}
 
 #header {
 	position: relative;
@@ -81,6 +86,7 @@ body.stretched #header.full-header .container {
 	margin-right: 40px;
 }
 
+// Logo with Text
 #logo > div > a {
 	display: block;
     line-height: 22px;
@@ -91,6 +97,7 @@ body.stretched #header.full-header .container {
     text-transform: uppercase;
 }
 
+// Logo with Tagline
 #logo.logo-has-tagline {
 
 	> div > a {
@@ -104,6 +111,18 @@ body.stretched #header.full-header .container {
 		padding: 0 15px 28px;
 	}
 
+}
+
+#header.sticky-header {
+	#logo.logo-has-tagline {
+		> div > a {
+			padding: 8px 15px 0;
+		}
+
+		span.logo-tagline {
+			padding: 0 15px 8px;
+		}
+	}
 }
 
 #header.full-header #logo {
@@ -1193,12 +1212,15 @@ body.admin-bar #header.sticky-header #header-wrap {
 	box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
-#header.static-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap { top: 100px; }
+#header.static-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap,
+#header.static-sticky ~ #content #page-menu.sticky-page-menu #page-menu-wrap { top: 100px; }
 
-#header ~ #page-menu.sticky-page-menu #page-menu-wrap,
-#header.no-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap { top: 0; }
+#header.no-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap,
+#header ~ #content #page-menu.sticky-page-menu #page-menu-wrap,
+#header.no-sticky ~ #content #page-menu.sticky-page-menu #page-menu-wrap { top: 0; }
 
-#header.sticky-header ~ #page-menu.sticky-page-menu #page-menu-wrap { top: 60px; }
+#header.sticky-header ~ #page-menu.sticky-page-menu #page-menu-wrap,
+#header.sticky-header ~ #content #page-menu.sticky-page-menu #page-menu-wrap { top: 60px; }
 
 #page-submenu-trigger {
 	top: 0;
@@ -1313,7 +1335,7 @@ body:not(.device-touch) #page-menu nav li a {
 
 	#page-menu.dots-menu .menu-title { display: none; }
 
-	#page-menu.dots-menu nav {
+	#page-menu.dots-menu nav li div {
 		float: none;
 		width: 24px;
 	}
@@ -1343,7 +1365,7 @@ body:not(.device-touch) #page-menu nav li a {
 
 	#page-menu.dots-menu nav li.current a { background-color: @theme-color; }
 
-	#page-menu.dots-menu nav li span {
+	#page-menu.dots-menu nav li div {
 		position: absolute;
 		width: auto;
 		top: -11px;
@@ -1358,13 +1380,13 @@ body:not(.device-touch) #page-menu nav li a {
 		opacity: 0;
 	}
 
-	body:not(.device-touch) #page-menu.dots-menu nav li span {
+	body:not(.device-touch) #page-menu.dots-menu nav li div {
 		-webkit-transition: all .2s ease-in-out;
 		-o-transition: all .2s ease-in-out;
 		transition: all .2s ease-in-out;
 	}
 
-	#page-menu.dots-menu nav li span:after {
+	#page-menu.dots-menu nav li div:after {
 		position: absolute;
 		content: '';
 		top: 50%;
@@ -1378,7 +1400,7 @@ body:not(.device-touch) #page-menu nav li a {
 		border-left: 6px solid @theme-color;
 	}
 
-	#page-menu.dots-menu nav li a:hover span {
+	#page-menu.dots-menu nav li a:hover div {
 		opacity: 1;
 		right: 30px;
 	}
@@ -1423,6 +1445,11 @@ body:not(.device-touch) #page-menu nav li a {
 	border-right: 1px solid #EEE;
 	overflow: hidden;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.065);
+	z-index: 200; // Fix slider overlay
+}
+
+body.admin-bar.side-header #header {
+	top: 32px;
 }
 
 .side-header #header-wrap {
@@ -1590,6 +1617,10 @@ body:not(.device-touch) #page-menu nav li a {
 	border-radius: 2px;
 }
 
+body.admin-bar.side-header.open-header #header-trigger {
+	top: 20px + 32px;
+}
+
 .side-header.open-header.side-header-open #header-trigger { left: @side-header-width + 20; }
 
 .side-header.open-header #header-trigger i:nth-child(1),
@@ -1721,8 +1752,10 @@ body.side-panel-left.side-panel-open #side-panel {
 body.side-push-panel.side-panel-open.stretched #wrapper,
 body.side-push-panel.side-panel-open.stretched #header.sticky-header .container { right: 300px; }
 
-body.side-panel-left.side-push-panel.side-panel-open.stretched #wrapper,
-body.side-panel-left.side-push-panel.side-panel-open.stretched #header.sticky-header .container {
+body.side-push-panel.side-panel-open.stretched .slider-parallax-inner { left: -300px; }
+
+body.side-panel-left.side-push-panel.side-panel-open.stretched #header.sticky-header .container,
+body.side-panel-left.side-push-panel.side-panel-open.stretched .slider-parallax-inner {
 	left: 300px;
 	right: auto;
 }
@@ -1746,7 +1779,8 @@ body.side-push-panel.stretched #header .container {
 
 body.side-panel-left #side-panel,
 body.side-panel-left.side-push-panel.stretched #wrapper,
-body.side-panel-left.side-push-panel.stretched #header .container {
+body.side-panel-left.side-push-panel.stretched #header .container,
+body.side-push-panel.stretched .slider-parallax-inner {
 	-webkit-transition: left .4s ease;
 	-o-transition: left .4s ease;
 	transition: left .4s ease;

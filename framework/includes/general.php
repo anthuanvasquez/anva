@@ -775,9 +775,12 @@ function anva_get_admin_modules() {
 }
 
 /**
- * Add items to admin menu bar
+ * Add items to admin menu bar.
  *
- * @since 1.0.0
+ * @global $awp_admin_bar
+ *
+ * @since  1.0.0
+ * @return void
  */
 function anva_admin_menu_bar() {
 
@@ -794,13 +797,24 @@ function anva_admin_menu_bar() {
 		return;
 	}
 
+	$node = 'anva_node_optons';
+
+	$default_node = array(
+		'id'    => $node,
+		'title' => __( 'Anva', 'anva' ),
+		'meta'  => array( 'class' => 'anva-admin-bar-node' )
+	);
+
+	$wp_admin_bar->add_node( $default_node );
+
 	// Theme Options
 	if ( isset( $modules['options'] ) && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
 		$wp_admin_bar->add_node(
 			array(
 				'id'		=> 'anva_theme_options',
 				'title'		=> sprintf( '%1$s', __( 'Theme Options', 'anva' ) ),
-				'href'		=> admin_url( $modules['options'] )
+				'href'		=> admin_url( $modules['options'] ),
+				'parent' 	=> $node,
 			)
 		);
 	}
@@ -811,7 +825,19 @@ function anva_admin_menu_bar() {
 			array(
 				'id'	 	=> 'anva_theme_backup',
 				'title'	 	=> sprintf( '%1$s', __( 'Theme Backup', 'anva' ) ),
-				'href'	 	=> admin_url( $modules['backup'] )
+				'href'	 	=> admin_url( $modules['backup'] ),
+				'parent' 	=> $node,
+			)
+		);
+	}
+
+	if ( current_user_can( 'install_plugins' ) ) {
+		$wp_admin_bar->add_node(
+			array(
+				'id'		=> 'anva_theme_plugins',
+				'title'		=> sprintf( '%1$s', __( 'Theme Plugins', 'anva' ) ),
+				'href'		=> admin_url( 'themes.php?page=tgmpa-install-plugins' ),
+				'parent' 	=> $node,
 			)
 		);
 	}

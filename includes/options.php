@@ -1,9 +1,10 @@
 <?php
 /**
  * Use Anva_Options_API to add options onto options already
- * present in framework
+ * present in framework.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_options() {
 
@@ -30,7 +31,7 @@ function anva_options() {
 	}
 
 	/* ---------------------------------------------------------------- */
-	/* Layout
+	/* Styles
 	/* ---------------------------------------------------------------- */
 
 	$base_color = array(
@@ -62,34 +63,8 @@ function anva_options() {
 	);
 	anva_add_option( 'styles', 'main', 'base_color_style', $base_color_style );
 
-	$header_color = array(
-		'name' => __( 'Header Style', 'anva' ),
-		'desc' => __( 'Choose the color style for the header.', 'anva' ),
-		'id' => 'header_color',
-		'std' => 'light',
-		'type' => 'select',
-		'options' => array(
-			'light' => __( 'Light', 'anva' ),
-			'dark' => __( 'Dark', 'anva' ),
-		)
-	);
-	anva_add_option( 'styles', 'main', 'header_color', $header_color );
-
-	$primary_menu_color = array(
-		'name' => __( 'Primary Menu Style', 'anva' ),
-		'desc' => __( 'Choose the color style for the primary menu.', 'anva' ),
-		'id' => 'primary_menu_color',
-		'std' => 'light',
-		'type' => 'select',
-		'options' => array(
-			'light' => __( 'Light', 'anva' ),
-			'dark' => __( 'Dark', 'anva' ),
-		)
-	);
-	anva_add_option( 'styles', 'main', 'primary_menu_color', $primary_menu_color );
-
 	$footer_color = array(
-		'name' => __( 'Footer Style', 'anva' ),
+		'name' => __( 'Footer Color', 'anva' ),
 		'desc' => __( 'Choose the color style for the footer.', 'anva' ),
 		'id' => 'footer_color',
 		'std' => 'dark',
@@ -100,6 +75,107 @@ function anva_options() {
 		)
 	);
 	anva_add_option( 'styles', 'main', 'footer_color', $footer_color );
+
+	// Header
+	$header_options = array(
+		'header_style' => array(
+			'name' => __( 'Header Style', 'anva' ),
+			'desc' => __( 'Choose the style for the header.', 'anva' ),
+			'id' => 'header_style',
+			'std' => 'normal',
+			'type' => 'select',
+			'options' => array(
+				'normal' => __( 'Normal', 'anva' ),
+				'transparent' => __( 'Transparent', 'anva' ),
+				'semi-transparent' => __( 'Semi Transparent', 'anva' ),
+				'floating' => __( 'Floating', 'anva' ),
+				'static-sticky' => __( 'Static Sticky', 'anva' ),
+				'responsive-sticky' => __( 'Responsive Sticky', 'anva' ),
+				'left-side-fixed' => __( 'Left Side Fixed', 'anva' ),
+				'left-side-open' => __( 'Left Side Open', 'anva' ),
+				'left-side-push' => __( 'Left Side Push Content', 'anva' ),
+				'right-side-fixed' => __( 'Right Side Fixed', 'anva' ),
+				'right-side-open' => __( 'Right Side Open', 'anva' ),
+				'right-side-content' => __( 'Right Side Push Content', 'anva' ),
+
+			)
+		),
+		'header_color' => array(
+			'name' => __( 'Header Color', 'anva' ),
+			'desc' => __( 'Choose the color style for the header.', 'anva' ),
+			'id' => 'header_color',
+			'std' => 'light',
+			'type' => 'select',
+			'options' => array(
+				'light' => __( 'Light', 'anva' ),
+				'dark' => __( 'Dark', 'anva' ),
+			)
+		),
+		'primary_menu_color' => array(
+			'name' => __( 'Primary Menu Color', 'anva' ),
+			'desc' => __( 'Choose the color style for the primary menu navigation.', 'anva' ),
+			'id' => 'primary_menu_color',
+			'std' => 'light',
+			'type' => 'select',
+			'options' => array(
+				'light' => __( 'Light', 'anva' ),
+				'dark' => __( 'Dark', 'anva' ),
+			)
+		),
+	);
+	anva_add_option_section( 'styles', 'header', __( 'Header', 'anva' ), null, $header_options, false  );
+
+	$social_icons_options = array(
+		'social_icons_style' => array(
+			'name' => __('Social Icons Style', 'anva'),
+			'desc' => __('choose the style for your social icons.', 'anva'),
+			'id' => 'social_icons_style',
+			'std' => 'default',
+			'type' => 'select',
+			'options' => array(
+				'default' 	=> __('Default', 'anva'),
+				'light' 	=> __('Light', 'anva'),
+				'dark' 		=> __('Dark', 'anva'),
+				'text-color' => __('Text Colored', 'anva'),
+				'colored' => __('Colored', 'anva'),
+			)
+		),
+		'social_icons_shape' => array(
+			'name' => __('Social Icons Shape', 'anva'),
+			'desc' => __('choose the shape for your social icons.', 'anva'),
+			'id' => 'social_icons_shape',
+			'std' => 'default',
+			'type' => 'select',
+			'options' => array(
+				'default' 	=> __('Default', 'anva'),
+				'rounded' 	=> __('Rounded', 'anva'),
+			)
+		),
+		'social_icons_border' => array(
+			'name' => __('Social Icons Border', 'anva'),
+			'desc' => __('Choose the shape for your social icons.', 'anva'),
+			'id' => 'social_icons_border',
+			'std' => 'default',
+			'type' => 'select',
+			'options' => array(
+				'default' 	=> __('Default', 'anva'),
+				'borderless' 	=> __('Without Border', 'anva'),
+			)
+		),
+		'social_icons_size' => array(
+			'name' => __('Social Icons Size', 'anva'),
+			'desc' => __('Choose the size for your social icons.', 'anva'),
+			'id' => 'social_icons_size',
+			'std' => 'default',
+			'type' => 'select',
+			'options' => array(
+				'default' 	=> __('Default', 'anva'),
+				'small' 	=> __('Small', 'anva'),
+				'large' 	=> __('Large', 'anva'),
+			)
+		),
+	);
+	anva_add_option_section( 'styles', 'social_icons', __( 'Social Icons', 'anva' ), null, $social_icons_options, false );
 
 	$page_loading_options = array(
 		'page_loader' => array(
@@ -394,141 +470,169 @@ function anva_options() {
 	anva_add_option_section( 'styles', 'custom', __( 'Custom', 'anva' ), null, $custom_options, false );
 
 	/* ---------------------------------------------------------------- */
-	/* Galleries
+	/* Header
 	/* ---------------------------------------------------------------- */
 	
-	if ( is_admin() ) {
+	$side_icons = array(
+		'name' => __( 'Side Icons', 'anva' ),
+		'desc' => __( 'Show social media icons below primary menu in side header.', 'anva' ),
+		'id' => 'side_icons',
+		'std' => '1',
+		'type' => 'switch',
+	);
+	anva_add_option( 'layout', 'header', 'side_icons', $side_icons );
 
-		// Pull all gallery templates
-		$galleries = array();
-		foreach ( anva_gallery_templates() as $key => $gallery ) {
-			$galleries[$key] = $gallery['name'];
-		}
+	$top_bar_icons = array(
+		'name' => __( 'Top Bar Icons', 'anva' ),
+		'desc' => __( 'Show social media icons in the top bar.', 'anva' ),
+		'id' => 'top_bar_icons',
+		'std' => '1',
+		'type' => 'switch',
+	);
+	anva_add_option( 'layout', 'header', 'top_bar_icons', $top_bar_icons );
 
-		$animations = array();
-		foreach ( anva_get_animations() as $key => $value ) {
-			$animations[$value] = $value; 
-		}
+	$footer_icons = array(
+		'name' => __( 'Icons', 'anva' ),
+		'desc' => __( 'Show social media icons to the right.', 'anva' ),
+		'id' => 'footer_icons',
+		'std' => '1',
+		'type' => 'switch',
+	);
+	anva_add_option( 'layout', 'footer', 'footer_icons', $footer_icons );
 
-		$gallery_options = array(
-			'gallery_sort' => array(
-				'name' => __('Images Sorting', 'anva'),
-				'desc' => __('Select how you want to sort gallery images.', 'anva'),
-				'id' => 'gallery_sort',
-				'std' => 'drag',
-				'type' => 'select',
-				'options' => array(
-					'drag' => __('Drag & Drop', 'anva'),
-					'desc' => __('Newest', 'anva'),
-					'asc' => __('Oldest', 'anva'),
-					'rand' => __('Random', 'anva'),
-					'title' => __('Title', 'anva')
-				)
-			),
-			'gallery_template' => array(
-				'name' => __('Default Template', 'anva'),
-				'desc' => __('Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', 'anva'),
-				'id' => 'gallery_template',
-				'std' => '3-col',
-				'type' => 'select',
-				'options' => $galleries
-			),
-			'gallery_animate' => array(
-				'name' => __( 'Animate', 'anva' ),
-				'desc' => sprintf(
-					__( 'Choose the default animation for gallery images. Get a %s of the animations.', 'anva' ),
-					sprintf( '<a href="' . esc_url( 'https://daneden.github.io/animate.css/' ) . '" target="_blank">%s</a>', __( 'preview', 'anva' ) )
-				),
-				'id' => 'gallery_animate',
-				'std' => 'fadeIn',
-				'type' => 'select',
-				'options' => $animations
-			),
-			'gallery_delay' => array(
-				'name' => __( 'Delay', 'anva' ),
-				'desc' => __( 'Choose the default delay for animation.', 'anva' ),
-				'id' => 'gallery_delay',
-				'std' => 400,
-				'type' => 'number'
-			),
-		);
-		anva_add_option_section( 'layout', 'gallery', __( 'Galleries', 'anva' ), null, $gallery_options, false );
+	/* ---------------------------------------------------------------- */
+	/* Galleries
+	/* ---------------------------------------------------------------- */
+
+	// Pull all gallery templates
+	$galleries = array();
+	foreach ( anva_gallery_templates() as $key => $gallery ) {
+		$galleries[$key] = $gallery['name'];
 	}
+
+	$animations = array();
+	foreach ( anva_get_animations() as $key => $value ) {
+		$animations[$value] = $value; 
+	}
+
+	$gallery_options = array(
+		'gallery_sort' => array(
+			'name' => __('Images Sorting', 'anva'),
+			'desc' => __('Select how you want to sort gallery images.', 'anva'),
+			'id' => 'gallery_sort',
+			'std' => 'drag',
+			'type' => 'select',
+			'options' => array(
+				'drag' => __('Drag & Drop', 'anva'),
+				'desc' => __('Newest', 'anva'),
+				'asc' => __('Oldest', 'anva'),
+				'rand' => __('Random', 'anva'),
+				'title' => __('Title', 'anva')
+			)
+		),
+		'gallery_template' => array(
+			'name' => __('Default Template', 'anva'),
+			'desc' => __('Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', 'anva'),
+			'id' => 'gallery_template',
+			'std' => '3-col',
+			'type' => 'select',
+			'options' => $galleries
+		),
+		'gallery_animate' => array(
+			'name' => __( 'Animate', 'anva' ),
+			'desc' => sprintf(
+				__( 'Choose the default animation for gallery images. Get a %s of the animations.', 'anva' ),
+				sprintf( '<a href="' . esc_url( 'https://daneden.github.io/animate.css/' ) . '" target="_blank">%s</a>', __( 'preview', 'anva' ) )
+			),
+			'id' => 'gallery_animate',
+			'std' => 'fadeIn',
+			'type' => 'select',
+			'options' => $animations
+		),
+		'gallery_delay' => array(
+			'name' => __( 'Delay', 'anva' ),
+			'desc' => __( 'Choose the default delay for animation.', 'anva' ),
+			'id' => 'gallery_delay',
+			'std' => 400,
+			'type' => 'number'
+		),
+	);
+	anva_add_option_section( 'layout', 'gallery', __( 'Galleries', 'anva' ), null, $gallery_options, false );
 
 	/* ---------------------------------------------------------------- */
 	/* Sliders
 	/* ---------------------------------------------------------------- */
 
-	if ( is_admin() ) {
+	// Get all sliders
+	$sliders = anva_get_sliders();
 
-		// Get all sliders
-		$sliders = anva_get_sliders();
+	// Pull all sliders
+	$slider_select = array();
+	foreach ( $sliders as $slider_id => $slider ) {
+		$slider_select[ $slider_id ] = $slider['name'];
+	}
 
-		// Pull all sliders
-		$slider_select = array();
-		foreach ( $sliders as $slider_id => $slider ) {
-			$slider_select[ $slider_id ] = $slider['name'];
-		}
+	// Revolution Slider
+	if ( class_exists( 'RevSliderAdmin' ) ) {
+		$slider_select['revslider'] = 'Revolution Slider';
+	}
 
-		// Revolution Slider
-		if ( class_exists( 'RevSliderAdmin' ) ) {
-			$slider_select['revslider'] = 'Revolution Slider';
-		}
-
-		$slider_options = array(
-			'slider_id' => array(
-				'name' => __( 'Slider', 'anva'),
-				'desc' => __( 'Select the main slider. Based on the slider you select, the options below may change.', 'anva'),
-				'id' => 'slider_id',
-				'std' => 'standard',
-				'type' => 'select',
-				'options' => $slider_select
+	$slider_options = array(
+		'slider_id' => array(
+			'name' => __( 'Slider', 'anva'),
+			'desc' => __( 'Select the main slider. Based on the slider you select, the options below may change.', 'anva'),
+			'id' => 'slider_id',
+			'std' => 'standard',
+			'type' => 'select',
+			'options' => $slider_select
+		),
+		'slider_style' => array(
+			'name' => __( 'Style', 'anva'),
+			'desc' => __( 'Select the slider style.', 'anva'),
+			'id' => 'slider_style',
+			'std' => 'full-screen',
+			'type' => 'select',
+			'options' => array(
+				'slider-boxed' => __( 'Boxed', 'anva' ),
+				'full-screen'  => __( 'Full Screen', 'anva' ),
+			)
+		),
+		'slider_parallax' => array(
+			'name' => __( 'Parallax', 'anva'),
+			'desc' => __( 'If you use the parallax effect for sliders enable this option.', 'anva'),
+			'id' => 'slider_parallax',
+			'std' => 'false',
+			'type' => 'select',
+			'options'	=> array(
+				'true' 	=> 'Yes, enable parallax',
+				'false'	=> 'No, disable parallax'
 			),
-			'slider_style' => array(
-				'name' => __( 'Style', 'anva'),
-				'desc' => __( 'Select the slider style.', 'anva'),
-				'id' => 'slider_style',
-				'std' => 'boxed',
-				'type' => 'select',
-				'options' => array(
-					'slider-boxed' => __( 'Boxed', 'anva' ),
-					'full-screen'  => __( 'Full Screen', 'anva' ),
-				)
-			),
-			'slider_parallax' => array(
-				'name' => __( 'Parallax', 'anva'),
-				'desc' => __( 'If you use the parallax effect for sliders enable this option.', 'anva'),
-				'id' => 'slider_parallax',
-				'std' => 'false',
-				'type' => 'select',
-				'options'	=> array(
-					'true' 	=> 'Yes, enable parallax',
-					'false'	=> 'No, disable parallax'
-				),
-			),
-		);
-		
-		// Get dynamic slider options
-		foreach ( $sliders as $slider_id => $slider ) {
-			foreach ( $slider['options'] as $option_id => $option ) {
-				$slider_options[ $option_id ] = $option;
-			}
+		),
+	);
+	
+	// Get dynamic slider options
+	foreach ( $sliders as $slider_id => $slider ) {
+		foreach ( $slider['options'] as $option_id => $option ) {
+			$slider_options[ $option_id ] = $option;
 		}
+	}
 
-		$slider_options['revslider_id'] = array(
-			'name' => __( 'Revolution Slider ID', 'anva' ),
-			'desc' => __( 'Show or hide the slider direction navigation.', 'anva' ),
-			'id' => 'revslider_id',
-			'std' => '',
-			'type' => 'text',
-			'class' => 'slider-item revslider hide'
-		);
-		anva_add_option_section( 'layout', 'slider', __( 'Sliders', 'anva' ), null, $slider_options, false );
+	$slider_options['revslider_id'] = array(
+		'name' => __( 'Revolution Slider ID', 'anva' ),
+		'desc' => __( 'Show or hide the slider direction navigation.', 'anva' ),
+		'id' => 'revslider_id',
+		'std' => '',
+		'type' => 'text',
+		'class' => 'slider-item revslider hide'
+	);
+	anva_add_option_section( 'layout', 'slider', __( 'Sliders', 'anva' ), null, $slider_options, false );
 
-		/* ---------------------------------------------------------------- */
-		/* Login
-		/* ---------------------------------------------------------------- */
+	/* ---------------------------------------------------------------- */
+	/* Login
+	/* ---------------------------------------------------------------- */
 
+	if ( anva_support( 'anva-login-styles' ) ) {
+	
 		// Author default credtis
 		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>';
 
@@ -555,20 +659,19 @@ function anva_options() {
 			),
 		);
 
-		if ( anva_support( 'anva-login-styles' ) ) {
-			anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), null, $login_options, false );
-		}
-
+		anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), null, $login_options, false );
 	}
+
 
 }
 add_action( 'after_setup_theme', 'anva_options', 11 );
 
 /**
  * Use Anva_Builder_Elements_API to add elements onto elements already
- * present in framework
+ * present in framework.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_theme_elements() {
 	

@@ -179,7 +179,7 @@ class Anva
         add_action('anva_textdomain', 'anva_load_theme_texdomain');
         add_action('anva_api', 'anva_api_init');
         // add_action( 'anva_top_before', 'anva_side_menu' );
-        add_action('anva_header_above', 'anva_top_bar_default');
+        // add_action('anva_header_above', 'anva_top_bar_default');
         add_action('anva_header_above', 'anva_sidebar_above_header');
         add_action('anva_header_extras', 'anva_header_extras_default');
         add_action('anva_header_logo', 'anva_header_logo_default');

@@ -6,14 +6,19 @@
  * marketplace through WordPress theme updater system
  * and Envato API.
  */
-class Anva_Envato_Updates {
-
+class Anva_Envato_Updates
+{	
+	/**
+	 * Envato and theme details for updating.
+	 * 
+	 * @var array
+	 */
 	protected $args;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param array $args Envato and theme details for updating
+	 * @param array $args
 	 */
 	public function __construct( $args ) {
 
@@ -51,14 +56,12 @@ class Anva_Envato_Updates {
 	 */
 	public function check_for_updates( $updates ) {
 
-		// Only continue if this is our second time
-		// running through the filter.
+		// Only continue if this is our second time running through the filter.
 		if ( ! isset( $updates->checked ) ) {
 			return;
 		}
 
-		// If user can't install themes, this shouldn't
-		// be happenning.
+		// If user can't install themes, this shouldn't be happenning.
 		if ( ! current_user_can( 'install_themes' ) ) {
 			return;
 		}
@@ -68,6 +71,8 @@ class Anva_Envato_Updates {
 
 		// Tap into Envato API
 		$envato_api = new Envato_Protected_API( $this->args['envato_username'], $this->args['envato_api_key'] );
+
+		var_dump($envato_api);
 
 		// Get themes purchased from this Envato user and re-format
 		// as an array we can use to pull directly from.

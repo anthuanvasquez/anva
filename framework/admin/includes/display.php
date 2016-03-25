@@ -121,7 +121,7 @@ function anva_admin_footer_links() {
  */
 function anva_social_media_option( $id, $name, $val ) {
 
-	$profiles = anva_get_social_media_profiles();
+	$profiles = anva_get_social_icons_profiles();
 	$counter  = 1;
 	$divider  = round( count( $profiles ) / 2 );
 	$output   = '<div class="column-1">';

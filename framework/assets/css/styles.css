@@ -1,6 +1,6 @@
 /*
  * Theme Name: Anva
- * Theme URI: http://themes.semicolonweb.com/html/canvas
+ * Theme URI: http://themes.anthuanvasquez.net/anva
  * Description: The Multi-Purpose Template
  * Author: Anthuan Vásquez
  * Author URI: http://themeforest.net/user/oidoperfecto
@@ -866,6 +866,10 @@ body.stretched .container-fullwidth {
 /* ----------------------------------------------------------------
 	10. Header
 -----------------------------------------------------------------*/
+#wpadminbar #wp-admin-bar-anva_node_optons > .ab-item:before {
+  content: "\f540";
+  top: 2px;
+}
 #header {
   position: relative;
   background-color: #FFF;
@@ -954,6 +958,12 @@ body.stretched #header.full-header .container {
   font-size: 13px;
   display: block;
   padding: 0 15px 28px;
+}
+#header.sticky-header #logo.logo-has-tagline > div > a {
+  padding: 8px 15px 0;
+}
+#header.sticky-header #logo.logo-has-tagline span.logo-tagline {
+  padding: 0 15px 8px;
 }
 #header.full-header #logo {
   padding-right: 30px;
@@ -2017,14 +2027,17 @@ body.admin-bar #header.sticky-header #header-wrap {
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
-#header.static-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap {
+#header.static-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap,
+#header.static-sticky ~ #content #page-menu.sticky-page-menu #page-menu-wrap {
   top: 100px;
 }
-#header ~ #page-menu.sticky-page-menu #page-menu-wrap,
-#header.no-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap {
+#header.no-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap,
+#header ~ #content #page-menu.sticky-page-menu #page-menu-wrap,
+#header.no-sticky ~ #content #page-menu.sticky-page-menu #page-menu-wrap {
   top: 0;
 }
-#header.sticky-header ~ #page-menu.sticky-page-menu #page-menu-wrap {
+#header.sticky-header ~ #page-menu.sticky-page-menu #page-menu-wrap,
+#header.sticky-header ~ #content #page-menu.sticky-page-menu #page-menu-wrap {
   top: 60px;
 }
 #page-submenu-trigger {
@@ -2139,7 +2152,7 @@ body:not(.device-touch) #page-menu nav li a {
   #page-menu.dots-menu .menu-title {
     display: none;
   }
-  #page-menu.dots-menu nav {
+  #page-menu.dots-menu nav li div {
     float: none;
     width: 24px;
   }
@@ -2170,7 +2183,7 @@ body:not(.device-touch) #page-menu nav li a {
   #page-menu.dots-menu nav li.current a {
     background-color: #3498db;
   }
-  #page-menu.dots-menu nav li span {
+  #page-menu.dots-menu nav li div {
     position: absolute;
     width: auto;
     top: -11px;
@@ -2185,13 +2198,13 @@ body:not(.device-touch) #page-menu nav li a {
             border-radius: 2px;
     opacity: 0;
   }
-  body:not(.device-touch) #page-menu.dots-menu nav li span {
+  body:not(.device-touch) #page-menu.dots-menu nav li div {
     -webkit-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
   }
-  #page-menu.dots-menu nav li span:after {
+  #page-menu.dots-menu nav li div:after {
     position: absolute;
     content: '';
     top: 50%;
@@ -2204,7 +2217,7 @@ body:not(.device-touch) #page-menu nav li a {
     border-bottom: 7px solid transparent;
     border-left: 6px solid #3498db;
   }
-  #page-menu.dots-menu nav li a:hover span {
+  #page-menu.dots-menu nav li a:hover div {
     opacity: 1;
     right: 30px;
   }
@@ -2241,6 +2254,10 @@ body:not(.device-touch) #page-menu nav li a {
     overflow: hidden;
     -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.065);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.065);
+    z-index: 200;
+  }
+  body.admin-bar.side-header #header {
+    top: 32px;
   }
   .side-header #header-wrap {
     width: 300px;
@@ -2409,6 +2426,9 @@ body:not(.device-touch) #page-menu nav li a {
     -webkit-border-radius: 2px;
             border-radius: 2px;
   }
+  body.admin-bar.side-header.open-header #header-trigger {
+    top: 52px;
+  }
   .side-header.open-header.side-header-open #header-trigger {
     left: 280px;
   }
@@ -2531,8 +2551,11 @@ body.side-push-panel.side-panel-open.stretched #wrapper,
 body.side-push-panel.side-panel-open.stretched #header.sticky-header .container {
   right: 300px;
 }
-body.side-panel-left.side-push-panel.side-panel-open.stretched #wrapper,
-body.side-panel-left.side-push-panel.side-panel-open.stretched #header.sticky-header .container {
+body.side-push-panel.side-panel-open.stretched .slider-parallax-inner {
+  left: -300px;
+}
+body.side-panel-left.side-push-panel.side-panel-open.stretched #header.sticky-header .container,
+body.side-panel-left.side-push-panel.side-panel-open.stretched .slider-parallax-inner {
   left: 300px;
   right: auto;
 }
@@ -2555,7 +2578,8 @@ body.side-push-panel.stretched #header .container {
 }
 body.side-panel-left #side-panel,
 body.side-panel-left.side-push-panel.stretched #wrapper,
-body.side-panel-left.side-push-panel.stretched #header .container {
+body.side-panel-left.side-push-panel.stretched #header .container,
+body.side-push-panel.stretched .slider-parallax-inner {
   -webkit-transition: left .4s ease;
   -o-transition: left .4s ease;
   -moz-transition: left .4s ease;
@@ -5501,6 +5525,10 @@ p.wp-caption-text {
   position: relative;
   margin: 0 -20px -20px 0;
 }
+.product {
+  position: relative;
+}
+.shop,
 .product {
   position: relative;
   float: left;
@@ -11567,6 +11595,16 @@ button.toast-close-button {
   display: block;
   margin-bottom: 30px;
 }
+.debug-info ul {
+  list-style: none;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+.debug-info span {
+  display: inline-block;
+  font-weight: bold;
+  width: 140px;
+}
 /*-----------------------------------------------------------------------------------
 
 	widgets.less
@@ -11897,6 +11935,101 @@ body:not(.device-touch) .tagcloud a {
 }
 .nav-tree li.current > ul {
   display: block;
+}
+/* =WordPress Core
+-------------------------------------------------------------- */
+.alignnone {
+  margin: 5px 20px 20px 0;
+}
+.aligncenter,
+div.aligncenter {
+  display: block;
+  margin: 5px auto;
+}
+.alignright {
+  float: right;
+  margin: 5px 0 20px 20px;
+}
+.alignleft {
+  float: left;
+  margin: 5px 20px 20px 0;
+}
+a img.alignright {
+  float: right;
+  margin: 5px 0 20px 20px;
+}
+a img.alignnone {
+  margin: 5px 20px 20px 0;
+}
+a img.alignleft {
+  float: left;
+  margin: 5px 20px 20px 0;
+}
+a img.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.wp-caption {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  max-width: 96%;
+  /* Image does not overflow the content area */
+  padding: 5px 3px 10px;
+  text-align: center;
+}
+.wp-caption.alignnone {
+  margin: 5px 20px 20px 0;
+}
+.wp-caption.alignleft {
+  margin: 5px 20px 20px 0;
+}
+.wp-caption.alignright {
+  margin: 5px 0 20px 20px;
+}
+.wp-caption img {
+  border: 0 none;
+  height: auto;
+  margin: 0;
+  max-width: 98.5%;
+  padding: 0;
+  width: auto;
+}
+.wp-caption p.wp-caption-text {
+  font-size: 11px;
+  line-height: 17px;
+  margin: 0;
+  padding: 0 4px 5px;
+}
+/* Text meant only for screen readers. */
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+.screen-reader-text:focus {
+  background-color: #f1f1f1;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  clip: auto !important;
+  color: #21759b;
+  display: block;
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  height: auto;
+  left: 5px;
+  line-height: normal;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+  /* Above WP toolbar. */
 }
 /*-----------------------------------------------------------------------------------
 

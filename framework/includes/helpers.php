@@ -239,6 +239,82 @@ function anva_post_classes( $class, $paged = true ) {
 }
 
 /**
+* Display the classes for the header element.
+*
+* @since 1.0.0
+* @param string|array $class
+*/
+function anva_header_class( $class = '' ) {
+	echo 'class="' . join( ' ', anva_get_header_class( $class ) ) . '"';
+}
+
+/**
+ * Retrieve the classes for the body element as an array.
+ *
+ * @since  1.0.0
+ * @param  string|array $class
+ * @return array        $classes
+ */
+function anva_get_header_class( $class = '' ) {
+
+	$classes = array();
+
+	if ( ! empty( $class ) ) {
+		if ( ! is_array( $class ) )
+			$class = preg_split( '#\s+#', $class );
+			$classes = array_merge( $classes, $class );
+	} else {
+		// Ensure that we always coerce class to being an array.
+		$class = array();
+	}
+
+	$classes = array_map( 'esc_attr', $classes );
+
+	// Filter the header class.
+	$classes = apply_filters( 'anva_header_class', $classes, $class );
+
+	return array_unique( $classes );
+}
+
+/**
+ * Get header styles.
+ *
+ * @since  1.0.0
+ * @return string|boolean
+ */
+function anva_get_header_style() {
+
+	$header_style = anva_get_option( 'header_style', 'normal' );
+
+	$sides_classes = array(
+		'left-side-fixed',
+		'left-side-open',
+		'left-side-push',
+		'right-side-fixed',
+		'right-side-open',
+		'right-side-push',
+	);
+
+	if ( 'normal' == $header_style || 'responsive-sticky' == $header_style ) {
+		return 'full';
+	
+	} elseif ( 'transparent' == $header_style || 'semi-transparent' == $header_style ) {
+		return 'transparent';
+	
+	} elseif ( 'floating' == $header_style ) {
+		return 'floating';
+	
+	} elseif ( 'static-sticky' == $header_style ) {
+		return 'static';
+	
+	} elseif ( in_array( $header_style, $sides_classes ) ) {
+		return 'side';	
+	}
+
+	return false;
+}
+
+/**
  * Display name and description in title.
  *
  * @since  1.0.0
@@ -564,4 +640,15 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 
 	return $new_array;
 
+}
+
+/**
+ * Convert memory use.
+ * 
+ * @param  int $size
+ * @return int $size
+ */
+function anva_convert_memory_use( $size ) {
+	$unit = array( 'b', 'kb', 'mb', 'gb', 'tb', 'pb' );
+	return @round( $size / pow( 1024, ( $i = floor( log( $size, 1024 ) ) ) ), 2 ) . ' ' . $unit[ $i ];
 }

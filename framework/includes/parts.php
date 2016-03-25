@@ -137,63 +137,92 @@ function anva_posted_on() {
  * 
  * @since 1.0.0
  */
-function anva_social_media( $buttons = array(), $style = null ) {
+function anva_social_icons( $icons = array(), $style = '', $shape = '', $border = '', $size = '' ) {
 
 	$classes = array();
 
 	// Set up buttons
-	if ( ! $buttons ) {
-		$buttons = anva_get_option( 'social_media' );
+	if ( ! $icons ) {
+		$icons = anva_get_option( 'social_icons_profiles' );
 	}
 
 	// If buttons haven't been sanitized return nothing
-	if ( is_array( $buttons ) && isset( $buttons['includes'] ) ) {
-		return null;
+	if ( is_array( $icons ) && isset( $icons['includes'] ) ) {
+		return;
+	}
+	
+	if ( ! $style ) {
+		$style = anva_get_option( 'social_icons_style', 'default' );		
 	}
 
+	if ( ! $shape ) {
+		$shape = anva_get_option( 'social_icons_shape', 'default' );
+	}
+
+	if ( ! $border ) {
+		$border = anva_get_option( 'social_icons_border', 'default' );
+	}
+
+	if ( ! $size ) {
+		$size = anva_get_option( 'social_icons_size', 'default' );
+	}	
+
 	// Set up style
-	if ( ! $style ) {
-		$style = anva_get_option( 'social_media_style', 'light' );
-		$classes[] = 'social-' . $style;
+	if ( 'default' != $style ) {
+		$classes[] = 'si-' . $style;
+	}
+
+	// Set up shape
+	if ( 'default' != $shape ) {
+		$classes[] = 'si-' . $shape;
+	}
+
+	// Set up border
+	if ( 'default' != $border ) {
+		$classes[] = 'si-' . $border;
+	}
+
+	// Set up size
+	if ( 'default' != $size ) {
+		$classes[] = 'si-' . $size;
 	}
 
 	$classes = implode( ' ', $classes );
 
 	// Social media sources
-	$profiles = anva_get_social_media_profiles();
+	$profiles = anva_get_social_icons_profiles();
 
 	// Start output
-	$output = null;
-	if ( is_array( $buttons ) && ! empty ( $buttons ) ) {
+	$output = '';
+	if ( is_array( $icons ) && ! empty ( $icons ) ) {
 
-		$output .= '<div class="social-media">';
-		$output .= '<div class="social-content">';
-		$output .= '<ul class="social-icons">';
-
-		foreach ( $buttons as $id => $url ) {
+		foreach ( $icons as $id => $url ) {
 
 			// Link target
 			$target = '_blank';
 			
 			// Link Title
 			$title = '';
-			if ( isset( $profiles[$id] ) ) {
-				$title = $profiles[$id];
-				if ( $id == 'email' ) {
-					$id = 'envelope-o';
-				}
+			if ( isset( $profiles[ $id ] ) ) {
+				$title = $profiles[ $id ];
+				// if ( $id == 'email' ) {
+				// 	$id = 'envelope-o';
+				// }
 			}
 
-			$output .= sprintf( '<li><a href="%1$s" class="social-icon social-%3$s %5$s" target="%4$s"><i class="icon-%3$s"></i><span class="sr-only">%2$s</span></a></li>', $url, $title, $id, $target, $classes );
+			$output .= sprintf(
+				'<a href="%1$s" class="social-icon si-%3$s %5$s" target="%4$s" title="%2$s"><i class="icon-%3$s"></i><i class="icon-%3$s"></i></a>',
+				esc_url( $url ),
+				esc_attr( $title ),
+				esc_attr( $id ),
+				esc_attr( $target ),
+				esc_attr( $classes )
+			);
 		}
-
-		$output .= '</ul><!-- .social-icons (end) -->';
-		$output .= '</div><!-- .social-content (end) -->';
-		$output .= '</div><!-- .social-media (end) -->';
 	}
-	
-	return apply_filters( 'anva_social_media_buttons', $output );
+	$output = apply_filters( 'anva_social_icons', $output );
 
+	echo $output;
 }
 
 /**
