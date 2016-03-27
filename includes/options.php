@@ -23,6 +23,7 @@ function anva_options() {
 		$transitions[ $key ] = __( 'Loader Style', 'anva' ) . ' ' . $key;
 	}
 	$transitions[0] = __( 'Disable Transition', 'anva' );
+	$transitions[1] = __( 'Default Loader Style', 'anva' );
 
 	// Animations
 	$animations = array();
@@ -76,7 +77,35 @@ function anva_options() {
 	);
 	anva_add_option( 'styles', 'main', 'footer_color', $footer_color );
 
+	/* ---------------------------------------------------------------- */
+	/* Links
+	/* ---------------------------------------------------------------- */
+
+	$links_options = array(
+		'link_color' => array(
+			'name' => __( 'Link Color', 'anva' ),
+			'desc' => __( 'Set the link color.', 'anva' ),
+			'id' => 'link_color',
+			'std' => '#3498db',
+			'type' => 'color'
+		),
+		'link_color_hover' => array(
+			'name' => __( 'Link Color (:Hover)', 'anva' ),
+			'desc' => __( 'Set the link color.', 'anva' ),
+			'id' => 'link_color_hover',
+			'std' => '#222222',
+			'type' => 'color'
+		)
+	);
+	anva_add_option_section( 'styles', 'links', __( 'Links', 'anva' ), null, $links_options, false );
+
 	// Header
+	// 
+	$header_styles = array();
+	foreach ( anva_get_header_styles() as $style_id => $style ) {
+		$header_styles[ $style_id ] = $style['name'];
+	}
+
 	$header_options = array(
 		'header_style' => array(
 			'name' => __( 'Header Style', 'anva' ),
@@ -84,43 +113,47 @@ function anva_options() {
 			'id' => 'header_style',
 			'std' => 'normal',
 			'type' => 'select',
-			'options' => array(
-				'normal' => __( 'Normal', 'anva' ),
-				'transparent' => __( 'Transparent', 'anva' ),
-				'semi-transparent' => __( 'Semi Transparent', 'anva' ),
-				'floating' => __( 'Floating', 'anva' ),
-				'static-sticky' => __( 'Static Sticky', 'anva' ),
-				'responsive-sticky' => __( 'Responsive Sticky', 'anva' ),
-				'left-side-fixed' => __( 'Left Side Fixed', 'anva' ),
-				'left-side-open' => __( 'Left Side Open', 'anva' ),
-				'left-side-push' => __( 'Left Side Push Content', 'anva' ),
-				'right-side-fixed' => __( 'Right Side Fixed', 'anva' ),
-				'right-side-open' => __( 'Right Side Open', 'anva' ),
-				'right-side-content' => __( 'Right Side Push Content', 'anva' ),
-
-			)
+			'options' => $header_styles,
 		),
 		'header_color' => array(
 			'name' => __( 'Header Color', 'anva' ),
-			'desc' => __( 'Choose the color style for the header.', 'anva' ),
+			'desc' => __( 'Choose the color for the header.', 'anva' ),
 			'id' => 'header_color',
 			'std' => 'light',
 			'type' => 'select',
 			'options' => array(
 				'light' => __( 'Light', 'anva' ),
 				'dark' => __( 'Dark', 'anva' ),
-			)
+			),
+		),
+		'primary_menu_style' => array(
+			'name' => __( 'Primary Menu Style', 'anva' ),
+			'desc' => __( 'Choose the style for the primary menu navigation.', 'anva' ),
+			'id' => 'primary_menu_style',
+			'std' => 'light',
+			'type' => 'select',
+			'options' => array(
+				'default' => __( 'Default Style', 'anva' ),
+				'style-2' => __( 'Style 2', 'anva' ),
+				'style-3' => __( 'Style 3', 'anva' ),
+				'style-4' => __( 'Style 4', 'anva' ),
+				'style-5' => __( 'Style 5', 'anva' ),
+				'style-6' => __( 'Style 6', 'anva' ),
+				'style-7' => __( 'Style 7', 'anva' ),
+				'style-8' => __( 'Style 8', 'anva' ),
+				'style-9' => __( 'Style 9', 'anva' ),
+			),
 		),
 		'primary_menu_color' => array(
 			'name' => __( 'Primary Menu Color', 'anva' ),
-			'desc' => __( 'Choose the color style for the primary menu navigation.', 'anva' ),
+			'desc' => __( 'Choose the color for the primary menu navigation.', 'anva' ),
 			'id' => 'primary_menu_color',
 			'std' => 'light',
 			'type' => 'select',
 			'options' => array(
 				'light' => __( 'Light', 'anva' ),
 				'dark' => __( 'Dark', 'anva' ),
-			)
+			),
 		),
 	);
 	anva_add_option_section( 'styles', 'header', __( 'Header', 'anva' ), null, $header_options, false  );
@@ -133,7 +166,7 @@ function anva_options() {
 			'std' => 'default',
 			'type' => 'select',
 			'options' => array(
-				'default' 	=> __('Default', 'anva'),
+				'default' 	=> __('Default Style', 'anva'),
 				'light' 	=> __('Light', 'anva'),
 				'dark' 		=> __('Dark', 'anva'),
 				'text-color' => __('Text Colored', 'anva'),
@@ -147,7 +180,7 @@ function anva_options() {
 			'std' => 'default',
 			'type' => 'select',
 			'options' => array(
-				'default' 	=> __('Default', 'anva'),
+				'default' 	=> __('Default Shape', 'anva'),
 				'rounded' 	=> __('Rounded', 'anva'),
 			)
 		),
@@ -158,7 +191,7 @@ function anva_options() {
 			'std' => 'default',
 			'type' => 'select',
 			'options' => array(
-				'default' 	=> __('Default', 'anva'),
+				'default' 	=> __('Default Border', 'anva'),
 				'borderless' 	=> __('Without Border', 'anva'),
 			)
 		),
@@ -169,7 +202,7 @@ function anva_options() {
 			'std' => 'default',
 			'type' => 'select',
 			'options' => array(
-				'default' 	=> __('Default', 'anva'),
+				'default' 	=> __('Default Size', 'anva'),
 				'small' 	=> __('Small', 'anva'),
 				'large' 	=> __('Large', 'anva'),
 			)
@@ -188,9 +221,9 @@ function anva_options() {
 		),
 		'page_loader_color' => array(
 			'name' => __( 'Color', 'anva' ),
-			'desc' => __( 'Set the page transition color.', 'anva' ),
+			'desc' => __( 'Choose the loader color.', 'anva' ),
 			'id' => 'page_loader_color',
-			'std' => '#DDDDDD',
+			'std' => '#dddddd',
 			'type' => 'color',
 		),
 		'page_loader_timeout' => array(
@@ -295,28 +328,6 @@ function anva_options() {
 		)
 	);
 	anva_add_option_section( 'styles', 'background', __( 'Background', 'anva' ), null, $background_options, false );
-
-	/* ---------------------------------------------------------------- */
-	/* Links
-	/* ---------------------------------------------------------------- */
-
-	$links_options = array(
-		'link_color' => array(
-			'name' => __( 'Link Color', 'anva' ),
-			'desc' => __( 'Set the link color.', 'anva' ),
-			'id' => 'link_color',
-			'std' => '#3498db',
-			'type' => 'color'
-		),
-		'link_color_hover' => array(
-			'name' => __( 'Link Color (:Hover)', 'anva' ),
-			'desc' => __( 'Set the link color.', 'anva' ),
-			'id' => 'link_color_hover',
-			'std' => '#222222',
-			'type' => 'color'
-		)
-	);
-	anva_add_option_section( 'styles', 'links', __( 'Links', 'anva' ), null, $links_options, false );
 
 	/* ---------------------------------------------------------------- */
 	/* Typography
@@ -473,17 +484,17 @@ function anva_options() {
 	/* Header
 	/* ---------------------------------------------------------------- */
 	
-	$side_icons = array(
-		'name' => __( 'Side Icons', 'anva' ),
+	$side_header_icons = array(
+		'name' => __( 'Side Header Social Icons', 'anva' ),
 		'desc' => __( 'Show social media icons below primary menu in side header.', 'anva' ),
-		'id' => 'side_icons',
+		'id' => 'side_header_icons',
 		'std' => '1',
 		'type' => 'switch',
 	);
-	anva_add_option( 'layout', 'header', 'side_icons', $side_icons );
+	anva_add_option( 'layout', 'header', 'side_header_icons', $side_header_icons );
 
 	$top_bar_icons = array(
-		'name' => __( 'Top Bar Icons', 'anva' ),
+		'name' => __( 'Top Bar Social Icons', 'anva' ),
 		'desc' => __( 'Show social media icons in the top bar.', 'anva' ),
 		'id' => 'top_bar_icons',
 		'std' => '1',
@@ -492,8 +503,8 @@ function anva_options() {
 	anva_add_option( 'layout', 'header', 'top_bar_icons', $top_bar_icons );
 
 	$footer_icons = array(
-		'name' => __( 'Icons', 'anva' ),
-		'desc' => __( 'Show social media icons to the right.', 'anva' ),
+		'name' => __( 'Footer Social Icons', 'anva' ),
+		'desc' => __( 'Show social media icons to the right of footer.', 'anva' ),
 		'id' => 'footer_icons',
 		'std' => '1',
 		'type' => 'switch',

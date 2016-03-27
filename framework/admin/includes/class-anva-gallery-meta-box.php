@@ -5,32 +5,33 @@
  */
 if ( ! class_exists( 'Anva_Gallery_Meta_Box' ) ) :
 
-class Anva_Gallery_Meta_Box {
-
+class Anva_Gallery_Meta_Box
+{
 	/**
-	 * ID for meta box and post field saved
+	 * ID for meta box and post field saved.
 	 *
-	 * @since 2.2.0
-	 * @var string
+	 * @since 1.0.0
+	 * @var   string
 	 */
 	public $id;
 
 	/**
-	 * Arguments to pass to add_meta_box()
+	 * Arguments to pass to add_meta_box().
 	 *
 	 * @since 1.0.0
-	 * @var array
+	 * @var   array
 	 */
 	private $args;
 
 	/**
-	 * Constructor
-	 * Hook everything in.
+	 * Constructor Hook everything in.
 	 * 
 	 * @since 1.0.0
+	 * @param string $id
+	 * @param array  $args
 	 */
-	public function __construct( $id, $args ) {
-		
+	public function __construct( $id, $args )
+	{	
 		$this->id = $id;
 
 		$defaults = array(
@@ -53,8 +54,8 @@ class Anva_Gallery_Meta_Box {
 	/*
 	 * Admin scripts
 	 */
-	public function scripts() {
-
+	public function scripts()
+	{
 		global $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
@@ -76,8 +77,8 @@ class Anva_Gallery_Meta_Box {
 	/*
 	 * Adds the meta box container
 	 */
-	public function add() {
-		
+	public function add()
+	{	
 		// Filters
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 
@@ -98,8 +99,8 @@ class Anva_Gallery_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 */
-	public function display( $post ) {
-		
+	public function display( $post )
+	{	
 		$gallery = get_post_meta( $post->ID, $this->id, true );
 
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
@@ -134,8 +135,8 @@ class Anva_Gallery_Meta_Box {
 	/*
 	 * Save the meta when the post is saved
 	 */
-	public function save( $post_id ) {
-
+	public function save( $post_id )
+	{
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
@@ -190,11 +191,10 @@ class Anva_Gallery_Meta_Box {
 
 	}
 
-	private function get_attachment( $attachment_id ) {
-		
-		$id = array();
-		
-		$id[] = $attachment_id;
+	private function get_attachment( $attachment_id )
+	{	
+		$id    = array();
+		$id[]  = $attachment_id;
 		$image = wp_get_attachment_image_src( $attachment_id, 'medium', true );
 		
 		return array_merge( $id, $image );
@@ -203,7 +203,8 @@ class Anva_Gallery_Meta_Box {
 	/*
 	 * Ajax get thumbnail
 	 */
-	public function ajax_get_thumbnail() {
+	public function ajax_get_thumbnail()
+	{
 		header( 'Cache-Control: no-cache, must-revalidate' );
 		header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' );
 		$this->admin_thumb( $_POST['imageid'] );
@@ -215,7 +216,8 @@ class Anva_Gallery_Meta_Box {
 	 * 
 	 * @since 1.0.0
 	 */
-	private function admin_thumb( $attachment_id ) {
+	private function admin_thumb( $attachment_id )
+	{
 		$image = $this->get_attachment( $attachment_id );
 		$class = 'landscape squre';
 	

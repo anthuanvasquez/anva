@@ -12,10 +12,10 @@
 				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 			</div><!-- .entry-title (end) -->
 			<div class="entry-summary">	
-				<?php anva_posts_content(); ?>
+				<?php do_action( 'anva_posts_content' ); ?>
 			</div><!-- .entry-summary (end) -->
 			<div class="entry-footer">
-				<?php anva_posts_footer(); ?>
+				<?php do_action( 'anva_posts_footer' ); ?>
 				<div class="clearfix"></div>
 			</div><!-- .entry-footer (end) -->
 		</div><!-- .entry-content (end) -->

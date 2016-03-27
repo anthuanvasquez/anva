@@ -1,14 +1,23 @@
 <?php
 /**
- * The template for displaying Archives.
- * 
- * Like category, tag, dates, post-formats, etc.
- * 
- * @version 1.0.0
+ * The template file for 404's.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 
 get_header();
-$archive_title = anva_get_field( 'archive_title' );
+
+$archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 ?>
 
 <div class="container clearfix">
@@ -21,11 +30,11 @@ $archive_title = anva_get_field( 'archive_title' );
 				if ( have_posts() ) {
 					while ( have_posts() ) {
 						the_post();
-						get_template_part( 'content', 'post' );
+						anva_get_template_part( 'post' );
 					}
 					anva_num_pagination();				
 				} else {
-					get_template_part( 'content', 'none' );
+					anva_get_template_part( 'none' );
 				}
 			?>
 		</div><!-- #posts (end) -->

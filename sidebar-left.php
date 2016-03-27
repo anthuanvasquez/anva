@@ -4,4 +4,4 @@
  * 
  * @version 1.0.0
  */
-anva_sidebars( 'left' );
+do_action( 'anva_sidebars', 'left' );

@@ -689,6 +689,10 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   margin: 20px 0 10px;
 }
 
+#anva-framework-wrap .CodeMirror {
+  border: 1px solid #ddd;
+}
+
 #anva-framework-change {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -937,8 +941,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 #anva-framework .section-columns .select-wrap {
-  margin-right: 4%;
-  width: 48%;
+  margin-right: 0;
+  width: 100%;
 }
 
 #anva-framework .section-columns .select-wrap.last {
@@ -1064,7 +1068,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 #anva-framework .controls .anva-input-label {
   display: block;
-  background: url(../images/fancy-select_2x.png) repeat-x;
   -o-background-size: 7px 32px;
      background-size: 7px 32px;
   -webkit-border-radius: 0;

@@ -5,9 +5,6 @@
  * @version 1.0.0
  */
 
-// @todo move to global part with title
-// using action anva_page_title()
-$hide_title = anva_get_field( 'hide_title' );
 ?>
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>

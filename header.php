@@ -10,12 +10,10 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<?php anva_wp_head(); ?>
+	<?php do_action( 'anva_wp_head' ); ?>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
-	<!-- @temp -->
-	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 </head>
 
 <?php
@@ -51,42 +49,44 @@
 
 <body <?php echo $data; ?><?php body_class( $classes ); ?>>
 
-<?php anva_before(); ?>
+<?php do_action( 'anva_before' ); ?>
 
 <!-- WRAPPER (start) -->
 <div id="wrapper" class="clearfix">
 		
-	<?php anva_top_before(); ?>
+	<?php do_action( 'anva_top_before' ); ?>
 
-	<?php anva_header_above(); ?>
+	<?php do_action( 'anva_header_above' ); ?>
 
 	<!-- HEADER (start) -->
 	<header id="header" <?php anva_header_class(); ?>>
 		<div id="header-wrap">
 			<div class="container clearfix">
 				<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-				<?php anva_header_logo(); ?>
-				<?php anva_header_primary_menu(); ?>
+				<?php do_action( 'anva_header_logo' ); ?>
+				<?php do_action( 'anva_header_extras' ); ?>
+				<?php do_action( 'anva_header_primary_menu' ); ?>
 			</div>
 		</div><!-- .header-wrap (end) -->
 	</header><!-- HEADER (end) -->
-
+	
 	<?php
 		// Below Header
-		anva_header_below();
+		do_action( 'anva_header_below' );
 
 		// After Top
-		anva_top_after();
+		do_action( 'anva_top_after' );
 
 		// Featured
-		anva_featured_before();
-		anva_featured();
-		anva_featured_after();
+		do_action( 'anva_featured_before' );
+		do_action( 'anva_featured' );
+		do_action( 'anva_featured_after' );
+		
+		// Content Before
+		do_action( 'anva_content_before' );
 	?>
-	
-	<?php anva_content_before(); ?>
 
 	<!-- CONTENT (start) -->
 	<section id="content">
 		<div class="content-wrap">
-			<?php anva_above_layout(); ?>
+			<?php do_action( 'anva_above_layout' ); ?>

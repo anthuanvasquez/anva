@@ -1,61 +1,72 @@
 <?php
 /**
- * Adds meta boxes
+ * Adds meta boxes.
  * 
  * WP's built-in add_meta_box() functionality.
  *
- * @since 	   1.0.0
- * @package    Anva
- * @author     Anthuan Vasquez <eigthy@gmail.com>
+ * @since  1.0.0
+ * @author Anthuan Vasquez <eigthy@gmail.com>
  */
 
 if ( ! class_exists( 'Anva_Meta_Box' ) ) :
 
-class Anva_Meta_Box {
-
+class Anva_Meta_Box
+{
 	/**
-	 * ID for meta box and post field saved
+	 * ID for meta box and post field saved.
 	 *
-	 * @since 2.2.0
-	 * @var string
+	 * @since 1.0.0
+	 * @var   string
 	 */
 	public $id;
 
 	/**
-	 * Arguments to pass to add_meta_box()
+	 * Arguments to pass to add_meta_box().
 	 *
 	 * @since 1.0.0
-	 * @var array
+	 * @var   array
 	 */
 	private $args;
 
 	/**
-	 * Raw options array
+	 * Raw options array.
 	 *
 	 * @since 1.0.0
-	 * @var array
+	 * @var   array
 	 */
 	private $options;
 
 	/**
-	 * Formatted options array
+	 * Prefix options.
 	 *
 	 * @since 1.0.0
-	 * @var array
+	 * @var   array
+	 */
+	private $prefix = '_anva_';
+
+	/**
+	 * Formatted options array.
+	 *
+	 * @since 1.0.0
+	 * @var   array
 	 */
 	private $formatted_options;
 
 	/**
-	 * Constructor
-	 * Hook in meta box to start the process.
+	 * Constructor Hook in meta box to start the process.
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $id, $args, $options ) {
-
+	public function __construct( $id, $args, $options )
+	{
 		$this->id = $id;
 		$this->options = $this->get_formatted( $options );
 
+		// Set the field prefix
+		if ( isset( $this->args['prefix'] ) ) {
+			$this->prefix = $this->args['prefix'];
+		}
+		
 		$defaults = array(
 			'page'			=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
 			'context'		=> 'normal',			// Normal, advanced, or side
@@ -71,12 +82,15 @@ class Anva_Meta_Box {
 	}
 
 	/**
-	 * Enqueue scripts
+	 * Enqueue scripts.
 	 *
-	 * @since 1.0.0
+	 * @global $typenow
+	 *
+	 * @since  1.0.0
+	 * @param  object $hook
 	 */
-	public function scripts( $hook ) {
-		
+	public function scripts( $hook )
+	{	
 		global $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
@@ -96,10 +110,12 @@ class Anva_Meta_Box {
 	}
 
 	/**
-	 * Call WP's add_meta_box() for each post type
+	 * Call WP's add_meta_box() for each post type.
+	 *
+	 * @since 1.0.0
 	 */
-	public function add() {
-
+	public function add()
+	{
 		// Filters
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 		$this->options = apply_filters( 'anva_meta_options_' . $this->id, $this->options );
@@ -116,8 +132,14 @@ class Anva_Meta_Box {
 		}
 	}
 
-	function get_formatted( $options ) {
-
+	/**
+	 * Formatted options.
+	 * 
+	 * @param  array $options
+	 * @return array $formatted_options
+	 */
+	function get_formatted( $options )
+	{
 		$formatted_options = array();
 
 		foreach ( $options as $tab_id => $tab ) {
@@ -138,7 +160,7 @@ class Anva_Meta_Box {
 
 					// Start section
 					$formatted_options[] = array(
-						'id'	 => $section_id,
+						'id'   => $section_id,
 						'name' => $section['name'],
 						'type' => 'group_start'
 					);
@@ -163,12 +185,13 @@ class Anva_Meta_Box {
 	}
 
 	/**
-	 * Renders the content of the meta box
+	 * Renders the content of the meta box.
 	 *
 	 * @since 1.0.0
+	 * @param object $post
 	 */
-	public function display( $post ) {
-
+	public function display( $post )
+	{
 		// Make sure options interface exists so we can show the options form
 		if ( ! function_exists( 'anva_get_options_fields' ) ) {
 			echo __( 'Anva Options Interface not found.', 'anva' );
@@ -178,49 +201,69 @@ class Anva_Meta_Box {
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 		$this->options = apply_filters( 'anva_meta_options_' . $this->id, $this->options );
 
+		if ( isset( $this->args['context'] ) ) {
+    		$class = 'anva-meta-box-' . $this->args['context'];
+    	}
+
 		// Add an nonce field so we can check for it later
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
 
-		// Start content
-		echo '<div class="anva-meta-box">';
+		$settings = array();
+		$option_name = 'anva_meta[' . $this->id . ']';
 
-		// Display tabs
-		echo '<h2 class="nav-tab-wrapper">' . anva_get_options_tabs( $this->options ) . '</h2>';
+		?>
+		<div class="anva-meta-box <?php echo esc_attr( $class ); ?>">
+			<h2 class="nav-tab-wrapper"><?php anva_get_options_tabs( $this->options ); ?></h2>
+			<?php
+				// Get settings from database
+				foreach ( $this->options as $option ) {
 
-		$settings = get_post_meta( $post->ID, $this->id, true );
+		    		if ( empty( $option['id'] ) ) {
+		    			continue;
+		    		}
 
-		// Use options interface to display form elements
-		echo anva_get_options_fields( $this->id, $settings, $this->options );
+		    		$prefix = $this->prefix . $option['id'];
 
-		//  Finish content
-		echo '</div><!-- .anva-meta-box (end) -->';
+		    		$settings[ $option['id'] ] = get_post_meta( $post->ID, $prefix, true );
+
+		    		if ( ! $settings[ $option['id'] ] ) {
+		    			if ( isset( $option['std'] ) ) {
+		    				$settings[ $option['id'] ] = $option['std'];
+		    			}
+		    		}
+		    	}
+				
+				// Use options interface to display form elements
+				echo anva_get_options_fields( $option_name, $settings, $this->options );
+			?>
+		</div><!-- .anva-meta-box (end) -->
+		<?php
 	}
 
 	/**
-	 * Save meta data sent from meta box
+	 * Save meta data sent from meta box.
 	 * 
 	 * @since 1.0.0
-	 * @param integer The post ID
+	 * @param integer $post_id
 	 */
-	public function save( $post_id ) {
-
+	public function save( $post_id )
+	{
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
 		 */
 
 		// Check if our nonce is set.
-		if ( ! isset( $_POST[$this->id . '_nonce'] ) )
+		if ( ! isset( $_POST[ $this->id . '_nonce' ] ) )
 			return $post_id;
 
-		$nonce = $_POST[$this->id . '_nonce'];
+		$nonce = $_POST[ $this->id . '_nonce' ];
 
 		// Verify that the nonce is valid.
 		if ( ! wp_verify_nonce( $nonce, $this->id ) )
 			return $post_id;
 
-		// If this is an autosave, our form has not been submitted,
-		// so we don't want to do anything.
+		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
 			return $post_id;
 
@@ -239,77 +282,52 @@ class Anva_Meta_Box {
 		/*
 		 * OK, its safe!
 		 */
-		$id  = $this->id;
-		$old = get_post_meta( $post_id, $this->id, true );
-
-		if ( isset( $_POST[$id] ) && ! empty( $_POST[$id] ) ) {
-
-			$new = $_POST[$id];
-
-			if ( $new && $new != $old ) {
-
-				// Clean inputs
-				$clean = $this->validate( $new );
-
-				update_post_meta( $post_id, $id, $clean );
-
-			} elseif ( '' == $new && $old ) {
-
-				delete_post_meta( $post_id, $id, $old );
-
-			}
-
+		
+		if ( isset( $_POST['anva_meta'][ $this->id ] ) ) {
+			$input = $_POST['anva_meta'][ $this->id ];
 		}
 
-	}
+		if ( ! empty( $input ) ) {
 
-	/**
-	 * Validate meta data before saved
-	 *
-	 * @since  1.0.0
-	 * @param  $_POST The form fields
-	 * @return array Sanitize options
-	 */
-	private function validate( $input ) {
+			foreach ( $this->options as $option ) {
 
-		$clean = array();
-		$options = $this->options;
-		
-		foreach ( $options as $option ) {
-			
-			if ( ! isset( $option['id'] ) ) {
-				continue;
-			}
+				if ( empty( $option['id'] ) ) {
+					continue;
+				}
 
-			if ( ! isset( $option['type'] ) ) {
-				continue;
-			}
+				$id = $option['id'];
 
-			$id = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $option['id'] ) );
+				// Set checkbox to false if it wasn't sent in the $_POST
+				if ( $option['type'] == 'checkbox' && ! isset( $input[ $id ] ) ) {
+					$input[ $id ] = '0';
+				}
 
-			// Set checkbox to false if it wasn't sent in the $_POST
-			if ( 'checkbox' == $option['type'] && ! isset( $input[$id] ) ) {
-				$input[$id] = false;
-			}
+				if ( $option['type'] == 'switch' && ! isset( $input[ $id ] ) ) {
+					$input[ $id ] = '0';
+				}
 
-			// Set each item in the multicheck to false if it wasn't sent in the $_POST
-			if ( 'multicheck' == $option['type'] && ! isset( $input[$id] ) ) {
-				foreach ( $option['options'] as $key => $value ) {
-					$input[$id][$key] = false;
+				// Set each item in the multicheck to false if it wasn't sent in the $_POST
+				if ( $option['type'] == 'multicheck' && ! isset( $input[ $id ] ) && ! empty( $option['options'] ) ) {
+					foreach ( $option['options'] as $key => $value ) {
+						$input[ $id ][ $key ] = '0';
+					}
+				}
+
+				if ( isset( $input[ $id ] ) ) {
+
+					$input[ $id ] = apply_filters( 'anva_sanitize_' . $option['type'], $input[ $id ], $option );
+					
+					$prefix = $this->prefix . $id;
+
+					if ( ! empty( $input[ $id ]  ) ) {
+						update_post_meta( $post_id, $prefix, $input[ $id ] );
+					} else {
+						delete_post_meta( $post_id, $prefix );
+					}
+					
 				}
 			}
-
-			// For a value to be submitted to database it must pass through a sanitization filter
-			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
-				$clean[$id] = apply_filters( 'anva_sanitize_' . $option['type'], $input[$id], $option );
-			}
 		}
-
-		// Hook to run after validation
-		do_action( 'anva_meta_validate_options_after', $clean );
-
-		return $clean;
 	}
-
-} // End Class
+}
 endif;

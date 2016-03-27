@@ -7,11 +7,11 @@
 get_header();
 ?>
 
-<div class="row grid-columns">
+<div class="container clearfix">
 
 	<?php get_sidebar( 'left' ); ?>
 
-	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
+	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
 		<?php woocommerce_content(); ?>
 	</div><!-- .content-area (end) -->
 

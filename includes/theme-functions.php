@@ -52,53 +52,28 @@ function theme_backup_menu( $menu ) {
  */
 function theme_body_classes( $classes ) {
 	
-	$layout_style 	  = anva_get_option( 'layout_style' );
-	$header_style 	  = anva_get_option( 'header_style', 'normal' );
-	$base_color 	  = anva_get_option( 'base_color', 'blue' );
 	$base_color_style = anva_get_option( 'base_color_style' );
-
-	// Add base color
-	$classes[] = 'base-color-' . $base_color;
+	$layout_style     = anva_get_option( 'layout_style' );
+	$header_style     = anva_get_option( 'header_style', 'normal' );
+	$styles           = anva_get_header_styles();
 	
-	// Add layout style
-	if ( 'stretched' == $layout_style ) {
-		$classes[] = $layout_style;
-	}
-	
-	// Add responsive sticky menu
-	if ( 'responsive-sticky' == $header_style ) {
-		$classes[] = 'sticky-responsive-menu';
-	}
-
-	// Add left side header
-	if ( 'left-side-fixed' == $header_style ) {
-		$classes[] = 'side-header';
-	}
-
-	// Add left side open
-	if ( 'left-side-open' == $header_style ) {
-		$classes[] = 'side-header';
-		$classes[] = 'open-header';
-		$classes[] = 'close-header-on-scroll';
-	}
-
-	// Add left side push
-	if ( 'left-side-push' == $header_style ) {
-		$classes[] = 'side-header';
-		$classes[] = 'open-header';
-		$classes[] = 'push-wrapper';
-		$classes[] = 'close-header-on-scroll';
-	}
-
-	if ( 'right-side-fixed' == $header_style ) {
-		$classes[] = 'side-header';
-		$classes[] = 'side-header-right';
-	}
-
 	// Add dark
 	if ( 'dark' == $base_color_style ) {
 		$classes[] = $base_color_style;
 	}
+
+	// Add layout style
+	if ( 'stretched' == $layout_style ) {
+		$classes[] = $layout_style;
+	}
+
+	// Add header style
+	if ( isset( $styles[ $header_style ] ) ) {
+		if ( ! empty( $styles[ $header_style ]['classes']['body'] ) ) {
+			$classes[] = $styles[ $header_style ]['classes']['body'];
+		}
+	}
+
 
 	return $classes;
 }
@@ -112,39 +87,13 @@ function theme_body_classes( $classes ) {
 function theme_header_classes( $classes ) {
 	
 	$header_color = anva_get_option( 'header_color', 'light' );
-	$header_style = anva_get_option( 'header_style', 'normal' );
+	$header_style = anva_get_option( 'header_style', 'default' );
+	$styles = anva_get_header_styles();
 
-	$sides_classes = array(
-		'left-side-fixed',
-		'left-side-open',
-		'left-side-push',
-		'right-side-fixed',
-		'right-side-open',
-		'right-side-push',
-	);
-
-	// Check the header styles
-	if ( 'full' == $header_style || 'responsive-sticky' == $header_style ) {
-		$classes[] = 'full-header';
-	
-	} elseif ( 'transparent' == $header_style ) {
-		$classes[] = 'transparent-header';
-
-	} elseif ( 'semi-transparent' == $header_style ) {
-		$classes[] = 'transparent-header';
-		$classes[] = 'semi-transparent';
-		$classes[] = 'full-header';
-	
-	} elseif ( 'floating' == $header_style ) {
-		$classes[] = 'floating-header';
-		$classes[] = 'transparent-header';
-	
-	} elseif ( 'static-sticky' == $header_style ) {
-		$classes[] = 'full-header';
-		$classes[] = 'static-sticky';
-	
-	} elseif ( in_array( $header_style, $sides_classes ) ) {
-		$classes[] = 'no-sticky';	
+	if ( isset( $styles[ $header_style ] ) ) {
+		if ( ! empty( $styles[ $header_style ]['classes']['header'] ) ) {
+			$classes[] = $styles[ $header_style ]['classes']['header'];
+		}
 	}
 
 	if ( 'dark' == $header_color ) {
@@ -161,8 +110,8 @@ function theme_header_classes( $classes ) {
  * @return void
  */
 function theme_header_trigger() {
-	$header_style = anva_get_option( 'header_style', 'normal' );
-	if ( 'left-side-open' == $header_style || 'left-side-push' == $header_style || 'right-side-open' == $header_style || 'right-side-push' == $header_style ) :
+	$header_style_type = anva_get_header_style_type();
+	if ( 'side' == $header_style_type ) :
 	?>
 	<div id="header-trigger">
 		<i class="icon-line-menu"></i>
@@ -170,6 +119,12 @@ function theme_header_trigger() {
 	</div>
 	<?php
 	endif;
+}
+
+function theme_gototop() {
+	?>
+	<div id="gotoTop" class="icon-angle-up"></div>
+	<?php
 }
 
 /**
@@ -206,14 +161,18 @@ function theme_add_theme_support() {
  */
 function theme_stylesheets() {
 
+	$color = anva_get_current_color();
+	$color = str_replace( '#', '', $color );
+
 	// Get stylesheet API
 	$api = Anva_Stylesheets_API::instance();
 
 	// Register theme stylesheets
+	wp_register_style( 'crete', '//fonts.googleapis.com/css?family=Crete+Round:400italic', array(), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_dark', get_template_directory_uri() . '/assets/css/dark.css', array(), ANVA_THEME_VERSION, 'all' );
-	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.css', array(), ANVA_THEME_VERSION, 'all' );
-	wp_register_style( 'theme_ie', get_template_directory_uri() . '/assets/css/ie.css', array(), ANVA_THEME_VERSION, 'all' );
-	wp_register_style( 'theme_custom', get_template_directory_uri() . '/assets/css/custom.css', array(), ANVA_THEME_VERSION, 'all' );
+	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.php?color=' . $color, array( 'theme_dark' ), ANVA_THEME_VERSION, 'all' );
+	wp_register_style( 'theme_ie', get_template_directory_uri() . '/assets/css/ie.css', array( 'theme_color' ), ANVA_THEME_VERSION, 'all' );
+	wp_register_style( 'theme_custom', get_template_directory_uri() . '/assets/css/custom.css', array( 'theme_color' ), ANVA_THEME_VERSION, 'all' );
 		
 	// Enqueue theme stylesheets
 	wp_enqueue_style( 'theme_dark' );
@@ -373,41 +332,42 @@ function theme_styles() {
 	return anva_compress( $styles );
 }
 
-add_action('anva_options_page_custom_scripts', 'theme_base_colors');
+add_action( 'anva_options_page_custom_scripts', 'theme_base_colors' );
 function theme_base_colors() {
 	?>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			// Color Scheme Options - These array names should match
-			// the values in base_color_scheme of options.php
 			
-			// Dark Color Options
-			var dark = new Array();
-			dark['bg_color']='#e4ff31';
+			'use_strict';
+
+			var blue                 		= new Array();
+			blue['link_color']       		= '#e41222';
+			blue['link_color_hover'] 		= '#e4ff31';
 			
-			// Light Color Options
-			var light = new Array();
-			light['bg_color']='#6cff00';
-			
-			// Vibrant Color Options
-			var vibrant = new Array();
-			vibrant['bg_color']='#065667';
+			var light_blue                 	= new Array();
+			light_blue['link_color']       	= '#123231';
+			light_blue['link_color_hover'] 	= '#e4ff31';
+
+			var navy_blue                 	= new Array();
+			navy_blue['link_color']       	= '#12a334';
+			navy_blue['link_color_hover'] 	= '#e4ff31';
 			
 			// When the select box #base_color_scheme changes
-			// it checks which value was selected and calls of_update_color
-			$('#section-base_color .anva-radio-img-radio').click(function() {
-			    colorscheme = $(this).val();
-			    if (colorscheme == 'blue') { colorscheme = dark; }
-			    if (colorscheme == 'red') { colorscheme = light; }
-			    if (colorscheme == 'green') { colorscheme = vibrant; }
-			    for (id in colorscheme) {
-			        of_update_color(id,colorscheme[id]);
+			// it checks which value was selected and calls anva_update_color()
+			$('#section-base_color .anva-radio-img-box').click( function() {
+			    var colorscheme = $(this).find('.anva-radio-img-radio').val();
+			    console.log(colorscheme);
+			    if ( colorscheme == 'blue' ) { colorscheme = blue; }
+			    if ( colorscheme == 'light_blue' ) { colorscheme = light_blue; }
+			    if ( colorscheme == 'navy_blue' ) { colorscheme = navy_blue; }
+			    for ( id in colorscheme ) {
+			        anva_update_color( id, colorscheme[ id ] );
 			    }
 			});
 
-			// This does the heavy lifting of updating all the colorpickers and text
-	        function of_update_color(id,hex) {
-	            $('#' + id).wpColorPicker('color',hex);
+			// This does the heavy lifting of updating all the colorpickers.
+	        function anva_update_color( id, hex ) {
+	            $('#' + id).wpColorPicker( 'color', hex );
 	        }
 		});
 	</script>

@@ -58,12 +58,12 @@ endif;
 function anva_register_menus() {
 	register_nav_menus( array(
 		'primary' 	=> anva_get_local( 'menu_primary' ),
-		'secondary' => anva_get_local( 'menu_secondary' )
-	));
+		'secondary' => anva_get_local( 'menu_secondary' ),
+		'tertiary'  => anva_get_local( 'menu_tertiary' ),
+	) );
 }
 
-add_filter('nav_menu_css_class' , 'anvaa_nav_class' , 10 , 2);
-function anvaa_nav_class( $classes, $item ) {
+function anva_current_nav_class( $classes, $item ) {
 	if ( in_array( 'current-menu-item', $classes ) ) {
 		$classes[] = 'current';
 	}
@@ -82,15 +82,15 @@ function anva_get_theme( $id ) {
 	$text = null;
 	$theme = wp_get_theme();
 
-	$data = array(
-		'name' 			=> $theme->get( 'Name' ),
-		'uri' 			=> $theme->get( 'ThemeURI' ),
-		'desc' 			=> $theme->get( 'Description' ),
-		'version' 	 	=> $theme->get( 'Version' ),
-		'domain' 		=> $theme->get( 'TextDomain' ),
-		'author' 		=> $theme->get( 'Author' ),
-		'author_uri' 	=> $theme->get( 'AuthorURI' ),
-	);
+	$data = apply_filters( 'anva_theme_data', array(
+		'name'       => $theme->get( 'Name' ),
+		'uri'        => $theme->get( 'ThemeURI' ),
+		'desc'       => $theme->get( 'Description' ),
+		'version'    => $theme->get( 'Version' ),
+		'domain'     => $theme->get( 'TextDomain' ),
+		'author'     => $theme->get( 'Author' ),
+		'author_uri' => $theme->get( 'AuthorURI' ),
+	) );
 
 	if ( isset( $data[ $id ] ) ) {
 		$text = $data[ $id ];
@@ -108,33 +108,33 @@ function anva_get_theme( $id ) {
 function anva_get_grid_columns() {
 	$columns = array(
 		'1' => array(
-			'name' => '1 Column',
-			'class' => 'col-md-12',
+			'name'   => '1 Column',
+			'class'  => 'col-md-12',
 			'column' => 1,
 		),
 		'2' => array(
-			'name' => '2 Columns',
-			'class' => 'col-md-6',
+			'name'   => '2 Columns',
+			'class'  => 'col-md-6',
 			'column' => 2,
 		),
 		'3' => array(
-			'name' => '3 Columns',
-			'class' => 'col-md-4',
+			'name'   => '3 Columns',
+			'class'  => 'col-md-4',
 			'column' => 3
 		),
 		'4' => array(
-			'name' => '4 Columns',
-			'class' => 'col-md-3',
+			'name'   => '4 Columns',
+			'class'  => 'col-md-3',
 			'column' => 4
 		),
 		'5' => array(
-			'name' => '5 Columns',
-			'class' => 'col-5', // Extend Boostrap Columns
+			'name'   => '5 Columns',
+			'class'  => 'col-5', // Extend Boostrap Columns
 			'column' => 5
 		),
 		'6' => array(
-			'name' => '6 Columns',
-			'class' => 'col-md-2', // Extend Boostrap Columns
+			'name'   => '6 Columns',
+			'class'  => 'col-md-2', // Extend Boostrap Columns
 			'column' => 5
 		),
 	);
@@ -145,7 +145,7 @@ function anva_get_grid_columns() {
  * Sidebar layouts.
  *
  * @since  1.0.0
- * @return array  $layouts
+ * @return array $layouts
  */
 function anva_get_sidebar_layouts() {
 	$layouts = array(
@@ -225,7 +225,7 @@ function anva_get_column_class( $column ) {
 	$layout = '';
 	$column_class = '';
 	$sidebar_layout = anva_get_sidebar_layouts();
-	$current_layout = anva_get_field( 'sidebar_layout' );
+	$current_layout = anva_get_post_meta( '_anva_sidebar_layout' );
 	
 	// Get sidebar location
 	if ( isset( $current_layout['layout'] ) ) {
@@ -245,6 +245,121 @@ function anva_get_column_class( $column ) {
 	return apply_filters( 'anva_column_class', $column_class );
 }
 
+function anva_get_header_styles() {
+	$header_styles = array(
+		'default' 			=> array(
+			'name' 			=> __( 'Default', 'anva' ),
+			'id' 			=> 'default',
+			'classes' 		=> array(
+				'header'	=> 'full-header',
+				'body'		=> ''
+			),
+			'type' 			=> 'sticky'
+		),
+		'transparent' 		=> array(
+			'name'  		=> __( 'Transparent', 'anva' ),
+			'id' 			=> 'transparent',
+			'classes' 		=> array(
+				'header'	=> 'transparent-header',
+				'body'		=> ''
+			),
+			'type' 			=> 'sticky'
+		),
+		'semi_transparent' 	=> array(
+			'name' 			=> __( 'Semi Transparent', 'anva' ),
+			'id' 			=> 'semi_transparent',
+			'classes' 		=> array(
+				'header'	=> 'transparent-header semi-transparent full-header',
+				'body'		=> ''
+			),
+			'type' 			=> 'sticky'
+		),
+		'floating' 			=> array(
+			'name' 			=> __( 'Floating', 'anva' ),
+			'id' 			=> 'floating',
+			'classes' 		=> array(
+				'header'	=> 'floating-header transparent-header',
+				'body'		=> ''
+			),
+			'type' 			=> 'sticky'
+		),
+		'static_sticky' 	=> array(
+			'name' 			=> __( 'Static Sticky', 'anva' ),
+			'id' 			=> 'static_sticky',
+			'classes' 		=> array(
+				'header'	=> 'full-header static-sticky',
+				'body'		=> ''
+			),
+			'type' 			=> 'sticky'
+		),
+		'responsive_sticky' => array(
+			'name' 			=> __( 'Responsive Sticky', 'anva' ),
+			'id' 			=> 'responsive_sticky',
+			'classes' 		=> array(
+				'header'	=> '',
+				'body'		=> 'responsive-sticky-menu'
+			),
+			'type' 			=> 'sticky'
+		),
+		'left_side_fixed' 	=> array(
+			'name' 			=> __( 'Left Side Fixed', 'anva' ),
+			'id' 			=> 'left_side_fixed',
+			'classes' 		=> array(
+				'header'	=> 'no-sticky',
+				'body'		=> 'side-header'
+			),
+			'type' 			=> 'side'
+		),
+		'left_side_open' 	=> array(
+			'name' 			=> __( 'Left Side Open', 'anva' ),
+			'id' 			=> 'left_side_open',
+			'classes' 		=> array(
+				'header'	=> 'no-sticky',
+				'body'		=> 'side-header open-header close-header-on-scroll'
+			),
+			'type' 			=> 'side'
+		),
+		'left_side_push' 	=> array(
+			'name' 			=> __( 'Left Side Push Content', 'anva' ),
+			'id' 			=> 'left_side_push',
+			'classes' 		=> array(
+				'header'	=> 'no-sticky',
+				'body'		=> 'side-header open-header push-wrapper close-header-on-scroll'
+			),
+			'type' 			=> 'side'
+		),
+		'right_side_fixed' 	=> array(
+			'name' 			=> __( 'Right Side Fixed', 'anva' ),
+			'id' 			=> 'right_side_fixed',
+			'classes' 		=> array(
+				'header'	=> 'no-sticky',
+				'body'		=> 'side-header side-header-right'
+			),
+			'type' 			=> 'side'
+		),
+		'right_side_open' 	=> array(
+			'name' 			=> __( 'Right Side Open', 'anva' ),
+			'id' 			=> 'right_side_open',
+			'classes' 		=> array(
+				'header'	=> 'no-sticky',
+				'body'		=> 'side-header side-header-right open-header close-header-on-scroll'
+			),
+			'type' 			=> 'side'
+		),
+		'right_side_push' 	=> array(
+			'name' 			=> __( 'Right Side Push Content', 'anva' ),
+			'id' 			=> 'right_side_push',
+			'classes' 		=> array(
+				'header'	=> 'no-sticky',
+				'body'		=> 'side-header side-header-right open-header push-wrapper close-header-on-scroll'
+			),
+			'type' 			=> 'side'
+		),
+	);
+
+	return apply_filters( 'anva_header_styles', $header_styles );
+}
+
 /**
  * Setup the config array for which
  * features the framework supports
@@ -253,13 +368,13 @@ function anva_get_column_class( $column ) {
  */
 function anva_setup() {
 	$setup = array(
-		'featured' 			=> array(
-			'archive'			=> false,
-			'front'				=> false,
-			'blog'				=> false,
-			'grid'				=> false,
-			'page'				=> false,
-			'single'			=> false
+		'featured' => array(
+			'archive' => false,
+			'front'   => false,
+			'blog'    => false,
+			'grid'    => false,
+			'page'    => false,
+			'single'  => false
 		),
 	);
 
@@ -332,7 +447,7 @@ function anva_column_widths() {
 		'1-col' => array(
 			array(
 				'name' 	=> '100%',
-				'value' => 'grid_12',
+				'value' => 'col_full',
 			)
 		),
 		'2-col' => array(
@@ -468,34 +583,34 @@ function anva_column_widths() {
 function anva_get_footer_widget_columns() {
 	$columns = array(
 		'footer_1' => array(
-			'id' => 'footer_1',
+			'id'   => 'footer_1',
 			'name' => __( 'Footer 1', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 1' ),
-			'col' => 1
+			'col'  => 1
 		),
 		'footer_2' => array(
-			'id' => 'footer_2',
+			'id'   => 'footer_2',
 			'name' => __( 'Footer 2', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 2' ),
-			'col' => 2
+			'col'  => 2
 		),
 		'footer_3' => array(
-			'id' => 'footer_3',
+			'id'   => 'footer_3',
 			'name' => __( 'Footer 3', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 3' ),
-			'col' => 3
+			'col'  => 3
 		),
 		'footer_4' => array(
-			'id' => 'footer_4',
+			'id'   => 'footer_4',
 			'name' => __( 'Footer 4', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 4' ),
-			'col' => 4
+			'col'  => 4
 		),
 		'footer_5' => array(
-			'id' => 'footer_5',
+			'id'   => 'footer_5',
 			'name' => __( 'Footer 5', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 5' ),
-			'col' => 5
+			'col'  => 5
 		)
 	);
 	return apply_filters( 'anva_get_footer_widget_columns', $columns );
@@ -564,9 +679,9 @@ function anva_display_footer_sidebar_locations() {
  * Display set of columns
  *
  * @since  1.0.0
- * @param  integer  $num
- * @param  array    $widths
- * @param  array    $columns
+ * @param  integer $num
+ * @param  array   $widths
+ * @param  array   $columns
  * @return void
  */
 function anva_columns( $num, $widths, $columns ) {
@@ -607,11 +722,11 @@ function anva_columns( $num, $widths, $columns ) {
 function anva_gallery_templates() {
 	$templates = array(
 		'grid_2'  => array(
-			'name' => __( 'Gallery 2 Columns', 'anva' ),
-			'id'	 => 'grid_2',
+			'name'   => __( 'Gallery 2 Columns', 'anva' ),
+			'id'     => 'grid_2',
 			'layout' => array(
 				'size' => 'anva_grid_2',
-				'col'	 => 'col-2'
+				'col'  => 'col-2'
 			)
 		),
 		'grid_3'  => array(

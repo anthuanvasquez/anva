@@ -11,8 +11,7 @@ get_header();
 
 $class 			= '';
 $column 		= 2; // Default Column
-$hide_title   	= anva_get_field( 'hide_title' ); // @todo move to global
-$current_grid 	= anva_get_field( 'grid_column' );
+$current_grid 	= anva_get_post_meta( '_anva_grid_column' );
 $grid_columns 	= anva_get_grid_columns();
 $thumbnail 		= 'anva_post_grid';
 

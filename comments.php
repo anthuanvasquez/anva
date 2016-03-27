@@ -11,7 +11,7 @@ if ( post_password_required() ) {
 
 ?>
 
-<?php anva_comments_before(); ?>
+<?php do_action( 'anva_comments_before' ); ?>
 
 <div id="comments" class="comments-area">
 
@@ -32,13 +32,13 @@ if ( post_password_required() ) {
 			?>
 		</h2>
 
-		<?php anva_comment_pagination(); ?>
+		<?php do_action( 'anva_comment_pagination' ); ?>
 
 		<ol class="comment-list">
 			<?php wp_list_comments( 'type=comment&callback=anva_comment_list' ); ?>
 		</ol><!-- .comment-list (end) -->
 
-		<?php anva_comment_pagination(); ?>
+		<?php do_action( 'anva_comment_pagination' ); ?>
 
 	<?php endif; ?>
 
@@ -126,4 +126,4 @@ if ( post_password_required() ) {
 
 </div><!-- #comments (end) -->
 
-<?php anva_comments_after(); ?>
+<?php do_action( 'anva_comments_after' ); ?>

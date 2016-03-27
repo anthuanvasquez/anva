@@ -16,9 +16,9 @@ $settings = anva_get_page_builder_field();
 <?php if ( ! isset( $settings['enable'] ) || ! $settings['enable'] ) : ?>
 
 	<div class="container clearfix">
-		<div class="postcontent fullwidth">
+		<div class="col_full">
 			<?php printf( '<div class="alert alert-warning">%s</div>', __( 'Anva Page Builder is empty or is disabled.', 'anva' ) ) ; ?>
-		</div><!-- .postcontent (end) -->
+		</div><!-- .col_full (end) -->
 	</div><!-- .container (end) -->
 
 <?php else : ?>

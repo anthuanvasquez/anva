@@ -338,6 +338,13 @@ function anva_get_colors_scheme( $skin_path = '', $ext = 'png' ) {
 	return apply_filters( 'anva_colors_scheme', $colors );
 }
 
+function anva_get_current_color() {
+	$color = anva_get_option( 'base_color' );
+	$schemes = anva_get_colors_scheme();
+	if ( isset( $schemes[ $color ] ) ) {
+		return $schemes[ $color ]['color'];
+	}
+}
 /**
  * Get animations.
  *

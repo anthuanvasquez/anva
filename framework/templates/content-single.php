@@ -11,7 +11,8 @@
 		<h2><?php the_title(); ?></h2>
 	</div><!-- .entry-title (end) -->
 	
-	<?php anva_posts_meta(); ?>
+	<?php do_action( 'anva_posts_meta' ); ?>
+	
 	<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 	
 	<div class="entry-content notopmargin">
@@ -19,7 +20,7 @@
 	</div><!-- .entry-content (end) -->
 	
 	<div class="entry-footer">
-		<?php anva_posts_footer(); ?>
+		<?php do_action( 'anva_posts_footer' ); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-link (end) -->' ) ); ?>
 		<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link">', '</span>' ); ?>
 	</div><!-- .entry-footer (end) -->

@@ -9,41 +9,35 @@
 get_header();
 ?>
 
-<div class="row grid-columns">
+<div class="container clearfix">
 
 	<?php get_sidebar( 'left' ); ?>
 
-	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
-		<?php anva_posts_content_before(); ?>
+	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
+		
+		<?php do_action( 'anva_posts_content_before' ); ?>
+		
 		<?php while ( have_posts() ) : the_post(); ?>
-			<?php $hide_title = anva_get_field( 'hide_title' ); ?>
-			<div class="article-wrapper">
+			<div class="entry-wrap">
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 					<div class="entry-content">
-						<?php if ( 'hide' != $hide_title ) : ?>
-							<div class="entry-title">
-								<h1><?php the_title(); ?></h1>
-							</div><!-- .entry-title (end) -->
-						<?php endif; ?>
-						<div class="entry-summary">
-							
-							<?php the_content(); ?>
-							
-							<!-- CONTACT FORM (start)-->
-							<?php anva_contact_form(); ?>
-							<!-- CONTACT FORM (end) -->
-
-						</div><!-- .entry-summary -->
+						<?php the_content(); ?>
 					</div><!-- .entry-content -->
-				</article><!-- #post-<?php the_ID(); ?> -->
-			</div><!-- .article-wrapper (end) -->
+					
+					<!-- CONTACT FORM (start)-->
+					<?php anva_contact_form(); ?>
+					<!-- CONTACT FORM (end) -->
 
+				</article><!-- #post-<?php the_ID(); ?> -->
+			</div><!-- .entry-wrap (end) -->
 		<?php endwhile; ?>
-		<?php anva_posts_content_after(); ?>
-	</div><!-- .content-area (end) -->
+		
+		<?php do_action( 'anva_posts_content_after' ); ?>
+	
+	</div><!-- .postcontent (end) -->
 
 	<?php get_sidebar( 'right' ); ?>
 	
-</div><!-- .grid-columns (end) -->
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

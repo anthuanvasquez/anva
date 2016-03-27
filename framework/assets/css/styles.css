@@ -11595,15 +11595,51 @@ button.toast-close-button {
   display: block;
   margin-bottom: 30px;
 }
-.debug-info ul {
+#debug-info {
+  position: relative;
+}
+#debug-info ul {
   list-style: none;
   margin-bottom: 0;
   margin-left: 0;
 }
-.debug-info span {
+#debug-info span {
   display: inline-block;
   font-weight: bold;
   width: 140px;
+}
+.side-header.open-header.push-wrapper #debug-info {
+  -webkit-transition: left .4s ease;
+  -moz-transition: left .4s ease;
+  -o-transition: left .4s ease;
+  transition: left .4s ease;
+}
+@media (min-width: 992px) {
+  .side-header:not(.open-header) #debug-info {
+    margin: 0 0 0 260px !important;
+    width: auto !important;
+  }
+}
+@media (min-width: 992px) {
+  .side-header:not(.open-header) #debug-info .container {
+    width: auto;
+    margin: 0 40px;
+  }
+}
+@media (min-width: 992px) {
+  .side-header.side-header-right:not(.open-header) #debug-info {
+    margin: 0 260px 0 0 !important;
+  }
+}
+@media (min-width: 992px) {
+  .side-header.open-header.push-wrapper.side-header-open #debug-info {
+    left: 260px;
+  }
+}
+@media (min-width: 992px) {
+  .side-header.side-header-right.open-header.push-wrapper.side-header-open #debug-info {
+    left: -260px;
+  }
 }
 /*-----------------------------------------------------------------------------------
 

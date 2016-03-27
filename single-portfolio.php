@@ -14,38 +14,37 @@ get_header();
 	
 	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
 		<div id="portfolio">
-			<?php anva_posts_content_before(); ?>
+			
+			<?php do_action( 'anva_posts_content_before' ); ?>
+			
 			<?php while ( have_posts() ) : the_post(); ?>
 				<div class="entry-wrap">
 					<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
-						<div class="entry-title">
-							<h1><?php the_title(); ?></h1>
-						</div><!-- .entry-title (end) -->
 						
 						<?php // anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 						
 						<div class="entry-content portfolio-single-content row clearfix">
 
 							<div class="col-sm-12 portfolio-gallery">
-							<?php
-								$display_gallery = get_post_meta( $post->ID, '_tzp_display_gallery', true );
-								if ( $display_gallery ) {
+								<?php
+									$display_gallery = get_post_meta( $post->ID, '_tzp_display_gallery', true );
+									if ( $display_gallery ) {
 
-									$id 							= get_the_ID();
-									$gallery_template = anva_get_field( 'gallery_template' );
-									$templates				= anva_gallery_templates();
+										$id               = get_the_ID();
+										$gallery_template = anva_get_post_meta( '_anva_gallery_template' );
+										$templates        = anva_gallery_templates();
 
-									if ( empty( $gallery_template ) ) {
-										$gallery_template = anva_get_option( 'gallery_template' );
+										if ( empty( $gallery_template ) ) {
+											$gallery_template = anva_get_option( 'gallery_template' );
+										}
+
+										if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
+											$columns = $templates[$gallery_template]['layout']['col'];
+											$size    = $templates[$gallery_template]['layout']['size'];
+											echo anva_gallery_grid( $id, $columns, $size );
+										}
 									}
-
-									if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
-										$columns = $templates[$gallery_template]['layout']['col'];
-										$size = $templates[$gallery_template]['layout']['size'];
-										echo anva_gallery_grid( $id, $columns, $size );
-									}
-								}
-							?>
+								?>
 							</div>
 
 							<div class="col-sm-12 portfolio-video">
@@ -89,7 +88,7 @@ get_header();
 											<li><span><i class="fa fa-user"></i> Created by:</span> <?php anva_the_field( 'author' ); ?></li>
 											<li><span><i class="fa fa-calendar"></i> Completed on:</span> <?php anva_the_field( 'date' ); ?></li>
 											<li><span><i class="fa fa-lightbulb-o"></i> Skills:</span> HTML5 / PHP / CSS3</li>
-											<li><span><i class="fa fa-link"></i> Client:</span> <a href="<?php echo esc_url( anva_get_field( 'client_url' ) ); ?>"><?php anva_the_field( 'client' ); ?></a></li>
+											<li><span><i class="fa fa-link"></i> Client:</span> <a href="<?php echo esc_url( anva_get_post_meta( '_anva_client_url' ) ); ?>"><?php anva_the_field( 'client' ); ?></a></li>
 										</ul>
 									</div>
 								</div>
@@ -119,11 +118,14 @@ get_header();
 
 						</div><!-- .entry-content (end) -->
 					</article><!-- #post-<?php the_ID(); ?> -->
+				</div><!-- .entry-wrap (end) -->
+				
+				<?php do_action( 'anva_posts_comments' ); ?>
 
-				</div><!-- .entry-wrapp (end) -->
-				<?php anva_posts_comments(); ?>
 			<?php endwhile; ?>
-			<?php anva_posts_content_after(); ?>
+			
+			<?php do_action( 'anva_posts_content_after' ); ?>
+		
 		</div><!-- #portfolio (end) -->
 	</div><!-- .postcontent (end) -->
 	

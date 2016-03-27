@@ -45,7 +45,7 @@ function anva_envato_updates() {
 				'id'			=> 'backup',
 				'desc'			=> __( 'Select if you\'d like a backup made of the previous theme version on your server before updating to the new version.', 'anva' ),
 				'std'			=> 'yes',
-				'type' 			=> 'radio',
+				'type' 			=> 'select',
 				'options'		=> array(
 					'yes' 		=> __( 'Yes, make theme backups when updating', 'anva' ),
 					'no' 		=> __( 'No, do not make theme backups', 'anva' )

@@ -1,6 +1,6 @@
 <?php
 
-// Sanitize filtersß
+// Sanitize filters
 add_filter( 'anva_sanitize_text', 				'sanitize_text_field' );
 add_filter( 'anva_sanitize_tel', 				'sanitize_text_field' );
 add_filter( 'anva_sanitize_password', 			'sanitize_text_field' );
@@ -499,8 +499,8 @@ function anva_sanitize_social_media( $input ) {
 		$output = array();
 		if ( ! empty( $input['includes'] ) ) {
 			foreach ( $input['includes'] as $include ) {
-				if ( isset( $input['profiles'][$include] ) ) {
-					$output[$include] = $input['profiles'][$include];
+				if ( isset( $input['profiles'][ $include ] ) ) {
+					$output[ $include ] = $input['profiles'][ $include ];
 				}
 			}
 		}

@@ -1,22 +1,29 @@
 <?php
 /**
  * Template Name: Archives
- * 
- * The template used for displaying archives content.
- * 
- * @version 1.0.0
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
-get_header();
 
-$hide_title = anva_get_field( 'hide_title' );
+get_header();
 ?>
 
-<div class="row grid-columns">
+<div class="container clearfix">
 
 	<?php get_sidebar( 'left' ); ?>
 
 	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
-		<div class="article-wrapper">
+		<div class="entry-wrap">
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 				<div class="entry-content">
 					<?php if ( 'hide' != $hide_title ) : ?>
@@ -53,11 +60,11 @@ $hide_title = anva_get_field( 'hide_title' );
 						</ul>
 				</div><!-- .entry-content (end) -->
 			</article><!-- #post-<?php the_ID(); ?> -->
-		</div><!-- .article-wrapper (end) -->
+		</div><!-- .entry-wrap (end) -->
 	</div><!-- .content-area (end) -->
 
 	<?php get_sidebar( 'right' ); ?>
 	
-</div><!-- .grid-columns (end) -->
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

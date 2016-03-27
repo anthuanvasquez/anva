@@ -72,12 +72,18 @@ class Anva_Envato_Updates
 		// Tap into Envato API
 		$envato_api = new Envato_Protected_API( $this->args['envato_username'], $this->args['envato_api_key'] );
 
-		var_dump($envato_api);
 
 		// Get themes purchased from this Envato user and re-format
 		// as an array we can use to pull directly from.
 		$purchased_themes = array();
 		$purchased = $envato_api->wp_list_themes( true );
+		
+		//var_dump($purchased);
+
+		if ( isset( $purchased['http_code'] ) && $purchased['http_code'] == 403 ) {
+			return;
+		}
+
 		if ( ! empty( $purchased ) ) {
 			foreach ( $purchased as $theme ) {
 				if ( $theme->author_name == $this->args['author_name'] ) {

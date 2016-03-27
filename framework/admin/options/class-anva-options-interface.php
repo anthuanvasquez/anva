@@ -5,8 +5,8 @@
  * @since  1.0.0
  * @author Anthuan Vásquez <me@anthuanvasquez.net>  
  */
-class Anva_Options_Interface {
-
+class Anva_Options_Interface
+{
 	/**
 	 * Generates the tabs that are used in the options menu.
 	 *

@@ -282,33 +282,13 @@ function anva_get_header_class( $class = '' ) {
  * @since  1.0.0
  * @return string|boolean
  */
-function anva_get_header_style() {
+function anva_get_header_style_type() {
 
-	$header_style = anva_get_option( 'header_style', 'normal' );
+	$header_style = anva_get_option( 'header_style', 'default' );
+	$styles = anva_get_header_styles();
 
-	$sides_classes = array(
-		'left-side-fixed',
-		'left-side-open',
-		'left-side-push',
-		'right-side-fixed',
-		'right-side-open',
-		'right-side-push',
-	);
-
-	if ( 'normal' == $header_style || 'responsive-sticky' == $header_style ) {
-		return 'full';
-	
-	} elseif ( 'transparent' == $header_style || 'semi-transparent' == $header_style ) {
-		return 'transparent';
-	
-	} elseif ( 'floating' == $header_style ) {
-		return 'floating';
-	
-	} elseif ( 'static-sticky' == $header_style ) {
-		return 'static';
-	
-	} elseif ( in_array( $header_style, $sides_classes ) ) {
-		return 'side';	
+	if (isset( $styles[ $header_style ] ) ) {
+		return $styles[ $header_style ]['type'];
 	}
 
 	return false;
@@ -417,8 +397,21 @@ function anva_excerpt( $length = '' ) {
 }
 
 /**
- * Get current year in footer copyright
+ * Filter applied on copyright text to allow dynamic variables.
  *
+ * @since  1.0.0
+ * @param  string $text
+ * @return string $text
+ */
+function anva_footer_copyright_helpers( $text ) {
+	$text = str_replace( '%year%', esc_attr( date( 'Y' ) ), $text );
+	$text = str_replace( '%site_title%', esc_html( get_bloginfo( 'site_title' ) ), $text );
+	return $text;
+}
+
+
+/**
+ * Get current year in footer copyright.
  *
  * @since 1.0.0
  */
@@ -529,14 +522,15 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
 }
 
 /**
- * Get templates part
+ * Get template framework part.
  *
  * @since 1.0.0
+ * @param string $name
+ * @param string $slug
  */
-function anva_get_template_part( $name ) {
-	$path = 'templates/';
-	$part = 'template_';
-	get_template_part( $path . $part . $name );
+function anva_get_template_part( $name, $slug = 'content' ) {
+	$path = trailingslashit( 'framework/templates' );
+	get_template_part( $path . $slug, $name );
 }
 
 /**

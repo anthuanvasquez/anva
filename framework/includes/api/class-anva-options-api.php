@@ -118,7 +118,7 @@ class Anva_Options_API
 		// Social media buttons defautls
 		$social_media_defaults = apply_filters( 'anva_social_icons_defaults', array(
 			'dribbble'		=> 'https://dribbble.com/oidoperfecto',
-			'google-plus' 	=> 'https://plus.google.com/+AnthuanVasquez',
+			'gplus' 		=> 'https://plus.google.com/+AnthuanVasquez',
 			'twitter' 		=> 'https://twitter.com/oidoperfecto', // Follow Me! :)
 			'rss'			=> get_feed_link()
 		) );
@@ -299,9 +299,9 @@ class Anva_Options_API
 					),
 					'footer_copyright' => array(
 						'name' => __( 'Copyright Text', 'anva' ),
-						'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your site.', 'anva' ),
+						'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your site. <em>%year%</em> — Show current year. <em>%site_title%</em> — Show your site title.', 'anva' ),
 						'id' => "footer_copyright",
-						'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), $author ),
+						'std' => '(c) %year% %site_title%. ' . sprintf( __( 'Powered by %s. Designed by %s.', 'anva' ), '<a href="' . esc_url( 'http://wordpress.org' ) . '" title="WordPress" target="_blank">WordPress</a>', $author ),
 						'type' => "textarea"
 					),
 				)
@@ -314,7 +314,7 @@ class Anva_Options_API
 
 		$content_options = array(
 			'single' => array(
-				'name' => __( 'Single Posts', 'anva' ),
+				'name' => __( 'Posts: Single', 'anva' ),
 				'desc' => __( 'These settings will only apply to vewing single posts.', 'anva' ),
 				'class' => 'group-single-posts',
 				'options' => array(
@@ -324,7 +324,7 @@ class Anva_Options_API
 						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the post.', 'anva'),
 						'id' => 'single_meta',
 						'std' => 'show',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'show' => __('Show meta info', 'anva'),
 							'hide' => __('Hide meta info', 'anva'),
@@ -336,7 +336,7 @@ class Anva_Options_API
 						'desc' => __('Choose how you want your featured images to show at the top of the posts.', 'anva'),
 						'id' => 'single_thumb',
 						'std' => 'large',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'small' => __('Show small thumbnails', 'anva'),
 							'large' => __('Show large thumbnails', 'anva'),
@@ -350,55 +350,52 @@ class Anva_Options_API
 						'desc' => __('Select if you\'d like to completely hide comments or not below the post.', 'anva'),
 						'id' => 'single_comments',
 						'std' => 'show',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'show' => __('Show comments', 'anva'),
 							'hide' => __('Hide comments', 'anva'),
 						)
 					),
-
 					'single_share' => array(
 						'name' => __('Show share buttons', 'anva'),
 						'desc' => __('Select to display socials sharing in single posts.', 'anva'),
 						'id' => 'single_share',
 						'std' => 'show',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'show' => __('Show share buttons', 'anva'),
 							'hide' => __('Hide share buttons', 'anva')
 						)
 					),
-
 					'single_author' => array(
 						'name' => __('Show about author', 'anva'),
 						'desc' => __('Select to display about the author in single posts.', 'anva'),
 						'id' => 'single_author',
 						'std' => 'show',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'show' => __('Show about author', 'anva'),
 							'hide' => __('Hide about author', 'anva')
 						)
 					),
-
 					'single_related' => array(
 						'name' => __('Show related posts', 'anva'),
 						'desc' => __('Select to display related posts in single posts.', 'anva'),
 						'id' => 'single_related',
-						'std' => 'show',
-						'type' => 'radio',
+						'std' => 'cat',
+						'type' => 'select',
 						'options' => array(
-							'show' => __('Show related posts', 'anva'),
+							'tag'  => __('Show related posts by tag', 'anva'),
+							'cat'  => __('Show related posts by category', 'anva'),
 							'hide' => __('Hide related posts', 'anva'),
 						)
 					),
-
 					'single_navigation' => array(
 						'name' => __('Show navigation posts', 'anva'),
 						'desc' => __('Select to display next and previous posts in single posts.', 'anva'),
 						'id' => 'single_navigation',
 						'std' => 'show',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'show' => __('Show navigation posts', 'anva'),
 							'hide' => __('Hide navigation posts', 'anva'),
@@ -406,19 +403,17 @@ class Anva_Options_API
 					),
 				)
 			),
-
 			'primary' => array(
-				'name' 	=> __( 'Primary Posts', 'anva' ),
+				'name' 	=> __( 'Posts: Blog', 'anva' ),
 				'desc' 	=> __( 'These settings apply to your primary posts page', 'anva' ),
 				'class' => 'group-primary-posts',
 				'options' => array(
-
 					'primary_meta' => array(
 						'name' => __('Show meta info', 'anva'),
 						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the primary posts.', 'anva'),
 						'id' => 'primary_meta',
 						'std' => 'show',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'show' => __('Show meta info', 'anva'),
 							'hide' => __('Hide meta info', 'anva'),
@@ -430,7 +425,7 @@ class Anva_Options_API
 						'desc' => __('Choose how you want your featured images to show in primary posts.', 'anva'),
 						'id' => 'primary_thumb',
 						'std' => 'large',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'small' => __('Show small thumbnails', 'anva'),
 							'large' => __('Show large thumbnails', 'anva'),
@@ -438,19 +433,17 @@ class Anva_Options_API
 							'hide' => __('Hide thumbnails', 'anva'),
 						)
 					),
-
 					'primary_content' => array(
 						'name' => __('Show excerpt or full content', 'anva'),
 						'desc' => __('Choose whether you want to show full content or post excerpts only.', 'anva'),
 						'id' => 'primary_content',
 						'std' => 'excerpt',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'content' => __('Show full content', 'anva'),
 							'excerpt' => __('Show excerpt', 'anva'),
 						)
 					),
-
 					'exclude_categories' => array(
 						'name' => __('Exclude Categories', 'anva'),
 						'desc' => __('Select any categories you\'d like to be excluded from your blog.', 'anva'),
@@ -461,7 +454,6 @@ class Anva_Options_API
 					),
 				)
 			),
-
 			'archives' => array(
 				'name' => __( 'Archives', 'anva' ),
 				'desc' => __( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', 'anva' ),
@@ -473,7 +465,7 @@ class Anva_Options_API
 						'desc' => __('Choose whether or not you want the title to show on tag archives, category archives, date archives, author archives and search result pages.', 'anva'),
 						'id' => 'archive_title',
 						'std' => 'show',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'show' => __('Show the title', 'anva'),
 							'hide' => __('Hide title', 'anva'),
@@ -496,7 +488,6 @@ class Anva_Options_API
 				'desc' => __( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', 'anva' ),
 				'class' => 'group-contactform',
 				'options' => array(
-					
 					'contact_email' => array(
 						'name' => __('Your Email Address', 'anva'),
 						'desc' => __('Enter which email address will be sent from the contact form.', 'anva'),
@@ -504,7 +495,6 @@ class Anva_Options_API
 						'std' => '',
 						'type' => 'text',
 					),
-
 					'contact_fields' => array(
 						'name' => __('Contact Form Fields', 'anva'),
 						'desc' => __('Select and sort fields for your contact page. Use fields you want to show on your contact form.', 'anva'),
@@ -517,7 +507,6 @@ class Anva_Options_API
 						),
 						'type' => 'contact_fields',
 					),
-
 					'contact_captcha' => array(
 						'name' => __('Captcha', 'anva'),
 						'desc' => __('Enable this option to display captcha image to prevent possible spam in contact page.', 'anva'),
@@ -529,7 +518,6 @@ class Anva_Options_API
 							'yes' => __( 'Enable the captcha', 'anva' ),
 						),
 					),
-
 					'contact_map_html' => array(
 						'name' => __('Office or Company Name', 'anva'),
 						'desc' => __('Enter your office name, brand or address. It displays as popup inside the map.', 'anva'),
@@ -537,7 +525,6 @@ class Anva_Options_API
 						'std' => '',
 						'type' => 'text',
 					),
-
 					'contact_map_type' => array(
 						'name' => __('Map Type', 'anva'),
 						'desc' => __('Enter the map coordinates. Latitude and Longitude address.', 'anva'),
@@ -551,7 +538,6 @@ class Anva_Options_API
 						),
 						'type' => 'select',
 					),
-
 					'contact_map_address' => array(
 						'name' => __('Map Coordinates', 'anva'),
 						'desc' => __('Enter the map coordinates. Latitude and Longitude address.', 'anva'),
@@ -559,7 +545,6 @@ class Anva_Options_API
 						'std' => '',
 						'type' => 'double_text',
 					),
-
 					'contact_map_zoom' => array(
 						'name' => __('Map Zoom', 'anva'),
 						'desc' => __('Select zoom level for the contact map..', 'anva'),
@@ -591,10 +576,10 @@ class Anva_Options_API
 						'desc' => __( 'This theme comes with a special stylesheet that will target the screen resolution of your website vistors and show them a slightly modified design if their screen resolution matches common sizes for a tablet or a mobile device.', 'anva' ),
 						'id' => "responsive",
 						'std' => 'yes',
-						'type' => 'radio',
+						'type' => 'select',
 						'options' => array(
 							'yes' => __( 'Yes, apply special styles to tablets and mobile devices', 'anva' ),
-							'no' 	=> __( 'No, allow website to show normally on tablets and mobile devices', 'anva' ),
+							'no' 	=> __( 'No, show normally on tablets and mobile devices', 'anva' ),
 						)
 					),
 				)

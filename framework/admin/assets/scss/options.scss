@@ -27,6 +27,10 @@
 		margin: 20px 0 10px;
 	}
 
+	.CodeMirror {
+		border: 1px solid #ddd;
+	}
+
 }
 
 // When settings has changed
@@ -281,8 +285,8 @@
 
 	.section-columns {
 		.select-wrap {
-			margin-right: 4%;
-			width: 48%;
+			margin-right: 0;
+			width: 100%;
 			&.last {
 				margin-right: 0;
 			}
@@ -415,7 +419,7 @@
 	.controls {
 		.anva-input-label {
 			display: block;
-			background: url(../images/fancy-select_2x.png) repeat-x;
+			// background: url(../images/fancy-select_2x.png) repeat-x;
 		    background-size: 7px 32px;
 		    border-radius: 0;
 		    box-shadow: 0 0 4px #eee;

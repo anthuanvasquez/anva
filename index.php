@@ -9,12 +9,6 @@ get_header();
 ?>
 
 <div class="container clearfix">
-	
-	<?php if ( ! is_front_page() ) : ?>
-		<div class="page-title">
-			<h1><?php echo anva_get_local( 'blog' ); ?></h1>
-		</div><!-- .page-title -->
-	<?php endif; ?>
 
 	<?php get_sidebar( 'left' ); ?>
 
@@ -24,11 +18,11 @@ get_header();
 				if ( have_posts() ) {
 					while ( have_posts() ) {
 						the_post();
-						get_template_part( 'content', 'post' );
+						anva_get_template_part( 'post' );
 					}
 					anva_pagination();
 				} else {
-					get_template_part( 'content', 'none' );
+					anva_get_template_part( 'none' );
 				}
 			?>
 		</div><!-- #posts (end) -->

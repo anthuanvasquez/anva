@@ -8,16 +8,21 @@
 
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+		
 		<?php anva_the_post_thumbnail( anva_get_option( 'primary_thumb' ) ); ?>
+		
 		<div class="entry-title">
 			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 		</div><!-- .entry-title (end) -->
-		<?php anva_posts_meta(); ?>
+		
+		<?php do_action( 'anva_posts_meta' ); ?>
+		
 		<div class="entry-content">
-			<?php anva_posts_content(); ?>
+			<?php do_action( 'anva_posts_content' ); ?>
 			<div class="entry-footer clearfix">
-				<?php anva_posts_footer(); ?>
+				<?php do_action( 'anva_posts_footer' ); ?>
 			</div>
 		</div><!-- .entry-content (end) -->
+		
 	</article><!-- .entry (end) -->
 </div><!-- .entry-wrap (end) -->

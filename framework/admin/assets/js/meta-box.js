@@ -28,6 +28,7 @@ jQuery(document).ready(function($) {
 			AnvaMeta.tabs();
 			AnvaMeta.datePicker();
 			AnvaMeta.spinner();
+			AnvaMeta.select();
 			AnvaMeta.extras();
 		},
 
@@ -79,6 +80,7 @@ jQuery(document).ready(function($) {
 			var templates = [
 				'default', // Default template
 				'template_archives.php',
+				'template_contact-form.php',
 				'template_list.php'
 			];
 
@@ -109,6 +111,21 @@ jQuery(document).ready(function($) {
 			}
 		},
 
+		select: function() {
+			// Fancy Select
+			$('.anva-input-label').each(function(){
+				var el = $(this),
+					value = el.find('select').val(),
+					text = el.find('option[value="' + value + '"]').text();
+				el.prepend('<span>' + text + '</span>');
+			});
+
+			$('.anva-input-label select').live('change', function(){
+				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
+				el.closest('.anva-input-label').find('span').text(text);
+			});
+		},
+
 		datePicker: function() {
 			if ( $('.anva-datepicker').length > 0 ) {
 				$('.anva-datepicker').datepicker({
@@ -119,7 +136,8 @@ jQuery(document).ready(function($) {
 		},
 
 		extras: function() {
-			if ( $('.anva-meta-box .nav-tab-wrapper > a').length == 1 ) {
+			var $tabWrapper = $('.anva-meta-box .nav-tab-wrapper > a');
+			if ( $tabWrapper.length <= 1 ) {
 				$('.anva-meta-box .nav-tab-wrapper').hide();
 			}
 		},

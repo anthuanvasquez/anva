@@ -15,14 +15,14 @@ get_header();
 	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
 		<div class="single-post nobottommargin">
 			
-			<?php anva_posts_content_before(); ?>
+			<?php do_action( 'anva_posts_content_before' ); ?>
 			
 			<?php while ( have_posts() ) : the_post(); ?>
-				<?php get_template_part( 'content', 'single' ); ?>
-				<?php anva_posts_comments(); ?>
+				<?php anva_get_template_part( 'single' ); ?>
+				<?php do_action( 'anva_posts_comments' ); ?>
 			<?php endwhile; ?>
 
-			<?php anva_posts_content_after(); ?>
+			<?php do_action( 'anva_posts_content_after' ); ?>
 			
 		</div><!-- .single-post (end) -->
 	</div><!-- .postcontent (end) -->

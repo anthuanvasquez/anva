@@ -28,6 +28,13 @@ jQuery(document).ready(function($) {
 
 		extras: function() {
 
+			var custom_css = document.getElementById('custom_css');
+			var editor = CodeMirror.fromTextArea( custom_css, {
+				mode: "html",
+        		theme: "default",
+        		lineNumbers: true
+			});
+
 			// Reset Button
 			$(document).on( 'click', '.reset-button', function(e) {
 				e.preventDefault();

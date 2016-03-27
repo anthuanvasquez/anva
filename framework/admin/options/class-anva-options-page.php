@@ -131,7 +131,8 @@ class Anva_Options_Page {
 	{
 		if ( $this->options_screen != $hook )
 			return;
-
+		
+		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_CSS . 'codemirror.css', array(), '5.13.2' );
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'anva-animate', ANVA_FRAMEWORK_ADMIN_CSS . 'animate.min.css', array(), ANVA_FRAMEWORK_VERSION );
 		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_CSS . 'animsition.min.css', array(), '4.0.1' );
@@ -155,6 +156,7 @@ class Anva_Options_Page {
 			return;
 
 		// Enqueue custom option panel JS
+		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_JS . 'codemirror.js', array( 'jquery' ), '5.13.2' );
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_JS . 'vendor/jquery.animsition.min.js', array( 'jquery' ), '4.0.1' );
 		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_JS . 'jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2' );
 		wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3' );
