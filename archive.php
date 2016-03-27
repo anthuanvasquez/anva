@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for 404's.
+ * The template file for archives.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised

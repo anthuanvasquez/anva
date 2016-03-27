@@ -1,11 +1,20 @@
 <?php
 /**
- * The default template used for displaying content in blogroll.
+ * The default template used for post content.
  *
- * @version 1.0.0
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 ?>
-
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 		
@@ -24,5 +33,5 @@
 			</div>
 		</div><!-- .entry-content (end) -->
 		
-	</article><!-- .entry (end) -->
+	</article><!-- #post-<?php the_ID(); ?> -->
 </div><!-- .entry-wrap (end) -->

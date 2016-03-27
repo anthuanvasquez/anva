@@ -2,9 +2,19 @@
 /**
  * Template Name: Builder
  * 
- * The template used for displaying content builder.
+ * The template file used for displaying the content builder.
  *
- * @version 1.0.0
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 
 get_header();
