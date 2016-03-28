@@ -3,13 +3,16 @@
 if ( ! class_exists( 'Anva_Options_API' ) ) :
 
 /**
- * Anva Core Options API
+ * Anva Core Options API.
  *
  * This class establishes all of the framework's theme options,
  * allow these options to be modified from theme side.
  *
- * @since  1.0.0
- * @author Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Options_API
 {

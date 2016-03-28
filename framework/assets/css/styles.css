@@ -4676,6 +4676,9 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay {
 #posts .entry-content {
   margin-top: 30px;
 }
+.post-list .entry-footer {
+  margin-top: 30px;
+}
 .entry {
   position: relative;
   margin: 0 0 50px;
@@ -4705,6 +4708,9 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay {
   position: relative;
   width: 100%;
   height: auto;
+}
+.entry-title {
+  word-wrap: break-word;
 }
 .entry-title h2 {
   margin: 0;
@@ -4772,6 +4778,7 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay {
 }
 .entry-content {
   position: relative;
+  word-wrap: break-word;
 }
 .entry-link {
   display: block;
@@ -5311,6 +5318,18 @@ body:not(.device-touch) .entry-link {
   margin-right: 0;
   line-height: 1;
 }
+.commentlist .bypostauthor .comment-wrap cite,
+.commentlist li ul.children li.bypostauthor .comment-wrap cite {
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  margin-left: 5px;
+  padding: 2px 3px;
+}
 #reviews .commentlist {
   padding-bottom: 30px;
   margin: 0 0 20px;
@@ -5348,6 +5367,42 @@ body:not(.device-touch) .entry-link {
 .pingback p {
   margin: 20px 0 0 0;
 }
+.commentlist li .comment-content h1,
+.pingback h1,
+.commentlist li .comment-content h2,
+.pingback h2,
+.commentlist li .comment-content h3,
+.pingback h3,
+.commentlist li .comment-content h4,
+.pingback h4,
+.commentlist li .comment-content h5,
+.pingback h5,
+.commentlist li .comment-content h6,
+.pingback h6,
+.commentlist li .comment-content p,
+.pingback p,
+.commentlist li .comment-content pre,
+.pingback pre,
+.commentlist li .comment-content ul,
+.pingback ul,
+.commentlist li .comment-content ol,
+.pingback ol,
+.commentlist li .comment-content dl,
+.pingback dl,
+.commentlist li .comment-content dd,
+.pingback dd,
+.commentlist li .comment-content blockquote,
+.pingback blockquote,
+.commentlist li .comment-content address,
+.pingback address,
+.commentlist li .comment-content table,
+.pingback table,
+.commentlist li .comment-content fieldset,
+.pingback fieldset,
+.commentlist li .comment-content form,
+.pingback form {
+  margin: 20px 0 0 0;
+}
 .comment-avatar {
   position: absolute;
   top: 15px;
@@ -5365,6 +5420,9 @@ body:not(.device-touch) .entry-link {
 }
 .commentlist li .children .comment-avatar {
   left: -25px;
+}
+.commentlist li .children .comment-wrap {
+  padding-left: 45px;
 }
 .comment-content .comment-author {
   margin-bottom: -10px;
@@ -5385,8 +5443,7 @@ body:not(.device-touch) .entry-link {
 .comment-content .comment-author span:hover {
   color: #888;
 }
-.comment-content .comment-author span,
-.comment-content .comment-author a {
+.comment-content .comment-author span a {
   font-size: 12px;
   font-weight: normal;
   font-family: 'Crete Round', serif;
@@ -11215,7 +11272,7 @@ body:not(.device-touch) #gotoTop {
 /* ----------------------------------------------------------------
 	Error 404
 -----------------------------------------------------------------*/
-.error404 {
+.error404:not(body) {
   display: block;
   font-size: 216px;
   font-weight: 600;
@@ -11583,6 +11640,14 @@ button.toast-close-button {
   color: #555;
   border-bottom: 1px solid #666;
 }
+.dark .footer-text-left a {
+  color: rgba(255, 255, 255, 0.25);
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.25);
+}
+.dark .footer-text-left a:hover {
+  color: rgba(255, 255, 255, 0.35);
+  border-bottom-color: rgba(255, 255, 255, 0.35);
+}
 .copyrights-menu {
   margin-bottom: 10px;
 }
@@ -11652,6 +11717,7 @@ button.toast-close-button {
 .widget {
   position: relative;
   margin-top: 50px;
+  word-wrap: break-word;
 }
 .widget:first-child {
   margin-top: 0;

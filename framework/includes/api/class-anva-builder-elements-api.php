@@ -3,14 +3,16 @@
 if ( ! class_exists( 'Anva_Builder_Elements_API' ) ) :
 
 /**
- * Anva Page Builder API.
+ * Anva Page Builder Elements API.
  *
  * This sets up the default Builder elements
- * Also, this class adds and API to add/remove
- * these elements.
+ * Also, this class adds and API to add/remove these elements.
  *
- * @since  1.0.0
- * @author Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Builder_Elements_API {
 

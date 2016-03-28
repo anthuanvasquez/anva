@@ -138,7 +138,7 @@ function anva_posted_on() {
  * 
  * @since 1.0.0
  */
-function anva_social_icons( $icons = array(), $style = '', $shape = '', $border = '', $size = '' ) {
+function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', $icons = array() ) {
 
 	$classes = array();
 
@@ -265,15 +265,14 @@ function anva_post_nav() {
 	?>
 	<div class="post-navigation clearfix">
 		<?php
-
 			if ( $previous ) {
 				$previous_title = $previous->post_title;
-				previous_post_link( '<div class="post-previous col_half nobottommargin">%link</div>', $previous_title );
+				previous_post_link( '<div class="post-previous col_half nobottommargin">%link</div>', '&lArr; ' . $previous_title );
 			}
 			
 			if ( $next ) {
 				$next_title = $next->post_title;
-				next_post_link( '<div class="post-next col_half col_last nobottommargin tright' . esc_attr( $class ) . '">%link</div>', $next_title );
+				next_post_link( '<div class="post-next col_half col_last nobottommargin tright' . esc_attr( $class ) . '">%link</div>', $next_title . ' &rArr;' );
 			}
 		?>
 	</div><!-- .post-navigation (end) -->
@@ -459,8 +458,6 @@ function anva_post_related() {
 		return;
 	}
 
-	global $post;
-
 	?>
 	<h3><?php _e( 'Related Posts', 'anva' ); ?></h3>
 	<div class="related-posts clearfix">
@@ -477,76 +474,78 @@ function anva_post_related() {
 		
 		// Query arguments
 		$query_args = array(
-			'post__not_in' => array( $post->ID ),
-			'posts_per_page' => $limit,
+			'post__not_in'        => array( get_queried_object_id() ),
+			'posts_per_page'      => $limit,
 			'ignore_sticky_posts' => 1,
-			'orderby' => 'rand'
+			'orderby'             => 'rand',
 		);
 
 		// Set by categories
 		if ( 'cat' == $single_related ) {
-			$categories = get_the_category( $post->ID );
-			foreach ( $categories as $cat ) {
-				$ids[] = $cat->term_id;
-			}
-			$query_args['category__in'] = $ids;
+			$categories = wp_get_post_terms( get_queried_object_id(), 'category', array( 'fields' => 'ids' ) );
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'category',
+					'terms'    => $categories
+				)
+			);
 		}
 
 		// Set by tag
 		if ( 'tag' == $single_related ) {
-			$tags = wp_get_post_tags( $post->ID );
-			foreach( $tags as $tag ) {
-				$ids[] = $tag->term_id;
-				$query_args['tag__in'] = $ids;
-			}
+			$tags = wp_get_post_terms( get_queried_object_id(), 'post_tag', array( 'fields' => 'ids') );
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'post_tag',
+					'terms'    => $tags
+				)
+			);
 		}
+		
+		$query = anva_get_query_posts( $query_args );
+		
+		if ( $query->have_posts() ) : ?>
+			
+			<?php while ( $query->have_posts() ) :
+				$query->the_post(); ?>
 
-		if ( $ids ) :
-		
-			$query = anva_get_query_posts( $query_args );
-		
-			if ( $query->have_posts() ) : ?>
+				<?php if ( 1 == $count ) : echo $open_row; endif ?>
 				
-				<?php while ( $query->have_posts() ) :
-					$query->the_post(); ?>
-
-					<?php if ( 1 == $count ) : echo $open_row; endif ?>
-					
-					<div class="mpost clearfix">
+				<div class="mpost clearfix">
+					<?php if ( has_post_thumbnail() ) : ?>
 						<div class="entry-image">
 							<a href="<?php the_permalink(); ?>">
 								<?php the_post_thumbnail( 'blog_md' ); ?>
 							</a>
 						</div>
-						<div class="entry-c">
-							<div class="entry-title">
-								<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-							</div>
-							<ul class="entry-meta clearfix">
-								<li><i class="icon-calendar3"></i> <?php the_time( 'jS F Y' ); ?></li>
-								<li><a href="<?php the_permalink(); ?>/#comments"><i class="icon-comments"></i> <?php echo get_comments_number(); ?></a></li>
-							</ul>
-							<div class="entry-content">
-								<?php anva_excerpt( 90 ); ?>
-							</div>
+					<?php endif; ?>
+					<div class="entry-c">
+						<div class="entry-title">
+							<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
 						</div>
-					</div><!-- .md-post (end) -->
+						<ul class="entry-meta clearfix">
+							<li><i class="icon-calendar3"></i> <?php the_time( 'jS F Y' ); ?></li>
+							<li><a href="<?php the_permalink(); ?>/#comments"><i class="icon-comments"></i> <?php echo get_comments_number(); ?></a></li>
+						</ul>
+						<div class="entry-content">
+							<?php anva_excerpt( 90 ); ?>
+						</div>
+					</div>
+				</div><!-- .md-post (end) -->
 
-					<?php if ( 0 == $count % $column ) : echo $close_row; endif ?>
-					<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row_last; endif; ?>
+				<?php if ( 0 == $count % $column ) : echo $close_row; endif ?>
+				<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row_last; endif; ?>
 
-					<?php $count++; ?>
+				<?php $count++; ?>
 
-				<?php endwhile; ?>
-				
-				<?php if ( ( $count - 1 ) != $limit ) : echo $close_row; endif; ?>
-
-			<?php else :
-
-				_e( 'Not Posts Found', 'anva' );
+			<?php endwhile; ?>
 			
-			endif;
+			<?php if ( ( $count - 1 ) != $limit ) : echo $close_row; endif; ?>
 
+		<?php else :
+
+			_e( 'Not Posts Found', 'anva' );
+		
 		endif;
 
 		wp_reset_postdata();
@@ -797,11 +796,11 @@ function anva_contact_form() {
 			var options = {
 				controls: {
 					panControl: true,
-	        zoomControl: false,
-	        mapTypeControl: false,
-	        scaleControl: false,
-	        streetViewControl: false,
-	        overviewMapControl: true
+			zoomControl: false,
+			mapTypeControl: false,
+			scaleControl: false,
+			streetViewControl: false,
+			overviewMapControl: true
 				},
 				scrollwheel: false,
 				maptype: '<?php echo esc_js( $contact_map_type ); ?>',
@@ -946,8 +945,10 @@ function anva_get_product_search_form() {
  * @param  $depth
  */
 function anva_comment_list( $comment, $args, $depth ) {
+	
 	$GLOBALS['comment'] = $comment;
-	extract($args, EXTR_SKIP);
+	
+	extract( $args, EXTR_SKIP );
 
 	if ( 'div' == $args['style'] ) {
 		$tag = 'div';
@@ -960,67 +961,56 @@ function anva_comment_list( $comment, $args, $depth ) {
 	<<?php echo $tag ?> <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ) ?> id="comment-<?php comment_ID() ?>">
 	
 	<?php if ( 'div' != $args['style'] ) : ?>
-		<div id="div-comment-<?php comment_ID() ?>" class="comment-wrapper">
-			<div class="row">
+	<div id="comment-<?php comment_ID() ?>" class="comment-wrap clearfix">
 	<?php endif; ?>
 	
-	<div class="comment-avatar col-xs-3 col-sm-2">
-		<a href="<?php echo comment_author_url( $comment->comment_ID ); ?>">
-			<?php
-				if ( $args['avatar_size'] != 0 ) {
-					echo get_avatar( $comment, 64 );
-				}
-			?>
-		</a>
+	<div class="comment-meta">
+		<div class="comment-author vcard">
+			<div class="comment-avatar clearfix">
+				<a href="<?php echo comment_author_url( $comment->comment_ID ); ?>">
+					<?php
+						if ( $args['avatar_size'] != 0 ) {
+							echo get_avatar( $comment, 64 );
+						}
+					?>
+				</a>
+			</div>
+		</div>
 	</div>
 
-	<div class="comment-body col-xs-9 col-sm-10">
-		<h4 class="comment-author vcard">
-		<?php
-			printf(
-				'<cite class="fn">%s</cite> <span class="says sr-only">says:</span>',
-				get_comment_author_link()
-			);
-		?>
-		</h4>
+	<div class="comment-content clearfix">
+		<div class="comment-author">
+			<?php echo get_comment_author_link(); ?>
 
-		<div class="comment-meta">
-			<a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ); ?>">
-				<?php printf( __( '%1$s at %2$s', 'anva' ), get_comment_date(),  get_comment_time() ); ?>
-				<?php edit_comment_link( __( 'Edit', 'anva' ), '  ', '' ); ?>
-			</a>
+			<?php
+				if ( $comment->user_id === $GLOBALS['post']->post_author ) {
+					printf( '<cite>%s</cite>', __( 'Post Author', 'anva' ) );
+				}
+			?>
+
+			<span>
+				<a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ); ?>">
+					<?php printf( '%1$s %2$s %3$s', get_comment_date(), __( 'at', 'anva' ),  get_comment_time() ); ?>
+					<?php edit_comment_link( __( 'Edit', 'anva' ), ' - ', '' ); ?>
+				</a>
+			</span>
 		</div>
 
 		<?php if ( $comment->comment_approved == '0' ) : ?>
 			<em class="comment-awaiting-moderation well well-sm"><?php _e( 'Your comment is awaiting moderation.', 'anva' ); ?></em>
 		<?php endif; ?>
 		
-		<div class="comment-text">
-			<?php comment_text(); ?>
-		</div>
-		
-		<div class="reply">
-			<?php comment_reply_link( array_merge( $args, array( 'add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
-		</div>
+		<?php comment_text(); ?>
+
+		<?php comment_reply_link( array_merge( $args, array( 'add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth'], 'reply_text' => '<i class="icon-reply"></i>' ) ) ); ?>
 	
 	</div>
 
 	<?php if ( 'div' != $args['style'] ) : ?>
-	</div>
-	</div>
+	</div><!-- .comment-wrap (end) -->
 	<?php endif; ?>
 
 <?php
-}
-
-/**
- * Replace reply link class in comment form.
- * 
- * @since 1.0.0
- */
-function anva_comment_reply_link_class( $class ){
-	$class = str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-default btn-sm", $class );
-	return $class;
 }
 
 /**

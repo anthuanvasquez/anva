@@ -5,8 +5,11 @@ if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
 /**
  * Anva Builder Meta Box
  *
- * @since  1.0.0
- * @author Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Builder_Meta_Box
 {

@@ -233,22 +233,24 @@ jQuery(document).ready(function($) {
 				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
 				if ( value == 'google' ) {
 					el.closest('.section-typography').find('.google-font').fadeIn('fast');
-					text = 'Arial';
+					el.closest('.section-typography').find('.sample-text-font').hide();
 				} else {
 					el.closest('.section-typography').find('.google-font').hide();
+					el.closest('.section-typography').find('.sample-text-font').show();
+					el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
 				}
-				el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
 			});
 
 			$('.section-typography .anva-typography-face').on( 'change', function() {
 				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
 				if ( value == 'google' ) {
-					text = 'Arial';
 					el.closest('.section-typography').find('.google-font').fadeIn('fast');
+					el.closest('.section-typography').find('.sample-text-font').hide();
 				} else {
 					el.closest('.section-typography').find('.google-font').hide();
+					el.closest('.section-typography').find('.sample-text-font').show();
+					el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
 				}
-				el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
 			});
 		},
 

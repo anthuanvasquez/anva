@@ -21,7 +21,7 @@
 		<span class="input-group-btn">
 			<button type="submit" class="btn btn-default search-submit">
 				<span class="sr-only"><?php echo anva_get_local( 'search_for' ); ?></span>
-				<i class="fa fa-search"></i>
+				<i class="icon-search"></i>
 			</button>
 		</span>
 	</div>

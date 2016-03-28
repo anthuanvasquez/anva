@@ -1,10 +1,16 @@
 <?php
 
-/*
- * Anva Gallery Meta Box
- */
 if ( ! class_exists( 'Anva_Gallery_Meta_Box' ) ) :
 
+/**
+ * Anva Gallery Meta Box.
+ *
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
+ */
 class Anva_Gallery_Meta_Box
 {
 	/**

@@ -341,7 +341,7 @@ function anva_options() {
 			'std' => array(
 				'size' => '14px',
 				'face' => 'google',
-				'google' => 'Lato',
+				'google' => 'Lato:300,400,400italic,600,700',
 				'style' => 'normal',
 				'color' => '#555555'
 			),
@@ -354,24 +354,12 @@ function anva_options() {
 			'id' => 'heading_font',
 			'std' => array(
 				'face' => 'google',
-				'google' => 'Raleway',
+				'google' => 'Raleway:300,400,500,600,700',
 				'style' => 'normal',
-				'color' => '#333333'
+				'color' => '#444444'
 			),
 			'type' => 'typography',
 			'options' => array( 'style', 'face', 'color' )
-		),
-		'menu_font' => array(
-			'name' => __( 'Menu Font', 'anva' ),
-			'desc' => __( 'This applies to the menu items on your site.', 'anva' ),
-			'id' => 'menu_font',
-			'std' => array(
-				'face' => 'google',
-				'google' => 'Raleway',
-				'style' => 'normal'
-			),
-			'type' => 'typography',
-			'options' => array( 'style', 'face' )
 		),
 		'heading_h1' => array(
 			'name' => __( 'H1', 'anva' ),
@@ -671,6 +659,32 @@ function anva_options() {
 		);
 
 		anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), null, $login_options, false );
+
+		$single_post_reading_bar = array(
+			'name' => __( 'Show Post Reading Bar', 'anva'),
+			'desc' => __( 'Select to display the post reading bar indicator in single posts.', 'anva'),
+			'id' => 'single_post_reading_bar',
+			'std' => '',
+			'type' => 'select',
+			'options' => array(
+				'show' => __( 'Show the post reading bar', 'anva' ),
+				'hide' => __( 'Hide the post reading bar', 'anva' ),
+			)
+		);
+		anva_add_option( 'content', 'single', 'single_post_reading_bar', $single_post_reading_bar );
+
+		$debug_options = array(
+			'debug' => array(
+				'name' => __( 'Show Debug Info?', 'anva'),
+				'desc' => sprintf( __( 'Enable this option to show debug information in the footer, as database queries, memory usage and others. Note: the debug information will only be visible to administrators and the wordpress constant %s be set to TRUE.', 'anva' ), '<a href="' . esc_url( 'http://codex.wordpress.org/Debugging_in_WordPress' ) . '" target="_blank">WP_DEBUG</a>' ),
+				'id' => 'debug',
+				'std' => '0',
+				'type' => 'switch',
+			)
+		);
+		anva_add_option_section( 'advanced', 'debug', __( 'Debug', 'anva' ), null, $debug_options, false );
+
+
 	}
 
 

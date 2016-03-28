@@ -6,10 +6,11 @@
  * entire framework. This class should be loaded and initialized before anything else within
  * the theme is called to properly use the framework.
  * 
- * @since      1.0.0
- * @author     Anthuan Vásquez <me@anthuanvasquez.net>
- * @copyright  Copyright (c) 2016, Anthuan Vásquez
- * @link       http://anthuanvasquez.net/
+ * @since       1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 
 class Anva
@@ -123,6 +124,7 @@ class Anva
         // General
         include_once( ANVA_FRAMEWORK_DIR . 'includes/general.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/display.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'includes/post-formats.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/helpers.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/media.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/locals.php' );
@@ -152,7 +154,6 @@ class Anva
         add_filter( 'body_class', 'anva_body_class' );
         add_filter( 'body_class', 'anva_browser_class' );
         add_filter( 'the_password_form', 'anva_password_form' );
-        add_filter( 'comment_reply_link', 'anva_comment_reply_link_class' );
         add_filter( 'nav_menu_css_class' , 'anva_current_nav_class', 10 , 2 );
         add_action( 'init', 'anva_register_menus' );
         add_action( 'init', 'anva_contact_send_email' );
@@ -193,6 +194,7 @@ class Anva
         add_action( 'anva_featured', 'anva_featured_default' );
         add_action( 'anva_content_before', 'anva_page_title_default' );
         add_action( 'anva_breadcrumbs', 'anva_breadcrumbs_default' );
+        add_action( 'anva_content_after', 'anva_post_reading_bar', 20 );
         add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
         add_action( 'anva_above_layout', 'anva_above_layout_default' );
         add_action( 'anva_below_layout', 'anva_below_layout_default' );

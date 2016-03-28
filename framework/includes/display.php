@@ -332,9 +332,12 @@ function anva_header_primary_menu_addon_default() {
 
 	<!-- Top Search -->
 	<div id="top-search">
-		<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-		<form action="search.html" method="get">
-			<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+		<a href="#" id="top-search-trigger">
+			<i class="icon-search3"></i>
+			<i class="icon-line-cross"></i>
+		</a>
+		<form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+			<input type="text" name="s" class="form-control" value="" placeholder="<?php _e( 'Type & Hit Enter..', 'anva' ); ?>">
 		</form>
 	</div><!-- #top-search end -->
 	<?php
@@ -368,7 +371,7 @@ function anva_footer_copyrights_default() {
 	$footer_copyright = anva_footer_copyright_helpers( $footer_copyright );
 
 	?>
-	<div class="col_half">
+	<div class="col_half footer-text-left">
 		<?php echo $footer_copyright; ?>
 		<div class="copyright-links">
 			<!-- @todo footer links -->
@@ -376,7 +379,7 @@ function anva_footer_copyrights_default() {
 	</div>
 	
 	<div class="col_half col_last tright">
-		<div class="fright clearfix"><?php anva_social_icons(); ?></div>
+		<div class="fright clearfix"><?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?></div>
 		<div class="clear"></div>
 		<!-- @todo footer extra info -->
 	</div>
@@ -709,13 +712,15 @@ function anva_posts_meta_default() {
  * @return void
  */
 function anva_posts_content_default() {
+
+	if ( has_post_format( array( 'quote', 'link' ) ) ) {
+		return;
+	}
 	
 	$primary_content = anva_get_option( 'primary_content', 'excerpt' );
 	
 	if ( 'excerpt' == $primary_content ) {
-		echo '<div class="entry-summary">';
 		anva_excerpt();
-		echo '</div>';
 		echo '<a class="more-link" href="' . get_the_permalink() . '">' . anva_get_local( 'read_more' ) . '</a>';
 		return;
 	}
@@ -723,9 +728,8 @@ function anva_posts_content_default() {
 	the_content( anva_get_local( 'read_more' ) );
 }
 
-if ( ! function_exists( 'anva_posts_comments_default' ) ) :
 /**
- * Display posts comments default
+ * Display posts comments default.
  * 
  * @since  1.0.0
  * @return void
@@ -738,7 +742,45 @@ function anva_posts_comments_default() {
 		}
 	}
 }
-endif;
+
+function anva_post_reading_bar() {
+	$single_post_reading_bar = anva_get_option( 'single_post_reading_bar' );
+	if ( 'show' != $single_post_reading_bar ) {
+		return;
+	}
+
+	if ( is_singular( 'post' ) ) :
+	?>
+	<div id="post-reading-wrap">
+        <div class="post-reading-bar">
+            <progress value="0" id="post-reading-indicator" class="flat">
+              <div class="post-reading-indicator-container">
+                <span class="post-reading-indicator-bar"></span>
+              </div>
+            </progress>
+            
+            <div class="container clearfix">
+                <div class="spost clearfix notopmargin nobottommargin">
+                    <div class="entry-image">
+                        <?php if ( has_post_thumbnail() ) : ?>
+                            <?php the_post_thumbnail( 'thumbnail' ); ?>
+                        <?php endif; ?>
+                    </div>
+                    <div class="entry-c">
+                        <div class="post-reading-label">
+                            <?php _e( 'You Are Reading', 'anva' ); ?>
+                        </div>
+                        <div class="entry-title">
+                            <h4><?php echo get_the_title(); ?></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- #post-reading-wrap (end) -->
+    <?php
+    endif;
+}
 
 /**
  * Display debug information.
@@ -748,7 +790,8 @@ endif;
  * @since 1.0.0
  */
 function anva_debug() {
-	if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG && current_user_can( 'manage_options' ) ) :
+	$debug = anva_get_option( 'debug', 0 );
+	if ( defined( 'WP_DEBUG' ) && true == WP_DEBUG && current_user_can( 'manage_options' ) && $debug ) :
 	?>
 	<div id="debug-info">
 		<div class="container clearfix">

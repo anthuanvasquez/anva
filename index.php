@@ -23,12 +23,15 @@ get_header();
 	<?php get_sidebar( 'left' ); ?>
 
 	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
+
+		<?php do_action( 'anva_posts_content_before' ); ?>
+		
 		<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'index' ) ); ?>">
 			<?php
 				if ( have_posts() ) {
 					while ( have_posts() ) {
 						the_post();
-						anva_get_template_part( 'post' );
+						anva_get_template_part( 'format' );
 					}
 					anva_pagination();
 				} else {
@@ -36,6 +39,9 @@ get_header();
 				}
 			?>
 		</div><!-- #posts (end) -->
+
+		<?php do_action( 'anva_posts_content_after' ); ?>
+
 	</div><!-- .postcontent (end) -->
 	
 	<?php get_sidebar( 'right' ); ?>

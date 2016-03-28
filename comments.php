@@ -23,14 +23,14 @@ if ( post_password_required() ) {
 
 <?php do_action( 'anva_comments_before' ); ?>
 
-<div id="comments" class="comments-area">
+<div id="comments" class="clearfix">
 
 	<?php if ( have_comments() ) : ?>
-		<h2 class="comments-title">
+		<h3 class="comments-title">
 			<?php
 				printf(
 					_nx(
-						'A response &ldquo;%2$s&rdquo;',
+						'1 response &ldquo;%2$s&rdquo;',
 						'%1$s responses &ldquo;%2$s&rdquo;',
 						get_comments_number(), 
 						'comments title', 'anva'
@@ -40,11 +40,11 @@ if ( post_password_required() ) {
 						'<span>' . get_the_title() . '</span>'
 					);
 			?>
-		</h2>
+		</h3>
 
 		<?php do_action( 'anva_comment_pagination' ); ?>
 
-		<ol class="comment-list">
+		<ol class="commentlist clearfix">
 			<?php wp_list_comments( 'type=comment&callback=anva_comment_list' ); ?>
 		</ol><!-- .comment-list (end) -->
 
@@ -68,12 +68,6 @@ if ( post_password_required() ) {
 			'cancel_reply_link' => __( 'Cancel Reply', 'anva' ),
 			'label_submit'      => __( 'Post Comment', 'anva' ),
 
-			'comment_field' =>  '
-				<p class="comment-form-comment form-group">
-				<label for="comment" class="hidden">' . _x( 'Comment', 'noun', 'anva' ) . '</label>
-				<textarea id="comment" name="comment" class="form-control" cols="45" rows="8" aria-required="true">' . '</textarea>
-				</p>',
-
 			'must_log_in' => '<p class="must-log-in">' .
 				sprintf(
 					__( 'You must be %s to post a comment.', 'anva' ),
@@ -95,40 +89,49 @@ if ( post_password_required() ) {
 					__( 'Log out?', 'anva' )
 				) . '</p>',
 
-			'comment_notes_before' => '<p class="comment-notes">' .
-				__( 'Your email address will not be published.', 'anva' ) . ' ' . ( $req ? $required_text : '' ) .
-				'</p>',
+			'fields' => apply_filters( 'comment_form_default_fields', array(
 
-			'comment_notes_after' => '<p class="form-allowed-tags">' .
+				'author' =>
+					'<div class="col_one_third comment-form-author">
+					<label for="author">' . __( 'Name', 'anva' ) . '</label> ' .
+					( $req ? '<span class="required">*</span>' : '' ) .
+					'<input id="author" name="author" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author'] ) .
+					'" size="30"' . $aria_req . ' />' .
+					'</div>',
+
+				'email' =>
+					'<div class="col_one_third comment-form-email">
+					<label for="email">' . __( 'Email', 'anva' ) . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
+					'<input id="email" name="email" type="text" class="sm-form-control" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />' .
+					'</div>',
+
+				'url' =>
+					'<div class="col_one_third col_last comment-form-url">
+					<label for="url">' . __( 'Website', 'anva' ) . '</label>' .
+					'<input id="url" name="url" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_url'] ) .
+					'" size="30" />' .
+					'</div>' .
+					'<div class="clear"></div>'
+
+				)
+			),
+
+			'comment_notes_after' => '<p class="form-allowed-tags hidden">' .
 				sprintf(
 					__( 'You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: %s', 'anva' ),
 					' <code>' . allowed_tags() . '</code>'
 				) . '</p>',
 
-			'fields' => apply_filters( 'comment_form_default_fields', array(
+			'comment_field' =>  '
+				<div class="col_full comment-form-comment">
+				<label for="comment">' . __( 'Comment', 'anva' ) . '</label>
+				<textarea id="comment" name="comment" class="sm-form-control" cols="45" rows="8" aria-required="true">' . '</textarea>
+				</div>',
 
-				'author' =>
-					'<p class="comment-form-author form-group">' .
-					'<input id="author" name="author" type="text" class="form-control" value="' . esc_attr( $commenter['comment_author'] ) .
-					'" size="30"' . $aria_req . ' />' .
-					'<label for="author">' . __( 'Name', 'anva' ) . '</label> ' .
-					( $req ? '<span class="required">*</span>' : '' ) .
-					'</p>',
+			'comment_notes_before' => '<p class="comment-notes">' .
+				__( 'Your email address will not be published.', 'anva' ) . ' ' . ( $req ? $required_text : '' ) .
+				'</p>',
 
-				'email' =>
-					'<p class="comment-form-email form-group">
-					<input id="email" name="email" type="text" class="form-control" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />
-					<label for="email">' . __( 'Email', 'anva' ) . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
-					'</p>',
-
-				'url' =>
-					'<p class="comment-form-url form-group">
-					<input id="url" name="url" type="text" class="form-control" value="' . esc_attr( $commenter['comment_author_url'] ) .
-					'" size="30" />
-					<label for="url">' . __( 'Website', 'anva' ) . '</label>' .
-					'</p>'
-				)
-			),
 		);
 
 		comment_form( $args );

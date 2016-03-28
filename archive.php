@@ -25,6 +25,9 @@ $archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 	<?php get_sidebar( 'left' ); ?>
 
 	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
+
+		<?php do_action( 'anva_posts_content_before' ); ?>
+		
 		<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'archive' ) ); ?>">
 			<?php
 				if ( have_posts() ) {
@@ -38,6 +41,9 @@ $archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 				}
 			?>
 		</div><!-- #posts (end) -->
+
+		<?php do_action( 'anva_posts_content_after' ); ?>
+
 	</div><!-- .postcontent (end) -->
 	
 	<?php get_sidebar( 'right' ); ?>

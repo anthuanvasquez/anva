@@ -22,11 +22,9 @@
 
 ?>
 
-/* ----------------------------------------------------------------
-    Colors
-
-    Replace the HEX Code with your Desired Color HEX
------------------------------------------------------------------*/
+/* ----------------------------------------------------------------- */
+ * Colors
+ * ----------------------------------------------------------------- */
 
 ::selection { background: <?php echo $color; ?>; }
 ::-moz-selection { background: <?php echo $color; ?>; }
@@ -165,7 +163,9 @@ input.switch-toggle-round:checked + label:before,
 .pagination > .active > a:hover,
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
-.pagination > .active > span:focus { background-color: <?php echo $color; ?> !important; }
+.pagination > .active > span:focus,
+.commentlist .bypostauthor .comment-wrap cite,
+.commentlist li ul.children li.bypostauthor .comment-wrap cite { background-color: <?php echo $color; ?> !important; }
 
 #primary-menu.style-4 > ul > li:hover > a,
 #primary-menu.style-4 > ul > li.current > a,

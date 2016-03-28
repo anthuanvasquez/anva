@@ -107,9 +107,12 @@ function anva_get_media_queries( $localize ) {
 }
 
 /**
- * Register Image Sizes
+ * Register image sizes.
  *
- * @since 1.0.0
+ * @global  $wp_version
+ *
+ * @since  1.0.0
+ * @return void
  */
 function anva_add_image_sizes() {
 	

@@ -31,13 +31,8 @@ function anva_api_init() {
 	
 }
 
-/* ---------------------------------------------------------------- */
-/* (0) Helpers - Options
-/* ---------------------------------------------------------------- */
-
-if ( ! function_exists( 'anva_get_option' ) ) :
 /**
- * Get theme option value
+ * Get theme option value.
  * 
  * If no value has been saved, it returns $default.
  * Needed because options are saved as serialized strings.
@@ -70,22 +65,20 @@ function anva_get_option( $name, $default = false ) {
 	
 	return $default;
 }
-endif;
 
-if ( ! function_exists( 'anva_the_option' ) ) :
 /**
- * This is for print theme option value
+ * This is for print theme option value.
  * 
  * @since 1.0.0
+ * @param string  $name
+ * @param boolean $default
  */
 function anva_the_option( $name, $default = false ) {
 	echo anva_get_option( $name, $default );
 }
-endif;
 
-if ( ! function_exists( 'anva_get_option_name' ) ) :
 /**
- * Get theme option name
+ * Get global theme option name.
  * 
  * @since 1.0.0
  */
@@ -93,11 +86,9 @@ function anva_get_option_name() {
 	$options = new Anva_Options;
 	return $options->get_option_name();
 }
-endif;
 
-if ( ! function_exists( 'anva_get_options' ) ) :
 /**
- * Get core and theme options
+ * Get core and theme options.
  * 
  * @since 1.0.0
  */
@@ -105,7 +96,6 @@ function anva_get_options() {
 	$options = new Anva_Options;
 	return $options->get_options();
 }
-endif;
 
 /**
  * Get tabs from options interface.
@@ -127,7 +117,6 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 	return $options_interface->get_fields( $option_name, $settings, $options );
 }
 
-if ( ! function_exists( 'anva_get_option_defaults' ) ) :
 /**
  * Get default options.
  * 
@@ -138,9 +127,7 @@ function anva_get_option_defaults() {
 	$options_page = new Anva_Options_Page;
 	return $options_page->get_default_values();
 }
-endif;
 
-if ( ! function_exists( 'anva_get_options_page_menu' ) ) :
 /**
  * Get options page menu settings.
  * 
@@ -151,13 +138,7 @@ function anva_get_options_page_menu() {
 	$options_page = new Anva_Options_Page;
 	return $options_page->menu_settings();
 }
-endif;
 
-/* ---------------------------------------------------------------- */
-/* (1) Helpers - Anva Core Options API
-/* ---------------------------------------------------------------- */
-
-if ( ! function_exists( 'anva_get_core_options' ) ) :
 /**
  * Get raw options. This helper function is more
  * for backwards compatibility. Realistically, it
@@ -170,7 +151,6 @@ function anva_get_core_options() {
 	$api = Anva_Options_API::instance();
 	return $api->get_raw_options();
 }
-endif;
 
 if ( ! function_exists( 'anva_get_formatted_options' ) ) :
 /**
@@ -185,9 +165,8 @@ function anva_get_formatted_options() {
 }
 endif;
 
-if ( ! function_exists( 'anva_add_option_tab' ) ) :
 /**
- * Add theme option tab
+ * Add theme option tab.
  *
  * @since 1.0.0
  */
@@ -195,9 +174,7 @@ function anva_add_option_tab( $tab_id, $tab_name, $top = false ) {
 	$api = Anva_Options_API::instance();
 	$api->add_tab( $tab_id, $tab_name, $top );
 }
-endif;
 
-if ( ! function_exists( 'anva_remove_option_tab' ) ) :
 /**
  * Remove theme option tab
  *
@@ -207,9 +184,7 @@ function anva_remove_option_tab( $tab_id ) {
 	$api = Anva_Options_API::instance();
 	$api->remove_tab( $tab_id );
 }
-endif;
 
-if ( ! function_exists( 'anva_add_option_section' ) ) :
 /**
  * Add theme option section
  *
@@ -219,9 +194,7 @@ function anva_add_option_section( $tab_id, $section_id, $section_name, $section_
 	$api = Anva_Options_API::instance();
 	$api->add_section( $tab_id, $section_id, $section_name, $section_desc, $options, $top );
 }
-endif;
 
-if ( ! function_exists( 'anva_remove_option_section' ) ) :
 /**
  * Remove theme option section
  *
@@ -231,9 +204,7 @@ function anva_remove_option_section( $tab_id, $section_id ) {
 	$api = Anva_Options_API::instance();
 	$api->remove_section( $tab_id, $section_id );
 }
-endif;
 
-if ( ! function_exists( 'anva_add_option' ) ) :
 /**
  * Add theme option
  *
@@ -243,9 +214,7 @@ function anva_add_option( $tab_id, $section_id, $option_id, $option ) {
 	$api = Anva_Options_API::instance();
 	$api->add_option( $tab_id, $section_id, $option_id, $option );
 }
-endif;
 
-if ( ! function_exists( 'anva_remove_option' ) ) :
 /**
  * Remove theme option
  *
@@ -255,9 +224,7 @@ function anva_remove_option( $tab_id, $section_id, $option_id ) {
 	$api = Anva_Options_API::instance();
 	$api->remove_option( $tab_id, $section_id, $option_id );
 }
-endif;
 
-if ( ! function_exists( 'anva_edit_option' ) ) :
 /**
  * Edit theme option
  *
@@ -267,12 +234,6 @@ function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
 	$api = Anva_Options_API::instance();
 	$api->edit_option( $tab_id, $section_id, $option_id, $att, $value );
 }
-endif;
-
-
-/*------------------------------------------------------------*/
-/* (2) Helpers - Anva Page Builder Elements API
-/*------------------------------------------------------------*/
 
 /**
  * Get all core elements of Page Builder
@@ -369,10 +330,6 @@ function anva_is_block_element( $element_id, $block_id ) {
 	return $api->is_block( $element_id, $block_id );
 }
 
-/* ---------------------------------------------------------------- */
-/* (3) Helpers - Anva Sidebar Locations API
-/* ---------------------------------------------------------------- */
-
 /**
  * Add sidebar location
  * 
@@ -453,10 +410,6 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 	return apply_filters( 'anva_add_sidebar_args', $args );
 }
 
-/* ---------------------------------------------------------------- */
-/* (4) Helpers - Anva Front End Stylesheets
-/* ---------------------------------------------------------------- */
-
 /**
  * Add custom stylesheet
  * 
@@ -499,10 +452,6 @@ function anva_print_styles( $level ) {
 	$api->print_styles( $level );
 }
 
-/* ---------------------------------------------------------------- */
-/* (5) Helpers - Anva Front End Scripts
-/* ---------------------------------------------------------------- */
-
 /**
  * Add custom script
  *
@@ -544,10 +493,6 @@ function anva_print_scripts( $level ) {
 	$api = Anva_Scripts_API::instance();
 	$api->print_scripts( $level );
 }
-
-/* ---------------------------------------------------------------- */
-/* (6.5) Helpers - Sliders
-/* ---------------------------------------------------------------- */
 
 /**
  * Add slider type
@@ -606,17 +551,13 @@ function anva_slider_exists( $slider_id ) {
 	return $api->is_slider( $slider_id );
 }
 
-/* ---------------------------------------------------------------- */
-/* (6) Helpers - Meta Box API
-/* ---------------------------------------------------------------- */
-
 /**
  * Add new meta box with ID, Arguments and Options
  *
  * @since  1.0.0
  * @return Instance of Class
  */
-function anva_add_new_meta_box( $id, $args, $options ) {
+function anva_add_meta_box( $id, $args, $options ) {
 	$meta_box = new Anva_Meta_Box( $id, $args, $options );
 }
 

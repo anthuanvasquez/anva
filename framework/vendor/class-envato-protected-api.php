@@ -11,6 +11,7 @@
  * @since       1.0
  */
 class Envato_Protected_API {
+  
   /**
    * The buyer's Username
    *

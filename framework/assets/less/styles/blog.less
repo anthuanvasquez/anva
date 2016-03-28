@@ -16,6 +16,12 @@
 	}
 }
 
+.post-list {
+	.entry-footer {
+		margin-top: 30px;
+	}
+}
+
 .entry {
 	position: relative;
 	margin: 0 0 50px;
@@ -51,6 +57,7 @@
 }
 
 .entry-title {
+	word-wrap: break-word;
 	h2 {
 		margin: 0;
 		font-size: 24px;
@@ -130,6 +137,7 @@
 
 .entry-content {
 	position: relative;
+	word-wrap: break-word;
 }
 
 .entry-link {
@@ -841,6 +849,20 @@ body {
 	}
 }
 
+.commentlist .bypostauthor .comment-wrap,
+.commentlist li ul.children li.bypostauthor .comment-wrap {
+	cite {
+		background-color: rgba(0,0,0,0.3);
+		border-radius: 2px;
+		color: #fff;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		margin-left: 5px;
+		padding: 2px 3px;
+	}
+}
+
 #reviews {
 	.commentlist {
 		padding-bottom: 30px;
@@ -885,6 +907,11 @@ body {
 	p {
 		margin: 20px 0 0 0;
 	}
+
+	h1, h2, h3, h4, h5, h6,
+	p, pre, ul, ol, dl, dd, blockquote, address, table, fieldset, form {
+		margin: 20px 0 0 0;
+	}
 }
 
 .comment-avatar {
@@ -906,6 +933,9 @@ body {
 		.children {
 			.comment-avatar {
 				left: -25px;
+			}
+			.comment-wrap {
+				padding-left: 45px;
 			}
 		}
 	}
@@ -930,8 +960,7 @@ body {
 				color: #888;
 			}
 		}
-		span,
-		a {
+		span a {
 			font-size: 12px;
 			font-weight: normal;
 			font-family: @secondary-font;

@@ -137,7 +137,9 @@ function anva_social_media_option( $id, $name, $val ) {
 			$value = $val[$key];
 		} else {
 
-			$value = 'http://';
+			// Determine if SSL is being on a secure server.
+			$value = is_ssl() ? 'https://' : 'http://';
+			
 			if ( 'email' == $key ) {
 				$value = 'mailto:';
 			}

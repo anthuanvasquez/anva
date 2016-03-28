@@ -2,12 +2,13 @@
 
 if ( ! class_exists( 'Anva_Sliders_API' ) ) :
 /**
- * Anva Sliders API
+ * Anva Sliders API.
  *
- * This sets up the default slider and provides
- * an API to add custom slider.
- * 
- * @since 1.0.0
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Sliders_API {
 

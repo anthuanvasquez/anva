@@ -17,11 +17,11 @@
 
 get_header();
 
-$class 			= '';
-$column 		= 2; // Default Column
-$current_grid 	= anva_get_post_meta( '_anva_grid_column' );
-$grid_columns 	= anva_get_grid_columns();
-$thumbnail 		= 'anva_post_grid';
+$class        = '';
+$column       = 2; // Default Column
+$current_grid = anva_get_post_meta( '_anva_grid_column' );
+$grid_columns = anva_get_grid_columns();
+$thumbnail    = 'anva_post_grid';
 
 if ( isset( $grid_columns[ $current_grid ]['class'] ) ) {
 	$class = $grid_columns[ $current_grid ]['class'];
@@ -35,7 +35,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 $count = 1;
 
 // Grid rows
-$open_row = '<div class="post-grid-row row">';
+$open_row  = '<div class="post-grid-row row">';
 $close_row = '</div><!-- .post-grid-row (end) -->';
 
 // Get posts

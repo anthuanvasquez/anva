@@ -23,10 +23,10 @@ get_header();
 	<?php get_sidebar( 'left' ); ?>
 
 	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
-		
+
 		<?php do_action( 'anva_posts_content_before' ); ?>
 		
-		<div class="<?php echo esc_attr( anva_post_classes( 'search' ) ); ?>">
+		<div id= "posts" class="<?php echo esc_attr( anva_post_classes( 'search' ) ); ?>">
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php anva_get_template_part( 'search' ); ?>
@@ -35,7 +35,7 @@ get_header();
 			<?php else : ?>
 				<?php anva_get_template_part( 'none' ); ?>
 			<?php endif; ?>
-		</div><!-- .search-post-list (end) -->
+		</div><!-- #posts (end) -->
 
 		<?php do_action( 'anva_posts_content_after' ); ?>
 	

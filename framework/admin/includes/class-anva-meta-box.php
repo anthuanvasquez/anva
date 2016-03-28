@@ -1,15 +1,18 @@
 <?php
+
+if ( ! class_exists( 'Anva_Meta_Box' ) ) :
+
 /**
  * Adds meta boxes.
  * 
  * WP's built-in add_meta_box() functionality.
  *
- * @since  1.0.0
- * @author Anthuan Vasquez <eigthy@gmail.com>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
-
-if ( ! class_exists( 'Anva_Meta_Box' ) ) :
-
 class Anva_Meta_Box
 {
 	/**

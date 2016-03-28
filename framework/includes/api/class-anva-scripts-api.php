@@ -3,13 +3,16 @@
 if ( ! class_exists( 'Anva_Scripts_API' ) ) :
 
 /**
- * Anva Javascripts API.
+ * Anva Scripts API.
  * 
  * This class sets up the framework scripts that get
  * enqueued on the frontend of the website.
  *
- * @since  1.0.0
- * @author Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Scripts_API {
 

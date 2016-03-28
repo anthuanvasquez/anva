@@ -1,0 +1,92 @@
+
+progress#post-reading-indicator {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 2px;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: red;
+  z-index: 1099;
+}
+
+progress#post-reading-indicator::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+.#post-reading-indicator-container, {
+  width: 100%;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  display: block;
+}
+
+.#post-reading-indicator-bar {
+  background-color: #222;
+  width: 50%;
+  display: block;
+  height: inherit;
+}
+
+.post-reading-bar {
+  width: 100%;
+  position: fixed;
+  bottom: -60px;
+  left: 0;
+  height: 60px;
+  display: block;
+  background-color: #fff;
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+  z-index: 1099;
+
+  #post-reading-wrap.visible & {
+    bottom: 0;
+  }
+
+  .spost {
+    border: 0;
+    padding-top: 6px;
+  }
+}
+
+.flat::-webkit-progress-value {
+  background-color: #222;
+}
+
+.flat::-moz-progress-bar {
+  background-color: #222;
+}
+
+.single::-webkit-progress-value {
+  background-color: transparent;
+  background-image: -webkit-linear-gradient(left, transparent, #222);
+}
+
+.single::-moz-progress-bar {
+  background-color: transparent;
+  background-image: -moz-linear-gradient(left, transparent, #222);
+}
+
+.multiple::-webkit-progress-value {
+  background-image:
+      -webkit-linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0,0, 0, .1) 66%, transparent 66%),
+      -webkit-linear-gradient(left, #fff, #222);
+}
+
+.multiple::-moz-progress-bar {
+  background-image:
+      -moz-linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0,0, 0, .1) 66%, transparent 66%),
+      -moz-linear-gradient(left, #fff, #222);
+}
+
+body.device-lg {
+  .post-reading-bar {
+    transition: all .4s ease;
+  }
+}

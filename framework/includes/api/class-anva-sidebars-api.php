@@ -3,15 +3,16 @@
 if ( ! class_exists( 'Anva_Sidebars_API' ) ) :
 
 /**
- * Anva Sidebars
+ * Anva Sidebars API.
  * 
  * This class sets up the framework sidebar locations. 
  * Additionally, this class provides methods to add and remove locations.
  * 
- * @since 		 1.0.0
- * @package    Anva
- * @subpackage Anva/admin
- * @author     Anthuan Vasquez <eigthy@gmail.com>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Sidebars_API {
 

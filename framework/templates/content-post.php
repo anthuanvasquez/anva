@@ -28,10 +28,11 @@
 		
 		<div class="entry-content">
 			<?php do_action( 'anva_posts_content' ); ?>
-			<div class="entry-footer clearfix">
-				<?php do_action( 'anva_posts_footer' ); ?>
-			</div>
 		</div><!-- .entry-content (end) -->
+		
+		<div class="entry-footer clearfix">
+			<?php do_action( 'anva_posts_footer' ); ?>
+		</div><!-- .entry-footer (end) -->
 		
 	</article><!-- #post-<?php the_ID(); ?> -->
 </div><!-- .entry-wrap (end) -->

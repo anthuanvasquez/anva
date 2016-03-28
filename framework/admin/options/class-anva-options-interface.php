@@ -647,7 +647,7 @@ class Anva_Options_Interface
 						$output .= '<h5>' . 
 						sprintf( __( 'Enter the name of a font from the %s.', 'anva' ), sprintf( '<a href="' . esc_url( 'http://www.google.com/webfonts' ) . '" target="_blank">%s</a>', __( 'Google Font Directory', 'anva' ) ) ) . '</h5>';
 						$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $value['id'] . '][google]' ) . '" value="' . esc_attr( $typography_stored['google'] ) . '" />';
-						$output .= '<p class="note">' . esc_html__( 'Example Font Name', 'anva' ) . ': ' . '"Open Sans"</p>';
+						$output .= '<p class="note">' . esc_html__( 'How to use the font names?, examples', 'anva' ) . ': ' . '<br />"Open Sans", "Open Sans:400", "Open Sans:500,700&subset=latin"</p>';
 						$output .= '</div>';
 
 						// Font preview

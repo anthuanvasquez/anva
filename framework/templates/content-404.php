@@ -17,8 +17,24 @@
 ?>
 <div class="entry-wrap">
 	<article id="page-404" class="page page-404">
-		<div class="entry-content">
-			<?php echo wpautop( anva_get_local( '404_description' ) ); ?>
-		</div><!-- .entry-content -->
+
+        <div class="col_half nobottommargin">
+            <div class="error404 center">404</div>
+        </div>
+
+        <div class="col_half nobottommargin col_last">
+            <div class="heading-block nobottomborder">
+                <h4><?php echo anva_get_local( '404_sub_title' ); ?></h4>
+                <span><?php echo anva_get_local( '404_description' ); ?></span>
+            </div>
+            <form action="<?php echo home_url( '/' ); ?>" method="get" role="form" class="nobottommargin">
+                <div class="input-group input-group-lg">
+                    <input type="text" name="s" class="form-control" placeholder="Search for Pages...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" type="button">Search</button>
+                    </span>
+                </div>
+            </form>
+        </div>
 	</article><!-- #page-404 (end) -->
 </div><!-- .entry-wrap (end) -->

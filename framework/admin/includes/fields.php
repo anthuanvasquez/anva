@@ -8,18 +8,22 @@
  */
 function anva_add_meta_boxes_default() {
 
+	// Builder Meta Box
+	$page_builder_meta = anva_setup_page_builder_meta();
+	$page_builder_meta_box = new Anva_Builder_Meta_Box( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
+	
 	// Page Meta Box
 	$page_meta = anva_setup_page_meta();
-	$page_meta_box = new Anva_Meta_Box( $page_meta['args']['id'], $page_meta['args'], $page_meta['tabs'] );
+	anva_add_meta_box( $page_meta['args']['id'], $page_meta['args'], $page_meta['tabs'] );
 
 	// Post Meta Box
 	$post_meta = anva_setup_post_meta();
-	$post_meta_box = new Anva_Meta_Box( $post_meta['args']['id'], $post_meta['args'], $post_meta['tabs'] );
+	anva_add_meta_box( $post_meta['args']['id'], $post_meta['args'], $post_meta['tabs'] );
 
 	// Gallery Meta Box
 	if ( post_type_exists( 'galleries' ) ) {
 		$gallery_meta = anva_setup_gallery_meta();
-		$gallery_meta_box = new Anva_Meta_Box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['tabs'] );
+		anva_add_meta_box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['tabs'] );
 		
 		$gallery_attachments_meta = anva_setup_gallery_attachments_meta();
 		$gallery_attachments_meta_box = new Anva_Gallery_Meta_Box( $gallery_attachments_meta['args']['id'], $gallery_attachments_meta['args'] );
@@ -28,7 +32,7 @@ function anva_add_meta_boxes_default() {
 	// Portfolio Meta Box
 	if ( post_type_exists( 'portfolio' ) ) {
 		$portfolio_meta = anva_setup_portfolio_meta();
-		$portfolio_meta_box = new Anva_Meta_Box( $portfolio_meta['args']['id'], $portfolio_meta['args'], $portfolio_meta['tabs'] );
+		anva_add_meta_box( $portfolio_meta['args']['id'], $portfolio_meta['args'], $portfolio_meta['tabs'] );
 	
 		$portfolio_media_meta = anva_setup_portfolio_media_meta();
 		$portfolio_media_meta_box = new Anva_Media_Meta_Box( $portfolio_media_meta['args']['id'], $portfolio_media_meta['args'] );
@@ -37,12 +41,9 @@ function anva_add_meta_boxes_default() {
 	// Slider Meta Box
 	if ( post_type_exists( 'slideshows' ) ) {
 		$slider_meta = anva_setup_slider_meta();
-		$slider_meta_box = new Anva_Meta_Box( $slider_meta['args']['id'], $slider_meta['args'], $slider_meta['tabs'] );
+		anva_add_meta_box( $slider_meta['args']['id'], $slider_meta['args'], $slider_meta['tabs'] );
 	}
 	
-	// Builder Meta Box
-	$page_builder_meta = anva_setup_page_builder_meta();
-	$page_builder_meta_box = new Anva_Builder_Meta_Box( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
 
 }
 
@@ -386,11 +387,11 @@ function anva_setup_portfolio_media_meta() {
 
 	$setup = array(
 		'args' => array(
-			'id'       => 'anva_portfolio_media_options',
+			'id'       => '_anva_portfolio_media_options',
 			'title'    => __( 'Portfolio Media Options', 'anva' ),
 			'page'     => array( 'portfolio' ),
 			'context'  => 'normal',
-			'priority' => 'high',
+			'priority' => 'default',
 			'desc'     => ''
 		),
 	);
@@ -429,7 +430,7 @@ function anva_setup_page_builder_meta() {
 	
 	$setup = array(
 		'args' => array(
-			'id' 		=> 'anva_builder_options',
+			'id' 		=> '_anva_builder_options',
 			'title' 	=> __( 'Anva Page Builder', 'anva' ),
 			'page'		=> array( 'page' ),
 			'context' 	=> 'normal',
