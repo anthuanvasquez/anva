@@ -21,8 +21,8 @@ function anva_add_theme_support() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
-	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form' ) );
-	add_theme_support( 'post-formats', array( 'gallery', 'video', 'audio', 'quote', 'aside' ) );
+	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'caption' ) );
+	add_theme_support( 'post-formats', array( 'gallery', 'aside', 'link', 'image', 'quote', 'video', 'audio', 'chat', 'status' ) );
 	add_theme_support( 'custom-background' );
 	add_theme_support( 'custom-header' );
 	add_theme_support( 'custom-logo' );
@@ -38,19 +38,6 @@ function anva_require_theme_supports() {
 	require_if_theme_supports( 'anva-megamenu', ANVA_FRAMEWORK_EXT . 'class-megamenu.php' );
 	require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce-config.php' );
 }
-
-/**
- * Enable support in existing themes without breaking backwards compatibility.
- *
- * @since  1.0.0.
- * @return string The site title.
- */
-if ( ! function_exists( '_wp_render_title_tag' ) ) :
-	function anva_render_title() {
-		echo "<title><?php wp_title( '|', true, 'right' ); ?></title>";
-	}
-	add_action( 'wp_head', 'anva_render_title' );
-endif;
 
 /**
  * Register menus
@@ -81,7 +68,7 @@ function anva_current_nav_class( $classes, $item ) {
  */
 function anva_get_theme( $id ) {
 	
-	$text = null;
+	$text  = NULL;
 	$theme = wp_get_theme();
 
 	$data = apply_filters( 'anva_theme_data', array(
@@ -216,11 +203,11 @@ function anva_get_sidebar_layouts() {
 }
 
 /**
- * Get layout column classes
+ * Get layout column classes.
  *
  * @since  1.0.0
- * @param  string  $column
- * @return string  $column_class
+ * @param  string $column
+ * @return string $column_class
 */
 function anva_get_column_class( $column ) {
 	
@@ -247,6 +234,12 @@ function anva_get_column_class( $column ) {
 	return apply_filters( 'anva_column_class', $column_class );
 }
 
+/**
+ * Get header styles.
+ *
+ * @since  1.0.0
+ * @return array $header_styles
+ */
 function anva_get_header_styles() {
 	$header_styles = array(
 		'default' 			=> array(
@@ -366,7 +359,8 @@ function anva_get_header_styles() {
  * Setup the config array for which
  * features the framework supports
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array $setup
  */
 function anva_setup() {
 	$setup = array(

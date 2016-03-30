@@ -329,6 +329,18 @@ function anva_header_primary_menu_addon_default() {
 			</div>
 		</div>
 	</div><!-- #top-cart end -->
+	
+	<!-- Top Lang -->
+	<div id="top-lang">
+		<a href="#" id="top-lang-trigger"><i class="icon-flag"></i></a>
+		<div class="top-lang-content">
+			<ul class="top-lang-switch">
+				<li class="active"><a href="#">English</a></li>
+				<li><a href="#">Spanish</a></li>
+				<li><a href="#">Dutch</a></li>
+			</ul>
+		</div>
+	</div><!-- #top-lang end -->
 
 	<!-- Top Search -->
 	<div id="top-search">
@@ -371,8 +383,8 @@ function anva_footer_copyrights_default() {
 	$footer_copyright = anva_footer_copyright_helpers( $footer_copyright );
 
 	?>
-	<div class="col_half footer-text-left">
-		<?php echo $footer_copyright; ?>
+	<div class="col_half">
+		<div class="copyright-text"><?php echo $footer_copyright; ?></div>
 		<div class="copyright-links">
 			<!-- @todo footer links -->
 		</div>
@@ -457,31 +469,46 @@ function anva_featured_after_default() {
 	<?php
 }
 
+/**
+ * Page titles.
+ *
+ * @since  1.0.0
+ * @return void
+ */
 function anva_page_title_default() {
 
+	// Don't show page titles on front page.
 	if ( is_front_page() ) {
 		return;
 	}
 
+	// Hide page titles
 	$hide_title = anva_get_post_meta( '_anva_hide_title' );
+
+	// Show page description
 	$page_desc = anva_get_post_meta( '_anva_page_desc' );
 	
 	?>
-	<section id="page-title">
-		<div class="container clearfix">
-			<h1><?php anva_archive_title(); ?></h1>
-			<?php if ( $page_desc ) : ?>
-				<span><?php echo esc_html( $page_desc ); ?></span>
-			<?php endif; ?>
-			<?php do_action( 'anva_breadcrumbs' ); ?>
-		</div>
-	</section><!-- #page-title (end) -->
+	<?php if ( ! empty ( 'show' != $hide_title ) ) : ?>
+		<section id="page-title">
+			<div class="container clearfix">
+				<h1><?php anva_archive_title(); ?></h1>
+				
+				<?php if ( ! empty ( $page_desc ) ) : ?>
+					<span><?php echo esc_html( $page_desc ); ?></span>
+				<?php endif; ?>
+				
+				<?php do_action( 'anva_breadcrumbs' ); ?>
+			</div>
+		</section><!-- #page-title (end) -->
+	<?php endif; ?>
 	<?php
 }
 /**
- * Display breadcrumbs
+ * Display breadcrumbs.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_breadcrumbs_default() {
 	$breadcrumbs = anva_get_option( 'breadcrumbs', 'hide' );
@@ -630,9 +657,10 @@ function anva_sidebar_after_default() {
 }
 
 /**
- * Display Ad above header
+ * Display sidebar above header.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_sidebar_above_header() {
 	?>
@@ -645,9 +673,10 @@ function anva_sidebar_above_header() {
 }
 
 /**
- * Display Ad above content
+ * Display sidebar above content.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_sidebar_above_content() {
 	?>
@@ -660,9 +689,10 @@ function anva_sidebar_above_content() {
 }
 
 /**
- * Display Ad below content
+ * Display sidebar below content.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_sidebar_below_content() {
 	?>
@@ -675,9 +705,10 @@ function anva_sidebar_below_content() {
 }
 
 /**
- * Display Ad below footer
+ * Display sidebar below footer.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_sidebar_below_footer() {
 	?>
@@ -690,9 +721,10 @@ function anva_sidebar_below_footer() {
 }
 
 /**
- * Display on single posts or primary posts
+ * Display on single posts or primary posts.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_posts_meta_default() {
 	if ( is_single() && 'show' == anva_get_option( 'single_meta', 'show' ) ) {
@@ -713,14 +745,14 @@ function anva_posts_meta_default() {
  */
 function anva_posts_content_default() {
 
-	if ( has_post_format( array( 'quote', 'link' ) ) ) {
+	if ( has_post_format( array( 'quote', 'link', 'status' ) ) ) {
 		return;
 	}
 	
 	$primary_content = anva_get_option( 'primary_content', 'excerpt' );
 	
 	if ( 'excerpt' == $primary_content ) {
-		anva_excerpt();
+		echo anva_get_excerpt();
 		echo '<a class="more-link" href="' . get_the_permalink() . '">' . anva_get_local( 'read_more' ) . '</a>';
 		return;
 	}
@@ -743,6 +775,12 @@ function anva_posts_comments_default() {
 	}
 }
 
+/**
+ * Post reading bar indicator.
+ *
+ * @since  1.0.0
+ * @return void
+ */
 function anva_post_reading_bar() {
 	$single_post_reading_bar = anva_get_option( 'single_post_reading_bar' );
 	if ( 'show' != $single_post_reading_bar ) {
@@ -753,19 +791,17 @@ function anva_post_reading_bar() {
 	?>
 	<div id="post-reading-wrap">
         <div class="post-reading-bar">
-            <progress value="0" id="post-reading-indicator" class="flat">
-              <div class="post-reading-indicator-container">
-                <span class="post-reading-indicator-bar"></span>
-              </div>
-            </progress>
+          <div class="post-reading-indicator-container">
+            <span class="post-reading-indicator-bar"></span>
+          </div>
             
             <div class="container clearfix">
                 <div class="spost clearfix notopmargin nobottommargin">
-                    <div class="entry-image">
-                        <?php if ( has_post_thumbnail() ) : ?>
-                            <?php the_post_thumbnail( 'thumbnail' ); ?>
-                        <?php endif; ?>
-                    </div>
+                    <?php if ( has_post_thumbnail() ) : ?>
+	                    <div class="entry-image">
+	                        <?php the_post_thumbnail( 'thumbnail' ); ?>
+	                    </div>
+                    <?php endif; ?>
                     <div class="entry-c">
                         <div class="post-reading-label">
                             <?php _e( 'You Are Reading', 'anva' ); ?>
@@ -787,7 +823,8 @@ function anva_post_reading_bar() {
  * 
  * Only if WP_DEBUG is enabled and current user is an administrator.
  * 
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_debug() {
 	$debug = anva_get_option( 'debug', 0 );

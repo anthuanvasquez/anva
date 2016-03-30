@@ -12,7 +12,7 @@ require_once( get_template_directory() . '/includes/customizer.php' );
 require_once( get_template_directory() . '/includes/options.php' );
 
 // Add theme updates
-require_once( get_template_directory() . '/includes/updates.php' );
+// require_once( get_template_directory() . '/includes/updates.php' );
 
 // Add recommended plugins
 require_once( get_template_directory() . '/includes/install.php' );

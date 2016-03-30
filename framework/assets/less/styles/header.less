@@ -471,6 +471,7 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
 #logo + #primary-menu.style-2 { border-top: 0; }
 
 #primary-menu.style-2 > div #top-search,
+#primary-menu.style-2 > div #top-lang,
 #primary-menu.style-2 > div #top-cart,
 #primary-menu.style-2 > div #side-panel-trigger {
 	margin-top: 20px;
@@ -629,6 +630,7 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 #primary-menu.sub-title.style-2 > div > ul > li { background-position: left center; }
 
 #primary-menu.sub-title.style-2 > div #top-search,
+#primary-menu.sub-title.style-2 > div #top-lang,
 #primary-menu.sub-title.style-2 > div #top-cart,
 #primary-menu.sub-title.style-2 > div #side-panel-trigger {
 	float: right;
@@ -761,15 +763,18 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 
 
 #top-search,
+#top-lang,
 #top-cart,
 #side-panel-trigger {
 	float: right;
 	margin: ( (@header-height - 20) / 2 ) 0 ( (@header-height - 20) / 2 ) 15px;
 }
 
+#top-lang,
 #top-cart { position: relative; }
 
 #top-search a,
+#top-lang a,
 #top-cart a,
 #side-panel-trigger a {
 	display: block;
@@ -805,6 +810,7 @@ body.top-search-open #top-search a i.icon-line-cross {
 	font-size: 16px;
 }
 
+#top-lang a:hover,
 #top-cart a:hover { color: @theme-color; }
 
 #top-search form {
@@ -912,8 +918,10 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #header.transparent-header
 	transition: opacity .5s ease, top .4s ease;
 }
 
+.style-2 .container #top-lang .top-lang-content,
 .style-2 .container #top-cart .top-cart-content { top: 40px; }
 
+.style-2.sub-title .container #top-lang .top-lang-content,
 .style-2.sub-title .container #top-cart .top-cart-content { top: 50px; }
 
 #top-cart.top-cart-open .top-cart-content {
@@ -1010,6 +1018,52 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #header.transparent-header
 	color: @theme-color;
 }
 
+/* ----------------------------------------------------------------
+	Top Lang WPML
+-----------------------------------------------------------------*/
+
+#top-lang .top-lang-content {
+	opacity: 0;
+	z-index: -2;
+	position: absolute;
+	width: 180px;
+	background-color: #FFF;
+	box-shadow: 0px 20px 50px 10px rgba(0, 0, 0, 0.05);
+	border: 1px solid #EEE;
+	border-top: 2px solid @theme-color;
+	top: ( @header-height - (@header-height - 20) / 2 );
+	right: -15px;
+	left: auto;
+	margin: -10000px 0 0;
+	-webkit-transition: opacity .5s ease, top .4s ease;
+	-o-transition: opacity .5s ease, top .4s ease;
+	transition: opacity .5s ease, top .4s ease;
+}
+
+#top-lang.top-lang-open .top-lang-content {
+	opacity: 1;
+	z-index: 11;
+	margin-top: 0;
+}
+
+.top-lang-content ul.top-lang-switch {
+	li {
+		display: block;
+		float: none !important;
+		margin: 3px 0;
+		> a {
+			font-weight: 400 !important;
+			height: auto !important;
+			line-height: normal !important;
+			padding: 10px !important;
+			width: auto !important;
+			text-align: left !important;
+		}
+		&.active {
+			background-color: #f9f9f9; 
+		}
+	}
+}
 
 /* ----------------------------------------------------------------
 	Sticky Header
@@ -1040,7 +1094,9 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #header.transparent-header
 	transition: top .4s ease;
 }
 
+
 #top-search,
+#top-lang,
 #top-cart {
 	-webkit-transition: margin .4s ease, opacity .3s ease;
 	-o-transition: margin .4s ease, opacity .3s ease;
@@ -1062,6 +1118,7 @@ body.top-search-open #header-wrap #logo,
 body.top-search-open #primary-menu > ul,
 body.top-search-open #primary-menu > .container > ul,
 body.top-search-open #top-cart,
+body.top-search-open #top-lang,
 body.top-search-open #side-panel-trigger { opacity: 0; }
 
 #header.sticky-header.semi-transparent { background-color: transparent; }
@@ -1108,11 +1165,13 @@ body.admin-bar #header.sticky-header #header-wrap {
 
 #header.sticky-header:not(.static-sticky) #top-search,
 #header.sticky-header:not(.static-sticky) #top-cart,
+#header.sticky-header:not(.static-sticky) #top-lang,
 #header.sticky-header:not(.static-sticky) #side-panel-trigger {
 	margin-top: @sticky-menu-padding + 1 !important;
 	margin-bottom: @sticky-menu-padding + 1 !important;
 }
 
+#header.sticky-header:not(.static-sticky) #top-lang .top-lang-content,
 #header.sticky-header:not(.static-sticky) #top-cart .top-cart-content { top: 40px; }
 
 #header.sticky-header.sticky-style-2 #primary-menu { border-top: 0; }

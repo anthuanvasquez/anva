@@ -42,15 +42,29 @@
                 <?php anva_content_quote(); ?>
             </div><!-- .entry-quote (end) -->
 
+        <?php elseif ( has_post_format( 'link' ) ) : ?>
+
+            <div class="entry-image entry-link-format">
+                <?php anva_content_link(); ?>
+            </div><!-- .entry-quote (end) -->
+
+        <?php elseif ( has_post_format( 'status' ) ) : ?>
+
+            <div class="entry-image entry-status">
+                <?php anva_content_status(); ?>
+            </div><!-- .entry-status (end) -->
+
         <?php else : ?>
 
             <?php anva_the_post_thumbnail( anva_get_option( 'primary_thumb' ) ); ?>
 
         <?php endif; ?>
         
-        <div class="entry-title">
-            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-        </div><!-- .entry-title (end) -->
+        <?php if ( ! has_post_format( array( 'quote', 'link', 'status' ) ) ) : ?>
+            <div class="entry-title">
+                <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+            </div><!-- .entry-title (end) -->
+        <?php endif; ?>
         
         <?php do_action( 'anva_posts_meta' ); ?>
         

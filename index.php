@@ -31,7 +31,7 @@ get_header();
 				if ( have_posts() ) {
 					while ( have_posts() ) {
 						the_post();
-						anva_get_template_part( 'format' );
+						anva_get_template_part( 'content', '' );
 					}
 					anva_pagination();
 				} else {

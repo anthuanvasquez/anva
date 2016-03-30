@@ -365,7 +365,7 @@ function anva_options() {
 			'name' => __( 'H1', 'anva' ),
 			'desc' => __( 'Select the size for H1 tag in px.', 'anva' ),
 			'id' => 'heading_h1',
-			'std' => '27',
+			'std' => '36',
 			'type' => 'range',
 			'options' => array(
 				'min' => 9,
@@ -377,7 +377,7 @@ function anva_options() {
 			'name' => __( 'H2', 'anva' ),
 			'desc' => __( 'Select the size for H2 tag in px.', 'anva' ),
 			'id' => 'heading_h2',
-			'std' => '24',
+			'std' => '30',
 			'type' => 'range',
 			'options' => array(
 				'min' => 9,
@@ -389,7 +389,7 @@ function anva_options() {
 			'name' => __('H3', 'anva'),
 			'desc' => __('Select the size for H3 tag in px.', 'anva'),
 			'id' => 'heading_h3',
-			'std' => '18',
+			'std' => '24',
 			'type' => 'range',
 			'options' => array(
 				'min' => 9,
@@ -401,7 +401,7 @@ function anva_options() {
 			'name' => __('H4', 'anva'),
 			'desc' => __('Select the size for H4 tag in px.', 'anva'),
 			'id' => 'heading_h4',
-			'std' => '14',
+			'std' => '18',
 			'type' => 'range',
 			'options' => array(
 				'min' => 9,
@@ -413,7 +413,7 @@ function anva_options() {
 			'name' => __('H5', 'anva'),
 			'desc' => __('Select the size for H5 tag in px.', 'anva'),
 			'id' => 'heading_h5',
-			'std' => '13',
+			'std' => '14',
 			'type' => 'range',
 			'options' => array(
 				'min' => 9,
@@ -425,7 +425,7 @@ function anva_options() {
 			'name' => __('H6', 'anva'),
 			'desc' => __('Select the size for H6 tag in px.', 'anva'),
 			'id' => 'heading_h6',
-			'std' => '11',
+			'std' => '12',
 			'type' => 'range',
 			'options' => array(
 				'min' => 9,

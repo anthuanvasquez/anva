@@ -115,12 +115,17 @@ function anva_page_menu_args( $args ) {
  */
 function anva_body_class( $classes ) {
 
+	$classes[] = 'has-lang-' . strtolower( get_bloginfo( 'language' ) );
+	
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
 
-	$classes[] = anva_get_option( 'navigation' );
-	$classes[] = 'lang-' . strtolower( get_bloginfo( 'language' ) );
+	$single_post_reading_bar = anva_get_option( 'single_post_reading_bar' );
+	if ( is_singular( 'post' ) && 'show' == $single_post_reading_bar ) {
+		$classes[] = 'has-reading-bar';
+	}
+
 
 	$footer = anva_get_option( 'footer_setup' );
 	if (  isset( $footer['num'] ) && $footer['num'] > 0  ) {
@@ -287,13 +292,31 @@ function anva_get_header_style_type() {
 	$header_style = anva_get_option( 'header_style', 'default' );
 	$styles = anva_get_header_styles();
 
-	if (isset( $styles[ $header_style ] ) ) {
-		return $styles[ $header_style ]['type'];
+	if ( isset( $styles[ $header_style ] ) ) {
+		 return $styles[ $header_style ]['type'];
 	}
 
 	return false;
 }
 
+/**
+ * Print title in WP 4.0-.
+ * Enable support in existing themes without breaking backwards compatibility.
+ *
+ * @since  1.0.0
+ * @return string The site title.
+ */
+function anva_wp_title_compat() {
+	// If WP 4.1+
+	if ( function_exists( '_wp_render_title_tag' ) ) {
+		return;
+	}
+	
+	add_filter( 'wp_head', 'anva_wp_title' );
+	?>
+	<title><?php wp_title( '|', true, 'right' ); ?></title>
+	<?php
+}
 /**
  * Display name and description in title.
  *
@@ -323,13 +346,15 @@ function anva_wp_title( $title, $sep ) {
 		$title .= " $sep " . sprintf( anva_get_local( 'page' ) .' %s', max( $paged, $page ) );
 	}
 
-	return $title;
+	return apply_filters( 'anva_wp_title', $title );
 }
 
 /**
- * Setup author page
+ * Setup author page.
  *
- * @since   1.0.0
+ * @global $wp_query
+ *
+ * @since  1.0.0
  */
 function anva_setup_author() {
 	global $wp_query;
@@ -350,9 +375,12 @@ function anva_support( $feature ) {
 }
 
 /**
- * Limit chars in string
+ * Limit chars in string.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  $string
+ * @param  $length
+ * @return $string
  */
 function anva_truncate_string( $string, $length = 100 ) {
 	$string = trim( $string );
@@ -364,6 +392,12 @@ function anva_truncate_string( $string, $length = 100 ) {
 	}
 }
 
+/**
+ * Convert HEX to RGB.
+ * 
+ * @param  string $hex
+ * @return array  $color
+ */
 function anva_hex_to_rgb( $hex ) {
 
 	$hex = str_replace( '#', '', $hex );
@@ -383,17 +417,19 @@ function anva_hex_to_rgb( $hex ) {
 }
 
 /**
- * Limit chars in excerpt
+ * Limit chars in excerpt.
  *
  * @since 1.0.0
  */
-function anva_excerpt( $length = '' ) {
-	if ( empty( $length ) ) {
-		$length = apply_filters( 'anva_excerpt_length', 256 );
+function anva_get_excerpt( $length = '' ) {
+	if ( ! empty( $length ) ) {
+		$content = get_the_excerpt();
+		$content = anva_truncate_string( $content, $length );
+		return $content;
 	}
-	$string = get_the_excerpt();
-	$p = anva_truncate_string( $string, $length );
-	echo wpautop( $p );
+	$content = get_the_excerpt();
+	$content = wpautop( $content );
+	return $content;
 }
 
 /**
@@ -530,6 +566,10 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
  */
 function anva_get_template_part( $name, $slug = 'content' ) {
 	$path = trailingslashit( 'framework/templates' );
+	if ( empty( $slug ) ) {
+		get_template_part( $path . $name );
+		return;
+	}
 	get_template_part( $path . $slug, $name );
 }
 
@@ -540,10 +580,9 @@ function anva_get_template_part( $name, $slug = 'content' ) {
  * @return string $uri
  */
 function anva_get_core_uri() {
+	$uri = trailingslashit( get_template_directory_uri() . '/framework' );
 	if ( defined( 'ANVA_FRAMEWORK_URI' ) ) {
 		$uri = ANVA_FRAMEWORK_URI;
-	} else {
-		$uri = trailingslashit( get_template_directory_uri() . '/framework' );
 	}
 	return $uri;
 }
@@ -555,10 +594,9 @@ function anva_get_core_uri() {
  * @return string $uri
  */
 function anva_get_core_admin_uri() {
+	$uri = trailingslashit( get_template_directory_uri() . '/framework/admin' );
 	if ( defined( 'ANVA_FRAMEWORK_ADMIN_URI' ) ) {
 		$uri = ANVA_FRAMEWORK_ADMIN_URI;
-	} else {
-		$uri = trailingslashit( get_template_directory_uri() . '/framework/admin' );
 	}
 	return $uri;
 }
@@ -570,10 +608,9 @@ function anva_get_core_admin_uri() {
  * @return string $path
  */
 function anva_get_core_directory() {
+	$path = trailingslashit( get_template_directory() . '/framework' );
 	if ( defined( 'ANVA_FRAMEWORK_DIR' ) ) {
 		$path = ANVA_FRAMEWORK_DIR;
-	} else {
-		$path = trailingslashit( get_template_directory() . '/framework' );
 	}
 	return $path;
 }
@@ -585,10 +622,9 @@ function anva_get_core_directory() {
  * @return string $path
  */
 function anva_get_core_admin_directory() {
+	$path = trailingslashit( get_template_directory() . '/framework/admin' );
 	if ( defined( 'ANVA_FRAMEWORK_ADMIN' ) ) {
 		$path = ANVA_FRAMEWORK_ADMIN;
-	} else {
-		$path = trailingslashit( get_template_directory() . '/framework/admin' );
 	}
 	return $path;
 }

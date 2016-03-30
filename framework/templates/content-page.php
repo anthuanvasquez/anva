@@ -20,5 +20,10 @@
 		<div class="entry-content">
 			<?php the_content(); ?>
 		</div><!-- .entry-content -->
+
+        <div class="entry-footer">
+            <?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-link (end) -->' ) ); ?>
+            <?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
+        </div><!-- .entry-footer (end) -->
 	</article><!-- #post-<?php the_ID(); ?> -->
 </div><!-- .entry-wrap (end) -->

@@ -165,7 +165,8 @@ input.switch-toggle-round:checked + label:before,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus,
 .commentlist .bypostauthor .comment-wrap cite,
-.commentlist li ul.children li.bypostauthor .comment-wrap cite { background-color: <?php echo $color; ?> !important; }
+.commentlist li ul.children li.bypostauthor .comment-wrap cite,
+.post-reading-indicator-bar { background-color: <?php echo $color; ?> !important; }
 
 #primary-menu.style-4 > ul > li:hover > a,
 #primary-menu.style-4 > ul > li.current > a,

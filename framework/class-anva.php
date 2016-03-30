@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Anva is a WordPress Theme Development Framework.
  *
@@ -12,7 +13,6 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-
 class Anva
 {
     /**
@@ -66,7 +66,8 @@ class Anva
      * Defines the constant paths for use within the
      * core framework, parent theme, and child theme.
      *
-     * @since 1.0.0
+     * @since  1.0.0
+     * @return void
      */
     public function set_constants()
     {
@@ -155,6 +156,10 @@ class Anva
         add_filter( 'body_class', 'anva_browser_class' );
         add_filter( 'the_password_form', 'anva_password_form' );
         add_filter( 'nav_menu_css_class' , 'anva_current_nav_class', 10 , 2 );
+        add_filter( 'the_content', 'anva_content_format_audio', 7 );
+        add_filter( 'the_content', 'anva_content_format_video', 7 );
+        add_filter( 'the_content', 'anva_content_format_quote', 7 );
+        add_filter( 'the_content', 'anva_content_format_link', 7 );
         add_action( 'init', 'anva_register_menus' );
         add_action( 'init', 'anva_contact_send_email' );
         add_action( 'customize_register', 'anva_customizer_init' );
@@ -167,7 +172,7 @@ class Anva
         add_action( 'after_setup_theme', 'anva_require_theme_supports', 12 );
         add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
         add_action( 'image_size_names_choose', 'anva_image_size_names_choose' );
-        add_filter( 'wp_title', 'anva_wp_title', 10, 2 );
+        add_filter( 'wp_head', 'anva_wp_title_compat', 5 );
         add_action( 'wp_head', 'anva_head_apple_touch_icon' );
         add_action( 'wp_head', 'anva_head_viewport', 1 );
         add_action( 'wp_footer', 'anva_footer_ghost', 1000 );

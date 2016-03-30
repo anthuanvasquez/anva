@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Archive pages titles.
+ * Archive page titles.
  * 
  * @since  1.0.0
  * @return void
@@ -65,6 +65,7 @@ function anva_archive_title() {
 
 	elseif ( is_404() ) :
 		echo anva_get_local( '404_title' );
+
 	else :
 		echo anva_get_local( 'archives' );
 	endif;
@@ -109,12 +110,25 @@ function anva_posted_on() {
 		$write_comments =  __( 'Comments closed', 'anva' );
 	}
 
+	// Get post formats icon
+	$format      = get_post_format();
+	$format_icon = anva_get_post_format_icon( $format, true );
+
+	if ( $format_icon ) {
+		$url = ( ! $format ? '' : ''  );
+		$format_icon = sprintf( '<i class="icon-%s"></i>', $format_icon );
+		if ( $format ) {
+			$format_icon = sprintf( '<a href="%1$s">%2$s</a>', get_post_format_link( $format ), $format_icon );
+		}
+	}
+
 	printf(
 		'<ul class="entry-meta clearfix">
 			<li class="posted-on">%1$s</li>
 			<li class="byline"><i class="icon-user"></i> %2$s</li>
 			<li class="category"><i class="icon-folder-open"></i> %3$s</li>
 			<li class="comments-link"><i class="icon-comments"></i> %4$s</li>
+			<li class="post-format-icon">%5$s</li>
 		</ul><!-- .entry-meta (end) -->',
 		sprintf(
 			'%1$s', $time_string
@@ -129,7 +143,8 @@ function anva_posted_on() {
 		),
 		sprintf(
 			'%1$s', $write_comments
-		)
+		),
+		sprintf( '%1$s', $format_icon )
 	);
 }
 
@@ -528,7 +543,7 @@ function anva_post_related() {
 							<li><a href="<?php the_permalink(); ?>/#comments"><i class="icon-comments"></i> <?php echo get_comments_number(); ?></a></li>
 						</ul>
 						<div class="entry-content">
-							<?php anva_excerpt( 90 ); ?>
+							<?php echo anva_get_excerpt( 90 ); ?>
 						</div>
 					</div>
 				</div><!-- .md-post (end) -->

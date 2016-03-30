@@ -22,8 +22,36 @@
 	</div><!-- .entry-title (end) -->
 	
 	<?php do_action( 'anva_posts_meta' ); ?>
-	
-	<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+
+	<?php if ( has_post_format( 'gallery' ) ) : ?>
+
+        <div class="entry-image entry-gallery">
+            <?php anva_gallery_slider(); ?>
+        </div><!-- .entry-gallery (end) -->
+
+    <?php elseif ( has_post_format( 'video' ) ) : ?>
+
+        <div class="entry-image entry-video">
+            <?php anva_content_video(); ?>
+        </div><!-- .entry-video (end) -->
+
+    <?php elseif ( has_post_format( 'audio' ) ) : ?>
+
+        <div class="entry-image entry-audio">
+            <?php anva_content_audio(); ?>
+        </div><!-- .entry-audio (end) -->
+
+    <?php elseif ( has_post_format( 'quote' ) ) : ?>
+
+        <div class="entry-image entry-quote">
+            <?php anva_content_quote(); ?>
+        </div><!-- .entry-quote (end) -->
+
+    <?php else : ?>
+
+        <?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+
+    <?php endif; ?>
 	
 	<div class="entry-content notopmargin">
 		<?php the_content(); ?>
@@ -32,7 +60,7 @@
 	<div class="entry-footer">
 		<?php do_action( 'anva_posts_footer' ); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-link (end) -->' ) ); ?>
-		<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link">', '</span>' ); ?>
+		<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
 	</div><!-- .entry-footer (end) -->
 	
 </article><!-- .entry (end) -->

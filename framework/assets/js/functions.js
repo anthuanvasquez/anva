@@ -1044,6 +1044,7 @@ var SEMICOLON = SEMICOLON || {};
 			SEMICOLON.header.onepageScroller();
 			SEMICOLON.header.logo();
 			SEMICOLON.header.topsearch();
+			SEMICOLON.header.toplang();
 			SEMICOLON.header.topcart();
 
 		},
@@ -1462,6 +1463,7 @@ var SEMICOLON = SEMICOLON || {};
 
 			$(document).on('click', function(event) {
 				if (!$(event.target).closest('#top-search').length) { $body.toggleClass('top-search-open', false); }
+				if (!$(event.target).closest('#top-lang').length) { $topLang.toggleClass('top-lang-open', false); }
 				if (!$(event.target).closest('#top-cart').length) { $topCart.toggleClass('top-cart-open', false); }
 				if (!$(event.target).closest('#page-menu').length) { $pagemenu.toggleClass('pagemenu-active', false); }
 				if (!$(event.target).closest('#side-panel').length) { $body.toggleClass('side-panel-open', false); }
@@ -1469,12 +1471,24 @@ var SEMICOLON = SEMICOLON || {};
 
 			$("#top-search-trigger").click(function(e){
 				$body.toggleClass('top-search-open');
+				$topLang.toggleClass('top-lang-open', false);
 				$topCart.toggleClass('top-cart-open', false);
 				$( '#primary-menu > ul, #primary-menu > div > ul' ).toggleClass("show", false);
 				$pagemenu.toggleClass('pagemenu-active', false);
 				if ($body.hasClass('top-search-open')){
 					$topSearch.find('input').focus();
 				}
+				e.stopPropagation();
+				e.preventDefault();
+			});
+
+		},
+
+		toplang: function(){
+
+			$("#top-lang-trigger").click(function(e){
+				$pagemenu.toggleClass('pagemenu-active', false);
+				$topLang.toggleClass('top-lang-open');
 				e.stopPropagation();
 				e.preventDefault();
 			});
@@ -3325,6 +3339,7 @@ var SEMICOLON = SEMICOLON || {};
 			});
 			$pagemenu.find('nav').click(function(e){
 				$body.toggleClass('top-search-open', false);
+				$topLang.toggleClass('top-lang-open', false);
 				$topCart.toggleClass('top-cart-open', false);
 			});
 			if( SEMICOLON.isMobile.any() ){
@@ -3543,6 +3558,7 @@ var SEMICOLON = SEMICOLON || {};
 		$portfolioFilter = $('.portfolio-filter,.custom-filter'),
 		prevPostPortId = '',
 		$topSearch = $('#top-search'),
+		$topLang = $('#top-lang'),
 		$topCart = $('#top-cart'),
 		$verticalMiddleEl = $('.vertical-middle'),
 		$topSocialEl = $('#top-social').find('li'),
