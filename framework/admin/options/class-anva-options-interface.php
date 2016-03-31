@@ -806,7 +806,7 @@ class Anva_Options_Interface
 					$output .= '</div><!-- .controls (end) -->';
 
 					if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) ) {
-						$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags ) . '</div><!-- .explain (end) -->'."\n";
+						$output .= '<div class="explain">' . $explain_value . '</div><!-- .explain (end) -->'."\n";
 					}
 					$output .= '</div><!-- .option (end) -->';
 					$output .= '</div><!-- .section (end) -->'."\n";

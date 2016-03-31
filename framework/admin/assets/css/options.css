@@ -1035,7 +1035,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   max-width: 42%;
   float: left;
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 18px;
   color: #777;
 }
 

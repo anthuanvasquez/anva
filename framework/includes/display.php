@@ -100,29 +100,7 @@ function anva_top_bar_default() {
 				// @todo this weill hook the secondary menu
 				do_action( 'anva_header_secondary_menu' ); ?>
 				<div class="top-links">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="faqs.html">FAQs</a></li>
-						<li><a href="contact.html">Contact</a></li>
-						<li><a href="login-register.html">Login</a>
-							<div class="top-link-section">
-								<form id="top-login" role="form">
-									<div class="input-group" id="top-login-username">
-										<span class="input-group-addon"><i class="icon-user"></i></span>
-										<input type="email" class="form-control" placeholder="Email address" required="">
-									</div>
-									<div class="input-group" id="top-login-password">
-										<span class="input-group-addon"><i class="icon-key"></i></span>
-										<input type="password" class="form-control" placeholder="Password" required="">
-									</div>
-									<label class="checkbox">
-									  <input type="checkbox" value="remember-me"> Remember me
-									</label>
-									<button class="btn btn-danger btn-block" type="submit">Sign in</button>
-								</form>
-							</div>
-						</li>
-					</ul>
+					<!-- @todo menu top links using hook above -->
 				</div><!-- .top-links end -->
 			</div>
 
@@ -132,14 +110,7 @@ function anva_top_bar_default() {
 				============================================= -->
 				<div id="top-social">
 					<ul>
-						<li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-						<li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
-						<li><a href="#" class="si-dribbble"><span class="ts-icon"><i class="icon-dribbble"></i></span><span class="ts-text">Dribbble</span></a></li>
-						<li><a href="#" class="si-github"><span class="ts-icon"><i class="icon-github-circled"></i></span><span class="ts-text">Github</span></a></li>
-						<li><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span class="ts-text">Pinterest</span></a></li>
-						<li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-						<li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
-						<li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text">info@canvas.com</span></a></li>
+						<?php anva_social_icons( $style = '', $shape = '', $border = '', $size = '', $position = 'top-bar' ); ?>
 					</ul>
 				</div><!-- #top-social end -->
 			</div>
@@ -200,16 +171,24 @@ function anva_header_logo_default() {
 				break;
 
 			case 'image' :
-				$image_1x = esc_url( $option['image'] );
-				$image_2x = '';
-				$logo_2x  = '';
+				$image_1x  = esc_url( $option['image'] );
+				$image_2x  = '';
+				$logo_2x   = '';
+				$logo_alt  = '';
+				$image_alt = '';
 
 				if ( ! empty( $option['image_2x'] ) ) {
 					$image_2x = $option['image_2x'];
 					$logo_2x = '<a class="retina-logo" href="' . home_url() . '"><img src="' . $image_2x . '" alt="' . $name . '" /></a>';
 				}
 
-				echo '<a class="standard-logo" href="' . home_url() . '"><img src="' . $image_1x . '" alt="' . $name . '" /></a>';
+				if ( ! empty( $option['image_alternate'] ) ) {
+					$image_alt = $option['image_alternate'];
+					$logo_alt  = 'data-sticky-logo="' . esc_url( $image_alt ) . '"';
+					$logo_alt .= 'data-mobile-logo="' . esc_url( $image_alt ) . '"';
+				}
+
+				echo '<a class="standard-logo" href="' . home_url() . '"' . $logo_alt . '><img src="' . $image_1x . '" alt="' . $name . '" /></a>';
 				echo $logo_2x;
 				break;
 		}
@@ -243,13 +222,8 @@ function anva_header_extras_default() {
  */
 function anva_header_primary_menu_default() {
 	if ( has_nav_menu( 'primary' ) ) :
-		$class = '';
-		$primary_menu_color = anva_get_option( 'primary_menu_color', 'light' );
-		if ( 'dark' == $primary_menu_color ) {
-			$class = 'class="' . esc_attr( $primary_menu_color ) . '"';
-		}
 	?>
-		<nav id="primary-menu" <?php echo $class; ?>>
+		<nav id="primary-menu" <?php anva_primary_menu_class(); ?>>
 			<?php
 				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array(
 					'theme_location'  => 'primary',
@@ -269,10 +243,10 @@ function anva_header_primary_menu_default() {
 		<?php
 		// Show social icons in side header
 		$side_header_icons = anva_get_option( 'side_header_icons' );
-		$header_style_type = anva_get_header_style_type();
-		if (  'side' == $header_style_type && $side_header_icons ) : ?>
+		$header_type = anva_get_header_type();
+		if (  'side' == $header_type && $side_header_icons ) : ?>
 			<div class="clearfix visible-md visible-lg">
-				<?php anva_social_icons(); ?>
+				<?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?>
 			</div>
 		<?php endif; ?>
 
@@ -289,8 +263,9 @@ function anva_header_primary_menu_default() {
  * @since 1.0.0
  */
 function anva_header_primary_menu_addon_default() {
-	$header_style_type = anva_get_header_style_type();
-	if ( 'side' == $header_style_type ) {
+	// Only show top cart, search and lang when header is not a side type.
+	$header_type = anva_get_header_type();
+	if ( 'side' == $header_type ) {
 		return;
 	}
 	?>

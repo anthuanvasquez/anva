@@ -372,19 +372,20 @@ function anva_recognized_font_sizes() {
  * @return   array
  */
 function anva_recognized_font_faces() {
-	$default = array(
-		'arial'     	=> 'Arial',
-		'baskerville'	=> 'Baskerville',
-		'georgia'   	=> 'Georgia',
-		'helvetica' 	=> 'Helvetica*',
-		'lucida'  		=> 'Lucida Sans',
-		'palatino'  	=> 'Palatino',
-		'tahoma'    	=> 'Tahoma, Geneva',
-		'times'     	=> 'Times New Roman',
-		'trebuchet' 	=> 'Trebuchet',
-		'verdana'   	=> 'Verdana, Geneva',
-		'google'		=> 'Google Font'
-	);
+	// $default = array(
+	// 	'arial'     	=> 'Arial',
+	// 	'baskerville'	=> 'Baskerville',
+	// 	'georgia'   	=> 'Georgia',
+	// 	'helvetica' 	=> 'Helvetica*',
+	// 	'lucida'  		=> 'Lucida Sans',
+	// 	'palatino'  	=> 'Palatino',
+	// 	'tahoma'    	=> 'Tahoma, Geneva',
+	// 	'times'     	=> 'Times New Roman',
+	// 	'trebuchet' 	=> 'Trebuchet',
+	// 	'verdana'   	=> 'Verdana, Geneva',
+	// 	'google'		=> 'Google Font'
+	// );
+	$default = anva_get_font_stacks();
 	return apply_filters( 'anva_recognized_font_faces', $default );
 }
 
@@ -535,7 +536,10 @@ function anva_sanitize_layout( $input ) {
 }
 
 /**
- * Logo
+ * Sanitize Logo Option.
+ *
+ * @since 1.0.0
+ * @param array $input
  */
 function anva_sanitize_logo( $input ) {
 
@@ -572,6 +576,16 @@ function anva_sanitize_logo( $input ) {
 			$output['image_2x'] = $input['image_2x'];
 		} else {
 			$output['image_2x'] = null;
+		}
+	}
+
+	// Image alternate
+	if ( isset( $input['image_alternate'] ) ) {
+		$filetype = wp_check_filetype( $input['image_alternate'] );
+		if ( $filetype["ext"] ) {
+			$output['image_alternate'] = $input['image_alternate'];
+		} else {
+			$output['image_alternate'] = null;
 		}
 	}
 

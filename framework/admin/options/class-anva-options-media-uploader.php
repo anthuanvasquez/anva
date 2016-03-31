@@ -140,23 +140,23 @@ function anva_media_uploader( $args ) {
 	$defaults = array(
 		'option_name' 	=> '',			// Prefix for form name attributes
 		'type'			=> 'standard',	// Type of media uploader - standard, logo, logo_2x, background, slider, video
-		'id'			=> '', 						// A token to identify this field, extending onto option_name. -- option_name[id]
-		'value'			=> '',					// The value of the field, if present.
-		'value_id'		=> '',				// Attachment ID used in slider
-		'value_title'	=> '',				// Title of attachment image (used for slider)
-		'name'			=> ''						// Option to extend 'id' token -- option_name[id][name]
+		'id'			=> '', 			// A token to identify this field, extending onto option_name. -- option_name[id]
+		'value'			=> '',			// The value of the field, if present.
+		'value_id'		=> '',			// Attachment ID used in slider
+		'value_title'	=> '',			// Title of attachment image (used for slider)
+		'name'			=> ''			// Option to extend 'id' token -- option_name[id][name]
 	);
 
 	$args = wp_parse_args( $args, $defaults );
 
 	$output = '';
-	$id = '';
-	$class = '';
-	$int = '';
-	$value = '';
-	$name = '';
+	$id     = '';
+	$class  = '';
+	$int    = '';
+	$value  = '';
+	$name   = '';
 
-	$id = strip_tags( strtolower( $args['id'] ) );
+	$id   = strip_tags( strtolower( $args['id'] ) );
 	$type = $args['type'];
 
 	// If a value is passed and we don't have a stored value, use the value that's passed through.
@@ -167,15 +167,15 @@ function anva_media_uploader( $args ) {
 
 	// Set name formfield based on type.
 	if ( $type == 'slider' ) {
-		$name = $args['option_name'].'[image]';
+		$name = $args['option_name'] . '[image]';
 	} else {
-		$name = $args['option_name'].'['.$id.']';
+		$name = $args['option_name'] . '[' . $id . ']';
 	}
 
 	// If passed name, set it.
 	if ( $args['name'] ) {
-		$name = $name.'['.$args['name'].']';
-		$id = $id.'_'.$args['name'];
+		$name = $name . '[' . $args['name'] . ']';
+		$id = $id . '_' . $args['name'];
 	}
 
 	if ( $value ) {
@@ -184,7 +184,7 @@ function anva_media_uploader( $args ) {
 
 	// Allow multiple upload options on the same page with
 	// same ID -- This could happen in the Layout Builder, for example.
-	$formfield = uniqid( $id.'_' );
+	$formfield = uniqid( $id . '_' );
 
 	// Data passed to wp.media
 	$data = array(
@@ -203,15 +203,28 @@ function anva_media_uploader( $args ) {
 		case 'logo' :
 			$data['title'] = __('Logo Image', 'anva');
 			$data['select'] = __('Use for Logo', 'anva');
-			$width_name = str_replace( '[image]', '[image_width]', $name );
-			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Image URL', 'anva').'" />'."\n";
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Standard image URL', 'anva').'" />'."\n";
 			break;
 
 		case 'logo_2x' :
-			$data['title'] = __('Logo HiDPI Image', 'anva');
+			$data['title'] = __('Logo 2x Image', 'anva');
 			$data['select'] = __('Use for Logo', 'anva');
 			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('2x size of standard image', 'anva') .'" />'."\n";
 			break;
+
+		case 'logo_alternate' :
+			$data['title'] = __('Logo Alternate Image', 'anva');
+			$data['select'] = __('Use for Logo', 'anva');
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Alternate standard image', 'anva') .'" />'."\n";
+			break;
+
+		/**
+		 * More will come.
+		 * 
+		 * @todo Alternate Image 2x
+		 * @todo Dark Image
+		 * @todo Dark Image 2x
+		 */
 
 		case 'background' :
 			$data['title'] = __('Select Background Image', 'anva');
@@ -239,7 +252,7 @@ function anva_media_uploader( $args ) {
 			$output .= '<img src="' . $value . '" alt="" />' . $remove;
 		} else {
 			$parts = explode( "/", $value );
-			for( $i = 0; $i < sizeof( $parts ); ++$i )
+			for ( $i = 0; $i < sizeof( $parts ); ++$i )
 				$title = $parts[$i];
 
 			// Standard generic output if it's not an image.

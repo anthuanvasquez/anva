@@ -101,9 +101,9 @@ function anva_options() {
 
 	// Header
 	// 
-	$header_styles = array();
-	foreach ( anva_get_header_styles() as $style_id => $style ) {
-		$header_styles[ $style_id ] = $style['name'];
+	$header_types = array();
+	foreach ( anva_get_header_types() as $type_id => $type ) {
+		$header_types[ $type_id ] = $type['name'];
 	}
 
 	$header_options = array(
@@ -111,9 +111,20 @@ function anva_options() {
 			'name' => __( 'Header Style', 'anva' ),
 			'desc' => __( 'Choose the style for the header.', 'anva' ),
 			'id' => 'header_style',
-			'std' => 'normal',
+			'std' => 'full-header',
 			'type' => 'select',
-			'options' => $header_styles,
+			'options' => array(
+				'' => __( 'Default Header', 'anva' ),
+				'full-header' => __( 'Full Header' ),
+			),
+		),
+		'header_type' => array(
+			'name' => __( 'Header Type', 'anva' ),
+			'desc' => __( 'Choose the type for the header.', 'anva' ),
+			'id' => 'header_type',
+			'std' => 'default',
+			'type' => 'select',
+			'options' => $header_types,
 		),
 		'header_color' => array(
 			'name' => __( 'Header Color', 'anva' ),
@@ -133,11 +144,11 @@ function anva_options() {
 			'std' => 'light',
 			'type' => 'select',
 			'options' => array(
-				'default' => __( 'Default Style', 'anva' ),
-				'style-2' => __( 'Style 2', 'anva' ),
-				'style-3' => __( 'Style 3', 'anva' ),
-				'style-4' => __( 'Style 4', 'anva' ),
-				'style-5' => __( 'Style 5', 'anva' ),
+				'' => __( 'Default Menu Style', 'anva' ),
+				'style-2' => __( 'Style 2 - Menu aligns beside the Logo', 'anva' ),
+				'style-3' => __( 'Style 3 - Menu Items with Theme Scheme Background Colors', 'anva' ),
+				'style-4' => __( 'Style 4 - Menu Items with Theme Scheme Border Colors', 'anva' ),
+				'style-5' => __( 'Style 5 - Menu Items with Large Icons on top of the Menu Name', 'anva' ),
 				'style-6' => __( 'Style 6', 'anva' ),
 				'style-7' => __( 'Style 7', 'anva' ),
 				'style-8' => __( 'Style 8', 'anva' ),

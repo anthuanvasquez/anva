@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Init admin modules
+ * Init admin modules.
  *
  * @since 1.0.0
  * @return void
@@ -33,7 +33,7 @@ function anva_admin_init() {
 function anva_remove_trailing_char( $string, $char = ' ' ) {
 
 	if ( ! $string ) {
-		return null;
+		return NULL;
 	}
 
 	$offset = strlen( $string ) - 1;
@@ -54,18 +54,18 @@ function anva_remove_trailing_char( $string, $char = ' ' ) {
  */
 function anva_get_font_stacks() {
 	$stacks = array(
-		'default'		=> 'Arial, sans-serif', // Used to chain onto end of google font
-		'arial'     	=> 'Arial, "Helvetica Neue", Helvetica, sans-serif',
-		'baskerville'	=> 'Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif',
-		'georgia'   	=> 'Georgia, Times, "Times New Roman", serif',
-		'helvetica' 	=> '"Helvetica Neue", Helvetica, Arial, sans-serif',
-		'lucida'  		=> '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif',
-		'palatino'  	=> 'Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif',
-		'tahoma'    	=> 'Tahoma, Verdana, Segoe, sans-serif',
-		'times'     	=> 'TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif',
-		'trebuchet' 	=> '"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif',
-		'verdana'   	=> 'Verdana, Geneva, sans-serif',
-		'google'		=> 'Google Font'
+		'default'     => 'Arial, sans-serif', // Used to chain onto end of google font
+		'arial'       => 'Arial, "Helvetica Neue", Helvetica, sans-serif',
+		'baskerville' => 'Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif',
+		'georgia'     => 'Georgia, Times, "Times New Roman", serif',
+		'helvetica'   => '"Helvetica Neue", Helvetica, Arial, sans-serif',
+		'lucida'      => '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif',
+		'palatino'    => 'Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif',
+		'tahoma'      => 'Tahoma, Verdana, Segoe, sans-serif',
+		'times'       => 'TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif',
+		'trebuchet'   => '"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif',
+		'verdana'     => 'Verdana, Geneva, sans-serif',
+		'google'      => 'Google Font'
 	);
 	return apply_filters( 'anva_font_stacks', $stacks );
 }
@@ -178,8 +178,7 @@ function anva_get_font_weight( $option ) {
  */
 function anva_get_background_pattern( $option ) {
 	$image = esc_url( get_template_directory_uri() . '/assets/images/patterns/' . $option . '.png' );
-	$output = apply_filters( 'anva_background_pattern', $url );
-	return $output;
+	return apply_filters( 'anva_background_pattern', $url );
 }
 
 /**
@@ -293,13 +292,12 @@ function anva_get_social_icons_profiles() {
 		'vimeo-square'	=> 'Vimeo',
 		'yahoo' 		=> 'Yahoo',
 		'youtube' 		=> 'YouTube',
-		'whatsapp'		=> 'Whatsapp',
+		'call'			=> 'Call',
 		'rss' 			=> 'RSS',
 	);
 
 	// Backwards compat filter
-	$profiles = apply_filters( 'anva_get_social_media_profiles', $profiles );
-	return $profiles;
+	return apply_filters( 'anva_social_icons_profiles', $profiles );
 }
 
 /**

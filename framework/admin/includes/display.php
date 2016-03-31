@@ -140,7 +140,7 @@ function anva_social_media_option( $id, $name, $val ) {
 			// Determine if SSL is being on a secure server.
 			$value = is_ssl() ? 'https://' : 'http://';
 			
-			if ( 'email' == $key ) {
+			if ( 'email3' == $key ) {
 				$value = 'mailto:';
 			}
 
@@ -148,7 +148,7 @@ function anva_social_media_option( $id, $name, $val ) {
 				$value = 'skype:username?call';
 			}
 
-			if ( 'whatsapp' == $key ) {
+			if ( 'call' == $key ) {
 				$value = 'tel:';
 			}
 		}
@@ -174,9 +174,13 @@ function anva_social_media_option( $id, $name, $val ) {
 }
 
 /**
- * Generates option to edit a logo
+ * Generates option to edit a logo.
  *
  * @since  1.0.0
+ * @param  string      $id
+ * @param  string      $name
+ * @param  array       $val
+ * @return string|html $output
  */
 function anva_logo_option( $id, $name, $val ) {
 
@@ -262,17 +266,54 @@ function anva_logo_option( $id, $name, $val ) {
 		$current_retina = array( 'url' => $val['image_2x'] );
 	}
 
+	$current_alternate = array( 'url' => '' );
+	if ( is_array( $val ) && isset( $val['image_alternate'] ) ) {
+		$current_alternate = array( 'url' => $val['image_alternate'] );
+	}
+
 	// Standard Image
 	$image_upload  = '<div class="section image-standard">';
 	$image_upload .= '<label class="inner-label"><strong>'.__( 'Standard Image', 'anva' ).'</strong></label>';
-	$image_upload .= anva_media_uploader( array( 'option_name' => $name, 'type' => 'logo', 'id' => $id, 'value' => $current_value['url'], 'name' => 'image' ) );
+	$image_upload .= anva_media_uploader( array(
+		'option_name' => $name,
+		'type'        => 'logo',
+		'id'          => $id,
+		'value'       => $current_value['url'],
+		'name'        => 'image'
+	) );
 	$image_upload .= '</div>';
 
-	// Retina image (2x)
+	// Standard Image Retina (2x)
 	$image_upload .= '<div class="section image-2x">';
-	$image_upload .= '<label class="inner-label"><strong>'.__( '2x Image (optional)', 'anva' ).'</strong></label>';
-	$image_upload .= anva_media_uploader( array( 'option_name' => $name, 'type' => 'logo_2x', 'id' => $id, 'value' => $current_retina['url'], 'name' => 'image_2x' ) );
+	$image_upload .= '<label class="inner-label"><strong>'.__( '2x Standard Image (optional)', 'anva' ).'</strong></label>';
+	$image_upload .= anva_media_uploader( array(
+		'option_name' => $name, 
+		'type'        => 'logo_2x', 
+		'id'          => $id, 
+		'value'       => $current_retina['url'], 
+		'name'        => 'image_2x'
+	) );
 	$image_upload .= '</div>';
+
+	// Standard Image Alternate
+	$image_upload .= '<div class="section image-alternate">';
+	$image_upload .= '<label class="inner-label"><strong>'.__( 'Alternate Standard Image (optional)', 'anva' ).'</strong></label>';
+	$image_upload .= anva_media_uploader( array(
+			'option_name' => $name,
+			'type'        => 'logo_alternate',
+			'id'          => $id,
+			'value'       => $current_alternate['url'],
+			'name'        => 'image_alternate'
+	) );
+	$image_upload .= '</div>';
+
+	/**
+	 * More will come.
+	 * 
+	 * @todo Alternate Image 2x
+	 * @todo Dark Image
+	 * @todo Dark Image 2x
+	 */
 
 	/*------------------------------------------------------*/
 	/* Primary Output

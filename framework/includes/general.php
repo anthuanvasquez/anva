@@ -235,18 +235,18 @@ function anva_get_column_class( $column ) {
 }
 
 /**
- * Get header styles.
+ * Get header types.
  *
  * @since  1.0.0
- * @return array $header_styles
+ * @return array $header_types
  */
-function anva_get_header_styles() {
-	$header_styles = array(
+function anva_get_header_types() {
+	$header_types = array(
 		'default' 			=> array(
 			'name' 			=> __( 'Default', 'anva' ),
 			'id' 			=> 'default',
 			'classes' 		=> array(
-				'header'	=> 'full-header',
+				'header'	=> '',
 				'body'		=> ''
 			),
 			'type' 			=> 'sticky'
@@ -264,7 +264,7 @@ function anva_get_header_styles() {
 			'name' 			=> __( 'Semi Transparent', 'anva' ),
 			'id' 			=> 'semi_transparent',
 			'classes' 		=> array(
-				'header'	=> 'transparent-header semi-transparent full-header',
+				'header'	=> 'transparent-header semi-transparent',
 				'body'		=> ''
 			),
 			'type' 			=> 'sticky'
@@ -282,7 +282,7 @@ function anva_get_header_styles() {
 			'name' 			=> __( 'Static Sticky', 'anva' ),
 			'id' 			=> 'static_sticky',
 			'classes' 		=> array(
-				'header'	=> 'full-header static-sticky',
+				'header'	=> 'static-sticky',
 				'body'		=> ''
 			),
 			'type' 			=> 'sticky'
@@ -295,6 +295,15 @@ function anva_get_header_styles() {
 				'body'		=> 'responsive-sticky-menu'
 			),
 			'type' 			=> 'sticky'
+		),
+		'no_sticky' => array(
+			'name' 			=> __( 'No Sticky', 'anva' ),
+			'id' 			=> 'no_sticky',
+			'classes' 		=> array(
+				'header'	=> 'no-sticky',
+				'body'		=> ''
+			),
+			'type' 			=> 'static'
 		),
 		'left_side_fixed' 	=> array(
 			'name' 			=> __( 'Left Side Fixed', 'anva' ),
@@ -352,7 +361,7 @@ function anva_get_header_styles() {
 		),
 	);
 
-	return apply_filters( 'anva_header_styles', $header_styles );
+	return apply_filters( 'anva_header_types', $header_types );
 }
 
 /**

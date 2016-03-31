@@ -111,6 +111,7 @@ class Anva
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/general.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/display.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/locals.php' );
+        include_once( ANVA_FRAMEWORK_ADMIN . 'plugins/plugins.php' ); 
 
         // API and helpers
         include_once( ANVA_FRAMEWORK_DIR . 'includes/api/class-anva-options-api.php' );
@@ -185,7 +186,7 @@ class Anva
         add_action( 'anva_textdomain', 'anva_load_theme_texdomain' );
         add_action( 'anva_api', 'anva_api_init' );
         // add_action( 'anva_top_before', 'anva_side_menu' );
-        // add_action( 'anva_header_above', 'anva_top_bar_default' );
+        add_action( 'anva_header_above', 'anva_top_bar_default' );
         add_action( 'anva_header_above', 'anva_sidebar_above_header' );
         // add_action( 'anva_header_extras', 'anva_header_extras_default' );
         add_action( 'anva_header_logo', 'anva_header_logo_default' );

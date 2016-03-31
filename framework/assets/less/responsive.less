@@ -1,12 +1,10 @@
-/*-----------------------------------------------------------------------------------
-	less/responsive.less
------------------------------------------------------------------------------------*/
-
+/* -----------------------------------------------------------------------------------*/
+/* 	Responsive CSS
+/* -----------------------------------------------------------------------------------*/
 
 // Initialize
 @import "variables.less";
 @import "mixins.less";
-
 
 @media only screen and (max-width: 1199px) {
 
@@ -765,6 +763,7 @@
 
 	#top-search a,
 	#top-cart,
+	#top-lang,
 	#side-panel-trigger {
 		position: absolute;
 		top: 0;
@@ -773,7 +772,9 @@
 		margin: 40px 0;
 	}
 
-	#top-search a { right: 43px; }
+	#top-search a { right: 71px; }
+	
+	#top-lang { right: 43px; }
 
 	#side-panel-trigger { right: 71px; }
 
@@ -781,6 +782,7 @@
 		> div {
 			> #top-search a,
 			> #top-cart,
+			> #top-lang,
 			> #side-panel-trigger {
 				margin: 20px 0 !important;
 			}
@@ -811,6 +813,11 @@
 		&.sticky-style-3 {
 			#top-cart {
 				.top-cart-content {
+					top: 40px;
+				}
+			}
+			#top-lang {
+				.top-lang-content {
 					top: 40px;
 				}
 			}
@@ -900,6 +907,7 @@
 			#top-search a,
 			#primary-menu-trigger,
 			#top-cart,
+			#top-lang,
 			#side-panel-trigger {
 				-webkit-transition: none !important;
 				-o-transition: none !important;
@@ -939,6 +947,7 @@
 
 		#top-search a,
 		#top-cart,
+		#top-lang,
 		#side-panel-trigger { margin: 20px 0; }
 
 		#top-search form { height: 60px !important; }

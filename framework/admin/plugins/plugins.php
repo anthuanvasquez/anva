@@ -5,7 +5,7 @@
  */
 
 if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
-	require_once ( anva_get_core_directory() . 'vendor/class-tgm-plugin-activation.php' );
+	require_once ( ANVA_FRAMEWORK_DIR . 'vendor/class-tgm-plugin-activation.php' );
 }
 
 /**
@@ -15,13 +15,13 @@ function anva_register_required_plugins() {
 	
 	// Array of plugin arrays. Required keys are name and slug.
 	// If the source is NOT from the .org repo, then source is also required.
-	$plugins = array(
+	$plugins = apply_filters( 'anva_required_plugins', array(
 
 		// This is an example of how to include a plugin bundled with a theme.
 		array(
 			'name'               => 'TGM Example Plugin', // The plugin name.
 			'slug'               => 'tgm-example-plugin', // The plugin slug (typically the folder name).
-			'source'             => get_template_directory() . '/includes/plugins/tgm-example-plugin.zip', // The plugin source.
+			'source'             => ANVA_FRAMEWORK_ADMIN . 'plugins/packages/tgm-example-plugin.zip', // The plugin source.
 			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
@@ -30,7 +30,7 @@ function anva_register_required_plugins() {
 			'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
 		),
 
-	);
+	) );
 
 	// Array of configuration settings. Amend each line as needed.
 	$config = array(

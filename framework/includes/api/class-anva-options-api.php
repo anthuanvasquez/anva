@@ -128,10 +128,11 @@ class Anva_Options_API
 
 		// Logo defaults
 		$logo_defaults = apply_filters( 'anva_logo_defaults', array(
-			'type' 			=> 'image',
-			'custom' 		=> '',
-			'image' 		=> ANVA_FRAMEWORK_IMG . 'logo.png',
-			'image_2x' 		=> ANVA_FRAMEWORK_IMG . 'logo@2x.png'
+			'type'            => 'image',
+			'custom'          => '',
+			'image'           => ANVA_FRAMEWORK_IMG . 'logo.png',
+			'image_2x'        => ANVA_FRAMEWORK_IMG . 'logo@2x.png',
+			'image_alternate' => ANVA_FRAMEWORK_IMG . 'logo-alternate.png'
 		) );
 
 		// Author default credtis

@@ -153,7 +153,7 @@ function anva_posted_on() {
  * 
  * @since 1.0.0
  */
-function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', $icons = array() ) {
+function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', $position = '', $icons = array() ) {
 
 	$classes = array();
 
@@ -223,14 +223,42 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 				$title = $profiles[ $id ];
 			}
 
-			$output .= sprintf(
-				'<a href="%1$s" class="social-icon si-%3$s %5$s" target="%4$s" title="%2$s"><i class="icon-%3$s"></i><i class="icon-%3$s"></i></a>',
-				esc_url( $url ),
-				esc_attr( $title ),
-				esc_attr( $id ),
-				esc_attr( $target ),
-				esc_attr( $classes )
-			);
+			// Check if position is on top bar.
+			if ( 'top-bar' == $position ) {
+
+				// Change Titles to URL
+				switch ( $id ) {
+					case 'call':
+						$title = str_replace( 'tel:', '', $url );
+						break;
+					case 'email3':
+						$title = str_replace( 'mailto:', '', $url );
+						break;
+					case 'skype':
+						$title = str_replace( 'skype:', '', $url );
+						$title = str_replace( '?call', '', $title );
+						break;
+				}
+
+				$output .= sprintf(
+					'<li><a href="%1$s" class="si-%3$s"><span class="ts-icon"><i class="icon-%3$s"></i></span><span class="ts-text">%2$s</span></a></li>',
+					( 'skype' != $id ? esc_url( $url ) : $url ),
+					esc_attr( $title ),
+					esc_attr( $id ),
+					esc_attr( $target ),
+					esc_attr( $classes )
+				);
+			} else {
+				$output .= sprintf(
+					'<a href="%1$s" class="social-icon si-%3$s %5$s" target="%4$s" title="%2$s"><i class="icon-%3$s"></i><i class="icon-%3$s"></i></a>',
+					( 'skype' != $id ? esc_url( $url ) : $url ),
+					esc_attr( $title ),
+					esc_attr( $id ),
+					esc_attr( $target ),
+					esc_attr( $classes )
+				);
+			}
+
 		}
 	}
 	$output = apply_filters( 'anva_social_icons', $output );

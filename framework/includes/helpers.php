@@ -282,18 +282,56 @@ function anva_get_header_class( $class = '' ) {
 }
 
 /**
+* Display the classes for the header element.
+*
+* @since 1.0.0
+* @param string|array $class
+*/
+function anva_primary_menu_class( $class = '' ) {
+	echo 'class="' . join( ' ', anva_get_primary_menu_class( $class ) ) . '"';
+}
+
+/**
+ * Retrieve the classes for the body element as an array.
+ *
+ * @since  1.0.0
+ * @param  string|array $class
+ * @return array        $classes
+ */
+function anva_get_primary_menu_class( $class = '' ) {
+
+	$classes = array();
+
+	if ( ! empty( $class ) ) {
+		if ( ! is_array( $class ) )
+			$class = preg_split( '#\s+#', $class );
+			$classes = array_merge( $classes, $class );
+	} else {
+		// Ensure that we always coerce class to being an array.
+		$class = array();
+	}
+
+	$classes = array_map( 'esc_attr', $classes );
+
+	// Filter the header class.
+	$classes = apply_filters( 'anva_primary_menu_class', $classes, $class );
+
+	return array_unique( $classes );
+}
+
+/**
  * Get header styles.
  *
  * @since  1.0.0
  * @return string|boolean
  */
-function anva_get_header_style_type() {
+function anva_get_header_type() {
 
-	$header_style = anva_get_option( 'header_style', 'default' );
-	$styles = anva_get_header_styles();
+	$types = anva_get_header_types();
+	$header_type = anva_get_option( 'header_type', 'default' );
 
-	if ( isset( $styles[ $header_style ] ) ) {
-		 return $styles[ $header_style ]['type'];
+	if ( isset( $types[ $header_type ] ) ) {
+		 return $types[ $header_type ]['type'];
 	}
 
 	return false;
