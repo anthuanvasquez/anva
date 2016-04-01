@@ -13,9 +13,11 @@ function anva_load_theme_texdomain() {
 }
 
 /**
- * Add default theme support features
+ * Add default theme support features.
  *
- * @since 1.0.0
+ * @global $wp_version
+ *
+ * @since  1.0.0
  */
 function anva_add_theme_support() {
 	add_theme_support( 'title-tag' );
@@ -278,6 +280,15 @@ function anva_get_header_types() {
 			),
 			'type' 			=> 'sticky'
 		),
+		'floating_semi' 	=> array(
+			'name' 			=> __( 'Floating Semi Transparent', 'anva' ),
+			'id' 			=> 'floating_semi',
+			'classes' 		=> array(
+				'header'	=> 'floating-header transparent-header semi-transparent',
+				'body'		=> ''
+			),
+			'type' 			=> 'sticky'
+		),
 		'static_sticky' 	=> array(
 			'name' 			=> __( 'Static Sticky', 'anva' ),
 			'id' 			=> 'static_sticky',
@@ -362,6 +373,76 @@ function anva_get_header_types() {
 	);
 
 	return apply_filters( 'anva_header_types', $header_types );
+}
+
+/**
+ * Get header types.
+ *
+ * @since  1.0.0
+ * @return array $header_types
+ */
+function anva_get_primary_menu_styles() {
+	$menu_styles = array(
+		'default' => array(
+			'name' => __( 'Default Menu Style', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => ''
+			),
+		),
+		'style_2' => array(
+			'name' => __( 'Menu aligns beside the logo', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'style-2'
+			),
+		),
+		'style_3' => array(
+			'name' => __( 'Menu items with background color', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'style-3'
+			),
+		),
+		'style_4' => array(
+			'name' => __( 'Menu items with border color', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'style-4'
+			),
+		),
+		'style_7' => array(
+			'name' => __( 'Menu aligns below', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => 'sticky-style-2',
+				'menu' => 'style-2'
+			),
+		),
+		'style_9' => array(
+			'name' => __( 'Menu aligns below with logo center', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => 'sticky-style-2',
+				'menu' => 'style-2'
+			),
+		),
+		// Header layout changes with menu overlay
+		'style_10' => array(
+			'name' => __( 'Menu overlay', 'anva' ),
+			'classes' => array(
+				'body' => 'overlay-menu',
+				'header' => '',
+				'menu' => ''
+			),
+		),
+	);
+
+	return apply_filters( 'anva_primary_menu_styles', $menu_styles );
 }
 
 /**
@@ -458,39 +539,39 @@ function anva_column_widths() {
 		'2-col' => array(
 			array(
 				'name' 	=> '20% | 80%',
-				'value' => 'col_fifth_one,col_fifth_4',
+				'value' => 'col_one_sixth,col_five_sixth',
 			),
 			array(
 				'name' 	=> '25% | 75%',
-				'value' => 'grid_3,grid_9',
+				'value' => 'col_one_fifth,col_four_fifth',
 			),
 			array(
 				'name' 	=> '30% | 70%',
-				'value' => 'grid_tenth_3,grid_tenth_7',
+				'value' => 'col_one_fourth,col_three_fourth',
 			),
 			array(
 				'name' 	=> '33% | 66%',
-				'value' => 'grid_4,grid_8',
+				'value' => 'col_one_third,col_two_third',
 			),
 			array(
 				'name' 	=> '50% | 50%',
-				'value' => 'grid_6,grid_6',
+				'value' => 'col_half,col_half',
 			),
 			array(
 				'name' 	=> '66% | 33%',
-				'value' => 'grid_8,grid_4',
+				'value' => 'col_two_third,col_one_third',
 			),
 			array(
 				'name' 	=> '70% | 30%',
-				'value' => 'grid_tenth_7,grid_tenth_3',
+				'value' => 'col_three_fourth,col_one_fourth',
 			),
 			array(
 				'name' 	=> '75% | 25%',
-				'value' => 'grid_9,grid_3',
+				'value' => 'col_four_fifth,col_one_fifth',
 			),
 			array(
 				'name' 	=> '80% | 20%',
-				'value' => 'grid_fifth_4,grid_fifth_1',
+				'value' => 'col_five_sixth,col_one_sixth',
 			)
 		),
 		'3-col' => array(
@@ -500,79 +581,79 @@ function anva_column_widths() {
 			),
 			array(
 				'name' 	=> '25% | 25% | 50%',
-				'value' => 'grid_3,grid_3,grid_6',
+				'value' => 'col_one_fourth,col_one_fourth,col_half',
 			),
 			array(
 				'name' 	=> '25% | 50% | 25%',
-				'value' => 'grid_3,grid_6,grid_3',
+				'value' => 'col_one_fourth,col_half,col_one_fourth',
 			),
 			array(
 				'name' 	=> '50% | 25% | 25% ',
-				'value' => 'grid_6,grid_3,grid_3',
+				'value' => 'col_half,col_one_fourth,col_one_fourth',
 			),
 			array(
 				'name' 	=> '20% | 20% | 60%',
-				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_3',
+				'value' => 'col_one_fifth,col_one_fifth,col_three_fifth',
 			),
 			array(
 				'name' 	=> '20% | 60% | 20%',
-				'value' => 'grid_fifth_1,grid_fifth_3,grid_fifth_1',
+				'value' => 'col_one_fifth,col_three_fifth,col_one_fifth',
 			),
 			array(
 				'name' 	=> '60% | 20% | 20%',
-				'value' => 'grid_fifth_3,grid_fifth_1,grid_fifth_1',
+				'value' => 'col_three_fifth,col_one_fifth,col_one_fifth',
 			),
 			array(
 				'name' 	=> '40% | 40% | 20%',
-				'value' => 'grid_fifth_2,grid_fifth_2,grid_fifth_1',
+				'value' => 'col_two_fifth,col_two_fifth,col_one_fifth',
 			),
 			array(
 				'name' 	=> '40% | 20% | 40%',
-				'value' => 'grid_fifth_2,grid_fifth_1,grid_fifth_2',
+				'value' => 'col_two_fifth,col_one_fifth,col_two_fifth',
 			),
 			array(
 				'name' 	=> '20% | 40% | 40%',
-				'value' => 'grid_fifth_1,grid_fifth_2,grid_fifth_2',
+				'value' => 'col_one_fifth,col_two_fifth,col_two_fifth',
 			),
 			array(
 				'name' 	=> '30% | 30% | 40%',
-				'value' => 'grid_tenth_3,grid_tenth_3,grid_fifth_2',
+				'value' => 'col_tenth_three,col_tenth_three,col_tenth_fourth',
 			),
 			array(
 				'name' 	=> '30% | 40% | 30%',
-				'value' => 'grid_tenth_3,grid_fifth_2,grid_tenth_3',
+				'value' => 'col_tenth_three,col_tenth_fourth,col_tenth_three',
 			),
 			array(
 				'name' 	=> '40% | 30% | 30%',
-				'value' => 'grid_fifth_2,grid_tenth_3,grid_tenth_3',
+				'value' => 'col_tenth_fourth,col_tenth_three,col_tenth_three',
 			)
 		),
 		'4-col' => array(
 			array(
 				'name' 	=> '25% | 25% | 25% | 25%',
-				'value' => 'grid_3,grid_3,grid_3,grid_3',
+				'value' => 'col_one_fourth,col_one_fourth,col_one_fourth,col_one_fourth',
 			),
 			array(
 				'name' 	=> '20% | 20% | 20% | 40%',
-				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_1,grid_fifth_2',
+				'value' => 'col_one_fifth,col_one_fifth,col_one_fifth,col_two_fifth',
 			),
 			array(
 				'name' 	=> '20% | 20% | 40% | 20%',
-				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_2,grid_fifth_1',
+				'value' => 'col_one_fifth,col_one_fifth,col_two_fifth,col_one_fifth',
 			),
 			array(
 				'name' 	=> '20% | 40% | 20% | 20%',
-				'value' => 'grid_fifth_1,grid_fifth_2,grid_fifth_1,grid_fifth_1',
+				'value' => 'col_one_fifth,col_two_fifth,col_one_fifth,col_one_fifth',
 			),
 			array(
 				'name' 	=> '40% | 20% | 20% | 20%',
-				'value' => 'grid_fifth_2,grid_fifth_1,grid_fifth_1,grid_fifth_1',
+				'value' => 'col_two_fifth,col_one_fifth,col_one_fifth,col_one_fifth',
 			)
 		),
 		'5-col' => array(
 			array(
 				'name' 	=> '20% | 20% | 20% | 20% | 20%',
-				'value' => 'grid_fifth_1,grid_fifth_1,grid_fifth_1,grid_fifth_1,grid_fifth_1',
+				'value' => 'col_one_fifth,col_one_fifth,col_one_fifth,col_one_fifth,col_one_fifth',
 			)
 		)
 	);
@@ -669,12 +750,12 @@ function anva_display_footer_sidebar_locations() {
 			$columns = array();
 			$num = $footer_setup['num'];
 			while ( $i <= $num ) {
-				if ( isset( $widgets_columns['footer_'. $i] ) ) {
-					$columns[] = $widgets_columns['footer_'. $i]['id'];
+				if ( isset( $widgets_columns[ 'footer_'. $i ] ) ) {
+					$columns[] = $widgets_columns[ 'footer_' . $i ]['id'];
 				}
 				$i++;
 			}
-			anva_columns( $num, $footer_setup['width'][$num], $columns );
+			anva_columns( $num, $footer_setup['width'][ $num ], $columns );
 		}
 	}
 
@@ -707,14 +788,14 @@ function anva_columns( $num, $widths, $columns ) {
 
 	foreach ( $columns as $key => $column ) {
 		// Set CSS classes for column
-		$classes = 'grid_column ' . $widths[ $key ];
+		$classes = 'column ' . $widths[ $key ];
 		if ( $last == $key ) {
 			$classes .= ' col_last';
 		}
 
-		echo '<div class="' . esc_attr( $classes ) .'">';
+		echo '<div class="' . esc_attr( $classes ) . '">';
 		anva_display_sidebar( $column );
-		echo '</div><!-- .grid_column (end) -->';
+		echo '</div><!-- .column (end) -->';
 	}
 }
 

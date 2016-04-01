@@ -58,21 +58,12 @@ class Anva_Scripts_API {
 	 */
 	public function set_framework_scripts() {
 
-		// Boostrap
+		// Boostrap 3
 		$this->framework_scripts['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
 			'src'		=> anva_get_core_uri() . 'assets/js/vendor/bootstrap.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'		=> '3.3.6',
-			'footer'	=> true
-		);
-
-		// Plugins
-		$this->framework_scripts['anva_plugins'] = array(
-			'handle'	=> 'anva_plugins',
-			'src'		=> anva_get_core_uri() .'/assets/js/plugins.js',
-			'deps'		=> array( 'jquery' ),
-			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true
 		);
 
@@ -85,19 +76,28 @@ class Anva_Scripts_API {
 			'footer'	=> true
 		);
 
-		// Camera
-		$this->framework_scripts['camera'] = array(
-			'handle'	=> 'camera',
-			'src'		=> anva_get_core_uri() .'/assets/js/jquery.camera.js',
+		// jQuery Camera
+		$this->framework_scripts['jquery_camera'] = array(
+			'handle'	=> 'jquery_camera',
+			'src'		=> anva_get_core_uri() . 'assets/js/jquery.camera.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'		=> '1.4.0',
 			'footer'	=> true
 		);
 
-		// Main JS
+		// Plugins
+		$this->framework_scripts['anva_plugins'] = array(
+			'handle'	=> 'anva_plugins',
+			'src'		=> anva_get_core_uri() . 'assets/js/plugins.js',
+			'deps'		=> array( 'jquery' ),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'footer'	=> true
+		);
+
+		// Functions
 		$this->framework_scripts['anva_functions'] = array(
 			'handle'	=> 'anva_functions',
-			'src'		=> anva_get_core_uri() .'/assets/js/functions.js',
+			'src'		=> anva_get_core_uri() . 'assets/js/functions.js',
 			'deps'		=> array( 'jquery', 'anva_plugins' ),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true

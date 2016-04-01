@@ -70,14 +70,7 @@
 
 	<!-- HEADER (start) -->
 	<header id="header" <?php anva_header_class(); ?>>
-		<div id="header-wrap">
-			<div class="container clearfix">
-				<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-				<?php do_action( 'anva_header_logo' ); ?>
-				<?php do_action( 'anva_header_extras' ); ?>
-				<?php do_action( 'anva_header_primary_menu' ); ?>
-			</div>
-		</div><!-- .header-wrap (end) -->
+		<?php anva_header(); ?>
 	</header><!-- HEADER (end) -->
 	
 	<?php

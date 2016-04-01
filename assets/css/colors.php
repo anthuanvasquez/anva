@@ -1,6 +1,8 @@
 <?php
 
     header ("Content-Type:text/css");
+
+    $styles = '';
     
     // Change your Color Here
     $color = "#3498db";
@@ -8,6 +10,15 @@
     // Check HEX color
     function check_hex_color( $color ) {
         return preg_match( '/^#[a-f0-9]{6}$/i', $color );
+    }
+
+    // Compress output
+    function compress_output( $buffer ) {
+        // Remove comments
+        $buffer = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer );
+        // Remove tabs, spaces, newlines, etc.
+        $buffer = str_replace( array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer );
+        return $buffer;
     }
     
     // Primary Color Scheme    
@@ -20,11 +31,12 @@
         $color = "#3498db";
     }
 
+    ob_start();
 ?>
 
 /* ----------------------------------------------------------------- */
- * Colors
- * ----------------------------------------------------------------- */
+/* Colors
+/* ----------------------------------------------------------------- */
 
 ::selection { background: <?php echo $color; ?>; }
 ::-moz-selection { background: <?php echo $color; ?>; }
@@ -252,3 +264,9 @@ input.switch-toggle-round:checked + label:before,
 @media only screen and (max-width: 767px) {
     .portfolio-filter li a:hover { color: <?php echo $color; ?>; }
 }
+
+<?php
+$styles = ob_get_clean();
+
+// Compress Output
+echo compress_output( $styles );

@@ -10,9 +10,9 @@ function theme_customizer_options() {
 
 	// Setup background options
 	$background_options = array(
-		'bg_color' 				 		=> array(
+		'background_color' 				=> array(
 			'label' 					=> __( 'Background Color', 'anva' ),
-			'id' 						=> 'bg_color',
+			'id' 						=> 'background_color',
 			'type' 						=> 'color',
 			'transport'					=> 'postMessage',
 			'priority'					=> 1

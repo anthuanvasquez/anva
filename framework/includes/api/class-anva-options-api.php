@@ -17,7 +17,7 @@ if ( ! class_exists( 'Anva_Options_API' ) ) :
 class Anva_Options_API
 {
 	/**
-	 * A single instance of this class
+	 * A single instance of this class.
  	 *
 	 * @since  1.0.0
 	 * @access private

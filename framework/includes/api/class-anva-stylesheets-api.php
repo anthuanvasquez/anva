@@ -17,43 +17,43 @@ if ( ! class_exists( 'Anva_Stylesheets_API' ) ) :
 class Anva_Stylesheets_API {
 
 	/**
-	 * A single instance of this class
+	 * A single instance of this class.
 	 * 
 	 * @since 1.0.0
 	 */
-	private static $instance = null;
+	private static $instance = NULL;
 
 	/**
-	 * Remove stylesheets array
+	 * Remove stylesheets array.
 	 * 
 	 * @since 1.0.0
 	 */
 	private $remove_stylesheets = array();
 	
 	/**
-	 * Core stylesheets array
+	 * Core stylesheets array.
 	 * 
 	 * @since 1.0.0
 	 */
 	private $framework_stylesheets = array();
 	
 	/**
-	 * Framework dependencies
+	 * Framework dependencies.
 	 * 
 	 * @since 1.0.0
 	 */
 	private $framework_deps = array();
 	
 	/**
-	 * Custom stylesheets
+	 * Custom stylesheets.
 	 * 
 	 * @since 1.0.0
 	 */
 	private $custom_stylesheets = array();
 
 	/**
-		* Creates or returns an instance of this class
-		*/
+	 * Creates or returns an instance of this class.
+	 */
 	public static function instance() {
 
 		if ( self::$instance == null ) {
@@ -64,8 +64,7 @@ class Anva_Stylesheets_API {
 	}
 
 	/**
-	 * Constructor
-	 * Hook everythin in.
+	 * Constructor Hook everythin in.
 	 */
 	private function __construct() {
 
@@ -81,11 +80,11 @@ class Anva_Stylesheets_API {
 	}
 
 	/**
-	 * Set core framework stylesheet
+	 * Set core framework stylesheet.
 	 */
 	public function set_framework_stylesheets() {
 
-		// Boostrap
+		// Boostrap 3
 		$this->framework_stylesheets['bootstrap'] = array(
 			'handle'	=> 'bootstrap',
 			'src'		=> anva_get_core_uri() . 'assets/css/bootstrap.css',
@@ -94,9 +93,18 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
-		// Framework styles
-		$this->framework_stylesheets['anva'] = array(
-			'handle'	=> 'anva',
+		// Framework Shortcodes
+		$this->framework_stylesheets['anva_shortcodes'] = array(
+			'handle'	=> 'anva_shortcodes',
+			'src'		=> anva_get_core_uri() . 'assets/css/shortcodes.min.css',
+			'deps'		=> array(),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'media'		=> 'all'
+		);
+
+		// Framework Styles
+		$this->framework_stylesheets['anva_styles'] = array(
+			'handle'	=> 'anva_styles',
 			'src'		=> anva_get_core_uri() . 'assets/css/styles.min.css',
 			'deps'		=> array(),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
@@ -122,8 +130,8 @@ class Anva_Stylesheets_API {
 		);
 
 		// Font Icons
-		$this->framework_stylesheets['fonticons'] = array(
-			'handle'	=> 'fonticons',
+		$this->framework_stylesheets['font_icons'] = array(
+			'handle'	=> 'font_icons',
 			'src'		=> anva_get_core_uri() . 'assets/css/font-icons.css',
 			'deps'		=> array(),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
@@ -139,20 +147,11 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
-		// Magnific Popup
-		$this->framework_stylesheets['magnificpopup'] = array(
-			'handle'	=> 'magnificpopup',
-			'src'		=> anva_get_core_uri() . 'assets/css/magnific-popup.css',
-			'deps'		=> array(),
-			'ver'		=> '1.1.0',
-			'media'		=> 'all'
-		);
-
-		// Responsive
+		// Framework Responsive Styles
 		$this->framework_stylesheets['anva_responsive'] = array(
 			'handle'	=> 'anva_responsive',
-			'src'		=> anva_get_core_uri() . 'assets/css/responsive.css',
-			'deps'		=> array( 'anva' ),
+			'src'		=> anva_get_core_uri() . 'assets/css/responsive.min.css',
+			'deps'		=> array( 'anva_shortcodes', 'anva_styles' ),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'
 		);

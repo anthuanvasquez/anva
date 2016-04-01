@@ -50,11 +50,17 @@ function theme_backup_menu( $menu ) {
 function theme_body_classes( $classes ) {
 	
 	$base_color_style = anva_get_option( 'base_color_style' );
+	$base_color       = anva_get_option( 'base_color' );
 	$layout_style     = anva_get_option( 'layout_style' );
 	$header_type      = anva_get_option( 'header_type', 'default' );
 	$types            = anva_get_header_types();
+
+	// Add base color
+	if ( 'dark' == $base_color ) {
+		$classes[] = 'has-base-color' . $base_color;
+	}
 	
-	// Add dark
+	// Add base color style
 	if ( 'dark' == $base_color_style ) {
 		$classes[] = $base_color_style;
 	}
@@ -82,26 +88,40 @@ function theme_body_classes( $classes ) {
  */
 function theme_header_classes( $classes ) {
 	
-	$header_color = anva_get_option( 'header_color', 'light' );
-	$header_style = anva_get_option( 'header_style', 'full-header' );
-	$header_type = anva_get_option( 'header_type', 'default' );
+	$header_color       = anva_get_option( 'header_color', 'light' );
+	$header_style       = anva_get_option( 'header_style', 'full-header' );
+	$header_type        = anva_get_option( 'header_type', 'default' );
+	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 	
 	// Get all header types
 	$types = anva_get_header_types();
 
+	// Get all primary menu styles
+	$styles = anva_get_primary_menu_styles();
+
 	// Current header type
 	$type = anva_get_header_type();
 
+	// Add header style
 	if ( 'side' != $type && $header_style ) {
 		$classes[] = $header_style;
 	}
 
+	// Add header typr
 	if ( isset( $types[ $header_type ] ) ) {
 		if ( ! empty( $types[ $header_type ]['classes']['header'] ) ) {
 			$classes[] = $types[ $header_type ]['classes']['header'];
 		}
 	}
 
+	// Add primary menu style
+	if ( isset( $styles[ $primary_menu_style ] )  ) {
+		if ( ! empty( $styles[ $primary_menu_style ]['classes']['header'] ) && 'side' != $type ) {
+			$classes[] = $styles[ $primary_menu_style ]['classes']['header'];
+		}
+	}
+
+	// Add header color
 	if ( 'dark' == $header_color ) {
 		$classes[] = $header_color;
 	}
@@ -116,15 +136,26 @@ function theme_header_classes( $classes ) {
  * @return array $classes
  */
 function theme_primary_menu_classes( $classes ) {
+	
 	$primary_menu_color = anva_get_option( 'primary_menu_color', 'light' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 	
-	if ( 'dark' == $primary_menu_color ) {
+	// Get all primary menu styles
+	$styles = anva_get_primary_menu_styles();
+
+	// Get current header type
+	$type = anva_get_header_type();
+	
+	// Add primary menu color
+	if ( 'dark' == $primary_menu_color && 'side' != $type ) {
 		$classes[] = $primary_menu_color;
 	}
 
-	if ( $primary_menu_style ) {
-		$classes[] = $primary_menu_style;
+	// Add primary menu style
+	if ( isset( $styles[ $primary_menu_style ] )  ) {
+		if ( ! empty( $styles[ $primary_menu_style ]['classes']['menu'] ) && 'side' != $type ) {
+			$classes[] = $styles[ $primary_menu_style ]['classes']['menu'];
+		}
 	}
 
 	return $classes;
@@ -171,13 +202,16 @@ function theme_google_fonts() {
 }
 
 /**
- * Add custom editor styles.
+ * Add theme support.
  *
  * @since  1.0.0
  * @return void
  */
 function theme_add_theme_support() {
-	add_editor_style( 'assets/css/editor-style.css' );
+	// Support editor styles
+	add_editor_style();
+
+	// Framework support features
 	add_theme_support( 'anva-login-styles' );
 	add_theme_support( 'anva-megamenu' );
 	add_theme_support( 'anva-woocommerce' );
@@ -198,10 +232,9 @@ function theme_stylesheets() {
 	$api = Anva_Stylesheets_API::instance();
 
 	// Register theme stylesheets
-	wp_register_style( 'crete', '//fonts.googleapis.com/css?family=Crete+Round:400italic', array(), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_styles', get_template_directory_uri() . '/assets/css/theme.css', array(), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_dark', get_template_directory_uri() . '/assets/css/dark.css', array( 'theme_styles' ), ANVA_THEME_VERSION, 'all' );
-	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.php?color=' . $color, array( 'theme_dark' ), ANVA_THEME_VERSION, 'all' );
+	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.php?color=' . esc_html( $color ), array( 'theme_dark' ), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_ie', get_template_directory_uri() . '/assets/css/ie.css', array( 'theme_color' ), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_custom', get_template_directory_uri() . '/assets/css/custom.css', array( 'theme_color' ), ANVA_THEME_VERSION, 'all' );
 		
@@ -209,7 +242,6 @@ function theme_stylesheets() {
 	wp_enqueue_style( 'theme_styles' );
 	wp_enqueue_style( 'theme_dark' );
 	wp_enqueue_style( 'theme_colors' );
-	wp_enqueue_style( 'crete' );
 	
 	// Custom Stylesheet
 	if ( 'yes' == anva_get_option( 'custom_css_stylesheet' ) ) {
@@ -239,20 +271,19 @@ function theme_scripts() {
 	// Get scripts API
 	$api = Anva_Scripts_API::instance();
 
-	wp_register_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js', array(), '3.7.2' );
-	wp_register_script( 'css3mediaqueriesjs', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '1.0.0' );
+	wp_register_script( 'css3-mediaqueries-js', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '1.0.0' );
 	wp_register_script( 'theme_js', get_template_directory_uri() . '/assets/js/theme.js', $api->get_framework_deps(), ANVA_THEME_VERSION, true );
 
-	$GLOBALS['wp_scripts']->add_data( 'html5shiv', 'conditional', 'lt IE 9' );
-	$GLOBALS['wp_scripts']->add_data( 'css3mediaqueriesjs', 'conditional', 'lt IE 9' );
+	// IE
+	$GLOBALS['wp_scripts']->add_data( 'css3-mediaqueries-js', 'conditional', 'lt IE 9' );
 
 	// Enqueue Scripts
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'html5shiv' );
-	wp_enqueue_script( 'css3mediaqueriesjs' );
+	wp_enqueue_script( 'css3-mediaqueries-js' );
 	wp_enqueue_script( 'theme_js' );
-	wp_localize_script( 'anva', 'ANVAJS', anva_get_js_locals() );
+	wp_localize_script( 'anva_functions', 'ANVA_WP', anva_get_js_locals() );
 
+	// Enqueue Thread Commens on Single Posts
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -270,91 +301,118 @@ function theme_scripts() {
  */
 function theme_styles() {
 	
+	// Styles output
 	$styles 			= '';
 
 	// Get styles options
-	$custom_css 		= anva_get_option( 'custom_css' );
-	$body_font 			= anva_get_option( 'body_font' );
-	$heading_font 		= anva_get_option( 'heading_font' );
-	$heading_h1 		= anva_get_option( 'heading_h1', '27' );
-	$heading_h2 		= anva_get_option( 'heading_h2', '24' );
-	$heading_h3 		= anva_get_option( 'heading_h3', '18' );
-	$heading_h4 		= anva_get_option( 'heading_h4', '14' );
-	$heading_h5 		= anva_get_option( 'heading_h5', '13' );
-	$heading_h6 		= anva_get_option( 'heading_h6', '11' );
-	$background_color 	= anva_get_option( 'bg_color' );
-	$background_image 	= anva_get_option( 'background_image', array( 'image' => '' ) );
-	$background_cover 	= anva_get_option( 'background_cover' );
+	$custom_css         = anva_get_option( 'custom_css' );
+	$body_font          = anva_get_option( 'body_font' );
+	$heading_font       = anva_get_option( 'heading_font' );
+	$heading_h1         = anva_get_option( 'heading_h1', '36' );
+	$heading_h2         = anva_get_option( 'heading_h2', '30' );
+	$heading_h3         = anva_get_option( 'heading_h3', '24' );
+	$heading_h4         = anva_get_option( 'heading_h4', '18' );
+	$heading_h5         = anva_get_option( 'heading_h5', '14' );
+	$heading_h6         = anva_get_option( 'heading_h6', '12' );
+	$background_color   = anva_get_option( 'background_color' );
+	$background_image   = anva_get_option( 'background_image', array( 'image' => '' ) );
+	$background_cover   = anva_get_option( 'background_cover' );
 	$background_pattern = anva_get_option( 'background_pattern' );
-	$link_color			= anva_get_option( 'link_color' );
-	$link_color_hover	= anva_get_option( 'link_color_hover' );
+	$link_color         = anva_get_option( 'link_color' );
+	$link_color_hover   = anva_get_option( 'link_color_hover' );
 	ob_start();
 	?>
-	/* Typography */
-	html,
+	/* ---------------------------------------- */
+	/* Typography
+	/* ---------------------------------------- */
+	
+	body,
+	small,
+	#primary-menu ul ul li > a,
+	.wp-caption,
+	.feature-box.fbox-center.fbox-italic p,
+	.skills li .progress-percent .counter,
+	.nav-tree ul ul a,
+	.font-body { font-family: <?php echo anva_get_font_face( $body_font ); ?>; }
+	
 	body {
-		font-family: <?php echo anva_get_font_face( $body_font ); ?>;
 		font-size: <?php echo anva_get_font_size( $body_font ); ?>;
 		font-style: <?php echo anva_get_font_style( $body_font ); ?>;
 		font-weight: <?php echo anva_get_font_weight( $body_font ); ?>;
 	}
-	.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .entry-title h1, .entry-title h2, .page-title h1 {
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	#logo,
+	#primary-menu ul li > a,
+	#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a,
+	#top-search form input,
+	.entry-link,
+	.entry.entry-date-section span,
+	.button.button-desc,
+	.counter,
+	label,
+	.nav-tree li a,
+	.wedding-head .first-name,
+	.wedding-head .last-name,
+	.font-primary {
 		font-family: <?php echo anva_get_font_face( $heading_font ); ?>;
 		font-style: <?php echo anva_get_font_style( $heading_font ); ?>;
 		font-weight: <?php echo anva_get_font_weight( $heading_font ); ?>;
 	}
-	h1 {
-		font-size: <?php echo $heading_h1 . 'px'; ?>;
-	}
-	h2 {
-		font-size: <?php echo $heading_h2 . 'px'; ?>;
-	}
-	h3 {
-		font-size: <?php echo $heading_h3 . 'px'; ?>;
-	}
-	h4 {
-		font-size: <?php echo $heading_h4 . 'px'; ?>;
-	}
-	h5 {
-		font-size: <?php echo $heading_h5 . 'px'; ?>;
-	}
-	h6 {
-		font-size: <?php echo $heading_h6 . 'px'; ?>;
-	}
-	/* Background */
+
+	h1 { font-size: <?php echo $heading_h1 . 'px'; ?>; }
+	h2 { font-size: <?php echo $heading_h2 . 'px'; ?>; }
+	h3 { font-size: <?php echo $heading_h3 . 'px'; ?>; }
+	h4 { font-size: <?php echo $heading_h4 . 'px'; ?>; }
+	h5 { font-size: <?php echo $heading_h5 . 'px'; ?>; }
+	h6 { font-size: <?php echo $heading_h6 . 'px'; ?>; }
+
+	/* ---------------------------------------- */
+	/* Background
+	/* ---------------------------------------- */
+	
+	/* Background Image */
 	body {
 		background-color: <?php echo esc_html( $background_color ); ?>;
 		<?php if ( ! empty( $background_image['image'] ) ) : ?>
-		background-image: url('<?php echo esc_url( $background_image['image'] );?>');
-		background-repeat: <?php echo esc_html( $background_image['repeat'] );?>;
-		background-position: <?php echo esc_html( $background_image['position'] );?>;
-		background-attachment: <?php echo esc_html( $background_image['attachment'] );?>;
+			background-image: url("<?php echo esc_url( $background_image['image'] );?>");
+			background-repeat: <?php echo esc_html( $background_image['repeat'] );?>;
+			background-position: <?php echo esc_html( $background_image['position'] );?>;
+			background-attachment: <?php echo esc_html( $background_image['attachment'] );?>;
 		<?php endif; ?>
 	}
+
+	/* Background Image Cover Size */
 	<?php if ( $background_cover && ! empty( $background_image['image'] ) ) : ?>
-	body {
-		background: url('<?php echo esc_url( $background_image['image'] );?>') no-repeat center center fixed; 
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
-	}
+		body {
+			background: url("<?php echo esc_url( $background_image['image'] ); ?>") no-repeat center center fixed; 
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
 	<?php endif; ?>
+
+	/* Background Image Patterns */
 	<?php if ( empty( $background_image['image'] ) && ! empty( $background_pattern ) ) : ?>
-	body {
-		background-image: url('<?php echo anva_get_background_pattern( $background_pattern ); ?>');
-		background-repeat: repeat;
-	}
+		body {
+			background-image: url("<?php echo anva_get_background_pattern( $background_pattern ); ?>");
+			background-repeat: repeat;
+		}
 	<?php endif; ?>
-	<?php if ( $link_color ) : ?>
-	/* Links */
-	a {
-		color: <?php echo $link_color; ?>
-	}
-	a:hover {
-		color: <?php echo $link_color_hover; ?>
-	}
-	<?php endif; ?>
+
+	/* ---------------------------------------- */
+	/* Links
+	/* ---------------------------------------- */
+
+	a { color: <?php echo $link_color; ?> }
+	a:hover { color: <?php echo $link_color_hover; ?> }
+	
 	<?php
 	$styles = ob_get_clean();
 
@@ -392,7 +450,6 @@ function theme_base_colors() {
 			// it checks which value was selected and calls anva_update_color()
 			$('#section-base_color .anva-radio-img-box').click( function() {
 			    var colorscheme = $(this).find('.anva-radio-img-radio').val();
-			    console.log(colorscheme);
 			    if ( colorscheme == 'blue' ) { colorscheme = blue; }
 			    if ( colorscheme == 'light_blue' ) { colorscheme = light_blue; }
 			    if ( colorscheme == 'navy_blue' ) { colorscheme = navy_blue; }
@@ -405,6 +462,20 @@ function theme_base_colors() {
 	        function anva_update_color( id, hex ) {
 	            $('#' + id).wpColorPicker( 'color', hex );
 	        }
+
+	        $('#section-primary_menu_style select').on( 'change', function() {
+	        	var value = $(this).val();
+	        	console.log(value);
+	        	if ( 'style_7' == value ) {
+		  			$('#section-header_extras').show(400);
+	        	} else {
+	        		$('#section-header_extras').hide(400);
+	        	}
+			});
+
+			if ( 'style_7' == $('#section-primary_menu_style select').val() ) {
+				$('#section-header_extras').show();
+			}
 		});
 	</script>
 	<?php

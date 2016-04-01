@@ -1149,7 +1149,12 @@
   .col_three_fifth,
   .col_four_fifth,
   .col_one_sixth,
-  .col_five_sixth {
+  .col_five_sixth,
+  .col_five_three,
+  .col_five_four,
+  .col_tenth_fourth,
+  .col_tenth_three,
+  .col_tenth_seven {
     width: 100%;
     margin-right: 0;
     float: none;
@@ -1169,7 +1174,12 @@
   form .col_three_fifth,
   form .col_four_fifth,
   form .col_one_sixth,
-  form .col_five_sixth {
+  form .col_five_sixth,
+  form .col_five_three,
+  form .col_five_four,
+  form .col_tenth_fourth,
+  form .col_tenth_three,
+  form .col_tenth_seven {
     margin-bottom: 25px !important;
   }
   #page-title {
@@ -1594,7 +1604,8 @@
   .full-screen:not(.force-full-screen) .container.vertical-middle {
     width: 310px !important;
   }
-  #top-cart {
+  #top-cart,
+  #top-lang {
     display: none;
   }
   #top-search a {

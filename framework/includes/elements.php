@@ -8,7 +8,7 @@
 add_action( 'anva_element_divider', 'anva_divider', 10, 2 );
 
 // Content Elements
-add_action( 'anva_element_header', 'anva_header', 10, 2 );
+add_action( 'anva_element_header', 'anva_header_element', 10, 2 );
 add_action( 'anva_element_header_image', 'anva_header_image', 10, 2 );
 add_action( 'anva_element_text', 'anva_text', 10, 2 );
 add_action( 'anva_element_text_image', 'anva_text_image' );
@@ -61,7 +61,7 @@ function anva_divider( $atts, $content = null ) {
  * @param  [type] $content [description]
  * @return [type]          [description]
  */
-function anva_header( $atts, $content = null ) {
+function anva_header_element( $atts, $content = null ) {
 
 	extract( $atts );
 

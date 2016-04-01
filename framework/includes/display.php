@@ -1,7 +1,11 @@
 <?php
 
+/*-----------------------------------------------------------------------------------*/
+/* Display Functions
+/*-----------------------------------------------------------------------------------*/
+
 /**
- * Print favicon and apple touch icons in head
+ * Print favicon and apple touch icons in head.
  * 
  * @since 1.0.0
  */
@@ -126,10 +130,11 @@ function anva_top_bar_default() {
  */
 function anva_header_logo_default() {
 	
-	$option 	= anva_get_option( 'custom_logo' );
-	$name 		= get_bloginfo( 'name' );
-	$classes 	= array();
-	$classes[] 	= 'logo-' . $option['type'];
+	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
+	$option             = anva_get_option( 'custom_logo' );
+	$name               = get_bloginfo( 'name' );
+	$classes            = array();
+	$classes[]          = 'logo-' . $option['type'];
 	
 	if ( $option['type'] == 'custom' || $option['type'] == 'title' || $option['type'] == 'title_tagline' ) {
 		$classes[] = 'logo-text';
@@ -145,6 +150,10 @@ function anva_header_logo_default() {
 
 	if ( $option['type'] == 'image' ) {
 		$classes[] = 'logo-has-image';
+	}
+
+	if ( $primary_menu_style == 'style_9' ) {
+		$classes[] = 'divcenter';
 	}
 
 	$classes = implode( ' ', $classes );
@@ -176,10 +185,15 @@ function anva_header_logo_default() {
 				$logo_2x   = '';
 				$logo_alt  = '';
 				$image_alt = '';
+				$class     = '';
+
+				if ( $primary_menu_style == 'style_9' ) {
+					$class = 'class="divcenter"';
+				}
 
 				if ( ! empty( $option['image_2x'] ) ) {
 					$image_2x = $option['image_2x'];
-					$logo_2x = '<a class="retina-logo" href="' . home_url() . '"><img src="' . $image_2x . '" alt="' . $name . '" /></a>';
+					$logo_2x = '<a class="retina-logo" href="' . home_url() . '"><img ' . $class . ' src="' . esc_url( $image_2x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
 				}
 
 				if ( ! empty( $option['image_alternate'] ) ) {
@@ -188,12 +202,44 @@ function anva_header_logo_default() {
 					$logo_alt .= 'data-mobile-logo="' . esc_url( $image_alt ) . '"';
 				}
 
-				echo '<a class="standard-logo" href="' . home_url() . '"' . $logo_alt . '><img src="' . $image_1x . '" alt="' . $name . '" /></a>';
+				echo '<a class="standard-logo" href="' . home_url() . '"' . $logo_alt . '><img ' . $class . ' src="' . esc_url( $image_1x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
 				echo $logo_2x;
 				break;
 		}
 	}
 	echo '</div><!-- #logo (end) -->';
+}
+
+function anva_header() {
+	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
+
+	switch ( $primary_menu_style ) :
+		case 'style_7':
+		case 'style_9':
+			?>
+			<div class="container clearfix">
+				<?php do_action( 'anva_header_logo' ); ?>
+				<?php do_action( 'anva_header_extras' ); ?>
+			</div><!-- .container (end) -->
+			<div id="header-wrap">
+				<?php do_action( 'anva_header_primary_menu' ); ?>
+			</div><!-- .header-wrap (end) -->
+			<?php
+			break;
+		
+		default:
+			?>
+			<div id="header-wrap">
+				<div class="container clearfix">
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+					<?php do_action( 'anva_header_logo' ); ?>
+					<?php do_action( 'anva_header_extras' ); ?>
+					<?php do_action( 'anva_header_primary_menu' ); ?>
+				</div>
+			</div><!-- .header-wrap (end) -->
+			<?php
+			break;
+	endswitch;
 }
 
 /**
@@ -202,14 +248,20 @@ function anva_header_logo_default() {
  * @since 1.0.0
  */
 function anva_header_extras_default() {
+	$primary_menu_style = anva_get_option( 'primary_menu_style' );
+	$header_extras      = anva_get_option( 'header_extras' );
+	if ( 'show' != $header_extras || 'style_7' != $primary_menu_style ) {
+		return;
+	}
 	?>	
-	<ul id="header-extras" class="header-extras">
+	<ul class="header-extras">
 		<li>
-			<i class="fa fa-envelope"></i>
-			<div class="text">Drop an Email <span>info@anvas.com</span></div>
+			<i class="i-plain icon-email3 nomargin"></i>
+			<div class="he-text">Drop an Email <span>info@anvas.com</span></div>
 		</li>
 		<li id="header-search">
-			<?php anva_site_search(); ?>
+			<i class="i-plain icon-call nomargin"></i>
+			<div class="he-text">Get in Touch <span>1800-1144-551</span></div>
 		</li>
 	</ul><!-- #header-extras (end) -->
 	<?php
@@ -222,8 +274,14 @@ function anva_header_extras_default() {
  */
 function anva_header_primary_menu_default() {
 	if ( has_nav_menu( 'primary' ) ) :
-	?>
+		$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' ); ?>
 		<nav id="primary-menu" <?php anva_primary_menu_class(); ?>>
+
+			<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
+				<div class="container clearfix">
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+			<?php endif; ?>
+
 			<?php
 				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array(
 					'theme_location'  => 'primary',
@@ -235,10 +293,14 @@ function anva_header_primary_menu_default() {
 					'echo'            => true,
 					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>'
 				) ) );
-
 				do_action( 'anva_header_primary_menu_addon' );
 			?>
-		</nav><!-- #main-navigation (end) -->
+
+			<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
+				</div><!-- .container (end) -->
+			<?php endif; ?>
+
+		</nav><!-- #primary-menu (end) -->
 		
 		<?php
 		// Show social icons in side header

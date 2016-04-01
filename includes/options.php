@@ -84,18 +84,46 @@ function anva_options() {
 	$links_options = array(
 		'link_color' => array(
 			'name' => __( 'Link Color', 'anva' ),
-			'desc' => __( 'Set the link color.', 'anva' ),
+			'desc' => __( 'Choose the link color.', 'anva' ),
 			'id' => 'link_color',
 			'std' => '#3498db',
 			'type' => 'color'
 		),
 		'link_color_hover' => array(
 			'name' => __( 'Link Color (:Hover)', 'anva' ),
-			'desc' => __( 'Set the link color.', 'anva' ),
+			'desc' => __( 'Choose the link color on :Hover state.', 'anva' ),
 			'id' => 'link_color_hover',
 			'std' => '#222222',
 			'type' => 'color'
-		)
+		),
+		'footer_link_color' => array(
+			'name' => __( 'Footer Link Color', 'anva' ),
+			'desc' => __( 'Choose the footer link color.', 'anva' ),
+			'id' => 'footer_link_color',
+			'std' => '#555555',
+			'type' => 'color'
+		),
+		'footer_link_color_hover' => array(
+			'name' => __( 'Footer Link Color (:Hover)', 'anva' ),
+			'desc' => __( 'Choose the footer link color on :Hover state.', 'anva' ),
+			'id' => 'footer_link_color_hover',
+			'std' => '#555555',
+			'type' => 'color'
+		),
+		'footer_dark_link_color' => array(
+			'name' => __( 'Footer Dark Link Color', 'anva' ),
+			'desc' => __( 'Choose the footer link color when the footer is dark.', 'anva' ),
+			'id' => 'footer_dark_link_color',
+			'std' => '#555555',
+			'type' => 'color'
+		),
+		'footer_dark_link_color_hover' => array(
+			'name' => __( 'Footer Dark Link Color (:Hover)', 'anva' ),
+			'desc' => __( 'Choose the footer link color on :Hover state when the footer is dark.', 'anva' ),
+			'id' => 'footer_dark_link_color_hover',
+			'std' => '#ffffff',
+			'type' => 'color'
+		),
 	);
 	anva_add_option_section( 'styles', 'links', __( 'Links', 'anva' ), null, $links_options, false );
 
@@ -106,9 +134,22 @@ function anva_options() {
 		$header_types[ $type_id ] = $type['name'];
 	}
 
+	$menu_styles = array();
+	foreach ( anva_get_primary_menu_styles() as $style_id => $style ) {
+		$menu_styles[ $style_id ] = $style['name'];
+	}
+
 	$header_options = array(
+		'header_type' => array(
+			'name' => __( 'Change header type', 'anva' ),
+			'desc' => __( 'Choose the type for the header.', 'anva' ),
+			'id' => 'header_type',
+			'std' => 'default',
+			'type' => 'select',
+			'options' => $header_types,
+		),
 		'header_style' => array(
-			'name' => __( 'Header Style', 'anva' ),
+			'name' => __( 'Change header style', 'anva' ),
 			'desc' => __( 'Choose the style for the header.', 'anva' ),
 			'id' => 'header_style',
 			'std' => 'full-header',
@@ -118,16 +159,8 @@ function anva_options() {
 				'full-header' => __( 'Full Header' ),
 			),
 		),
-		'header_type' => array(
-			'name' => __( 'Header Type', 'anva' ),
-			'desc' => __( 'Choose the type for the header.', 'anva' ),
-			'id' => 'header_type',
-			'std' => 'default',
-			'type' => 'select',
-			'options' => $header_types,
-		),
 		'header_color' => array(
-			'name' => __( 'Header Color', 'anva' ),
+			'name' => __( 'change header Color', 'anva' ),
 			'desc' => __( 'Choose the color for the header.', 'anva' ),
 			'id' => 'header_color',
 			'std' => 'light',
@@ -138,26 +171,28 @@ function anva_options() {
 			),
 		),
 		'primary_menu_style' => array(
-			'name' => __( 'Primary Menu Style', 'anva' ),
-			'desc' => __( 'Choose the style for the primary menu navigation.', 'anva' ),
+			'name' => __( 'Change primary navigation style', 'anva' ),
+			'desc' => __( 'Select the style for the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
 			'id' => 'primary_menu_style',
 			'std' => 'light',
 			'type' => 'select',
+			'options' => $menu_styles,
+		),
+		'header_extras' => array(
+			'name' => __( 'Show header extra info', 'anva' ),
+			'desc' => __( 'Select if you want to show the header extra info in the right.', 'anva' ),
+			'id' => 'header_extras',
+			'std' => 'hide',
+			'type' => 'select',
 			'options' => array(
-				'' => __( 'Default Menu Style', 'anva' ),
-				'style-2' => __( 'Style 2 - Menu aligns beside the Logo', 'anva' ),
-				'style-3' => __( 'Style 3 - Menu Items with Theme Scheme Background Colors', 'anva' ),
-				'style-4' => __( 'Style 4 - Menu Items with Theme Scheme Border Colors', 'anva' ),
-				'style-5' => __( 'Style 5 - Menu Items with Large Icons on top of the Menu Name', 'anva' ),
-				'style-6' => __( 'Style 6', 'anva' ),
-				'style-7' => __( 'Style 7', 'anva' ),
-				'style-8' => __( 'Style 8', 'anva' ),
-				'style-9' => __( 'Style 9', 'anva' ),
+				'show' => __( 'Show header extras' ),
+				'hide' => __( 'Hide header extras' ),
 			),
+			'class' => 'hidden'
 		),
 		'primary_menu_color' => array(
-			'name' => __( 'Primary Menu Color', 'anva' ),
-			'desc' => __( 'Choose the color for the primary menu navigation.', 'anva' ),
+			'name' => __( 'Apply color style to primary navigation', 'anva' ),
+			'desc' => __( 'Select the color style for the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
 			'id' => 'primary_menu_color',
 			'std' => 'light',
 			'type' => 'select',
@@ -221,63 +256,6 @@ function anva_options() {
 	);
 	anva_add_option_section( 'styles', 'social_icons', __( 'Social Icons', 'anva' ), null, $social_icons_options, false );
 
-	$page_loading_options = array(
-		'page_loader' => array(
-			'name' => __( 'Loader', 'anva' ),
-			'desc' => __( 'Choose the loading styles of the Animation you want to show to your visitors while the pages of you Website loads in the background.', 'anva' ),
-			'id' => 'page_loader',
-			'std' => '1',
-			'type' => 'select',
-			'options' => $transitions
-		),
-		'page_loader_color' => array(
-			'name' => __( 'Color', 'anva' ),
-			'desc' => __( 'Choose the loader color.', 'anva' ),
-			'id' => 'page_loader_color',
-			'std' => '#dddddd',
-			'type' => 'color',
-		),
-		'page_loader_timeout' => array(
-			'name' => __( 'Timeout', 'anva' ),
-			'desc' => __( 'Enter the timeOut in milliseconds to end the page preloader immaturely. Default is 1000.', 'anva' ),
-			'id' => 'page_loader_timeout',
-			'std' => 1000,
-			'type' => 'number',
-		),
-		'page_loader_speed_in' => array(
-			'name' => __( 'Speed In', 'anva' ),
-			'desc' => __( 'Enter the speed of the animation in milliseconds on page load. Default is 800.', 'anva' ),
-			'id' => 'page_loader_speed_in',
-			'std' => 800,
-			'type' => 'number',
-		),
-		'page_loader_speed_out' => array(
-			'name' => __( 'Speed Out', 'anva' ),
-			'desc' => __( 'Enter the speed of the animation in milliseconds on page load. Default is 800.', 'anva' ),
-			'id' => 'page_loader_speed_out',
-			'std' => 800,
-			'type' => 'number',
-		),
-		'page_loader_animation_in' => array(
-			'name' => __( 'Animation In', 'anva' ),
-			'desc' => __( 'Choose the animation style on page load.', 'anva' ),
-			'id' => 'page_loader_animation_in',
-			'std' => 'fadeIn',
-			'type' => 'select',
-			'options' => $animations,
-		),
-		'page_loader_animation_out' => array(
-			'name' => __( 'Animation Out', 'anva' ),
-			'desc' => __( 'Choose the animation style on page out.', 'anva' ),
-			'id' => 'page_loader_animation_out',
-			'std' => 'fadeOut',
-			'type' => 'select',
-			'options' => $animations
-		),
-	);
-	anva_add_option_section( 'styles', 'page_loader_transition', __( 'Page Loading Transition', 'anva' ), null, $page_loading_options, false );
-
-
 	/* ---------------------------------------------------------------- */
 	/* Background
 	/* ---------------------------------------------------------------- */
@@ -291,10 +269,10 @@ function anva_options() {
 	);
 
 	$background_options = array(
-		'bg_color' => array(
+		'background_color' => array(
 			'name' => __('Background Color', 'anva'),
 			'desc' => __('Choose the background color.', 'anva'),
-			'id' => 'bg_color',
+			'id' => 'background_color',
 			'std' => '#dddddd',
 			'type' => 'color'
 		),
@@ -371,6 +349,17 @@ function anva_options() {
 			),
 			'type' => 'typography',
 			'options' => array( 'style', 'face', 'color' )
+		),
+		'meta_font' => array(
+			'name' => __( 'Meta Font', 'anva' ),
+			'desc' => __( 'This applies to all of the meta information of your site.', 'anva' ),
+			'id' => 'meta_font',
+			'std' => array(
+				'face' => 'google',
+				'google' => 'Crete Round:400italic',
+			),
+			'type' => 'typography',
+			'options' => array( 'face' )
 		),
 		'heading_h1' => array(
 			'name' => __( 'H1', 'anva' ),
@@ -480,11 +469,11 @@ function anva_options() {
 	anva_add_option_section( 'styles', 'custom', __( 'Custom', 'anva' ), null, $custom_options, false );
 
 	/* ---------------------------------------------------------------- */
-	/* Header
+	/* Header Layout
 	/* ---------------------------------------------------------------- */
 	
 	$side_header_icons = array(
-		'name' => __( 'Side Header Social Icons', 'anva' ),
+		'name' => __( 'Use social icons in side header', 'anva' ),
 		'desc' => __( 'Show social media icons below primary menu in side header.', 'anva' ),
 		'id' => 'side_header_icons',
 		'std' => '1',
@@ -493,7 +482,7 @@ function anva_options() {
 	anva_add_option( 'layout', 'header', 'side_header_icons', $side_header_icons );
 
 	$top_bar_icons = array(
-		'name' => __( 'Top Bar Social Icons', 'anva' ),
+		'name' => __( 'Use social icons in top bar', 'anva' ),
 		'desc' => __( 'Show social media icons in the top bar.', 'anva' ),
 		'id' => 'top_bar_icons',
 		'std' => '1',
@@ -501,14 +490,78 @@ function anva_options() {
 	);
 	anva_add_option( 'layout', 'header', 'top_bar_icons', $top_bar_icons );
 
+	/* ---------------------------------------------------------------- */
+	/* Footer Layout
+	/* ---------------------------------------------------------------- */
+
 	$footer_icons = array(
-		'name' => __( 'Footer Social Icons', 'anva' ),
+		'name' => __( 'Use social icons in footer', 'anva' ),
 		'desc' => __( 'Show social media icons to the right of footer.', 'anva' ),
 		'id' => 'footer_icons',
 		'std' => '1',
 		'type' => 'switch',
 	);
 	anva_add_option( 'layout', 'footer', 'footer_icons', $footer_icons );
+
+	/* ---------------------------------------------------------------- */
+	/* Page Transitions
+	/* ---------------------------------------------------------------- */
+
+	$page_loading_options = array(
+		'page_loader' => array(
+			'name' => __( 'Loader', 'anva' ),
+			'desc' => __( 'Choose the loading styles of the Animation you want to show to your visitors while the pages of you Website loads in the background.', 'anva' ),
+			'id' => 'page_loader',
+			'std' => '1',
+			'type' => 'select',
+			'options' => $transitions
+		),
+		'page_loader_color' => array(
+			'name' => __( 'Color', 'anva' ),
+			'desc' => __( 'Choose the loader color.', 'anva' ),
+			'id' => 'page_loader_color',
+			'std' => '#dddddd',
+			'type' => 'color',
+		),
+		'page_loader_timeout' => array(
+			'name' => __( 'Timeout', 'anva' ),
+			'desc' => __( 'Enter the timeOut in milliseconds to end the page preloader immaturely. Default is 1000.', 'anva' ),
+			'id' => 'page_loader_timeout',
+			'std' => 1000,
+			'type' => 'number',
+		),
+		'page_loader_speed_in' => array(
+			'name' => __( 'Speed In', 'anva' ),
+			'desc' => __( 'Enter the speed of the animation in milliseconds on page load. Default is 800.', 'anva' ),
+			'id' => 'page_loader_speed_in',
+			'std' => 800,
+			'type' => 'number',
+		),
+		'page_loader_speed_out' => array(
+			'name' => __( 'Speed Out', 'anva' ),
+			'desc' => __( 'Enter the speed of the animation in milliseconds on page load. Default is 800.', 'anva' ),
+			'id' => 'page_loader_speed_out',
+			'std' => 800,
+			'type' => 'number',
+		),
+		'page_loader_animation_in' => array(
+			'name' => __( 'Animation In', 'anva' ),
+			'desc' => __( 'Choose the animation style on page load.', 'anva' ),
+			'id' => 'page_loader_animation_in',
+			'std' => 'fadeIn',
+			'type' => 'select',
+			'options' => $animations,
+		),
+		'page_loader_animation_out' => array(
+			'name' => __( 'Animation Out', 'anva' ),
+			'desc' => __( 'Choose the animation style on page out.', 'anva' ),
+			'id' => 'page_loader_animation_out',
+			'std' => 'fadeOut',
+			'type' => 'select',
+			'options' => $animations
+		),
+	);
+	anva_add_option_section( 'layout', 'page_loader_transition', __( 'Page Loading Transition', 'anva' ), null, $page_loading_options, false );
 
 	/* ---------------------------------------------------------------- */
 	/* Galleries
@@ -671,32 +724,39 @@ function anva_options() {
 
 		anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), null, $login_options, false );
 
-		$single_post_reading_bar = array(
-			'name' => __( 'Show Post Reading Bar', 'anva'),
-			'desc' => __( 'Select to display the post reading bar indicator in single posts.', 'anva'),
-			'id' => 'single_post_reading_bar',
-			'std' => '',
-			'type' => 'select',
-			'options' => array(
-				'show' => __( 'Show the post reading bar', 'anva' ),
-				'hide' => __( 'Hide the post reading bar', 'anva' ),
-			)
-		);
-		anva_add_option( 'content', 'single', 'single_post_reading_bar', $single_post_reading_bar );
-
-		$debug_options = array(
-			'debug' => array(
-				'name' => __( 'Show Debug Info?', 'anva'),
-				'desc' => sprintf( __( 'Enable this option to show debug information in the footer, as database queries, memory usage and others. Note: the debug information will only be visible to administrators and the wordpress constant %s be set to TRUE.', 'anva' ), '<a href="' . esc_url( 'http://codex.wordpress.org/Debugging_in_WordPress' ) . '" target="_blank">WP_DEBUG</a>' ),
-				'id' => 'debug',
-				'std' => '0',
-				'type' => 'switch',
-			)
-		);
-		anva_add_option_section( 'advanced', 'debug', __( 'Debug', 'anva' ), null, $debug_options, false );
-
-
 	}
+
+	/* ---------------------------------------------------------------- */
+	/* Single
+	/* ---------------------------------------------------------------- */
+
+	$single_post_reading_bar = array(
+		'name' => __( 'Show Post Reading Bar', 'anva'),
+		'desc' => __( 'Select to display the post reading bar indicator in single posts.', 'anva'),
+		'id' => 'single_post_reading_bar',
+		'std' => '',
+		'type' => 'select',
+		'options' => array(
+			'show' => __( 'Show the post reading bar', 'anva' ),
+			'hide' => __( 'Hide the post reading bar', 'anva' ),
+		)
+	);
+	anva_add_option( 'content', 'single', 'single_post_reading_bar', $single_post_reading_bar );
+
+	/* ---------------------------------------------------------------- */
+	/* Debug
+	/* ---------------------------------------------------------------- */
+
+	$debug_options = array(
+		'debug' => array(
+			'name' => __( 'Show Debug Info?', 'anva'),
+			'desc' => sprintf( __( 'Enable this option to show debug information in the footer, as database queries, memory usage and others. Note: the debug information will only be visible to administrators and the wordpress constant %s be set to TRUE.', 'anva' ), '<a href="' . esc_url( 'http://codex.wordpress.org/Debugging_in_WordPress' ) . '" target="_blank">WP_DEBUG</a>' ),
+			'id' => 'debug',
+			'std' => '0',
+			'type' => 'switch',
+		)
+	);
+	anva_add_option_section( 'advanced', 'debug', __( 'Debug', 'anva' ), null, $debug_options, false );
 
 
 }

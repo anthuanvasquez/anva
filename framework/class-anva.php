@@ -188,7 +188,7 @@ class Anva
         // add_action( 'anva_top_before', 'anva_side_menu' );
         add_action( 'anva_header_above', 'anva_top_bar_default' );
         add_action( 'anva_header_above', 'anva_sidebar_above_header' );
-        // add_action( 'anva_header_extras', 'anva_header_extras_default' );
+        add_action( 'anva_header_extras', 'anva_header_extras_default' );
         add_action( 'anva_header_logo', 'anva_header_logo_default' );
         add_action( 'anva_header_primary_menu', 'anva_header_primary_menu_default' );
         add_action( 'anva_header_primary_menu_addon', 'anva_header_primary_menu_addon_default' );
