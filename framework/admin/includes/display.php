@@ -51,6 +51,12 @@ function anva_flash_message( $title, $message, $type = 'info', $confirm = true )
 	<?php
 }
 
+function anva_add_settings_change() {
+	?>
+	<div id="anva-framework-change" class="section-info"><?php _e( 'Settings has changed', 'anva' ); ?></div>
+	<?php
+}
+
 function anva_admin_settings_log() {
 	
 	$html = '';

@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 	var s;
 
 	// Anva Options Object
-	var AnvaOptions = {
+	var ANVA_OPTIONS = {
 
 		// Default Settings
 		settings: {
@@ -20,18 +20,25 @@ jQuery(document).ready(function($) {
 
 			// Set Settings
 			s = this.settings;
+			// ANVA_OPTIONS.settingsChange();
+			ANVA_OPTIONS.extras();
+			ANVA_OPTIONS.stickyActions();
+			ANVA_OPTIONS.sections.init();
+		},
 
-			AnvaOptions.extras();
-			AnvaOptions.stickyActions();
-			AnvaOptions.sections.init();
+		settingsChange: function() {
+			$('input, select, textarea').on( 'change', function() {
+				$('#anva-framework-change').show(400);
+			});
 		},
 
 		extras: function() {
 
-			var custom_css = document.getElementById('custom_css');
-			var editor = CodeMirror.fromTextArea( custom_css, {
-				mode: "html",
-        		theme: "default",
+			// CSS
+			var code_editor = document.querySelector('.anva-code-editor');
+			var editor = CodeMirror.fromTextArea( code_editor, {
+				mode: "css",
+        		theme: "mdn-like",
         		lineNumbers: true
 			});
 
@@ -88,10 +95,49 @@ jQuery(document).ready(function($) {
 				$('#anva-framework-submit .spinner').addClass('is-active');
 			});
 
+			// Collapse sections
 			$('.inner-group > h3').on( 'click', function(e) {
 				e.preventDefault();
-				var $collapse = $(this).parent().toggleClass('collapse-close');
+				var $collapse = $(this), $postbox = $collapse.closest('.postbox');
+				
+				// var $collapse = $(this).parent().toggleClass('collapse-close');
+				if ( $postbox.hasClass('collapse-close') ) {
+
+					// Show content
+					$postbox.removeClass('collapse-close');
+
+					// Store data
+					if ( typeof( localStorage ) != 'undefined' ) {
+						localStorage.removeItem('anva-section-' + $postbox.attr('id'));
+					}
+
+					// Refresh any code editor options
+					$postbox.find('.section-css').each(function() {
+						var $editor = $(this).find('textarea').data('CodeMirrorInstance');
+						if ( $editor ) {
+							$editor.refresh();
+						}
+					});
+				} else {
+					// Hide content
+					$postbox.addClass('collapse-close');
+
+					// Store data
+					if ( typeof( localStorage ) != 'undefined' ) {
+						localStorage.setItem('anva-section-' + $postbox.attr('id'), true);
+					}
+				}
+
 			});;
+
+			// Show content
+			$('#anva-framework .postbox').each(function() {
+				var $postbox = $(this);
+				if ( typeof( localStorage ) != 'undefined' && localStorage.getItem('anva-section-' + $postbox.attr('id')) ) {
+					console.log( localStorage.getItem('anva-section-' + $postbox.attr('id') ) );
+					$postbox.addClass('collapse-close');
+				}
+			});
 
 			// Hide admin notices
 			var $error = $('#anva-framework-wrap .settings-error');
@@ -102,7 +148,7 @@ jQuery(document).ready(function($) {
 			}
 
 			if ( $('.nav-tab-wrapper').length > 0 ) {
-				AnvaOptions.tabs();
+				ANVA_OPTIONS.tabs();
 			}
 
 		},
@@ -182,20 +228,20 @@ jQuery(document).ready(function($) {
 		}
 	};
 
-	AnvaOptions.sections = {
+	ANVA_OPTIONS.sections = {
 
 		init: function() {
-			AnvaOptions.sections.colorPicker();
-			AnvaOptions.sections.radioImages();
-			AnvaOptions.sections.logo();
-			AnvaOptions.sections.typography();
-			AnvaOptions.sections.socialMedia();
-			AnvaOptions.sections.columns();
-			AnvaOptions.sections.slider();
-			AnvaOptions.sections.rangeSlider();
-			AnvaOptions.sections.select();
-			AnvaOptions.sections.sidebars();
-			AnvaOptions.sections.contactFields();
+			ANVA_OPTIONS.sections.colorPicker();
+			ANVA_OPTIONS.sections.radioImages();
+			ANVA_OPTIONS.sections.logo();
+			ANVA_OPTIONS.sections.typography();
+			ANVA_OPTIONS.sections.socialMedia();
+			ANVA_OPTIONS.sections.columns();
+			ANVA_OPTIONS.sections.slider();
+			ANVA_OPTIONS.sections.rangeSlider();
+			ANVA_OPTIONS.sections.select();
+			ANVA_OPTIONS.sections.sidebars();
+			ANVA_OPTIONS.sections.contactFields();
 		},
 
 		colorPicker: function() {
@@ -442,11 +488,11 @@ jQuery(document).ready(function($) {
 		}
 	};
 
-	AnvaOptions.init();
+	ANVA_OPTIONS.init();
 
 	// Window scroll change
-	$(window).scroll(function() {
-		AnvaOptions.stickyActions();
+	$(window).scroll( function() {
+		ANVA_OPTIONS.stickyActions();
 	});
 	
 });

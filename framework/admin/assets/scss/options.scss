@@ -5,15 +5,31 @@
 #anva-framework-wrap {
 	
 	> h2:not(.nav-tab-wrapper) {
-		padding-left: 10px;
+		padding: 15px 10px;
+
 		> span {
 			font-size: 13px;
+			float: right;
+			
+			em {
+				background: #000;
+				color: #fff;
+				border-radius: 2px;
+				font-style: normal;
+				font-weight: 300;
+				margin-left: 5px;
+				padding: 3px 6px;
+			}
 		}
 	}
 
 	.nav-tab-wrapper a span {
 		position: relative;
 		top: 2px;
+	}
+
+	.settings-error {
+		margin: 20px 0 10px;
 	}
 
 	// Hide settings error. Replaced with sweetalert popup
@@ -24,21 +40,31 @@
 		visibility: hidden;
 	}
 
-	.settings-error {
-		margin: 20px 0 10px;
-	}
-
 	.CodeMirror {
 		border: 1px solid #ddd;
+
+		pre {
+			padding: 0 8px;
+		}
+	}
+
+	.cm-s-mdn-like .CodeMirror-gutters {
+	    background: #f8f8f8;
+	    border-left: 6px solid #f8f8f8;
 	}
 
 }
 
 // When settings has changed
 #anva-framework-change {
+	background: #fff;
+	border: 1px solid #ddd;
+	border-left: 6px solid #00c8fa;
 	box-sizing: border-box;
+	color: #777;
 	display: none;
-	margin: 25px 0 10px;
+	margin: 15px 0 5px;
+	padding: 10px;
 	width: 100%;
 }
 
@@ -130,19 +156,20 @@
 		}
 	}
 
-
 	.section {
 		border-bottom: 1px solid #eee;
 		margin: 0 -15px 15px;
 		padding: 0 15px 15px;
 
+		&:last-child {
+			border-bottom: 0;
+			margin-bottom: 0;
+		}
+
 		h4.heading {
 			font-size: 14px;
 		}
 
-		&:last-child {
-			border-bottom: 0;
-		}
 
 		> .option {
 			&:before,
@@ -319,6 +346,22 @@
 					margin-right: 0;
 				}
 			}
+		}
+	}
+	
+	.section-css,
+	.section-javascript,
+	.section-code,
+	.section-code-editor {
+		.controls,
+		.explain {
+			float: none !important;
+			max-width: 100% !important;
+			padding-right: 0 !important;
+			width: 100% !important;
+		}
+		.explain {
+			margin: 0 0 15px;
 		}
 	}
 }

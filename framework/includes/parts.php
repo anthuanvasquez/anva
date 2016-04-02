@@ -11,7 +11,10 @@ function anva_archive_title() {
 	if ( is_front_page() )
 		return;
 
-	if ( is_single() || is_page() ) :
+	if ( is_singular( 'post' ) ) :
+		printf( '%s', __( 'The Blog', 'anva' ) );
+
+	elseif ( is_page() ) :
 		the_title();
 
 	elseif ( is_category() ) :
@@ -443,7 +446,7 @@ function anva_post_share() {
 
 	$url = get_permalink();
 	$title = get_the_title();
-	$thumbnail_url = anva_get_featured_image( get_the_ID(), 'medium' );
+	$thumbnail_url = anva_get_featured_image_src( get_the_ID(), 'medium' );
 
 	if ( is_single() ) :
 	?>
@@ -923,7 +926,7 @@ function anva_password_form() {
 	global $post;
 	$label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
 	$o  = '<form class="form-inline password-form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
-	$o .= '<span class="glyphicon glyphicon-lock"></span>';
+	$o .= '<i class="icon-lock"></i>';
 	$o .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';
 	$o .= '<div class="form-group">';
 	$o .= '<label for="' . $label . '">' . __( "Password", 'anva' ) . ' </label>';
@@ -1524,7 +1527,7 @@ function anva_slider_owl_default( $slider, $settings ) {
 }
 
 /**
- * Nivo slider type
+ * Nivo slider type.
  *
  * @since 1.0.0
  */
@@ -1534,12 +1537,12 @@ function anva_slider_nivo_default( $slider, $settings ) {
 
 	// Query arguments
 	$query_args = array(
-		'post_type' 			=> array( 'slideshows' ),
-		'order' 					=> 'ASC',
-		'posts_per_page' 	=> -1,
+		'post_type'      => array( 'slideshows' ),
+		'order'          => 'ASC',
+		'posts_per_page' => -1,
 	);
 
-	$query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
+	$query_args = apply_filters( 'anva_slideshows_nivo_query_args', $query_args );
 	
 	$query = anva_get_query_posts( $query_args );
 
@@ -1562,10 +1565,10 @@ function anva_slider_nivo_default( $slider, $settings ) {
 			$count++;
 
 			if ( has_post_thumbnail() ) {
-				$html .= get_the_post_thumbnail( $post_id, $thumbnail , array( 'class' => 'slide-image', 'title' => '#nivocaption' . $count ) );
+				$html .= get_the_post_thumbnail( $post_id, $thumbnail , array( 'class' => 'slide-image', 'title' => '#nivocaption' . esc_attr( $count ) ) );
 			}
 
-			$caption .= '<div id="nivocaption' . $count . '" class="nivo-html-caption">' . $title .' </div>';
+			$caption .= '<div id="nivocaption' . esc_attr( $count ) . '" class="nivo-html-caption">' . esc_html( $title ) .' </div>';
 			
 		}
 
@@ -1575,6 +1578,29 @@ function anva_slider_nivo_default( $slider, $settings ) {
 		$html .= $caption;
 
 	}
+
+	?>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$('.nivoSlider').nivoSlider({
+				effect: 'random',
+				slices: 15,
+				boxCols: 12,
+				boxRows: 6,
+				animSpeed: 500,
+				pauseTime: 8000,
+				directionNav: true,
+				controlNav: true,
+				pauseOnHover: true,
+				prevText: '<i class="icon-angle-left"></i>',
+				nextText: '<i class="icon-angle-right"></i>',
+				afterLoad: function(){
+					$('#slider').find('.nivo-caption').addClass('slider-caption-bg');
+				}
+			});
+		});
+	</script>
+	<?php
 
 	echo $html;
 }

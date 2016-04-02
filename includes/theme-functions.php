@@ -22,8 +22,8 @@ require_once( get_template_directory() . '/includes/options.php' );
  * @return array $menu
  */
 function theme_options_menu( $menu ) {
-	$menu['page_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
-	$menu['menu_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
+	// $menu['page_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
+	// $menu['menu_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
 	return $menu;
 }
 
@@ -49,11 +49,20 @@ function theme_backup_menu( $menu ) {
  */
 function theme_body_classes( $classes ) {
 	
-	$base_color_style = anva_get_option( 'base_color_style' );
-	$base_color       = anva_get_option( 'base_color' );
-	$layout_style     = anva_get_option( 'layout_style' );
-	$header_type      = anva_get_option( 'header_type', 'default' );
-	$types            = anva_get_header_types();
+	$base_color_style   = anva_get_option( 'base_color_style' );
+	$base_color         = anva_get_option( 'base_color' );
+	$layout_style       = anva_get_option( 'layout_style' );
+	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
+	$header_type        = anva_get_option( 'header_type', 'default' );
+	
+	// Get all header types
+	$types = anva_get_header_types();
+
+	// Get all primary menu styles
+	$styles = anva_get_primary_menu_styles();
+
+	// Current header type
+	$type = anva_get_header_type();
 
 	// Add base color
 	if ( 'dark' == $base_color ) {
@@ -74,6 +83,13 @@ function theme_body_classes( $classes ) {
 	if ( isset( $types[ $header_type ] ) ) {
 		if ( ! empty( $types[ $header_type ]['classes']['body'] ) ) {
 			$classes[] = $types[ $header_type ]['classes']['body'];
+		}
+	}
+
+	// Add primary menu style
+	if ( isset( $styles[ $primary_menu_style ] )  ) {
+		if ( ! empty( $styles[ $primary_menu_style ]['classes']['body'] ) && 'side' != $type ) {
+			$classes[] = $styles[ $primary_menu_style ]['classes']['body'];
 		}
 	}
 
@@ -197,7 +213,8 @@ function theme_gototop() {
 function theme_google_fonts() {
 	anva_enqueue_google_fonts(
 		anva_get_option( 'body_font' ),
-		anva_get_option( 'heading_font' )
+		anva_get_option( 'heading_font' ),
+		anva_get_option( 'meta_font' )
 	);
 }
 
@@ -308,6 +325,7 @@ function theme_styles() {
 	$custom_css         = anva_get_option( 'custom_css' );
 	$body_font          = anva_get_option( 'body_font' );
 	$heading_font       = anva_get_option( 'heading_font' );
+	$meta_font          = anva_get_option( 'meta_font' );
 	$heading_h1         = anva_get_option( 'heading_h1', '36' );
 	$heading_h2         = anva_get_option( 'heading_h2', '30' );
 	$heading_h3         = anva_get_option( 'heading_h3', '24' );
@@ -364,6 +382,19 @@ function theme_styles() {
 		font-style: <?php echo anva_get_font_style( $heading_font ); ?>;
 		font-weight: <?php echo anva_get_font_weight( $heading_font ); ?>;
 	}
+
+	.entry-meta li,
+	.entry-link span,
+	.entry blockquote p,
+	.more-link,
+	.comment-content .comment-author span,
+	.button.button-desc span,
+	.testi-content p,
+	.team-title span,
+	.before-heading,
+	.wedding-head .first-name span,
+	.wedding-head .last-name span,
+	.font-secondary { font-family: <?php echo anva_get_font_face( $meta_font ); ?> }
 
 	h1 { font-size: <?php echo $heading_h1 . 'px'; ?>; }
 	h2 { font-size: <?php echo $heading_h2 . 'px'; ?>; }
@@ -503,6 +534,8 @@ function theme_remove_scripts() {
 
 /**
  * Remove grid columns that are not needed.
+ *
+ * @global $pagenow
  * 
  * @since  1.0.0
  * @param  array $columns

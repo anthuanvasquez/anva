@@ -76,8 +76,10 @@ class Anva_Options_Interface
 				if ( ! $name ) {
 					$class .= ' no-name';
 				}
+				
+				$group = trim( $class );
 
-				$output .= '<div class="postbox inner-group' . esc_attr( $class ) . '">';
+				$output .= '<div id="' . esc_attr( $group ) . '" class="postbox inner-group' . esc_attr( $class ) . '">';
 
 				if ( $name ) {
 					$output .= '<h3><span>' . esc_html( $name ) . '</span></h3>';
@@ -726,6 +728,19 @@ class Anva_Options_Interface
 
 				/*
 				|--------------------------------------------------------------------------
+				| Code - CSS
+				|--------------------------------------------------------------------------
+				*/
+				case 'css':
+					$val = stripslashes( $val );
+					$output .= '<div class="anva-textarea-wrap">';
+					$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags) . '</div>';
+					$output .= '<textarea id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-code-editor anva-input-code-css" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '">' . $val . '</textarea>';
+					$output .= '</div><!-- .anva-textarea-wrap (end) -->';
+					break;
+
+				/*
+				|--------------------------------------------------------------------------
 				| Editor
 				|--------------------------------------------------------------------------
 				*/
@@ -805,7 +820,7 @@ class Anva_Options_Interface
 					
 					$output .= '</div><!-- .controls (end) -->';
 
-					if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) ) {
+					if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) && ( $value['type'] != 'css' ) ) {
 						$output .= '<div class="explain">' . $explain_value . '</div><!-- .explain (end) -->'."\n";
 					}
 					$output .= '</div><!-- .option (end) -->';

@@ -9,8 +9,8 @@
 function anva_options() {
 
 	// Assets
-	$skin_path = get_template_directory_uri() . '/assets/images/skins/';
-
+	$skin_path = trailingslashit( get_template_directory_uri() . '/assets/images/skins' );
+	
 	// Skin Colors
 	$schemes = array();
 	foreach ( anva_get_colors_scheme( $skin_path, 'jpg' ) as $color_id => $color ) {
@@ -452,7 +452,7 @@ function anva_options() {
 			'desc' => __( 'Use custom CSS to override the theme styles.', 'anva'),
 			'id' => 'custom_css',
 			'std' => '',
-			'type' => 'textarea'
+			'type' => 'css' // CSS Code
 		),
 		'custom_css_stylesheet' => array(
 			'name' => __( 'Custom CSS Stylesheet', 'anva'),

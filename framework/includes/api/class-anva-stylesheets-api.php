@@ -123,9 +123,18 @@ class Anva_Stylesheets_API {
 		// Camera
 		$this->framework_stylesheets['camera'] = array(
 			'handle'	=> 'camera',
-			'src'		=> anva_get_core_uri() . '/assets/css/camera.css',
+			'src'		=> anva_get_core_uri() . 'assets/css/camera.css',
 			'deps'		=> array(),
 			'ver'		=> '1.4.0',
+			'media'		=> 'all'
+		);
+
+		// Nivo
+		$this->framework_stylesheets['nivo'] = array(
+			'handle'	=> 'nivo',
+			'src'		=> anva_get_core_uri() . 'assets/css/nivo-slider.css',
+			'deps'		=> array(),
+			'ver'		=> '3.2.0',
 			'media'		=> 'all'
 		);
 

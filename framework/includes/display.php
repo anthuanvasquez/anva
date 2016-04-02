@@ -100,18 +100,14 @@ function anva_top_bar_default() {
 		<div class="container clearfix">
 			<div class="col_half nobottommargin">
 				<!-- Top Links -->
-				<?php
-				// @todo this weill hook the secondary menu
-				do_action( 'anva_header_secondary_menu' ); ?>
 				<div class="top-links">
-					<!-- @todo menu top links using hook above -->
+					<?php do_action( 'anva_header_secondary_menu' ); ?>
 				</div><!-- .top-links end -->
 			</div>
 
 			<div class="col_half fright col_last nobottommargin">
 
-				<!-- Top Social
-				============================================= -->
+				<!-- Top Social -->
 				<div id="top-social">
 					<ul>
 						<?php anva_social_icons( $style = '', $shape = '', $border = '', $size = '', $position = 'top-bar' ); ?>
@@ -121,6 +117,19 @@ function anva_top_bar_default() {
 		</div>
 	</div><!-- #top-bar end -->
 	<?php
+}
+
+function anva_secondary_menu_default() {
+	wp_nav_menu( apply_filters( 'anva_secondary_menu_default', array(
+		'theme_location'  => 'secondary',
+		'container'       => '',
+		'container_class' => '',
+		'container_id'    => '',
+		'menu_class'      => '',
+		'menu_id'         => '',
+		'echo'            => true,
+		'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>'
+	) ) );
 }
 
 /**
@@ -283,7 +292,7 @@ function anva_header_primary_menu_default() {
 			<?php endif; ?>
 
 			<?php
-				wp_nav_menu( apply_filters( 'anva_main_navigation_default', array(
+				wp_nav_menu( apply_filters( 'anva_primary_menu_default', array(
 					'theme_location'  => 'primary',
 					'container'       => '',
 					'container_class' => '',
@@ -330,6 +339,9 @@ function anva_header_primary_menu_addon_default() {
 	if ( 'side' == $header_type ) {
 		return;
 	}
+
+	// get primary menu style
+	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 	?>
 	<!-- Top Cart -->
 	<div id="top-cart">
@@ -389,7 +401,11 @@ function anva_header_primary_menu_addon_default() {
 			<input type="text" name="s" class="form-control" value="" placeholder="<?php _e( 'Type & Hit Enter..', 'anva' ); ?>">
 		</form>
 	</div><!-- #top-search end -->
+
+	<?php if ( 'style_10' == $primary_menu_style ) : ?>
+		<a href="#" id="overlay-menu-close" class="visible-lg-block visible-md-block"><i class="icon-line-cross"></i></a>
 	<?php
+	endif;
 }
 
 /**

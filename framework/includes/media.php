@@ -8,13 +8,15 @@
  * @global int $content_width
  */
 function anva_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'anva_content_width', 860 );
+	$GLOBALS['content_width'] = apply_filters( 'anva_content_width', 1200 );
 }
 
 /**
- * Get Image Sizes
+ * Get Image Sizes.
  *
- * @since 1.0.0
+ * @global $content_width
+ *
+ * @since  1.0.0
  */
 function anva_get_image_sizes() {
 
@@ -27,63 +29,60 @@ function anva_get_image_sizes() {
 			'width' 	 => 2000,
 			'height' 	 => 1333,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
+		),
+		'anva_xl' => array(
+			'name' 		 => __( 'Anva Large', 'anva' ),
+			'width' 	 => $content_width,
+			'height' 	 => 9999,
+			'crop' 		 => true,
 		),
 		'anva_lg' => array(
 			'name' 		 => __( 'Anva Large', 'anva' ),
-			'width' 	 => $content_width,
+			'width' 	 => 1170,
 			'height' 	 => 500,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 		'anva_md' => array(
 			'name' 		 => __( 'Anva Medium', 'anva' ),
 			'width' 	 => 860,
 			'height' 	 => 400,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 		'anva_sm' => array(
 			'name' 		 => __( 'Anva Small', 'anva' ),
 			'width' 	 => 400,
 			'height' 	 => 300,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 		'anva_grid_2' => array(
 			'name' 		 => __( 'Anva Grid 2', 'anva' ),
 			'width' 	 => 800,
 			'height'	 => 600,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 		'anva_grid_3' => array(
 			'name' 		 => __( 'Anva Grid 3', 'anva' ),
 			'width' 	 => 600,
 			'height'	 => 450,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 		'anva_post_grid'  => array(
 			'name' 		 => __( 'Anva Post Grid', 'anva' ),
 			'width' 	 => 520,
 			'height'	 => 280,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 		'anva_masonry' => array(
 			'name' 		 => __( 'Anva Masonry', 'anva' ),
 			'width' 	 => 500,
 			'height'	 => 500,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 		'anva_masonry_2' => array(
 			'name' 		 => __( 'Anva Masonry Vertical', 'anva' ),
 			'width' 	 => 500,
 			'height'	 => 700,
 			'crop' 		 => true,
-			'position' => array( 'center', 'top' )
 		),
 	);
 
@@ -91,9 +90,11 @@ function anva_get_image_sizes() {
 }
 
 /**
- * Get media queries
+ * Get media queries.
  *
  * @since 1.0.0
+ * @param array $localize
+ * @param arra Array merge
  */
 function anva_get_media_queries( $localize ) {
 	$media_queries = array(
@@ -109,7 +110,7 @@ function anva_get_media_queries( $localize ) {
 /**
  * Register image sizes.
  *
- * @global  $wp_version
+ * @global $wp_version
  *
  * @since  1.0.0
  * @return void
@@ -124,11 +125,7 @@ function anva_add_image_sizes() {
 
 	// Add image sizes
 	foreach ( $sizes as $size => $atts ) {
-		if ( version_compare( $wp_version, '3.9', '>=' ) ) {
-			add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'], $atts['position'] );
-		} else {
-			add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'] );
-		}
+		add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'] );
 	}
 
 }
@@ -160,11 +157,11 @@ function anva_image_size_names_choose( $sizes ) {
 }
 
 /**
- * Get featured image src
+ * Get featured image source.
  *
  * @since 1.0.0
  */
-function anva_get_featured_image( $post_id, $thumbnail ) {
+function anva_get_featured_image_src( $post_id, $thumbnail ) {
 	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
 	if ( $post_thumbnail_id ) {
 		$post_thumbnail = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
@@ -173,7 +170,7 @@ function anva_get_featured_image( $post_id, $thumbnail ) {
 }
 
 /**
- * Get attachment image src
+ * Get attachment image source.
  *
  * @since 1.0.0
  */
@@ -182,78 +179,50 @@ function anva_get_attachment_image_src( $attachment_id, $thumbnail ) {
 		$attachment_img = wp_get_attachment_image_src( $attachment_id, $thumbnail, true );
 		return $attachment_img[0];
 	}
+	return false;
 }
 
 /**
- * Get featured image in posts
+ * Get featured image in posts.
  *
  * @since 1.0.0
  */
 function anva_the_post_thumbnail( $thumb ) {
 	
-	global $post;
-
-	// Output
-	$html = '';
+	if ( 'hide' != $thumb && ! has_post_thumbnail() ) {
+		return;
+	}
 	
-	// Default thumbnail size
+	// Get post ID
+	$id = get_queried_object_id();
+	
+	// Default thumbnail size on single posts
 	$thumbnail = 'anva_lg';
 
-	if ( 'small' == $thumb ) {
-		$thumbnail = 'anva_sm';
-	} elseif ( 'large' == $thumb ) {
-		$thumbnail = 'anva_md';
-	}
-
-	switch ( $thumb ) {
-		case 'small':
-			$thumbnail = 'anva_sm';
-			break;
-
-		case 'large':
-			$thumbnail = 'anva_md';
-			break;
-
-		case 'full':
-			$thumbnail = 'anva_large';
-			break;
-	}
-
-	if ( $thumb != 'hide' && has_post_thumbnail() ) {
-		
-		$html .= '<div class="entry-image">';
-		
-		if ( is_single() ) {
-			$html .= '<a data-lightbox="image" href="' . anva_get_featured_image( $post->ID, 'full' ) . '">' . get_the_post_thumbnail( $post->ID, $thumbnail, array( 'title' => get_the_title() ) ) . '</a>';
-		} else {
-			$html .= '<a href="' . get_permalink() . '">' . get_the_post_thumbnail( $post->ID, $thumbnail, array( 'title' => get_the_title() ) ) . '</a>';
-		}
-
-		$html .= '</div><!-- .entry-image (end) -->';
-	}
-
-	echo $html;
+	?>	
+	<div class="entry-image">
+		<a href="<?php echo anva_get_featured_image_src( $id, $thumbnail ); ?>" data-lightbox="image" ><?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?></a>
+	</div><!-- .entry-image (end) -->
+	<?php
 
 }
 
 /**
- * Get featured image in post grid
+ * Get featured image for post grid.
  *
  * @since 1.0.0
+ * @param string $thumbnail
  */
 function anva_the_post_grid_thumbnail( $thumbnail ) {
-	
-	global $post;
-	
-	$html  = '';
 
-	if ( has_post_thumbnail() ) {
-		$html .= '<div class="entry-image">';
-		$html .= '<a href="'. get_permalink( $post->ID ) .'" title="'. get_the_title( $post->ID ) .'">'. get_the_post_thumbnail( $post->ID, $thumbnail ) .'</a>';
-		$html .= '</div><!-- .entry-image (end) -->';
+	if ( ! has_post_thumbnail() ) {
+		return;
 	}
-	
-	echo $html;
+	?>
+	<div class="entry-image">
+		<a href="<?php the_permalink( get_queried_object_id() ); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail( $thumbnail ); ?></a>
+	</div><!-- .entry-image (end) -->
+	<?php
 }
 
 /**
@@ -348,6 +317,40 @@ function anva_get_current_color() {
 		return $schemes[ $color ]['color'];
 	}
 }
+
+/**
+ * Add wrapper around embedded videos to allow for responsive videos.
+ *
+ * @since 1.0.0
+ */
+function anva_oembed( $html, $url ) {
+
+	// If this is a tweet, keep on movin' fella.
+	if ( strpos( $url, 'twitter.com' ) !== false ) {
+		return $html;
+	}
+
+	// If this is a link to external WP post
+	// (introduced in WP 4.4), abort.
+	if ( strpos( $html, 'wp-embedded-content' ) !== false ) {
+		return $html;
+	}
+
+	// Check if wrapper has been applied.
+	if ( strpos( $html, 'video-wrapper' ) !== false ) {
+		return $html;
+	}
+
+	// Apply YouTube wmode fix
+	if ( strpos($url, 'youtube') !== false || strpos($url, 'youtu.be') !== false ) {
+		if ( strpos($html, 'wmode=transparent') === false ) {
+			$html = str_replace('feature=oembed', 'feature=oembed&wmode=transparent', $html);
+		}
+	}
+
+	return sprintf('<div class="video-wrapper"><div class="video-inner">%s</div></div>', $html);
+}
+
 /**
  * Get animations.
  *

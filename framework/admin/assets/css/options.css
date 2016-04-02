@@ -666,16 +666,32 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 #anva-framework-wrap > h2:not(.nav-tab-wrapper) {
-  padding-left: 10px;
+  padding: 15px 10px;
 }
 
 #anva-framework-wrap > h2:not(.nav-tab-wrapper) > span {
   font-size: 13px;
+  float: right;
+}
+
+#anva-framework-wrap > h2:not(.nav-tab-wrapper) > span em {
+  background: #000;
+  color: #fff;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  font-style: normal;
+  font-weight: 300;
+  margin-left: 5px;
+  padding: 3px 6px;
 }
 
 #anva-framework-wrap .nav-tab-wrapper a span {
   position: relative;
   top: 2px;
+}
+
+#anva-framework-wrap .settings-error {
+  margin: 20px 0 10px;
 }
 
 #anva-framework-wrap #setting-error-save_options,
@@ -685,20 +701,30 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   visibility: hidden;
 }
 
-#anva-framework-wrap .settings-error {
-  margin: 20px 0 10px;
-}
-
 #anva-framework-wrap .CodeMirror {
   border: 1px solid #ddd;
 }
 
+#anva-framework-wrap .CodeMirror pre {
+  padding: 0 8px;
+}
+
+#anva-framework-wrap .cm-s-mdn-like .CodeMirror-gutters {
+  background: #f8f8f8;
+  border-left: 6px solid #f8f8f8;
+}
+
 #anva-framework-change {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-left: 6px solid #00c8fa;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+  color: #777;
   display: none;
-  margin: 25px 0 10px;
+  margin: 15px 0 5px;
+  padding: 10px;
   width: 100%;
 }
 
@@ -798,12 +824,13 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 0 15px 15px;
 }
 
-#anva-framework .section h4.heading {
-  font-size: 14px;
-}
-
 #anva-framework .section:last-child {
   border-bottom: 0;
+  margin-bottom: 0;
+}
+
+#anva-framework .section h4.heading {
+  font-size: 14px;
 }
 
 #anva-framework .section > .option:before, #anva-framework .section > .option:after {
@@ -972,6 +999,27 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 #anva-framework .section-double_text .double-inputs .input-col.last {
   margin-right: 0;
+}
+
+#anva-framework .section-css .controls,
+#anva-framework .section-css .explain,
+#anva-framework .section-javascript .controls,
+#anva-framework .section-javascript .explain,
+#anva-framework .section-code .controls,
+#anva-framework .section-code .explain,
+#anva-framework .section-code-editor .controls,
+#anva-framework .section-code-editor .explain {
+  float: none !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+  width: 100% !important;
+}
+
+#anva-framework .section-css .explain,
+#anva-framework .section-javascript .explain,
+#anva-framework .section-code .explain,
+#anva-framework .section-code-editor .explain {
+  margin: 0 0 15px;
 }
 
 #anva-framework .group {

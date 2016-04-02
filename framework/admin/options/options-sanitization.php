@@ -15,6 +15,7 @@ add_filter( 'anva_sanitize_checkbox', 			'anva_sanitize_checkbox' );
 add_filter( 'anva_sanitize_multicheck', 		'anva_sanitize_multicheck', 10, 2 );
 add_filter( 'anva_sanitize_switch', 			'anva_sanitize_checkbox' );
 add_filter( 'anva_sanitize_textarea', 			'anva_sanitize_textarea' );
+add_filter( 'anva_sanitize_css', 				'anva_sanitize_textarea' );
 add_filter( 'anva_sanitize_url', 				'anva_sanitize_url' );
 add_filter( 'anva_sanitize_upload', 			'anva_sanitize_upload' );
 add_filter( 'anva_sanitize_editor', 			'anva_sanitize_editor' );

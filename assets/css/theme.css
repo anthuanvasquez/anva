@@ -43,3 +43,42 @@ body.device-lg .post-reading-bar {
   -o-transition: all .4s ease;
   transition: all .4s ease;
 }
+
+.password-form {
+  text-align: center;
+}
+
+.password-form i {
+  background: #222;
+  width: 144px;
+  height: 144px;
+  font-size: 108px;
+  line-height: 140px;
+  display: block;
+  font-weight: 500;
+  margin: 20px auto 30px;
+  color: #fff;
+  text-align: center;
+  cursor: default;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  -webkit-border-radius: 15%;
+          border-radius: 15%;
+}
+
+.password-form i:before {
+  margin-left: 8px;
+}
+
+.password-form label {
+  margin-right: 3px;
+}
+
+.password-form .form-group + p {
+  display: inline;
+}
+
+.password-form .password-error {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}

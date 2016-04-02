@@ -12,7 +12,7 @@ class Anva_Options_Page {
 	 * Page hook for the options screen.
 	 *
 	 * @since 1.0.0
-	 * @var string
+	 * @var   string
 	 */
 	protected $options_screen = null;
 
@@ -71,9 +71,9 @@ class Anva_Options_Page {
 		add_action( 'anva_options_page_after_validate', array( $this, 'save_options_notice' ) );
 
 		// Redirect to options panel
-		if ( is_admin() && isset( $_GET['activated']) && 'themes.php' == $pagenow ) :
+		if ( is_admin() && isset( $_GET['activated']) && 'themes.php' == $pagenow ) {
 			wp_redirect( admin_url( 'themes.php?page=' . $name ) );
-		endif;
+		}
 	}
 
 	/**
@@ -132,21 +132,22 @@ class Anva_Options_Page {
 		if ( $this->options_screen != $hook )
 			return;
 		
-		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_CSS . 'codemirror.css', array(), '5.13.2' );
+		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_CSS . 'codemirror/codemirror.css', array(), '5.13.2' );
+		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_CSS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'anva-animate', ANVA_FRAMEWORK_ADMIN_CSS . 'animate.min.css', array(), ANVA_FRAMEWORK_VERSION );
 		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_CSS . 'animsition.min.css', array(), '4.0.1' );
 		wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'sweetalert.min.css', array(), '1.1.3' );
-		wp_enqueue_style( 'anva-options', ANVA_FRAMEWORK_ADMIN_CSS . 'options.min.css', array(), ANVA_FRAMEWORK_VERSION );
-		wp_enqueue_style( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_CSS. 'jquery-ui-slider-pips.min.css', array(),  '1.7.2' );
-		wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4' );
+		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4' );
+		wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_CSS. 'jquery-ui-slider-pips.min.css', array(),  '1.7.2' );
+		wp_enqueue_style( 'anva_animate', ANVA_FRAMEWORK_ADMIN_CSS . 'animate.min.css', array(), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options.min.css', array(), ANVA_FRAMEWORK_VERSION );
 		
 	}
 
 	/**
 	 * Loads the required javascript.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @param  object $hook
 	 * @return void
 	 */
@@ -156,7 +157,8 @@ class Anva_Options_Page {
 			return;
 
 		// Enqueue custom option panel JS
-		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_JS . 'codemirror.js', array( 'jquery' ), '5.13.2' );
+		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_JS . 'codemirror/codemirror.js', array( 'jquery' ), '5.13.2' );
+		wp_enqueue_script( 'codemirror_mode', ANVA_FRAMEWORK_ADMIN_JS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2' );
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_JS . 'vendor/jquery.animsition.min.js', array( 'jquery' ), '4.0.1' );
 		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_JS . 'jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2' );
 		wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3' );
@@ -199,9 +201,9 @@ class Anva_Options_Page {
 			<?php
 				$menu = $this->menu_settings();
 				$options = anva_get_options();
-			?>
-			
-			<?php printf( '<h2>%s <span>v%s</span></h2>', esc_html( $menu['page_title'] ), anva_get_theme( 'version' ) ); ?>
+			 	
+			 	printf( '<h2>%1$s <span>%3$s<em>%2$s</em></span></h2>', esc_html( $menu['page_title'] ), anva_get_theme( 'version' ), __( 'Version', 'anva' ) );
+			 ?>
 			
 			<?php do_action( 'anva_options_page_top' ); ?>
 
@@ -214,15 +216,18 @@ class Anva_Options_Page {
 			<?php do_action( 'anva_options_page_before' ); ?>
 
 			<div id="anva-framework-metabox" class="metabox-holder">
-				<div id="anva-framework" class="animsition">
-					<form class="options-settings" action="options.php" method="post">
+				<div id="anva-framework" class="anva-framework animsition">
+					<form class="anva-framework-settings options-settings" action="options.php" method="post">
 						<div class="columns-1">
-							<?php echo '<input type="hidden" id="option_name" value="' . anva_get_option_name()  . '" >';  ?>
-							<?php settings_fields( 'anva_options_page_settings' ); ?>
+							<input type="hidden" id="option_name" value="<?php echo anva_get_option_name(); ?>" >
 							<?php
-								/* Settings */
+								settings_fields( 'anva_options_page_settings' );
+								
+								// Settings
 								$option_name = anva_get_option_name();
 								$settings = get_option( $option_name );
+								
+								// Fields
 								anva_get_options_fields( $option_name, $settings, $options );
 							?>
 							<?php do_action( 'anva_options_page_after_fields' ); ?>

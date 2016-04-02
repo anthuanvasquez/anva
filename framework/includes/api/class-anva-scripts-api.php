@@ -20,9 +20,13 @@ class Anva_Scripts_API {
 	 * Properties
 	 */
 	private static $instance = null;
+
 	private $remove_scripts = array();
+	
 	private $framework_scripts = array();
+	
 	private $framework_deps = array();
+	
 	private $custom_scripts = array();
 
 	/**
@@ -85,10 +89,19 @@ class Anva_Scripts_API {
 			'footer'	=> true
 		);
 
+		// jQuery Nivo
+		$this->framework_scripts['jquery_nivo'] = array(
+			'handle'	=> 'jquery_nivo',
+			'src'		=> anva_get_core_uri() . 'assets/js/jquery.nivo.js',
+			'deps'		=> array( 'jquery' ),
+			'ver'		=> '3.2.0',
+			'footer'	=> true
+		);
+
 		// Plugins
 		$this->framework_scripts['anva_plugins'] = array(
 			'handle'	=> 'anva_plugins',
-			'src'		=> anva_get_core_uri() . 'assets/js/plugins.js',
+			'src'		=> anva_get_core_uri() . 'assets/js/plugins.min.js',
 			'deps'		=> array( 'jquery' ),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true
@@ -97,7 +110,7 @@ class Anva_Scripts_API {
 		// Functions
 		$this->framework_scripts['anva_functions'] = array(
 			'handle'	=> 'anva_functions',
-			'src'		=> anva_get_core_uri() . 'assets/js/functions.js',
+			'src'		=> anva_get_core_uri() . 'assets/js/functions.min.js',
 			'deps'		=> array( 'jquery', 'anva_plugins' ),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'footer'	=> true

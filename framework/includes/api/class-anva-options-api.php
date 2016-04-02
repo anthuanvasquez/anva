@@ -324,33 +324,31 @@ class Anva_Options_API
 				'options' => array(
 
 					'single_meta' => array(
-						'name' => __('Show meta info', 'anva'),
+						'name' => __('Meta Information', 'anva'),
 						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the post.', 'anva'),
 						'id' => 'single_meta',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show meta info', 'anva'),
-							'hide' => __('Hide meta info', 'anva'),
+							'show' => __('Show meta informaton', 'anva'),
+							'hide' => __('Hide meta informaton', 'anva'),
 						)
 					),
 
 					'single_thumb' => array(
-						'name' => __('Show featured images', 'anva'),
-						'desc' => __('Choose how you want your featured images to show at the top of the posts.', 'anva'),
+						'name' => __('Featured Images', 'anva'),
+						'desc' => __('Select how you want your featured images to show at the top of the posts.', 'anva'),
 						'id' => 'single_thumb',
-						'std' => 'large',
+						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'small' => __('Show small thumbnails', 'anva'),
-							'large' => __('Show large thumbnails', 'anva'),
-							'full' => __('Show full width thumbnails', 'anva'),
-							'hide' => __('Hide thumbnails', 'anva'),
+							'show' => __( 'Show featured images', 'anva'),
+							'hide' => __( 'Hide featured images', 'anva'),
 						)
 					),
 
 					'single_comments' => array(
-						'name' => __('Show comments', 'anva'),
+						'name' => __('Comments', 'anva'),
 						'desc' => __('Select if you\'d like to completely hide comments or not below the post.', 'anva'),
 						'id' => 'single_comments',
 						'std' => 'show',
@@ -361,18 +359,18 @@ class Anva_Options_API
 						)
 					),
 					'single_share' => array(
-						'name' => __('Show share buttons', 'anva'),
+						'name' => __('Share Icons', 'anva'),
 						'desc' => __('Select to display socials sharing in single posts.', 'anva'),
 						'id' => 'single_share',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show share buttons', 'anva'),
-							'hide' => __('Hide share buttons', 'anva')
+							'show' => __('Show share icons', 'anva'),
+							'hide' => __('Hide share icons', 'anva')
 						)
 					),
 					'single_author' => array(
-						'name' => __('Show about author', 'anva'),
+						'name' => __('About Author', 'anva'),
 						'desc' => __('Select to display about the author in single posts.', 'anva'),
 						'id' => 'single_author',
 						'std' => 'show',
@@ -383,7 +381,7 @@ class Anva_Options_API
 						)
 					),
 					'single_related' => array(
-						'name' => __('Show related posts', 'anva'),
+						'name' => __('Related Posts', 'anva'),
 						'desc' => __('Select to display related posts in single posts.', 'anva'),
 						'id' => 'single_related',
 						'std' => 'cat',
@@ -395,7 +393,7 @@ class Anva_Options_API
 						)
 					),
 					'single_navigation' => array(
-						'name' => __('Show navigation posts', 'anva'),
+						'name' => __('Navigation Posts', 'anva'),
 						'desc' => __('Select to display next and previous posts in single posts.', 'anva'),
 						'id' => 'single_navigation',
 						'std' => 'show',
@@ -408,37 +406,35 @@ class Anva_Options_API
 				)
 			),
 			'primary' => array(
-				'name' 	=> __( 'Posts: Blog', 'anva' ),
+				'name' 	=> __( 'Posts - Blog', 'anva' ),
 				'desc' 	=> __( 'These settings apply to your primary posts page', 'anva' ),
 				'class' => 'group-primary-posts',
 				'options' => array(
 					'primary_meta' => array(
-						'name' => __('Show meta info', 'anva'),
+						'name' => __('Meta information', 'anva'),
 						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the primary posts.', 'anva'),
 						'id' => 'primary_meta',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show meta info', 'anva'),
-							'hide' => __('Hide meta info', 'anva'),
+							'show' => __('Show meta information', 'anva'),
+							'hide' => __('Hide meta information', 'anva'),
 						)
 					),
 
 					'primary_thumb' => array(
-						'name' => __('Show featured images', 'anva'),
+						'name' => __('Featured Images', 'anva'),
 						'desc' => __('Choose how you want your featured images to show in primary posts.', 'anva'),
 						'id' => 'primary_thumb',
 						'std' => 'large',
 						'type' => 'select',
 						'options' => array(
-							'small' => __('Show small thumbnails', 'anva'),
-							'large' => __('Show large thumbnails', 'anva'),
-							'full' => __('Show full width thumbnails', 'anva'),
-							'hide' => __('Hide thumbnails', 'anva'),
+							'show' => __('Show featured images', 'anva'),
+							'hide' => __('Hide featured images', 'anva'),
 						)
 					),
 					'primary_content' => array(
-						'name' => __('Show excerpt or full content', 'anva'),
+						'name' => __('Excerpt or Content', 'anva'),
 						'desc' => __('Choose whether you want to show full content or post excerpts only.', 'anva'),
 						'id' => 'primary_content',
 						'std' => 'excerpt',

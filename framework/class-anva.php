@@ -150,13 +150,16 @@ class Anva
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
         add_action( 'anva_options_backup_after_fields', 'anva_admin_footer_credits' );
         add_action( 'anva_options_backup_after_fields', 'anva_admin_footer_links' );
-        add_action( 'anva_options_page_before', 'anva_add_settings_flash' );
+        add_action( 'anva_options_page_before', 'anva_add_settings_flash', 10 );
+        add_action( 'anva_options_page_before', 'anva_add_settings_change', 10 );
 
         // Init
         add_filter( 'body_class', 'anva_body_class' );
         add_filter( 'body_class', 'anva_browser_class' );
-        add_filter( 'the_password_form', 'anva_password_form' );
+        add_filter( 'oembed_result', 'anva_oembed', 10, 2 );
+        add_filter( 'embed_oembed_html', 'anva_oembed', 10, 2 );
         add_filter( 'nav_menu_css_class' , 'anva_current_nav_class', 10 , 2 );
+        add_filter( 'the_password_form', 'anva_password_form' );
         add_filter( 'the_content', 'anva_content_format_audio', 7 );
         add_filter( 'the_content', 'anva_content_format_video', 7 );
         add_filter( 'the_content', 'anva_content_format_quote', 7 );

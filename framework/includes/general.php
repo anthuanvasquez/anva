@@ -1,10 +1,11 @@
 <?php
+
 /*-----------------------------------------------------------------------------------*/
 /* General Functions
 /*-----------------------------------------------------------------------------------*/
 
 /**
- * Make theme available for translations
+ * Make theme available for translations.
  *
  * @since 1.0.0
  */
@@ -431,7 +432,6 @@ function anva_get_primary_menu_styles() {
 				'menu' => 'style-2'
 			),
 		),
-		// Header layout changes with menu overlay
 		'style_10' => array(
 			'name' => __( 'Menu overlay', 'anva' ),
 			'classes' => array(
