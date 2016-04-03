@@ -45,6 +45,50 @@
 	}
 }
 
+
+@media only screen and (max-width: 960px) {
+	#anva-framework .options-settings {
+		margin-right: 0;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	#anva-framework-wrap {
+		h2.nav-tab-wrapper {
+			box-sizing: border-box;
+			padding-left: 0;
+			padding-right: 0;
+			.nav-tab {
+				box-sizing: border-box;
+				display: block;
+				padding: 10px;
+				width: 100%;
+			}
+		}
+	}
+	#anva-framework-metabox {
+		padding-top: 20px !important;
+	}
+	#anva-framework .section .controls,
+	#anva-framework .section .explain {
+		float: none;
+		max-width: 100%;
+		padding-right: 0;
+		width: 100%;
+	}
+	#anva-framework .section .controls {
+		&:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	}
+	#anva-framework .section .explain {
+		line-height: 1.5;
+		margin-top: 15px;
+	}
+}
+
 @media screen and (max-width: 960px) {
 	.builder-elements {
 		li {

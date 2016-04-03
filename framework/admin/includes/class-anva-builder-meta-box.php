@@ -122,18 +122,14 @@ class Anva_Builder_Meta_Box
 				/* Builder
 				/* ---------------------------------------------------------------- */
 
-				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-				wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'sweetalert.min.css', array(), '1.1.3', 'all' );
-				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_CSS . 'tooltipster.min.css', array(), '3.3.0', 'all' );
-				wp_enqueue_style( 'anva-animate', ANVA_FRAMEWORK_ADMIN_CSS . 'animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
-				wp_enqueue_style( 'anva-builder', ANVA_FRAMEWORK_ADMIN_CSS . 'builder.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4' );
+				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_CSS . 'tooltipster.min.css', array(), '3.3.0' );
+				wp_enqueue_style( 'anva-builder', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-builder.min.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
 
-				wp_register_script( 'sweetalert',ANVA_FRAMEWORK_ADMIN_JS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3', true );
 				wp_register_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_JS . 'jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
 				wp_register_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_JS . 'js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
-				wp_register_script( 'anva-builder', ANVA_FRAMEWORK_ADMIN_JS . 'builder.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
+				wp_register_script( 'anva-builder', ANVA_FRAMEWORK_ADMIN_JS . 'meta-builder.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 				
-				wp_enqueue_script( 'sweetalert' );
 				wp_enqueue_script( 'tooltipster' );
 				wp_enqueue_script( 'js-wp-editor' );
 				wp_enqueue_script( 'anva-builder' );

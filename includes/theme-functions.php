@@ -15,32 +15,6 @@ require_once( get_template_directory() . '/includes/options.php' );
 // require_once( get_template_directory() . '/includes/updates.php' );
 
 /**
- * Filtering theme options menu.
- * 
- * @since  1.0.0
- * @param  array $menu
- * @return array $menu
- */
-function theme_options_menu( $menu ) {
-	// $menu['page_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
-	// $menu['menu_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Options', 'anva' ) );
-	return $menu;
-}
-
-/**
- * Filtering theme backup menu.
- * 
- * @since  1.0.0
- * @param  array $menu
- * @return array $menu
- */
-function theme_backup_menu( $menu ) {
-	$menu['page_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Backup', 'anva' ) );
-	$menu['menu_title'] = sprintf( '%1$s %2$s', ANVA_THEME_NAME, __( 'Backup', 'anva' ) );
-	return $menu;
-}
-
-/**
  * Add theme body classes.
  * 
  * @since  1.0.0
@@ -567,8 +541,6 @@ function theme_remove_grid_columns( $columns ) {
 /* Hooks
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'anva_options_page_menu', 'theme_options_menu' );
-add_filter( 'anva_options_backup_menu', 'theme_backup_menu' );
 add_filter( 'anva_grid_columns', 'theme_remove_grid_columns' );
 add_filter( 'body_class', 'theme_body_classes', 10 );
 add_filter( 'anva_header_class', 'theme_header_classes', 10 );

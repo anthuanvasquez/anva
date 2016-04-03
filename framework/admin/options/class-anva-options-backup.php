@@ -66,8 +66,8 @@ class Anva_Options_Backup
 	function register_admin_screen ()
 	{
 		$menu = apply_filters( 'anva_options_backup_menu', array(
-			'page_title' 	=> __( 'Backup Options', 'anva' ),
-			'menu_title' 	=> __( 'Backup Options', 'anva' ),
+			'page_title' 	=> __( 'Theme Export', 'anva' ),
+			'menu_title' 	=> __( 'Theme Export', 'anva' ),
 			'capability' 	=> anva_admin_module_cap( 'backup' ),
 			'slug' 			=> $this->token,
 			'screen' 		=> array( $this, 'admin_screen' )
@@ -100,9 +100,7 @@ class Anva_Options_Backup
 	 */
 	public function load_adminstyles()
 	{
-		wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'sweetalert.min.css', array(), '1.1.3' );
-		wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3' );
-		wp_enqueue_style( 'anva-options', ANVA_FRAMEWORK_ADMIN_CSS . 'options.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options.min.css', array(), ANVA_FRAMEWORK_VERSION );
 	}
 
 	/**

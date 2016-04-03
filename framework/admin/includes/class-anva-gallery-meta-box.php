@@ -70,11 +70,9 @@ class Anva_Gallery_Meta_Box
 			if ( $typenow == $page ) {
 
 				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'media-gallery.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'meta-gallery.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
 				wp_localize_script( 'anva-media-gallery', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
-				
-				wp_enqueue_style( 'anva-animate', ANVA_FRAMEWORK_ADMIN_CSS . 'animate.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
-				wp_enqueue_style( 'anva-gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva-gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}
@@ -113,7 +111,7 @@ class Anva_Gallery_Meta_Box
 		?>
 
 		<input type="hidden" id="anva_gallery_id" name="anva_gallery_id" value="<?php echo esc_attr( $this->id ); ?>" />
-		<div class="anva-meta-box">
+		<div id="anva-framework" class="anva-meta-box">
 			<div class="anva-input-gallery">
 				<div id="anva_gallery_container">
 					<ul id="anva_gallery_thumbs">

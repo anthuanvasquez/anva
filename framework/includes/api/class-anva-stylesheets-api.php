@@ -93,19 +93,20 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
-		// Framework Shortcodes
-		$this->framework_stylesheets['anva_shortcodes'] = array(
-			'handle'	=> 'anva_shortcodes',
-			'src'		=> anva_get_core_uri() . 'assets/css/shortcodes.min.css',
-			'deps'		=> array(),
-			'ver'		=> ANVA_FRAMEWORK_VERSION,
-			'media'		=> 'all'
-		);
 
 		// Framework Styles
 		$this->framework_stylesheets['anva_styles'] = array(
 			'handle'	=> 'anva_styles',
 			'src'		=> anva_get_core_uri() . 'assets/css/styles.min.css',
+			'deps'		=> array(),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'media'		=> 'all'
+		);
+		
+		// Framework Shortcodes
+		$this->framework_stylesheets['anva_shortcodes'] = array(
+			'handle'	=> 'anva_shortcodes',
+			'src'		=> anva_get_core_uri() . 'assets/css/shortcodes.min.css',
 			'deps'		=> array(),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'

@@ -44,7 +44,7 @@ function anva_register_required_plugins() {
 		'message'      							=> '',                      // Message to output right before the plugins table.
 		'strings'      							=> array(
 			'page_title'                    	=> __( 'Theme Required Plugins', 'anva' ),
-			'menu_title'                    	=> __( 'Anva Plugins', 'anva' ),
+			'menu_title'                    	=> __( 'Theme Plugins', 'anva' ),
 			'installing'                    	=> __( 'Installing Plugin: %s', 'anva' ), // %s = plugin name.
 			'oops'                          	=> __( 'Something went wrong with the plugin API.', 'anva' ),
 			'notice_can_install_required'   	=> _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'anva' ), // %1$s = plugin name(s).

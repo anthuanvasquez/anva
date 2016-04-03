@@ -1,0 +1,193 @@
+#anva-framework input[type="text"],
+#anva-framework input[type="tel"],
+#anva-framework input[type="number"],
+#anva-framework input[type="date"],
+#anva-framework input[type="time"],
+#anva-framework select,
+#anva-framework textarea {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-border-radius: 0;
+          border-radius: 0;
+  margin: 0;
+  width: 100%;
+}
+
+#anva-framework input[type="checkbox"] {
+  position: relative;
+  top: 2px;
+}
+
+#anva-framework input.anva-checkbox,
+#anva-framework input.anva-radio {
+  margin: 0 10px 5px 0;
+  float: left;
+  clear: both;
+}
+
+#anva-framework .nav-tab-wrapper {
+  border-bottom: 1px solid #ddd !important;
+  padding-bottom: 0 !important;
+}
+
+#anva-framework .nav-tab {
+  background: #e4e4e4;
+  color: #555;
+  font-size: 13px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  line-height: 24px;
+  min-width: 48px;
+  text-align: center;
+}
+
+#anva-framework .nav-tab:hover {
+  background: #fff;
+}
+
+#anva-framework .nav-tab-active {
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+#anva-framework .section-radio label,
+#anva-framework .section-multicheck label {
+  float: left;
+  max-width: 90%;
+  line-height: 16px;
+  margin-bottom: 5px;
+}
+
+#anva-framework h3 {
+  display: none;
+  padding: 8px 0 !important;
+}
+
+#anva-framework h4 {
+  margin-bottom: 10px;
+}
+
+#anva-framework .postbox {
+  min-width: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background: transparent;
+}
+
+#normal-sortables .controls,
+#normal-sortables .explain,
+#advanced-sortables .controls,
+#advanced-sortables .explain {
+  float: left;
+  padding-right: 4%;
+  width: 54%;
+}
+
+#normal-sortables .explain,
+#advanced-sortables .explain {
+  max-width: 42%;
+  margin-top: 0;
+  padding-right: 0;
+}
+
+#side-sortables .controls,
+#side-sortables .explain {
+  float: none;
+  width: 100%;
+}
+
+#side-sortables .controls:before, #side-sortables .controls:after {
+  content: "";
+  display: table;
+}
+
+#side-sortables .controls:after {
+  clear: both;
+}
+
+.tzp-metabox {
+  display: block;
+  padding: 10px 15px 20px;
+  border: 1px solid #eee;
+  margin-top: 15px;
+}
+
+.tzp-metabox > p {
+  margin: -10px -15px 15px;
+  color: #999;
+  font-style: italic;
+  background: #f9f9f9;
+  padding: 20px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.tzp-field:before,
+.tzp-field:after {
+  content: ' ';
+  display: table;
+}
+
+.tzp-field:after {
+  clear: both;
+}
+
+.tzp-field {
+  clear: both;
+  margin-top: 1em;
+}
+
+.tzp-field h4 {
+  margin-top: 0;
+}
+
+.tzp-metabox label {
+  display: block;
+  margin-top: 5px;
+}
+
+.tzp-left {
+  float: left;
+  padding-right: 4%;
+  vertical-align: top;
+  width: 54%;
+}
+
+.tzp-right {
+  float: left;
+  vertical-align: top;
+  width: 42%;
+}
+
+.tzp-desc {
+  font-size: 12px;
+  font-style: normal;
+  line-height: 16px;
+  color: #777;
+  margin-top: 0;
+}
+
+.tzp-metabox input[type="text"],
+.tzp-metabox textarea {
+  vertical-align: top;
+  width: 100%;
+}
+
+.tzp-metabox input[type="text"].file {
+  margin-right: 10px;
+  width: 78%;
+}
+
+.tzp-inline-checkboxes {
+  margin: 5px 0 0 3px;
+}
+
+.tzp-inline-checkboxes li {
+  margin: 0 0 5px;
+}
+
+.tzp-inline-checkboxes label {
+  display: inline;
+  margin-left: 3px;
+}

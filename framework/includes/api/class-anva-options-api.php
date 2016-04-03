@@ -318,11 +318,10 @@ class Anva_Options_API
 
 		$content_options = array(
 			'single' => array(
-				'name' => __( 'Posts: Single', 'anva' ),
+				'name' => __( 'Posts - Single', 'anva' ),
 				'desc' => __( 'These settings will only apply to vewing single posts.', 'anva' ),
 				'class' => 'group-single-posts',
 				'options' => array(
-
 					'single_meta' => array(
 						'name' => __('Meta Information', 'anva'),
 						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the post.', 'anva'),
@@ -334,7 +333,6 @@ class Anva_Options_API
 							'hide' => __('Hide meta informaton', 'anva'),
 						)
 					),
-
 					'single_thumb' => array(
 						'name' => __('Featured Images', 'anva'),
 						'desc' => __('Select how you want your featured images to show at the top of the posts.', 'anva'),
@@ -346,7 +344,6 @@ class Anva_Options_API
 							'hide' => __( 'Hide featured images', 'anva'),
 						)
 					),
-
 					'single_comments' => array(
 						'name' => __('Comments', 'anva'),
 						'desc' => __('Select if you\'d like to completely hide comments or not below the post.', 'anva'),
@@ -421,7 +418,6 @@ class Anva_Options_API
 							'hide' => __('Hide meta information', 'anva'),
 						)
 					),
-
 					'primary_thumb' => array(
 						'name' => __('Featured Images', 'anva'),
 						'desc' => __('Choose how you want your featured images to show in primary posts.', 'anva'),
@@ -459,7 +455,6 @@ class Anva_Options_API
 				'desc' => __( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', 'anva' ),
 				'class' => 'group-archives',
 				'options' => array(
-					
 					'archive_title' => array(
 						'name' => __('Show titles', 'anva'),
 						'desc' => __('Choose whether or not you want the title to show on tag archives, category archives, date archives, author archives and search result pages.', 'anva'),
@@ -471,7 +466,6 @@ class Anva_Options_API
 							'hide' => __('Hide title', 'anva'),
 						)
 					),
-
 					'archive_page' => array(
 						'name' => __('Page Layout', 'anva'),
 						'desc' => __('Select default layout for archive page.', 'anva'),
@@ -482,7 +476,6 @@ class Anva_Options_API
 					),
 				)
 			),
-
 			'contactform' => array(
 				'name' => __( 'Contact Form', 'anva' ),
 				'desc' => __( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', 'anva' ),

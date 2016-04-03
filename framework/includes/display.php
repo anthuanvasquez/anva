@@ -545,13 +545,23 @@ function anva_page_title_default() {
 	<?php if ( ! empty ( 'show' != $hide_title ) ) : ?>
 		<section id="page-title">
 			<div class="container clearfix">
+				
 				<h1><?php anva_archive_title(); ?></h1>
 				
 				<?php if ( ! empty ( $page_desc ) ) : ?>
 					<span><?php echo esc_html( $page_desc ); ?></span>
 				<?php endif; ?>
-				
-				<?php do_action( 'anva_breadcrumbs' ); ?>
+
+				<?php if ( is_singular( 'portfolio' ) ) : ?>
+					<div id="portfolio-navigation">
+						<a href="#"><i class="icon-angle-left"></i></a>
+						<a href="#"><i class="icon-line-grid"></i></a>
+						<a href="#"><i class="icon-angle-right"></i></a>
+					</div>
+				<?php else : ?>
+					<?php do_action( 'anva_breadcrumbs' ); ?>
+				<?php endif; ?>
+
 			</div>
 		</section><!-- #page-title (end) -->
 	<?php endif; ?>

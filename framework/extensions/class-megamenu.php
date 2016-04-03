@@ -1,435 +1,585 @@
 <?php
 
-// Include WP Walker Nav Menu Edit Class.
-require_once( ABSPATH . 'wp-admin/includes/class-walker-nav-menu-edit.php' );
+add_filter( 'walker_nav_menu_start_el', 'themeblvd_nav_menu_start_el', 10, 4 );
+add_filter( 'nav_menu_css_class', 'themeblvd_nav_menu_css_class', 10, 4 );
+add_action( 'after_setup_theme', 'themeblvd_admin_init', 1001 );
+
+
+function themeblvd_admin_init() {
+	Theme_Blvd_Menu_Options::get_instance();
+}
 
 /**
- * Anva Menu Item Fields.
+ * Add options to Appearance > Menus
  *
- * @since 1.0.0
+ * @author		Jason Bobich
+ * @copyright	Copyright (c) Jason Bobich
+ * @link		http://jasonbobich.com
+ * @link		http://themeblvd.com
+ * @package 	Theme Blvd WordPress Framework
  */
-class Anva_Menu_Item_Fields {
+class Theme_Blvd_Menu_Options {
+
+	/*--------------------------------------------*/
+	/* Properties, private
+	/*--------------------------------------------*/
 
 	/**
-	 * A single instance of this class
- 	 *
-	 * @since 1.0.0
+	 * A single instance of this class.
+	 *
+	 * @since 2.3.0
 	 */
 	private static $instance = null;
 
-	/**
-	 * Options array.
-	 *
-	 * @access public
-	 * @var array
-	 */
-	public $options = array();
+	/*--------------------------------------------*/
+	/* Constructor
+	/*--------------------------------------------*/
 
 	/**
-	 * Creates or returns an instance of this class.
-	 *
-	 * @since 1.0.0
-	 */
-	public static function instance() {
+     * Creates or returns an instance of this class.
+     *
+     * @since 2.3.0
+     *
+     * @return Theme_Blvd_Menu_Options A single instance of this class.
+     */
+	public static function get_instance() {
 
 		if ( self::$instance == null ) {
-			self::$instance = new self;
-		}
+            self::$instance = new self;
+        }
 
-		return self::$instance;
+        return self::$instance;
 	}
 
 	/**
-	 * Constructor Hook everything in.
-	 */
-	public function __construct()
-	{
-		$this->set_fields();
-		add_action( 'save_post', array( $this, 'save_post' ) );
-		add_filter( 'anva_menu_item_additional_fields', array( $this, 'add_fields' ), 10, 5 );
-	}
-
-	/**
-	 * Set fields.
+	 * Constructor. Hook everything in.
 	 *
-	 * @return void
+	 * @since 2.3.0
 	 */
-	public function set_fields()
-	{
-		// Get columns
-		$columns = array();
-		$columns[''] = __( 'Select Columns', 'anva' );
-		foreach ( anva_get_grid_columns() as $key => $column ) {
-			$columns[ $column['class'] ] = $column['name'];
-		}
+	public function __construct() {
 
-		// Get sidebar locations
-		$locations = array();
-		$locations[''] = __( 'Select Sidebar', 'anva' );
-		foreach ( anva_get_sidebar_locations() as $key => $sidebar ) {
-			$locations[ $key ] = $sidebar['args']['name'];
-		}
+		add_action( 'admin_enqueue_scripts', array($this, 'assets') );
+		add_filter( 'wp_edit_nav_menu_walker', array($this, 'walker') );
+		add_action( 'wp_update_nav_menu_item', array($this, 'save'), 10, 3 );
 
-		$this->options['fields'] = array(
-			'mega_menu' 		  => array(
-				'name' 			  => 'mega_menu',
-				'label' 		  => __( 'Active Mega Menu', 'anva' ),
-				'container_class' => '',
-				'input_type' 	  => 'checkbox',
-			),
-			'mega_menu_columns'   => array(
-				'name' 			  => 'mega_menu_columns',
-				'label' 		  => __( 'Display Columns', 'anva' ),
-				'container_class' => '',
-				'input_type'	  => 'select',
-				'options' 		  => $columns,
-			),
-			'mega_menu_sidebar'   => array(
-				'name' 			  => 'mega_menu_sidebar',
-				'label' 		  => __( 'Display Sidebar Location', 'anva' ),
-				'container_class' => '',
-				'input_type'	  => 'select',
-				'options' 		  => $locations,
-			),
-		);
 	}
 
-	public function get_fields()
-	{
-		$fields = array();
+	/*--------------------------------------------*/
+	/* Methods
+	/*--------------------------------------------*/
 
-		foreach ( $this->options['fields'] as $name => $field ) {
-			if ( empty( $field['name'] ) ) {
-				$field['name'] = $name;
-			}
-			$fields[] = $field;
+	/**
+	 * Menus Admin page scripts and styles
+	 *
+	 * @since 2.5.0
+	 */
+	public function assets( $hook ) {
+		if ( $hook == 'nav-menus.php' ) {
+			wp_enqueue_style( 'themeblvd_menus', esc_url( ANVA_FRAMEWORK_ADMIN_CSS . 'menu.css' ), null, ANVA_FRAMEWORK_VERSION );
+			wp_enqueue_script( 'themeblvd_menus', esc_url( ANVA_FRAMEWORK_ADMIN_JS . 'menu.js' ), array('jquery'), ANVA_FRAMEWORK_VERSION );
 		}
-		return $fields;
-	}
-
-	public function get_menu_item_meta( $name )
-	{
-		return 'anva_menu_item_' . esc_html( $name );
 	}
 
 	/**
-	 * Inject the
-	 * @hook {action} save_post
+	 * Include an extended version of WP's Walker_Nav_Menu_Edit
+	 * and apply it.
+	 *
+	 * @since 2.5.0
 	 */
-	public function add_fields( $new_fields, $item_output, $item, $depth, $args )
-	{
-
-		$schema = $this->get_fields( $item->ID );
-
-		$new_fields = '';
-
-		foreach ( $schema as $field ) {
-
-			$field['value'] = get_post_meta( $item->ID, $this->get_menu_item_meta( $field['name'] ), true );
-			$field['id'] = $item->ID;
-
-			switch ( $field['input_type'] ) {
-
-				case 'checkbox':
-
-					$new_fields .= '<p class="additional-menu-field-'. $field['name'] .' description description-wide">';
-					$new_fields .= '<input type="checkbox" id="edit-menu-item-'. $field['name'] .'-'. $field['id'] .'" class="edit-menu-item-'. $field['name'] .'" name="menu-item-'. $field['name']. '['. $field['id'] .']" value="1"';
-
-					if ( ! empty( $field['value'] ) ) {
-						$new_fields .= 'checked';
-					}
-
-					$new_fields .= '>';
-					$new_fields .= '<label for="edit-menu-item-'. $field['name'] .'-'. $field['id'] .'">'. $field['label'] .'</label></p>';
-
-					break;
-
-				case 'select':
-
-					$new_fields .= '<p class="additional-menu-field-'. $field['name'] .' description description-thin">';
-					$new_fields .= '<label for="edit-menu-item-'. $field['name']. '-'. $field['id'] .'">'. $field['label'] .'</label>';
-					$new_fields .= '<select id="edit-menu-item-'. $field['name']. '-'. $field['id'] .'" class="edit-menu-item-'. $field['name'] .' widefat" name="menu-item-'. $field['name'] .'['. $field['id'] .']">';
-
-					if ( ! empty( $field['options'] ) ) {
-
-						foreach ( $field['options'] as $key => $option ) {
-
-							$new_fields .= '<option value="'. $key .'" ';
-
-							if ( $key == $field['value'] ) {
-								$new_fields .= 'selected';
-							}
-
-							$new_fields .= '>'. $option .'</option>';
-						}
-					}
-
-					$new_fields .= '</select></p>';
-
-					break;
-			}
-		}
-
-		return $new_fields;
+	public function walker() {
+		include_once( 'class-tb-nav-menu-edit.php' );
+		return 'Theme_Blvd_Nav_Menu_Edit';
 	}
 
 	/**
-	 * Save the newly submitted fields.
+	 * Save the options we've added to the menu builder.
+	 *
+	 * @since 2.5.0
 	 */
-	public function save_post( $post_id )
-	{
+	public function save( $menu_id, $item_id, $args ) {
 
-		if ( get_post_type( $post_id ) !== 'nav_menu_item' ) {
-			return;
+		global $_POST;
+
+		if ( empty( $_POST['_tb_mega_menu'][$item_id] ) ) {
+			update_post_meta( $item_id, '_tb_mega_menu', '0' );
+		} else {
+			update_post_meta( $item_id, '_tb_mega_menu', '1' );
 		}
 
-		$fields_schema = $this->get_fields( $post_id );
+		if ( empty( $_POST['_tb_mega_menu_hide_headers'][$item_id] ) ) {
+			update_post_meta( $item_id, '_tb_mega_menu_hide_headers', '0' );
+		} else {
+			update_post_meta( $item_id, '_tb_mega_menu_hide_headers', '1' );
+		}
 
-		foreach ( $fields_schema as $field_schema ) {
+		if ( empty( $_POST['_tb_bold'][$item_id] ) ) {
+			update_post_meta( $item_id, '_tb_bold', '0' );
+		} else {
+			update_post_meta( $item_id, '_tb_bold', '1' );
+		}
 
-			$form_field_name = 'menu-item-' . esc_html( $field_schema['name'] );
+		if ( empty( $_POST['_tb_deactivate_link'][$item_id] ) ) {
+			update_post_meta( $item_id, '_tb_deactivate_link', '0' );
+		} else {
+			update_post_meta( $item_id, '_tb_deactivate_link', '1' );
+		}
 
-			$key = $this->get_menu_item_meta( $field_schema['name'] );
+		if ( empty( $_POST['_tb_placeholder'][$item_id] ) ) {
+			update_post_meta( $item_id, '_tb_placeholder', '0' );
+		} else {
+			update_post_meta( $item_id, '_tb_placeholder', '1' );
+		}
 
-			if ( isset( $_POST[ $form_field_name ][ $post_id ] ) && ! empty( $_POST[ $form_field_name ][ $post_id ] ) ) {
-				$value = stripslashes( $_POST[ $form_field_name ][ $post_id ] );
-				update_post_meta( $post_id, $key, $value );
+	}
+}
+
+/**
+ * Create new walker for WP's wp_nav_menu function.
+ * Takes into account mega menus and icons.
+ *
+ * @since 2.5.0
+ */
+class ThemeBlvd_Main_Menu_Walker extends Walker_Nav_Menu {
+
+	private $doing_mega = false;
+	private $count = 0;
+	private $show_headers = false;
+	private $current_header = null;
+
+	/**
+	 * Start level
+	 */
+	function start_lvl( &$output, $depth = 0, $args = array() ) {
+
+		if ( $this->doing_mega ) {
+			if ( $depth == 0 ) {
+				$output .= "<div class=\"sf-mega\">\n";
+			} else if ( $depth == 1 ) {
+				$output .= "<div class=\"sf-mega-section\">\n";
 			} else {
-				delete_post_meta( $post_id, $key );
-			}
-		}
-	}
-}
-
-/**
- * Extend the Walker_Nav_Menu_Edit class to use it.
- *
- * @since 1.0.0
- */
-class Anva_Walker_Nav_Menu_Edit extends Walker_Nav_Menu_Edit {
-
-	/**
-	 * Start the element output.
-	 *
-	 * @since 1.0.0
-	 * @param string $output
-	 * @param object $item
-	 * @param int    $depth
-	 * @param array  $args
-	 * @param int    $id
-	 */
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-
-		$item_output = '';
-
-		parent::start_el( $item_output, $item, $depth, $args, $id );
-
-		$new_fields = apply_filters( 'anva_menu_item_additional_fields', '', $item_output, $item, $depth, $args, $id );
-
-		if ( $new_fields ) {
-			$item_output = preg_replace( '/(?=<div[^>]+class="[^"]*submitbox)/', $new_fields, $item_output );
-		}
-
-		$output .= $item_output;
-	}
-}
-
-/**
- * Extend the Walker_Nav_Menu class to use it.
- *
- * @since 1.0.0
- */
-class Anva_Walker_Nav_Menu extends Walker_Nav_Menu {
-
-	/**
-	 * Current item ID.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 * @var string
-	 */
-	private $item_id;
-
-	/**
-	 * Current item post meta value.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 * @var string
-	 */
-	private $item_meta;
-
-	/**
-	 * Start the element output.
-	 *
-	 * The $args parameter holds additional values that may be used with the child
-	 * class methods. Includes the element output also.
-	 *
-	 * @since 1.0.0
-	 * @param string $output
-	 * @param object $item
-	 * @param int    $depth
-	 * @param array  $args
-	 * @param int    $current_object_id
-	 */
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $current_object_id = 0 )
-	{
-
-		// Set item ID for start_lvl() and end_lvl() functions
-		$this->item_id = $item->ID;
-
-		$menu_item = Anva_Menu_Item_Fields::instance();
-		$mega_menu = get_post_meta( $item->ID, $menu_item->get_menu_item_meta( 'mega_menu' ), true );
-		$mega_menu_column = get_post_meta( $item->menu_item_parent, $menu_item->get_menu_item_meta( 'mega_menu_columns' ), true );
-
-		$this->item_meta = $mega_menu;
-
-		$mega_menu_classes = '';
-		$mega_menu_column_class = '';
-
-		if ( $mega_menu ) {
-			$mega_menu_classes = ' mega-menu';
-		}
-
-		if ( $mega_menu_column ) {
-			$mega_menu_column_class = ' ' . $mega_menu_column;
-		}
-
-		$indent       = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-		$classes      = empty( $item->classes ) ? array() : (array) $item->classes;
-
-		$class_names  = '';
-		$class_names  = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) );
-		$class_names  = $class_names . $mega_menu_classes;
-		$class_names  = ' class="' . esc_attr( $class_names ) . '"';
-
-		if ( $depth == 1 ) {
-			$output .= '<ul class="mega-menu-column' . esc_attr( $mega_menu_column_class )  . '">';
-		}
-
-		$output      .= $indent . '<li id="menu-item-' . esc_attr( $item->ID ) . '"' . $class_names . '>';
-
-		$attributes   = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) . '"' : '';
-		$attributes  .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
-		$attributes  .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
-		$attributes  .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) . '"' : '';
-
-		$item_output  = $args->before;
-		$item_output .= '<a' . $attributes . '>';
-
-		$item_output .= '<div>';
-		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-		$item_output .= '</div>';
-
-		if ( ! empty( $item->description ) ) {
-			$item_output .= '<span>' . $item->description . '</span>';
-		}
-
-		$item_output .= '</a>';
-		$item_output .= $args->after;
-
-		if ( $mega_menu ) {
-			$mega_menu_sidebar = get_post_meta( $item->ID, $menu_item->get_menu_item_meta( 'mega_menu_sidebar' ), true );
-
-			if ( $mega_menu_sidebar ) {
-				ob_start();
-				dynamic_sidebar( $mega_menu_sidebar );
-				$widget = ob_get_contents();
-				ob_end_clean();
-				$item_output .= '<div class="widget clearfix">';
-				$item_output .= $widget;
-				$item_output .= '</div>';
+				return; // Additional sub levels not allowed past 1 for mega menus
 			}
 		}
 
-		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+		if ( ! $this->doing_mega ) {
+			$output .= '<ul class="sub-menu non-mega-sub-menu">';
+		} else if ( $depth != 0 ) {
+			$output .= '<ul class="sub-menu mega-sub-menu level-1">';
+		}
+
+		if ( $this->doing_mega && $depth == 1 ) {
+
+			// Putting the 2nd level menu item as the first,
+			// prominent item in the 3rd level.
+			if ( $this->current_header ) {
+
+				if ( get_post_meta($this->current_header->ID, '_tb_deactivate_link', true) || get_post_meta($this->current_header->ID, '_tb_placeholder', true) ) {
+
+					$class = 'menu-item-has-children';
+
+					if ( get_post_meta($this->current_header->ID, '_tb_placeholder', true) ) {
+						$class .= ' placeholder';
+					}
+
+					$output .= sprintf('<li class="%s"><span class="mega-section-header">%s</span></li>', $class, apply_filters( 'the_title', $this->current_header->title, $this->current_header->ID ) );
+
+				} else {
+
+					$args->before = '<span class="mega-section-header">';
+					$args->after = '</span>';
+
+					parent::start_el( $output, $this->current_header, 2, $args );
+					parent::end_el( $output, $this->current_header, 2, $args );
+
+					$args->before = $args->after = '';
+
+				}
+
+				$output = trim($output);
+				$output = substr_replace($output, "<ul class=\"sub-menu mega-sub-menu level-2\">\n", -5); // Replace last </li> with opening <ul>
+			}
+		}
+
 	}
 
 	/**
-	 * Ends the element output, if needed.
-	 *
-	 * The $args parameter holds additional values that may be used with the child class methods.
-	 *
-	 * @since 1.0.0
-	 * @param string $output
-	 * @param object $object
-	 * @param int    $depth
-	 * @param array  $args
+	 * End level
 	 */
-	public function end_el( &$output, $object, $depth = 0, $args = array() )
-	{
-		$output .= "</li>";
+	function end_lvl( &$output, $depth = 0, $args = array() ) {
 
-		if ( $depth == 1 ) {
+		if ( $this->doing_mega ) {
+			if ( $depth == 0 ) {
+				$output .= "</div><!-- .sf-mega (end) -->\n";
+			} else if ( $depth == 1 ) {
+
+				if ( $this->show_headers ) {
+					$output .= "</ul><!-- .mega-sub-menu.level-2 (end) -->\n";
+					$output .= "</li><!-- .menu-item-has-children (end) -->\n";
+				}
+
+				$output .= "</ul><!-- .mega-sub-menu.level-1 (end) -->\n";
+
+				$output .= "</div><!-- .sf-mega-section (end) -->\n";
+				$this->count++;
+
+			} else {
+				return; // Additional sub levels not allowed past 1 for mega menus
+			}
+		} else {
 			$output .= '</ul>';
 		}
+
 	}
 
 	/**
-	 * Starts the list before the elements are added.
-	 *
-	 * The $args parameter holds additional values that may be used with the child
-	 * class methods. This method is called at the start of the output list.
-	 *
-	 * @since 1.0.0
-	 * @param string $output
-	 * @param int    $depth
-	 * @param array  $args
+	 * Start nav element
 	 */
-	public function start_lvl( &$output, $depth = 0, $args = array() )
-	{
-		if ( $this->item_meta && $depth == 0 ) {
-			$output .= '<div class="mega-menu-content clearfix">';
+	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+
+		// Activate mega menu, if enabled
+		if ( $depth == 0 ) {
+
+			$this->doing_mega = false;
+			$this->show_headers = false;
+			$this->current_header = null;
+			$this->count = 0;
+
+			if ( $args->theme_location == apply_filters('themeblvd_primary_menu_location', 'primary') && get_post_meta($item->ID, '_tb_mega_menu', true) ) {
+
+				$this->doing_mega = true;
+
+				if ( ! get_post_meta($item->ID, '_tb_mega_menu_hide_headers', true) ) {
+					$this->show_headers = true;
+				}
+			}
+		}
+
+		// If level 2 header of mega menu, skip and store it to
+		// be displayed as a title for level 3.
+		if ( $this->doing_mega && $depth == 1 ) {
+			if ( $this->show_headers ) {
+				$this->current_header = $item;
+			}
 			return;
 		}
 
-		// $output .= '<ul class="sub-menu">';
-		parent::start_lvl( $output, $depth, $args );
+		// Add sub indicator icons, if necessary
+		if ( in_array('menu-item-has-children', $item->classes) && ( $depth == 0 || ! $this->doing_mega ) ) {
+
+			$direction = 'down';
+
+			if ( $depth > 0 ) {
+				if ( is_rtl() ) {
+					$direction = 'left';
+				} else {
+					$direction = 'right';
+				}
+			}
+
+			$args->link_after = apply_filters('themeblvd_menu_sub_indicator', sprintf( '<i class="sf-sub-indicator fa fa-caret-%s"></i>', $direction ), $direction );
+
+		}
+
+		// Deactivate link, if enabled
+		if ( $depth > 0 && ( get_post_meta($item->ID, '_tb_deactivate_link', true) || get_post_meta($item->ID, '_tb_placeholder', true) ) ) {
+
+			$class = 'menu-item menu-item-'.$item->ID;
+
+			if ( get_post_meta($item->ID, '_tb_placeholder', true) ) {
+				$class .= ' placeholder';
+			}
+
+			if ( get_post_meta($item->ID, '_tb_bold', true) ) {
+				$class .= ' bold';
+			}
+
+			$output .= sprintf('<li id="menu-item-%s" class="%s"><span class="menu-btn">%s</span></li>', $item->ID, $class, apply_filters( 'the_title', $item->title, $item->ID ) );
+			return;
+		}
+
+		// Add bold class
+		if ( get_post_meta($item->ID, '_tb_bold', true) ) {
+			$item->classes[] = 'bold';
+		};
+
+		parent::start_el( $output, $item, $depth, $args, $id );
+
+		$args->link_after = '';
+
 	}
 
 	/**
-	 * Ends the list of after the elements are added.
-	 *
-	 * The $args parameter holds additional values that may be used with the child
-	 * class methods. This method finishes the list at the end of output of the elements.
-	 *
-	 * @since 1.0.0
-	 * @param string $output
-	 * @param int    $depth
-	 * @param array  $args
+	 * End nav element
 	 */
-	public function end_lvl( &$output, $depth = 0, $args = array() )
-	{
-		// $output .= '</ul>';
-		
-		if ( $this->item_meta && $depth == 0 ) {
-			$output .= '</div>';
-			return;
+	function end_el( &$output, $item, $depth = 0, $args = array() ) {
+
+		// Add "has-mega-menu" class to list item holding mega menu
+		if ( $this->doing_mega && $depth == 0 ) {
+			$output = str_replace( sprintf('<li id="menu-item-%s" class="', $item->ID), sprintf('<li id="menu-item-%s" class="has-mega-menu mega-col-%s ', $item->ID, $this->count), $output);
 		}
 
-		parent::end_lvl( $output, $depth, $args );
+		if ( ! $this->doing_mega || $depth != 1 ) {
+			$output .= "</li>\n";
+		}
+	}
+
+}
+
+/**
+ * Filter framework items into wp_nav_menu() output.
+ *
+ * @since 2.4.3
+ *
+ * @param string $item_output Initial menu item like <a href="URL">Title</a>
+ * @param string $item Object for menu item post
+ * @param int $depth Depth of the menu item, i.e 0 for top level, 1 for second level, etc
+ * @param array $args Arguments for call to wp_nav_menu, NOT individiaul menu item
+ * @return string $item_output Modified menu item
+ */
+function themeblvd_nav_menu_start_el( $item_output, $item, $depth, $args ) {
+
+	$primary = apply_filters('themeblvd_primary_menu_location', 'primary');
+
+	// Add "menu-btn" to all menu items in main navigation.
+	// Note: If menu item's link was disabled in the walker, the
+	// item will already be setup as <span class="menu-btn">Title</span>,
+	// which allows styling to match all anchor links with .menu-btn
+	if ( is_a($args->walker, 'ThemeBlvd_Main_Menu_Walker') ) {
+		$item_output = str_replace( '<a', '<a class="menu-btn"', $item_output );
+	}
+
+	// Add "bold" class
+	if ( get_post_meta($item->ID, '_tb_bold', true) ) {
+		if ( strpos($item_output, 'menu-btn') !== false ) {
+			$item_output = str_replace( 'menu-btn', 'menu-btn bold', $item_output );
+		} else {
+			$item_output = str_replace( '<a', '<a class="bold"', $item_output );
+		}
+	}
+
+	// Indicators for top-level toggle menus
+	// @TODO maybe later incorporate this into a widget,
+	// now that mobile menu no longer uses the toggle icon
+	/*
+	if ( in_array( 'menu-item-has-children', $item->classes ) && $depth < 1 ) {
+		if ( strpos($args->menu_class, 'tb-side-menu') !== false || ( $args->theme_location == $primary && themeblvd_supports('display', 'responsive') && themeblvd_supports('display', 'mobile_side_menu') ) ) {
+			$icon_open = apply_filters( 'themeblvd_side_menu_icon_open', 'plus' );
+			$icon_close = apply_filters( 'themeblvd_side_menu_icon_close', 'minus' );
+			$icon = apply_filters( 'themeblvd_side_menu_icon', sprintf( '<i class="tb-side-menu-toggle fa fa-%1$s" data-open="%1$s" data-close="%2$s"></i>', $icon_open, $icon_close ) );
+			$item_output = str_replace( '</a>', '</a>'.$icon, $item_output );
+		}
+
+	}
+	*/
+
+	// Allow bootstrap "nav-header" class in menu items.
+	// Note: For primary navigation will only work on levels 2-3
+	// (1) ".sf-menu li li.nav-header" 	=> Primary nav dropdowns
+	// (2) ".menu li.nav-header" 		=> Standard custom menu widget
+	// (3) ".subnav li.nav-header" 		=> Theme Blvd Horizontal Menu widget
+	if ( in_array( 'nav-header', $item->classes )  ) {
+
+		$header = sprintf( '<span>%s</span>', apply_filters( 'the_title', $item->title, $item->ID ) );
+
+		if ( strpos( $args->menu_class, 'sf-menu' ) !== false ) {
+			// Primary Navigation
+			if ( $depth > 0 ) {
+				$item_output = $header;
+			}
+		} else {
+			$item_output = $header;
+		}
+	}
+
+	// Allow bootstrap "divider" class in menu items.
+	// Note: For primary navigation will only work on levels 2-3
+	if ( in_array( 'divider', $item->classes )  ) {
+
+		if ( strpos( $args->menu_class, 'sf-menu' ) !== false ) {
+			// Primary Navigation
+			if ( $depth > 0 ) {
+				$item_output = '';
+			}
+		} else {
+			$item_output = '';
+		}
+	}
+
+	// Fontawesome icons in menu items
+	$icon = '';
+
+	foreach ( $item->classes as $class ) {
+		if ( strpos( $class, 'menu-icon-' ) !== false ) {
+			$icon = str_replace( 'menu-icon-', '', $class );
+		}
+	}
+
+	if ( $icon ) {
+
+		$text = apply_filters( 'the_title', $item->title, $item->ID );
+		$icon_output = sprintf( '<i class="fa fa-%s fa-fw"></i>', $icon );
+
+		if ( $args->theme_location == $primary && $depth == 0 ) {
+			$icon_output = str_replace(' fa-fw', '', $icon_output);
+		}
+
+		$icon_output = apply_filters( 'themeblvd_menu_icon', $icon_output, $icon );
+
+		if ( ! $args->theme_location ) {
+
+			// Random custom menu, probably sidebar widget, insert icon outside <a>
+			$item_output = $icon_output.$item_output;
+
+		} else {
+
+			// Theme location, insert icon within <a>
+			$item_output = str_replace( $text, $icon_output.$text, $item_output );
+
+		}
+	}
+
+	return $item_output;
+}
+
+/**
+ * Add CSS classes to main menu list items
+ *
+ * @since 2.5.0
+ */
+function themeblvd_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 ) {
+	$classes[] = sprintf('level-%s', $depth+1);
+	return $classes;
+}
+
+/**
+ * Create new walker for WP's wp_nav_menu function.
+ * Each menu item is an <option> with the $depth being
+ * taken into account in its display.
+ *
+ * We're using this with themeblvd_nav_menu_select
+ * function.
+ *
+ * @since 2.2.1
+ */
+class ThemeBlvd_Select_Menu_Walker extends Walker_Nav_Menu {
+
+	/**
+	 * Start level
+	 */
+	function start_lvl( &$output, $depth = 0, $args = array() ) {
+		// do nothing ...
+	}
+
+	/**
+	 * End level
+	 */
+	function end_lvl( &$output, $depth = 0, $args = array() ) {
+		// do nothing ...
+	}
+
+	/**
+	 * Start nav element
+	 */
+	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+		$indent = '';
+
+		for( $i = 0; $i < $depth; $i++ ) {
+			$indent .= '-';
+		}
+
+		if ( $indent ) {
+			$indent .= ' ';
+		}
+
+		$output .= '<option value="'.$item->url.'">'.$indent.$item->title;
+	}
+
+	/**
+	 * End nav element
+	 */
+	function end_el( &$output, $item, $depth = 0, $args = array() ) {
+		$output .= "</option>\n";
+	}
+
+}
+
+/**
+ * Responsive wp nav menu
+ *
+ * @since 2.0.0
+ *
+ * @param string $location Location of wp nav menu to grab
+ * @return string $select_menu Select menu version of wp nav menu
+ */
+function themeblvd_nav_menu_select( $location ) {
+	$select_menu = wp_nav_menu( apply_filters( 'themeblvd_nav_menu_select_args', array(
+		'theme_location'	=> $location,
+		'container'			=> false,
+		'items_wrap'		=> '<form class="responsive-nav"><select class="tb-jump-menu form-control"><option value="">'.themeblvd_get_local('navigation').'</option>%3$s</select></form>',
+		'echo' 				=> false,
+		'walker' 			=> new ThemeBlvd_Select_Menu_Walker
+	)));
+	return apply_filters('themeblvd_nav_menu_select', $select_menu, $location );
+}
+
+/**
+ * Get args for wp_nav_menu
+ *
+ * @since 2.5.0
+ */
+function themeblvd_get_wp_nav_menu_args( $location = 'primary' ) {
+
+	$args = array();
+
+	switch ( $location ) {
+		case 'primary' :
+			$args = array(
+				'walker'			=> new ThemeBlvd_Main_Menu_Walker(),
+				'menu_class'		=> 'tb-primary-menu tb-to-mobile-menu sf-menu sf-menu-with-fontawesome clearfix',
+				'container'			=> '',
+				'theme_location'	=> apply_filters('themeblvd_primary_menu_location', 'primary'),
+				'fallback_cb'		=> 'themeblvd_primary_menu_fallback'
+			);
+			break;
+
+		case 'footer' :
+			$args = array(
+				'menu_class'		=> 'list-inline',
+				'container' 		=> '',
+				'fallback_cb' 		=> false,
+				'theme_location'	=> apply_filters('themeblvd_footer_menu_location', 'footer'),
+				'depth' 			=> 1
+			);
+
+	}
+
+	return apply_filters( "themeblvd_{$location}_menu_args", $args );
+}
+
+/**
+ * List pages as a main navigation menu when user
+ * has not set one under Apperance > Menus in the
+ * WordPress admin panel.
+ *
+ * @since 2.0.0
+ */
+function themeblvd_primary_menu_fallback( $args ) {
+
+	$output = '';
+
+	if ( $args['theme_location'] = apply_filters('themeblvd_primary_menu_location', 'primary') && current_user_can('edit_theme_options') ) {
+		$output .= sprintf('<div class="alert alert-warning tb-menu-warning"><p><strong>%s</strong>: %s</p></div>', esc_html__('No Custom Menu', 'themeblvd'), esc_html__('Setup a custom menu at Appearance > Menus in your admin panel, and apply it to the "Primary Navigation" location.', 'themeblvd'));
+	}
+
+	/**
+	 * If the user doesn't set a nav menu, and you want to make
+	 * sure nothing gets outputted, simply filter this to false.
+	 * Note that by default, we only see a message if the admin
+	 * is logged in.
+	 *
+	 * add_filter('themeblvd_menu_fallback', '__return_false');
+	 */
+	if ( $output = apply_filters('themeblvd_menu_fallback', $output, $args) ) {
+		echo $output;
 	}
 }
-
-/**
- * Return class Walker_Nav_Menu_Edit.
- *
- * @since  1.0.0
- * @param  string $class
- * @param  string $menu_id
- * @return string Anva_Walker_Nav_Menu_Edit
- */
-function anva_edit_nav_menu_walker( $class, $menu_id ) {
-	return 'Anva_Walker_Nav_Menu_Edit';
-}
-add_filter( 'wp_edit_nav_menu_walker', 'anva_edit_nav_menu_walker', 10, 2 );
-
-/**
- * Init menu item fields.
- *
- * @since 1.0.0
- */
-function anva_menu_item_fields_init() {
-	Anva_Menu_Item_Fields::instance();
-}
-add_action( 'admin_init', 'anva_menu_item_fields_init' );

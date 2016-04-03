@@ -9,12 +9,12 @@ jQuery(document).ready(function($) {
 	var s;
 
 	// Anva Gallery Object
-	var AnvaGallery = {
+	var ANVA_GALLERY = {
 		
 		// Default Settings
 		settings: {
-			thumbUl: 		$('#anva_gallery_thumbs'),
-			thumbLi: 		$('#anva_gallery_thumbs li')
+			thumbUl: $('#anva_gallery_thumbs'),
+			thumbLi: $('#anva_gallery_thumbs li')
 		},
 		
 		init: function() {
@@ -23,11 +23,11 @@ jQuery(document).ready(function($) {
 			s = this.settings;
 
 			// Initialize functions
-			AnvaGallery.sortableImage();
-			AnvaGallery.uploadImage();
-			AnvaGallery.removeThubmanil();
-			AnvaGallery.removeAllThumbnail()
-			AnvaGallery.emptyGallery();
+			ANVA_GALLERY.sortableImage();
+			ANVA_GALLERY.uploadImage();
+			ANVA_GALLERY.removeThubmanil();
+			ANVA_GALLERY.removeAllThumbnail()
+			ANVA_GALLERY.emptyGallery();
 		
 		},
 		
@@ -67,7 +67,7 @@ jQuery(document).ready(function($) {
 					var images = frame.state().get('selection').toJSON();
 					var length = images.length;	
 					for ( var i = 0; i < length; i++ ) {
-						AnvaGallery.getThumbnail( images[i]['id'] );
+						ANVA_GALLERY.getThumbnail( images[i]['id'] );
 					}
 				});
 
@@ -84,7 +84,7 @@ jQuery(document).ready(function($) {
 				});
 
 				setTimeout(function() {
-					AnvaGallery.emptyGallery();
+					ANVA_GALLERY.emptyGallery();
 				}, 500);
 			});
 		},
@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
 					s.thumbUl.empty();
 				}
 
-				AnvaGallery.emptyGallery();
+				ANVA_GALLERY.emptyGallery();
 			});
 		},
 
@@ -121,7 +121,7 @@ jQuery(document).ready(function($) {
 				cb();
 			}).done( function() {
 				$('#anva-gallery-spinner').css('visibility', 'hidden');
-				AnvaGallery.emptyGallery();
+				ANVA_GALLERY.emptyGallery();
 			});
 		},
 
@@ -134,6 +134,6 @@ jQuery(document).ready(function($) {
 		}
 	};
 	
-	AnvaGallery.init();
+	ANVA_GALLERY.init();
 
 });

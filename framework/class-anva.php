@@ -105,7 +105,6 @@ class Anva
         include_once( ANVA_FRAMEWORK_ADMIN . 'options/options-sanitization.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-builder-meta-box.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-gallery-meta-box.php' );
-        include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-media-meta-box.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-meta-box.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/fields.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/general.php' );
@@ -145,6 +144,7 @@ class Anva
         // Admin
         add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
         add_action( 'admin_init', 'anva_add_meta_boxes_default' );
+        add_action( 'admin_enqueue_scripts', 'anva_admin_assets', 1 );
         add_action( 'init', 'anva_admin_init', 1 );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_credits' );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
@@ -158,7 +158,8 @@ class Anva
         add_filter( 'body_class', 'anva_browser_class' );
         add_filter( 'oembed_result', 'anva_oembed', 10, 2 );
         add_filter( 'embed_oembed_html', 'anva_oembed', 10, 2 );
-        add_filter( 'nav_menu_css_class' , 'anva_current_nav_class', 10 , 2 );
+        add_filter( 'wp_audio_shortcode', 'themeblvd_audio_shortcode' );
+        // add_filter( 'nav_menu_css_class' , 'anva_current_nav_class', 10 , 2 );
         add_filter( 'the_password_form', 'anva_password_form' );
         add_filter( 'the_content', 'anva_content_format_audio', 7 );
         add_filter( 'the_content', 'anva_content_format_video', 7 );

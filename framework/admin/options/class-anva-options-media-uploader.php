@@ -32,11 +32,11 @@ class Anva_Options_Media_Uploader {
 		$option_name = anva_get_option_name();
 
 		$output = '';
-		$id = '';
-		$class = '';
-		$int = '';
-		$value = '';
-		$name = '';
+		$id     = '';
+		$class  = '';
+		$int    = '';
+		$value  = '';
+		$name   = '';
 
 		$id = strip_tags( strtolower( $_id ) );
 
@@ -45,16 +45,16 @@ class Anva_Options_Media_Uploader {
 			$value = $_value;
 		}
 
-		if ($_name != '') {
-			$name = $_name;
-		}
-		else {
+		if ( $_name != '' ) {
+			$name = $_name . '[' . $id . ']';
+		} else {
 			$name = $option_name . '[' . $id . ']';
 		}
 
 		if ( $value ) {
 			$class = ' has-file';
 		}
+
 		$output .= '<div class="group-button">';
 		$output .= '<input id="' . esc_attr( $id ) . '" class="upload' . esc_attr( $class ) . '" type="text" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" placeholder="' . __( 'No file chosen', 'anva' ) .'" />' . "\n";
 		
@@ -113,8 +113,8 @@ class Anva_Options_Media_Uploader {
 
 		$menu = anva_get_options_page_menu();
 
-		if ( substr( $hook, -strlen( $menu['menu_slug'] ) ) !== $menu['menu_slug'] )
-			return;
+		// if ( substr( $hook, -strlen( $menu['menu_slug'] ) ) !== $menu['menu_slug'] )
+		// 	return;
 
 		if ( function_exists( 'wp_enqueue_media' ) )
 			wp_enqueue_media();

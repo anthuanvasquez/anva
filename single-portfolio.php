@@ -16,6 +16,10 @@
  */
 
 get_header();
+
+$author = anva_get_post_meta( '_anva_author' );
+$date = anva_get_post_meta( '_anva_date' );
+$client = anva_get_post_meta( '_anva_client' );
 ?>
 
 <div class="container clearfix">
@@ -33,11 +37,11 @@ get_header();
 						
 						<?php // anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 						
-						<div class="entry-content portfolio-single-content row clearfix">
+						<div class="portfolio-single-content col_three_fifth nobottommargin">
 
-							<div class="col-sm-12 portfolio-gallery">
+							<div class="portfolio-gallery">
 								<?php
-									$display_gallery = get_post_meta( $post->ID, '_tzp_display_gallery', true );
+									$display_gallery = get_post_meta( $post->ID, '_anva_gallery', true );
 									if ( $display_gallery ) {
 
 										$id               = get_the_ID();
@@ -57,20 +61,20 @@ get_header();
 								?>
 							</div>
 
-							<div class="col-sm-12 portfolio-video">
+							<div class="portfolio-video">
 								<?php
 									$output = '';
-									$display_video = get_post_meta( $post->ID, '_tzp_display_video', true );
+									$display_video = get_post_meta( $post->ID, '_anva_video', true );
 									if ( $display_video ) {
-									$embed = get_post_meta( $post->ID, '_tzp_video_embed', true );
+									$embed = get_post_meta( $post->ID, '_anva_video_embed', true );
 
 									if ( $embed ) {
 										$output .= html_entity_decode( esc_html( $embed ) );
 									} else {
-										$poster = get_post_meta( $post->ID, '_tzp_video_poster_url', true );
-										$m4v = get_post_meta( $post->ID, '_tzp_video_file_m4v', true );
-										$ogv = get_post_meta( $post->ID, '_tzp_video_file_ogv', true );
-										$mp4 = get_post_meta( $post->ID, '_tzp_video_file_mp4', true );
+										$poster = get_post_meta( $post->ID, '_anva_video_image', true );
+										$m4v = get_post_meta( $post->ID, '_anva_video_m4v', true );
+										$ogv = get_post_meta( $post->ID, '_anva_video_ogv', true );
+										$mp4 = get_post_meta( $post->ID, '_anva_video_mp4', true );
 										$attr = array(
 											'poster' => $poster,
 											'm4v' => $m4v,
@@ -83,50 +87,56 @@ get_header();
 								echo $output;
 								?>
 							</div>
-							
-							<div class="col-sm-7">
-								<div class="portfolio-title">
-									<h2><?php _e( 'Project', 'anva' ); ?></h2>
-								</div>
-								<?php the_content(); ?>
-							</div>
 
-							<div class="col-sm-5">
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<ul class="portfolio-meta nobottommargin">
-											<li><span><i class="fa fa-user"></i> Created by:</span> <?php anva_the_field( 'author' ); ?></li>
-											<li><span><i class="fa fa-calendar"></i> Completed on:</span> <?php anva_the_field( 'date' ); ?></li>
-											<li><span><i class="fa fa-lightbulb-o"></i> Skills:</span> HTML5 / PHP / CSS3</li>
-											<li><span><i class="fa fa-link"></i> Client:</span> <a href="<?php echo esc_url( anva_get_post_meta( '_anva_client_url' ) ); ?>"><?php anva_the_field( 'client' ); ?></a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="portfolio-audio">
-									<?php
-									$output = '';
-									$display_audio = get_post_meta( $post->ID, '_tzp_display_audio', true );
-									if ( $display_audio ) {
-										$poster = get_post_meta( $post->ID, '_tzp_audio_poster_url', true );
-										
-										if ( $poster ) {
-											$output .= sprintf( '<img src="%1$s" alt="" />', esc_url( $poster ) );
-										}
-
-										$mp3 = get_post_meta( $post->ID, '_tzp_audio_file_mp3', true );
-										$ogg = get_post_meta( $post->ID, '_tzp_audio_file_ogg', true );
-										$attr = array(
-											'mp3' => $mp3,
-											'ogg' => $ogg
-										);
-										$output .= wp_audio_shortcode($attr);
+							<div class="portfolio-audio">
+								<?php
+								$output = '';
+								$display_audio = get_post_meta( $post->ID, '_anva_audio', true );
+								if ( $display_audio ) {
+									$poster = get_post_meta( $post->ID, '_anva_audio_image', true );
+									
+									if ( $poster ) {
+										$output .= sprintf( '<img src="%1$s" alt="" />', esc_url( $poster ) );
 									}
-									echo $output;
-									?>
-								</div>
+
+									$mp3 = get_post_meta( $post->ID, '_anva_audio_mp3', true );
+									$ogg = get_post_meta( $post->ID, '_anva_audio_ogg', true );
+									$attr = array(
+										'mp3' => $mp3,
+										'ogg' => $ogg
+									);
+									$output .= wp_audio_shortcode($attr);
+								}
+								echo $output;
+								?>
+							</div>
+							
+							<div class="fancy-title title-dotted-border">
+								<h2><?php _e( 'Project', 'anva' ); ?></h2>
 							</div>
 
-						</div><!-- .entry-content (end) -->
+							<?php the_content(); ?>
+
+						</div><!-- .portfolio-single-content (end) -->
+
+						<div class="col_two_fifth col_last nobottommargin">
+							<div class="panel panel-default events-meta">
+								<div class="panel-body">
+									<ul class="portfolio-meta nobottommargin">
+										<li><span><i class="icon-user"></i> Created by:</span> <?php echo anva_get_post_meta( '_anva_author' ); ?></li>
+										<li><span><i class="icon-calendar"></i> Completed on:</span> <?php echo anva_get_post_meta( '_anva_date' ); ?></li>
+										<li><span><i class="icon-lightbulb"></i> Skills:</span> HTML5 / PHP / CSS3</li>
+										<li><span><i class="icon-link"></i> Client:</span> <a href="<?php echo anva_get_post_meta( '_anva_client_url' ); ?>"><?php echo anva_get_post_meta( '_anva_client' ); ?></a></li>
+									</ul>
+								</div>
+							</div>
+							<?php anva_post_share(); ?>
+						</div>
+
+						<div class="clear"></div>
+
+						<div class="divider divider-center"><i class="icon-circle"></i></div>
+
 					</article><!-- #post-<?php the_ID(); ?> -->
 				</div><!-- .entry-wrap (end) -->
 				

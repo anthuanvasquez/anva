@@ -108,6 +108,17 @@ function anva_get_media_queries( $localize ) {
 }
 
 /**
+ * Add 100% width to <audio> tag of WP's built-in
+ * audio player to make it responsive.
+ *
+ * @since 1.0.0
+ * @param string $html
+ */
+function anva_audio_shortcode( $html ) {
+	return str_replace( '<audio', '<audio width="100%"', $html );
+}
+
+/**
  * Register image sizes.
  *
  * @global $wp_version

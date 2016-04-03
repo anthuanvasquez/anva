@@ -63,7 +63,7 @@ class Anva_Meta_Box
 	public function __construct( $id, $args, $options )
 	{
 		$this->id = $id;
-		$this->options = $this->get_formatted( $options );
+		$this->options = $options;
 
 		// Set the field prefix
 		if ( isset( $this->args['prefix'] ) ) {
@@ -103,10 +103,7 @@ class Anva_Meta_Box
 				
 				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
-				wp_enqueue_script( 'anva-meta-box-js', ANVA_FRAMEWORK_ADMIN_JS . 'meta-box.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
-				
 				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
-				wp_enqueue_style( 'anva-meta-box', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-box.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}
@@ -133,58 +130,6 @@ class Anva_Meta_Box
 				$this->args['priority']
 			);
 		}
-	}
-
-	/**
-	 * Formatted options.
-	 * 
-	 * @param  array $options
-	 * @return array $formatted_options
-	 */
-	function get_formatted( $options )
-	{
-		$formatted_options = array();
-
-		foreach ( $options as $tab_id => $tab ) {
-
-			// Insert Tab Heading
-			$formatted_options[] = array(
-				'id' 	=> $tab_id,
-				'name' 	=> $tab['name'],
-				'type' 	=> 'heading'
-			);
-
-			// Section Level
-			if ( $tab['sections'] ) {
-				foreach ( $tab['sections'] as $section_id => $section ) {
-
-					$desc = '';
-					$class = '';
-
-					// Start section
-					$formatted_options[] = array(
-						'id'   => $section_id,
-						'name' => $section['name'],
-						'type' => 'group_start'
-					);
-
-					// Options Level
-					if ( $section['options'] ) {
-						foreach ( $section['options'] as $option_id => $option ) {
-							$formatted_options[] = $option;
-						}
-					}
-
-					// End section
-					$formatted_options[] = array(
-						'type' => 'group_end'
-					);
-				}
-			}
-		}
-
-		// Set formatted options
-		return $formatted_options;
 	}
 
 	/**
@@ -215,8 +160,7 @@ class Anva_Meta_Box
 		$option_name = 'anva_meta[' . $this->id . ']';
 
 		?>
-		<div class="anva-meta-box <?php echo esc_attr( $class ); ?>">
-			<h2 class="nav-tab-wrapper"><?php anva_get_options_tabs( $this->options ); ?></h2>
+		<div id="anva-framework" class="anva-meta-box <?php echo esc_attr( $class ); ?>">
 			<?php
 				// Get settings from database
 				foreach ( $this->options as $option ) {
@@ -234,6 +178,7 @@ class Anva_Meta_Box
 		    				$settings[ $option['id'] ] = $option['std'];
 		    			}
 		    		}
+
 		    	}
 				
 				// Use options interface to display form elements

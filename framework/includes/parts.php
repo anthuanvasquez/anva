@@ -14,6 +14,12 @@ function anva_archive_title() {
 	if ( is_singular( 'post' ) ) :
 		printf( '%s', __( 'The Blog', 'anva' ) );
 
+	elseif ( is_singular( 'portfolio' ) ) :
+		the_title();
+
+	elseif ( is_singular( 'gallery' ) ) :
+		the_title();
+
 	elseif ( is_page() ) :
 		the_title();
 

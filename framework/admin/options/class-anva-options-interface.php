@@ -566,7 +566,7 @@ class Anva_Options_Interface
 				|--------------------------------------------------------------------------
 				*/
 				case "upload":
-					$output .= Anva_Options_Media_Uploader::uploader( $value['id'], $val, null );
+					$output .= Anva_Options_Media_Uploader::uploader( $value['id'], $val, NULL, $option_name );
 
 					break;
 

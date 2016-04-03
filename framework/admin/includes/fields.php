@@ -14,16 +14,16 @@ function anva_add_meta_boxes_default() {
 	
 	// Page Meta Box
 	$page_meta = anva_setup_page_meta();
-	anva_add_meta_box( $page_meta['args']['id'], $page_meta['args'], $page_meta['tabs'] );
+	anva_add_meta_box( $page_meta['args']['id'], $page_meta['args'], $page_meta['options'] );
 
 	// Post Meta Box
 	$post_meta = anva_setup_post_meta();
-	anva_add_meta_box( $post_meta['args']['id'], $post_meta['args'], $post_meta['tabs'] );
+	anva_add_meta_box( $post_meta['args']['id'], $post_meta['args'], $post_meta['options'] );
 
 	// Gallery Meta Box
 	if ( post_type_exists( 'galleries' ) ) {
 		$gallery_meta = anva_setup_gallery_meta();
-		anva_add_meta_box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['tabs'] );
+		anva_add_meta_box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['options'] );
 		
 		$gallery_attachments_meta = anva_setup_gallery_attachments_meta();
 		$gallery_attachments_meta_box = new Anva_Gallery_Meta_Box( $gallery_attachments_meta['args']['id'], $gallery_attachments_meta['args'] );
@@ -31,17 +31,16 @@ function anva_add_meta_boxes_default() {
 
 	// Portfolio Meta Box
 	if ( post_type_exists( 'portfolio' ) ) {
-		$portfolio_meta = anva_setup_portfolio_meta();
-		anva_add_meta_box( $portfolio_meta['args']['id'], $portfolio_meta['args'], $portfolio_meta['tabs'] );
-	
+		// $portfolio_meta = anva_setup_portfolio_meta();
 		$portfolio_media_meta = anva_setup_portfolio_media_meta();
-		$portfolio_media_meta_box = new Anva_Media_Meta_Box( $portfolio_media_meta['args']['id'], $portfolio_media_meta['args'] );
+		// anva_add_meta_box( $portfolio_meta['args']['id'], $portfolio_meta['args'], $portfolio_meta['options'] );
+		anva_add_meta_box( $portfolio_media_meta['args']['id'], $portfolio_media_meta['args'], $portfolio_media_meta['options'] );
 	}
 
 	// Slider Meta Box
 	if ( post_type_exists( 'slideshows' ) ) {
 		$slider_meta = anva_setup_slider_meta();
-		anva_add_meta_box( $slider_meta['args']['id'], $slider_meta['args'], $slider_meta['tabs'] );
+		anva_add_meta_box( $slider_meta['args']['id'], $slider_meta['args'], $slider_meta['options'] );
 	}
 	
 
@@ -55,35 +54,28 @@ function anva_add_meta_boxes_default() {
  */
 function anva_setup_post_meta() {
 
-	$general = array(
-		'general' => array(
-			'id' 			=> 'general',
-			'name'		=> __( 'General', 'anva' ),
-			'type' 		=> 'heading',
-			'options' => array(
-				'hide_title' => array(
-					'name' 		=> __( 'Post Title', 'anva' ),
-					'desc'		=> __( 'Show or hide post\'s titles.', 'anva' ),
-					'id'			=> 'hide_title',
-					'type' 		=> 'select',
-					'std'			=> 'show',
-					'options'	=> array(
-						'show' 	=> __( 'Show post\'s title', 'anva' ),
-						'hide'	=> __( 'Hide post\'s title', 'anva' )
-					)
-				),
-				'sidebar_layout' => array(
-					'name' => __( 'Sidebar Layout', 'anva' ),
-					'desc' => __( 'Select a sidebar layout.', 'anva' ),
-					'id'   => 'sidebar_layout',
-					'type' => 'layout',
-					'std'  => array(
-						'layout' => '',
-						'right'  => '',
-						'left'   => ''
-					),
-				),
+	$options = array(
+		'hide_title' => array(
+			'name' 		=> __( 'Post Title', 'anva' ),
+			'desc'		=> __( 'Show or hide post\'s titles.', 'anva' ),
+			'id'		=> 'hide_title',
+			'type' 		=> 'select',
+			'std'		=> 'show',
+			'options'	=> array(
+				'show' 	=> __( 'Show post\'s title', 'anva' ),
+				'hide'	=> __( 'Hide post\'s title', 'anva' )
 			)
+		),
+		'sidebar_layout' => array(
+			'name' => __( 'Sidebar Layout', 'anva' ),
+			'desc' => __( 'Select a sidebar layout.', 'anva' ),
+			'id'   => 'sidebar_layout',
+			'type' => 'layout',
+			'std'  => array(
+				'layout' => '',
+				'right'  => '',
+				'left'   => ''
+			),
 		),
 	);
 
@@ -97,12 +89,7 @@ function anva_setup_post_meta() {
 			'desc'     => __( 'This is the default placeholder for post options.', 'anva' ),
 			'prefix'   => '_anva_',
 		),
-		'tabs' => array(
-			'general' 	=> array(
-				'name' 	=> __( 'General', 'anva' ),
-				'sections' => $general
-			),
-		)
+		'options' => $options
 	);
 
 	return apply_filters( 'anva_post_meta', $setup );
@@ -124,50 +111,43 @@ function anva_setup_page_meta() {
 		$columns[$key] = esc_html( $value['name'] );
 	}
 
-	$general = array(
-		'general' => array(
-			'id' 				=> 'general',
-			'name'				=> __( 'General', 'anva' ),
-			'type' 				=> 'heading',
-			'options' 			=> array(
-				'hide_title' 	=> array(
-					'name' 		=> __( 'Page Title', 'anva' ),
-					'desc'		=> __( 'Show or hide page\'s titles.', 'anva' ),
-					'id'		=> 'hide_title',
-					'type' 		=> 'select',
-					'std'		=> 'show',
-					'options'	=> array(
-						'show' 	=> __( 'Show page\'s title', 'anva' ),
-						'hide'	=> __( 'Hide page\'s title', 'anva' )
-					)
-				),
-				'page_desc' 	=> array(
-					'name' 		=> __( 'Page Description', 'anva' ),
-					'desc'		=> __( 'Enter the description for the page.', 'anva' ),
-					'id'		=> 'page_desc',
-					'type' 		=> 'textarea',
-					'std'		=> '',
-				),
-				'sidebar_layout'=> array(
-					'name' 		=> __( 'Sidebar Layout', 'anva' ),
-					'desc'		=> __( 'Select a sidebar layout.', 'anva' ),
-					'id'		=> 'sidebar_layout',
-					'type' 		=> 'layout',
-					'std'		=> array(
-						'layout'=> '',
-						'right' => '',
-						'left' 	=> ''
-					),
-				),
-				'grid_column' 	=> array(
-					'name' 		=> __( 'Post Grid', 'anva' ),
-					'desc'		=> __( 'Select a grid column for posts list.', 'anva' ),
-					'id'		=> 'grid_column',
-					'type' 		=> 'select',
-					'std'		=> '',
-					'options'	=> $columns
-				),
+	$options = array(
+		'hide_title' 	=> array(
+			'name' 		=> __( 'Page Title', 'anva' ),
+			'desc'		=> __( 'Show or hide page\'s titles.', 'anva' ),
+			'id'		=> 'hide_title',
+			'type' 		=> 'select',
+			'std'		=> 'show',
+			'options'	=> array(
+				'show' 	=> __( 'Show page\'s title', 'anva' ),
+				'hide'	=> __( 'Hide page\'s title', 'anva' )
 			)
+		),
+		'page_desc' 	=> array(
+			'name' 		=> __( 'Page Description', 'anva' ),
+			'desc'		=> __( 'Enter the description for the page.', 'anva' ),
+			'id'		=> 'page_desc',
+			'type' 		=> 'textarea',
+			'std'		=> '',
+		),
+		'sidebar_layout'=> array(
+			'name' 		=> __( 'Sidebar Layout', 'anva' ),
+			'desc'		=> __( 'Select a sidebar layout.', 'anva' ),
+			'id'		=> 'sidebar_layout',
+			'type' 		=> 'layout',
+			'std'		=> array(
+				'layout'=> '',
+				'right' => '',
+				'left' 	=> ''
+			),
+		),
+		'grid_column' 	=> array(
+			'name' 		=> __( 'Post Grid', 'anva' ),
+			'desc'		=> __( 'Select a grid column for posts list.', 'anva' ),
+			'id'		=> 'grid_column',
+			'type' 		=> 'select',
+			'std'		=> '',
+			'options'	=> $columns
 		),
 	);
 
@@ -181,93 +161,10 @@ function anva_setup_page_meta() {
 			'desc'			=> __( 'This is the default placeholder for page options.', 'anva' ),
 			'prefix'		=> '_anva_',
 		),
-		'tabs' => array(
-			'general' 		=> array(
-				'name' 		=> __( 'General', 'anva' ),
-				'sections'	=> $general
-			),
-		)
+		'options' => $options
 	);
 
 	return apply_filters( 'anva_page_meta', $setup );
-}
-
-/**
- * Portfolio meta setup.
- *
- * @since  1.0.0
- * @return array $setup
- */
-function anva_setup_portfolio_meta() {
-
-	$general = array(
-		'general' => array(
-			'id' 			=> 'general',
-			'name'		=> __( 'General', 'anva' ),
-			'type' 		=> 'heading',
-			'options' => array(
-				'hide_title' => array(
-					'id'			=> 'hide_title',
-					'name' 		=> __( 'Portfolio Title', 'anva' ),
-					'desc'		=> __( 'Show or hide portfolio\'s item titles.', 'anva' ),
-					'type' 		=> 'select',
-					'std'			=> 'show',
-					'options'	=> array(
-						'show' 	=> __( 'Show portfolio\'s item title', 'anva' ),
-						'hide'	=> __( 'Hide portfolio\'s item title', 'anva' )
-					),
-				),
-				'author' => array(
-					'id'			=> 'author',
-					'name' 		=> __( 'Author', 'anva' ),
-					'desc'		=> __( 'Enter the porfolio item author.', 'anva' ),
-					'type' 		=> 'text',
-					'std'			=> ''
-				),
-				'client' => array(
-					'id'			=> 'client',
-					'name' 		=> __( 'Client', 'anva' ),
-					'desc'		=> __( 'Enter the porfolio client.', 'anva' ),
-					'type' 		=> 'text',
-					'std'			=> ''
-				),
-				'client_url' => array(
-					'id'			=> 'client_url',
-					'name' 		=> __( 'Client URL', 'anva' ),
-					'desc'		=> __( 'Enter the client URL.', 'anva' ),
-					'type' 		=> 'text',
-					'std'			=> 'http://'
-				),
-				'date' => array(
-					'id'			=> 'date',
-					'name' 		=> __( 'Date', 'anva' ),
-					'desc'		=> __( 'Select the date on which the project was completed.', 'anva' ),
-					'type' 		=> 'date',
-					'std'			=> ''
-				),
-			)
-		),
-	);
-
-	$setup = array(
-		'args' => array(
-			'id'       => 'anva_portfolio_options',
-			'title'    => __( 'Portfolio Options', 'anva' ),
-			'page'     => array( 'portfolio' ),
-			'context'  => 'normal',
-			'priority' => 'high',
-			'desc'     => __( 'This is the default placeholder for portfolio options.', 'anva' ),
-			'prefix'   => '_anva_',
-		),
-		'tabs' => array(
-			'general' => array(
-				'name'     => __( 'General', 'anva' ),
-				'sections' => $general
-			),
-		)
-	);
-
-	return apply_filters( 'anva_portfolio_meta', $setup );
 }
 
 /**
@@ -294,12 +191,7 @@ function anva_setup_slider_meta() {
 			'context' 		=> 'normal',
 			'priority'		=> 'high',
 		),
-		'tabs' => array(
-			'general' 		=> array(
-				'name' 		=> __( 'General', 'anva' ),
-				'sections' 	=> $slider_fields
-			),
-		)
+		'options' => $slider_fields
 	);
 	
 	return apply_filters( 'anva_slider_meta', $setup );
@@ -320,39 +212,32 @@ function anva_setup_gallery_meta() {
 		$galleries[ $key ] = esc_html( $value['name'] );
 	}
 
-	$general = array(
-		'general' 					=> array(
-			'id'      				=> 'general',
-			'name'    				=> __( 'General', 'anva' ),
-			'type'    				=> 'heading',
-			'options' 				=> array(
-				'hide_title' 		=> array(
-					'name'    		=> __( 'Gallery Title', 'anva' ),
-					'desc'    		=> __( 'Show or hide gallery\'s titles.', 'anva' ),
-					'id'      		=> 'hide_title',
-					'type'    		=> 'select',
-					'std'     		=> 'show',
-					'options' 		=> array(
-						'show' 		=> __( 'Show gallery\'s title', 'anva' ),
-						'hide'		=> __( 'Hide gallery\'s title', 'anva' )
-					)
-				),
-				'gallery_highlight' => array(
-					'id'   			=> 'gallery_highlight',
-					'name' 			=> __( 'Highlight Image', 'anva' ),
-					'desc' 			=> __( 'Enter the number of image than want to highlight.', 'anva' ),
-					'type' 			=> 'number',
-					'std'  			=> ''
-				),
-				'gallery_template' 	=> array(
-					'id'      		=> 'gallery_template',
-					'name'    		=> __( 'Gallery Template', 'anva' ),
-					'desc'    		=> __( 'Select gallery template for this gallery.', 'anva' ),
-					'type'    		=> 'select',
-					'std'     		=> '',
-					'options' 		=> $galleries
-				),
+	$options = array(
+		'hide_title' 		=> array(
+			'name'    		=> __( 'Gallery Title', 'anva' ),
+			'desc'    		=> __( 'Show or hide gallery\'s titles.', 'anva' ),
+			'id'      		=> 'hide_title',
+			'type'    		=> 'select',
+			'std'     		=> 'show',
+			'options' 		=> array(
+				'show' 		=> __( 'Show gallery\'s title', 'anva' ),
+				'hide'		=> __( 'Hide gallery\'s title', 'anva' )
 			)
+		),
+		'gallery_highlight' => array(
+			'id'   			=> 'gallery_highlight',
+			'name' 			=> __( 'Highlight Image', 'anva' ),
+			'desc' 			=> __( 'Enter the number of image than want to highlight.', 'anva' ),
+			'type' 			=> 'number',
+			'std'  			=> ''
+		),
+		'gallery_template' 	=> array(
+			'id'      		=> 'gallery_template',
+			'name'    		=> __( 'Gallery Template', 'anva' ),
+			'desc'    		=> __( 'Select gallery template for this gallery.', 'anva' ),
+			'type'    		=> 'select',
+			'std'     		=> '',
+			'options' 		=> $galleries
 		),
 	);
 
@@ -366,15 +251,76 @@ function anva_setup_gallery_meta() {
 			'desc'		=> __( 'This is the default placeholder for gallery options.', 'anva' ),
 			'prefix'	=> '_anva_',
 		),
-		'tabs' => array(
-			'general' 	=> array(
-				'name' 	=> __( 'General', 'anva' ),
-				'sections' => $general
-			),
-		)
+		'options' => $options
 	);
 
 	return apply_filters( 'anva_gallery_meta', $setup );
+}
+
+/**
+ * Portfolio meta setup.
+ *
+ * @since  1.0.0
+ * @return array $setup
+ */
+function anva_setup_portfolio_meta() {
+
+	$options = array(
+		'hide_title' => array(
+			'id'		=> 'hide_title',
+			'name' 		=> __( 'Portfolio Title', 'anva' ),
+			'desc'		=> __( 'Show or hide portfolio\'s item titles.', 'anva' ),
+			'type' 		=> 'select',
+			'std'		=> 'show',
+			'options'	=> array(
+				'show' 	=> __( 'Show portfolio\'s item title', 'anva' ),
+				'hide'	=> __( 'Hide portfolio\'s item title', 'anva' )
+			),
+		),
+		'author' => array(
+			'id'		=> 'author',
+			'name' 		=> __( 'Author', 'anva' ),
+			'desc'		=> __( 'Enter the porfolio item author.', 'anva' ),
+			'type' 		=> 'text',
+			'std'		=> ''
+		),
+		'client' => array(
+			'id'		=> 'client',
+			'name' 		=> __( 'Client', 'anva' ),
+			'desc'		=> __( 'Enter the porfolio client.', 'anva' ),
+			'type' 		=> 'text',
+			'std'		=> ''
+		),
+		'client_url' => array(
+			'id'		=> 'client_url',
+			'name' 		=> __( 'Client URL', 'anva' ),
+			'desc'		=> __( 'Enter the client URL.', 'anva' ),
+			'type' 		=> 'text',
+			'std'		=> 'http://'
+		),
+		'date' => array(
+			'id'		=> 'date',
+			'name' 		=> __( 'Date', 'anva' ),
+			'desc'		=> __( 'Select the date on which the project was completed.', 'anva' ),
+			'type' 		=> 'date',
+			'std'		=> ''
+		),
+	);
+
+	$setup = array(
+		'args' => array(
+			'id'       => 'anva_portfolio_options',
+			'title'    => __( 'Portfolio Options', 'anva' ),
+			'page'     => array( 'portfolio' ),
+			'context'  => 'normal',
+			'priority' => 'high',
+			'desc'     => __( 'This is the default placeholder for portfolio options.', 'anva' ),
+			'prefix'   => '_anva_',
+		),
+		'options' => $options
+	);
+
+	return apply_filters( 'anva_portfolio_meta', $setup );
 }
 
 /**
@@ -385,15 +331,76 @@ function anva_setup_gallery_meta() {
  */
 function anva_setup_portfolio_media_meta() {
 
+	$options = array(
+		'audio_image' 		=> array(
+			'id'   			=> 'audio_image',
+			'name' 			=> __( 'Audio Featured Image', 'anva' ),
+			'desc' 			=> __( 'Add a poster image to your audio player (optional).', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+		'audio_mp3' 		=> array(
+			'id'   			=> 'audio_mp3',
+			'name' 			=> __( 'Audio MP3', 'anva' ),
+			'desc' 			=> __( 'Insert an .mp3 file, if desired.', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+		'audio_ogg' 		=> array(
+			'id'   			=> 'audio_ogg',
+			'name' 			=> __( 'Audio OGG', 'anva' ),
+			'desc' 			=> __( 'Insert an .ogg file, if desired.', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+		'video_image' 		=> array(
+			'id'   			=> 'video_image',
+			'name' 			=> __( 'Video Featured Image', 'anva' ),
+			'desc' 			=> __( 'Add a poster image for your video player (optional).', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+		'video_m4v' 		=> array(
+			'id'   			=> 'video_m4v',
+			'name' 			=> __( 'Video M4V', 'anva' ),
+			'desc' 			=> __( 'Insert an .m4v file, if desired..', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+		'video_ogv' 		=> array(
+			'id'   			=> 'video_ogv',
+			'name' 			=> __( 'Video OGV', 'anva' ),
+			'desc' 			=> __( 'Insert an .ogv file, if desired.', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+		'video_mp4' 		=> array(
+			'id'   			=> 'video_mp4',
+			'name' 			=> __( 'Video MP4', 'anva' ),
+			'desc' 			=> __( 'Insert an .mp4 file, if desired.', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+		'video_embed' 		=> array(
+			'id'   			=> 'video_embed',
+			'name' 			=> __( 'Video Embed', 'anva' ),
+			'desc' 			=> __( 'Embed iframe code from YouTube, Vimeo or other trusted source. HTML tags are limited to iframe, div, img, a, em, strong and br. Note: This field overrides the previous fields.', 'anva' ),
+			'type' 			=> 'upload',
+			'std'  			=> ''
+		),
+	);
+
 	$setup = array(
 		'args' => array(
-			'id'       => '_anva_portfolio_media_options',
-			'title'    => __( 'Portfolio Media Options', 'anva' ),
+			'id'       => 'anva_portfolio_media',
+			'title'    => __( 'Portfolio Media', 'anva' ),
 			'page'     => array( 'portfolio' ),
 			'context'  => 'normal',
-			'priority' => 'default',
-			'desc'     => ''
+			'priority' => 'high',
+			'desc'     => 'Portfolio Media',
+			'prefix'   => '_anva_',
 		),
+		'options' => $options
 	);
 
 	return apply_filters( 'anva_portfolio_media_meta', $setup );
