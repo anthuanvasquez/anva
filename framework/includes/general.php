@@ -37,29 +37,22 @@ function anva_add_theme_support() {
  * @since 1.0.0
  */
 function anva_require_theme_supports() {
-	require_if_theme_supports( 'anva-login-styles', ANVA_FRAMEWORK_EXT . 'class-login.php' );
-	require_if_theme_supports( 'anva-megamenu', ANVA_FRAMEWORK_EXT . 'class-megamenu.php' );
-	require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce-config.php' );
+	require_if_theme_supports( 'anva-login', ANVA_FRAMEWORK_EXT . 'login/class-login.php' );
+	require_if_theme_supports( 'anva-menu', ANVA_FRAMEWORK_EXT . 'menu/menu.php' );
+	require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce/woocommerce.php' );
 }
 
 /**
- * Register menus
+ * Register menus.
  *
  * @since 1.0.0
  */
 function anva_register_menus() {
 	register_nav_menus( array(
-		'primary' 	=> anva_get_local( 'menu_primary' ),
-		'secondary' => anva_get_local( 'menu_secondary' ),
-		'tertiary'  => anva_get_local( 'menu_tertiary' ),
+		'primary' => anva_get_local( 'menu_primary' ),
+		'top_bar' => anva_get_local( 'menu_top_bar' ),
+		'footer'  => anva_get_local( 'menu_footer' ),
 	) );
-}
-
-function anva_current_nav_class( $classes, $item ) {
-	if ( in_array( 'current-menu-item', $classes ) ) {
-		$classes[] = 'current';
-	}
-	return $classes;
 }
 
 /**
@@ -377,10 +370,10 @@ function anva_get_header_types() {
 }
 
 /**
- * Get header types.
+ * Get primary menu styles.
  *
  * @since  1.0.0
- * @return array $header_types
+ * @return array $menu_styles
  */
 function anva_get_primary_menu_styles() {
 	$menu_styles = array(
@@ -390,14 +383,6 @@ function anva_get_primary_menu_styles() {
 				'body' => '',
 				'header' => '',
 				'menu' => ''
-			),
-		),
-		'style_2' => array(
-			'name' => __( 'Menu aligns beside the logo', 'anva' ),
-			'classes' => array(
-				'body' => '',
-				'header' => '',
-				'menu' => 'style-2'
 			),
 		),
 		'style_3' => array(
@@ -416,8 +401,40 @@ function anva_get_primary_menu_styles() {
 				'menu' => 'style-4'
 			),
 		),
+		'style_6' => array(
+			'name' => __( 'Menu items with a top animating border', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'style-6'
+			),
+		),
+		'style_5' => array(
+			'name' => __( 'Menu items with large icons on top', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'style-5'
+			),
+		),
+		'sub_title' => array(
+			'name' => __( 'Menu items with sub titles', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'sub-title'
+			),
+		),
+		'style_2' => array(
+			'name' => __( 'Menu aligns beside the logo', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'style-2'
+			),
+		),
 		'style_7' => array(
-			'name' => __( 'Menu aligns below', 'anva' ),
+			'name' => __( 'Menu aligns below the logo', 'anva' ),
 			'classes' => array(
 				'body' => '',
 				'header' => 'sticky-style-2',
@@ -425,7 +442,7 @@ function anva_get_primary_menu_styles() {
 			),
 		),
 		'style_9' => array(
-			'name' => __( 'Menu aligns below with logo center', 'anva' ),
+			'name' => __( 'Menu aligns below the logo centered', 'anva' ),
 			'classes' => array(
 				'body' => '',
 				'header' => 'sticky-style-2',

@@ -365,6 +365,10 @@
     -moz-transition: none;
     transition: none;
   }
+  #primary-menu > div.menu-message {
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
   #primary-menu > div > ul {
     margin-top: 60px !important;
   }

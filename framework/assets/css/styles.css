@@ -979,13 +979,15 @@ body.stretched #header.full-header .container {
 #primary-menu ul.mobile-primary-menu {
   display: none;
 }
-#header.full-header #primary-menu > ul {
+#header.full-header #primary-menu > ul,
+#header.full-header #primary-menu > div.menu-message {
   float: left;
   padding-right: 15px;
   margin-right: 15px;
   border-right: 1px solid #EEE;
 }
-#header.transparent-header.full-header #primary-menu > ul {
+#header.transparent-header.full-header #primary-menu > ul,
+#header.transparent-header.full-header #primary-menu > div.menu-message {
   border-right-color: rgba(0, 0, 0, 0.1);
 }
 #header.full-header #primary-menu.style-2 > ul {
@@ -1013,8 +1015,20 @@ body.stretched #header.full-header .container {
   list-style: none;
   margin: 0;
 }
-#primary-menu > ul {
+#primary-menu > ul,
+#primary-menu > div.menu-message {
   float: left;
+}
+#primary-menu > div.menu-message {
+  margin: 0;
+  line-height: 99px;
+}
+#header.sticky-header #primary-menu > div.menu-message {
+  line-height: 59px;
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  transition: all .4s ease;
 }
 #primary-menu ul li {
   position: relative;
@@ -1029,7 +1043,8 @@ body.stretched #header.full-header .container {
 #primary-menu > ul > li:first-child {
   margin-left: 0;
 }
-#primary-menu ul li > a {
+#primary-menu ul li > a,
+#primary-menu ul li > span a {
   display: block;
   line-height: 22px;
   padding: 39px 15px;
@@ -1126,8 +1141,10 @@ body.no-superfish #primary-menu li:hover > .mega-menu-content {
   color: #3498db;
 }
 #primary-menu ul ul > li.sub-menu > a,
-#primary-menu ul ul > li.sub-menu:hover > a {
-  background-image: url("images/icons/submenu.png");
+#primary-menu ul ul > li.sub-menu:hover > a,
+#primary-menu ul ul > li.sub-menu > span a,
+#primary-menu ul ul > li.sub-menu:hover > span a {
+  background-image: url("../images/icons/submenu.png");
   background-position: right center;
   background-repeat: no-repeat;
 }
@@ -1174,29 +1191,32 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
   top: 0;
   left: 0;
 }
-#primary-menu ul li .mega-menu-content ul.mega-menu-column {
+#primary-menu ul li .mega-menu-content div.mega-menu-column {
   float: left;
   margin: 0;
 }
-#primary-menu ul li .mega-menu-content ul.mega-menu-column.col-5 {
+#primary-menu ul li .mega-menu-content div.mega-menu-column.col-5 {
   width: 20%;
 }
 #primary-menu ul li .mega-menu-content ul:not(.mega-menu-column) {
   width: 100%;
 }
-#primary-menu ul li .mega-menu-content ul.mega-menu-column:not(:first-child) {
+#primary-menu ul li .mega-menu-content div.mega-menu-column:not(:first-child) {
   border-left: 1px solid #F2F2F2;
 }
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column {
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column {
   padding: 30px 20px;
 }
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title {
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title {
   margin-top: 20px;
 }
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title:first-child {
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title:first-child {
   margin-top: 0;
 }
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a {
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title > span {
+  display: block;
+}
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title > span a {
   font-size: 13px;
   font-weight: bold;
   font-family: 'Raleway', sans-serif;
@@ -1207,14 +1227,14 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
   padding: 0 !important;
   line-height: 1.3 !important;
 }
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title:hover > a {
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title:hover > span a {
   background-color: transparent;
 }
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a:hover {
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title > span a:hover {
   color: #3498db;
 }
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title.sub-menu > a,
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title.sub-menu:hover > a {
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title.sub-menu > span a,
+#primary-menu ul li .mega-menu-content.style-2 div.mega-menu-column > ul > li.mega-menu-title.sub-menu:hover > span a {
   background: none;
 }
 #primary-menu ul li .mega-menu-content.style-2 li {
@@ -1350,7 +1370,7 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
 -----------------------------------------------------------------*/
 #primary-menu.sub-title > ul > li,
 #primary-menu.sub-title.style-2 > div > ul > li {
-  background: url("images/icons/menu-divider.png") no-repeat right center;
+  background: url("../images/icons/menu-divider.png") no-repeat right center;
   margin-left: 1px;
 }
 #primary-menu.sub-title ul li:first-child {
@@ -1873,6 +1893,7 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #header.transparent-header
 }
 body:not(.top-search-open) #header-wrap #logo,
 body:not(.top-search-open) #primary-menu > ul,
+body:not(.top-search-open) #primary-menu > div.menu-message,
 body:not(.top-search-open) #primary-menu > .container > ul,
 body:not(.top-search-open) #top-cart,
 body:not(.top-search-open) #side-panel-trigger {
@@ -1884,6 +1905,7 @@ body:not(.top-search-open) #side-panel-trigger {
 }
 body.top-search-open #header-wrap #logo,
 body.top-search-open #primary-menu > ul,
+body.top-search-open #primary-menu > div.menu-message,
 body.top-search-open #primary-menu > .container > ul,
 body.top-search-open #top-cart,
 body.top-search-open #top-lang,
@@ -2612,7 +2634,7 @@ body.side-panel-open .body-overlay {
   pointer-events: auto;
 }
 body.side-panel-open:not(.device-xxs):not(.device-xs):not(.device-sm) .body-overlay:hover {
-  cursor: url('images/icons/close.png') 15 15, default;
+  cursor: url('../images/icons/close.png') 15 15, default;
 }
 /*-----------------------------------------------------------------------------------
 

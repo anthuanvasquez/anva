@@ -28,6 +28,7 @@ function theme_body_classes( $classes ) {
 	$layout_style       = anva_get_option( 'layout_style' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 	$header_type        = anva_get_option( 'header_type', 'default' );
+	$loader        		= anva_get_option( 'page_loader', 1 );
 	
 	// Get all header types
 	$types = anva_get_header_types();
@@ -51,6 +52,11 @@ function theme_body_classes( $classes ) {
 	// Add layout style
 	if ( 'stretched' == $layout_style ) {
 		$classes[] = $layout_style;
+	}
+
+	// Disable page transitions
+	if ( ! $loader ) {
+		$classes[] = 'no-transition';
 	}
 
 	// Add header type
@@ -203,8 +209,8 @@ function theme_add_theme_support() {
 	add_editor_style();
 
 	// Framework support features
-	add_theme_support( 'anva-login-styles' );
-	add_theme_support( 'anva-megamenu' );
+	add_theme_support( 'anva-login' );
+	add_theme_support( 'anva-menu' );
 	add_theme_support( 'anva-woocommerce' );
 }
 

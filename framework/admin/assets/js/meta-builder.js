@@ -44,19 +44,19 @@ jQuery(document).ready(function($) {
 	var s;
 
 	// Anva Builder Object
-	var AnvaBuilder = {
+	var ANVA_BUILDER = {
 
 		// Default Settings
 		settings: {
-			ID: 					$('#anva_builder_id').val(),
+			ID: 				$('#anva_builder_id').val(),
 			button: 			$('#anva-builder-button'),
 			checked: 			$('.anva-builder-enable'),
 			fields: 			$('.anva-input-builder'),
 			itemUl: 			$('#builder-sortable-items'),
 			itemLi: 			$('#builder-sortable-items li'),
 			element: 			$('.builder-elements li .element-shortcode'),
-			root:					$('html, body'),
-			editorHeight: 200
+			root:				$('html, body'),
+			editorHeight: 		200
 		},
 		
 		init: function() {
@@ -65,43 +65,33 @@ jQuery(document).ready(function($) {
 			s = this.settings;
 
 			// Initialize functions
-			AnvaBuilder.enable();
-			// AnvaBuilder.dragItems();
-			AnvaBuilder.sortItems();
-			AnvaBuilder.addItem();
-			AnvaBuilder.editItem();
-			AnvaBuilder.moveItem();
-			AnvaBuilder.removeItem();
-			AnvaBuilder.removeAllItems();
-			AnvaBuilder.itemData();
-			AnvaBuilder.publish();
-			AnvaBuilder.tabs();
-			AnvaBuilder.tooltip();
-			AnvaBuilder.importExport();
-			AnvaBuilder.extras();
+			ANVA_BUILDER.active();
+			// ANVA_BUILDER.dragItems();
+			ANVA_BUILDER.sortItems();
+			ANVA_BUILDER.addItem();
+			ANVA_BUILDER.editItem();
+			ANVA_BUILDER.moveItem();
+			ANVA_BUILDER.removeItem();
+			ANVA_BUILDER.removeAllItems();
+			ANVA_BUILDER.itemData();
+			ANVA_BUILDER.publish();
+			ANVA_BUILDER.tooltip();
+			ANVA_BUILDER.importExport();
+			ANVA_BUILDER.extras();
 
 		},
 
-		enable: function() {
-			if ( s.checked.length > 0 ) {
-				AnvaBuilder.checked( s.checked );
-				s.checked.live( 'change', function() {
-					AnvaBuilder.checked( $(this) );
-				});
-			}
-
-			s.button.on( 'click', function(e) {
-				e.preventDefault();
-				s.checked.trigger('click');
+		active: function() {
+			var $template = $('#page_template');
+			ANVA_BUILDER.checkTemplate( $template.val() );
+			$template.on('change', function(event) {
+				ANVA_BUILDER.checkTemplate( $template.val() );
 			});
 		},
 
-		checked: function( $target ) {
-			var $enable = s.button.data('enable'),
-					$disable = s.button.data('disable');
+		checkTemplate: function( $target ) {
 
-			if ( $target.is(':checked') ) {
-				s.button.text( $disable );
+			if ( 'template_builder.php' == $target ) {
 				s.fields.slideDown();
 				$('#' + s.ID).addClass('anva-builder-active');
 				$('#minor-publishing-actions').hide();
@@ -110,7 +100,6 @@ jQuery(document).ready(function($) {
 				});;
 
 				if ( $('#' + s.ID).hasClass('anva-builder-active') ) {
-					console.log($('#' + s.ID));
 					$('#publish').val( anvaJs.builder_publish_items );
 				}
 
@@ -118,8 +107,7 @@ jQuery(document).ready(function($) {
 					scrollTop: $('#titlediv').offset().top - 32
 				}, 400 );
 		
-			} else if ( ! $target.is(':checked') ) {
-				s.button.text( $enable );
+			} else if ( 'template_builder.php' != $target ) {
 				s.fields.slideUp();
 				$('#' + s.ID).removeClass('anva-builder-active');
 				$('#minor-publishing-actions').show();
@@ -143,7 +131,7 @@ jQuery(document).ready(function($) {
 				revert: 'invalid',
 				zIndex: 199,
 				helper: function(e) {
-					var item = AnvaBuilder.buildItem();
+					var item = ANVA_BUILDER.buildItem();
 					return $( item.html ).addClass('block').css('minWidth','300px');
 				},
 				start: function( e, ui ) {
@@ -253,7 +241,7 @@ jQuery(document).ready(function($) {
 					return false;
 				}
 
-				var item = AnvaBuilder.buildItem();
+				var item = ANVA_BUILDER.buildItem();
 
 				// Return if not element selected
 				if ( ! item ) {
@@ -469,19 +457,6 @@ jQuery(document).ready(function($) {
 			});
 		},
 
-		tabs: function() {
-			$('#elements-wrapper').tabs({
-				hide: {
-					effect: "fade",
-					duration: 100
-				},
-				show: {
-					effect: "fade",
-					duration: 100
-				}
-			});
-		},
-
 		tooltip: function() {
 			
 			// Tooltip element description
@@ -607,6 +582,6 @@ jQuery(document).ready(function($) {
 
 	}
 
-	AnvaBuilder.init();
+	ANVA_BUILDER.init();
 
 });

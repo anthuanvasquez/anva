@@ -63,7 +63,14 @@ function anva_divider( $atts, $content = null ) {
  */
 function anva_header_element( $atts, $content = null ) {
 
-	extract( $atts );
+	extract( array(
+		'slug' => '',
+		'subtitle' => '',
+		'padding' => 30,
+		'bgcolor' => '',
+		'fontcolor' => '',
+		'custom_css' => ''
+	), $atts );
 
 	$html = '';
 	$id = '';
@@ -175,7 +182,14 @@ function anva_header_image( $atts, $content = null ) {
  */
 function anva_text( $atts, $content ) {
 	
-	extract( $atts );
+	extract( shortcode_atts( array(
+		'slug' => '',
+		'bgcolor' => '',
+		'fontcolor' => '',
+		'padding' => 30,
+		'width' => '100%',
+		'custom_css' => ''
+	), $atts ) );
 
 	$html = '';
 	$id = '';

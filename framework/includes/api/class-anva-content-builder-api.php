@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Builder_Elements_API' ) ) :
+if ( ! class_exists( 'Anva_Content_Builder_API' ) ) :
 
 /**
  * Anva Page Builder Elements API.
@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Builder_Elements_API' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Builder_Elements_API {
+class Anva_Content_Builder_API {
 
 	/**
 	 * A single instance of this class.
@@ -22,15 +22,6 @@ class Anva_Builder_Elements_API {
 	 * @since 1.0.0
 	 */
 	private static $instance = null;
-
-	/**
-	 * A quick overview of registered elements as the
-	 * API moves along. Can be accesed from admin or
-	 * frontend.
-	 *
-	 * @since 1.0.0
-	 */
-	private $registered_elements = array();
 
 	private $blocks = array();
 
@@ -86,65 +77,12 @@ class Anva_Builder_Elements_API {
 	 */
 	private function __construct() {
 
-		// Setup registered element reference for admin
-		$this->set_registered_elements();
+		// Setup framework default elements
+		$this->set_core_elements();
 
-		//if ( is_admin() ) {
+		// Establish elements
+		add_action( 'after_setup_theme', array( $this, 'set_elements' ), 1000 );
 
-			// Setup framework default elements
-			$this->set_core_elements();
-
-			// Establish elements
-			add_action( 'after_setup_theme', array( $this, 'set_elements' ), 1000 );
-
-		//} //else {
-
-			// Setup registered element reference for frontend
-			// This allows us to keep track of elements without
-			// consuming as much memory on the frontend.
-		//	$this->set_registered_elements();
-
-		//}
-
-
-
-	}
-
-	/**
-	 * Set registered elements
-	 * 
-	 * @since 1.0.0
-	 */
-	public function set_registered_elements() {
-
-		$this->registered_elements = array(
-			'divider',
-			'header',
-			'header_image',
-			'header_background',
-			'text',
-			'text_background',
-			'image_fullwidth',
-			'image_parallax',
-			'image_fixed_width',
-			'image_half_fixed_width',
-			'image_half_fullwidth',
-			'content_half_bg',
-			'two_cols_images',
-			'three_cols_images',
-			'three_images_block',
-			'four_images_block',
-			'testimonial_column',
-			'pricing',
-			'blog_grid',
-			'contact_map',
-			'map'
-		);
-
-		// Revolution Slider
-		if ( class_exists( 'RevSliderFront' ) || class_exists( 'RevSliderAdmin' ) ) {
-			$this->registered_elements[] = 'revslider';
-		}
 	}
 
 	/**
@@ -1735,40 +1673,34 @@ class Anva_Builder_Elements_API {
 	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = false ) {
 
 		$args = array(
-			'id'			=> $id,
-			'name'		=> $name,
-			'icon'		=> $icon,
-			'attr'		=> $attr,
-			'desc'		=> $desc,
+			'id'      => $id,
+			'name'    => $name,
+			'icon'    => $icon,
+			'attr'    => $attr,
+			'desc'    => $desc,
 			'content' => $content
 		);
 
 		$defaults = array(
-			'id' 	 => '',
-			'name' => '',
-			'icon' => '',
-			'attr' => array(),
-			'desc' => '',
-			'content'	=> true
+			'id'      => '',
+			'name'    => '',
+			'icon'    => '',
+			'attr'    => array(),
+			'desc'    => '',
+			'content' => true
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 
-		// Register element
-		$this->registered_elements[] = $args['id'];
-
 		// Add in element
-		//if ( is_admin() ) {
-			//$this->custom_elements['loco'] = $args;
-			$this->custom_elements[$args['id']] = array(
-				'id'			=> $args['id'],
-				'title' 	=> $args['name'],
-				'icon' 		=> $args['icon'],
-				'attr' 		=> $args['attr'],
-				'desc' 		=> $args['desc'],
-				'content' => $args['content']
-			);
-		//}
+		$this->custom_elements[$args['id']] = array(
+			'id'      => $args['id'],
+			'title'   => $args['name'],
+			'icon'    => $args['icon'],
+			'attr'    => $args['attr'],
+			'desc'    => $args['desc'],
+			'content' => $args['content']
+		);
 
 	}
 
@@ -1781,16 +1713,6 @@ class Anva_Builder_Elements_API {
 
 		// Add to removal array, and process in set_elements()
 		$this->remove_elements[] = $element_id;
-
-		// De-register Element
-		if ( $this->registered_elements ) {
-			foreach ( $this->registered_elements as $key => $value ) {
-				if ( $value == $element_id ) {
-					unset( $this->registered_elements[$key] );
-					break;
-				}
-			}
-		}
 	}
 
 	public function add_block( $args ) {
@@ -1810,15 +1732,6 @@ class Anva_Builder_Elements_API {
 		//var_dump($this->core_elements[$element_id]);
 		//}
 		$this->blocks[] = $args;
-	}
-
-	/**
-	 * Get registered elements
-	 *
-	 * @since 1.0.0
-	 */
-	public function get_registered_elements() {
-		return apply_filters( 'anva_registered_elements', $this->registered_elements );
 	}
 
 	/**
@@ -1856,7 +1769,11 @@ class Anva_Builder_Elements_API {
 	 * @since 1.0.0
 	 */
 	public function is_element( $element_id ) {
-		return in_array( $element_id, $this->get_registered_elements() );
+		$elements = $this->get_elements();
+		if ( isset( $elements[ $element_id ] ) ) {	
+			return true;
+		}
+		return false;
 	}
 
 	/**

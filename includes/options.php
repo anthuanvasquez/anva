@@ -127,8 +127,10 @@ function anva_options() {
 	);
 	anva_add_option_section( 'styles', 'links', __( 'Links', 'anva' ), null, $links_options, false );
 
-	// Header
-	// 
+	/* ---------------------------------------------------------------- */
+	/* Header
+	/* ---------------------------------------------------------------- */
+
 	$header_types = array();
 	foreach ( anva_get_header_types() as $type_id => $type ) {
 		$header_types[ $type_id ] = $type['name'];
@@ -141,16 +143,16 @@ function anva_options() {
 
 	$header_options = array(
 		'header_type' => array(
-			'name' => __( 'Change header type', 'anva' ),
-			'desc' => __( 'Choose the type for the header.', 'anva' ),
+			'name' => __( 'Header Type', 'anva' ),
+			'desc' => __( 'Select the type of the header.', 'anva' ),
 			'id' => 'header_type',
 			'std' => 'default',
 			'type' => 'select',
 			'options' => $header_types,
 		),
 		'header_style' => array(
-			'name' => __( 'Change header style', 'anva' ),
-			'desc' => __( 'Choose the style for the header.', 'anva' ),
+			'name' => __( 'Header Style', 'anva' ),
+			'desc' => __( 'Select the style of the header.', 'anva' ),
 			'id' => 'header_style',
 			'std' => 'full-header',
 			'type' => 'select',
@@ -160,26 +162,34 @@ function anva_options() {
 			),
 		),
 		'header_color' => array(
-			'name' => __( 'change header Color', 'anva' ),
-			'desc' => __( 'Choose the color for the header.', 'anva' ),
+			'name' => __( 'Header Color', 'anva' ),
+			'desc' => __( 'Select the color of the header.', 'anva' ),
 			'id' => 'header_color',
 			'std' => 'light',
 			'type' => 'select',
 			'options' => array(
 				'light' => __( 'Light', 'anva' ),
 				'dark' => __( 'Dark', 'anva' ),
+				'custom' => __( 'Custom Color', 'anva' ),
 			),
 		),
+		'header_background' => array(
+			'name' => __( 'Header Background Color', 'anva' ),
+			'desc' => __( 'Select the custom color of the header background', 'anva' ),
+			'id' => 'header_background',
+			'std' => '#ffffff',
+			'type' => 'color',
+		),
 		'primary_menu_style' => array(
-			'name' => __( 'Change primary navigation style', 'anva' ),
-			'desc' => __( 'Select the style for the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
+			'name' => __( 'Primary Menu Style', 'anva' ),
+			'desc' => __( 'Select the style of the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
 			'id' => 'primary_menu_style',
-			'std' => 'light',
+			'std' => 'default',
 			'type' => 'select',
 			'options' => $menu_styles,
 		),
 		'header_extras' => array(
-			'name' => __( 'Show header extra info', 'anva' ),
+			'name' => __( 'Header Extra Info', 'anva' ),
 			'desc' => __( 'Select if you want to show the header extra info in the right.', 'anva' ),
 			'id' => 'header_extras',
 			'std' => 'hide',
@@ -190,9 +200,17 @@ function anva_options() {
 			),
 			'class' => 'hidden'
 		),
+		'header_extras_text' => array(
+			'name' => __( 'Header Extra Info Text', 'anva' ),
+			'desc' => __( 'Enter the text you want show in extra info.', 'anva' ),
+			'id' => 'header_extras_info',
+			'std' => '',
+			'type' => 'text',
+			'class' => 'hidden'
+		),
 		'primary_menu_color' => array(
-			'name' => __( 'Apply color style to primary navigation', 'anva' ),
-			'desc' => __( 'Select the color style for the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
+			'name' => __( 'Primary Menu Color', 'anva' ),
+			'desc' => __( 'Select the color style of the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
 			'id' => 'primary_menu_color',
 			'std' => 'light',
 			'type' => 'select',

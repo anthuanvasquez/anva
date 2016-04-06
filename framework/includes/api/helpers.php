@@ -24,7 +24,7 @@ function anva_api_init() {
 	Anva_Sliders_API::instance();
 	
 	// Setup Framework Page Builder Elements API
-	Anva_Builder_Elements_API::instance();
+	Anva_Content_Builder_API::instance();
 
 	// Setup customizer API
 	$GLOBALS['_anva_customizer_sections'] = array();
@@ -37,7 +37,12 @@ function anva_api_init() {
  * If no value has been saved, it returns $default.
  * Needed because options are saved as serialized strings.
  *
+ * Based on "Options Framework" by Devin Price.
+ * @link http://wptheming.com
+ *
  * @since  1.0.0
+ * @param  string               $name
+ * @param  string|array|boolean $default
  * @return string|array|boolean $options
  */
 function anva_get_option( $name, $default = false ) {
@@ -70,58 +75,18 @@ function anva_get_option( $name, $default = false ) {
  * This is for print theme option value.
  * 
  * @since 1.0.0
- * @param string  $name
- * @param boolean $default
+ * @param string               $name
+ * @param string|array|boolean $default
  */
 function anva_the_option( $name, $default = false ) {
 	echo anva_get_option( $name, $default );
 }
 
 /**
- * Get global theme option name.
- * 
- * @since 1.0.0
- */
-function anva_get_option_name() {
-	$options = new Anva_Options;
-	return $options->get_option_name();
-}
-
-/**
- * Get core and theme options.
- * 
- * @since 1.0.0
- */
-function anva_get_options() {
-	$options = new Anva_Options;
-	return $options->get_options();
-}
-
-/**
- * Get tabs from options interface.
- * 
- * @since 1.0.0
- */
-function anva_get_options_tabs( $options ) {
-	$options_interface = new Anva_Options_Interface;
-	return $options_interface->get_tabs( $options );
-}
-
-/**
- * Get fields from options interface.
- * 
- * @since 1.0.0
- */
-function anva_get_options_fields( $option_name, $settings, $options ) {
-	$options_interface = new Anva_Options_Interface;
-	return $options_interface->get_fields( $option_name, $settings, $options );
-}
-
-/**
  * Get default options.
  * 
- * @since 1.0.0
- * 
+ * @since  1.0.0
+ * @return array Default Options
  */
 function anva_get_option_defaults() {
 	$options_page = new Anva_Options_Page;
@@ -140,10 +105,7 @@ function anva_get_options_page_menu() {
 }
 
 /**
- * Get raw options. This helper function is more
- * for backwards compatibility. Realistically, it
- * doesn't have much use unless an old plugin is
- * still using it.
+ * Get raw options.
  *
  * @since 1.0.0
  */
@@ -152,7 +114,6 @@ function anva_get_core_options() {
 	return $api->get_raw_options();
 }
 
-if ( ! function_exists( 'anva_get_formatted_options' ) ) :
 /**
  * Get formatted options. Note that options will not be
  * formatted until after WP's after_setup_theme hook.
@@ -163,7 +124,6 @@ function anva_get_formatted_options() {
 	$api = Anva_Options_API::instance();
 	return $api->get_formatted_options();
 }
-endif;
 
 /**
  * Add theme option tab.
@@ -241,7 +201,7 @@ function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
  * @since 1.0.0
  */
 function anva_get_core_elements() {
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	return $api->get_core_elements();
 }
 
@@ -252,7 +212,7 @@ function anva_get_core_elements() {
  * @since 1.0.0
  */
 function anva_get_registered_elements() {
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	return $api->get_registered_elements();
 }
 
@@ -263,7 +223,7 @@ function anva_get_registered_elements() {
  * @since 1.0.0
  */
 function anva_get_elements() {
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	return $api->get_elements();
 }
 
@@ -277,8 +237,8 @@ function anva_get_elements() {
  * @return string $element_id
  */
 function anva_is_element( $element_id ) {
-	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_slider_exists() instead.', 'anva' ) );
-	$api = Anva_Builder_Elements_API::instance();
+	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_element_exists() instead.', 'anva' ) );
+	$api = Anva_Content_Builder_API::instance();
 	return $api->is_element( $element_id );
 }
 
@@ -290,48 +250,51 @@ function anva_is_element( $element_id ) {
  * @return string $element_id
  */
 function anva_element_exists( $element_id ) {
-	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_slider_exists() instead.', 'anva' ) );
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	return $api->is_element( $element_id );
 }
 
 /**
- * Add element to page builder
+ * Add custom element to page content builder.
  *
  * @since 1.0.0
  */
 function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $content ) {
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	$api->add_element( $element_id, $name, $icon, $attr, $desc, $content );
 }
 
 /**
- * Remove element from page builder
+ * Remove element from page content builder.
  *
  * @since 1.0.0
  */
 function anva_remove_builder_element( $element_id ) {
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	$api->remove_element( $element_id );
 }
 
 /**
- * Add block to page builder single element
+ * Add block to page content builder on single element.
  *
  * @since 1.0.0
  */
 function anva_add_block_element( $args ) {
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	$api->add_block( $args );
 }
-
+/**
+ * Check if block exists on singe element.
+ *
+ * @since 1.0.0
+ */
 function anva_is_block_element( $element_id, $block_id ) {
-	$api = Anva_Builder_Elements_API::instance();
+	$api = Anva_Content_Builder_API::instance();
 	return $api->is_block( $element_id, $block_id );
 }
 
 /**
- * Add sidebar location
+ * Add sidebar location.
  * 
  * @since 1.0.0
  */
@@ -341,7 +304,7 @@ function anva_add_sidebar_location( $id, $name, $desc = '' ) {
 }
 
 /**
- * Remove sidebar location
+ * Remove sidebar location.
  * 
  * @since 1.0.0
  */
@@ -351,7 +314,7 @@ function anva_remove_sidebar_location( $id ) {
 }
 
 /**
- * Get sidebar locations
+ * Get sidebar locations.
  * 
  * @since 1.0.0
  */
@@ -361,7 +324,7 @@ function anva_get_sidebar_locations() {
 }
 
 /**
- * Get sidebar location name or slug name
+ * Get sidebar location name or slug name.
  * 
  * @since 1.0.0
  */
@@ -380,7 +343,7 @@ function anva_get_sidebar_location_name( $location, $slug = false ) {
 }
 
 /**
- * Display sidebar location
+ * Display sidebar location.
  * 
  * @since 1.0.0
  */
@@ -390,7 +353,7 @@ function anva_display_sidebar( $location ) {
 }
 
 /**
- * Add sidebar args when register locations
+ * Add sidebar arguments when register locations.
  * 
  * @since 1.0.0
  */
@@ -411,7 +374,7 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 }
 
 /**
- * Add custom stylesheet
+ * Add stylesheet.
  * 
  * @since 1.0.0
  */
@@ -421,7 +384,7 @@ function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = '
 }
 
 /**
- * Remove custom stylesheet
+ * Remove stylesheet.
  * 
  * @since 1.0.0
  */
@@ -431,7 +394,7 @@ function anva_remove_stylesheet( $handle ) {
 }
 
 /**
- * Get stylesheets
+ * Get framework stylesheets.
  * 
  * @since 1.0.0
  */
@@ -443,7 +406,7 @@ function anva_get_stylesheets() {
 }
 
 /**
- * Print out styles
+ * Print out styles.
  * 
  * @since 1.0.0
  */
@@ -453,7 +416,7 @@ function anva_print_styles( $level ) {
 }
 
 /**
- * Add custom script
+ * Add script.
  *
  * @since 1.0.0
  */
@@ -463,7 +426,7 @@ function anva_add_script( $handle, $src, $level = 4, $ver = null, $footer = true
 }
 
 /**
- * Remove custom script
+ * Remove script.
  *
  * @since 1.0.0
  */
@@ -473,7 +436,7 @@ function anva_remove_script( $handle ) {
 }
 
 /**
- * Get scripts
+ * Get framework scripts.
  *
  * @since 1.0.0
  */
@@ -485,7 +448,7 @@ function anva_get_scripts() {
 }
 
 /**
- * Print out scripts
+ * Print out scripts.
  *
  * @since 1.0.0
  */
@@ -495,7 +458,7 @@ function anva_print_scripts( $level ) {
 }
 
 /**
- * Add slider type
+ * Add slider.
  *
  * @since 1.0.0
  */
@@ -505,7 +468,7 @@ function anva_add_slider( $slider_id, $slider_name, $slide_types, $media_positio
 }
 
 /**
- * Remove slider type
+ * Remove slider.
  *
  * @since 1.0.0
  */
@@ -515,7 +478,7 @@ function anva_remove_slider( $slider_id ) {
 }
 
 /**
- * Get sliders
+ * Get framework sliders.
  *
  * @since 1.0.0
  */
@@ -552,47 +515,10 @@ function anva_slider_exists( $slider_id ) {
 }
 
 /**
- * Add new meta box with ID, Arguments and Options
+ * Register a new meta box.
  *
  * @since  1.0.0
- * @return Instance of Class
  */
 function anva_add_meta_box( $id, $args, $options ) {
-	$meta_box = new Anva_Meta_Box( $id, $args, $options );
-}
-
-/**
- * Get the galleries field.
- *
- * @since  1.0.0
- * @return string The page builder field meta
- */
-function anva_get_gallery_field() {
-	
-	$field = false;
-	$gallery_meta = anva_setup_gallery_attachments_meta();
-	
-	if ( isset( $gallery_meta['args']['id'] ) ) {
-		$field = anva_get_post_meta( $gallery_meta['args']['id'] );
-	}
-
-	return $field;
-}
-
-/**
- * Get page builder field meta
- *
- * @since  1.0.0
- * @return string The page builder field meta
- */
-function anva_get_page_builder_field() {
-	
-	$field = false;
-	$page_builder_meta = anva_setup_page_builder_meta();
-
-	if ( isset( $page_builder_meta['args']['id'] ) ) {
-		$field = anva_get_post_meta( $page_builder_meta['args']['id'] );
-	}
-
-	return $field;
+	new Anva_Meta_Box( $id, $args, $options );
 }

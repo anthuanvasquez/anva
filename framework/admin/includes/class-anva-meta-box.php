@@ -103,7 +103,7 @@ class Anva_Meta_Box
 				
 				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
-				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
+				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
 
 			}
 		}

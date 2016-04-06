@@ -139,9 +139,9 @@ function theme_customizer_options() {
 			'type' 									 => 'typography',
 			'transport'							 => 'postMessage'
 		),
-		'menu_font' 							 => array(
-			'label' 								 => __( 'Menu Font', 'anva' ),
-			'id' 										 => 'menu_font',
+		'meta_font' 							 => array(
+			'label' 								 => __( 'Meta Font', 'anva' ),
+			'id' 										 => 'meta_font',
 			'atts'									 => array( 'style', 'face' ),
 			'type' 									 => 'typography',
 			'transport'							 => 'postMessage'

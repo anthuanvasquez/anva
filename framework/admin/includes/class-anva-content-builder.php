@@ -1,9 +1,9 @@
 <?php
 
-if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
+if ( ! class_exists( 'Anva_Content_Builder' ) ) :
 
 /**
- * Anva Builder Meta Box
+ * Anva Content Builder.
  *
  * @since  		1.0.0
  * @author      Anthuan Vásquez
@@ -11,7 +11,7 @@ if ( ! class_exists( 'Anva_Builder_Meta_Box' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Builder_Meta_Box
+class Anva_Content_Builder
 {
 	/**
 	 * ID for meta box and post field.
@@ -64,9 +64,9 @@ class Anva_Builder_Meta_Box
 			$this->options = $options;
 
 			$defaults = array(
-				'page'			=> array( 'page' ),		// Can contain post, page, link, or custom post type's slug
-				'context'		=> 'normal',			// Normal, advanced, or side
-				'priority'		=> 'high'				// Priority
+				'page'     => array( 'page' ),	// Can contain post, page, link, or custom post type's slug
+				'context'  => 'normal',			// Normal, advanced, or side
+				'priority' => 'high'			// Priority
 			);
 
 			$this->args = wp_parse_args( $args, $defaults );
@@ -122,12 +122,12 @@ class Anva_Builder_Meta_Box
 				/* Builder
 				/* ---------------------------------------------------------------- */
 
-				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4' );
-				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_CSS . 'tooltipster.min.css', array(), '3.3.0' );
+				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
+				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/tooltipster.min.css', array(), '3.3.0' );
 				wp_enqueue_style( 'anva-builder', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-builder.min.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
 
-				wp_register_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_JS . 'jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
-				wp_register_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_JS . 'js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
+				wp_register_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
+				wp_register_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
 				wp_register_script( 'anva-builder', ANVA_FRAMEWORK_ADMIN_JS . 'meta-builder.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 				
 				wp_enqueue_script( 'tooltipster' );
@@ -212,84 +212,6 @@ class Anva_Builder_Meta_Box
 	}
 
 	/**
-	 * Add elements tabs
-	 *
-	 * @since 1.0.0
-	 */
-	private function tabs()
-	{
-		$layout = apply_filters( 'anva_builder_layout_elements', array(
-			'divider',
-		) );
-
-		$content = apply_filters( 'anva_builder_content_elements', array(
-			'header',
-			'header_image',
-			'text',
-			'text_image',
-			'text_sidebar',
-			'content_half_bg',
-			'blog_grid',
-			'contact_map',
-			'contact_sidebar',
-			'map',
-		) );
-
-		$media = apply_filters( 'anva_builder_media_elements', array(
-			'image_fullwidth',
-			'image_parallax',
-			'image_fixed_width',
-			'image_half_fixed_width',
-			'image_half_fullwidth',
-			'two_cols_images',
-			'three_cols_images',
-			'three_images_block',
-			'four_images_block',
-			'galleries',
-			'gallery_slider',
-			'gallery_slider_fixed_width',
-			'gallery_grid',
-			'gallery_masonry',
-			'animated_gallery_grid',
-		) );
-
-		$layout_elements = array();
-		$content_elements = array();
-		$media_elements = array();
-
-		foreach ( $this->options as $key => $value ) {
-			if ( in_array( $key, $layout ) ) {
-				$layout_elements[$key] = $value;
-			}
-
-			if ( in_array( $key, $content ) ) {
-				$content_elements[$key] = $value;
-			}
-			
-			if ( in_array( $key, $media ) ) {
-				$media_elements[$key] = $value;
-			}
-		}
-
-		$tabs = array(
-			'content' 		=> array(
-				'name' 			=> __( 'Content Elements', 'anva' ),
-				'elements' 	=> $content_elements
-			),
-			'media' 			=> array(
-				'name' 			=> __( 'Media Elements', 'anva' ),
-				'elements' 	=> $media_elements
-			),
-			'layout' 			=> array(
-				'name' 			=> __( 'Layout Elements', 'anva' ),
-				'elements' 	=> $layout_elements
-			),
-		);
-
-		return $tabs;
-	}
-
-	/**
 	 * Renders the content of the meta box
 	 *
 	 * @since 1.0.0
@@ -321,62 +243,35 @@ class Anva_Builder_Meta_Box
 		<input type="hidden" id="anva_shortcode_order" name="<?php echo esc_attr( $this->id . '[order]' ); ?>" value="" />
 		<input type="hidden" id="anva_current_item" name="anva_current_item" value="" />
 
-		<div class="anva-meta-box">
-
-			<div class="anva-input-checkbox">
-				
-				<a id="anva-builder-button" href="#" class="button button-primary button-large" data-enable="<?php _e( 'Page Builder Editor', 'anva' ); ?>" data-disable="<?php _e( 'Default Editor', 'anva' ); ?>"><?php _e( 'Page Builder Editor', 'anva' ); ?></a>
-
-				<input type="checkbox" name="<?php echo esc_attr( $this->id . '[enable]' ); ?>" value="1" <?php checked( $enable, 1 ); ?> class="anva-builder-enable hidden" />
-				
+		<div id="anva-framework" class="anva-meta-box">
+	
 				<div class="anva-tooltip-info-html hidden">
 					<h3><?php _e( 'Quick Info', 'anva' ); ?></h3>
 					<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
 				</div>
 
 				<a href="#" class="anva-tooltip-info"><span class="dashicons dashicons-info"></span></a>
-			
-			</div><!-- .anva-input-checkbox (end) -->
 		
 			<div class="anva-input-builder hidden">
 				
 				<div class="clear"></div>
 				
-				<div id="elements-wrapper">
-
-					<?php $tabs = $this->tabs(); ?>
-					
-					<?php	if ( count( $tabs ) > 0 ) : ?>
-						<ul class="anva-tabs">
-							<?php foreach ( $tabs as $tab_id => $tab ) :	?>
-								<li><a href="#elements-group-<?php echo esc_attr( $tab_id ); ?>"><?php echo $tab['name']; ?></a></li>
-							<?php	endforeach; ?>
-						</ul><!-- .anva-tabs (end) -->
-					<?php endif; ?>
-
-					<?php foreach ( $tabs as $tab_id => $tab ) : ?>
-						<div id="elements-group-<?php echo $tab_id; ?>">
-							<ul class="builder-elements">
-							<?php foreach ( $tab['elements'] as $element_id => $element ) : ?>
-								
-								<?php if ( isset( $element['icon'] ) && ! empty( $element['icon'] ) ) : ?>
-									<li>
-										<div class="tooltip element-shortcode" data-element="<?php echo esc_attr( $element_id ); ?>" data-title="<?php echo esc_attr( $element['title'] ); ?>" title="<?php echo esc_attr( $element['desc'] ); ?>">
-											<img class="icon-thumbnail" src="<?php echo esc_url( $element['icon'] ); ?>" alt="<?php echo esc_attr( $element['title'] ); ?>" />
-											<span class="icon-title"><?php echo $element['title']; ?></span>
-										</div>
-									</li>
-								<?php endif; ?>
-
-							<?php endforeach; ?>
-							</ul>
-						</div>
-					<?php endforeach; ?>
-
-				</div><!-- #elements-wrapper (end) -->
+				<div id="elements-wrap">
+					<ul class="builder-elements">
+						<?php foreach ( $this->options as $element_id => $element ) : ?>
+							<?php if ( isset( $element['icon'] ) && ! empty( $element['icon'] ) ) : ?>
+								<li>
+									<div class="tooltip element-shortcode" data-element="<?php echo esc_attr( $element_id ); ?>" data-title="<?php echo esc_attr( $element['title'] ); ?>" title="<?php echo esc_attr( $element['desc'] ); ?>">
+										<img class="icon-thumbnail" src="<?php echo esc_url( $element['icon'] ); ?>" alt="<?php echo esc_attr( $element['title'] ); ?>" />
+										<span class="icon-title"><?php echo $element['title']; ?></span>
+									</div>
+								</li>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</ul>
+				</div><!-- #elements-wrap (end) -->
 				
 				<div class="anva-input-builder-action">
-					
 					<div class="anva-backup-container">
 						<a href="#" class="button button-toggle"><?php _e( 'Template', 'anva' ); ?></a>
 						<div class="anva-backup-inner">
@@ -391,7 +286,7 @@ class Anva_Builder_Meta_Box
 								<input type="file" id="anva-import-file" name="anva_import_file" />
 							</div>
 						</div>
-					</div>
+					</div><!-- .anva-builder-action (end) -->
 					
 					<a id="remove-all-items" class="button button-secondary button-remove-all"><?php _e( 'Remove All Items', 'anva' ); ?></a>
 					<a id="add-builder-item" class="button button-primary button-add-item"><?php _e( 'Add New Item', 'anva' ); ?></a>
@@ -409,60 +304,60 @@ class Anva_Builder_Meta_Box
 				?>
 				
 				<ul id="builder-sortable-items" class="builder-sortable-items sortable-items <?php echo $empty; ?>" rel="builder-sortable-items_data"> 
-				<?php
+					<?php
+						if ( isset( $items[0] ) && ! empty( $items[0] ) ) :
+							
+							foreach ( $items as $item_id => $item )	:
 
-					if ( isset( $items[0] ) && ! empty( $items[0] ) ) :
-						
-						foreach ( $items as $item_id => $item )	:
+								$data = $settings[$item]['data'];
+								$obj  = json_decode( $data );
 
-							$data = $settings[$item]['data'];
-							$obj  = json_decode( $data );
-
-							if ( isset( $item[0] ) && isset( $shortcodes[$obj->shortcode] ) ) :
-								
-								$shortcode_type = $shortcodes[$obj->shortcode]['title'];
-								$shortocde_icon = $shortcodes[$obj->shortcode]['icon'];
-								$shortcode = $obj->shortcode;
-								$obj_title_name = '';
-
-								if ( $obj->shortcode != 'divider' ) {
-									$obj_title_name = $obj->shortcode . '_title';
+								if ( isset( $item[0] ) && isset( $shortcodes[$obj->shortcode] ) ) :
 									
-									if ( property_exists( $obj, $obj_title_name ) ) {
-										$obj_title_name = $obj->$obj_title_name;
-										
-									} else {
-										$obj_title_name = '';
-									}
+									$shortcode_type = $shortcodes[$obj->shortcode]['title'];
+									$shortocde_icon = $shortcodes[$obj->shortcode]['icon'];
+									$shortcode = $obj->shortcode;
+									$obj_title_name = '';
 
-								} else {
-									$obj_title_name = '<span class="shortcode-type">' . __( 'Divider', 'anva' ) . '</span>';
-									$shortcode_type = '';
-								}
-								?>
-								<li id="<?php echo esc_attr( $item ); ?>" class="item item-<?php echo esc_attr( $item ); ?> ui-state-default <?php echo esc_attr( $shortcode ); ?>">
-									<div class="actions">
-										<a title="<?php esc_html_e( 'Move Item Up', 'anva' ); ?>" href="#" class="button-move-up"></a>
-										<a title="<?php esc_html_e( 'Move Item Down', 'anva' ); ?>" href="#" class="button-move-down"></a>
-										<a title="<?php esc_html_e( 'Edit Item', 'anva' ); ?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=anva_builder_get_fields&shortcode=' . $shortcode . '&rel=' . $item ) ); ?>" class="button-edit" data-id="<?php echo esc_attr( $item ); ?>"></a>
-										<a title="<?php esc_html_e( 'Remove Item', 'anva' )?>" href="#" class="button-remove"></a>
-									</div>
-									<div class="thumbnail">
-										<img src="<?php echo esc_url( $shortocde_icon ); ?>" alt="<?php echo esc_attr( $shortcode_type ); ?>" />
-									</div>
-									<div class="title">
-										<span class="shortcode-type"><?php echo $shortcode_type; ?></span>
-										<span class="shortcode-title"><?php echo urldecode( $obj_title_name ); ?></span>
-									</div>
-									<span class="spinner spinner-<?php echo esc_attr( $item ); ?>"></span>
-									<div class="clear"></div>
-								</li>
-								<?php
-							endif;
-						endforeach;
-					endif;
-				?>
-				</ul><!-- .sortable (end) -->
+									if ( $obj->shortcode != 'divider' ) {
+										$obj_title_name = $obj->shortcode . '_title';
+										
+										if ( property_exists( $obj, $obj_title_name ) ) {
+											$obj_title_name = $obj->$obj_title_name;
+											
+										} else {
+											$obj_title_name = '';
+										}
+
+									} else {
+										$obj_title_name = '<span class="shortcode-type">' . __( 'Divider', 'anva' ) . '</span>';
+										$shortcode_type = '';
+									}
+									?>
+									<li id="<?php echo esc_attr( $item ); ?>" class="item item-<?php echo esc_attr( $item ); ?> ui-state-default <?php echo esc_attr( $shortcode ); ?>">
+										<div class="actions">
+											<a title="<?php esc_html_e( 'Move Item Up', 'anva' ); ?>" href="#" class="button-move-up"></a>
+											<a title="<?php esc_html_e( 'Move Item Down', 'anva' ); ?>" href="#" class="button-move-down"></a>
+											<a title="<?php esc_html_e( 'Edit Item', 'anva' ); ?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=anva_builder_get_fields&shortcode=' . $shortcode . '&rel=' . $item ) ); ?>" class="button-edit" data-id="<?php echo esc_attr( $item ); ?>"></a>
+											<a title="<?php esc_html_e( 'Remove Item', 'anva' )?>" href="#" class="button-remove"></a>
+										</div>
+										<div class="thumbnail">
+											<img src="<?php echo esc_url( $shortocde_icon ); ?>" alt="<?php echo esc_attr( $shortcode_type ); ?>" />
+										</div>
+										<div class="title">
+											<span class="shortcode-type"><?php echo $shortcode_type; ?></span>
+											<span class="shortcode-title"><?php echo urldecode( $obj_title_name ); ?></span>
+										</div>
+										<span class="spinner spinner-<?php echo esc_attr( $item ); ?>"></span>
+										<div class="clear"></div>
+									</li>
+									<?php
+								endif;
+							endforeach;
+						endif;
+					?>
+				</ul><!-- #builder-sortable-items (end) -->
+
 				<div class="sortable-footer">
 					<div class="message">
 						<?php
@@ -475,7 +370,7 @@ class Anva_Builder_Meta_Box
 							);
 						?>
 					</div>
-				</div>
+				</div><!-- .sortable-footer (end) -->
 			</div><!-- .anva-input-builder (end) -->
 		</div><!-- .anva-meta-box (end) -->
 	<?php

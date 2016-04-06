@@ -9,8 +9,8 @@
 function anva_add_meta_boxes_default() {
 
 	// Builder Meta Box
-	$page_builder_meta = anva_setup_page_builder_meta();
-	$page_builder_meta_box = new Anva_Builder_Meta_Box( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
+	$page_builder_meta = anva_setup_content_builder_meta();
+	$page_builder_meta_box = new Anva_Content_Builder( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
 	
 	// Page Meta Box
 	$page_meta = anva_setup_page_meta();
@@ -26,7 +26,7 @@ function anva_add_meta_boxes_default() {
 		anva_add_meta_box( $gallery_meta['args']['id'], $gallery_meta['args'], $gallery_meta['options'] );
 		
 		$gallery_attachments_meta = anva_setup_gallery_attachments_meta();
-		$gallery_attachments_meta_box = new Anva_Gallery_Meta_Box( $gallery_attachments_meta['args']['id'], $gallery_attachments_meta['args'] );
+		$gallery_attachments_meta_box = new Anva_Gallery( $gallery_attachments_meta['args']['id'], $gallery_attachments_meta['args'] );
 	}
 
 	// Portfolio Meta Box
@@ -433,17 +433,17 @@ function anva_setup_gallery_attachments_meta() {
  * @since  1.0.0
  * @return array $setup
  */
-function anva_setup_page_builder_meta() {
+function anva_setup_content_builder_meta() {
 	
 	$setup = array(
 		'args' => array(
 			'id' 		=> '_anva_builder_options',
-			'title' 	=> __( 'Anva Page Builder', 'anva' ),
+			'title' 	=> __( 'Content Builder', 'anva' ),
 			'page'		=> array( 'page' ),
 			'context' 	=> 'normal',
 			'priority'	=> 'high',
 		),
-		'options'		=> anva_get_elements()
+		'options'		=> anva_get_elements() // Get content builder elements
 	);
 	
 	return apply_filters( 'anva_page_buider_meta', $setup );

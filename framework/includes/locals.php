@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Get all theme locals.
+ * Get all theme locals (not admin).
  *
  * @since  1.0.0
  * @return array $localize 
@@ -18,9 +18,9 @@ function anva_get_text_locals() {
 		'show_thumbnails'      => __( 'Show Thumbnails', 'anva' ),
 		'menu'                 => __( 'Menu', 'anva' ),
 		'menu_primary'         => __( 'Primary Menu', 'anva' ),
-		'menu_secondary'       => __( 'Top Bar Menu', 'anva' ),
-		'menu_tertiary'        => __( 'Footer Menu', 'anva' ),
-		'menu_message'         => __( 'Please configure the primary menu in Administration / Appearance / Menus.', 'anva' ),
+		'menu_top_bar'         => __( 'Top Bar Links', 'anva' ),
+		'menu_footer'          => __( 'Footer Copyright Links', 'anva' ),
+		'menu_message'         => __( 'Setup a custom menu at Appearance > Menus in your admin panel, and apply it to the "Primary Menu" location.', 'anva' ),
 		'404_title'            => __( 'Whoops! page not found', 'anva' ),
 		'404_sub_title'		   => __( 'Ooopps.! The Page you were looking for, couldn\'t be found.', 'anva' ),
 		'404_description'      => __( 'Try doing a search on the site or return to the home page.', 'anva' ),
@@ -132,18 +132,19 @@ function anva_get_text_locals() {
  */
 function anva_get_local( $id ) {
 
-	$text = null;
+	$text = NULL;
 	$localize = anva_get_text_locals();
 
 	if ( isset( $localize[ $id ] ) ) {
 		$text = $localize[ $id ];
 	}
 
-	return $text;
+	// Sanitize the output
+	return esc_html( $text );
 }
 
 /**
- * Get all js locals.
+ * Get all js locals (not admin).
  *
  * @since  1.0.0
  * @return array $localize
@@ -152,9 +153,9 @@ function anva_get_js_locals() {
 	
 	$localize = array(
 		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-		'themeUrl' => get_template_directory_uri(),
-		'themeImages' => get_template_directory_uri() . '/assets/images',
+		'themeUrl' => trailingslashit( get_template_directory_uri() ),
+		'themeImages' => trailingslashit( get_template_directory_uri() . '/assets/images' ),
 	);
 
-	return apply_filters( 'anva_get_js_locals', $localize );
+	return apply_filters( 'anva_js_locals', $localize );
 }

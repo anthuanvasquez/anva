@@ -133,11 +133,11 @@ class Anva_Options_Page {
 			return;
 		
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_CSS . 'codemirror/codemirror.css', array(), '5.13.2' );
-		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_CSS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
-		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_CSS . 'animsition.min.css', array(), '4.0.1' );
-		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_CSS . 'jquery-ui-custom.min.css', array(), '1.11.4' );
-		wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_CSS. 'jquery-ui-slider-pips.min.css', array(),  '1.7.2' );
+		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/codemirror/codemirror.css', array(), '5.13.2' );
+		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/codemirror/theme/mdn-like.css', array(), '5.13.2' );
+		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/animsition.min.css', array(), '4.0.1' );
+		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
+		wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_CSS. 'plugins/jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.7.2' );
 		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options.min.css', array(), ANVA_FRAMEWORK_VERSION );
 		
 	}
@@ -155,11 +155,11 @@ class Anva_Options_Page {
 			return;
 
 		// Enqueue custom option panel JS
-		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_JS . 'codemirror/codemirror.js', array( 'jquery' ), '5.13.2' );
-		wp_enqueue_script( 'codemirror_mode', ANVA_FRAMEWORK_ADMIN_JS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2' );
-		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_JS . 'vendor/jquery.animsition.min.js', array( 'jquery' ), '4.0.1' );
-		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_JS . 'jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2' );
-		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/codemirror/codemirror.js', array( 'jquery' ), '5.13.2', true );
+		wp_enqueue_script( 'codemirror_mode', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
+		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery.animsition.min.js', array( 'jquery' ), '4.0.1', true );
+		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
+		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options.min.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
 		
 		// Inline scripts from anva-options-interface.php

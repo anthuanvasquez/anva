@@ -1215,7 +1215,7 @@ function anva_breadcrumbs( $args = array() ) {
 function anva_get_gallery_grid( $post_id, $columns, $thumbnail ) {
 	
 	$classes 	 	= array();
-	$gallery 	 	= anva_get_gallery_field();
+	$gallery 	 	= anva_get_post_meta( '_anva_gallery_attachments' );
 	$gallery 	 	= anva_sort_gallery( $gallery );
 	$animate 	 	= anva_get_option( 'gallery_animate' );
 	$delay 	 		= anva_get_option( 'gallery_delay' );
@@ -1391,7 +1391,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 			$desc 	 = anva_get_post_meta( '_anva_description' );
 			$url 	 = anva_get_post_meta( '_anva_url' );
 			$content = anva_get_post_meta( '_anva_content' );
-			$image   = anva_get_featured_image( $id, 'anva_sm' );
+			$image   = anva_get_featured_image_src( $id, 'anva_sm' );
 			$a_tag   = '<a href="' . esc_url( $url ) . '">';
 			
 			$html .= '<div class="slide slide-'. esc_attr( $id ) . '" data-thumb="'. esc_attr( $image ) .'">';

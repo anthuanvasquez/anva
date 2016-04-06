@@ -428,6 +428,10 @@ jQuery(document).ready(function($) {
 					swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
 					return false;
 				}
+				if ( $new.length < 3 ) {
+					swal( 'Error', 'The name must have more than 3 characters.' );
+					return false;
+				}
 				$('.dynamic-sidebars ul').removeClass('empty');
 				var $sidebarName = $('#dynamic_sidebar_name').val();
 				var $optionName = s.optionName;

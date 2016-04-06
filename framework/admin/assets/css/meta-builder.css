@@ -15,61 +15,6 @@
   font-size: 1em;
 }
 
-.ui-tabs .ui-tabs-nav {
-  padding: 0;
-}
-
-.vertical.ui-tabs .ui-tabs-nav li {
-  width: 100%;
-  clear: both;
-}
-
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected {
-  border: 1px solid #e1e1e1;
-  border-top: 1px solid #e1e1e1;
-}
-
-.ui-tabs .ui-tabs-nav li.ui-state-active a {
-  outline: none;
-}
-
-.ui-tabs .ui-tabs-nav li a {
-  padding: 8px 20px 7px 20px;
-  outline: none;
-}
-
-.tabs .ui-tabs .ui-tabs-nav li {
-  font-weight: bold;
-  text-shadow: 0 1px 1px #fff;
-  display: block;
-}
-
-.tabs .ui-tabs-panel {
-  border: 1px solid #e1e1e1;
-  border-top: 0;
-  margin: 0;
-  padding-top: 0em;
-  background: #fff;
-  -webkit-border-radius: 0;
-          border-radius: 0;
-  z-index: 2;
-  position: relative;
-}
-
-.tabs .ui-state-active a {
-  color: #333;
-  font-weight: bold;
-}
-
-.ui-tabs.vertical li:first-child {
-  margin-left: 0;
-}
-
-.ui-tabs .ui-tabs-nav li a:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
-
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
@@ -566,36 +511,8 @@
 /* ---------------------------------------------------------------- */
 /* Draggable Items
 /* ---------------------------------------------------------------- */
-#elements-wrapper.ui-tabs .ui-tabs-nav li {
-  white-space: normal;
-}
-
-#elements-wrapper .ui-tabs-nav li a {
-  font-weight: normal;
-  font-family: "Open Sans", sans-serif;
-  font-size: 12px;
-  line-height: 24px;
-  padding: 6px 10px;
-}
-
-#elements-wrapper .ui-tabs-nav li.ui-state-active a {
-  color: #00a0d2;
-}
-
-#elements-wrapper .ui-widget-header {
-  border-right: 0;
-  border-left: 0;
-}
-
-#elements-wrapper.ui-tabs .ui-tabs-panel {
-  background: #fcfcfc;
-  border: 1px solid #ddd;
-  border-top: 0;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: 0 0 15px;
-  padding: 5px;
+#elements-wrap {
+  margin: 10px 0 20px;
 }
 
 .builder-elements {
@@ -697,33 +614,6 @@
   background: #00a0d2;
   color: #fff;
   z-index: 1;
-}
-
-.anva-builder-active .anva-input-checkbox {
-  border-bottom: 1px solid #e5e5e5;
-  margin: 12px 0 0px;
-  background: #f1f1f1;
-  padding: 0 12px 12px;
-  padding-left: 2px;
-  margin: -8px -14px 12px;
-}
-
-.anva-builder > h3,
-.anva-builder > .handlediv,
-.anva-builder h2.hndle {
-  display: none;
-}
-
-.anva-input-checkbox {
-  margin: 12px 0 0px;
-  background: #f1f1f1;
-  padding: 0 12px;
-  padding-left: 2px;
-  margin: -8px -14px -14px;
-}
-
-.anva-input-builder {
-  margin: 0;
 }
 
 .anva-input-builder-action {

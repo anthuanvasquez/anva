@@ -1,9 +1,9 @@
 <?php
 
-if ( ! class_exists( 'Anva_Gallery_Meta_Box' ) ) :
+if ( ! class_exists( 'Anva_Gallery' ) ) :
 
 /**
- * Anva Gallery Meta Box.
+ * Anva Gallery.
  *
  * @since  		1.0.0
  * @author      Anthuan Vásquez
@@ -11,7 +11,7 @@ if ( ! class_exists( 'Anva_Gallery_Meta_Box' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Gallery_Meta_Box
+class Anva_Gallery
 {
 	/**
 	 * ID for meta box and post field saved.
@@ -70,7 +70,7 @@ class Anva_Gallery_Meta_Box
 			if ( $typenow == $page ) {
 
 				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'meta-gallery.min.js', array(), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'meta-gallery.min.js', array(), ANVA_FRAMEWORK_VERSION, true );
 				wp_localize_script( 'anva-media-gallery', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
 				wp_enqueue_style( 'anva-gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
@@ -234,7 +234,7 @@ class Anva_Gallery_Meta_Box
 		}	
 		?>
 		<li class="attachment animated fadeIn" data-id="<?php echo esc_attr( $image[0] ); ?>">
-			<a href="<?php echo admin_url( 'post.php?post=' . $image[0] . '&action=edit' ); ?>">
+			<a href="<?php echo admin_url( 'post.php?post=' . $image[0] . '&action=edit' ); ?>" target="_blank">
 				<div class="attachment-preview <?php echo esc_attr( $class ); ?>">
 					<div class="thumbnail">
 						<div class="centered">

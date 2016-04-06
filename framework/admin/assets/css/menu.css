@@ -1,12 +1,21 @@
-.tb-field-link-mega,
-.tb-field-link-mega-hide-headers {
+.anva-field-link-mega,
+.anva-field-link-mega-hide-headers,
+.anva-field-link-mega-columns {
     display: none;
 }
-.menu-item-depth-0 .tb-field-link-mega,
-.menu-item-depth-0 .tb-field-link-mega-hide-headers {
+
+.anva-field-link-mega-columns select {
+    display: block;
+    width: 100%;
+}
+
+.menu-item-depth-0 .anva-field-link-mega,
+.menu-item-depth-0 .anva-field-link-mega-hide-headers,
+.menu-item-depth-0 .anva-field-link-mega-columns {
     display: block;
 }
-.menu-item-depth-0 .tb-field-link-deactivate,
-.menu-item-depth-0 .tb-field-link-placeholder {
+
+.menu-item-depth-0 .anva-field-link-deactivate,
+.menu-item-depth-0 .anva-field-link-placeholder {
     display: none;
 }

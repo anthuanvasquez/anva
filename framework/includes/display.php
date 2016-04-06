@@ -101,7 +101,7 @@ function anva_top_bar_default() {
 			<div class="col_half nobottommargin">
 				<!-- Top Links -->
 				<div class="top-links">
-					<?php do_action( 'anva_header_secondary_menu' ); ?>
+					<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
 				</div><!-- .top-links end -->
 			</div>
 
@@ -117,19 +117,6 @@ function anva_top_bar_default() {
 		</div>
 	</div><!-- #top-bar end -->
 	<?php
-}
-
-function anva_secondary_menu_default() {
-	wp_nav_menu( apply_filters( 'anva_secondary_menu_default', array(
-		'theme_location'  => 'secondary',
-		'container'       => '',
-		'container_class' => '',
-		'container_id'    => '',
-		'menu_class'      => '',
-		'menu_id'         => '',
-		'echo'            => true,
-		'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>'
-	) ) );
 }
 
 /**
@@ -282,50 +269,35 @@ function anva_header_extras_default() {
  * @since 1.0.0
  */
 function anva_header_primary_menu_default() {
-	if ( has_nav_menu( 'primary' ) ) :
-		$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' ); ?>
-		<nav id="primary-menu" <?php anva_primary_menu_class(); ?>>
+	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' ); ?>
+	<nav id="primary-menu" <?php anva_primary_menu_class(); ?>>
 
-			<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
-				<div class="container clearfix">
-					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-			<?php endif; ?>
-
-			<?php
-				wp_nav_menu( apply_filters( 'anva_primary_menu_default', array(
-					'theme_location'  => 'primary',
-					'container'       => '',
-					'container_class' => '',
-					'container_id'    => '',
-					'menu_class'      => '',
-					'menu_id'         => '',
-					'echo'            => true,
-					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>'
-				) ) );
-				do_action( 'anva_header_primary_menu_addon' );
-			?>
-
-			<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
-				</div><!-- .container (end) -->
-			<?php endif; ?>
-
-		</nav><!-- #primary-menu (end) -->
-		
-		<?php
-		// Show social icons in side header
-		$side_header_icons = anva_get_option( 'side_header_icons' );
-		$header_type = anva_get_header_type();
-		if (  'side' == $header_type && $side_header_icons ) : ?>
-			<div class="clearfix visible-md visible-lg">
-				<?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?>
-			</div>
+		<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
+			<div class="container clearfix">
+				<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 		<?php endif; ?>
 
-	<?php else : ?>
-		<div class="container clearfix">
-			<div class="navigation-message well well-sm"><?php echo anva_get_local( 'menu_message' ); ?></div>
+		<?php
+			wp_nav_menu( anva_get_wp_nav_menu_args( 'primary' ) );
+			do_action( 'anva_header_primary_menu_addon' );
+		?>
+
+		<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
+			</div><!-- .container (end) -->
+		<?php endif; ?>
+
+	</nav><!-- #primary-menu (end) -->
+	
+	<?php
+	// Show social icons in side header
+	$side_header_icons = anva_get_option( 'side_header_icons' );
+	$header_type = anva_get_header_type();
+	if (  'side' == $header_type && $side_header_icons ) : ?>
+		<div class="clearfix visible-md visible-lg">
+			<?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?>
 		</div>
-	<?php endif;
+	<?php
+	endif;
 }
 
 /**
@@ -439,7 +411,7 @@ function anva_footer_copyrights_default() {
 	<div class="col_half">
 		<div class="copyright-text"><?php echo $footer_copyright; ?></div>
 		<div class="copyright-links">
-			<!-- @todo footer links -->
+			<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'footer' ) ); ?>
 		</div>
 	</div>
 	

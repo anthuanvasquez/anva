@@ -1,13 +1,13 @@
 <?php
 
 // Customizer Extensions
-include_once ( 'customizer/custom-controls.php' );
+include_once ( 'custom-controls.php' );
 
 // Customizer Previews
-include_once ( 'customizer/preview.php' );
+include_once ( 'preview.php' );
 
 // Customizer Utilities
-include_once ( 'customizer/utilities.php' );
+include_once ( 'utilities.php' );
 
 /**
  * Add option section for theme customizer added in WP 3.4.
@@ -263,7 +263,12 @@ function anva_customizer_init( $wp_customize ) {
 									switch ( $attribute ) {
 
 										case 'size' :
-											
+											$size_options = array();
+											for($i = 9; $i < 71; $i++) {
+												$size = $i . 'px';
+												$size_options[$size] = $size;
+											}
+
 											$wp_customize->add_control(
 												$option['id'] . '_' . $attribute, array(
 													'priority'		=> $font_counter,
@@ -271,7 +276,7 @@ function anva_customizer_init( $wp_customize ) {
 													'label'   		=> $option['label'] . ' ' . ucfirst( $attribute ),
 													'section'    	=> $section['id'],
 													'type'       	=> 'select',
-													'choices'    	=> anva_recognized_font_sizes(),
+													'choices'    	=> $size_options,
 												)
 											);
 
@@ -361,8 +366,14 @@ function anva_customizer_init( $wp_customize ) {
 													'settings'		=> $option_name . '[' . $option['id'] . ']',
 													'label'   		=> $option['label'],
 													'section'    	=> $section['id'],
-													'type'       	=> 'select',
-													'choices'    	=> anva_recognized_font_sizes(),
+													'type'       	=> 'range',
+													'input_attrs' => array(
+												        'min'   => 9,
+												        'max'   => 72,
+												        'step'  => 1,
+												        'class' => 'test-class test',
+												        'style' => 'color: #0a0',
+												    ),
 												)
 											);
 
@@ -396,28 +407,26 @@ function anva_customizer_init( $wp_customize ) {
 								
 							} else {
 
-								// $font_counter++;
+								$font_counter++;
 
-								// $wp_customize->add_setting(
-								// 	$option_name . '[' . $option['id'] . ']', array(
-								// 		'type'       	=> 'option',
-								// 		'capability' 	=> 'edit_theme_options',
-								// 		'transport'		=> $transport,
-								// 	)
-								// );
+								$wp_customize->add_setting(
+									$option_name . '[' . $option['id'] . ']', array(
+										'type'       	=> 'option',
+										'capability' 	=> 'edit_theme_options',
+										'transport'		=> $transport,
+									)
+								);
 
-								var_dump($option);
-
-								// $wp_customize->add_control(
-								// 	$option['id'], array(
-								// 		'priority'		=> $font_counter,
-								// 		'settings'		=> $option_name . '[' . $option['id'] . ']',
-								// 		'label'   		=> $option['label'],
-								// 		'section'    	=> $section['id'],
-								// 		'type'       	=> 'select',
-								// 		'choices'    	=> anva_recognized_font_sizes(),
-								// 	)
-								// );
+								$wp_customize->add_control(
+									$option['id'], array(
+										'priority'		=> $font_counter,
+										'settings'		=> $option_name . '[' . $option['id'] . ']',
+										'label'   		=> $option['label'],
+										'section'    	=> $section['id'],
+										'type'       	=> 'select',
+										'choices'    	=> anva_recognized_font_sizes(),
+									)
+								);
 
 							}
 

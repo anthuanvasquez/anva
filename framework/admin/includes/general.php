@@ -23,6 +23,47 @@ function anva_admin_init() {
 }
 
 /**
+ * Gets option name.
+ *
+ * @since 1.0.0
+ */
+function anva_get_option_name() {
+
+	$name = '';
+
+	// Gets option name as defined in the theme
+	if ( function_exists( 'anva_option_name' ) ) {
+		$name = anva_option_name();
+	}
+
+	// Fallback
+	if ( '' == $name ) {
+		$name = get_option( 'stylesheet' );
+		$name = preg_replace( "/\W/", "_", strtolower( $name ) );
+	}
+
+	return apply_filters( 'anva_option_name', $name );
+
+}
+
+/**
+ * Allows for manipulating or setting options via 'anva_options' filter.
+ *
+ * @since  1.0.0
+ * @return array $options
+ */
+function anva_get_options() {
+
+	// Get options from api class Anva_Options_API
+	$options = anva_get_formatted_options();
+
+	// Allow setting/manipulating options via filters
+	$options = apply_filters( 'anva_options', $options );
+
+	return $options;
+}
+
+/**
  * Admin Assets.
  *
  * @global $pagenow
@@ -41,8 +82,8 @@ function anva_admin_assets() {
 	}
 
 	// Includes admin global
-	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'sweetalert.min.css', array(), '1.1.3' );
-	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3', true );
+	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/sweetalert.min.css', array(), '1.1.3' );
+	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/sweetalert.min.js', array( 'jquery' ), '1.1.3', true );
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-global.min.css', array(), ANVA_FRAMEWORK_VERSION );
 	wp_enqueue_style( 'anva_admin_responive', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-responsive.min.css', array(), ANVA_FRAMEWORK_VERSION );
 

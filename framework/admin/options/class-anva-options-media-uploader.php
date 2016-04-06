@@ -46,7 +46,7 @@ class Anva_Options_Media_Uploader {
 		}
 
 		if ( $_name != '' ) {
-			$name = $_name . '[' . $id . ']';
+			$name = $_name;
 		} else {
 			$name = $option_name . '[' . $id . ']';
 		}

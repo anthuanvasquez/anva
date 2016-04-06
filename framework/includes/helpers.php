@@ -13,7 +13,7 @@
 function anva_elements() {
 
 	// Get settings
-	$settings = anva_get_page_builder_field();
+	$settings = anva_get_post_meta( '_anva_builder_options' );
 
 	// Kill it if there's no order
 	if ( isset( $settings['order'] ) && empty( $settings['order'] ) ) {
@@ -28,15 +28,15 @@ function anva_elements() {
 
 		$atts 		= array();
 		$classes 	= array();
-		$data 		= $settings[$item]['data'];
+		$data 		= $settings[ $item ]['data'];
 		$obj 		= json_decode( $data );
 		$content 	= $obj->shortcode . '_content';
 		$shortcode 	= $obj->shortcode;
 
 		$counter++;
 
-		// Validate if elements exist
-		if ( anva_is_element( $shortcode ) ) {
+		// Check if the element exists.
+		if ( anva_element_exists( $shortcode ) ) {
 
 			$shortcodes = anva_get_elements();
 
@@ -58,18 +58,21 @@ function anva_elements() {
 			if ( isset( $obj->$content ) ) {
 				$classes[] = 'element-has-content';
 				$content   = urldecode( $obj->$content );
+			} else {
+				$content = NULL;
 			}
+
+			$classes = implode( ' ', $classes );
+
+			echo '<section id="section-' . esc_attr( $counter ) . '" class="section section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
+			echo '<div id="element-' .  esc_attr( $item ) . '" class="element element-' . esc_attr( $item ) . ' element-' .  esc_attr( $shortcode ) . '">';
+
+			do_action( 'anva_element_' . $shortcode, $atts, $content );
+
+			echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
+			echo '</section><!-- .section-' . esc_attr( $item ) . ' (end) -->';
 		}
 
-		$classes = implode( ' ', $classes );
-
-		echo '<section id="section-' . esc_attr( $counter ) . '" class="section section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
-		echo '<div id="element-' .  esc_attr( $item ) . '" class="element element-' . esc_attr( $item ) . ' element-' .  esc_attr( $shortcode ) . '">';
-
-		do_action( 'anva_element_' . $shortcode, $atts, $content );
-
-		echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
-		echo '</section><!-- .section-' . esc_attr( $item ) . ' (end) -->';
 	}
 
 	return false;
@@ -385,6 +388,41 @@ function anva_wp_title( $title, $sep ) {
 	}
 
 	return apply_filters( 'anva_wp_title', $title );
+}
+
+/**
+ * Print page transition data.
+ * 
+ * @return string $data
+ */
+function anva_page_transition_data() {
+
+	// Get loader data
+	$loader        = anva_get_option( 'page_loader', 1 );
+	$color         = anva_get_option( 'page_loader_color', 1 );
+	$timeout       = anva_get_option( 'page_loader_timeout', 1000 );
+	$speed_in      = anva_get_option( 'page_loader_speed_in', 800 );
+	$speed_out     = anva_get_option( 'page_loader_speed_out', 800 );
+	$animation_in  = anva_get_option( 'page_loader_animation_in', 'fadeIn' );
+	$animation_out = anva_get_option( 'page_loader_animation_out', 'fadeOut' );
+	$html          = anva_get_option( 'page_loader_html' );
+	$data          = '';
+
+	if ( $loader ) {
+		$data .= 'data-loader="' . esc_attr( $loader ) . '"';
+		$data .= 'data-loader-color="' . esc_attr( $color ) . '"';
+		$data .= 'data-loader-timeout="' . esc_attr( $timeout ) . '"';
+		$data .= 'data-speed-in="' . esc_attr( $speed_in ) . '"';
+		$data .= 'data-speed-out="' . esc_attr( $speed_out ) . '"';
+		$data .= 'data-animation-in="' . esc_attr( $animation_in ) . '"';
+		$data .= 'data-animation-out="' . esc_attr( $animation_out ) . '"';
+		
+		if ( $html ) {
+			$data .= 'data-loader-html="' . esc_attr( $html ) . '"';
+		}
+	}
+
+	echo $data;
 }
 
 /**
