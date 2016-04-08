@@ -32,13 +32,23 @@ class Anva
     const VERSION = '1.0.0';
 
     /**
-     * Singleton design pattern. Only one object, so no clones for you.
+     * Cloning is forbidden.
      *
      * @since  1.0.0
      * @return error Throw error on object clone.
      */
     public function __clone()
     {
+        _doing_it_wrong( __FUNCTION__, __( 'Cheating Huh?', 'anva' ), self::VERSION );
+    }
+
+    /**
+     * Unserializing instances of this class is forbidden.
+     *
+     * @since  1.0.0
+     * @return error Throw error on object unserializing.
+     */
+    public function __wakeup() {
         _doing_it_wrong( __FUNCTION__, __( 'Cheating Huh?', 'anva' ), self::VERSION );
     }
 
@@ -98,7 +108,7 @@ class Anva
     {
     	// Admin
         include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-page.php' );
-        include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-backup.php' );
+        include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-import-export.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-media-uploader.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'options/options-interface.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'options/options-sanitization.php' );
@@ -112,14 +122,14 @@ class Anva
         include_once( ANVA_FRAMEWORK_ADMIN . 'plugins/plugins.php' ); 
 
         // API and helpers
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/class-anva-options-api.php' );
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/class-anva-sidebars-api.php' );
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/class-anva-stylesheets-api.php' );
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/class-anva-scripts-api.php' );
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/class-anva-content-builder-api.php' );
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/class-anva-sliders-api.php' );
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/customizer/customizer.php' );
-        include_once( ANVA_FRAMEWORK_DIR . 'includes/api/helpers.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'api/class-anva-options-api.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'api/class-anva-sidebars-api.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'api/class-anva-stylesheets-api.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'api/class-anva-scripts-api.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'api/class-anva-content-builder-api.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'api/class-anva-sliders-api.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'api/helpers.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'customizer/customizer.php' );
 
         // General
         include_once( ANVA_FRAMEWORK_DIR . 'includes/general.php' );
@@ -141,16 +151,16 @@ class Anva
     public function set_core_hooks()
     {
         // Admin
-        add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
-        add_action( 'admin_init', 'anva_add_meta_boxes_default' );
-        add_action( 'admin_enqueue_scripts', 'anva_admin_assets', 1 );
         add_action( 'init', 'anva_admin_init', 1 );
+        add_action( 'admin_init', 'anva_add_meta_boxes_default' );
+        add_action( 'admin_enqueue_scripts', 'anva_admin_assets', 20 );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_credits' );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
         add_action( 'anva_options_backup_after_fields', 'anva_admin_footer_credits' );
         add_action( 'anva_options_backup_after_fields', 'anva_admin_footer_links' );
         add_action( 'anva_options_page_before', 'anva_add_settings_flash', 10 );
         add_action( 'anva_options_page_before', 'anva_add_settings_change', 10 );
+        add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
 
         // Init
         add_filter( 'body_class', 'anva_body_class' );
@@ -163,6 +173,7 @@ class Anva
         add_filter( 'the_content', 'anva_content_format_video', 7 );
         add_filter( 'the_content', 'anva_content_format_quote', 7 );
         add_filter( 'the_content', 'anva_content_format_link', 7 );
+        add_filter( 'nav_menu_css_class', 'anva_nav_menu_css_class', 10, 4 );
         add_action( 'init', 'anva_register_menus' );
         add_action( 'init', 'anva_contact_send_email' );
         add_action( 'customize_register', 'anva_customizer_init' );
@@ -174,20 +185,18 @@ class Anva
         add_action( 'after_setup_theme', 'anva_add_theme_support', 10  );
         add_action( 'after_setup_theme', 'anva_require_theme_supports', 12 );
         add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
+        add_action( 'after_setup_theme', 'anva_load_theme_texdomain' );
         add_action( 'image_size_names_choose', 'anva_image_size_names_choose' );
         add_filter( 'wp_head', 'anva_wp_title_compat', 5 );
         add_action( 'wp_head', 'anva_head_apple_touch_icon' );
         add_action( 'wp_head', 'anva_head_viewport', 1 );
-        add_action( 'wp_footer', 'anva_footer_ghost', 1000 );
-        add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
-        add_action( 'wp', 'anva_setup_author' );
         add_action( 'wp_loaded', 'anva_customizer_preview' );
+        add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
+        add_action( 'wp', 'anva_setup_author' );
 
         // Framework's actions and filters
         add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
-        add_action( 'anva_textdomain', 'anva_load_theme_texdomain' );
         add_action( 'anva_api', 'anva_api_init' );
-        // add_action( 'anva_top_before', 'anva_side_menu' );
         add_action( 'anva_header_above', 'anva_top_bar_default' );
         add_action( 'anva_header_above', 'anva_sidebar_above_header' );
         add_action( 'anva_header_extras', 'anva_header_extras_default' );
@@ -215,6 +224,7 @@ class Anva
         add_action( 'anva_sidebar_before', 'anva_sidebar_before_default' );
         add_action( 'anva_sidebar_after', 'anva_sidebar_after_default' );
         add_action( 'anva_sidebars', 'anva_sidebars_default' );
+        add_action( 'anva_before', 'anva_side_panel_default' );
         add_action( 'anva_after', 'anva_debug' );
         add_action( 'anva_slider_standard', 'anva_slider_standard_default', 9, 2 );
         add_action( 'anva_slider_owl', 'anva_slider_owl_default', 9, 2 );
@@ -222,9 +232,6 @@ class Anva
         add_action( 'anva_slider_bootstrap', 'anva_slider_bootstrap_default', 9, 2 );
         add_action( 'anva_slider_swiper', 'anva_slider_swiper_default', 9, 2 );
         add_action( 'anva_slider_camera', 'anva_slider_camera_default', 9, 2 );
-
-        // Initialize Textdomain
-        do_action( 'anva_textdomain' );
 
         // Initialize API
         do_action( 'anva_api_before' );

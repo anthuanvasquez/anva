@@ -1,5 +1,8 @@
 <?php
 
+// Instantiate the import export options
+Anva_Options_Import_Export::instance();
+
 /**
  * Init admin modules.
  *
@@ -7,18 +10,12 @@
  * @return void
  */
 function anva_admin_init() {
-
-	// Instantiate the options page
-	$options_page = new Anva_Options_Page;
-	$options_page->init();
 	
-	// Instantiate the options backup
-	$options_backup = new Anva_Options_Backup();
-	$options_backup->init();
-
+	// Instantiate the options page
+	Anva_Options_Page::instance();
+	
 	// Instantiate the media uploader class
-	$options_media_uploader = new Anva_Options_Media_Uploader;
-	$options_media_uploader->init();
+	Anva_Options_Media_Uploader::instance();
 
 }
 

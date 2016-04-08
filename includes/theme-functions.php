@@ -28,7 +28,9 @@ function theme_body_classes( $classes ) {
 	$layout_style       = anva_get_option( 'layout_style' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 	$header_type        = anva_get_option( 'header_type', 'default' );
-	$loader        		= anva_get_option( 'page_loader', 1 );
+	$side_panel_type    = anva_get_option( 'side_panel_type' );
+	$side_panel_display = anva_get_option( 'side_panel_display' );
+	$loader             = anva_get_option( 'page_loader', 1 );
 	
 	// Get all header types
 	$types = anva_get_header_types();
@@ -38,6 +40,9 @@ function theme_body_classes( $classes ) {
 
 	// Current header type
 	$type = anva_get_header_type();
+	
+	// Get side panel types
+	$side_panel_types = anva_get_side_panel_types();
 
 	// Add base color
 	if ( 'dark' == $base_color ) {
@@ -66,6 +71,13 @@ function theme_body_classes( $classes ) {
 		}
 	}
 
+	// Add side panel type
+	if ( isset( $side_panel_types[ $side_panel_type ] ) && $side_panel_display ) {
+		if ( ! empty( $side_panel_types[ $side_panel_type ]['class'] ) ) {
+			$classes[] = $side_panel_types[ $side_panel_type ]['class'];
+		}
+	}
+
 	// Add primary menu style
 	if ( isset( $styles[ $primary_menu_style ] )  ) {
 		if ( ! empty( $styles[ $primary_menu_style ]['classes']['body'] ) && 'side' != $type ) {
@@ -85,7 +97,7 @@ function theme_body_classes( $classes ) {
 function theme_header_classes( $classes ) {
 	
 	$header_color       = anva_get_option( 'header_color', 'light' );
-	$header_style       = anva_get_option( 'header_style', 'full-header' );
+	$header_layout      = anva_get_option( 'header_layout' );
 	$header_type        = anva_get_option( 'header_type', 'default' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 	
@@ -99,8 +111,8 @@ function theme_header_classes( $classes ) {
 	$type = anva_get_header_type();
 
 	// Add header style
-	if ( 'side' != $type && $header_style ) {
-		$classes[] = $header_style;
+	if ( 'side' != $type && $header_layout ) {
+		$classes[] = $header_layout;
 	}
 
 	// Add header typr
@@ -552,6 +564,7 @@ add_filter( 'body_class', 'theme_body_classes', 10 );
 add_filter( 'anva_header_class', 'theme_header_classes', 10 );
 add_filter( 'anva_primary_menu_class', 'theme_primary_menu_classes', 10 );
 add_action( 'anva_header_above', 'theme_header_trigger' );
+add_action( 'anva_footer_below', 'theme_gototop', 100 );
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
 add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );

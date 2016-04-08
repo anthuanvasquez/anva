@@ -21,6 +21,7 @@ function anva_admin_theme_activate() {
  * @return void
  */
 function anva_add_settings_flash() {
+	return;
 	if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true ) : ?>
 		<script type="text/javascript">
 		window.onload = function() {

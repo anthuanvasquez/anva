@@ -1,12 +1,21 @@
 <?php
 
 /**
- * create the options page panel.
+ * Create the options page panel.
  *
  * @since  1.0.0
  * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
-class Anva_Options_Page {
+class Anva_Options_Page
+{
+	/**
+	 * A single instance of this class.
+ 	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @var    object
+	 */
+	private static $instance = NULL;
 
 	/**
 	 * Page hook for the options screen.
@@ -14,7 +23,21 @@ class Anva_Options_Page {
 	 * @since 1.0.0
 	 * @var   string
 	 */
-	protected $options_screen = null;
+	protected $options_screen = NULL;
+
+	/**
+	 * Creates or returns an instance of this class.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function instance()
+	{	
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 
 	/**
 	 * Hook in the scripts and styles.
@@ -22,7 +45,7 @@ class Anva_Options_Page {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function init()
+	public function __construct()
 	{
 		if ( is_admin() && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
 			
@@ -203,12 +226,12 @@ class Anva_Options_Page {
 			 ?>
 			
 			<?php do_action( 'anva_options_page_top' ); ?>
+			
+			<?php settings_errors( 'anva-options-page-errors' ); ?>
 
 			<h2 class="nav-tab-wrapper">
 				<?php echo anva_get_options_tabs( $options ); ?>
 			</h2>
-			
-			<?php settings_errors( 'anva-options-page-errors' ); ?>
 			
 			<?php do_action( 'anva_options_page_before' ); ?>
 
@@ -283,7 +306,7 @@ class Anva_Options_Page {
 		 */
 		if ( isset( $_POST['reset'] ) ) {
 
-			// Delete log
+			// Delete option log
 			delete_option( $option_name . '_log' );
 
 			// Add notice

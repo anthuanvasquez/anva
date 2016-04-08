@@ -152,8 +152,8 @@ class Anva_Options_API
 				'class' => 'group-layout',
 				'options' => array(
 					'layout_style' => array(
-						'name' => __('Layout Style', 'anva'),
-						'desc' => __('Select the layout style.', 'anva'),
+						'name' => __('Site Layout Style', 'anva'),
+						'desc' => __('Select the layout style of the site, you can use boxed or stretched.', 'anva'),
 						'id' => 'layout_style',
 						'std' => 'stretched',
 						'class' => 'input-select',
@@ -201,21 +201,17 @@ class Anva_Options_API
 						'options' => $layouts
 					),
 					'sidebar_message' => array(
-						'name' => __( 'Default Sidebar Layout', 'anva'),
-						'desc' => __( 'Select if you want display a message when the sidebars don\'t have any widgets.', 'anva'),
+						'name' => __( 'Sidebar Message', 'anva'),
+						'desc' => __( 'Display a message when the sidebars don\'t have any widgets.', 'anva'),
 						'id' => 'sidebar_message',
-						'std' => 'no',
-						'type' => 'select',
-						'options' => array(
-							'yes' => __( 'Yes, display a message', 'anva' ),
-							'no'  => __( 'No, I don\'t want show messages', 'anva' )
-						)
+						'std' => '0',
+						'type' => 'checkbox',
 					),
 					'dynamic_sidebar' => array(
 						'name' => __( 'Custom Sidebars', 'anva' ),
-						'desc' => __( 'Add a custom sidebar.', 'anva' ),
+						'desc' => __( 'Add a custom sidebars.', 'anva' ),
 						'id' => 'dynamic_sidebar',
-						'std' => '',
+						'std' => array(),
 						'type' => 'sidebar'
 					),
 				)
@@ -303,10 +299,10 @@ class Anva_Options_API
 					),
 					'footer_copyright' => array(
 						'name' => __( 'Copyright Text', 'anva' ),
-						'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your site. <em>%year%</em> — Show current year. <em>%site_title%</em> — Show your site title.', 'anva' ),
+						'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your site. You can use basic HTML. <br /><br /><em>%year%</em> show current year. <br /><em>%site_title%</em> show your site title.', 'anva' ),
 						'id' => "footer_copyright",
-						'std' => '(c) %year% %site_title%. ' . sprintf( __( 'Powered by %s. Designed by %s.', 'anva' ), '<a href="' . esc_url( 'http://wordpress.org' ) . '" title="WordPress" target="_blank">WordPress</a>', $author ),
-						'type' => "textarea"
+						'std' => 'Copyright %year% %site_title%. ' . sprintf( __( 'Powered by %s. Designed by %s.', 'anva' ), '<a href="' . esc_url( 'http://wordpress.org' ) . '" title="WordPress" target="_blank">WordPress</a>', $author ),
+						'type' => 'textarea'
 					),
 				)
 			),
@@ -422,12 +418,19 @@ class Anva_Options_API
 						'name' => __('Featured Images', 'anva'),
 						'desc' => __('Choose how you want your featured images to show in primary posts.', 'anva'),
 						'id' => 'primary_thumb',
-						'std' => 'large',
+						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
 							'show' => __('Show featured images', 'anva'),
 							'hide' => __('Hide featured images', 'anva'),
 						)
+					),
+					'primary_small' => array(
+						'name' => __('Small Featured Images', 'anva'),
+						'desc' => __('Use small thumbnails for featured images on post list.', 'anva'),
+						'id' => 'primary_small',
+						'std' => '0',
+						'type' => 'checkbox',
 					),
 					'primary_content' => array(
 						'name' => __('Excerpt or Content', 'anva'),
@@ -559,21 +562,17 @@ class Anva_Options_API
 		/* ---------------------------------------------------------------- */
 
 		$advanced_options = array(
-			'responsive' => array(
-				'name' 	=> __( 'Responsive', 'anva' ),
-				'class' => 'group-responsive',
+			'main' => array(
+				'name' 	=> __( 'Main', 'anva' ),
+				'class' => 'group-main-advanced',
 				'type' 	=> 'group_start',
 				'options' => array(
 					'responsive' => array(
 						'name' => __( 'Responsive', 'anva' ),
-						'desc' => __( 'This theme comes with a special stylesheet that will target the screen resolution of your website vistors and show them a slightly modified design if their screen resolution matches common sizes for a tablet or a mobile device.', 'anva' ),
+						'desc' => __( '<strong>Responsive:</strong> Apply special styles to tablets and mobile devices.', 'anva' ),
 						'id' => "responsive",
-						'std' => 'yes',
-						'type' => 'select',
-						'options' => array(
-							'yes' => __( 'Yes, apply special styles to tablets and mobile devices', 'anva' ),
-							'no' 	=> __( 'No, show normally on tablets and mobile devices', 'anva' ),
-						)
+						'std' => '1',
+						'type' => 'checkbox',
 					),
 				)
 			),

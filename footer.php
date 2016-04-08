@@ -47,7 +47,6 @@
 	</footer><!-- FOOTER (end) -->
 
 	<?php do_action( 'anva_footer_below' ); ?>
-	<?php do_action( 'anva_bottom_after' ); ?>
 
 </div><!-- WRAPPER (end) -->
 

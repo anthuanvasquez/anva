@@ -56,6 +56,29 @@ function anva_register_menus() {
 }
 
 /**
+ * Add CSS classes to main menu list items.
+ *
+ * @since  1.0.0
+ * @param  array  $classes
+ * @param  object $item
+ * @param  array  $args
+ * @param  int    $depth
+ * @return array $classes
+ */
+function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 ) {
+	
+	// Add level to menu
+	$classes[] = sprintf( 'level-%s', $depth + 1 );
+
+	//  Change current menu item class
+	if ( in_array( 'current-menu-item', $classes ) ) {
+		$classes[] = 'current';
+	}
+
+	return $classes;
+}
+
+/**
  * Get theme data.
  *
  * @since  1.0.0
@@ -82,6 +105,52 @@ function anva_get_theme( $id ) {
 	}
 
 	return $text;
+}
+
+/**
+ * Set allowed tags.
+ *
+ * @global $allowedposttags
+ * 
+ * @since  1.0.0
+ * @return array $tags
+ */
+function anva_allowed_tags() {
+
+	global $allowedposttags;
+
+	$tags = $allowedposttags;
+
+	// iFrame tag
+	$tags['iframe'] = array(
+		'style' 				=> true,
+		'width' 				=> true,
+		'height' 				=> true,
+		'src' 					=> true,
+		'frameborder'			=> true,
+		'allowfullscreen' 		=> true,
+		'webkitAllowFullScreen'	=> true,
+		'mozallowfullscreen' 	=> true
+	);
+
+	// Script tag
+	$tags['script'] = array(
+		'type'					=> true,
+		'src' 					=> true
+	);
+
+	return apply_filters( 'anva_allowed_tags', $tags );
+}
+
+/**
+ * Apply wp_kses() to content allowed tags.
+ *
+ * @since  1.0.0
+ * @param  string $input
+ * @return string $input
+ */
+function anva_kses( $input ) {
+	return wp_kses( $input, anva_allowed_tags() );
 }
 
 /**
@@ -367,6 +436,34 @@ function anva_get_header_types() {
 	);
 
 	return apply_filters( 'anva_header_types', $header_types );
+}
+
+/**
+ * Get side panel types.
+ * 
+ * @return array $side_panels
+ */
+function anva_get_side_panel_types() {
+	$side_panels = array(
+		'left_overlay' => array(
+			'name' => __( 'Left Overlay', 'anva' ),
+			'class' => 'side-panel-left',
+		),
+		'left_push' => array(
+			'name' => __( 'Left Pushed', 'anva' ),
+			'class' => 'side-panel-left side-push-panel',
+		),
+		'right_overlay' => array(
+			'name' => __( 'Right Overlay', 'anva' ),
+			'class' => '',
+		),
+		'right_push' => array(
+			'name' => __( 'Right Pushed', 'anva' ),
+			'class' => 'side-push-panel',
+		),
+	);
+
+	return apply_filters( 'anva_side_panel_types', $side_panels );
 }
 
 /**

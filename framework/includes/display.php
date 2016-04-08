@@ -206,6 +206,24 @@ function anva_header_logo_default() {
 	echo '</div><!-- #logo (end) -->';
 }
 
+function anva_side_panel_default() {
+	$side_panel_display = anva_get_option( 'side_panel_display' );
+	if ( ! $side_panel_display && 'side' == anva_get_header_type() ) {
+		return;
+	}
+	?>
+	<div class="body-overlay"></div>
+	<div id="side-panel" class="dark">
+		<div id="side-panel-trigger-close" class="side-panel-trigger">
+			<a href="#"><i class="icon-line-cross"></i></a>
+		</div>
+		<div class="side-panel-wrap">
+			<?php anva_display_sidebar( 'side_panel_sidebar' ); ?>
+		</div>
+	</div>
+	<?php
+}
+
 function anva_header() {
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 
@@ -312,44 +330,14 @@ function anva_header_primary_menu_addon_default() {
 		return;
 	}
 
-	// get primary menu style
+	$side_panel_display = anva_get_option( 'side_panel_display' );	
+
+	// Get primary menu style
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
+	
+	// Display top cart products.
+	anva_top_cart();
 	?>
-	<!-- Top Cart -->
-	<div id="top-cart">
-		<a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
-		<div class="top-cart-content">
-			<div class="top-cart-title">
-				<h4>Shopping Cart</h4>
-			</div>
-			<div class="top-cart-items">
-				<div class="top-cart-item clearfix">
-					<div class="top-cart-item-image">
-						<a href="#"><img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/1.jpg'; ?>" alt="Blue Round-Neck Tshirt" /></a>
-					</div>
-					<div class="top-cart-item-desc">
-						<a href="#">Blue Round-Neck Tshirt</a>
-						<span class="top-cart-item-price">$19.99</span>
-						<span class="top-cart-item-quantity">x 2</span>
-					</div>
-				</div>
-				<div class="top-cart-item clearfix">
-					<div class="top-cart-item-image">
-						<a href="#"><img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/6.jpg'; ?>" alt="Light Blue Denim Dress" /></a>
-					</div>
-					<div class="top-cart-item-desc">
-						<a href="#">Light Blue Denim Dress</a>
-						<span class="top-cart-item-price">$24.99</span>
-						<span class="top-cart-item-quantity">x 3</span>
-					</div>
-				</div>
-			</div>
-			<div class="top-cart-action clearfix">
-				<span class="fleft top-checkout-price">$114.95</span>
-				<button class="button button-3d button-small nomargin fright">View Cart</button>
-			</div>
-		</div>
-	</div><!-- #top-cart end -->
 	
 	<!-- Top Lang -->
 	<div id="top-lang">
@@ -373,6 +361,12 @@ function anva_header_primary_menu_addon_default() {
 			<input type="text" name="s" class="form-control" value="" placeholder="<?php _e( 'Type & Hit Enter..', 'anva' ); ?>">
 		</form>
 	</div><!-- #top-search end -->
+	
+	<?php if ( $side_panel_display && 'style_10' != $primary_menu_style ) : ?>
+		<div id="side-panel-trigger" class="side-panel-trigger">
+			<a href="#"><i class="icon-reorder"></i></a>
+		</div>
+	<?php endif; ?>
 
 	<?php if ( 'style_10' == $primary_menu_style ) : ?>
 		<a href="#" id="overlay-menu-close" class="visible-lg-block visible-md-block"><i class="icon-line-cross"></i></a>
@@ -388,13 +382,14 @@ function anva_header_primary_menu_addon_default() {
  */
 function anva_footer_content_default() {
 	$footer_setup = anva_get_option( 'footer_setup' );
-	if ( isset( $footer_setup['num'] ) && $footer_setup['num'] ) :
+	if ( ! isset( $footer_setup['num'] ) && ! $footer_setup['num'] ) {
+		return;
+	}
 	?>
 	<div class="footer-widgets-wrap clearfix">
 		<?php anva_display_footer_sidebar_locations(); ?>
 	</div>
 	<?php
-	endif;
 }
 
 /**
@@ -406,10 +401,11 @@ function anva_footer_copyrights_default() {
 	
 	$footer_copyright = anva_get_option( 'footer_copyright' );
 	$footer_copyright = anva_footer_copyright_helpers( $footer_copyright );
+	$display = anva_get_option( 'footer_extra_display' );
 
 	?>
 	<div class="col_half">
-		<div class="copyright-text"><?php echo $footer_copyright; ?></div>
+		<div class="copyright-text"><?php echo anva_kses( $footer_copyright ); ?></div>
 		<div class="copyright-links">
 			<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'footer' ) ); ?>
 		</div>
@@ -418,14 +414,15 @@ function anva_footer_copyrights_default() {
 	<div class="col_half col_last tright">
 		<div class="fright clearfix"><?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?></div>
 		<div class="clear"></div>
-		<!-- @todo footer extra info -->
+		<?php
+		if ( $display ) :
+			$text = anva_get_option( 'footer_extra_info' );
+			$text = anva_extract_icon( $text );
+			echo anva_kses( $text );
+		endif;
+		?>
 	</div>
 	<?php
-}
-
-function anva_footer_ghost() {
-	$ghost = 'PCEtLSBUaGlzIFRoZW1lIGlzIERlc2lnbmVkIGJ5IEFudGh1YW4gVmFzcXVlei4gTGVhcm4gbW9yZTogaHR0cDovL2FudGh1YW52YXNxdWV6Lm5ldC8gLS0+';
-	echo base64_decode( $ghost );
 }
 
 /**

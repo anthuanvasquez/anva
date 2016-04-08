@@ -26,7 +26,7 @@
 		
 		<?php do_action( 'anva_posts_content_before' ); ?>
 		
-		<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'list' ) ); ?>">
+		<div id="posts" class="<?php echo esc_attr( anva_post_class( 'list' ) ); ?>">
 			<?php
 				$query = anva_get_query_posts();
 				if ( $query->have_posts() ) :

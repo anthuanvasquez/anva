@@ -4,7 +4,6 @@ include_once( 'class-anva-menu-options.php' );
 include_once( 'class-anva-main-menu-walker.php' );
 
 add_filter( 'walker_nav_menu_start_el', 'anva_nav_menu_start_el', 10, 4 );
-add_filter( 'nav_menu_css_class', 'anva_nav_menu_css_class', 10, 4 );
 add_action( 'after_setup_theme', 'anva_admin_menu_init', 1001 );
 
 /**
@@ -148,102 +147,4 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 	}
 
 	return $item_output;
-}
-
-/**
- * Add CSS classes to main menu list items.
- *
- * @since  1.0.0
- * @param  array  $classes
- * @param  object $item
- * @param  array  $args
- * @param  int    $depth
- * @return array $classes
- */
-function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 ) {
-	$classes[] = sprintf( 'level-%s', $depth + 1 );
-	if ( in_array( 'current-menu-item', $classes ) ) {
-		$classes[] = 'current';
-	}
-	return $classes;
-}
-
-/**
- * Get args for wp_nav_menu().
- *
- * @since 1.0.0
- * @param string $location
- * @param array  $args
- */
-function anva_get_wp_nav_menu_args( $location = 'primary' ) {
-
-	$args = array();
-
-	switch ( $location ) {
-		case 'primary' :
-			$args = array(
-				'theme_location'  => apply_filters( 'anva_primary_menu_location', 'primary' ),
-				'container'       => '',
-				'container_class' => '',
-				'container_id'    => '',
-				'menu_class'      => '',
-				'menu_id'         => '',
-				'walker'          => new Anva_Main_Menu_Walker(),
-				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-				'fallback_cb'     => 'anva_primary_menu_fallback'
-			);
-			break;
-
-		case 'top_bar' :
-			$args = array(
-				'menu_class'		=> '',
-				'container' 		=> '',
-				'fallback_cb' 		=> false,
-				'theme_location'	=> apply_filters( 'anva_top_bar_menu_location', 'top_bar' ),
-				'depth' 			=> 1
-			);
-			break;
-
-		case 'footer' :
-			$args = array(
-				'menu_class'		=> '',
-				'container' 		=> '',
-				'fallback_cb' 		=> false,
-				'theme_location'	=> apply_filters( 'anva_footer_menu_location', 'footer' ),
-				'depth' 			=> 1
-			);
-
-	}
-
-	return apply_filters( "anva_{$location}_menu_args", $args );
-}
-
-/**
- * List pages as a main navigation menu when user
- * has not set one under Apperance > Menus in the
- * WordPress admin panel.
- *
- * @since  1.0.0
- * @param  array       $args
- * @return string|html $output
- */
-function anva_primary_menu_fallback( $args ) {
-
-	$output = '';
-
-	if ( $args['theme_location'] = apply_filters( 'anva_primary_menu_location', 'primary' ) && current_user_can( 'edit_theme_options' ) ) {
-		$output .= sprintf( '<div class="menu-message"><strong>%s</strong>: %s</div>', esc_html__( 'No Custom Menu', 'anva' ), anva_get_local( 'menu_message' ) );
-	}
-
-	/**
-	 * If the user doesn't set a nav menu, and you want to make
-	 * sure nothing gets outputted, simply filter this to false.
-	 * Note that by default, we only see a message if the admin
-	 * is logged in.
-	 *
-	 * add_filter('anva_menu_fallback', '__return_false');
-	 */
-	if ( $output = apply_filters('anva_menu_fallback', $output, $args) ) {
-		echo $output;
-	}
 }

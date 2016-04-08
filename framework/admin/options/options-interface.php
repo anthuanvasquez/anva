@@ -18,6 +18,7 @@ function anva_get_options_tabs( $options ) {
 		// Heading for Navigation
 		if ( $value['type'] == 'heading' ) {
 			
+			// Add icon to group
 			$icon = '';
 			if ( isset( $value['icon'] ) && ! empty( $value['icon'] ) ) {
 				$icon = '<span class="dashicons dashicons-'. esc_attr( $value['icon'] ) .'"></span> ';
@@ -114,7 +115,7 @@ function anva_get_options_fields( $option_name, $settings, $options )
 
 				$output .= '<div id="' . esc_attr( $id ) .'" class="' . esc_attr( $class ) . '">'."\n";
 				
-				if ( isset( $value['name'] ) ) {
+				if ( ( isset( $value['name'] ) ) && ( 'checkbox' != $value['type'] ) ) {
 					$output .= '<h4 class="heading">' . esc_html( $value['name'] ) . '</h4>' . "\n";
 				}
 
@@ -280,6 +281,7 @@ function anva_get_options_fields( $option_name, $settings, $options )
 				}
 				$output .= '</select>';
 				$output .= '</label>';
+
 				break;
 			
 			/*
@@ -331,7 +333,7 @@ function anva_get_options_fields( $option_name, $settings, $options )
 			case 'checkbox':
 				$output .= '<div class="anva-checkbox-input-group">';
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox anva-input anva-checkbox checkbox-style" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
-				$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
+				$output .= '<label class="explain checkbox-style-1-label checkbox-small" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
 				$output .= '</div>';
 				break;
 
@@ -359,8 +361,13 @@ function anva_get_options_fields( $option_name, $settings, $options )
 				break;
 
 			case 'switch':
+				// Mini toggle
+				if ( isset( $value['mini'] ) ) {
+					$class = 'switch-rounded-mini';
+				}
+
 				$output .= '<div class="switch">';
-				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="switch-toggle switch-rounded-mini switch-toggle-round" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .'>';
+				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="switch-toggle switch-toggle-round" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .'>';
 				$output .= '<label for="' . esc_attr( $value['id'] ) . '"></label>';
 				$output .= '</div>';
 				break;
@@ -575,8 +582,8 @@ function anva_get_options_fields( $option_name, $settings, $options )
 			|--------------------------------------------------------------------------
 			*/
 			case "range":
-				$max = $value['options']['max'];
-				$min = $value['options']['min'];
+				$max  = $value['options']['max'];
+				$min  = $value['options']['min'];
 				$step = $value['options']['step'];
 				
 				$output .= '<div id="' . esc_attr( $value['id'] ) . '_range" class="anva-input anva-range-slider" data-range="' . esc_attr( $value['id'] ) . '"></div>';
@@ -762,6 +769,16 @@ function anva_get_options_fields( $option_name, $settings, $options )
 
 				break;
 
+			case 'import':
+				$import = Anva_Options_Import_Export::instance();
+				$output .= $import->import_option();
+				break;
+
+			case 'export':
+				$export = Anva_Options_Import_Export::instance();
+				$output .= $export->export_option();
+				break;
+
 			/*
 			|--------------------------------------------------------------------------
 			| Info
@@ -808,7 +825,6 @@ function anva_get_options_fields( $option_name, $settings, $options )
 				$class = ! empty( $value['id'] ) ? $value['id'] : $value['name'];
 				$class = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
 				$output .= '<div id="options-group-' . esc_attr( $counter ) . '" class="group ' . esc_attr( $class ) . '">';
-				// $output .= '<h3>' . esc_html( $value['name'] ) . '</h3>' . "\n";
 				break;
 
 		endswitch;
@@ -816,12 +832,16 @@ function anva_get_options_fields( $option_name, $settings, $options )
 		// Close div and add descriptions
 		if ( ( $value['type'] != "group_start" ) && ( $value['type'] != "group_end" ) ) {
 			if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) ) {
-				
-				$output .= '</div><!-- .controls (end) -->';
+					
+				// Hack for import option	
+				if ( $value['type'] != 'import' ) {
+					$output .= '</div><!-- .controls (end) -->';
+				}
 
-				if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) && ( $value['type'] != 'css' ) ) {
+				if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) && ( $value['type'] != 'css' ) && ( $value['type'] != 'import'  ) ) {
 					$output .= '<div class="explain">' . $explain_value . '</div><!-- .explain (end) -->'."\n";
 				}
+				
 				$output .= '</div><!-- .option (end) -->';
 				$output .= '</div><!-- .section (end) -->'."\n";
 			}

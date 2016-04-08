@@ -46,7 +46,6 @@ jQuery(document).ready(function($) {
 			$(document).on( 'click', '.reset-button', function(e) {
 				e.preventDefault();
 				var $form = $(this).closest('form');
-
 				swal({
 					title: anvaJs.save_button_title,
 					text: anvaJs.save_button_text,
@@ -59,12 +58,45 @@ jQuery(document).ready(function($) {
 					closeOnConfirm: true,
 					closeOnCancel: true
 				}, function( isConfirm ) {
-					
 					if ( isConfirm ) {
 						$form.append('<input type="hidden" name="reset" value="true" />');
 						$form.submit();
 					}
+				});
+			});
 
+			// Reset Button
+			$(document).on( 'click', '.import-button', function(e) {
+				e.preventDefault();
+				var $form = $(this).closest('form');
+
+				if ( '' == $('#section-import_settings textarea').val() ) {
+					swal({
+						title: anvaJs.import_empty_title,
+						text: anvaJs.import_empty_text,
+						type: "info",
+						showConfirmButton: true,
+						confirmButtonColor: "#0085ba",
+					});
+					return false;
+				}
+
+				swal({
+					title: anvaJs.import_button_title,
+					text: anvaJs.import_button_text,
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#0085ba",
+					confirmButtonText: anvaJs.import_button_confirm,
+					cancelButtonText: anvaJs.import_button_cancel,
+					cancelButtonColor: "#f7f7f7",
+					closeOnConfirm: true,
+					closeOnCancel: true
+				}, function( isConfirm ) {
+					if ( isConfirm ) {
+						$form.append('<input type="hidden" name="import" value="true" />');
+						$form.submit();
+					}
 				});
 			});
 

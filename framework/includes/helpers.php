@@ -101,11 +101,98 @@ function pp_get_image_id( $url ) {
 /**
  * Home page args
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  array $args
+ * @return array $args
  */
 function anva_page_menu_args( $args ) {
 	$args['show_home'] = true;
 	return $args;
+}
+
+/**
+ * Get args for wp_nav_menu().
+ *
+ * @since 1.0.0
+ * @param string $location
+ * @param array  $args
+ */
+function anva_get_wp_nav_menu_args( $location = 'primary' ) {
+
+	$args = array();
+
+	switch ( $location ) {
+		case 'primary' :
+			$args = array(
+				'theme_location'  => apply_filters( 'anva_primary_menu_location', 'primary' ),
+				'container'       => '',
+				'container_class' => '',
+				'container_id'    => '',
+				'menu_class'      => '',
+				'menu_id'         => '',
+				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+				'fallback_cb'     => 'anva_primary_menu_fallback'
+			);
+
+			// Add walker to primary menu if mega menu support.
+			if ( class_exists( 'Anva_Main_Menu_Walker' ) ) {
+				$args['walker']   = new Anva_Main_Menu_Walker();
+			}
+
+			break;
+
+		case 'top_bar' :
+			$args = array(
+				'menu_class'		=> '',
+				'container' 		=> '',
+				'fallback_cb' 		=> false,
+				'theme_location'	=> apply_filters( 'anva_top_bar_menu_location', 'top_bar' ),
+				'depth' 			=> 1
+			);
+			break;
+
+		case 'footer' :
+			$args = array(
+				'menu_class'		=> '',
+				'container' 		=> '',
+				'fallback_cb' 		=> false,
+				'theme_location'	=> apply_filters( 'anva_footer_menu_location', 'footer' ),
+				'depth' 			=> 1
+			);
+
+	}
+
+	return apply_filters( "anva_{$location}_menu_args", $args );
+}
+
+/**
+ * List pages as a main navigation menu when user
+ * has not set one under Apperance > Menus in the
+ * WordPress admin panel.
+ *
+ * @since  1.0.0
+ * @param  array       $args
+ * @return string|html $output
+ */
+function anva_primary_menu_fallback( $args ) {
+
+	$output = '';
+
+	if ( $args['theme_location'] = apply_filters( 'anva_primary_menu_location', 'primary' ) && current_user_can( 'edit_theme_options' ) ) {
+		$output .= sprintf( '<div class="menu-message"><strong>%s</strong>: %s</div>', esc_html__( 'No Custom Menu', 'anva' ), anva_get_local( 'menu_message' ) );
+	}
+
+	/**
+	 * If the user doesn't set a nav menu, and you want to make
+	 * sure nothing gets outputted, simply filter this to false.
+	 * Note that by default, we only see a message if the admin
+	 * is logged in.
+	 *
+	 * add_filter('anva_menu_fallback', '__return_false');
+	 */
+	if ( $output = apply_filters( 'anva_menu_fallback', $output, $args ) ) {
+		echo $output;
+	}
 }
 
 /**
@@ -194,10 +281,11 @@ function anva_browser_class( $classes ) {
  * @param  boolean $paged
  * @return string  $classes
  */
-function anva_post_classes( $class, $paged = true ) {
+function anva_post_class( $class, $paged = true ) {
 
 	$classes = array();
 
+	// Set default post classes
 	$default_classes = array(
 		'index' => array(
 			'default' => 'primary-post-list post-list',
@@ -207,43 +295,51 @@ function anva_post_classes( $class, $paged = true ) {
 			'default' => 'archive-post-list post-list',
 			'paged' => 'post-list-paginated',
 		),
+		'search' => array(
+			'default' => 'search-post-list post-list',
+			'paged' => 'post-list-paginated',
+		),
 		'grid' => array(
 			'default' => 'template-post-grid post-grid grid-container',
 			'paged' => 'post-grid-paginated',
 		),
 		'list' => array(
-			'default' => 'template-post-list post-list post-list container',
+			'default' => 'template-post-list post-list post-list-container',
 			'paged' => 'post-list-paginated',
 		),
-		'search' => array(
-			'default' => 'search-post-list post-list',
+		'small' => array(
+			'default' => 'template-post-small post-small post-small-container',
 			'paged' => 'post-list-paginated',
 		),
+		'mansory' => array(
+			'default' => 'template-post-mansory post-mansory post-mansory-container',
+			'paged' => 'post-mansory-paginated',
+		),
+		// @TODO timeline classes
 	);
 
+	// Add default
 	if ( isset( $default_classes[ $class ]['default'] ) ) {
 		$classes[] = $default_classes[ $class ]['default'];
-		if ( $paged && isset( $default_classes[ $class ]['paged'] ) ) {
-			$classes[] = $default_classes[ $class ]['paged'];
-		}
+		
+	}
+	
+	// Posts using pagination.
+	if ( isset( $default_classes[ $class ]['paged'] ) && $paged ) {
+		$classes[] = $default_classes[ $class ]['paged'];
 	}
 
-	$thumb = anva_get_option( 'primary_thumb' );
+	// Get small thumbnails
+	$small = anva_get_option( 'primary_thumb_small' );
 
 	// Ignore posts grid
-	if ( ! is_page_template( 'template_grid.php' ) ) {
-		if ( 'small' == $thumb ) {
-			$classes[] = 'post-list-small';
-		} elseif ( 'large' == $thumb ) {
-			$classes[] = 'post-list-large';
-		} elseif ( 'full' == $thumb ) {
-			$classes[] = 'post-list-full-width';
-		}
+	if ( $small && ! is_page_template( 'template_grid.php' ) ) {
+		$classes[] = 'small-thumbs';
 	}
 
 	$classes = implode( ' ', $classes );
 
-	return apply_filters( 'anva_post_classes', $classes );
+	return apply_filters( 'anva_post_class', $classes );
 }
 
 /**
@@ -418,7 +514,7 @@ function anva_page_transition_data() {
 		$data .= 'data-animation-out="' . esc_attr( $animation_out ) . '"';
 		
 		if ( $html ) {
-			$data .= 'data-loader-html="' . esc_attr( $html ) . '"';
+			$data .= 'data-loader-html="' . $html . '"';
 		}
 	}
 
@@ -521,7 +617,46 @@ function anva_footer_copyright_helpers( $text ) {
 	return $text;
 }
 
+/**
+ * Process any icons passed in as %icon%.
+ *
+ * @since  1.0.0
+ * @param  string $string
+ * @return string $string
+ */
+function anva_extract_icon( $string ) {
 
+	preg_match_all( '/\%(.*?)\%/', $string, $icons );
+
+	if ( ! empty( $icons[0] ) ) {
+
+		$list = true;
+
+		if ( substr_count( trim( $string ), "\n" ) ) {
+			// If text has more than one line, we won't make into an inline list
+			$list = false;
+		}
+
+		$total = count( $icons[0] );
+
+		if ( $list ) {
+			$string = sprintf( "<ul class=\"list-inline nobottommargin\">\n<li>%s</li>\n</ul>", $string );
+		}
+
+		foreach ( $icons[0] as $key => $val ) {
+
+			$html = apply_filters( 'anva_extract_icon_html', '<i class="icon-%s"></i>', $string );
+
+			if ( $list && $key > 0 ) {
+				$html = "<li>\n" . $html;
+			}
+
+			$string = str_replace( $val, sprintf( $html, $icons[1][ $key ] ), $string );
+		}
+	}
+
+	return $string;
+}
 /**
  * Get current year in footer copyright.
  *

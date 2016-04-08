@@ -5,14 +5,38 @@
  * @since  1.0.0
  * @author Anthuan Vásquez <me@anthuanvasquez.net>
  */
-class Anva_Options_Media_Uploader {
+class Anva_Options_Media_Uploader
+{
+	/**
+	 * A single instance of this class.
+ 	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @var    object
+	 */
+	private static $instance = NULL;
+
+	/**
+	 * Creates or returns an instance of this class.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function instance()
+	{	
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 
 	/**
 	 * Initialize the media uploader class.
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
+	public function __construct()
+	{
 		add_action( 'admin_enqueue_scripts', array( $this, 'media_scripts' ) );
 	}
 
@@ -109,8 +133,8 @@ class Anva_Options_Media_Uploader {
 	 * @since 1.0.0
 	 * @param object $hook
 	 */
-	public function media_scripts( $hook ) {
-
+	public function media_scripts( $hook )
+	{
 		$menu = anva_get_options_page_menu();
 
 		// if ( substr( $hook, -strlen( $menu['menu_slug'] ) ) !== $menu['menu_slug'] )
@@ -262,5 +286,6 @@ function anva_media_uploader( $args ) {
 	}
 	
 	$output .= '</div>' . "\n";
+	
 	return $output;
 }

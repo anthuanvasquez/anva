@@ -36,9 +36,9 @@ function anva_options() {
 	/* ---------------------------------------------------------------- */
 
 	$base_color = array(
-		'name' => __( 'Base Color Scheme', 'anva' ),
+		'name' => __( 'Color Scheme', 'anva' ),
 		'desc' => sprintf(
-			__( 'Choose skin color for the theme. Check live preview in the %s.', 'anva' ),
+			__( 'Select the color scheme of the theme. Check live preview in the %s.', 'anva' ),
 			sprintf( '<a href="' . admin_url( 'customize.php?autofocus[control]=base_color' ) . '">%s</a>', __( 'Customizer', 'anva' ) )
 		),
 		'id' => 'base_color',
@@ -49,9 +49,9 @@ function anva_options() {
 	anva_add_option( 'styles', 'main', 'base_color', $base_color );
 
 	$base_color_style = array(
-		'name' => __( 'Base Color Style', 'anva' ),
+		'name' => __( 'Site Color Style', 'anva' ),
 		'desc' => sprintf(
-			__( 'Choose skin style for the theme. Check live preview in the %s.', 'anva' ),
+			__( 'Select the color style of the theme. Check live preview in the %s.', 'anva' ),
 			sprintf( '<a href="' . admin_url( 'customize.php?autofocus[control]=base_color_style' ) . '">%s</a>', __( 'Customizer', 'anva' ) )
 		),
 		'id' => 'base_color_style',
@@ -65,17 +65,45 @@ function anva_options() {
 	anva_add_option( 'styles', 'main', 'base_color_style', $base_color_style );
 
 	$footer_color = array(
-		'name' => __( 'Footer Color', 'anva' ),
-		'desc' => __( 'Choose the color style for the footer.', 'anva' ),
+		'name' => __( 'Footer Color Style', 'anva' ),
+		'desc' => __( 'Select the color style of the footer.', 'anva' ),
 		'id' => 'footer_color',
 		'std' => 'dark',
 		'type' => 'select',
 		'options' => array(
 			'light' => __( 'Light', 'anva' ),
-			'dark' 	=> __( 'Dark', 'anva' )
+			'dark' 	=> __( 'Dark', 'anva' ),
+			'custom' => __( 'Custom', 'anva' ),
 		)
 	);
 	anva_add_option( 'styles', 'main', 'footer_color', $footer_color );
+
+	$footer_bg_color = array(
+		'name' => __( 'Footer Background Color', 'anva' ),
+		'desc' => __( 'Select the custom color of the footer background.', 'anva' ),
+		'id' => 'footer_bg_color',
+		'std' => '#333333',
+		'type' => 'color',
+	);
+	anva_add_option( 'styles', 'main', 'footer_bg_color', $footer_bg_color );
+
+	$footer_bg_image = array(
+		'name' => __( 'Footer Background Image', 'anva' ),
+		'desc' => __( 'Select the backgrund image of the footer, will replace the option above.', 'anva' ),
+		'id' => 'footer_bg_image',
+		'std' => '',
+		'type' => 'upload',
+	);
+	anva_add_option( 'styles', 'main', 'footer_bg_image', $footer_bg_image );
+
+	$footer_text_color = array(
+		'name' => __( 'Footer Text Color', 'anva' ),
+		'desc' => __( 'Select the text color if footer use a custom background color or image.', 'anva' ),
+		'id' => 'footer_text_color',
+		'std' => '',
+		'type' => 'color',
+	);
+	anva_add_option( 'styles', 'main', 'footer_text_color', $footer_text_color );
 
 	/* ---------------------------------------------------------------- */
 	/* Links
@@ -131,36 +159,7 @@ function anva_options() {
 	/* Header
 	/* ---------------------------------------------------------------- */
 
-	$header_types = array();
-	foreach ( anva_get_header_types() as $type_id => $type ) {
-		$header_types[ $type_id ] = $type['name'];
-	}
-
-	$menu_styles = array();
-	foreach ( anva_get_primary_menu_styles() as $style_id => $style ) {
-		$menu_styles[ $style_id ] = $style['name'];
-	}
-
 	$header_options = array(
-		'header_type' => array(
-			'name' => __( 'Header Type', 'anva' ),
-			'desc' => __( 'Select the type of the header.', 'anva' ),
-			'id' => 'header_type',
-			'std' => 'default',
-			'type' => 'select',
-			'options' => $header_types,
-		),
-		'header_style' => array(
-			'name' => __( 'Header Style', 'anva' ),
-			'desc' => __( 'Select the style of the header.', 'anva' ),
-			'id' => 'header_style',
-			'std' => 'full-header',
-			'type' => 'select',
-			'options' => array(
-				'' => __( 'Default Header', 'anva' ),
-				'full-header' => __( 'Full Header' ),
-			),
-		),
 		'header_color' => array(
 			'name' => __( 'Header Color', 'anva' ),
 			'desc' => __( 'Select the color of the header.', 'anva' ),
@@ -173,40 +172,26 @@ function anva_options() {
 				'custom' => __( 'Custom Color', 'anva' ),
 			),
 		),
-		'header_background' => array(
+		'header_bg_color' => array(
 			'name' => __( 'Header Background Color', 'anva' ),
 			'desc' => __( 'Select the custom color of the header background', 'anva' ),
-			'id' => 'header_background',
+			'id' => 'header_bg_color',
 			'std' => '#ffffff',
 			'type' => 'color',
 		),
-		'primary_menu_style' => array(
-			'name' => __( 'Primary Menu Style', 'anva' ),
-			'desc' => __( 'Select the style of the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
-			'id' => 'primary_menu_style',
-			'std' => 'default',
-			'type' => 'select',
-			'options' => $menu_styles,
-		),
-		'header_extras' => array(
-			'name' => __( 'Header Extra Info', 'anva' ),
-			'desc' => __( 'Select if you want to show the header extra info in the right.', 'anva' ),
-			'id' => 'header_extras',
-			'std' => 'hide',
-			'type' => 'select',
-			'options' => array(
-				'show' => __( 'Show header extras' ),
-				'hide' => __( 'Hide header extras' ),
-			),
-			'class' => 'hidden'
-		),
-		'header_extras_text' => array(
-			'name' => __( 'Header Extra Info Text', 'anva' ),
-			'desc' => __( 'Enter the text you want show in extra info.', 'anva' ),
-			'id' => 'header_extras_info',
+		'header_bg_image' => array(
+			'name' => __( 'Header Background Image', 'anva' ),
+			'desc' => __( 'Select the backgrund image of the header, will replace the option above.', 'anva' ),
+			'id' => 'header_bg_image',
 			'std' => '',
-			'type' => 'text',
-			'class' => 'hidden'
+			'type' => 'upload',
+		),
+		'header_text_color' => array(
+			'name' => __( 'Text Color', 'anva' ),
+			'desc' => __( 'Select the text color if header use a custom background color or image.', 'anva' ),
+			'id' => 'header_text_color',
+			'std' => '#ffffff',
+			'type' => 'color',
 		),
 		'primary_menu_color' => array(
 			'name' => __( 'Primary Menu Color', 'anva' ),
@@ -218,6 +203,25 @@ function anva_options() {
 				'light' => __( 'Light', 'anva' ),
 				'dark' => __( 'Dark', 'anva' ),
 			),
+		),
+		'side_panel_color' => array(
+			'name' => __( 'Side Panel Color', 'anva' ),
+			'desc' => __( 'Select the color style of the side panel. Note: changes will not applied when header type is side.', 'anva' ),
+			'id' => 'side_panel_color',
+			'std' => 'light',
+			'type' => 'select',
+			'options' => array(
+				'light' => __( 'Light', 'anva' ),
+				'dark' => __( 'Dark', 'anva' ),
+				'custom' => __( 'Custom', 'anva' ),
+			),
+		),
+		'side_panel_bg_color' => array(
+			'name' => __( 'Side Panel Background Color', 'anva' ),
+			'desc' => __( 'Select the custom color of the side panel background.', 'anva' ),
+			'id' => 'side_panel_bg_color',
+			'std' => '#f8f8f8',
+			'type' => 'color',
 		),
 	);
 	anva_add_option_section( 'styles', 'header', __( 'Header', 'anva' ), null, $header_options, false  );
@@ -303,10 +307,10 @@ function anva_options() {
 		),
 		'background_cover' => array(
 			'name' => __( 'Background Cover', 'anva' ),
-			'desc' => __( 'Use background size cover.', 'anva' ),
+			'desc' => __( 'Fill the screen using a background size cover.', 'anva' ),
 			'id' => 'background_cover',
 			'std' => '0',
-			'type' => 'switch'
+			'type' => 'checkbox'
 		),
 		'background_pattern' => array(
 			'name' => __( 'Background Pattern', 'anva' ),
@@ -315,23 +319,24 @@ function anva_options() {
 			'std' => '',
 			'type' => 'select',
 			'options' => array(
-				'' 						=> __( 'None', 'anva' ),
-				'binding_light' 		=> 'Binding Light',
-				'dimension_@2X' 		=> 'Dimension',
-				'hoffman_@2X' 			=> 'Hoffman',
-				'knitting250px' 		=> 'Knitting',
-				'noisy_grid' 			=> 'Noisy Grid',
-				'pixel_weave_@2X' 		=> 'Pixel Weave',
-				'struckaxiom' 			=> 'Struckaxiom',
-				'subtle_stripes' 		=> 'Subtle Stripes',
-				'white_brick_wall_@2X' 	=> 'White Brick Wall',
-				'gplaypattern'			=> 'G Play Pattern',
-				'blackmamba'			=> 'Black Mamba',
-				'carbon_fibre' 			=> 'Carbon Fibre',
-				'congruent_outline' 	=> 'Congruent Outline',
-				'moulin' 				=> 'Moulin',
-				'wild_oliva' 			=> 'Wild Oliva',
-			)
+				''                     => __( 'None', 'anva' ),
+				'binding_light'        => 'Binding Light',
+				'dimension_@2X'        => 'Dimension',
+				'hoffman_@2X'          => 'Hoffman',
+				'knitting250px'        => 'Knitting',
+				'noisy_grid'           => 'Noisy Grid',
+				'pixel_weave_@2X'      => 'Pixel Weave',
+				'struckaxiom'          => 'Struckaxiom',
+				'subtle_stripes'       => 'Subtle Stripes',
+				'white_brick_wall_@2X' => 'White Brick Wall',
+				'gplaypattern'         => 'G Play Pattern',
+				'blackmamba'           => 'Black Mamba',
+				'carbon_fibre'         => 'Carbon Fibre',
+				'congruent_outline'    => 'Congruent Outline',
+				'moulin'               => 'Moulin',
+				'wild_oliva'           => 'Wild Oliva',
+			),
+			'pattern_preview' => 'show',
 		)
 	);
 	anva_add_option_section( 'styles', 'background', __( 'Background', 'anva' ), null, $background_options, false );
@@ -474,14 +479,10 @@ function anva_options() {
 		),
 		'custom_css_stylesheet' => array(
 			'name' => __( 'Custom CSS Stylesheet', 'anva'),
-			'desc' => __( 'Add a custom stylesheet with all your custom styled CSS for new styles or overwriting default theme styles for better hanlding updates.', 'anva' ),
+			'desc' => __( 'Add a custom css stylesheet to the head, custom.css.', 'anva' ),
 			'id' => 'custom_css_stylesheet',
-			'std' => 'no',
-			'type' => 'select',
-			'options' => array(
-				'yes' => __( 'Yes, add custom stylesheet in the head', 'anva' ),
-				'no' => __( 'No, I don\'t add custom stylesheet in the head', 'anva' ),		
-			)
+			'std' => '0',
+			'type' => 'checkbox',
 		)
 	);
 	anva_add_option_section( 'styles', 'custom', __( 'Custom', 'anva' ), null, $custom_options, false );
@@ -489,22 +490,112 @@ function anva_options() {
 	/* ---------------------------------------------------------------- */
 	/* Header Layout
 	/* ---------------------------------------------------------------- */
-	
+
+	$header_types = array();
+	foreach ( anva_get_header_types() as $type_id => $type ) {
+		$header_types[ $type_id ] = $type['name'];
+	}
+
+	$menu_styles = array();
+	foreach ( anva_get_primary_menu_styles() as $style_id => $style ) {
+		$menu_styles[ $style_id ] = $style['name'];
+	}
+
+	$side_panel_types = array();
+	foreach ( anva_get_side_panel_types() as $type_id => $type ) {
+		$side_panel_types[ $type_id ] = $type['name'];
+	}
+
+	$header_type = array(
+		'name' => __( 'Header Type', 'anva' ),
+		'desc' => __( 'Select the type of the header.', 'anva' ),
+		'id' => 'header_type',
+		'std' => 'default',
+		'type' => 'select',
+		'options' => $header_types,
+	);
+	anva_add_option( 'layout', 'header', 'header_type', $header_type );
+
+	$header_layout = array(
+		'name' => __( 'Header Layout', 'anva' ),
+		'desc' => __( 'Select the style of the header.', 'anva' ),
+		'id' => 'header_layout',
+		'std' => '',
+		'type' => 'select',
+		'options' => array(
+			'' => __( 'Default Header', 'anva' ),
+			'full-header' => __( 'Full Header', 'anva' ),
+		),
+	);
+	anva_add_option( 'layout', 'header', 'header_layout', $header_layout );
+
+	$primary_menu_style = array(
+		'name' => __( 'Primary Menu Style', 'anva' ),
+		'desc' => __( 'Select the style of the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
+		'id' => 'primary_menu_style',
+		'std' => 'default',
+		'type' => 'select',
+		'options' => $menu_styles,
+	);
+	anva_add_option( 'layout', 'header', 'primary_menu_style', $primary_menu_style );
+
+	$header_extras = array(
+		'name' => __( 'Header Extra Info', 'anva' ),
+		'desc' => __( 'Select if you want to show the header extra info in the right.', 'anva' ),
+		'id' => 'header_extras',
+		'std' => 'hide',
+		'type' => 'select',
+		'options' => array(
+			'show' => __( 'Show header extras', 'anva' ),
+			'hide' => __( 'Hide header extras', 'anva' ),
+		),
+		'class' => 'hidden'
+	);
+	anva_add_option( 'layout', 'header', 'header_extras', $header_extras );
+
+	$header_extras_text = array(
+		'name' => __( 'Header Extra Info Text', 'anva' ),
+		'desc' => __( 'Enter the text you want show in extra info.', 'anva' ),
+		'id' => 'header_extras_info',
+		'std' => '',
+		'type' => 'text',
+	);
+	anva_add_option( 'layout', 'header', 'header_extras_text', $header_extras_text );
+
+	$side_panel_display = array(
+		'name' => __( 'Display Side Panel', 'anva' ),
+		'desc' => __( 'Display side panel.', 'anva' ),
+		'id' => 'side_panel_display',
+		'std' => '0',
+		'type' => 'checkbox',
+	);
+	anva_add_option( 'layout', 'header', 'side_panel_display', $side_panel_display );
+
+	$side_panel_type = array(
+		'name' => __( 'Side Panel', 'anva' ),
+		'desc' => __( 'Select the side panel you want to show in the site. Note: changes will not applied when header type is side.', 'anva' ),
+		'id' => 'side_panel_type',
+		'std' => 'left_overlay',
+		'type' => 'select',
+		'options' => $side_panel_types,
+	);
+	anva_add_option( 'layout', 'header', 'side_panel_type', $side_panel_type );
+
 	$side_header_icons = array(
-		'name' => __( 'Use social icons in side header', 'anva' ),
+		'name' => __( 'Side Header Social Icons', 'anva' ),
 		'desc' => __( 'Show social media icons below primary menu in side header.', 'anva' ),
 		'id' => 'side_header_icons',
 		'std' => '1',
-		'type' => 'switch',
+		'type' => 'checkbox',
 	);
 	anva_add_option( 'layout', 'header', 'side_header_icons', $side_header_icons );
 
 	$top_bar_icons = array(
-		'name' => __( 'Use social icons in top bar', 'anva' ),
+		'name' => __( 'Top Bar Social Icons', 'anva' ),
 		'desc' => __( 'Show social media icons in the top bar.', 'anva' ),
 		'id' => 'top_bar_icons',
 		'std' => '1',
-		'type' => 'switch',
+		'type' => 'checkbox',
 	);
 	anva_add_option( 'layout', 'header', 'top_bar_icons', $top_bar_icons );
 
@@ -512,17 +603,44 @@ function anva_options() {
 	/* Footer Layout
 	/* ---------------------------------------------------------------- */
 
+	$footer_extra_display = array(
+		'name' => __( 'Display Extra Information', 'anva' ),
+		'desc' => __( 'Display extra information in footer.', 'anva' ),
+		'id' => 'footer_extra_display',
+		'std' => '1',
+		'type' => 'checkbox',
+	);
+	anva_add_option( 'layout', 'footer', 'footer_extra_display', $footer_extra_display );
+
+	$footer_extra_info = array(
+		'name' => __( 'Extra Information Text', 'anva' ),
+		'desc' => __( 'Enter the extra information text you\'d like to show in the footer below the social icons. You can use basic HTML, or any icon ID formatted like %name%.', 'anva' ),
+		'id' => 'footer_extra_info',
+		'std' => '%call% 1-800-999-999 %email3% admin@yoursite.com',
+		'type' => 'textarea',
+	);
+	anva_add_option( 'layout', 'footer', 'footer_extra_info', $footer_extra_info );
+
+	$footer_gototop = array(
+		'name' => __( 'Go To Top', 'anva' ),
+		'desc' => __( 'Add a Go To Top to allow your users to scroll to the Top of the page.', 'anva' ),
+		'id' => 'footer_gototop',
+		'std' => '1',
+		'type' => 'checkbox',
+	);
+	anva_add_option( 'layout', 'footer', 'footer_gototop', $footer_gototop );
+
 	$footer_icons = array(
-		'name' => __( 'Use social icons in footer', 'anva' ),
-		'desc' => __( 'Show social media icons to the right of footer.', 'anva' ),
+		'name' => __( 'Social Icons', 'anva' ),
+		'desc' => __( 'Show social icons on the footer.', 'anva' ),
 		'id' => 'footer_icons',
 		'std' => '1',
-		'type' => 'switch',
+		'type' => 'checkbox',
 	);
 	anva_add_option( 'layout', 'footer', 'footer_icons', $footer_icons );
 
 	/* ---------------------------------------------------------------- */
-	/* Page Transitions
+	/* Page Transitions Layout
 	/* ---------------------------------------------------------------- */
 
 	$page_loading_options = array(
@@ -582,7 +700,7 @@ function anva_options() {
 	anva_add_option_section( 'layout', 'page_loader_transition', __( 'Page Loading Transition', 'anva' ), null, $page_loading_options, false );
 
 	/* ---------------------------------------------------------------- */
-	/* Galleries
+	/* Galleries Layout
 	/* ---------------------------------------------------------------- */
 
 	// Pull all gallery templates
@@ -641,7 +759,7 @@ function anva_options() {
 	anva_add_option_section( 'layout', 'gallery', __( 'Galleries', 'anva' ), null, $gallery_options, false );
 
 	/* ---------------------------------------------------------------- */
-	/* Sliders
+	/* Sliders Layout
 	/* ---------------------------------------------------------------- */
 
 	// Get all sliders
@@ -762,19 +880,17 @@ function anva_options() {
 	anva_add_option( 'content', 'single', 'single_post_reading_bar', $single_post_reading_bar );
 
 	/* ---------------------------------------------------------------- */
-	/* Debug
+	/* Main Advanced
 	/* ---------------------------------------------------------------- */
 
-	$debug_options = array(
-		'debug' => array(
-			'name' => __( 'Show Debug Info?', 'anva'),
-			'desc' => sprintf( __( 'Enable this option to show debug information in the footer, as database queries, memory usage and others. Note: the debug information will only be visible to administrators and the wordpress constant %s be set to TRUE.', 'anva' ), '<a href="' . esc_url( 'http://codex.wordpress.org/Debugging_in_WordPress' ) . '" target="_blank">WP_DEBUG</a>' ),
-			'id' => 'debug',
-			'std' => '0',
-			'type' => 'switch',
-		)
+	$debug = array(
+		'name' => __( 'Show Debug Info?', 'anva'),
+		'desc' => __( 'Display debug information in the footer, as database queries, memory usage and others.', 'anva' ),
+		'id' => 'debug',
+		'std' => '0',
+		'type' => 'checkbox',
 	);
-	anva_add_option_section( 'advanced', 'debug', __( 'Debug', 'anva' ), null, $debug_options, false );
+	anva_add_option( 'advanced', 'main', 'debug', $debug );
 
 
 }

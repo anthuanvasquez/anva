@@ -45,7 +45,7 @@ $limit = count( $query->posts() );
 
 <div class="container clearfix">
 
-	<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'grid' ) ); ?> grid-<?php echo esc_attr( $column ); ?> clearfix" data-layout="fitRows">
+	<div id="posts" class="<?php echo esc_attr( anva_post_class( 'grid' ) ); ?> grid-<?php echo esc_attr( $column ); ?> clearfix" data-layout="fitRows">
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 				
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>

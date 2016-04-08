@@ -26,7 +26,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php anva_page_transition_data(); body_class(); ?>>
+<body <?php body_class(); anva_page_transition_data(); ?>>
 
 <?php do_action( 'anva_before' ); ?>
 

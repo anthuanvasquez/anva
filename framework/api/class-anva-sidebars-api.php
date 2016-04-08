@@ -104,6 +104,15 @@ class Anva_Sidebars_API {
 			)
 		);
 
+		// Default Side Panel Sidebar
+		$this->core_locations['side_panel_sidebar'] = array(
+			'args' => array(
+				'id' => 'side_panel_sidebar',
+				'name' => __( 'Side Panel', 'anva' ),
+				'description' => __( 'Side panel sidebar.', 'anva' ),
+			)
+		);
+
 		$this->core_locations['above_header'] = array(
 			'args' => array(
 				'id' => 'above_header',
@@ -290,7 +299,7 @@ class Anva_Sidebars_API {
 				$config[ $location_id ]['error'] = true;
 			}
 
-			if ( anva_get_option( 'sidebar_message' ) ) {
+			if ( ! anva_get_option( 'sidebar_message' ) ) {
 				$config[ $location_id ]['error'] = false;
 			}
 		}
@@ -309,9 +318,9 @@ class Anva_Sidebars_API {
 
 			$message = sprintf(
 				__( 'This is a fixed sidebar with ID, %s, but you haven\'t put any widgets in it yet.', 'anva' ),
-				'<strong>' . $sidebar['id'] . '</strong>'
+				sprintf( '<strong>%s</strong>', $sidebar['id'] )
 			);
-
+			
 			echo '<div class="alert alert-warning">';
 			echo '<p>'. $message .'</p>';
 			echo '</div><!-- .alert (end) -->';

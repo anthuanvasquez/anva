@@ -206,17 +206,6 @@ function anva_get_core_elements() {
 }
 
 /**
- * Setup all core theme options of framework, which can
- * then be altered at the theme level.
- *
- * @since 1.0.0
- */
-function anva_get_registered_elements() {
-	$api = Anva_Content_Builder_API::instance();
-	return $api->get_registered_elements();
-}
-
-/**
  * Get layout builder's elements after new elements
  * have been given a chance to be added at the theme-level.
  *

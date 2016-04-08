@@ -694,13 +694,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   margin: 20px 0 10px;
 }
 
-#anva-framework-wrap #setting-error-save_options,
-#anva-framework-wrap #setting-error-restore_defaults {
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-}
-
 #anva-framework-wrap .CodeMirror {
   border: 1px solid #ddd;
 }
@@ -728,17 +721,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   width: 100%;
 }
 
-.import-export-settings .section-info {
-  background: #fff;
-}
-
-#anva-framework .section-import .anva-input-file {
-  display: block;
-  margin-bottom: 10px;
-}
-
-#anva-framework .section-export {
-  margin-bottom: 0;
+#anva-framework-metabox.metabox-holder {
+  padding-top: 15px;
 }
 
 #anva-framework .ui-slider-horizontal {
@@ -875,6 +859,25 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   opacity: .8;
 }
 
+#anva-framework .pattern-preview {
+  background: #f9f9f9;
+  height: 100px;
+  width: 100%;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#anva-framework .pattern-preview .pattern {
+  height: 100px;
+  width: 100%;
+  border: 1px solid #eee;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 #anva-framework .controls .anva-border-width {
   width: 80px;
   float: left;
@@ -916,16 +919,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   margin-bottom: 5px;
 }
 
-#anva-framework .import-export-settings .section-info p {
-  margin-top: 0;
-}
-
 #anva-framework .section-info a {
   text-decoration: none;
-}
-
-#anva-framework .import-export-settings .section-info {
-  margin-bottom: 20px;
 }
 
 #anva-framework .screenshot .no_image .file_link {

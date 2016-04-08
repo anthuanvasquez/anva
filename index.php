@@ -26,7 +26,7 @@ get_header();
 
 		<?php do_action( 'anva_posts_content_before' ); ?>
 		
-		<div id="posts" class="<?php echo esc_attr( anva_post_classes( 'index' ) ); ?>">
+		<div id="posts" class="<?php echo esc_attr( anva_post_class( 'index' ) ); ?>">
 			<?php
 				if ( have_posts() ) {
 					while ( have_posts() ) {
