@@ -9,8 +9,8 @@
 function anva_add_meta_boxes_default() {
 
 	// Builder Meta Box
-	$page_builder_meta = anva_setup_content_builder_meta();
-	$page_builder_meta_box = new Anva_Content_Builder( $page_builder_meta['args']['id'], $page_builder_meta['args'], $page_builder_meta['options'] );
+	$content_builder_meta = anva_setup_content_builder_meta();
+	new Anva_Content_Builder( $content_builder_meta['args']['id'], $content_builder_meta['args'], $content_builder_meta['options'] );
 	
 	// Page Meta Box
 	$page_meta = anva_setup_page_meta();

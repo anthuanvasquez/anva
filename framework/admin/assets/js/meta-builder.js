@@ -84,7 +84,7 @@ jQuery(document).ready(function($) {
 		active: function() {
 			var $template = $('#page_template');
 			ANVA_BUILDER.checkTemplate( $template.val() );
-			$template.on('change', function(event) {
+			$template.on( 'change', function() {
 				ANVA_BUILDER.checkTemplate( $template.val() );
 			});
 		},
@@ -92,7 +92,6 @@ jQuery(document).ready(function($) {
 		checkTemplate: function( $target ) {
 
 			if ( 'template_builder.php' == $target ) {
-				s.fields.slideDown();
 				$('#' + s.ID).addClass('anva-builder-active');
 				$('#minor-publishing-actions').hide();
 				$('#postdivrich').fadeOut( 'fast', function() {
@@ -100,15 +99,16 @@ jQuery(document).ready(function($) {
 				});;
 
 				if ( $('#' + s.ID).hasClass('anva-builder-active') ) {
-					$('#publish').val( anvaJs.builder_publish_items );
+					$('#publish').val( anvaBuilderJs.builder_publish_items );
 				}
 
-				s.root.animate({
-					scrollTop: $('#titlediv').offset().top - 32
-				}, 400 );
+				if ( $('#titlediv').length > 0 ) {
+					s.root.animate({
+						scrollTop: $('#titlediv').offset().top - 32
+					}, 400 );
+				}
 		
 			} else if ( 'template_builder.php' != $target ) {
-				s.fields.slideUp();
 				$('#' + s.ID).removeClass('anva-builder-active');
 				$('#minor-publishing-actions').show();
 				$('#postdivrich').fadeIn( 'fast', function() {
@@ -116,12 +116,15 @@ jQuery(document).ready(function($) {
 				});
 
 				if ( ! $('#' + s.ID).hasClass('anva-builder-active') ) {
-					$('#publish').val( anvaJs.builder_publish_update );
+					$('#publish').val( anvaBuilderJs.builder_publish_update );
 				}
 
-				s.root.animate({
-					scrollTop: $('#postdivrich').offset().top - 32
-				}, 400 );
+				// if ( $('#postdivrich').length > 0 ) {
+				// 	s.root.animate({
+				// 		scrollTop: $('#postdivrich').offset().top - 32
+				// 	}, 400 );
+				// }
+
 			}
 		},
 
@@ -181,7 +184,7 @@ jQuery(document).ready(function($) {
 				var builderItemDataJSON = JSON.stringify( builderItemData );
 				
 				// Get Ajax URL
-				var ajaxEditURL = anvaJs.ajaxurl + '?action=anva_builder_get_fields&&shortcode=' + $shortcode + '&rel=' + $randomId;
+				var ajaxEditURL = anvaBuilderJs.ajaxurl + '?action=anva_builder_get_fields&&shortcode=' + $shortcode + '&rel=' + $randomId;
 
 				// Generate Item HTML
 				var builderItem;
@@ -233,7 +236,7 @@ jQuery(document).ready(function($) {
 				if ( '' == $('#anva_shortcode').val() ) {
 					swal({
 						title: 'Builder',
-						text: anvaJs.builder_empty,
+						text: anvaBuilderJs.builder_empty,
 						type: "info",
 						showConfirmButton: true,
 						confirmButtonColor: "#0085ba",
@@ -373,7 +376,7 @@ jQuery(document).ready(function($) {
 			$(document).on( 'click', '#builder-sortable-items a.button-remove', function(e) {
 				e.preventDefault();
 				var $parentEle = $(this).parent('.actions').parent('li');
-				if ( confirm( anvaJs.builder_remove ) ) {
+				if ( confirm( anvaBuilderJs.builder_remove ) ) {
 					$parentEle.fadeOut();
 					setTimeout( function() {
 						$parentEle.remove();
@@ -392,7 +395,7 @@ jQuery(document).ready(function($) {
 				if ( $('#builder-sortable-items li').length == 0 ) {
 					swal({
 						title: 'Builder',
-						text: anvaJs.builder_remove_empty,
+						text: anvaBuilderJs.builder_remove_empty,
 						type: "info",
 						showConfirmButton: true,
 						confirmButtonColor: "#0085ba",
@@ -402,12 +405,12 @@ jQuery(document).ready(function($) {
 
 				swal({
 					title: 'Builder',
-					text: anvaJs.builder_remove_all,
+					text: anvaBuilderJs.builder_remove_all,
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.confirm,
-					cancelButtonText: anvaJs.cancel,
+					confirmButtonText: anvaBuilderJs.confirm,
+					cancelButtonText: anvaBuilderJs.cancel,
 					cancelButtonColor: "#f7f7f7",
 					closeOnConfirm: true,
 					closeOnCancel: true
@@ -493,7 +496,7 @@ jQuery(document).ready(function($) {
 			$(document).on( 'click', '.button-export', function(e) {
 				$('#builder-sortable-items li').each( function() {
 					if ( $(this).hasClass('item-unsaved') ) {
-						alert( anvaJs.builder_unsave );
+						alert( anvaBuilderJs.builder_unsave );
 						e.preventDefault();
 					}
 				});
@@ -503,7 +506,7 @@ jQuery(document).ready(function($) {
 			// Import Content
 			$(document).on( 'click', '.button-import', function(e) {
 				if ( $('#anva-import-file').val() == '' ) {
-					alert( anvaJs.builder_import );
+					alert( anvaBuilderJs.builder_import );
 					e.preventDefault();
 				}
 				$('.wrap > form').attr('enctype', 'multipart/form-data');
@@ -557,9 +560,9 @@ jQuery(document).ready(function($) {
 
 					// Create the media frame
 					frame = wp.media({
-						title: anvaJs.builder_upload,
+						title: anvaBuilderJs.builder_upload,
 						button: {
-							text: anvaJs.builder_select_image,
+							text: anvaBuilderJs.builder_select_image,
 							close: false
 						},
 						multiple: false

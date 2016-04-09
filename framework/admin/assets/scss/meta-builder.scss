@@ -23,7 +23,7 @@
 }
 
 /* ---------------------------------------------------------*/
-/* Anva Page Builder Items
+/* Content Builder Items
 /* ---------------------------------------------------------*/
 
 .item {
@@ -587,9 +587,10 @@
 	}
 }
 
-.anva-builder-active {
-	.anva-input-checkbox {
-		
+.anva-builder {
+	display: none;
+	&.anva-builder-active {
+		display: block;
 	}
 }
 

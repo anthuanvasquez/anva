@@ -22,7 +22,7 @@
 }
 
 /* ---------------------------------------------------------*/
-/* Anva Page Builder Items
+/* Content Builder Items
 /* ---------------------------------------------------------*/
 .item .spinner {
   margin: 18px 10px 0;
@@ -614,6 +614,14 @@
   background: #00a0d2;
   color: #fff;
   z-index: 1;
+}
+
+.anva-builder {
+  display: none;
+}
+
+.anva-builder.anva-builder-active {
+  display: block;
 }
 
 .anva-input-builder-action {

@@ -308,8 +308,8 @@ function anva_post_class( $class, $paged = true ) {
 			'paged' => 'post-list-paginated',
 		),
 		'small' => array(
-			'default' => 'template-post-small post-small post-small-container',
-			'paged' => 'post-list-paginated',
+			'default' => 'template-post-small post-small post-small-container small-thumbs',
+			'paged' => 'post-small-paginated',
 		),
 		'mansory' => array(
 			'default' => 'template-post-mansory post-mansory post-mansory-container',
@@ -327,14 +327,6 @@ function anva_post_class( $class, $paged = true ) {
 	// Posts using pagination.
 	if ( isset( $default_classes[ $class ]['paged'] ) && $paged ) {
 		$classes[] = $default_classes[ $class ]['paged'];
-	}
-
-	// Get small thumbnails
-	$small = anva_get_option( 'primary_thumb_small' );
-
-	// Ignore posts grid
-	if ( $small && ! is_page_template( 'template_grid.php' ) ) {
-		$classes[] = 'small-thumbs';
 	}
 
 	$classes = implode( ' ', $classes );

@@ -1,84 +1,94 @@
 <?php
 
 /**
- * Archive page titles.
+ * Get global titles on pages.
  * 
  * @since  1.0.0
  * @return void
  */
-function anva_archive_title() {
+function anva_get_global_page_title() {
 
-	if ( is_front_page() )
-		return;
+	$html = '';
 
 	if ( is_singular( 'post' ) ) :
-		printf( '%s', __( 'The Blog', 'anva' ) );
+		$html = printf( '%s', __( 'The Blog', 'anva' ) );
 
 	elseif ( is_singular( 'portfolio' ) ) :
-		the_title();
+		$html = get_the_title();
 
 	elseif ( is_singular( 'gallery' ) ) :
-		the_title();
+		$html = get_the_title();
 
 	elseif ( is_page() ) :
-		the_title();
+		$html = get_the_title();
 
 	elseif ( is_category() ) :
-		single_cat_title();
+		$html = single_term_title("", false);
 
 	elseif ( is_tag() ) :
-		single_tag_title();
+		$html = single_term_title("", false);
 
 	elseif ( is_author() ) :
-		printf( anva_get_local( 'author' ) . ' %s', '<span class="vcard">' . get_the_author() . '</span>' );
+		$html = sprintf( '%s <span class="vcard">%s</span>', anva_get_local( 'author' ), get_the_author() );
 
 	elseif ( is_day() ) :
-		printf( anva_get_local( 'day' ) . ' %s', '<span>' . get_the_date() . '</span>' );
+		$html = sprintf( '%s <span>%s</span>', anva_get_local( 'day' ), get_the_date() );
 
 	elseif ( is_month() ) :
-		printf( anva_get_local( 'month' ) . ' %s', '<span>' . get_the_date( 'F Y' ) . '</span>' );
+		$html = sprintf( '%s <span>%s</span>', anva_get_local( 'month' ), get_the_date( 'F Y' ) );
 
 	elseif ( is_year() ) :
-		printf( anva_get_local( 'year' ) . ' %s', '<span>' . get_the_date( 'Y' ) . '</span>' );
+		$html = sprintf( '%s <span>%s</span>', anva_get_local( 'year' ), get_the_date( 'Y' ) );
 
 	elseif ( is_tax( 'gallery_cat' ) ) :
 		$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-		echo esc_html( $term->name );
+		$html = esc_html( $term->name );
 
 	elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
-		echo anva_get_local( 'asides' );
+		$html = anva_get_local( 'asides' );
 
 	elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) :
-		echo anva_get_local( 'galleries' );
+		$html = anva_get_local( 'galleries' );
 
 	elseif ( is_tax( 'post_format', 'post-format-image' ) ) :
-		echo anva_get_local( 'images' );
+		$html = anva_get_local( 'images' );
 
 	elseif ( is_tax( 'post_format', 'post-format-video' ) ) :
-		echo anva_get_local( 'videos' );
+		$html = anva_get_local( 'videos' );
 
 	elseif ( is_tax( 'post_format', 'post-format-quote' ) ) :
-		echo anva_get_local( 'quotes' );
+		$html = anva_get_local( 'quotes' );
 
 	elseif ( is_tax( 'post_format', 'post-format-link' ) ) :
-		echo anva_get_local( 'links' );
+		$html = anva_get_local( 'links' );
 
 	elseif ( is_tax( 'post_format', 'post-format-status' ) ) :
-		echo anva_get_local( 'status' );
+		$html = anva_get_local( 'status' );
 
 	elseif ( is_tax( 'post_format', 'post-format-audio' ) ) :
-		echo anva_get_local( 'audios' );
+		$html = anva_get_local( 'audios' );
 
 	elseif ( is_tax( 'post_format', 'post-format-chat' ) ) :
-		echo anva_get_local( 'chats' );
+		$html = anva_get_local( 'chats' );
 
 	elseif ( is_404() ) :
-		echo anva_get_local( '404_title' );
+		$html = anva_get_local( '404_title' );
 
 	else :
-		echo anva_get_local( 'archives' );
+		$html = anva_get_local( 'archives' );
 	endif;
 
+	return apply_filters( 'anva_global_page_title', $html );
+
+}
+
+/**
+ * Global titles on pages.
+ * 
+ * @since 1.0.0
+ */
+function anva_the_global_page_title() {
+	echo anva_get_global_page_title();
 }
 
 /**

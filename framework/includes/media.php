@@ -181,6 +181,15 @@ function anva_get_featured_image_src( $post_id, $thumbnail ) {
 }
 
 /**
+ * Featured image source.
+ *
+ * @since 1.0.0
+ */
+function anva_the_featured_image_src( $post_id, $thumbnail ) {
+	echo anva_get_featured_image_src( $post_id, $thumbnail );
+}
+
+/**
  * Get attachment image source.
  *
  * @since 1.0.0
@@ -191,6 +200,15 @@ function anva_get_attachment_image_src( $attachment_id, $thumbnail ) {
 		return $attachment_img[0];
 	}
 	return false;
+}
+
+/**
+ * Attachment image source.
+ *
+ * @since 1.0.0
+ */
+function anva_the_attachment_image_src( $attachment_id, $thumbnail ) {
+	echo anva_get_attachment_image_src( $attachment_id, $thumbnail );
 }
 
 /**
@@ -205,7 +223,7 @@ function anva_the_post_thumbnail( $thumb ) {
 	}
 	
 	// Get post ID
-	$id = get_queried_object_id();
+	$id = get_the_ID();
 	
 	// Default thumbnail size on single posts
 	$thumbnail = 'anva_lg';
@@ -213,6 +231,27 @@ function anva_the_post_thumbnail( $thumb ) {
 	?>	
 	<div class="entry-image">
 		<a href="<?php echo anva_get_featured_image_src( $id, $thumbnail ); ?>" data-lightbox="image" ><?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?></a>
+	</div><!-- .entry-image (end) -->
+	<?php
+
+}
+
+/**
+ * Get featured image in posts.
+ *
+ * @since 1.0.0
+ */
+function anva_the_small_thumbnail() {
+	
+	// Get post ID
+	$id = get_the_ID();
+	
+	// Default thumbnail size on single posts
+	$thumbnail = apply_filters( 'anva_the_small_thumbnail', 'anva_sm' );
+
+	?>	
+	<div class="entry-image">
+		<a href="<?php anva_the_featured_image_src( $id, $thumbnail ); ?>" data-lightbox="image" ><?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?></a>
 	</div><!-- .entry-image (end) -->
 	<?php
 

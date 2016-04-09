@@ -345,10 +345,15 @@ function anva_content_audio() {
 		return;
 	}
 
-	$audio = anva_get_content_audio( get_the_content(), false );
-	$img = get_the_post_thumbnail( get_queried_object_id(), 'full' );
+	$thumbnail = 'anva_lg';
 
-	//var_dump(strpos( $audio, 'http' ));
+	// Get small thumbnails
+	if ( is_page_template( 'template_small.php' ) ) {
+		$thumbnail = 'anva_sm';
+	}
+
+	$audio = anva_get_content_audio( get_the_content(), false );
+	$img = get_the_post_thumbnail( get_the_ID(), $thumbnail );
 
 	if ( strpos( $audio, 'http' ) === 0 ) {
 

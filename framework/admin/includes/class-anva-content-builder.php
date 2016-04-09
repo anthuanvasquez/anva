@@ -124,18 +124,18 @@ class Anva_Content_Builder
 
 				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
 				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/tooltipster.min.css', array(), '3.3.0' );
-				wp_enqueue_style( 'anva-builder', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-builder.min.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-builder.min.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
 
-				wp_register_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
-				wp_register_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/js-wp-editor.min.js', array( 'jquery' ), '1.1', true );
-				wp_register_script( 'anva-builder', ANVA_FRAMEWORK_ADMIN_JS . 'meta-builder.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
+				wp_register_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', false );
+				wp_register_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/js-wp-editor.min.js', array( 'jquery' ), '1.1', false );
+				wp_register_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'meta-builder.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 				
 				wp_enqueue_script( 'tooltipster' );
 				wp_enqueue_script( 'js-wp-editor' );
-				wp_enqueue_script( 'anva-builder' );
+				wp_enqueue_script( 'anva_builder' );
 				
-				wp_localize_script( 'anva-builder', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
 				wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
+				wp_localize_script( 'anva_builder', 'anvaBuilderJs', anva_get_admin_locals( 'metabox_js' ) );
 
 			}
 		}
@@ -245,14 +245,14 @@ class Anva_Content_Builder
 
 		<div id="anva-framework" class="anva-meta-box">
 	
-				<div class="anva-tooltip-info-html hidden">
-					<h3><?php _e( 'Quick Info', 'anva' ); ?></h3>
-					<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
-				</div>
+			<div class="anva-tooltip-info-html hidden">
+				<h3><?php _e( 'Quick Info', 'anva' ); ?></h3>
+				<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
+			</div>
 
-				<a href="#" class="anva-tooltip-info"><span class="dashicons dashicons-info"></span></a>
+			<a href="#" class="anva-tooltip-info"><span class="dashicons dashicons-info"></span></a>
 		
-			<div class="anva-input-builder hidden">
+			<div class="anva-input-builder">
 				
 				<div class="clear"></div>
 				

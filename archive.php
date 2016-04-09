@@ -33,7 +33,7 @@ $archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 				if ( have_posts() ) {
 					while ( have_posts() ) {
 						the_post();
-						anva_get_template_part( 'post' );
+						anva_get_template_part( 'content', '' );
 					}
 					anva_num_pagination();				
 				} else {

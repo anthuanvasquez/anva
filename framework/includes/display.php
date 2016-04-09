@@ -507,33 +507,35 @@ function anva_page_title_default() {
 	// Hide page titles
 	$hide_title = anva_get_post_meta( '_anva_hide_title' );
 
+	if ( ! empty ( 'hide' == $hide_title ) ) {
+		return;
+	}
+
 	// Show page description
 	$page_desc = anva_get_post_meta( '_anva_page_desc' );
 	
 	?>
-	<?php if ( ! empty ( 'show' != $hide_title ) ) : ?>
-		<section id="page-title">
-			<div class="container clearfix">
-				
-				<h1><?php anva_archive_title(); ?></h1>
-				
-				<?php if ( ! empty ( $page_desc ) ) : ?>
-					<span><?php echo esc_html( $page_desc ); ?></span>
-				<?php endif; ?>
+	<section id="page-title">
+		<div class="container clearfix">
+			
+			<h1><?php anva_the_global_page_title(); ?></h1>
+			
+			<?php if ( ! empty ( $page_desc ) ) : ?>
+				<span><?php echo esc_html( $page_desc ); ?></span>
+			<?php endif; ?>
 
-				<?php if ( is_singular( 'portfolio' ) ) : ?>
-					<div id="portfolio-navigation">
-						<a href="#"><i class="icon-angle-left"></i></a>
-						<a href="#"><i class="icon-line-grid"></i></a>
-						<a href="#"><i class="icon-angle-right"></i></a>
-					</div>
-				<?php else : ?>
-					<?php do_action( 'anva_breadcrumbs' ); ?>
-				<?php endif; ?>
+			<?php if ( is_singular( 'portfolio' ) ) : ?>
+				<div id="portfolio-navigation">
+					<a href="#"><i class="icon-angle-left"></i></a>
+					<a href="#"><i class="icon-line-grid"></i></a>
+					<a href="#"><i class="icon-angle-right"></i></a>
+				</div>
+			<?php else : ?>
+				<?php do_action( 'anva_breadcrumbs' ); ?>
+			<?php endif; ?>
 
-			</div>
-		</section><!-- #page-title (end) -->
-	<?php endif; ?>
+		</div>
+	</section><!-- #page-title (end) -->
 	<?php
 }
 /**
