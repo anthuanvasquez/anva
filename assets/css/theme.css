@@ -39,9 +39,7 @@
 
 body.device-lg .post-reading-bar {
   -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  transition: all .4s ease;
+          transition: all .4s ease;
 }
 
 .password-form {
@@ -61,8 +59,7 @@ body.device-lg .post-reading-bar {
   text-align: center;
   cursor: default;
   border: 1px solid rgba(0, 0, 0, 0.4);
-  -webkit-border-radius: 15%;
-          border-radius: 15%;
+  border-radius: 15%;
 }
 
 .password-form i:before {

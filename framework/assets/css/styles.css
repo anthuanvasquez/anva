@@ -6576,6 +6576,13 @@ body:not(.device-touch) .tagcloud a {
 .widget_rss ul ul {
   margin-left: 15px;
 }
+/* Widget - Recent Entries
+-----------------------------------------------------------------*/
+.widget_recent_entries li span.post-date {
+  display: block;
+  font-size: 12px;
+  padding-left: 12px;
+}
 /* Widget - Testimonial & Twitter
 -----------------------------------------------------------------*/
 .widget .testimonial.no-image .testi-image {

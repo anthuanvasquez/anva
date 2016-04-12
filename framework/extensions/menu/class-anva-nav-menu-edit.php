@@ -50,7 +50,6 @@ class Anva_Nav_Menu_Edit extends Walker_Nav_Menu_Edit {
                 <?php esc_html_e( 'Use mega menu columns', 'anva' ); ?>
                 <select id="edit-menu-item-mega-columns-<?php echo $item->ID; ?>" name="_anva_mega_menu_columns[<?php echo $item->ID; ?>]">
                     <?php
-                    var_dump(get_post_meta( $item->ID, '_anva_mega_menu_columns', true));
                     foreach ( $columns as $col_id => $col ) {
                         echo '<option value="' . $col_id . '" ' . selected( get_post_meta( $item->ID, '_anva_mega_menu_columns', true), $col_id, false ) . '">' . $col . '</option>';
                     }

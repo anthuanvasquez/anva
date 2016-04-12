@@ -36,6 +36,9 @@ class Anva_Options_Import_Export
 		return self::$instance;
 	}
 	
+	/**
+	 * Constructor.
+	 */
 	public function __construct()
 	{
 		// Get theme option name.
@@ -47,6 +50,8 @@ class Anva_Options_Import_Export
 		// Get options from database.
 		$this->theme_options = get_option( $option_name );
 
+		add_filter( 'anva_option_type', array( $this, 'import_option' ), 10, 4 );
+		add_filter( 'anva_option_type', array( $this, 'export_option' ), 10, 4 );
 		add_action( 'after_setup_theme', array( $this, 'add_options' ) );
 		add_action( 'admin_init', array( $this, 'import_settings' ) );
 		add_action( 'appearance_page_' . $option_name, array( $this, 'add_save_notice' ) );
@@ -64,6 +69,7 @@ class Anva_Options_Import_Export
 				'name' => __( 'Import', 'anva' ),
 				'id' => 'import_settings',
 				'std' => '',
+				'desc' => __( 'Paste your exported settings here. When you click "Import" your settings will be imported to this site. This is useful if you want to experiment on the options but would like to keep the old settings in case you need it back.', 'anva' ),
 				'type' => 'import',
 				'rows' => 10,
 			),
@@ -76,7 +82,7 @@ class Anva_Options_Import_Export
 			),
 		);
 
-		anva_add_option_section( 'advanced', 'import_export', __( 'Import Options', 'anva' ), null, $import_export_options, false );
+		anva_add_option_section( 'advanced', 'import_export', __( 'Backup Options', 'anva' ), null, $import_export_options, false );
 	}
 
 	/**
@@ -85,16 +91,15 @@ class Anva_Options_Import_Export
 	 * @since  1.0.0
 	 * @return string|html $output
 	 */
-    public function import_option()
-    {	
-		$output = sprintf( '<textarea name="%s[import_settings]" class="anva-input anva-textarea" rows="10"></textarea>', $this->option_id );
+    public function import_option( $output, $value, $option_name, $val )
+    {
 		
-		$description = esc_html__( 'Paste your exported settings here. When you click "Import" your settings will be imported to this site. This is useful if you want to experiment on the options but would like to keep the old settings in case you need it back.', 'anva' );
-		
-		// Close "</div>" control.
-		$output .= '</div><!-- .controls (end) -->';
+		if ( $value['type'] == 'import' ) {
 
-		$output .= sprintf( '<div class="explain">%s<p><input type="submit" class="button button-secondary import-button" value="%s" /></p></div><!-- .explain (end) -->', $description, esc_attr__( 'Import', 'anva' ) );
+			$output .= sprintf( '<textarea name="%s[import_settings]" class="anva-input anva-textarea" rows="10"></textarea>', $option_name );
+			
+			$output .= sprintf( '<p><input type="submit" class="button button-secondary import-button" value="%s" /></p>', esc_attr__( 'Import', 'anva' ) );
+		}
 				
 		return $output;
 		 
@@ -107,20 +112,23 @@ class Anva_Options_Import_Export
 	 * @param  array       $options
 	 * @return string|html $output
 	 */
-    public function export_option()
+    public function export_option( $output, $value, $option_name, $val )
     {
-		if ( ! $this->theme_options && is_array( ! $this->theme_options ) ) {
-			$output = sprintf( '<div class="anva-disclaimer">%s</div>', __( 'ERROR! You don\'t have any options to export. Trying saving your options first.', 'anva' ) );
-			return $output;
+		if ( $value['type'] == 'export' ) {
+			
+			if ( ! $this->theme_options && ! is_array( $this->theme_options ) ) {
+				$output .= sprintf( '<div class="anva-disclaimer">%s</div>', __( 'ERROR! You don\'t have any options to export. Trying saving your options first.', 'anva' ) );
+				return $output;
+			}
+			
+			// Add the theme name
+			$this->theme_options['theme_name'] = $option_name;
+			
+			// Generate the export data.
+			$val = base64_encode( maybe_serialize( (array)$this->theme_options ) );
+			
+			$output .= '<textarea disabled="disabled" class="anva-input" rows="10" onclick="this.focus();this.select()">' . esc_textarea( $val ) . '</textarea>';
 		}
-		
-		// Add the theme name
-		$this->theme_options['theme_name'] = $this->option_id;
-		
-		// Generate the export data.
-		$val = base64_encode( maybe_serialize( (array)$this->theme_options ) );
-		
-		$output = '<textarea disabled="disabled" class="anva-input" rows="10" onclick="this.focus();this.select()">' . esc_textarea( $val ) . '</textarea>';
 
 		return $output;
 		

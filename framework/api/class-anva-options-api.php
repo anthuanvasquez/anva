@@ -214,6 +214,13 @@ class Anva_Options_API
 						'std' => array(),
 						'type' => 'sidebar'
 					),
+					'social_icons_profiles' => array(
+						"name" => __('Social Media Profiles', 'anva'),  
+						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),  
+						"id" => "social_icons_profiles",
+						"type" => "social_media",
+						"std" => $social_media_defaults
+					),
 				)
 			),
 
@@ -232,13 +239,6 @@ class Anva_Options_API
 						'std' => $logo_defaults,
 						'type' => 'logo'
 					),
-					'social_icons_profiles' => array(
-						"name" => __('Social Media Profiles', 'anva'),  
-						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),  
-						"id" => "social_icons_profiles",
-						"type" => "social_media",
-						"std" => $social_media_defaults
-					),
 					'favicon' => array(
 						'name' => __('Favicon', 'anva'),
 						'desc' => __('Configure your won favicon. Recommended size is 16x16px.', 'anva'),
@@ -246,6 +246,15 @@ class Anva_Options_API
 						'std' => '',
 						'class' => 'input-upload',
 						'type' => 'upload'
+					),
+					'apple_touch_icon_display' => array(
+						'name' => NULL,
+						'desc' => __( 'Use the apple tuch icon.', 'anva'),
+						'id' => 'apple_touch_icon_display',
+						'std' => '',
+						'type' => 'checkbox',
+						'trigger' => '1',
+						'receivers' => 'apple_touch_icon apple_touch_icon_76 apple_touch_icon_120 apple_touch_icon_152',
 					),
 					'apple_touch_icon' => array(
 						'name' => __('Appe Touch Icon (iPhone)', 'anva'),
@@ -424,13 +433,6 @@ class Anva_Options_API
 							'show' => __('Show featured images', 'anva'),
 							'hide' => __('Hide featured images', 'anva'),
 						)
-					),
-					'primary_small' => array(
-						'name' => __('Small Featured Images', 'anva'),
-						'desc' => __('Use small thumbnails for featured images on post list.', 'anva'),
-						'id' => 'primary_small',
-						'std' => '0',
-						'type' => 'checkbox',
 					),
 					'primary_content' => array(
 						'name' => __('Excerpt or Content', 'anva'),

@@ -15,7 +15,7 @@ add_filter( 'anva_sanitize_checkbox', 			'anva_sanitize_checkbox' );
 add_filter( 'anva_sanitize_multicheck', 		'anva_sanitize_multicheck', 10, 2 );
 add_filter( 'anva_sanitize_switch', 			'anva_sanitize_checkbox' );
 add_filter( 'anva_sanitize_textarea', 			'anva_sanitize_textarea' );
-add_filter( 'anva_sanitize_css', 				'anva_sanitize_textarea' );
+add_filter( 'anva_sanitize_code', 				'anva_sanitize_textarea' );
 add_filter( 'anva_sanitize_url', 				'anva_sanitize_url' );
 add_filter( 'anva_sanitize_upload', 			'anva_sanitize_upload' );
 add_filter( 'anva_sanitize_editor', 			'anva_sanitize_editor' );
@@ -401,22 +401,32 @@ function anva_recognized_font_faces() {
  */
 function anva_recognized_font_styles() {
 	$default = array(
-		'normal'      => __( 'Normal', 'anva' ),
-		'italic'      => __( 'Italic', 'anva' ),
-		'bold'        => __( 'Bold', 'anva' ),
-		'bold-italic' => __( 'Bold Italic', 'anva' ),
-		'100' 				=> '100',
-		'200' 				=> '200',
-		'300' 				=> '300',
-		'400' 				=> '400',
-		'500' 				=> '500',
-		'600' 				=> '600',
-		'700' 				=> '700',
-		'800' 				=> '800',
-		'900' 				=> '900',
+		'normal'      	   => __( 'Normal', 'anva' ),
+		'uppercase'   	   => __( 'Uppercase', 'anva' ),
+		'italic'      	   => __( 'Italic', 'anva' ),
+		'uppercase-italic' => __( 'Uppercase Italic', 'anva' ),
 	);
 	return apply_filters( 'anva_recognized_font_styles', $default );
 }
+
+/**
+ * Get recognized font weight.
+ * 
+ * @return array $default
+ */
+function anva_recognized_font_weight() {
+	$default = array(
+		'300' => __( '300 (Thin)', 'anva' ),
+		'400' => __( '400 (Normal)', 'anva' ),
+		'500' => __( '500', 'anva' ),
+		'600' => __( '600', 'anva' ),
+		'700' => __( '700 (Bold)', 'anva' ),
+		'800' => __( '800', 'anva' ),
+		'900' => __( '900', 'anva' ),
+	);
+	return apply_filters( 'anva_recognized_font_weight', $default );
+}
+
 
 /**
  * Get recognized background repeat settings

@@ -92,11 +92,6 @@ class Anva_Options_Page
 		
 		// Displays notice after options save
 		add_action( 'anva_options_page_after_validate', array( $this, 'save_options_notice' ) );
-
-		// Redirect to options panel
-		if ( is_admin() && isset( $_GET['activated']) && 'themes.php' == $pagenow ) {
-			wp_redirect( admin_url( 'themes.php?page=' . $name ) );
-		}
 	}
 
 	/**
@@ -179,7 +174,8 @@ class Anva_Options_Page
 
 		// Enqueue custom option panel JS
 		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/codemirror/codemirror.js', array( 'jquery' ), '5.13.2', true );
-		wp_enqueue_script( 'codemirror_mode', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
+		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
+		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery.animsition.min.js', array( 'jquery' ), '4.0.1', true );
 		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
 		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options.min.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );

@@ -11,14 +11,11 @@
  */
 function anva_head_apple_touch_icon() {
 	
-	$html  			= '';
-	$sizes 			= '';
-	$links 			= array();
-	$favicon 		= anva_get_option( 'favicon' );
-	$touch_icon		= anva_get_option( 'apple_touch_icon' );
-	$touch_icon76	= anva_get_option( 'apple_touch_icon_76' );
-	$touch_icon120	= anva_get_option( 'apple_touch_icon_120' );
-	$touch_icon152	= anva_get_option( 'apple_touch_icon_152' );
+	$html    = '';
+	$sizes   = '';
+	$links   = array();
+	$favicon = anva_get_option( 'favicon' );
+	$touch_icon_display = anva_get_option( 'apple_touch_icon_display' );
 
 	if ( $favicon ) {
 		$links[] = array(
@@ -28,35 +25,43 @@ function anva_head_apple_touch_icon() {
 		);
 	}
 
-	if ( $touch_icon ) {
-		$links[] = array(
-			'rel' => 'apple-touch-icon',
-			'image' => $touch_icon
-		);
-	}
+	if ( $touch_icon_display ) {
 
-	if ( $touch_icon76 ) {
-		$links[] = array(
-			'rel' => 'apple-touch-icon',
-			'image' => $touch_icon76,
-			'size' => '76x76',
-		);
-	}
+		$touch_icon		= anva_get_option( 'apple_touch_icon' );
+		$touch_icon76	= anva_get_option( 'apple_touch_icon_76' );
+		$touch_icon120	= anva_get_option( 'apple_touch_icon_120' );
+		$touch_icon152	= anva_get_option( 'apple_touch_icon_152' );
 
-	if ( $touch_icon120 ) {
-		$links[] = array(
-			'rel' => 'apple-touch-icon',
-			'image' => $touch_icon120,
-			'size' => '120x120',
-		);
-	}
+		if ( $touch_icon ) {
+			$links[] = array(
+				'rel' => 'apple-touch-icon',
+				'image' => $touch_icon
+			);
+		}
 
-	if ( $touch_icon152 ) {
-		$links[] = array(
-			'rel' => 'apple-touch-icon',
-			'image' => $touch_icon152,
-			'size' => '152x152',
-		);
+		if ( $touch_icon76 ) {
+			$links[] = array(
+				'rel' => 'apple-touch-icon',
+				'image' => $touch_icon76,
+				'size' => '76x76',
+			);
+		}
+
+		if ( $touch_icon120 ) {
+			$links[] = array(
+				'rel' => 'apple-touch-icon',
+				'image' => $touch_icon120,
+				'size' => '120x120',
+			);
+		}
+
+		if ( $touch_icon152 ) {
+			$links[] = array(
+				'rel' => 'apple-touch-icon',
+				'image' => $touch_icon152,
+				'size' => '152x152',
+			);
+		}
 	}
 
 	if ( $links ) {
@@ -66,7 +71,7 @@ function anva_head_apple_touch_icon() {
 			}
 			
 			if ( isset( $link['image'] ) ) {
-				$html .= '<link rel="' . esc_attr( $link['rel'] ) . '"' . $sizes . 'href="' . esc_url( $link['image'] ) . '" />';
+				$html .= sprintf(  '<link rel="%s" %s href="%s" />', esc_attr( $link['rel'] ), $sizes, esc_url( $link['image'] ) );
 				$sizes = ''; // Reset sizes
 			}
 		}
@@ -81,11 +86,9 @@ function anva_head_apple_touch_icon() {
  * @since 1.0.0
  */
 function anva_head_viewport() {
-	if ( 'yes' == anva_get_option( 'responsive' ) ) :
-	?>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<?php
-	endif;
+	if ( 'yes' == anva_get_option( 'responsive' ) ) {
+		printf ( '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">' );
+	}
 }
 
 /**
@@ -206,14 +209,29 @@ function anva_header_logo_default() {
 	echo '</div><!-- #logo (end) -->';
 }
 
+/**
+ * Side Panel Default.
+ * 
+ * @since 1.0.0
+ */
 function anva_side_panel_default() {
 	$side_panel_display = anva_get_option( 'side_panel_display' );
-	if ( ! $side_panel_display && 'side' == anva_get_header_type() ) {
+	if ( ! $side_panel_display && 'side' != anva_get_header_type() ) {
 		return;
+	}
+
+	$class            = '';
+	$side_panel_color = anva_get_option( 'side_panel_color' );
+	if ( 'dark' == $side_panel_color ) {
+		$class = ' class="dark"';
+	}
+
+	if ( 'custom' == $side_panel_color ) {
+		$class = ' class="dark side-panel-has-custom"';
 	}
 	?>
 	<div class="body-overlay"></div>
-	<div id="side-panel" class="dark">
+	<div id="side-panel"<?php echo $class; ?>>
 		<div id="side-panel-trigger-close" class="side-panel-trigger">
 			<a href="#"><i class="icon-line-cross"></i></a>
 		</div>
@@ -224,6 +242,11 @@ function anva_side_panel_default() {
 	<?php
 }
 
+/**
+ * Display header content.
+ * 
+ * @since 1.0.0
+ */
 function anva_header() {
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 
@@ -282,7 +305,7 @@ function anva_header_extras_default() {
 }
 
 /**
- * Display default main navigation
+ * Display default main navigation.
  * 
  * @since 1.0.0
  */
@@ -319,7 +342,7 @@ function anva_header_primary_menu_default() {
 }
 
 /**
- * Display default menu addons
+ * Display default menu addons.
  * 
  * @since 1.0.0
  */
@@ -382,7 +405,7 @@ function anva_header_primary_menu_addon_default() {
  */
 function anva_footer_content_default() {
 	$footer_setup = anva_get_option( 'footer_setup' );
-	if ( ! isset( $footer_setup['num'] ) && ! $footer_setup['num'] ) {
+	if ( ! $footer_setup['num'] ) {
 		return;
 	}
 	?>
@@ -401,7 +424,7 @@ function anva_footer_copyrights_default() {
 	
 	$footer_copyright = anva_get_option( 'footer_copyright' );
 	$footer_copyright = anva_footer_copyright_helpers( $footer_copyright );
-	$display = anva_get_option( 'footer_extra_display' );
+	$display          = anva_get_option( 'footer_extra_display' );
 
 	?>
 	<div class="col_half">
@@ -438,14 +461,14 @@ function anva_featured_default() {
 }
 
 /**
- * Display default featured before
+ * Display default featured before.
  * 
  * @since 1.0.0
  */
 function anva_featured_before_default() {
 	
-	$slider_id = anva_get_option( 'slider_id' );
-	$slider_style = anva_get_option( 'slider_style' );
+	$slider_id       = anva_get_option( 'slider_id' );
+	$slider_style    = anva_get_option( 'slider_style' );
 	$slider_parallax = anva_get_option( 'slider_parallax' );
 
 	if ( 'swiper' != $slider_id && 'full-screen' != $slider_style ) {
@@ -484,9 +507,9 @@ function anva_featured_after_default() {
 	$slider_style = anva_get_option( 'slider_style' );
 	$slider_parallax = anva_get_option( 'slider_parallax' );
 	?>
-	<?php if ( 'slider-boxed' == $slider_style ) : ?>
-	</div><!-- .container (end) -->
-	<?php endif ?>
+		<?php if ( 'slider-boxed' == $slider_style ) : ?>
+		</div><!-- .container (end) -->
+		<?php endif ?>
 	</section><!-- FEATURED (end) -->
 	<?php
 }
@@ -584,28 +607,27 @@ function anva_below_layout_default() {
  */
 function anva_sidebars_default( $position ) {
 
-	$layout = '';
+	$layout        = '';
 	$sidebar_right = '';
-	$sidebar_left = '';
-
-	$right = apply_filters( 'anva_default_sidebar_right', 'sidebar_right' );
-	$left = apply_filters( 'anva_default_sidebar_left', 'sidebar_left' );
+	$sidebar_left  = '';
+	$right         = apply_filters( 'anva_default_sidebar_right', 'sidebar_right' );
+	$left          = apply_filters( 'anva_default_sidebar_left', 'sidebar_left' );
 
 	// Get sidebar layout meta
 	$sidebar_layout = anva_get_post_meta( '_anva_sidebar_layout' );
 
 	// Get sidebar locations
 	if ( isset( $sidebar_layout['layout'] ) ) {
-		$layout = $sidebar_layout['layout'];
+		$layout        = $sidebar_layout['layout'];
 		$sidebar_right = $sidebar_layout['right'];
-		$sidebar_left = $sidebar_layout['left'];
+		$sidebar_left  = $sidebar_layout['left'];
 	}
 
 	// Set default layout
 	if ( empty( $layout ) ) {
-		$layout = anva_get_option( 'sidebar_layout', 'left' );
+		$layout        = anva_get_option( 'sidebar_layout', 'left' );
 		$sidebar_right = $right;
-		$sidebar_left = $left;
+		$sidebar_left  = $left;
 	}
 
 	// Set default sidebar right

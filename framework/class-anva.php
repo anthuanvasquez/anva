@@ -84,14 +84,13 @@ class Anva
         define( 'ANVA_FRAMEWORK_NAME',      self::NAME );
         define( 'ANVA_FRAMEWORK_VERSION',   self::VERSION );
         define( 'ANVA_FRAMEWORK_DIR',       trailingslashit( get_template_directory() . '/framework' ) );
-        define( 'ANVA_FRAMEWORK_ADMIN',     trailingslashit( ANVA_FRAMEWORK_DIR . 'admin' ) );
         define( 'ANVA_FRAMEWORK_INC',       trailingslashit( ANVA_FRAMEWORK_DIR . 'includes' ) );
         define( 'ANVA_FRAMEWORK_EXT',       trailingslashit( ANVA_FRAMEWORK_DIR . 'extensions' ) );
-        define( 'ANVA_FRAMEWORK_VENDOR',    trailingslashit( ANVA_FRAMEWORK_DIR . 'vendor' ) );
         define( 'ANVA_FRAMEWORK_URI',       trailingslashit( get_template_directory_uri() . '/framework' ) );
         define( 'ANVA_FRAMEWORK_CSS',       trailingslashit( ANVA_FRAMEWORK_URI . 'assets/css' ) );
         define( 'ANVA_FRAMEWORK_JS',        trailingslashit( ANVA_FRAMEWORK_URI . 'assets/js' ) );
         define( 'ANVA_FRAMEWORK_IMG',       trailingslashit( ANVA_FRAMEWORK_URI . 'assets/images' ) );
+        define( 'ANVA_FRAMEWORK_ADMIN',     trailingslashit( ANVA_FRAMEWORK_DIR . 'admin' ) );
         define( 'ANVA_FRAMEWORK_ADMIN_URI', trailingslashit( get_template_directory_uri() . '/framework/admin' ) );
         define( 'ANVA_FRAMEWORK_ADMIN_CSS', trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/css' ) );
         define( 'ANVA_FRAMEWORK_ADMIN_JS',  trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/js' ) );
@@ -120,6 +119,7 @@ class Anva
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/meta.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'includes/locals.php' );
         include_once( ANVA_FRAMEWORK_ADMIN . 'plugins/plugins.php' ); 
+        include_once( ANVA_FRAMEWORK_ADMIN . 'updates/updates.php' ); 
 
         // API and helpers
         include_once( ANVA_FRAMEWORK_DIR . 'api/class-anva-options-api.php' );
@@ -154,13 +154,15 @@ class Anva
         add_action( 'init', 'anva_admin_init', 1 );
         add_action( 'admin_init', 'anva_add_meta_boxes_default' );
         add_action( 'admin_enqueue_scripts', 'anva_admin_assets', 20 );
+        add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
+        add_action( 'admin_notices', 'anva_admin_theme_activate' );
+        add_action( 'after_setup_theme', 'anva_plugins' );
+        add_action( 'after_setup_theme', 'anva_envato_updates' );
+        add_action( 'anva_options_page_top', 'anva_admin_check_settings' );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_credits' );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
-        add_action( 'anva_options_backup_after_fields', 'anva_admin_footer_credits' );
-        add_action( 'anva_options_backup_after_fields', 'anva_admin_footer_links' );
         add_action( 'anva_options_page_before', 'anva_add_settings_flash', 10 );
         add_action( 'anva_options_page_before', 'anva_add_settings_change', 10 );
-        add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
 
         // Init
         add_filter( 'body_class', 'anva_body_class' );

@@ -276,8 +276,8 @@ function anva_get_sidebar_layouts() {
 */
 function anva_get_column_class( $column ) {
 	
-	$layout = '';
-	$column_class = '';
+	$layout         = '';
+	$column_class   = '';
 	$sidebar_layout = anva_get_sidebar_layouts();
 	$current_layout = anva_get_post_meta( '_anva_sidebar_layout' );
 	
@@ -292,8 +292,8 @@ function anva_get_column_class( $column ) {
 	}
 
 	// Validate if field exists
-	if ( isset( $sidebar_layout[$layout]['columns'][$column] ) ) {
-		$column_class = $sidebar_layout[$layout]['columns'][$column];
+	if ( isset( $sidebar_layout[ $layout ]['columns'][ $column ] ) ) {
+		$column_class = $sidebar_layout[ $layout ]['columns'][ $column ];
 	}
 
 	return apply_filters( 'anva_column_class', $column_class );
@@ -971,6 +971,7 @@ function anva_gallery_templates() {
  * @since 1.0.0
  */
 function anva_get_post_meta( $field ) {
+	
 	global $post;
 
 	if ( ! is_object( $post ) ) {

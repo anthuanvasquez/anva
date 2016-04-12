@@ -344,3 +344,17 @@
 	border-color: #ccc !important;
 	box-shadow: 0 1px 0 #d8d8d8;
 }
+
+.ui-slider-float .ui-slider-tip,
+.ui-slider-float .ui-slider-tip-label {
+	background: #f8f8f8;
+	border-color: #ccc;
+	color: #777;
+	font-weight: normal;
+}
+
+.ui-slider-pips .ui-slider-pip-selected,
+.ui-slider-pips .ui-slider-pip-selected-first,
+.ui-slider-pips .ui-slider-pip-selected-second {
+	color: #00a0d2;
+}

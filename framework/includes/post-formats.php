@@ -290,8 +290,8 @@ function anva_get_content_audio( $content, $run = true ) {
 	}
 
 	$trimmed = trim( $content);
-	$lines = explode( "\n", $trimmed );
-	$line = trim( array_shift( $lines ) );
+	$lines   = explode( "\n", $trimmed );
+	$line    = trim( array_shift( $lines ) );
 
 	// Audio oembed get
 	if ( strpos( $line, 'http' ) === 0 ) {
@@ -305,7 +305,7 @@ function anva_get_content_audio( $content, $run = true ) {
 	// [audio]
 	if ( strpos( $trimmed, '[audio') === 0 ) {
 
-		$end = strpos( $trimmed, '[/audio]' ) + 8;
+		$end   = strpos( $trimmed, '[/audio]' ) + 8;
 		$audio = substr( $trimmed, 0, $end );
 
 		if ( $run ) {
@@ -345,6 +345,7 @@ function anva_content_audio() {
 		return;
 	}
 
+	// Default post thumbnail
 	$thumbnail = 'anva_lg';
 
 	// Get small thumbnails

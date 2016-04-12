@@ -83,6 +83,7 @@
 #anva-framework .inner-group {
   border-bottom: 4px solid #eee;
   padding: 10px 15px;
+  position: relative;
 }
 
 #anva-framework .inner-group > h3 {
@@ -102,12 +103,12 @@
   content: '\f142';
   color: #a0a5aa;
   font: 400 20px/1 dashicons;
+  float: right;
   speak: none;
   display: inline-block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-decoration: none !important;
-  float: right;
 }
 
 #anva-framework .inner-group.collapse-close {
@@ -130,11 +131,6 @@
   border-bottom: 1px solid #eee;
   margin: 0 -15px 15px;
   padding: 0 15px 15px;
-}
-
-#anva-framework .section:last-child {
-  border-bottom: 0;
-  margin-bottom: 0;
 }
 
 #anva-framework .section h4.heading {
@@ -176,7 +172,7 @@
   width: 100%;
 }
 
-#anva-framework .section .controls .anva-input-label {
+#anva-framework .section .controls .anva-select-label {
   display: block;
   -o-background-size: 7px 32px;
      background-size: 7px 32px;
@@ -189,7 +185,7 @@
   position: relative;
 }
 
-#anva-framework .section .controls .anva-input-label > span {
+#anva-framework .section .controls .anva-select-label > span {
   position: absolute;
   width: 100%;
   top: 11px;
@@ -197,7 +193,7 @@
   color: #666;
 }
 
-#anva-framework .section .controls .anva-input-label select {
+#anva-framework .section .controls .anva-select-label select {
   margin-bottom: 0;
   filter: alpha(opacity=0);
   -moz-opacity: 0;
@@ -208,7 +204,7 @@
   z-index: 2;
 }
 
-#anva-framework .section .controls .anva-input-label:before {
+#anva-framework .section .controls .anva-select-label:before {
   content: "";
   border: 1px solid #dfdfdf;
   -webkit-border-radius: 0;
@@ -224,7 +220,7 @@
   z-index: 1;
 }
 
-#anva-framework .section .controls .anva-input-label:after {
+#anva-framework .section .controls .anva-select-label:after {
   content: "";
   background: url(../images/fancy-select-trigger_2x.png) no-repeat;
   -o-background-size: 25px 33px;
@@ -237,7 +233,7 @@
   height: 33px;
 }
 
-#anva-framework .section .controls .anva-input-label select {
+#anva-framework .section .controls .anva-select-label select {
   margin: 0;
   -webkit-border-radius: 0;
           border-radius: 0;
@@ -396,7 +392,6 @@
 
 #anva-framework .section-layout .sidebar-layout .item label {
   display: block;
-  font-weight: bold;
   margin-bottom: 10px;
 }
 
@@ -580,18 +575,26 @@
 }
 
 #anva-framework .screenshot {
-  float: left;
-  margin-left: 1px;
-  position: relative;
-  max-width: 380px;
-  margin: 15px 0;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+  float: left;
+  margin: 15px 0;
+  margin-left: 1px;
+  max-width: 100%;
+  position: relative;
 }
 
 #anva-framework .screenshot:hover .remove-image {
   opacity: 1;
+}
+
+#anva-framework .screenshot .no_image .file_link {
+  margin-left: 20px;
+}
+
+#anva-framework .screenshot .no_image .remove-button {
+  bottom: 0px;
 }
 
 #anva-framework .screenshot img {

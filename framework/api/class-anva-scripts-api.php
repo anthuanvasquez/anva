@@ -62,24 +62,6 @@ class Anva_Scripts_API {
 	 */
 	public function set_framework_scripts() {
 
-		// Boostrap 3
-		$this->framework_scripts['bootstrap'] = array(
-			'handle'	=> 'bootstrap',
-			'src'		=> anva_get_core_uri() . 'assets/js/vendor/bootstrap.js',
-			'deps'		=> array( 'jquery' ),
-			'ver'		=> '3.3.6',
-			'footer'	=> true
-		);
-
-		// jQuery Validate
-		$this->framework_scripts['jquery_validate'] = array(
-			'handle'	=> 'jquery_validate',
-			'src'		=> anva_get_core_uri() . 'assets/js/vendor/jquery.validation.js',
-			'deps'		=> array( 'jquery' ),
-			'ver'		=> '1.12.0',
-			'footer'	=> true
-		);
-
 		// jQuery Camera
 		$this->framework_scripts['jquery_camera'] = array(
 			'handle'	=> 'jquery_camera',
@@ -98,7 +80,7 @@ class Anva_Scripts_API {
 			'footer'	=> true
 		);
 
-		// Plugins
+		// Required Plugins
 		$this->framework_scripts['anva_plugins'] = array(
 			'handle'	=> 'anva_plugins',
 			'src'		=> anva_get_core_uri() . 'assets/js/plugins.min.js',
@@ -214,6 +196,7 @@ class Anva_Scripts_API {
 
 	/**
 	 * Get framework scripts.
+	 * 
 	 * Will only be fully available at the time it's enqueing everything.
 	 * Not very useful in most cases.
 	 */

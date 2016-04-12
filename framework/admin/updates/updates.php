@@ -9,11 +9,11 @@ function anva_envato_updates() {
 
 	// Include update classes
 	if ( ! class_exists( 'Envato_Protected_API' ) ) {
-		include_once( anva_get_core_directory() . 'vendor/class-envato-protected-api.php' );
+		include_once( ANVA_FRAMEWORK_ADMIN . 'updates/class-envato-protected-api.php' );
 	}
 
 	if ( ! class_exists( 'Anva_Envato_Updates' ) ) {
-		include_once( anva_get_core_directory() . 'admin/includes/class-anva-envato-updates.php' );
+		include_once( ANVA_FRAMEWORK_ADMIN  . 'updates/class-anva-envato-updates.php' );
 	}
 
 	// Admin page
@@ -93,4 +93,3 @@ function anva_envato_updates() {
 	$_envato_updates = new Anva_Envato_Updates( $args );
 
 }
-add_action( 'after_setup_theme', 'anva_envato_updates' );

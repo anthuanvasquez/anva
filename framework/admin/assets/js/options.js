@@ -2,28 +2,13 @@ jQuery(document).ready(function($) {
 
 	"use strict";
 	
-	// Settings
-	var s;
-
 	// Anva Options Object
 	var ANVA_OPTIONS = {
 
-		// Default Settings
-		settings: {
-			template: 	$('#page_template'),
-			grid: 		$('#meta-grid_column'),
-			sidebar: 	$('#meta-sidebar_layout'),
-			optionName: $('#option_name').val()
-		},
-
 		init: function() {
-
-			// Set Settings
-			s = this.settings;
 			// ANVA_OPTIONS.settingsChange();
 			ANVA_OPTIONS.extras();
 			ANVA_OPTIONS.stickyActions();
-			ANVA_OPTIONS.sections.init();
 		},
 
 		settingsChange: function() {
@@ -35,9 +20,11 @@ jQuery(document).ready(function($) {
 		extras: function() {
 
 			// CSS
+			var $mode = $('#code_editor_mode').val();
+			console.log( '' + $mode + '' );
 			var code_editor = document.querySelector('.anva-code-editor');
 			var editor = CodeMirror.fromTextArea( code_editor, {
-				mode: "css",
+				mode: $mode,
         		theme: "mdn-like",
         		lineNumbers: true
 			});
@@ -166,18 +153,17 @@ jQuery(document).ready(function($) {
 			$('#anva-framework .postbox').each(function() {
 				var $postbox = $(this);
 				if ( typeof( localStorage ) != 'undefined' && localStorage.getItem('anva-section-' + $postbox.attr('id')) ) {
-					console.log( localStorage.getItem('anva-section-' + $postbox.attr('id') ) );
 					$postbox.addClass('collapse-close');
 				}
 			});
 
 			// Hide admin notices
-			var $error = $('#anva-framework-wrap .settings-error');
-			if ( $error.length > 0 ) {
-				setTimeout( function() {
-					$error.fadeOut(500);
-				}, 3000);
-			}
+			// var $error = $('#anva-framework-wrap .settings-error');
+			// if ( $error.length > 0 ) {
+			// 	setTimeout( function() {
+			// 		$error.fadeOut(500);
+			// 	}, 3000);
+			// }
 
 			if ( $('.nav-tab-wrapper').length > 0 ) {
 				ANVA_OPTIONS.tabs();
@@ -257,270 +243,6 @@ jQuery(document).ready(function($) {
 					'position': 'static'
 				});
 			}
-		}
-	};
-
-	ANVA_OPTIONS.sections = {
-
-		init: function() {
-			ANVA_OPTIONS.sections.colorPicker();
-			ANVA_OPTIONS.sections.radioImages();
-			ANVA_OPTIONS.sections.logo();
-			ANVA_OPTIONS.sections.typography();
-			ANVA_OPTIONS.sections.socialMedia();
-			ANVA_OPTIONS.sections.columns();
-			ANVA_OPTIONS.sections.slider();
-			ANVA_OPTIONS.sections.rangeSlider();
-			ANVA_OPTIONS.sections.select();
-			ANVA_OPTIONS.sections.sidebars();
-			ANVA_OPTIONS.sections.contactFields();
-		},
-
-		colorPicker: function() {
-			$('.anva-color').wpColorPicker();
-		},
-
-		radioImages: function() {
-			$('.anva-radio-img-box').click( function() {
-				$(this).closest('.section-images').find('.anva-radio-img-box').removeClass('anva-radio-img-selected');
-				$(this).addClass('anva-radio-img-selected');
-				$(this).find('.anva-radio-img-radio').prop('checked', true);
-			});
-
-			// $('.anva-radio-img-label').hide();
-			$('.anva-radio-img-img').show();
-			
-		},
-
-		logo: function() {
-			$('.section-logo').each(function(){
-				var el = $(this), value = el.find('.select-type select').val();
-				el.find('.logo-item').hide();
-				el.find('.' + value).show();
-			});
-
-			$('.section-logo .anva-select select').on( 'change', function() {
-				var el = $(this), parent = el.closest('.section-logo'), value = el.val();
-				parent.find('.logo-item').hide();
-				parent.find('.' + value).show();
-			});
-		},
-
-		typography: function() {
-			$('.section-typography .anva-typography-face').each(function() {
-				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
-				if ( value == 'google' ) {
-					el.closest('.section-typography').find('.google-font').fadeIn('fast');
-					el.closest('.section-typography').find('.sample-text-font').hide();
-				} else {
-					el.closest('.section-typography').find('.google-font').hide();
-					el.closest('.section-typography').find('.sample-text-font').show();
-					el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
-				}
-			});
-
-			$('.section-typography .anva-typography-face').on( 'change', function() {
-				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
-				if ( value == 'google' ) {
-					el.closest('.section-typography').find('.google-font').fadeIn('fast');
-					el.closest('.section-typography').find('.sample-text-font').hide();
-				} else {
-					el.closest('.section-typography').find('.google-font').hide();
-					el.closest('.section-typography').find('.sample-text-font').show();
-					el.closest('.section-typography').find('.sample-text-font').css('font-family', text);
-				}
-			});
-		},
-
-		socialMedia: function() {
-			$('.section-social_media').each(function() {
-				var el = $(this);
-				el.find('.social_media-input').hide();
-				el.find('.checkbox').each(function() {
-					var checkbox = $(this);
-					if ( checkbox.is(':checked') )
-						checkbox.closest('.item').addClass('active').find('.social_media-input').show();
-					else
-						checkbox.closest('.item').removeClass('active').find('.social_media-input').hide();
-				});
-			});
-
-			$('.section-social_media .checkbox').on('click', function() {
-				var checkbox = $(this);
-				if ( checkbox.is(':checked') )
-					checkbox.closest('.item').addClass('active').find('.social_media-input').fadeIn('fast');
-				else
-					checkbox.closest('.item').removeClass('active').find('.social_media-input').hide();
-			});
-		},
-
-		columns: function() {
-			$('.section-columns').each(function(){
-				var el = $(this), i = 1, num = el.find('.column-num').val();
-				el.find('.column-width').hide();
-				el.find('.column-width-'+num).show();
-			});
-
-			$('.section-columns .column-num').on('change', function(){
-				var el = $(this), i = 1, num = el.val(), parent = el.closest('.section-columns');
-				parent.find('.column-width').hide();
-				parent.find('.column-width-'+num).fadeIn('fast');
-			});
-		},
-
-		slider: function() {
-			$('.group-slider').each(function() {
-				var el = $(this), value = el.find('#slider_id').val();
-				el.find('.slider-item').hide();
-				el.find('.' + value).show();
-			});
-
-			$('.group-slider #slider_id').on( 'change', function() {
-				var el = $(this), parent = el.closest('.group-slider'), value = el.val();
-				parent.find('.slider-item').hide();
-				parent.find('.' + value).show();
-			});
-		},
-
-		rangeSlider: function() {
-			$('.section-range').each(function() {
-				var el = $(this),
-				value = el.find('.anva-input-range').val(),
-				id = el.find('.anva-input-range').attr('id'),
-				min = el.find('.anva-input-range').data('min'),
-				max = el.find('.anva-input-range').data('max'),
-				step = el.find('.anva-input-range').data('step');
-				$('#' + id + '_range').slider({
-					min: min,
-					max: max,
-					step: step,
-					value: value,
-					slide: function( e, ui ) {
-						$('#' + id).val( ui.value );
-					}
-				});
-				$('#' + id).val( $('#' + id + '_range').slider( "value" ) );
-				$('#' + id + '_range').slider("pips");
-				$('#' + id + '_range').slider("float", { pips: true });
-			});
-		},
-
-		select: function() {
-			// Fancy Select
-			$('.anva-input-label').each(function(){
-				var el = $(this),
-					value = el.find('select').val(),
-					text = el.find('option[value="' + value + '"]').text();
-				el.prepend('<span>' + text + '</span>');
-			});
-
-			$('.anva-input-label select').live('change', function(){
-				var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
-				el.closest('.anva-input-label').find('span').text(text);
-			});
-		},
-
-		sidebars: function() {
-			// Remove sidebar
-			$('.dynamic-sidebars ul').sortable();
-			$('.dynamic-sidebars ul').disableSelection();
-			$(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
-				e.preventDefault();
-				var $ele = $(this).parent();
-				swal({
-					title: anvaJs.sidebar_button_title,
-					text: anvaJs.sidebar_button_text,
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.confirm,
-					cancelButtonText: anvaJs.cancel,
-					cancelButtonColor: "##f7f7f7",
-					closeOnConfirm: true,
-					closeOnCancel: true
-				}, function( isConfirm ) {
-					
-					if ( isConfirm ) {
-						$ele.fadeOut();
-						setTimeout( function() {
-							$ele.remove();
-							if ( $('.dynamic-sidebars ul li').length == 0 ) {
-								$('.dynamic-sidebars ul').addClass('empty');
-							}
-						}, 500 );
-					}
-
-				});
-			});
-
-			// Add new sidebar
-			$('#add-sidebar').click( function() {
-				var $new = $('.sidebar').val();
-				if ( '' == $new ) {
-					swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
-					return false;
-				}
-				if ( $new.length < 3 ) {
-					swal( 'Error', 'The name must have more than 3 characters.' );
-					return false;
-				}
-				$('.dynamic-sidebars ul').removeClass('empty');
-				var $sidebarName = $('#dynamic_sidebar_name').val();
-				var $optionName = s.optionName;
-				$('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
-				$('.sidebar').val('');
-			});
-		},
-
-		contactFields: function() {
-			// Contact fields
-			$('.dynamic-contact-fields ul.contact-fields').sortable();
-			$('.dynamic-contact-fields ul.contact-fields').disableSelection();
-			$(document).on( 'click', '.dynamic-contact-fields .delete', function(e) {
-				e.preventDefault();
-				var $ele = $(this).parent();
-				swal({
-					title: anvaJs.contact_button_title,
-					text: anvaJs.contact_button_text,
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.confirm,
-					cancelButtonText: anvaJs.cancel,
-					cancelButtonColor: "##f7f7f7",
-					closeOnConfirm: true,
-					closeOnCancel: true
-				}, function( isConfirm ) {
-					if ( isConfirm ) {
-						$ele.fadeOut();
-						setTimeout( function() {
-							$ele.remove();
-							if ( $('.dynamic-contact-fields ul li').length == 0 ) {
-								$('.dynamic-contact-fields ul').addClass('empty');
-							}
-						}, 500 );
-					}
-				});
-			});
-			
-			$(document).on( 'click', '#add-contact-field', function() {
-				var $new = $('#contact_fields option:selected').text();
-				var $value = $('#contact_fields option:selected').val();
-
-				if ( '' == $new ) {
-					swal( anvaJs.contact_error_title, anvaJs.contact_error_text );
-					return false;
-				}
-				if ( $('.dynamic-contact-fields ul.contact-fields').children('#field-' + $value ).length > 0 ) {
-					swal( anvaJs.contact_exists_title, anvaJs.contact_exists_text + ' "' + $new + '".' );
-					return false;
-				}
-				$('.dynamic-contact-fields ul').removeClass('empty');
-				var $contactFieldName = $('#contact_field_name').val();
-				var $optionName = s.optionName;
-				$('.dynamic-contact-fields ul').append( '<li id="field-' + $value + '">' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $contactFieldName + '][]' + '" value="' + $value + '" /></li>' );
-				$('.sidebar').val('');
-			});
 		}
 	};
 

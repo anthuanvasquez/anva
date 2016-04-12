@@ -768,7 +768,7 @@ function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
  * @param string $slug
  */
 function anva_get_template_part( $name, $slug = 'content' ) {
-	$path = trailingslashit( 'framework/templates' );
+	$path = trailingslashit( 'templates' );
 	if ( empty( $slug ) ) {
 		get_template_part( $path . $name );
 		return;

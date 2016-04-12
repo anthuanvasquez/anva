@@ -7,11 +7,32 @@
  * @return void
  */
 function anva_admin_theme_activate() {
-	if ( isset( $_GET['activated'] ) && true == $_GET['activated'] ) :
-	?>
-	<div class="updated"><?php _e( 'The theme is activated.', 'anva' ); ?></div>
-	<?php
-	endif;
+	if ( isset( $_GET['activated'] ) && true == $_GET['activated'] ) {
+		
+		$option_name = anva_get_option_name();
+		$admin_url   = admin_url( 'themes.php?page=' . $option_name );
+		
+		printf(
+			'<div class="updated updated fade settings-error notice is-dismissible"><p>%s %s</p></div>',
+			__( 'Anva theme is activated.', 'anva' ),
+			sprintf(
+				__( 'Go to %s', 'anva' ),
+				'<a href="'. esc_url( $admin_url ) .'">' . __( 'Theme Options Page', 'anva' ) . '</a>'
+			)
+		);
+	}
+}
+
+/**
+ * Check if seetings exists in the database.
+ * 
+ * @since 1.0.0
+ */
+function anva_admin_check_settings() {
+	$option_name = anva_get_option_name();
+	if ( ! get_option( $option_name ) ) {
+		printf( '<div class="error fade settings-error notice is-dismissible"><p>%s</p></div>', __( 'Options don\'t exists in the database. Please configure and save your theme options page.', 'anva' ) );
+	}
 }
 
 /**
@@ -37,50 +58,33 @@ function anva_add_settings_flash() {
 	<?php endif;
 }
 
-function anva_flash_message( $title, $message, $type = 'info', $confirm = true ) {
-	?>
-	<script type="text/javascript">
-	window.onload = function() {
-		swal({
-			title: "<?php echo esc_js( $title ); ?>",
-			text: "<?php echo esc_js( $message ); ?>",
-			type: "<?php echo esc_js( $type ); ?>",
-			showConfirmButton: <?php echo esc_js( $confirm ); ?>
-		});
-	};
-	</script>
-	<?php
-}
-
 function anva_add_settings_change() {
-	?>
-	<div id="anva-framework-change" class="section-info"><?php _e( 'Settings has changed', 'anva' ); ?></div>
-	<?php
+	printf( '<div id="anva-framework-change" class="section-info">%s</div>', __( 'Settings has changed.', 'anva' ) );
 }
 
+/**
+ * Log option.
+ * 
+ * @since 1.0.0
+ */
 function anva_admin_settings_log() {
 	
 	$html = '';
 
 	// Get current info
 	$option_name = anva_get_option_name();
-	$option_log = get_option( $option_name . '_log' );
-
-	$html .= '<div class="log">';
+	$option_log  = get_option( $option_name . '_log' );
 
 	// Check if field exists
-	if ( ! empty( $option_log ) ) {
+	if ( $option_log ) {
 		$time = strtotime( $option_log );
 		$time = date( 'M d, Y @ g:i A', $time );
-		$html .= sprintf( '%s' . __( 'Last changed', 'anva' ) . '%s' . ': %s', '<span class="dashicons dashicons-clock"></span> <strong>', '</strong>', $time );
-	} else {
-		$html .= '<span class="dashicons dashicons-clock"></span> ' . __( 'Your settings has not changed.', 'anva' );
+		printf( '<div class="log"><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</div>', __( 'Last changed', 'anva' ), $time );
+		return;
 	}
-
-	$html .= '</div><!-- .log (end) -->';
-
-	echo $html;
-
+	
+	printf( '<div class="log"><span class="dashicons dashicons-clock"></span> %s</div>', __( 'Your settings has not changed.', 'anva' ) );
+	
 }
 
 /**
@@ -207,7 +211,8 @@ function anva_logo_option( $id, $name, $val ) {
 		$current_value = $val['type'];
 	}
 
-	$select_type  = '<label for="' . $id . '" class="anva-input-label anva-select">';
+	$select_type  = '<label for="' . $id . '" class="anva-select-label anva-select">';
+	$select_type .= '<span></span>';
 	$select_type .= '<select name="'.esc_attr( $name.'['.$id.'][type]' ).'">';
 
 	foreach ( $types as $key => $type ) {
@@ -382,7 +387,8 @@ function anva_columns_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	// Select number of columns
-	$select_number  = '<label for="' . $id . '" class="anva-input-label">';
+	$select_number  = '<label for="' . $id . '" class="anva-select-label">';
+	$select_number .= '<span></span>';
 	$select_number .= '<select class="column-num" name="'.esc_attr( $name.'['.$id.'][num]' ).'">';
 
 	$current_value = '';
@@ -402,7 +408,8 @@ function anva_columns_option( $id, $name, $val ) {
 	$select_widths = '<div class="column-width column-width-0"><p class="inactive">'.__( 'Columns will be hidden.', 'anva' ).'</p></div>';
 	foreach ( $data_widths as $widths ) {
 
-		$select_widths .= '<label for="' . $id . '" class="anva-input-label column-width column-width-' . $i . '">';
+		$select_widths .= '<label for="' . $id . '" class="anva-select-label column-width column-width-' . $i . '">';
+		$select_widths .= '<span></span>';
 		$select_widths .= '<select name= "'.esc_attr( $name.'['.$id.'][width]['.$i.']' ).'">';
 		
 		$current_value = '';

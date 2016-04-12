@@ -43,15 +43,6 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 				$item_output = str_replace( $item->title . '</div>', sprintf( '%s</div><span>%s</span>', $item->title, $item->description ), $item_output );
 			}
 		}
-
-		if ( get_post_meta( $item->ID, '_anva_bold', true ) && $depth > 1 ) {
-	        ob_start();
-	        dynamic_sidebar( 'sidebar_left' );
-	        $widget = ob_get_contents();
-	        ob_end_clean();
-	        $widget_output = $widget;
-	        $item_output .= $widget_output ;
-    	}
 		
 		// Add "menu-btn" to all menu items in main navigation.
 		// Note: If menu item's link was disabled in the walker, the

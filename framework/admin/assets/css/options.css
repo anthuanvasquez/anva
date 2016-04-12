@@ -690,10 +690,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   top: 2px;
 }
 
-#anva-framework-wrap .settings-error {
-  margin: 20px 0 10px;
-}
-
 #anva-framework-wrap .CodeMirror {
   border: 1px solid #ddd;
 }
@@ -705,6 +701,15 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 #anva-framework-wrap .cm-s-mdn-like .CodeMirror-gutters {
   background: #f8f8f8;
   border-left: 6px solid #f8f8f8;
+}
+
+#anva-framework-wrap .section-columns p.inactive {
+  background: #f9f9f9;
+  border: 1px solid #f2f2f2;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  color: #777;
+  padding: 3px 10px;
 }
 
 #anva-framework-change {
@@ -755,8 +760,12 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   display: none;
 }
 
+#anva-framework .section-typography .font-range {
+  margin: 0 0 40px;
+}
+
 #anva-framework .section-typography .anva-input-label {
-  margin: 0 0 5px;
+  margin-bottom: 0 0 5px;
 }
 
 #anva-framework .section-typography .wp-picker-container {
@@ -921,14 +930,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 #anva-framework .section-info a {
   text-decoration: none;
-}
-
-#anva-framework .screenshot .no_image .file_link {
-  margin-left: 20px;
-}
-
-#anva-framework .screenshot .no_image .remove-button {
-  bottom: 0px;
 }
 
 #anva-framework .reset-button {

@@ -11,9 +11,6 @@ require_once( get_template_directory() . '/includes/customizer.php' );
 // Modify framework's core options
 require_once( get_template_directory() . '/includes/options.php' );
 
-// Add theme updates
-// require_once( get_template_directory() . '/includes/updates.php' );
-
 /**
  * Add theme body classes.
  * 
@@ -27,6 +24,7 @@ function theme_body_classes( $classes ) {
 	$base_color         = anva_get_option( 'base_color' );
 	$layout_style       = anva_get_option( 'layout_style' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
+	$header_color       = anva_get_option( 'header_color', 'light' );
 	$header_type        = anva_get_option( 'header_type', 'default' );
 	$side_panel_type    = anva_get_option( 'side_panel_type' );
 	$side_panel_display = anva_get_option( 'side_panel_display' );
@@ -64,6 +62,10 @@ function theme_body_classes( $classes ) {
 		$classes[] = 'no-transition';
 	}
 
+	if ( 'custom' == $header_color ) {
+		$classes[] = 'header-has-custom';
+	}
+
 	// Add header type
 	if ( isset( $types[ $header_type ] ) ) {
 		if ( ! empty( $types[ $header_type ]['classes']['body'] ) ) {
@@ -97,6 +99,7 @@ function theme_body_classes( $classes ) {
 function theme_header_classes( $classes ) {
 	
 	$header_color       = anva_get_option( 'header_color', 'light' );
+	$header_image       = anva_get_option( 'header_image' );
 	$header_layout      = anva_get_option( 'header_layout' );
 	$header_type        = anva_get_option( 'header_type', 'default' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
@@ -132,6 +135,14 @@ function theme_header_classes( $classes ) {
 	// Add header color
 	if ( 'dark' == $header_color ) {
 		$classes[] = $header_color;
+	}
+
+	if ( 'custom' == $header_color ) {
+		$classes[] = 'has-custom-color';
+	}
+
+	if ( ! empty( $header_image ) ) {
+		$classes[] = 'has-cusotm-image';
 	}
 
 	return $classes;
@@ -314,22 +325,29 @@ function theme_styles() {
 	$styles 			= '';
 
 	// Get styles options
-	$custom_css         = anva_get_option( 'custom_css' );
-	$body_font          = anva_get_option( 'body_font' );
-	$heading_font       = anva_get_option( 'heading_font' );
-	$meta_font          = anva_get_option( 'meta_font' );
-	$heading_h1         = anva_get_option( 'heading_h1', '36' );
-	$heading_h2         = anva_get_option( 'heading_h2', '30' );
-	$heading_h3         = anva_get_option( 'heading_h3', '24' );
-	$heading_h4         = anva_get_option( 'heading_h4', '18' );
-	$heading_h5         = anva_get_option( 'heading_h5', '14' );
-	$heading_h6         = anva_get_option( 'heading_h6', '12' );
-	$background_color   = anva_get_option( 'background_color' );
-	$background_image   = anva_get_option( 'background_image', array( 'image' => '' ) );
-	$background_cover   = anva_get_option( 'background_cover' );
-	$background_pattern = anva_get_option( 'background_pattern' );
-	$link_color         = anva_get_option( 'link_color' );
-	$link_color_hover   = anva_get_option( 'link_color_hover' );
+	$custom_css          = anva_get_option( 'custom_css' );
+	$body_font           = anva_get_option( 'body_font' );
+	$heading_font        = anva_get_option( 'heading_font' );
+	$meta_font           = anva_get_option( 'meta_font' );
+	$heading_h1          = anva_get_option( 'heading_h1', '36' );
+	$heading_h2          = anva_get_option( 'heading_h2', '30' );
+	$heading_h3          = anva_get_option( 'heading_h3', '24' );
+	$heading_h4          = anva_get_option( 'heading_h4', '18' );
+	$heading_h5          = anva_get_option( 'heading_h5', '14' );
+	$heading_h6          = anva_get_option( 'heading_h6', '12' );
+	$background_color    = anva_get_option( 'background_color', '#cccccc' );
+	$background_image    = anva_get_option( 'background_image', array( 'image' => '' ) );
+	$background_cover    = anva_get_option( 'background_cover' );
+	$background_pattern  = anva_get_option( 'background_pattern' );
+	$link_color          = anva_get_option( 'link_color' );
+	$link_color_hover    = anva_get_option( 'link_color_hover' );
+	$header_color        = anva_get_option( 'header_color' );
+	$header_bg_color     = anva_get_option( 'header_bg_color' );
+	$header_image     	 = anva_get_option( 'header_image' );
+	$header_border_color = anva_get_option( 'header_border_color' );
+	$header_text_color   = anva_get_option( 'header_text_color' );
+	$side_panel_color    = anva_get_option( 'side_panel_color' );
+	$side_panel_bg_color = anva_get_option( 'side_panel_bg_color' );
 	ob_start();
 	?>
 	/* ---------------------------------------- */
@@ -371,8 +389,6 @@ function theme_styles() {
 	.wedding-head .last-name,
 	.font-primary {
 		font-family: <?php echo anva_get_font_face( $heading_font ); ?>;
-		font-style: <?php echo anva_get_font_style( $heading_font ); ?>;
-		font-weight: <?php echo anva_get_font_weight( $heading_font ); ?>;
 	}
 
 	.entry-meta li,
@@ -435,7 +451,57 @@ function theme_styles() {
 
 	a { color: <?php echo $link_color; ?> }
 	a:hover { color: <?php echo $link_color_hover; ?> }
+
+	/* ---------------------------------------- */
+	/* Header
+	/* ---------------------------------------- */
 	
+	<?php if ( 'custom' == $header_color ) : ?>
+		/* Header Background */
+		body.header-has-custom #header,
+		body.header-has-custom #header.sticky-header #header-wrap {
+			background-color: <?php echo $header_bg_color; ?>;
+			border-color: <?php echo $header_border_color; ?>;
+		}
+		
+		<?php if ( ! empty( $header_image ) ) : ?>
+			body.header-has-custom #header,
+			body.header-has-custom #header.sticky-header #header-wrap {
+				background-image: url("<?php echo esc_url( $header_image ); ?>"); 
+				background-repeat: repeat;
+				background-position: top center;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+		<?php endif; ?>
+
+		/* Text Color */
+		body.header-has-custom #primary-menu > ul > li > a,
+		body.header-has-custom #primary-menu > ul > li > span a,
+		body.header-has-custom #primary-menu > ul > li > a:hover,
+		body.header-has-custom #primary-menu > ul > li > span a:hover,
+		body.header-has-custom #top-search > a,
+		body.header-has-custom #top-lang > a,
+		body.header-has-custom #top-cart > a,
+		body.header-has-custom #side-panel-trigger > a,
+		body.header-has-custom #primary-menu-trigger,
+		body.header-has-custom #page-submenu-trigger {
+			color: <?php echo $header_text_color; ?>;
+		}
+		
+	<?php endif; ?>
+
+	/* ---------------------------------------- */
+	/* Side Panel
+	/* ---------------------------------------- */
+	
+	<?php if ( 'custom' == $side_panel_color ) : ?>
+		body.side-panel-has-custom #side-panel,
+		body.side-panel-has-custom #side-panel.dark { background-color: <?php echo $side_panel_bg_color; ?>; }
+	<?php endif; ?>
+
 	<?php
 	$styles = ob_get_clean();
 
@@ -485,20 +551,6 @@ function theme_base_colors() {
 	        function anva_update_color( id, hex ) {
 	            $('#' + id).wpColorPicker( 'color', hex );
 	        }
-
-	        $('#section-primary_menu_style select').on( 'change', function() {
-	        	var value = $(this).val();
-	        	console.log(value);
-	        	if ( 'style_7' == value ) {
-		  			$('#section-header_extras').show(400);
-	        	} else {
-	        		$('#section-header_extras').hide(400);
-	        	}
-			});
-
-			if ( 'style_7' == $('#section-primary_menu_style select').val() ) {
-				$('#section-header_extras').show();
-			}
 		});
 	</script>
 	<?php

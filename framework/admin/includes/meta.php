@@ -31,9 +31,9 @@ function anva_add_meta_boxes_default() {
 
 	// Portfolio Meta Box
 	if ( post_type_exists( 'portfolio' ) ) {
-		// $portfolio_meta = anva_setup_portfolio_meta();
+		$portfolio_meta = anva_setup_portfolio_meta();
 		$portfolio_media_meta = anva_setup_portfolio_media_meta();
-		// anva_add_meta_box( $portfolio_meta['args']['id'], $portfolio_meta['args'], $portfolio_meta['options'] );
+		anva_add_meta_box( $portfolio_meta['args']['id'], $portfolio_meta['args'], $portfolio_meta['options'] );
 		anva_add_meta_box( $portfolio_media_meta['args']['id'], $portfolio_media_meta['args'], $portfolio_media_meta['options'] );
 	}
 

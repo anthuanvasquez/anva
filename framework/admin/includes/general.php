@@ -78,6 +78,7 @@ function anva_admin_assets() {
 	}
 
 	// Includes admin global
+	wp_enqueue_script( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_JS . 'admin-global.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/sweetalert.min.js', array( 'jquery' ), '1.1.3', false );
 	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/sweetalert.min.css', array(), '1.1.3' );
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-global.min.css', array(), ANVA_FRAMEWORK_VERSION );

@@ -85,6 +85,7 @@
     .inner-group {
         border-bottom: 4px solid #eee;
         padding: 10px 15px;
+        position: relative;
 
         > h3 {
             margin: -10px -15px 0;
@@ -99,12 +100,12 @@
                 content: '\f142';
                 color: #a0a5aa;
                 font: 400 20px/1 dashicons;
+                float: right;
                 speak: none;
                 display: inline-block;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
                 text-decoration: none !important;
-                float: right;
             }
         }
 
@@ -128,11 +129,6 @@
         border-bottom: 1px solid #eee;
         margin: 0 -15px 15px;
         padding: 0 15px 15px;
-
-        &:last-child {
-            border-bottom: 0;
-            margin-bottom: 0;
-        }
 
         h4.heading {
             font-size: 14px;
@@ -173,7 +169,7 @@
                 width: 100%;
             }
 
-            .anva-input-label {
+            .anva-select-label {
                 display: block;
                 // background: url(../images/fancy-select_2x.png) repeat-x;
                 background-size: 7px 32px;
@@ -401,7 +397,6 @@
                 margin-top: 10px;
                 label {
                     display: block;
-                    font-weight: bold;
                     margin-bottom: 10px;
                 }
             }
@@ -590,15 +585,24 @@
     }
 
     .screenshot {
-        float: left;
-        margin-left: 1px;
-        position: relative;
-        max-width: 380px;
-        margin: 15px 0;
         box-sizing: border-box;
+        float: left;
+        margin: 15px 0;
+        margin-left: 1px;
+        max-width: 100%;
+        position: relative;
 
         &:hover .remove-image {
             opacity: 1;
+        }
+
+        .no_image {
+            .file_link {
+                margin-left: 20px;
+            }
+            .remove-button {
+                bottom: 0px;
+            }
         }
 
         img {
