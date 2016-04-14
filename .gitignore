@@ -2,11 +2,11 @@
 ._*
 *.css.map
 *.js.map
+*.html
 *.log
 *.kit
 *.sublime-classdb
 .Trashes
-.html
 .htaccess
 .txt
 .zip

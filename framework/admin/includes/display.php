@@ -58,6 +58,11 @@ function anva_add_settings_flash() {
 	<?php endif;
 }
 
+/**
+ * Show notice whan settings change in options page.
+ * 
+ * @since 1.0.0
+ */
 function anva_add_settings_change() {
 	printf( '<div id="anva-framework-change" class="section-info">%s</div>', __( 'Settings has changed.', 'anva' ) );
 }
@@ -311,11 +316,11 @@ function anva_logo_option( $id, $name, $val ) {
 	$image_upload .= '<div class="section image-alternate">';
 	$image_upload .= '<label class="inner-label"><strong>'.__( 'Alternate Standard Image (optional)', 'anva' ).'</strong></label>';
 	$image_upload .= anva_media_uploader( array(
-			'option_name' => $name,
-			'type'        => 'logo_alternate',
-			'id'          => $id,
-			'value'       => $current_alternate['url'],
-			'name'        => 'image_alternate'
+		'option_name' => $name,
+		'type'        => 'logo_alternate',
+		'id'          => $id,
+		'value'       => $current_alternate['url'],
+		'name'        => 'image_alternate'
 	) );
 	$image_upload .= '</div>';
 

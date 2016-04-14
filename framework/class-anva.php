@@ -213,6 +213,7 @@ class Anva
         add_action( 'anva_featured', 'anva_featured_default' );
         add_action( 'anva_content_before', 'anva_page_title_default' );
         add_action( 'anva_breadcrumbs', 'anva_breadcrumbs_default' );
+        add_action( 'anva_portfolio_navigation', 'anva_portfolio_navigation_default' );
         add_action( 'anva_content_after', 'anva_post_reading_bar', 20 );
         add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
         add_action( 'anva_above_layout', 'anva_above_layout_default' );

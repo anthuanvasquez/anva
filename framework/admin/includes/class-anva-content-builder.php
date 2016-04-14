@@ -122,7 +122,6 @@ class Anva_Content_Builder
 				/* Builder
 				/* ---------------------------------------------------------------- */
 
-				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
 				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/tooltipster.min.css', array(), '3.3.0' );
 				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-builder.min.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
 

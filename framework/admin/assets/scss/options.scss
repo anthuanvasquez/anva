@@ -1,7 +1,3 @@
-// Import needed components
-@import "components/switch";
-@import "components/radio-checkbox";
-
 #anva-framework-wrap {
 	
 	> h2:not(.nav-tab-wrapper) {
@@ -38,7 +34,6 @@
 
 	.CodeMirror {
 		border: 1px solid #ddd;
-
 		pre {
 			padding: 0 8px;
 		}
@@ -48,20 +43,57 @@
 	    background: #f8f8f8;
 	    border-left: 6px solid #f8f8f8;
 	}
+}
 
-	.section-columns {
-		p.inactive {
-			background: #f9f9f9;
-		    border: 1px solid #f2f2f2;
-		    border-radius: 2px;
-		    color: #777;
-		    padding: 3px 10px;
+/* --------------------------------------------- */
+/* Typography
+/* --------------------------------------------- */
+
+#anva-framework {
+	.section-typography {
+		.font-range {
+    		margin: 0 0 40px;
+    	}
+    	.anva-select-label {
+		    margin-bottom: 0 0 5px;
+		}
+		.wp-picker-container {
+		    margin-top:2px;
+		}
+	}
+	
+	.google-font {
+	    padding: 10px;
+	    background: #f9f9f9;
+	    border: 1px solid #eee;
+	    border-radius: 0;
+	    margin: 10px 0 15px;
+	    h5 {
+		    margin: 0 0 1.67em;
+		}
+		p.note {
+		    font-style: italic;
+		    font-size: 12px;
+		    color: #999;
+		    padding: 0;
 		}
 	}
 
+	.sample-text-font {
+	    margin: 15px 0 0;
+	    padding: 18px 10px;
+	    border-radius: 0;
+	    border: 2px dashed #ccc;
+	    font-size: 25px;
+	    text-align: center;
+	}
 }
 
-// When settings has changed
+
+/* --------------------------------------------- */
+/* General
+/* --------------------------------------------- */
+
 #anva-framework-change {
 	background: #fff;
 	border: 1px solid #ddd;
@@ -75,198 +107,17 @@
 }
 
 #anva-framework-metabox.metabox-holder {
-	padding-top: 15px;
+	padding-top: 20px;
 }
 
-#anva-framework .ui-slider-horizontal {
-	height: 5px;;
-}
-
-#anva-framework  .ui-slider .ui-slider-handle {
-	width: 15px;
-	height: 15px;
-	border-radius: 8px;
-	outline: none;
-	top: -7px;
-}
-
-#anva-framework .ui-slider-horizontal.ui-slider-pips {
-	margin-bottom: 1.6em;
-}
-
-#anva-framework .ui-slider-pips .ui-slider-label {
-	top: -2px;
-}
-
-#anva-framework .ui-slider-pips .ui-slider-line {
-	visibility: hidden;
-	display: none;
-}
-
-#anva-framework .ui-slider-float .ui-slider-pip .ui-slider-tip-label {
-	display: none;
-}
-
-#anva-framework .section-typography .font-range {
-	margin: 0 0 40px;
-}
-
-#anva-framework .section-typography .anva-input-label {
-	margin-bottom: 0 0 5px;
-}
-
-#anva-framework .section-typography .wp-picker-container {
-	margin-top:2px;
-}
-
-#anva-framework .anva-background-properties {
-	clear:both;
-	margin-top: 18px;
-}
-
-#anva-framework .anva-background-properties .anva-input-label {
-	margin: 5px 0;
-}
-
-#anva-framework .controls .anva-background-repeat,
-#anva-framework .controls .anva-background-position,
-#anva-framework .controls .anva-background-attachment {
-	margin: 3px 0;
-	width: 100%;
-}
-
-#anva-framework .section-background .wp-picker-container {
-	margin-bottom:10px;
-}
-
-#anva-framework .controls .anva-radio-img-label {
-	margin: 5px 0 0;
-	color: #777;
-	text-align: center;
-	text-transform: capitalize;
-	display: none;
-}
-
-#anva-framework .controls .anva-radio-img-box {
-	margin: 0 5px 5px 0;
-	float: left;
-	padding: 8px;
-	box-sizing: border-box;
-	background-color: #f9f9f9;
-	border: 1px solid #ddd;
-	box-shadow: 0 1px 0 rgba(black,.08);
-
-	.anva-radio-img-img {
-		border: 0;
-		display: none;
-		cursor: pointer;
-		border-radius: 0;
+#anva-framework {
+	.reset-button {
+		float:left;
+		cursor:pointer;
 	}
-
-	span {
-		border-radius: 0;
-		display: table-cell;
-		line-height: 0;
-		cursor: pointer;
-		position: relative;
-		&:after {
-			content: "";
-			display: block;
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			border: 1px solid rgba(white, .1);
-			border-bottom: 0;
-			border-radius: 0;
-			-webkit-background-origin: border-box;
-			-moz-background-origin: border;
-			background-origin: border-box;
-			background-image: linear-gradient(top, rgba(white, .15), rgba(0, 0, 0, .25)), linear-gradient(left top, rgba(white, 0), rgba(white, .15) 50%, rgba(white, 0) 50%, rgba(white, 0));
-		}
+	.button-primary {
+		float:right;
 	}
-}
-
-#anva-framework .controls .anva-radio-img-radio {
-	display: block !important;
-	margin: 8px auto 0;
-}
-
-#anva-framework .controls .anva-radio-img-selected {
-	border-color: #1e8cbe;
-	background: rgba(#1e8cbe, .2);
-	box-shadow: 0 0 0 1px #1e8cbe;
-	position: relative;
-}
-
-#anva-framework .controls .anva-radio-img-img:hover {
-	opacity:.8;
-}
-
-#anva-framework .pattern-preview {
-	background: #f9f9f9;
-	height: 100px;
-	width: 100%;
-	padding: 20px;
-	box-sizing: border-box;
-
-	.pattern {
-		height: 100px;
-		width: 100%;
-		border: 1px solid #eee;
-		box-sizing: border-box;
-	}
-}
-
-#anva-framework .controls .anva-border-width {
-	width: 80px;
-	float: left;
-}
-
-#anva-framework .controls .anva-border-style {
-	width: 120px;
-	float: left;
-}
-
-#anva-framework .hide {
-	display:none;
-}
-
-#anva-framework .anva-option-image {
-	max-width:340px;
-	margin:3px 0 18px 0;
-}
-
-#anva-framework .mini .controls select,
-#anva-framework .section .mini .controls {
-	width: 140px;
-}
-
-#anva-framework .mini .controls input,
-#anva-framework .mini .controls {
-	min-width:140px;
-	width: 140px;
-}
-
-#anva-framework .mini .explain {
-	max-width: 74%;
-}
-
-/* Editor */
-#anva-framework .section-editor .explain {
-	max-width: 98%;
-	float:none;
-	margin-bottom:5px;
-}
-
-#anva-framework .section-info a {
-	text-decoration: none;
-}
-
-#anva-framework .reset-button {
-	float:left;
-	cursor:pointer;
 }
 
 /* Bottom Section */
@@ -277,18 +128,71 @@
 	margin-bottom: 0;
 }
 
-#anva-framework .button-primary {
-	float:right;
+#anva-framework {
+	
+	.options-settings {
+		position: relative;
+		margin-right: 300px;
+		
+		> .columns-1 {
+			width: 100%;
+			min-width: 463px;
+			float: left;
+		}
+
+		> .columns-2 {
+			float: right;
+			margin-right: -300px;
+			width: 280px;
+			
+			.postbox {
+				margin-bottom: 20px;
+				padding-bottom: 0;
+			}
+
+			h3 {
+				margin: -10px -10px 10px;
+			}
+
+			.inside {
+				margin-bottom: 0;
+				padding: 0;
+			}
+
+			.log {
+				font-size: 12px;
+				margin-bottom: 10px;
+			}
+
+			.actions {
+				background: #f5f5f5;
+				border-top: 1px solid #ddd;
+				margin: 10px -10px 0;
+				padding: 10px;
+			}
+
+			.spinner {
+				float: right;
+				margin-right: 8px;
+			}
+
+			.reset-button {
+				background: transparent;
+				border: 0;
+				box-shadow: none;
+				color: #a00;
+				padding: 0;
+				&:hover {
+					color: red;
+				}
+			}
+		}
+	}
 }
 
-#anva-framework .section:after {
-	content: "";
-	display: table;
-}
-
-#anva-framework .section:after {
-	clear: both;
-}
+/* --------------------------------------------- */
+/* Footer
+/* --------------------------------------------- */
 
 #anva-options-page-credit,
 #anva-options-page-links {
@@ -317,65 +221,6 @@
 		span {
 			font-size: 14px;
 			line-height: 1.4;
-		}
-	}
-}
-
-#anva-framework .options-settings {
-	position: relative;
-	margin-right: 300px;
-}
-
-#anva-framework .options-settings > .columns-1 {
-	width: 100%;
-	min-width: 463px;
-	float: left;
-}
-
-#anva-framework .options-settings > .columns-2 {
-	float: right;
-	margin-right: -300px;
-	width: 280px;
-	
-	.postbox {
-		margin-bottom: 20px;
-		padding-bottom: 0;
-	}
-
-	h3 {
-		margin: -10px -10px 10px;
-	}
-
-	.inside {
-		margin-bottom: 0;
-		padding: 0;
-	}
-
-	.log {
-		font-size: 12px;
-		margin-bottom: 10px;
-	}
-
-	.actions {
-		background: #f5f5f5;
-		border-top: 1px solid #ddd;
-		margin: 10px -10px 0;
-		padding: 10px;
-	}
-
-	.spinner {
-		float: right;
-		margin-right: 8px;
-	}
-
-	.reset-button {
-		background: transparent;
-		border: 0;
-		box-shadow: none;
-		color: #a00;
-		padding: 0;
-		&:hover {
-			color: red;
 		}
 	}
 }

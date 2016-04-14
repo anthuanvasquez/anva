@@ -7,6 +7,8 @@ jQuery(document).ready(function($) {
         init: function() {
             ANVA_SECTIONS.colorPicker();
             ANVA_SECTIONS.radioImages();
+            ANVA_SECTIONS.datePicker();
+            ANVA_SECTIONS.spinner();
             ANVA_SECTIONS.logo();
             ANVA_SECTIONS.typography();
             ANVA_SECTIONS.socialMedia();
@@ -32,6 +34,21 @@ jQuery(document).ready(function($) {
                 $(this).find('.anva-radio-img-radio').prop('checked', true);
             });
             $('.anva-radio-img-img').show();
+        },
+
+        spinner: function() {
+            if ( $('.anva-spinner').length > 0 ) {
+                $('.anva-spinner').spinner();
+            }
+        },
+
+        datePicker: function() {
+            if ( $('.anva-datepicker').length > 0 ) {
+                $('.anva-datepicker').datepicker({
+                    showAnim: 'slideDown',
+                    dateFormat: 'd MM, yy'
+                });
+            }
         },
 
         logo: function() {
@@ -111,14 +128,14 @@ jQuery(document).ready(function($) {
         },
 
         slider: function() {
-            $('.group-slider').each(function() {
+            $('.group-slideshows').each(function() {
                 var el = $(this), value = el.find('#slider_id').val();
                 el.find('.slider-item').hide();
                 el.find('.' + value).show();
             });
 
-            $('.group-slider #slider_id').on( 'change', function() {
-                var el = $(this), parent = el.closest('.group-slider'), value = el.val();
+            $('.group-slideshows #slider_id').on( 'change', function() {
+                var el = $(this), parent = el.closest('.group-slideshows'), value = el.val();
                 parent.find('.slider-item').hide();
                 parent.find('.' + value).show();
             });
@@ -201,7 +218,7 @@ jQuery(document).ready(function($) {
             });
 
             // Checkbox Show Hide
-            $('.section-checkbox.show-hide input.checkbox').each( function() {
+            $('.section-checkbox.show-hide input.anva-checkbox').each( function() {
                 var el        = $(this),
                     value     = el.val(), 
                     trigger   = el.closest('.section').data('trigger'),
@@ -218,7 +235,7 @@ jQuery(document).ready(function($) {
                 }
             });
 
-            $('.section-checkbox.show-hide input.checkbox').on( 'click', function() {
+            $('.section-checkbox.show-hide input.anva-checkbox').on( 'click', function() {
                 var el        = $(this),
                     value     = el.val(), 
                     trigger   = el.closest('.section').data('trigger'),

@@ -1134,6 +1134,7 @@ function anva_comment_list( $comment, $args, $depth ) {
  */
 function anva_breadcrumbs( $args = array() ) {
 
+	// Don't show breadcrumns on front page.
 	if ( is_front_page() ) {
 		return;
 	}
@@ -1149,7 +1150,6 @@ function anva_breadcrumbs( $args = array() ) {
 
 	$args      = apply_filters( 'anva_get_breadcrumbs_args', wp_parse_args( $args, $defaults ) );
 	$separator = '<li class="separator hidden"> ' . esc_attr( $args['separator_icon'] ) . ' </li>';
-	
 
 	// Open the breadcrumbs
 	$html = '<ol id="' . esc_attr( $args['breadcrumbs_id'] ) . '" class="' . esc_attr( $args['breadcrumbs_classes'] ) . '">';

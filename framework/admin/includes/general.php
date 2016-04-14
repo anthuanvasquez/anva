@@ -78,7 +78,7 @@ function anva_admin_assets() {
 	}
 
 	// Includes admin global
-	wp_enqueue_script( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_JS . 'admin-global.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
+	wp_enqueue_script( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_JS . 'admin-global.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, false );
 	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/sweetalert.min.js', array( 'jquery' ), '1.1.3', false );
 	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/sweetalert.min.css', array(), '1.1.3' );
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-global.min.css', array(), ANVA_FRAMEWORK_VERSION );
@@ -182,7 +182,7 @@ function anva_get_font_size( $option ) {
 	$size = '14px'; // Default font size
 
 	if ( isset( $option['size'] ) ) {
-		$size = $option['size'];
+		$size = $option['size'] . 'px';
 	}
 
 	return apply_filters( 'anva_get_font_size', $size, $option );
@@ -199,7 +199,7 @@ function anva_get_font_style( $option ) {
 
 	$style = 'normal'; // Default font style
 
-	if ( isset( $option['style'] ) && ( $option['style'] == 'italic' || $option['style'] == 'bold-italic' ) ) {
+	if ( isset( $option['style'] ) && ( $option['style'] == 'italic' || $option['style'] == 'uppercase-italic' ) ) {
 		$style = 'italic';
 	}
 
@@ -217,21 +217,34 @@ function anva_get_font_weight( $option ) {
 
 	$weight = 'normal';
 
-	if ( isset( $option['style'] ) ) {
-		
-		if ( $option['style'] == 'bold' || $option['style'] == 'bold-italic' ) {
-			$weight = 'bold';
-		}
+	if ( ! empty( $option['weight'] ) ){
+		$weight = $option['weight'];
+	}
 
-		if ( is_numeric( $option['style'] ) ) {
-			$weight = intval( $option['style'] );
-		}
-
+	if ( ! $weight ) {
+		$weight = '400';
 	}
 
 	return apply_filters( 'anva_get_font_weight', $weight, $option );
 }
 
+/**
+ * Get font text-transform.
+ *
+ * @since  1.0.0
+ * @param  array  $option
+ * @return string $transform
+ */
+function anva_get_text_transform( $option ) {
+
+	$tranform = 'none';
+
+	if ( ! empty( $option['style'] ) && in_array( $option['style'], array('uppercase', 'uppercase-italic') ) ) {
+		$tranform = 'uppercase';
+	}
+
+	return apply_filters( 'anva_text_transform', $tranform, $option );
+}
 
 /**
  * Get background patterns url fron option value.

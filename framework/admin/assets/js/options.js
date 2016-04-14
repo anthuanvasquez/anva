@@ -21,7 +21,6 @@ jQuery(document).ready(function($) {
 
 			// CSS
 			var $mode = $('#code_editor_mode').val();
-			console.log( '' + $mode + '' );
 			var code_editor = document.querySelector('.anva-code-editor');
 			var editor = CodeMirror.fromTextArea( code_editor, {
 				mode: $mode,

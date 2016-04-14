@@ -101,9 +101,12 @@ class Anva_Meta_Box
 			// Add scripts only if page match with post type
 			if ( $typenow == $page ) {
 				
+				wp_enqueue_style( 'wp-color-picker' );
 				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
-				wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
+				//wp_enqueue_style( 'jquery-ui-custom', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
+				wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_CSS. 'plugins/jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.7.2' );
+				wp_enqueue_script( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
 
 			}
 		}

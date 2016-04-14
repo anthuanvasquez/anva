@@ -2,6 +2,15 @@
 
 if ( ! class_exists( 'Anva_Options_Import_Export' ) ) :
 
+/**
+ * Add import export options to theme options.
+ *
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
+ */
 class Anva_Options_Import_Export
 {	
 	/**
@@ -14,13 +23,22 @@ class Anva_Options_Import_Export
 	private static $instance = NULL;
 
 	/**
+	 * Theme option ID.
+ 	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @var    object
+	 */
+	private $option_id;
+
+	/**
 	 * Theme options from database.
  	 *
 	 * @since  1.0.0
 	 * @access private
 	 * @var    object
 	 */
-	private $theme_options;
+	private $options;
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -48,7 +66,7 @@ class Anva_Options_Import_Export
 		$this->option_id = $option_name;
 
 		// Get options from database.
-		$this->theme_options = get_option( $option_name );
+		$this->options = get_option( $option_name );
 
 		add_filter( 'anva_option_type', array( $this, 'import_option' ), 10, 4 );
 		add_filter( 'anva_option_type', array( $this, 'export_option' ), 10, 4 );
@@ -58,27 +76,27 @@ class Anva_Options_Import_Export
 	}
 	
 	/**
-	 * Add import/export options to advanced tab.
+	 * Add import export options to advanced tab.
 	 *
 	 * @since  1.0.0
 	 */
 	public function add_options()
 	{
 		$import_export_options = array(
-			'import' => array(
-				'name' => __( 'Import', 'anva' ),
-				'id' => 'import_settings',
-				'std' => '',
-				'desc' => __( 'Paste your exported settings here. When you click "Import" your settings will be imported to this site. This is useful if you want to experiment on the options but would like to keep the old settings in case you need it back.', 'anva' ),
-				'type' => 'import',
-				'rows' => 10,
-			),
 			'export' => array(
 				'name' => __( 'Export', 'anva' ),
 				'id' => 'export_settings',
 				'std' => '',
-				'desc' => __( 'Select all and copy to export your settings.', 'anva'  ),
+				'desc' => __( 'Select all and copy to export your current theme settings.', 'anva'  ),
 				'type' => 'export'
+			),
+			'import' => array(
+				'name' => __( 'Import', 'anva' ),
+				'id' => 'import_settings',
+				'std' => '',
+				'desc' => __( 'Paste your exported settings here. When you click "Import" your settings will be imported to this site. This is useful if you want to experiment on the options but would like to keep the old settings in case you need it back.', 'anva' ) . '<br/><br/>' .  __( 'When you click "Restore Previous", the latest settings will be imported.', 'anva' ),
+				'type' => 'import',
+				'rows' => 10,
 			),
 		);
 
@@ -97,8 +115,17 @@ class Anva_Options_Import_Export
 		if ( $value['type'] == 'import' ) {
 
 			$output .= sprintf( '<textarea name="%s[import_settings]" class="anva-input anva-textarea" rows="10"></textarea>', $option_name );
+
+			$option_import = get_option( $this->option_id . '_import' );
 			
-			$output .= sprintf( '<p><input type="submit" class="button button-secondary import-button" value="%s" /></p>', esc_attr__( 'Import', 'anva' ) );
+			if ( $option_import ) {
+				$time = strtotime( $option_import['time'] );
+				$time = date( 'M d, Y @ g:i A', $time );
+				$output .= sprintf( '<p><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</p>', __( 'Last imported settings', 'anva' ), $time );	
+			}
+
+			$output .= sprintf( '<p><input type="submit" class="button button-secondary import-button" value="%s" />  <input type="submit" class="button button-secondary restore-button" value="%s" /></p>', esc_attr__( 'Import', 'anva' ), esc_attr__( 'Restore Previous', 'anva' ) );
+
 		}
 				
 		return $output;
@@ -116,33 +143,30 @@ class Anva_Options_Import_Export
     {
 		if ( $value['type'] == 'export' ) {
 			
-			if ( ! $this->theme_options && ! is_array( $this->theme_options ) ) {
-				$output .= sprintf( '<div class="anva-disclaimer">%s</div>', __( 'ERROR! You don\'t have any options to export. Trying saving your options first.', 'anva' ) );
+			if ( ! $this->options && ! is_array( $this->options ) ) {
+				$output .= sprintf( '<div class="anva-disclaimer section-info danger"><p>%s</p></div>', __( 'ERROR! You don\'t have any options to export. Trying saving your options first.', 'anva' ) );
 				return $output;
 			}
 			
 			// Add the theme name
-			$this->theme_options['theme_name'] = $option_name;
+			$this->options['theme_name'] = $option_name;
 			
 			// Generate the export data.
-			$val = base64_encode( maybe_serialize( (array)$this->theme_options ) );
+			$val = base64_encode( maybe_serialize( (array)$this->options ) );
 			
-			$output .= '<textarea disabled="disabled" class="anva-input" rows="10" onclick="this.focus();this.select()">' . esc_textarea( $val ) . '</textarea>';
+			$output .= '<textarea disabled="disabled" class="anva-input anva-textarea" rows="10">' . esc_textarea( $val ) . '</textarea>';
 		}
 
 		return $output;
 		
-		 
     }
 
 	/**
-	 * Import the settings
-	 * happens on options validation hook, but re-directs before OF's validation can run
+	 * Import the settings.
 	 *
 	 * @since  1.0.0
 	 * @param  array $input
-	 * @return array
-	 *
+	 * @return void
 	 */
     public function import_settings()
     {
@@ -155,11 +179,18 @@ class Anva_Options_Import_Export
 	
 				unset( $data['theme_name'] );
 
+				$import = array();
+
 				// @TODO sanitize settings before update option
 				
 				// Update the settings in the database
 				update_option( $this->option_id, $data );
 				update_option( 'anva_import_happened', 'success' );
+
+				$import['time'] = current_time( 'mysql' );
+				$import['settings'] = $data;
+
+				update_option( $this->option_id . '_import', $import );
 			
 			} else {
 				update_option( 'anva_import_happened', 'fail' );

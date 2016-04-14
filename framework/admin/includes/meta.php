@@ -114,25 +114,103 @@ function anva_setup_page_meta() {
 	$options = array(
 		'hide_title' 	=> array(
 			'name' 		=> __( 'Page Title', 'anva' ),
-			'desc'		=> __( 'Show or hide page\'s titles.', 'anva' ),
+			'desc'		=> __( 'Select to show or hide page\'s titles on this page. This option will be ignore in "Builder" template.', 'anva' ),
 			'id'		=> 'hide_title',
 			'type' 		=> 'select',
 			'std'		=> 'show',
 			'options'	=> array(
 				'show' 	=> __( 'Show page\'s title', 'anva' ),
-				'hide'	=> __( 'Hide page\'s title', 'anva' )
+				'hide'	=> __( 'Hide page\'s title', 'anva' ),
 			)
 		),
-		'page_desc' 	=> array(
-			'name' 		=> __( 'Page Description', 'anva' ),
-			'desc'		=> __( 'Enter the description for the page.', 'anva' ),
-			'id'		=> 'page_desc',
-			'type' 		=> 'textarea',
+		'page_tagline' 	=> array(
+			'name' 		=> __( 'Page Tagline', 'anva' ),
+			'desc'		=> __( 'Enter s ahort page tagline for this page.', 'anva' ),
+			'id'		=> 'page_tagline',
+			'type' 		=> 'text',
 			'std'		=> '',
+		),
+		'title_align' 	=> array(
+			'name' 		=> __( 'Title Align', 'anva' ),
+			'desc'		=> __( 'Select the page title align.', 'anva' ),
+			'id'		=> 'title_align',
+			'type' 		=> 'select',
+			'std'		=> '',
+			'options'   => array(
+				'' 		=> __( 'Left', 'anva' ),
+				'right' => __( 'Right', 'anva' ),
+				'center'=> __( 'Center', 'anva' ),
+			),
+		),
+		'title_bg' 	=> array(
+			'name' 		=> __( 'Title Background', '' ),
+			'desc'		=> __( 'Use background in page titles.', 'anva' ),
+			'id'		=> 'title_bg',
+			'type' 		=> 'select',
+			'std'		=> 'default',
+			'options'	=> array(
+				'light' => __( 'Light', 'anva' ),
+				'dark'  => __( 'Dark', 'anva' ),
+				'custom'=> __( 'Custom', 'anva' ),
+				'nobg'  => __( 'No Background', 'anva' ),
+
+			),
+			'trigger'	=> 'custom',
+			'receivers' => 'title_bg_color title_bg_image title_bg_text title_bg_padding'
+		),
+		'title_bg_color' => array(
+			'name' 		=> __( 'Background Color', 'anva' ),
+			'desc'		=> __( 'Select a background color for page title.', 'anva' ),
+			'id'		=> 'title_bg_color',
+			'type' 		=> 'color',
+			'std'		=> '#cccccc',
+			'class'		=> 'hidden',
+		),
+		'title_bg_image' => array(
+			'name' 		=> __( 'Background Image', 'anva' ),
+			'desc'		=> __( 'Select a background image for page title.', 'anva' ),
+			'id'		=> 'title_bg_image',
+			'type' 		=> 'upload',
+			'std'		=> '',
+			'class'		=> 'hidden',
+		),
+		'title_bg_text' => array(
+			'name' 		=> NULL,
+			'desc'		=> __( 'Use light text color for background.', 'anva' ),
+			'id'		=> 'title_bg_text',
+			'type' 		=> 'checkbox',
+			'std'		=> '0',
+			'class'		=> 'hidden',
+		),
+		'title_bg_padding' => array(
+			'name' 		=> __( 'Padding' , 'anva' ),
+			'desc'		=> __( 'Apply padding to background when using a image. Default is 120px.', 'anva' ),
+			'id'		=> 'title_bg_padding',
+			'type' 		=> 'range',
+			'std'		=> 120,
+			'options'   => array(
+				'min'   => 60,
+				'max'   => 200,
+				'step'  => 1,
+				'units' => 'px',
+			),
+			'class'		=> 'hidden',
+		),
+		'breadcrumbs' 	=> array(
+			'name' 		=> __( 'Breadcrumbs', 'anva' ),
+			'desc'		=> __( 'Select to show or hide breadcrumbs on this page.', 'anva' ),
+			'id'		=> 'breadcrumbs',
+			'type' 		=> 'select',
+			'std'		=> '',
+			'options'   => array(
+				'' 		=> __( 'Default Breadcrumbs', 'anva' ),
+				'show' 	=> __( 'Show breadcrumbs', 'anva' ),
+				'hide'	=> __( 'Hide breadcrumbs', 'anva' ),
+			),
 		),
 		'sidebar_layout'=> array(
 			'name' 		=> __( 'Sidebar Layout', 'anva' ),
-			'desc'		=> __( 'Select a sidebar layout.', 'anva' ),
+			'desc'		=> __( 'Select the sidebar layout you want to show. You can select diferent widgets area for right and left sidebar, or just use the default settings. This option will be ignored in "Builder" and "Posts Grid" template.', 'anva' ),
 			'id'		=> 'sidebar_layout',
 			'type' 		=> 'layout',
 			'std'		=> array(
@@ -143,7 +221,7 @@ function anva_setup_page_meta() {
 		),
 		'grid_column' 	=> array(
 			'name' 		=> __( 'Post Grid', 'anva' ),
-			'desc'		=> __( 'Select a grid column for posts list.', 'anva' ),
+			'desc'		=> __( 'Setup the grid columns for "Posts Grid" template.', 'anva' ),
 			'id'		=> 'grid_column',
 			'type' 		=> 'select',
 			'std'		=> '',

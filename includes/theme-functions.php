@@ -298,7 +298,7 @@ function theme_scripts() {
 	$GLOBALS['wp_scripts']->add_data( 'css3-mediaqueries-js', 'conditional', 'lt IE 9' );
 
 	// Enqueue Scripts
-	wp_enqueue_script( 'jquery' );
+	//wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'css3-mediaqueries-js' );
 	wp_enqueue_script( 'theme_js' );
 	wp_localize_script( 'anva_functions', 'ANVA_WP', anva_get_js_locals() );

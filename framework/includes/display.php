@@ -11,10 +11,10 @@
  */
 function anva_head_apple_touch_icon() {
 	
-	$html    = '';
-	$sizes   = '';
-	$links   = array();
-	$favicon = anva_get_option( 'favicon' );
+	$html               = '';
+	$sizes              = '';
+	$links              = array();
+	$favicon            = anva_get_option( 'favicon' );
 	$touch_icon_display = anva_get_option( 'apple_touch_icon_display' );
 
 	if ( $favicon ) {
@@ -530,29 +530,70 @@ function anva_page_title_default() {
 	// Hide page titles
 	$hide_title = anva_get_post_meta( '_anva_hide_title' );
 
-	if ( ! empty ( 'hide' == $hide_title ) ) {
+	if ( 'hide' == $hide_title ) {
 		return;
 	}
 
-	// Show page description
-	$page_desc = anva_get_post_meta( '_anva_page_desc' );
+	$style            = '';
+	$classes          = array();
+	$tagline          = anva_get_post_meta( '_anva_page_tagline' );
+	$title_align      = anva_get_post_meta( '_anva_title_align' );
+	$title_bg         = anva_get_post_meta( '_anva_title_bg' );
+	$title_bg_color   = anva_get_post_meta( '_anva_title_bg_color' );
+	$title_bg_image   = anva_get_post_meta( '_anva_title_bg_image' );
+	$title_bg_text    = anva_get_post_meta( '_anva_title_bg_text' );
+	$title_bg_padding = anva_get_post_meta( '_anva_title_bg_padding' );
+
+	// Remove title background.
+	if ( 'nobg' == $title_bg ) {
+		$classes[] = 'page-title-nobg';
+	}
+
+	// Add dark background
+	if ( 'dark' == $title_bg || ( 'custom' == $title_bg && $title_bg_text ) ) {
+		$classes[] = 'page-title-dark';
+	}
+
+	// Add background color
+	if ( 'custom' == $title_bg && ! empty( $title_bg_color ) ) {
+		$style = 'style="background-color:' . esc_attr( $title_bg_color ) . '"';
+	}
+
+	// Add background parallax image
+	if ( 'custom' == $title_bg && ! empty( $title_bg_image ) ) {
+		$classes[] = 'page-title-parallax';
+		$title_bg_padding = $title_bg_padding . 'px';
+		$style = 'style="padding: ' . esc_attr( $title_bg_padding ) . ' 0px; background-color:' . esc_attr( $title_bg_color ) . '; background-image: url(' . $title_bg_image . ');"';
+	}
+
+	// Align title to the right
+	if ( 'right' == $title_align ) {
+		$classes[] = 'page-title-right';
+	}
+
+	// Title centered
+	if ( 'center' == $title_align ) {
+		$classes[] = 'page-title-center';
+	}
+
+	$classes = implode( ' ', $classes );
+
+	if ( ! empty( $title_align ) || 'nobg' == $title_bg  ) {
+		$classes = 'class="' . esc_attr( $classes ) . '"';
+	}
 	
 	?>
-	<section id="page-title">
+	<section id="page-title"<?php echo $classes; ?><?php echo $style; ?>>
 		<div class="container clearfix">
 			
 			<h1><?php anva_the_global_page_title(); ?></h1>
 			
-			<?php if ( ! empty ( $page_desc ) ) : ?>
-				<span><?php echo esc_html( $page_desc ); ?></span>
+			<?php if ( ! empty ( $tagline ) ) : ?>
+				<span><?php echo esc_html( $tagline ); ?></span>
 			<?php endif; ?>
 
 			<?php if ( is_singular( 'portfolio' ) ) : ?>
-				<div id="portfolio-navigation">
-					<a href="#"><i class="icon-angle-left"></i></a>
-					<a href="#"><i class="icon-line-grid"></i></a>
-					<a href="#"><i class="icon-angle-right"></i></a>
-				</div>
+				<?php do_action( 'anva_portfolio_navigation' ); ?>
 			<?php else : ?>
 				<?php do_action( 'anva_breadcrumbs' ); ?>
 			<?php endif; ?>
@@ -561,6 +602,7 @@ function anva_page_title_default() {
 	</section><!-- #page-title (end) -->
 	<?php
 }
+
 /**
  * Display breadcrumbs.
  * 
@@ -568,10 +610,36 @@ function anva_page_title_default() {
  * @return void
  */
 function anva_breadcrumbs_default() {
-	$breadcrumbs = anva_get_option( 'breadcrumbs', 'hide' );
-	if ( 'show' == $breadcrumbs ) {
-		anva_breadcrumbs();
+
+	// Get current breadcrumbs
+	$current_breadcrumb = anva_get_post_meta( '_anva_breadcrumbs' );
+
+	// Set default breadcrumbs
+	if ( empty ( $current_breadcrumb ) ) {
+		$current_breadcrumb = anva_get_option( 'breadcrumbs', 'show' );
 	}
+
+	if ( 'show' != $current_breadcrumb ) {
+		return;
+	}
+	
+	// Display breadcrumbs
+	anva_breadcrumbs();
+}
+
+/**
+ * Display portfolio navigation.
+ *
+ * @since 1.0.0 
+ */
+function anva_portfolio_navigation_default() {
+	?>
+	<div id="portfolio-navigation">
+		<a href="#"><i class="icon-angle-left"></i></a>
+		<a href="#"><i class="icon-line-grid"></i></a>
+		<a href="#"><i class="icon-angle-right"></i></a>
+	</div>
+	<?php
 }
 
 /**

@@ -2,8 +2,11 @@
 /**
  * Media uploader.
  *
- * @since  1.0.0
- * @author Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Options_Media_Uploader
 {
@@ -140,12 +143,13 @@ class Anva_Options_Media_Uploader
 		// if ( substr( $hook, -strlen( $menu['menu_slug'] ) ) !== $menu['menu_slug'] )
 		// 	return;
 
-		if ( function_exists( 'wp_enqueue_media' ) )
+		if ( function_exists( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
+		}
 
-		wp_register_script( 'anva-media-uploader', ANVA_FRAMEWORK_ADMIN_JS . 'media-uploader.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
-		wp_enqueue_script( 'anva-media-uploader' );
-		wp_localize_script( 'anva-media-uploader', 'anvaMediaJs', array(
+		wp_register_script( 'anva_media_uploader', ANVA_FRAMEWORK_ADMIN_JS . 'media-uploader.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_script( 'anva_media_uploader' );
+		wp_localize_script( 'anva_media_uploader', 'anvaMediaJs', array(
 			'upload' => __( 'Browse', 'anva' ),
 			'remove' => __( 'Remove', 'anva' )
 		) );
@@ -249,11 +253,6 @@ function anva_media_uploader( $args ) {
 		 * @todo Dark Image
 		 * @todo Dark Image 2x
 		 */
-
-		case 'background' :
-			$data['title'] = __('Select Background Image', 'anva');
-			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Image URL', 'anva') .'" />'."\n";
-			break;
 
 		default :
 			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('No file chosen', 'anva') .'" />'."\n";

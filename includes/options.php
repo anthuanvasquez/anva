@@ -30,6 +30,19 @@ function anva_options() {
 	foreach ( anva_get_animations() as $animation_id => $animation ) {
 		$animations[ $animation ] = $animation;
 	}
+	
+	$transition_animations = array(
+		'fadeIn'    => 'fadeIn',
+		'fadeOut'   => 'fadeOut',
+		'fadeDown'  => 'fadeDown',
+		'fadeUp'    => 'fadeUp',
+		'fadeLeft'  => 'fadeLeft',
+		'fadeRight' => 'fadeRight',
+		'rotate'    => 'rotate',
+		'flipX'     => 'flipX',
+		'flipY'     => 'flipY',
+		'zoom'      => 'zoom',
+	);
 
 	/* ---------------------------------------------------------------- */
 	/* Styles
@@ -74,7 +87,9 @@ function anva_options() {
 			'light' => __( 'Light', 'anva' ),
 			'dark' 	=> __( 'Dark', 'anva' ),
 			'custom' => __( 'Custom', 'anva' ),
-		)
+		),
+		'trigger' => 'custom',
+		'receivers' => 'footer_bg_color footer_bg_image footer_text_color',
 	);
 	anva_add_option( 'styles', 'main', 'footer_color', $footer_color );
 
@@ -388,7 +403,7 @@ function anva_options() {
 			'std' => array(
 				'face' => 'google',
 				'google' => 'Raleway:300,400,500,600,700',
-				'style' => 'normal',
+				'style' => 'uppercase',
 				'color' => '#444444'
 			),
 			'type' => 'typography',
@@ -679,7 +694,7 @@ function anva_options() {
 	/* Page Transitions Layout
 	/* ---------------------------------------------------------------- */
 
-	$page_loading_options = array(
+	$page_transition_options = array(
 		'page_loader' => array(
 			'name' => __( 'Loader', 'anva' ),
 			'desc' => __( 'Choose the loading styles of the Animation you want to show to your visitors while the pages of you Website loads in the background.', 'anva' ),
@@ -722,7 +737,7 @@ function anva_options() {
 			'id' => 'page_loader_animation_in',
 			'std' => 'fadeIn',
 			'type' => 'select',
-			'options' => $animations,
+			'options' => $transition_animations,
 		),
 		'page_loader_animation_out' => array(
 			'name' => __( 'Animation Out', 'anva' ),
@@ -730,10 +745,10 @@ function anva_options() {
 			'id' => 'page_loader_animation_out',
 			'std' => 'fadeOut',
 			'type' => 'select',
-			'options' => $animations
+			'options' => $transition_animations
 		),
 	);
-	anva_add_option_section( 'layout', 'page_loader_transition', __( 'Page Loading Transition', 'anva' ), null, $page_loading_options, false );
+	anva_add_option_section( 'layout', 'page_transition', __( 'Page Transition', 'anva' ), null, $page_transition_options, false );
 
 	/* ---------------------------------------------------------------- */
 	/* Galleries Layout
@@ -860,7 +875,7 @@ function anva_options() {
 		'type' => 'text',
 		'class' => 'slider-item revslider hide'
 	);
-	anva_add_option_section( 'layout', 'slider', __( 'Sliders', 'anva' ), null, $slider_options, false );
+	anva_add_option_section( 'layout', 'slideshows', __( 'Slideshows', 'anva' ), null, $slider_options, false );
 
 	/* ---------------------------------------------------------------- */
 	/* Login

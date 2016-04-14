@@ -102,7 +102,6 @@ function debounce(func, wait, immediate) {
 	};
 }
 
-
 var requesting = false;
 
 var killRequesting = debounce(function () {
@@ -697,7 +696,7 @@ var ANVA = ANVA || {};
 				outClass : animationOut,
 				inDuration : Number(durationIn),
 				outDuration : Number(durationOut),
-				linkElement : '#primary-menu ul li a:not([target="_blank"]):not([href*=#]):not([data-lightbox])',
+				linkElement : '#primary-menu ul li a:not([target="_blank"]):not([href*="#"]):not([data-lightbox])',
 				loading : true,
 				loadingParentElement : 'body',
 				loadingClass : 'css3-spinner',

@@ -48,7 +48,7 @@ function anva_envato_updates() {
 				'type' 			=> 'select',
 				'options'		=> array(
 					'yes' 		=> __( 'Yes, make theme backups when updating', 'anva' ),
-					'no' 		=> __( 'No, do not make theme backups', 'anva' )
+					'no' 		=> __( 'No, don\'t make theme backups', 'anva' )
 				)
 			),
 		);
@@ -67,24 +67,25 @@ function anva_envato_updates() {
 	);
 
 	$username = '';
+	$api_key  = '';
+	$backup   = '';
+	
 	if ( isset( $settings['username'] ) ) {
 		$username = $settings['username'];
 	}
-
-	$api_key = '';
+	
 	if ( isset( $settings['api'] ) ) {
 		$api_key = $settings['api'];
 	}
-
-	$backup = '';
+	
 	if ( isset( $settings['backup'] ) ) {
 		$backup = $settings['backup'];
 	}
 
 	$args = array(
-		'envato_username'	=> $username,
-		'envato_api_key'	=> $api_key,
-		'backup'			=> $backup
+		'envato_username' => $username,
+		'envato_api_key'  => $api_key,
+		'backup'          => $backup
 	);
 
 	$args = apply_filters( 'anva_envato_update_args', $args );

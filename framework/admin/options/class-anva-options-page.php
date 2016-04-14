@@ -3,8 +3,11 @@
 /**
  * Create the options page panel.
  *
- * @since  1.0.0
- * @author Anthuan Vásquez <me@anthuanvasquez.net>
+ * @since  		1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 class Anva_Options_Page
 {
@@ -178,7 +181,7 @@ class Anva_Options_Page
 		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery.animsition.min.js', array( 'jquery' ), '4.0.1', true );
 		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
-		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options.min.js', array( 'jquery','wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
+		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
 		
 		// Inline scripts from anva-options-interface.php
