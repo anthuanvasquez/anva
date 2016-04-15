@@ -64,7 +64,7 @@
 
             <?php endif; ?>
 
-            <?php if ( ! has_post_format( array( 'quote', 'link', 'status' ) ) ) : ?>
+            <?php if ( ! has_post_format( anva_post_format_filter() ) ) : ?>
                 <div class="entry-title">
                     <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                 </div><!-- .entry-title (end) -->

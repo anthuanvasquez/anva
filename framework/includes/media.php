@@ -31,7 +31,7 @@ function anva_get_image_sizes() {
 			'crop' 		 => true,
 		),
 		'anva_xl' => array(
-			'name' 		 => __( 'Anva Large', 'anva' ),
+			'name' 		 => __( 'Anva Extra Large', 'anva' ),
 			'width' 	 => $content_width,
 			'height' 	 => 9999,
 			'crop' 		 => true,

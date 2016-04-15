@@ -71,16 +71,18 @@ function anva_admin_assets() {
 
 	global $pagenow;
 
-	// Assets for editing posts
+	// Assets for meta boxes
 	if ( $pagenow == 'post-new.php' || $pagenow == 'post.php' ) {
 		wp_enqueue_style( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-boxes.min.css', array(), ANVA_FRAMEWORK_VERSION );
 		wp_enqueue_script( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_JS . 'meta-boxes.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 	}
 
-	// Includes admin global
+	// Sweet Alert
+	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3', false );
+	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'sweetalert.min.css', array(), '1.1.3' );
+	
+	// Admin Global
 	wp_enqueue_script( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_JS . 'admin-global.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, false );
-	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/sweetalert.min.js', array( 'jquery' ), '1.1.3', false );
-	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/sweetalert.min.css', array(), '1.1.3' );
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-global.min.css', array(), ANVA_FRAMEWORK_VERSION );
 	wp_enqueue_style( 'anva_admin_responive', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-responsive.min.css', array(), ANVA_FRAMEWORK_VERSION );
 

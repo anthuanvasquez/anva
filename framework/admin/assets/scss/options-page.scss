@@ -23,26 +23,6 @@
 		position: relative;
 		top: 2px;
 	}
-
-	// Hide settings error. Replaced with sweetalert popup
-	#setting-error-save_options,
-	#setting-error-restore_defaults {
-		// display: none;
-		// opacity: 0;
-		// visibility: hidden;
-	}
-
-	.CodeMirror {
-		border: 1px solid #ddd;
-		pre {
-			padding: 0 8px;
-		}
-	}
-
-	.cm-s-mdn-like .CodeMirror-gutters {
-	    background: #f8f8f8;
-	    border-left: 6px solid #f8f8f8;
-	}
 }
 
 /* --------------------------------------------- */
@@ -54,9 +34,11 @@
 		.font-range {
     		margin: 0 0 40px;
     	}
+    	
     	.anva-select-label {
 		    margin-bottom: 0 0 5px;
 		}
+
 		.wp-picker-container {
 		    margin-top:2px;
 		}
@@ -110,16 +92,6 @@
 	padding-top: 20px;
 }
 
-#anva-framework {
-	.reset-button {
-		float:left;
-		cursor:pointer;
-	}
-	.button-primary {
-		float:right;
-	}
-}
-
 /* Bottom Section */
 #anva-framework-submit {
 	padding: 10px;
@@ -129,6 +101,31 @@
 }
 
 #anva-framework {
+
+	.CodeMirror {
+		border: 1px solid #ddd;
+		pre {
+			padding: 0 8px;
+		}
+	}
+
+	.cm-s-mdn-like .CodeMirror-gutters {
+	    background: #f8f8f8;
+	    border-left: 6px solid #f8f8f8;
+	}
+
+	.inner-group:not(.collapse-close) {
+		padding-bottom: 0;
+	}
+
+	.reset-button {
+		float: left;
+		cursor: pointer;
+	}
+
+	.button-primary {
+		float: right;
+	}
 	
 	.options-settings {
 		position: relative;

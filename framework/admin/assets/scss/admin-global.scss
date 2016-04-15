@@ -54,11 +54,11 @@
         }
     }
     
-    // Headings
+    // Section Headings
     h3 {
-        cursor: default;
         background-color: #fff;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #eee;
+        cursor: default;
     }
     
     // Text
@@ -104,7 +104,7 @@
 
             &:before {
                 content: '\f142';
-                color: #a0a5aa;
+                color: #72777c;
                 font: 400 20px/1 dashicons;
                 float: right;
                 speak: none;
@@ -285,8 +285,8 @@
     
     // Description
     .section-description {
-        background: #f9f9f9;
-        border-bottom: 1px solid #e5e5e5;
+        background: #f7f7f7;
+        border-bottom: 1px solid #eee;
         color: #777;
         margin: 0 -15px;
         padding: 20px 15px;
@@ -734,7 +734,6 @@
 
     .screenshot {
         box-sizing: border-box;
-        float: left;
         margin: 15px 0;
         margin-left: 1px;
         max-width: 100%;
@@ -757,9 +756,10 @@
             background: #fafafa;
             border: 1px solid #eee;
             box-sizing: border-box;
-            float: left;
-            padding: 4px;
+            display: block;
+            margin: 0 auto;
             max-width: 100%;
+            padding: 4px;
         }
 
         .remove-image {
@@ -796,7 +796,7 @@
             border: 1px solid #ddd;
             border-radius: 0;
             padding: 15px;
-            max-width: 380px;
+            max-width: 100%;
         }
     }
 
@@ -806,39 +806,6 @@
 #anva-framework .section-multicheck label {
     max-width: 90%;
     line-height: 16px;
-}
-
-/* --------------------------------------------------------- */
-/* jQuery UI Pips
-/* --------------------------------------------------------- */
-
-#anva-framework .ui-slider-horizontal {
-    height: 5px;;
-}
-
-#anva-framework  .ui-slider .ui-slider-handle {
-    width: 15px;
-    height: 15px;
-    border-radius: 8px;
-    outline: none;
-    top: -7px;
-}
-
-#anva-framework .ui-slider-horizontal.ui-slider-pips {
-    margin-bottom: 1.6em;
-}
-
-#anva-framework .ui-slider-pips .ui-slider-label {
-    top: -2px;
-}
-
-#anva-framework .ui-slider-pips .ui-slider-line {
-    visibility: hidden;
-    display: none;
-}
-
-#anva-framework .ui-slider-float .ui-slider-pip .ui-slider-tip-label {
-    display: none;
 }
 
 /* --------------------------------------------------------- */

@@ -14,16 +14,14 @@ if ( ! class_exists( 'Anva_Content_Builder_API' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Content_Builder_API {
-
+class Anva_Content_Builder_API
+{
 	/**
 	 * A single instance of this class.
 	 *
 	 * @since 1.0.0
 	 */
-	private static $instance = null;
-
-	private $blocks = array();
+	private static $instance = NULL;
 
 	/**
 	 * Core framework builder elements and settings
@@ -62,7 +60,8 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public static function instance() {
+	public static function instance()
+	{
 		if ( self::$instance == null ) {
 			self::$instance = new self;
 		}
@@ -75,10 +74,15 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	private function __construct() {
+	private function __construct()
+	{
+		// Setup registered_elements
+		$this->set_registered_elements();
 
 		// Setup framework default elements
-		$this->set_core_elements();
+		if ( is_admin() ) {
+			$this->set_core_elements();
+		}
 
 		// Establish elements
 		add_action( 'after_setup_theme', array( $this, 'set_elements' ), 1000 );
@@ -93,34 +97,24 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function set_core_elements() {
-
+	public function set_core_elements()
+	{
 		/*--------------------------------------------*/
 		/* Helpers
 		/*--------------------------------------------*/
 
-		// Pull all the galleries/categories into an array
-		//if ( is_admin() && post_type_exists( 'galleries' ) && taxonomy_exists( 'gallery_cat' ) ) {
-
-			$galleries = array();
-			$galleries_args = array( 'numberposts' => -1, 'post_type' => array( 'galleries' ) );
-			$gallery_posts = get_posts( $galleries_args );
-			if ( count( $gallery_posts ) > 0 ) {
-				$galleries[''] = __( 'Select a Gallery', 'anva' );
-				foreach ( $gallery_posts as $gallery ) {
-					$galleries[$gallery->ID] = $gallery->post_title;
-				}
+		$galleries = array();
+		$galleries_args = array( 'numberposts' => -1, 'post_type' => array( 'galleries' ) );
+		$gallery_posts = get_posts( $galleries_args );
+		if ( count( $gallery_posts ) > 0 ) {
+			$galleries[''] = __( 'Select a Gallery', 'anva' );
+			foreach ( $gallery_posts as $gallery ) {
+				$galleries[$gallery->ID] = $gallery->post_title;
 			}
+		}
 
-			$gallery_cats = array();
-			$terms = get_terms( 'gallery_cat', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
-			// if ( count( $terms ) > 0 ) {
-			// 	$gallery_cats[''] = __( 'Select a Gallery', 'anva' );
-			// 	foreach ( $terms as $cat ) {
-			// 		$gallery_cats[$cat->slug] = $cat->name;
-			// 	}
-			// }
-		//}
+		$gallery_cats = array();
+		$terms = get_terms( 'gallery_cat', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
 
 		// Pull all the testimonial categories into an array
 		if ( is_admin() && post_type_exists( 'testimonials' ) && taxonomy_exists( 'testimonial_cat' ) ) {
@@ -1629,14 +1623,20 @@ class Anva_Content_Builder_API {
 
 	}
 
+	public function set_registered_elements()
+	{
+		$registered_elements = array_keys( $this->elements );
+		return $registered_elements;
+	}
+
 	/**
 	 * Set elements by combining core elements and custom elements.
 	 * Then remove any elements that have been set to be removed.
 	 *
 	 * @since 1.0.0
 	 */
-	public function set_elements() {
-
+	public function set_elements()
+	{
 		// Combine core elements with custom elements
 		$this->elements = array_merge( $this->core_elements, $this->custom_elements );
 
@@ -1670,8 +1670,8 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = false ) {
-
+	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = false )
+	{
 		$args = array(
 			'id'      => $id,
 			'name'    => $name,
@@ -1709,29 +1709,10 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function remove_element( $element_id ) {
-
+	public function remove_element( $element_id )
+	{
 		// Add to removal array, and process in set_elements()
 		$this->remove_elements[] = $element_id;
-	}
-
-	public function add_block( $args ) {
-		//if ( $this->is_element( $element_id ) ) {
-		
-		// $this->core_elements[$element_id]['attr'][$block_id] = $attributes;
-
-		// anva_insert_array_key(
-		// 	$this->core_elements[$element_id]['attr'],
-		// 	'bgcolor',
-		// 	'customcolor',
-		// 	'value',
-		// 	true,
-		// 	false
-		// );
-
-		//var_dump($this->core_elements[$element_id]);
-		//}
-		$this->blocks[] = $args;
 	}
 
 	/**
@@ -1739,7 +1720,8 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function get_core_elements() {
+	public function get_core_elements()
+	{
 		return $this->core_elements;
 	}
 
@@ -1748,7 +1730,8 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function get_custom_elements() {
+	public function get_custom_elements()
+	{
 		return $this->custom_elements;
 	}
 
@@ -1759,7 +1742,8 @@ class Anva_Content_Builder_API {
 	 * 
 	 * @since 1.0.0
 	 */
-	public function get_elements() {
+	public function get_elements()
+	{
 		return $this->elements;
 	}
 
@@ -1768,7 +1752,8 @@ class Anva_Content_Builder_API {
 	 *
 	 * @since 1.0.0
 	 */
-	public function is_element( $element_id ) {
+	public function is_element( $element_id )
+	{
 		$elements = $this->get_elements();
 		if ( isset( $elements[ $element_id ] ) ) {	
 			return true;
@@ -1776,15 +1761,6 @@ class Anva_Content_Builder_API {
 		return false;
 	}
 
-	/**
-	 * Check if a attribute block is currently registered
-	 *
-	 * @since 1.0.0
-	 */
-	public function is_block( $element_id, $block_id ) {
-		$blocks = $this->elements;
-		return array_key_exists( $block_id, $blocks[$element_id]['attr'] );
-	}
+}
 
-} // End class
 endif;

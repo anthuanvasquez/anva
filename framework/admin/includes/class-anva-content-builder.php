@@ -105,35 +105,24 @@ class Anva_Content_Builder
 					'includes_url'	=> includes_url()
 				);
 
-				/* ---------------------------------------------------------------- */
-				/* WordPress
-				/* ---------------------------------------------------------------- */
-
+				// Color Picker
 				wp_enqueue_style( 'wp-color-picker' );
+				
+				// jQuery UI
 				wp_enqueue_script( 'jquery-ui-draggable' );
 				wp_enqueue_script( 'jquery-ui-droppable' );
 				wp_enqueue_script( 'jquery-ui-sortable' );
-				wp_enqueue_script( 'jquery-ui-tabs' );
-				wp_enqueue_script( 'jquery-effects-core' );
-				wp_enqueue_script( 'jquery-effects-fade' );
+
+				// Media
 				wp_enqueue_media();
 
-				/* ---------------------------------------------------------------- */
-				/* Builder
-				/* ---------------------------------------------------------------- */
-
-				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_CSS . 'plugins/tooltipster.min.css', array(), '3.3.0' );
-				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-builder.min.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
-
-				wp_register_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', false );
-				wp_register_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_JS . 'plugins/js-wp-editor.min.js', array( 'jquery' ), '1.1', false );
-				wp_register_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'meta-builder.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
-				
-				wp_enqueue_script( 'tooltipster' );
-				wp_enqueue_script( 'js-wp-editor' );
-				wp_enqueue_script( 'anva_builder' );
-				
+				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'tooltipster.min.css', array(), '3.3.0' );
+				wp_enqueue_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'tooltipster.min.js', array( 'jquery' ), '3.3.0', false );
+				wp_enqueue_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'js-wp-editor.min.js', array( 'jquery' ), '1.1', false );
 				wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
+
+				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-builder.min.css', array( 'jquery-ui-custom', 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'meta-builder.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 				wp_localize_script( 'anva_builder', 'anvaBuilderJs', anva_get_admin_locals( 'metabox_js' ) );
 
 			}

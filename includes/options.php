@@ -572,6 +572,24 @@ function anva_options() {
 	);
 	anva_add_option( 'layout', 'header', 'header_layout', $header_layout );
 
+	$top_bar = array(
+		'name' => NULL,
+		'desc' => __( 'Display top bar.', 'anva' ),
+		'id' => 'top_bar',
+		'std' => '0',
+		'type' => 'checkbox'
+	);
+	anva_add_option( 'layout', 'header', 'top_bar', $top_bar );
+
+	$top_bar_icons = array(
+		'name' => NULL,
+		'desc' => __( 'Display social media icons in the top bar.', 'anva' ),
+		'id' => 'top_bar_icons',
+		'std' => '1',
+		'type' => 'checkbox',
+	);
+	anva_add_option( 'layout', 'header', 'top_bar_icons', $top_bar_icons );
+
 	$primary_menu_style = array(
 		'name' => __( 'Primary Menu Style', 'anva' ),
 		'desc' => __( 'Select the style of the primary navigation. Note: changes will not applied when header type is side.', 'anva' ),
@@ -638,15 +656,6 @@ function anva_options() {
 		'type' => 'checkbox',
 	);
 	anva_add_option( 'layout', 'header', 'side_header_icons', $side_header_icons );
-
-	$top_bar_icons = array(
-		'name' => NULL,
-		'desc' => __( 'Display social media icons in the top bar.', 'anva' ),
-		'id' => 'top_bar_icons',
-		'std' => '1',
-		'type' => 'checkbox',
-	);
-	anva_add_option( 'layout', 'header', 'top_bar_icons', $top_bar_icons );
 
 	/* ---------------------------------------------------------------- */
 	/* Footer Layout

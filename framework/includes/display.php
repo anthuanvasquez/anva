@@ -869,15 +869,16 @@ function anva_posts_meta_default() {
  */
 function anva_posts_content_default() {
 
-	if ( has_post_format( array( 'quote', 'link', 'status' ) ) ) {
+	// Don't show content or excerpt if the post has these formats.
+	if ( has_post_format( anva_post_format_filter() ) ) {
 		return;
 	}
 	
 	$primary_content = anva_get_option( 'primary_content', 'excerpt' );
 	
 	if ( 'excerpt' == $primary_content ) {
-		echo anva_get_excerpt();
-		echo '<a class="more-link" href="' . get_the_permalink() . '">' . anva_get_local( 'read_more' ) . '</a>';
+		anva_the_excerpt();
+		printf( '<a class="more-link" href="%s">%s</a>', get_the_permalink(), anva_get_local( 'read_more' ) );
 		return;
 	}
 

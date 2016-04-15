@@ -87,7 +87,7 @@ function anva_setup_post_meta() {
 			'context'  => 'normal',
 			'priority' => 'high',
 			'desc'     => __( 'This is the default placeholder for post options.', 'anva' ),
-			'prefix'   => '_anva_',
+			'prefix'   => '_anva_', // Option Prefix
 		),
 		'options' => $options
 	);
@@ -168,7 +168,7 @@ function anva_setup_page_meta() {
 		),
 		'title_bg_image' => array(
 			'name' 		=> __( 'Background Image', 'anva' ),
-			'desc'		=> __( 'Select a background image for page title.', 'anva' ),
+			'desc'		=> __( 'Select a background image for page title. Use a large image for better experience.', 'anva' ),
 			'id'		=> 'title_bg_image',
 			'type' 		=> 'upload',
 			'std'		=> '',

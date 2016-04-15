@@ -201,7 +201,7 @@ class Anva_Options_API
 						'options' => $layouts
 					),
 					'sidebar_message' => array(
-						'name' => __( 'Sidebar Message', 'anva'),
+						'name' => NULL,
 						'desc' => __( 'Display a message when the sidebars don\'t have any widgets.', 'anva'),
 						'id' => 'sidebar_message',
 						'std' => '0',

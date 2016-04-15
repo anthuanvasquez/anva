@@ -1361,7 +1361,6 @@ function anva_sliders( $slider ) {
 		 */
 	} else {
 		printf( '<div class="alert alert-warning">%s</div>', __( 'No slider found.', 'anva' ) );
-		return;
 	}
 
 }
@@ -1375,7 +1374,7 @@ function anva_sliders( $slider ) {
 function anva_revolution_slider_default() {
 	
 	if ( ! class_exists( 'RevSliderFront' ) ) {
-		printf( '<div class="alert alert-warning">%s.</div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated', 'anva' ) );
+		printf( '<div class="alert alert-warning">%s.</div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated.', 'anva' ) );
 		return;
 	}
 

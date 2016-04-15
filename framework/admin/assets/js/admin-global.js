@@ -142,6 +142,7 @@ jQuery(document).ready(function($) {
         },
 
         rangeSlider: function() {
+
             $('.section-range, .section-typography .font-range').each(function() {
                 var el = $(this),
                 value = el.find('.anva-input-range').val(),

@@ -1,3 +1,7 @@
+#anva-framework {
+  margin: 0 0 -12px;
+}
+
 #anva-framework .nav-tab-wrapper {
   border-bottom: 1px solid #ddd !important;
   padding-bottom: 0 !important;
@@ -32,6 +36,10 @@
 
 #anva-framework h4.heading {
   margin-top: 0;
+}
+
+#anva-framework .section {
+  margin: 0 -12px !important;
 }
 
 #normal-sortables .controls,

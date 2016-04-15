@@ -457,3 +457,19 @@ function anva_content_quote() {
 
 	echo anva_get_content_quote( get_the_content() );
 }
+
+/**
+ * Remove content and title in post list.
+ *
+ * @since  1.0.0
+ * @return array $post_formats
+ */
+function anva_post_format_filter() {
+	$post_formats = array(
+		'quote',
+		'link',
+		'status',
+	);
+
+	return apply_filters( 'anva_post_formats_filter', $post_formats );
+}

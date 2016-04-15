@@ -95,6 +95,7 @@ class Anva
         define( 'ANVA_FRAMEWORK_ADMIN_CSS', trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/css' ) );
         define( 'ANVA_FRAMEWORK_ADMIN_JS',  trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/js' ) );
         define( 'ANVA_FRAMEWORK_ADMIN_IMG', trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/images' ) );
+        define( 'ANVA_FRAMEWORK_ADMIN_PLUGINS',  trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/plugins' ) );
     }
 
     /**

@@ -581,7 +581,7 @@ function anva_hex_to_rgb( $hex ) {
 }
 
 /**
- * Limit chars in excerpt.
+ * Get the excerpt and limit chars.
  *
  * @since 1.0.0
  */
@@ -594,6 +594,15 @@ function anva_get_excerpt( $length = '' ) {
 	$content = get_the_excerpt();
 	$content = wpautop( $content );
 	return $content;
+}
+
+/**
+ * Output excerpt.
+ *
+ * @since 1.0.0
+ */
+function anva_the_excerpt( $length = '' ) {
+	echo anva_get_excerpt( $length );
 }
 
 /**
