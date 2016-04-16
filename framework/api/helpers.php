@@ -130,9 +130,9 @@ function anva_get_formatted_options() {
  *
  * @since 1.0.0
  */
-function anva_add_option_tab( $tab_id, $tab_name, $top = false ) {
+function anva_add_option_tab( $tab_id, $tab_name, $top = false, $icon = 's' ) {
 	$api = Anva_Options_API::instance();
-	$api->add_tab( $tab_id, $tab_name, $top );
+	$api->add_tab( $tab_id, $tab_name, $top, $icon );
 }
 
 /**
@@ -261,25 +261,6 @@ function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $con
 function anva_remove_builder_element( $element_id ) {
 	$api = Anva_Content_Builder_API::instance();
 	$api->remove_element( $element_id );
-}
-
-/**
- * Add block to page content builder on single element.
- *
- * @since 1.0.0
- */
-function anva_add_block_element( $args ) {
-	$api = Anva_Content_Builder_API::instance();
-	$api->add_block( $args );
-}
-/**
- * Check if block exists on singe element.
- *
- * @since 1.0.0
- */
-function anva_is_block_element( $element_id, $block_id ) {
-	$api = Anva_Content_Builder_API::instance();
-	return $api->is_block( $element_id, $block_id );
 }
 
 /**

@@ -97,9 +97,23 @@ function anva_head_viewport() {
  * @since 1.0.0
  */
 function anva_top_bar_default() {
+	// Hide top bar
+	$top_bar_display = anva_get_option( 'top_bar_display' );
+	if ( ! $top_bar_display ) {
+		return;
+	}
+
+	$top_bar_color = anva_get_option( 'top_bar_color' );
+	$top_bar_layout = anva_get_option( 'top_bar_layout' );
+
+	$class = '';
+	if ( 'dark' == $top_bar_color ) {
+		$class = 'class="dark"';
+	}
+	
 	?>
 	<!-- Top Bar -->
-	<div id="top-bar">
+	<div id="top-bar"<?php echo $class; ?>>
 		<div class="container clearfix">
 			<div class="col_half nobottommargin">
 				<!-- Top Links -->

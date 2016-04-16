@@ -66,17 +66,20 @@ class Anva_Stylesheets_API {
 	/**
 	 * Constructor Hook everythin in.
 	 */
-	private function __construct() {
+	private function __construct()
+	{
+		// Only front end
+		if ( ! is_admin() ) {
+			// Setup stylesheets from Framework and Custom API.
+			// No enqueuing yet.
+			add_action( 'wp_enqueue_scripts', array( $this, 'set_framework_stylesheets' ), 1 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'set_custom_stylesheets' ), 1 );
 
-		// Setup stylesheets from Framework and Custom API.
-		// No enqueuing yet.
-		add_action( 'wp_enqueue_scripts', array( $this, 'set_framework_stylesheets' ), 1 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'set_custom_stylesheets' ), 1 );
-
-		// Include stylesheets, framework and levels 1, 2, and 4
-		// Note: Level 3 needs to be included at the theme level.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_framework_stylesheets' ), 5 );
-		add_action( 'wp_head', array( $this, 'closing_stylesheets' ), 11 );
+			// Include stylesheets, framework and levels 1, 2, and 4
+			// Note: Level 3 needs to be included at the theme level.
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_framework_stylesheets' ), 5 );
+			add_action( 'wp_head', array( $this, 'closing_stylesheets' ), 11 );
+		}
 	}
 
 	/**
@@ -92,7 +95,6 @@ class Anva_Stylesheets_API {
 			'ver'		=> '3.3.6',
 			'media'		=> 'all'
 		);
-
 
 		// Framework Styles
 		$this->framework_stylesheets['anva_styles'] = array(

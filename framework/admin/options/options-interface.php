@@ -694,6 +694,22 @@ function anva_get_options_fields( $option_name, $settings, $options )
 					$output .= '</label>';
 				}
 
+				// Font Weight
+				if ( in_array( 'weight', $value['options'] ) ) {
+					$output .= '<label class="anva-select-label">';
+					$output .= '<span></span>';
+					$output .= '<select class="anva-typography anva-typography-weight" name="' . esc_attr( $option_name . '[' . $value['id'] . '][weight]' ) . '" id="' . esc_attr( $value['id'] . '_weight' ) . '">';
+
+					$weights = anva_recognized_font_weights();
+
+                    foreach ( $weights as $key => $weight ) {
+						$output .= '<option value="' . esc_attr( $key ) . '" ' . selected( $typography_stored['weight'], $key, false ) . '>' . esc_attr( $weight ) . '</option>';
+					}
+
+					$output .= '</select>';
+					$output .= '</label>';
+				}
+
 				// Font Face
 				if ( in_array( 'face', $value['options'] ) ) {
 					$output .= '<label for="' . $value['id'] . '_face" class="anva-select-label">';
@@ -719,21 +735,18 @@ function anva_get_options_fields( $option_name, $settings, $options )
 
 				$output .= '<div class="clear"></div>';
 
-				// Google Font support
+				// Google Font Support
 				if ( in_array( 'face', $value['options'] ) ) {
+					
 					$output .= '<div class="google-font hidden">';
-					$output .= sprintf(
-						'<h5>%s <a href="' . esc_url( 'http://www.google.com/webfonts' ) . '" target="_blank">%s</a>.</h5>',
-						__( 'Enter the name of a font from the', 'anva' ),
-						__( 'Google Font Directory', 'anva' )
-					);
+					$output .= sprintf( '<h5>%s <a href="' . esc_url( 'http://www.google.com/webfonts' ) . '" target="_blank">%s</a>.</h5>', __( 'Enter the name of a font from the', 'anva' ), __( 'Google Font Directory', 'anva' ) );
 					$output .= '<input type="text" name="' . esc_attr( $option_name . '[' . $value['id'] . '][google]' ) . '" value="' . esc_attr( $typography_stored['google'] ) . '" />';
-					$output .= '<p class="note">' . esc_html__( 'How to use the font names?, examples', 'anva' ) . ': ' . '<br />"Open Sans", "Open Sans:400", "Open Sans:500,700&subset=latin"</p>';
+					$output .= sprintf( '<p class="note">%s: <br />"Open Sans", "Open Sans:400", "Open Sans:500,700&subset=latin"</p>', esc_html__( 'How to use the font names?, examples', 'anva' ) );
 					$output .= '</div>';
 
-					// Font preview
+					// Font Preview
 					$sample_text = apply_filters( 'anva_typography_sample_text', 'Lorem Ipsum' );
-					$output .= '<div class="sample-text-font" style="font-family: Arial;">' . esc_html( $sample_text ) . '</div>';
+					$output .= sprintf( '<div class="sample-text-font" style="font-family: Arial;">%s</div>', esc_html( $sample_text ) );
 				}
 
 				break;

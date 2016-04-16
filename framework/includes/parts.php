@@ -117,6 +117,7 @@ function anva_posted_on() {
 	$num_comments = get_comments_number();
 
 	if ( comments_open() ) {
+
 		if ( $num_comments == 0 ) {
 			$comments = __( 'No Comments', 'anva' );
 		} elseif ( $num_comments > 1 ) {
@@ -124,7 +125,9 @@ function anva_posted_on() {
 		} else {
 			$comments = __( '1 Comment', 'anva' );
 		}
-		$write_comments = '<a href="' . get_comments_link() . '"><span class="leave-reply">' . $comments . '</span></a>';
+
+		$write_comments = sprintf( '<a href="%s"><span class="leave-reply">%s</span></a>', get_comments_link(), $comments );
+
 	} else {
 		$write_comments =  __( 'Comments closed', 'anva' );
 	}
@@ -280,20 +283,10 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 
 		}
 	}
+
 	$output = apply_filters( 'anva_social_icons', $output );
 
 	echo $output;
-}
-
-/**
- * Header search
- */
-function anva_site_search() {
-	if ( class_exists( 'Woocommerce' ) ) :
-		anva_get_product_search_form();
-	else :
-		anva_get_search_form();
-	endif;
 }
 
 /**
@@ -311,7 +304,7 @@ function anva_top_cart() {
 		<a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
 		<div class="top-cart-content">
 			<div class="top-cart-title">
-				<h4>Shopping Cart</h4>
+				<h4><?php _e( 'Shopping Cart', 'anva' ); ?></h4>
 			</div>
 			<div class="top-cart-items">
 				<div class="top-cart-item clearfix">
@@ -444,7 +437,7 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 }
 
 /**
- * Blog post author
+ * Blog post author.
  * 
  * @since 1.0.0
  */
@@ -456,8 +449,7 @@ function anva_post_author() {
 		return;
 	}
 
-	global $post;
-	$id 	= $post->post_author;
+	$id 	= get_the_ID();
 	$avatar = get_avatar( $id, '96' );
 	$url 	= get_the_author_meta( 'user_url', $id );
 	$name 	= get_the_author_meta( 'display_name', $id );
@@ -482,6 +474,11 @@ function anva_post_author() {
 	<?php
 }
 
+/**
+ * Blog post tags.
+ * 
+ * @since 1.0.0
+ */
 function anva_post_tags() {
 	$classes = 'tagcloud clearfix';
 	if ( is_single() )
@@ -495,7 +492,7 @@ function anva_post_tags() {
 }
 
 /**
- * Blog post share
+ * Blog post share icons.
  * 
  * @since 1.0.0
  */
@@ -506,11 +503,10 @@ function anva_post_share() {
 		return;
 	}
 
-	$twitter = anva_get_option( 'social_media' );
-
-	$url = get_permalink();
-	$title = get_the_title();
+	$url           = get_permalink();
+	$title         = get_the_title();
 	$thumbnail_url = anva_get_featured_image_src( get_the_ID(), 'medium' );
+	$twitter       = anva_get_option( 'social_media' );
 
 	if ( is_single() ) :
 	?>
@@ -555,8 +551,6 @@ function anva_post_share() {
 
 /**
  * Blog post related.
- *
- * @global $post
  * 
  * @since  1.0.0
  * @return Realated posts
@@ -691,10 +685,12 @@ function anva_pagination( $query = '' ) {
 
 /**
  * Blog post number pagination.
+ *
+ * @global $paged
  * 
- * @since 1.0.0
- * @param string  $pages
- * @param integer $range
+ * @since  1.0.0
+ * @param  string  $pages
+ * @param  integer $range
  */
 function anva_num_pagination( $pages = '', $range = 2 ) {
 	
@@ -987,61 +983,22 @@ function anva_contact_form() {
  * @return string|html $o
  */
 function anva_password_form() {
+	
 	global $post;
-	$label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
-	$o  = '<form class="form-inline password-form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
-	$o .= '<i class="icon-lock"></i>';
-	$o .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';
-	$o .= '<div class="form-group">';
-	$o .= '<label for="' . $label . '">' . __( "Password", 'anva' ) . ' </label>';
-	$o .= '<input class="form-control" name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" />';
-	$o .= '</div>';
-	$o .= '<input class="btn btn-default" type="submit" name="Submit" value="' . esc_attr__( "Submit", 'anva' ) . '" />';
-	$o .= '</form>';
-	return $o;
-}
+	
+	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+	
+	$output  = '<form class="form-inline password-form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
+	$output .= '<i class="icon-lock"></i>';
+	$output .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';
+	$output .= '<div class="form-group">';
+	$output .= '<label for="' . $label . '">' . __( "Password", 'anva' ) . ' </label>';
+	$output .= '<input class="form-control" name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" />';
+	$output .= '</div>';
+	$output .= '<input class="btn btn-default" type="submit" name="Submit" value="' . esc_attr__( "Submit", 'anva' ) . '" />';
+	$output .= '</form>';
 
-/**
- * Search form.
- *
- * @since 1.0.0
- */
-function anva_get_search_form() {
-	?>
-	<form role="search" method="get" id="searchform" class="form-inline search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-		<div class="input-group">
-			<input type="search" id="s" class="search-field form-control" placeholder="<?php echo anva_get_local( 'search' ); ?>" value="" name="s" title="<?php echo anva_get_local( 'search_for' ); ?>" />
-			<span class="input-group-btn">
-				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
-					<span class="sr-only"><?php echo anva_get_local( 'search_for' ); ?></span>
-					<i class="icon-search"></i>
-				</button>
-			</span>
-		</div>
-	</form>
-	<?php
-}
-
-/**
- * Woocommerce search product form.
- *
- * @since 1.0.0
- */
-function anva_get_product_search_form() {
-	?>
-	<form role="search" method="get" id="searchform" class="form-inline search-form" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
-		<div class="input-group">
-		<input type="text" id="s" name="s" class="search-field form-control" value="<?php echo get_search_query(); ?>"  placeholder="<?php _e( 'Search for products', 'anva' ); ?>" />
-			<span class="input-group-btn">
-				<button type="submit" id="searchsubmit" class="btn btn-default search-submit">
-					<span class="sr-only"><?php echo esc_attr__( 'Search', 'anva' ); ?></span>
-					<i class="icon-search"></i>
-				</button>
-				<input type="hidden" name="post_type" value="product" />
-			</span>
-		</div>
-	</form>
-	<?php
+	return $output;
 }
 
 /**

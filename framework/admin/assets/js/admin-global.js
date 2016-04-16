@@ -300,7 +300,7 @@ jQuery(document).ready(function($) {
                 }
                 $('.dynamic-sidebars ul').removeClass('empty');
                 var $sidebarName = $('#dynamic_sidebar_name').val();
-                var $optionName = s.optionName;
+                var $optionName = $('#option_name').val();
                 $('.dynamic-sidebars ul').append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
                 $('.sidebar').val('');
             });
@@ -351,7 +351,7 @@ jQuery(document).ready(function($) {
                 }
                 $('.dynamic-contact-fields ul').removeClass('empty');
                 var $contactFieldName = $('#contact_field_name').val();
-                var $optionName = s.optionName;
+                var $optionName = $('#option_name').val();
                 $('.dynamic-contact-fields ul').append( '<li id="field-' + $value + '">' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $contactFieldName + '][]' + '" value="' + $value + '" /></li>' );
                 $('.sidebar').val('');
             });

@@ -44,17 +44,20 @@ class Anva_Scripts_API {
 	/**
 	 * Constructor
 	 */
-	private function __construct() {
+	private function __construct()
+	{
+		// Only front end
+		if ( ! is_admin() ) {
+			// Setup scripts from Framework and Custom API.
+			// No enqueuing yet.
+			add_action( 'wp_enqueue_scripts', array( $this, 'set_framework_scripts' ), 1 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'set_custom_scripts' ), 1 );
 
-		// Setup scripts from Framework and Custom API.
-		// No enqueuing yet.
-		add_action( 'wp_enqueue_scripts', array( $this, 'set_framework_scripts' ), 1 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'set_custom_scripts' ), 1 );
-
-		// Include scripts, framework and levels 1, 2, and 4
-		// Note: Level 3 needs to be included at the theme level.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_framework_scripts' ), 5 );
-		add_action( 'wp_footer', array( $this, 'closing_scripts' ), 11 );
+			// Include scripts, framework and levels 1, 2, and 4
+			// Note: Level 3 needs to be included at the theme level.
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_framework_scripts' ), 5 );
+			add_action( 'wp_footer', array( $this, 'closing_scripts' ), 11 );
+		}
 	}
 
 	/**

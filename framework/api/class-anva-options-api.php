@@ -142,41 +142,10 @@ class Anva_Options_API
 		$image_path = get_template_directory_uri() . '/assets/images/';
 
 		/* ---------------------------------------------------------------- */
-		/* Tab #1: Styles
-		/* ---------------------------------------------------------------- */
-
-		$styles_options = array(
-			'main' => array(
-				'name' => __( 'Main', 'anva' ),
-				'desc' => __( 'You can further customize the entire look of your theme by using the options below.', 'anva' ),
-				'class' => 'group-layout',
-				'options' => array(
-					'layout_style' => array(
-						'name' => __('Site Layout Style', 'anva'),
-						'desc' => __('Select the layout style of the site, you can use boxed or stretched.', 'anva'),
-						'id' => 'layout_style',
-						'std' => 'stretched',
-						'class' => 'input-select',
-						'type' => 'select',
-						'options' => array(
-							'boxed' => __( 'Boxed', 'anva' ),
-							'stretched' => __( 'Stretched', 'anva' )
-						)
-					),
-				)
-			),
-		);
-
-		/* ---------------------------------------------------------------- */
-		/* Tab #2: Layout
+		/* Tab #1: Layout
 		/* ---------------------------------------------------------------- */
 
 		$layout_options = array(
-			
-			/*--------------------------------------------*/
-			/* Main
-			/*--------------------------------------------*/
-
 			'main' => array(
 				'name' 	=> __( 'Main', 'anva' ),
 				'class' => 'group-main',
@@ -192,28 +161,6 @@ class Anva_Options_API
 							'hide' => __('Hide breadcrumbs', 'anva')
 						)
 					),
-					'sidebar_layout' => array(
-						'name' => __( 'Default Sidebar Layout', 'anva'),
-						'desc' => __( 'Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', 'anva'),
-						'id' => 'sidebar_layout',
-						'std' => 'right',
-						'type' => 'images',
-						'options' => $layouts
-					),
-					'sidebar_message' => array(
-						'name' => NULL,
-						'desc' => __( 'Display a message when the sidebars don\'t have any widgets.', 'anva'),
-						'id' => 'sidebar_message',
-						'std' => '0',
-						'type' => 'checkbox',
-					),
-					'dynamic_sidebar' => array(
-						'name' => __( 'Custom Sidebars', 'anva' ),
-						'desc' => __( 'Add a custom sidebars.', 'anva' ),
-						'id' => 'dynamic_sidebar',
-						'std' => array(),
-						'type' => 'sidebar'
-					),
 					'social_icons_profiles' => array(
 						"name" => __('Social Media Profiles', 'anva'),  
 						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),  
@@ -223,11 +170,6 @@ class Anva_Options_API
 					),
 				)
 			),
-
-			/*--------------------------------------------*/
-			/* Header
-			/*--------------------------------------------*/
-
 			'header' => array(
 				'name' 	=> __( 'Header', 'anva' ),
 				'class' => 'group-header',
@@ -290,16 +232,38 @@ class Anva_Options_API
 					)
 				)
 			),
-
-			/*--------------------------------------------*/
-			/* Footer
-			/*--------------------------------------------*/
-
+			'siderbar' => array(
+				'name' => __( 'Sidebar Layout', 'anva' ),
+				'class' => 'group-sidebar',
+				'options' => array(
+					'sidebar_layout' => array(
+						'name' => __( 'Default Sidebar Layout', 'anva'),
+						'desc' => __( 'Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', 'anva'),
+						'id' => 'sidebar_layout',
+						'std' => 'right',
+						'type' => 'images',
+						'options' => $layouts
+					),
+					'sidebar_message' => array(
+						'name' => NULL,
+						'desc' => __( 'Show message when the sidebars don\'t have any widgets.', 'anva'),
+						'id' => 'sidebar_message',
+						'std' => '0',
+						'type' => 'checkbox',
+					),
+					'dynamic_sidebar' => array(
+						'name' => __( 'Custom Sidebars', 'anva' ),
+						'desc' => __( 'Add a custom sidebars.', 'anva' ),
+						'id' => 'dynamic_sidebar',
+						'std' => array(),
+						'type' => 'sidebar'
+					),
+				),
+			),
 			'footer' => array(
 				'name' => __( 'Footer', 'anva' ),
 				'class' => 'group-header',
 				'options' => array(
-					
 					'footer_setup' => array(
 						'name'		=> __( 'Setup Columns', 'anva' ),
 						'desc'		=> __( 'Choose the number of columns along with the corresponding width configurations.', 'anva' ),
@@ -318,7 +282,7 @@ class Anva_Options_API
 		);
 
 		/* ---------------------------------------------------------------- */
-		/* Tab #3: Layout
+		/* Tab #2: Content
 		/* ---------------------------------------------------------------- */
 
 		$content_options = array(
@@ -403,6 +367,17 @@ class Anva_Options_API
 						'options' => array(
 							'show' => __('Show navigation posts', 'anva'),
 							'hide' => __('Hide navigation posts', 'anva'),
+						)
+					),
+					'single_post_reading_bar' => array(
+						'name' => __( 'Show Post Reading Bar', 'anva'),
+						'desc' => __( 'Select to display the post reading bar indicator in single posts.', 'anva'),
+						'id' => 'single_post_reading_bar',
+						'std' => '',
+						'type' => 'select',
+						'options' => array(
+							'show' => __( 'Show the post reading bar', 'anva' ),
+							'hide' => __( 'Hide the post reading bar', 'anva' ),
 						)
 					),
 				)
@@ -560,51 +535,20 @@ class Anva_Options_API
 		);
 
 		/* ---------------------------------------------------------------- */
-		/* Tab #4: Advanced
-		/* ---------------------------------------------------------------- */
-
-		$advanced_options = array(
-			'main' => array(
-				'name' 	=> __( 'Main', 'anva' ),
-				'class' => 'group-main-advanced',
-				'type' 	=> 'group_start',
-				'options' => array(
-					'responsive' => array(
-						'name' => __( 'Responsive', 'anva' ),
-						'desc' => __( '<strong>Responsive:</strong> Apply special styles to tablets and mobile devices.', 'anva' ),
-						'id' => "responsive",
-						'std' => '1',
-						'type' => 'checkbox',
-					),
-				)
-			),
-		);
-
-		/* ---------------------------------------------------------------- */
 		/* Finalize and extend
 		/* ---------------------------------------------------------------- */
 
 		$this->raw_options = array(
-			'styles' 			=> array(
-				'icon'			=> 'admin-appearance',
-				'name' 			=> __( 'Styles', 'anva' ),
-				'sections' 	=> $styles_options
+			'layout' 	   => array(
+				'name'     => __( 'Layout', 'anva' ),
+				'sections' => $layout_options,
+				'icon'     => 'screenoptions',
 			),
-			'layout' 			=> array(
-				'icon'			=> 'screenoptions',
-				'name' 			=> __( 'Layout', 'anva' ),
-				'sections' 	=> $layout_options
+			'content' 	   => array(
+				'name'     => __( 'Content', 'anva' ),
+				'sections' => $content_options,
+				'icon'     => 'format-status',
 			),
-			'content' 		=> array(
-				'icon'			=> 'format-status',
-				'name' 			=> __( 'Content', 'anva' ),
-				'sections' 	=> $content_options
-			),
-			'advanced' 		=> array(
-				'icon'			=> 'admin-generic',
-				'name' 			=> __( 'Advanced', 'anva' ),
-				'sections' 	=> $advanced_options
-			)
 		);
 
 		// The following filter probably won't be used often,
@@ -630,14 +574,11 @@ class Anva_Options_API
 		// Tab Level
 		foreach ( $this->raw_options as $tab_id => $tab ) {
 
-			$icon = '';
-			if ( $tab['icon'] ) {
-				$icon = $tab['icon'];
-			}
+			$icon = $tab['icon'];
 
 			// Insert Tab Heading
 			$this->formatted_options[] = array(
-				'id' 		=> $tab_id,
+				'id' 	=> $tab_id,
 				'icon'	=> $icon,
 				'name' 	=> $tab['name'],
 				'type' 	=> 'heading'
@@ -690,7 +631,7 @@ class Anva_Options_API
 	/**
 	 * Add options panel tab
 	 */
-	public function add_tab( $tab_id, $tab_name, $top = false ) {
+	public function add_tab( $tab_id, $tab_name, $top = false, $icon = '' ) {
 
 		// Can't create a tab that already exists. 
 		// Must use remove_tab() first to modify.
@@ -703,8 +644,9 @@ class Anva_Options_API
 			// Add tab to the top of array
 			$new_options = array();
 			$new_options[$tab_id] = array(
-				'name' 			=> $tab_name,
-				'sections' 	=> array()
+				'name'     => $tab_name,
+				'sections' => array(),
+				'icon'     => $icon,
 			);
 			$this->raw_options = array_merge( $new_options, $this->raw_options );
 
@@ -712,8 +654,9 @@ class Anva_Options_API
 
 			// Add tab to the end of global array
 			$this->raw_options[$tab_id] = array(
-				'name' 			=> $tab_name,
-				'sections' 	=> array()
+				'name'     => $tab_name,
+				'sections' => array(),
+				'icon'     => $icon,
 			);
 
 		}

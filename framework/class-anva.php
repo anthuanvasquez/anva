@@ -81,20 +81,20 @@ class Anva
      */
     public function set_constants()
     {
-        define( 'ANVA_FRAMEWORK_NAME',      self::NAME );
-        define( 'ANVA_FRAMEWORK_VERSION',   self::VERSION );
-        define( 'ANVA_FRAMEWORK_DIR',       trailingslashit( get_template_directory() . '/framework' ) );
-        define( 'ANVA_FRAMEWORK_INC',       trailingslashit( ANVA_FRAMEWORK_DIR . 'includes' ) );
-        define( 'ANVA_FRAMEWORK_EXT',       trailingslashit( ANVA_FRAMEWORK_DIR . 'extensions' ) );
-        define( 'ANVA_FRAMEWORK_URI',       trailingslashit( get_template_directory_uri() . '/framework' ) );
-        define( 'ANVA_FRAMEWORK_CSS',       trailingslashit( ANVA_FRAMEWORK_URI . 'assets/css' ) );
-        define( 'ANVA_FRAMEWORK_JS',        trailingslashit( ANVA_FRAMEWORK_URI . 'assets/js' ) );
-        define( 'ANVA_FRAMEWORK_IMG',       trailingslashit( ANVA_FRAMEWORK_URI . 'assets/images' ) );
-        define( 'ANVA_FRAMEWORK_ADMIN',     trailingslashit( ANVA_FRAMEWORK_DIR . 'admin' ) );
-        define( 'ANVA_FRAMEWORK_ADMIN_URI', trailingslashit( get_template_directory_uri() . '/framework/admin' ) );
-        define( 'ANVA_FRAMEWORK_ADMIN_CSS', trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/css' ) );
-        define( 'ANVA_FRAMEWORK_ADMIN_JS',  trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/js' ) );
-        define( 'ANVA_FRAMEWORK_ADMIN_IMG', trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/images' ) );
+        define( 'ANVA_FRAMEWORK_NAME',           self::NAME );
+        define( 'ANVA_FRAMEWORK_VERSION',        self::VERSION );
+        define( 'ANVA_FRAMEWORK_DIR',            trailingslashit( get_template_directory() . '/framework' ) );
+        define( 'ANVA_FRAMEWORK_INC',            trailingslashit( ANVA_FRAMEWORK_DIR . 'includes' ) );
+        define( 'ANVA_FRAMEWORK_EXT',            trailingslashit( ANVA_FRAMEWORK_DIR . 'extensions' ) );
+        define( 'ANVA_FRAMEWORK_URI',            trailingslashit( get_template_directory_uri() . '/framework' ) );
+        define( 'ANVA_FRAMEWORK_CSS',            trailingslashit( ANVA_FRAMEWORK_URI . 'assets/css' ) );
+        define( 'ANVA_FRAMEWORK_JS',             trailingslashit( ANVA_FRAMEWORK_URI . 'assets/js' ) );
+        define( 'ANVA_FRAMEWORK_IMG',            trailingslashit( ANVA_FRAMEWORK_URI . 'assets/images' ) );
+        define( 'ANVA_FRAMEWORK_ADMIN',          trailingslashit( ANVA_FRAMEWORK_DIR . 'admin' ) );
+        define( 'ANVA_FRAMEWORK_ADMIN_URI',      trailingslashit( get_template_directory_uri() . '/framework/admin' ) );
+        define( 'ANVA_FRAMEWORK_ADMIN_CSS',      trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/css' ) );
+        define( 'ANVA_FRAMEWORK_ADMIN_JS',       trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/js' ) );
+        define( 'ANVA_FRAMEWORK_ADMIN_IMG',      trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/images' ) );
         define( 'ANVA_FRAMEWORK_ADMIN_PLUGINS',  trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/plugins' ) );
     }
 
@@ -162,7 +162,6 @@ class Anva
         add_action( 'anva_options_page_top', 'anva_admin_check_settings' );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_credits' );
         add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
-        add_action( 'anva_options_page_before', 'anva_add_settings_flash', 10 );
         add_action( 'anva_options_page_before', 'anva_add_settings_change', 10 );
 
         // Init

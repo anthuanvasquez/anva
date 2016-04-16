@@ -354,6 +354,7 @@ function theme_styles() {
 	/* Typography
 	/* ---------------------------------------- */
 	
+	/* Body */
 	body,
 	small,
 	#primary-menu ul ul li > a,
@@ -361,14 +362,16 @@ function theme_styles() {
 	.feature-box.fbox-center.fbox-italic p,
 	.skills li .progress-percent .counter,
 	.nav-tree ul ul a,
-	.font-body { font-family: <?php echo anva_get_font_face( $body_font ); ?>; }
+	.font-body { font-family: <?php anva_the_font_face( $body_font ); ?>; }
 	
 	body {
-		font-size: <?php echo anva_get_font_size( $body_font ); ?>;
-		font-style: <?php echo anva_get_font_style( $body_font ); ?>;
-		font-weight: <?php echo anva_get_font_weight( $body_font ); ?>;
+		font-size: <?php anva_the_font_size( $body_font ); ?>;
+		font-style: <?php anva_the_font_style( $body_font ); ?>;
+		font-weight: <?php anva_the_font_weight( $body_font ); ?>;
+		text-transform: <?php anva_the_text_transform( $body_font ); ?>
 	}
-
+	
+	/* Headers */
 	h1,
 	h2,
 	h3,
@@ -388,9 +391,30 @@ function theme_styles() {
 	.wedding-head .first-name,
 	.wedding-head .last-name,
 	.font-primary {
-		font-family: <?php echo anva_get_font_face( $heading_font ); ?>;
+		font-family: <?php anva_the_font_face( $heading_font ); ?>;
+	}
+	
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	.entry-title h2,
+	.widget > h4 {
+		font-weight: <?php anva_the_font_weight( $heading_font ); ?>;
+		text-transform: <?php anva_the_text_transform( $heading_font ); ?>;
 	}
 
+
+	h1 { font-size: <?php echo $heading_h1 . 'px'; ?>; }
+	h2 { font-size: <?php echo $heading_h2 . 'px'; ?>; }
+	h3 { font-size: <?php echo $heading_h3 . 'px'; ?>; }
+	h4 { font-size: <?php echo $heading_h4 . 'px'; ?>; }
+	h5 { font-size: <?php echo $heading_h5 . 'px'; ?>; }
+	h6 { font-size: <?php echo $heading_h6 . 'px'; ?>; }
+	
+	/* Meta */
 	.entry-meta li,
 	.entry-link span,
 	.entry blockquote p,
@@ -402,14 +426,9 @@ function theme_styles() {
 	.before-heading,
 	.wedding-head .first-name span,
 	.wedding-head .last-name span,
-	.font-secondary { font-family: <?php echo anva_get_font_face( $meta_font ); ?> }
-
-	h1 { font-size: <?php echo $heading_h1 . 'px'; ?>; }
-	h2 { font-size: <?php echo $heading_h2 . 'px'; ?>; }
-	h3 { font-size: <?php echo $heading_h3 . 'px'; ?>; }
-	h4 { font-size: <?php echo $heading_h4 . 'px'; ?>; }
-	h5 { font-size: <?php echo $heading_h5 . 'px'; ?>; }
-	h6 { font-size: <?php echo $heading_h6 . 'px'; ?>; }
+	.font-secondary {
+		font-family: <?php anva_the_font_face( $meta_font ); ?>
+	}
 
 	/* ---------------------------------------- */
 	/* Background

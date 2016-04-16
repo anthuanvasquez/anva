@@ -127,7 +127,7 @@ function anva_admin_footer_links() {
 	printf(
 		'<div id="anva-options-page-links">%s %s %s</div>',
 		sprintf( '<a href="%s"><span class="dashicons dashicons-megaphone"></span> %s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Support', 'anva' ) ),
-		sprintf( '<a href="%s"><span class="dashicons dashicons-book"></span> %s</a>', esc_url( '#' ), __( 'Theme Documentation', 'anva' ) ),
+		sprintf( '<a href="%s"><span class="dashicons dashicons-book"></span> %s</a>', esc_url( 'http://anthuanvasquez.net/#' ), __( 'Theme Documentation', 'anva' ) ),
 		sprintf( '<a href="%s"><span class="dashicons dashicons-cart"></span> %s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Buy Themes', 'anva' ) )
 	);
 }

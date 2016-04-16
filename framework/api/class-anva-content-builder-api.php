@@ -76,13 +76,8 @@ class Anva_Content_Builder_API
 	 */
 	private function __construct()
 	{
-		// Setup registered_elements
-		$this->set_registered_elements();
-
 		// Setup framework default elements
-		if ( is_admin() ) {
-			$this->set_core_elements();
-		}
+		$this->set_core_elements();
 
 		// Establish elements
 		add_action( 'after_setup_theme', array( $this, 'set_elements' ), 1000 );
@@ -103,42 +98,28 @@ class Anva_Content_Builder_API
 		/* Helpers
 		/*--------------------------------------------*/
 
-		$galleries = array();
+		// Get sidebar locations
+		$sidebars = array();
+		foreach ( anva_get_sidebar_layouts() as $sidebar_id => $sidebar ) {
+			$sidebars[$sidebar_id] = $sidebar['name'];
+		}
+
+
+		// Pull all the posts galleries
+		$galleries      = array();
 		$galleries_args = array( 'numberposts' => -1, 'post_type' => array( 'galleries' ) );
-		$gallery_posts = get_posts( $galleries_args );
+		$gallery_posts  = get_posts( $galleries_args );
+
 		if ( count( $gallery_posts ) > 0 ) {
 			$galleries[''] = __( 'Select a Gallery', 'anva' );
 			foreach ( $gallery_posts as $gallery ) {
-				$galleries[$gallery->ID] = $gallery->post_title;
+				$galleries[ $gallery->ID ] = $gallery->post_title;
 			}
 		}
 
+		// Pull all the galleries cat
 		$gallery_cats = array();
 		$terms = get_terms( 'gallery_cat', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
-
-		// Pull all the testimonial categories into an array
-		if ( is_admin() && post_type_exists( 'testimonials' ) && taxonomy_exists( 'testimonial_cat' ) ) {
-			$testimonial_cats = array();
-			$terms = get_terms( 'testimonial_cats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
-			if ( count( $terms ) > 0 ) {
-				$testimonial_cats[''] = __( 'Select a Testimonial', 'anva' );
-				foreach ( $testimonial_cats as $cat ) {
-					$testimonial_cats[$cat->slug] = $cat->name;
-				}
-			}
-		}
-
-		// Get all pricing categories
-		if ( is_admin() && post_type_exists( 'pricing' ) && taxonomy_exists( 'pricing_cat' ) ) {
-			$pricing_cats = array();
-			$terms = get_terms( 'pricing_cats', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
-			if ( count( $pricing_cats ) > 0 ) {
-				$pricing_cats[''] = __( 'Select a Pricing Table', 'anva' );
-				foreach ( $pricing_cats as $cat){
-					$pricing_cats[$cat->slug] = $cat->name;
-				}
-			}
-		}
 
 		// Pull all the blog categories into an array
 		$categories = array();
@@ -149,14 +130,14 @@ class Anva_Content_Builder_API
 		}
 
 		// Image path
-		$image_path = trailingslashit( anva_get_core_admin_uri() . 'assets/images/builder' );
+		$image_path = trailingslashit( ANVA_FRAMEWORK_ADMIN_IMG . 'builder' );
 
 		/*--------------------------------------------*/
 		/* Divider
 		/*--------------------------------------------*/
 
 		$this->core_elements['divider'] = array(
-			'title' => 'Divider',
+			'title' => __( 'Divider', 'anva' ),
 			'icon' => $image_path . 'divider.png',
 			'type' => 'layout',
 			'attr' => array(),
@@ -169,7 +150,7 @@ class Anva_Content_Builder_API
 		/*--------------------------------------------*/
 
 		$this->core_elements['header'] = array(
-			'title' => 'Header',
+			'title' => __( 'Header', 'anva' ),
 			'icon' => $image_path . 'header.png',
 			'type' => 'content',
 			'attr' => array(
@@ -1332,143 +1313,6 @@ class Anva_Content_Builder_API
 			'desc' => '',
 			'content' => false
 		);
-		
-		if ( post_type_exists( 'testimonials' ) ) {
-			$this->core_elements['testimonial_column'] = array(
-				'title' =>  'Testimonials',
-				'icon' => $image_path . 'testimonial_column.png',
-				'desc' => '',
-				'content' => false,
-				'attr' => array(
-					'slug' => array(
-						'title' => 'Slug (Optional)',
-						'type' => 'text',
-						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-					),
-					'columns' => array(
-						'title' => 'Columns',
-						'type' => 'select',
-						'options' => $testimonial_column,
-						'desc' => 'Select how many columns you want to display service items in a row',
-					),
-					'cat' => array(
-						'title' => 'Filter by testimonials category',
-						'type' => 'select',
-						'options' => $testimonial_cats,
-						'desc' => 'You can choose to display only some testimonials from selected testimonial category',
-					),
-					'items' => array(
-						'type' => 'slider',
-						"std" => "4",
-						"min" => 1,
-						"max" => 50,
-						"step" => 1,
-						'desc' => 'Enter number of items to display',
-					),
-					'padding' => array(
-						'title' => 'Content Padding',
-						'type' => 'slider',
-						"std" => "30",
-						"min" => 0,
-						"max" => 200,
-						"step" => 5,
-						'desc' => 'Select padding top and bottom value for this header block',
-					),
-					'bgcolor' => array(
-						'title' => 'Background Color (Optional)',
-						'type' => 'colorpicker',
-						"std" => "#f9f9f9",
-						'desc' => 'Select background color for this content block',
-					),
-					'fontcolor' => array(
-						'title' => 'Font Color (Optional)',
-						'type' => 'colorpicker',
-						"std" => "#444444",
-						'desc' => 'Select font color for this content',
-					),
-					'custom_css' => array(
-						'title' => 'Custom CSS',
-						'type' => 'text',
-						'desc' => 'You can add custom CSS style for this block (advanced user only)',
-					),
-				)
-			);
-		}
-
-		if ( post_type_exists( 'pricing' ) ) {
-			$this->core_elements['pricing'] = array(
-				'title' => 'Pricing Table',
-				'icon' => $image_path . 'pricing_table.png',
-				'attr' => array(
-					'slug' => array(
-						'title' => 'Slug (Optional)',
-						'type' => 'text',
-						'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-					),
-					'skin' => array(
-						'title' => 'Skin',
-						'type' => 'select',
-						'options' => array(
-							'light' => 'Light',
-							'normal' => 'Normal',
-						),
-						'desc' => 'Select skin for this content',
-					),
-					'cat' => array(
-						'title' => 'Filter by prciing category',
-						'type' => 'select',
-						'options' => $pricing_cats,
-						'desc' => 'You can choose to display only some items from selected pricing category',
-					),
-					'columns' => array(
-						'title' => 'Columns',
-						'type' => 'select',
-						'options' => array(
-							2 => '2 Columns',
-							3 => '3 Columns',
-							4 => '4 Columns',
-						),
-						'desc' => 'Select Number of Pricing Columns',
-					),
-					'items' => array(
-						'type' => 'slider',
-						"std" => "4",
-						"min" => 1,
-						"max" => 50,
-						"step" => 1,
-						'desc' => 'Enter number of items to display',
-					),
-					'padding' => array(
-						'title' => 'Content Padding',
-						'type' => 'slider',
-						"std" => "30",
-						"min" => 0,
-						"max" => 200,
-						"step" => 5,
-						'desc' => 'Select padding top and bottom value for this header block',
-					),
-					'highlightcolor' => array(
-						'title' => 'Highlight Color',
-						'type' => 'colorpicker',
-						"std" => "#001d2c",
-						'desc' => 'Select hightlight color for this content',
-					),
-					'bgcolor' => array(
-						'title' => 'Background Color (Optional)',
-						'type' => 'colorpicker',
-						"std" => "#f9f9f9",
-						'desc' => 'Select background color for this content block',
-					),
-					'custom_css' => array(
-						'title' => 'Custom CSS',
-						'type' => 'text',
-						'desc' => 'You can add custom CSS style for this block (advanced user only)',
-					),
-				),
-				'desc' => '',
-				'content' => false
-			);
-		}
 
 		$this->core_elements['contact_map'] = array(
 			'title' =>  'Contact Form With Map',
@@ -1555,6 +1399,8 @@ class Anva_Content_Builder_API
 		$this->core_elements['map'] = array(
 			'title' =>  'Fullwidth Map',
 			'icon' => $image_path . 'googlemap.png',
+			'desc' => '',
+			'content' => false,
 			'attr' => array(
 				'slug' => array(
 					'title' => 'Slug (Optional)',
@@ -1611,22 +1457,91 @@ class Anva_Content_Builder_API
 					'desc' => 'Enter custom marker image URL',
 				),
 			),
-			'desc' => '',
-			'content' => false
 		);
 
 		/*--------------------------------------------*/
-		/* Extend
+		/* Text Sidebar
 		/*--------------------------------------------*/
+
+		$this->core_elements['text_sidebart'] = array(
+			'title' => __( 'Text Sidebar', 'anva' ),
+			'desc' => __( 'Create a text block with sidebar.', 'anva' ),
+			'content' => false,
+			'icon' => $image_path . '/contact_sidebar.png',
+			'attr' => array(
+				'slug' => array(
+					'title' => 'Slug (Optional)',
+					'type' => 'text',
+					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+				),
+				'sidebar' => array(
+					'Title' => 'Content Sidebar',
+					'type' => 'select',
+					'options' => $sidebars,
+					'desc' => 'You can select sidebar to display next to classic blog content',
+				),
+				'padding' => array(
+					'title' => 'Content Padding',
+					'type' => 'slider',
+					"std" => "30",
+					"min" => 0,
+					"max" => 200,
+					"step" => 5,
+					'desc' => 'Select padding top and bottom value for this header block',
+				),
+				'custom_css' => array(
+					'title' => 'Custom CSS',
+					'type' => 'text',
+					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+				)
+			),
+		);
+
+		/*--------------------------------------------*/
+		/* Contact Sidebar
+		/*--------------------------------------------*/
+
+		$this->core_elements['contact_sidebar'] = array(
+			'title' => __( 'Contact Sidebar', 'anva' ),
+			'desc' => __( 'Create a contact form with sidebar.', 'anva' ),
+			'content' => false,
+			'icon' => $image_path . '/contact_sidebar.png',
+			'attr' => array(
+				'slug' => array(
+					'title' => 'Slug (Optional)',
+					'type' => 'text',
+					'desc' => 'The "slug" is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers and hyphens.',
+				),
+				'subtitle' => array(
+					'title' => 'Sub Title (Optional)',
+					'type' => 'text',
+					'desc' => 'Enter short description for this header.',
+				),
+				'sidebar' => array(
+					'Title' => 'Content Sidebar',
+					'type' => 'select',
+					'options' => $sidebars,
+					'desc' => 'You can select sidebar to display next to classic blog content.',
+				),
+				'padding' => array(
+					'title' => 'Content Padding',
+					'type' => 'slider',
+					"std" => "30",
+					"min" => 0,
+					"max" => 200,
+					"step" => 5,
+					'desc' => 'Select padding top and bottom value for this header block',
+				),
+				'custom_css' => array(
+					'title' => 'Custom CSS',
+					'type' => 'text',
+					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+				),
+			),
+		);
 
 		$this->core_elements = apply_filters( 'anva_core_elements', $this->core_elements );
 
-	}
-
-	public function set_registered_elements()
-	{
-		$registered_elements = array_keys( $this->elements );
-		return $registered_elements;
 	}
 
 	/**
@@ -1648,17 +1563,6 @@ class Anva_Content_Builder_API
 				}
 			}
 		}
-
-		// Add blocks to elements
-		if ( $this->blocks ) {
-			
-			$blocks = $this->blocks;
-			foreach ( $blocks as $block ) {
-				$this->elements[$block['element_id']]['attr'][$block['block_id']] = $block['attr'];
-			}
-		}
-
-		//var_dump( $this->elements );
 		
 		// Extend
 		$this->elements = apply_filters( 'anva_elements', $this->elements );
@@ -1666,7 +1570,7 @@ class Anva_Content_Builder_API
 	}
 
 	/**
-	 * Add element to Builder
+	 * Add a new element.
 	 *
 	 * @since 1.0.0
 	 */
@@ -1705,7 +1609,7 @@ class Anva_Content_Builder_API
 	}
 
 	/**
-	 * Remove element from Builder
+	 * Remove element.
 	 *
 	 * @since 1.0.0
 	 */
@@ -1716,7 +1620,17 @@ class Anva_Content_Builder_API
 	}
 
 	/**
-	 * Get core elements
+	 * Check if an element is currently registered.
+	 *
+	 * @since 1.0.0
+	 */
+	public function is_element( $element_id )
+	{
+		return array_key_exists( $element_id, $this->elements );
+	}
+
+	/**
+	 * Get core elements.
 	 *
 	 * @since 1.0.0
 	 */
@@ -1726,7 +1640,7 @@ class Anva_Content_Builder_API
 	}
 
 	/**
-	 * Get custom elements
+	 * Get custom elements.
 	 *
 	 * @since 1.0.0
 	 */
@@ -1736,7 +1650,7 @@ class Anva_Content_Builder_API
 	}
 
 	/**
-	 * Get final elements
+	 * Get final elements.
 	 * 
 	 * This is the merged result of core elements and custom elements.
 	 * 
@@ -1745,20 +1659,6 @@ class Anva_Content_Builder_API
 	public function get_elements()
 	{
 		return $this->elements;
-	}
-
-	/**
-	 * Check if an element is currently registered
-	 *
-	 * @since 1.0.0
-	 */
-	public function is_element( $element_id )
-	{
-		$elements = $this->get_elements();
-		if ( isset( $elements[ $element_id ] ) ) {	
-			return true;
-		}
-		return false;
 	}
 
 }

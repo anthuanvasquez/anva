@@ -465,6 +465,7 @@ function anva_content_quote() {
  * @return array $post_formats
  */
 function anva_post_format_filter() {
+	
 	$post_formats = array(
 		'quote',
 		'link',

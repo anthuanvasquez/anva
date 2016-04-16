@@ -308,7 +308,7 @@ function anva_get_column_class( $column ) {
 function anva_get_header_types() {
 	$header_types = array(
 		'default' 			=> array(
-			'name' 			=> __( 'Default', 'anva' ),
+			'name' 			=> __( 'Default Type', 'anva' ),
 			'id' 			=> 'default',
 			'classes' 		=> array(
 				'header'	=> '',

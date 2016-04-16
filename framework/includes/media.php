@@ -89,6 +89,23 @@ function anva_get_image_sizes() {
 	return apply_filters( 'anva_image_sizes', $sizes );
 }
 
+function anva_get_image_sizes_thumbnail() {
+
+	$sizes = anva_get_image_sizes();
+	$thumbnails = array();
+
+
+	foreach ( $sizes as $thumbnail_id => $thumbnail) {
+		$crop = ( $thumbnail['crop'] == true ? __( 'Hard Crop', 'anva' ) : __( 'Soft Crop', 'anva' )  );
+		if ( 9999 === $thumbnail['height'] ) {
+			$crop = __( 'No Height Crop', 'anva' );
+		}
+		$thumbnails[ $thumbnail_id ] = sprintf( '%1$s - (%2$s x %3$s, %4$s)', $thumbnail['name'], $thumbnail['width'], $thumbnail['height'], $crop );
+	}
+
+	return apply_filters( 'anva_image_sizes_select', $thumbnails );
+}
+
 /**
  * Get media queries.
  *

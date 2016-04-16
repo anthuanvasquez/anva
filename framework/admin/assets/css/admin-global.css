@@ -914,7 +914,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 #anva-framework .section-logo .screenshot {
-  float: none;
+  background: #f9f9f9;
+  border: 1px solid #eee;
   margin-top: 15px;
 }
 
@@ -1057,7 +1058,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   color: #777;
   padding: 3px 10px;
   margin: 0;
-  padding: 0;
   line-height: 29px;
 }
 

@@ -25,6 +25,7 @@ add_filter( 'anva_background_attachment', 		'anva_sanitize_background_attachment
 add_filter( 'anva_font_size', 					'anva_sanitize_font_size' );
 add_filter( 'anva_font_face', 					'anva_sanitize_font_face' );
 add_filter( 'anva_font_style', 					'anva_sanitize_font_style' );
+add_filter( 'anva_font_weight', 				'anva_sanitize_font_weight' );
 add_filter( 'anva_sanitize_typography', 		'anva_sanitize_typography', 10, 2 );
 add_filter( 'anva_sanitize_color', 				'anva_sanitize_hex' );
 add_filter( 'anva_sanitize_social_media', 		'anva_sanitize_social_media' );
@@ -275,25 +276,27 @@ function anva_sanitize_background_attachment( $value ) {
 function anva_sanitize_typography( $input, $option ) {
 
 	$output = wp_parse_args( $input, array(
-		'size'  => '',
-		'face'  => '',
-		'style' => '',
-		'color' => ''
+		'size'   => '',
+		'style'  => '',
+		'weight' => '',
+		'face'   => '',
+		'color'  => ''
 	) );
 
 	if ( isset( $option['options']['faces'] ) && isset( $input['face'] ) ) {
 		
-		if ( !( array_key_exists( $input['face'], $option['options']['faces'] ) ) ) {
+		if ( ! ( array_key_exists( $input['face'], $option['options']['faces'] ) ) ) {
 			$output['face'] = '';
 		}
 
 	} else {
-		$output['face']  = apply_filters( 'anva_font_face', $output['face'] );
+		$output['face'] = apply_filters( 'anva_font_face', $output['face'] );
 	}
 
-	$output['size']  = apply_filters( 'anva_font_size', $output['size'] );
-	$output['style'] = apply_filters( 'anva_font_style', $output['style'] );
-	$output['color'] = apply_filters( 'anva_sanitize_color', $output['color'] );
+	$output['size']   = apply_filters( 'anva_font_size', $output['size'] );
+	$output['style']  = apply_filters( 'anva_font_style', $output['style'] );
+	$output['weight'] = apply_filters( 'anva_font_weight', $output['weight'] );
+	$output['color']  = apply_filters( 'anva_sanitize_color', $output['color'] );
 	
 	return $output;
 }
@@ -322,6 +325,19 @@ function anva_sanitize_font_style( $value ) {
 }
 
 /**
+ * Typography - font weight.
+ *
+ * @since 1.0.0
+ */
+function anva_sanitize_font_weight( $value ) {
+	$recognized = anva_recognized_font_weights();
+	if ( array_key_exists( $value, $recognized ) ) {
+		return $value;
+	}
+	return apply_filters( 'anva_default_font_weight', '400' );
+}
+
+/**
  * Sanitization for font face
  */
 function anva_sanitize_font_face( $value ) {
@@ -339,7 +355,6 @@ function anva_sanitize_font_face( $value ) {
  * @param    string    The value that this function should return if it cannot be recognized as a color.
  * @return   string
  */
-
 function anva_sanitize_hex( $hex, $default = '' ) {
 	if ( anva_validate_hex( $hex ) ) {
 		return $hex;
@@ -373,19 +388,6 @@ function anva_recognized_font_sizes() {
  * @return   array
  */
 function anva_recognized_font_faces() {
-	// $default = array(
-	// 	'arial'     	=> 'Arial',
-	// 	'baskerville'	=> 'Baskerville',
-	// 	'georgia'   	=> 'Georgia',
-	// 	'helvetica' 	=> 'Helvetica*',
-	// 	'lucida'  		=> 'Lucida Sans',
-	// 	'palatino'  	=> 'Palatino',
-	// 	'tahoma'    	=> 'Tahoma, Geneva',
-	// 	'times'     	=> 'Times New Roman',
-	// 	'trebuchet' 	=> 'Trebuchet',
-	// 	'verdana'   	=> 'Verdana, Geneva',
-	// 	'google'		=> 'Google Font'
-	// );
 	$default = anva_get_font_stacks();
 	return apply_filters( 'anva_recognized_font_faces', $default );
 }
@@ -414,7 +416,7 @@ function anva_recognized_font_styles() {
  * 
  * @return array $default
  */
-function anva_recognized_font_weight() {
+function anva_recognized_font_weights() {
 	$default = array(
 		'300' => __( '300 (Thin)', 'anva' ),
 		'400' => __( '400 (Normal)', 'anva' ),
@@ -424,7 +426,7 @@ function anva_recognized_font_weight() {
 		'800' => __( '800', 'anva' ),
 		'900' => __( '900', 'anva' ),
 	);
-	return apply_filters( 'anva_recognized_font_weight', $default );
+	return apply_filters( 'anva_recognized_font_weights', $default );
 }
 
 

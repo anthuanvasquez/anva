@@ -3331,6 +3331,7 @@ body.stretched .container-fullwidth .breadcrumb {
   background-color: #FFF;
 }
 #content p {
+  word-wrap: break-word;
   line-height: 1.8;
 }
 #content .content-wrap {
