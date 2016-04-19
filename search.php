@@ -29,7 +29,7 @@ get_header();
 		<div id= "posts" class="<?php echo esc_attr( anva_post_class( 'search' ) ); ?>">
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-					<?php anva_get_template_part( 'search' ); ?>
+					<?php anva_get_template_part( 'content', '' ); ?>
 				<?php endwhile; ?>
 				<?php anva_num_pagination(); ?>
 			<?php else : ?>

@@ -4,29 +4,29 @@
  * Get global titles on pages.
  * 
  * @since  1.0.0
- * @return void
+ * @return string $html
  */
 function anva_get_global_page_title() {
 
 	$html = '';
 
 	if ( is_singular( 'post' ) ) :
-		$html = printf( '%s', __( 'The Blog', 'anva' ) );
+		$html = __( 'The Blog', 'anva' );
 
 	elseif ( is_singular( 'portfolio' ) ) :
 		$html = get_the_title();
 
-	elseif ( is_singular( 'gallery' ) ) :
+	elseif ( is_singular( 'galleries' ) ) :
 		$html = get_the_title();
 
 	elseif ( is_page() ) :
 		$html = get_the_title();
 
 	elseif ( is_category() ) :
-		$html = single_term_title("", false);
+		$html = single_term_title( '', false );
 
 	elseif ( is_tag() ) :
-		$html = single_term_title("", false);
+		$html = single_term_title( '', false );
 
 	elseif ( is_author() ) :
 		$html = sprintf( '%s <span class="vcard">%s</span>', anva_get_local( 'author' ), get_the_author() );
@@ -40,9 +40,12 @@ function anva_get_global_page_title() {
 	elseif ( is_year() ) :
 		$html = sprintf( '%s <span>%s</span>', anva_get_local( 'year' ), get_the_date( 'Y' ) );
 
+	elseif ( is_post_type_archive() ) :
+		$html = post_type_archive_title( '', false );
+
 	elseif ( is_tax( 'gallery_cat' ) ) :
 		$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-		$html = esc_html( $term->name );
+		$html = sprintf( '%s <span>%s</span>', __( 'Galleries', 'anva' ), esc_html( $term->name ) );
 
 	elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
 		$html = anva_get_local( 'asides' );
@@ -1230,11 +1233,11 @@ function anva_breadcrumbs( $args = array() ) {
 function anva_get_gallery_grid( $post_id, $columns, $thumbnail ) {
 	
 	$classes 	 	= array();
-	$gallery 	 	= anva_get_post_meta( '_anva_gallery_attachments' );
-	$gallery 	 	= anva_sort_gallery( $gallery );
 	$animate 	 	= anva_get_option( 'gallery_animate' );
 	$delay 	 		= anva_get_option( 'gallery_delay' );
 	$highlight 		= anva_get_post_meta( '_anva_gallery_highlight' );
+	$gallery 	 	= anva_get_post_meta( '_anva_gallery_attachments' );
+	$gallery 	 	= anva_sort_gallery( $gallery ); // Sort gallery attachments
 	$html 			= '';
 
 	$classes[] = $columns;

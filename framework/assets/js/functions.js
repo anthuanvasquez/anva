@@ -2259,6 +2259,34 @@ var ANVA = ANVA || {};
 			}
 		},
 
+		nivoSlider: function() {
+
+			if( !$().nivoSlider ) {
+				console.log('nivsoSlider: NivoSlider not Defined.');
+				return true;
+			}
+
+			var $nivoSlider = $('.nivoSlider');
+			if ( $nivoSlider.length > 0 ) {
+				$('.nivoSlider').nivoSlider({
+					effect: 'random',
+					slices: 15,
+					boxCols: 12,
+					boxRows: 6,
+					animSpeed: 500,
+					pauseTime: 8000,
+					directionNav: true,
+					controlNav: true,
+					pauseOnHover: true,
+					prevText: '<i class="icon-angle-left"></i>',
+					nextText: '<i class="icon-angle-right"></i>',
+					afterLoad: function(){
+						$('#slider').find('.nivo-caption').addClass('slider-caption-bg');
+					}
+				});
+			}
+		},
+
 		html5Video: function(){
 			var videoEl = $('.video-wrap:has(video)');
 			if( videoEl.length > 0 ) {
@@ -3507,6 +3535,7 @@ var ANVA = ANVA || {};
 			ANVA.portfolio.portfolioDescMargin();
 			ANVA.widget.parallax();
 			ANVA.widget.loadFlexSlider();
+			ANVA.widget.nivoSlider();
 			ANVA.widget.html5Video();
 			ANVA.widget.masonryThumbs();
 			ANVA.header.topsocial();

@@ -89,6 +89,7 @@ function theme_body_classes( $classes ) {
 
 	return $classes;
 }
+add_filter( 'body_class', 'theme_body_classes', 10 );
 
 /**
  * Add theme header classes.
@@ -147,9 +148,10 @@ function theme_header_classes( $classes ) {
 
 	return $classes;
 }
+add_filter( 'anva_header_class', 'theme_header_classes', 10 );
 
 /**
- * Add theme header classes.
+ * Add theme primary menu classes.
  * 
  * @param  array $classes
  * @return array $classes
@@ -179,6 +181,7 @@ function theme_primary_menu_classes( $classes ) {
 
 	return $classes;
 }
+add_filter( 'anva_primary_menu_class', 'theme_primary_menu_classes', 10 );
 
 /**
  * Header trigger.
@@ -197,15 +200,22 @@ function theme_header_trigger() {
 	<?php
 	endif;
 }
+add_action( 'anva_header_above', 'theme_header_trigger' );
 
+/**
+ * Scroll to top button.
+ * 
+ * @since 1.0.0
+ */
 function theme_gototop() {
-	$footer_gototop = anva_get_option( 'footer_gototop' );
-	if ( $footer_gototop ) :
+	if ( ! anva_get_option( 'footer_gototop' ) ) :
+		return;
+	endif;
 	?>
 	<div id="gotoTop" class="icon-angle-up"></div>
 	<?php
-	endif;
 }
+add_action( 'anva_footer_below', 'theme_gototop', 100 );
 
 /**
  * Google fonts using by the theme
@@ -220,6 +230,7 @@ function theme_google_fonts() {
 		anva_get_option( 'meta_font' )
 	);
 }
+add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
 
 /**
  * Add theme support.
@@ -236,6 +247,7 @@ function theme_add_theme_support() {
 	add_theme_support( 'anva-menu' );
 	add_theme_support( 'anva-woocommerce' );
 }
+add_action( 'after_setup_theme', 'theme_add_theme_support', 10 );
 
 /**
  * Include the themes stylesheets.
@@ -245,6 +257,7 @@ function theme_add_theme_support() {
  */
 function theme_stylesheets() {
 
+	// Get curren color hex from scheme.
 	$color = anva_get_current_color();
 	$color = str_replace( '#', '', $color );
 
@@ -279,6 +292,7 @@ function theme_stylesheets() {
 	$api->print_styles(3);
 
 }
+add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
 
 /**
  * Include the theme scripts.
@@ -312,6 +326,7 @@ function theme_scripts() {
 	$api->print_scripts(3);
 	
 }
+add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
 /**
  * Theme custom styles options.
@@ -533,8 +548,13 @@ function theme_styles() {
 	// Compress Output
 	return anva_compress( $styles );
 }
+add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );
 
-add_action( 'anva_options_page_custom_scripts', 'theme_base_colors' );
+/**
+ * Theme colors pallete for scheme.
+ * 
+ * @since 1.0.0
+ */
 function theme_base_colors() {
 	?>
 	<script type="text/javascript">
@@ -587,13 +607,14 @@ function theme_remove_scripts() {
 	// Camera
 	if ( 'camera' != $slider ) {
 		anva_remove_stylesheet( 'camera' );
-		anva_remove_script( 'camera' );
+		anva_remove_script( 'jquery_camera' );
 	}
 	// Swiper
 	if ( 'swiper' != $slider ) {
 		anva_remove_stylesheet( 'swiper' );
 	}
 }
+add_action( 'after_setup_theme', 'theme_remove_scripts', 11 );
 
 /**
  * Remove grid columns that are not needed.
@@ -625,20 +646,4 @@ function theme_remove_grid_columns( $columns ) {
 	
 	return $columns;
 }
-
-/*-----------------------------------------------------------------------------------*/
-/* Hooks
-/*-----------------------------------------------------------------------------------*/
-
 add_filter( 'anva_grid_columns', 'theme_remove_grid_columns' );
-add_filter( 'body_class', 'theme_body_classes', 10 );
-add_filter( 'anva_header_class', 'theme_header_classes', 10 );
-add_filter( 'anva_primary_menu_class', 'theme_primary_menu_classes', 10 );
-add_action( 'anva_header_above', 'theme_header_trigger' );
-add_action( 'anva_footer_below', 'theme_gototop', 100 );
-add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
-add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
-add_action( 'wp_enqueue_scripts', 'theme_scripts' );
-add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );
-add_action( 'after_setup_theme', 'theme_remove_scripts', 11 );
-add_action( 'after_setup_theme', 'theme_add_theme_support', 10 );

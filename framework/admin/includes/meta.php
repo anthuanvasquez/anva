@@ -54,6 +54,11 @@ function anva_add_meta_boxes_default() {
  */
 function anva_setup_post_meta() {
 
+	$columns = array();
+	foreach ( range(2, 6) as $col ) {
+		$columns[ $col ] = $col . ' ' . __( 'Columns', 'anva' );
+	}
+
 	$options = array(
 		'hide_title' => array(
 			'name' 		=> __( 'Post Title', 'anva' ),
@@ -65,6 +70,45 @@ function anva_setup_post_meta() {
 				'show' 	=> __( 'Show post\'s title', 'anva' ),
 				'hide'	=> __( 'Hide post\'s title', 'anva' )
 			)
+		),
+		'gallery' => array(
+			'name' 		=> __( 'Post Format Gallery', 'anva' ),
+			'desc'		=> __( 'Select the type you want to show in the post format gallery.', 'anva' ),
+			'id'		=> 'gallery',
+			'type' 		=> 'select',
+			'std'		=> 'slider',
+			'options'	=> array(
+				'slider' 	=> __( 'Gallery Slider', 'anva' ),
+				'masonry'	=> __( 'Gallery Masonry', 'anva' )
+			),
+			'trigger' => 'slider',
+			'receivers' => 'gallery_slider',
+		),
+		'gallery_slider' => array(
+			'name' 		=> __( 'Gallery Slider Type', 'anva' ),
+			'desc'		=> __( 'Select the slider type to show the gallery images.', 'anva' ),
+			'id'		=> 'gallery_slider',
+			'type' 		=> 'select',
+			'std'		=> 'standard',
+			'options'	=> array(
+				'standard' => __( 'Standard Slider', 'anva' ),
+				'nivo'     => __( 'Nivo Slider', 'anva' )
+			),
+		),
+		'gallery_highlight' => array(
+			'name' 		=> __( 'Gallery Masonry Highlight', 'anva' ),
+			'desc'		=> __( 'Enter the gallery image to want to highlight.', 'anva' ),
+			'id'		=> 'gallery_highlight',
+			'type' 		=> 'number',
+			'std'		=> '',
+		),
+		'gallery_columns' => array(
+			'name' 		=> __( 'Gallery Masonry Columns', 'anva' ),
+			'desc'		=> __( 'Select the gallery masonry columns.', 'anva' ),
+			'id'		=> 'gallery_columns',
+			'type' 		=> 'select',
+			'std'		=> '3',
+			'options' 	=> $columns
 		),
 		'sidebar_layout' => array(
 			'name' => __( 'Sidebar Layout', 'anva' ),
@@ -463,7 +507,7 @@ function anva_setup_portfolio_media_meta() {
 			'id'   			=> 'video_embed',
 			'name' 			=> __( 'Video Embed', 'anva' ),
 			'desc' 			=> __( 'Embed iframe code from YouTube, Vimeo or other trusted source. HTML tags are limited to iframe, div, img, a, em, strong and br. Note: This field overrides the previous fields.', 'anva' ),
-			'type' 			=> 'upload',
+			'type' 			=> 'textarea',
 			'std'  			=> ''
 		),
 	);

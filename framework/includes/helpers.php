@@ -216,10 +216,13 @@ function anva_body_class( $classes ) {
 		$classes[] = 'has-reading-bar';
 	}
 
-
 	$footer = anva_get_option( 'footer_setup' );
 	if (  isset( $footer['num'] ) && $footer['num'] > 0  ) {
 		$classes[] = 'has-footer-content';
+	}
+
+	if ( is_page_template( 'template_builder.php' ) ) {
+		$classes[] = 'page-has-content-builder';
 	}
 
 	return $classes;

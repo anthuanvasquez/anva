@@ -110,11 +110,11 @@ class Anva_Envato_Updates {
 
 							// Get update rolling with WP
 							$updates->response[$installed_theme->Stylesheet] = array(
-								'url' 			=> apply_filters( 'themeblvd_envato_updates_changelog', 'http://themeblvd.com/changelog/?theme='.$installed_theme->Template, $installed_theme, $current_theme ),
+								'url' 			=> apply_filters( 'anva_envato_updates_changelog', 'http://anthuanvasquez.net/changelog/?theme='.$installed_theme->Template, $installed_theme, $current_theme ),
 								'new_version' 	=> $current_theme['version'],
 								'old_version'	=> $installed_theme->Version,
 								'package' 		=> $url,
-								'type'			=> apply_filters( 'themeblvd_envato_updates_type', 'themeblvd-envato' )
+								'type'			=> apply_filters( 'anva_envato_updates_type', 'anva-envato' )
 							);
 
 						}
@@ -149,7 +149,7 @@ class Anva_Envato_Updates {
 		$current_update = $current_update->response[$theme];
 
 		// Is this one of our themes?
-		$type = apply_filters( 'themeblvd_envato_updates_type', 'themeblvd-envato' );
+		$type = apply_filters( 'anva_envato_updates_type', 'anva-envato' );
 		if ( ! isset( $current_update['type'] ) || $current_update['type'] != $type ) {
 			return;
 		}
@@ -160,12 +160,12 @@ class Anva_Envato_Updates {
 		$old_version = isset( $current_update['old_version'] ) ? $current_update['old_version'] : null;
 
 		// Start the process
-		show_message( sprintf( esc_html__('Backing up %2$s v%1$s before udpating to new version...', 'themeblvd' ), $old_version, $theme_name ) );
+		show_message( sprintf( esc_html__('Backing up %2$s v%1$s before updating to new version...', 'anva' ), $old_version, $theme_name ) );
 
 		// Make sure the themes directory can be found.
 		$themes_directory = WP_CONTENT_DIR . '/themes';
 		if ( ! $wp_filesystem->find_folder( $themes_directory ) ) {
-			wp_die( esc_html__('Unable to locate WordPress Theme directory.', 'themeblvd') );
+			wp_die( esc_html__('Unable to locate WordPress Theme directory.', 'anva') );
 		}
 
 		// Locations
@@ -175,7 +175,7 @@ class Anva_Envato_Updates {
 		// Create destination if needed
 		if ( ! $wp_filesystem->exists( $to ) ) {
 			if ( ! $wp_filesystem->mkdir( $to, FS_CHMOD_DIR ) ) {
-				show_message( esc_html__('Could not create directory for backup.', 'themeblvd') );
+				show_message( esc_html__('Could not create directory for backup.', 'anva') );
 				wp_die();
 			}
 		}
@@ -189,7 +189,7 @@ class Anva_Envato_Updates {
 
 		// End the process
 		$backup_path = '<code>/wp-content/themes/'.$theme.'-'.$old_version.'/</code>'; // just for display purposes
-		show_message( sprintf( esc_html__('%2$s v%1$s has been backed up sucessfully to %3$s...', 'themeblvd' ), $old_version, $theme_name, $backup_path ) );
+		show_message( sprintf( esc_html__('%2$s v%1$s has been backed up sucessfully to %3$s...', 'anva' ), $old_version, $theme_name, $backup_path ) );
 
 	}
 
@@ -200,7 +200,7 @@ class Anva_Envato_Updates {
 	 * @return int 300
 	 */
 	public function bumb_request_timeout( $timeout ) {
-		return apply_filters( 'themeblvd_envato_http_request_timeout', 300 );
+		return apply_filters( 'anva_envato_http_request_timeout', 300 );
 	}
 
 }

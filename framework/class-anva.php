@@ -170,31 +170,34 @@ class Anva
         add_filter( 'oembed_result', 'anva_oembed', 10, 2 );
         add_filter( 'embed_oembed_html', 'anva_oembed', 10, 2 );
         add_filter( 'wp_audio_shortcode', 'anva_audio_shortcode' );
-        add_filter( 'the_password_form', 'anva_password_form' );
+        add_filter( 'the_content', 'anva_content_format_gallery', 7 );
         add_filter( 'the_content', 'anva_content_format_audio', 7 );
         add_filter( 'the_content', 'anva_content_format_video', 7 );
         add_filter( 'the_content', 'anva_content_format_quote', 7 );
         add_filter( 'the_content', 'anva_content_format_link', 7 );
+        add_filter( 'the_password_form', 'anva_password_form' );
+        add_filter( 'image_size_names_choose', 'anva_image_size_names_choose' );
         add_filter( 'nav_menu_css_class', 'anva_nav_menu_css_class', 10, 4 );
+        add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
+
+        add_action( 'after_setup_theme', 'anva_content_width', 0 );
+        add_action( 'after_setup_theme', 'anva_add_image_sizes' );
+        add_action( 'after_setup_theme', 'anva_add_theme_support', 10  );
+        add_action( 'after_setup_theme', 'anva_add_elements', 10  );
+        add_action( 'after_setup_theme', 'anva_require_theme_supports', 12 );
+        add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
+        add_action( 'after_setup_theme', 'anva_load_theme_texdomain' );
         add_action( 'init', 'anva_register_menus' );
         add_action( 'init', 'anva_contact_send_email' );
+        add_action( 'wp_loaded', 'anva_customizer_preview' );
+        add_action( 'wp', 'anva_setup_author' );
+        add_filter( 'wp_head', 'anva_wp_title_compat', 5 );
+        add_action( 'wp_head', 'anva_head_apple_touch_icon' );
+        add_action( 'wp_head', 'anva_head_viewport', 1 );
         add_action( 'customize_register', 'anva_customizer_init' );
         add_action( 'customize_register', 'anva_customizer_register_blog' );
         add_action( 'customize_controls_print_styles', 'anva_customizer_styles' );
         add_action( 'customize_controls_print_scripts', 'anva_customizer_scripts' );
-        add_action( 'after_setup_theme', 'anva_content_width', 0 );
-        add_action( 'after_setup_theme', 'anva_add_image_sizes' );
-        add_action( 'after_setup_theme', 'anva_add_theme_support', 10  );
-        add_action( 'after_setup_theme', 'anva_require_theme_supports', 12 );
-        add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
-        add_action( 'after_setup_theme', 'anva_load_theme_texdomain' );
-        add_action( 'image_size_names_choose', 'anva_image_size_names_choose' );
-        add_filter( 'wp_head', 'anva_wp_title_compat', 5 );
-        add_action( 'wp_head', 'anva_head_apple_touch_icon' );
-        add_action( 'wp_head', 'anva_head_viewport', 1 );
-        add_action( 'wp_loaded', 'anva_customizer_preview' );
-        add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
-        add_action( 'wp', 'anva_setup_author' );
 
         // Framework's actions and filters
         add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );

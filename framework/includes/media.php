@@ -2,7 +2,6 @@
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
- *
  * Priority 0 to make it available to lower priority callbacks.
  *
  * @global int $content_width
@@ -494,4 +493,283 @@ function anva_get_animations() {
 		'zoomOutUp',
 	);
 	return apply_filters( 'anva_animations', $animations );
+}
+
+/**
+ * Gallery slider.
+ *
+ * @since 1.0.0
+ * @param string $gallery
+ * @param string $type
+ * @param string $size
+ */
+function anva_gallery_slider_content( $gallery = '', $type = 'standard', $size = 'anva_md' ) {
+	echo anva_get_gallery_slider_content( $gallery, $type, $size );
+}
+
+/**
+ * Get gallery slider.
+ *
+ * @since  1.0.0
+ * @param  string $gallery
+ * @param  string $type
+ * @param  string $size
+ * @return string $output
+ */
+function anva_get_gallery_slider_content( $gallery = '', $type = 'standard', $size = 'anva_md' ) {
+
+	$post_id = get_the_ID();
+	$type    = apply_filters( 'anva_gallery_slider_type', $type, $post_id );
+	$size    = apply_filters( 'anva_gallery_slider_size', $size, $post_id );
+
+	// Did user pass in a gallery shortcode?
+	if ( $gallery ) {
+		$content = $gallery;
+	} else {
+		$content = get_the_content();
+	}
+
+	// Get gallery slider type
+    $gallery_slider_type = anva_get_post_meta( '_anva_gallery_slider_type' );
+
+    if ( ! empty( $gallery_slider_type ) ) {
+    	$type = $gallery_slider_type;
+    }
+
+
+	// Did user insert a gallery like [gallery ids="1,2,3,4"]
+	// via $gallery param or anywhere in post?
+	$pattern     = get_shortcode_regex();
+	$attachments = array();
+
+	if ( preg_match( "/$pattern/s", $content, $match ) && 'gallery' == $match[2] ) {
+
+		$atts = shortcode_parse_atts( $match[3] );
+
+
+		if ( ! empty( $atts['ids'] ) ) {
+			$ids = explode( ',', $atts['ids'] );
+			$query = array(
+				'post_type'      => 'attachment',
+				'posts_per_page' => -1,
+				'post__in'       => $ids
+			);
+			$attachments = get_posts( $query );
+		}
+	}
+
+	// If no gallery present, pull from attachments of posts
+	// (old school way before WP 3.5, less common)
+	if ( ! $attachments ) {
+		$args = array(
+			'post_parent'    => $post_id,
+			'post_status'    => 'inherit',
+			'post_type'      => 'attachment',
+			'posts_per_page' => -1,
+			'post_mime_type' => 'image'
+		);
+		$attachments = get_children( $args );
+	}
+
+	//var_dump($attachments);
+
+	// Slider needs 2 or more attachments.
+	if ( count( $attachments ) <= 1 ) {
+		if ( is_user_logged_in() ) {
+			return sprintf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'Oops! Couldn\'t find a gallery with one or more image attachments. Make sure to insert a gallery into the body of the post or attach some images to the post.', 'anva' ) );
+		}
+		return;
+	}
+
+	// CSS Classes
+	$classes   = array();
+	$classes[] = "{$type}-slider-wrapper";
+	$class     = apply_filters( 'anva_gallery_slider_class', $classes );
+	$class     = implode( ' ', $class );
+
+	// Default Slider Wrap
+	$slider_wrap  = "<div id=\"gallery-slider-{$post_id}\" class=\"{$class} gallery-slider\">\n";
+	$slider_wrap .= "%s\n";
+	$slider_wrap .= "</div><!-- .gallery-slider (end) -->";
+
+	// Start Output
+	$output = '';
+
+	if ( $type == 'nivo' ) {
+
+		/*--------------------------------------------*/
+		/* Nivo Slider
+		/*--------------------------------------------*/
+
+		$slider  = "<div class=\"nivoSlider\">";
+		$slider .= "%s\n";
+		$slider .= "</div><!-- .nivoSlider (end) -->";
+
+		// Each slides
+		$slide = '';
+
+		foreach ( $attachments as $attachment ) {
+			$image = wp_get_attachment_image_src( $attachment->ID, $size );
+			$slide .= sprintf( "<img src=\"%s\" alt=\"%s\" />\n", $image[0], $attachment->post_title );
+		}
+
+		$output .= sprintf( $slider_wrap, sprintf( $slider, $slide ) );
+	
+	} elseif ( $type == 'standard' ) {
+
+		/*--------------------------------------------*/
+		/* Standard Slider
+		/*--------------------------------------------*/
+
+		$slider  = "<div class=\"fslider\" data-arrows=\"false\" data-lightbox=\"gallery\">";
+		$slider .= "<div class=\"flexslider\">";
+		$slider .= "<div class=\"slider-wrap\">";
+		$slider .= "%s\n";
+		$slider .= "</div><!-- .slider-wrap (end) -->";
+		$slider .= "</div><!-- .flexslider (end) -->";
+		$slider .= "</div><!-- .fslider (end) -->";
+
+		// Each slides
+		$slide = '';
+
+		foreach ( $attachments as $attachment ) {
+			$image = wp_get_attachment_image_src( $attachment->ID, $size );
+			$slide .= "<div class=\"slide\">";
+			$slide .= sprintf(
+				"<a href=\"%s\" data-lightbox=\"gallery-item\">%s</a>\n",
+				anva_get_attachment_image_src( $attachment->ID, 'full' ), // Get original image resolution
+				sprintf(
+					"<img src=\"%s\" alt=\"%s\" />\n",
+					$image[0],
+					$attachment->post_title
+				)
+			);
+			$slide .= "</div>";
+		}
+
+		$output .= sprintf( $slider_wrap, sprintf( $slider, $slide ) );
+
+	}
+
+	return apply_filters( 'anva_gallery_slider_content', $output, $post_id, $type, $attachments );
+}
+
+/**
+ * Gallery masonry.
+ *
+ * @since 1.0.0
+ * @param string $gallery
+ * @param string $size
+ */
+function anva_gallery_masonry_content( $gallery = '', $size = 'anva_sm', $cols = '6' ) {
+	echo anva_get_gallery_masonry_content( $gallery, $size, $cols );
+}
+
+/**
+ * Get gallery masonry.
+ *
+ * @since  1.0.0
+ * @param  string $gallery
+ * @param  string $size
+ * @return string $output
+ */
+function anva_get_gallery_masonry_content( $gallery = '', $size = 'anva_sm', $cols = '6' ) {
+
+	$post_id = get_the_ID();
+	$size    = apply_filters( 'anva_gallery_masonry_size', $size, $post_id );
+
+	// Get gallery hightlight
+	$gallery_highlight 	 = anva_get_post_meta( '_anva_gallery_highlight' );
+    $gallery_columns = anva_get_post_meta( '_anva_gallery_columns' );
+
+	if ( ! empty( $gallery_highlight ) ) {
+		$gallery_highlight = "data-big=\"{$gallery_highlight}\"";
+	}
+
+	if ( ! empty( $gallery_columns ) ) {
+		$cols = $gallery_columns;
+	}
+
+	// Did user pass in a gallery shortcode?
+	if ( $gallery ) {
+		$content = $gallery;
+	} else {
+		$content = get_the_content();
+	}
+
+	// Did user insert a gallery like [gallery ids="1,2,3,4"]
+	// via $gallery param or anywhere in post?
+	$pattern     = get_shortcode_regex();
+	$attachments = array();
+
+	if ( preg_match( "/$pattern/s", $content, $match ) && 'gallery' == $match[2] ) {
+
+		$atts = shortcode_parse_atts( $match[3] );
+
+		if ( ! empty( $atts['ids'] ) ) {
+			$ids = explode( ',', $atts['ids'] );
+			$query = array(
+				'post_type'      => 'attachment',
+				'posts_per_page' => -1,
+				'post__in'       => $ids
+			);
+			$attachments = get_posts( $query );
+		}
+	}
+
+	// If no gallery present, pull from attachments of posts
+	// (old school way before WP 3.5, less common)
+	if ( ! $attachments ) {
+		$args = array(
+			'post_parent'		=> $post_id,
+			'post_status'		=> 'inherit',
+			'post_type'			=> 'attachment',
+			'post_mime_type'	=> 'image'
+		);
+		$attachments = get_children( $args );
+	}
+
+	// Slider needs 2 or more attachments.
+	if ( count( $attachments ) <= 1 ) {
+		if ( is_user_logged_in() ) {
+			return sprintf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'Oops! Couldn\'t find a gallery with one or more image attachments. Make sure to insert a gallery into the body of the post or attach some images to the post.', 'anva' ) );
+		} else {
+			return;
+		}
+	}
+
+	// CSS Classes
+	$classes   = array();
+	$classes[] = 'portfolio-single-image';
+	$classes[] = 'col-' . $cols;
+	$class     = apply_filters( 'anva_gallery_masonry_class', $classes );
+	$class     = implode( ' ', $class );
+
+	// Default Slider Wrap
+	$slider_wrap  = "<div id=\"gallery-slider-{$post_id}\" class=\"masonry-thumbs {$class} gallery-slider\" data-lightbox=\"gallery\" {$gallery_highlight}\>\n";
+	$slider_wrap .= "%s\n";
+	$slider_wrap .= "</div><!-- .gallery-slider (end) -->";
+
+	// Start Output
+	$output = '';
+
+	// Each slides
+	$slide = '';
+
+	foreach ( $attachments as $attachment ) {
+		$image = wp_get_attachment_image_src( $attachment->ID, $size );
+		$slide .= sprintf(
+			"<a href=\"%s\" data-lightbox=\"gallery-item\">%s</a>\n",
+			anva_get_attachment_image_src( $attachment->ID, 'full' ), // Get original image resolution
+			sprintf(
+				"<img class=\"image_fade\" src=\"%s\" alt=\"%s\" />\n",
+				$image[0],
+				$attachment->post_title
+			)
+		);
+	}
+
+	$output .= sprintf( $slider_wrap, $slide );
+
+	return apply_filters( 'anva_gallery_masonry_content', $output, $post_id, $attachments );
 }

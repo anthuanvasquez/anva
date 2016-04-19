@@ -537,14 +537,14 @@ function anva_featured_after_default() {
 function anva_page_title_default() {
 
 	// Don't show page titles on front page.
-	if ( is_front_page() ) {
+	if ( is_front_page() || is_page_template( 'template_builder.php' ) ) {
 		return;
 	}
 
-	// Hide page titles
+	// Hide post and page titles
 	$hide_title = anva_get_post_meta( '_anva_hide_title' );
 
-	if ( 'hide' == $hide_title ) {
+	if ( 'hide' == $hide_title && ( is_single() || is_page() ) ) {
 		return;
 	}
 

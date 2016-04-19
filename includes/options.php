@@ -78,9 +78,9 @@ function anva_options() {
 				)
 			),
 			'base_color' => array(
-				'name' => __( 'Color Scheme', 'anva' ),
+				'name' => __( 'Site Color Scheme', 'anva' ),
 				'desc' => sprintf(
-					__( 'Select the color scheme of the theme. Check live preview in the %s.', 'anva' ),
+					__( 'Select the color scheme of the site. Check live preview in the %s.', 'anva' ),
 					sprintf( '<a href="' . admin_url( 'customize.php?autofocus[control]=base_color' ) . '">%s</a>', __( 'Customizer', 'anva' ) )
 				),
 				'id' => 'base_color',
@@ -102,41 +102,6 @@ function anva_options() {
 					'dark' => __( 'Dark', 'anva' ),
 				)
 			),
-			'footer_color' => array(
-				'name' => __( 'Footer Color Style', 'anva' ),
-				'desc' => __( 'Select the color style of the footer.', 'anva' ),
-				'id' => 'footer_color',
-				'std' => 'dark',
-				'type' => 'select',
-				'options' => array(
-					'light' => __( 'Light', 'anva' ),
-					'dark' 	=> __( 'Dark', 'anva' ),
-					'custom' => __( 'Custom', 'anva' ),
-				),
-				'trigger' => 'custom',
-				'receivers' => 'footer_bg_color footer_bg_image footer_text_color',
-			),
-			'footer_bg_color' => array(
-				'name' => __( 'Footer Background Color', 'anva' ),
-				'desc' => __( 'Select the custom color of the footer background.', 'anva' ),
-				'id' => 'footer_bg_color',
-				'std' => '#333333',
-				'type' => 'color',
-			),
-			'footer_bg_image' => array(
-				'name' => __( 'Footer Background Image', 'anva' ),
-				'desc' => __( 'Select the backgrund image of the footer, will replace the option above.', 'anva' ),
-				'id' => 'footer_bg_image',
-				'std' => '',
-				'type' => 'upload',
-			),
-			'footer_text_color' => array(
-				'name' => __( 'Footer Text Color', 'anva' ),
-				'desc' => __( 'Select the text color if footer use a custom background color or image.', 'anva' ),
-				'id' => 'footer_text_color',
-				'std' => '',
-				'type' => 'color',
-			),
 		),
 		'links' => array(
 			'link_color' => array(
@@ -151,34 +116,6 @@ function anva_options() {
 				'desc' => __( 'Choose the link color on :Hover state.', 'anva' ),
 				'id' => 'link_color_hover',
 				'std' => '#222222',
-				'type' => 'color'
-			),
-			'footer_link_color' => array(
-				'name' => __( 'Footer Link Color', 'anva' ),
-				'desc' => __( 'Choose the footer link color.', 'anva' ),
-				'id' => 'footer_link_color',
-				'std' => '#555555',
-				'type' => 'color'
-			),
-			'footer_link_color_hover' => array(
-				'name' => __( 'Footer Link Color (:Hover)', 'anva' ),
-				'desc' => __( 'Choose the footer link color on :Hover state.', 'anva' ),
-				'id' => 'footer_link_color_hover',
-				'std' => '#555555',
-				'type' => 'color'
-			),
-			'footer_dark_link_color' => array(
-				'name' => __( 'Footer Dark Link Color', 'anva' ),
-				'desc' => __( 'Choose the footer link color when the footer is dark.', 'anva' ),
-				'id' => 'footer_dark_link_color',
-				'std' => '#555555',
-				'type' => 'color'
-			),
-			'footer_dark_link_color_hover' => array(
-				'name' => __( 'Footer Dark Link Color (:Hover)', 'anva' ),
-				'desc' => __( 'Choose the footer link color on :Hover state when the footer is dark.', 'anva' ),
-				'id' => 'footer_dark_link_color_hover',
-				'std' => '#ffffff',
 				'type' => 'color'
 			),
 		),
@@ -256,6 +193,29 @@ function anva_options() {
 					'dark' => __( 'Dark', 'anva' ),
 				),
 			),
+			'primary_menu_font_check' => array(
+				'name' => NULL,
+				'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Font', 'anva' ), __( 'Apply font to primary navigation.', 'anva' ) ),
+				'id' => 'primary_menu_font_check',
+				'std' => '0',
+				'type' => 'checkbox',
+				'trigger' => 1,
+				'receivers' => 'primary_menu_font'
+			),
+			'primary_menu_font' => array(
+				'name' => __( 'Headings Font', 'anva' ),
+				'desc' => __( 'This applies to all of the primary menu links.', 'anva' ),
+				'id' => 'primary_menu_font',
+				'std' => array(
+					'face'   => 'google',
+					'style'  => 'uppercase',
+					'weight' => '700',
+					'google' => 'Raleway:400,600,700',
+					'color'  => '#444444'
+				),
+				'type' => 'typography',
+				'options' => array( 'style', 'weight', 'face', 'color' )
+			),
 			'side_panel_color' => array(
 				'name' => __( 'Side Panel Color', 'anva' ),
 				'desc' => __( 'Select the color style of the side panel. Note: changes will not applied when header type is side.', 'anva' ),
@@ -277,6 +237,71 @@ function anva_options() {
 				'std' => '#f8f8f8',
 				'type' => 'color',
 				'class' => 'hidden',
+			),
+		),
+		'footer' => array(
+			'footer_color' => array(
+				'name' => __( 'Color Style', 'anva' ),
+				'desc' => __( 'Select the color style of the footer.', 'anva' ),
+				'id' => 'footer_color',
+				'std' => 'dark',
+				'type' => 'select',
+				'options' => array(
+					'light' => __( 'Light', 'anva' ),
+					'dark' 	=> __( 'Dark', 'anva' ),
+					'custom' => __( 'Custom', 'anva' ),
+				),
+				'trigger' => 'custom',
+				'receivers' => 'footer_bg_color footer_bg_image footer_text_color',
+			),
+			'footer_bg_color' => array(
+				'name' => __( 'Background Color', 'anva' ),
+				'desc' => __( 'Select the custom color of the footer background.', 'anva' ),
+				'id' => 'footer_bg_color',
+				'std' => '#333333',
+				'type' => 'color',
+			),
+			'footer_bg_image' => array(
+				'name' => __( 'Background Image', 'anva' ),
+				'desc' => __( 'Select the backgrund image of the footer, will replace the option above.', 'anva' ),
+				'id' => 'footer_bg_image',
+				'std' => '',
+				'type' => 'upload',
+			),
+			'footer_text_color' => array(
+				'name' => __( 'Text Color', 'anva' ),
+				'desc' => __( 'Select the text color if footer use a custom background color or image.', 'anva' ),
+				'id' => 'footer_text_color',
+				'std' => '',
+				'type' => 'color',
+			),
+			'footer_link_color' => array(
+				'name' => __( 'Link Color', 'anva' ),
+				'desc' => __( 'Choose the footer link color.', 'anva' ),
+				'id' => 'footer_link_color',
+				'std' => '#555555',
+				'type' => 'color'
+			),
+			'footer_link_color_hover' => array(
+				'name' => __( 'Link Color (:Hover)', 'anva' ),
+				'desc' => __( 'Choose the footer link color on :Hover state.', 'anva' ),
+				'id' => 'footer_link_color_hover',
+				'std' => '#555555',
+				'type' => 'color'
+			),
+			'footer_dark_link_color' => array(
+				'name' => __( 'Dark Link Color', 'anva' ),
+				'desc' => __( 'Choose the footer link color when the footer is dark.', 'anva' ),
+				'id' => 'footer_dark_link_color',
+				'std' => '#555555',
+				'type' => 'color'
+			),
+			'footer_dark_link_color_hover' => array(
+				'name' => __( 'Dark Link Color (:Hover)', 'anva' ),
+				'desc' => __( 'Choose the footer link color on :Hover state when the footer is dark.', 'anva' ),
+				'id' => 'footer_dark_link_color_hover',
+				'std' => '#ffffff',
+				'type' => 'color'
 			),
 		),
 		'social_icons' => array(
@@ -528,6 +553,7 @@ function anva_options() {
 	anva_add_option_section( 'styles', 'links', 	 	__( 'Links', 'anva' ), 		  NULL, $styles['links'], false );
 	anva_add_option_section( 'styles', 'header',	  	__( 'Header', 'anva' ), 	  NULL, $styles['header'], false  );
 	anva_add_option_section( 'styles', 'navigation',  	__( 'Navigation', 'anva' ),   NULL, $styles['navigation'], false  );
+	anva_add_option_section( 'styles', 'footer', 	 	__( 'Footer', 'anva' ), 	  NULL, $styles['footer'], false );
 	anva_add_option_section( 'styles', 'social_icons',  __( 'Social Icons', 'anva' ), NULL, $styles['social_icons'], false );
 	anva_add_option_section( 'styles', 'background',  	__( 'Background', 'anva' ),   NULL, $styles['background'], false );
 	anva_add_option_section( 'styles', 'typography',  	__( 'Typography', 'anva' ),   NULL, $styles['typography'], false );

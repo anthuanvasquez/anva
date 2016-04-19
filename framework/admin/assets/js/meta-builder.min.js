@@ -59,6 +59,9 @@ jQuery(document).ready(function($) {
 			editorHeight: 		200
 		},
 		
+		/**
+		 * Initialize the object.
+		 */
 		init: function() {
 
 			// Set Settings
@@ -71,6 +74,7 @@ jQuery(document).ready(function($) {
 			ANVA_BUILDER.addItem();
 			ANVA_BUILDER.editItem();
 			ANVA_BUILDER.moveItem();
+			ANVA_BUILDER.addColumns();
 			ANVA_BUILDER.removeItem();
 			ANVA_BUILDER.removeAllItems();
 			ANVA_BUILDER.itemData();
@@ -81,6 +85,9 @@ jQuery(document).ready(function($) {
 
 		},
 
+		/**
+		 * Active content builder when select the page template.
+		 */
 		active: function() {
 			var $template = $('#page_template');
 			ANVA_BUILDER.checkTemplate( $template.val() );
@@ -89,45 +96,22 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Check if the page template is selected.
+		 * 
+		 * @param object $target 
+		 */
 		checkTemplate: function( $target ) {
-
 			if ( 'template_builder.php' == $target ) {
 				$('#' + s.ID).addClass('anva-builder-active');
-				$('#minor-publishing-actions').hide();
-				$('#postdivrich').fadeOut( 'fast', function() {
-					$(this).css('paddingTop', '120px');
-				});;
-
-				if ( $('#' + s.ID).hasClass('anva-builder-active') ) {
-					$('#publish').val( anvaBuilderJs.builder_publish_items );
-				}
-
-				if ( $('#titlediv').length > 0 ) {
-					s.root.animate({
-						scrollTop: $('#titlediv').offset().top - 32
-					}, 400 );
-				}
-		
-			} else if ( 'template_builder.php' != $target ) {
+			} else {
 				$('#' + s.ID).removeClass('anva-builder-active');
-				$('#minor-publishing-actions').show();
-				$('#postdivrich').fadeIn( 'fast', function() {
-					$(this).css('paddingTop', '0px');
-				});
-
-				if ( ! $('#' + s.ID).hasClass('anva-builder-active') ) {
-					$('#publish').val( anvaBuilderJs.builder_publish_update );
-				}
-
-				// if ( $('#postdivrich').length > 0 ) {
-				// 	s.root.animate({
-				// 		scrollTop: $('#postdivrich').offset().top - 32
-				// 	}, 400 );
-				// }
-
 			}
 		},
 
+		/**
+		 * Drag and drop items.
+		 */
 		dragItems: function() {
 			s.element.draggable({
 				connectToSortable: '#builder-sortable-items',
@@ -146,6 +130,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Sort items in the list.
+		 */
 		sortItems: function() {
 			s.itemUl.sortable({
 				handle: '.thumbnail',
@@ -166,30 +153,34 @@ jQuery(document).ready(function($) {
 			s.itemUl.find('.thumbnail').disableSelection();
 		},
 
+		/**
+		 * Create the item.
+		 */
 		buildItem: function() {
 
-			var $randomId 	= $.now();
-			var $shortcode 	= $('#anva_shortcode').val();
-			var $title 			= $('#anva_shortcode_title').val();
-			var $image 			= $('#anva_shortcode_image').val();
+			var $randomId 	= $.now(), 
+				$shortcode 	= $('#anva_shortcode').val(), 
+				$title 		= $('#anva_shortcode_title').val(), 
+				$image 		= $('#anva_shortcode_image').val();
 			
 			if ( $shortcode != '' ) {
 
 				// Item Data Object
 				var builderItemData = {};
+
 				builderItemData.id = $randomId;
 				builderItemData.shortcode = $shortcode;
 				
 				// Builder JSON Object
 				var builderItemDataJSON = JSON.stringify( builderItemData );
 				
-				// Get Ajax URL
-				var ajaxEditURL = anvaBuilderJs.ajaxurl + '?action=anva_builder_get_fields&&shortcode=' + $shortcode + '&rel=' + $randomId;
-
+				// Get ajax URL
+				var ajaxEditURL = anvaBuilderJs.ajaxurl + '?action=anva_builder_get_fields&shortcode=' + $shortcode + '&rel=' + $randomId;
+				
 				// Generate Item HTML
 				var builderItem;
 				
-				builderItem  = '<li id="' + $randomId + '" class="item item-' + $randomId + ' ' + $shortcode + ' ui-state-default animated bounceIn">';
+				builderItem  = '<li id="' + $randomId + '" class="item item-' + $randomId + ' ' + $shortcode + ' animated fadeIn">';
 				builderItem += '<div class="actions">';
 				builderItem += '<a href="#" class="button-move-up"></a>';
 				builderItem += '<a href="#" class="button-move-down"></a>';
@@ -209,20 +200,23 @@ jQuery(document).ready(function($) {
 
 				// Return 
 				return {
-					id: 	 			$randomId,
-					shortcode: 	$shortcode,
-					title: 			$title,
-					image: 			$image,
-					ajax: 			ajaxEditURL,
-					html: 			builderItem,
-					data: 			builderItemData,
-					json: 			builderItemDataJSON
+					id:        $randomId,
+					shortcode: $shortcode,
+					title:     $title,
+					image:     $image,
+					ajax:      ajaxEditURL,
+					html:      builderItem,
+					data:      builderItemData,
+					json:      builderItemDataJSON
 				};
 			}
 
 			return false;
 		},
 
+		/**
+		 * Add item to the list.
+		 */
 		addItem: function() {
 			$('#add-builder-item').on( 'click', function(e) {
 				e.preventDefault();
@@ -285,6 +279,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Edit an item in the list.
+		 */
 		editItem: function() {
 			$(document).on( 'click', '#builder-sortable-items .actions a.button-edit', function(e) {
 				e.preventDefault();
@@ -356,6 +353,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Move item.
+		 */
 		moveItem: function() {
 			s.itemLi.find('a.button-move-down').on( 'click', function(e) {
 				e.preventDefault();
@@ -372,6 +372,160 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Add columns to elements.
+		 */
+		addColumns: function() {
+			
+			// Increment columns
+			$("#builder-sortable-items li .actions .button-col-up").on( 'click', function(e) {
+				e.preventDefault();
+
+				var el = $(this).parent('div').parent('li'), size = el.attr('data-size'), prev1Li = el.prev(), prev2Li = prev1Li.prev(), prev3Li = prev2Li.prev();
+				
+				if ( size == 'col_one_fourth' || size == 'col_one_fourth col_last' ) {
+					
+					if ( prev1Li.attr('data-size') == 'col_one_third' && prev2Li.attr('data-size') == 'col_one_third' ) {
+						el.addClass('col_one_third');
+						el.attr('data-size', 'col_one_third col_last');
+						el.find('.anva_element_columns').val('col_one_third col_last');
+					} else if ( prev1Li.attr('data-size') == 'col_two_third' ) {
+						el.addClass('col_one_third');
+						el.attr('data-size', 'col_one_third col_last');
+						el.find('.anva_element_columns').val('col_one_third col_last');
+					} else {
+						el.addClass('col_one_third');
+						el.attr('data-size', 'col_one_third');
+						el.find('.anva_element_columns').val('col_one_third');	
+					}
+					
+					el.removeClass('col_one_fourth');
+				}
+
+				if ( size == 'col_one_third' || size == 'col_one_third col_last' ) {
+					
+					if ( prev1Li.attr('data-size') == 'col_half' ) {
+						el.addClass('col_half');
+						el.attr('data-size', 'col_half col_last');
+						el.find('.anva_element_columns').val('col_half col_last');
+					} else {
+						el.addClass('col_half');
+						el.attr('data-size', 'col_half');
+						el.find('.anva_element_columns').val('col_half');	
+					}
+					
+					el.removeClass('col_one_third');
+				}
+				
+				if ( size == 'col_half' || size == 'col_half col_last' ) {
+					
+					if ( prev1Li.attr('data-size')=='col_one_third' ) {
+						el.addClass('col_two_third');
+						el.attr('data-size', 'col_two_third col_last');
+						el.find('.anva_element_columns').val('col_two_third col_last');	
+					} else {
+						el.addClass('col_two_third');
+						el.attr('data-size', 'col_two_third');
+						el.find('.anva_element_columns').val('col_two_third');	
+					}
+
+					el.removeClass('col_half');
+				}
+				
+				if ( size == 'col_two_third' || size == 'col_two_third col_last' ) {
+					el.addClass('col_full');
+					el.attr('data-size', 'col_full');
+					el.find('.anva_element_columns').val('col_full');
+					el.removeClass('col_two_third');
+				}
+
+				if ( size == 'col_full' ) {
+					return false;
+				}
+				
+				return false;
+			});
+
+			$("#builder-sortable-items li .actions .button-col-down").on( 'click', function(e) {
+				e.preventDefault();
+				
+				var el = $(this).parent('div').parent('li'), size = el.attr('data-size'), prev1Li = el.prev(), prev2Li = prev1Li.prev(), prev3Li = prev2Li.prev();
+				
+				if ( size == 'col_col_one_fourth' || size == 'col_one_fourth col_last' ) {
+					return false;
+				}
+
+				if ( size == 'col_one_third' || size == 'col_one_third col_last' ) {
+					
+					if ( prev1Li.attr('data-size') == 'col_one_fourth' && prev2Li.attr('data-size') == 'col_one_fourth' && prev3Li.attr('data-size') == 'col_one_fourth') {
+						el.addClass('col_one_fourth');
+						el.attr('data-size', 'col_one_fourth col_last');
+						el.find('.anva_element_columns').val('col_one_fourth col_last');
+					} else {
+						el.addClass('col_one_fourth');
+						el.attr('data-size', 'col_one_fourth');
+						el.find('.anva_element_columns').val('col_one_fourth');
+					}
+					
+					el.removeClass('col_one_third');
+				}
+				
+				if ( size == 'col_half' || size == 'col_half col_last' ) {
+				
+					if ( prev1Li.attr('data-size') == 'col_one_third' && prev2Li.attr('data-size') == 'col_one_third' ) {
+						el.addClass('col_one_third');
+						el.attr('data-size', 'col_one_third col_last');
+						el.find('.anva_element_columns').val('col_one_third col_last');	
+					} else if ( prev1Li.attr('data-size')=='col_two_third' ) {
+						el.addClass('col_one_third');
+						el.attr('data-size', 'col_one_third col_last');
+						el.find('.anva_element_columns').val('col_one_third col_last');	
+					} else {
+						el.addClass('col_one_third');
+						el.attr('data-size', 'col_one_third');
+						el.find('.anva_element_columns').val('col_one_third');	
+					}
+					
+					el.removeClass('col_half');
+				}
+				
+				if ( size == 'col_two_third' || size == 'col_two_third col_last' ) {
+					
+					if ( prev1Li.attr('data-size')=='col_half' ) {
+						el.addClass('col_half col_last');
+						el.attr('data-size', 'col_half col_last');
+						el.find('.anva_element_columns').val('col_half col_last');	
+					} else {
+						el.addClass('col_half');
+						el.attr('data-size', 'col_half');
+						el.find('.anva_element_columns').val('col_half');	
+					}
+					
+					el.removeClass('col_two_third');
+				}
+				
+				if ( size == 'col_full' ) {
+					
+					if ( prev1Li.attr('data-size')=='col_one_third' ) {
+						el.addClass('col_two_third');
+						el.attr('data-size', 'col_two_third col_last');
+						el.find('.anva_element_columns').val('col_two_third col_last');	
+					} else {
+						el.addClass('col_two_third');
+						el.attr('data-size', 'col_two_third');
+						el.find('.anva_element_columns').val('col_two_third');	
+					}
+
+					el.removeClass('col_full');
+				}
+
+				return false;
+			});
+		},
+
+		/**
+		 * Remove item from sortable list.
+		 */
 		removeItem: function() {
 			$(document).on( 'click', '#builder-sortable-items a.button-remove', function(e) {
 				e.preventDefault();
@@ -388,6 +542,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Remove all items from sortable list.
+		 */
 		removeAllItems: function() {
 			$(document).on( 'click', '#remove-all-items', function(e) {
 				e.preventDefault();
@@ -429,6 +586,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Get item data when select an element.
+		 */
 		itemData: function() {
 			s.element.on( 'click', function(e) {
 				e.preventDefault();
@@ -443,6 +603,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Pusblish or Update the items list.
+		 */
 		publish: function() {
 			$('#publish').on( 'click', function() {
 				
@@ -460,6 +623,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Tooltip popups.
+		 */
 		tooltip: function() {
 			
 			// Tooltip element description
@@ -472,7 +638,13 @@ jQuery(document).ready(function($) {
 				trigger: 'hover'
 			});
 
-			// Tooltip Page Builder quick info
+			// Tooltip popup buttons
+			$('.item .actions > a').tooltipster({
+				touchDevices: true,
+				trigger: 'hover'
+			});
+
+			// Tooltip content builder quick info
 			$('.anva-tooltip-info').tooltipster({
 				animation: 'fade',
 				delay: 200,
@@ -486,6 +658,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Import or Export the item list.
+		 */
 		importExport: function() {
 			$('.anva-backup-container > a').on( 'click', function(e) {
 				e.preventDefault();
@@ -514,6 +689,9 @@ jQuery(document).ready(function($) {
 			});
 		},
 
+		/**
+		 * Extras.
+		 */
 		extras: function() {
 
 			// Add class to meta box
@@ -534,11 +712,11 @@ jQuery(document).ready(function($) {
 			$(document).on( 'click', '.anva-upload-button', function(e) {
 				e.preventDefault();
 				
-				var $file 	= $(this).data('id');
-				var $button = $('#' + $file + '_button');
-				var $image  = $('#' + $file + '_image');
-				var $remove = $button.data('remove');
-				var $upload = $button.data('upload');
+				var $file 	= $(this).data('id'), 
+					$button = $('#' + $file + '_button'), 
+					$image  = $('#' + $file + '_image'), 
+					$remove = $button.data('remove'), 
+					$upload = $button.data('upload');
 				
 				if ( $remove == $button.text() ) {
 					$('#' + $file).val('');

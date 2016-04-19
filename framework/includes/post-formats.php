@@ -59,6 +59,63 @@ function anva_get_post_format_icon( $format = '', $force = false ) {
 	return apply_filters( 'anva_post_format_icon', $icon, $format, $force, $post_type );
 }
 
+/**
+ * Remove the first instance of a [gallery]
+ * shortcode from a block of content.
+ *
+ * @since  1.0.0
+ * @param  string $content
+ * @return string $content
+ */
+function anva_content_format_gallery( $content ) {
+
+	// Only continue if this is a "gallery" format post.
+	if ( ! has_post_format('gallery') ) {
+		return $content;
+	}
+
+	$pattern = get_shortcode_regex();
+
+	if ( preg_match( "/$pattern/s", $content, $match ) && 'gallery' == $match[2] ) {
+		$content = str_replace( $match[0], '', $content );
+	}
+
+	return $content;
+}
+
+/**
+ * Gallery content.
+ * 
+ * @since 1.0.0
+ */
+function anva_gallery_content() {
+
+	$gallery = anva_get_post_meta( '_anva_gallery' );
+
+	// If not gallery type set show slider content.
+	if ( ! $gallery ) {
+        anva_gallery_slider_content();
+        return;
+	}
+	
+    if ( 'masonry' == $gallery ) {
+        anva_gallery_masonry_content();
+        return '';
+    }
+
+    if ( 'slider' == $gallery ) {
+        anva_gallery_slider_content();
+    }
+
+    return '';
+
+}
+
+/**
+ * Status content.
+ * 
+ * @since 1.0.0
+ */
 function anva_content_status() {
 
 	if ( ! has_post_format( 'status' ) ) {
@@ -78,8 +135,8 @@ function anva_content_status() {
  * content in a "Link" format post.
  *
  * @since  1.0.0
- * @param  string $content Content of post
- * @return string $content Filtered content of post
+ * @param  string $content
+ * @return string $content
  */
 function anva_content_format_link( $content ) {
 
@@ -107,8 +164,8 @@ function anva_content_format_link( $content ) {
  * content or and <a> tag.
  *
  * @since  1.0.0
- * @param  string $content A string which might contain a URL, passed by reference.
- * @return string The found URL.
+ * @param  string $content
+ * @return string
  */
 function anva_get_content_link( $content ) {
 
@@ -137,6 +194,11 @@ function anva_get_content_link( $content ) {
 	return '';
 }
 
+/**
+ * Content link.
+ * 
+ * @since 1.0.0
+ */
 function anva_content_link() {
 
 	if ( ! has_post_format( 'link' ) ) {
@@ -156,8 +218,8 @@ function anva_content_link() {
  * content in a "Video" format post.
  *
  * @since  1.0.0
- * @param  string $content Content of post
- * @return string $content Filtered content of post
+ * @param  string $content
+ * @return string $content
  */
 function anva_content_format_video( $content ) {
 
@@ -185,8 +247,8 @@ function anva_content_format_video( $content ) {
  * content or the first encountered href attribute.
  *
  * @since  1.0.0
- * @param  string $content A string which might contain a URL, passed by reference.
- * @return string The found URL.
+ * @param  string $content
+ * @return string
  */
 function anva_get_content_video( $content, $run = true ) {
 
@@ -227,8 +289,8 @@ function anva_get_content_video( $content, $run = true ) {
  * Display first video from current post's content in the loop.
  *
  * @since  1.0.0
- * @param  string $content A string which might contain a URL, passed by reference.
- * @return string The found URL.
+ * @param  string $content
+ * @return string
  */
 function anva_content_video() {
 
@@ -251,8 +313,8 @@ function anva_content_video() {
  * content in a "Audio" format post.
  *
  * @since  1.0.0
- * @param  string $content Content of post
- * @return string $content Filtered content of post
+ * @param  string $content
+ * @return string $content
  */
 function anva_content_format_audio( $content ) {
 
@@ -280,8 +342,8 @@ function anva_content_format_audio( $content ) {
  * content or the first encountered href attribute.
  *
  * @since  1.0.0
- * @param  string $content A string which might contain a URL, passed by reference.
- * @return string The found URL.
+ * @param  string $content
+ * @return string
  */
 function anva_get_content_audio( $content, $run = true ) {
 
@@ -335,8 +397,8 @@ function anva_get_content_audio( $content, $run = true ) {
  * Display first audio from current post's content in the loop.
  *
  * @since  1.0.0
- * @param  string $content A string which might contain a URL, passed by reference.
- * @return string The found URL.
+ * @param  string $content
+ * @return string
  */
 function anva_content_audio() {
 
@@ -381,8 +443,8 @@ function anva_content_audio() {
  * (Framework does not implement by default)
  *
  * @since  1.0.0
- * @param  string $content Content of post
- * @return string $content Filtered content of post
+ * @param  string $content
+ * @return string $content
  */
 function anva_content_format_quote( $content ) {
 
@@ -410,8 +472,8 @@ function anva_content_format_quote( $content ) {
  * content or [blockquote] shortcode.
  *
  * @since  1.0.0
- * @param  string $content A string which might contain a URL, passed by reference.
- * @return string The found URL.
+ * @param  string $content
+ * @return string
  */
 function anva_get_content_quote( $content, $run = true ) {
 
@@ -445,8 +507,8 @@ function anva_get_content_quote( $content, $run = true ) {
  * Display first quote from current post's content in the loop.
  *
  * @since  1.0.0
- * @param  string $content A string which might contain a URL, passed by reference.
- * @return string The found URL.
+ * @param  string $content
+ * @return string
  */
 function anva_content_quote() {
 

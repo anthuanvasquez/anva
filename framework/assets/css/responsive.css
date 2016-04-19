@@ -229,8 +229,7 @@
   #wrapper {
     width: 100%;
     margin: 0;
-    -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
   }
   #header.full-header .container,
   .container-fullwidth {
@@ -288,7 +287,6 @@
   #header.transparent-header.floating-header .container {
     width: 750px;
     padding: 0 15px;
-    -webkit-border-radius: 0;
     border-radius: 0;
   }
   #header.transparent-header + #page-title.page-title-parallax .container {
@@ -361,8 +359,6 @@
     padding: 0 !important;
     margin: 0 !important;
     -webkit-transition: none;
-    -o-transition: none;
-    -moz-transition: none;
     transition: none;
   }
   #primary-menu > div.menu-message {
@@ -375,8 +371,6 @@
   body:not(.top-search-open) #primary-menu-trigger {
     opacity: 1;
     -webkit-transition: opacity .2s .2s ease, top .4s ease;
-    -o-transition: opacity .2s .2s ease, top .4s ease;
-    -moz-transition: opacity .2s .2s ease, top .4s ease;
     transition: opacity .2s .2s ease, top .4s ease;
   }
   body.top-search-open #primary-menu-trigger {
@@ -396,8 +390,7 @@
     color: #444;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.1);
-    -webkit-border-radius: 0 0 0 2px;
-            border-radius: 0 0 0 2px;
+    border-radius: 0 0 0 2px;
   }
   #primary-menu.style-5 > ul {
     padding-right: 0;
@@ -473,8 +466,7 @@
     width: auto;
     max-width: none;
     background: transparent !important;
-    -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
     border: 0;
     border-top: 1px solid #EEE;
     z-index: 1;
@@ -703,14 +695,11 @@
   .sticky-responsive-menu #header {
     min-height: 100px;
     -webkit-transition: min-height 0.4s ease;
-    -o-transition: min-height 0.4s ease;
-    -moz-transition: min-height 0.4s ease;
     transition: min-height 0.4s ease;
   }
   .sticky-responsive-menu #header-wrap {
     -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-         transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
   .sticky-responsive-menu.device-touch #header,
   .sticky-responsive-menu.device-touch #header-wrap,
@@ -722,8 +711,6 @@
   .sticky-responsive-menu.device-touch #top-lang,
   .sticky-responsive-menu.device-touch #side-panel-trigger {
     -webkit-transition: none !important;
-    -o-transition: none !important;
-    -moz-transition: none !important;
     transition: none !important;
   }
   #header.responsive-sticky-header {
@@ -814,16 +801,12 @@
   }
   .portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image img {
     -webkit-transition: none;
-    -o-transition: none;
-    -moz-transition: none;
     transition: none;
   }
   .portfolio-1.portfolio-fullwidth .portfolio-item:hover .portfolio-image img,
   .portfolio-1.portfolio-fullwidth .portfolio-item.alt:hover .portfolio-image img {
     -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
     -ms-transform: translateX(0);
-    -o-transform: translateX(0);
     transform: translateX(0);
   }
   .portfolio-1.portfolio-fullwidth .portfolio-desc,
@@ -836,8 +819,6 @@
     left: 0;
     right: 0;
     -webkit-transition: none;
-    -o-transition: none;
-    -moz-transition: none;
     transition: none;
   }
   .portfolio-1.portfolio-fullwidth .portfolio-overlay a {
@@ -937,7 +918,6 @@
     height: auto;
     border-left: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
-    -webkit-border-radius: 0 0 3px 3px;
     border-radius: 0 0 3px 3px;
   }
   .testimonials-grid.grid-3 li {
@@ -1218,7 +1198,6 @@
 	-----------------------------------------------------------------*/
   .portfolio-filter {
     border: none;
-    -webkit-border-radius: 0;
     border-radius: 0;
     margin-bottom: 20px;
   }
@@ -1230,7 +1209,6 @@
     text-align: center;
     border-left: none;
     padding: 12px 18px !important;
-    -webkit-border-radius: 2px !important;
     border-radius: 2px !important;
   }
   .portfolio-filter li a:hover {
@@ -1762,11 +1740,17 @@
   .button.button-desc span {
     font-size: 11px;
   }
+  .gallery-columns-2 .gallery-caption,
+  .gallery-columns-3 .gallery-caption,
+  .gallery-columns-4 .gallery-caption,
+  .gallery-columns-5 .gallery-caption {
+    display: none;
+  }
 }
 /* ----------------------------------------------------------------
 	Retina CSS
 -----------------------------------------------------------------*/
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   #logo a.standard-logo {
     display: none;
   }
@@ -1778,8 +1762,7 @@
   .preloader2,
   .form-process {
     background-image: url('../images/preloader@2x.gif');
-    -o-background-size: 24px 24px;
-       background-size: 24px 24px;
+    background-size: 24px 24px;
   }
   .dark .owl-carousel.owl-loading,
   .dark .preloader,
@@ -1789,8 +1772,7 @@
   }
   .widget_recent_comments li {
     background-image: url("../images/icons/widget-comment@2x.png");
-    -o-background-size: 15px 26px;
-       background-size: 15px 26px;
+    background-size: 15px 26px;
   }
   .widget_nav_menu li a,
   .widget_links li a,
@@ -1802,8 +1784,7 @@
   .widget_rss li a,
   .widget_recent_comments li a {
     background-image: url("../images/icons/widget-link@2x.png");
-    -o-background-size: 4px 20px;
-       background-size: 4px 20px;
+    background-size: 4px 20px;
   }
   .dark .widget_recent_comments li {
     background-image: url("../images/icons/widget-comment-dark@2x.png");
@@ -1820,7 +1801,7 @@
     background-image: url("../images/icons/widget-link-dark@2x.png");
   }
 }
-@media only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-o-min-device-pixel-ratio: 2/1) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-o-min-device-pixel-ratio: 2/1) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 991px), only screen and (-o-min-device-pixel-ratio: 2/1) and only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-o-min-device-pixel-ratio: 2/1) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (-o-min-device-pixel-ratio: 2/1) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (-o-min-device-pixel-ratio: 2/1) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min-resolution: 2dppx) and (max-width: 991px) {
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (-webkit-min-device-pixel-ratio: 2) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min-resolution: 192dpi) and only screen and (min-resolution: 2dppx) and (max-width: 991px), only screen and (min-resolution: 2dppx) and only screen and (min-resolution: 2dppx) and (max-width: 991px) {
   #logo a.standard-logo {
     display: none;
   }

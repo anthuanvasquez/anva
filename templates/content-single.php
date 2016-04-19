@@ -26,7 +26,7 @@
 	<?php if ( has_post_format( 'gallery' ) ) : ?>
 
         <div class="entry-image entry-gallery">
-            <?php anva_gallery_slider(); ?>
+            <?php anva_gallery_content(); ?>
         </div><!-- .entry-gallery (end) -->
 
     <?php elseif ( has_post_format( 'video' ) ) : ?>

@@ -1,56 +1,56 @@
 <?php
 
-/*-----------------------------------------------------------------------------------*/
-/* Action Elements
-/*-----------------------------------------------------------------------------------*/
-
-// Layout Elements
-add_action( 'anva_element_divider', 'anva_divider', 10, 2 );
-
-// Content Elements
-add_action( 'anva_element_header', 'anva_header_element', 10, 2 );
-add_action( 'anva_element_header_image', 'anva_header_image', 10, 2 );
-add_action( 'anva_element_text', 'anva_text', 10, 2 );
-add_action( 'anva_element_text_image', 'anva_text_image' );
-add_action( 'anva_element_text_sidebar', 'anva_text_sidebar' );
-add_action( 'anva_element_blog_grid', 'anva_blog_grid' );
-add_action( 'anva_element_content_half_bg', 'anva_content_half_bg' );
-add_action( 'anva_element_contact_sidebar', 'anva_contact_sidebar', 10, 2 );
-add_action( 'anva_element_contact_map', 'anva_contact_map' );
-add_action( 'anva_element_map', 'anva_map' );
-add_action( 'anva_element_testimonial_column', 'anva_testimonial_column' );
-add_action( 'anva_element_pricing', 'anva_pricing' );
-
-// Media Elements
-add_action( 'anva_element_image_parallax', 'anva_image_parallax' );
-add_action( 'anva_element_image_fullwidth', 'anva_image_fullwidth' );
-add_action( 'anva_element_image_half_fullwidth', 'anva_image_half_fullwidth' );
-add_action( 'anva_element_image_half_fixed_width', 'anva_image_half_fixed_width' );
-add_action( 'anva_element_image_fixed_width', 'anva_image_fixed_width' );
-add_action( 'anva_element_four_images_block', 'anva_four_images_block' );
-add_action( 'anva_element_three_images_block', 'anva_three_images_block' );
-add_action( 'anva_element_three_cols_images', 'anva_three_cols_images');
-add_action( 'anva_element_two_cols_images', 'anva_two_cols_images' );
-add_action( 'anva_element_gallery_slider', 'anva_gallery_slider' );
-add_action( 'anva_element_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width' );
-add_action( 'anva_element_gallery_grid', 'anva_gallery_grid' );
-add_action( 'anva_element_gallery_masonry', 'anva_gallery_masonry' );
-add_action( 'anva_element_galleries', 'anva_galleries' );
-add_action( 'anva_element_animated_gallery_grid', 'anva_animated_gallery_grid' );
+/**
+ * Add elements.
+ *
+ * @since 1.0.0
+ */
+function anva_add_elements() {
+	add_action( 'anva_element_divider', 				'anva_divider', 10, 2 );
+	add_action( 'anva_element_header', 					'anva_header_element', 10, 2 );
+	add_action( 'anva_element_header_image', 			'anva_header_image', 10, 2 );
+	add_action( 'anva_element_text', 					'anva_text', 10, 2 );
+	add_action( 'anva_element_text_image', 				'anva_text_image' );
+	add_action( 'anva_element_text_sidebar', 			'anva_text_sidebar', 10, 2 );
+	add_action( 'anva_element_blog_grid', 				'anva_blog_grid', 10, 2 );
+	add_action( 'anva_element_content_half_bg', 		'anva_content_half_bg', 10, 2 );
+	add_action( 'anva_element_contact_sidebar', 		'anva_contact_sidebar', 10, 2 );
+	add_action( 'anva_element_contact_map', 			'anva_contact_map', 10, 2 );
+	add_action( 'anva_element_image_parallax', 			'anva_image_parallax', 10, 2 );
+	add_action( 'anva_element_image_fullwidth', 		'anva_image_fullwidth', 10, 2 );
+	add_action( 'anva_element_image_half_fullwidth', 	'anva_image_half_fullwidth', 10, 2 );
+	add_action( 'anva_element_image_half_fixed_width', 	'anva_image_half_fixed_width', 10, 2 );
+	add_action( 'anva_element_image_fixed_width', 		'anva_image_fixed_width', 10, 2 );
+	add_action( 'anva_element_four_images_block', 		'anva_four_images_block', 10, 2 );
+	add_action( 'anva_element_three_images_block', 		'anva_three_images_block', 10, 2 );
+	add_action( 'anva_element_three_cols_images', 		'anva_three_cols_images, 10, 2');
+	add_action( 'anva_element_two_cols_images', 		'anva_two_cols_images', 10, 2 );
+	add_action( 'anva_element_gallery_slider', 			'anva_gallery_slider', 10, 2 );
+	add_action( 'anva_element_gallery_grid', 			'anva_gallery_grid', 10, 2 );
+	add_action( 'anva_element_gallery_masonry', 		'anva_gallery_masonry', 10, 2 );
+	add_action( 'anva_element_galleries', 				'anva_galleries', 10, 2 );
+	add_action( 'anva_element_animated_gallery_grid', 	'anva_animated_gallery_grid', 10, 2 );
+	// add_action( 'anva_element_map', 					'anva_map' );
+	// add_action( 'anva_element_testimonial_column', 	'anva_testimonial_column' );
+	// add_action( 'anva_element_pricing', 				'anva_pricing' );
+	// add_action( 'anva_element_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width' );
+}
 
 /*-----------------------------------------------------------------------------------*/
-/* Element Functions
+/* Elements
 /*-----------------------------------------------------------------------------------*/
 
 /**
- * Diviver Element
- * 
- * @param  string $atts    The element attributes
- * @param  string $content The element content
- * @return string          The element result
+ * Divider.
+ *
+ * @since 1.0.0
+ * @param string $atts
+ * @param string $content
  */
-function anva_divider( $atts, $content = null ) {
-	$html = '<div class="divider divider-center clearfix"><i class="fa fa-circle"></i></div>';
+function anva_divider( $atts, $content = NULL ) {
+	$html  = '<div class="container clearfix">';
+	$html .= '<div class="divider"><i class="icon-circle"></i></div>';
+	$html .= '</div>';
 	echo $html;
 }
 
