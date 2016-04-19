@@ -501,14 +501,16 @@ ul.builder-sortable-items > li.divider .button-edit {
 }
 
 .item-inline .section-content .controls {
-  float: none;
-  padding-right: 0;
-  width: 100%;
+  float: none !important;
+  padding-right: 0 !important;
+  width: 100% !important;
 }
 
 .item-inline .section-content .explain {
-  float: right;
+  float: none !important;
   margin-bottom: 15px;
+  max-width: 100% !important;
+  width: 100% !important;
 }
 
 .item-inline [class*="section-"] {

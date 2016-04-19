@@ -57,20 +57,20 @@ function anva_divider( $atts, $content = NULL ) {
 /**
  * Header
  * 
- * @param  [type] $atts    [description]
- * @param  [type] $content [description]
- * @return [type]          [description]
+ * @param array  $atts   
+ * @param string $content
  */
-function anva_header_element( $atts, $content = null ) {
+function anva_header_element( $atts, $content = NULL ) {
 
-	extract( array(
-		'slug' => '',
-		'subtitle' => '',
-		'padding' => 30,
-		'bgcolor' => '',
-		'fontcolor' => '',
+	extract( shortcode_atts( array(
+		'slug'       => '',
+		'subtitle'   => '',
+		'padding'    => 30,
+		'bgcolor'    => '',
+		'width'		 => '100%',
+		'fontcolor'  => '',
 		'custom_css' => ''
-	), $atts );
+	), $atts ) );
 
 	$html = '';
 	$id = '';
@@ -100,9 +100,11 @@ function anva_header_element( $atts, $content = null ) {
 		$width = 'width:' . $width;
 	}
 
-	$html .= '<div class="automargin" style="' . esc_attr( $width ) . '">';
-	$html .= '<h2 class="sub-title" style="' . esc_attr( $fontcolor_css ) . '">' . esc_html( $subtitle ) . '</h2>';
+	$html .= '<div class="divcenter" style="' . esc_attr( $width ) . '">';
+	$html .= '<div class="emphasis-title">';
+	$html .= '<h2 style="' . esc_attr( $fontcolor_css ) . '">' . esc_html( $subtitle ) . '</h2>';
 	$html .= wpautop( $content );
+	$html .= '</div>';
 	$html .= '</div>';
 	$html .= '</div><!-- .element-wrapper (end) -->';
 	$html .= '</div><!-- #' . $slug . ' (end) -->';
@@ -156,7 +158,8 @@ function anva_header_image( $atts, $content = null ) {
 	$custom_css = anva_compress( $custom_css );
 	
 	$html .= '<div ' . $id . ' class="" style="' . esc_attr ( $custom_css ) . '" ' . $parallax . '>';
-	$html .= '<div class="element-wrapper">';
+	$html .= '<div class="element-wrapper nobottommargin">';
+	$html .= '<div class="container clearfix">';
 
 	if ( ! empty( $width ) ) {
 		$width = 'width:' . $width;
@@ -167,6 +170,7 @@ function anva_header_image( $atts, $content = null ) {
 	$html .= wpautop( $content );
 	$html .= '</div>';
 	$html .= '</div><!-- .element-wrapper (end) -->';
+	$html .= '</div><!-- .container (end) -->';
 	$html .= '</div><!-- #' . $slug . ' (end) -->';
 
 	echo $html;

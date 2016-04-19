@@ -560,58 +560,129 @@ function anva_get_primary_menu_styles() {
 }
 
 /**
- * Setup the config array for which
- * features the framework supports
+ * Setup array classes for content.
+ *
+ * @since  1.0.0
+ * @return array $config
+ */
+function anva_config() {
+
+	$config = array(
+		'featured' => array(),
+	);
+
+	/*------------------------------------------------------*/
+	/* Featured Area
+	/*------------------------------------------------------*/
+
+	if ( is_front_page() ) {
+		if ( anva_get_area( 'featured', 'front' ) ) {
+			$config['featured'][] = 'has_front_featured';
+		}
+	}
+
+	if ( is_home() || is_page_template( 'template_list.php' ) ) {
+		if ( anva_get_area( 'featured', 'blog' ) ) {
+			$config['featured'][] = 'has_blog_featured';
+		}
+	}
+
+	if ( is_page_template( 'template_grid.php' ) ) {
+		if ( anva_get_area( 'featured', 'grid' ) ) {
+			$config['featured'][] = 'has_grid_featured';
+		}
+	}
+
+	if ( is_archive() || is_search() ) {
+
+		if ( anva_get_area( 'featured', 'archive' ) ) {
+			$config['featured'][] = 'has_archive_featured';
+		}
+
+	}
+
+	if ( is_page() && ! is_page_template( 'template_builder.php' ) ) {
+		if ( anva_get_area( 'featured', 'page' ) ) {
+			$config['featured'][] = 'has_page_featured';
+		}
+	}
+
+	if ( is_single() ) {
+		if ( anva_get_area( 'featured', 'single' ) ) {
+			$config['featured'][] = 'has_single_featured';
+		}
+	}
+
+	return $config;
+}
+/**
+ * Get content fron the main config array.
+ *
+ * @since  1.0.0
+ * @param  string $key
+ * @return array|string|NULL
+ */
+function anva_get_config( $key = '' ) {
+
+	$config = anva_config();
+
+	if ( ! $key ) {
+		return $config;
+	}
+
+	if ( isset( $config[ $key ] ) ) {
+		return $config[ $key ];
+	}
+
+	return NULL;
+}
+
+/**
+ * Setup page areas for display content.
  * 
  * @since  1.0.0
  * @return array $setup
  */
-function anva_setup() {
+function anva_setup_areas() {
+	
+	// Setup array
 	$setup = array(
 		'featured' => array(
-			'archive' => false,
-			'front'   => false,
-			'blog'    => false,
-			'grid'    => false,
-			'page'    => false,
-			'single'  => false
+			'front'   		=> true,	// Show/Hide featured area by default
+			'archive' 		=> false,	// Show/Hide featured area by default
+			'blog'    		=> false,	// Show/Hide featured area by default
+			'grid'    		=> false,	// Show/Hide featured area by default
+			'page'    		=> false,	// Show/Hide featured area by default
+			'single'  		=> false,	// Show/Hide featured area by default
+		),
+		'comments' => array(
+			'posts'       	=> true,	// Show/Hide comments on posts
+			'pages'       	=> false,	// Show/Hide comments on pages
+			'attachments' 	=> false,	// Show/Hide comments on attachements
+			'portfolio' 	=> false,	// Show/Hide comments on portfolio items
+			'galleries' 	=> false,	// Show/Hide comments on galleries
 		),
 	);
 
-	if ( is_front_page() ) {
-		$setup['featured']['front'] = true;
-	}
-
-	if ( is_home() ) {
-		$setup['featured']['blog'] = true;
-	}
-
-	if ( is_page() ) {
-		$setup['featured']['page'] = true;
-	}
-
-	if ( is_single() ) {
-		$setup['featured']['single'] = true;
-	}
-
-	return apply_filters( 'anva_setup', $setup );
+	return apply_filters( 'anva_setup_areas', $setup );
 }
 
 /**
- * Test whether an feature is currently supported
+ * Get the page area is supported.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return boolan $support
  */
-function anva_supports( $group, $feature ) {
+function anva_get_area( $group, $area ) {
 
-	$setup = anva_setup();
-	$supports = false;
-
-	if ( ! empty( $setup ) && ! empty( $setup[$group][$feature] ) ) {
-		$supports = true;
+	$setup   = anva_setup_areas();
+	$support = false;
+	
+	if ( ! empty( $setup ) && ! empty( $setup[ $group ][ $area ] ) ) {
+		$support = true;
 	}
 
-	return $supports;
+	return $support;
 }
 
 /**

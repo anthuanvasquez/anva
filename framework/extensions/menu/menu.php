@@ -60,21 +60,6 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 		}
 	}
 
-	// Indicators for top-level toggle menus
-	// @TODO maybe later incorporate this into a widget,
-	// now that mobile menu no longer uses the toggle icon
-	/*
-	if ( in_array( 'menu-item-has-children', $item->classes ) && $depth < 1 ) {
-		if ( strpos($args->menu_class, 'tb-side-menu') !== false || ( $args->theme_location == $primary && anva_supports('display', 'responsive') && anva_supports('display', 'mobile_side_menu') ) ) {
-			$icon_open = apply_filters( 'anva_side_menu_icon_open', 'plus' );
-			$icon_close = apply_filters( 'anva_side_menu_icon_close', 'minus' );
-			$icon = apply_filters( 'anva_side_menu_icon', sprintf( '<i class="tb-side-menu-toggle fa fa-%1$s" data-open="%1$s" data-close="%2$s"></i>', $icon_open, $icon_close ) );
-			$item_output = str_replace( '</a>', '</a>'.$icon, $item_output );
-		}
-
-	}
-	*/
-
 	// Allow bootstrap "nav-header" class in menu items.
 	// Note: For primary navigation will only work on levels 2-3
 	// 

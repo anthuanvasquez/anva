@@ -750,11 +750,11 @@ class Anva_Content_Builder
 				?>
 				<div class="section section-content">
 					<h4><?php _e( 'Content', 'anva' ); ?></h4>
-					<div class="controls">
-						<textarea id="<?php echo esc_attr( $editor_id ); ?>" name="<?php echo esc_attr( $editor_id ); ?>" rows="10" class="anva-input anva-textarea anva-wp-editor"></textarea>
-					</div>
 					<div class="explain">
 						<?php printf( '%s <strong>%s</strong>.', __( 'Enter text/HTML content to display in this item', 'anva' ), $shortcode_arr['title'] ); ?>
+					</div>
+					<div class="controls">
+						<textarea id="<?php echo esc_attr( $editor_id ); ?>" name="<?php echo esc_attr( $editor_id ); ?>" rows="10" class="anva-input anva-textarea anva-wp-editor"></textarea>
 					</div>
 				</div>
 				<?php endif; ?>

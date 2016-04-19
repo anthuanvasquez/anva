@@ -33,7 +33,7 @@ function anva_get_image_sizes() {
 			'name' 		 => __( 'Anva Extra Large', 'anva' ),
 			'width' 	 => $content_width,
 			'height' 	 => 9999,
-			'crop' 		 => true,
+			'crop' 		 => false,
 		),
 		'anva_lg' => array(
 			'name' 		 => __( 'Anva Large', 'anva' ),
@@ -51,6 +51,12 @@ function anva_get_image_sizes() {
 			'name' 		 => __( 'Anva Small', 'anva' ),
 			'width' 	 => 400,
 			'height' 	 => 300,
+			'crop' 		 => true,
+		),
+		'anva_xs' => array(
+			'name' 		 => __( 'Anva Extra Small', 'anva' ),
+			'width' 	 => 170,
+			'height' 	 => 128,
 			'crop' 		 => true,
 		),
 		'anva_grid_2' => array(
@@ -263,7 +269,7 @@ function anva_the_small_thumbnail() {
 	$id = get_the_ID();
 	
 	// Default thumbnail size on single posts
-	$thumbnail = apply_filters( 'anva_the_small_thumbnail', 'anva_sm' );
+	$thumbnail = apply_filters( 'anva_small_thumbnail', 'anva_sm' );
 
 	?>	
 	<div class="entry-image">
@@ -284,6 +290,9 @@ function anva_the_post_grid_thumbnail( $thumbnail ) {
 	if ( ! has_post_thumbnail() ) {
 		return;
 	}
+
+	$thumbnail = apply_filters( 'anva_post_grid_thumbnail', $thumbnail );
+
 	?>
 	<div class="entry-image">
 		<a href="<?php the_permalink( get_queried_object_id() ); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail( $thumbnail ); ?></a>

@@ -29,7 +29,9 @@ get_header();
             
             <?php while ( have_posts() ) : the_post(); ?>
                 <?php anva_get_template_part( 'single' ); ?>
-                <?php do_action( 'anva_posts_comments' ); ?>
+                <?php if ( anva_get_area( 'comments', 'posts' ) ) : ?>
+                    <?php do_action( 'anva_posts_comments' ); ?>
+                <?php endif; ?>
             <?php endwhile; ?>
 
             <?php do_action( 'anva_posts_content_after' ); ?>

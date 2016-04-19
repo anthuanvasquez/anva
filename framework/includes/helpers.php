@@ -12,15 +12,15 @@
  */
 function anva_elements() {
 
-	// Get settings
+	// Get settings.
 	$settings = anva_get_post_meta( '_anva_builder_options' );
 
-	// Kill it if there's no order
+	// Kill it if there's no order.
 	if ( isset( $settings['order'] ) && empty( $settings['order'] ) ) {
 		return;
 	}
 
-	// Set items order
+	// Set items order.
 	$items 	 = explode( ',', $settings['order'] );
 	$counter = 0;
 
@@ -40,8 +40,8 @@ function anva_elements() {
 
 			$shortcodes = anva_get_elements();
 
-			// Shortcode has attributes
-			if ( isset( $shortcodes[$shortcode]['attr'] ) && ! empty( $shortcodes[$shortcode]['attr'] ) ) {
+			// Shortcode has attributes.
+			if ( isset( $shortcodes[ $shortcode ]['attr'] ) && ! empty( $shortcodes[ $shortcode ]['attr'] ) ) {
 
 				$classes[] = 'element-has-attributes';
 
@@ -54,7 +54,7 @@ function anva_elements() {
 				}
 			}
 
-			// Shortcode has content
+			// Shortcode has content.
 			if ( isset( $obj->$content ) ) {
 				$classes[] = 'element-has-content';
 				$content   = urldecode( $obj->$content );
@@ -63,15 +63,16 @@ function anva_elements() {
 			}
 
 			$classes = implode( ' ', $classes );
-
+			
 			echo '<section id="section-' . esc_attr( $counter ) . '" class="section section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
 			echo '<div id="element-' .  esc_attr( $item ) . '" class="element element-' . esc_attr( $item ) . ' element-' .  esc_attr( $shortcode ) . '">';
 
 			do_action( 'anva_element_' . $shortcode, $atts, $content );
 
 			echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
-			echo '</section><!-- .section-' . esc_attr( $item ) . ' (end) -->';
+			echo '</section><!-- #section-' . esc_attr( $counter ) . ' (end) -->';
 		}
+
 
 	}
 
@@ -196,17 +197,16 @@ function anva_primary_menu_fallback( $args ) {
 }
 
 /**
- * Body classes
- * Adds a class of group-blog to blogs with more than 1 published author.
+ * Body classes.
  *
- * @since   1.0.0
- * @package Anva
- * @return  array Body classes.
+ * @since  1.0.0
+ * @return array $classes
  */
 function anva_body_class( $classes ) {
 
 	$classes[] = 'has-lang-' . strtolower( get_bloginfo( 'language' ) );
 	
+ 	// Adds a class of group-blog to blogs with more than 1 published author.
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
@@ -229,51 +229,72 @@ function anva_body_class( $classes ) {
 }
 
 /**
- * Return browser classes
+ * Browser classes.
  *
- * @since   1.0.0
- * @package Anva
- * @return  array Body classes.
+ * @since  1.0.0
+ * @param  array $classes 
+ * @return array $classes
  */
 function anva_browser_class( $classes ) {
 
-	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
-
-	// Browsers
-	if ( $is_lynx ) {
-		$classes[] = 'lynx'; }
-	elseif ( $is_gecko ) {
-		$classes[] = 'gecko'; }
-	elseif ( $is_opera ) {
-		$classes[] = 'opera'; }
-	elseif ( $is_NS4 ) {
-		$classes[] = 'ns4'; }
-	elseif ( $is_safari ) {
-		$classes[] = 'safari'; }
-	elseif ( $is_chrome ) {
-		$classes[] = 'chrome'; }
-	elseif ( $is_IE ) {
-		$classes[] = 'ie';
-		if ( preg_match( '/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version ) ) {
-			$classes[] = 'ie'.$browser_version[1]; }
-	} else {
-		$classes[] = 'unknown';
+	if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
+		return $classes;
 	}
 
-	// iPhone
-	if ( $is_iphone ) {
-		$classes[] = 'iphone'; }
+	// Get current user agent
+	$browser = $_SERVER['HTTP_USER_AGENT'];
 
-	// OS
-	if ( stristr( $_SERVER['HTTP_USER_AGENT'], 'mac' ) ) {
-		$classes[] = 'osx';
-	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], 'linux' ) ) {
-		$classes[] = 'linux';
-	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], 'windows' ) ) {
+	// OS class
+	if ( preg_match( "/Mac/", $browser ) ) {
+		$classes[] = 'mac';
+	} else if ( preg_match( "/Windows/", $browser ) ) {
 		$classes[] = 'windows';
+	} else if ( preg_match( "/Linux/", $browser ) ) {
+		$classes[] = 'linux';
+	} else {
+		$classes[] = 'unknown-os';
 	}
 
-	return $classes;
+	// Browser class
+	if ( preg_match( "/Chrome/", $browser ) ) {
+		$classes[] = 'chrome';
+	} else if ( preg_match( "/Safari/", $browser ) ) {
+		$classes[] = 'safari';
+	} else if ( preg_match( "/Opera/", $browser ) ) {
+		$classes[] = 'opera';
+	} else if ( preg_match( "/MSIE/", $browser ) ) {
+
+		// Internet Explorer... ugh, kill me now.
+		$classes[] = 'msie';
+
+		if ( preg_match( "/MSIE 6.0/", $browser ) ) {
+			$classes[] = 'ie6';
+		} else if ( preg_match( "/MSIE 7.0/", $browser ) ) {
+			$classes[] = 'ie7';
+		} else if ( preg_match( "/MSIE 8.0/", $browser ) ) {
+			$classes[] = 'ie8';
+		} else if ( preg_match( "/MSIE 9.0/", $browser ) ) {
+			$classes[] = 'ie9';
+		} else if ( preg_match( "/MSIE 10.0/", $browser ) ) {
+			$classes[] = 'ie10';
+		} else if ( preg_match( "/MSIE 11.0/", $browser ) ) {
+			$classes[] = 'ie11';
+		}
+
+	} else if ( preg_match( "/Firefox/", $browser ) && preg_match( "/Gecko/", $browser ) ) {
+		$classes[] = 'firefox';
+	} else {
+		$classes[] = 'unknown-browser';
+	}
+
+	// Add "mobile" class if this actually a mobile device.
+	if ( wp_is_mobile() ) {
+		$classes[] = 'mobile';
+	} else {
+		$classes[] = 'desktop';
+	}
+
+	return apply_filters( 'anva_browser_classes', $classes, $browser );
 }
 
 /**
@@ -490,7 +511,7 @@ function anva_page_transition_data() {
 
 	// Get loader data
 	$loader        = anva_get_option( 'page_loader', 1 );
-	$color         = anva_get_option( 'page_loader_color', 1 );
+	$color         = anva_get_option( 'page_loader_color' );
 	$timeout       = anva_get_option( 'page_loader_timeout', 1000 );
 	$speed_in      = anva_get_option( 'page_loader_speed_in', 800 );
 	$speed_out     = anva_get_option( 'page_loader_speed_out', 800 );

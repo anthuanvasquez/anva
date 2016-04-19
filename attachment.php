@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for pages.
+ * The template file for attachments.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -19,25 +19,25 @@ get_header();
 
 <div class="container clearfix">
 
-	<?php get_sidebar( 'left' ); ?>
+    <?php get_sidebar( 'left' ); ?>
 
-	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
-		
-		<?php do_action( 'anva_posts_content_before' ); ?>
-		
-		<?php while ( have_posts() ) : the_post(); ?>
-			<?php anva_get_template_part( 'page' ); ?>
-			<?php if ( anva_get_area( 'comments', 'pages' ) ) : ?>
+    <div class="<?php echo anva_get_column_class( 'content' ); ?>">
+        
+        <?php do_action( 'anva_posts_content_before' ); ?>
+        
+        <?php while ( have_posts() ) : the_post(); ?>
+            <?php anva_get_template_part( 'attachment' ); ?>
+            <?php if ( anva_get_area( 'comments', 'attachments' ) ) : ?>
                 <?php do_action( 'anva_posts_comments' ); ?>
             <?php endif; ?>
-		<?php endwhile; ?>
-		
-		<?php do_action( 'anva_posts_content_after' ); ?>
-	
-	</div><!-- .postcontent (end) -->
+        <?php endwhile; ?>
+        
+        <?php do_action( 'anva_posts_content_after' ); ?>
+    
+    </div><!-- .postcontent (end) -->
 
-	<?php get_sidebar( 'right' ); ?>
-	
+    <?php get_sidebar( 'right' ); ?>
+    
 </div><!-- .container (end) -->
 
 <?php get_footer(); ?>

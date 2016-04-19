@@ -463,23 +463,28 @@ function anva_footer_copyrights_default() {
 }
 
 /**
- * Display default featured slider
+ * Display default featured area slider.
  * 
  * @since 1.0.0
  */
 function anva_featured_default() {
-	if ( anva_supports( 'featured', 'front' ) ) {
+	if ( anva_get_config( 'featured' ) ) {
 		$slider = anva_get_option( 'slider_id' );
 		anva_sliders( $slider );
 	}
 }
 
 /**
- * Display default featured before.
+ * Display default featured area before.
  * 
  * @since 1.0.0
  */
 function anva_featured_before_default() {
+	
+	// Don't show if the featured area is not setup.
+	if ( ! anva_get_config( 'featured' ) ) {
+		return;
+	}
 	
 	$slider_id       = anva_get_option( 'slider_id' );
 	$slider_style    = anva_get_option( 'slider_style' );
@@ -513,11 +518,17 @@ function anva_featured_before_default() {
 }
 
 /**
- * Display default featured after
+ * Display default featured area after.
  * 
  * @since 1.0.0
  */
 function anva_featured_after_default() {
+
+	// Don't show if the featured area is not setup.
+	if ( ! anva_get_config( 'featured' ) ) {
+		return;
+	}
+
 	$slider_style = anva_get_option( 'slider_style' );
 	$slider_parallax = anva_get_option( 'slider_parallax' );
 	?>
@@ -600,7 +611,7 @@ function anva_page_title_default() {
 	<section id="page-title"<?php echo $classes; ?><?php echo $style; ?>>
 		<div class="container clearfix">
 			
-			<h1><?php anva_the_global_page_title(); ?></h1>
+			<h1><?php anva_the_page_title(); ?></h1>
 			
 			<?php if ( ! empty ( $tagline ) ) : ?>
 				<span><?php echo esc_html( $tagline ); ?></span>
@@ -909,7 +920,7 @@ function anva_posts_comments_default() {
 	$single_comments = anva_get_option( 'single_comments', 'show' );
 	if ( 'show' == $single_comments ) {
 		if ( comments_open() || '0' != get_comments_number() ) {
-			comments_template();
+			comments_template( '', true );
 		}
 	}
 }
