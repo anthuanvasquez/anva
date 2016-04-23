@@ -454,6 +454,15 @@ function anva_setup_portfolio_meta() {
 function anva_setup_portfolio_media_meta() {
 
 	$options = array(
+		'audio' 			=> array(
+			'id'   			=> 'audio',
+			'name' 			=> NULL,
+			'desc' 			=> sprintf( '<strong>%s:</strong> %s', __( 'Audio', 'anva' ), __( 'Show audio content in portfolio.', 'anva' ) ),
+			'type' 			=> 'checkbox',
+			'std'  			=> '0',
+			'trigger'		=> 1,
+			'receivers'		=> 'audio_image audio_mp3 audio_ogg'
+		),
 		'audio_image' 		=> array(
 			'id'   			=> 'audio_image',
 			'name' 			=> __( 'Audio Featured Image', 'anva' ),
@@ -474,6 +483,15 @@ function anva_setup_portfolio_media_meta() {
 			'desc' 			=> __( 'Insert an .ogg file, if desired.', 'anva' ),
 			'type' 			=> 'upload',
 			'std'  			=> ''
+		),
+		'video' 			=> array(
+			'id'   			=> 'video',
+			'name' 			=> NULL,
+			'desc' 			=> sprintf( '<strong>%s:</strong> %s', __( 'Video', 'anva' ), __( 'Show video content in portfolio.', 'anva' ) ),
+			'type' 			=> 'checkbox',
+			'std'  			=> '0',
+			'trigger'		=> 1,
+			'receivers'		=> 'video_image video_m4v video_ogv video_mp4 video_embed'
 		),
 		'video_image' 		=> array(
 			'id'   			=> 'video_image',
@@ -509,6 +527,13 @@ function anva_setup_portfolio_media_meta() {
 			'desc' 			=> __( 'Embed iframe code from YouTube, Vimeo or other trusted source. HTML tags are limited to iframe, div, img, a, em, strong and br. Note: This field overrides the previous fields.', 'anva' ),
 			'type' 			=> 'textarea',
 			'std'  			=> ''
+		),
+		'gallery' 			=> array(
+			'id'   			=> 'gallery',
+			'name' 			=> NULL,
+			'desc' 			=> sprintf( '<strong>%s:</strong> %s', __( 'Gallery', 'anva' ), __( 'Show gallery content in portfolio.', 'anva' ) ),
+			'type' 			=> 'checkbox',
+			'std'  			=> '0',
 		),
 	);
 

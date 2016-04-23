@@ -144,6 +144,16 @@ function anva_get_local( $id ) {
 	// Sanitize the output
 	return esc_html( $text );
 }
+/**
+ * Separate local.
+ *
+ * @since  1.0.0.
+ * @param  string $id
+ * @return string
+ */
+function anva_the_local( $id ) {
+	echo anva_get_local( $id );
+}
 
 /**
  * Get all js locals (not admin).

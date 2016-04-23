@@ -1,40 +1,46 @@
 <?php
 
-// Sanitize filters
-add_filter( 'anva_sanitize_text', 				'sanitize_text_field' );
-add_filter( 'anva_sanitize_tel', 				'sanitize_text_field' );
-add_filter( 'anva_sanitize_password', 			'sanitize_text_field' );
-add_filter( 'anva_sanitize_range', 				'sanitize_text_field' );
-add_filter( 'anva_sanitize_date', 				'sanitize_text_field' );
-add_filter( 'anva_sanitize_email', 				'sanitize_email' );
-add_filter( 'anva_sanitize_number', 			'anva_sanitize_number' );
-add_filter( 'anva_sanitize_select', 			'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_radio', 				'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_images', 			'anva_sanitize_enum', 10, 2 );
-add_filter( 'anva_sanitize_checkbox', 			'anva_sanitize_checkbox' );
-add_filter( 'anva_sanitize_multicheck', 		'anva_sanitize_multicheck', 10, 2 );
-add_filter( 'anva_sanitize_switch', 			'anva_sanitize_checkbox' );
-add_filter( 'anva_sanitize_textarea', 			'anva_sanitize_textarea' );
-add_filter( 'anva_sanitize_code', 				'anva_sanitize_textarea' );
-add_filter( 'anva_sanitize_url', 				'anva_sanitize_url' );
-add_filter( 'anva_sanitize_upload', 			'anva_sanitize_upload' );
-add_filter( 'anva_sanitize_editor', 			'anva_sanitize_editor' );
-add_filter( 'anva_sanitize_background', 		'anva_sanitize_background' );
-add_filter( 'anva_background_position', 		'anva_sanitize_background_position' );
-add_filter( 'anva_background_attachment', 		'anva_sanitize_background_attachment' );
-add_filter( 'anva_font_size', 					'anva_sanitize_font_size' );
-add_filter( 'anva_font_face', 					'anva_sanitize_font_face' );
-add_filter( 'anva_font_style', 					'anva_sanitize_font_style' );
-add_filter( 'anva_font_weight', 				'anva_sanitize_font_weight' );
-add_filter( 'anva_sanitize_typography', 		'anva_sanitize_typography', 10, 2 );
-add_filter( 'anva_sanitize_color', 				'anva_sanitize_hex' );
-add_filter( 'anva_sanitize_social_media', 		'anva_sanitize_social_media' );
-add_filter( 'anva_sanitize_logo', 				'anva_sanitize_logo' );
-add_filter( 'anva_sanitize_columns', 			'anva_sanitize_columns' );
-add_filter( 'anva_sanitize_double_text', 		'anva_sanitize_double_text' );
-add_filter( 'anva_sanitize_sidebar', 			'anva_sanitize_sidebar' );
-add_filter( 'anva_sanitize_contact_fields', 	'anva_sanitize_sidebar' );
-add_filter( 'anva_sanitize_layout', 			'anva_sanitize_layout' );
+/**
+ * Sanitization.
+ * 
+ * @since 1.0.0
+ */
+function anva_add_sanitization() {
+	add_filter( 'anva_sanitize_text', 				'sanitize_text_field' );
+	add_filter( 'anva_sanitize_tel', 				'sanitize_text_field' );
+	add_filter( 'anva_sanitize_password', 			'sanitize_text_field' );
+	add_filter( 'anva_sanitize_range', 				'sanitize_text_field' );
+	add_filter( 'anva_sanitize_date', 				'sanitize_text_field' );
+	add_filter( 'anva_sanitize_email', 				'sanitize_email' );
+	add_filter( 'anva_sanitize_number', 			'anva_sanitize_number' );
+	add_filter( 'anva_sanitize_select', 			'anva_sanitize_enum', 10, 2 );
+	add_filter( 'anva_sanitize_radio', 				'anva_sanitize_enum', 10, 2 );
+	add_filter( 'anva_sanitize_images', 			'anva_sanitize_enum', 10, 2 );
+	add_filter( 'anva_sanitize_checkbox', 			'anva_sanitize_checkbox' );
+	add_filter( 'anva_sanitize_multicheck', 		'anva_sanitize_multicheck', 10, 2 );
+	add_filter( 'anva_sanitize_switch', 			'anva_sanitize_checkbox' );
+	add_filter( 'anva_sanitize_textarea', 			'anva_sanitize_textarea' );
+	add_filter( 'anva_sanitize_code', 				'anva_sanitize_textarea' );
+	add_filter( 'anva_sanitize_url', 				'anva_sanitize_url' );
+	add_filter( 'anva_sanitize_upload', 			'anva_sanitize_upload' );
+	add_filter( 'anva_sanitize_editor', 			'anva_sanitize_editor' );
+	add_filter( 'anva_sanitize_background', 		'anva_sanitize_background' );
+	add_filter( 'anva_background_position', 		'anva_sanitize_background_position' );
+	add_filter( 'anva_background_attachment', 		'anva_sanitize_background_attachment' );
+	add_filter( 'anva_font_size', 					'anva_sanitize_font_size' );
+	add_filter( 'anva_font_face', 					'anva_sanitize_font_face' );
+	add_filter( 'anva_font_style', 					'anva_sanitize_font_style' );
+	add_filter( 'anva_font_weight', 				'anva_sanitize_font_weight' );
+	add_filter( 'anva_sanitize_typography', 		'anva_sanitize_typography', 10, 2 );
+	add_filter( 'anva_sanitize_color', 				'anva_sanitize_hex' );
+	add_filter( 'anva_sanitize_social_media', 		'anva_sanitize_social_media' );
+	add_filter( 'anva_sanitize_logo', 				'anva_sanitize_logo' );
+	add_filter( 'anva_sanitize_columns', 			'anva_sanitize_columns' );
+	add_filter( 'anva_sanitize_double_text', 		'anva_sanitize_double_text' );
+	add_filter( 'anva_sanitize_sidebar', 			'anva_sanitize_sidebar' );
+	add_filter( 'anva_sanitize_contact_fields', 	'anva_sanitize_sidebar' );
+	add_filter( 'anva_sanitize_layout', 			'anva_sanitize_layout' );
+}
 
 /**
  * Sanitization for url field.
@@ -51,6 +57,12 @@ function anva_sanitize_url( $input ) {
 	return $output;
 }
 
+/**
+ * Sanitization for double text field.
+ *
+ * @param  $input  string
+ * @return $output sanitized string
+ */
 function anva_sanitize_double_text( $input ) {
 	$output = array();
 	if ( is_array( $input ) ) {
@@ -70,7 +82,7 @@ function anva_sanitize_double_text( $input ) {
  */
 function anva_sanitize_textarea( $input ) {
 	global $allowedposttags;
-	$output = wp_kses( $input, $allowedposttags );
+	$output = wp_kses( $input, anva_allowed_tags() );
 	return $output;
 }
 
@@ -388,7 +400,22 @@ function anva_recognized_font_sizes() {
  * @return   array
  */
 function anva_recognized_font_faces() {
-	$default = anva_get_font_stacks();
+	// Temp
+	// @TODO check solution for admin and front end
+	$default = array(
+		'default'     => 'Arial, sans-serif', // Used to chain onto end of google font
+		'arial'       => 'Arial, "Helvetica Neue", Helvetica, sans-serif',
+		'baskerville' => 'Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif',
+		'georgia'     => 'Georgia, Times, "Times New Roman", serif',
+		'helvetica'   => '"Helvetica Neue", Helvetica, Arial, sans-serif',
+		'lucida'      => '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif',
+		'palatino'    => 'Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif',
+		'tahoma'      => 'Tahoma, Verdana, Segoe, sans-serif',
+		'times'       => 'TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif',
+		'trebuchet'   => '"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif',
+		'verdana'     => 'Verdana, Geneva, sans-serif',
+		'google'      => 'Google Font'
+	);
 	return apply_filters( 'anva_recognized_font_faces', $default );
 }
 
@@ -526,6 +553,12 @@ function anva_sanitize_social_media( $input ) {
 	return $output;
 }
 
+/**
+ * Sanitization for layout field.
+ *
+ * @param  $input  string
+ * @return $output sanitized string
+ */
 function anva_sanitize_layout( $input ) {
 
 	$output = array();
@@ -605,6 +638,12 @@ function anva_sanitize_logo( $input ) {
 	return $output;
 }
 
+/**
+ * Sanitization for sidebar field.
+ *
+ * @param  $input  string
+ * @return $output sanitized string
+ */
 function anva_sanitize_sidebar( $input ) {
 	
 	$output = array();
@@ -622,7 +661,10 @@ function anva_sanitize_sidebar( $input ) {
 }
 
 /**
- * Columns
+ * Sanitization for columns field.
+ *
+ * @param  $input  string
+ * @return $output sanitized string
  */
 function anva_sanitize_columns( $input ) {
 

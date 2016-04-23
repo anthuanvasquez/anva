@@ -64,27 +64,30 @@ $client = anva_get_post_meta( '_anva_client' );
 							<div class="portfolio-video">
 								<?php
 									$output = '';
-									$display_video = get_post_meta( $post->ID, '_anva_video', true );
-									if ( $display_video ) {
-									$embed = get_post_meta( $post->ID, '_anva_video_embed', true );
+									$display_video = anva_get_post_meta( '_anva_video' );
 
-									if ( $embed ) {
-										$output .= html_entity_decode( esc_html( $embed ) );
-									} else {
-										$poster = get_post_meta( $post->ID, '_anva_video_image', true );
-										$m4v = get_post_meta( $post->ID, '_anva_video_m4v', true );
-										$ogv = get_post_meta( $post->ID, '_anva_video_ogv', true );
-										$mp4 = get_post_meta( $post->ID, '_anva_video_mp4', true );
-										$attr = array(
-											'poster' => $poster,
-											'm4v' => $m4v,
-											'ogv' => $ogv,
-											'mp4' => $mp4
-										);
-										$output .= wp_video_shortcode( $attr );
+									if ( $display_video ) {
+										$embed = anva_get_post_meta( '_anva_video_embed' );
+
+										if ( $embed ) {
+											$output .= html_entity_decode( esc_html( $embed ) );
+										} else {
+											$poster = anva_get_post_meta( '_anva_video_image' );
+											$m4v    = anva_get_post_meta( '_anva_video_m4v' );
+											$ogv    = anva_get_post_meta( '_anva_video_ogv' );
+											$mp4    = anva_get_post_meta( '_anva_video_mp4' );
+											
+											$attr   = array(
+												'poster' => $poster,
+												'm4v'    => $m4v,
+												'ogv'    => $ogv,
+												'mp4'    => $mp4
+											);
+
+											$output .= wp_video_shortcode( $attr );
+										}
 									}
-								}
-								echo $output;
+									echo $output;
 								?>
 							</div>
 
@@ -92,6 +95,7 @@ $client = anva_get_post_meta( '_anva_client' );
 								<?php
 								$output = '';
 								$display_audio = get_post_meta( $post->ID, '_anva_audio', true );
+								
 								if ( $display_audio ) {
 									$poster = get_post_meta( $post->ID, '_anva_audio_image', true );
 									

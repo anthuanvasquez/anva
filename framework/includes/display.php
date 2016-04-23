@@ -969,6 +969,15 @@ function anva_post_reading_bar() {
 }
 
 /**
+ * Display contact form.
+ * 
+ * @since 1.0.0
+ */
+function anva_contact_form_default() {
+	anva_contact_form();
+}
+
+/**
  * Display debug information.
  * 
  * Only if WP_DEBUG is enabled and current user is an administrator.

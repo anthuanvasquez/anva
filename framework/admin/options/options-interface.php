@@ -47,7 +47,8 @@ function anva_get_options_tabs( $options ) {
 
 
 /**
- * Generates the options fields that are used in the form.
+ * Generates the options fields that are used in the theme options,
+ * meta boxes and content builder.
  *
  * Based on "Options Framework" by Devin Price.
  * @link http://wptheming.com
@@ -60,8 +61,8 @@ function anva_get_options_tabs( $options ) {
  * @param  array  $options
  * @return string $output
  */
-function anva_get_options_fields( $option_name, $settings, $options )
-{
+function anva_get_options_fields( $option_name, $settings, $options ) {
+	
 	global $allowedtags;
 
 	$counter = 0;
@@ -295,7 +296,7 @@ function anva_get_options_fields( $option_name, $settings, $options )
 			/* ------------------------------------- */
 
 			case 'select':
-				$output .= '<label class="anva-select-label" for="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '">';
+				$output .= '<label class="anva-select-label" for="' . esc_attr( $value['id'] ) . '">';
 				$output .= '<span></span>';
 				$output .= '<select class="anva-input anva-select" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '">';
 				foreach ($value['options'] as $key => $option ) {
@@ -696,7 +697,7 @@ function anva_get_options_fields( $option_name, $settings, $options )
 
 				// Font Weight
 				if ( in_array( 'weight', $value['options'] ) ) {
-					$output .= '<label class="anva-select-label">';
+					$output .= '<label for="' . $value['id'] . '_weight" class="anva-select-label">';
 					$output .= '<span></span>';
 					$output .= '<select class="anva-typography anva-typography-weight" name="' . esc_attr( $option_name . '[' . $value['id'] . '][weight]' ) . '" id="' . esc_attr( $value['id'] . '_weight' ) . '">';
 
@@ -880,12 +881,15 @@ function anva_get_options_fields( $option_name, $settings, $options )
 				}
 
 				$output .= '<div ' . $id . 'class="' . esc_attr( $class ) . '">' . "\n";
+				
 				if ( isset($value['name']) ) {
 					$output .= '<h4 class="heading">' . esc_html( $value['name'] ) . '</h4>' . "\n";
 				}
+
 				if ( isset( $value['desc'] ) ) {
 					$output .= '<p>' . wp_kses( $value['desc'], $allowedtags ) . "</p>\n";
 				}
+
 				$output .= '</div>' . "\n";
 				
 				break;
@@ -934,4 +938,8 @@ function anva_get_options_fields( $option_name, $settings, $options )
 	if ( anva_get_options_tabs( $options ) != '' ) {
 		echo '</div><!-- .group (end) -->';
 	}
+}
+
+function anva_the_options_fields( $option_name, $settings, $options ) {
+	anva_get_options_fields( $option_name, $settings, $options );
 }

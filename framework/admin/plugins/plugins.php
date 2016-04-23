@@ -59,11 +59,13 @@ function anva_register_required_plugins() {
 
 	);
 
+	$name = anva_get_option_name() . '_plugins';
+
 	// Plugins Config
 	$config = array(
 		'id'             => 'anva',                  // Unique ID for hashing notices for multiple instances of TGMPA.
 		'default_path'   => '',                      // Default absolute path to bundled plugins.
-		'menu'           => 'anva_plugins', 		   // Menu slug.
+		'menu'           =>$name, 		   			// Menu slug.
 		'has_notices'    => true,                    // Show admin notices or not.
 		'dismissable'    => true,                    // If false, a user cannot dismiss the nag message.
 		'dismiss_msg'    => '',                      // If 'dismissable' is false, this message will be output at top of nag.

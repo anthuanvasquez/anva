@@ -24,23 +24,8 @@ Desktop.ini
 .sass-cache
 prepros.cfg
 config.codekit
-npm-debug.log
 /build
 /build-theme
-/node_modules
-/bower_components
-
-## WordPress
-wp-config.php
-wp-content/uploads/
-wp-content/blogs.dir/
-wp-content/upgrade/
-wp-content/backup-db/
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-wp-content/cache/*
-wp-content/cache/supercache/*
-wp-content/cache/
-wp-content/backups/
-sitemap.xml
-sitemap.xml.gz
+/.tools/npm-debug.log
+/.tools/node_modules
+/.tools/bower_components

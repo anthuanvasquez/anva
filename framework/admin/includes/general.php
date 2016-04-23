@@ -89,117 +89,32 @@ function anva_admin_assets() {
 }
 
 /**
- * Remove trailing char.
- *
- * @since  1.0.0
- * @param  string $string
- * @param  string $char
- * @return string $string
- */
-function anva_remove_trailing_char( $string, $char = ' ' ) {
-
-	if ( ! $string ) {
-		return NULL;
-	}
-
-	$offset = strlen( $string ) - 1;
-
-	$trailing_char = strpos( $string, $char, $offset );
-	if ( $trailing_char ) {
-		$string = substr( $string, 0, -1 );
-	}
-
-	return $string;
-}
-
-/**
- * Get font stacks
+ * Get options page menu settings.
  * 
  * @since  1.0.0
- * @return array $stacks
+ * @return array $options_page
  */
-function anva_get_font_stacks() {
-	$stacks = array(
-		'default'     => 'Arial, sans-serif', // Used to chain onto end of google font
-		'arial'       => 'Arial, "Helvetica Neue", Helvetica, sans-serif',
-		'baskerville' => 'Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif',
-		'georgia'     => 'Georgia, Times, "Times New Roman", serif',
-		'helvetica'   => '"Helvetica Neue", Helvetica, Arial, sans-serif',
-		'lucida'      => '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif',
-		'palatino'    => 'Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif',
-		'tahoma'      => 'Tahoma, Verdana, Segoe, sans-serif',
-		'times'       => 'TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif',
-		'trebuchet'   => '"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif',
-		'verdana'     => 'Verdana, Geneva, sans-serif',
-		'google'      => 'Google Font'
-	);
-	return apply_filters( 'anva_font_stacks', $stacks );
+function anva_get_options_page_menu() {
+	$options_page = new Anva_Options_Page;
+	return $options_page->menu_settings();
 }
 
 /**
- * Get social media sources and their respective names.
- *
+ * Get default options.
+ * 
  * @since  1.0.0
- * @return array $profiles
+ * @return array Default Options
  */
-function anva_get_social_icons_profiles() {
-	$profiles = array(
-		'bitbucket'		=> 'Bitbucket',
-		'codepen'		=> 'Codepen',
-		'delicious' 	=> 'Delicious',
-		'deviantart' 	=> 'DeviantArt',
-		'digg' 			=> 'Digg',
-		'dribbble' 		=> 'Dribbble',
-		'email3' 		=> 'Email',
-		'facebook' 		=> 'Facebook',
-		'flickr' 		=> 'Flickr',
-		'foursquare' 	=> 'Foursquare',
-		'github' 		=> 'Github',
-		'gplus' 		=> 'Google+',
-		'instagram' 	=> 'Instagram',
-		'linkedin' 		=> 'Linkedin',
-		'paypal' 		=> 'Paypal',
-		'pinterest' 	=> 'Pinterest',
-		'reddit' 		=> 'Reddit',
-		'skype'			=> 'Skype',
-		'soundcloud' 	=> 'Soundcloud',
-		'tumblr' 		=> 'Tumblr',
-		'twitter' 		=> 'Twitter',
-		'vimeo-square'	=> 'Vimeo',
-		'yahoo' 		=> 'Yahoo',
-		'youtube' 		=> 'YouTube',
-		'call'			=> 'Call',
-		'rss' 			=> 'RSS',
-	);
-
-	// Backwards compat filter
-	return apply_filters( 'anva_social_icons_profiles', $profiles );
+function anva_get_option_defaults() {
+	$options_page = new Anva_Options_Page;
+	return $options_page->get_default_values();
 }
 
 /**
- * Get capability for admin module.
+ * Register a new meta box.
  *
  * @since  1.0.0
- * @param  string $module
- * @return string $cap
  */
-function anva_admin_module_cap( $module ) {
-
-	// Setup default capabilities
-	$module_caps = array(
-		'builder' 	=> 'edit_theme_options', // Role: Administrator
-		'options' 	=> 'edit_theme_options', // Role: Administrator
-		'backup' 	=> 'manage_options', 	 // Role: Administrator
-		'updates' 	=> 'manage_options', 	 // Role: Administrator
-	);
-	
-	$module_caps = apply_filters( 'anva_admin_module_caps', $module_caps );
-
-	// Setup capability
-	$cap = '';
-	if ( isset( $module_caps[ $module ] ) ) {
-		$cap = $module_caps[ $module ];
-	}
-
-	return $cap;
+function anva_add_meta_box( $id, $args, $options ) {
+	new Anva_Meta_Box( $id, $args, $options );
 }

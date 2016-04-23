@@ -260,7 +260,7 @@ class Anva_Content_Builder
 										printf(
 											'<div class="tooltip element-shortcode" data-element="%1$s" data-title="%2$s" title="%4$s"><img class="icon-thumbnail" src="%3$s" alt="%2$s" /><span class="icon-title">%2$s</span></div>',
 											esc_attr( $element_id ),
-											esc_attr( $element['title'] ),
+											esc_attr( $element['name'] ),
 											esc_url( $element['icon'] ),
 											esc_attr( $element['desc'] )
 										);
@@ -305,7 +305,7 @@ class Anva_Content_Builder
 
 								if ( isset( $item[0] ) && isset( $shortcodes[$obj->shortcode] ) ) :
 									
-									$shortcode_type = $shortcodes[$obj->shortcode]['title'];
+									$shortcode_type = $shortcodes[$obj->shortcode]['name'];
 									$shortocde_icon = $shortcodes[$obj->shortcode]['icon'];
 									$shortcode = $obj->shortcode;
 									$obj_title_name = '';
@@ -595,154 +595,39 @@ class Anva_Content_Builder
 			if ( isset( $shortcodes[$_GET['shortcode']] ) ) :
 				$id            = $_GET['rel'];
 				$shortcode     = $_GET['shortcode'];
-				$shortcode_arr = $shortcodes[$shortcode];
+				$shortcode_arr = $shortcodes[ $shortcode ];
 				?>
 
 				<div id="item-inline-<?php echo esc_attr( $id ); ?>" data-shortcode="<?php echo esc_attr( $shortcode ); ?>" class="item-inline item-inline-<?php echo esc_attr( $id); ?>">
 				
 				<div class="section section-header">
-					<h2><?php echo $shortcode_arr['title']; ?></h2>
+					<h2><?php echo $shortcode_arr['name']; ?></h2>
 					<input type="button" id="save-<?php echo esc_attr( $id ); ?>" class="button button-primary" value="<?php _e( 'Update', 'anva' ); ?>" />
 					<input type="button" id="cancel-<?php echo esc_attr( $id ); ?>" class="button button-secondary" value="<?php _e( 'Cancel', 'anva' ); ?>" />
 				</div>
 
-				<?php if ( isset( $shortcode_arr['title'] ) && $shortcode_arr['title'] != 'Divider' ) : ?>
+				<?php if ( isset( $shortcode_arr['name'] ) && $shortcode_arr['name'] != 'Divider' ) : ?>
 				<?php
 					$title = $shortcode . '_title';
-					$value = $shortcode_arr['title'];
+					$value = $shortcode_arr['name'];
 				?>
 				<div class="section section-title">
-					<h4><?php _e( 'Title', 'anva' ); ?></h4>
+					<h4><?php _e( 'Name', 'anva' ); ?></h4>
 					<div class="option">
 						<div class="controls">
 							<input type="text" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
 						</div>
-						<div class="explain"><?php _e( 'Enter title for this element.', 'anva' ); ?></div>
+						<div class="explain"><?php _e( 'Enter the name of the element.', 'anva' ); ?></div>
 					</div>
 				</div>
 				<?php else : ?>
 					<input type="hidden" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
 				<?php endif;
 
-				foreach ( $shortcode_arr['attr'] as $attr_id => $attr ) :
-
-					$title = ucfirst( $attr_id );
-					$name  = $shortcode . '_' . $attr_id;
-					$desc  = $attr['desc'];
-					$value = '';
-
-					if ( isset( $attr['std'] ) ) {
-						$value = $attr['std'];
-					}
-
-					if ( isset( $attr['title'] ) ) {
-						$title = $attr['title'];
-					}
-
-					switch ( $attr['type'] ) :
-						
-						case "slider": ?>
-							<div class="section section-slider">
-								<h4><?php echo $title; ?></h4>
-								<div class="option">
-									<div class="controls">
-										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="range" class="rangeslider anva-input" min="<?php echo $attr['min']; ?>" max="<?php echo $attr['max']; ?>" step="<?php echo $attr['step']; ?>" value="<?php echo $value; ?>" />
-										<output for="<?php echo $name; ?>" onforminput="value = foo.valueAsNumber;"></output>
-									</div>
-									<div class="explain"><?php echo $desc; ?></div>
-								</div>
-							</div>
-							<?php break;
-							
-						case 'file': ?>
-							<div class="section section-file">
-								<h4><?php echo $title; ?></h4>
-								<div class="option">
-									<div class="controls">
-										
-										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text"  class="anva-input anva-file" placeholder="<?php _e( 'No file chosen', 'anva' ); ?>" />
-
-										<a id="<?php echo $name; ?>_button" name="<?php echo $name; ?>_button" class="button anva-upload-button" data-id="<?php echo $name; ?>" data-remove="<?php _e( 'Remove', 'anva' ); ?>" data-upload="<?php _e( 'Browse', 'anva' ); ?>"><?php _e( 'Browse', 'anva' ); ?></a>
-
-										<div class="screenshot" id="<?php echo $name; ?>_image" style="display:none;"></div>
-										
-									</div>
-									<div class="explain"><?php echo $desc; ?></div>
-								</div>
-							</div>
-							<?php break;
-									
-						case 'select': ?>
-							<div class="section section-select">
-								<h4><?php echo $title; ?></h4>
-								<div class="option">
-									<div class="controls">
-										<select name="<?php echo $name; ?>" id="<?php echo $name; ?>" class="anva-input">
-											<?php foreach ( $attr['options'] as $key => $value ) : ?>
-												<option value="<?php echo $key; ?>"><?php echo ucfirst( $value ); ?></option>
-											<?php endforeach; ?>
-										</select>
-									</div>
-									<div class="explain"><?php echo $desc; ?></div>
-								</div>
-							</div>
-							<?php break;
-									
-						case 'select_multiple': ?>
-							<div class="section section-select-multiple">
-								<h4><?php echo $title; ?></h4>
-								<div class="option">
-									<div class="controls">
-										<select name="<?php echo $name; ?>" id="<?php echo $name; ?>" class="anva-input" multiple="multiple">
-											<?php foreach ( $attr['options'] as $key => $value ) : ?>
-												<?php if ( ! empty( $value ) ) : ?>
-													<option value="<?php echo $key; ?>"><?php echo ucfirst( $value ); ?></option>
-												<?php endif; ?>
-											<?php endforeach; ?>
-										</select>
-									</div>
-									<div class="explain"><?php echo $desc; ?></div>
-								</div>
-							</div>
-							<?php break;
-									
-						case 'text': ?>
-							<div class="section section-text">
-								<h4><?php echo $title; ?></h4>
-								<div class="option">
-									<div class="controls">
-										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text" class="anva-input" />
-									</div>
-									<div class="explain"><?php echo $desc; ?></div>
-								</div>
-							</div>
-							<?php break;
-									
-						case 'colorpicker': ?>
-							<div class="section section-colorpicker">
-								<h4><?php echo $title; ?></h4>
-								<div class="option">
-									<div class="controls">
-										<input name="<?php echo $name; ?>" id="<?php echo $name; ?>" type="text" class="anva-input colorpicker" value="<?php echo esc_attr( $value ); ?>" readonly />
-									</div>
-									<div class="explain"><?php echo $desc; ?></div>
-								</div>
-							</div>
-							<?php break;
-
-						case 'textarea': ?>
-							<div class="section section-textarea">
-								<h4><?php echo $title; ?></h4>
-								<div class="option">
-									<div class="controls">
-										<textarea name="<?php echo $name; ?>" id="<?php echo $name; ?>" rows="3" class="anva-input"></textarea>
-									</div>
-									<div class="explain"><?php echo $desc; ?></div>
-								</div>
-							</div>
-							<?php break;
-					endswitch;	
-				endforeach; ?>
+				
+				anva_the_options_fields( 'anva_builder', '', $shortcode_arr['attr'] );
+				
+				?>
 				
 				<?php if ( isset ( $shortcode_arr['content'] ) && $shortcode_arr['content'] ) : ?>
 				<?php
@@ -751,7 +636,7 @@ class Anva_Content_Builder
 				<div class="section section-content">
 					<h4><?php _e( 'Content', 'anva' ); ?></h4>
 					<div class="explain">
-						<?php printf( '%s <strong>%s</strong>.', __( 'Enter text/HTML content to display in this item', 'anva' ), $shortcode_arr['title'] ); ?>
+						<?php printf( '%s <strong>%s</strong>.', __( 'Enter the text or HTML content to display in this item', 'anva' ), $shortcode_arr['name'] ); ?>
 					</div>
 					<div class="controls">
 						<textarea id="<?php echo esc_attr( $editor_id ); ?>" name="<?php echo esc_attr( $editor_id ); ?>" rows="10" class="anva-input anva-textarea anva-wp-editor"></textarea>
@@ -760,6 +645,8 @@ class Anva_Content_Builder
 				<?php endif; ?>
 
 			</div><!-- .item-inline (end) -->
+
+			<?php var_dump($id); ?>
 			
 			<script type="text/javascript">
 			/* <![CDATA[ */
@@ -770,9 +657,15 @@ class Anva_Content_Builder
 				var $currentItemData = $('#<?php echo esc_js( $id ); ?>').data( 'anva_builder_settings' );
 				var $currentItemOBJ = $.parseJSON( $currentItemData );
 
+
+				console.log($currentItemData);
+
+
 				$.each( $currentItemOBJ, function( index, value ) {
 					if ( typeof $( '#' + index ) != 'undefined' ) {
 						$( '#' + index ).val( decodeURI( value ) );
+
+						console.log(value);
 						
 						if ( $( '#' + index ).hasClass('anva-file') ) {
 							var $remove = $('#' + index + '_button').data('remove');
@@ -827,6 +720,8 @@ class Anva_Content_Builder
 					$('#item-inline-<?php echo esc_js( $id ); ?> :input.anva-input').each( function() {
 						if ( typeof $(this).attr('id') != 'undefined' ) {
 							itemData[$(this).attr('id')] = encodeURI( $(this).val() );
+
+							console.log($(this).attr('id'));
 							
 							if ( $(this).attr('data-attr') == 'title' ) {
 								$('#' + $currentItem).find('.title .shortcode-title').html( decodeURI( $(this).val() ) );
@@ -839,9 +734,11 @@ class Anva_Content_Builder
 						}
 					});
 					
+					// Create the JSON string
 					var currentItemDataJSON = JSON.stringify( itemData );
 					var $itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>');
 
+					// Save Data
 					$('#' + $currentItem).data( 'anva_builder_settings', currentItemDataJSON );
 
 					var $parentEle = $('#<?php echo esc_js( $id ); ?>');

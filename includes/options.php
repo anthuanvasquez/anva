@@ -120,6 +120,15 @@ function anva_options() {
 			),
 		),
 		'header' => array(
+			'top_bar_display' => array(
+				'name' => NULL,
+				'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Top Bar', 'anva' ), __( 'Display top bar above header.', 'anva' ) ),
+				'id' => 'top_bar',
+				'std' => '0',
+				'type' => 'checkbox',
+				'trigger' => '1',
+				'receivers' => 'top_bar_color',
+			),
 			'top_bar_color' => array(
 				'name' => __( 'Top Bar Color', 'anva' ),
 				'desc' => __( 'Select the color of the top bar.', 'anva' ),
@@ -132,7 +141,21 @@ function anva_options() {
 					'custom' => __( 'Custom Color', 'anva' ),
 				),
 				'trigger' => 'custom',
-				'receivers' => 'top_bar_bg_color top_bar_menu_links',
+				'receivers' => 'top_bar_bg_color top_bar_text_color',
+			),
+			'top_bar_bg_color' => array(
+				'name' => __( 'Top Bar Color', 'anva' ),
+				'desc' => __( 'Select the background color of the top bar.', 'anva' ),
+				'id' => 'top_bar_bg_color',
+				'std' => '#ffffff',
+				'type' => 'color',
+			),
+			'top_bar_text_color' => array(
+				'name' => NULL,
+				'desc' => __( 'Use light text color for background.', 'anva' ),
+				'id' => 'top_bar_text_color',
+				'std' => '0',
+				'type' => 'checkbox',
 			),
 			'header_color' => array(
 				'name' => __( 'Header Color', 'anva' ),
@@ -215,6 +238,15 @@ function anva_options() {
 				),
 				'type' => 'typography',
 				'options' => array( 'style', 'weight', 'face', 'color' )
+			),
+			'side_panel_display' => array(
+				'name' => NULL,
+				'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Side Panel', 'anva' ), __( 'Display the side panel content.', 'anva' ) ),
+				'id' => 'side_panel_display',
+				'std' => '0',
+				'type' => 'checkbox',
+				'trigger' => '1',
+				'receivers' => 'side_panel_color',
 			),
 			'side_panel_color' => array(
 				'name' => __( 'Side Panel Color', 'anva' ),
@@ -633,15 +665,6 @@ function anva_options() {
 				'full-header' => __( 'Full Header', 'anva' ),
 			),
 		),
-		'top_bar_display' => array(
-			'name' => NULL,
-			'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Top Bar', 'anva' ), __( 'Display top bar above header.', 'anva' ) ),
-			'id' => 'top_bar',
-			'std' => '0',
-			'type' => 'checkbox',
-			'trigger' => '1',
-			'receivers' => 'top_bar_layout',
-		),
 		'top_bar_layout' => array(
 			'name' => __( 'Top bar Layout', 'anva' ),
 			'desc' => __( 'Select the top bar layout you want to show.', 'anva' ),
@@ -652,15 +675,6 @@ function anva_options() {
 				'menu_icons' => __( 'Menu + Social Icons', 'anva' ),
 				'icons_menu' => __( 'Social Icons + Menu', 'anva' ),	
 			)
-		),
-		'side_panel_display' => array(
-			'name' => NULL,
-			'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Side Panel', 'anva' ), __( 'Display the side panel content.', 'anva' ) ),
-			'id' => 'side_panel_display',
-			'std' => '0',
-			'type' => 'checkbox',
-			'trigger' => '1',
-			'receivers' => 'side_panel_type',
 		),
 		'side_panel_type' => array(
 			'name' => __( 'Side Panel', 'anva' ),
@@ -881,39 +895,35 @@ function anva_options() {
 				'type' => 'text',
 				'class' => 'slider-item revslider hide'
 			),
-			
 			$slider_options, // Add option by slider type, no very pretty! :(
-			
-			'login' => array(
-				'login_style' => array(
-					'name' => __( 'Style', 'anva'),
-					'desc' => __( 'Select the login style.', 'anva'),
-					'id' => 'login_style',
-					'std' => '',
-					'type' => 'select',
-					'options' => array(
-						'' 	     => __( 'None', 'anva' ),
-						'style1' => __( 'Style 1', 'anva' ),
-						'style2' => __( 'Style 2', 'anva' ),
-						'style3' => __( 'Style 3', 'anva' )
-					)
-				),
-				'login_copyright' => array(
-					'name' => __( 'Copyright Text', 'anva'),
-					'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your login page.', 'anva'),
-					'id' => 'login_copyright',
-					'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>' ),
-					'type' => 'textarea',
-				),
+		),
+		'login' => array(
+			'login_style' => array(
+				'name' => __( 'Style', 'anva'),
+				'desc' => __( 'Select the login style.', 'anva'),
+				'id' => 'login_style',
+				'std' => '',
+				'type' => 'select',
+				'options' => array(
+					'' 	     => __( 'None', 'anva' ),
+					'style1' => __( 'Style 1', 'anva' ),
+					'style2' => __( 'Style 2', 'anva' ),
+					'style3' => __( 'Style 3', 'anva' )
+				)
+			),
+			'login_copyright' => array(
+				'name' => __( 'Copyright Text', 'anva'),
+				'desc' => __( 'Enter the copyright text you\'d like to show in the footer of your login page.', 'anva'),
+				'id' => 'login_copyright',
+				'std' => sprintf( __( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>' ),
+				'type' => 'textarea',
 			),
 		),
 	);
 
 	anva_add_option( 'layout', 'header', 'header_type', 		 $layout['header_type'] );
 	anva_add_option( 'layout', 'header', 'header_layout', 		 $layout['header_layout'] );
-	anva_add_option( 'layout', 'header', 'top_bar_display', 	 $layout['top_bar_display'] );
 	anva_add_option( 'layout', 'header', 'top_bar_layout', 		 $layout['top_bar_layout'] );
-	anva_add_option( 'layout', 'header', 'side_panel_display', 	 $layout['side_panel_display'] );
 	anva_add_option( 'layout', 'header', 'side_panel_type', 	 $layout['side_panel_type'] );
 	anva_add_option( 'layout', 'header', 'side_header_icons', 	 $layout['side_header_icons'] );
 	anva_add_option( 'layout', 'header', 'primary_menu_style', 	 $layout['primary_menu_style'] );
@@ -928,7 +938,7 @@ function anva_options() {
 	anva_add_option_section( 'layout', 'gallery', 		  __( 'Galleries', 'anva' ), 		NULL, $layout['gallery'], false );
 	anva_add_option_section( 'layout', 'slideshows', 	  __( 'Slideshows', 'anva' ), 	 	NULL, $layout['slideshows'], false );
 
-	if ( anva_support_feature( 'anva-login-styles' ) ) {
+	if ( anva_support_feature( 'anva-login' ) ) {
 		anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), NULL, $layout['login'], false );
 	}
 

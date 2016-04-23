@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Builder
+ * Template Name: Content Builder
  * 
  * The template file used for displaying the content builder.
  *
@@ -20,6 +20,17 @@
 get_header();
 ?>
 
-<?php anva_elements(); ?>
+    <?php do_action( 'anva_posts_content_before' ); ?>
+
+    <div class="custom-content-layout clearfix">
+        <?php
+            /**
+             * hooked anva_elements
+             */
+            do_action( 'anva_content_builder' );
+        ?>
+    </div>
+
+    <?php do_action( 'anva_posts_content_after' ); ?>
 
 <?php get_footer(); ?>

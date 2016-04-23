@@ -83,28 +83,6 @@ function anva_the_option( $name, $default = false ) {
 }
 
 /**
- * Get default options.
- * 
- * @since  1.0.0
- * @return array Default Options
- */
-function anva_get_option_defaults() {
-	$options_page = new Anva_Options_Page;
-	return $options_page->get_default_values();
-}
-
-/**
- * Get options page menu settings.
- * 
- * @since  1.0.0
- * @return array $options_page
- */
-function anva_get_options_page_menu() {
-	$options_page = new Anva_Options_Page;
-	return $options_page->menu_settings();
-}
-
-/**
  * Get raw options.
  *
  * @since 1.0.0
@@ -482,13 +460,4 @@ function anva_is_slider( $slider_id ) {
 function anva_slider_exists( $slider_id ) {
 	$api = Anva_Sliders_API::instance();
 	return $api->is_slider( $slider_id );
-}
-
-/**
- * Register a new meta box.
- *
- * @since  1.0.0
- */
-function anva_add_meta_box( $id, $args, $options ) {
-	new Anva_Meta_Box( $id, $args, $options );
 }

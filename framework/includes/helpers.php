@@ -5,101 +5,6 @@
 /*-----------------------------------------------------------------------------------*/
 
 /**
- * Generate page builder elements
- *
- * @since  1.0.0
- * @return shortcode The shortcode
- */
-function anva_elements() {
-
-	// Get settings.
-	$settings = anva_get_post_meta( '_anva_builder_options' );
-
-	// Kill it if there's no order.
-	if ( isset( $settings['order'] ) && empty( $settings['order'] ) ) {
-		return;
-	}
-
-	// Set items order.
-	$items 	 = explode( ',', $settings['order'] );
-	$counter = 0;
-
-	foreach ( $items as $key => $item ) {
-
-		$atts 		= array();
-		$classes 	= array();
-		$data 		= $settings[ $item ]['data'];
-		$obj 		= json_decode( $data );
-		$content 	= $obj->shortcode . '_content';
-		$shortcode 	= $obj->shortcode;
-
-		$counter++;
-
-		// Check if the element exists.
-		if ( anva_element_exists( $shortcode ) ) {
-
-			$shortcodes = anva_get_elements();
-
-			// Shortcode has attributes.
-			if ( isset( $shortcodes[ $shortcode ]['attr'] ) && ! empty( $shortcodes[ $shortcode ]['attr'] ) ) {
-
-				$classes[] = 'element-has-attributes';
-
-				// Get shortcode attributes
-				$attributes = $shortcodes[$shortcode]['attr'];
-
-				foreach ( $attributes as $attribute_id => $attribute ) {
-					$obj_attribute = $obj->shortcode . '_' . $attribute_id;
-					$atts[$attribute_id] = esc_attr( urldecode( $obj->$obj_attribute ) );
-				}
-			}
-
-			// Shortcode has content.
-			if ( isset( $obj->$content ) ) {
-				$classes[] = 'element-has-content';
-				$content   = urldecode( $obj->$content );
-			} else {
-				$content = NULL;
-			}
-
-			$classes = implode( ' ', $classes );
-			
-			echo '<section id="section-' . esc_attr( $counter ) . '" class="section section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
-			echo '<div id="element-' .  esc_attr( $item ) . '" class="element element-' . esc_attr( $item ) . ' element-' .  esc_attr( $shortcode ) . '">';
-
-			do_action( 'anva_element_' . $shortcode, $atts, $content );
-
-			echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
-			echo '</section><!-- #section-' . esc_attr( $counter ) . ' (end) -->';
-		}
-
-
-	}
-
-	return false;
-}
-
-function anva_apply_content( $content ) {
-	$content = apply_filters( 'the_content', $content );
-	$content = str_replace( ']]>', ']]>', $content );
-	return $content;
-}
-
-function pp_get_image_id( $url ) {
-
-	global $wpdb;
-
-	$prefix = $wpdb->prefix;
-	$attachment_id = $wpdb->get_col( $wpdb->prepare( 'SELECT ID FROM ' . $prefix . 'posts' . " WHERE guid='%s';", $url ) );
-
-	if ( isset( $attachment_id[0] ) ) {
-		return $attachment_id[0];
-	}
-
-	return '';
-}
-
-/**
  * Home page args
  *
  * @since  1.0.0
@@ -684,6 +589,54 @@ function anva_extract_icon( $string ) {
 }
 
 /**
+ * Get font stacks
+ * 
+ * @since  1.0.0
+ * @return array $stacks
+ */
+function anva_get_font_stacks() {
+	$stacks = array(
+		'default'     => 'Arial, sans-serif', // Used to chain onto end of google font
+		'arial'       => 'Arial, "Helvetica Neue", Helvetica, sans-serif',
+		'baskerville' => 'Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif',
+		'georgia'     => 'Georgia, Times, "Times New Roman", serif',
+		'helvetica'   => '"Helvetica Neue", Helvetica, Arial, sans-serif',
+		'lucida'      => '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif',
+		'palatino'    => 'Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif',
+		'tahoma'      => 'Tahoma, Verdana, Segoe, sans-serif',
+		'times'       => 'TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif',
+		'trebuchet'   => '"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif',
+		'verdana'     => 'Verdana, Geneva, sans-serif',
+		'google'      => 'Google Font'
+	);
+	return apply_filters( 'anva_font_stacks', $stacks );
+}
+
+/**
+ * Remove trailing char.
+ *
+ * @since  1.0.0
+ * @param  string $string
+ * @param  string $char
+ * @return string $string
+ */
+function anva_remove_trailing_char( $string, $char = ' ' ) {
+
+	if ( ! $string ) {
+		return NULL;
+	}
+
+	$offset = strlen( $string ) - 1;
+
+	$trailing_char = strpos( $string, $char, $offset );
+	if ( $trailing_char ) {
+		$string = substr( $string, 0, -1 );
+	}
+
+	return $string;
+}
+
+/**
  * Get font face
  *
  * @since  1.0.0
@@ -714,7 +667,6 @@ function anva_get_font_face( $option ) {
  	} else {
 		$stack = $stacks[ $face ];
  	}
-
 
 	return apply_filters( 'anva_get_font_face', $stack, $option, $stacks );
 }
@@ -910,6 +862,73 @@ function anva_enqueue_google_fonts() {
 	}
 }
 
+/**
+ * Get social media sources and their respective names.
+ *
+ * @since  1.0.0
+ * @return array $profiles
+ */
+function anva_get_social_icons_profiles() {
+	$profiles = array(
+		'bitbucket'		=> 'Bitbucket',
+		'codepen'		=> 'Codepen',
+		'delicious' 	=> 'Delicious',
+		'deviantart' 	=> 'DeviantArt',
+		'digg' 			=> 'Digg',
+		'dribbble' 		=> 'Dribbble',
+		'email3' 		=> 'Email',
+		'facebook' 		=> 'Facebook',
+		'flickr' 		=> 'Flickr',
+		'foursquare' 	=> 'Foursquare',
+		'github' 		=> 'Github',
+		'gplus' 		=> 'Google+',
+		'instagram' 	=> 'Instagram',
+		'linkedin' 		=> 'Linkedin',
+		'paypal' 		=> 'Paypal',
+		'pinterest' 	=> 'Pinterest',
+		'reddit' 		=> 'Reddit',
+		'skype'			=> 'Skype',
+		'soundcloud' 	=> 'Soundcloud',
+		'tumblr' 		=> 'Tumblr',
+		'twitter' 		=> 'Twitter',
+		'vimeo-square'	=> 'Vimeo',
+		'yahoo' 		=> 'Yahoo',
+		'youtube' 		=> 'YouTube',
+		'call'			=> 'Call',
+		'rss' 			=> 'RSS',
+	);
+
+	// Backwards compat filter
+	return apply_filters( 'anva_social_icons_profiles', $profiles );
+}
+
+/**
+ * Get capability for admin module.
+ *
+ * @since  1.0.0
+ * @param  string $module
+ * @return string $cap
+ */
+function anva_admin_module_cap( $module ) {
+
+	// Setup default capabilities
+	$module_caps = array(
+		'builder' 	=> 'edit_theme_options', // Role: Administrator
+		'options' 	=> 'edit_theme_options', // Role: Administrator
+		'backup' 	=> 'manage_options', 	 // Role: Administrator
+		'updates' 	=> 'manage_options', 	 // Role: Administrator
+	);
+	
+	$module_caps = apply_filters( 'anva_admin_module_caps', $module_caps );
+
+	// Setup capability
+	$cap = '';
+	if ( isset( $module_caps[ $module ] ) ) {
+		$cap = $module_caps[ $module ];
+	}
+
+	return $cap;
+}
 
 /**
  * Get current year in footer copyright.

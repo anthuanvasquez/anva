@@ -21,13 +21,13 @@ function anva_load_theme_texdomain() {
  * @since  1.0.0
  */
 function anva_add_theme_support() {
-	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'caption' ) );
 	add_theme_support( 'post-formats', array( 'gallery', 'aside', 'link', 'image', 'quote', 'video', 'audio', 'chat', 'status' ) );
 	add_theme_support( 'custom-background' );
 	add_theme_support( 'custom-header' );
+	add_theme_support( 'title-tag' );
 	add_theme_support( 'custom-logo' );
 }
 
@@ -1153,14 +1153,28 @@ function anva_get_query_posts( $query_args = '' ) {
  */
 function anva_get_admin_modules() {
 
+	$name = '';
+
+	// Gets option name as defined in the theme
+	if ( function_exists( 'anva_option_name' ) ) {
+		$name = anva_option_name();
+	}
+
+	// Fallback
+	if ( empty( $name ) ) {
+		$name = get_option( 'stylesheet' );
+		$name = preg_replace( "/\W/", "_", strtolower( $name ) );
+	}
+
 	// Options page
-	$args = anva_get_options_page_menu();
-	$options_page = sprintf( 'themes.php?page=%s', $args['menu_slug'] );
+	// $args = anva_get_options_page_menu();
+	$page = sprintf( 'themes.php?page=%s', $name );
 
 	// Admin modules
 	$modules = array(
-		'options'	=> $options_page,
-		'backup'	=> $options_page . '_backup'
+		'options'	=> $page,
+		'demos'		=> $page . '_demos',
+		'plugins'	=> $page . '_plugins',
 	);
 
 	return apply_filters( 'anva_admin_modules', $modules );
@@ -1211,24 +1225,13 @@ function anva_admin_menu_bar() {
 		);
 	}
 
-	// Theme Backup
-	if ( isset( $modules['backup'] ) && current_user_can( anva_admin_module_cap( 'backup' ) ) ) {
-		$wp_admin_bar->add_node(
-			array(
-				'id'	 	=> 'anva_theme_backup',
-				'title'	 	=> sprintf( '%1$s', __( 'Theme Backup', 'anva' ) ),
-				'href'	 	=> admin_url( $modules['backup'] ),
-				'parent' 	=> $node,
-			)
-		);
-	}
-
+	// Theme Recommende Plugins
 	if ( current_user_can( 'install_plugins' ) ) {
 		$wp_admin_bar->add_node(
 			array(
 				'id'		=> 'anva_theme_plugins',
 				'title'		=> sprintf( '%1$s', __( 'Theme Plugins', 'anva' ) ),
-				'href'		=> admin_url( 'themes.php?page=tgmpa-install-plugins' ),
+				'href'		=> admin_url( $modules['plugins'] ),
 				'parent' 	=> $node,
 			)
 		);
@@ -1240,12 +1243,11 @@ function anva_admin_menu_bar() {
  * 
  * @todo Move to extensions
  *
- * @since  1.0.0
- * @return void
+ * @since 1.0.0
  */
 function anva_contact_send_email() {
 
-	global $email_sended_message;
+	global $_email_sended_message;
 
 	// Submit form
 	if ( isset( $_POST['contact-submission'] ) && 1 == $_POST['contact-submission'] && wp_verify_nonce( 'contact_form_nonce', 'contact_form' ) ) {
@@ -1308,7 +1310,7 @@ function anva_contact_send_email() {
 
 	if ( isset( $email_sent ) && $email_sent == true ) :
 
-		$email_sended_message = anva_get_local( 'submit_message' );
+		$_email_sended_message = anva_get_local( 'submit_message' );
 		
 		// Clear form after submit
 		unset(
@@ -1321,7 +1323,7 @@ function anva_contact_send_email() {
 		
 	else :
 		if ( isset( $has_error ) ) :
-			$email_sended_message = anva_get_local( 'submit_error' );
+			$_email_sended_message = anva_get_local( 'submit_error' );
 		endif;
 	endif;
 }

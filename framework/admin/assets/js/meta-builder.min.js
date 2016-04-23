@@ -327,7 +327,7 @@ jQuery(document).ready(function($) {
 						$('#add-builder-item').removeAttr('disabled');
 						
 						// Color Picker
-						$('.colorpicker').wpColorPicker();
+						$('.anva-color').wpColorPicker();
 
 						// WP Editor
 						if ( $('.anva-wp-editor').length > 0) {
@@ -336,10 +336,10 @@ jQuery(document).ready(function($) {
 						}
 
 						// HTML5 Range Input
-						$('.rangeslider').on( 'mousemove', function() {
-							var $ele = $(this);
-							$ele.next('output').text( $ele.val() );
-						}).trigger('mousemove');
+						// $('.rangeslider').on( 'mousemove', function() {
+						// 	var $ele = $(this);
+						// 	$ele.next('output').text( $ele.val() );
+						// }).trigger('mousemove');
 
 						// Scroll to item
 						s.root.animate({

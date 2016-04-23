@@ -33,7 +33,12 @@ get_header();
 					</div><!-- .entry-content -->
 					
 					<!-- CONTACT FORM (start)-->
-					<?php anva_contact_form(); ?>
+					<?php
+						/**
+						 * @hooked anva_contact_form_default
+						 */
+						do_action( 'anva_contact_form' );
+					?>
 					<!-- CONTACT FORM (end) -->
 
 				</article><!-- #post-<?php the_ID(); ?> -->
