@@ -414,6 +414,11 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 
 .dark .entry { border-bottom-color: rgba(255,255,255,0.08); }
 
+.dark .entry.sticky {
+    background: #444;
+    border-color: #555;
+}
+
 .dark .entry-title h2 a,
 .dark .ipost .entry-title h3 a,
 .dark .ipost .entry-title h4 a { color: #EEE; }

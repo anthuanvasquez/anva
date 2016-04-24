@@ -24,8 +24,8 @@
 
         <div class="col_half nobottommargin col_last">
             <div class="heading-block nobottomborder">
-                <h4><?php echo anva_get_local( '404_sub_title' ); ?></h4>
-                <span><?php echo anva_get_local( '404_description' ); ?></span>
+                <h4><?php anva_local( '404_sub_title' ); ?></h4>
+                <span><?php anva_local( '404_description' ); ?></span>
             </div>
             <form action="<?php echo home_url( '/' ); ?>" method="get" role="form" class="nobottommargin">
                 <div class="input-group input-group-lg">

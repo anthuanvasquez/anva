@@ -43,8 +43,8 @@ jQuery(document).ready(function($) {
         },
 
         datePicker: function() {
-            if ( $('.anva-datepicker').length > 0 ) {
-                $('.anva-datepicker').datepicker({
+            if ( $('.anva-date-picker').length > 0 ) {
+                $('.anva-date-picker').datepicker({
                     showAnim: 'slideDown',
                     dateFormat: 'd MM, yy'
                 });
@@ -186,10 +186,10 @@ jQuery(document).ready(function($) {
             // Select Show Hide
             $('.section-select.show-hide select').each(function(){
                 var el        = $(this),
-                    value     = el.val(), 
+                    value     = el.val(),
                     trigger   = el.closest('.section').data('trigger'),
                     receivers = el.closest('.section').data('receivers'),
-                    loop      = receivers.split(' ');               
+                    loop      = receivers.split(' ');
                 if ( value == trigger ) {
                     $.each( loop, function(index, el) {
                         $('#section-' + el).show();
@@ -203,10 +203,10 @@ jQuery(document).ready(function($) {
 
             $('.section-select.show-hide select').on( 'change', function() {
                 var el        = $(this),
-                    value     = el.val(), 
+                    value     = el.val(),
                     trigger   = el.closest('.section').data('trigger'),
                     receivers = el.closest('.section').data('receivers'),
-                    loop      = receivers.split(' ');               
+                    loop      = receivers.split(' ');
                 if ( value == trigger ) {
                     $.each( loop, function(index, el) {
                         $('#section-' + el).show();
@@ -221,10 +221,10 @@ jQuery(document).ready(function($) {
             // Checkbox Show Hide
             $('.section-checkbox.show-hide input.anva-checkbox').each( function() {
                 var el        = $(this),
-                    value     = el.val(), 
+                    value     = el.val(),
                     trigger   = el.closest('.section').data('trigger'),
                     receivers = el.closest('.section').data('receivers'),
-                    loop      = receivers.split(' ');               
+                    loop      = receivers.split(' ');
                 if ( el.is(':checked') ) {
                     $.each( loop, function(index, el) {
                         $('#section-' + el).show();
@@ -238,10 +238,10 @@ jQuery(document).ready(function($) {
 
             $('.section-checkbox.show-hide input.anva-checkbox').on( 'click', function() {
                 var el        = $(this),
-                    value     = el.val(), 
+                    value     = el.val(),
                     trigger   = el.closest('.section').data('trigger'),
                     receivers = el.closest('.section').data('receivers'),
-                    loop      = receivers.split(' ');               
+                    loop      = receivers.split(' ');
                 if ( el.is(':checked') ) {
                     $.each( loop, function(index, el) {
                         $('#section-' + el).show();
@@ -273,7 +273,7 @@ jQuery(document).ready(function($) {
                     closeOnConfirm: true,
                     closeOnCancel: true
                 }, function( isConfirm ) {
-                    
+
                     if ( isConfirm ) {
                         $ele.fadeOut();
                         setTimeout( function() {
@@ -336,7 +336,7 @@ jQuery(document).ready(function($) {
                     }
                 });
             });
-            
+
             $(document).on( 'click', '#add-contact-field', function() {
                 var $new = $('#contact_fields option:selected').text();
                 var $value = $('#contact_fields option:selected').val();

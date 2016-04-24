@@ -24,8 +24,9 @@ Desktop.ini
 .sass-cache
 prepros.cfg
 config.codekit
-/build
-/build-theme
+/.tools/src
+/.tools/build
+/.tools/build-theme
 /.tools/npm-debug.log
 /.tools/node_modules
 /.tools/bower_components

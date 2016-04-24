@@ -357,11 +357,11 @@
   display: block;
 }
 
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-  background: #f2f2f2 !important;
-  border-color: #ccc !important;
+.anva-range-slider .ui-state-default,
+.anva-range-slider .ui-widget-content .ui-state-default,
+.anva-range-slider .ui-widget-header .ui-state-default {
+  background: #f2f2f2;
+  border-color: #ccc;
   border-radius: 50%;
   box-shadow: 0 1px 0 #d8d8d8;
 }

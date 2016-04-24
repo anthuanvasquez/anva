@@ -4572,6 +4572,11 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay {
   font-family: 'Crete Round', serif;
   font-style: italic;
 }
+.entry.sticky {
+  background-color: #f5f5f5;
+  border: 1px solid #eee;
+  padding: 20px 20px 0;
+}
 .entry-image {
   margin-bottom: 30px;
 }

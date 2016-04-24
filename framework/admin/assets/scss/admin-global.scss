@@ -9,7 +9,7 @@
 /* General
 /* --------------------------------------------------------- */
 
-#anva-framework {
+.anva-framework {
 
     input[type="text"],
     input[type="tel"],
@@ -45,7 +45,7 @@
     textarea {
         color: #666;
     }
-    
+
     // Labels
     label {
         &:before,
@@ -53,14 +53,14 @@
             box-sizing: border-box;
         }
     }
-    
+
     // Section Headings
     h3 {
         background-color: #fff;
         border-bottom: 1px solid #eee;
         cursor: default;
     }
-    
+
     // Text
     p {
         margin-bottom:0;
@@ -81,9 +81,9 @@
             box-shadow: none;
         }
     }
-    
+
     // Group
-    
+
     .group {
         padding-bottom: 0px;
     }
@@ -136,7 +136,7 @@
 /* Sections
 /* --------------------------------------------------------- */
 
-#anva-framework {
+.anva-framework {
 
     .section {
         border-bottom: 1px solid #eee;
@@ -148,7 +148,7 @@
             content: "";
             display: table;
         }
-        
+
         &:after {
             clear: both;
         }
@@ -157,7 +157,7 @@
             font-size: 14px;
             margin: 0 0 15px;
         }
-        
+
         > .option {
             &:before,
             &:after {
@@ -168,7 +168,7 @@
                 clear: both;
             }
         }
-        
+
         .controls {
             float: left;
             min-width: 320px;
@@ -202,7 +202,7 @@
                 line-height: 1;
                 margin-bottom: 10px;
                 position: relative;
-               
+
                 > span {
                     box-sizing: border-box;
                     color: #666;
@@ -281,8 +281,8 @@
 /* Section Options
 /* --------------------------------------------------------- */
 
-#anva-framework {
-    
+.anva-framework {
+
     // Description
     .section-description {
         background: #f7f7f7;
@@ -291,7 +291,7 @@
         margin: 0 -15px;
         padding: 20px 15px;
     }
-    
+
     // Checkbox Option
     .section-checkbox {
         &:first-child {
@@ -306,7 +306,7 @@
             max-width: 94%;
         }
     }
-    
+
     // Logo Option
     .section-logo {
 
@@ -356,7 +356,7 @@
             }
         }
     }
-    
+
     // Social Icons Option
     .section-social_media {
         span {
@@ -386,7 +386,7 @@
             width: 48%;
         }
     }
-    
+
     // Sidebar Option
     .section-sidebar {
         .dynamic-sidebars {
@@ -441,7 +441,7 @@
             }
         }
     }
-    
+
     // Contact Fields Option
     .section-contact_fields {
         .dynamic-contact-fields {
@@ -503,7 +503,7 @@
             line-height: 29px;
         }
     }
-    
+
     // Double Text Option
     .section-double_text {
         .double-inputs {
@@ -517,7 +517,7 @@
             }
         }
     }
-    
+
     // Code Editor
     .section-code {
         .controls,
@@ -537,7 +537,7 @@
 /* Background
 /* --------------------------------------------------------- */
 
-#anva-framework {
+.anva-framework {
     .anva-background-properties {
         clear:both;
         margin-top: 18px;
@@ -563,7 +563,7 @@
 /* Radio
 /* --------------------------------------------------------- */
 
-#anva-framework {
+.anva-framework {
     .controls {
         .anva-radio-img-label {
             margin: 5px 0 0;
@@ -631,14 +631,14 @@
             opacity:.8;
         }
     }
-} 
+}
 
 /* --------------------------------------------------------- */
 /* Section Notices
 /* --------------------------------------------------------- */
 
-#anva-framework {
-    
+.anva-framework {
+
     .section-info {
         border: 1px solid #ddd;
         border-left: 6px solid #00c8fa;
@@ -668,7 +668,7 @@
         a {
             text-decoration: none;
         }
-        
+
         > h4 {
             font-weight: bold;
             margin: 0;
@@ -681,7 +681,7 @@
 /* Buttons
 /* --------------------------------------------------------- */
 
-#anva-framework {
+.anva-framework {
 
     .group-button {
         border-collapse: separate;
@@ -695,7 +695,7 @@
             white-space: nowrap;
             width: 1%;
             vertical-align: middle;
-            
+
             .button {
                 border-radius: 0;
                 box-shadow: none;
@@ -788,7 +788,7 @@
             }
         }
     }
-    
+
     // Upload Option
     .section-upload,
     .section-background {
@@ -802,8 +802,8 @@
 
 }
 
-#anva-framework .section-radio label,
-#anva-framework .section-multicheck label {
+.anva-framework .section-radio label,
+.anva-framework .section-multicheck label {
     max-width: 90%;
     line-height: 16px;
 }
@@ -812,37 +812,37 @@
 /* Helpers
 /* --------------------------------------------------------- */
 
-// #anva-framework .controls .anva-border-width {
+// .anva-framework .controls .anva-border-width {
 //     width: 80px;
 //     float: left;
 // }
 
-// #anva-framework .controls .anva-border-style {
+// .anva-framework .controls .anva-border-style {
 //     width: 120px;
 //     float: left;
 // }
 
-#anva-framework .hide {
+.anva-framework .hide {
     display:none;
 }
 
-#anva-framework .anva-option-image {
+.anva-framework .anva-option-image {
     max-width: 340px;
     margin: 3px 0 18px 0;
 }
 
-#anva-framework .mini .controls select,
-#anva-framework .section .mini .controls {
+.anva-framework .mini .controls select,
+.anva-framework .section .mini .controls {
     width: 140px;
 }
 
-#anva-framework .mini .controls input,
-#anva-framework .mini .controls {
+.anva-framework .mini .controls input,
+.anva-framework .mini .controls {
     min-width:140px;
     width: 140px;
 }
 
-#anva-framework .mini .explain {
+.anva-framework .mini .explain {
     max-width: 74%;
 }
 
@@ -850,7 +850,7 @@
 /* Editor
 /* --------------------------------------------------------- */
 
-#anva-framework .section-editor .explain {
+.anva-framework .section-editor .explain {
     max-width: 98%;
     float:none;
     margin-bottom:5px;

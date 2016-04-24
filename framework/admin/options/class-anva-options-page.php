@@ -34,7 +34,7 @@ class Anva_Options_Page
 	 * @since 1.0.0
 	 */
 	public static function instance()
-	{	
+	{
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -51,7 +51,7 @@ class Anva_Options_Page
 	public function __construct()
 	{
 		if ( is_admin() && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
-			
+
 			// Gets options to load
 			$options = anva_get_options();
 
@@ -92,7 +92,7 @@ class Anva_Options_Page
 
 		// Registers the settings fields and callback
 		register_setting( 'anva_options_page_settings', $name, array( $this, 'validate_options' ) );
-		
+
 		// Displays notice after options save
 		add_action( 'anva_options_page_after_validate', array( $this, 'save_options_notice' ) );
 	}
@@ -152,7 +152,7 @@ class Anva_Options_Page
 	{
 		if ( $this->options_screen != $hook )
 			return;
-		
+
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.css', array(), '5.13.2' );
 		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
@@ -160,7 +160,7 @@ class Anva_Options_Page
 		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
 		wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
 		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options-page.min.css', array(), ANVA_FRAMEWORK_VERSION );
-		
+
 	}
 
 	/**
@@ -184,7 +184,7 @@ class Anva_Options_Page
 		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
 		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options-page.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
-		
+
 		// Inline scripts from anva-options-interface.php
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
 	}
@@ -221,18 +221,18 @@ class Anva_Options_Page
 			<?php
 				$menu = $this->menu_settings();
 				$options = anva_get_options();
-			 	
+
 			 	printf( '<h2>%1$s <span>%3$s<em>%2$s</em></span></h2>', esc_html( $menu['page_title'] ), anva_get_theme( 'version' ), __( 'Version', 'anva' ) );
 			 ?>
-			
+
 			<?php do_action( 'anva_options_page_top' ); ?>
-			
+
 			<?php settings_errors( 'anva-options-page-errors' ); ?>
 
 			<h2 class="nav-tab-wrapper">
 				<?php echo anva_get_options_tabs( $options ); ?>
 			</h2>
-			
+
 			<?php do_action( 'anva_options_page_before' ); ?>
 
 			<div id="anva-framework-metabox" class="metabox-holder">
@@ -242,11 +242,11 @@ class Anva_Options_Page
 							<input type="hidden" id="option_name" value="<?php echo anva_get_option_name(); ?>" >
 							<?php
 								settings_fields( 'anva_options_page_settings' );
-								
+
 								// Settings
 								$option_name = anva_get_option_name();
 								$settings = get_option( $option_name );
-								
+
 								// Fields
 								anva_get_options_fields( $option_name, $settings, $options );
 							?>
@@ -302,7 +302,7 @@ class Anva_Options_Page
 		 * In the event that the user clicked the "Restore Defaults"
 		 * button, the options defined in the theme's options.php
 		 * file will be added to the option for the active theme.
-		 * 
+		 *
 		 */
 		if ( isset( $_POST['reset'] ) ) {
 
@@ -323,9 +323,9 @@ class Anva_Options_Page
 		 */
 
 		$clean = array();
-		
+
 		$options = anva_get_options();
-		
+
 		foreach ( $options as $option ) {
 
 			if ( ! isset( $option['id'] ) ) {
@@ -395,10 +395,10 @@ class Anva_Options_Page
 	 *
 	 */
 	function get_default_values()
-	{	
+	{
 		$output = array();
 		$config = anva_get_options();
-		
+
 		foreach ( (array) $config as $option ) {
 			if ( ! isset( $option['id'] ) ) {
 				continue;

@@ -61,7 +61,7 @@ class Anva_Scripts_API {
 	}
 
 	/**
-	 * Set core framework script
+	 * Set core framework script.
 	 */
 	public function set_framework_scripts() {
 

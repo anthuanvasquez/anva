@@ -66,7 +66,7 @@ function anva_register_menus() {
  * @return array $classes
  */
 function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 ) {
-	
+
 	// Add level to menu
 	$classes[] = sprintf( 'level-%s', $depth + 1 );
 
@@ -86,7 +86,7 @@ function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 )
  * @return string  $text
  */
 function anva_get_theme( $id ) {
-	
+
 	$text  = NULL;
 	$theme = wp_get_theme();
 
@@ -111,7 +111,7 @@ function anva_get_theme( $id ) {
  * Set allowed tags.
  *
  * @global $allowedposttags
- * 
+ *
  * @since  1.0.0
  * @return array $tags
  */
@@ -267,6 +267,10 @@ function anva_get_sidebar_layouts() {
 	return apply_filters( 'anva_sidebar_layouts', $layouts );
 }
 
+function anva_column_class( $column ) {
+	echo anva_get_column_class( $column );
+}
+
 /**
  * Get layout column classes.
  *
@@ -275,17 +279,17 @@ function anva_get_sidebar_layouts() {
  * @return string $column_class
 */
 function anva_get_column_class( $column ) {
-	
+
 	$layout         = '';
 	$column_class   = '';
 	$sidebar_layout = anva_get_sidebar_layouts();
 	$current_layout = anva_get_post_meta( '_anva_sidebar_layout' );
-	
+
 	// Get sidebar location
 	if ( isset( $current_layout['layout'] ) ) {
 		$layout = $current_layout['layout'];
 	}
-	
+
 	// Set default sidebar layout
 	if ( empty( $layout ) ) {
 		$layout = anva_get_option( 'sidebar_layout', 'right' );
@@ -440,7 +444,7 @@ function anva_get_header_types() {
 
 /**
  * Get side panel types.
- * 
+ *
  * @return array $side_panels
  */
 function anva_get_side_panel_types() {
@@ -639,12 +643,12 @@ function anva_get_config( $key = '' ) {
 
 /**
  * Setup page areas for display content.
- * 
+ *
  * @since  1.0.0
  * @return array $setup
  */
 function anva_setup_areas() {
-	
+
 	// Setup array
 	$setup = array(
 		'featured' => array(
@@ -677,7 +681,7 @@ function anva_get_area( $group, $area ) {
 
 	$setup   = anva_setup_areas();
 	$support = false;
-	
+
 	if ( ! empty( $setup ) && ! empty( $setup[ $group ][ $area ] ) ) {
 		$support = true;
 	}
@@ -709,7 +713,7 @@ function anva_deprecated_function( $function, $version, $replacement = null, $me
 
 /**
  * Generates default column widths for column element.
- * 
+ *
  * @since  1.0.0
  * @return array $widths
  */
@@ -847,7 +851,7 @@ function anva_column_widths() {
 
 /**
  * Get footer widget columns.
- * 
+ *
  * @since  1.0.0
  * @return array  $columns
  */
@@ -894,14 +898,14 @@ function anva_get_footer_widget_columns() {
  * @return void
  */
 function anva_register_footer_sidebar_locations() {
-	
+
 	$footer = anva_get_option( 'footer_setup' );
 
 	// Register footer locations
 	if ( isset( $footer['num'] ) && $footer['num'] > 0 ) {
-	
+
 		$columns = anva_get_footer_widget_columns();
-		
+
 		foreach ( $columns as $key => $value ) {
 			if ( isset( $value['col'] ) ) {
 				anva_add_sidebar_location( $value['id'], $value['name'] );
@@ -986,7 +990,7 @@ function anva_columns( $num, $widths, $columns ) {
 
 /**
  * Get gallery templates.
- * 
+ *
  * @since  1.0.0
  * @return array  $templates
  */
@@ -1037,19 +1041,32 @@ function anva_gallery_templates() {
 }
 
 /**
- * Return the post meta field
- * 
- * @since 1.0.0
+ * Get the post meta field.
+ *
+ * @since  1.0.0
+ * @param  string $field
+ * @return string
  */
 function anva_get_post_meta( $field ) {
-	
+
 	global $post;
 
 	if ( ! is_object( $post ) ) {
 		return false;
 	}
-	
+
 	return get_post_meta( $post->ID, $field, true );
+}
+
+/**
+ * Post meta field.
+ *
+ * @since  1.0.0
+ * @param  string $field
+ * @return string
+ */
+function anva_the_post_meta( $field ) {
+    echo anva_get_post_meta( $field );
 }
 
 /**
@@ -1060,14 +1077,14 @@ function anva_get_post_meta( $field ) {
  * @return array  $gallery  The sorted galleries
  */
 function anva_sort_gallery( $gallery ) {
-	
+
 	$sorted = array();
 	$order = anva_get_option( 'gallery_sort' );
-	
+
 	if ( ! empty( $order ) && ! empty ( $gallery ) ) {
-		
+
 		switch ( $order ) {
-			
+
 			case 'drag':
 				foreach( $gallery as $key => $attachment_id ) {
 					$sorted[$key] = $attachment_id;
@@ -1077,26 +1094,26 @@ function anva_sort_gallery( $gallery ) {
 			case 'desc':
 				foreach( $gallery as $key => $attachment_id ) {
 					$meta = get_post( $attachment_id );
-					$date = strtotime( $meta->post_date );	
+					$date = strtotime( $meta->post_date );
 					$sorted[$date] = $attachment_id;
 					krsort( $sorted );
 				}
 				break;
-			
+
 			case 'asc':
 				foreach( $gallery as $key => $attachment_id ) {
 					$meta = get_post( $attachment_id );
-					$date = strtotime( $meta->post_date );	
+					$date = strtotime( $meta->post_date );
 					$sorted[$date] = $attachment_id;
 					ksort( $sorted );
 				}
 				break;
-			
+
 			case 'rand':
 				shuffle( $gallery );
 				$sorted = $gallery;
 				break;
-			
+
 			case 'title':
 				foreach( $gallery as $key => $attachment_id ) {
 					$meta = get_post( $attachment_id );
@@ -1106,11 +1123,11 @@ function anva_sort_gallery( $gallery ) {
 				}
 				break;
 		}
-		
+
 		return $sorted;
 
 	}
-	
+
 	return $gallery;
 }
 
@@ -1121,11 +1138,11 @@ function anva_sort_gallery( $gallery ) {
  * @return array The post list
  */
 function anva_get_query_posts( $query_args = '' ) {
-	
+
 	$number = get_option( 'posts_per_page' );
 	$page 	= get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 	$offset = ( $page - 1 ) * $number;
-	
+
 	if ( empty( $query_args ) ) {
 		$query_args = array(
 			'post_type'  			=> array( 'post' ),
@@ -1141,7 +1158,7 @@ function anva_get_query_posts( $query_args = '' ) {
 
 	$query_args = apply_filters( 'anva_get_query_posts_args', $query_args );
 	$query = new WP_Query( $query_args );
-	
+
 	return $query;
 }
 
@@ -1207,7 +1224,7 @@ function anva_admin_menu_bar() {
 
 	$default_node = array(
 		'id'    => $node,
-		'title' => __( 'Anva', 'anva' ),
+		'title' => __( 'Anva Options', 'anva' ),
 		'meta'  => array( 'class' => 'anva-admin-bar-node' )
 	);
 
@@ -1240,7 +1257,7 @@ function anva_admin_menu_bar() {
 
 /**
  * Contact email.
- * 
+ *
  * @todo Move to extensions
  *
  * @since 1.0.0
@@ -1258,7 +1275,7 @@ function anva_contact_send_email() {
 		$subject 	= $_POST['csubject'];
 		$message 	= $_POST['cmessage'];
 		$captcha 	= $_POST['ccaptcha'];
-		
+
 		// Validate name
 		if ( sanitize_text_field( $name ) == '' ) {
 			$has_error = true;
@@ -1283,24 +1300,24 @@ function anva_contact_send_email() {
 		if ( sanitize_text_field( $captcha ) == '' ) {
 			$has_error = true;
 		}
-		
+
 		// Body Mail
 		if ( ! isset( $has_error ) ) {
 
 			// Change to dynamic
 			$email_to = '';
-			
+
 			if ( ! isset( $email_to ) || ( $email_to == '' ) ) {
 				$email_to = get_option( 'admin_email' );
 			}
-			
+
 			$email_body		 = "";
 			$email_body 	.= "Name: $name\n\n";
 			$email_body 	.= "E-email: $email\n\n";
 			$email_body 	.= "Message: \n\n$message";
 			$email_subject 	 = '['. $subject . '] From ' . $name;
 			$headers 		 = 'From: ' . $name . ' <' . $email_to . '>' . "\r\n" . 'Reply-To: ' . $email;
-			
+
 			wp_mail( $email_to, $email_subject, $email_body, $headers );
 
 			$email_sent = true;
@@ -1311,7 +1328,7 @@ function anva_contact_send_email() {
 	if ( isset( $email_sent ) && $email_sent == true ) :
 
 		$_email_sended_message = anva_get_local( 'submit_message' );
-		
+
 		// Clear form after submit
 		unset(
 			$_POST['cname'],
@@ -1320,7 +1337,7 @@ function anva_contact_send_email() {
 			$_POST['cmessage'],
 			$_POST['ccaptcha']
 		);
-		
+
 	else :
 		if ( isset( $has_error ) ) :
 			$_email_sended_message = anva_get_local( 'submit_error' );

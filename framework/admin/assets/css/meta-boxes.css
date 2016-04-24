@@ -1,13 +1,13 @@
-#anva-framework {
-  margin: 0 0 -12px;
+.anva-framework {
+  margin: -6px 0 -12px;
 }
 
-#anva-framework .nav-tab-wrapper {
+.anva-framework .nav-tab-wrapper {
   border-bottom: 1px solid #ddd !important;
   padding-bottom: 0 !important;
 }
 
-#anva-framework .nav-tab {
+.anva-framework .nav-tab {
   background: #e4e4e4;
   color: #555;
   font-size: 13px;
@@ -18,57 +18,48 @@
   text-align: center;
 }
 
-#anva-framework .nav-tab:hover {
+.anva-framework .nav-tab:hover {
   background: #fff;
 }
 
-#anva-framework .nav-tab-active {
+.anva-framework .nav-tab-active {
   background: #fff;
   border-bottom: 1px solid #fff;
 }
 
-#anva-framework .postbox {
+.anva-framework .postbox {
   border: 0;
   box-shadow: none;
   background: transparent;
   min-width: 0;
 }
 
-#anva-framework h4.heading {
+.anva-framework h4.heading {
   margin-top: 0;
 }
 
-#anva-framework .section {
+.anva-framework .section {
   margin: 0 -12px !important;
 }
 
-#normal-sortables .controls,
-#normal-sortables .explain,
-#advanced-sortables .controls,
-#advanced-sortables .explain {
-  float: left;
-  padding-right: 4%;
-  width: 54%;
-}
-
-#normal-sortables .explain,
-#advanced-sortables .explain {
-  max-width: 42%;
-  margin-top: 0;
-  padding-right: 0;
-}
-
-#side-sortables .controls,
-#side-sortables .explain {
+#side-sortables .anva-framework .section .controls,
+#side-sortables .anva-framework .section .explain {
   float: none;
+  min-width: 100%;
+  max-width: 100%;
   width: 100%;
 }
 
-#side-sortables .controls:before, #side-sortables .controls:after {
+#side-sortables .anva-framework .section .controls:before, #side-sortables .anva-framework .section .controls:after {
   content: "";
   display: table;
 }
 
-#side-sortables .controls:after {
+#side-sortables .anva-framework .section .controls:after {
   clear: both;
+}
+
+#side-sortables .anva-framework .section-description,
+#side-sortables .anva-framework .section {
+  padding: 15px 12px;
 }

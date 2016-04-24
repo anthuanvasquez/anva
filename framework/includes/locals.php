@@ -63,7 +63,7 @@ function anva_get_text_locals() {
 		'day'                  => __( 'Day', 'anva' ),
 		'author'               => __( 'Author', 'anva' ),
 		'asides'               => __( 'Asides', 'anva' ),
-		'galleries'            => __( 'Galleries', 'anva'),
+		'galleries'            => __( 'Galleries', 'anva' ),
 		'images'               => __( 'Images', 'anva'),
 		'videos'               => __( 'Videos', 'anva' ),
 		'quotes'               => __( 'Quotes', 'anva' ),
@@ -77,7 +77,7 @@ function anva_get_text_locals() {
 		'name_required'        => __( 'Please enter your name.', 'anva' ),
 		'email'                => __( 'E-Mail', 'anva' ),
 		'email_place'          => __( 'E-Mail', 'anva' ),
-		'email_required'       => __( 'Please enter a valid Email.', 'anva'),
+		'email_required'       => __( 'Please enter a valid Email.', 'anva' ),
 		'email_error'          => __( 'The E-Mail must have a valid format ex. name@email.com.', 'anva' ),
 		'subject'              => __( 'Subject', 'anva' ),
 		'subject_required'     => __( 'Please enter a subject.', 'anva' ),
@@ -101,7 +101,7 @@ function anva_get_text_locals() {
 		'add_autop'            => __( 'Add automatic Paragraph', 'anva' ),
 		'featured_image'       => __( 'Featured Image', 'anva' ),
 		'options'              => __( 'Options', 'anva' ),
-		'browsehappy'          => __( 'You are using an outdated browser. Update your browser to <a href="%s">improve your web experience</a>.', 'anva' ),
+		'browsehappy'          => sprintf( '%1$s <a href="%3$s">%2$s</a>', __( 'You are using an outdated browser. Update your browser to', 'anva' ), __( 'improve your web experience.', 'anva' ), esc_url( 'http://browsehappy.com/' ) ),
 		'skype'                => __( 'Skype', 'anva' ),
 		'phone'                => __( 'Phone', 'anva' ),
 		'title'                => __( 'Title', 'anva' ),
@@ -126,6 +126,17 @@ function anva_get_text_locals() {
 }
 
 /**
+ * Separate local.
+ *
+ * @since  1.0.0.
+ * @param  string $id
+ * @return string
+ */
+function anva_local( $id ) {
+	echo anva_get_local( $id );
+}
+
+/**
  * Get separate local.
  *
  * @since  1.0.0
@@ -143,16 +154,6 @@ function anva_get_local( $id ) {
 
 	// Sanitize the output
 	return esc_html( $text );
-}
-/**
- * Separate local.
- *
- * @since  1.0.0.
- * @param  string $id
- * @return string
- */
-function anva_the_local( $id ) {
-	echo anva_get_local( $id );
 }
 
 /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for woocommerce plugin.
+ * The template file for woocommerce plugin support.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -21,7 +21,7 @@ get_header();
 
 	<?php get_sidebar( 'left' ); ?>
 
-	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
+	<div class="<?php anva_column_class( 'content' ); ?>">
 		<?php woocommerce_content(); ?>
 	</div><!-- .postcontent (end) -->
 

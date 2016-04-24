@@ -17,7 +17,7 @@ function anva_options() {
 
 	// Assets
 	$skin_path = trailingslashit( get_template_directory_uri() . '/assets/images/skins' );
-	
+
 	// Skin Colors
 	$schemes = array();
 	foreach ( anva_get_colors_scheme( $skin_path, 'jpg' ) as $color_id => $color ) {
@@ -45,7 +45,7 @@ function anva_options() {
 	foreach ( anva_get_animations() as $animation_id => $animation ) {
 		$animations[ $animation ] = $animation;
 	}
-	
+
 	$transition_animations = array(
 		'fadeIn'    => 'fadeIn',
 		'fadeOut'   => 'fadeOut',
@@ -403,7 +403,7 @@ function anva_options() {
 			),
 			'background_cover' => array(
 				'name' => NULL,
-				'desc' => __( 'Fill the screen using a background size cover.', 'anva' ),
+				'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Cover', 'anva' ), __( 'Fill background screen with the image.', 'anva' ) ),
 				'id' => 'background_cover',
 				'std' => '0',
 				'type' => 'checkbox'
@@ -581,7 +581,7 @@ function anva_options() {
 	);
 
 	anva_add_option_tab( 'styles', __( 'Styles', 'anva'), true, 'admin-appearance' );
-	anva_add_option_section( 'styles', 'sty_main', 		__( 'Main', 'nava' ), 		  NULL, $styles['main'] );
+	anva_add_option_section( 'styles', 'main', 			__( 'Main', 'anva' ), 		  NULL, $styles['main'] );
 	anva_add_option_section( 'styles', 'links', 	 	__( 'Links', 'anva' ), 		  NULL, $styles['links'], false );
 	anva_add_option_section( 'styles', 'header',	  	__( 'Header', 'anva' ), 	  NULL, $styles['header'], false  );
 	anva_add_option_section( 'styles', 'navigation',  	__( 'Navigation', 'anva' ),   NULL, $styles['navigation'], false  );
@@ -615,7 +615,7 @@ function anva_options() {
 
 	$animations = array();
 	foreach ( anva_get_animations() as $key => $value ) {
-		$animations[ $value ] = $value; 
+		$animations[ $value ] = $value;
 	}
 
 	// Pull all gallery templates
@@ -637,7 +637,7 @@ function anva_options() {
 	if ( class_exists( 'RevSliderAdmin' ) ) {
 		$slider_select['revslider'] = 'Revolution Slider';
 	}
-	
+
 	// Get dynamic slider options
 	foreach ( $sliders as $slider_id => $slider ) {
 		foreach ( $slider['options'] as $option_id => $option ) {
@@ -673,7 +673,7 @@ function anva_options() {
 			'type' => 'select',
 			'options' => array(
 				'menu_icons' => __( 'Menu + Social Icons', 'anva' ),
-				'icons_menu' => __( 'Social Icons + Menu', 'anva' ),	
+				'icons_menu' => __( 'Social Icons + Menu', 'anva' ),
 			)
 		),
 		'side_panel_type' => array(

@@ -606,13 +606,13 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 /* --------------------------------------------------------- */
 /* General
 /* --------------------------------------------------------- */
-#anva-framework input[type="text"],
-#anva-framework input[type="tel"],
-#anva-framework input[type="email"],
-#anva-framework input[type="url"],
-#anva-framework input[type="datetime"],
-#anva-framework input[type="number"],
-#anva-framework input[type="password"] {
+.anva-framework input[type="text"],
+.anva-framework input[type="tel"],
+.anva-framework input[type="email"],
+.anva-framework input[type="url"],
+.anva-framework input[type="datetime"],
+.anva-framework input[type="number"],
+.anva-framework input[type="password"] {
   box-shadow: 0 0 4px #eee;
   color: #666;
   height: 33px;
@@ -621,8 +621,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   width: 100%;
 }
 
-#anva-framework input[type="radio"],
-#anva-framework input[type="checkbox"] {
+.anva-framework input[type="radio"],
+.anva-framework input[type="checkbox"] {
   box-sizing: border-box;
   line-height: normal;
   margin: 4px 0 0;
@@ -630,59 +630,59 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 0 !important;
 }
 
-#anva-framework input.anva-checkbox,
-#anva-framework input.anva-radio {
+.anva-framework input.anva-checkbox,
+.anva-framework input.anva-radio {
   margin: 0 10px 5px 0;
   clear: both;
 }
 
-#anva-framework select,
-#anva-framework textarea {
+.anva-framework select,
+.anva-framework textarea {
   color: #666;
 }
 
-#anva-framework label:before, #anva-framework label:after {
+.anva-framework label:before, .anva-framework label:after {
   box-sizing: border-box;
 }
 
-#anva-framework h3 {
+.anva-framework h3 {
   background-color: #fff;
   border-bottom: 1px solid #eee;
   cursor: default;
 }
 
-#anva-framework p {
+.anva-framework p {
   margin-bottom: 0;
   padding-bottom: 10px;
 }
 
-#anva-framework .ui-spinner {
+.anva-framework .ui-spinner {
   box-sizing: border-box;
   display: block;
   padding: 5px;
 }
 
-#anva-framework .anva-spinner {
+.anva-framework .anva-spinner {
   border: 0;
   box-shadow: none;
 }
 
-#anva-framework .anva-spinner:focus {
+.anva-framework .anva-spinner:focus {
   border: 0;
   box-shadow: none;
 }
 
-#anva-framework .group {
+.anva-framework .group {
   padding-bottom: 0px;
 }
 
-#anva-framework .inner-group {
+.anva-framework .inner-group {
   border-bottom: 4px solid #eee;
   padding: 10px 15px;
   position: relative;
 }
 
-#anva-framework .inner-group > h3 {
+.anva-framework .inner-group > h3 {
   margin: -10px -15px 0;
   cursor: pointer;
   -webkit-user-select: none;
@@ -691,11 +691,11 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
           user-select: none;
 }
 
-#anva-framework .inner-group > h3 + .section-checkbox {
+.anva-framework .inner-group > h3 + .section-checkbox {
   margin-top: 15px;
 }
 
-#anva-framework .inner-group > h3:before {
+.anva-framework .inner-group > h3:before {
   content: '\f142';
   color: #72777c;
   font: 400 20px/1 dashicons;
@@ -707,80 +707,80 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   text-decoration: none !important;
 }
 
-#anva-framework .inner-group.collapse-close {
+.anva-framework .inner-group.collapse-close {
   padding-bottom: 0;
 }
 
-#anva-framework .inner-group.collapse-close > h3 {
+.anva-framework .inner-group.collapse-close > h3 {
   margin-bottom: 0;
 }
 
-#anva-framework .inner-group.collapse-close > h3:before {
+.anva-framework .inner-group.collapse-close > h3:before {
   content: '\f140';
 }
 
-#anva-framework .inner-group.collapse-close > div {
+.anva-framework .inner-group.collapse-close > div {
   display: none !important;
 }
 
 /* --------------------------------------------------------- */
 /* Sections
 /* --------------------------------------------------------- */
-#anva-framework .section {
+.anva-framework .section {
   border-bottom: 1px solid #eee;
   margin: 0 -15px;
   padding: 15px;
 }
 
-#anva-framework .section:before, #anva-framework .section:after {
+.anva-framework .section:before, .anva-framework .section:after {
   content: "";
   display: table;
 }
 
-#anva-framework .section:after {
+.anva-framework .section:after {
   clear: both;
 }
 
-#anva-framework .section h4.heading {
+.anva-framework .section h4.heading {
   font-size: 14px;
   margin: 0 0 15px;
 }
 
-#anva-framework .section > .option:before, #anva-framework .section > .option:after {
+.anva-framework .section > .option:before, .anva-framework .section > .option:after {
   content: "";
   display: table;
 }
 
-#anva-framework .section > .option:after {
+.anva-framework .section > .option:after {
   clear: both;
 }
 
-#anva-framework .section .controls {
+.anva-framework .section .controls {
   float: left;
   min-width: 320px;
   width: 54%;
   padding-right: 4%;
 }
 
-#anva-framework .section .controls input[type=text],
-#anva-framework .section .controls input[type=number] {
+.anva-framework .section .controls input[type=text],
+.anva-framework .section .controls input[type=number] {
   border-radius: 0;
   width: 100%;
 }
 
-#anva-framework .section .controls input[type=text].wp-color-picker {
+.anva-framework .section .controls input[type=text].wp-color-picker {
   margin-bottom: 0;
   height: 24px;
   width: 65px;
 }
 
-#anva-framework .section .controls select,
-#anva-framework .section .controls textarea {
+.anva-framework .section .controls select,
+.anva-framework .section .controls textarea {
   margin-bottom: 10px;
   width: 100%;
 }
 
-#anva-framework .section .controls .anva-select-label {
+.anva-framework .section .controls .anva-select-label {
   display: block;
   background-size: 7px 32px;
   border-radius: 0;
@@ -790,7 +790,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   position: relative;
 }
 
-#anva-framework .section .controls .anva-select-label > span {
+.anva-framework .section .controls .anva-select-label > span {
   box-sizing: border-box;
   color: #666;
   line-height: 33px;
@@ -804,7 +804,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   width: 100%;
 }
 
-#anva-framework .section .controls .anva-select-label select {
+.anva-framework .section .controls .anva-select-label select {
   margin-bottom: 0;
   filter: alpha(opacity=0);
   -moz-opacity: 0;
@@ -815,7 +815,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   z-index: 2;
 }
 
-#anva-framework .section .controls .anva-select-label:before {
+.anva-framework .section .controls .anva-select-label:before {
   content: "";
   border: 1px solid #dfdfdf;
   border-radius: 0;
@@ -830,7 +830,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   z-index: 1;
 }
 
-#anva-framework .section .controls .anva-select-label:after {
+.anva-framework .section .controls .anva-select-label:after {
   content: "";
   background: url(../images/fancy-select-trigger_2x.png) no-repeat;
   background-size: 25px 33px;
@@ -842,7 +842,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   height: 33px;
 }
 
-#anva-framework .section .controls .anva-select-label select {
+.anva-framework .section .controls .anva-select-label select {
   margin: 0;
   border-radius: 0;
   border: 1px solid #dfdfdf;
@@ -852,7 +852,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   cursor: pointer;
 }
 
-#anva-framework .section .explain {
+.anva-framework .section .explain {
   max-width: 42%;
   float: left;
   font-size: 13px;
@@ -863,7 +863,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 /* --------------------------------------------------------- */
 /* Section Options
 /* --------------------------------------------------------- */
-#anva-framework .section-description {
+.anva-framework .section-description {
   background: #f7f7f7;
   border-bottom: 1px solid #eee;
   color: #777;
@@ -871,24 +871,24 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 20px 15px;
 }
 
-#anva-framework .section-checkbox:first-child {
+.anva-framework .section-checkbox:first-child {
   margin-top: 15px;
 }
 
-#anva-framework .section-checkbox .controls {
+.anva-framework .section-checkbox .controls {
   padding-right: 0;
   width: 100%;
 }
 
-#anva-framework .section-checkbox .explain {
+.anva-framework .section-checkbox .explain {
   max-width: 94%;
 }
 
-#anva-framework .section-logo .logo-item {
+.anva-framework .section-logo .logo-item {
   display: none;
 }
 
-#anva-framework .section-logo .section {
+.anva-framework .section-logo .section {
   background: #fff;
   border: 1px solid #dfdfdf;
   border-radius: 0;
@@ -896,16 +896,16 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 12px 15px;
 }
 
-#anva-framework .section-logo .section label {
+.anva-framework .section-logo .section label {
   display: block;
   margin-bottom: 10px;
 }
 
-#anva-framework .section-logo .section:first-child {
+.anva-framework .section-logo .section:first-child {
   margin-top: 0;
 }
 
-#anva-framework .section-logo p.note {
+.anva-framework .section-logo p.note {
   color: #999;
   font-size: 12px;
   font-style: italic;
@@ -913,51 +913,51 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 5px;
 }
 
-#anva-framework .section-logo .screenshot {
+.anva-framework .section-logo .screenshot {
   background: #f9f9f9;
   border: 1px solid #eee;
   margin-top: 15px;
 }
 
-#anva-framework .section-logo .screenshot .remove-image {
+.anva-framework .section-logo .screenshot .remove-image {
   display: none;
   visibility: hidden;
 }
 
-#anva-framework .section-logo .screenshot img {
+.anva-framework .section-logo .screenshot img {
   background: transparent;
   border: 0;
   float: none;
 }
 
-#anva-framework .section-social_media span {
+.anva-framework .section-social_media span {
   display: block;
   line-height: 20px;
 }
 
-#anva-framework .section-social_media input.anva-radio,
-#anva-framework .section-social_media input.checkbox {
+.anva-framework .section-social_media input.anva-radio,
+.anva-framework .section-social_media input.checkbox {
   margin: 0 5px 0 0;
   float: none;
 }
 
-#anva-framework .section-social_media input[type="text"] {
+.anva-framework .section-social_media input[type="text"] {
   margin: 10px 0;
 }
 
-#anva-framework .section-social_media .column-1 {
+.anva-framework .section-social_media .column-1 {
   float: left;
   margin-right: 2%;
   width: 48%;
 }
 
-#anva-framework .section-social_media .column-2 {
+.anva-framework .section-social_media .column-2 {
   float: right;
   margin-right: 0%;
   width: 48%;
 }
 
-#anva-framework .section-sidebar .dynamic-sidebars ul {
+.anva-framework .section-sidebar .dynamic-sidebars ul {
   background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 0;
@@ -965,7 +965,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 10px;
 }
 
-#anva-framework .section-sidebar .dynamic-sidebars ul.empty:before {
+.anva-framework .section-sidebar .dynamic-sidebars ul.empty:before {
   content: 'Click on "Add" button';
   color: #bbb;
   display: block;
@@ -974,7 +974,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   text-align: center;
 }
 
-#anva-framework .section-sidebar .dynamic-sidebars ul li {
+.anva-framework .section-sidebar .dynamic-sidebars ul li {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 0;
@@ -984,27 +984,27 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   position: relative;
 }
 
-#anva-framework .section-sidebar .dynamic-sidebars ul li a {
+.anva-framework .section-sidebar .dynamic-sidebars ul li a {
   position: absolute;
   right: 15px;
   top: 15px;
   text-decoration: none;
 }
 
-#anva-framework .section-sidebar .dynamic-sidebars ul li:last-child {
+.anva-framework .section-sidebar .dynamic-sidebars ul li:last-child {
   margin-bottom: 0;
 }
 
-#anva-framework .section-layout .sidebar-layout .item {
+.anva-framework .section-layout .sidebar-layout .item {
   margin-top: 10px;
 }
 
-#anva-framework .section-layout .sidebar-layout .item label {
+.anva-framework .section-layout .sidebar-layout .item label {
   display: block;
   margin-bottom: 10px;
 }
 
-#anva-framework .section-contact_fields .dynamic-contact-fields ul {
+.anva-framework .section-contact_fields .dynamic-contact-fields ul {
   background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 0;
@@ -1012,7 +1012,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 10px;
 }
 
-#anva-framework .section-contact_fields .dynamic-contact-fields ul.empty:before {
+.anva-framework .section-contact_fields .dynamic-contact-fields ul.empty:before {
   content: 'Click on "Add" button';
   color: #bbb;
   display: block;
@@ -1021,7 +1021,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   text-align: center;
 }
 
-#anva-framework .section-contact_fields .dynamic-contact-fields ul li {
+.anva-framework .section-contact_fields .dynamic-contact-fields ul li {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 0;
@@ -1031,27 +1031,27 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   position: relative;
 }
 
-#anva-framework .section-contact_fields .dynamic-contact-fields ul li a {
+.anva-framework .section-contact_fields .dynamic-contact-fields ul li a {
   position: absolute;
   right: 15px;
   top: 15px;
   text-decoration: none;
 }
 
-#anva-framework .section-contact_fields .dynamic-contact-fields ul li:last-child {
+.anva-framework .section-contact_fields .dynamic-contact-fields ul li:last-child {
   margin-bottom: 0;
 }
 
-#anva-framework .section-columns .select-wrap {
+.anva-framework .section-columns .select-wrap {
   margin-right: 0;
   width: 100%;
 }
 
-#anva-framework .section-columns .select-wrap.last {
+.anva-framework .section-columns .select-wrap.last {
   margin-right: 0;
 }
 
-#anva-framework .section-columns p.inactive {
+.anva-framework .section-columns p.inactive {
   background: #f9f9f9;
   border: 1px solid #f2f2f2;
   border-radius: 2px;
@@ -1061,55 +1061,55 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   line-height: 29px;
 }
 
-#anva-framework .section-double_text .double-inputs .input-col {
+.anva-framework .section-double_text .double-inputs .input-col {
   float: left;
   margin-right: 4%;
   width: 48%;
 }
 
-#anva-framework .section-double_text .double-inputs .input-col.last {
+.anva-framework .section-double_text .double-inputs .input-col.last {
   margin-right: 0;
 }
 
-#anva-framework .section-code .controls,
-#anva-framework .section-code .explain {
+.anva-framework .section-code .controls,
+.anva-framework .section-code .explain {
   float: none !important;
   max-width: 100% !important;
   padding-right: 0 !important;
   width: 100% !important;
 }
 
-#anva-framework .section-code .explain {
+.anva-framework .section-code .explain {
   margin: 0 0 15px;
 }
 
 /* --------------------------------------------------------- */
 /* Background
 /* --------------------------------------------------------- */
-#anva-framework .anva-background-properties {
+.anva-framework .anva-background-properties {
   clear: both;
   margin-top: 18px;
 }
 
-#anva-framework .anva-background-properties .anva-input-label {
+.anva-framework .anva-background-properties .anva-input-label {
   margin: 5px 0;
 }
 
-#anva-framework .anva-background-repeat,
-#anva-framework .anva-background-position,
-#anva-framework .anva-background-attachment {
+.anva-framework .anva-background-repeat,
+.anva-framework .anva-background-position,
+.anva-framework .anva-background-attachment {
   margin: 3px 0;
   width: 100%;
 }
 
-#anva-framework .section-background .wp-picker-container {
+.anva-framework .section-background .wp-picker-container {
   margin-bottom: 10px;
 }
 
 /* --------------------------------------------------------- */
 /* Radio
 /* --------------------------------------------------------- */
-#anva-framework .controls .anva-radio-img-label {
+.anva-framework .controls .anva-radio-img-label {
   margin: 5px 0 0;
   color: #777;
   text-align: center;
@@ -1117,7 +1117,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   display: none;
 }
 
-#anva-framework .controls .anva-radio-img-box {
+.anva-framework .controls .anva-radio-img-box {
   margin: 0 5px 5px 0;
   float: left;
   padding: 8px;
@@ -1127,14 +1127,14 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
 }
 
-#anva-framework .controls .anva-radio-img-box .anva-radio-img-img {
+.anva-framework .controls .anva-radio-img-box .anva-radio-img-img {
   border: 0;
   display: none;
   cursor: pointer;
   border-radius: 0;
 }
 
-#anva-framework .controls .anva-radio-img-box span {
+.anva-framework .controls .anva-radio-img-box span {
   border-radius: 0;
   cursor: pointer;
   display: table-cell;
@@ -1142,7 +1142,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   position: relative;
 }
 
-#anva-framework .controls .anva-radio-img-box span:after {
+.anva-framework .controls .anva-radio-img-box span:after {
   content: "";
   display: block;
   position: absolute;
@@ -1158,26 +1158,26 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), linear-gradient(left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
 }
 
-#anva-framework .controls .anva-radio-img-radio {
+.anva-framework .controls .anva-radio-img-radio {
   display: block !important;
   margin: 8px auto 0;
 }
 
-#anva-framework .controls .anva-radio-img-selected {
+.anva-framework .controls .anva-radio-img-selected {
   border-color: #1e8cbe;
   background: rgba(30, 140, 190, 0.2);
   box-shadow: 0 0 0 1px #1e8cbe;
   position: relative;
 }
 
-#anva-framework .controls .anva-radio-img-img:hover {
+.anva-framework .controls .anva-radio-img-img:hover {
   opacity: .8;
 }
 
 /* --------------------------------------------------------- */
 /* Section Notices
 /* --------------------------------------------------------- */
-#anva-framework .section-info {
+.anva-framework .section-info {
   border: 1px solid #ddd;
   border-left: 6px solid #00c8fa;
   border-radius: 0;
@@ -1186,29 +1186,29 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   text-shadow: none;
 }
 
-#anva-framework .section-info.success {
+.anva-framework .section-info.success {
   border-left-color: #5fc778;
 }
 
-#anva-framework .section-info.warning {
+.anva-framework .section-info.warning {
   border-left-color: #f9e149;
 }
 
-#anva-framework .section-info.danger {
+.anva-framework .section-info.danger {
   border-left-color: #ff5b79;
 }
 
-#anva-framework .section-info > p {
+.anva-framework .section-info > p {
   color: #777;
   margin: 5px 0 10px;
   padding: 0;
 }
 
-#anva-framework .section-info a {
+.anva-framework .section-info a {
   text-decoration: none;
 }
 
-#anva-framework .section-info > h4 {
+.anva-framework .section-info > h4 {
   font-weight: bold;
   margin: 0;
 }
@@ -1216,13 +1216,13 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 /* --------------------------------------------------------- */
 /* Buttons
 /* --------------------------------------------------------- */
-#anva-framework .group-button {
+.anva-framework .group-button {
   border-collapse: separate;
   display: table;
   position: relative;
 }
 
-#anva-framework .group-button span {
+.anva-framework .group-button span {
   display: table-cell;
   position: relative;
   font-size: 0;
@@ -1231,14 +1231,14 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   vertical-align: middle;
 }
 
-#anva-framework .group-button span .button {
+.anva-framework .group-button span .button {
   border-radius: 0;
   box-shadow: none;
   height: 33px;
 }
 
-#anva-framework .controls input.sidebar,
-#anva-framework .controls input.upload {
+.anva-framework .controls input.sidebar,
+.anva-framework .controls input.upload {
   display: table-cell;
   position: relative;
   z-index: 2;
@@ -1252,7 +1252,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   border-right: 0;
 }
 
-#anva-framework .anva-input-file {
+.anva-framework .anva-input-file {
   margin-bottom: 10px;
   background: #fff;
   border: 1px solid #eee;
@@ -1265,7 +1265,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   width: 100%;
 }
 
-#anva-framework .screenshot {
+.anva-framework .screenshot {
   box-sizing: border-box;
   margin: 15px 0;
   margin-left: 1px;
@@ -1273,19 +1273,19 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   position: relative;
 }
 
-#anva-framework .screenshot:hover .remove-image {
+.anva-framework .screenshot:hover .remove-image {
   opacity: 1;
 }
 
-#anva-framework .screenshot .no_image .file_link {
+.anva-framework .screenshot .no_image .file_link {
   margin-left: 20px;
 }
 
-#anva-framework .screenshot .no_image .remove-button {
+.anva-framework .screenshot .no_image .remove-button {
   bottom: 0px;
 }
 
-#anva-framework .screenshot img {
+.anva-framework .screenshot img {
   background: #fafafa;
   border: 1px solid #eee;
   box-sizing: border-box;
@@ -1295,7 +1295,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 4px;
 }
 
-#anva-framework .screenshot .remove-image {
+.anva-framework .screenshot .remove-image {
   opacity: 0;
   cursor: pointer;
   display: block;
@@ -1318,20 +1318,20 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   text-align: center;
 }
 
-#anva-framework .screenshot .remove-image:hover {
+.anva-framework .screenshot .remove-image:hover {
   color: red;
 }
 
-#anva-framework .section-upload .screenshot.has-image,
-#anva-framework .section-background .screenshot.has-image {
+.anva-framework .section-upload .screenshot.has-image,
+.anva-framework .section-background .screenshot.has-image {
   border: 1px solid #ddd;
   border-radius: 0;
   padding: 15px;
   max-width: 100%;
 }
 
-#anva-framework .section-radio label,
-#anva-framework .section-multicheck label {
+.anva-framework .section-radio label,
+.anva-framework .section-multicheck label {
   max-width: 90%;
   line-height: 16px;
 }
@@ -1339,34 +1339,34 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 /* --------------------------------------------------------- */
 /* Helpers
 /* --------------------------------------------------------- */
-#anva-framework .hide {
+.anva-framework .hide {
   display: none;
 }
 
-#anva-framework .anva-option-image {
+.anva-framework .anva-option-image {
   max-width: 340px;
   margin: 3px 0 18px 0;
 }
 
-#anva-framework .mini .controls select,
-#anva-framework .section .mini .controls {
+.anva-framework .mini .controls select,
+.anva-framework .section .mini .controls {
   width: 140px;
 }
 
-#anva-framework .mini .controls input,
-#anva-framework .mini .controls {
+.anva-framework .mini .controls input,
+.anva-framework .mini .controls {
   min-width: 140px;
   width: 140px;
 }
 
-#anva-framework .mini .explain {
+.anva-framework .mini .explain {
   max-width: 74%;
 }
 
 /* --------------------------------------------------------- */
 /* Editor
 /* --------------------------------------------------------- */
-#anva-framework .section-editor .explain {
+.anva-framework .section-editor .explain {
   max-width: 98%;
   float: none;
   margin-bottom: 5px;

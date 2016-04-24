@@ -18,27 +18,26 @@
 get_header();
 
 $author = anva_get_post_meta( '_anva_author' );
-$date = anva_get_post_meta( '_anva_date' );
+$date   = anva_get_post_meta( '_anva_date' );
 $client = anva_get_post_meta( '_anva_client' );
 ?>
 
 <div class="container clearfix">
 
 	<?php get_sidebar( 'left' ); ?>
-	
-	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
+
+	<div class="<?php anva_column_class( 'content' ); ?>">
 		<div id="portfolio">
-			
+
 			<?php do_action( 'anva_posts_content_before' ); ?>
-			
+
 			<?php while ( have_posts() ) : the_post(); ?>
 				<div class="entry-wrap">
 					<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
-						
-						<?php // anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
-						
-						<div class="portfolio-single-content col_three_fifth nobottommargin">
 
+						<?php // anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+
+						<div class="portfolio-single-content col_three_fifth nobottommargin">
 							<div class="portfolio-gallery">
 								<?php
 									$display_gallery = get_post_meta( $post->ID, '_anva_gallery', true );
@@ -55,7 +54,7 @@ $client = anva_get_post_meta( '_anva_client' );
 										if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
 											$columns = $templates[$gallery_template]['layout']['col'];
 											$size    = $templates[$gallery_template]['layout']['size'];
-											echo anva_gallery_grid( $id, $columns, $size );
+											echo anva_get_gallery_grid( $id, $columns, $size );
 										}
 									}
 								?>
@@ -76,7 +75,7 @@ $client = anva_get_post_meta( '_anva_client' );
 											$m4v    = anva_get_post_meta( '_anva_video_m4v' );
 											$ogv    = anva_get_post_meta( '_anva_video_ogv' );
 											$mp4    = anva_get_post_meta( '_anva_video_mp4' );
-											
+
 											$attr   = array(
 												'poster' => $poster,
 												'm4v'    => $m4v,
@@ -95,10 +94,10 @@ $client = anva_get_post_meta( '_anva_client' );
 								<?php
 								$output = '';
 								$display_audio = get_post_meta( $post->ID, '_anva_audio', true );
-								
+
 								if ( $display_audio ) {
 									$poster = get_post_meta( $post->ID, '_anva_audio_image', true );
-									
+
 									if ( $poster ) {
 										$output .= sprintf( '<img src="%1$s" alt="" />', esc_url( $poster ) );
 									}
@@ -114,7 +113,7 @@ $client = anva_get_post_meta( '_anva_client' );
 								echo $output;
 								?>
 							</div>
-							
+
 							<div class="fancy-title title-dotted-border">
 								<h2><?php _e( 'Project', 'anva' ); ?></h2>
 							</div>
@@ -127,10 +126,10 @@ $client = anva_get_post_meta( '_anva_client' );
 							<div class="panel panel-default events-meta">
 								<div class="panel-body">
 									<ul class="portfolio-meta nobottommargin">
-										<li><span><i class="icon-user"></i> Created by:</span> <?php echo anva_get_post_meta( '_anva_author' ); ?></li>
-										<li><span><i class="icon-calendar"></i> Completed on:</span> <?php echo anva_get_post_meta( '_anva_date' ); ?></li>
+										<li><span><i class="icon-user"></i> Created by:</span> <?php anva_the_post_meta( '_anva_author' ); ?></li>
+										<li><span><i class="icon-calendar"></i> Completed on:</span> <?php enva_gthepost_meta( '_anva_date' ); ?></li>
 										<li><span><i class="icon-lightbulb"></i> Skills:</span> HTML5 / PHP / CSS3</li>
-										<li><span><i class="icon-link"></i> Client:</span> <a href="<?php echo anva_get_post_meta( '_anva_client_url' ); ?>"><?php echo anva_get_post_meta( '_anva_client' ); ?></a></li>
+										<li><span><i class="icon-link"></i> Client:</span> <a href="<?php anva_the_post_meta( '_anva_client_url' ); ?>"><?php anva_the_post_meta( '_anva_client' ); ?></a></li>
 									</ul>
 								</div>
 							</div>
@@ -138,21 +137,20 @@ $client = anva_get_post_meta( '_anva_client' );
 						</div>
 
 						<div class="clear"></div>
-
 						<div class="divider divider-center"><i class="icon-circle"></i></div>
 
 					</article><!-- #post-<?php the_ID(); ?> -->
 				</div><!-- .entry-wrap (end) -->
-				
+
 				<?php do_action( 'anva_posts_comments' ); ?>
 
 			<?php endwhile; ?>
-			
+
 			<?php do_action( 'anva_posts_content_after' ); ?>
-		
+
 		</div><!-- #portfolio (end) -->
 	</div><!-- .postcontent (end) -->
-	
+
 	<?php get_sidebar( 'right' ); ?>
 
 </div><!-- .container (end) -->

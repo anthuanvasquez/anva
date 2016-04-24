@@ -4,7 +4,7 @@ if ( ! class_exists( 'Anva_Meta_Box' ) ) :
 
 /**
  * Adds meta boxes.
- * 
+ *
  * WP's built-in add_meta_box() functionality.
  *
  * @since  		1.0.0
@@ -69,7 +69,7 @@ class Anva_Meta_Box
 		if ( isset( $this->args['prefix'] ) ) {
 			$this->prefix = $this->args['prefix'];
 		}
-		
+
 		$defaults = array(
 			'page'			=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
 			'context'		=> 'normal',			// Normal, advanced, or side
@@ -93,14 +93,14 @@ class Anva_Meta_Box
 	 * @param  object $hook
 	 */
 	public function scripts( $hook )
-	{	
+	{
 		global $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
-			
+
 			// Add scripts only if page match with post type
 			if ( $typenow == $page ) {
-				
+
 				// Color Picker
 				wp_enqueue_style( 'wp-color-picker' );
 
@@ -108,7 +108,7 @@ class Anva_Meta_Box
 				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 				wp_enqueue_script( 'jquery-ui-slider' );
-				
+
 				// jQuery UI Custom / Pips
 				wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
 				wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array( 'jquery_ui_custom' ),  '1.11.3' );
@@ -169,8 +169,13 @@ class Anva_Meta_Box
 		$option_name = 'anva_meta[' . $this->id . ']';
 
 		?>
-		<div id="anva-framework" class="anva-meta-box <?php echo esc_attr( $class ); ?>">
+		<div class="anva-framework anva-meta-box <?php echo esc_attr( $class ); ?>">
 			<?php
+
+				if ( isset( $this->args['desc'] ) && ! empty( $this->args['desc'] ) ) {
+					echo '<div class="section section-description">' . $this->args['desc'] . '</div>';
+				}
+
 				// Get settings from database
 				foreach ( $this->options as $option ) {
 
@@ -189,7 +194,7 @@ class Anva_Meta_Box
 		    		}
 
 		    	}
-				
+
 				// Use options interface to display form elements
 				echo anva_get_options_fields( $option_name, $settings, $this->options );
 			?>
@@ -199,7 +204,7 @@ class Anva_Meta_Box
 
 	/**
 	 * Save meta data sent from meta box.
-	 * 
+	 *
 	 * @since 1.0.0
 	 * @param integer $post_id
 	 */
@@ -221,7 +226,7 @@ class Anva_Meta_Box
 			return $post_id;
 
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 			return $post_id;
 
 		// Check the user's permissions.
@@ -229,7 +234,7 @@ class Anva_Meta_Box
 
 			if ( ! current_user_can( 'edit_page', $post_id ) )
 				return $post_id;
-	
+
 		} else {
 
 			if ( ! current_user_can( 'edit_post', $post_id ) )
@@ -239,7 +244,7 @@ class Anva_Meta_Box
 		/*
 		 * OK, its safe!
 		 */
-		
+
 		if ( isset( $_POST['anva_meta'][ $this->id ] ) ) {
 			$input = $_POST['anva_meta'][ $this->id ];
 		}
@@ -273,7 +278,7 @@ class Anva_Meta_Box
 				if ( isset( $input[ $id ] ) ) {
 
 					$input[ $id ] = apply_filters( 'anva_sanitize_' . $option['type'], $input[ $id ], $option );
-					
+
 					$prefix = $this->prefix . $id;
 
 					if ( ! empty( $input[ $id ]  ) ) {
@@ -281,7 +286,7 @@ class Anva_Meta_Box
 					} else {
 						delete_post_meta( $post_id, $prefix );
 					}
-					
+
 				}
 			}
 		}

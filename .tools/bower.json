@@ -1,20 +1,24 @@
 {
-  "name": "anva",
-  "description": "Anva WordPress Framework",
-  "homepage": "",
+  "name": "wordpress-gulp-starter-kit",
+  "homepage": "https://github.com/synapticism/wordpress-gulp-starter-kit",
   "authors": [
-    "Anthuan Vásquez"
+    {
+      "name": "Alexander Synaptic",
+      "email": "alexander@synapticism.com",
+      "homepage": "http://synapticism.com"
+    }
   ],
-  "license": "GPL-3.0",
   "keywords": [
     "wordpress",
     "wordpress-theme",
+    "starter-kit",
     "gulp",
     "bower",
     "sass",
     "browsersync",
     "livereload"
   ],
+  "license": "GPL-3.0",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -24,7 +28,6 @@
     ".sass-cache",
     "build"
   ],
-  "dependencies": {},
   "devDependencies": {
     "bootstrap-sass": "^3.3.6",
     "magnific-popup": "^1.1.0",

@@ -6,7 +6,7 @@
  * Anva class launches the framework. It's the organizational structure behind the
  * entire framework. This class should be loaded and initialized before anything else within
  * the theme is called to properly use the framework.
- * 
+ *
  * @since       1.0.0
  * @author      Anthuan Vásquez
  * @copyright   Copyright (c) Anthuan Vásquez
@@ -121,8 +121,8 @@ class Anva
             include_once( ANVA_FRAMEWORK_ADMIN . 'includes/display.php' );
             include_once( ANVA_FRAMEWORK_ADMIN . 'includes/meta.php' );
             include_once( ANVA_FRAMEWORK_ADMIN . 'includes/locals.php' );
-            include_once( ANVA_FRAMEWORK_ADMIN . 'plugins/plugins.php' ); 
-            include_once( ANVA_FRAMEWORK_ADMIN . 'updates/updates.php' ); 
+            include_once( ANVA_FRAMEWORK_ADMIN . 'plugins/plugins.php' );
+            include_once( ANVA_FRAMEWORK_ADMIN . 'updates/updates.php' );
 
         }
 
@@ -187,6 +187,8 @@ class Anva
         add_filter( 'image_size_names_choose', 'anva_image_size_names_choose' );
         add_filter( 'nav_menu_css_class', 'anva_nav_menu_css_class', 10, 4 );
         add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
+        add_filter( 'wp_link_pages_args', 'anva_link_pages_args' );
+        add_filter( 'wp_link_pages_link', 'anva_link_pages_link', 10, 2 );
 
         // Init Actions
         add_action( 'after_setup_theme', 'anva_content_width', 0 );
@@ -243,7 +245,7 @@ class Anva
         add_action( 'anva_after', 'anva_debug' );
         add_action( 'anva_content_builder', 'anva_elements' );
         add_action( 'anva_contact_form', 'anva_contact_form_default' );
-        add_action( 'anva_portfolio_navigation', 'anva_portfolio_navigation_default' );
+        add_action( 'anva_post_type_navigation', 'anva_post_type_navigation_default' );
         add_action( 'anva_slider_standard', 'anva_slider_standard_default', 9, 2 );
         add_action( 'anva_slider_owl', 'anva_slider_owl_default', 9, 2 );
         add_action( 'anva_slider_nivo', 'anva_slider_nivo_default', 9, 2 );

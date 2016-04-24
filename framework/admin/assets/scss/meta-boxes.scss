@@ -1,5 +1,5 @@
-#anva-framework {
-	margin: 0 0 -12px;
+.anva-framework {
+	margin: -6px 0 -12px;
 
 	.nav-tab-wrapper {
 		border-bottom: 1px solid #ddd !important;
@@ -44,30 +44,16 @@
 }
 
 // Context
-#normal-sortables,
-#advanced-sortables {
-	.controls,
-	.explain {
-		float: left;
-		padding-right: 4%;
-		width: 54%;
-	}
-
-	.explain {
-		max-width: 42%;
-		margin-top: 0;
-		padding-right: 0;
-	}
-}
-
 #side-sortables {
-	.controls,
-	.explain {
+	.anva-framework .section .controls,
+	.anva-framework .section .explain {
 		float: none;
+		min-width: 100%;
+		max-width: 100%;
 		width: 100%;
 	}
 
-	.controls {
+	.anva-framework .section .controls {
 		&:before,
 		&:after {
 			content: "";
@@ -76,5 +62,10 @@
 		&:after {
 			clear: both;
 		}
+	}
+
+	.anva-framework .section-description,
+	.anva-framework .section {
+		padding: 15px 12px;
 	}
 }

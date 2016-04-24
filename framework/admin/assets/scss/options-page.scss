@@ -1,12 +1,12 @@
 #anva-framework-wrap {
-	
+
 	> h2:not(.nav-tab-wrapper) {
 		padding: 15px 10px;
 
 		> span {
 			font-size: 13px;
 			float: right;
-			
+
 			em {
 				background: #000;
 				color: #fff;
@@ -29,12 +29,12 @@
 /* Typography
 /* --------------------------------------------- */
 
-#anva-framework {
+.anva-framework {
 	.section-typography {
 		.font-range {
     		margin: 0 0 40px;
     	}
-    	
+
     	.anva-select-label {
 		    margin-bottom: 0 0 5px;
 		}
@@ -43,7 +43,7 @@
 		    margin-top:2px;
 		}
 	}
-	
+
 	.google-font {
 	    padding: 10px;
 	    background: #f9f9f9;
@@ -126,11 +126,11 @@
 	.button-primary {
 		float: right;
 	}
-	
+
 	.options-settings {
 		position: relative;
 		margin-right: 300px;
-		
+
 		> .columns-1 {
 			width: 100%;
 			min-width: 463px;
@@ -141,7 +141,7 @@
 			float: right;
 			margin-right: -300px;
 			width: 280px;
-			
+
 			.postbox {
 				margin-bottom: 20px;
 				padding-bottom: 0;

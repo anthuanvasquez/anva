@@ -48,7 +48,7 @@ function anva_add_settings_flash() {
 		window.onload = function() {
 			swal({
 				title: "<?php echo esc_js( __( 'Done!', 'anva' ) ); ?>",
-				text: "<?php echo esc_js( __( 'Options has been updated.', '' ) ); ?>",
+				text: "<?php echo esc_js( __( 'Options has been updated.', 'anva' ) ); ?>",
 				type: "success",
 				timer: 2000,
 				showConfirmButton: false

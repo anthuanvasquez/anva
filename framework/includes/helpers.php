@@ -202,6 +202,10 @@ function anva_browser_class( $classes ) {
 	return apply_filters( 'anva_browser_classes', $classes, $browser );
 }
 
+function anva_post_class( $class, $paged = true ) {
+	echo anva_get_post_class( $class, $paged );
+}
+
 /**
  * Get post list classes.
  *
@@ -210,7 +214,7 @@ function anva_browser_class( $classes ) {
  * @param  boolean $paged
  * @return string  $classes
  */
-function anva_post_class( $class, $paged = true ) {
+function anva_get_post_class( $class, $paged = true ) {
 
 	$classes = array();
 
@@ -260,7 +264,9 @@ function anva_post_class( $class, $paged = true ) {
 
 	$classes = implode( ' ', $classes );
 
-	return apply_filters( 'anva_post_class', $classes );
+	$classes = apply_filters( 'anva_post_class', $classes );
+
+	return esc_attr( $classes );
 }
 
 /**
@@ -454,6 +460,59 @@ function anva_setup_author() {
 	if ( $wp_query->is_author() && isset( $wp_query->post ) ) {
 		$GLOBALS['authordata'] = get_userdata( $wp_query->post->post_author );
 	}
+}
+
+
+/**
+ * This function is attached to the filter wp_link_pages_args,
+ * but won't do anything unless WP version is 3.6+.
+ *
+ * @since 1.0.0
+ * @param array $args Default arguments of wp_link_pages() to filter
+ * @return array $args Args for wp_link_pages() after we've altered them
+ */
+function anva_link_pages_args( $args ) {
+
+	global $wp_version;
+
+	// Before WP 3.6, this filter can't be applied because the
+	// wp_link_pages_link filter did not exist yet. Our changes
+	// need to come together.
+	if ( version_compare( $wp_version, '3.6-alpha', '<' ) ) {
+		return $args;
+	}
+
+	// Add TB Framework/Bootstrap surrounding markup
+	$args['before'] = '<nav class="pagination-wrap"><ul class="pagination page-links">';
+	$args['after'] = "</ul></div>\n";
+
+	return $args;
+}
+
+/**
+ * This function is attached to the wp_link_pages_link filter,
+ * which only exists in WP 3.6+.
+ *
+ * @since 1.0.0
+ * @param string $link Markup of individual link to be filtered
+ * @param int $i Page number of link being filtered
+ * @return string $link Markup for individual link after being filtered
+ */
+function anva_link_pages_link( $link, $i ) {
+
+	global $page;
+
+	$class = 'page-link';
+
+	// If is current page
+	if ( $page == $i ) {
+		$class = ' active';
+		$link = sprintf( '<li class="%s"><a href="%s">%s</a></li>', $class, get_pagenum_link( $i ), $i );
+	} else {
+		$link = '<li>' . $link . '</li>'; // Fuck Link
+	}
+
+	return $link;
 }
 
 /**

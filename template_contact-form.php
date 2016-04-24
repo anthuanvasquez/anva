@@ -21,7 +21,7 @@ get_header();
 
 	<?php get_sidebar( 'left' ); ?>
 
-	<div class="<?php echo anva_get_column_class( 'content' ); ?>">
+	<div class="<?php anva_column_class( 'content' ); ?>">
 		
 		<?php do_action( 'anva_posts_content_before' ); ?>
 		

@@ -22,7 +22,7 @@ get_header();
 
 	<?php get_sidebar( 'left' ); ?>
 
-	<div class="content-area <?php echo anva_get_column_class( 'content' ); ?>">
+	<div class="content-area <?php anva_column_class( 'content' ); ?>">
 		<div class="entry-wrap">
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 				<div class="entry-content">
