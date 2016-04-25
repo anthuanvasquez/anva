@@ -127,9 +127,11 @@ $client = anva_get_post_meta( '_anva_client' );
 								<div class="panel-body">
 									<ul class="portfolio-meta nobottommargin">
 										<li><span><i class="icon-user"></i> Created by:</span> <?php anva_the_post_meta( '_anva_author' ); ?></li>
-										<li><span><i class="icon-calendar"></i> Completed on:</span> <?php enva_gthepost_meta( '_anva_date' ); ?></li>
-										<li><span><i class="icon-lightbulb"></i> Skills:</span> HTML5 / PHP / CSS3</li>
-										<li><span><i class="icon-link"></i> Client:</span> <a href="<?php anva_the_post_meta( '_anva_client_url' ); ?>"><?php anva_the_post_meta( '_anva_client' ); ?></a></li>
+										<li><span><i class="icon-calendar"></i> Completed on:</span> <?php anva_the_post_meta( '_anva_date' ); ?></li>
+										<?php if ( anva_get_terms_links( 'portfolio_skill' ) ) : ?>
+                                            <li><span><i class="icon-lightbulb"></i> Skills:</span> <?php anva_the_terms_links( 'portfolio_skill', ' / ' ); ?></li>
+										<?php endif; ?>
+                                        <li><span><i class="icon-link"></i> Client:</span> <a href="<?php anva_the_post_meta( '_anva_client_url' ); ?>"><?php anva_the_post_meta( '_anva_client' ); ?></a></li>
 									</ul>
 								</div>
 							</div>

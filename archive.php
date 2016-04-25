@@ -16,8 +16,6 @@
  */
 
 get_header();
-
-$archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 ?>
 
 <div class="container clearfix">
@@ -27,7 +25,7 @@ $archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
 		<?php do_action( 'anva_posts_content_before' ); ?>
-		
+
 		<div id="posts" class="<?php anva_post_class( 'archive' ); ?>">
 			<?php
 				if ( have_posts() ) {
@@ -35,7 +33,7 @@ $archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 						the_post();
 						anva_get_template_part( 'content', '' );
 					}
-					anva_num_pagination();				
+					anva_num_pagination();
 				} else {
 					anva_get_template_part( 'none' );
 				}
@@ -45,9 +43,9 @@ $archive_title = get_post_meta( $post->ID, '_anva_archive_title', true );
 		<?php do_action( 'anva_posts_content_after' ); ?>
 
 	</div><!-- .postcontent (end) -->
-	
+
 	<?php get_sidebar( 'right' ); ?>
-	
+
 </div><!-- .container (end) -->
 
 <?php get_footer(); ?>

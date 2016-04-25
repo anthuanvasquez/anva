@@ -544,36 +544,6 @@ function anva_setup_page_template_meta() {
 }
 
 /**
- * Slideshow meta setup.
- *
- * @since  1.0.0
- * @return array $setup
- */
-function anva_setup_slideshow_meta() {
-
-	$slider        = anva_get_option( 'slider_id' );
-	$sliders       = anva_get_sliders( $slider );
-	$slider_fields = array();
-
-	if ( isset( $sliders['fields'] ) ) {
-		$slider_fields = $sliders['fields'];
-	}
-
-	$setup = array(
-		'args' => array(
-			'id' 			=> 'anva_slider_options',
-			'title' 		=> __( 'Slide Options', 'anva' ),
-			'page'			=> array( 'slideshows' ),
-			'context' 		=> 'normal',
-			'priority'		=> 'high',
-		),
-		'options' => $slider_fields
-	);
-
-	return apply_filters( 'anva_slideshow_meta', $setup );
-}
-
-/**
  * Gallery meta setup.
  *
  * @since  1.0.0
@@ -610,6 +580,13 @@ function anva_setup_gallery_meta() {
                     'hide'      => __( 'Hide gallery\'s title', 'anva' )
                 )
             ),
+            'page_tagline'      => array(
+                'name'          => __( 'Gallery Tagline', 'anva' ),
+                'desc'          => __( 'Enter s ahort gallery tagline.', 'anva' ),
+                'id'            => 'page_tagline',
+                'type'          => 'text',
+                'std'           => '',
+            ),
             'gallery_highlight' => array(
                 'id'            => 'gallery_highlight',
                 'name'          => __( 'Highlight Image', 'anva' ),
@@ -619,7 +596,7 @@ function anva_setup_gallery_meta() {
             ),
             'gallery_template'  => array(
                 'id'            => 'gallery_template',
-                'name'          => __( 'Gallery Template', 'anva' ),
+                'name'          => __( 'Gallery Columns', 'anva' ),
                 'desc'          => __( 'Select gallery template for this gallery.', 'anva' ),
                 'type'          => 'select',
                 'std'           => '',
@@ -799,6 +776,36 @@ function anva_setup_portfolio_media_meta() {
 	);
 
 	return apply_filters( 'anva_portfolio_media_meta', $setup );
+}
+
+/**
+ * Slideshow meta setup.
+ *
+ * @since  1.0.0
+ * @return array $setup
+ */
+function anva_setup_slideshow_meta() {
+
+    $slider        = anva_get_option( 'slider_id' );
+    $sliders       = anva_get_sliders( $slider );
+    $slider_fields = array();
+
+    if ( isset( $sliders['fields'] ) ) {
+        $slider_fields = $sliders['fields'];
+    }
+
+    $setup = array(
+        'args' => array(
+            'id'            => 'anva_slider_options',
+            'title'         => __( 'Slide Options', 'anva' ),
+            'page'          => array( 'slideshows' ),
+            'context'       => 'normal',
+            'priority'      => 'high',
+        ),
+        'options' => $slider_fields
+    );
+
+    return apply_filters( 'anva_slideshow_meta', $setup );
 }
 
 /**

@@ -149,7 +149,7 @@ function anva_audio_shortcode( $html ) {
  * @return void
  */
 function anva_add_image_sizes() {
-	
+
 	// Compared wp version
 	global $wp_version;
 
@@ -177,7 +177,7 @@ function anva_image_size_names_choose( $sizes ) {
 
 	// Format sizes
 	$image_sizes = array();
-	
+
 	foreach ( $raw_sizes as $id => $atts ) {
 		$image_sizes[$id] = $atts['name'];
 	}
@@ -190,19 +190,6 @@ function anva_image_size_names_choose( $sizes ) {
 }
 
 /**
- * Get featured image source.
- *
- * @since 1.0.0
- */
-function anva_get_featured_image_src( $post_id, $thumbnail ) {
-	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
-	if ( $post_thumbnail_id ) {
-		$post_thumbnail = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
-		return $post_thumbnail[0];
-	}
-}
-
-/**
  * Featured image source.
  *
  * @since 1.0.0
@@ -212,17 +199,18 @@ function anva_the_featured_image_src( $post_id, $thumbnail ) {
 }
 
 /**
- * Get attachment image source.
+ * Get featured image source.
  *
  * @since 1.0.0
  */
-function anva_get_attachment_image_src( $attachment_id, $thumbnail ) {
-	if ( $attachment_id ) {
-		$attachment_img = wp_get_attachment_image_src( $attachment_id, $thumbnail, true );
-		return $attachment_img[0];
-	}
-	return false;
+function anva_get_featured_image_src( $post_id, $thumbnail ) {
+    $post_thumbnail_id = get_post_thumbnail_id( $post_id );
+    if ( $post_thumbnail_id ) {
+        $post_thumbnail = wp_get_attachment_image_src( $post_thumbnail_id, $thumbnail );
+        return $post_thumbnail[0];
+    }
 }
+
 
 /**
  * Attachment image source.
@@ -234,23 +222,37 @@ function anva_the_attachment_image_src( $attachment_id, $thumbnail ) {
 }
 
 /**
+ * Get attachment image source.
+ *
+ * @since 1.0.0
+ */
+function anva_get_attachment_image_src( $attachment_id, $thumbnail ) {
+    if ( $attachment_id ) {
+        $attachment_img = wp_get_attachment_image_src( $attachment_id, $thumbnail, true );
+        return $attachment_img[0];
+    }
+    return false;
+}
+
+
+/**
  * Get featured image in posts.
  *
  * @since 1.0.0
  */
 function anva_the_post_thumbnail( $thumb ) {
-	
+
 	if ( 'hide' != $thumb && ! has_post_thumbnail() ) {
 		return;
 	}
-	
+
 	// Get post ID
 	$id = get_the_ID();
-	
+
 	// Default thumbnail size on single posts
 	$thumbnail = 'anva_lg';
 
-	?>	
+	?>
 	<div class="entry-image">
 		<a href="<?php echo anva_get_featured_image_src( $id, $thumbnail ); ?>" data-lightbox="image" ><?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?></a>
 	</div><!-- .entry-image (end) -->
@@ -264,14 +266,14 @@ function anva_the_post_thumbnail( $thumb ) {
  * @since 1.0.0
  */
 function anva_the_small_thumbnail() {
-	
+
 	// Get post ID
 	$id = get_the_ID();
-	
+
 	// Default thumbnail size on single posts
 	$thumbnail = apply_filters( 'anva_small_thumbnail', 'anva_sm' );
 
-	?>	
+	?>
 	<div class="entry-image">
 		<a href="<?php anva_the_featured_image_src( $id, $thumbnail ); ?>" data-lightbox="image" ><?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?></a>
 	</div><!-- .entry-image (end) -->
@@ -623,7 +625,7 @@ function anva_get_gallery_slider_content( $gallery = '', $type = 'standard', $si
 		}
 
 		$output .= sprintf( $slider_wrap, sprintf( $slider, $slide ) );
-	
+
 	} elseif ( $type == 'standard' ) {
 
 		/*--------------------------------------------*/

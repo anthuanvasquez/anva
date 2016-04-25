@@ -175,7 +175,6 @@ function anva_posted_on() {
 	$format_icon = anva_get_post_format_icon( $format, true );
 
 	if ( $format_icon ) {
-		$url = ( ! $format ? '' : ''  );
 		$format_icon = sprintf( '<i class="icon-%s"></i>', $format_icon );
 		if ( $format ) {
 			$format_icon = sprintf( '<a href="%1$s">%2$s</a>', get_post_format_link( $format ), $format_icon );
@@ -1321,7 +1320,6 @@ function anva_get_gallery_grid( $post_id, $columns, $thumbnail ) {
 	}
 
 	return $html;
-
 }
 
 /**

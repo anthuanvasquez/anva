@@ -10,22 +10,23 @@
  * Table of Contents
  *
  * 0.0 - Initialize
- *   0.1 - Variables
- *   0.2 - Mixins
+ *   0.1  - Variables
+ *   0.2  - Mixins
  * 1.0 - Core
- *   1.1 - Typography
- *   1.2 - Helpers
- *   1.3 - Layouts
+ *   1.1  - Typography
+ *   1.2  - Helpers
+ *   1.3  - Layouts
  * 2.0 - Content Blocks
- *   2.1 - Top Bar
- *   2.2 - Header
- *   2.3 - Sliders
- *   2.4 - Page Title
- *   2.5 - Content
- *   2.6 - Portfolio
- *   2.7 - Blog
- *   2.8 - Shop
- *   2.9 - Events
+ *   2.1  - Top Bar
+ *   2.2  - Header
+ *   2.3  - Sliders
+ *   2.4  - Page Title
+ *   2.5  - Content
+ *   2.6  - Portfolio
+ *   2.7  - Galleries
+ *   2.8  - Blog
+ *   2.9  - Shop
+ *   2.10 - Events
  * 3.0 - Footer
  * 4.0 - Widgets
  * 5.0 - Header
@@ -3464,10 +3465,6 @@ body.page-has-content-builder #content .content-wrap {
 }
 /* Portfolio - Items
 -----------------------------------------------------------------*/
-.portfolio {
-  position: relative;
-  margin: 0 -12px -12px 0;
-}
 body:not(.device-touch) .portfolio {
   -webkit-transition: height .4s linear;
   transition: height .4s linear;
@@ -4543,6 +4540,35 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay {
   display: block;
   width: 100%;
   height: auto;
+}
+/* ----------------------------------------------------------------
+    Galleries
+-----------------------------------------------------------------*/
+.archive-galleries .entry {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.archive-galleries .entry-image {
+  margin-bottom: 0;
+}
+.gallery-content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  color: #fff;
+}
+.gallery-content a {
+  color: inherit;
+}
+.gallery-title h2 {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+.gallery-title h2 a {
+  color: #fff;
 }
 /*-----------------------------------------------------------------------------------
 

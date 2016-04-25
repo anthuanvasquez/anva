@@ -110,7 +110,7 @@ function anva_primary_menu_fallback( $args ) {
 function anva_body_class( $classes ) {
 
 	$classes[] = 'has-lang-' . strtolower( get_bloginfo( 'language' ) );
-	
+
  	// Adds a class of group-blog to blogs with more than 1 published author.
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
@@ -137,7 +137,7 @@ function anva_body_class( $classes ) {
  * Browser classes.
  *
  * @since  1.0.0
- * @param  array $classes 
+ * @param  array $classes
  * @return array $classes
  */
 function anva_browser_class( $classes ) {
@@ -248,15 +248,22 @@ function anva_get_post_class( $class, $paged = true ) {
 			'default' => 'template-post-mansory post-mansory post-mansory-container',
 			'paged' => 'post-mansory-paginated',
 		),
+        'gallery' => array(
+            'default' => 'archive-galleries gallery-list gallery-container post-grid',
+            'paged' => 'gallery-paginated',
+        ),
+        'portfolio' => array(
+            'default' => 'archive-portfolio portfolio grid-container portfolio-2 clearfix',
+            'paged' => 'portfolio-paginated',
+        )
 		// @TODO timeline classes
 	);
 
 	// Add default
 	if ( isset( $default_classes[ $class ]['default'] ) ) {
 		$classes[] = $default_classes[ $class ]['default'];
-		
 	}
-	
+
 	// Posts using pagination.
 	if ( isset( $default_classes[ $class ]['paged'] ) && $paged ) {
 		$classes[] = $default_classes[ $class ]['paged'];
@@ -364,6 +371,58 @@ function anva_get_header_type() {
 }
 
 /**
+ * Post terms links.
+ *
+ * @since  1.0.0
+ * @param  string $implode
+ * @return array  $output
+ */
+function anva_the_terms_links( $taxonomy, $implode = ' ' ) {
+    echo anva_get_terms_links( $taxonomy, $implode );
+}
+
+/**
+ * Get post terms links.
+ *
+ * @since  1.0.0
+ * @param  string $implode
+ * @return array  $output
+ */
+function anva_get_terms_links( $taxonomy, $implode = ' ', $links = true, $type = 'name' ) {
+
+    // Get post ID.
+    $id = get_the_ID();
+
+    // Get post terms by taxonomy and post ID.
+    $terms = wp_get_post_terms( $id, $taxonomy, array( 'fields' => 'all' ) );
+
+    if ( empty ( $terms ) ) {
+        return false;
+    }
+
+    $output = array();
+
+    foreach ( $terms as $term ) {
+
+        // Set term type, id, name. slug, etc.
+        $term_type = $term->$type;
+
+        // Check if terms will print the links.
+        if ( $links ) {
+            $output[] = sprintf( '<a href="%1$s">%2$s</a>',
+                get_term_link( $term ),
+                $term_type
+            );
+        } else {
+            $output[] = $term_type;
+        }
+    }
+
+    return implode( $implode, $output );
+
+}
+
+/**
  * Print title in WP 4.0-.
  * Enable support in existing themes without breaking backwards compatibility.
  *
@@ -375,7 +434,7 @@ function anva_wp_title_compat() {
 	if ( function_exists( '_wp_render_title_tag' ) ) {
 		return;
 	}
-	
+
 	add_filter( 'wp_head', 'anva_wp_title' );
 	?>
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
@@ -415,7 +474,7 @@ function anva_wp_title( $title, $sep ) {
 
 /**
  * Print page transition data.
- * 
+ *
  * @return string $data
  */
 function anva_page_transition_data() {
@@ -439,7 +498,7 @@ function anva_page_transition_data() {
 		$data .= 'data-speed-out="' . esc_attr( $speed_out ) . '"';
 		$data .= 'data-animation-in="' . esc_attr( $animation_in ) . '"';
 		$data .= 'data-animation-out="' . esc_attr( $animation_out ) . '"';
-		
+
 		if ( $html ) {
 			$data .= 'data-loader-html="' . $html . '"';
 		}
@@ -546,7 +605,7 @@ function anva_truncate_string( $string, $length = 100 ) {
 
 /**
  * Convert HEX to RGB.
- * 
+ *
  * @param  string $hex
  * @return array  $color
  */
@@ -649,7 +708,7 @@ function anva_extract_icon( $string ) {
 
 /**
  * Get font stacks
- * 
+ *
  * @since  1.0.0
  * @return array $stacks
  */
@@ -977,7 +1036,7 @@ function anva_admin_module_cap( $module ) {
 		'backup' 	=> 'manage_options', 	 // Role: Administrator
 		'updates' 	=> 'manage_options', 	 // Role: Administrator
 	);
-	
+
 	$module_caps = apply_filters( 'anva_admin_module_caps', $module_caps );
 
 	// Setup capability
@@ -1174,8 +1233,8 @@ function anva_get_core_admin_directory() {
 
 /**
  * Insert a key in array.
- * 
- * @param  array   $array 
+ *
+ * @param  array   $array
  * @param  string  $search_key
  * @param  string  $insert_key
  * @param  string  $insert_value
@@ -1217,7 +1276,7 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 
 /**
  * Convert memory use.
- * 
+ *
  * @param  int $size
  * @return int $size
  */

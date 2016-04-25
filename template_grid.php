@@ -17,37 +17,24 @@
 
 get_header();
 
-$class        = '';
 $column       = 2; // Default Column
 $current_grid = anva_get_post_meta( '_anva_grid_column' );
 $grid_columns = anva_get_grid_columns();
 $thumbnail    = 'anva_post_grid';
 
-if ( isset( $grid_columns[ $current_grid ]['class'] ) ) {
-	$class = $grid_columns[ $current_grid ]['class'];
-}
-
 if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 	$column = $grid_columns[ $current_grid ]['column'];
 }
 
-// Counter
-$count = 1;
-
-// Grid rows
-$open_row  = '<div class="post-grid-row row">';
-$close_row = '</div><!-- .post-grid-row (end) -->';
-
 // Get posts
 $query = anva_get_query_posts();
-$limit = count( $query->posts() );
 ?>
 
 <div class="container clearfix">
 
 	<div id="posts" class="<?php anva_post_class( 'grid' ); ?> grid-<?php echo esc_attr( $column ); ?> clearfix" data-layout="fitRows">
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
-				
+
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 				<?php anva_the_post_grid_thumbnail( $thumbnail ); ?>
 				<div class="entry-title">
