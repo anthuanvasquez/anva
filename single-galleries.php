@@ -21,11 +21,11 @@ get_header();
 
 	<div class="col_full nobottommargin clearfix">
 		<div id="galleries">
-		
+
 		<?php do_action( 'anva_posts_content_before' ); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
-		
+
 			<div class="entry-wrap">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<?php
@@ -45,7 +45,7 @@ get_header();
 								if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
 									$columns = $templates[ $gallery_template ]['layout']['col'];
 									$size = $templates[ $gallery_template ]['layout']['size'];
-									echo anva_get_gallery_grid( $id, $columns, $size );
+									anva_gallery_masonry( $id, $columns, $size );
 								}
 							}
 						?>
@@ -53,9 +53,9 @@ get_header();
 					</div><!-- .entry-content (end) -->
 				</article><!-- #post-<?php the_ID(); ?> -->
 			</div><!-- .entry-wrap (end) -->
-			
+
 			<?php do_action( 'anva_posts_comments' ); ?>
-			
+
 		<?php endwhile; ?>
 
 		<?php do_action( 'anva_posts_content_after' ); ?>

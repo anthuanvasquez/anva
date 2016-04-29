@@ -20,7 +20,7 @@ get_header();
 $column       = 2; // Default Column
 $current_grid = anva_get_post_meta( '_anva_grid_column' );
 $grid_columns = anva_get_grid_columns();
-$thumbnail    = 'anva_post_grid';
+$thumbnail    = 'anva_grid_2';
 
 if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
     $column = $grid_columns[ $current_grid ]['column'];
@@ -33,13 +33,17 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
         <?php while ( have_posts() ) : the_post(); ?>
 
             <div id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
-                <?php anva_the_post_grid_thumbnail( $thumbnail ); ?>
+
+                <div class="gallery-image">
+                    <?php anva_gallery_slider( get_the_ID(), $thumbnail ); ?>
+                </div>
+
                 <div class="gallery-content">
                     <div class="gallery-title">
                         <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     </div>
                     <div class="gallery-category">
-                        <?php the_taxonomies(); ?>
+                        <?php anva_the_terms_links( 'gallery_cat', ' / ' ); ?>
                     </div>
                 </div>
             </div>

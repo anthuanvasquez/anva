@@ -1,26 +1,23 @@
 {
-  "name": "wordpress-gulp-starter-kit",
-  "version": "0.2.2",
-  "description": "A starter kit for developing WordPress themes with Gulp",
-  "homepage": "https://github.com/synapticism/wordpress-gulp-starter-kit",
+  "name": "anva-framework",
+  "version": "1.0.0",
+  "description": "A WordPress Development Theme Framework",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/synapticism/wordpress-gulp-starter-kit.git"
+    "url": ""
   },
   "keywords": [
     "wordpress",
     "wordpress-theme",
-    "wordpress-starter-theme",
-    "starter-kit",
     "theme",
     "gulp",
     "bower",
-    "composer",
     "sass",
     "browsersync",
     "livereload"
   ],
-  "author": "Alexander Synaptic <alexander@synapticism.com>",
+  "author": "Anthuan Vasquez <me@anthuanvasquez.net>",
   "license": "GPL-3.0",
   "main": "gulpfile.js",
   "private": true,
@@ -38,25 +35,22 @@
     "gulp-less-dependents": "^1.1.1",
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.2.0",
+    "gulp-notify": "^2.2.0",
     "gulp-postcss": "^6.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^2.0.6",
     "gulp-sass": "^2.2.0",
+    "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.2",
     "gulp-util": "^3.0.7",
+    "gulp-wp-pot": "^1.2.2",
     "html5-history-api": "^4.2.5",
     "jshint": "^2.9.2",
     "merge-stream": "^1.0.0",
-    "normalize.css": "^3.0.3",
     "path": "^0.12.7",
     "require-dir": "^0.3.0",
     "scut": "^1.4.0",
-    "spin.js": "^2.3.2",
-    "timeago": "^1.5.2",
-    "wp-ajax-page-loader": "^0.2.1"
-  },
-  "scripts": {
-    "postinstall": "gulp setup"
+    "timeago": "^1.5.2"
   }
 }

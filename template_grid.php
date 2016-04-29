@@ -20,7 +20,7 @@ get_header();
 $column       = 2; // Default Column
 $current_grid = anva_get_post_meta( '_anva_grid_column' );
 $grid_columns = anva_get_grid_columns();
-$thumbnail    = 'anva_post_grid';
+$thumbnail    = 'anva_grid_2';
 
 if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 	$column = $grid_columns[ $current_grid ]['column'];
