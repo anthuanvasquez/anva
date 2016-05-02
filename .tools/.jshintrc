@@ -1,5 +1,6 @@
 {
     "bitwise": true,
+    "strict": false,
     "eqeqeq": true,
     "eqnull": true,
     "immed": true,

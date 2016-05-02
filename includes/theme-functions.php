@@ -13,13 +13,13 @@ require_once( get_template_directory() . '/includes/options.php' );
 
 /**
  * Add theme body classes.
- * 
+ *
  * @since  1.0.0
  * @param  array $classes
  * @return array $classes
  */
 function theme_body_classes( $classes ) {
-	
+
 	$base_color_style   = anva_get_option( 'base_color_style' );
 	$base_color         = anva_get_option( 'base_color' );
 	$layout_style       = anva_get_option( 'layout_style' );
@@ -29,7 +29,7 @@ function theme_body_classes( $classes ) {
 	$side_panel_type    = anva_get_option( 'side_panel_type' );
 	$side_panel_display = anva_get_option( 'side_panel_display' );
 	$loader             = anva_get_option( 'page_loader', 1 );
-	
+
 	// Get all header types
 	$types = anva_get_header_types();
 
@@ -38,7 +38,7 @@ function theme_body_classes( $classes ) {
 
 	// Current header type
 	$type = anva_get_header_type();
-	
+
 	// Get side panel types
 	$side_panel_types = anva_get_side_panel_types();
 
@@ -46,7 +46,7 @@ function theme_body_classes( $classes ) {
 	if ( 'dark' == $base_color ) {
 		$classes[] = 'has-base-color' . $base_color;
 	}
-	
+
 	// Add base color style
 	if ( 'dark' == $base_color_style ) {
 		$classes[] = $base_color_style;
@@ -93,18 +93,18 @@ add_filter( 'body_class', 'theme_body_classes', 10 );
 
 /**
  * Add theme header classes.
- * 
+ *
  * @param  array $classes
  * @return array $classes
  */
 function theme_header_classes( $classes ) {
-	
+
 	$header_color       = anva_get_option( 'header_color', 'light' );
 	$header_image       = anva_get_option( 'header_image' );
 	$header_layout      = anva_get_option( 'header_layout' );
 	$header_type        = anva_get_option( 'header_type', 'default' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
-	
+
 	// Get all header types
 	$types = anva_get_header_types();
 
@@ -152,21 +152,21 @@ add_filter( 'anva_header_class', 'theme_header_classes', 10 );
 
 /**
  * Add theme primary menu classes.
- * 
+ *
  * @param  array $classes
  * @return array $classes
  */
 function theme_primary_menu_classes( $classes ) {
-	
+
 	$primary_menu_color = anva_get_option( 'primary_menu_color', 'light' );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
-	
+
 	// Get all primary menu styles
 	$styles = anva_get_primary_menu_styles();
 
 	// Get current header type
 	$type = anva_get_header_type();
-	
+
 	// Add primary menu color
 	if ( 'dark' == $primary_menu_color && 'side' != $type ) {
 		$classes[] = $primary_menu_color;
@@ -204,7 +204,7 @@ add_action( 'anva_header_above', 'theme_header_trigger' );
 
 /**
  * Scroll to top button.
- * 
+ *
  * @since 1.0.0
  */
 function theme_gototop() {
@@ -219,7 +219,7 @@ add_action( 'anva_footer_below', 'theme_gototop', 100 );
 
 /**
  * Google fonts using by the theme
- * 
+ *
  * @since  1.0.0
  * @return void
  */
@@ -251,7 +251,7 @@ add_action( 'after_setup_theme', 'theme_add_theme_support', 10 );
 
 /**
  * Include the themes stylesheets.
- * 
+ *
  * @since  1.0.0
  * @return void
  */
@@ -270,25 +270,25 @@ function theme_stylesheets() {
 	wp_register_style( 'theme_colors', get_template_directory_uri() . '/assets/css/colors.php?color=' . esc_html( $color ), array( 'theme_dark' ), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_ie', get_template_directory_uri() . '/assets/css/ie.css', array( 'theme_color' ), ANVA_THEME_VERSION, 'all' );
 	wp_register_style( 'theme_custom', get_template_directory_uri() . '/assets/css/custom.css', array( 'theme_color' ), ANVA_THEME_VERSION, 'all' );
-		
+
 	// Enqueue theme stylesheets
 	wp_enqueue_style( 'theme_styles' );
 	wp_enqueue_style( 'theme_dark' );
 	wp_enqueue_style( 'theme_colors' );
-	
+
 	// Custom Stylesheet
 	if ( 'yes' == anva_get_option( 'custom_css_stylesheet' ) ) {
 		wp_enqueue_style( 'theme_custom' );
 	}
-	
+
 	// IE
 	$GLOBALS['wp_styles']->add_data( 'theme_ie', 'conditional', 'lt IE 9' );
 	wp_enqueue_style( 'theme_ie' );
 
 	// Inline theme styles
 	wp_add_inline_style( 'theme_colors', theme_styles() );
-	
-	// Level 3 
+
+	// Level 3
 	$api->print_styles(3);
 
 }
@@ -296,7 +296,7 @@ add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
 
 /**
  * Include the theme scripts.
- * 
+ *
  * @since  1.0.0
  * @return void
  */
@@ -324,18 +324,18 @@ function theme_scripts() {
 
 	// Level 3
 	$api->print_scripts(3);
-	
+
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
 /**
  * Theme custom styles options.
- * 
+ *
  * @since  1.0.0
  * @return string $styles
  */
 function theme_styles() {
-	
+
 	// Styles output
 	$styles 			= '';
 
@@ -368,7 +368,7 @@ function theme_styles() {
 	/* ---------------------------------------- */
 	/* Typography
 	/* ---------------------------------------- */
-	
+
 	/* Body */
 	body,
 	small,
@@ -378,14 +378,14 @@ function theme_styles() {
 	.skills li .progress-percent .counter,
 	.nav-tree ul ul a,
 	.font-body { font-family: <?php anva_the_font_face( $body_font ); ?>; }
-	
+
 	body {
 		font-size: <?php anva_the_font_size( $body_font ); ?>;
 		font-style: <?php anva_the_font_style( $body_font ); ?>;
 		font-weight: <?php anva_the_font_weight( $body_font ); ?>;
 		text-transform: <?php anva_the_text_transform( $body_font ); ?>
 	}
-	
+
 	/* Headers */
 	h1,
 	h2,
@@ -408,7 +408,7 @@ function theme_styles() {
 	.font-primary {
 		font-family: <?php anva_the_font_face( $heading_font ); ?>;
 	}
-	
+
 	h1,
 	h2,
 	h3,
@@ -428,7 +428,7 @@ function theme_styles() {
 	h4 { font-size: <?php echo $heading_h4 . 'px'; ?>; }
 	h5 { font-size: <?php echo $heading_h5 . 'px'; ?>; }
 	h6 { font-size: <?php echo $heading_h6 . 'px'; ?>; }
-	
+
 	/* Meta */
 	.entry-meta li,
 	.entry-link span,
@@ -448,7 +448,7 @@ function theme_styles() {
 	/* ---------------------------------------- */
 	/* Background
 	/* ---------------------------------------- */
-	
+
 	/* Background Image */
 	body {
 		background-color: <?php echo esc_html( $background_color ); ?>;
@@ -463,7 +463,7 @@ function theme_styles() {
 	/* Background Image Cover Size */
 	<?php if ( $background_cover && ! empty( $background_image['image'] ) ) : ?>
 		body {
-			background: url("<?php echo esc_url( $background_image['image'] ); ?>") no-repeat center center fixed; 
+			background: url("<?php echo esc_url( $background_image['image'] ); ?>") no-repeat center center fixed;
 			-webkit-background-size: cover;
 			-moz-background-size: cover;
 			-o-background-size: cover;
@@ -489,7 +489,7 @@ function theme_styles() {
 	/* ---------------------------------------- */
 	/* Header
 	/* ---------------------------------------- */
-	
+
 	<?php if ( 'custom' == $header_color ) : ?>
 		/* Header Background */
 		body.header-has-custom #header,
@@ -497,11 +497,11 @@ function theme_styles() {
 			background-color: <?php echo $header_bg_color; ?>;
 			border-color: <?php echo $header_border_color; ?>;
 		}
-		
+
 		<?php if ( ! empty( $header_image ) ) : ?>
 			body.header-has-custom #header,
 			body.header-has-custom #header.sticky-header #header-wrap {
-				background-image: url("<?php echo esc_url( $header_image ); ?>"); 
+				background-image: url("<?php echo esc_url( $header_image ); ?>");
 				background-repeat: repeat;
 				background-position: top center;
 				-webkit-background-size: cover;
@@ -524,13 +524,13 @@ function theme_styles() {
 		body.header-has-custom #page-submenu-trigger {
 			color: <?php echo $header_text_color; ?>;
 		}
-		
+
 	<?php endif; ?>
 
 	/* ---------------------------------------- */
 	/* Side Panel
 	/* ---------------------------------------- */
-	
+
 	<?php if ( 'custom' == $side_panel_color ) : ?>
 		body.side-panel-has-custom #side-panel,
 		body.side-panel-has-custom #side-panel.dark { background-color: <?php echo $side_panel_bg_color; ?>; }
@@ -552,20 +552,20 @@ add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );
 
 /**
  * Theme colors pallete for scheme.
- * 
+ *
  * @since 1.0.0
  */
 function theme_base_colors() {
 	?>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			
+
 			'use_strict';
 
 			var blue                 		= new Array();
 			blue['link_color']       		= '#e41222';
 			blue['link_color_hover'] 		= '#e4ff31';
-			
+
 			var light_blue                 	= new Array();
 			light_blue['link_color']       	= '#123231';
 			light_blue['link_color_hover'] 	= '#e4ff31';
@@ -573,7 +573,7 @@ function theme_base_colors() {
 			var navy_blue                 	= new Array();
 			navy_blue['link_color']       	= '#12a334';
 			navy_blue['link_color_hover'] 	= '#e4ff31';
-			
+
 			// When the select box #base_color_scheme changes
 			// it checks which value was selected and calls anva_update_color()
 			$('#section-base_color .anva-radio-img-box').click( function() {
@@ -598,7 +598,7 @@ function theme_base_colors() {
 
 /**
  * Remove camera and swiper scripts if their not uses.
- * 
+ *
  * @since  1.0.0
  * @return void
  */
@@ -620,30 +620,30 @@ add_action( 'after_setup_theme', 'theme_remove_scripts', 11 );
  * Remove grid columns that are not needed.
  *
  * @global $pagenow
- * 
+ *
  * @since  1.0.0
  * @param  array $columns
  * @return array $columns
  */
 function theme_remove_grid_columns( $columns ) {
-	
+
 	if ( is_admin() ) {
 		global $pagenow;
-	
+
 		// Admin Pages
 		if ( ( $pagenow == 'post.php' ) && ( isset( $_GET['post_type'] ) ) && ( $_GET['post_type'] == 'page' ) ) {
 			unset( $columns[1] );
 			unset( $columns[5] );
 			unset( $columns[6] );
 		}
-		
+
 		// Admin Nav Menu
 		if ( ( $pagenow == 'nav-menus.php' ) ) {
 			unset( $columns[1] );
 			unset( $columns[6] );
 		}
 	}
-	
+
 	return $columns;
 }
 add_filter( 'anva_grid_columns', 'theme_remove_grid_columns' );

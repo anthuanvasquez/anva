@@ -1,10 +1,10 @@
 jQuery(document).ready(function($) {
 
 	"use strict";
-	
+
 	// Settings
 	var s;
-	
+
 	// Anva Meta Object
 	var ANVA_META = {
 
@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
 					s.locationRight.show();
 					s.locationLeft.show();
 					break;
-				
+
 				case 'right':
 					s.locationRight.show();
 					s.locationLeft.hide();

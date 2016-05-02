@@ -39,7 +39,7 @@
 
 body.device-lg .post-reading-bar {
   -webkit-transition: all .4s ease;
-          transition: all .4s ease;
+  transition: all .4s ease;
 }
 
 .password-form {

@@ -1,19 +1,38 @@
+/**
+ * This is the config file fot the gulp task, see gulpfile.js dir
+ * to view each tasks.
+ *
+ *
+ * Project Information
+ *
+ * theme:   The parent theme assets.
+ * core:    The framework assets.
+ * admin:   The admin assets on frameork.
+ * build:   The build theme without require files for development.
+ * dist:    The released theme ready for deployment.
+ * bower:   Bower components, required for theme development.
+ * modules: The node packages, required for theme development.
+ * vendor:  All required vendor plugins for use in the theme.
+ */
+
+'use_strict';
+
 // Project paths
 var project = 'anva',
     version = '1.0.0',
     proxy   = 'anva.dev',
     src     = '../',
     theme   = src + 'assets/',
-    admin   = src + 'framework/admin/assets/',
     core    = src + 'framework/assets/',
+    admin   = src + 'framework/admin/assets/',
     build   = './build/',
-    dist    = './build-theme/' + project + '-' + version + '/',
+    dist    = './dist/' + project + '-' + version + '/',
     bower   = './bower_components/',
     modules = './node_modules/'
 ;
 
 // Vendor Scripts
-var bower_js = [
+var vendor = [
     core  + 'js/vendor/twitterfeedfetcher.js',
     core  + 'js/vendor/smoothscroll-modified.min.js',
     core  + 'js/vendor/swiper.min.js',
@@ -72,6 +91,14 @@ module.exports = {
   },
 
   // -------------------------------------------
+  // Livereload
+  // -------------------------------------------
+
+  livereload: {
+    port: 35729
+  },
+
+  // -------------------------------------------
   // Images
   // -------------------------------------------
 
@@ -92,29 +119,42 @@ module.exports = {
   },
 
   // -------------------------------------------
-  // Livereload
-  // -------------------------------------------
-
-  livereload: {
-    port: 35729
-  },
-
-  // -------------------------------------------
   // Scripts
   // -------------------------------------------
 
   scripts: {
     dest: build + 'js/',
     lint: {
-      src: [src + 'js/**/*.js'],
-      'core': [src + '']
+      min: '**.min.js',
+      theme: theme + 'js/**/*.js',
+      core: core + 'js/**/*.js',
+      admin: admin + 'js/**/*.js',
+      ignore: ['*.min.js', 'plugins.js', 'vendor/**', 'components/**', 'vmap/**']
     },
     minify: {
-      src: build+'js/**/*.js',
+      theme: {
+        src: theme + 'js/**/*.js',
+        dest: theme + 'js/',
+      },
+      core: {
+        src: core + 'js/**/*.js',
+        dest: core + 'js/',
+        vendor: {
+          files: vendor,
+          name: 'vendor.js'
+        },
+        ignore: ['*.min.js', 'plugins.js', 'vendor/**', 'components/**', 'vmap/**']
+      },
+      admin: {
+        src: admin + 'js/**/*.js',
+        dest: admin + 'js/',
+      },
       uglify: {},
-      dest: build+'js/'
+      rename: {
+        suffix: '.min'
+      }
     },
-    namespace: 'wp-'
+    sourcemaps: false
   },
 
   // -------------------------------------------
@@ -122,37 +162,33 @@ module.exports = {
   // -------------------------------------------
 
   styles: {
-    build: {
-      src: theme + 'scss/**/*.scss',
-      dest: build + 'assets/css/'
-    },
     theme: {
       src: theme + 'scss/**/*.scss',
       dest: theme + 'css/'
     },
     core: {
-      src: core + 'less/**/*.less',
+      src: core + 'scss/**/*.scss',
       dest: core + 'css/'
     },
     admin: {
       src: admin + 'scss/**/*.scss',
-      dest: build + 'css/'
+      dest: admin + 'css/'
     },
-    compiler: 'libsass',
-    autoprefixer: { browsers: ['> 3%', 'last 2 versions', 'ie 9', 'ios 6', 'android 4'] },
-    minify: { safe: true },
-    rubySass: {
-      loadPath: ['./src/scss', bower, modules],
-      precision: 6,
-      sourcemap: true
-    },
-    libsass: {
+    sass: {
       includePaths: ['./src/scss', bower, modules],
       precision: 6,
+      outputStyle: 'expanded',
       onError: function(err) {
         return console.log(err);
       }
-    }
+    },
+    autoprefixer: {
+      browsers: ['> 3%', 'last 2 versions', 'ie 9', 'ios 6', 'android 4']
+    },
+    minify: {
+      safe: true
+    },
+    sourcemaps: false
   },
 
   // -------------------------------------------
@@ -175,7 +211,7 @@ module.exports = {
   // -------------------------------------------
 
   utils: {
-    clean: [build + '**/.DS_Store'],
+    clean: [src + '**/.DS_Store'],
     wipe: [dist],
     dist: {
       src: [build + '**/*', '!'+build+'**/*.map'],
@@ -189,12 +225,13 @@ module.exports = {
 
   watch: {
     src: {
-      styles:       src+'assets/scss/**/*.scss',
-      scripts:      src+'assets/js/**/*.js',
-      images:       src+'**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
-      theme:        src+'**/*.php',
-      livereload:   src+'**/*'
+      styles:       [theme  + 'scss/**/*.scss', core + 'scss/**/*.scss', admin + 'scss/**/*.scss'],
+      scripts:      [theme  + 'js/**/*.js', core + 'js/**/*.js', admin + 'js/**/*.js'],
+      images:       src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
+      theme:        src + '**/*.php',
+      livereload:   src + '**/*'
     },
-    watcher: 'livereload'
+    watcher: 'browsersync'
   }
-}
+
+};

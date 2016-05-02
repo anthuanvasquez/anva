@@ -1,17 +1,17 @@
 {
-  "name": "wordpress-gulp-starter-kit",
-  "homepage": "https://github.com/synapticism/wordpress-gulp-starter-kit",
+  "name": "anva-wordpress-framework",
+  "homepage": "",
   "authors": [
     {
-      "name": "Alexander Synaptic",
-      "email": "alexander@synapticism.com",
-      "homepage": "http://synapticism.com"
+      "name": "Anthuan Vasquez",
+      "email": "me@anthuanvasquez.net",
+      "homepage": "http://anthuanvasquez.net"
     }
   ],
   "keywords": [
     "wordpress",
     "wordpress-theme",
-    "starter-kit",
+    "theme",
     "gulp",
     "bower",
     "sass",
@@ -26,7 +26,8 @@
     "test",
     "tests",
     ".sass-cache",
-    "build"
+    "build",
+    "examples"
   ],
   "devDependencies": {
     "bootstrap-sass": "^3.3.6",
@@ -35,24 +36,24 @@
     "jquery.fitvids": "^1.1.0",
     "superfish": "^1.7.8",
     "jrespond": "jRespond#^1.0.0",
-    "smoothscroll": "https://github.com/themicon/smoothscroll.git",
     "instafeed.js": "^1.4.1",
     "jribbble": "^2.0.4",
-    "jquery.mb.ytplayer": "https://github.com/pupunzi/jquery.mb.YTPlayer.git#^3.0.0",
-    "jquery.cookie": "https://github.com/carhartl/jquery-cookie.git#^1.4.1",
     "jquery.easy-pie-chart": "^2.1.6",
-    "jquery.appear": "https://github.com/bas2k/jquery.appear.git",
     "animsition": "^4.0.1",
     "jquery.stellar": "^0.6.2",
-    "jquery-countTo": "https://github.com/mhuggins/jquery-countTo.git#^1.2.0",
-    "owl.carousel": "https://github.com/OwlCarousel2/OwlCarousel2.git#^2.0.0-beta.3",
     "Morphext": "^2.4.4",
     "isotope": "^2.2.2",
     "imagesloaded": "^4.1.0",
+    "Chart.js": "^2.0.0",
+    "smoothscroll": "https://github.com/themicon/smoothscroll.git",
+    "jquery.mb.ytplayer": "https://github.com/pupunzi/jquery.mb.YTPlayer.git#^3.0.0",
+    "jquery.cookie": "https://github.com/carhartl/jquery-cookie.git#^1.4.1",
+    "jquery.appear": "https://github.com/bas2k/jquery.appear.git",
+    "jquery-countTo": "https://github.com/mhuggins/jquery-countTo.git#^1.2.0",
+    "owl.carousel": "https://github.com/OwlCarousel2/OwlCarousel2.git#^2.0.0-beta.3",
     "jquery-bbq": "https://github.com/cowboy/jquery-bbq.git#^1.2.1",
     "jquery-color": "https://github.com/jquery/jquery-color.git#^2.1.2",
     "meteor-toastr": "https://github.com/pcel/meteor-toastr.git",
-    "Chart.js": "^2.0.0",
     "jquery-form": "https://github.com/malsup/form.git#^3.46.0",
     "jquery-infinite-scroll": "https://github.com/infinite-scroll/infinite-scroll.git#^2.1.0"
   }

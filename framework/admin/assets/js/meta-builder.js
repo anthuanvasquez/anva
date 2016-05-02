@@ -1,22 +1,22 @@
 // Implement JSON.stringify serialization
 JSON.stringify = JSON.stringify || function ( obj ) {
-	
+
 	var t = typeof (obj);
-	
+
 	if ( t != "object" || obj === null ) {
-		
+
 		// Simple data type
 		if ( t == "string" ) {
 			obj = '"' + obj + '"';
 		}
-		
+
 		return String( obj );
-	
+
 	} else {
-		
+
 		// Recurse array or object
 		var n, v, json = [], arr = ( obj && obj.constructor == Array );
-		
+
 		for ( n in obj ) {
 			v = obj[ n ];
 			t = typeof( v );
@@ -26,7 +26,7 @@ JSON.stringify = JSON.stringify || function ( obj ) {
 			} else if ( t == "object" && v !== null ) {
 				v = JSON.stringify( v );
 			}
-			
+
 			json.push( ( arr ? "" : '"' + n + '":' ) + String( v ) );
 		}
 		return ( arr ? "[" : "{" ) + String( json ) + ( arr ? "]" : "}" );
@@ -36,7 +36,7 @@ JSON.stringify = JSON.stringify || function ( obj ) {
 jQuery(document).ready(function($) {
 
 	"use strict";
-	
+
 	// WP Media Frame
 	var frame;
 
@@ -58,7 +58,7 @@ jQuery(document).ready(function($) {
 			root:				$('html, body'),
 			editorHeight: 		200
 		},
-		
+
 		/**
 		 * Initialize the object.
 		 */
@@ -98,8 +98,8 @@ jQuery(document).ready(function($) {
 
 		/**
 		 * Check if the page template is selected.
-		 * 
-		 * @param object $target 
+		 *
+		 * @param object $target
 		 */
 		checkTemplate: function( $target ) {
 			if ( 'template_builder.php' == $target ) {
@@ -122,10 +122,10 @@ jQuery(document).ready(function($) {
 					return $( item.html ).addClass('block').css('minWidth','300px');
 				},
 				start: function( e, ui ) {
-					
+
 				},
 				stop: function( e, ui ) {
-					
+
 				}
 			});
 		},
@@ -147,7 +147,7 @@ jQuery(document).ready(function($) {
 
 				},
 				update: function ( e, ui ) {
-					
+
 				}
 			});
 			s.itemUl.find('.thumbnail').disableSelection();
@@ -158,28 +158,28 @@ jQuery(document).ready(function($) {
 		 */
 		buildItem: function() {
 
-			var $randomId 	= $.now(), 
-				$shortcode 	= $('#anva_shortcode').val(), 
-				$title 		= $('#anva_shortcode_title').val(), 
+			var $randomId 	= $.now(),
+				$shortcode 	= $('#anva_shortcode').val(),
+				$title 		= $('#anva_shortcode_title').val(),
 				$image 		= $('#anva_shortcode_image').val();
-			
-			if ( $shortcode != '' ) {
+
+			if ( $shortcode !== '' ) {
 
 				// Item Data Object
 				var builderItemData = {};
 
 				builderItemData.id = $randomId;
 				builderItemData.shortcode = $shortcode;
-				
+
 				// Builder JSON Object
 				var builderItemDataJSON = JSON.stringify( builderItemData );
-				
+
 				// Get ajax URL
 				var ajaxEditURL = anvaBuilderJs.ajaxurl + '?action=anva_builder_get_fields&shortcode=' + $shortcode + '&rel=' + $randomId;
-				
+
 				// Generate Item HTML
 				var builderItem;
-				
+
 				builderItem  = '<li id="' + $randomId + '" class="item item-' + $randomId + ' ' + $shortcode + ' animated fadeIn">';
 				builderItem += '<div class="actions">';
 				builderItem += '<a href="#" class="button-move-up"></a>';
@@ -198,7 +198,7 @@ jQuery(document).ready(function($) {
 				builderItem += '<div class="clear"></div>';
 				builderItem += '</li>';
 
-				// Return 
+				// Return
 				return {
 					id:        $randomId,
 					shortcode: $shortcode,
@@ -227,7 +227,7 @@ jQuery(document).ready(function($) {
 				}
 
 				// Return if dont item select
-				if ( '' == $('#anva_shortcode').val() ) {
+				if ( '' === $('#anva_shortcode').val() ) {
 					swal({
 						title: 'Builder',
 						text: anvaBuilderJs.builder_empty,
@@ -251,10 +251,10 @@ jQuery(document).ready(function($) {
 				// Append item into Sortable List
 				s.itemUl.append( item.html );
 				s.itemUl.removeClass('empty');
-				
+
 				// Save data
 				$('#' + item.id).data( 'anva_builder_settings', item.json );
-				
+
 				// Divider dont have attributes
 				if ( item.shortcode != 'divider' ) {
 					$('#' + item.id).find('.button-edit').trigger('click');
@@ -289,9 +289,9 @@ jQuery(document).ready(function($) {
 				var $parentEle = $(this).parent('.actions').parent('li'),
 					$itemId = $parentEle.attr('id'),
 					$itemInner = $('#item-inner-' + $itemId);
-				
+
 				// If item don't has inline form
-				if ( $itemInner.length == 0 ) {
+				if ( $itemInner.length === 0 ) {
 
 					// Get current item ID
 					$('#anva_current_item').val( $(this).attr('data-id') );
@@ -301,7 +301,7 @@ jQuery(document).ready(function($) {
 
 					// Show spinner
 					$parentEle.find('span.spinner').css('visibility', 'visible');
-					
+
 					// Ajax Call
 					var $ajaxCall = $.ajax({
 						type: 'GET',
@@ -311,7 +311,7 @@ jQuery(document).ready(function($) {
 						success: function ( data ) {
 							$parentEle.append('<div id="item-inner-' + $itemId + '" class="item-inner item-inner-'+ $itemId +'" style="display:none;">' + data + '</div>');
 							$('#' + $itemId).addClass('has-inline-content');
-						} 
+						}
 					});
 
 					// When Ajax Call is Done
@@ -319,13 +319,13 @@ jQuery(document).ready(function($) {
 
 						// Hide inline form
 						$('#item-inner-' + $itemId).slideToggle();
-						
+
 						// Hide spinner
 						$parentEle.find('span.spinner').css('visibility', 'hidden');
 
 						// Remove disable button
 						$('#add-builder-item').removeAttr('disabled');
-						
+
 						// Color Picker
 						$('.anva-color').wpColorPicker();
 
@@ -366,8 +366,8 @@ jQuery(document).ready(function($) {
 
 			s.itemLi.find('a.button-move-up').on( 'click', function(e) {
 				e.preventDefault();
-				var $curr = $(this).parent('.actions').parent('li').attr('id'); 
-				var $prev = $('#' + $curr).prev().attr('id'); 
+				var $curr = $(this).parent('.actions').parent('li').attr('id');
+				var $prev = $('#' + $curr).prev().attr('id');
 				$('#' + $prev).insertAfter('#' + $curr);
 			});
 		},
@@ -376,15 +376,15 @@ jQuery(document).ready(function($) {
 		 * Add columns to elements.
 		 */
 		addColumns: function() {
-			
+
 			// Increment columns
 			$("#builder-sortable-items li .actions .button-col-up").on( 'click', function(e) {
 				e.preventDefault();
 
 				var el = $(this).parent('div').parent('li'), size = el.attr('data-size'), prev1Li = el.prev(), prev2Li = prev1Li.prev(), prev3Li = prev2Li.prev();
-				
+
 				if ( size == 'col_one_fourth' || size == 'col_one_fourth col_last' ) {
-					
+
 					if ( prev1Li.attr('data-size') == 'col_one_third' && prev2Li.attr('data-size') == 'col_one_third' ) {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third col_last');
@@ -396,14 +396,14 @@ jQuery(document).ready(function($) {
 					} else {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third');
-						el.find('.anva_element_columns').val('col_one_third');	
+						el.find('.anva_element_columns').val('col_one_third');
 					}
-					
+
 					el.removeClass('col_one_fourth');
 				}
 
 				if ( size == 'col_one_third' || size == 'col_one_third col_last' ) {
-					
+
 					if ( prev1Li.attr('data-size') == 'col_half' ) {
 						el.addClass('col_half');
 						el.attr('data-size', 'col_half col_last');
@@ -411,27 +411,27 @@ jQuery(document).ready(function($) {
 					} else {
 						el.addClass('col_half');
 						el.attr('data-size', 'col_half');
-						el.find('.anva_element_columns').val('col_half');	
+						el.find('.anva_element_columns').val('col_half');
 					}
-					
+
 					el.removeClass('col_one_third');
 				}
-				
+
 				if ( size == 'col_half' || size == 'col_half col_last' ) {
-					
+
 					if ( prev1Li.attr('data-size')=='col_one_third' ) {
 						el.addClass('col_two_third');
 						el.attr('data-size', 'col_two_third col_last');
-						el.find('.anva_element_columns').val('col_two_third col_last');	
+						el.find('.anva_element_columns').val('col_two_third col_last');
 					} else {
 						el.addClass('col_two_third');
 						el.attr('data-size', 'col_two_third');
-						el.find('.anva_element_columns').val('col_two_third');	
+						el.find('.anva_element_columns').val('col_two_third');
 					}
 
 					el.removeClass('col_half');
 				}
-				
+
 				if ( size == 'col_two_third' || size == 'col_two_third col_last' ) {
 					el.addClass('col_full');
 					el.attr('data-size', 'col_full');
@@ -442,21 +442,21 @@ jQuery(document).ready(function($) {
 				if ( size == 'col_full' ) {
 					return false;
 				}
-				
+
 				return false;
 			});
 
 			$("#builder-sortable-items li .actions .button-col-down").on( 'click', function(e) {
 				e.preventDefault();
-				
+
 				var el = $(this).parent('div').parent('li'), size = el.attr('data-size'), prev1Li = el.prev(), prev2Li = prev1Li.prev(), prev3Li = prev2Li.prev();
-				
+
 				if ( size == 'col_col_one_fourth' || size == 'col_one_fourth col_last' ) {
 					return false;
 				}
 
 				if ( size == 'col_one_third' || size == 'col_one_third col_last' ) {
-					
+
 					if ( prev1Li.attr('data-size') == 'col_one_fourth' && prev2Li.attr('data-size') == 'col_one_fourth' && prev3Li.attr('data-size') == 'col_one_fourth') {
 						el.addClass('col_one_fourth');
 						el.attr('data-size', 'col_one_fourth col_last');
@@ -466,54 +466,54 @@ jQuery(document).ready(function($) {
 						el.attr('data-size', 'col_one_fourth');
 						el.find('.anva_element_columns').val('col_one_fourth');
 					}
-					
+
 					el.removeClass('col_one_third');
 				}
-				
+
 				if ( size == 'col_half' || size == 'col_half col_last' ) {
-				
+
 					if ( prev1Li.attr('data-size') == 'col_one_third' && prev2Li.attr('data-size') == 'col_one_third' ) {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third col_last');
-						el.find('.anva_element_columns').val('col_one_third col_last');	
+						el.find('.anva_element_columns').val('col_one_third col_last');
 					} else if ( prev1Li.attr('data-size')=='col_two_third' ) {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third col_last');
-						el.find('.anva_element_columns').val('col_one_third col_last');	
+						el.find('.anva_element_columns').val('col_one_third col_last');
 					} else {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third');
-						el.find('.anva_element_columns').val('col_one_third');	
+						el.find('.anva_element_columns').val('col_one_third');
 					}
-					
+
 					el.removeClass('col_half');
 				}
-				
+
 				if ( size == 'col_two_third' || size == 'col_two_third col_last' ) {
-					
+
 					if ( prev1Li.attr('data-size')=='col_half' ) {
 						el.addClass('col_half col_last');
 						el.attr('data-size', 'col_half col_last');
-						el.find('.anva_element_columns').val('col_half col_last');	
+						el.find('.anva_element_columns').val('col_half col_last');
 					} else {
 						el.addClass('col_half');
 						el.attr('data-size', 'col_half');
-						el.find('.anva_element_columns').val('col_half');	
+						el.find('.anva_element_columns').val('col_half');
 					}
-					
+
 					el.removeClass('col_two_third');
 				}
-				
+
 				if ( size == 'col_full' ) {
-					
+
 					if ( prev1Li.attr('data-size')=='col_one_third' ) {
 						el.addClass('col_two_third');
 						el.attr('data-size', 'col_two_third col_last');
-						el.find('.anva_element_columns').val('col_two_third col_last');	
+						el.find('.anva_element_columns').val('col_two_third col_last');
 					} else {
 						el.addClass('col_two_third');
 						el.attr('data-size', 'col_two_third');
-						el.find('.anva_element_columns').val('col_two_third');	
+						el.find('.anva_element_columns').val('col_two_third');
 					}
 
 					el.removeClass('col_full');
@@ -534,7 +534,7 @@ jQuery(document).ready(function($) {
 					$parentEle.fadeOut();
 					setTimeout( function() {
 						$parentEle.remove();
-						if ( $('#builder-sortable-items li').length == 0 ) {
+						if ( $('#builder-sortable-items li').length === 0 ) {
 							$('#builder-sortable-items').addClass('empty');
 						}
 					}, 500 );
@@ -549,7 +549,7 @@ jQuery(document).ready(function($) {
 			$(document).on( 'click', '#remove-all-items', function(e) {
 				e.preventDefault();
 
-				if ( $('#builder-sortable-items li').length == 0 ) {
+				if ( $('#builder-sortable-items li').length === 0 ) {
 					swal({
 						title: 'Builder',
 						text: anvaBuilderJs.builder_remove_empty,
@@ -572,11 +572,11 @@ jQuery(document).ready(function($) {
 					closeOnConfirm: true,
 					closeOnCancel: true
 				}, function( isConfirm ) {
-					
+
 					if ( isConfirm ) {
 						$('#builder-sortable-items li').remove();
 						setTimeout( function() {
-							if ( $('#builder-sortable-items li').length == 0 ) {
+							if ( $('#builder-sortable-items li').length === 0 ) {
 								$('#builder-sortable-items').addClass('empty');
 							}
 						}, 500 );
@@ -608,7 +608,7 @@ jQuery(document).ready(function($) {
 		 */
 		publish: function() {
 			$('#publish').on( 'click', function() {
-				
+
 				// Add fields for items
 				if ( $('#builder-sortable-items li').length > 0 ) {
 					$('#builder-sortable-items li').each( function() {
@@ -616,7 +616,7 @@ jQuery(document).ready(function($) {
 					});
 					$('#anva_shortcode_order').val( s.itemUl.sortable('toArray') );
 				}
-				
+
 				// Disable Import/Export buttons
 				$('#anva-import').val('');
 				$('#anva-export').val('');
@@ -627,7 +627,7 @@ jQuery(document).ready(function($) {
 		 * Tooltip popups.
 		 */
 		tooltip: function() {
-			
+
 			// Tooltip element description
 			$('.tooltip').tooltipster({
 				animation: 'grow',
@@ -677,10 +677,10 @@ jQuery(document).ready(function($) {
 				});
 				$('#anva-export').val(1);
 			});
-			
+
 			// Import Content
 			$(document).on( 'click', '.button-import', function(e) {
-				if ( $('#anva-import-file').val() == '' ) {
+				if ( $('#anva-import-file').val() === '' ) {
 					alert( anvaBuilderJs.builder_import );
 					e.preventDefault();
 				}
@@ -711,19 +711,19 @@ jQuery(document).ready(function($) {
 			// Upload
 			$(document).on( 'click', '.anva-upload-button', function(e) {
 				e.preventDefault();
-				
-				var $file 	= $(this).data('id'), 
-					$button = $('#' + $file + '_button'), 
-					$image  = $('#' + $file + '_image'), 
-					$remove = $button.data('remove'), 
+
+				var $file 	= $(this).data('id'),
+					$button = $('#' + $file + '_button'),
+					$image  = $('#' + $file + '_image'),
+					$remove = $button.data('remove'),
 					$upload = $button.data('upload');
-				
+
 				if ( $remove == $button.text() ) {
 					$('#' + $file).val('');
 					$image.slideUp('fast');
 					$button.text( $upload );
 					$button.removeClass('remove-image');
-					
+
 					setTimeout( function() {
 						$image.find('img').remove();
 						$image.find('a').remove();
@@ -761,7 +761,7 @@ jQuery(document).ready(function($) {
 			});
 		}
 
-	}
+	};
 
 	ANVA_BUILDER.init();
 

@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
 	"use strict";
-	
+
 	// Anva Options Object
 	var ANVA_OPTIONS = {
 
@@ -56,7 +56,7 @@ jQuery(document).ready(function($) {
 				e.preventDefault();
 				var $form = $(this).closest('form');
 
-				if ( '' == $('#section-import_settings textarea').val() ) {
+				if ( '' === $('#section-import_settings textarea').val() ) {
 					swal({
 						title: anvaJs.import_empty_title,
 						text: anvaJs.import_empty_text,
@@ -117,7 +117,7 @@ jQuery(document).ready(function($) {
 			$('.inner-group > h3').on( 'click', function(e) {
 				e.preventDefault();
 				var $collapse = $(this), $postbox = $collapse.closest('.postbox');
-				
+
 				// var $collapse = $(this).parent().toggleClass('collapse-close');
 				if ( $postbox.hasClass('collapse-close') ) {
 
@@ -146,7 +146,7 @@ jQuery(document).ready(function($) {
 					}
 				}
 
-			});;
+			});
 
 			// Show content
 			$('#anva-framework .postbox').each(function() {
@@ -184,7 +184,7 @@ jQuery(document).ready(function($) {
 			}
 
 			// If active tab is saved and exists, load it's .group
-			if ( active_tab != '' && $(active_tab).length ) {
+			if ( active_tab !== '' && $(active_tab).length ) {
 				$(active_tab).fadeIn();
 				$(active_tab + '-tab').addClass('nav-tab-active');
 			} else {
@@ -251,5 +251,5 @@ jQuery(document).ready(function($) {
 	$(window).scroll( function() {
 		ANVA_OPTIONS.stickyActions();
 	});
-	
+
 });

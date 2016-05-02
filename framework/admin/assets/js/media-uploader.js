@@ -4,14 +4,13 @@ jQuery(document).ready(function($) {
 
 	var anva_media_upload, anva_media_selector;
 
-	function anva_media_add_file( event, selector ) {
+	function anva_media_add_file( e, selector ) {
 
-		var upload = $(".uploaded-file"), frame;
-		var $el = $(this);
-		
+		var upload = $('.uploaded-file'), frame, el = $(this);
+
 		anva_media_selector = selector;
 
-		event.preventDefault();
+		e.preventDefault();
 
 		// If the media frame already exists, reopen it.
 		if ( anva_media_upload ) {
@@ -20,12 +19,12 @@ jQuery(document).ready(function($) {
 			// Create the media frame.
 			anva_media_upload = wp.media.frames.anva_media_upload =  wp.media({
 				// Set the title of the modal.
-				title: $el.data('choose'),
+				title: el.data('choose'),
 
 				// Customize the submit button.
 				button: {
 					// Set the text of the button.
-					text: $el.data('update'),
+					text: el.data('update'),
 					// Tell the button not to close the modal, since we're
 					// going to refresh the page when the image is selected.
 					close: false
@@ -38,7 +37,7 @@ jQuery(document).ready(function($) {
 				var attachment = anva_media_upload.state().get('selection').first();
 				anva_media_upload.close();
 				anva_media_selector.find('.upload').val( attachment.attributes.url );
-				
+
 				if ( attachment.attributes.type == 'image' ) {
 					anva_media_selector.find('.screenshot').empty().hide().append( '<img src="' + attachment.attributes.url + '"><a class="remove-image">X</a>' ).slideDown('fast').addClass('has-image');
 				}
@@ -56,21 +55,21 @@ jQuery(document).ready(function($) {
 	}
 
 	function anva_media_remove_file( selector ) {
-		
+
 		selector.find('.remove-image').hide();
 		selector.find('.upload').val('');
 		selector.find('.anva-background-properties').hide();
 		selector.find('.screenshot').slideUp().removeClass('has-image');
 		selector.find('.remove-file').unbind().addClass('upload-button').removeClass('remove-file').val( anvaMediaJs.upload);
-		
+
 		// We don't display the upload button if .upload-notice is present
 		// This means the user doesn't have the WordPress 3.5 Media Library Support
 		if ( $('.section-upload .upload-notice').length > 0 ) {
 			$('.upload-button').remove();
 		}
 
-		selector.find('.upload-button').on( 'click', function( event ) {
-			anva_media_add_file( event, $(this).closest('.section') );
+		selector.find('.upload-button').on( 'click', function( e ) {
+			anva_media_add_file( e, $(this).closest('.section') );
 		});
 	}
 
@@ -78,8 +77,8 @@ jQuery(document).ready(function($) {
 		anva_media_remove_file( $(this).closest('.section') );
 	});
 
-	$('.upload-button').click( function( event ) {
-		anva_media_add_file( event, $(this).closest('.section') );
+	$('.upload-button').click( function( e ) {
+		anva_media_add_file( e, $(this).closest('.section') );
 	});
 
 	// Check if each section upload has image

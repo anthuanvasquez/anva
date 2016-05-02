@@ -278,7 +278,7 @@ jQuery(document).ready(function($) {
                         $ele.fadeOut();
                         setTimeout( function() {
                             $ele.remove();
-                            if ( $('.dynamic-sidebars ul li').length == 0 ) {
+                            if ( $('.dynamic-sidebars ul li').length === 0 ) {
                                 $('.dynamic-sidebars ul').addClass('empty');
                             }
                         }, 500 );
@@ -290,7 +290,7 @@ jQuery(document).ready(function($) {
             // Add new sidebar
             $('#add-sidebar').click( function() {
                 var $new = $('.sidebar').val();
-                if ( '' == $new ) {
+                if ( '' === $new.trim() ) {
                     swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
                     return false;
                 }
@@ -329,7 +329,7 @@ jQuery(document).ready(function($) {
                         $ele.fadeOut();
                         setTimeout( function() {
                             $ele.remove();
-                            if ( $('.dynamic-contact-fields ul li').length == 0 ) {
+                            if ( $('.dynamic-contact-fields ul li').length === 0 ) {
                                 $('.dynamic-contact-fields ul').addClass('empty');
                             }
                         }, 500 );
@@ -341,7 +341,7 @@ jQuery(document).ready(function($) {
                 var $new = $('#contact_fields option:selected').text();
                 var $value = $('#contact_fields option:selected').val();
 
-                if ( '' == $new ) {
+                if ( '' === $new.trim() ) {
                     swal( anvaJs.contact_error_title, anvaJs.contact_error_text );
                     return false;
                 }

@@ -10,13 +10,13 @@ jQuery(document).ready(function($) {
 
 	// Anva Gallery Object
 	var ANVA_GALLERY = {
-		
+
 		// Default Settings
 		settings: {
 			thumbUl: $('#anva_gallery_thumbs'),
 			thumbLi: $('#anva_gallery_thumbs li')
 		},
-		
+
 		init: function() {
 
 			// Set Settings
@@ -26,11 +26,11 @@ jQuery(document).ready(function($) {
 			ANVA_GALLERY.sortableImage();
 			ANVA_GALLERY.uploadImage();
 			ANVA_GALLERY.removeThubmanil();
-			ANVA_GALLERY.removeAllThumbnail()
+			ANVA_GALLERY.removeAllThumbnail();
 			ANVA_GALLERY.emptyGallery();
-		
+
 		},
-		
+
 		sortableImage: function() {
 			if ( s.thumbUl.length > 0 ) {
 				s.thumbUl.sortable({
@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
 		uploadImage: function() {
 			$('#anva_gallery_upload_button').on( 'click', function(e) {
 				e.preventDefault();
-				
+
 				if ( frame ) {
 					frame.open();
 					return;
@@ -65,9 +65,9 @@ jQuery(document).ready(function($) {
 
 				frame.on( 'select', function() {
 					var images = frame.state().get('selection').toJSON();
-					var length = images.length;	
+					var length = images.length;
 					for ( var i = 0; i < length; i++ ) {
-						ANVA_GALLERY.getThumbnail( images[i]['id'] );
+						ANVA_GALLERY.getThumbnail( images[i].id );
 					}
 				});
 
@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
 			$('#anva_gallery_remove_all_buttons').on( 'click', function(e) {
 				e.preventDefault();
 
-				if ( $('#anva_gallery_thumbs li').length == 0 ) {
+				if ( $('#anva_gallery_thumbs li').length === 0 ) {
 					alert( anvaJs.gallery_empty );
 					return;
 				}
@@ -108,14 +108,14 @@ jQuery(document).ready(function($) {
 
 		getThumbnail: function( id, cb ) {
 			cb = cb || function() {};
-			
+
 			var data = {
 				action: 'anva_gallery_get_thumbnail',
 				imageid: id
 			};
 
 			$('#anva-gallery-spinner').css('visibility', 'visible');
-			
+
 			$.post( ajaxurl, data, function( response ) {
 				s.thumbUl.append( response );
 				cb();
@@ -126,14 +126,14 @@ jQuery(document).ready(function($) {
 		},
 
 		emptyGallery: function() {
-			if ( $('#anva_gallery_thumbs li').length == 0 ) {
+			if ( $('#anva_gallery_thumbs li').length === 0 ) {
 				s.thumbUl.addClass('empty');
 			} else {
 				s.thumbUl.removeClass('empty');
 			}
 		}
 	};
-	
+
 	ANVA_GALLERY.init();
 
 });
