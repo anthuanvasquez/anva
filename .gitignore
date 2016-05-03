@@ -25,8 +25,12 @@ Desktop.ini
 prepros.cfg
 config.codekit
 /.tools/src
+/.tools/dist
+/.tools/zip
+/.tools/release
 /.tools/build
 /.tools/build-theme
+/.tools/log
 /.tools/npm-debug.log
 /.tools/node_modules
 /.tools/bower_components

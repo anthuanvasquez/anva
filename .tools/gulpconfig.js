@@ -80,11 +80,12 @@ module.exports = {
   // -------------------------------------------
 
   browsersync: {
-    files: [src + '/**'],
-    notify: false,
+    //files: [src + '/**', '!' + src + '.tools'],
+    notify: true,
     open: true,
-    port: 3000,
-    proxy: proxy,
+    proxy: {
+      target: proxy
+    },
     watchOptions: {
       debounceDelay: 2000
     }
@@ -162,6 +163,13 @@ module.exports = {
   // -------------------------------------------
 
   styles: {
+    lint: {
+      min: '**.min.css',
+      theme: theme + 'css/**/*.css',
+      core: core + 'css/**/*.css',
+      admin: admin + 'css/**/*.css',
+      ignore: ['*.min.css', 'components/**', 'fonts/**']
+    },
     theme: {
       src: theme + 'scss/**/*.scss',
       dest: theme + 'css/'
@@ -201,7 +209,7 @@ module.exports = {
       dest: build + 'languages/'
     },
     php: {
-      src: src + '**/*.php',
+      src: [src + '**/*.php', '!' + src + '.tools/**'],
       dest: build
     }
   },
@@ -212,10 +220,18 @@ module.exports = {
 
   utils: {
     clean: [src + '**/.DS_Store'],
-    wipe: [dist],
+    wipe: {
+      dist: [dist],
+      build: [build]
+    },
     dist: {
-      src: [build + '**/*', '!'+build+'**/*.map'],
-      dest: dist
+      src: [build + '**/*', '!' + build + '**/*.map'],
+      dest: dist,
+    },
+    zip: {
+      src: dist + '*',
+      name: project + '-' + version + '.zip',
+      dest: './dist'
     }
   },
 
@@ -228,7 +244,7 @@ module.exports = {
       styles:       [theme  + 'scss/**/*.scss', core + 'scss/**/*.scss', admin + 'scss/**/*.scss'],
       scripts:      [theme  + 'js/**/*.js', core + 'js/**/*.js', admin + 'js/**/*.js'],
       images:       src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
-      theme:        src + '**/*.php',
+      php:          src + '**/*.php',
       livereload:   src + '**/*'
     },
     watcher: 'browsersync'

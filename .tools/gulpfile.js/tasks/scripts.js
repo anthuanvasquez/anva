@@ -6,9 +6,6 @@ var gulp        = require('gulp'),
     config      = require('../../gulpconfig').scripts
 ;
 
-// Filter JS Files
-var jsFilter = plugins.filter(['*.js'], {restore: true});
-
 // Check scripts for errors on theme, core and admin
 gulp.task('scripts-lint', function() {
   return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
@@ -35,7 +32,7 @@ gulp.task('scripts-minify-core', function(){
   .pipe(gulp.dest(config.minify.core.dest));
 });
 
-// Contact and minify core vendor scripts
+// Concat and minify core vendor scripts
 gulp.task('scripts-core-vendor', function(){
     return gulp.src(config.minify.core.vendor.files)
     .pipe(plugins.concat(config.minify.core.vendor.name))

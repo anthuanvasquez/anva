@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 
 	function anva_media_add_file( e, selector ) {
 
-		var upload = $('.uploaded-file'), frame, el = $(this);
+		var el = $(this), upload = $('.uploaded-file'), frame;
 
 		anva_media_selector = selector;
 

@@ -621,7 +621,7 @@ function anva_animated_gallery_grid($atts, $content) {
 
 
 
-function anva_gallery_masonry($atts, $content) {
+function anva_element_gallery_masonry($atts, $content) {
 
 	//extract short code attr
 	extract(shortcode_atts(array(

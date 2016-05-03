@@ -83,7 +83,7 @@ h4,
 h5,
 h6 {
 	color: $heading-color;
-	font-weight: 600;
+	font-weight: $heading-weight;
 	line-height: $line-height-base;
 	margin: 0 0 $margin-small 0;
 	font-family: $heading-font;
@@ -104,7 +104,7 @@ h5 { font-size: $font-size-h5; }
 
 h6 { font-size: $font-size-h6; }
 
-h4 { font-weight: 600; }
+h4 { font-weight: $heading-weight; }
 
 h5,
 h6 { font-weight: bold; }
@@ -141,8 +141,6 @@ small { font-family: $body-font; }
 	margin: 0 auto;
 	background-color: #FFF;
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);
-	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
-	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 // body.no-responsive {

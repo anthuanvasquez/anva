@@ -5,15 +5,26 @@ var gulp          = require('gulp'),
     plugins       = require('gulp-load-plugins')({ camelize: true }),
     config        = require('../../gulpconfig').styles,
     autoprefixer  = require('autoprefixer'),
-    processors    = [autoprefixer(config.autoprefixer)]
+    processors    = [autoprefixer(config.autoprefixer)],
+    browsersync   = require('browser-sync')
+
 ;
 
+var cssLint = '../../.csslintrc';
+
 // error function for plumber
-var onError = function (err) {
+var onError = function(err) {
   plugins.gutil.beep();
   console.log(err);
   this.emit('end');
 };
+
+gulp.task('styles-css-lint', function() {
+  return gulp.src([config.lint.theme])
+  .pipe(plugins.ignore.exclude(config.lint.ignore))
+  .pipe(plugins.csslint())
+  .pipe(plugins.csslint.reporter());
+});
 
 // Build stylesheets from source Sass files, autoprefix,
 // and write source maps (for debugging) with libsass
@@ -26,9 +37,10 @@ gulp.task('styles-theme', function() {
   //.pipe(plugins.cssnano(config.minify))
   .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
   .pipe(gulp.dest(config.theme.dest))
-  .pipe(plugins.notify({ message: 'Theme styles completed' }));
+  .pipe(browsersync.reload({ stream: true }));
 });
 
+// Build scss files from core
 gulp.task('styles-core', function() {
   return gulp.src(config.core.src)
   .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
@@ -37,9 +49,10 @@ gulp.task('styles-core', function() {
   //.pipe(plugins.cssnano(config.minify))
   .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
   .pipe(gulp.dest(config.core.dest))
-  .pipe(plugins.browserSync.reload({ stream: true }));
+  .pipe(browsersync.reload({ stream: true }));
 });
 
+// Build scss files from admin
 gulp.task('styles-admin', function() {
   return gulp.src(config.admin.src)
   .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
@@ -47,8 +60,11 @@ gulp.task('styles-admin', function() {
   .pipe(plugins.postcss(processors))
   //.pipe(plugins.cssnano(config.minify))
   .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
-  .pipe(gulp.dest(config.admin.dest));
+  .pipe(gulp.dest(config.admin.dest))
+  .pipe(browsersync.reload({ stream: true }));
 });
 
-gulp.task('styles', ['styles-theme', 'styles-core']);
+// @TODO create task to minify all css files
+
+gulp.task('styles', ['styles-theme', 'styles-core', 'styles-admin']);
 

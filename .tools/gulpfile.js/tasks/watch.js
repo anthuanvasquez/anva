@@ -2,7 +2,8 @@
 
 var gulp        = require('gulp'),
     plugins     = require('gulp-load-plugins')({ camelize: true }),
-    config      = require('../../gulpconfig').watch
+    config      = require('../../gulpconfig').watch,
+    reload      = require('browser-sync').reload
 ;
 
 // Watch (BrowserSync version): build stuff when source files
@@ -11,8 +12,9 @@ var gulp        = require('gulp'),
 gulp.task('watch-browsersync', ['browsersync'], function() {
   gulp.watch(config.src.styles, ['styles']);
   gulp.watch(config.src.scripts, ['scripts']);
-  gulp.watch(config.src.images, ['images']);
-  gulp.watch(config.src.theme, ['theme']);
+  gulp.watch(config.src.php);
+  // gulp.watch(config.src.images, ['images', reload]);
+  // gulp.watch(config.src.php, ['theme'], reload);
 });
 
 // Watch (Livereload version): build stuff when source files
@@ -22,7 +24,7 @@ gulp.task('watch-livereload', ['livereload'], function() {
   gulp.watch(config.src.styles, ['styles']);
   gulp.watch(config.src.scripts, ['scripts']);
   gulp.watch(config.src.images, ['images']);
-  gulp.watch(config.src.theme, ['theme']);
+  gulp.watch(config.src.php, ['theme']);
   gulp.watch(config.src.livereload).on('change', function(file) {
     plugins.livereload.changed(file.path);
   });

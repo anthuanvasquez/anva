@@ -1262,6 +1262,9 @@ function anva_get_breadcrumbs( $args = array() ) {
     return wp_kses_post( $html );
 }
 
+function anva_gallery_masonry( $post_id, $columns, $thumbnail ) {
+    echo anva_get_gallery_masonry( $post_id, $columns, $thumbnail );
+}
 
 /**
  * Display gallery masonry.
