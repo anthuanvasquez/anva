@@ -50,7 +50,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 
         <?php endwhile; ?>
 
-    </div><!-- #posts (end) -->
+    </div><!-- #galleries (end) -->
 
     <?php wp_reset_postdata(); ?>
 

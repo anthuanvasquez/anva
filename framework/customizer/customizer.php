@@ -1,13 +1,13 @@
 <?php
 
 // Customizer Extensions
-include_once ( 'custom-controls.php' );
+include_once ANVA_FRAMEWORK_DIR . 'customizer/custom-controls.php';
 
 // Customizer Previews
-include_once ( 'preview.php' );
+include_once ANVA_FRAMEWORK_DIR . 'customizer/preview.php';
 
 // Customizer Utilities
-include_once ( 'utilities.php' );
+include_once ANVA_FRAMEWORK_DIR . 'customizer/utilities.php';
 
 /**
  * Add option section for theme customizer added in WP 3.4.
@@ -58,7 +58,7 @@ function anva_customizer_init( $wp_customize ) {
 
 	// Register sections of options
 	if ( $_anva_customizer_sections ) {
-		
+
 		foreach ( $_anva_customizer_sections as $section ) {
 
 			// Add section
@@ -96,7 +96,7 @@ function anva_customizer_init( $wp_customize ) {
 						// --------------------------------------------
 						// Logo Option
 						// --------------------------------------------
-							
+
 						if ( $option['type'] == 'logo' ) {
 
 							// Setup defaults
@@ -117,7 +117,7 @@ function anva_customizer_init( $wp_customize ) {
 
 							// Transport
 							$transport = '';
-							
+
 							if ( isset( $option['transport'] ) ) {
 								$transport = $option['transport'];
 							}
@@ -129,6 +129,7 @@ function anva_customizer_init( $wp_customize ) {
 									'type'       	=> 'option',
 									'capability' 	=> 'edit_theme_options',
 									'transport'		=> $transport,
+									'sanitize_callback' => 'anva_customizer_sanitize_choices'
 								)
 							);
 
@@ -155,6 +156,8 @@ function anva_customizer_init( $wp_customize ) {
 									'type'       	=> 'option',
 									'capability' 	=> 'edit_theme_options',
 									'transport'		=> $transport,
+									'sanitize_callback' => 'sanitize_text_field'
+
 								)
 							);
 
@@ -174,6 +177,7 @@ function anva_customizer_init( $wp_customize ) {
 									'type'       	=> 'option',
 									'capability' 	=> 'edit_theme_options',
 									'transport'		=> $transport,
+									'sanitize_callback' => 'sanitize_text_field'
 								)
 							);
 
@@ -192,7 +196,8 @@ function anva_customizer_init( $wp_customize ) {
 									'default'    	=> esc_attr( $defaults['image'] ),
 									'type'       	=> 'option',
 									'capability' 	=> 'edit_theme_options',
-									'transport'		=> $transport
+									'transport'		=> $transport,
+									'sanitize_callback' => 'anva_sanitize_upload'
 								)
 							);
 
@@ -210,7 +215,7 @@ function anva_customizer_init( $wp_customize ) {
 						// --------------------------------------------
 						// Typography Option
 						// --------------------------------------------
-						
+
 						} else if ( $option['type'] == 'typography' ) {
 
 							// Setup defaults
@@ -229,7 +234,7 @@ function anva_customizer_init( $wp_customize ) {
 
 							// Transport
 							$transport = '';
-							
+
 							if ( isset( $option['transport'] ) ) {
 								$transport = $option['transport'];
 							}
@@ -247,6 +252,7 @@ function anva_customizer_init( $wp_customize ) {
 												'type'       	=> 'option',
 												'capability' 	=> 'edit_theme_options',
 												'transport'		=> $transport,
+												'sanitize_callback' => 'sanitize_text_field'
 											)
 										);
 									} else {
@@ -256,6 +262,7 @@ function anva_customizer_init( $wp_customize ) {
 												'type'       	=> 'option',
 												'capability' 	=> 'edit_theme_options',
 												'transport'		=> $transport,
+												'sanitize_callback' => 'anva_customizer_sanitize_choices'
 											)
 										);
 									}
@@ -281,11 +288,11 @@ function anva_customizer_init( $wp_customize ) {
 											);
 
 											$font_counter++;
-											
+
 											break;
 
 										case 'face' :
-											
+
 											$wp_customize->add_control(
 												new WP_Customize_Anva_Font_Face(
 													$wp_customize, $option['id'] . '_' . $attribute, array(
@@ -306,6 +313,7 @@ function anva_customizer_init( $wp_customize ) {
 													'type'       	=> 'option',
 													'capability' 	=> 'edit_theme_options',
 													'transport'		=> $transport,
+													'sanitize_callback' => 'sanitize_text_field'
 												)
 											);
 
@@ -321,11 +329,11 @@ function anva_customizer_init( $wp_customize ) {
 											);
 
 											$font_counter++;
-											
+
 											break;
 
 										case 'style' :
-											
+
 											$wp_customize->add_control(
 												$option['id'] . '_' . $attribute, array(
 													'priority'		=> $font_counter,
@@ -338,11 +346,11 @@ function anva_customizer_init( $wp_customize ) {
 											);
 
 											$font_counter++;
-											
+
 											break;
 
 										case 'color' :
-											
+
 											$wp_customize->add_control(
 												new WP_Customize_Color_Control(
 													$wp_customize, $option['id'] . '_' . $attribute, array(
@@ -355,11 +363,11 @@ function anva_customizer_init( $wp_customize ) {
 											);
 
 											$font_counter++;
-											
+
 											break;
 
 										case 'select' :
-											
+
 											$wp_customize->add_control(
 												$option['id'], array(
 													'priority'		=> $font_counter,
@@ -378,17 +386,19 @@ function anva_customizer_init( $wp_customize ) {
 											);
 
 											$font_counter++;
-											
+
 											break;
 									}
 
 									if ( 'select' != $attribute ) {
-										// Divider line below each font	
+
+										// Divider line below each font
 										$wp_customize->add_setting(
 											$option_name . '[' . $option['id'] . '][divider]', array(
 												'type'       	=> 'option',
 												'capability' 	=> 'edit_theme_options',
 												'transport'		=> $transport,
+												'sanitize_callback' => 'sanitize_text_field'
 											)
 										);
 
@@ -404,7 +414,7 @@ function anva_customizer_init( $wp_customize ) {
 									}
 
 								}
-								
+
 							} else {
 
 								$font_counter++;
@@ -414,6 +424,7 @@ function anva_customizer_init( $wp_customize ) {
 										'type'       	=> 'option',
 										'capability' 	=> 'edit_theme_options',
 										'transport'		=> $transport,
+										'sanitize_callback' => 'anva_customizer_sanitize_choices'
 									)
 								);
 
@@ -433,12 +444,12 @@ function anva_customizer_init( $wp_customize ) {
 						// --------------------------------------------
 						// Other Options
 						// --------------------------------------------
-						
+
 						} else {
 
 							// Default
 							$default = '';
-							
+
 							if ( isset( $theme_settings[ $option['id'] ] ) ) {
 								$default = $theme_settings[ $option['id'] ];
 							}
@@ -453,13 +464,13 @@ function anva_customizer_init( $wp_customize ) {
 
 							// Transport
 							$transport = '';
-							
+
 							if ( isset( $option['transport'] ) ) {
 								$transport = $option['transport'];
 							}
 
 							$priority = '';
-							
+
 							if ( isset( $option['priority'] ) ) {
 								$priority = $option['priority'];
 							}
@@ -477,16 +488,16 @@ function anva_customizer_init( $wp_customize ) {
 								case 'checkbox' :
 								case 'range' :
 								case 'dropdown-pages' :
-									
+
 									$wp_customize->add_control(
 										$option['id'], $option
 									);
-									
+
 									break;
 
 								// Textarea
 								case 'textarea' :
-									
+
 									if ( version_compare( $GLOBALS['wp_version'], '3.9.2', '<=' ) ) :
 
 										$wp_customize->add_control(
@@ -506,23 +517,23 @@ function anva_customizer_init( $wp_customize ) {
 										);
 
 									endif;
-									
+
 									break;
 
 								// Color
 								case 'color' :
-									
+
 									$wp_customize->add_control(
 										new WP_Customize_Color_Control(
 											$wp_customize, $option['id'], $option
 										)
 									);
-									
+
 									break;
 
 								// Image
 								case 'image' :
-									
+
 									$wp_customize->add_control(
 										new WP_Customize_Image_Control(
 											$wp_customize,
@@ -536,7 +547,7 @@ function anva_customizer_init( $wp_customize ) {
 											)
 										)
 									);
-									
+
 									break;
 
 								case 'upload':
@@ -566,7 +577,7 @@ function anva_customizer_init( $wp_customize ) {
 
 	// Remove irrelevant sections
 	$remove_sections = apply_filters( 'anva_customizer_remove_sections', array( 'title_tagline' ) );
-	
+
 	if ( is_array( $remove_sections ) && $remove_sections ) {
 		foreach ( $remove_sections as $section ) {
 			$wp_customize->remove_section( $section );
@@ -575,16 +586,16 @@ function anva_customizer_init( $wp_customize ) {
 
 	// Modify sections
 	$modify_sections = apply_filters( 'anva_customizer_modify_sections', array() );
-	
+
 	if ( ! empty( $modify_sections ) ) {
-		
+
 		foreach ( $modify_sections as $section ) {
-			
+
 			// Currently only one section set to be modified. I'm doing this
 			// loop to make it so you can stop items from being modified and
 			// I can may add to this in the future.
 			switch ( $section ) {
-				
+
 				case 'static_front_page' :
 
 					break;

@@ -4,10 +4,10 @@ if ( ! class_exists( 'Anva_Sidebars_API' ) ) :
 
 /**
  * Anva Sidebars API.
- * 
- * This class sets up the framework sidebar locations. 
+ *
+ * This class sets up the framework sidebar locations.
  * Additionally, this class provides methods to add and remove locations.
- * 
+ *
  * @since  		1.0.0
  * @author      Anthuan Vásquez
  * @copyright   Copyright (c) Anthuan Vásquez
@@ -18,7 +18,7 @@ class Anva_Sidebars_API {
 
 	/**
 	 * A single instance of this class
-	 * 
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 */
@@ -26,7 +26,7 @@ class Anva_Sidebars_API {
 
 	/**
 	 * Core locations array
-	 * 
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 */
@@ -34,7 +34,7 @@ class Anva_Sidebars_API {
 
 	/**
 	 * Custom locations array
-	 * 
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 */
@@ -42,7 +42,7 @@ class Anva_Sidebars_API {
 
 	/**
 	 * Remove locations array
-	 * 
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 */
@@ -50,7 +50,7 @@ class Anva_Sidebars_API {
 
 	/**
 	 * Locations
-	 * 
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 */
@@ -60,7 +60,7 @@ class Anva_Sidebars_API {
 	 * Creates or returns an instance of this class
 	 */
 	public static function instance() {
-		
+
 		if ( self::$instance == null ) {
 			self::$instance = new self;
 		}
@@ -173,10 +173,10 @@ class Anva_Sidebars_API {
 			foreach ( $dynamic_sidebars as $key => $sidebar ) {
 				$id = sanitize_title( $sidebar );
 				$id = str_replace( '-', '_', $id );
-				$dynamic_locations[$id] = array(
+				$dynamic_locations[ $id ] = array(
 					'args' => array(
 						'id' => $id,
-						'name' => __( $sidebar, 'anva' ),
+						'name' => $sidebar,
 						'description' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), $sidebar )
 					)
 				);
@@ -283,7 +283,7 @@ class Anva_Sidebars_API {
 	 * Display Sidebar
 	 */
 	public function display( $location ) {
-		
+
 		$config = array();
 
 		$locations = $this->get_locations();
@@ -291,7 +291,7 @@ class Anva_Sidebars_API {
 		foreach ( $locations as $location_id => $default_sidebar ) {
 
 			$sidebar_id = apply_filters( 'anva_custom_sidebar_id', $location_id );
-			
+
 			$config[ $location_id ]['id'] = $sidebar_id;
 			$config[ $location_id ]['error'] = false;
 
@@ -311,16 +311,16 @@ class Anva_Sidebars_API {
 		}
 
 		do_action( 'anva_sidebar_' . $location . '_before' );
-		
+
 		echo '<div class="widget-area widget-area-'. esc_attr( $location ) .' clearfix">';
-		
+
 		if ( $sidebar['error'] ) {
 
 			$message = sprintf(
 				__( 'This is a fixed sidebar with ID, %s, but you haven\'t put any widgets in it yet.', 'anva' ),
 				sprintf( '<strong>%s</strong>', $sidebar['id'] )
 			);
-			
+
 			echo '<div class="alert alert-warning">';
 			echo '<p>'. $message .'</p>';
 			echo '</div><!-- .alert (end) -->';
@@ -334,7 +334,7 @@ class Anva_Sidebars_API {
 		echo '</div><!-- .widget-area (end) -->';
 
 		do_action( 'anva_sidebar_'. $location .'_after' );
-		
+
 	}
 }
 endif;

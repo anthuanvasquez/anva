@@ -72,7 +72,7 @@ get_header();
                 anva_num_pagination();
             }
         ?>
-    </div><!-- #posts (end) -->
+    </div><!-- #portfolio (end) -->
 
     <?php do_action( 'anva_posts_content_after' ); ?>
 

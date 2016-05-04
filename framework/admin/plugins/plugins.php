@@ -2,13 +2,13 @@
 
 /**
  * Plugins.
- * 
+ *
  * @since 1.0.0
  */
 function anva_plugins() {
 
 	if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
-		require_once ( ANVA_FRAMEWORK_ADMIN . 'plugins/class-tgm-plugin-activation.php' );
+		include_once ANVA_FRAMEWORK_ADMIN . 'plugins/class-tgm-plugin-activation.php';
 	}
 
 	add_action( 'tgmpa_register', 'anva_register_required_plugins' );
@@ -20,7 +20,7 @@ function anva_plugins() {
  * @since 1.0.0
  */
 function anva_register_required_plugins() {
-	
+
 	// Required Plugins
 	$plugins = array(
 		array(
