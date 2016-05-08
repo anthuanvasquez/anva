@@ -33,7 +33,7 @@
 
 	<!--FOOTER (start) -->
 	<footer id="footer" <?php echo $class; ?>>
-		
+
 		<div class="container clearfix">
 			<?php do_action( 'anva_footer_content' ); ?>
 		</div><!-- .container (end) -->
@@ -52,6 +52,5 @@
 
 <?php do_action( 'anva_after' ); ?>
 <?php wp_footer(); ?>
-
 </body>
 </html>

@@ -32,16 +32,16 @@
 
 <!-- WRAPPER (start) -->
 <div id="wrapper" class="clearfix">
-		
+
 	<?php do_action( 'anva_top_before' ); ?>
 
 	<?php do_action( 'anva_header_above' ); ?>
 
 	<!-- HEADER (start) -->
 	<header id="header" <?php anva_header_class(); ?>>
-		<?php anva_header(); ?>
+		<?php do_action( 'anva_header' ); ?>
 	</header><!-- HEADER (end) -->
-	
+
 	<?php
 		// Below Header
 		do_action( 'anva_header_below' );
@@ -53,7 +53,7 @@
 		do_action( 'anva_featured_before' );
 		do_action( 'anva_featured' );
 		do_action( 'anva_featured_after' );
-		
+
 		// Content Before
 		do_action( 'anva_content_before' );
 	?>

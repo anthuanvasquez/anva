@@ -98,8 +98,8 @@ function anva_head_viewport() {
  */
 function anva_top_bar_default() {
     // Hide top bar
-    $top_bar_display = anva_get_option( 'top_bar_display' );
-    if ( ! $top_bar_display ) {
+    $top_bar = anva_get_option( 'top_bar' );
+    if ( ! $top_bar ) {
         return;
     }
 
@@ -261,7 +261,7 @@ function anva_side_panel_default() {
  *
  * @since 1.0.0
  */
-function anva_header() {
+function anva_header_default() {
     $primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 
     switch ( $primary_menu_style ) :

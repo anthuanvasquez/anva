@@ -638,13 +638,6 @@ function anva_options() {
 		$slider_select['revslider'] = 'Revolution Slider';
 	}
 
-	// Get dynamic slider options
-	foreach ( $sliders as $slider_id => $slider ) {
-		foreach ( $slider['options'] as $option_id => $option ) {
-			$slider_options[ $option_id ] = $option;
-		}
-	}
-
 	$layout = array(
 		'header_type' => array(
 			'name' => __( 'Header Type', 'anva' ),
@@ -895,7 +888,6 @@ function anva_options() {
 				'type' => 'text',
 				'class' => 'slider-item revslider hide'
 			),
-			$slider_options, // Add option by slider type, no very pretty! :(
 		),
 		'login' => array(
 			'login_style' => array(
@@ -937,6 +929,13 @@ function anva_options() {
 	anva_add_option_section( 'layout', 'page_transition', __( 'Page Transition', 'anva' ),  NULL, $layout['page_transition'], false );
 	anva_add_option_section( 'layout', 'gallery', 		  __( 'Galleries', 'anva' ), 		NULL, $layout['gallery'], false );
 	anva_add_option_section( 'layout', 'slideshows', 	  __( 'Slideshows', 'anva' ), 	 	NULL, $layout['slideshows'], false );
+
+	// Add slider options
+	foreach ( $sliders as $slider_id => $slider ) {
+		foreach ( $slider['options'] as $option_id => $option ) {
+			anva_add_option( 'layout', 'slideshows', $option_id, $option );
+		}
+	}
 
 	if ( anva_support_feature( 'anva-login' ) ) {
 		anva_add_option_section( 'layout', 'login', __( 'Login', 'anva' ), NULL, $layout['login'], false );

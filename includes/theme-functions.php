@@ -315,7 +315,7 @@ function theme_scripts() {
 	//wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'css3-mediaqueries-js' );
 	wp_enqueue_script( 'theme_js' );
-	wp_localize_script( 'anva_functions', 'ANVA_WP', anva_get_js_locals() );
+	wp_localize_script( 'anva_main', 'ANVA_VARS', anva_get_js_locals() );
 
 	// Enqueue Thread Commens on Single Posts
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

@@ -31,7 +31,7 @@ var project = 'anva',
     modules = './node_modules/'
 ;
 
-// Vendor Scripts
+// Vendor Scripts `Plugins`
 var vendor = [
     core  + 'js/vendor/twitterfeedfetcher.js',
     core  + 'js/vendor/smoothscroll-modified.min.js',
@@ -126,7 +126,6 @@ module.exports = {
   scripts: {
     dest: build + 'js/',
     lint: {
-      min: '**.min.js',
       theme: theme + 'js/**/*.js',
       core: core + 'js/**/*.js',
       admin: admin + 'js/**/*.js',

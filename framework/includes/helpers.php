@@ -72,7 +72,7 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 }
 
 /**
- * List pages as a main navigation menu when user
+ * Show message on main navigation when user
  * has not set one under Apperance > Menus in the
  * WordPress admin panel.
  *
@@ -130,7 +130,7 @@ function anva_body_class( $classes ) {
 		$classes[] = 'page-has-content-builder';
 	}
 
-	return $classes;
+	return apply_filters( 'anva_body_classes', $classes );
 }
 
 /**
@@ -169,7 +169,7 @@ function anva_browser_class( $classes ) {
 		$classes[] = 'opera';
 	} else if ( preg_match( "/MSIE/", $browser ) ) {
 
-		// Internet Explorer... ugh, kill me now.
+		// Internet Explorer... fuck IE.
 		$classes[] = 'msie';
 
 		if ( preg_match( "/MSIE 6.0/", $browser ) ) {
@@ -244,9 +244,9 @@ function anva_get_post_class( $class, $paged = true ) {
 			'default' => 'template-post-small post-small post-small-container small-thumbs',
 			'paged' => 'post-small-paginated',
 		),
-		'mansory' => array(
-			'default' => 'template-post-mansory post-mansory post-mansory-container',
-			'paged' => 'post-mansory-paginated',
+		'masonry' => array(
+			'default' => 'template-post-masonry post-masonry post-masonry-container',
+			'paged' => 'post-masonry-paginated',
 		),
         'gallery' => array(
             'default' => 'archive-galleries gallery-list gallery-container post-grid',
@@ -1072,91 +1072,6 @@ function anva_compress( $buffer ) {
 	$buffer = str_replace( array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer );
 
 	return $buffer;
-}
-
-/**
- * Minify stylesheets output and combine into one
- *
- * @since  1.0.0
- * @param  array $merge_styles
- * @param  array $ignore
- * @return Enqueue stysheets
- */
-function anva_minify_stylesheets( $merge_styles = array(), $ignore = array() ) {
-
-	// Get framework stylesheets
-	$stylesheets = anva_get_stylesheets();
-
-	// Set filename
-	$filename = apply_filters( 'anva_minify_stylesheets_filename', 'all.min.css' );
-
-	// Set file path and URL
-	$file_path = get_template_directory() . '/assets/css/min/' . $filename;
-	$file_url = get_template_directory_uri() . '/assets/css/min/' . $filename;
-
-	if ( ! file_exists( $file_path ) ) {
-
-		$files = array();
-
-		if ( is_array( $merge_styles ) && $merge_styles ) {
-			$merged = array_merge( $stylesheets, $merge_styles );
-		}
-
-		// Set URL
-		$url = 'http';
-
-		if ( isset( $_SERVER['HTTPS'] ) && filter_var( $_SERVER['HTTPS'], FILTER_VALIDATE_BOOLEAN ) ) {
-			$url .= 'https';
-		}
-
-		$url .= '://';
-
-		foreach ( $merged as $key => $value ) {
-			if ( isset( $ignore[ $key ] ) ) {
-				unset( $merged[ $key ] );
-			} elseif ( isset( $value['src'] ) ) {
-				$string = str_replace( $url . $_SERVER['SERVER_NAME'], $_SERVER['DOCUMENT_ROOT'], $value['src'] );
-				if ( file_exists( $string ) ) {
-					$files[] = $string;
-				}
-			}
-		}
-
-		// Create compressed file if don't exists
-		$cssmin = new CSS_Minify();
-
-		// Add files
-		$cssmin->add_files( $files );
-
-		// Set original CSS from all files
-		$cssmin->set_original_css();
-
-		// Compress CSS
-		$cssmin->compress_css();
-
-		// Get compressed and combined css
-		$css = $cssmin->print_compressed_css();
-
-		// Create compressed file
-		file_put_contents( $file_path, $css );
-	}
-
-	// Dequeue framework stylesheets to clear the HEAD
-	foreach ( $stylesheets as $key => $value ) {
-		if ( isset( $value['handle'] ) ) {
-			wp_dequeue_style( $value['handle'] );
-			wp_deregister_style( $value['handle'] );
-		}
-	}
-
-	$version = ANVA_FRAMEWORK_VERSION;
-	if ( defined( 'ANVA_THEME_VERSION' ) ) {
-		$version = ANVA_THEME_VERSION;
-	}
-
-	// Enqueue compressed files
-	wp_enqueue_style( 'anva-all-in-one', $file_url, array(), $version, 'all' );
-
 }
 
 /**

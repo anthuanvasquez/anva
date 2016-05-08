@@ -216,6 +216,7 @@ class Anva
         add_action( 'anva_api', 'anva_api_init' );
         add_action( 'anva_header_above', 'anva_top_bar_default' );
         add_action( 'anva_header_above', 'anva_sidebar_above_header' );
+        add_action( 'anva_header', 'anva_header_default' );
         add_action( 'anva_header_extras', 'anva_header_extras_default' );
         add_action( 'anva_header_logo', 'anva_header_logo_default' );
         add_action( 'anva_header_primary_menu', 'anva_header_primary_menu_default' );

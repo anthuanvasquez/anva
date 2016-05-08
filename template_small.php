@@ -19,16 +19,16 @@
  ?>
 
 <div class="container clearfix">
-    
+
     <?php get_sidebar( 'left' ); ?>
 
     <div class="<?php anva_column_class( 'content' ); ?>">
-        
+
         <?php do_action( 'anva_posts_content_before' ); ?>
-        
+
         <div id="posts" class="<?php anva_post_class( 'small' ); ?>">
             <?php
-                $query = anva_get_query_posts();
+                $query = anva_get_posts();
                 if ( $query->have_posts() ) :
                     while ( $query->have_posts() ) : $query->the_post();
                         anva_get_template_part( 'small' );

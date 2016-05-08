@@ -27,7 +27,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 }
 
 // Get posts
-$query = anva_get_query_posts();
+$query = anva_get_posts();
 ?>
 
 <div class="container clearfix">

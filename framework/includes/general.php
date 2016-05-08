@@ -1137,7 +1137,7 @@ function anva_sort_gallery( $gallery ) {
  * @since  1.0.0
  * @return array The post list
  */
-function anva_get_query_posts( $query_args = '' ) {
+function anva_get_posts( $query_args = '' ) {
 
 	$number = get_option( 'posts_per_page' );
 	$page 	= get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
@@ -1156,7 +1156,7 @@ function anva_get_query_posts( $query_args = '' ) {
 		);
 	}
 
-	$query_args = apply_filters( 'anva_get_query_posts_args', $query_args );
+	$query_args = apply_filters( 'anva_get_posts_args', $query_args );
 	$query = new WP_Query( $query_args );
 
 	return $query;

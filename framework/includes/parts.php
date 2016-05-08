@@ -43,10 +43,10 @@ function anva_get_page_title() {
     /* --------------------------------------- */
 
     elseif ( is_category() ) :
-        $title = sprintf( '%s: %s', anva_get_local( 'category' ), single_cat_title( '', false ) );
+        $title = sprintf( '%s: <span>%s</span>', anva_get_local( 'category' ), single_cat_title( '', false ) );
 
     elseif ( is_tag() ) :
-        $title = sprintf( '%s: %s', anva_get_local( 'tag' ), single_tag_title( '', false ) );
+        $title = sprintf( '%s: <span>%s</span>', anva_get_local( 'tag' ), single_tag_title( '', false ) );
 
     elseif ( is_author() ) :
         $title = sprintf( '%s: <span class="vcard">%s</span>', anva_get_local( 'author' ), get_the_author() );
@@ -438,7 +438,7 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
         'order'          => $order
     );
 
-    $query = anva_get_query_posts( $args );
+    $query = anva_get_posts( $args );
 
     $output .= '<ul class="widget-posts-list">';
 
@@ -643,7 +643,7 @@ function anva_post_related() {
             );
         }
 
-        $query = anva_get_query_posts( $query_args );
+        $query = anva_get_posts( $query_args );
 
         if ( $query->have_posts() ) : ?>
 
@@ -1298,7 +1298,7 @@ function anva_get_gallery_masonry( $post_id, $columns, $thumbnail ) {
         'orderby'        => 'post__in',
     );
 
-    $query = anva_get_query_posts( $query_args );
+    $query = anva_get_posts( $query_args );
 
     if ( $query->have_posts() ) {
 
@@ -1353,7 +1353,7 @@ function anva_get_gallery_slider( $post_id, $thumbnail ) {
         'orderby'        => 'post__in',
     );
 
-    $query = anva_get_query_posts( $query_args );
+    $query = anva_get_posts( $query_args );
 
     $slider  = "<div class=\"fslider\" data-pagi=\"false\" data-arrows=\"false\" data-speed=\"400\" data-pause=\"4000\" data-lightbox=\"gallery\">";
     $slider .= "<div class=\"flexslider\">";
@@ -1479,7 +1479,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 
     $query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
 
-    $query = anva_get_query_posts( $query_args );
+    $query = anva_get_posts( $query_args );
 
     // Output
     $html  = '';
@@ -1537,22 +1537,15 @@ function anva_slider_standard_default( $slider, $settings ) {
 
             switch ( $content ) {
                 case 'title':
-                    $html .= '<div class="flex-caption slider-caption-bg slider-caption-top-left">';
-                    $html .= esc_html( $title );
-                    $html .= '</div>';
+                    $html .= sprintf( '<div class="flex-caption slider-caption-bg slider-caption-top-left">%s</div>', esc_html( $title ) );
                     break;
 
                 case 'desc':
-                    $html .= '<div class="flex-caption slider-caption-bg slider-caption-top-left">';
-                    $html .= esc_html( $desc );
-                    $html .= '</div>';
+                    $html .= sprintf( '<div class="flex-caption slider-caption-bg slider-caption-top-left">%s</div>', esc_html( $desc ) );
                     break;
 
                 case 'both':
-                    $html .= '<div class="flex-caption slider-caption-bg slider-caption-top-left">';
-                    $html .= esc_html( $title );
-                    $html .= '<span>' . esc_html( $desc ) . '</span>';
-                    $html .= '</div>';
+                    $html .= sprintf( '<div class="flex-caption slider-caption-bg slider-caption-top-left">%s <span>%s</span></div>', esc_html( $title ), esc_html( $desc ) );
                     break;
             }
 
@@ -1570,7 +1563,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 }
 
 /**
- * OWL slider type
+ * OWL slider type.
  *
  * @since 1.0.0
  */
@@ -1597,7 +1590,7 @@ function anva_slider_owl_default( $slider, $settings ) {
 
     $query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
 
-    $query = anva_get_query_posts( $query_args );
+    $query = anva_get_posts( $query_args );
 
     // Output
     $html  = '';
@@ -1673,7 +1666,7 @@ function anva_slider_nivo_default( $slider, $settings ) {
 
     $query_args = apply_filters( 'anva_slideshows_nivo_query_args', $query_args );
 
-    $query = anva_get_query_posts( $query_args );
+    $query = anva_get_posts( $query_args );
 
     // Output
     $html = '';
@@ -1708,29 +1701,6 @@ function anva_slider_nivo_default( $slider, $settings ) {
 
     }
 
-    ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $('.nivoSlider').nivoSlider({
-                effect: 'random',
-                slices: 15,
-                boxCols: 12,
-                boxRows: 6,
-                animSpeed: 500,
-                pauseTime: 8000,
-                directionNav: true,
-                controlNav: true,
-                pauseOnHover: true,
-                prevText: '<i class="icon-angle-left"></i>',
-                nextText: '<i class="icon-angle-right"></i>',
-                afterLoad: function(){
-                    $('#slider').find('.nivo-caption').addClass('slider-caption-bg');
-                }
-            });
-        });
-    </script>
-    <?php
-
     echo $html;
 }
 
@@ -1752,12 +1722,12 @@ function anva_slider_bootstrap_default( $slider, $settings ) {
 
     $query_args = apply_filters( 'anva_slideshows_query_args', $query_args );
 
-    $query = anva_get_query_posts( $query_args );
+    $query = anva_get_posts( $query_args );
 
     // Output
-    $html = '';
+    $html  = '';
     $count = 0;
-    $li = '';
+    $li    = '';
     $class = '';
 
     $post_count = count( $query->posts );
@@ -1837,9 +1807,13 @@ function anva_slider_bootstrap_default( $slider, $settings ) {
 
 }
 
+/**
+ * Swiper slider type.
+ *
+ * @since 1.0.0
+ */
 function anva_slider_swiper_default() {
     ?>
-
     <div class="swiper-container swiper-parent">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
@@ -1855,17 +1829,22 @@ function anva_slider_swiper_default() {
                 </div>
             </div>
         </div>
+
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
 
         <!-- If we need navigation buttons -->
         <div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
         <div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
-
     </div>
     <?php
 }
 
+/**
+ * Camera slider type.
+ *
+ * @since 1.0.0
+ */
 function anva_slider_camera_default() {
     ?>
      <div class="camera_wrap" id="camera_wrap_1">
