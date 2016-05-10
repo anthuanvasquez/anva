@@ -125,7 +125,7 @@ jQuery(document).ready(function($) {
 					$postbox.removeClass('collapse-close');
 
 					// Store data
-					if ( typeof( localStorage ) != 'undefined' ) {
+					if ( typeof( localStorage ) !== 'undefined' ) {
 						localStorage.removeItem('anva-section-' + $postbox.attr('id'));
 					}
 
@@ -141,7 +141,7 @@ jQuery(document).ready(function($) {
 					$postbox.addClass('collapse-close');
 
 					// Store data
-					if ( typeof( localStorage ) != 'undefined' ) {
+					if ( typeof( localStorage ) !== 'undefined' ) {
 						localStorage.setItem('anva-section-' + $postbox.attr('id'), true);
 					}
 				}
@@ -151,7 +151,7 @@ jQuery(document).ready(function($) {
 			// Show content
 			$('#anva-framework .postbox').each(function() {
 				var $postbox = $(this);
-				if ( typeof( localStorage ) != 'undefined' && localStorage.getItem('anva-section-' + $postbox.attr('id')) ) {
+				if ( typeof( localStorage ) !== 'undefined' && localStorage.getItem('anva-section-' + $postbox.attr('id')) ) {
 					$postbox.addClass('collapse-close');
 				}
 			});
@@ -179,7 +179,7 @@ jQuery(document).ready(function($) {
 			$group.hide();
 
 			// Find if a selected tab is saved in localStorage
-			if ( typeof(localStorage) != 'undefined' ) {
+			if ( typeof(localStorage) !== 'undefined' ) {
 				active_tab = localStorage.getItem('active_tab');
 			}
 
@@ -201,7 +201,7 @@ jQuery(document).ready(function($) {
 
 				$(this).addClass('nav-tab-active').blur();
 
-				if (typeof(localStorage) != 'undefined' ) {
+				if (typeof(localStorage) !== 'undefined' ) {
 					localStorage.setItem('active_tab', $(this).attr('href') );
 				}
 

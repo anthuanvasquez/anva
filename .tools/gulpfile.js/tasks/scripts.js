@@ -10,7 +10,7 @@ var gulp        = require('gulp'),
 gulp.task('scripts-lint', function() {
   return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
   .pipe(plugins.ignore.exclude(config.lint.ignore))
-  .pipe(plugins.jshint())
+  .pipe(plugins.jshint(config.lint.options))
   .pipe(plugins.jshint.reporter('default'));
 });
 

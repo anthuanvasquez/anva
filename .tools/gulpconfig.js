@@ -41,9 +41,8 @@ var vendor = [
     core  + 'js/vendor/jquery.countdown.min.js',
     core  + 'js/vendor/jquery.flexslider-modified.min.js',
     core  + 'js/vendor/jquery.paginate.min.js',
-    core  + 'js/vendor/jquery.paginate.min.js',
     core  + 'js/vendor/jquery.ui.1.11.4.min.js',
-    bower + 'jquery.easing/js//jquery.easing.min.js',
+    bower + 'jquery.easing/js/jquery.easing.min.js',
     bower + 'jquery.fitvids/jquery.fitvids.js',
     bower + 'jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.min.js',
     bower + 'jquery.cookie/jquery.cookie.js',
@@ -65,7 +64,7 @@ var vendor = [
     bower + 'Morphext/dist/morphext.min.js',
     bower + 'isotope/dist/isotope.pkgd.min.js',
     bower + 'imagesloaded/imagesloaded.pkgd.min.js',
-    bower + 'meteor-toastr/lib/toastr.js',
+    bower + 'toastr/toastr.min.js',
     bower + 'jrespond/js/jRespond.min.js',
     bower + 'Chart.js/dist/Chart.min.js',
     bower + 'magnific-popup/dist/jquery.magnific-popup.min.js',
@@ -129,7 +128,8 @@ module.exports = {
       theme: theme + 'js/**/*.js',
       core: core + 'js/**/*.js',
       admin: admin + 'js/**/*.js',
-      ignore: ['*.min.js', 'plugins.js', 'vendor/**', 'components/**', 'vmap/**']
+      ignore: ['*.min.js', 'plugins.js', 'vendor/**', 'components/**', 'vmap/**'],
+      options: '.jshintrc'
     },
     minify: {
       theme: {
@@ -163,11 +163,11 @@ module.exports = {
 
   styles: {
     lint: {
-      min: '**.min.css',
       theme: theme + 'css/**/*.css',
       core: core + 'css/**/*.css',
       admin: admin + 'css/**/*.css',
-      ignore: ['*.min.css', 'components/**', 'fonts/**']
+      ignore: ['*.min.css', 'animate.css', 'bootstrap.css', 'components/**', 'fonts/**'],
+      options: '.csslintrc'
     },
     theme: {
       src: theme + 'scss/**/*.scss',

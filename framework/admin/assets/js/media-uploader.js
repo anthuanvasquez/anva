@@ -2,94 +2,108 @@ jQuery(document).ready(function($) {
 
 	'use strict';
 
-	var anva_media_upload, anva_media_selector;
+	// Global variables
+	var mediaUpload, mediaSelector;
 
-	function anva_media_add_file( e, selector ) {
+	//
+	var ANVA_UPLOADER = {
 
-		var el = $(this), upload = $('.uploaded-file'), frame;
-
-		anva_media_selector = selector;
-
-		e.preventDefault();
-
-		// If the media frame already exists, reopen it.
-		if ( anva_media_upload ) {
-			anva_media_upload.open();
-		} else {
-			// Create the media frame.
-			anva_media_upload = wp.media.frames.anva_media_upload =  wp.media({
-				// Set the title of the modal.
-				title: el.data('choose'),
-
-				// Customize the submit button.
-				button: {
-					// Set the text of the button.
-					text: el.data('update'),
-					// Tell the button not to close the modal, since we're
-					// going to refresh the page when the image is selected.
-					close: false
-				}
+		init: function() {
+			$('.remove-image, .remove-file').on( 'click', function() {
+				ANVA_UPLOADER.mediaRemoveFile( $(this).closest('.section') );
 			});
 
-			// When an image is selected, run a callback.
-			anva_media_upload.on( 'select', function() {
-				// Grab the selected attachment.
-				var attachment = anva_media_upload.state().get('selection').first();
-				anva_media_upload.close();
-				anva_media_selector.find('.upload').val( attachment.attributes.url );
+			$('.upload-button').click( function( e ) {
+				ANVA_UPLOADER.mediaAddFile( e, $(this).closest('.section') );
+			});
 
-				if ( attachment.attributes.type == 'image' ) {
-					anva_media_selector.find('.screenshot').empty().hide().append( '<img src="' + attachment.attributes.url + '"><a class="remove-image">X</a>' ).slideDown('fast').addClass('has-image');
+			// Check if each section upload has image
+			$('.section-upload, .section-background').each(function() {
+				var el 	 	= $(this),
+					screen  = el.find('.screenshot'),
+					image   = screen.find('img');
+
+				if ( image.length > 0 ) {
+					screen.addClass('has-image');
 				}
+			});
+		},
 
-				anva_media_selector.find('.upload-button').unbind().addClass('remove-file').removeClass('upload-button').val( anvaMediaJs.remove );
-				anva_media_selector.find('.anva-background-properties').slideDown();
-				anva_media_selector.find('.remove-image, .remove-file').on( 'click', function() {
-					anva_media_remove_file( $(this).parents('.section') );
+		mediaAddFile: function( e, selector ) {
+
+			var el = $(this),
+				upload = $('.uploaded-file'),
+				frame;
+
+			mediaSelector = selector;
+
+			e.preventDefault();
+
+			// If the media frame already exists, reopen it.
+			if ( mediaUpload ) {
+				mediaUpload.open();
+			} else {
+				// Create the media frame.
+				mediaUpload = wp.media.frames.mediaUpload =  wp.media({
+					// Set the title of the modal.
+					title: el.data('choose'),
+
+					// Customize the submit button.
+					button: {
+						// Set the text of the button.
+						text: el.data('update'),
+						// Tell the button not to close the modal, since we're
+						// going to refresh the page when the image is selected.
+						close: false
+					}
 				});
+
+				// When an image is selected, run a callback.
+				mediaUpload.on( 'select', function() {
+
+					// Grab the selected attachment.
+					var attachment = mediaUpload.state().get('selection').first();
+
+					mediaUpload.close();
+					mediaSelector.find('.upload').val( attachment.attributes.url );
+
+					if ( attachment.attributes.type === 'image' ) {
+						mediaSelector.find('.screenshot').empty().hide().append( '<img src="' + attachment.attributes.url + '"><a class="remove-image">X</a>' ).slideDown('fast').addClass('has-image');
+					}
+
+					mediaSelector.find('.upload-button').unbind().addClass('remove-file').removeClass('upload-button').val( anvaMediaJs.remove );
+					mediaSelector.find('.anva-background-properties').slideDown();
+					mediaSelector.find('.remove-image, .remove-file').on( 'click', function() {
+						ANVA_UPLOADER.mediaRemoveFile( $(this).parents('.section') );
+					});
+				});
+			}
+
+			// Finally, open the modal
+			mediaUpload.open();
+		},
+
+		mediaRemoveFile: function( selector ) {
+
+			selector.find('.remove-image').hide();
+			selector.find('.upload').val('');
+			selector.find('.anva-background-properties').hide();
+			selector.find('.screenshot').slideUp().removeClass('has-image');
+			selector.find('.remove-file').unbind().addClass('upload-button').removeClass('remove-file').val( anvaMediaJs.upload);
+
+			// We don't display the upload button if .upload-notice is present
+			// This means the user doesn't have the WordPress 3.5 Media Library Support
+			if ( $('.section-upload .upload-notice').length > 0 ) {
+				$('.upload-button').remove();
+			}
+
+			selector.find('.upload-button').on( 'click', function( e ) {
+				ANVA_UPLOADER.mediaAddFile( e, $(this).closest('.section') );
 			});
 		}
 
-		// Finally, open the modal
-		anva_media_upload.open();
-	}
+	};
 
-	function anva_media_remove_file( selector ) {
-
-		selector.find('.remove-image').hide();
-		selector.find('.upload').val('');
-		selector.find('.anva-background-properties').hide();
-		selector.find('.screenshot').slideUp().removeClass('has-image');
-		selector.find('.remove-file').unbind().addClass('upload-button').removeClass('remove-file').val( anvaMediaJs.upload);
-
-		// We don't display the upload button if .upload-notice is present
-		// This means the user doesn't have the WordPress 3.5 Media Library Support
-		if ( $('.section-upload .upload-notice').length > 0 ) {
-			$('.upload-button').remove();
-		}
-
-		selector.find('.upload-button').on( 'click', function( e ) {
-			anva_media_add_file( e, $(this).closest('.section') );
-		});
-	}
-
-	$('.remove-image, .remove-file').on( 'click', function() {
-		anva_media_remove_file( $(this).closest('.section') );
-	});
-
-	$('.upload-button').click( function( e ) {
-		anva_media_add_file( e, $(this).closest('.section') );
-	});
-
-	// Check if each section upload has image
-	$('.section-upload, .section-background').each(function() {
-		var el = $(this),
-		screen = el.find('.screenshot'),
-		image = screen.find('img');
-
-		if ( image.length > 0 ) {
-			screen.addClass('has-image');
-		}
-	});
+	ANVA_UPLOADER.init();
 
 });

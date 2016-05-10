@@ -22,9 +22,12 @@
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"],
-[class^="icon-line-"], [class*=" icon-line-"],
-[class^="icon-line2-"], [class*=" icon-line2-"],
+[class^="icon-"],
+[class*=" icon-"],
+[class^="icon-line-"],
+[class*=" icon-line-"],
+[class^="icon-line2-"],
+[class*=" icon-line2-"],
 .side-header #primary-menu ul > li.sub-menu > a:after {
   display: inline-block;
   font-family: 'font-icons';

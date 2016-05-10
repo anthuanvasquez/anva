@@ -68,7 +68,7 @@ jQuery(document).ready(function($) {
         typography: function() {
             $('.section-typography .anva-typography-face').each(function() {
                 var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
-                if ( value == 'google' ) {
+                if ( value === 'google' ) {
                     el.closest('.section-typography').find('.google-font').fadeIn('fast');
                     el.closest('.section-typography').find('.sample-text-font').hide();
                 } else {
@@ -80,7 +80,7 @@ jQuery(document).ready(function($) {
 
             $('.section-typography .anva-typography-face').on( 'change', function() {
                 var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
-                if ( value == 'google' ) {
+                if ( value === 'google' ) {
                     el.closest('.section-typography').find('.google-font').fadeIn('fast');
                     el.closest('.section-typography').find('.sample-text-font').hide();
                 } else {
@@ -97,19 +97,21 @@ jQuery(document).ready(function($) {
                 el.find('.social_media-input').hide();
                 el.find('.checkbox').each(function() {
                     var checkbox = $(this);
-                    if ( checkbox.is(':checked') )
+                    if ( checkbox.is(':checked') ) {
                         checkbox.closest('.item').addClass('active').find('.social_media-input').show();
-                    else
+                    } else {
                         checkbox.closest('.item').removeClass('active').find('.social_media-input').hide();
+                    }
                 });
             });
 
             $('.section-social_media .checkbox').on('click', function() {
                 var checkbox = $(this);
-                if ( checkbox.is(':checked') )
+                if ( checkbox.is(':checked') ) {
                     checkbox.closest('.item').addClass('active').find('.social_media-input').fadeIn('fast');
-                else
+                } else {
                     checkbox.closest('.item').removeClass('active').find('.social_media-input').hide();
+                }
             });
         },
 
@@ -190,7 +192,7 @@ jQuery(document).ready(function($) {
                     trigger   = el.closest('.section').data('trigger'),
                     receivers = el.closest('.section').data('receivers'),
                     loop      = receivers.split(' ');
-                if ( value == trigger ) {
+                if ( value === trigger ) {
                     $.each( loop, function(index, el) {
                         $('#section-' + el).show();
                     });
@@ -207,7 +209,7 @@ jQuery(document).ready(function($) {
                     trigger   = el.closest('.section').data('trigger'),
                     receivers = el.closest('.section').data('receivers'),
                     loop      = receivers.split(' ');
-                if ( value == trigger ) {
+                if ( value === trigger ) {
                     $.each( loop, function(index, el) {
                         $('#section-' + el).show();
                     });

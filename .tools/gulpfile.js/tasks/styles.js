@@ -7,10 +7,7 @@ var gulp          = require('gulp'),
     autoprefixer  = require('autoprefixer'),
     processors    = [autoprefixer(config.autoprefixer)],
     browsersync   = require('browser-sync')
-
 ;
-
-var cssLint = '../../.csslintrc';
 
 // error function for plumber
 var onError = function(err) {
@@ -20,9 +17,9 @@ var onError = function(err) {
 };
 
 gulp.task('styles-css-lint', function() {
-  return gulp.src([config.lint.theme])
+  return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
   .pipe(plugins.ignore.exclude(config.lint.ignore))
-  .pipe(plugins.csslint())
+  .pipe(plugins.csslint(config.lint.options))
   .pipe(plugins.csslint.reporter());
 });
 
