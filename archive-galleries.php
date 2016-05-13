@@ -36,7 +36,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 
                 <div class="gallery-image">
                     <?php anva_gallery_slider( get_the_ID(), $thumbnail ); ?>
-                </div>
+                </div><!-- .gallery-image (end) -->
 
                 <div class="gallery-content">
                     <div class="gallery-title">
@@ -45,7 +45,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
                     <div class="gallery-category">
                         <?php anva_the_terms_links( 'gallery_cat', ' / ' ); ?>
                     </div>
-                </div>
+                </div><!-- .gallery-content (end) -->
             </div>
 
         <?php endwhile; ?>

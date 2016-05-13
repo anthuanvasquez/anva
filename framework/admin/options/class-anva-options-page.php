@@ -1,5 +1,7 @@
 <?php
 
+if ( ! class_exists( 'Anva_Options_Import_Export' ) ) :
+
 /**
  * Create the options page panel.
  *
@@ -448,3 +450,5 @@ class Anva_Options_Page
 	}
 
 }
+
+endif;

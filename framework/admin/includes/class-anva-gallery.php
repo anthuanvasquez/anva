@@ -31,13 +31,13 @@ class Anva_Gallery
 
 	/**
 	 * Constructor Hook everything in.
-	 * 
+	 *
 	 * @since 1.0.0
 	 * @param string $id
 	 * @param array  $args
 	 */
 	public function __construct( $id, $args )
-	{	
+	{
 		$this->id = $id;
 
 		$defaults = array(
@@ -70,9 +70,9 @@ class Anva_Gallery
 			if ( $typenow == $page ) {
 
 				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'meta-gallery.min.js', array(), ANVA_FRAMEWORK_VERSION, true );
+				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'gallery.min.js', array(), ANVA_FRAMEWORK_VERSION, true );
 				wp_localize_script( 'anva-media-gallery', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
-				wp_enqueue_style( 'anva-gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva-gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}
 		}
@@ -82,7 +82,7 @@ class Anva_Gallery
 	 * Adds the meta box container
 	 */
 	public function add()
-	{	
+	{
 		// Filters
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 
@@ -104,7 +104,7 @@ class Anva_Gallery
 	 * @since 1.0.0
 	 */
 	public function display( $post )
-	{	
+	{
 		$gallery = get_post_meta( $post->ID, $this->id, true );
 
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
@@ -158,7 +158,7 @@ class Anva_Gallery
 
 		// If this is an autosave, our form has not been submitted,
 		// so we don't want to do anything.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 			return $post_id;
 
 		// Check the user's permissions.
@@ -166,7 +166,7 @@ class Anva_Gallery
 
 			if ( ! current_user_can( 'edit_page', $post_id ) )
 				return $post_id;
-	
+
 		} else {
 
 			if ( ! current_user_can( 'edit_post', $post_id ) )
@@ -179,7 +179,7 @@ class Anva_Gallery
 		$id = $this->id;
 		$images = ( isset( $_POST['anva_gallery_thumb'] ) ) ? $_POST['anva_gallery_thumb'] : array();
 		$images_ids = array();
-		
+
 		if ( count( $images ) > 0 ) {
 			foreach ( $images as $key => $attachment_id ) {
 				if ( is_numeric( $attachment_id ) ) {
@@ -196,11 +196,11 @@ class Anva_Gallery
 	}
 
 	private function get_attachment( $attachment_id )
-	{	
+	{
 		$id    = array();
 		$id[]  = $attachment_id;
 		$image = wp_get_attachment_image_src( $attachment_id, 'medium', true );
-		
+
 		return array_merge( $id, $image );
 	}
 
@@ -217,21 +217,21 @@ class Anva_Gallery
 
 	/**
 	 * Get admin thumbnail
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	private function admin_thumb( $attachment_id )
 	{
 		$image = $this->get_attachment( $attachment_id );
 		$class = 'landscape squre';
-	
+
 		if ( $image[2] > $image[3] ) {
 			$class = 'landscape';
 		}
 
 		if ( $image[2] < $image[3] ){
 			$class = 'portrait';
-		}	
+		}
 		?>
 		<li class="attachment animated fadeIn" data-id="<?php echo esc_attr( $image[0] ); ?>">
 			<a href="<?php echo admin_url( 'post.php?post=' . $image[0] . '&action=edit' ); ?>" target="_blank">

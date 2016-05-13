@@ -23,6 +23,7 @@ get_header();
     <ul id="portfolio-filter" class="portfolio-filter clearfix" data-container="#portfolio">
         <li class="activeFilter"><a href="#" data-filter="*"><?php _e( 'Show All', 'anva' ); ?></a></li>
         <?php
+            // Get portfolio type terms
             $terms = get_terms( 'portfolio_type' );
             $count = count( $terms );
             if ( $count > 0 ) {
@@ -35,7 +36,7 @@ get_header();
 
     <div id="portfolio-shuffle" class="portfolio-shuffle" data-container="#portfolio">
         <i class="icon-random"></i>
-    </div>
+    </div><!-- #portfolio-shuffle -->
 
     <div class="clear"></div>
 
@@ -43,8 +44,8 @@ get_header();
 
     <div id="portfolio" class="<?php anva_post_class( 'portfolio' ); ?>">
         <?php
-            if ( have_posts() ) {
-                while ( have_posts() ) {
+            if ( have_posts() ) :
+                while ( have_posts() ) :
                     the_post();
                     $terms = anva_get_terms_links( 'portfolio_type', ' ', false, 'slug' );
                     ?>
@@ -68,9 +69,10 @@ get_header();
                             </div>
                         </article>
                     <?php
-                }
+                endwhile;
+
                 anva_num_pagination();
-            }
+            endif;
         ?>
     </div><!-- #portfolio (end) -->
 

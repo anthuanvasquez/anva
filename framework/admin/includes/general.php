@@ -10,10 +10,10 @@ Anva_Options_Import_Export::instance();
  * @return void
  */
 function anva_admin_init() {
-	
+
 	// Instantiate the options page
 	Anva_Options_Page::instance();
-	
+
 	// Instantiate the media uploader class
 	Anva_Options_Media_Uploader::instance();
 
@@ -73,14 +73,14 @@ function anva_admin_assets() {
 
 	// Assets for meta boxes
 	if ( $pagenow == 'post-new.php' || $pagenow == 'post.php' ) {
-		wp_enqueue_style( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_CSS . 'meta-boxes.min.css', array(), ANVA_FRAMEWORK_VERSION );
-		wp_enqueue_script( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_JS . 'meta-boxes.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
+		wp_enqueue_style( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_CSS . 'meta.min.css', array(), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_script( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_JS . 'meta.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 	}
 
 	// Sweet Alert
 	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3', false );
 	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'sweetalert.min.css', array(), '1.1.3' );
-	
+
 	// Admin Global
 	wp_enqueue_script( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_JS . 'admin-global.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, false );
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-global.min.css', array(), ANVA_FRAMEWORK_VERSION );
@@ -90,7 +90,7 @@ function anva_admin_assets() {
 
 /**
  * Get options page menu settings.
- * 
+ *
  * @since  1.0.0
  * @return array $options_page
  */
@@ -101,7 +101,7 @@ function anva_get_options_page_menu() {
 
 /**
  * Get default options.
- * 
+ *
  * @since  1.0.0
  * @return array Default Options
  */

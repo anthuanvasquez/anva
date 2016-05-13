@@ -1,4 +1,7 @@
 <?php
+
+if ( ! class_exists( 'Anva_Options_Media_Uploader' ) ) :
+
 /**
  * Media uploader.
  *
@@ -25,7 +28,7 @@ class Anva_Options_Media_Uploader
 	 * @since 1.0.0
 	 */
 	public static function instance()
-	{	
+	{
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -84,7 +87,7 @@ class Anva_Options_Media_Uploader
 
 		$output .= '<div class="group-button">';
 		$output .= '<input id="' . esc_attr( $id ) . '" class="upload' . esc_attr( $class ) . '" type="text" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" placeholder="' . __( 'No file chosen', 'anva' ) .'" />' . "\n";
-		
+
 		if ( function_exists( 'wp_enqueue_media' ) ) {
 			if ( ( $value == '' ) ) {
 				$output .= '<span>';
@@ -248,7 +251,7 @@ function anva_media_uploader( $args ) {
 
 		/**
 		 * More will come.
-		 * 
+		 *
 		 * @todo Alternate Image 2x
 		 * @todo Dark Image
 		 * @todo Dark Image 2x
@@ -283,8 +286,10 @@ function anva_media_uploader( $args ) {
 			$output .= '<div class="no-image"><span class="file_link"><a href="' . $value . '" target="_blank" rel="external">'.$title.'</a></span></div>';
 		}
 	}
-	
+
 	$output .= '</div>' . "\n";
-	
+
 	return $output;
 }
+
+endif;

@@ -31,7 +31,7 @@
 
 	<?php do_action( 'anva_footer_above' ); ?>
 
-	<!--FOOTER (start) -->
+	<!-- FOOTER (start) -->
 	<footer id="footer" <?php echo $class; ?>>
 
 		<div class="container clearfix">

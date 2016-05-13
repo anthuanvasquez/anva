@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery( document ).ready( function( $ ) {
 
     $('.anva-field-link-mega-hide-headers').each(function(){
 
@@ -39,4 +39,5 @@ jQuery(document).ready(function($) {
         }
 
     });
+
 });

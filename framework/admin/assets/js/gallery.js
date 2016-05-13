@@ -1,6 +1,6 @@
-jQuery(document).ready(function($) {
+jQuery( document ).ready( function( $ ) {
 
-	"use strict";
+	'use strict';
 
 	// WP Media Frame
 	var frame;

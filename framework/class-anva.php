@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Anva is a WordPress Theme Development Framework.
+ * Anva is a WordPress Theme Framework.
  *
  * Anva class launches the framework. It's the organizational structure behind the
  * entire framework. This class should be loaded and initialized before anything else within

@@ -17,7 +17,7 @@ if( $().infinitescroll ) {
                 instance = this;
             // Bind nextSelector link to retrieve
             $(opts.nextSelector).click(function(e) {
-                if (e.which == 1 && !e.metaKey && !e.shiftKey) {
+                if (e.which === 1 && !e.metaKey && !e.shiftKey) {
                     e.preventDefault();
                     instance.retrieve();
                 }
@@ -61,7 +61,7 @@ if( $().infinitescroll ) {
         window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
     }
 
-    if (!window.requestAnimationFrame)
+    if (!window.requestAnimationFrame) {
         window.requestAnimationFrame = function(callback, element) {
             var currTime = new Date().getTime();
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
@@ -70,11 +70,13 @@ if( $().infinitescroll ) {
             lastTime = currTime + timeToCall;
             return id;
         };
+    }
 
-    if (!window.cancelAnimationFrame)
+    if (!window.cancelAnimationFrame) {
         window.cancelAnimationFrame = function(id) {
             clearTimeout(id);
         };
+    }
 }());
 
 function debounce(func, wait, immediate) {
@@ -89,14 +91,18 @@ function debounce(func, wait, immediate) {
                 timeout = setTimeout(later, wait - last);
             } else {
                 timeout = null;
-                if (!immediate) result = func.apply(context, args);
+                if (!immediate) {
+                    result = func.apply(context, args);
+                }
             }
         };
         var callNow = immediate && !timeout;
         if (!timeout) {
             timeout = setTimeout(later, wait);
         }
-        if (callNow) result = func.apply(context, args);
+        if (callNow) {
+            result = func.apply(context, args);
+        }
         return result;
     };
 }
@@ -120,7 +126,7 @@ function onScrollSliderParallax() {
 
 var ANVA = ANVA || {};
 
-(function($){
+(function( $ ) {
 
     // USE STRICT
     "use strict";
@@ -219,7 +225,9 @@ var ANVA = ANVA || {};
                         $(this).unwrap('<span class="preloader" />');
                     });
                 }).each(function() {
-                    if(this.complete) $(this).trigger("load");
+                    if(this.complete) {
+                        $(this).trigger("load");
+                    }
                 });
             });
         },
@@ -288,7 +296,7 @@ var ANVA = ANVA || {};
 
             if( !elementOffset ) { elementOffset = 450; }
 
-            if( elementMobile != 'true' && ( $body.hasClass('device-xs') || $body.hasClass('device-xxs') ) ) { return true; }
+            if( elementMobile !== 'true' && ( $body.hasClass('device-xs') || $body.hasClass('device-xxs') ) ) { return true; }
 
             if( $window.scrollTop() > Number(elementOffset) ) {
                 $goToTopEl.fadeIn();
@@ -304,7 +312,7 @@ var ANVA = ANVA || {};
                         scrHeight = window.innerHeight ? window.innerHeight : $window.height(),
                         negativeHeight = element.attr('data-negative-height');
 
-                    if( element.attr('id') == 'slider' ) {
+                    if( element.attr('id') === 'slider' ) {
                         var sliderHeightOff = $slider.offset().top;
                         scrHeight = scrHeight - sliderHeightOff;
                         if( element.find('.slider-parallax-inner').length > 0 ) {
@@ -328,7 +336,7 @@ var ANVA = ANVA || {};
                     if( negativeHeight ){ scrHeight = scrHeight - Number(negativeHeight); }
 
                     element.css('height', scrHeight);
-                    if( element.attr('id') == 'slider' && !element.hasClass('canvas-slider-grid') ) { if( element.has('.swiper-slide') ) { element.find('.swiper-slide').css('height', scrHeight); } }
+                    if( element.attr('id') === 'slider' && !element.hasClass('canvas-slider-grid') ) { if( element.has('.swiper-slide') ) { element.find('.swiper-slide').css('height', scrHeight); } }
                 });
             }
         },
@@ -351,11 +359,12 @@ var ANVA = ANVA || {};
             var maxHeight = 0;
             element.children('[class*=col-]').each(function() {
                 var element = $(this).children();
-                if( element.hasClass('max-height') ){
+                if ( element.hasClass('max-height') ) {
                     maxHeight = element.outerHeight();
                 } else {
-                    if (element.outerHeight() > maxHeight)
-                    maxHeight = element.outerHeight();
+                    if (element.outerHeight() > maxHeight) {
+                        maxHeight = element.outerHeight();
+                    }
                 }
             });
 
@@ -524,7 +533,7 @@ var ANVA = ANVA || {};
                     if( element.hasClass('enable-cookie') ) {
                         var elementCookie = $.cookie( elementTargetValue );
 
-                        if( typeof elementCookie !== 'undefined' && elementCookie == '0' ) {
+                        if( typeof elementCookie !== 'undefined' && elementCookie === '0' ) {
                             return true;
                         }
                     }
@@ -599,7 +608,7 @@ var ANVA = ANVA || {};
         blogTimelineEntries: function(){
             $('.post-timeline.grid-2').find('.entry').each( function(){
                 var position = $(this).inlineStyle('left');
-                if( position == '0px' ) {
+                if( position === '0px' ) {
                     $(this).removeClass('alt');
                 } else {
                     $(this).addClass('alt');
@@ -651,7 +660,7 @@ var ANVA = ANVA || {};
             }
 
             if( loaderColor ) {
-                if( loaderColor == 'theme' ) {
+                if( loaderColor === 'theme' ) {
                     loaderBgClass = ' bgcolor';
                     loaderBorderClass = ' border-color';
                     loaderBgClass2 = ' class="bgcolor"';
@@ -663,31 +672,31 @@ var ANVA = ANVA || {};
                 loaderStyleHtml = '<div class="css3-spinner-bounce1'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-bounce2'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-bounce3'+ loaderBgClass +'"'+ loaderBgStyle +'></div>';
             }
 
-            if( loaderStyle == '2' ) {
+            if( loaderStyle === '2' ) {
                 loaderStyleHtml = '<div class="css3-spinner-flipper'+ loaderBgClass +'"'+ loaderBgStyle +'></div>';
-            } else if( loaderStyle == '3' ) {
+            } else if( loaderStyle === '3' ) {
                 loaderStyleHtml = '<div class="css3-spinner-double-bounce1'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-double-bounce2'+ loaderBgClass +'"'+ loaderBgStyle +'></div>';
-            } else if( loaderStyle == '4' ) {
+            } else if( loaderStyle === '4' ) {
                 loaderStyleHtml = '<div class="css3-spinner-rect1'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-rect2'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-rect3'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-rect4'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-rect5'+ loaderBgClass +'"'+ loaderBgStyle +'></div>';
-            } else if( loaderStyle == '5' ) {
+            } else if( loaderStyle === '5' ) {
                 loaderStyleHtml = '<div class="css3-spinner-cube1'+ loaderBgClass +'"'+ loaderBgStyle +'></div><div class="css3-spinner-cube2'+ loaderBgClass +'"'+ loaderBgStyle +'></div>';
-            } else if( loaderStyle == '6' ) {
+            } else if( loaderStyle === '6' ) {
                 loaderStyleHtml = '<div class="css3-spinner-scaler'+ loaderBgClass +'"'+ loaderBgStyle +'></div>';
-            } else if( loaderStyle == '7' ) {
+            } else if( loaderStyle === '7' ) {
                 loaderStyleHtml = '<div class="css3-spinner-grid-pulse"><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div></div>';
-            } else if( loaderStyle == '8' ) {
+            } else if( loaderStyle === '8' ) {
                 loaderStyleHtml = '<div class="css3-spinner-clip-rotate"><div'+ loaderBorderClass2 + loaderBorderStyle +'></div></div>';
-            } else if( loaderStyle == '9' ) {
+            } else if( loaderStyle === '9' ) {
                 loaderStyleHtml = '<div class="css3-spinner-ball-rotate"><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div></div>';
-            } else if( loaderStyle == '10' ) {
+            } else if( loaderStyle === '10' ) {
                 loaderStyleHtml = '<div class="css3-spinner-zig-zag"><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div></div>';
-            } else if( loaderStyle == '11' ) {
+            } else if( loaderStyle === '11' ) {
                 loaderStyleHtml = '<div class="css3-spinner-triangle-path"><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div></div>';
-            } else if( loaderStyle == '12' ) {
+            } else if( loaderStyle === '12' ) {
                 loaderStyleHtml = '<div class="css3-spinner-ball-scale-multiple"><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div></div>';
-            } else if( loaderStyle == '13' ) {
+            } else if( loaderStyle === '13' ) {
                 loaderStyleHtml = '<div class="css3-spinner-ball-pulse-sync"><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div><div'+ loaderBgClass2 + loaderBgStyle +'></div></div>';
-            } else if( loaderStyle == '14' ) {
+            } else if( loaderStyle === '14' ) {
                 loaderStyleHtml = '<div class="css3-spinner-scale-ripple"><div'+ loaderBorderClass2 + loaderBorderStyle +'></div><div'+ loaderBorderClass2 + loaderBorderStyle +'></div><div'+ loaderBorderClass2 + loaderBorderStyle +'></div></div>';
             }
 
@@ -752,15 +761,20 @@ var ANVA = ANVA || {};
         defineColumns: function( element ){
             var column = 4;
 
-            if( element.hasClass('portfolio-full') ) {
-                if( element.hasClass('portfolio-3') ) column = 3;
-                else if( element.hasClass('portfolio-5') ) column = 5;
-                else if( element.hasClass('portfolio-6') ) column = 6;
-                else column = 4;
-
-                if( $body.hasClass('device-sm') && ( column == 4 || column == 5 || column == 6 ) ) {
+            if ( element.hasClass('portfolio-full') ) {
+                if ( element.hasClass('portfolio-3') ) {
                     column = 3;
-                } else if( $body.hasClass('device-xs') && ( column == 3 || column == 4 || column == 5 || column == 6 ) ) {
+                } else if ( element.hasClass('portfolio-5') ) {
+                    column = 5;
+                } else if ( element.hasClass('portfolio-6') ) {
+                    column = 6;
+                } else  {
+                    column = 4;
+                }
+
+                if( $body.hasClass('device-sm') && ( column === 4 || column === 5 || column === 6 ) ) {
+                    column = 3;
+                } else if( $body.hasClass('device-xs') && ( column === 3 || column === 4 || column === 5 || column === 6 ) ) {
                     column = 2;
                 } else if( $body.hasClass('device-xxs') ) {
                     column = 1;
@@ -773,11 +787,17 @@ var ANVA = ANVA || {};
                     xsCol = element.attr('data-xs-col'),
                     xxsCol = element.attr('data-xxs-col');
 
-                if( element.hasClass('col-2') ) column = 2;
-                else if( element.hasClass('col-3') ) column = 3;
-                else if( element.hasClass('col-5') ) column = 5;
-                else if( element.hasClass('col-6') ) column = 6;
-                else column = 4;
+                if( element.hasClass('col-2') ) {
+                    column = 2;
+                } else if( element.hasClass('col-3') ) {
+                    column = 3;
+                } else if( element.hasClass('col-5') ) {
+                    column = 5;
+                } else if( element.hasClass('col-6') ) {
+                    column = 6;
+                } else {
+                    column = 4;
+                }
 
                 if( $body.hasClass('device-lg') ) {
                     if( lgCol ) { column = Number(lgCol); }
@@ -811,7 +831,7 @@ var ANVA = ANVA || {};
 
                 columns = ANVA.initialize.defineColumns( element );
                 containerWidth = element.width();
-                if( containerWidth == ( Math.floor(containerWidth/columns) * columns ) ) { containerWidth = containerWidth - 1; }
+                if( containerWidth === ( Math.floor(containerWidth/columns) * columns ) ) { containerWidth = containerWidth - 1; }
                 postWidth = Math.floor(containerWidth/columns);
                 if( $body.hasClass('device-xxs') ) { deviceSmallest = 1; } else { deviceSmallest = 0; }
                 element.find(".portfolio-item").each(function(index){
@@ -823,7 +843,7 @@ var ANVA = ANVA || {};
                 columns = ANVA.initialize.defineColumns( element );
                 containerWidth = element.innerWidth();
 
-                if( containerWidth == windowWidth ){
+                if( containerWidth === windowWidth ){
                     containerWidth = windowWidth*1.004;
                     element.css({ 'width': containerWidth+'px' });
                 }
@@ -1343,7 +1363,7 @@ var ANVA = ANVA || {};
 
                 var offsetScroll = headerHeight + onePageGlobalOffset;
 
-                if( y + offsetScroll >= h && y < h + $(this).height() && $(this).attr('id') != currentOnePageSection ) {
+                if( y + offsetScroll >= h && y < h + $(this).height() && $(this).attr('id') !== currentOnePageSection ) {
                     currentOnePageSection = $(this).attr('id');
                 }
             });
@@ -1380,10 +1400,10 @@ var ANVA = ANVA || {};
             if( noOfNewClasses > 0 ) {
                 var i = 0;
                 for( i=0; i<noOfNewClasses; i++ ) {
-                    if( newClassesArray[i] == 'not-dark' ) {
+                    if( newClassesArray[i] === 'not-dark' ) {
                         $header.removeClass('dark');
                         $headerWrap.addClass('not-dark');
-                    } else if( newClassesArray[i] == 'dark' ) {
+                    } else if( newClassesArray[i] === 'dark' ) {
                         $headerWrap.removeClass('not-dark force-not-dark');
                         if( !$header.hasClass( newClassesArray[i] ) ) {
                             $header.addClass( newClassesArray[i] );
@@ -1404,10 +1424,10 @@ var ANVA = ANVA || {};
                 if( noOfNewClasses > 0 ) {
                     var i = 0;
                     for( i=0; i<noOfNewClasses; i++ ) {
-                        if( newClassesArray[i] == 'not-dark' ) {
+                        if( newClassesArray[i] === 'not-dark' ) {
                             $header.removeClass('dark');
                             $headerWrap.addClass('not-dark');
-                        } else if( newClassesArray[i] == 'dark' ) {
+                        } else if( newClassesArray[i] === 'dark' ) {
                             $headerWrap.removeClass('not-dark force-not-dark');
                             if( !$header.hasClass( newClassesArray[i] ) ) {
                                 $header.addClass( newClassesArray[i] );
@@ -1578,10 +1598,10 @@ var ANVA = ANVA || {};
                 if( !elementSpeed ) { elementSpeed = 300; }
                 if( !elementDirection ) { elementDirection = 'horizontal'; }
                 if( elementAutoPlay ) { elementAutoPlay = Number( elementAutoPlay ); }
-                if( elementLoop == 'true' ) { elementLoop = true; } else { elementLoop = false; }
+                if( elementLoop === 'true' ) { elementLoop = true; } else { elementLoop = false; }
                 if( !elementEffect ) { elementEffect = 'slide'; }
-                if( elementGrabCursor == 'false' ) { elementGrabCursor = false; } else { elementGrabCursor = true; }
-                if( sliderVideoAutoPlay == 'false' ) { sliderVideoAutoPlay = false; } else { sliderVideoAutoPlay = true; }
+                if( elementGrabCursor === 'false' ) { elementGrabCursor = false; } else { elementGrabCursor = true; }
+                if( sliderVideoAutoPlay === 'false' ) { sliderVideoAutoPlay = false; } else { sliderVideoAutoPlay = true; }
 
                 if( element.find('.swiper-pagination').length > 0 ) {
                     elementPagination = '.swiper-pagination';
@@ -1817,7 +1837,7 @@ var ANVA = ANVA || {};
                     if( noOfOldClasses > 0 ) {
                         var i = 0;
                         for( i=0; i<noOfOldClasses; i++ ) {
-                            if( oldClassesArray[i] == 'dark' && onWinLoad === true ) {
+                            if( oldClassesArray[i] === 'dark' && onWinLoad === true ) {
                                 darkExists = true;
                                 break;
                             }
@@ -2220,7 +2240,7 @@ var ANVA = ANVA || {};
                         flexsUseCSS = false;
 
                     if( !flexsAnimation ) { flexsAnimation = 'slide'; }
-                    if( !flexsEasing || flexsEasing == 'swing' ) {
+                    if( !flexsEasing || flexsEasing === 'swing' ) {
                         flexsEasing = 'swing';
                         flexsUseCSS = true;
                     }
@@ -2229,12 +2249,12 @@ var ANVA = ANVA || {};
                     if( !flexsPause ) { flexsPause = 5000; }
                     if( !flexsSpeed ) { flexsSpeed = 600; }
                     if( !flexsVideo ) { flexsVideo = false; }
-                    if( flexsSheight == 'false' ) { flexsSheight = false; } else { flexsSheight = true; }
-                    if( flexsDirection == 'vertical' ) { flexsSheight = false; }
-                    if( flexsPagi == 'false' ) { flexsPagi = false; } else { flexsPagi = true; }
-                    if( flexsThumbs == 'true' ) { flexsPagi = 'thumbnails'; } else { flexsPagi = flexsPagi; }
-                    if( flexsArrows == 'false' ) { flexsArrows = false; } else { flexsArrows = true; }
-                    if( flexsHover == 'false' ) { flexsHover = false; } else { flexsHover = true; }
+                    if( flexsSheight === 'false' ) { flexsSheight = false; } else { flexsSheight = true; }
+                    if( flexsDirection === 'vertical' ) { flexsSheight = false; }
+                    if( flexsPagi === 'false' ) { flexsPagi = false; } else { flexsPagi = true; }
+                    if( flexsThumbs === 'true' ) { flexsPagi = 'thumbnails'; } else { flexsPagi = flexsPagi; }
+                    if( flexsArrows === 'false' ) { flexsArrows = false; } else { flexsArrows = true; }
+                    if( flexsHover === 'false' ) { flexsHover = false; } else { flexsHover = true; }
 
                     $flexsSlider.flexslider({
                         selector: ".slider-wrap > .slide",
@@ -2358,18 +2378,18 @@ var ANVA = ANVA || {};
                         ytbgAutoPlay = element.attr('data-autoplay'),
                         ytbgFullScreen = element.attr('data-fullscreen');
 
-                    if( ytbgMute == 'false' ) { ytbgMute = false; } else { ytbgMute = true; }
+                    if( ytbgMute === 'false' ) { ytbgMute = false; } else { ytbgMute = true; }
                     if( !ytbgRatio ) { ytbgRatio = '16/9'; }
                     if( !ytbgQuality ) { ytbgQuality = 'hd720'; }
                     if( !ytbgOpacity ) { ytbgOpacity = 1; }
                     if( !ytbgContainer ) { ytbgContainer = 'self'; }
-                    if( ytbgOptimize == 'false' ) { ytbgOptimize = false; } else { ytbgOptimize = true; }
-                    if( ytbgLoop == 'false' ) { ytbgLoop = false; } else { ytbgLoop = true; }
+                    if( ytbgOptimize === 'false' ) { ytbgOptimize = false; } else { ytbgOptimize = true; }
+                    if( ytbgLoop === 'false' ) { ytbgLoop = false; } else { ytbgLoop = true; }
                     if( !ytbgVolume ) { ytbgVolume = 1; }
                     if( !ytbgStart ) { ytbgStart = 0; }
                     if( !ytbgStop ) { ytbgStop = 0; }
-                    if( ytbgAutoPlay == 'false' ) { ytbgAutoPlay = false; } else { ytbgAutoPlay = true; }
-                    if( ytbgFullScreen == 'true' ) { ytbgFullScreen = true; } else { ytbgFullScreen = false; }
+                    if( ytbgAutoPlay === 'false' ) { ytbgAutoPlay = false; } else { ytbgAutoPlay = true; }
+                    if( ytbgFullScreen === 'true' ) { ytbgFullScreen = true; } else { ytbgFullScreen = false; }
 
                     element.mb_YTPlayer({
                         videoURL: ytbgVideo,
@@ -2456,7 +2476,7 @@ var ANVA = ANVA || {};
                     var element = $(this),
                         elementState = element.attr('data-state');
 
-                    if( elementState != 'open' ){
+                    if( elementState !== 'open' ){
                         element.children('.togglec').hide();
                     } else {
                         element.children('.togglet').addClass("toggleta");
@@ -2482,7 +2502,7 @@ var ANVA = ANVA || {};
 
                     element.find('.acc_content').hide();
 
-                    if( elementState != 'closed' ) {
+                    if( elementState !== 'closed' ) {
                         element.find('.acctitle:eq('+ Number(accordionActive) +')').addClass('acctitlec').next().show();
                     }
 
@@ -2690,7 +2710,7 @@ var ANVA = ANVA || {};
                         flickrFeedType = element.attr('data-type'),
                         flickrFeedTypeGet = 'photos_public.gne';
 
-                    if( flickrFeedType == 'group' ) { flickrFeedTypeGet = 'groups_pool.gne'; }
+                    if( flickrFeedType === 'group' ) { flickrFeedTypeGet = 'groups_pool.gne'; }
                     if( !flickrFeedCount ) { flickrFeedCount = 9; }
 
                     element.jflickrfeed({
@@ -2735,7 +2755,7 @@ var ANVA = ANVA || {};
                     if( !instaGramSortBy ) { instaGramSortBy = 'none'; }
                     if( !instaGramRes ) { instaGramRes = 'thumbnail'; }
 
-                    if( instaGramType == 'user' ) {
+                    if( instaGramType === 'user' ) {
 
                         feed = new Instafeed({
                             target: instaGramTarget,
@@ -2748,7 +2768,7 @@ var ANVA = ANVA || {};
                             clientId: c_clientID
                         });
 
-                    } else if( instaGramType == 'tagged' ) {
+                    } else if( instaGramType === 'tagged' ) {
 
                         feed = new Instafeed({
                             target: instaGramTarget,
@@ -2760,7 +2780,7 @@ var ANVA = ANVA || {};
                             clientId: c_clientID
                         });
 
-                    } else if( instaGramType == 'location' ) {
+                    } else if( instaGramType === 'location' ) {
 
                         feed = new Instafeed({
                             target: instaGramTarget,
@@ -2818,7 +2838,7 @@ var ANVA = ANVA || {};
 
                     if( !dribbbleCount ) { dribbbleCount = 9; }
 
-                    if( dribbbleType == 'user' ) {
+                    if( dribbbleType === 'user' ) {
 
                         $.jribbble.users( dribbbleUsername ).shots({
                             'sort': 'recent',
@@ -2839,7 +2859,7 @@ var ANVA = ANVA || {};
                             });
                         });
 
-                    } else if( dribbbleType == 'list' ) {
+                    } else if( dribbbleType === 'list' ) {
 
                         $.jribbble.shots( dribbbleList, {
                             'sort': 'recent',
@@ -2951,13 +2971,13 @@ var ANVA = ANVA || {};
                 if( !elementStart ) { elementStart = 0; }
 
                 if( !elementSlideBy ) { elementSlideBy = 1; }
-                if( elementSlideBy == 'page' ) {
+                if( elementSlideBy === 'page' ) {
                     elementSlideBy = 'page';
                 } else {
                     elementSlideBy = Number(elementSlideBy);
                 }
 
-                if( elementLoop == 'true' ){ elementLoop = true; } else { elementLoop = false; }
+                if( elementLoop === 'true' ){ elementLoop = true; } else { elementLoop = false; }
                 if( !elementAutoPlay ){
                     elementAutoPlay = false;
                     elementAutoPlayTime = 0;
@@ -2967,14 +2987,14 @@ var ANVA = ANVA || {};
                 }
                 if( !elementAnimateIn ) { elementAnimateIn = false; }
                 if( !elementAnimateOut ) { elementAnimateOut = false; }
-                if( elementNav == 'false' ){ elementNav = false; } else { elementNav = true; }
-                if( elementPagi == 'false' ){ elementPagi = false; } else { elementPagi = true; }
-                if( elementRewind == 'true' ){ elementRewind = true; } else { elementRewind = false; }
-                if( elementMerge == 'true' ){ elementMerge = true; } else { elementMerge = false; }
-                if( elementCenter == 'true' ){ elementCenter = true; } else { elementCenter = false; }
-                if( elementLazy == 'true' ){ elementLazy = true; } else { elementLazy = false; }
-                if( elementVideo == 'true' ){ elementVideo = true; } else { elementVideo = false; }
-                if( elementRTL == 'true' || $body.hasClass('rtl') ){ elementRTL = true; } else { elementRTL = false; }
+                if( elementNav === 'false' ){ elementNav = false; } else { elementNav = true; }
+                if( elementPagi === 'false' ){ elementPagi = false; } else { elementPagi = true; }
+                if( elementRewind === 'true' ){ elementRewind = true; } else { elementRewind = false; }
+                if( elementMerge === 'true' ){ elementMerge = true; } else { elementMerge = false; }
+                if( elementCenter === 'true' ){ elementCenter = true; } else { elementCenter = false; }
+                if( elementLazy === 'true' ){ elementLazy = true; } else { elementLazy = false; }
+                if( elementVideo === 'true' ){ elementVideo = true; } else { elementVideo = false; }
+                if( elementRTL === 'true' || $body.hasClass('rtl') ){ elementRTL = true; } else { elementRTL = false; }
 
                 element.owlCarousel({
                     margin: Number(elementMargin),
@@ -3050,17 +3070,17 @@ var ANVA = ANVA || {};
 
             if( !notifyPosition ) { notifyPosition = 'toast-top-right'; } else { notifyPosition = 'toast-' + notifyElement.attr('data-notify-position'); }
             if( !notifyMsg ) { notifyMsg = 'Please set a message!'; }
-            if( notifyCloseButton == 'true' ) { notifyCloseButton = true; } else { notifyCloseButton = false; }
+            if( notifyCloseButton === 'true' ) { notifyCloseButton = true; } else { notifyCloseButton = false; }
 
             toastr.options.positionClass = notifyPosition;
             toastr.options.closeButton = notifyCloseButton;
             toastr.options.closeHtml = '<button><i class="icon-remove"></i></button>';
 
-            if( notifyType == 'warning' ) {
+            if( notifyType === 'warning' ) {
                 toastr.warning(notifyMsg);
-            } else if( notifyType == 'error' ) {
+            } else if( notifyType === 'error' ) {
                 toastr.error(notifyMsg);
-            } else if( notifyType == 'success' ) {
+            } else if( notifyType === 'success' ) {
                 toastr.success(notifyMsg);
             } else {
                 toastr.info(notifyMsg);
@@ -3156,7 +3176,7 @@ var ANVA = ANVA || {};
 
                         elementResult.hide();
 
-                        if( elementLoader == 'button' ) {
+                        if( elementLoader === 'button' ) {
                             var defButton = $(form).find('button'),
                                 defButtonText = defButton.html();
 
@@ -3170,14 +3190,14 @@ var ANVA = ANVA || {};
                             dataType: 'json',
                             resetForm: true,
                             success: function( data ) {
-                                if( elementLoader == 'button' ) {
+                                if( elementLoader === 'button' ) {
                                     defButton.html( defButtonText );
                                 } else {
                                     $(form).find('.form-process').fadeOut();
                                 }
-                                if( elementAlert == 'inline' ) {
+                                if( elementAlert === 'inline' ) {
                                     var alertType;
-                                    if( data.alert == 'error' ) {
+                                    if( data.alert === 'error' ) {
                                         alertType = 'alert-danger';
                                     } else {
                                         alertType = 'alert-success';
@@ -3223,7 +3243,7 @@ var ANVA = ANVA || {};
 
                         elementResult.hide();
 
-                        if( elementLoader == 'button' ) {
+                        if( elementLoader === 'button' ) {
                             var defButton = $(form).find('button'),
                                 defButtonText = defButton.html();
 
@@ -3237,14 +3257,14 @@ var ANVA = ANVA || {};
                             dataType: 'json',
                             resetForm: true,
                             success: function( data ) {
-                                if( elementLoader == 'button' ) {
+                                if( elementLoader === 'button' ) {
                                     defButton.html( defButtonText );
                                 } else {
                                     $(form).find('.input-group-addon').find('.icon-line-loader').removeClass('icon-line-loader icon-spin').addClass('icon-email2');
                                 }
-                                if( elementAlert == 'inline' ) {
+                                if( elementAlert === 'inline' ) {
                                     var alertType;
-                                    if( data.alert == 'error' ) {
+                                    if( data.alert === 'error' ) {
                                         alertType = 'alert-danger';
                                     } else {
                                         alertType = 'alert-success';
@@ -3290,7 +3310,7 @@ var ANVA = ANVA || {};
                         elementResult.hide();
                         $(form).animate({ opacity: 0.4 });
 
-                        if( elementLoader == 'button' ) {
+                        if( elementLoader === 'button' ) {
                             var defButton = $(form).find('button'),
                                 defButtonText = defButton.html();
 
@@ -3305,14 +3325,14 @@ var ANVA = ANVA || {};
                             resetForm: true,
                             success: function( data ) {
                                 $(form).animate({ opacity: 1 });
-                                if( elementLoader == 'button' ) {
+                                if( elementLoader === 'button' ) {
                                     defButton.html( defButtonText );
                                 } else {
                                     $(form).find('.form-process').fadeOut();
                                 }
-                                if( elementAlert == 'inline' ) {
+                                if( elementAlert === 'inline' ) {
                                     var alertType;
-                                    if( data.alert == 'error' ) {
+                                    if( data.alert === 'error' ) {
                                         alertType = 'alert-danger';
                                     } else {
                                         alertType = 'alert-success';
@@ -3344,7 +3364,7 @@ var ANVA = ANVA || {};
 
                 $cookieNotification.css({ bottom: -cookieNotificationHeight });
 
-                if( $.cookie('websiteUsesCookies') != 'yesConfirmed' ) {
+                if( $.cookie('websiteUsesCookies') !== 'yesConfirmed' ) {
                     $cookieNotification.css({ bottom: 0 });
                 }
 
@@ -3403,6 +3423,9 @@ var ANVA = ANVA || {};
 
     };
 
+    /**
+     * Check mobile devices
+     */
     ANVA.isMobile = {
         Android: function() {
             return navigator.userAgent.match(/Android/i);
@@ -3424,6 +3447,9 @@ var ANVA = ANVA || {};
         }
     };
 
+    /**
+     * Window resize
+     */
     ANVA.documentOnResize = {
 
         init: function(){
@@ -3466,6 +3492,9 @@ var ANVA = ANVA || {};
 
     };
 
+    /**
+     * Document ready
+     */
     ANVA.documentOnReady = {
 
         init: function(){
@@ -3499,7 +3528,7 @@ var ANVA = ANVA || {};
 
             var headerDefinedOffset = $header.attr('data-sticky-offset');
             if( typeof headerDefinedOffset !== 'undefined' ) {
-                if( headerDefinedOffset == 'full' ) {
+                if( headerDefinedOffset === 'full' ) {
                     headerWrapOffset = $window.height();
                     var headerOffsetNegative = $header.attr('data-sticky-offset-negative');
                     if( typeof headerOffsetNegative !== 'undefined' ) { headerWrapOffset = headerWrapOffset - headerOffsetNegative - 1; }
@@ -3536,6 +3565,9 @@ var ANVA = ANVA || {};
 
     };
 
+    /**
+     * Window Load
+     */
     ANVA.documentOnLoad = {
 
         init: function(){
@@ -3564,68 +3596,74 @@ var ANVA = ANVA || {};
 
     };
 
-    var $window = $(window),
-        $body = $('body'),
-        $wrapper = $('#wrapper'),
-        $header = $('#header'),
-        $logo = $('#logo'),
-        $headerWrap = $('#header-wrap'),
-        $content = $('#content'),
-        $footer = $('#footer'),
-        windowWidth = $window.width(),
-        oldHeaderClasses = $header.attr('class'),
-        oldHeaderWrapClasses = $headerWrap.attr('class'),
-        stickyMenuClasses = $header.attr('data-sticky-class'),
-        responsiveMenuClasses = $header.attr('data-responsive-class'),
-        defaultLogo = $('#logo').find('.standard-logo'),
-        defaultLogoWidth = defaultLogo.find('img').outerWidth(),
-        retinaLogo = $('#logo').find('.retina-logo'),
-        defaultLogoImg = defaultLogo.find('img').attr('src'),
-        retinaLogoImg = retinaLogo.find('img').attr('src'),
-        defaultDarkLogo = defaultLogo.attr('data-dark-logo'),
-        retinaDarkLogo = retinaLogo.attr('data-dark-logo'),
-        defaultStickyLogo = defaultLogo.attr('data-sticky-logo'),
-        retinaStickyLogo = retinaLogo.attr('data-sticky-logo'),
-        defaultMobileLogo = defaultLogo.attr('data-mobile-logo'),
-        retinaMobileLogo = retinaLogo.attr('data-mobile-logo'),
-        $pagemenu = $('#page-menu'),
-        $onePageMenuEl = $('.one-page-menu'),
-        onePageGlobalOffset = 0,
-        $portfolio = $('.portfolio'),
-        $shop = $('.shop'),
-        $gridContainer = $('.grid-container'),
-        $slider = $('#slider'),
-        $sliderParallaxEl = $('.slider-parallax'),
-        swiperSlider = '',
-        $pageTitle = $('#page-title'),
-        $portfolioItems = $('.portfolio-ajax').find('.portfolio-item'),
-        $portfolioDetails = $('#portfolio-ajax-wrap'),
+    // Global Variables
+    var $window                    = $(window),
+        $body                      = $('body'),
+        $wrapper                   = $('#wrapper'),
+        $header                    = $('#header'),
+        $logo                      = $('#logo'),
+        $headerWrap                = $('#header-wrap'),
+        $content                   = $('#content'),
+        $footer                    = $('#footer'),
+        windowWidth                = $window.width(),
+        oldHeaderClasses           = $header.attr('class'),
+        oldHeaderWrapClasses       = $headerWrap.attr('class'),
+        stickyMenuClasses          = $header.attr('data-sticky-class'),
+        responsiveMenuClasses      = $header.attr('data-responsive-class'),
+        defaultLogo                = $('#logo').find('.standard-logo'),
+        defaultLogoWidth           = defaultLogo.find('img').outerWidth(),
+        retinaLogo                 = $('#logo').find('.retina-logo'),
+        defaultLogoImg             = defaultLogo.find('img').attr('src'),
+        retinaLogoImg              = retinaLogo.find('img').attr('src'),
+        defaultDarkLogo            = defaultLogo.attr('data-dark-logo'),
+        retinaDarkLogo             = retinaLogo.attr('data-dark-logo'),
+        defaultStickyLogo          = defaultLogo.attr('data-sticky-logo'),
+        retinaStickyLogo           = retinaLogo.attr('data-sticky-logo'),
+        defaultMobileLogo          = defaultLogo.attr('data-mobile-logo'),
+        retinaMobileLogo           = retinaLogo.attr('data-mobile-logo'),
+        $pagemenu                  = $('#page-menu'),
+        $onePageMenuEl             = $('.one-page-menu'),
+        onePageGlobalOffset        = 0,
+        $portfolio                 = $('.portfolio'),
+        $shop                      = $('.shop'),
+        $gridContainer             = $('.grid-container'),
+        $slider                    = $('#slider'),
+        $sliderParallaxEl          = $('.slider-parallax'),
+        swiperSlider               = '',
+        $pageTitle                 = $('#page-title'),
+        $portfolioItems            = $('.portfolio-ajax').find('.portfolio-item'),
+        $portfolioDetails          = $('#portfolio-ajax-wrap'),
         $portfolioDetailsContainer = $('#portfolio-ajax-container'),
-        $portfolioAjaxLoader = $('#portfolio-ajax-loader'),
-        $portfolioFilter = $('.portfolio-filter,.custom-filter'),
-        prevPostPortId = '',
-        $topSearch = $('#top-search'),
-        $topLang = $('#top-lang'),
-        $topCart = $('#top-cart'),
-        $verticalMiddleEl = $('.vertical-middle'),
-        $topSocialEl = $('#top-social').find('li'),
-        $siStickyEl = $('.si-sticky'),
-        $dotsMenuEl = $('.dots-menu'),
-        $goToTopEl = $('#gotoTop'),
-        $fullScreenEl = $('.full-screen'),
-        $commonHeightEl = $('.common-height'),
-        $testimonialsGridEl = $('.testimonials-grid'),
-        $pageSectionEl = $('.page-section'),
-        $owlCarouselEl = $('.owl-carousel'),
-        $parallaxEl = $('.parallax'),
-        $parallaxPageTitleEl = $('.page-title-parallax'),
-        $parallaxPortfolioEl = $('.portfolio-parallax').find('.portfolio-image'),
-        $youtubeBgPlayerEl = $('.yt-bg-player'),
-        $textRotaterEl = $('.text-rotater'),
-        $cookieNotification = $('#cookie-notification');
+        $portfolioAjaxLoader       = $('#portfolio-ajax-loader'),
+        $portfolioFilter           = $('.portfolio-filter,.custom-filter'),
+        prevPostPortId             = '',
+        $topSearch                 = $('#top-search'),
+        $topLang                   = $('#top-lang'),
+        $topCart                   = $('#top-cart'),
+        $verticalMiddleEl          = $('.vertical-middle'),
+        $topSocialEl               = $('#top-social').find('li'),
+        $siStickyEl                = $('.si-sticky'),
+        $dotsMenuEl                = $('.dots-menu'),
+        $goToTopEl                 = $('#gotoTop'),
+        $fullScreenEl              = $('.full-screen'),
+        $commonHeightEl            = $('.common-height'),
+        $testimonialsGridEl        = $('.testimonials-grid'),
+        $pageSectionEl             = $('.page-section'),
+        $owlCarouselEl             = $('.owl-carousel'),
+        $parallaxEl                = $('.parallax'),
+        $parallaxPageTitleEl       = $('.page-title-parallax'),
+        $parallaxPortfolioEl       = $('.portfolio-parallax').find('.portfolio-image'),
+        $youtubeBgPlayerEl         = $('.yt-bg-player'),
+        $textRotaterEl             = $('.text-rotater'),
+        $cookieNotification        = $('#cookie-notification');
 
+    // Document Ready
     $(document).ready( ANVA.documentOnReady.init );
+
+    // Window Load
     $window.load( ANVA.documentOnLoad.init );
+
+    // Window Resize
     $window.on( 'resize', ANVA.documentOnResize.init );
 
-})(jQuery);
+})( jQuery );

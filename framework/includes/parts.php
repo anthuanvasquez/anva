@@ -1117,12 +1117,18 @@ function anva_comment_list( $comment, $args, $depth ) {
 <?php
 }
 
+/**
+ * Display breadcrumbs.
+ *
+ * @since  1.0.0.
+ * @param  array  $args
+ */
 function anva_the_breadcrumbs( $args = array() ) {
     echo anva_get_breadcrumbs( $args );
 }
 
 /**
- * Display breadcrumbs.
+ * Get breadcrumbs.
  *
  * @global $post
  *
@@ -1160,17 +1166,22 @@ function anva_get_breadcrumbs( $args = array() ) {
     if ( is_singular( 'post' ) ) {
 
         $category = get_the_category();
-        $category_values = array_values( $category );
-        $last_category = end( $category_values );
-        $cat_parents = rtrim( get_category_parents( $last_category->term_id, true, ',' ), ',' );
-        $cat_parents = explode( ',', $cat_parents );
 
-        foreach ( $cat_parents as $parent ) {
-            $html .= '<li class="item-cat">' . wp_kses( $parent, wp_kses_allowed_html( 'a' ) ) . '</li>';
-            $html .= $separator;
+        if ( ! empty( $category ) ) {
+            $category_values = array_values( $category );
+            $last_category = end( $category_values );
+            $cat_parents = rtrim( get_category_parents( $last_category->term_id, true, ',' ), ',' );
+            $cat_parents = explode( ',', $cat_parents );
+
+            foreach ( $cat_parents as $parent ) {
+                $html .= '<li class="item-cat">' . wp_kses( $parent, wp_kses_allowed_html( 'a' ) ) . '</li>';
+                $html .= $separator;
+            }
+
+        } else {
+            $html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
         }
 
-        $html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
 
     } elseif ( is_singular( 'page' ) ) {
 
@@ -1262,14 +1273,25 @@ function anva_get_breadcrumbs( $args = array() ) {
     return wp_kses_post( $html );
 }
 
+/**
+ * Display gallery masonry.
+ *
+ * @since 1.0.0
+ * @param integer $post_id
+ * @param integer $columns
+ * @param string  $thumbnail
+ */
 function anva_gallery_masonry( $post_id, $columns, $thumbnail ) {
     echo anva_get_gallery_masonry( $post_id, $columns, $thumbnail );
 }
 
 /**
- * Display gallery masonry.
+ * Get gallery masonry.
  *
  * @since 1.0.0
+ * @param integer $post_id
+ * @param integer $columns
+ * @param string  $thumbnail
  */
 function anva_get_gallery_masonry( $post_id, $columns, $thumbnail ) {
 
@@ -1329,10 +1351,24 @@ function anva_get_gallery_masonry( $post_id, $columns, $thumbnail ) {
     return $html;
 }
 
+/**
+ * Display gallery slider.
+ *
+ * @since  1.0.0
+ * @param  integer $post_id
+ * @param  string  $thumbnail
+ */
 function anva_gallery_slider( $post_id, $thumbnail ) {
     echo anva_get_gallery_slider( $post_id, $thumbnail );
 }
 
+/**
+ * Get gallery slider.
+ *
+ * @since  1.0.0
+ * @param  integer $post_id
+ * @param  string  $thumbnail
+ */
 function anva_get_gallery_slider( $post_id, $thumbnail ) {
 
     $gallery        = anva_get_post_meta( '_anva_gallery_media' );
@@ -1391,7 +1427,7 @@ function anva_get_gallery_slider( $post_id, $thumbnail ) {
 }
 
 /**
- * Display slider
+ * Display sliders.
  *
  * @since 1.0.0
  */

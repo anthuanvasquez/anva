@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Content Builder
- * 
+ *
  * The template file used for displaying the content builder.
  *
  * WARNING: This template file is a core part of the
@@ -25,7 +25,7 @@ get_header();
     <div class="custom-content-layout clearfix">
         <?php
             /**
-             * hooked anva_elements
+             * hooked @see anva_elements
              */
             do_action( 'anva_content_builder' );
         ?>

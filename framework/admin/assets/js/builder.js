@@ -3,10 +3,10 @@ JSON.stringify = JSON.stringify || function ( obj ) {
 
 	var t = typeof (obj);
 
-	if ( t != "object" || obj === null ) {
+	if ( t !== "object" || obj === null ) {
 
 		// Simple data type
-		if ( t == "string" ) {
+		if ( t === "string" ) {
 			obj = '"' + obj + '"';
 		}
 
@@ -15,15 +15,15 @@ JSON.stringify = JSON.stringify || function ( obj ) {
 	} else {
 
 		// Recurse array or object
-		var n, v, json = [], arr = ( obj && obj.constructor == Array );
+		var n, v, json = [], arr = ( obj && obj.constructor === Array );
 
 		for ( n in obj ) {
 			v = obj[ n ];
 			t = typeof( v );
 
-			if ( t == "string" ) {
+			if ( t === "string" ) {
 				v = '"'+v+'"';
-			} else if ( t == "object" && v !== null ) {
+			} else if ( t === "object" && v !== null ) {
 				v = JSON.stringify( v );
 			}
 
@@ -33,9 +33,9 @@ JSON.stringify = JSON.stringify || function ( obj ) {
 	}
 };
 
-jQuery(document).ready(function($) {
+jQuery( document ).ready( function( $ ) {
 
-	"use strict";
+	'use strict';
 
 	// WP Media Frame
 	var frame;
@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
 		 * @param object $target
 		 */
 		checkTemplate: function( $target ) {
-			if ( 'template_builder.php' == $target ) {
+			if ( 'template_builder.php' === $target ) {
 				$('#' + s.ID).addClass('anva-builder-active');
 			} else {
 				$('#' + s.ID).removeClass('anva-builder-active');
@@ -256,7 +256,7 @@ jQuery(document).ready(function($) {
 				$('#' + item.id).data( 'anva_builder_settings', item.json );
 
 				// Divider dont have attributes
-				if ( item.shortcode != 'divider' ) {
+				if ( item.shortcode !== 'divider' ) {
 					$('#' + item.id).find('.button-edit').trigger('click');
 
 					// Scroll to item
@@ -266,7 +266,7 @@ jQuery(document).ready(function($) {
 				}
 
 				// Remove disabled if not trigger click
-				if ( item.shortcode == 'divider' ) {
+				if ( item.shortcode === 'divider' ) {
 					$(this).removeAttr('disabled');
 				}
 
@@ -383,13 +383,13 @@ jQuery(document).ready(function($) {
 
 				var el = $(this).parent('div').parent('li'), size = el.attr('data-size'), prev1Li = el.prev(), prev2Li = prev1Li.prev(), prev3Li = prev2Li.prev();
 
-				if ( size == 'col_one_fourth' || size == 'col_one_fourth col_last' ) {
+				if ( size === 'col_one_fourth' || size === 'col_one_fourth col_last' ) {
 
-					if ( prev1Li.attr('data-size') == 'col_one_third' && prev2Li.attr('data-size') == 'col_one_third' ) {
+					if ( prev1Li.attr('data-size') === 'col_one_third' && prev2Li.attr('data-size') === 'col_one_third' ) {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third col_last');
 						el.find('.anva_element_columns').val('col_one_third col_last');
-					} else if ( prev1Li.attr('data-size') == 'col_two_third' ) {
+					} else if ( prev1Li.attr('data-size') === 'col_two_third' ) {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third col_last');
 						el.find('.anva_element_columns').val('col_one_third col_last');
@@ -402,9 +402,9 @@ jQuery(document).ready(function($) {
 					el.removeClass('col_one_fourth');
 				}
 
-				if ( size == 'col_one_third' || size == 'col_one_third col_last' ) {
+				if ( size === 'col_one_third' || size === 'col_one_third col_last' ) {
 
-					if ( prev1Li.attr('data-size') == 'col_half' ) {
+					if ( prev1Li.attr('data-size') === 'col_half' ) {
 						el.addClass('col_half');
 						el.attr('data-size', 'col_half col_last');
 						el.find('.anva_element_columns').val('col_half col_last');
@@ -417,9 +417,9 @@ jQuery(document).ready(function($) {
 					el.removeClass('col_one_third');
 				}
 
-				if ( size == 'col_half' || size == 'col_half col_last' ) {
+				if ( size === 'col_half' || size === 'col_half col_last' ) {
 
-					if ( prev1Li.attr('data-size')=='col_one_third' ) {
+					if ( prev1Li.attr('data-size') === 'col_one_third' ) {
 						el.addClass('col_two_third');
 						el.attr('data-size', 'col_two_third col_last');
 						el.find('.anva_element_columns').val('col_two_third col_last');
@@ -432,14 +432,14 @@ jQuery(document).ready(function($) {
 					el.removeClass('col_half');
 				}
 
-				if ( size == 'col_two_third' || size == 'col_two_third col_last' ) {
+				if ( size === 'col_two_third' || size === 'col_two_third col_last' ) {
 					el.addClass('col_full');
 					el.attr('data-size', 'col_full');
 					el.find('.anva_element_columns').val('col_full');
 					el.removeClass('col_two_third');
 				}
 
-				if ( size == 'col_full' ) {
+				if ( size === 'col_full' ) {
 					return false;
 				}
 
@@ -451,13 +451,13 @@ jQuery(document).ready(function($) {
 
 				var el = $(this).parent('div').parent('li'), size = el.attr('data-size'), prev1Li = el.prev(), prev2Li = prev1Li.prev(), prev3Li = prev2Li.prev();
 
-				if ( size == 'col_col_one_fourth' || size == 'col_one_fourth col_last' ) {
+				if ( size === 'col_col_one_fourth' || size === 'col_one_fourth col_last' ) {
 					return false;
 				}
 
-				if ( size == 'col_one_third' || size == 'col_one_third col_last' ) {
+				if ( size === 'col_one_third' || size === 'col_one_third col_last' ) {
 
-					if ( prev1Li.attr('data-size') == 'col_one_fourth' && prev2Li.attr('data-size') == 'col_one_fourth' && prev3Li.attr('data-size') == 'col_one_fourth') {
+					if ( prev1Li.attr('data-size') === 'col_one_fourth' && prev2Li.attr('data-size') === 'col_one_fourth' && prev3Li.attr('data-size') === 'col_one_fourth') {
 						el.addClass('col_one_fourth');
 						el.attr('data-size', 'col_one_fourth col_last');
 						el.find('.anva_element_columns').val('col_one_fourth col_last');
@@ -470,13 +470,13 @@ jQuery(document).ready(function($) {
 					el.removeClass('col_one_third');
 				}
 
-				if ( size == 'col_half' || size == 'col_half col_last' ) {
+				if ( size === 'col_half' || size === 'col_half col_last' ) {
 
-					if ( prev1Li.attr('data-size') == 'col_one_third' && prev2Li.attr('data-size') == 'col_one_third' ) {
+					if ( prev1Li.attr('data-size') === 'col_one_third' && prev2Li.attr('data-size') === 'col_one_third' ) {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third col_last');
 						el.find('.anva_element_columns').val('col_one_third col_last');
-					} else if ( prev1Li.attr('data-size')=='col_two_third' ) {
+					} else if ( prev1Li.attr('data-size') === 'col_two_third' ) {
 						el.addClass('col_one_third');
 						el.attr('data-size', 'col_one_third col_last');
 						el.find('.anva_element_columns').val('col_one_third col_last');
@@ -489,9 +489,9 @@ jQuery(document).ready(function($) {
 					el.removeClass('col_half');
 				}
 
-				if ( size == 'col_two_third' || size == 'col_two_third col_last' ) {
+				if ( size === 'col_two_third' || size === 'col_two_third col_last' ) {
 
-					if ( prev1Li.attr('data-size')=='col_half' ) {
+					if ( prev1Li.attr('data-size') === 'col_half' ) {
 						el.addClass('col_half col_last');
 						el.attr('data-size', 'col_half col_last');
 						el.find('.anva_element_columns').val('col_half col_last');
@@ -504,9 +504,9 @@ jQuery(document).ready(function($) {
 					el.removeClass('col_two_third');
 				}
 
-				if ( size == 'col_full' ) {
+				if ( size === 'col_full' ) {
 
-					if ( prev1Li.attr('data-size')=='col_one_third' ) {
+					if ( prev1Li.attr('data-size') === 'col_one_third' ) {
 						el.addClass('col_two_third');
 						el.attr('data-size', 'col_two_third col_last');
 						el.find('.anva_element_columns').val('col_two_third col_last');
@@ -718,7 +718,7 @@ jQuery(document).ready(function($) {
 					$remove = $button.data('remove'),
 					$upload = $button.data('upload');
 
-				if ( $remove == $button.text() ) {
+				if ( $remove === $button.text() ) {
 					$('#' + $file).val('');
 					$image.slideUp('fast');
 					$button.text( $upload );
@@ -729,7 +729,7 @@ jQuery(document).ready(function($) {
 						$image.find('a').remove();
 					}, 500 );
 
-				} else if ( $upload == $button.text() ) {
+				} else if ( $upload === $button.text() ) {
 
 					if ( frame ) {
 						frame.open();

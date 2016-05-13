@@ -12,6 +12,7 @@
     "node":              true,
     "undef":             true,
     "browser":           true,
+    "devel":             true,
     "trailing":          true,
     "jquery":            true,
     "curly":             true,
