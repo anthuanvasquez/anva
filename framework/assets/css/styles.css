@@ -586,9 +586,8 @@ span.middot {
 .revealer-image {
   position: relative;
   bottom: -120px;
-  transition: bottom .3s ease-in-out;
   -webkit-transition: bottom .3s ease-in-out;
-  -o-transition: bottom .3s ease-in-out;
+  transition: bottom .3s ease-in-out;
 }
 
 .section:hover .revealer-image {

@@ -16,16 +16,17 @@
 
 'use_strict';
 
-// Project `paths`
+// Project `Paths`
 var project = 'anva',
     version = '1.0.0',
+    release = project + '-' + version,
     proxy   = 'anva.dev',
     src     = '../',
     theme   = src + 'assets/',
     core    = src + 'framework/assets/',
     admin   = src + 'framework/admin/assets/',
     build   = './build/',
-    dist    = './dist/' + project + '-' + version + '/',
+    dist    = './dist/' + release + '/',
     bower   = './bower_components/',
     modules = './node_modules/',
     parent  = '../../'
@@ -71,7 +72,7 @@ var vendor = [
     bower + 'bootstrap-sass/assets/javascripts/bootstrap.min.js',
 ];
 
-// Project Settings
+// Project `Settings`
 module.exports = {
 
   // -------------------------------------------
@@ -235,7 +236,7 @@ module.exports = {
     },
     // Move theme to `parent` folder to test, before released.
     test: {
-      dest: parent + project + '-' + version,
+      dest: parent + release,
       src: build + '**/*'
     }
   },
@@ -249,12 +250,12 @@ module.exports = {
     wipe: {
       dist: [dist],
       build: [build],
-      test: [parent + project + '-' + version]
+      test: [parent + release]
     },
     dist: {
       src: [build + '**/*', '!' + build + '**/*.map'],
       dest: './dist',
-      name: project + '-' + version + '.zip',
+      name: release + '.zip',
     }
   },
 
@@ -264,8 +265,10 @@ module.exports = {
 
   watch: {
     src: {
-      styles:       [theme  + 'scss/**/*.scss', core + 'scss/**/*.scss', admin + 'scss/**/*.scss'],
-      scripts:      [theme  + 'js/**/*.js', core + 'js/**/*.js', admin + 'js/**/*.js'],
+      theme:        theme + 'scss/**/*.scss',
+      core:         core + 'scss/**/*.scss',
+      admin:        admin + 'scss/**/*.scss',
+      scripts:      [theme + 'js/**/*.js', core + 'js/**/*.js', admin + 'js/**/*.js'],
       images:       src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
       php:          src + '**/*.php',
       livereload:   src + '**/*'

@@ -51,8 +51,6 @@
 	position: relative;
 	bottom: -($section-padding * 2);
 	transition: bottom .3s ease-in-out;
-	-webkit-transition: bottom .3s ease-in-out;
-	-o-transition: bottom .3s ease-in-out;
 }
 
 .section:hover .revealer-image { bottom: -$section-padding; }

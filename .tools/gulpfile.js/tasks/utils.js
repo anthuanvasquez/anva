@@ -23,7 +23,7 @@ gulp.task('utils-wipe-test', function() {
 
 // Clean out junk files after build
 gulp.task('utils-clean', ['build', 'utils-wipe-dist', 'utils-wipe-test'], function() {
-  return del(config.clean);
+  return del(config.clean, {force: true});
 });
 
 // Copy files from the `build` folder to `dist/[project-version]`
