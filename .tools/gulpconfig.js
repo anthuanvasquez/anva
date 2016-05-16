@@ -1,13 +1,12 @@
 /**
- * This is the config file fot the gulp task, see gulpfile.js dir
+ * This is the config file fot the gulp tasks, see gulpfile.js dir
  * to view each tasks.
- *
  *
  * Project Information
  *
  * theme:   The parent theme assets.
  * core:    The framework assets.
- * admin:   The admin assets on frameork.
+ * admin:   The framework admin assets.
  * build:   The build theme without require files for development.
  * dist:    The released theme ready for deployment.
  * bower:   Bower components, required for theme development.
@@ -17,7 +16,7 @@
 
 'use_strict';
 
-// Project paths
+// Project `paths`
 var project = 'anva',
     version = '1.0.0',
     proxy   = 'anva.dev',
@@ -28,7 +27,8 @@ var project = 'anva',
     build   = './build/',
     dist    = './dist/' + project + '-' + version + '/',
     bower   = './bower_components/',
-    modules = './node_modules/'
+    modules = './node_modules/',
+    parent  = '../../'
 ;
 
 // Vendor Scripts `Plugins`
@@ -123,7 +123,8 @@ module.exports = {
   // -------------------------------------------
 
   scripts: {
-    dest: build + 'js/',
+    dest: build,
+    src: [src + '**/*.js', '!' + src + '.tools/**'],
     lint: {
       theme: theme + 'js/**/*.js',
       core: core + 'js/**/*.js',
@@ -162,6 +163,8 @@ module.exports = {
   // -------------------------------------------
 
   styles: {
+    dest: build,
+    src: [src + '**/*.css', '!' + src + '.tools'],
     lint: {
       theme: theme + 'css/**/*.css',
       core: core + 'css/**/*.css',
@@ -210,6 +213,30 @@ module.exports = {
     php: {
       src: [src + '**/*.php', '!' + src + '.tools/**'],
       dest: build
+    },
+    textdomain: {
+      text_domain: 'anva',
+      keywords: [
+        '__:1,2d',
+        '_e:1,2d',
+        '_x:1,2c,3d',
+        'esc_html__:1,2d',
+        'esc_html_e:1,2d',
+        'esc_html_x:1,2c,3d',
+        'esc_attr__:1,2d',
+        'esc_attr_e:1,2d',
+        'esc_attr_x:1,2c,3d',
+        '_ex:1,2c,3d',
+        '_n:1,2,4d',
+        '_nx:1,2,4c,5d',
+        '_n_noop:1,2,3d',
+        '_nx_noop:1,2,3c,4d'
+      ]
+    },
+    // Move theme to `parent` folder to test, before released.
+    test: {
+      dest: parent + project + '-' + version,
+      src: build + '**/*'
     }
   },
 
@@ -221,16 +248,13 @@ module.exports = {
     clean: [src + '**/.DS_Store'],
     wipe: {
       dist: [dist],
-      build: [build]
+      build: [build],
+      test: [parent + project + '-' + version]
     },
     dist: {
       src: [build + '**/*', '!' + build + '**/*.map'],
-      dest: dist,
-    },
-    zip: {
-      src: dist + '*',
+      dest: './dist',
       name: project + '-' + version + '.zip',
-      dest: './dist'
     }
   },
 

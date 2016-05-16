@@ -6,14 +6,6 @@ var gulp        = require('gulp'),
     config      = require('../../gulpconfig').scripts
 ;
 
-// Check scripts for errors on theme, core and admin
-gulp.task('scripts-lint', function() {
-  return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
-  .pipe(plugins.ignore.exclude(config.lint.ignore))
-  .pipe(plugins.jshint(config.lint.options))
-  .pipe(plugins.jshint.reporter('default'));
-});
-
 // Minify theme scripts
 gulp.task('scripts-minify-theme', function(){
   return gulp.src(config.minify.theme.src)
@@ -35,7 +27,7 @@ gulp.task('scripts-minify-core', function(){
   .pipe(gulp.dest(config.minify.core.dest));
 });
 
-// Concat and minify core vendor scripts
+// Concat and minify core vendor javascripts
 gulp.task('scripts-core-vendor', function(){
     return gulp.src(config.minify.core.vendor.files)
     .pipe(plugins.concat(config.minify.core.vendor.name))
@@ -45,6 +37,21 @@ gulp.task('scripts-core-vendor', function(){
     .pipe(gulp.dest(config.minify.core.dest));
 });
 
+// Check scripts for errors on theme, core and admin
+gulp.task('scripts-lint', function() {
+  return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
+  .pipe(plugins.ignore.exclude(config.lint.ignore))
+  .pipe(plugins.jshint(config.lint.options))
+  .pipe(plugins.jshint.reporter('default'));
+});
+
+// Copy javascripts source files to the `build` folder
+gulp.task('scripts-build', function(){
+    return gulp.src(config.src)
+    .pipe(plugins.changed(config.dest))
+    .pipe(gulp.dest(config.dest));
+});
+
 // Master script tasks
 gulp.task('scripts-minify', ['scripts-minify-theme', 'scripts-minify-core']);
-gulp.task('scripts', ['scripts-lint']);
+gulp.task('scripts', ['scripts-build']);

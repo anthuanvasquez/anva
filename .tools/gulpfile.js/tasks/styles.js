@@ -16,15 +16,7 @@ var onError = function(err) {
   this.emit('end');
 };
 
-gulp.task('styles-css-lint', function() {
-  return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
-  .pipe(plugins.ignore.exclude(config.lint.ignore))
-  .pipe(plugins.csslint(config.lint.options))
-  .pipe(plugins.csslint.reporter());
-});
-
-// Build stylesheets from source Sass files, autoprefix,
-// and write source maps (for debugging) with libsass
+// Build SCSS files from theme
 gulp.task('styles-theme', function() {
   return gulp.src(config.theme.src)
   .pipe(plugins.plumber({ errorHandler: onError }))
@@ -37,7 +29,7 @@ gulp.task('styles-theme', function() {
   .pipe(browsersync.reload({ stream: true }));
 });
 
-// Build scss files from core
+// Build SCSS files from core
 gulp.task('styles-core', function() {
   return gulp.src(config.core.src)
   .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
@@ -49,7 +41,7 @@ gulp.task('styles-core', function() {
   .pipe(browsersync.reload({ stream: true }));
 });
 
-// Build scss files from admin
+// Build SCSS files from admin
 gulp.task('styles-admin', function() {
   return gulp.src(config.admin.src)
   .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
@@ -61,7 +53,22 @@ gulp.task('styles-admin', function() {
   .pipe(browsersync.reload({ stream: true }));
 });
 
+gulp.task('styles-css-lint', function() {
+  return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
+  .pipe(plugins.ignore.exclude(config.lint.ignore))
+  .pipe(plugins.csslint(config.lint.options))
+  .pipe(plugins.csslint.reporter());
+});
+
 // @TODO create task to minify all css files
 
-gulp.task('styles', ['styles-theme', 'styles-core', 'styles-admin']);
+// Copy CSS source files to the `build` folder
+gulp.task('styles-build', function(){
+    return gulp.src(config.src)
+    .pipe(plugins.changed(config.dest))
+    .pipe(gulp.dest(config.dest));
+});
 
+
+gulp.task('styles-watch', ['styles-theme', 'styles-core', 'styles-admin']);
+gulp.task('styles', ['styles-build']);

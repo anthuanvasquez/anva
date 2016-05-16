@@ -26,7 +26,7 @@ get_header();
 	</div><!-- .postcontent (end) -->
 
 	<?php get_sidebar( 'right' ); ?>
-	
+
 </div><!-- .container (end) -->
 
 <?php get_footer(); ?>
