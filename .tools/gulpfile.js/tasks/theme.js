@@ -15,14 +15,7 @@ gulp.task('theme-domain', function(){
 gulp.task('theme-pot', function () {
   return gulp.src(config.php.src)
   .pipe(plugins.sort())
-  .pipe(plugins.wpPot({
-      domain: 'anva',
-      destFile:'anva.pot',
-      package: 'anva',
-      bugReport: 'http://anthuanvasuqez.net',
-      lastTranslator: 'Anthuan Vásquez <me@anthuanvasuqez.net>',
-      team: 'Anthuan Vásquez <me@anthuanvasuqez.net>'
-  }))
+  .pipe(plugins.wpPot(config.lang.pot))
   .pipe(gulp.dest(config.lang.dest))
   .pipe(plugins.notify({ message: 'POT file created' }));
 });
@@ -48,11 +41,13 @@ gulp.task('theme-php', function() {
   .pipe(gulp.dest(config.php.dest));
 });
 
+// Create parent theme from the `build` folder
+// to test the theme before released
 gulp.task('theme-test', function() {
   return gulp.src(config.test.src)
   .pipe(plugins.changed(config.test.dest))
   .pipe(gulp.dest(config.test.dest));
 });
 
-// Mater theme task
+// Master theme task
 gulp.task('theme', ['theme-lang', 'theme-php']);

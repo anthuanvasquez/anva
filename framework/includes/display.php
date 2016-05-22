@@ -751,7 +751,7 @@ function anva_sidebars_default( $position ) {
 
     // Set default layout
     if ( empty( $layout ) ) {
-        $layout        = anva_get_option( 'sidebar_layout', 'left' );
+        $layout        = anva_get_option( 'sidebar_layout', 'right' );
         $sidebar_right = $right;
         $sidebar_left  = $left;
     }
@@ -765,6 +765,7 @@ function anva_sidebars_default( $position ) {
     if ( empty( $sidebar_left ) ) {
         $sidebar_left = $left;
     }
+
 
     // Sidebar Left, Sidebar Right, Double Sidebars
     if ( $layout == $position || $layout == 'double' ) {
@@ -820,7 +821,7 @@ function anva_sidebars_default( $position ) {
  */
 function anva_sidebar_before_default( $side ) {
     ?>
-    <div class="sidebar-<?php echo esc_attr( $side ) .' '. esc_attr( anva_get_column_class( $side ) ); ?>">
+    <div class="sidebar-<?php echo esc_attr( $side ); ?> <?php anva_column_class( $side ); ?>">
         <div class="sidebar-widgets-wrap">
     <?php
 }
@@ -990,7 +991,7 @@ function anva_post_reading_bar() {
                             <?php _e( 'You Are Reading', 'anva' ); ?>
                         </div>
                         <div class="entry-title">
-                            <h4><?php echo get_the_title(); ?></h4>
+                            <h4><?php the_title(); ?></h4>
                         </div>
                     </div>
                 </div>

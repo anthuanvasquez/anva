@@ -1,7 +1,7 @@
 <?php
 /**
  * The default template used for single post content.
- * 
+ *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
  * that any edits to the way this file displays its
@@ -16,11 +16,11 @@
  */
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
-	
+
 	<div class="entry-title">
 		<h2><?php the_title(); ?></h2>
 	</div><!-- .entry-title (end) -->
-	
+
 	<?php do_action( 'anva_posts_meta' ); ?>
 
 	<?php if ( has_post_format( 'gallery' ) ) : ?>
@@ -52,17 +52,17 @@
         <?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 
     <?php endif; ?>
-	
+
 	<div class="entry-content notopmargin">
 		<?php the_content(); ?>
 	</div><!-- .entry-content (end) -->
-	
+
 	<div class="entry-footer">
 		<?php do_action( 'anva_posts_footer' ); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-links (end) -->' ) ); ?>
 		<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
 	</div><!-- .entry-footer (end) -->
-	
+
 </article><!-- .entry (end) -->
 
 <?php anva_post_nav(); ?>

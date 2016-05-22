@@ -31,6 +31,15 @@ class Anva_Options_Page
 	protected $options_screen = NULL;
 
 	/**
+	 * If sanitization has run yet or not when saving
+	 * options.
+	 *
+	 * @since 1.0.0
+	 * @var   bool
+	 */
+	private $sanitized = false;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since 1.0.0
@@ -60,7 +69,7 @@ class Anva_Options_Page
 			// Checks if options are available
 			if ( $options ) {
 
-				// Add the options page and menu item.
+				// Add the options page and menu item
 				add_action( 'admin_menu', array( $this, 'add_custom_options_page' ) );
 
 				// Add the required scripts and styles
@@ -94,9 +103,6 @@ class Anva_Options_Page
 
 		// Registers the settings fields and callback
 		register_setting( 'anva_options_page_settings', $name, array( $this, 'validate_options' ) );
-
-		// Displays notice after options save
-		add_action( 'anva_options_page_after_validate', array( $this, 'save_options_notice' ) );
 	}
 
 	/**
@@ -229,7 +235,7 @@ class Anva_Options_Page
 
 			<?php do_action( 'anva_options_page_top' ); ?>
 
-			<?php settings_errors( 'anva-options-page-errors' ); ?>
+			<?php settings_errors( 'anva-options-page-errors', false, false ); ?>
 
 			<h2 class="nav-tab-wrapper">
 				<?php echo anva_get_options_tabs( $options ); ?>
@@ -293,7 +299,7 @@ class Anva_Options_Page
 	 * @param  array $input
 	 * @return array $clean
 	 */
-	function validate_options( $input )
+	public function validate_options( $input )
 	{
 		// Need it to create log for the changed settings
 		$option_name = anva_get_option_name();
@@ -312,7 +318,7 @@ class Anva_Options_Page
 			delete_option( $option_name . '_log' );
 
 			// Add notice
-			add_settings_error( 'anva-options-page-errors', 'restore_defaults', __( 'Default options restored.', 'anva' ), 'updated fade' );
+			$this->save_options_notice( 'restore_defaults', __( 'Default options restored.', 'anva' ) );
 
 			return $this->get_default_values();
 		}
@@ -363,6 +369,17 @@ class Anva_Options_Page
 			}
 		}
 
+		// Add update message for page re-fresh
+		// Avoid duplicates
+		if ( ! $this->sanitized ) {
+			$this->save_options_notice( 'save_options', __( 'Options saved.', 'anva' ) );
+		}
+
+		// We know sanitization has happenned at
+		// least once at this point
+		// so set to true.
+		$this->sanitized = true;
+
 		// Hook to run after validation
 		do_action( 'anva_options_page_after_validate', $clean );
 
@@ -376,11 +393,10 @@ class Anva_Options_Page
 	 * Display message when options have been saved.
 	 *
 	 * @since  1.0.0
-	 * @return void
 	 */
-	public function save_options_notice()
+	public function save_options_notice( $id, $desc )
 	{
-		add_settings_error( 'anva-options-page-errors', 'save_options', __( 'Options saved.', 'anva' ), 'updated fade' );
+		add_settings_error( 'anva-options-page-errors', $id, $desc, 'updated fade' );
 	}
 
 	/**
@@ -396,7 +412,7 @@ class Anva_Options_Page
 	 * @return array $output
 	 *
 	 */
-	function get_default_values()
+	public function get_default_values()
 	{
 		$output = array();
 		$config = anva_get_options();
@@ -427,7 +443,7 @@ class Anva_Options_Page
 	 * @since  1.0.0
 	 * @return void
 	 */
-	function admin_bar()
+	public function admin_bar()
 	{
 		$menu = $this->menu_settings();
 

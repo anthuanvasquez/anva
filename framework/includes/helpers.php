@@ -543,7 +543,7 @@ function anva_link_pages_args( $args ) {
 
 	// Add TB Framework/Bootstrap surrounding markup
 	$args['before'] = '<nav class="pagination-wrap"><ul class="pagination page-links">';
-	$args['after'] = "</ul></div>\n";
+	$args['after'] = "</ul></nav>\n";
 
 	return $args;
 }

@@ -4,10 +4,10 @@ if ( ! class_exists( 'Anva_Stylesheets_API' ) ) :
 
 /**
  * Anva Stylesheets API.
- * 
+ *
  * This class sets up the framework stylesheets that get
  * enqueued on the frontend of the website.
- * 
+ *
  * @since  		1.0.0
  * @author      Anthuan Vásquez
  * @copyright   Copyright (c) Anthuan Vásquez
@@ -18,35 +18,35 @@ class Anva_Stylesheets_API {
 
 	/**
 	 * A single instance of this class.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	private static $instance = NULL;
 
 	/**
 	 * Remove stylesheets array.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	private $remove_stylesheets = array();
-	
+
 	/**
 	 * Core stylesheets array.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	private $framework_stylesheets = array();
-	
+
 	/**
 	 * Framework dependencies.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	private $framework_deps = array();
-	
+
 	/**
 	 * Custom stylesheets.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	private $custom_stylesheets = array();
@@ -96,24 +96,6 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
-		// Framework Styles
-		$this->framework_stylesheets['anva_styles'] = array(
-			'handle'	=> 'anva_styles',
-			'src'		=> anva_get_core_uri() . 'assets/css/styles.css',
-			'deps'		=> array(),
-			'ver'		=> ANVA_FRAMEWORK_VERSION,
-			'media'		=> 'all'
-		);
-		
-		// Framework Shortcodes
-		$this->framework_stylesheets['anva_shortcodes'] = array(
-			'handle'	=> 'anva_shortcodes',
-			'src'		=> anva_get_core_uri() . 'assets/css/shortcodes.css',
-			'deps'		=> array(),
-			'ver'		=> ANVA_FRAMEWORK_VERSION,
-			'media'		=> 'all'
-		);
-
 		// Swiper
 		$this->framework_stylesheets['swiper'] = array(
 			'handle'	=> 'swiper',
@@ -141,15 +123,6 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
-		// Font Icons
-		$this->framework_stylesheets['font_icons'] = array(
-			'handle'	=> 'font_icons',
-			'src'		=> anva_get_core_uri() . 'assets/css/font-icons.css',
-			'deps'		=> array(),
-			'ver'		=> ANVA_FRAMEWORK_VERSION,
-			'media'		=> 'all'
-		);
-
 		// Animate
 		$this->framework_stylesheets['animate'] = array(
 			'handle'	=> 'animate',
@@ -159,10 +132,37 @@ class Anva_Stylesheets_API {
 			'media'		=> 'all'
 		);
 
+		// Font Icons
+		$this->framework_stylesheets['font_icons'] = array(
+			'handle'	=> 'font_icons',
+			'src'		=> anva_get_core_uri() . 'assets/css/font-icons.css',
+			'deps'		=> array(),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'media'		=> 'all'
+		);
+
+		// Framework Shortcodes
+		$this->framework_stylesheets['anva_shortcodes'] = array(
+			'handle'	=> 'anva_shortcodes',
+			'src'		=> anva_get_core_uri() . 'assets/css/shortcodes.css',
+			'deps'		=> array(),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'media'		=> 'all'
+		);
+
+		// Framework Styles
+		$this->framework_stylesheets['anva_styles'] = array(
+			'handle'	=> 'anva_styles',
+			'src'		=> anva_get_core_uri() . 'assets/css/styles.css',
+			'deps'		=> array(),
+			'ver'		=> ANVA_FRAMEWORK_VERSION,
+			'media'		=> 'all'
+		);
+
 		// Framework Responsive Styles
 		$this->framework_stylesheets['anva_responsive'] = array(
 			'handle'	=> 'anva_responsive',
-			'src'		=> anva_get_core_uri() . 'assets/css/responsive.min.css',
+			'src'		=> anva_get_core_uri() . 'assets/css/responsive.css',
 			'deps'		=> array( 'anva_shortcodes', 'anva_styles' ),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'

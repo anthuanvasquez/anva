@@ -124,7 +124,8 @@
 .icon-border {
   padding: .2em .25em .15em;
   border: solid 0.08em #eeeeee;
-  border-radius: .1em;
+  -webkit-border-radius: .1em;
+          border-radius: .1em;
 }
 
 .icon.pull-left {
@@ -3995,3 +3996,5 @@
 .icon-line2-users:before {
   content: "\e001";
 }
+
+/*# sourceMappingURL=font-icons.css.map */

@@ -22,10 +22,10 @@ gulp.task('watch-browsersync', ['browsersync'], function() {
 // are modified, inform livereload when anything in the `build` or `dist` folders change
 // Task chain: build -> livereload -> watch
 gulp.task('watch-livereload', ['livereload'], function() {
-  gulp.watch(config.src.styles, ['styles']);
-  gulp.watch(config.src.scripts, ['scripts']);
-  gulp.watch(config.src.images, ['images']);
-  gulp.watch(config.src.php, ['theme']);
+  // plugins.livereload.listen();
+  gulp.watch(config.src.theme, ['styles-theme']);
+  gulp.watch(config.src.core, ['styles-core']);
+  gulp.watch(config.src.admin, ['styles-admin']);
   gulp.watch(config.src.livereload).on('change', function(file) {
     plugins.livereload.changed(file.path);
   });

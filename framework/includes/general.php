@@ -267,6 +267,12 @@ function anva_get_sidebar_layouts() {
 	return apply_filters( 'anva_sidebar_layouts', $layouts );
 }
 
+/**
+ * Layout column classes.
+ *
+ * @since  1.0.0
+ * @param  string $column
+*/
 function anva_column_class( $column ) {
 	echo anva_get_column_class( $column );
 }

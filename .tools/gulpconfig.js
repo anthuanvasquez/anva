@@ -80,7 +80,7 @@ module.exports = {
   // -------------------------------------------
 
   browsersync: {
-    //files: [src + '/**', '!' + src + '.tools'],
+    // files: [src + '/**', '!' + src + '.tools'],
     notify: true,
     open: true,
     proxy: {
@@ -164,13 +164,13 @@ module.exports = {
   // -------------------------------------------
 
   styles: {
-    dest: build,
     src: [src + '**/*.css', '!' + src + '.tools'],
+    dest: build,
     lint: {
       theme: theme + 'css/**/*.css',
       core: core + 'css/**/*.css',
       admin: admin + 'css/**/*.css',
-      ignore: ['*.min.css', 'animate.css', 'bootstrap.css', 'components/**', 'fonts/**'],
+      ignore: ['*.min.css', 'custom.css', 'ie.css', 'calendar.css', 'camera.css', 'elastic.css', 'nivo-slider.css', 'swiper.css', 'vmap.css', 'animate.css', 'bootstrap.css', 'components/**', 'fonts/**'],
       options: '.csslintrc'
     },
     theme: {
@@ -186,20 +186,36 @@ module.exports = {
       dest: admin + 'css/'
     },
     sass: {
-      includePaths: ['./src/scss', bower, modules],
+      includePaths: [theme + 'scss', core + 'scss', admin + 'scss', bower, modules],
       precision: 6,
-      outputStyle: 'expanded',
+      outputStyle: 'expanded', // nested, expanded, compact, compressed
       onError: function(err) {
         return console.log(err);
       }
     },
     autoprefixer: {
-      browsers: ['> 3%', 'last 2 versions', 'ie 9', 'ios 6', 'android 4']
+      browsers: ['> 3%', 'last 10 versions', 'ie 9', 'ios 6', 'android 4']
     },
     minify: {
-      safe: true
+      theme: {
+        src: theme + 'css/**/*.css',
+        dest: build + 'assets/css/'
+      },
+      core: {
+        src: core + 'css/**/*.css',
+        dest: build + 'framework/assets/css/'
+      },
+      admin: {
+        src: admin + 'css/**/*.css',
+        dest: build + 'framework/admin/assets/css/'
+      },
+      dest: build,
+      ignore: ['*.min.css', 'custom.css', 'ie.css', 'calendar.css', 'camera.css', 'elastic.css', 'nivo-slider.css', 'swiper.css', 'vmap.css', 'animate.css', 'bootstrap.css', 'components/**', 'fonts/**'],
+      options: {
+        safe: true
+      }
     },
-    sourcemaps: false
+    sourcemaps: true
   },
 
   // -------------------------------------------
@@ -209,14 +225,22 @@ module.exports = {
   theme: {
     lang: {
       src: src + 'languages/**/*',
-      dest: build + 'languages/'
+      dest: build + 'languages/',
+      pot: {
+        domain: project,
+        destFile: project + '.pot',
+        package: project,
+        bugReport: 'http://anthuanvasquez.net',
+        lastTranslator: 'Anthuan Vásquez <me@anthuanvasquez.net>',
+        team: 'Anthuan Vásquez <me@anthuanvasquez.net>'
+      }
     },
     php: {
       src: [src + '**/*.php', '!' + src + '.tools/**'],
       dest: build
     },
     textdomain: {
-      text_domain: 'anva',
+      text_domain: project,
       keywords: [
         '__:1,2d',
         '_e:1,2d',
@@ -234,10 +258,10 @@ module.exports = {
         '_nx_noop:1,2,3c,4d'
       ]
     },
-    // Move theme to `parent` folder to test, before released.
+    // Move theme to `parent` folder to be tested before released.
     test: {
-      dest: parent + release,
-      src: build + '**/*'
+      src: build + '**/*',
+      dest: parent + release
     }
   },
 
@@ -265,13 +289,13 @@ module.exports = {
 
   watch: {
     src: {
-      theme:        theme + 'scss/**/*.scss',
-      core:         core + 'scss/**/*.scss',
-      admin:        admin + 'scss/**/*.scss',
-      scripts:      [theme + 'js/**/*.js', core + 'js/**/*.js', admin + 'js/**/*.js'],
-      images:       src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
-      php:          src + '**/*.php',
-      livereload:   src + '**/*'
+      theme: theme + 'scss/**/*.scss',
+      core: core + 'scss/**/*.scss',
+      admin: admin + 'scss/**/*.scss',
+      scripts: [theme + 'js/**/*.js', core + 'js/**/*.js', admin + 'js/**/*.js'],
+      images: src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
+      php: src + '**/*.php',
+      livereload: src + '**/*'
     },
     watcher: 'browsersync'
   }

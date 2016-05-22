@@ -29,12 +29,12 @@ gulp.task('scripts-minify-core', function(){
 
 // Concat and minify core vendor javascripts
 gulp.task('scripts-core-vendor', function(){
-    return gulp.src(config.minify.core.vendor.files)
-    .pipe(plugins.concat(config.minify.core.vendor.name))
-    .pipe(gulp.dest(config.minify.core.dest))
-    .pipe(plugins.uglify(config.minify.uglify))
-    .pipe(plugins.rename(config.minify.rename))
-    .pipe(gulp.dest(config.minify.core.dest));
+  return gulp.src(config.minify.core.vendor.files)
+  .pipe(plugins.concat(config.minify.core.vendor.name))
+  .pipe(gulp.dest(config.minify.core.dest))
+  .pipe(plugins.uglify(config.minify.uglify))
+  .pipe(plugins.rename(config.minify.rename))
+  .pipe(gulp.dest(config.minify.core.dest));
 });
 
 // Check scripts for errors on theme, core and admin
@@ -47,9 +47,9 @@ gulp.task('scripts-lint', function() {
 
 // Copy javascripts source files to the `build` folder
 gulp.task('scripts-build', function(){
-    return gulp.src(config.src)
-    .pipe(plugins.changed(config.dest))
-    .pipe(gulp.dest(config.dest));
+  return gulp.src(config.src)
+  .pipe(plugins.changed(config.dest))
+  .pipe(gulp.dest(config.dest));
 });
 
 // Master script tasks

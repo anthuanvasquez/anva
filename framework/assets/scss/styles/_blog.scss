@@ -816,6 +816,18 @@ body {
 	}
 }
 
+.author-description {
+	overflow: hidden;
+	position: relative;
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+#content .author-description p {
+	line-height: 1.5;
+}
+
 /* ----------------------------------------------------------------
 	Comments List
 -----------------------------------------------------------------*/

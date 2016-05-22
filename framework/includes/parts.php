@@ -20,10 +20,17 @@ function anva_the_page_title() {
 function anva_get_page_title() {
 
     /* --------------------------------------- */
+    /* Home
+    /* --------------------------------------- */
+
+    if ( is_home() ) :
+        $title = __( 'Blog', 'anva' );
+
+    /* --------------------------------------- */
     /* Single Pages
     /* --------------------------------------- */
 
-    if ( is_singular( 'post' ) ) :
+    elseif ( is_singular( 'post' ) ) :
         $title = __( 'Blog', 'anva' );
 
     elseif ( is_singular( 'portfolio' ) ) :
@@ -43,22 +50,22 @@ function anva_get_page_title() {
     /* --------------------------------------- */
 
     elseif ( is_category() ) :
-        $title = sprintf( '%s: <span>%s</span>', anva_get_local( 'category' ), single_cat_title( '', false ) );
+        $title = sprintf( '%s <span>%s</span>', anva_get_local( 'category' ), single_cat_title( '', false ) );
 
     elseif ( is_tag() ) :
-        $title = sprintf( '%s: <span>%s</span>', anva_get_local( 'tag' ), single_tag_title( '', false ) );
+        $title = sprintf( '%s <span>%s</span>', anva_get_local( 'tag' ), single_tag_title( '', false ) );
 
     elseif ( is_author() ) :
-        $title = sprintf( '%s: <span class="vcard">%s</span>', anva_get_local( 'author' ), get_the_author() );
+        $title = sprintf( '%s <span class="vcard">%s</span>', anva_get_local( 'author' ), get_the_author() );
 
     elseif ( is_year() ) :
-        $title = sprintf( '%s: <span>%s</span>', anva_get_local( 'year' ), get_the_date( 'Y' ) );
+        $title = sprintf( '%s <span>%s</span>', anva_get_local( 'year' ), get_the_date( 'Y' ) );
 
     elseif ( is_month() ) :
-        $title = sprintf( '%s: <span>%s</span>', anva_get_local( 'month' ), get_the_date( 'F Y' ) );
+        $title = sprintf( '%s <span>%s</span>', anva_get_local( 'month' ), get_the_date( 'F Y' ) );
 
     elseif ( is_day() ) :
-        $title = sprintf( '%s: <span>%s</span>', anva_get_local( 'day' ), get_the_date() );
+        $title = sprintf( '%s <span>%s</span>', anva_get_local( 'day' ), get_the_date() );
 
     /* --------------------------------------- */
     /* Post Format Archives
@@ -108,7 +115,7 @@ function anva_get_page_title() {
 
     elseif ( is_tax() ) :
         $tax = get_taxonomy( get_queried_object()->taxonomy );
-        $title = sprintf( '%1$s <span>%2$s</span>', $tax->labels->singular_name, single_term_title( '', false ) );
+        $title = sprintf( '%s <span>%s</span>', $tax->labels->singular_name, single_term_title( '', false ) );
 
     /* --------------------------------------- */
     /* 404 Error
@@ -486,27 +493,30 @@ function anva_post_author() {
         return;
     }
 
-    $id     = get_the_ID();
-    $avatar = get_avatar( $id, '96' );
-    $url    = get_the_author_meta( 'user_url', $id );
-    $name   = get_the_author_meta( 'display_name', $id );
-    $desc   = get_the_author_meta( 'description', $id );
+    $post_id = get_the_ID();
+    $id      = get_post_field( 'post_author', $post_id );
+    $avatar  = get_avatar( $id, '96' );
+    $url     = get_author_posts_url( $id );
+    $name    = get_the_author_meta( 'display_name', $id );
+    $desc    = get_the_author_meta( 'description', $id );
     ?>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <?php printf( '%1$s <span><a href="%2$s">%3$s</a></span>', __( 'Posted by', 'anva' ), esc_url( $url ), esc_html( $name ) ); ?>
-            </h3>
-        </div>
-        <div class="panel-body">
-            <div class="author-image">
-                <?php echo $avatar ; ?>
+    <div class="author-wrap">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <?php printf( '%1$s <span><a href="%2$s">%3$s</a></span>', __( 'Posted by', 'anva' ), esc_url( $url ), esc_html( $name ) ); ?>
+                </h3>
             </div>
-            <div class="author-description">
-                <?php echo wpautop( esc_html( $desc ) ); ?>
+            <div class="panel-body">
+                <div class="author-image">
+                    <?php echo $avatar ; ?>
+                </div>
+                <div class="author-description">
+                    <?php echo wpautop( esc_html( $desc ) ); ?>
+                </div>
             </div>
-        </div>
-    </div><!-- .panel (end) -->
+        </div><!-- .panel (end) -->
+    </div>
     <div class="line"></div>
     <?php
 }
@@ -1435,7 +1445,9 @@ function anva_sliders( $slider ) {
 
     // Kill it if there's no slider
     if ( ! $slider ) {
-        printf( '<div class="alert alert-warning"><p>%s</p></div>', __( 'No slider selected.', 'anva' ) );
+        if ( current_user_can( anva_admin_module_cap( 'options' ) ) ) {
+            printf( '<div class="container"><div class="alert alert-warning bottommargin-sm topmargin-sm"><p>%s</p></div></div>', __( 'No slider selected.', 'anva' ) );
+        }
         return;
     }
 
@@ -1462,7 +1474,7 @@ function anva_sliders( $slider ) {
          * @todo create function to support Layer Slider.
          */
     } else {
-        printf( '<div class="alert alert-warning">%s</div>', __( 'No slider found.', 'anva' ) );
+        printf( '<div class="container"><div class="alert alert-warning bottommargin-sm topmargin-sm">%s</div></div>', __( 'No slider found.', 'anva' ) );
     }
 
 }
@@ -1476,7 +1488,7 @@ function anva_sliders( $slider ) {
 function anva_revolution_slider_default() {
 
     if ( ! class_exists( 'RevSliderFront' ) ) {
-        printf( '<div class="alert alert-warning">%s.</div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated.', 'anva' ) );
+        printf( '<div class="container"><div class="alert alert-warning bottommargin-sm topmargin-sm">%s.</div></div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated.', 'anva' ) );
         return;
     }
 
