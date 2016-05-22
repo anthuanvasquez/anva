@@ -1,38 +1,51 @@
 <?php
 /**
- * The template for displaying Archives
- * Like category, tag, dates, post-formats, etc.
+ * The template file for archives.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 
 get_header();
 ?>
 
-<div class="row grid-columns">
-	<div class="content-area col-sm-8">
-		<div class="main">
+<div class="container clearfix">
 
-			<header class="entry-header">
-				<h1 class="entry-title">
-					<?php anva_archive_title(); ?>
-				</h1>
-			</header><!-- .page-header -->
+	<?php get_sidebar( 'left' ); ?>
 
-			<div class="archive-post-list post-list-paginated post-list">
-				<?php if ( have_posts() ) : ?>
-					<?php while ( have_posts() ) : the_post(); ?>
-						<?php get_template_part( 'content', 'post' ); ?>
-					<?php endwhile; ?>
-					<?php anva_num_pagination(); ?>
-				<?php else : ?>
-					<?php get_template_part( 'content', 'none' ); ?>
-				<?php endif; ?>
-			</div><!-- .archive-post-list (end) -->
+	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		</div><!-- .main (end) -->
-	</div><!-- .content-area (end) -->
-	
-	<?php anva_sidebars( 'right', '4' ); ?>
-	
-</div><!-- .grid-columns (end) -->
+		<?php do_action( 'anva_posts_content_before' ); ?>
+
+		<div id="posts" class="<?php anva_post_class( 'archive' ); ?>">
+			<?php
+				if ( have_posts() ) {
+					while ( have_posts() ) {
+						the_post();
+						anva_get_template_part( 'content', '' );
+					}
+					anva_num_pagination();
+				} else {
+					anva_get_template_part( 'none' );
+				}
+			?>
+		</div><!-- #posts (end) -->
+
+		<?php do_action( 'anva_posts_content_after' ); ?>
+
+	</div><!-- .postcontent (end) -->
+
+	<?php get_sidebar( 'right' ); ?>
+
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

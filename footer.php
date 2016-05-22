@@ -1,33 +1,56 @@
 <?php
 /**
- * The template for displaying the footer.
+ * The template file for footer.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
+			do_action( 'anva_below_layout' );
+		?>
+		</div><!-- .content-wrap (end) -->
+	</section><!-- CONTENT (end) -->
 
-				anva_content_after();
-				?>
-				
-			</div><!-- .main-content (end) -->
-		</div><!-- .main-inner (end) -->
-	</div><!-- MAIN (end) -->
-	
-	<!--BOTTOM (start) -->
-	<div id="bottom">
-		<footer id="footer">
-			<div class="footer-inner">
-				<div class="footer-content">
-					<?php anva_footer_content(); ?>
-				</div><!-- .footer-content (end) -->
+	<?php do_action( 'anva_content_after' ); ?>
 
-				<div class="footer-copyright">
-					<?php anva_footer_text(); ?>
-				</div><!-- .footer-copyright (end) -->
+	<?php
+		$class = '';
+		$footer_color = anva_get_option( 'footer_color', 'dark' );
+		if ( $footer_color ) {
+			$class = 'class="' . esc_attr( $footer_color ) . '"';
+		}
+	?>
+
+	<?php do_action( 'anva_footer_above' ); ?>
+
+	<!-- FOOTER (start) -->
+	<footer id="footer" <?php echo $class; ?>>
+
+		<div class="container clearfix">
+			<?php do_action( 'anva_footer_content' ); ?>
+		</div><!-- .container (end) -->
+
+		<div id="copyrights">
+			<div class="container clearfix">
+				<?php do_action( 'anva_footer_copyrights' ); ?>
 			</div>
-		</footer><!-- #footer (end) -->
-	</div><!-- BOTTOM (end) -->
+		</div><!-- #copyrights (end) -->
 
-</div><!-- CONTAINER (end) -->
+	</footer><!-- FOOTER (end) -->
 
-<?php anva_layout_after(); ?>
+	<?php do_action( 'anva_footer_below' ); ?>
+
+</div><!-- WRAPPER (end) -->
+
+<?php do_action( 'anva_after' ); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

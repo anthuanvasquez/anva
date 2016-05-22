@@ -1,39 +1,46 @@
 <?php
 /**
  * The template file for single posts.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
 
 get_header();
 ?>
 
-<div class="row grid-columns">
-	<div class="content-area col-sm-8">
-		<div class="main" role="main">
-		
-		<?php anva_post_before(); ?>
+<div class="container clearfix">
 
-		<?php while ( have_posts() ) : the_post(); ?>
-		
-			<?php get_template_part( 'content', 'single' ); ?>
-		
-		<?php anva_post_after(); ?>
+    <?php get_sidebar( 'left' ); ?>
 
-			<?php
-				$single_comment = anva_get_option( 'single_comment' );
-				if( 1 == $single_comment ) :
-					if( comments_open() || '0' != get_comments_number() ) :
-						comments_template();
-					endif;
-				endif;
-			?>
+    <div class="<?php anva_column_class( 'content' ); ?>">
+        <div class="single-post nobottommargin">
 
-		<?php endwhile; ?>
+            <?php do_action( 'anva_posts_content_before' ); ?>
 
-		</div><!-- .main (end) -->
-	</div><!-- .content-area (end) -->
-	
-	<?php anva_sidebars( 'right', '4' ); ?>
-	
-</div><!-- .grid-columns (end) -->
+            <?php while ( have_posts() ) : the_post(); ?>
+                <?php anva_get_template_part( 'single' ); ?>
+                <?php if ( anva_get_area( 'comments', 'posts' ) ) : ?>
+                    <?php do_action( 'anva_posts_comments' ); ?>
+                <?php endif; ?>
+            <?php endwhile; ?>
+
+            <?php do_action( 'anva_posts_content_after' ); ?>
+
+        </div><!-- .single-post (end) -->
+    </div><!-- .postcontent (end) -->
+
+    <?php get_sidebar( 'right' ); ?>
+
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

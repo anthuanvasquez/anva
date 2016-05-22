@@ -1,59 +1,43 @@
 <?php
 /**
- * The template file for page.
+ * The template file for pages.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
  */
-
-$classes = '';
-$sidebar = anva_get_post_meta( '_sidebar_column' );
-
-if ( 'left' == $sidebar || 'right' == $sidebar ) {
-	$classes = 'col-sm-8';
-
-} elseif ( 'double' == $sidebar || 'double_left' == $sidebar || 'double_right' == $sidebar  ) {
-	$classes = 'col-sm-6';
-
-} elseif ( 'fullwidth' == $sidebar ) {
-	$classes = 'col-sm-12';
-
-} else {
-	$classes = 'col-sm-8';
-	
-}
-
 get_header();
 ?>
 
-<div class="row grid-columns">
+<div class="container clearfix">
 
-	<?php anva_sidebar_layout_before(); ?>
+	<?php get_sidebar( 'left' ); ?>
 
-	<div class="content-area <?php echo esc_attr($classes); ?>">
-		<div class="main">
-
-			<?php anva_post_before(); ?>
-
-			<?php while ( have_posts() ) : the_post(); ?>
-
-				<?php get_template_part( 'content', 'page' ); ?>
-			
-			<?php anva_post_after(); ?>
-
-				<?php
-					$single_comment = anva_get_option( 'single_comment' );
-					if ( 1 == $single_comment ) :
-						if ( comments_open() || '0' != get_comments_number() ) :
-							comments_template();
-						endif;
-					endif;
-				?>
-
-			<?php endwhile; ?>
-
-		</div><!-- .main (end) -->
-	</div><!-- .content-area (end) -->
+	<div class="<?php anva_column_class( 'content' ); ?>">
+		
+		<?php do_action( 'anva_posts_content_before' ); ?>
+		
+		<?php while ( have_posts() ) : the_post(); ?>
+			<?php anva_get_template_part( 'page' ); ?>
+			<?php if ( anva_get_area( 'comments', 'pages' ) ) : ?>
+                <?php do_action( 'anva_posts_comments' ); ?>
+            <?php endif; ?>
+		<?php endwhile; ?>
+		
+		<?php do_action( 'anva_posts_content_after' ); ?>
 	
-	<?php anva_sidebar_layout_after(); ?>
+	</div><!-- .postcontent (end) -->
+
+	<?php get_sidebar( 'right' ); ?>
 	
-</div><!-- .grid-columns (end) -->
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>

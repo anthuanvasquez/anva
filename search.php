@@ -1,31 +1,48 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template file for search results.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version     1.0.0
+ * @author      Anthuan Vásquez
+ * @copyright   Copyright (c) Anthuan Vásquez
+ * @link        http://anthuanvasquez.net
+ * @package     Anva WordPress Framework
+ */
 
-<div class="row grid-columns">
-	<div class="content-area col-sm-8">
-		<div class="main">
+get_header();
+?>
 
-			<header class="entry-header">
-				<h1 class="entry-title">
-					<?php printf( anva_get_local( 'search_result' ) . ' %s', get_search_query() ); ?>
-				</h1>
-			</header><!-- .page-header -->
-				
-			<div class="search-post-list post-list-paginated post-list">
-				<?php if ( have_posts() ) : ?>
-					<?php while ( have_posts() ) : the_post(); ?>
-						<?php get_template_part( 'content', 'search' ); ?>
-					<?php endwhile; ?>
-					<?php anva_num_pagination(); ?>
-				<?php else : ?>
-					<?php get_template_part( 'content', 'none' ); ?>
-				<?php endif; ?>
-			</div><!-- .search-post-list  (end) -->
+<div class="container clearfix">
 
-		</div><!-- .main (end) -->
-	</div><!-- .content-area (end) -->
+	<?php get_sidebar( 'left' ); ?>
+
+	<div class="<?php anva_column_class( 'content' ); ?>">
+
+		<?php do_action( 'anva_posts_content_before' ); ?>
+		
+		<div id= "posts" class="<?php anva_post_class( 'search' ); ?>">
+			<?php if ( have_posts() ) : ?>
+				<?php while ( have_posts() ) : the_post(); ?>
+					<?php anva_get_template_part( 'content', '' ); ?>
+				<?php endwhile; ?>
+				<?php anva_num_pagination(); ?>
+			<?php else : ?>
+				<?php anva_get_template_part( 'none' ); ?>
+			<?php endif; ?>
+		</div><!-- #posts (end) -->
+
+		<?php do_action( 'anva_posts_content_after' ); ?>
 	
-	<?php anva_sidebars( 'right', '4' ); ?>
+	</div><!-- .postcontent (end) -->
 	
-</div><!-- .grid-columns (end) -->
+	<?php get_sidebar( 'right' ); ?>
+	
+</div><!-- .container (end) -->
 
 <?php get_footer(); ?>
