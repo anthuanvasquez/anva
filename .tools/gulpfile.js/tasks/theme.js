@@ -11,7 +11,7 @@ gulp.task('theme-domain', function(){
   .pipe(plugins.checktextdomain(config.textdomain));
 });
 
-// Make POT file for translation
+// Make POT file for theme translation
 gulp.task('theme-pot', function () {
   return gulp.src(config.php.src)
   .pipe(plugins.sort())
@@ -41,6 +41,13 @@ gulp.task('theme-php', function() {
   .pipe(gulp.dest(config.php.dest));
 });
 
+// Create the README file to the `build` folder
+gulp.task('theme-readme', function() {
+  return gulp.src(config.readme.src)
+  .pipe(plugins.markdown())
+  .pipe(gulp.dest(config.readme.dest));
+});
+
 // Create parent theme from the `build` folder
 // to test the theme before released
 gulp.task('theme-test', function() {
@@ -50,4 +57,4 @@ gulp.task('theme-test', function() {
 });
 
 // Master theme task
-gulp.task('theme', ['theme-lang', 'theme-php']);
+gulp.task('theme', ['theme-lang', 'theme-php', 'theme-readme']);

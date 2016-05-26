@@ -239,6 +239,10 @@ module.exports = {
       src: [src + '**/*.php', '!' + src + '.tools/**'],
       dest: build
     },
+    readme: {
+      src: src + 'readme.md',
+      dest: build
+    },
     textdomain: {
       text_domain: project,
       keywords: [
