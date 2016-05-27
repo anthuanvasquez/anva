@@ -46,4 +46,45 @@
 		});
 	}
 
+	// if ( $('#ajax_search').val() != '' ) {
+		console.log( ANVA_VARS.ajaxUrl );
+		$('#s').on( 'input', function() {
+			$.ajax({
+				url: ANVA_VARS.ajaxUrl,
+				type: 'POST',
+				data: 'action=anva_ajax_search&s=' + $('#s').val(),
+				success: function( results ) {
+					$("#autocomplete").html( results );
+
+					if ( results != '' ) {
+						$("#autocomplete").addClass('nothidden');
+						$("#autocomplete").show();
+						$("body.js_nav .mobile_menu_wrapper").css('overflow', 'visible');
+					} else {
+						$("#autocomplete").hide();
+						$("body.js_nav .mobile_menu_wrapper").css('overflow', 'scroll');
+					}
+				}
+			});
+		});
+
+		$("#s").keypress( function( e ) {
+			if ( e.which == 13 ) {
+				e.preventDefault();
+				$("form#searchform").submit();
+			}
+		});
+
+		$('#s').focus( function() {
+			if ( $('#autocomplete').html() != '' ) {
+				$("#autocomplete").addClass('nothidden');
+				$("#autocomplete").fadeIn();
+			}
+		});
+
+		$('#s').blur( function() {
+		  $("#autocomplete").fadeOut();
+		});
+	// }
+
 })( jQuery );

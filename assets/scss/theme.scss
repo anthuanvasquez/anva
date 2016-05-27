@@ -1,4 +1,4 @@
-.post-reading-indicator-container, {
+.post-reading-indicator-container {
   width: 100%;
   background-color: transparent;
   position: absolute;
@@ -62,7 +62,7 @@ body.device-lg {
     border-radius: 15%;
 
     &:before {
-      margin-left: 8px;
+	 margin-left: 8px;
     }
   }
 
@@ -79,4 +79,41 @@ body.device-lg {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+#autocomplete {
+	display: none;
+	position: absolute;
+	z-index: 1001;
+	width: 100%;
+	background: #fff;
+	left: 0;
+	box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+
+	ul {
+  		border: 0;
+  		float: left;
+  		list-style: none;
+  		margin: 0;
+  		padding: 0;
+  		width: 100%;
+
+    	li {
+			display: block;
+			float: none;
+			margin: 0;
+			padding: 10px 15px 10px 15px;
+			text-align: left;
+			width: 100%;
+
+			a {
+				display: block;
+				line-height: normal;
+				height: auto;
+				padding: 0;
+				text-align: left;
+				width: 100%;
+			}
+    	}
+  	}
 }

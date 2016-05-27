@@ -245,6 +245,7 @@ function theme_add_theme_support() {
 	// Framework support features
 	add_theme_support( 'anva-login' );
 	add_theme_support( 'anva-menu' );
+	add_theme_support( 'anva-instant-search' );
 	add_theme_support( 'anva-woocommerce' );
 }
 add_action( 'after_setup_theme', 'theme_add_theme_support', 10 );

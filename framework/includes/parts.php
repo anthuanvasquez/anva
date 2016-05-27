@@ -118,6 +118,13 @@ function anva_get_page_title() {
         $title = sprintf( '%s <span>%s</span>', $tax->labels->singular_name, single_term_title( '', false ) );
 
     /* --------------------------------------- */
+    /* Search
+    /* --------------------------------------- */
+
+    elseif ( is_search() ) :
+        $title = sprintf( '%s <span>%s</span>', __( 'Search results for', 'anva' ), get_search_query() );
+
+    /* --------------------------------------- */
     /* 404 Error
     /* --------------------------------------- */
 

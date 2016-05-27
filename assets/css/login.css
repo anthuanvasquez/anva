@@ -53,8 +53,10 @@ body.login div#login h1 a {
 body.login div#login form#loginform {
   background: #fff;
   border: 0;
-  border-radius: 0;
-  box-shadow: none;
+  -webkit-border-radius: 0;
+          border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   margin-top: 0;
   padding: 20px 40px;
 }
@@ -100,7 +102,8 @@ body.login div#login form#loginform p.submit input#wp-submit {
   height: 40px;
   line-height: 40px;
   color: #fff;
-  border-radius: 2px;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
   border: 0;
   text-shadow: none;
   -webkit-transition: all .3s ease;
@@ -114,7 +117,8 @@ body.login div#login form#loginform p.submit input#wp-submit:hover {
 body.login div#login p#nav {
   background: #fff;
   border: 0;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   margin: 0;
   padding: 20px 40px 20px;
   text-align: center;
@@ -164,7 +168,8 @@ body.login div#login p#backtoblog a:hover {
 .login #login_error {
   border-left: 0;
   background: #dd3d36;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 #copyright {
@@ -191,3 +196,5 @@ body.login div#login p#backtoblog a:hover {
 #copyright p a:hover {
   color: inherit;
 }
+
+/*# sourceMappingURL=login.css.map */
