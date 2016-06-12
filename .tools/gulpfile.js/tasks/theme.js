@@ -52,9 +52,8 @@ gulp.task('theme-readme', function() {
 // to test the theme before released
 gulp.task('theme-test', function() {
   return gulp.src(config.test.src)
-  .pipe(plugins.changed(config.test.dest))
-  .pipe(gulp.dest(config.test.dest));
+  .pipe(plugins.sym(config.test.dest));
 });
 
 // Master theme task
-gulp.task('theme', ['theme-lang', 'theme-php', 'theme-readme']);
+gulp.task('theme', ['theme-lang', 'theme-php', 'theme-readme', 'theme-test']);

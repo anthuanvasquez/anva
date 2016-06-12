@@ -17,58 +17,45 @@ function anva_ajax_search() {
 	if ( strlen( $_POST['s'] ) > 0 ) {
 
 		$limit    = 5;
-		$s        = strtolower(addslashes($_POST['s']));
-
-		$querystr = "
+		$s        = strtolower( addslashes( $_POST['s'] ) );
+		$query = "
 			SELECT $wpdb->posts.*
 			FROM $wpdb->posts
-			WHERE 1 = 1 AND ((lower($wpdb->posts.post_title) like %s))
-			AND $wpdb->posts.post_type IN ('post', 'page', 'attachment', 'projects', 'galleries')
-			AND (post_status = 'publish')
+			WHERE 1 = 1 AND ( ( lower( $wpdb->posts.post_title ) like %s ) )
+			AND $wpdb->posts.post_type IN ( 'post', 'page', 'attachment', 'projects', 'galleries' )
+			AND ( post_status = 'publish' )
 			ORDER BY $wpdb->posts.post_date DESC
 			LIMIT $limit;
 		";
 
-		$pageposts = $wpdb->get_results( $wpdb->prepare( $querystr, '%'. $wpdb->esc_like( $s ) .'%' ), OBJECT);
-
+		$posts = $wpdb->get_results( $wpdb->prepare( $query, '%'. $wpdb->esc_like( $s ) .'%' ), OBJECT );
 		$html = '';
 
-		if ( ! empty( $pageposts ) ) {
+		if ( ! empty( $posts ) ) {
 
 			$html .= '<ul>';
 
-			foreach ( $pageposts as $result_item ) {
+			foreach ( $posts as $post ) {
 
-				$post            = $result_item;
-				$post_type       = get_post_type( $post->ID );
-				$post_type_class = '';
-				$post_type_title = '';
+				$post_type  = get_post_type( $post->ID );
 				$post_thumb = array();
 
-				$html .= '<li class="mpost clearfix">';
+				$html .= '<li class="spost clearfix">';
 
 				if ( has_post_thumbnail( $post->ID ) ) {
-
-					$image_id   = get_post_thumbnail_id( $post->ID );
-					$post_thumb = wp_get_attachment_image_src( $image_id, 'thumbnail', true );
-					$image_alt  = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-
-					if ( isset( $post_thumb[0] ) && ! empty( $post_thumb[0] ) ) {
-						$thumbnail = '<img class="img-circle" src="' . $post_thumb[0] . '" alt="' . esc_attr( $image_alt ) . '"/></div>';
-						$html .= '<div class="entry-image">';
-						$html .= '<a class="nobg" href="' . get_permalink( $post->ID ) . '">' . $thumbnail . '</a>';
-						$html .= '</div>';
-					}
+					$html .= '<div class="entry-image">';
+					$html .= sprintf( '<a class="nobg" href="%s"><img src="%s" alt="%s" /></a>', get_permalink( $post->ID ), anva_get_featured_image_src( $post->ID, 'thumbnail' ), esc_attr( $post->post_title ) );
+					$html .= '</div>';
 				}
 
 				$html .= '<div class="entry-c">';
 				$html .= '<div class="entry-title">';
-				$html .= '<h4><a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</h4>';
-				$html .= '<ul class="entry-meta">';
-				$html .= '<li>' . date( THEMEDATEFORMAT, strtotime( $post->post_date ) ) . '</li>';
-				$html .= '</ul>';
+				$html .= '<h4><a href="' . get_permalink( $post->ID ) . '">' . esc_html( $post->post_title ) . '</h4>';
+				$html .= '</div><!-- .entry-title (end)-->';
+				$html .= '<div class="entry-meta clearfix">';
+				$html .= '<span>' . get_the_date( 'F j, Y', $post->ID ) . '</span>';
 				$html .= '</div>';
-				$html .= '</div>';
+				$html .= '</div><!-- .entry-c (end) -->';
 				$html .= '</li>';
 			}
 

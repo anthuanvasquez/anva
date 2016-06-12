@@ -396,7 +396,9 @@ function anva_header_primary_menu_addon_default() {
         </a>
         <form role="search" id="searchform" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
             <input type="text" name="s" id="s" class="form-control" autocomplete="off" value="" placeholder="<?php _e( 'Type & Hit Enter..', 'anva' ); ?>">
-            <div id="autocomplete" class="hidden"></div>
+            <?php if ( anva_support_feature( 'anva-instant-search' ) ) : ?>
+                <div id="instantsearch" class="hidden"></div>
+            <?php endif; ?>
         </form>
     </div><!-- #top-search end -->
 

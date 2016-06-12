@@ -40,7 +40,10 @@ $query = anva_get_posts();
 				<div class="entry-title">
 					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 				</div>
-				<?php anva_the_excerpt(); ?>
+				<?php anva_posted_on_mini(); ?>
+				<div class="entry-content">
+					<?php anva_the_excerpt(); ?>
+				</div>
 			</article>
 
 		<?php endwhile; ?>

@@ -141,6 +141,7 @@ class Anva
         include_once( ANVA_FRAMEWORK_DIR . 'includes/display.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/post-formats.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/media.php' );
+        include_once( ANVA_FRAMEWORK_DIR . 'includes/content.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/parts.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/elements.php' );
         include_once( ANVA_FRAMEWORK_DIR . 'includes/helpers.php' );

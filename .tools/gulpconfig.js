@@ -264,7 +264,7 @@ module.exports = {
     },
     // Move theme to `parent` folder to be tested before released.
     test: {
-      src: build + '**/*',
+      src: build,
       dest: parent + release
     }
   },

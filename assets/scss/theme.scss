@@ -28,18 +28,18 @@
   z-index: 1099;
 
   #post-reading-wrap.visible & {
-    bottom: 0;
+	bottom: 0;
   }
 
   .spost {
-    border: 0;
-    padding-top: 6px;
+	border: 0;
+	padding-top: 6px;
   }
 }
 
 body.device-lg {
   .post-reading-bar {
-    transition: all .4s ease;
+	transition: all .4s ease;
   }
 }
 
@@ -47,63 +47,78 @@ body.device-lg {
   text-align: center;
 
   i {
-    background: #222;
-    width: 144px;
-    height: 144px;
-    font-size: 108px;
-    line-height: 140px;
-    display: block;
-    font-weight: 500;
-    margin: 20px auto 30px;
-    color: #fff;
-    text-align: center;
-    cursor: default;
-    border: 1px solid rgba(black, .4);
-    border-radius: 15%;
+	background: #222;
+	width: 144px;
+	height: 144px;
+	font-size: 108px;
+	line-height: 140px;
+	display: block;
+	font-weight: 500;
+	margin: 20px auto 30px;
+	color: #fff;
+	text-align: center;
+	cursor: default;
+	border: 1px solid rgba(black, .4);
+	border-radius: 15%;
 
-    &:before {
+	&:before {
 	 margin-left: 8px;
-    }
+	}
   }
 
   label {
-    margin-right: 3px;
+	margin-right: 3px;
   }
 
   .form-group + p {
-    display: inline;
+	display: inline;
   }
 
   .password-error {
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+	max-width: 480px;
+	margin-left: auto;
+	margin-right: auto;
   }
 }
 
-#autocomplete {
-	display: none;
-	position: absolute;
-	z-index: 1001;
-	width: 100%;
+#instantsearch {
 	background: #fff;
-	left: 0;
 	box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+	display: none;
+	left: 0;
+	right: 0;
+	margin: auto;
+	max-width: 600px;
+	position: absolute;
+	width: 600px;
+	z-index: 1001;
+
+	.entry-meta {
+		margin: 5px 0 0;
+	}
+
+	.view-all {
+		background: rgba(black, 0.4);
+		a {
+			color: #fff;
+			text-align: center;
+		}
+	}
 
 	ul {
-  		border: 0;
-  		float: left;
-  		list-style: none;
-  		margin: 0;
-  		padding: 0;
-  		width: 100%;
+		display: block;
+		border: 0;
+		float: left;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
 
-    	li {
+		li {
 			display: block;
 			float: none;
 			margin: 0;
 			padding: 10px 15px 10px 15px;
-			text-align: left;
 			width: 100%;
 
 			a {
@@ -114,6 +129,6 @@ body.device-lg {
 				text-align: left;
 				width: 100%;
 			}
-    	}
-  	}
+		}
+	}
 }

@@ -9,8 +9,62 @@
 	Blog
 -----------------------------------------------------------------*/
 
+.category-filter {
+	position: relative;
+	margin: 0 0 40px 0;
+	list-style: none;
+	border: 1px solid rgba(black,0.07);
+	float: left;
+	@include border-radius(4px);
+	li {
+		float: left;
+		position: relative;
+		a {
+			display: block;
+			position: relative;
+			padding: 12px 18px;
+			font-size: 13px;
+			line-height: 15px;
+			color: #666;
+			border-left: 1px solid rgba(black,0.07);
+			&:hover {
+				color: $theme-color;
+			}
+		}
+		&:first-child {
+			a {
+				border-left: none;
+				@include border-radius-custom(4px, 0, 0, 4px);
+			}
+		}
+		&:last-child {
+			a {
+				@include border-radius-custom(0, 4px, 4px, 0);
+			}
+		}
+		&.selected {
+			a {
+				color: #FFF !important;
+				background-color: $theme-color;
+				margin: -1px 0;
+				padding: 13px 18px;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+&.filter-loading {
+	background: #fff url('../images/preloader.gif') no-repeat center center;
+	margin-bottom: 40px;
+	min-height: 200px;
+	min-width: 100%;
+	height: auto;
+}
+
 #posts {
 	position: relative;
+	transition: height 0.4s ease;
 	.entry-content {
 		margin-top: 30px;
 	}
@@ -65,10 +119,10 @@
 .entry-audio-image {
 	position: relative;
 	.audio-wrap {
-	    position: absolute;
-	    right: 10px;
-	    bottom: 10px;
-	    left: 10px;
+		position: absolute;
+		right: 10px;
+		bottom: 10px;
+		left: 10px;
 	}
 }
 
@@ -1237,29 +1291,29 @@ p {
 
 /* Text meant only for screen readers. */
 .screen-reader-text {
-    clip: rect(1px, 1px, 1px, 1px);
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
 
-    &:focus {
-        background-color: #f1f1f1;
-        border-radius: 3px;
-        box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-        clip: auto !important;
-        color: #21759b;
-        display: block;
-        font-size: 14px;
-        font-size: 0.875rem;
-        font-weight: bold;
-        height: auto;
-        left: 5px;
-        line-height: normal;
-        padding: 15px 23px 14px;
-        text-decoration: none;
-        top: 5px;
-        width: auto;
-        z-index: 100000; /* Above WP toolbar. */
-    }
+	&:focus {
+		background-color: #f1f1f1;
+		border-radius: 3px;
+		box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+		clip: auto !important;
+		color: #21759b;
+		display: block;
+		font-size: 14px;
+		font-size: 0.875rem;
+		font-weight: bold;
+		height: auto;
+		left: 5px;
+		line-height: normal;
+		padding: 15px 23px 14px;
+		text-decoration: none;
+		top: 5px;
+		width: auto;
+		z-index: 100000; /* Above WP toolbar. */
+	}
 }
