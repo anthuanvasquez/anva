@@ -15,7 +15,8 @@
 
 .anva-tooltip-info:focus {
   color: #999;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .anva-tooltip-info:hover {
@@ -35,14 +36,17 @@ ul.builder-sortable-items {
   width: 100%;
   float: none;
   padding: 10px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   width: 100%;
   background: #ffffff;
   background: #f9f9f9;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   border: 1px solid #ddd;
   border-top: 0;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1) inset;
+  -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1) inset;
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1) inset;
 }
 
 ul.builder-sortable-items:after {
@@ -63,15 +67,18 @@ ul.builder-sortable-items.empty:before {
 ul.builder-sortable-items > li {
   background: #fff;
   border: 1px solid #ddd;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: #23282d;
   font-size: 1em;
   line-height: 1.2em;
   margin: 0 0 10px;
   padding: 0;
   position: relative;
-  -webkit-transition: box-shadow .2s ease;
+  -webkit-transition: -webkit-box-shadow .2s ease;
+  transition: -webkit-box-shadow .2s ease;
   transition: box-shadow .2s ease;
+  transition: box-shadow .2s ease, -webkit-box-shadow .2s ease;
   width: 100%;
 }
 
@@ -82,7 +89,8 @@ ul.builder-sortable-items > li:after {
 }
 
 ul.builder-sortable-items > li:hover {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 ul.builder-sortable-items > li:hover .thumbnail:before {
@@ -100,7 +108,8 @@ ul.builder-sortable-items > li.ui-sortable-helper {
 ul.builder-sortable-items > li .actions {
   background: rgba(0, 0, 0, 0.2);
   background: #F2F2F2;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-size: 12px;
   position: relative;
   padding: 0 15px;
@@ -227,7 +236,8 @@ ul.builder-sortable-items > li .button-move-down:focus,
 ul.builder-sortable-items > li .button-move-up:focus,
 ul.builder-sortable-items > li .button-remove:focus,
 ul.builder-sortable-items > li .button-edit:focus {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 ul.builder-sortable-items > li .button-col-up:after,
@@ -278,7 +288,8 @@ ul.builder-sortable-items > li.divider .button-edit {
 .anva-builder .ui-widget-header .ui-state-default {
   border: 1px solid #ddd;
   background: #fff !important;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   font-weight: bold;
   color: #23282d;
 }
@@ -358,7 +369,8 @@ ul.builder-sortable-items > li.divider .button-edit {
 /* Ajax Inline Elements
 /* ---------------------------------------------------------------- */
 .item-inline {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   clear: both;
   margin: auto;
   min-height: 100%;
@@ -405,8 +417,10 @@ ul.builder-sortable-items > li.divider .button-edit {
 }
 
 .item-inline .screenshot {
-  box-sizing: border-box;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
   background: #eee;
   margin-top: 15px;
   max-width: 344px;
@@ -425,7 +439,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   border-style: solid;
   border-width: 1px;
   padding: 4px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .item-inline .screenshot .anva-remove-image {
@@ -441,7 +456,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   right: -5px;
   outline: 0;
   background: #eee;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
   -webkit-transition: opacity .1s ease;
   transition: opacity .1s ease;
   color: #222;
@@ -458,7 +474,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   margin-top: 5px;
   width: 86%;
   height: 30px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   top: 10px;
   position: relative;
   margin: 0 2% 0 0;
@@ -469,8 +486,10 @@ ul.builder-sortable-items > li.divider .button-edit {
   text-align: center;
   color: #fff;
   background: #999;
-  border-radius: 2px;
-  box-sizing: border-box;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: inline-block;
   padding: 0 5px;
   line-height: 30px;
@@ -550,7 +569,8 @@ ul.builder-sortable-items > li.divider .button-edit {
 }
 
 .builder-elements li {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: inline-block;
   margin: 0;
   padding: 5px;
@@ -561,13 +581,16 @@ ul.builder-sortable-items > li.divider .button-edit {
 .element-shortcode {
   background-color: #fff;
   border: 1px solid #eee;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   text-align: center;
-  -webkit-transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+  -webkit-transition: border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  transition: border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
   transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
 }
 
 .element-shortcode:hover span {
@@ -587,7 +610,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   font-size: 10px;
   line-height: 1.3;
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-top: 1px solid #ddd;
   vertical-align: middle;
   position: absolute;
@@ -599,7 +623,8 @@ ul.builder-sortable-items > li.divider .button-edit {
 
 .element-shortcode.selected {
   border-color: rgba(0, 160, 210, 0.9);
-  box-shadow: 0 0 0 2px rgba(0, 160, 210, 0.9);
+  -webkit-box-shadow: 0 0 0 2px rgba(0, 160, 210, 0.9);
+          box-shadow: 0 0 0 2px rgba(0, 160, 210, 0.9);
 }
 
 .element-shortcode.selected:after {
@@ -615,7 +640,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   height: 24px;
   line-height: 24px;
   text-align: center;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   background: #00a0d2;
   color: #fff;
   z-index: 1;
@@ -663,7 +689,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   border: 1px solid #e1e1e1;
   left: -65px;
   top: 38px;
-  box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
   z-index: 9;
 }
 
@@ -704,7 +731,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   padding: 0;
   width: 100%;
   position: relative;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   height: 30px;
 }
 
@@ -715,7 +743,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   content: 'Select file to Import';
   display: inline-block;
   background: #fff;
-  border-radius: 3px;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
   padding: 5px 8px;
   outline: none;
   white-space: nowrap;
@@ -724,7 +753,8 @@ ul.builder-sortable-items > li.divider .button-edit {
   font-weight: 400;
   font-size: 13px;
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: #a00;
   text-align: center;
 }
@@ -732,3 +762,5 @@ ul.builder-sortable-items > li.divider .button-edit {
 .anva-import-wrap input[type="file"]:hover:before {
   color: red;
 }
+
+/*# sourceMappingURL=builder.css.map */

@@ -5,7 +5,8 @@
   display: inline-block;
   direction: ltr;
   cursor: pointer;
-  border-radius: 2px;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
   border: 1px solid;
   border-color: #CCC;
   position: relative;
@@ -19,13 +20,17 @@
   user-select: none;
   vertical-align: middle;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
 }
 
 .bootstrap-switch .bootstrap-switch-container {
   display: inline-block;
   top: 0;
-  border-radius: 2px;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
@@ -33,6 +38,7 @@
 .bootstrap-switch .bootstrap-switch-handle-on,
 .bootstrap-switch .bootstrap-switch-handle-off,
 .bootstrap-switch .bootstrap-switch-label {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   cursor: pointer;
   display: inline-block !important;
@@ -119,13 +125,17 @@
 }
 
 .bootstrap-switch .bootstrap-switch-handle-on {
-  border-bottom-left-radius: 1px;
-  border-top-left-radius: 1px;
+  -webkit-border-bottom-left-radius: 1px;
+          border-bottom-left-radius: 1px;
+  -webkit-border-top-left-radius: 1px;
+          border-top-left-radius: 1px;
 }
 
 .bootstrap-switch .bootstrap-switch-handle-off {
-  border-bottom-right-radius: 1px;
-  border-top-right-radius: 1px;
+  -webkit-border-bottom-right-radius: 1px;
+          border-bottom-right-radius: 1px;
+  -webkit-border-top-right-radius: 1px;
+          border-top-right-radius: 1px;
 }
 
 .bootstrap-switch input[type='radio'],
@@ -189,17 +199,25 @@
 }
 
 .bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-on {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 1px;
-  border-top-right-radius: 1px;
+  -webkit-border-bottom-left-radius: 0;
+          border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+          border-top-left-radius: 0;
+  -webkit-border-bottom-right-radius: 1px;
+          border-bottom-right-radius: 1px;
+  -webkit-border-top-right-radius: 1px;
+          border-top-right-radius: 1px;
 }
 
 .bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-off {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 1px;
-  border-top-left-radius: 1px;
+  -webkit-border-bottom-right-radius: 0;
+          border-bottom-right-radius: 0;
+  -webkit-border-top-right-radius: 0;
+          border-top-right-radius: 0;
+  -webkit-border-bottom-left-radius: 1px;
+          border-bottom-left-radius: 1px;
+  -webkit-border-top-left-radius: 1px;
+          border-top-left-radius: 1px;
 }
 
 .bootstrap-switch.bootstrap-switch-focused {
@@ -208,14 +226,18 @@
 
 .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label,
 .bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-off .bootstrap-switch-label {
-  border-bottom-right-radius: 1px;
-  border-top-right-radius: 1px;
+  -webkit-border-bottom-right-radius: 1px;
+          border-bottom-right-radius: 1px;
+  -webkit-border-top-right-radius: 1px;
+          border-top-right-radius: 1px;
 }
 
 .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label,
 .bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-on .bootstrap-switch-label {
-  border-bottom-left-radius: 1px;
-  border-top-left-radius: 1px;
+  -webkit-border-bottom-left-radius: 1px;
+          border-bottom-left-radius: 1px;
+  -webkit-border-top-left-radius: 1px;
+          border-top-left-radius: 1px;
 }
 
 .bootstrap-switch-label:after {
@@ -260,6 +282,7 @@ input.switch-toggle-round + label {
   width: 60px;
   height: 30px;
   background-color: #DDD;
+  -webkit-border-radius: 15px;
   border-radius: 15px;
 }
 
@@ -276,6 +299,7 @@ input.switch-toggle-round + label:after {
 input.switch-toggle-round + label:before {
   right: 1px;
   background-color: #F1F1F1;
+  -webkit-border-radius: 15px;
   border-radius: 15px;
   -webkit-transition: background 0.4s;
   transition: background 0.4s;
@@ -284,7 +308,9 @@ input.switch-toggle-round + label:before {
 input.switch-toggle-round + label:after {
   width: 28px;
   background-color: #FFF;
+  -webkit-border-radius: 100%;
   border-radius: 100%;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   -webkit-transition: margin 0.4s;
   transition: margin 0.4s;
@@ -305,10 +331,12 @@ input.switch-rounded-mini.switch-toggle-round + label {
   padding: 1px;
   width: 32px;
   height: 16px;
+  -webkit-border-radius: 8px;
   border-radius: 8px;
 }
 
 input.switch-rounded-mini.switch-toggle-round + label:before {
+  -webkit-border-radius: 8px;
   border-radius: 8px;
 }
 
@@ -326,10 +354,12 @@ input.switch-rounded-mini.switch-toggle-round:checked + label:after {
 input.switch-rounded-large.switch-toggle-round + label {
   width: 90px;
   height: 45px;
+  -webkit-border-radius: 45px;
   border-radius: 45px;
 }
 
 input.switch-rounded-large.switch-toggle-round + label:before {
+  -webkit-border-radius: 45px;
   border-radius: 45px;
 }
 
@@ -347,10 +377,12 @@ input.switch-rounded-large.switch-toggle-round:checked + label:after {
 input.switch-rounded-xlarge.switch-toggle-round + label {
   width: 120px;
   height: 60px;
+  -webkit-border-radius: 60px;
   border-radius: 60px;
 }
 
 input.switch-rounded-xlarge.switch-toggle-round + label:before {
+  -webkit-border-radius: 60px;
   border-radius: 60px;
 }
 
@@ -370,6 +402,7 @@ input.switch-toggle-flat + label {
   width: 60px;
   height: 30px;
   background-color: #DDD;
+  -webkit-border-radius: 30px;
   border-radius: 30px;
   -webkit-transition: background 0.4s;
   transition: background 0.4s;
@@ -388,6 +421,7 @@ input.switch-toggle-flat + label:before {
   bottom: 2px;
   right: 2px;
   background-color: #FFF;
+  -webkit-border-radius: 30px;
   border-radius: 30px;
   -webkit-transition: background 0.4s;
   transition: background 0.4s;
@@ -399,6 +433,7 @@ input.switch-toggle-flat + label:after {
   bottom: 4px;
   width: 22px;
   background-color: #DDD;
+  -webkit-border-radius: 22px;
   border-radius: 22px;
   -webkit-transition: margin 0.4s, background 0.4s;
   transition: margin 0.4s, background 0.4s;
@@ -420,6 +455,7 @@ input.switch-flat-mini.switch-toggle-flat + label {
   padding: 1px;
   width: 32px;
   height: 16px;
+  -webkit-border-radius: 16px;
   border-radius: 16px;
 }
 
@@ -428,6 +464,7 @@ input.switch-flat-mini.switch-toggle-flat + label:before {
   left: 1px;
   bottom: 1px;
   right: 1px;
+  -webkit-border-radius: 16px;
   border-radius: 16px;
 }
 
@@ -436,6 +473,7 @@ input.switch-flat-mini.switch-toggle-flat + label:after {
   left: 2px;
   bottom: 2px;
   width: 12px;
+  -webkit-border-radius: 12px;
   border-radius: 12px;
 }
 
@@ -449,15 +487,18 @@ input.switch-flat-mini.switch-toggle-flat:checked + label:after {
 input.switch-flat-large.switch-toggle-flat + label {
   width: 90px;
   height: 45px;
+  -webkit-border-radius: 45px;
   border-radius: 45px;
 }
 
 input.switch-flat-large.switch-toggle-flat + label:before {
+  -webkit-border-radius: 45px;
   border-radius: 45px;
 }
 
 input.switch-flat-large.switch-toggle-flat + label:after {
   width: 37px;
+  -webkit-border-radius: 37px;
   border-radius: 37px;
 }
 
@@ -472,15 +513,18 @@ input.switch-flat-xlarge.switch-toggle-flat + label {
   padding: 2px;
   width: 120px;
   height: 60px;
+  -webkit-border-radius: 60px;
   border-radius: 60px;
 }
 
 input.switch-flat-xlarge.switch-toggle-flat + label:before {
+  -webkit-border-radius: 60px;
   border-radius: 60px;
 }
 
 input.switch-flat-xlarge.switch-toggle-flat + label:after {
   width: 52px;
+  -webkit-border-radius: 52px;
   border-radius: 52px;
 }
 
@@ -532,7 +576,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .radio-style-1-label:before,
 .radio-style-2-label:before,
 .radio-style-3-label:before {
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
 }
 
 .checkbox-style:checked + .checkbox-style-1-label:before {
@@ -559,20 +604,24 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 /* Style-2 */
 .checkbox-style:checked + .checkbox-style-2-label:before {
   background: #1e8cbe;
-  box-shadow: inset 0px 0px 0px 4px #fff;
+  -webkit-box-shadow: inset 0px 0px 0px 4px #fff;
+          box-shadow: inset 0px 0px 0px 4px #fff;
 }
 
 .radio-style:checked + .radio-style-2-label:before {
   background: #1e8cbe;
-  box-shadow: inset 0px 0px 0px 4px #fff;
+  -webkit-box-shadow: inset 0px 0px 0px 4px #fff;
+          box-shadow: inset 0px 0px 0px 4px #fff;
 }
 
 .checkbox-style:checked + .checkbox-style-2-label.checkbox-small:before {
-  box-shadow: inset 0px 0px 0px 2px #fff;
+  -webkit-box-shadow: inset 0px 0px 0px 2px #fff;
+          box-shadow: inset 0px 0px 0px 2px #fff;
 }
 
 .radio-style:checked + .radio-style-2-label.radio-small:before {
-  box-shadow: inset 0px 0px 0px 2px #fff;
+  -webkit-box-shadow: inset 0px 0px 0px 2px #fff;
+          box-shadow: inset 0px 0px 0px 2px #fff;
 }
 
 /* style-3 */
@@ -613,7 +662,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework input[type="datetime"],
 .anva-framework input[type="number"],
 .anva-framework input[type="password"] {
-  box-shadow: 0 0 4px #eee;
+  -webkit-box-shadow: 0 0 4px #eee;
+          box-shadow: 0 0 4px #eee;
   color: #666;
   height: 33px;
   margin-bottom: 10px;
@@ -623,7 +673,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 .anva-framework input[type="radio"],
 .anva-framework input[type="checkbox"] {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   line-height: normal;
   margin: 4px 0 0;
   margin-top: 1px \9;
@@ -642,7 +693,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework label:before, .anva-framework label:after {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .anva-framework h3 {
@@ -657,19 +709,22 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .ui-spinner {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: block;
   padding: 5px;
 }
 
 .anva-framework .anva-spinner {
   border: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .anva-framework .anva-spinner:focus {
   border: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .anva-framework .group {
@@ -764,7 +819,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 .anva-framework .section .controls input[type=text],
 .anva-framework .section .controls input[type=number] {
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   width: 100%;
 }
 
@@ -778,78 +834,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section .controls textarea {
   margin-bottom: 10px;
   width: 100%;
-}
-
-.anva-framework .section .controls .anva-select-label {
-  display: block;
-  background-size: 7px 32px;
-  border-radius: 0;
-  box-shadow: 0 0 4px #eee;
-  line-height: 1;
-  margin-bottom: 10px;
-  position: relative;
-}
-
-.anva-framework .section .controls .anva-select-label > span {
-  box-sizing: border-box;
-  color: #666;
-  line-height: 33px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 0 10px;
-  overflow: hidden;
-  width: 100%;
-}
-
-.anva-framework .section .controls .anva-select-label select {
-  margin-bottom: 0;
-  filter: alpha(opacity=0);
-  -moz-opacity: 0;
-  -khtml-opacity: 0;
-  opacity: 0;
-  position: relative;
-  height: 33px;
-  z-index: 2;
-}
-
-.anva-framework .section .controls .anva-select-label:before {
-  content: "";
-  border: 1px solid #dfdfdf;
-  border-radius: 0;
-  display: block;
-  line-height: 33px;
-  padding: 0 10px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.anva-framework .section .controls .anva-select-label:after {
-  content: "";
-  background: url(../images/fancy-select-trigger_2x.png) no-repeat;
-  background-size: 25px 33px;
-  border-left: 1px solid #dfdfdf;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 25px;
-  height: 33px;
-}
-
-.anva-framework .section .controls .anva-select-label select {
-  margin: 0;
-  border-radius: 0;
-  border: 1px solid #dfdfdf;
-  outline: none;
-  display: inline-block;
-  height: 33px;
-  cursor: pointer;
 }
 
 .anva-framework .section .explain {
@@ -891,7 +875,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-logo .section {
   background: #fff;
   border: 1px solid #dfdfdf;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   margin: 0 0 10px 0;
   padding: 12px 15px;
 }
@@ -960,7 +945,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-sidebar .dynamic-sidebars ul {
   background: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   margin: 10px 0 0;
   padding: 10px;
 }
@@ -977,7 +963,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-sidebar .dynamic-sidebars ul li {
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   color: #000;
   font-weight: bold;
   padding: 15px;
@@ -1007,7 +994,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-contact_fields .dynamic-contact-fields ul {
   background: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   margin: 10px 0 0;
   padding: 10px;
 }
@@ -1024,7 +1012,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-contact_fields .dynamic-contact-fields ul li {
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   color: #000;
   font-weight: bold;
   padding: 15px;
@@ -1054,7 +1043,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-columns p.inactive {
   background: #f9f9f9;
   border: 1px solid #f2f2f2;
-  border-radius: 2px;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
   color: #777;
   padding: 3px 10px;
   margin: 0;
@@ -1121,21 +1111,25 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   margin: 0 5px 5px 0;
   float: left;
   padding: 8px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+          box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
 }
 
 .anva-framework .controls .anva-radio-img-box .anva-radio-img-img {
   border: 0;
   display: none;
   cursor: pointer;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
 }
 
 .anva-framework .controls .anva-radio-img-box span {
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   cursor: pointer;
   display: table-cell;
   line-height: 0;
@@ -1152,8 +1146,10 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   left: 0;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 0;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   background-origin: border-box;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.15)), to(rgba(0, 0, 0, 0.25))), -webkit-gradient(linear, right bottom, left top, from(rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0.15)), color-stop(50%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0)));
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), -webkit-linear-gradient(right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), linear-gradient(to left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
 }
@@ -1166,7 +1162,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .controls .anva-radio-img-selected {
   border-color: #1e8cbe;
   background: rgba(30, 140, 190, 0.2);
-  box-shadow: 0 0 0 1px #1e8cbe;
+  -webkit-box-shadow: 0 0 0 1px #1e8cbe;
+          box-shadow: 0 0 0 1px #1e8cbe;
   position: relative;
 }
 
@@ -1180,7 +1177,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-info {
   border: 1px solid #ddd;
   border-left: 6px solid #00c8fa;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   margin: 15px 0 10px;
   padding: 10px 10px 0;
   text-shadow: none;
@@ -1232,8 +1230,10 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .group-button span .button {
-  border-radius: 0;
-  box-shadow: none;
+  -webkit-border-radius: 0;
+          border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   height: 33px;
 }
 
@@ -1245,10 +1245,13 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   float: left;
   width: 100%;
   margin: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  -webkit-border-top-right-radius: 0;
+          border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+          border-bottom-right-radius: 0;
   height: 33px;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   border-right: 0;
 }
 
@@ -1256,8 +1259,10 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   margin-bottom: 10px;
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 0;
-  box-sizing: border-box;
+  -webkit-border-radius: 0;
+          border-radius: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-size: 13px;
   line-height: 13px;
   margin-bottom: 10px;
@@ -1266,7 +1271,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .screenshot {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 15px 0;
   margin-left: 1px;
   max-width: 100%;
@@ -1288,7 +1294,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .screenshot img {
   background: #fafafa;
   border: 1px solid #eee;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: block;
   margin: 0 auto;
   max-width: 100%;
@@ -1309,7 +1316,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   right: -5px;
   outline: 0;
   background: #eee;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
   -webkit-transition: opacity .1s ease;
   transition: opacity .1s ease;
   color: #222;
@@ -1325,7 +1333,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-upload .screenshot.has-image,
 .anva-framework .section-background .screenshot.has-image {
   border: 1px solid #ddd;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   padding: 15px;
   max-width: 100%;
 }
@@ -1476,3 +1485,5 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   -webkit-animation-name: bounceIn;
           animation-name: bounceIn;
 }
+
+/*# sourceMappingURL=admin-global.css.map */

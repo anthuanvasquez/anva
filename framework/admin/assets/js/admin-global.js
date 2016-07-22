@@ -28,7 +28,7 @@ jQuery( document ).ready( function( $ ) {
         },
 
         radioImages: function() {
-            $('.anva-radio-img-box').click( function() {
+            $('.anva-radio-img-box').on( 'click', function() {
                 $(this).closest('.section-images').find('.anva-radio-img-box').removeClass('anva-radio-img-selected');
                 $(this).addClass('anva-radio-img-selected');
                 $(this).find('.anva-radio-img-radio').prop('checked', true);
@@ -52,7 +52,7 @@ jQuery( document ).ready( function( $ ) {
         },
 
         logo: function() {
-            $('.section-logo').each(function(){
+            $('.section-logo').each(function() {
                 var el = $(this), value = el.find('.select-type select').val();
                 el.find('.logo-item').hide();
                 el.find('.' + value).show();
@@ -169,24 +169,17 @@ jQuery( document ).ready( function( $ ) {
         },
 
         select: function() {
-            // Fancy Select
-            $('.anva-select-label').each(function(){
-                var el = $(this),
-                    value = el.find('select').val(),
-                    text = el.find('option[value="' + value + '"]').text();
-                el.find('span').text(text);
-            });
-
-            $('.anva-select-label select').live('change', function(){
-                var el = $(this), value = el.val(), text = el.find('option[value="' + value + '"]').text();
-                el.closest('.anva-select-label').find('span').text(text);
-            });
+            if ( $().selectric ) {
+                $('.select-wrapper select').selectric({
+                    arrowButtonMarkup: '<b class="btn">&#x25be;</b>'
+                });
+            }
         },
 
         showHide: function() {
 
             // Select Show Hide
-            $('.section-select.show-hide select').each(function(){
+            $('.section-select.show-hide select').each(function() {
                 var el        = $(this),
                     value     = el.val(),
                     trigger   = el.closest('.section').data('trigger'),
@@ -290,7 +283,7 @@ jQuery( document ).ready( function( $ ) {
             });
 
             // Add new sidebar
-            $('#add-sidebar').click( function() {
+            $('#add-sidebar').on( 'click', function() {
                 var $new = $('.sidebar').val();
                 if ( '' === $new.trim() ) {
                     swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );

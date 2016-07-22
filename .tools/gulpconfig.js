@@ -262,7 +262,7 @@ module.exports = {
         '_nx_noop:1,2,3c,4d'
       ]
     },
-    // Move theme to `parent` folder to be tested before released.
+    // Theme symlink
     test: {
       src: build,
       dest: parent + release

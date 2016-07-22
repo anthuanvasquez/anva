@@ -6,13 +6,13 @@ var gulp        = require('gulp'),
 ;
 
 // Check textdomain on PHP source files
-gulp.task('theme-domain', function(){
+gulp.task('theme-domain', function() {
   return gulp.src(config.php.src)
   .pipe(plugins.checktextdomain(config.textdomain));
 });
 
 // Make POT file for theme translation
-gulp.task('theme-pot', function () {
+gulp.task('theme-pot', function() {
   return gulp.src(config.php.src)
   .pipe(plugins.sort())
   .pipe(plugins.wpPot(config.lang.pot))
@@ -28,7 +28,7 @@ gulp.task('theme-lang', function() {
 });
 
 // Lint PHP source files
-gulp.task('php-lint', function(){
+gulp.task('php-lint', function() {
   return gulp.src(config.php.src)
   .pipe(plugins.phplint('', {skipPassedFiles: true}))
   .pipe(plugins.phplint.reporter('fail'));
@@ -52,7 +52,7 @@ gulp.task('theme-readme', function() {
 // to test the theme before released
 gulp.task('theme-test', function() {
   return gulp.src(config.test.src)
-  .pipe(plugins.sym(config.test.dest));
+  .pipe(plugins.symlink(config.test.dest));
 });
 
 // Master theme task

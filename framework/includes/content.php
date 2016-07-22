@@ -10,8 +10,8 @@ add_action('wp_ajax_nopriv_anva_blog_posts_filter', 'anva_blog_posts_filter');
  */
 function anva_blog_posts_filter() {
 
-	$items = apply_filters( 'anva_blog_posts_filter_items', 6 );
-	$column = apply_filters( 'anva_blog_posts_filter_grid', 3 );
+	$column = apply_filters( 'anva_template_filter_ajax_columns', 3 );
+	$items = apply_filters( 'anva_template_filter_ajax_items', 6 );
 	$counter = 0;
 
 	if ( isset( $_POST['items'] ) ) {

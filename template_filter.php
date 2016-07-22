@@ -15,20 +15,17 @@
  * @package     Anva WordPress Framework
  */
 
- get_header();
+get_header();
 
-$column       = apply_filters( 'anva_posts_filter_column', 3 );; // Default Column
-$items 		  = apply_filters( 'anva_posts_filter_number', 9 );
-$thumbnail    = apply_filters( 'anva_posts_filter_thumbnail', 'anva_post_grid' );
+$column       = apply_filters( 'anva_template_filter_columns', 3 );; // Default Column
+$items 		  = apply_filters( 'anva_template_filter_number', 9 );
+$thumbnail    = apply_filters( 'anva_template_filter_thumbnail', 'anva_post_grid' );
 $current_grid = anva_get_post_meta( '_anva_grid_column' );
 $grid_columns = anva_get_grid_columns();
 
 if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 	$column = $grid_columns[ $current_grid ]['column'];
 }
-
-// Set counter
-$counter = 0;
 
 // Get posts
 $query = anva_get_posts();
@@ -60,7 +57,6 @@ $query = anva_get_posts();
 			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 				<?php anva_get_template_part( 'grid' ); ?>
 			<?php endwhile; ?>
-
 		</div><!-- #posts (end) -->
 
 		<?php do_action( 'anva_posts_content_after' ); ?>

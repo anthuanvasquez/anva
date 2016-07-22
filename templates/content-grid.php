@@ -17,6 +17,7 @@
 ?>
 <div class="entry-wrap">
     <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+
         <?php if ( has_post_format( 'gallery' ) ) : ?>
 
             <div class="entry-image entry-gallery">
@@ -66,6 +67,7 @@
         <?php endif; ?>
 
         <?php anva_posted_on_mini(); ?>
+
         <div class="entry-content">
             <?php do_action( 'anva_posts_content' ); ?>
         </div>
