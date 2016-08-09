@@ -2,6 +2,10 @@
 
 	'use strict';
 
+	// --------------------------------------------------
+	// Post Reading
+	// --------------------------------------------------
+
 	var $postReading = $('#post-reading-wrap');
 
 	if ( $postReading.length > 0 ) {
@@ -43,6 +47,50 @@
 			} else {
 				$postReading.removeClass('visible');
 			}
+		});
+	}
+
+	// --------------------------------------------------
+	// Instant Search Extension
+	// --------------------------------------------------
+
+	var $instantSearch = $('#instantsearch');
+
+	if ( $instantSearch.length > 0 ) {
+		$('#s').on( 'input', function() {
+			$.ajax({
+				url: ANVA_VARS.ajaxUrl,
+				type: 'POST',
+				data: 'action=anva_ajax_search&s=' + $('#s').val(),
+				success: function( results ) {
+					$instantSearch.html( results );
+
+					if ( results != '' ) {
+						$instantSearch.addClass('nothidden');
+						$instantSearch.show();
+					} else {
+						$instantSearch.hide();
+					}
+				}
+			});
+		});
+
+		$("#s").keypress( function( e ) {
+			if ( e.which == 13 ) {
+				e.preventDefault();
+				$("form#searchform").submit();
+			}
+		});
+
+		$('#s').focus( function() {
+			if ( $instantSearch.html() != '' ) {
+				$instantSearch.addClass('nothidden');
+				$instantSearch.fadeIn();
+			}
+		});
+
+		$('#s').blur( function() {
+			$instantSearch.fadeOut();
 		});
 	}
 

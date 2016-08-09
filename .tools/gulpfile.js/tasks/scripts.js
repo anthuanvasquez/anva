@@ -52,6 +52,12 @@ gulp.task('scripts-build', function(){
   .pipe(gulp.dest(config.dest));
 });
 
+gulp.task('scripts-test', function() {
+  return gulp.src([config.lint.theme], { read: false })
+  .pipe(plugins.mocha({ reporter: 'spec' }))
+  .pipe(exit());
+});
+
 // Master script tasks
 gulp.task('scripts-minify', ['scripts-minify-theme', 'scripts-minify-core']);
 gulp.task('scripts', ['scripts-build']);

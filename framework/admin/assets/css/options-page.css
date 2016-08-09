@@ -14,7 +14,8 @@
 #anva-framework-wrap > h2:not(.nav-tab-wrapper) > span em {
   background: #000;
   color: #fff;
-  border-radius: 2px;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
   font-style: normal;
   font-weight: 300;
   margin-left: 5px;
@@ -45,7 +46,8 @@
   padding: 10px;
   background: #f9f9f9;
   border: 1px solid #eee;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   margin: 10px 0 15px;
 }
 
@@ -63,7 +65,8 @@
 .anva-framework .sample-text-font {
   margin: 15px 0 0;
   padding: 18px 10px;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   border: 2px dashed #ccc;
   font-size: 25px;
   text-align: center;
@@ -76,7 +79,8 @@
   background: #fff;
   border: 1px solid #ddd;
   border-left: 6px solid #00c8fa;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: #777;
   display: none;
   margin: 15px 0 5px;
@@ -173,7 +177,8 @@
 #anva-framework .options-settings > .columns-2 .reset-button {
   background: transparent;
   border: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   color: #a00;
   padding: 0;
 }
@@ -188,7 +193,8 @@
 #anva-options-page-credit,
 #anva-options-page-links {
   border: 1px solid #ddd;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: #999;
   font-size: 11px;
   padding: 6px 10px;
@@ -218,3 +224,5 @@
   font-size: 14px;
   line-height: 1.4;
 }
+
+/*# sourceMappingURL=options-page.css.map */

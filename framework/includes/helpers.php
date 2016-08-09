@@ -1081,13 +1081,17 @@ function anva_compress( $buffer ) {
  * @param string $name
  * @param string $slug
  */
-function anva_get_template_part( $name, $slug = 'content' ) {
-	$path = trailingslashit( 'templates' );
-	if ( empty( $slug ) ) {
-		get_template_part( $path . $name );
+function anva_get_template_part( $slug = 'content' ) {
+
+	// Get template path
+	$path = apply_filters( 'anva_templates_path', trailingslashit( 'templates' ) );
+
+	if ( 'content' == $slug ) {
+		get_template_part( $path . $slug );
 		return;
 	}
-	get_template_part( $path . $slug, $name );
+
+	get_template_part( $path . 'content', $slug );
 }
 
 /**

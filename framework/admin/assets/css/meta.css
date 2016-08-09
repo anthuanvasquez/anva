@@ -29,7 +29,8 @@
 
 .anva-framework .postbox {
   border: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   background: transparent;
   min-width: 0;
 }
@@ -63,3 +64,5 @@
 #side-sortables .anva-framework .section {
   padding: 15px 12px;
 }
+
+/*# sourceMappingURL=meta.css.map */

@@ -118,6 +118,13 @@ function anva_get_page_title() {
         $title = sprintf( '%s <span>%s</span>', $tax->labels->singular_name, single_term_title( '', false ) );
 
     /* --------------------------------------- */
+    /* Search
+    /* --------------------------------------- */
+
+    elseif ( is_search() ) :
+        $title = sprintf( '%s <span>%s</span>', __( 'Search results for', 'anva' ), get_search_query() );
+
+    /* --------------------------------------- */
     /* 404 Error
     /* --------------------------------------- */
 
@@ -137,7 +144,7 @@ function anva_get_page_title() {
 }
 
 /**
- * Posted on
+ * Posted on meta.
  *
  * @since 1.0.0
  */
@@ -206,6 +213,74 @@ function anva_posted_on() {
         ),
         sprintf(
             '%1$s', get_the_category_list( ', ' )
+        ),
+        sprintf(
+            '%1$s', $write_comments
+        ),
+        sprintf( '%1$s', $format_icon )
+    );
+}
+
+/**
+ * Posted on meta for blog posts grid.
+ *
+ * @since 1.0.0
+ */
+function anva_posted_on_mini() {
+
+    // Get the time
+    $time_string = '<time class="entry-date published" datetime="%1$s"><i class="icon-calendar3"></i> %2$s</time>';
+
+    if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+        $time_string .= '<time class="entry-date-updated updated" datetime="%3$s"><i class="icon-calendar3"></i> %4$s</time>';
+    }
+
+    $time_string = sprintf(
+        $time_string,
+        esc_attr( get_the_date( 'c' ) ),
+        esc_html( get_the_date( 'jS F Y' ) ),
+        esc_attr( get_the_modified_date( 'c' ) ),
+        esc_html( get_the_modified_date( 'jS F Y' ) )
+    );
+
+    // Get comments number
+    $num_comments = get_comments_number();
+
+    if ( comments_open() ) {
+
+        if ( $num_comments == 0 ) {
+            $comments = __( 'No Comments', 'anva' );
+        } elseif ( $num_comments > 1 ) {
+            $comments = $num_comments . __( ' Comments', 'anva' );
+        } else {
+            $comments = __( '1 Comment', 'anva' );
+        }
+
+        $write_comments = sprintf( '<a href="%s"><span class="leave-reply">%s</span></a>', get_comments_link(), $comments );
+
+    } else {
+        $write_comments =  __( 'Comments closed', 'anva' );
+    }
+
+    // Get post formats icon
+    $format      = get_post_format();
+    $format_icon = anva_get_post_format_icon( $format, true );
+
+    if ( $format_icon ) {
+        $format_icon = sprintf( '<i class="icon-%s"></i>', $format_icon );
+        if ( $format ) {
+            $format_icon = sprintf( '<a href="%1$s">%2$s</a>', get_post_format_link( $format ), $format_icon );
+        }
+    }
+
+    printf(
+        '<ul class="entry-meta clearfix">
+            <li class="posted-on">%1$s</li>
+            <li class="comments-link"><i class="icon-comments"></i> %2$s</li>
+            <li class="post-format-icon">%3$s</li>
+        </ul><!-- .entry-meta (end) -->',
+        sprintf(
+            '%1$s', $time_string
         ),
         sprintf(
             '%1$s', $write_comments

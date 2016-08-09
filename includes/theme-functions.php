@@ -245,6 +245,7 @@ function theme_add_theme_support() {
 	// Framework support features
 	add_theme_support( 'anva-login' );
 	add_theme_support( 'anva-menu' );
+	add_theme_support( 'anva-instant-search' );
 	add_theme_support( 'anva-woocommerce' );
 }
 add_action( 'after_setup_theme', 'theme_add_theme_support', 10 );
@@ -305,14 +306,14 @@ function theme_scripts() {
 	// Get scripts API
 	$api = Anva_Scripts_API::instance();
 
-	wp_register_script( 'css3-mediaqueries-js', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '1.0.0' );
+	wp_register_script( 'css3-mediaqueries-js', '//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '1.0.0' );
 	wp_register_script( 'theme_js', get_template_directory_uri() . '/assets/js/theme.js', $api->get_framework_deps(), ANVA_THEME_VERSION, true );
 
 	// IE
 	$GLOBALS['wp_scripts']->add_data( 'css3-mediaqueries-js', 'conditional', 'lt IE 9' );
 
 	// Enqueue Scripts
-	//wp_enqueue_script( 'jquery' );
+	// wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'css3-mediaqueries-js' );
 	wp_enqueue_script( 'theme_js' );
 	wp_localize_script( 'anva_main', 'ANVA_VARS', anva_get_js_locals() );

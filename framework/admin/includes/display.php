@@ -8,10 +8,10 @@
  */
 function anva_admin_theme_activate() {
 	if ( isset( $_GET['activated'] ) && true == $_GET['activated'] ) {
-		
+
 		$option_name = anva_get_option_name();
 		$admin_url   = admin_url( 'themes.php?page=' . $option_name );
-		
+
 		printf(
 			'<div class="updated updated fade settings-error notice is-dismissible"><p>%s %s</p></div>',
 			__( 'Anva theme is activated.', 'anva' ),
@@ -25,7 +25,7 @@ function anva_admin_theme_activate() {
 
 /**
  * Check if seetings exists in the database.
- * 
+ *
  * @since 1.0.0
  */
 function anva_admin_check_settings() {
@@ -60,7 +60,7 @@ function anva_add_settings_flash() {
 
 /**
  * Show notice whan settings change in options page.
- * 
+ *
  * @since 1.0.0
  */
 function anva_add_settings_change() {
@@ -69,11 +69,11 @@ function anva_add_settings_change() {
 
 /**
  * Log option.
- * 
+ *
  * @since 1.0.0
  */
 function anva_admin_settings_log() {
-	
+
 	$html = '';
 
 	// Get current info
@@ -87,9 +87,9 @@ function anva_admin_settings_log() {
 		printf( '<div class="log"><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</div>', __( 'Last changed', 'anva' ), $time );
 		return;
 	}
-	
+
 	printf( '<div class="log"><span class="dashicons dashicons-clock"></span> %s</div>', __( 'Your settings has not changed.', 'anva' ) );
-	
+
 }
 
 /**
@@ -155,7 +155,7 @@ function anva_social_media_option( $id, $name, $val ) {
 
 			// Determine if SSL is being on a secure server.
 			$value = is_ssl() ? 'https://' : 'http://';
-			
+
 			if ( 'email3' == $key ) {
 				$value = 'mailto:';
 			}
@@ -216,16 +216,15 @@ function anva_logo_option( $id, $name, $val ) {
 		$current_value = $val['type'];
 	}
 
-	$select_type  = '<label for="' . $id . '" class="anva-select-label anva-select">';
-	$select_type .= '<span></span>';
-	$select_type .= '<select name="'.esc_attr( $name.'['.$id.'][type]' ).'">';
+	$select_type  = '<div class="select-wrapper">';
+	$select_type .= '<select class="anva-input anva-select" name="'.esc_attr( $name.'['.$id.'][type]' ).'">';
 
 	foreach ( $types as $key => $type ) {
 		$select_type .= sprintf( '<option value="%s" %s>%s</option>', $key, selected( $current_value, $key, false ), $type );
 	}
 
 	$select_type .= '</select>';
-	$select_type .= '</label><!-- .anva-select (end) -->';
+	$select_type .= '</div><!-- .anva-select (end) -->';
 
 	/*------------------------------------------------------*/
 	/* Site Title
@@ -304,10 +303,10 @@ function anva_logo_option( $id, $name, $val ) {
 	$image_upload .= '<div class="section image-2x">';
 	$image_upload .= '<label class="inner-label"><strong>'.__( '2x Standard Image (optional)', 'anva' ).'</strong></label>';
 	$image_upload .= anva_media_uploader( array(
-		'option_name' => $name, 
-		'type'        => 'logo_2x', 
-		'id'          => $id, 
-		'value'       => $current_retina['url'], 
+		'option_name' => $name,
+		'type'        => 'logo_2x',
+		'id'          => $id,
+		'value'       => $current_retina['url'],
 		'name'        => 'image_2x'
 	) );
 	$image_upload .= '</div>';
@@ -326,7 +325,7 @@ function anva_logo_option( $id, $name, $val ) {
 
 	/**
 	 * More will come.
-	 * 
+	 *
 	 * @todo Alternate Image 2x
 	 * @todo Dark Image
 	 * @todo Dark Image 2x
@@ -392,9 +391,8 @@ function anva_columns_option( $id, $name, $val ) {
 	/*------------------------------------------------------*/
 
 	// Select number of columns
-	$select_number  = '<label for="' . $id . '" class="anva-select-label">';
-	$select_number .= '<span></span>';
-	$select_number .= '<select class="column-num" name="'.esc_attr( $name.'['.$id.'][num]' ).'">';
+	$select_number  = '<div class="select-wrapper">';
+	$select_number .= '<select class="column-num anva-input anva-select" name="'.esc_attr( $name.'['.$id.'][num]' ).'">';
 
 	$current_value = '';
 	if ( ! empty( $val ) && ! empty( $val['num'] ) ) {
@@ -406,17 +404,16 @@ function anva_columns_option( $id, $name, $val ) {
 	}
 
 	$select_number .= '</select>';
-	$select_number .= '</label>';
+	$select_number .= '</div>';
 
 	// Select column widths
 	$i = 1;
 	$select_widths = '<div class="column-width column-width-0"><p class="inactive">'.__( 'Columns will be hidden.', 'anva' ).'</p></div>';
 	foreach ( $data_widths as $widths ) {
 
-		$select_widths .= '<label for="' . $id . '" class="anva-select-label column-width column-width-' . $i . '">';
-		$select_widths .= '<span></span>';
-		$select_widths .= '<select name= "'.esc_attr( $name.'['.$id.'][width]['.$i.']' ).'">';
-		
+		$select_widths .= '<div class="select-wrapper column-width column-width-' . $i . '">';
+		$select_widths .= '<select class="anva-input anva-select" name= "'.esc_attr( $name.'['.$id.'][width]['.$i.']' ).'">';
+
 		$current_value = '';
 		if ( ! empty( $val ) && ! empty( $val['width'][$i] ) ) {
 			$current_value = $val['width'][$i];
@@ -427,7 +424,7 @@ function anva_columns_option( $id, $name, $val ) {
 		}
 
 		$select_widths .= '</select>';
-		$select_widths .= '</label>';
+		$select_widths .= '</div>';
 		$i++;
 	}
 

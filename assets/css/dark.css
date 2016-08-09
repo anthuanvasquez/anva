@@ -929,7 +929,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 }
 
 .dark .fbox-effect .fbox-icon i:after {
-  box-shadow: 0 0 0 2px #494949;
+  -webkit-box-shadow: 0 0 0 2px #494949;
+          box-shadow: 0 0 0 2px #494949;
 }
 
 .dark .fbox-effect .fbox-icon i:hover,
@@ -938,7 +939,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 }
 
 .dark .fbox-effect.fbox-dark .fbox-icon i:after {
-  box-shadow: 0 0 0 2px #1ABC9C;
+  -webkit-box-shadow: 0 0 0 2px #1ABC9C;
+          box-shadow: 0 0 0 2px #1ABC9C;
 }
 
 .dark .fbox-effect.fbox-dark .fbox-icon i:hover,
@@ -948,7 +950,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 
 .dark .fbox-border.fbox-effect .fbox-icon i:hover,
 .dark .fbox-border.fbox-effect:hover .fbox-icon i {
-  box-shadow: 0 0 0 1px #494949;
+  -webkit-box-shadow: 0 0 0 1px #494949;
+          box-shadow: 0 0 0 1px #494949;
 }
 
 .dark .fbox-border.fbox-effect .fbox-icon i:after {
@@ -957,7 +960,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 
 .dark .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
 .dark .fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i {
-  box-shadow: 0 0 0 1px #1ABC9C;
+  -webkit-box-shadow: 0 0 0 1px #1ABC9C;
+          box-shadow: 0 0 0 1px #1ABC9C;
 }
 
 .dark .fbox-border.fbox-effect.fbox-dark .fbox-icon i:after {
@@ -1010,7 +1014,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
   background-color: #1ABC9C;
   color: #FFF;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
 }
 
 .dark .i-bordered:hover {
@@ -1188,7 +1193,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 .dark .testimonial {
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .dark .testimonial.twitter-scroll .testi-content p a {
@@ -1239,7 +1245,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 .dark .pricing-box {
   border-color: rgba(255, 255, 255, 0.1);
   background-color: rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .dark .pricing-title {
@@ -1266,7 +1273,8 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 
 .dark .pricing-box.best-price {
   background-color: transparent;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .dark .pricing-box.best-price .pricing-title {
@@ -2388,3 +2396,5 @@ body #side-panel.dark #side-panel-trigger-close a {
     border-top-color: rgba(255, 255, 255, 0.15);
   }
 }
+
+/*# sourceMappingURL=dark.css.map */

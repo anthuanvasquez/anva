@@ -95,7 +95,7 @@ class Anva_Scripts_API {
         // Functions
         $this->framework_scripts['anva_main'] = array(
             'handle'    => 'anva_main',
-            'src'       => anva_get_core_uri() . 'assets/js/main.min.js',
+            'src'       => anva_get_core_uri() . 'assets/js/main.js',
             'deps'      => array( 'jquery', 'anva_plugins' ),
             'ver'       => ANVA_FRAMEWORK_VERSION,
             'footer'    => true

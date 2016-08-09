@@ -85,7 +85,7 @@ function anva_content_format_gallery( $content ) {
 
 /**
  * Gallery content.
- * 
+ *
  * @since 1.0.0
  */
 function anva_gallery_content() {
@@ -97,7 +97,7 @@ function anva_gallery_content() {
         anva_gallery_slider_content();
         return;
 	}
-	
+
     if ( 'masonry' == $gallery ) {
         anva_gallery_masonry_content();
         return '';
@@ -113,7 +113,7 @@ function anva_gallery_content() {
 
 /**
  * Status content.
- * 
+ *
  * @since 1.0.0
  */
 function anva_content_status() {
@@ -127,7 +127,7 @@ function anva_content_status() {
 	if ( $content ) {
 		printf( '<div class="panel panel-default"><div class="panel-body">%s</div></div>', $content );
 	}
-	
+
 }
 
 /**
@@ -196,7 +196,7 @@ function anva_get_content_link( $content ) {
 
 /**
  * Content link.
- * 
+ *
  * @since 1.0.0
  */
 function anva_content_link() {
@@ -210,7 +210,7 @@ function anva_content_link() {
 	if ( $url ) {
 		printf( '<a href="%1$s" class="entry-link" target="_blank">%2$s <span>- %1$s</span></a>', $url[0], get_the_title() );
 	}
-	
+
 }
 
 /**
@@ -527,7 +527,7 @@ function anva_content_quote() {
  * @return array $post_formats
  */
 function anva_post_format_filter() {
-	
+
 	$post_formats = array(
 		'quote',
 		'link',
