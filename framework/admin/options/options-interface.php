@@ -426,7 +426,7 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 
 				$class = '';
 				if ( ! $val ) {
-					$class = 'class="empty"';
+					$class = 'class="empty" data-text="'. __( 'Click on Add button', 'anva' ) . '"';
 				}
 
 				$output .= '<div class="group-button">';
@@ -491,7 +491,7 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 
 				$output .= '<input type="hidden" id="contact_field_name" value="' . esc_attr( $value['id'] ) . '" />';
 				$output .= '<div class="dynamic-contact-fields">';
-				$output .= '<ul class="' . $class . '">';
+				$output .= '<ul class="' . $class . '" data-text="' . __( 'Click on Add button', 'anva' ) . '">';
 
 				// Display every field
 				if ( $val ) {

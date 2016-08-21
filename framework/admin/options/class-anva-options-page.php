@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Options_Import_Export' ) ) :
+if ( ! class_exists( 'Anva_Options_Page' ) ) :
 
 /**
  * Create the options page panel.
@@ -226,13 +226,18 @@ class Anva_Options_Page
 	 public function options_page()
 	 {
 	 ?>
-		<div id="anva-framework-wrap" class="wrap">
+		<div id="anva-framework-wrap" class="anva-framework-wrap wrap">
 
 			<?php
-				$menu = $this->menu_settings();
+				$menu    = $this->menu_settings();
 				$options = anva_get_options();
 
-			 	printf( '<h2>%1$s <span>%3$s<em>%2$s</em></span></h2>', esc_html( $menu['page_title'] ), anva_get_theme( 'version' ), __( 'Version', 'anva' ) );
+			 	printf(
+			 		'<h2 class="anva-page-title"><span class="dashicons dashicons-admin-settings"></span> %1$s <span>%3$s<em>%2$s</em></span></h2>',
+			 		esc_html( $menu['page_title'] ),
+			 		anva_get_theme( 'version' ),
+			 		__( 'Version', 'anva' )
+			 	);
 			 ?>
 
 			<?php do_action( 'anva_options_page_top' ); ?>
@@ -245,7 +250,7 @@ class Anva_Options_Page
 
 			<?php do_action( 'anva_options_page_before' ); ?>
 
-			<div id="anva-framework-metabox" class="metabox-holder">
+			<div id="anva-framework-metabox" class="anva-frame-work-metabox metabox-holder">
 				<div id="anva-framework" class="anva-framework animsition">
 					<form class="anva-framework-settings options-settings" action="options.php" method="post">
 						<div class="columns-1">
@@ -255,7 +260,7 @@ class Anva_Options_Page
 
 								// Settings
 								$option_name = anva_get_option_name();
-								$settings = get_option( $option_name );
+								$settings    = get_option( $option_name );
 
 								// Fields
 								anva_get_options_fields( $option_name, $settings, $options );
@@ -266,7 +271,9 @@ class Anva_Options_Page
 							<div class="postbox-wrapper">
 								<?php do_action( 'anva_options_page_side_before' ); ?>
 								<div id="anva-framework-submit" class="postbox">
-									<h3><span><?php esc_html_e( 'Actions', 'anva' );?></span></h3>
+									<h3>
+										<span><?php esc_html_e( 'Actions', 'anva' );?></span>
+									</h3>
 									<div class="inside">
 										<?php anva_admin_settings_log(); ?>
 										<div class="actions">
@@ -459,9 +466,9 @@ class Anva_Options_Page
 
 		$args = array(
 			'parent' => 'appearance',
-			'id' => 'anva_theme_options',
-			'title' => $menu['menu_title'],
-			'href' => $href
+			'id'     => 'anva_theme_options',
+			'title'  => $menu['menu_title'],
+			'href'   => $href
 		);
 
 		$wp_admin_bar->add_menu( apply_filters( 'anva_options_page_admin_bar', $args ) );

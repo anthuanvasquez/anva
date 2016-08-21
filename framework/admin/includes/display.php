@@ -17,14 +17,14 @@ function anva_admin_theme_activate() {
 			__( 'Anva theme is activated.', 'anva' ),
 			sprintf(
 				__( 'Go to %s', 'anva' ),
-				'<a href="'. esc_url( $admin_url ) .'">' . __( 'Theme Options Page', 'anva' ) . '</a>'
+				'<a href="' . esc_url( $admin_url ) . '">' . __( 'Theme Options Page', 'anva' ) . '</a>'
 			)
 		);
 	}
 }
 
 /**
- * Check if seetings exists in the database.
+ * Check if settings exists in the database.
  *
  * @since 1.0.0
  */

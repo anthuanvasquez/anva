@@ -84,7 +84,6 @@ function anva_admin_assets() {
 	// Admin Global
 	wp_enqueue_script( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_JS . 'admin-global.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, false );
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-global.css', array(), ANVA_FRAMEWORK_VERSION );
-	wp_enqueue_style( 'anva_admin_responive', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-responsive.css', array(), ANVA_FRAMEWORK_VERSION );
 
 }
 
