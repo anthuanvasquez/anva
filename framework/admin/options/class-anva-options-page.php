@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Options_Import_Export' ) ) :
+if ( ! class_exists( 'Anva_Options_Page' ) ) :
 
 /**
  * Create the options page panel.
@@ -165,6 +165,7 @@ class Anva_Options_Page
 		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.css', array(), '5.13.2' );
 		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
 		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.css', array(), '4.0.1' );
+		wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
 		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
 		wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
 		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options-page.min.css', array(), ANVA_FRAMEWORK_VERSION );
@@ -188,6 +189,7 @@ class Anva_Options_Page
 		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.js', array( 'jquery' ), '4.0.1', true );
+		wp_enqueue_script( 'jquery-selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
 		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options-page.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
@@ -224,13 +226,18 @@ class Anva_Options_Page
 	 public function options_page()
 	 {
 	 ?>
-		<div id="anva-framework-wrap" class="wrap">
+		<div id="anva-framework-wrap" class="anva-framework-wrap wrap">
 
 			<?php
-				$menu = $this->menu_settings();
+				$menu    = $this->menu_settings();
 				$options = anva_get_options();
 
-			 	printf( '<h2>%1$s <span>%3$s<em>%2$s</em></span></h2>', esc_html( $menu['page_title'] ), anva_get_theme( 'version' ), __( 'Version', 'anva' ) );
+			 	printf(
+			 		'<h2 class="anva-page-title"><span class="dashicons dashicons-admin-settings"></span> %1$s <span>%3$s<em>%2$s</em></span></h2>',
+			 		esc_html( $menu['page_title'] ),
+			 		anva_get_theme( 'version' ),
+			 		__( 'Version', 'anva' )
+			 	);
 			 ?>
 
 			<?php do_action( 'anva_options_page_top' ); ?>
@@ -243,7 +250,7 @@ class Anva_Options_Page
 
 			<?php do_action( 'anva_options_page_before' ); ?>
 
-			<div id="anva-framework-metabox" class="metabox-holder">
+			<div id="anva-framework-metabox" class="anva-frame-work-metabox metabox-holder">
 				<div id="anva-framework" class="anva-framework animsition">
 					<form class="anva-framework-settings options-settings" action="options.php" method="post">
 						<div class="columns-1">
@@ -253,7 +260,7 @@ class Anva_Options_Page
 
 								// Settings
 								$option_name = anva_get_option_name();
-								$settings = get_option( $option_name );
+								$settings    = get_option( $option_name );
 
 								// Fields
 								anva_get_options_fields( $option_name, $settings, $options );
@@ -264,7 +271,9 @@ class Anva_Options_Page
 							<div class="postbox-wrapper">
 								<?php do_action( 'anva_options_page_side_before' ); ?>
 								<div id="anva-framework-submit" class="postbox">
-									<h3><span><?php esc_html_e( 'Actions', 'anva' );?></span></h3>
+									<h3>
+										<span><?php esc_html_e( 'Actions', 'anva' );?></span>
+									</h3>
 									<div class="inside">
 										<?php anva_admin_settings_log(); ?>
 										<div class="actions">
@@ -457,9 +466,9 @@ class Anva_Options_Page
 
 		$args = array(
 			'parent' => 'appearance',
-			'id' => 'anva_theme_options',
-			'title' => $menu['menu_title'],
-			'href' => $href
+			'id'     => 'anva_theme_options',
+			'title'  => $menu['menu_title'],
+			'href'   => $href
 		);
 
 		$wp_admin_bar->add_menu( apply_filters( 'anva_options_page_admin_bar', $args ) );

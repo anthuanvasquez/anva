@@ -1103,3 +1103,11 @@ body:not(.no-transition) #wrapper,
 	opacity: 0.0; }
 }
 
+$delay: 0.2;
+
+@for $i from 1 through 20 {
+	.animated-#{$i} {
+		animation-delay: #{$delay}s;
+	}
+	$delay: $delay + 0.2;
+}

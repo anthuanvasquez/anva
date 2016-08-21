@@ -613,7 +613,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework input[type="datetime"],
 .anva-framework input[type="number"],
 .anva-framework input[type="password"] {
-  box-shadow: 0 0 4px #eee;
+  box-shadow: 0 0 4px #EEE;
   color: #666;
   height: 33px;
   margin-bottom: 10px;
@@ -630,12 +630,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 0 !important;
 }
 
-.anva-framework input.anva-checkbox,
-.anva-framework input.anva-radio {
-  margin: 0 10px 5px 0;
-  clear: both;
-}
-
 .anva-framework select,
 .anva-framework textarea {
   color: #666;
@@ -646,8 +640,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework h3 {
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
+  background-color: #FFF;
+  border-bottom: 1px solid #EEE;
   cursor: default;
 }
 
@@ -672,19 +666,25 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   box-shadow: none;
 }
 
+.anva-framework .anva-checkbox,
+.anva-framework .anva-radio {
+  margin: 0 10px 5px 0;
+  clear: both;
+}
+
 .anva-framework .group {
   padding-bottom: 0px;
 }
 
 .anva-framework .inner-group {
-  border-bottom: 4px solid #eee;
+  border-bottom: 4px solid #EEE;
   padding: 10px 15px;
   position: relative;
 }
 
 .anva-framework .inner-group > h3 {
-  margin: -10px -15px 0;
   cursor: pointer;
+  margin: -10px -15px 0;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -697,7 +697,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 .anva-framework .inner-group > h3:before {
   content: '\f142';
-  color: #72777c;
+  color: #72777C;
   font: 400 20px/1 dashicons;
   float: right;
   speak: none;
@@ -741,7 +741,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   clear: both;
 }
 
-.anva-framework .section h4.heading {
+.anva-framework .section .heading {
   font-size: 14px;
   margin: 0 0 15px;
 }
@@ -768,104 +768,32 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   width: 100%;
 }
 
-.anva-framework .section .controls input[type=text].wp-color-picker {
-  margin-bottom: 0;
-  height: 24px;
-  width: 65px;
-}
-
 .anva-framework .section .controls select,
 .anva-framework .section .controls textarea {
   margin-bottom: 10px;
   width: 100%;
 }
 
-.anva-framework .section .controls .anva-select-label {
-  display: block;
-  background-size: 7px 32px;
-  border-radius: 0;
-  box-shadow: 0 0 4px #eee;
-  line-height: 1;
-  margin-bottom: 10px;
-  position: relative;
-}
-
-.anva-framework .section .controls .anva-select-label > span {
-  box-sizing: border-box;
-  color: #666;
-  line-height: 33px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 0 10px;
-  overflow: hidden;
-  width: 100%;
-}
-
-.anva-framework .section .controls .anva-select-label select {
+.anva-framework .section .controls .wp-color-picker {
   margin-bottom: 0;
-  filter: alpha(opacity=0);
-  -moz-opacity: 0;
-  -khtml-opacity: 0;
-  opacity: 0;
-  position: relative;
-  height: 33px;
-  z-index: 2;
-}
-
-.anva-framework .section .controls .anva-select-label:before {
-  content: "";
-  border: 1px solid #dfdfdf;
-  border-radius: 0;
-  display: block;
-  line-height: 33px;
-  padding: 0 10px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.anva-framework .section .controls .anva-select-label:after {
-  content: "";
-  background: url(../images/fancy-select-trigger_2x.png) no-repeat;
-  background-size: 25px 33px;
-  border-left: 1px solid #dfdfdf;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 25px;
-  height: 33px;
-}
-
-.anva-framework .section .controls .anva-select-label select {
-  margin: 0;
-  border-radius: 0;
-  border: 1px solid #dfdfdf;
-  outline: none;
-  display: inline-block;
-  height: 33px;
-  cursor: pointer;
+  height: 24px;
+  width: 65px;
 }
 
 .anva-framework .section .explain {
-  max-width: 42%;
+  color: #777;
   float: left;
   font-size: 13px;
   line-height: 18px;
-  color: #777;
+  max-width: 42%;
 }
 
 /* --------------------------------------------------------- */
 /* Section Options
 /* --------------------------------------------------------- */
 .anva-framework .section-description {
-  background: #f7f7f7;
-  border-bottom: 1px solid #eee;
+  background-color: #F7F7F7;
+  border-bottom: 1px solid #EEE;
   color: #777;
   margin: 0 -15px;
   padding: 20px 15px;
@@ -889,8 +817,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .section-logo .section {
-  background: #fff;
-  border: 1px solid #dfdfdf;
+  background-color: #FFF;
+  border: 1px solid #DFDFDF;
   border-radius: 0;
   margin: 0 0 10px 0;
   padding: 12px 15px;
@@ -914,8 +842,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .section-logo .screenshot {
-  background: #f9f9f9;
-  border: 1px solid #eee;
+  background-color: #f9f9f9;
+  border: 1px solid #EEE;
   margin-top: 15px;
 }
 
@@ -935,14 +863,14 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   line-height: 20px;
 }
 
-.anva-framework .section-social_media input.anva-radio,
-.anva-framework .section-social_media input.checkbox {
-  margin: 0 5px 0 0;
-  float: none;
-}
-
 .anva-framework .section-social_media input[type="text"] {
   margin: 10px 0;
+}
+
+.anva-framework .section-social_media .anva-radio,
+.anva-framework .section-social_media .checkbox {
+  margin: 0 5px 0 0;
+  float: none;
 }
 
 .anva-framework .section-social_media .column-1 {
@@ -953,21 +881,21 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 .anva-framework .section-social_media .column-2 {
   float: right;
-  margin-right: 0%;
+  margin-right: 0;
   width: 48%;
 }
 
 .anva-framework .section-sidebar .dynamic-sidebars ul {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: #F9F9F9;
+  border: 1px solid #DDD;
   border-radius: 0;
   margin: 10px 0 0;
   padding: 10px;
 }
 
 .anva-framework .section-sidebar .dynamic-sidebars ul.empty:before {
-  content: 'Click on "Add" button';
-  color: #bbb;
+  content: attr(data-text);
+  color: #BBB;
   display: block;
   font-size: 13px;
   padding: 10px;
@@ -975,10 +903,10 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .section-sidebar .dynamic-sidebars ul li {
-  background: #fff;
-  border: 1px solid #eee;
+  background-color: #FFF;
+  border: 1px solid #EEE;
   border-radius: 0;
-  color: #000;
+  color: #666;
   font-weight: bold;
   padding: 15px;
   position: relative;
@@ -1005,16 +933,16 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .section-contact_fields .dynamic-contact-fields ul {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
+  background: #F9F9F9;
+  border: 1px solid #DDD;
   border-radius: 0;
   margin: 10px 0 0;
   padding: 10px;
 }
 
 .anva-framework .section-contact_fields .dynamic-contact-fields ul.empty:before {
-  content: 'Click on "Add" button';
-  color: #bbb;
+  content: attr(data-text);
+  color: #BBB;
   display: block;
   font-size: 13px;
   padding: 10px;
@@ -1022,10 +950,10 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 }
 
 .anva-framework .section-contact_fields .dynamic-contact-fields ul li {
-  background: #fff;
-  border: 1px solid #eee;
+  background: #FFF;
+  border: 1px solid #EEE;
   border-radius: 0;
-  color: #000;
+  color: #666;
   font-weight: bold;
   padding: 15px;
   position: relative;
@@ -1051,14 +979,14 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   margin-right: 0;
 }
 
-.anva-framework .section-columns p.inactive {
-  background: #f9f9f9;
-  border: 1px solid #f2f2f2;
+.anva-framework .section-columns .inactive {
+  background-color: #F9F9F9;
+  border: 1px solid #F2F2F2;
   border-radius: 2px;
   color: #777;
-  padding: 3px 10px;
-  margin: 0;
   line-height: 29px;
+  margin: 0;
+  padding: 3px 10px;
 }
 
 .anva-framework .section-double_text .double-inputs .input-col {
@@ -1476,3 +1404,5 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   -webkit-animation-name: bounceIn;
           animation-name: bounceIn;
 }
+
+/*# sourceMappingURL=admin-global.css.map */

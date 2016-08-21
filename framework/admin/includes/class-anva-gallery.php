@@ -41,9 +41,9 @@ class Anva_Gallery
 		$this->id = $id;
 
 		$defaults = array(
-			'page'			=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
-			'context'		=> 'normal',			// Normal, advanced, or side
-			'priority'		=> 'high'				// Priority
+			'page'     => array( 'post' ),	// Can contain post, page, link, or custom post type's slug
+			'context'  => 'normal',		    // Normal, advanced, or side
+			'priority' => 'high'			// Priority
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
@@ -114,7 +114,7 @@ class Anva_Gallery
 		<div id="anva-framework" class="anva-meta-box">
 			<div class="anva-input-gallery">
 				<div id="anva_gallery_container">
-					<ul id="anva_gallery_thumbs">
+					<ul id="anva_gallery_thumbs" data-text="<?php _e( 'No images have been selected yet.', 'anva' ); ?>">
 						<?php
 							$gallery = ( is_string( $gallery ) ) ? @unserialize( $gallery ) : $gallery;
 							if ( is_array( $gallery ) && count( $gallery ) > 0 ) {

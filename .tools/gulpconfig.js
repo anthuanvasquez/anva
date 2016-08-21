@@ -239,6 +239,10 @@ module.exports = {
       src: [src + '**/*.php', '!' + src + '.tools/**'],
       dest: build
     },
+    readme: {
+      src: src + 'readme.md',
+      dest: build
+    },
     textdomain: {
       text_domain: project,
       keywords: [
@@ -258,9 +262,9 @@ module.exports = {
         '_nx_noop:1,2,3c,4d'
       ]
     },
-    // Move theme to `parent` folder to be tested before released.
+    // Theme symlink
     test: {
-      src: build + '**/*',
+      src: build,
       dest: parent + release
     }
   },

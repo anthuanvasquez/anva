@@ -79,3 +79,56 @@ body.device-lg .post-reading-bar {
   margin-left: auto;
   margin-right: auto;
 }
+
+#instantsearch {
+  background: #fff;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  display: none;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 600px;
+  position: absolute;
+  width: 600px;
+  z-index: 1001;
+}
+
+#instantsearch .entry-meta {
+  margin: 5px 0 0;
+}
+
+#instantsearch .view-all {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+#instantsearch .view-all a {
+  color: #fff;
+  text-align: center;
+}
+
+#instantsearch ul {
+  display: block;
+  border: 0;
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#instantsearch ul li {
+  display: block;
+  float: none;
+  margin: 0;
+  padding: 10px 15px 10px 15px;
+  width: 100%;
+}
+
+#instantsearch ul li a {
+  display: block;
+  line-height: normal;
+  height: auto;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}

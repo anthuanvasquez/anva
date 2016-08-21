@@ -17,10 +17,10 @@
 
 get_header();
 
-$column       = 2; // Default Column
+$column       = apply_filters( 'anva_template_grid_columns', 2 );; // Default Column
+$thumbnail    = apply_filters( 'anva_template_grid_thumbnail', 'anva_grid_2' );
 $current_grid = anva_get_post_meta( '_anva_grid_column' );
 $grid_columns = anva_get_grid_columns();
-$thumbnail    = 'anva_grid_2';
 
 if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 	$column = $grid_columns[ $current_grid ]['column'];
@@ -40,7 +40,10 @@ $query = anva_get_posts();
 				<div class="entry-title">
 					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 				</div>
-				<?php anva_the_excerpt(); ?>
+				<?php anva_posted_on_mini(); ?>
+				<div class="entry-content">
+					<?php anva_the_excerpt(); ?>
+				</div>
 			</article>
 
 		<?php endwhile; ?>
