@@ -94,11 +94,11 @@ jQuery( document ).ready( function( $ ) {
 				e.preventDefault();
 
 				if ( $('#anva_gallery_thumbs li').length === 0 ) {
-					alert( anvaJs.gallery_empty );
+					alert( anvaGalleryVar.gallery_empty );
 					return;
 				}
 
-				if ( confirm( anvaJs.gallery_confirm ) ) {
+				if ( confirm( anvaGalleryVar.gallery_confirm ) ) {
 					s.thumbUl.empty();
 				}
 

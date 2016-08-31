@@ -1,23 +1,28 @@
 <?php
 
-// Define post types to be used in the theme
-$post_types = array(
-	'portfolio',
-	'galleries',
-	'slideshows'
-);
-
 // Define theme constants
 define( 'ANVA_THEME_ID', 'anva' );
 define( 'ANVA_THEME_NAME', 'Anva' );
 define( 'ANVA_THEME_VERSION', '1.0.0');
-define( 'ANVA_POST_TYPES_USED', serialize( $post_types ) );
+define( 'ANVA_POST_TYPES_USED', serialize( anva_get_post_types() ) );
 
 // Modify customizer options
 require_once( get_template_directory() . '/includes/customizer.php' );
 
 // Modify framework's core options
 require_once( get_template_directory() . '/includes/options.php' );
+
+// Define post types to be used in the theme
+function anva_get_post_types() {
+
+	$post_types = array(
+		'portfolio',
+		'galleries',
+		'slideshows'
+	);
+
+	return apply_filters( 'anva_post_types_used', $post_types );
+}
 
 /**
  * Add theme body classes.

@@ -71,7 +71,7 @@ class Anva_Gallery
 
 				wp_enqueue_script( 'media-upload' );
 				wp_enqueue_script( 'anva-media-gallery',ANVA_FRAMEWORK_ADMIN_JS . 'gallery.min.js', array(), ANVA_FRAMEWORK_VERSION, true );
-				wp_localize_script( 'anva-media-gallery', 'anvaJs', anva_get_admin_locals( 'metabox_js' ) );
+				wp_localize_script( 'anva-media-gallery', 'anvaGalleryVar', anva_get_admin_locals( 'metabox_js' ) );
 				wp_enqueue_style( 'anva-gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'gallery.min.css', array(), ANVA_FRAMEWORK_VERSION, 'all' );
 
 			}

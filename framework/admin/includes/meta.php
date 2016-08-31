@@ -62,7 +62,8 @@ function anva_add_meta_boxes_default() {
 	/* Gallery
 	/* ------------------------------------------ */
 
-	if ( post_type_exists( 'galleries' ) ) {
+	if ( anva_post_type_used( 'galleries' ) ) {
+
 		$gallery       = anva_setup_gallery_meta();
 		$gallery_media = anva_setup_gallery_media_meta();
 
@@ -82,7 +83,7 @@ function anva_add_meta_boxes_default() {
 	/* Portfolio
 	/* ------------------------------------------ */
 
-	if ( post_type_exists( 'portfolio' ) ) {
+	if ( anva_post_type_used( 'portfolio' ) ) {
 
 		$portfolio       = anva_setup_portfolio_meta();
 		$portfolio_media = anva_setup_portfolio_media_meta();
@@ -104,8 +105,10 @@ function anva_add_meta_boxes_default() {
 	/* Slideshows
 	/* ------------------------------------------ */
 
-	if ( post_type_exists( 'slideshows' ) ) {
+	if ( anva_post_type_used( 'slideshows' ) ) {
+
 		$slideshow = anva_setup_slideshow_meta();
+
 		anva_add_meta_box(
 			$slideshow['args']['id'],
 			$slideshow['args'],

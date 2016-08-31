@@ -45,6 +45,9 @@ function anva_get_options_tabs( $options ) {
 	return $menu;
 }
 
+function anva_the_options_fields( $option_name, $settings, $options, $prefix = '' ) {
+	anva_get_options_fields( $option_name, $settings, $options, $prefix );
+}
 
 /**
  * Generates the options fields that are used in the theme options,
@@ -61,7 +64,7 @@ function anva_get_options_tabs( $options ) {
  * @param  array  $options
  * @return string $output
  */
-function anva_get_options_fields( $option_name, $settings, $options ) {
+function anva_get_options_fields( $option_name, $settings, $options, $prefix = '' ) {
 
 	global $allowedtags;
 
@@ -113,6 +116,11 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 
 				// Keep all ids lowercase with no spaces
 				$value['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $value['id'] ) );
+
+
+				if ( ! empty( $prefix ) ) {
+					$value['id'] = strtolower( $prefix ) . '_' . $value['id'];
+				}
 
 				$id = 'section-' . $value['id'];
 
@@ -590,7 +598,7 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 					if ( $val !=  $value['std'] )
 						$default_color = ' data-default-color="' .$value['std'] . '" ';
 				}
-				$output .= '<input name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '" class="anva-color" type="text" value="' . esc_attr( $val ) . '"' . $default_color .' />';
+				$output .= '<input name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-color" type="text" value="' . esc_attr( $val ) . '"' . $default_color .' />';
 				break;
 
 			/* ------------------------------------- */
@@ -617,13 +625,13 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 				}
 
 				$output .= sprintf(
-					'<div id="%s_range" class="anva-input anva-range-slider" data-range="%s"></div>',
+					'<div id="%s_range" class="anva-range-slider" data-range="%s"></div>',
 					 esc_attr( $value['id'] ),
 					 esc_attr( $value['id'] )
 
 				);
 				$output .= sprintf(
-					'<input id="%s" name="%s" class="anva-input-range hidden" type="text" value="%s" data-min="%s" data-max="%s" data-step="%s" data-units="%s" />',
+					'<input id="%s" name="%s" class="anva-input anva-input-range hidden" type="text" value="%s" data-min="%s" data-max="%s" data-step="%s" data-units="%s" />',
 					esc_attr( $value['id'] ),
 					esc_attr( $option_name . '[' . $value['id'] . ']' ),
 					esc_attr( $val ),
@@ -661,12 +669,12 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 
 					$output .= '<div class="font-range">';
 					$output .= sprintf(
-						'<div id="%s_range" class="anva-input anva-range-slider" data-range="%s"></div>',
+						'<div id="%s_range" class="anva-range-slider" data-range="%s"></div>',
 						 esc_attr( $id ),
 						 esc_attr( $id )
 					);
 					$output .= sprintf(
-						'<input id="%s" name="%s" class="anva-input-range hidden" type="text" value="%s" data-min="%s" data-max="%s" data-step="%s" data-units="%s" />',
+						'<input id="%s" name="%s" class="anva-input anva-input-range hidden" type="text" value="%s" data-min="%s" data-max="%s" data-step="%s" data-units="%s" />',
 						esc_attr( $id ),
 						esc_attr( $option_name . '[' . $value['id'] . '][size]' ),
 						esc_attr( $typography_stored['size'] ),
@@ -923,8 +931,4 @@ function anva_get_options_fields( $option_name, $settings, $options ) {
 	if ( anva_get_options_tabs( $options ) != '' ) {
 		echo '</div><!-- .group (end) -->';
 	}
-}
-
-function anva_the_options_fields( $option_name, $settings, $options ) {
-	anva_get_options_fields( $option_name, $settings, $options );
 }

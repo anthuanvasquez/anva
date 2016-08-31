@@ -37,7 +37,6 @@ function anva_add_theme_support() {
  * @since 1.0.0
  */
 function anva_require_theme_supports() {
-	require_if_theme_supports( 'anva-login', ANVA_FRAMEWORK_EXT . 'login/class-login.php' );
 	require_if_theme_supports( 'anva-menu', ANVA_FRAMEWORK_EXT . 'menu/menu.php' );
 	require_if_theme_supports( 'anva-instant-search', ANVA_FRAMEWORK_EXT . 'instant-search/search.php' );
 	require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce/woocommerce.php' );
@@ -1249,7 +1248,7 @@ function anva_admin_menu_bar() {
 		);
 	}
 
-	// Theme Recommende Plugins
+	// Theme Recommended Plugins
 	if ( current_user_can( 'install_plugins' ) ) {
 		$wp_admin_bar->add_node(
 			array(

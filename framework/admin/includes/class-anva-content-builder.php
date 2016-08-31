@@ -121,8 +121,8 @@ class Anva_Content_Builder
 				wp_enqueue_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'js-wp-editor.min.js', array( 'jquery' ), '1.1', false );
 				wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
 
-				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'builder.min.css', array( 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
-				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'builder.min.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'builder.css', array( 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'builder.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 				wp_localize_script( 'anva_builder', 'anvaBuilderJs', anva_get_admin_locals( 'metabox_js' ) );
 
 			}
@@ -241,7 +241,7 @@ class Anva_Content_Builder
 		<input type="hidden" id="anva_shortcode_order"  name="<?php echo esc_attr( $this->id . '[order]' ); ?>" value="" />
 		<input type="hidden" id="anva_current_item" 	name="anva_current_item" value="" />
 
-		<div id="anva-framework" class="anva-meta-box">
+		<div id="anva-framework" class="anva-framework">
 			<div class="anva-builder-wrap">
 
 				<div class="anva-tooltip-info-html hidden">
@@ -329,7 +329,6 @@ class Anva_Content_Builder
 										<div class="actions">
 											<a title="<?php esc_html_e( 'Add Column', 'anva' ); ?>" href="#" class="button-col-up"></a>
 											<a title="<?php esc_html_e( 'Remove Column', 'anva' ); ?>" href="#" class="button-col-down"></a>
-
 											<a title="<?php esc_html_e( 'Move Item Up', 'anva' ); ?>" href="#" class="button-move-up"></a>
 											<a title="<?php esc_html_e( 'Move Item Down', 'anva' ); ?>" href="#" class="button-move-down"></a>
 											<a title="<?php esc_html_e( 'Edit Item', 'anva' ); ?>" href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=anva_builder_get_fields&shortcode=' . $shortcode . '&rel=' . $item ) ); ?>" class="button-edit" data-id="<?php echo esc_attr( $item ); ?>"></a>
@@ -600,166 +599,167 @@ class Anva_Content_Builder
 
 				<div id="item-inline-<?php echo esc_attr( $id ); ?>" data-shortcode="<?php echo esc_attr( $shortcode ); ?>" class="item-inline item-inline-<?php echo esc_attr( $id); ?>">
 
-				<div class="section section-header">
-					<h2><?php echo $shortcode_arr['name']; ?></h2>
-					<input type="button" id="save-<?php echo esc_attr( $id ); ?>" class="button button-primary" value="<?php _e( 'Update', 'anva' ); ?>" />
-					<input type="button" id="cancel-<?php echo esc_attr( $id ); ?>" class="button button-secondary" value="<?php _e( 'Cancel', 'anva' ); ?>" />
-				</div>
+					<div class="section section-header">
+						<h2><?php echo $shortcode_arr['name']; ?></h2>
+						<button type="button" id="save-<?php echo esc_attr( $id ); ?>" class="button button-primary">
+							<?php _e( 'Update', 'anva' ); ?>
+						</button>
+						<button type="button" id="cancel-<?php echo esc_attr( $id ); ?>" class="button button-secondary">
+							<?php _e( 'Cancel', 'anva' ); ?>
+						</button>
+					</div>
 
-				<?php if ( isset( $shortcode_arr['name'] ) && $shortcode_arr['name'] != 'Divider' ) : ?>
-				<?php
-					$title = $shortcode . '_title';
-					$value = $shortcode_arr['name'];
-				?>
-				<div class="section section-title">
-					<h4><?php _e( 'Name', 'anva' ); ?></h4>
-					<div class="option">
-						<div class="controls">
-							<input type="text" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
+					<?php if ( isset( $shortcode_arr['name'] ) && $shortcode_arr['name'] != 'Divider' ) :
+							$title = $shortcode . '_title';
+							$value = $shortcode_arr['name']; ?>
+
+						<div class="section section-title">
+							<h4><?php _e( 'Name', 'anva' ); ?></h4>
+							<div class="option">
+								<div class="controls">
+									<input type="text" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
+								</div>
+								<div class="explain">
+									<?php _e( 'Enter the name of the element.', 'anva' ); ?>
+								</div>
+							</div>
 						</div>
-						<div class="explain"><?php _e( 'Enter the name of the element.', 'anva' ); ?></div>
-					</div>
-				</div>
-				<?php else : ?>
-					<input type="hidden" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
-				<?php endif;
 
+					<?php else : ?>
+						<input type="hidden" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
+					<?php endif; ?>
 
-				anva_the_options_fields( 'anva_builder', '', $shortcode_arr['attr'] );
+					<?php anva_the_options_fields( 'anva_builder', '', $shortcode_arr['attr'], $shortcode ); ?>
 
-				?>
+					<?php if ( isset ( $shortcode_arr['content'] ) && $shortcode_arr['content'] ) :
+						$editor_id = $shortcode . '_content'; ?>
 
-				<?php if ( isset ( $shortcode_arr['content'] ) && $shortcode_arr['content'] ) : ?>
-				<?php
-					$editor_id = $shortcode . '_content';
-				?>
-				<div class="section section-content">
-					<h4><?php _e( 'Content', 'anva' ); ?></h4>
-					<div class="explain">
-						<?php printf( '%s <strong>%s</strong>.', __( 'Enter the text or HTML content to display in this item', 'anva' ), $shortcode_arr['name'] ); ?>
-					</div>
-					<div class="controls">
-						<textarea id="<?php echo esc_attr( $editor_id ); ?>" name="<?php echo esc_attr( $editor_id ); ?>" rows="10" class="anva-input anva-textarea anva-wp-editor"></textarea>
-					</div>
-				</div>
-				<?php endif; ?>
+						<div class="section section-content">
+							<h4><?php _e( 'Content', 'anva' ); ?></h4>
+							<div class="explain">
+								<?php printf( '%s <strong>%s</strong>.', __( 'Enter the text or HTML content to display in this item', 'anva' ), $shortcode_arr['name'] ); ?>
+							</div>
+							<div class="controls">
+								<textarea id="<?php echo esc_attr( $editor_id ); ?>" name="<?php echo esc_attr( $editor_id ); ?>" rows="10" class="anva-input anva-textarea anva-wp-editor"></textarea>
+							</div>
+						</div>
 
-			</div><!-- .item-inline (end) -->
+					<?php endif; ?>
 
-			<?php var_dump($id); ?>
+				</div><!-- .item-inline (end) -->
 
-			<script type="text/javascript">
-			/* <![CDATA[ */
-			jQuery(document).ready( function($) {
+				<script type="text/javascript">
+				/* <![CDATA[ */
+				jQuery(document).ready( function($) {
 
-				'use strict';
+					'use strict';
 
-				var $currentItemData = $('#<?php echo esc_js( $id ); ?>').data( 'anva_builder_settings' );
-				var $currentItemOBJ = $.parseJSON( $currentItemData );
+					var $currentItemData = $('#<?php echo esc_js( $id ); ?>').data( 'anva_builder_settings' ),
+						$currentItemOBJ = $.parseJSON( $currentItemData );
 
+					console.log($currentItemData);
 
-				console.log($currentItemData);
+					$.each( $currentItemOBJ, function( index, value ) {
+						if ( typeof $( '#' + index ) != 'undefined' ) {
+							$( '#' + index ).val( decodeURI( value ) );
 
+							console.log(index);
+							console.log(value);
 
-				$.each( $currentItemOBJ, function( index, value ) {
-					if ( typeof $( '#' + index ) != 'undefined' ) {
-						$( '#' + index ).val( decodeURI( value ) );
-
-						console.log(value);
-
-						if ( $( '#' + index ).hasClass('anva-file') ) {
-							var $remove = $('#' + index + '_button').data('remove');
-							$('#' + index + '_button').text( $remove );
-							$('#' + index + '_image').append('<img src="' + value + '" /><a href="#" class="anva-remove-image">X</a>').slideDown('fast');
-						}
-					}
-				});
-
-				// Cancel Changes
-				$("#cancel-<?php echo esc_js( $id ); ?>").on( 'click', function(e) {
-					e.preventDefault();
-					var itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>');
-					var parentEle = $('#<?php echo esc_js( $id ); ?>');
-					if ( parentEle.hasClass('has-inline-content') ) {
-						parentEle.removeClass('has-inline-content');
-					}
-					if ( itemInner.length > 0 ) {
-						itemInner.slideToggle();
-						setTimeout( function() {
-							itemInner.remove();
-						}, 500);
-					}
-				});
-
-				// Apply Changes
-				$("#save-<?php echo esc_js( $id ); ?>").on( 'click', function(e) {
-					e.preventDefault();
-
-					// Validate title
-					var $title = $(this).closest('.item-inline').find('.section-title input');
-					if ( $title.val() == '' ) {
-						alert( anvaBuilderJs.builder_title );
-						return false;
-					}
-
-					// WP Editor
-					tinyMCE.triggerSave();
-
-					// Get urrent item ID
-					var $currentItem = $('#anva_current_item').val();
-
-					// Get current item shortcode
-					var $currentShortcode = $('#item-inline-<?php echo esc_js( $id ); ?>').attr('data-shortcode');
-
-					// Create Object
-					var itemData = {};
-
-					itemData.id = $currentItem;
-					itemData.shortcode = $currentShortcode;
-
-					$('#item-inline-<?php echo esc_js( $id ); ?> :input.anva-input').each( function() {
-						if ( typeof $(this).attr('id') != 'undefined' ) {
-							itemData[$(this).attr('id')] = encodeURI( $(this).val() );
-
-							console.log($(this).attr('id'));
-
-							if ( $(this).attr('data-attr') == 'title' ) {
-								$('#' + $currentItem).find('.title .shortcode-title').html( decodeURI( $(this).val() ) );
-
-								if ( $('#' + $currentItem).find('.unsave').length == 0 ) {
-									$('<span class="unsave">' + anvaBuilderJs.builder_unsaved + '</span>').appendTo( $('#' + $currentItem).find('.title .shortcode-type') );
-									$('#' + $currentItem).addClass('item-unsaved');
-								}
+							if ( $( '#' + index ).hasClass('anva-file') ) {
+								var $remove = $('#' + index + '_button').data('remove');
+								$('#' + index + '_button').text( $remove );
+								$('#' + index + '_image').append('<img src="' + value + '" /><a href="#" class="anva-remove-image">X</a>').slideDown('fast');
 							}
 						}
 					});
 
-					// Create the JSON string
-					var currentItemDataJSON = JSON.stringify( itemData );
-					var $itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>');
+					// Cancel Changes
+					$("#cancel-<?php echo esc_js( $id ); ?>").on( 'click', function(e) {
+						e.preventDefault();
+						var itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>');
+						var parentEle = $('#<?php echo esc_js( $id ); ?>');
+						if ( parentEle.hasClass('has-inline-content') ) {
+							parentEle.removeClass('has-inline-content');
+						}
+						if ( itemInner.length > 0 ) {
+							itemInner.slideToggle();
+							setTimeout( function() {
+								itemInner.remove();
+							}, 500);
+						}
+					});
 
-					// Save Data
-					$('#' + $currentItem).data( 'anva_builder_settings', currentItemDataJSON );
+					// Apply Changes
+					$("#save-<?php echo esc_js( $id ); ?>").on( 'click', function(e) {
+						e.preventDefault();
 
-					var $parentEle = $('#<?php echo esc_js( $id ); ?>');
+						// Validate title
+						var $title = $(this).closest('.item-inline').find('.section-title input');
 
-					if ( $parentEle.hasClass('has-inline-content') ) {
-						$parentEle.removeClass('has-inline-content');
-					}
+						if ( $title.val() == '' ) {
+							alert( anvaBuilderJs.builder_title );
+							return false;
+						}
 
-					if ( $itemInner.length > 0 ) {
-						$itemInner.slideToggle();
-						setTimeout( function() {
-							$itemInner.remove();
-						}, 500);
-					}
+						// WP Editor
+						tinyMCE.triggerSave();
+
+						// Get current item ID
+						var $currentItem = $('#anva_current_item').val();
+
+						// Get current item shortcode
+						var $currentShortcode = $('#item-inline-<?php echo esc_js( $id ); ?>').attr('data-shortcode');
+
+						// Create Object
+						var itemData = {};
+
+						itemData.id = $currentItem;
+						itemData.shortcode = $currentShortcode;
+
+						$('#item-inline-<?php echo esc_js( $id ); ?> :input.anva-input').each( function() {
+
+							console.log($(this).attr('id'));
+
+							if ( typeof $(this).attr('id') !== 'undefined' ) {
+								itemData[$(this).attr('id')] = encodeURI( $(this).val() );
+
+								if ( $(this).attr('data-attr') == 'title' ) {
+									$('#' + $currentItem).find('.title .shortcode-title').html( decodeURI( $(this).val() ) );
+
+									if ( $('#' + $currentItem).find('.unsave').length == 0 ) {
+										$('<span class="unsave">' + anvaBuilderJs.builder_unsaved + '</span>').appendTo( $('#' + $currentItem).find('.title .shortcode-type') );
+										$('#' + $currentItem).addClass('item-unsaved');
+									}
+								}
+							}
+						});
+
+						// Create the JSON string
+						var currentItemDataJSON = JSON.stringify( itemData ),
+							$itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>'),
+							$parentEle = $('#<?php echo esc_js( $id ); ?>');
+
+						// Save Data
+						$('#' + $currentItem).data( 'anva_builder_settings', currentItemDataJSON );
+
+						if ( $parentEle.hasClass('has-inline-content') ) {
+							$parentEle.removeClass('has-inline-content');
+						}
+
+						if ( $itemInner.length > 0 ) {
+							$itemInner.slideToggle();
+							setTimeout( function() {
+								$itemInner.remove();
+							}, 500);
+						}
+					});
 				});
-			});
-			/* ]]> */
-			</script>
+				/* ]]> */
+				</script>
+			<?php endif; ?>
 		<?php endif; ?>
-	<?php endif; ?>
-	<?php die(); // Exit
+		<?php die();
 	}
 }
 endif;

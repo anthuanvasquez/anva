@@ -18,7 +18,6 @@
   -ms-user-select: none;
   user-select: none;
   vertical-align: middle;
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
@@ -184,7 +183,6 @@
 }
 
 .bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
-  -webkit-transition: margin-left 0.2s ease;
   transition: margin-left 0.2s ease;
 }
 
@@ -277,7 +275,6 @@ input.switch-toggle-round + label:before {
   right: 1px;
   background-color: #F1F1F1;
   border-radius: 15px;
-  -webkit-transition: background 0.4s;
   transition: background 0.4s;
 }
 
@@ -286,7 +283,6 @@ input.switch-toggle-round + label:after {
   background-color: #FFF;
   border-radius: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  -webkit-transition: margin 0.4s;
   transition: margin 0.4s;
 }
 
@@ -371,7 +367,6 @@ input.switch-toggle-flat + label {
   height: 30px;
   background-color: #DDD;
   border-radius: 30px;
-  -webkit-transition: background 0.4s;
   transition: background 0.4s;
 }
 
@@ -389,7 +384,6 @@ input.switch-toggle-flat + label:before {
   right: 2px;
   background-color: #FFF;
   border-radius: 30px;
-  -webkit-transition: background 0.4s;
   transition: background 0.4s;
 }
 
@@ -400,7 +394,6 @@ input.switch-toggle-flat + label:after {
   width: 22px;
   background-color: #DDD;
   border-radius: 22px;
-  -webkit-transition: margin 0.4s, background 0.4s;
   transition: margin 0.4s, background 0.4s;
 }
 
@@ -774,7 +767,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   width: 100%;
 }
 
-.anva-framework .section .controls .wp-color-picker {
+.anva-framework .section .controls input.wp-color-picker {
   margin-bottom: 0;
   height: 24px;
   width: 65px;
@@ -1082,7 +1075,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   border-bottom: 0;
   border-radius: 0;
   background-origin: border-box;
-  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), -webkit-linear-gradient(right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)), linear-gradient(to left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
 }
 
@@ -1106,8 +1098,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 /* Section Notices
 /* --------------------------------------------------------- */
 .anva-framework .section-info {
-  border: 1px solid #ddd;
-  border-left: 6px solid #00c8fa;
+  border: 1px solid #DDD;
+  border-left: 6px solid #00C8fA;
   border-radius: 0;
   margin: 15px 0 10px;
   padding: 10px 10px 0;
@@ -1152,8 +1144,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 .anva-framework .group-button span {
   display: table-cell;
-  position: relative;
   font-size: 0;
+  position: relative;
   white-space: nowrap;
   width: 1%;
   vertical-align: middle;
@@ -1165,8 +1157,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   height: 33px;
 }
 
-.anva-framework .controls input.sidebar,
-.anva-framework .controls input.upload {
+.anva-framework .controls .sidebar,
+.anva-framework .controls .upload {
   display: table-cell;
   position: relative;
   z-index: 2;
@@ -1238,7 +1230,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   outline: 0;
   background: #eee;
   box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
-  -webkit-transition: opacity .1s ease;
   transition: opacity .1s ease;
   color: #222;
   font-weight: 700;
@@ -1404,5 +1395,3 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   -webkit-animation-name: bounceIn;
           animation-name: bounceIn;
 }
-
-/*# sourceMappingURL=admin-global.css.map */

@@ -80,7 +80,7 @@ module.exports = {
   // -------------------------------------------
 
   browsersync: {
-    // files: [src + '/**', '!' + src + '.tools'],
+    files: [src + '/**', '!' + src + '.tools'],
     notify: true,
     open: true,
     proxy: {

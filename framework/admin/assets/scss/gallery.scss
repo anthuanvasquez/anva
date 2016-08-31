@@ -5,21 +5,21 @@
 
 .anva_gallery_remove {
 	background: #EEE;
-	box-shadow: 0 0 0 1px #fff,0 0 0 2px rgba(black, 0.15);
+	box-shadow: 0 0 0 1px #FFF,0 0 0 2px rgba(black, 0.15);
 	color: #222;
 	font-weight: 700;
 	display: block;
 	height: 24px;
-	width: 24px;
 	line-height: 24px;
+	opacity: 0;
+	outline: 0;
 	padding: 0;
 	position: absolute;
-	top: 0;
 	right: 0;
-	outline: 0;
-	opacity: 0;
+	top: 0;
 	transition: none;
 	text-decoration: none;
+	width: 24px;
 	z-index: 10;
 
 	&:hover {
@@ -30,8 +30,8 @@
 		display: block;
 		background-position: -1px 0;
 		height: 15px;
-		width: 15px;
 		margin: 5px;
+		width: 15px;
 	}
 }
 
@@ -120,6 +120,7 @@
 			left: 0;
 			opacity: 1;
 			transition: none;
+
 			&:after {
 				content: '';
 				display: block;

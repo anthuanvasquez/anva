@@ -927,8 +927,14 @@ function anva_options() {
 	anva_add_option( 'layout', 'footer', 'footer_icons', 		 $layout['footer_icons'] );
 
 	anva_add_option_section( 'layout', 'page_transition', __( 'Page Transition', 'anva' ),  NULL, $layout['page_transition'], false );
-	anva_add_option_section( 'layout', 'gallery', 		  __( 'Galleries', 'anva' ), 		NULL, $layout['gallery'], false );
-	anva_add_option_section( 'layout', 'slideshows', 	  __( 'Slideshows', 'anva' ), 	 	NULL, $layout['slideshows'], false );
+
+	if ( anva_post_type_used( 'galleries' ) ) {
+		anva_add_option_section( 'layout', 'gallery', 		  __( 'Galleries', 'anva' ), 		NULL, $layout['gallery'], false );
+	}
+
+	if ( anva_post_type_used( 'slideshows' ) ) {
+		anva_add_option_section( 'layout', 'slideshows', 	  __( 'Slideshows', 'anva' ), 	 	NULL, $layout['slideshows'], false );
+	}
 
 	// Add slider options
 	foreach ( $sliders as $slider_id => $slider ) {

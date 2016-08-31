@@ -86,7 +86,7 @@ class Anva_Content_Builder_API
 
 	/**
 	 * Set core elements
-	 * 
+	 *
 	 * These will be later merged with custom elements.
 	 * WP-Admin only.
 	 *
@@ -155,25 +155,25 @@ class Anva_Content_Builder_API
 			'content' => true,
 			'attr'    => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'name' => __( 'Slug (Optional)', 'anva' ),
+					'desc' => __( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 					'id'   => 'slug',
-					'std' => '',
+					'std'  => '',
 					'type' => 'text',
 				),
 				'subtitle' => array(
-					'name' => 'Sub Title (Optional)',
-					'desc' => 'Enter short description for this header',
+					'name' => __( 'Sub Title (Optional)', 'anva' ),
+					'desc' => __( 'Enter short description for this header', 'anva' ),
 					'id'   => 'subtitle',
-					'std' => '',
+					'std'  => '',
 					'type' => 'text',
 				),
 				'width' => array(
-					'name' => 'Content Width',
-					'desc' => 'Select width in percentage for this content',
-					'id' => 'width',
-					'std' => '100%',
-					'type' => 'select',
+					'name'    => __( 'Content Width', 'anva' ),
+					'desc'    => __( 'Select width in percentage for this content', 'anva' ),
+					'id'      => 'width',
+					'std'     => '100%',
+					'type'    => 'select',
 					'options' => array(
 						'100%' 	=> '100%',
 						'90%' 	=> '90%',
@@ -184,37 +184,37 @@ class Anva_Content_Builder_API
 					),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
-					'desc' => 'Select padding top and bottom value for this header block.',
-					'type' => 'range',
-					'id' => 'padding',
-					'std' => 30,
+					'name'    => __( 'Content Padding', 'anva' ),
+					'desc'    => __( 'Select padding top and bottom value for this header block.', 'anva' ),
+					'type'    => 'range',
+					'id'      => 'padding',
+					'std'     => 30,
 					'options' => array(
-						'min' => 0,
-						'max' => 200,
-						'step' => 5,
+						'min'   => 0,
+						'max'   => 200,
+						'step'  => 5,
 						'units' => 'px',
 					),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
-					'desc' => 'Select background color for this this block.',
-					'id' => 'bgcolor',
-					'std' => '#f9f9f9',
+					'name' => __( 'Background Color', 'anva' ),
+					'desc' => __( 'Select background color for this this block.', 'anva' ),
+					'id'   => 'bgcolor',
+					'std'  => '#f9f9f9',
 					'type' => 'color',
 				),
 				'fontcolor' => array(
-					'name' => 'Text Color',
-					'desc' => 'Select font color for content on this block.',
-					'id' => 'fontcolor',
-					'std' => '#444444',
+					'name' => __( 'Text Color', 'anva' ),
+					'desc' => __( 'Select font color for content on this block.', 'anva' ),
+					'id'   => 'fontcolor',
+					'std'  => '#444444',
 					'type' => 'color',
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
-					'desc' => 'You can add custom CSS style for this block (advanced user only).',
-					'id' => 'custom_css',
-					'std' => '',
+					'name' => __( 'Custom CSS', 'anva' ),
+					'desc' => __( 'You can add custom CSS style for this block (advanced user only).', 'anva' ),
+					'id'   => 'custom_css',
+					'std'  => '',
 					'type' => 'code',
 				),
 			),
@@ -287,7 +287,7 @@ class Anva_Content_Builder_API
 			'desc' => __( 'Create a header with some nice text using a background image.', 'anva' ),
 			'content' => true
 		);
-		
+
 		/*--------------------------------------------*/
 		/* Text
 		/*--------------------------------------------*/
@@ -406,7 +406,7 @@ class Anva_Content_Builder_API
 			'desc' => '',
 			'content' => true
 		);
-		
+
 		/*--------------------------------------------*/
 		/* Image Fullwidth
 		/*--------------------------------------------*/
@@ -471,7 +471,7 @@ class Anva_Content_Builder_API
 			'desc' => '',
 			'content' => false
 		);
-		
+
 		/*--------------------------------------------*/
 		/* Image Parallax
 		/*--------------------------------------------*/
@@ -560,7 +560,7 @@ class Anva_Content_Builder_API
 			'desc' => '',
 			'content' => false
 		);
-		
+
 		/*--------------------------------------------*/
 		/* 1/2 Content with Background
 		/*--------------------------------------------*/
@@ -1008,7 +1008,7 @@ class Anva_Content_Builder_API
 			'desc' => '',
 			'content' => false
 		);
-		
+
 			$this->core_elements['galleries'] = array(
 				'name' =>  'Gallery Archive',
 				'icon' => $image_path . 'galleries.png',
@@ -1575,7 +1575,7 @@ class Anva_Content_Builder_API
 				}
 			}
 		}
-		
+
 		// Extend
 		$this->elements = apply_filters( 'anva_elements', $this->elements );
 
@@ -1663,9 +1663,9 @@ class Anva_Content_Builder_API
 
 	/**
 	 * Get final elements.
-	 * 
+	 *
 	 * This is the merged result of core elements and custom elements.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	public function get_elements()
