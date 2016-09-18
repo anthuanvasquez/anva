@@ -71,6 +71,7 @@ jQuery( document ).ready( function( $ ) {
 			ANVA_BUILDER.active();
 			// ANVA_BUILDER.dragItems();
 			ANVA_BUILDER.sortItems();
+			ANVA_BUILDER.addRow();
 			ANVA_BUILDER.addItem();
 			ANVA_BUILDER.editItem();
 			ANVA_BUILDER.moveItem();
@@ -212,6 +213,22 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			return false;
+		},
+
+		addRow: function() {
+			$('#add-builder-row').on( 'click', function(e) {
+				e.preventDefault();
+
+				var row = '<div class="anva-row"></div>';
+
+				s.itemUl.append( row );
+
+				$('.anva-row').resizable({
+      				grid: 20,
+      				containment: '#builder-sortable-items'
+    			}).selectable();
+
+			});
 		},
 
 		/**

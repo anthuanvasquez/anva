@@ -50,10 +50,10 @@ gulp.task('theme-readme', function() {
 
 // Create parent theme from the `build` folder
 // to test the theme before released
-gulp.task('theme-test', function() {
+gulp.task('theme-symlink', function() {
   return gulp.src(config.test.src)
   .pipe(plugins.symlink(config.test.dest));
 });
 
 // Master theme task
-gulp.task('theme', ['theme-lang', 'theme-php', 'theme-readme', 'theme-test']);
+gulp.task('theme', ['theme-lang', 'theme-php', 'theme-readme', 'theme-symlink']);

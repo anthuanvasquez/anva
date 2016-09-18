@@ -112,6 +112,8 @@ class Anva_Content_Builder
 				wp_enqueue_script( 'jquery-ui-draggable' );
 				wp_enqueue_script( 'jquery-ui-droppable' );
 				wp_enqueue_script( 'jquery-ui-sortable' );
+				wp_enqueue_script( 'jquery-ui-resizable' );
+				wp_enqueue_script( 'jquery-ui-selectable' );
 
 				// Media
 				wp_enqueue_media();
@@ -249,7 +251,9 @@ class Anva_Content_Builder
 					<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
 				</div>
 
-				<a href="#" class="anva-tooltip-info"><span class="dashicons dashicons-info"></span></a>
+				<a href="#" class="anva-tooltip-info">
+					<span class="dashicons dashicons-info"></span>
+				</a>
 
 				<div class="anva-builder-elements-wrap">
 					<ul class="builder-elements">
@@ -289,12 +293,19 @@ class Anva_Content_Builder
 							</div>
 						</div>
 
-						<a id="remove-all-items" class="button button-secondary button-remove-all"><?php _e( 'Remove All Items', 'anva' ); ?></a>
-						<a id="add-builder-item" class="button button-primary button-add-item"><?php _e( 'Add New Item', 'anva' ); ?></a>
+						<a hef="#" id="add-builder-row" class="button">
+							<?php _e( 'Add Row', 'anva' ); ?>
+						</a>
+						<a id="remove-all-items" class="button button-secondary button-remove-all">
+							<?php _e( 'Remove All Items', 'anva' ); ?>
+						</a>
+						<a id="add-builder-item" class="button button-primary button-add-item">
+							<?php _e( 'Add New Item', 'anva' ); ?>
+						</a>
 					</div>
 				</div><!-- .anva-builder-actions-wrap (end) -->
 
-				<ul id="builder-sortable-items" class="builder-sortable-items sortable-items <?php echo $empty; ?>">
+				<ul id="builder-sortable-items" class="builder-sortable-items sortable-items <?php echo $empty; ?>" data-text="<?php _e( 'Drag items here or Click on Add New Item' ); ?>">
 					<?php
 						if ( isset( $items[0] ) && ! empty( $items[0] ) ) :
 

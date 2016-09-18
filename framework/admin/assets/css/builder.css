@@ -24,9 +24,23 @@
 
 .anva-tooltip-info span {
   font-size: 24px;
-  width: 24px;
-  height: 24px;
   line-height: 30px;
+  height: 24px;
+  width: 24px;
+}
+
+.anva-row {
+  background-color: #e3eff3;
+  padding: 10px;
+}
+
+.anva-row .ui-selecting {
+  background: #FECA40;
+}
+
+.anva-row .ui-selected {
+  background: #F39814;
+  color: white;
 }
 
 .builder-sortable-items {
@@ -55,11 +69,12 @@
 }
 
 .builder-sortable-items.empty:before {
-  content: 'Drag items here or click "Add New Item"';
+  content: attr(data-text);
   color: #bbb;
   display: block;
-  font-size: 13px;
-  padding: 10px;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 30px 10px;
   text-align: center;
 }
 
