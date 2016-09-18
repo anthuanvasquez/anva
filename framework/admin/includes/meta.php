@@ -138,6 +138,14 @@ function anva_add_meta_boxes_default() {
  * @return array $setup
  */
 function anva_setup_layout_meta() {
+
+	// Get header types
+	$header_types   = array();
+	$header_types[] = __( 'Default Setting', 'anva' );
+	foreach ( anva_get_header_types() as $type_id => $type ) {
+		$header_types[ $type_id ] = $type['name'];
+	}
+
 	$setup = array(
 		'args' => array(
 			'id'       => 'anva_layout_options',
@@ -158,6 +166,25 @@ function anva_setup_layout_meta() {
 					'layout' => '',
 					'right'  => '',
 					'left'   => ''
+				),
+			),
+			'header_type' => array(
+				'name' => __( 'Header Type', 'anva' ),
+				'desc' => __( 'Select the type of the header.', 'anva' ),
+				'id'   => 'header_type',
+				'std'  => '',
+				'type' => 'select',
+				'options' => $header_types,
+			),
+			'header_sticky' => array(
+				'name' => __( 'Header Sticky', 'anva' ),
+				'desc' => __( 'Select if you want the header sticky or not.', 'anva' ),
+				'id'   => 'header_sticky',
+				'std'  => '',
+				'type' => 'select',
+				'options' => array(
+					'' => __( 'Default Setting', 'anva' ), 
+					'no_sticky' => __( 'Remove Sticky Header', 'anva' ),
 				),
 			),
 		),

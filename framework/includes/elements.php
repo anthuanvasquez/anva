@@ -6,7 +6,7 @@
  * @since  1.0.0
  * @return The element with attributes.
  */
-function anva_elements() {
+function anva_display_elements() {
 
 	// Get settings.
 	$settings = anva_get_post_meta( '_anva_builder_options' );

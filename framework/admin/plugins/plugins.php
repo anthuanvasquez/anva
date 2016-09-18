@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugins.
+ * Required and recommended plugins.
  *
  * @since 1.0.0
  */
@@ -9,13 +9,13 @@ function anva_plugins() {
 
 	if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		include_once ANVA_FRAMEWORK_ADMIN . 'plugins/class-tgm-plugin-activation.php';
+		add_action( 'tgmpa_register', 'anva_register_required_plugins' );
 	}
 
-	add_action( 'tgmpa_register', 'anva_register_required_plugins' );
 }
 
 /**
- * Register the required plugins for this theme.
+ * Register the required and recommended plugins for this theme.
  *
  * @since 1.0.0
  */

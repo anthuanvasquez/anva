@@ -156,7 +156,7 @@ class Anva
      */
     public function set_core_hooks()
     {
-        // Admin
+        // Admin Actions / Filters
         if ( is_admin() ) {
 
             add_action( 'after_setup_theme', 'anva_plugins' );
@@ -245,7 +245,7 @@ class Anva
         add_action( 'anva_sidebars', 'anva_sidebars_default' );
         add_action( 'anva_before', 'anva_side_panel_default' );
         add_action( 'anva_after', 'anva_debug' );
-        add_action( 'anva_content_builder', 'anva_elements' );
+        add_action( 'anva_content_builder', 'anva_display_elements' );
         add_action( 'anva_contact_form', 'anva_contact_form_default' );
         add_action( 'anva_post_type_navigation', 'anva_post_type_navigation_default' );
         add_action( 'anva_slider_standard', 'anva_slider_standard_default', 9, 2 );
