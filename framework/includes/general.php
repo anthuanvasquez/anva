@@ -87,7 +87,7 @@ function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 )
  */
 function anva_get_theme( $id ) {
 
-	$text  = NULL;
+	$text  = null;
 	$theme = wp_get_theme();
 
 	$data = apply_filters( 'anva_theme_data', array(
@@ -130,13 +130,13 @@ function anva_allowed_tags() {
 		'frameborder'			=> true,
 		'allowfullscreen' 		=> true,
 		'webkitAllowFullScreen'	=> true,
-		'mozallowfullscreen' 	=> true
+		'mozallowfullscreen' 	=> true,
 	);
 
 	// Script tag
 	$tags['script'] = array(
 		'type'					=> true,
-		'src' 					=> true
+		'src' 					=> true,
 	);
 
 	return apply_filters( 'anva_allowed_tags', $tags );
@@ -174,22 +174,22 @@ function anva_get_grid_columns() {
 		'3' => array(
 			'name'   => '3 Columns',
 			'class'  => 'col-md-4',
-			'column' => 3
+			'column' => 3,
 		),
 		'4' => array(
 			'name'   => '4 Columns',
 			'class'  => 'col-md-3',
-			'column' => 4
+			'column' => 4,
 		),
 		'5' => array(
 			'name'   => '5 Columns',
 			'class'  => 'col-5', // Extend Boostrap Columns
-			'column' => 5
+			'column' => 5,
 		),
 		'6' => array(
 			'name'   => '6 Columns',
 			'class'  => 'col-md-2', // Extend Boostrap Columns
-			'column' => 5
+			'column' => 5,
 		),
 	);
 	return apply_filters( 'anva_grid_columns', $columns );
@@ -209,9 +209,9 @@ function anva_get_sidebar_layouts() {
 			'columns'		=> array(
 				'content' 	=> 'col_full nobottommargin clearfix',
 				'left' 		=> '',
-				'right' 	=> ''
+				'right' 	=> '',
 			),
-			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/fullwidth.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/fullwidth.png',
 		),
 		'right' 			=> array(
 			'name' 			=> 'Sidebar Right',
@@ -219,9 +219,9 @@ function anva_get_sidebar_layouts() {
 			'columns'		=> array(
 				'content' 	=> 'postcontent nobottommargin clearfix',
 				'left' 		=> '',
-				'right' 	=> 'sidebar nobottommargin col_last clearfix'
+				'right' 	=> 'sidebar nobottommargin col_last clearfix',
 			),
-			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/right.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/right.png',
 		),
 		'left' 				=> array(
 			'name' 			=> 'Sidebar Left',
@@ -229,9 +229,9 @@ function anva_get_sidebar_layouts() {
 			'columns'		=> array(
 				'content' 	=> 'postcontent nobottommargin col_last clearfix',
 				'left' 		=> 'sidebar nobottommargin clearfix',
-				'right' 	=> ''
+				'right' 	=> '',
 			),
-			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/left.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/left.png',
 		),
 		'double' 			=> array(
 			'name' 			=> 'Double Sidebars',
@@ -239,9 +239,9 @@ function anva_get_sidebar_layouts() {
 			'columns'		=> array(
 				'content' 	=> 'postcontent bothsidebar nobottommargin clearfix',
 				'left' 		=> 'sidebar nobottommargin clearfix',
-				'right' 	=> 'sidebar nobottommargin col_last clearfix'
+				'right' 	=> 'sidebar nobottommargin col_last clearfix',
 			),
-			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double.png',
 		),
 		'double_right'		=> array(
 			'name' 			=> 'Double Right Sidebars',
@@ -249,9 +249,9 @@ function anva_get_sidebar_layouts() {
 			'columns'		=> array(
 				'content' 	=> 'postcontent bothsidebar nobottommargin clearfix',
 				'left' 		=> 'sidebar nobottommargin clearfix',
-				'right' 	=> 'sidebar nobottommargin col_last clearfix'
+				'right' 	=> 'sidebar nobottommargin col_last clearfix',
 			),
-			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double_right.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double_right.png',
 		),
 		'double_left' 		=> array(
 			'name' 			=> 'Double Left Sidebars',
@@ -259,9 +259,9 @@ function anva_get_sidebar_layouts() {
 			'columns'		=> array(
 				'content' 	=> 'postcontent bothsidebar nobottommargin col_last clearfix',
 				'left' 		=> 'sidebar nobottommargin clearfix',
-				'right' 	=> 'sidebar nobottommargin clearfix'
+				'right' 	=> 'sidebar nobottommargin clearfix',
 			),
-			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double_left.png'
+			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double_left.png',
 		)
 	);
 	return apply_filters( 'anva_sidebar_layouts', $layouts );
@@ -322,126 +322,126 @@ function anva_get_header_types() {
 			'id' 			=> 'default',
 			'classes' 		=> array(
 				'header'	=> '',
-				'body'		=> ''
+				'body'		=> '',
 			),
-			'type' 			=> 'sticky'
+			'type' 			=> 'sticky',
 		),
 		'transparent' 		=> array(
 			'name'  		=> __( 'Transparent', 'anva' ),
 			'id' 			=> 'transparent',
 			'classes' 		=> array(
 				'header'	=> 'transparent-header',
-				'body'		=> ''
+				'body'		=> '',
 			),
-			'type' 			=> 'sticky'
+			'type' 			=> 'sticky',
 		),
 		'semi_transparent' 	=> array(
 			'name' 			=> __( 'Semi Transparent', 'anva' ),
 			'id' 			=> 'semi_transparent',
 			'classes' 		=> array(
 				'header'	=> 'transparent-header semi-transparent',
-				'body'		=> ''
+				'body'		=> '',
 			),
-			'type' 			=> 'sticky'
+			'type' 			=> 'sticky',
 		),
 		'floating' 			=> array(
 			'name' 			=> __( 'Floating', 'anva' ),
 			'id' 			=> 'floating',
 			'classes' 		=> array(
 				'header'	=> 'floating-header transparent-header',
-				'body'		=> ''
+				'body'		=> '',
 			),
-			'type' 			=> 'sticky'
+			'type' 			=> 'sticky',
 		),
 		'floating_semi' 	=> array(
 			'name' 			=> __( 'Floating Semi Transparent', 'anva' ),
 			'id' 			=> 'floating_semi',
 			'classes' 		=> array(
 				'header'	=> 'floating-header transparent-header semi-transparent',
-				'body'		=> ''
+				'body'		=> '',
 			),
-			'type' 			=> 'sticky'
+			'type' 			=> 'sticky',
 		),
 		'static_sticky' 	=> array(
 			'name' 			=> __( 'Static Sticky', 'anva' ),
 			'id' 			=> 'static_sticky',
 			'classes' 		=> array(
 				'header'	=> 'static-sticky',
-				'body'		=> ''
+				'body'		=> '',
 			),
-			'type' 			=> 'sticky'
+			'type' 			=> 'sticky',
 		),
 		'responsive_sticky' => array(
 			'name' 			=> __( 'Responsive Sticky', 'anva' ),
 			'id' 			=> 'responsive_sticky',
 			'classes' 		=> array(
 				'header'	=> '',
-				'body'		=> 'responsive-sticky-menu'
+				'body'		=> 'responsive-sticky-menu',
 			),
-			'type' 			=> 'sticky'
+			'type' 			=> 'sticky',
 		),
 		'no_sticky' => array(
 			'name' 			=> __( 'No Sticky', 'anva' ),
 			'id' 			=> 'no_sticky',
 			'classes' 		=> array(
 				'header'	=> 'no-sticky',
-				'body'		=> ''
+				'body'		=> '',
 			),
-			'type' 			=> 'static'
+			'type' 			=> 'static',
 		),
 		'left_side_fixed' 	=> array(
 			'name' 			=> __( 'Left Side Fixed', 'anva' ),
 			'id' 			=> 'left_side_fixed',
 			'classes' 		=> array(
 				'header'	=> 'no-sticky',
-				'body'		=> 'side-header'
+				'body'		=> 'side-header',
 			),
-			'type' 			=> 'side'
+			'type' 			=> 'side',
 		),
 		'left_side_open' 	=> array(
 			'name' 			=> __( 'Left Side Open', 'anva' ),
 			'id' 			=> 'left_side_open',
 			'classes' 		=> array(
 				'header'	=> 'no-sticky',
-				'body'		=> 'side-header open-header close-header-on-scroll'
+				'body'		=> 'side-header open-header close-header-on-scroll',
 			),
-			'type' 			=> 'side'
+			'type' 			=> 'side',
 		),
 		'left_side_push' 	=> array(
 			'name' 			=> __( 'Left Side Push Content', 'anva' ),
 			'id' 			=> 'left_side_push',
 			'classes' 		=> array(
 				'header'	=> 'no-sticky',
-				'body'		=> 'side-header open-header push-wrapper close-header-on-scroll'
+				'body'		=> 'side-header open-header push-wrapper close-header-on-scroll',
 			),
-			'type' 			=> 'side'
+			'type' 			=> 'side',
 		),
 		'right_side_fixed' 	=> array(
 			'name' 			=> __( 'Right Side Fixed', 'anva' ),
 			'id' 			=> 'right_side_fixed',
 			'classes' 		=> array(
 				'header'	=> 'no-sticky',
-				'body'		=> 'side-header side-header-right'
+				'body'		=> 'side-header side-header-right',
 			),
-			'type' 			=> 'side'
+			'type' 			=> 'side',
 		),
 		'right_side_open' 	=> array(
 			'name' 			=> __( 'Right Side Open', 'anva' ),
 			'id' 			=> 'right_side_open',
 			'classes' 		=> array(
 				'header'	=> 'no-sticky',
-				'body'		=> 'side-header side-header-right open-header close-header-on-scroll'
+				'body'		=> 'side-header side-header-right open-header close-header-on-scroll',
 			),
-			'type' 			=> 'side'
+			'type' 			=> 'side',
 		),
 		'right_side_push' 	=> array(
 			'name' 			=> __( 'Right Side Push Content', 'anva' ),
 			'id' 			=> 'right_side_push',
 			'classes' 		=> array(
 				'header'	=> 'no-sticky',
-				'body'		=> 'side-header side-header-right open-header push-wrapper close-header-on-scroll'
+				'body'		=> 'side-header side-header-right open-header push-wrapper close-header-on-scroll',
 			),
-			'type' 			=> 'side'
+			'type' 			=> 'side',
 		),
 	);
 
@@ -644,7 +644,7 @@ function anva_get_config( $key = '' ) {
 		return $config[ $key ];
 	}
 
-	return NULL;
+	return null;
 }
 
 /**

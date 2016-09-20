@@ -4,10 +4,10 @@
  * Get all theme locals (not admin).
  *
  * @since  1.0.0
- * @return array $localize 
+ * @return array $localize
  */
 function anva_get_text_locals() {
-	
+
 	$localize = array(
 		'blog'                 => __( 'Blog', 'anva' ),
 		'asc'                  => __( 'ASC', 'anva' ),
@@ -35,11 +35,11 @@ function anva_get_text_locals() {
 		'search_for'           => __( 'Search for', 'anva' ),
 		'search_result'        => __( 'Search Results for', 'anva' ),
 		'search'               => __( 'Search', 'anva' ),
-		'video'                => __( 'Video', 'anva'),
+		'video'                => __( 'Video', 'anva' ),
 		'page'                 => __( 'Page', 'anva' ),
 		'pages'                => __( 'Pages', 'anva' ),
 		'edit_post'            => __( 'Edit Post', 'anva' ),
-		'page_options'         => __( 'Page Options', 'anva'),
+		'page_options'         => __( 'Page Options', 'anva' ),
 		'page_title'           => __( 'Page Title', 'anva' ),
 		'page_title_show'      => __( 'Show Title', 'anva' ),
 		'page_title_hide'      => __( 'Hide Title', 'anva' ),
@@ -64,7 +64,7 @@ function anva_get_text_locals() {
 		'author'               => __( 'Author', 'anva' ),
 		'asides'               => __( 'Asides', 'anva' ),
 		'galleries'            => __( 'Galleries', 'anva' ),
-		'images'               => __( 'Images', 'anva'),
+		'images'               => __( 'Images', 'anva' ),
 		'videos'               => __( 'Videos', 'anva' ),
 		'quotes'               => __( 'Quotes', 'anva' ),
 		'links'                => __( 'Links', 'anva' ),
@@ -133,7 +133,7 @@ function anva_get_text_locals() {
  * @return string
  */
 function anva_local( $id ) {
-	echo anva_get_local( $id );
+	echo esc_html( anva_get_local( $id ) );
 }
 
 /**
@@ -145,7 +145,7 @@ function anva_local( $id ) {
  */
 function anva_get_local( $id ) {
 
-	$text = NULL;
+	$text = null;
 	$localize = anva_get_text_locals();
 
 	if ( isset( $localize[ $id ] ) ) {
@@ -163,7 +163,7 @@ function anva_get_local( $id ) {
  * @return array $localize
  */
 function anva_get_js_locals() {
-	
+
 	$localize = array(
 		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 		'themeUrl' => trailingslashit( get_template_directory_uri() ),
