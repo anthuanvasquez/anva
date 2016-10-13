@@ -583,21 +583,21 @@ function anva_page_title_default() {
         $classes[] = 'page-title-dark';
     }
 
-    // Add background color
-    if ( 'custom' == $title_bg && ! empty( $title_bg_color ) ) {
-        $style .= 'background-color:' . esc_attr( $title_bg_color ) . ';';
-    }
-
-    // Add background parallax image
-    if ( 'custom' == $title_bg && ! empty( $title_bg_image ) ) {
-        $classes[]        = 'page-title-parallax';
+    // Add background color and parallax image
+    if ( 'custom' == $title_bg ) {
         $title_bg_padding = $title_bg_padding . 'px';
 
         $style .= 'padding:' . esc_attr( $title_bg_padding ) . ' 0px;';
         $style .= 'background-color:' . esc_attr( $title_bg_color ) . ';';
-        $style .= 'background-image:url("' . esc_url( $title_bg_image ) . '");';
+
+        if ( ! empty( $title_bg_image ) ) {
+            $classes[] = 'page-title-parallax';
+            $style .= 'background-image:url("' . esc_url( $title_bg_image ) . '");';
+        }
 
         if ( $title_bg_cover ) {
+            $style .= '-webkit-background-size:cover;';
+            $style .= '-moz-background-size:cover;';
             $style .= 'background-size:cover;';
         }
 
@@ -621,7 +621,7 @@ function anva_page_title_default() {
     }
 
     ?>
-    <section id="page-title"<?php echo $classes; ?><?php echo $style; ?>>
+    <section id="page-title" <?php echo $classes; ?> <?php echo $style; ?>>
         <div class="container clearfix">
             <h1><?php anva_the_page_title(); ?></h1>
             <?php

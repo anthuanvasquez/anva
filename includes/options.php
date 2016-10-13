@@ -598,6 +598,9 @@ function anva_options() {
 	// Get header types
 	$header_types = array();
 	foreach ( anva_get_header_types() as $type_id => $type ) {
+		if ( 'no_sticky' == $type_id ) {
+			continue;
+		}
 		$header_types[ $type_id ] = $type['name'];
 	}
 
@@ -647,6 +650,13 @@ function anva_options() {
 			'type' => 'select',
 			'options' => $header_types,
 		),
+		'header_sticky' => array(
+			'name' => NULL,
+			'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Sticky', 'anva' ), __( 'I don\'t want the header sticky.', 'anva' ) ),
+			'id' => 'header_sticky',
+			'std' => '1',
+			'type' => 'checkbox',
+		),
 		'header_layout' => array(
 			'name' => __( 'Header Layout', 'anva' ),
 			'desc' => __( 'Select the layout of the header.', 'anva' ),
@@ -659,7 +669,7 @@ function anva_options() {
 			),
 		),
 		'top_bar_layout' => array(
-			'name' => __( 'Top bar Layout', 'anva' ),
+			'name' => __( 'Top Bar Layout', 'anva' ),
 			'desc' => __( 'Select the top bar layout you want to show.', 'anva' ),
 			'id' => 'top_bar_layout',
 			'std' => 'menu_icons',
@@ -914,6 +924,7 @@ function anva_options() {
 	);
 
 	anva_add_option( 'layout', 'header', 'header_type', 		 $layout['header_type'] );
+	anva_add_option( 'layout', 'header', 'header_sticky', 		 $layout['header_sticky'] );
 	anva_add_option( 'layout', 'header', 'header_layout', 		 $layout['header_layout'] );
 	anva_add_option( 'layout', 'header', 'top_bar_layout', 		 $layout['top_bar_layout'] );
 	anva_add_option( 'layout', 'header', 'side_panel_type', 	 $layout['side_panel_type'] );
@@ -927,8 +938,14 @@ function anva_options() {
 	anva_add_option( 'layout', 'footer', 'footer_icons', 		 $layout['footer_icons'] );
 
 	anva_add_option_section( 'layout', 'page_transition', __( 'Page Transition', 'anva' ),  NULL, $layout['page_transition'], false );
-	anva_add_option_section( 'layout', 'gallery', 		  __( 'Galleries', 'anva' ), 		NULL, $layout['gallery'], false );
-	anva_add_option_section( 'layout', 'slideshows', 	  __( 'Slideshows', 'anva' ), 	 	NULL, $layout['slideshows'], false );
+
+	if ( anva_post_type_used( 'galleries' ) ) {
+		anva_add_option_section( 'layout', 'gallery', 		  __( 'Galleries', 'anva' ), 		NULL, $layout['gallery'], false );
+	}
+
+	if ( anva_post_type_used( 'slideshows' ) ) {
+		anva_add_option_section( 'layout', 'slideshows', 	  __( 'Slideshows', 'anva' ), 	 	NULL, $layout['slideshows'], false );
+	}
 
 	// Add slider options
 	foreach ( $sliders as $slider_id => $slider ) {

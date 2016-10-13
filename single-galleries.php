@@ -22,43 +22,43 @@ get_header();
 	<div class="col_full nobottommargin clearfix">
 		<div id="galleries">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+			<?php do_action( 'anva_posts_content_before' ); ?>
 
-		<?php while ( have_posts() ) : the_post(); ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-			<div class="entry-wrap">
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<?php
-						$id 				= get_the_ID();
-						$gallery_template 	= anva_get_post_meta( '_anva_gallery_template' );
-						$templates			= anva_gallery_templates();
-
-						if ( empty( $gallery_template ) ) {
-							$gallery_template = anva_get_option( 'gallery_template' );
-						}
-					?>
-					<div class="entry-content">
+				<div class="entry-wrap">
+					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<?php
-							the_content();
+							$id 				= get_the_ID();
+							$gallery_template 	= anva_get_post_meta( '_anva_gallery_template' );
+							$templates			= anva_gallery_templates();
 
-							if ( ! post_password_required() ) {
-								if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
-									$columns = $templates[ $gallery_template ]['layout']['col'];
-									$size = $templates[ $gallery_template ]['layout']['size'];
-									anva_gallery_masonry( $id, $columns, $size );
-								}
+							if ( empty( $gallery_template ) ) {
+								$gallery_template = anva_get_option( 'gallery_template' );
 							}
 						?>
-						<div class="clearfix"></div>
-					</div><!-- .entry-content (end) -->
-				</article><!-- #post-<?php the_ID(); ?> -->
-			</div><!-- .entry-wrap (end) -->
+						<div class="entry-content">
+							<?php
+								the_content();
 
-			<?php do_action( 'anva_posts_comments' ); ?>
+								if ( ! post_password_required() ) {
+									if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
+										$columns = $templates[ $gallery_template ]['layout']['col'];
+										$size    = $templates[ $gallery_template ]['layout']['size'];
+										anva_gallery_masonry( $id, $columns, $size );
+									}
+								}
+							?>
+							<div class="clearfix"></div>
+						</div><!-- .entry-content (end) -->
+					</article><!-- #post-<?php the_ID(); ?> -->
+				</div><!-- .entry-wrap (end) -->
 
-		<?php endwhile; ?>
+				<?php do_action( 'anva_posts_comments' ); ?>
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+			<?php endwhile; ?>
+
+			<?php do_action( 'anva_posts_content_after' ); ?>
 
 		</div><!-- #galleries (end) -->
 	</div><!-- .postcontent (end) -->

@@ -20,10 +20,10 @@ var onError = function(err) {
 gulp.task('styles-theme', function() {
   return gulp.src(config.theme.src)
   .pipe(plugins.plumber({ errorHandler: onError }))
-  .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+  .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
   .pipe(plugins.sass(config.sass))
   .pipe(plugins.postcss(processors))
-  .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
+  .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
   .pipe(gulp.dest(config.theme.dest))
   .pipe(browsersync.reload({ stream: true }));
 });
@@ -32,10 +32,10 @@ gulp.task('styles-theme', function() {
 gulp.task('styles-core', function() {
   return gulp.src(config.core.src)
   .pipe(plugins.plumber({ errorHandler: onError }))
-  .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+  .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
   .pipe(plugins.sass(config.sass))
   .pipe(plugins.postcss(processors))
-  .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
+  .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
   .pipe(gulp.dest(config.core.dest))
   .pipe(browsersync.reload({ stream: true }));
 });
@@ -44,10 +44,10 @@ gulp.task('styles-core', function() {
 gulp.task('styles-admin', function() {
   return gulp.src(config.admin.src)
   .pipe(plugins.plumber({ errorHandler: onError }))
-  .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+  .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
   .pipe(plugins.sass(config.sass))
   .pipe(plugins.postcss(processors))
-  .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
+  .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
   .pipe(gulp.dest(config.admin.dest))
   .pipe(browsersync.reload({ stream: true }));
 });

@@ -71,6 +71,7 @@ jQuery( document ).ready( function( $ ) {
 			ANVA_BUILDER.active();
 			// ANVA_BUILDER.dragItems();
 			ANVA_BUILDER.sortItems();
+			ANVA_BUILDER.addRow();
 			ANVA_BUILDER.addItem();
 			ANVA_BUILDER.editItem();
 			ANVA_BUILDER.moveItem();
@@ -214,6 +215,22 @@ jQuery( document ).ready( function( $ ) {
 			return false;
 		},
 
+		addRow: function() {
+			$('#add-builder-row').on( 'click', function(e) {
+				e.preventDefault();
+
+				var row = '<div class="anva-row"></div>';
+
+				s.itemUl.append( row );
+
+				$('.anva-row').resizable({
+      				grid: 20,
+      				containment: '#builder-sortable-items'
+    			}).selectable();
+
+			});
+		},
+
 		/**
 		 * Add item to the list.
 		 */
@@ -329,6 +346,28 @@ jQuery( document ).ready( function( $ ) {
 						// Color Picker
 						$('.anva-color').wpColorPicker();
 
+						$('.section-range, .section-typography .font-range').each(function() {
+			                var el = $(this),
+				                value = el.find('.anva-input-range').val(),
+				                id = el.find('.anva-input-range').attr('id'),
+				                min = el.find('.anva-input-range').data('min'),
+				                max = el.find('.anva-input-range').data('max'),
+				                step = el.find('.anva-input-range').data('step'),
+				                units = el.find('.anva-input-range').data('units');
+			                $('#' + id + '_range').slider({
+			                    min: min,
+			                    max: max,
+			                    step: step,
+			                    value: value,
+			                    slide: function( e, ui ) {
+			                        $('#' + id).val( ui.value );
+			                    }
+			                });
+			                $('#' + id).val( $('#' + id + '_range').slider( "value" ) );
+			                $('#' + id + '_range').slider("pips");
+			                $('#' + id + '_range').slider("float", { pips: true, suffix: "" + units });
+			            });
+
 						// WP Editor
 						if ( $('.anva-wp-editor').length > 0) {
 							var options = { 'mceInit' : { "height": s.editorHeight } };
@@ -336,10 +375,10 @@ jQuery( document ).ready( function( $ ) {
 						}
 
 						// HTML5 Range Input
-						// $('.rangeslider').on( 'mousemove', function() {
-						// 	var $ele = $(this);
-						// 	$ele.next('output').text( $ele.val() );
-						// }).trigger('mousemove');
+						$('.rangeslider').on( 'mousemove', function() {
+							var $ele = $(this);
+							$ele.next('output').text( $ele.val() );
+						}).trigger('mousemove');
 
 						// Scroll to item
 						s.root.animate({

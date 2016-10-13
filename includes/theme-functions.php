@@ -1,23 +1,28 @@
 <?php
 
-// Define post types to be used in the theme
-$post_types = array(
-	'portfolio',
-	'galleries',
-	'slideshows'
-);
-
 // Define theme constants
 define( 'ANVA_THEME_ID', 'anva' );
 define( 'ANVA_THEME_NAME', 'Anva' );
 define( 'ANVA_THEME_VERSION', '1.0.0');
-define( 'ANVA_POST_TYPES_USED', serialize( $post_types ) );
+define( 'ANVA_POST_TYPES_USED', serialize( anva_get_post_types() ) );
 
 // Modify customizer options
 require_once( get_template_directory() . '/includes/customizer.php' );
 
 // Modify framework's core options
 require_once( get_template_directory() . '/includes/options.php' );
+
+// Define post types to be used in the theme
+function anva_get_post_types() {
+
+	$post_types = array(
+		'portfolio',
+		'galleries',
+		'slideshows'
+	);
+
+	return apply_filters( 'anva_post_types_used', $post_types );
+}
 
 /**
  * Add theme body classes.
@@ -111,7 +116,20 @@ function theme_header_classes( $classes ) {
 	$header_image       = anva_get_option( 'header_image' );
 	$header_layout      = anva_get_option( 'header_layout' );
 	$header_type        = anva_get_option( 'header_type', 'default' );
+	$header_sticky      = anva_get_option( 'header_sticky', 1 );
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
+
+	// Page Options
+	$page_header_type   = anva_get_post_meta( '_anva_header_type' );
+	$page_header_sticky = anva_get_post_meta( '_anva_header_sticky' );
+
+	if ( ! empty( $page_header_type ) ) {
+		$header_type = $page_header_type;
+	}
+
+	if ( ! empty( $page_header_sticky ) ) {
+		$header_sticky = $page_header_sticky;
+	}
 
 	// Get all header types
 	$types = anva_get_header_types();
@@ -127,7 +145,7 @@ function theme_header_classes( $classes ) {
 		$classes[] = $header_layout;
 	}
 
-	// Add header typr
+	// Add header type
 	if ( isset( $types[ $header_type ] ) ) {
 		if ( ! empty( $types[ $header_type ]['classes']['header'] ) ) {
 			$classes[] = $types[ $header_type ]['classes']['header'];
@@ -152,6 +170,10 @@ function theme_header_classes( $classes ) {
 
 	if ( ! empty( $header_image ) ) {
 		$classes[] = 'has-cusotm-image';
+	}
+
+	if ( $header_sticky ) {
+		$classes[] = 'no-sticky';
 	}
 
 	return $classes;

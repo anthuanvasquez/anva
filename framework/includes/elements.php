@@ -6,7 +6,7 @@
  * @since  1.0.0
  * @return The element with attributes.
  */
-function anva_elements() {
+function anva_display_elements() {
 
 	// Get settings.
 	$settings = anva_get_post_meta( '_anva_builder_options' );
@@ -26,9 +26,9 @@ function anva_elements() {
 		$atts 		= array();
 		$classes 	= array();
 		$data 		= $settings[ $item ]['data'];
-		$obj 		= json_decode( $data );
-		$content 	= $obj->shortcode . '_content';
-		$shortcode 	= $obj->shortcode;
+		$obj 		= json_decode( $data, true );
+		$content 	= $obj['shortcode'] . '_content';
+		$shortcode 	= $obj['shortcode'];
 
 		$counter++;
 
@@ -46,17 +46,19 @@ function anva_elements() {
 				$attributes = $shortcodes[ $shortcode ]['attr'];
 
 				foreach ( $attributes as $attribute_id => $attribute ) {
-					$obj_attribute = $obj->shortcode . '_' . $attribute_id;
-					if ( method_exists( $obj, $obj_attribute ) ) {
-						$atts[ $attribute_id ] = esc_attr( urldecode( $obj->$obj_attribute ) );
+
+					$obj_attribute = $obj['shortcode'] . '_' . $attribute_id;
+
+					if ( isset( $obj[ $obj_attribute ] ) ) {
+						$atts[ $attribute_id ] = esc_attr( urldecode( $obj[ $obj_attribute ] ) );
 					}
 				}
 			}
 
 			// Shortcode has content.
-			if ( isset( $obj->$content ) ) {
+			if ( isset( $obj[ $content ] ) ) {
 				$classes[] = 'element-has-content';
-				$content   = urldecode( $obj->$content );
+				$content   = urldecode( $obj[ $content ] );
 			} else {
 				$content = NULL;
 			}
@@ -150,8 +152,8 @@ function anva_header_element( $atts, $content = NULL ) {
 		'custom_css' => ''
 	), $atts ) );
 
-	$html = '';
-	$id = '';
+	$html          = '';
+	$id            = '';
 	$fontcolor_css = '';
 
 	if ( ! empty( $slug ) ) {
@@ -165,7 +167,7 @@ function anva_header_element( $atts, $content = NULL ) {
 	}
 
 	if ( ! empty( $fontcolor ) ) {
-		$custom_css .= 'color:' . $fontcolor . ';';
+		$custom_css   .= 'color:' . $fontcolor . ';';
 		$fontcolor_css = 'color:' . $fontcolor . ';';
 	}
 

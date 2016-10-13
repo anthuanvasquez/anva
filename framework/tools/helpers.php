@@ -2,7 +2,7 @@
 
 /**
  * Init framework's API.
- * 
+ *
  * @since  1.0.0
  * @return void
  */
@@ -22,18 +22,18 @@ function anva_api_init() {
 
 	// Setup Framework Core Sliders API
 	Anva_Sliders_API::instance();
-	
+
 	// Setup Framework Page Builder Elements API
 	Anva_Content_Builder_API::instance();
 
 	// Setup customizer API
 	$GLOBALS['_anva_customizer_sections'] = array();
-	
+
 }
 
 /**
  * Get theme option value.
- * 
+ *
  * If no value has been saved, it returns $default.
  * Needed because options are saved as serialized strings.
  *
@@ -67,13 +67,13 @@ function anva_get_option( $name, $default = false ) {
 	if ( isset( $options[ $name ] ) ) {
 		return $options[ $name ];
 	}
-	
+
 	return $default;
 }
 
 /**
  * This is for print theme option value.
- * 
+ *
  * @since 1.0.0
  * @param string               $name
  * @param string|array|boolean $default
@@ -243,7 +243,7 @@ function anva_remove_builder_element( $element_id ) {
 
 /**
  * Add sidebar location.
- * 
+ *
  * @since 1.0.0
  */
 function anva_add_sidebar_location( $id, $name, $desc = '' ) {
@@ -253,7 +253,7 @@ function anva_add_sidebar_location( $id, $name, $desc = '' ) {
 
 /**
  * Remove sidebar location.
- * 
+ *
  * @since 1.0.0
  */
 function anva_remove_sidebar_location( $id ) {
@@ -263,7 +263,7 @@ function anva_remove_sidebar_location( $id ) {
 
 /**
  * Get sidebar locations.
- * 
+ *
  * @since 1.0.0
  */
 function anva_get_sidebar_locations() {
@@ -273,7 +273,7 @@ function anva_get_sidebar_locations() {
 
 /**
  * Get sidebar location name or slug name.
- * 
+ *
  * @since 1.0.0
  */
 function anva_get_sidebar_location_name( $location, $slug = false ) {
@@ -292,7 +292,7 @@ function anva_get_sidebar_location_name( $location, $slug = false ) {
 
 /**
  * Display sidebar location.
- * 
+ *
  * @since 1.0.0
  */
 function anva_display_sidebar( $location ) {
@@ -302,7 +302,7 @@ function anva_display_sidebar( $location ) {
 
 /**
  * Add sidebar arguments when register locations.
- * 
+ *
  * @since 1.0.0
  */
 function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
@@ -323,7 +323,7 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 
 /**
  * Add stylesheet.
- * 
+ *
  * @since 1.0.0
  */
 function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = 'all' ) {
@@ -333,7 +333,7 @@ function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = '
 
 /**
  * Remove stylesheet.
- * 
+ *
  * @since 1.0.0
  */
 function anva_remove_stylesheet( $handle ) {
@@ -343,7 +343,7 @@ function anva_remove_stylesheet( $handle ) {
 
 /**
  * Get framework stylesheets.
- * 
+ *
  * @since 1.0.0
  */
 function anva_get_stylesheets() {
@@ -355,7 +355,7 @@ function anva_get_stylesheets() {
 
 /**
  * Print out styles.
- * 
+ *
  * @since 1.0.0
  */
 function anva_print_styles( $level ) {
@@ -461,3 +461,27 @@ function anva_slider_exists( $slider_id ) {
 	$api = Anva_Sliders_API::instance();
 	return $api->is_slider( $slider_id );
 }
+
+if ( ! function_exists( 'anva_post_types_is_used' ) ) :
+/**
+ * Check if post type is used on theme.
+ *
+ * @since  1.0.0
+ * @param  string $post_type
+ * @return boolean
+ */
+function anva_post_type_used( $post_type ) {
+
+    // Check if post types constant are defined
+    if ( ! defined( 'ANVA_POST_TYPES_USED' ) ) {
+        return false;
+    }
+
+    // Post types defined in theme level to be used.
+    $post_type_used = unserialize( ANVA_POST_TYPES_USED );
+
+    if ( in_array( $post_type, $post_type_used ) ) {
+        return true;
+    }
+}
+endif;
