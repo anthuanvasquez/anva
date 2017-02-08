@@ -7,14 +7,13 @@
  * entire framework. This class should be loaded and initialized before anything else within
  * the theme is called to properly use the framework.
  *
- * @since       1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @since        1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      Anva WordPress Framework
  */
-class Anva
-{
+class Anva {
 	/**
 	 * Framework's Name.
 	 *
@@ -37,8 +36,7 @@ class Anva
 	 * @since  1.0.0
 	 * @return error Throw error on object clone.
 	 */
-	public function __clone()
-	{
+	public function __clone() {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheating Huh?', 'anva' ), self::VERSION );
 	}
 
@@ -57,8 +55,7 @@ class Anva
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		// Set up an empty object to work with.
 		$GLOBALS['anva'] = new stdClass;
 
@@ -79,8 +76,7 @@ class Anva
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function set_constants()
-	{
+	public function set_constants() {
 		define( 'ANVA_FRAMEWORK_NAME',           self::NAME );
 		define( 'ANVA_FRAMEWORK_VERSION',        self::VERSION );
 		define( 'ANVA_FRAMEWORK_DIR',            trailingslashit( get_template_directory() . '/framework' ) );
@@ -104,8 +100,7 @@ class Anva
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function set_core_files()
-	{
+	public function set_core_files() {
 		// Admin
 		if ( is_admin() ) {
 
@@ -154,8 +149,7 @@ class Anva
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function set_core_hooks()
-	{
+	public function set_core_hooks() {
 		// Admin Actions / Filters
 		if ( is_admin() ) {
 

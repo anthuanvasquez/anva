@@ -1,16 +1,16 @@
-@import "variables";
-@import "mixins";
-@import "components/switch";
-@import "components/radio-checkbox";
+@import 'config/variables';
+@import 'config/mixins';
+@import 'components/switch';
+@import 'components/radio-checkbox';
 
 /*
 /* Admin Global Syles
 /* --------------------------------------------------------- */
 
-@import "general";
-@import "sections";
-@import "options";
-@import "notices";
+@import 'general';
+@import 'sections';
+@import 'options';
+@import 'notices';
 
 /* --------------------------------------------------------- */
 /* Buttons

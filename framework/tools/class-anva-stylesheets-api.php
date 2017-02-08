@@ -144,7 +144,7 @@ class Anva_Stylesheets_API {
 		// Framework Shortcodes
 		$this->framework_stylesheets['anva_shortcodes'] = array(
 			'handle'	=> 'anva_shortcodes',
-			'src'		=> anva_get_core_uri() . 'assets/css/shortcodes.css',
+			'src'		=> anva_get_core_uri() . 'assets/css/components.css',
 			'deps'		=> array(),
 			'ver'		=> ANVA_FRAMEWORK_VERSION,
 			'media'		=> 'all'

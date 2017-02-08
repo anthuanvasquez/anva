@@ -1735,7 +1735,6 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
     color: #444;
     z-index: 300;
     -webkit-transform: translateY(-80px);
-    -ms-transform: translateY(-80px);
     transform: translateY(-80px);
     -webkit-transition: opacity .4s ease, -webkit-transform .45s .15s ease;
     transition: opacity .4s ease, -webkit-transform .45s .15s ease;
@@ -1765,7 +1764,6 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
     transition: opacity .7s .4s ease, transform .45s .15s ease;
     transition: opacity .7s .4s ease, transform .45s .15s ease, -webkit-transform .45s .15s ease;
     -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
             transform: translateY(0);
     pointer-events: auto;
   }
@@ -1783,7 +1781,6 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
     text-transform: none;
     opacity: 0;
     -webkit-transform: translateY(-80px);
-        -ms-transform: translateY(-80px);
             transform: translateY(-80px);
     -webkit-transition: opacity .7s .15s ease, color .2s linear, -webkit-transform .45s .15s ease;
     transition: opacity .7s .15s ease, color .2s linear, -webkit-transform .45s .15s ease;
@@ -1793,7 +1790,6 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
   .overlay-menu #primary-menu > ul.show > li > a {
     opacity: 1;
     -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
             transform: translateY(0);
   }
 }
@@ -2706,7 +2702,6 @@ body:not(.device-touch) #page-menu nav li a {
   .side-header #primary-menu ul > li.sub-menu:hover > a:after {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
     -webkit-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
             transform: rotate(90deg);
   }
   .side-header:not(.open-header) #wrapper {
@@ -4123,7 +4118,6 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-notitle .por
 
 .bothsidebar .portfolio-notitle .portfolio-item:hover .portfolio-image img {
   -webkit-transform: translateY(0);
-  -ms-transform: translateY(0);
   transform: translateY(0);
 }
 
@@ -4132,7 +4126,6 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .bothsidebar .portfolio
 body:not(.device-touch):not(.device-xs):not(.device-xxs) .bothsidebar .portfolio-2.portfolio-notitle .portfolio-item:hover .portfolio-image img,
 body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-notitle .iportfolio:hover .portfolio-image img {
   -webkit-transform: translateY(-20px);
-  -ms-transform: translateY(-20px);
   transform: translateY(-20px);
 }
 
@@ -4644,7 +4637,6 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-desc {
 
 .portfolio-1.portfolio-fullwidth .portfolio-item:hover .portfolio-image img {
   -webkit-transform: translateX(-60px);
-  -ms-transform: translateX(-60px);
   transform: translateX(-60px);
 }
 
@@ -4654,7 +4646,6 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-desc {
 
 .portfolio-1.portfolio-fullwidth .portfolio-item.alt:hover .portfolio-image img {
   -webkit-transform: translateX(60px);
-  -ms-transform: translateX(60px);
   transform: translateX(60px);
 }
 
@@ -4715,7 +4706,6 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-1.portfolio-
 
 .postcontent .portfolio-1.portfolio-fullwidth .portfolio-item:hover .portfolio-image img {
   -webkit-transform: translateX(-40px);
-  -ms-transform: translateX(-40px);
   transform: translateX(-40px);
 }
 
@@ -4728,7 +4718,6 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-1.portfolio-
 
 .postcontent .portfolio-1.portfolio-fullwidth .portfolio-item.alt:hover .portfolio-image img {
   -webkit-transform: translateX(40px);
-  -ms-transform: translateX(40px);
   transform: translateX(40px);
 }
 
@@ -4764,7 +4753,6 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-1.portfolio-
 
 .bothsidebar .portfolio-1.portfolio-fullwidth .portfolio-item:hover .portfolio-image img {
   -webkit-transform: translateX(-20px);
-  -ms-transform: translateX(-20px);
   transform: translateX(-20px);
 }
 
@@ -4777,7 +4765,6 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-1.portfolio-
 
 .bothsidebar .portfolio-1.portfolio-fullwidth .portfolio-item.alt:hover .portfolio-image img {
   -webkit-transform: translateX(20px);
-  -ms-transform: translateX(20px);
   transform: translateX(20px);
 }
 
@@ -7966,13 +7953,11 @@ body:not(.device-touch) .tagcloud a {
 }
 
 .mfp-zoom-out-cur, .mfp-zoom-out-cur .mfp-image-holder .mfp-close {
-  cursor: -webkit-zoom-out;
   cursor: zoom-out;
 }
 
 .mfp-zoom {
   cursor: pointer;
-  cursor: -webkit-zoom-in;
   cursor: zoom-in;
 }
 
@@ -8325,18 +8310,15 @@ img.mfp-img {
 @media all and (max-width: 900px) {
   .mfp-arrow {
     -webkit-transform: scale(0.75);
-    -ms-transform: scale(0.75);
-        transform: scale(0.75);
+    transform: scale(0.75);
   }
   .mfp-arrow-left {
     -webkit-transform-origin: 0;
-    -ms-transform-origin: 0;
-        transform-origin: 0;
+    transform-origin: 0;
   }
   .mfp-arrow-right {
     -webkit-transform-origin: 100%;
-    -ms-transform-origin: 100%;
-        transform-origin: 100%;
+    transform-origin: 100%;
   }
   .mfp-container {
     padding-left: 6px;
@@ -9032,7 +9014,6 @@ body:not(.no-transition) #wrapper,
 .css3-spinner > .css3-spinner-zig-zag {
   background-color: transparent !important;
   -webkit-transform: translate(-15px, -15px);
-  -ms-transform: translate(-15px, -15px);
   transform: translate(-15px, -15px);
   -webkit-animation: none;
   animation: none;
@@ -9237,7 +9218,6 @@ body:not(.no-transition) #wrapper,
 .css3-spinner > .css3-spinner-triangle-path {
   background-color: transparent !important;
   -webkit-transform: translate(-29.994px, -37.50938px);
-  -ms-transform: translate(-29.994px, -37.50938px);
   transform: translate(-29.994px, -37.50938px);
   -webkit-animation: none;
   animation: none;

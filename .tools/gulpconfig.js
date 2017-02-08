@@ -17,19 +17,20 @@
 'use_strict';
 
 // Project `Paths`
-var project = 'anva',
-    version = '1.0.0',
-    release = project + '-' + version,
-    proxy   = 'anva.dev',
-    src     = '../',
-    theme   = src + 'assets/',
-    core    = src + 'framework/assets/',
-    admin   = src + 'framework/admin/assets/',
-    build   = './build/',
-    dist    = './dist/' + release + '/',
-    bower   = './bower_components/',
-    modules = './node_modules/',
-    parent  = '../../'
+var project     = 'anva',
+    version     = '1.0.0',
+    release     = project + '-' + version,
+    proxy       = 'anva.dev',
+    src         = '../',
+    theme       = src + 'assets/',
+    core        = src + 'framework/assets/',
+    admin       = src + 'framework/admin/assets/',
+    build       = './build/',
+    dist        = './dist/' + release + '/',
+    ignoreTools = '!' + src + '.tools',
+    bower       = './bower_components/',
+    modules     = './node_modules/',
+    parent      = '../../'
 ;
 
 // Vendor Scripts `Plugins`
@@ -75,233 +76,306 @@ var vendor = [
 // Project `Settings`
 module.exports = {
 
-  // -------------------------------------------
-  // BrowserSync
-  // -------------------------------------------
+    // -------------------------------------------
+    // BrowserSync
+    // -------------------------------------------
 
-  browsersync: {
-    files: [src + '/**', '!' + src + '.tools'],
-    notify: true,
-    open: true,
-    proxy: {
-      target: proxy
-    },
-    watchOptions: {
-      debounceDelay: 2000
-    }
-  },
-
-  // -------------------------------------------
-  // Livereload
-  // -------------------------------------------
-
-  livereload: {
-    port: 35729
-  },
-
-  // -------------------------------------------
-  // Images
-  // -------------------------------------------
-
-  images: {
-    build: {
-      src: [src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)', '!' + src + '/.tools'],
-      dest: build
-    },
-    dist: {
-      src: [dist + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)', '!' + dist + 'screenshot.png'],
-      imagemin: {
-        optimizationLevel: 7,
-        progressive: true,
-        interlaced: true
-      },
-      dest: dist
-    }
-  },
-
-  // -------------------------------------------
-  // Scripts
-  // -------------------------------------------
-
-  scripts: {
-    dest: build,
-    src: [src + '**/*.js', '!' + src + '.tools/**'],
-    lint: {
-      theme: theme + 'js/**/*.js',
-      core: core + 'js/**/*.js',
-      admin: admin + 'js/**/*.js',
-      ignore: ['*.min.js', 'plugins.js', 'vendor/**', 'components/**', 'vmap/**'],
-      options: '.jshintrc'
-    },
-    minify: {
-      theme: {
-        src: theme + 'js/**/*.js',
-        dest: theme + 'js/',
-      },
-      core: {
-        src: core + 'js/**/*.js',
-        dest: core + 'js/',
-        vendor: {
-          files: vendor,
-          name: 'vendor.js'
+    browsersync: {
+        files: [src + '/**', ignoreTools],
+        notify: true,
+        open: true,
+        proxy: {
+            target: proxy
         },
-        ignore: ['*.min.js', 'plugins.js', 'vendor/**', 'components/**', 'vmap/**']
-      },
-      admin: {
-        src: admin + 'js/**/*.js',
-        dest: admin + 'js/',
-      },
-      uglify: {},
-      rename: {
-        suffix: '.min'
-      }
+        watchOptions: {
+            debounceDelay: 2000
+        }
     },
-    sourcemaps: false
-  },
 
-  // -------------------------------------------
-  // Styles
-  // -------------------------------------------
+    // -------------------------------------------
+    // Livereload
+    // -------------------------------------------
 
-  styles: {
-    src: [src + '**/*.css', '!' + src + '.tools'],
-    dest: build,
-    lint: {
-      theme: theme + 'css/**/*.css',
-      core: core + 'css/**/*.css',
-      admin: admin + 'css/**/*.css',
-      ignore: ['*.min.css', 'custom.css', 'ie.css', 'calendar.css', 'camera.css', 'elastic.css', 'nivo-slider.css', 'swiper.css', 'vmap.css', 'animate.css', 'bootstrap.css', 'components/**', 'fonts/**'],
-      options: '.csslintrc'
+    livereload: {
+        port: 35729
     },
+
+    // -------------------------------------------
+    // Images
+    // -------------------------------------------
+
+    images: {
+        build: {
+            src: [
+                src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
+                ignoreTools
+            ],
+            dest: build
+        },
+        dist: {
+            src: [
+                dist + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
+                '!' + dist + 'screenshot.png'
+            ],
+            imagemin: {
+                optimizationLevel: 7,
+                progressive: true,
+                interlaced: true
+            },
+            dest: dist
+        }
+    },
+
+    // -------------------------------------------
+    // Scripts
+    // -------------------------------------------
+
+    scripts: {
+        dest: build,
+        src: [src + '**/*.js', ignoreTools],
+        lint: {
+            theme: theme + 'js/**/*.js',
+            core: core + 'js/**/*.js',
+            admin: admin + 'js/**/*.js',
+            ignore: [
+                '*.min.js',
+                'plugins.js',
+                'vendor/**',
+                'components/**',
+                'vmap/**'
+            ],
+            options: '.jshintrc'
+        },
+        minify: {
+            theme: {
+                src: theme + 'js/**/*.js',
+                dest: theme + 'js/',
+            },
+            core: {
+                src: core + 'js/**/*.js',
+                dest: core + 'js/',
+                vendor: {
+                    files: vendor,
+                    name: 'vendor.js'
+                },
+                ignore: [
+                    '*.min.js',
+                    'plugins.js',
+                    'vendor/**',
+                    'components/**',
+                    'vmap/**'
+                ]
+            },
+            admin: {
+                src: admin + 'js/**/*.js',
+                dest: admin + 'js/',
+            },
+            uglify: {},
+            rename: {
+                suffix: '.min'
+            }
+        },
+        sourcemaps: false
+    },
+
+    // -------------------------------------------
+    // Styles
+    // -------------------------------------------
+
+    styles: {
+        src: [src + '**/*.css', ignoreTools],
+        dest: build,
+        lint: {
+            theme: theme + 'css/**/*.css',
+            core: core + 'css/**/*.css',
+            admin: admin + 'css/**/*.css',
+            ignore: [
+                '*.min.css',
+                'custom.css',
+                'ie.css',
+                'calendar.css',
+                'camera.css',
+                'elastic.css',
+                'nivo-slider.css',
+                'swiper.css',
+                'vmap.css',
+                'animate.css',
+                'bootstrap.css',
+                'components/**',
+                'fonts/**'
+            ],
+            options: {
+                reporters: [
+                    {
+                        formatter: 'verbose',
+                        console: true
+                    }
+                ]
+            }
+        },
+        theme: {
+            src: theme + 'scss/**/*.scss',
+            dest: theme + 'css/'
+        },
+        core: {
+            src: core + 'scss/**/*.scss',
+            dest: core + 'css/'
+        },
+        admin: {
+            src: admin + 'scss/**/*.scss',
+            dest: admin + 'css/'
+        },
+        sass: {
+            includePaths: [
+                theme + 'scss',
+                core + 'scss',
+                admin + 'scss',
+                bower,
+                modules
+            ],
+            precision: 6,
+            // Options: nested, expanded, compact, compressed
+            outputStyle: 'expanded'
+        },
+        sassLint: {
+            theme: theme + 'scss/**/*.scss',
+            core: core + 'scss/**/*.scss',
+            admin: admin + 'scss/**/*.scss'
+        },
+        autoprefixer: {
+            browsers: [
+                '> 1%',
+                'last 2 versions',
+                'not ie < 11',
+                'not OperaMini >= 5.0',
+                'ios 7',
+                'android 4'
+            ]
+        },
+        minify: {
+            theme: {
+                src: theme + 'css/**/*.css',
+                dest: build + 'assets/css/'
+            },
+            core: {
+                src: core + 'css/**/*.css',
+                dest: build + 'framework/assets/css/'
+            },
+            admin: {
+                src: admin + 'css/**/*.css',
+                dest: build + 'framework/admin/assets/css/'
+            },
+            dest: build,
+            ignore: [
+                '*.min.css',
+                'custom.css',
+                'ie.css',
+                'calendar.css',
+                'camera.css',
+                'elastic.css',
+                'nivo-slider.css',
+                'swiper.css',
+                'vmap.css',
+                'animate.css',
+                'bootstrap.css',
+                'components/**',
+                'fonts/**'
+            ],
+            options: {
+                safe: true
+            }
+        },
+        sourcemaps: true
+    },
+
+    // -------------------------------------------
+    // Theme
+    // -------------------------------------------
+
     theme: {
-      src: theme + 'scss/**/*.scss',
-      dest: theme + 'css/'
+        lang: {
+            src: src + 'languages/**/*',
+            dest: build + 'languages/',
+            pot: {
+                domain: project,
+                destFile: project + '.pot',
+                package: project,
+                bugReport: 'https://anthuanvasquez.net',
+                lastTranslator: 'Anthuan Vásquez <me@anthuanvasquez.net>',
+                team: 'Anthuan Vásquez <me@anthuanvasquez.net>'
+            }
+        },
+        php: {
+           src: [src + '**/*.php', ignoreTools],
+            dest: build
+        },
+        readme: {
+            src: src + 'readme.md',
+            dest: build
+        },
+        textdomain: {
+            text_domain: project,
+            keywords: [
+                '__:1,2d',
+                '_e:1,2d',
+                '_x:1,2c,3d',
+                'esc_html__:1,2d',
+                'esc_html_e:1,2d',
+                'esc_html_x:1,2c,3d',
+                'esc_attr__:1,2d',
+                'esc_attr_e:1,2d',
+                'esc_attr_x:1,2c,3d',
+                '_ex:1,2c,3d',
+                '_n:1,2,4d',
+                '_nx:1,2,4c,5d',
+                '_n_noop:1,2,3d',
+                '_nx_noop:1,2,3c,4d'
+            ]
+        },
+        // Theme symlink
+        test: {
+            src: build,
+            dest: parent + release
+        }
     },
-    core: {
-      src: core + 'scss/**/*.scss',
-      dest: core + 'css/'
-    },
-    admin: {
-      src: admin + 'scss/**/*.scss',
-      dest: admin + 'css/'
-    },
-    sass: {
-      includePaths: [theme + 'scss', core + 'scss', admin + 'scss', bower, modules],
-      precision: 6,
-      outputStyle: 'expanded', // nested, expanded, compact, compressed
-      onError: function(err) {
-        return console.log(err);
-      }
-    },
-    autoprefixer: {
-      browsers: ['> 3%', 'last 10 versions', 'ie 9', 'ios 6', 'android 4']
-    },
-    minify: {
-      theme: {
-        src: theme + 'css/**/*.css',
-        dest: build + 'assets/css/'
-      },
-      core: {
-        src: core + 'css/**/*.css',
-        dest: build + 'framework/assets/css/'
-      },
-      admin: {
-        src: admin + 'css/**/*.css',
-        dest: build + 'framework/admin/assets/css/'
-      },
-      dest: build,
-      ignore: ['*.min.css', 'custom.css', 'ie.css', 'calendar.css', 'camera.css', 'elastic.css', 'nivo-slider.css', 'swiper.css', 'vmap.css', 'animate.css', 'bootstrap.css', 'components/**', 'fonts/**'],
-      options: {
-        safe: true
-      }
-    },
-    sourcemaps: true
-  },
 
-  // -------------------------------------------
-  // Theme
-  // -------------------------------------------
+    // -------------------------------------------
+    // Utils
+    // -------------------------------------------
 
-  theme: {
-    lang: {
-      src: src + 'languages/**/*',
-      dest: build + 'languages/',
-      pot: {
-        domain: project,
-        destFile: project + '.pot',
-        package: project,
-        bugReport: 'http://anthuanvasquez.net',
-        lastTranslator: 'Anthuan Vásquez <me@anthuanvasquez.net>',
-        team: 'Anthuan Vásquez <me@anthuanvasquez.net>'
-      }
+    utils: {
+        clean: [src + '**/.DS_Store', src + '**/.log'],
+        wipe: {
+            dist: [dist],
+            build: [build],
+            test: [parent + release]
+        },
+        dist: {
+            src: [build + '**/*', '!' + build + '**/*.map'],
+            dest: './dist',
+            name: release + '.zip',
+        }
     },
-    php: {
-      src: [src + '**/*.php', '!' + src + '.tools/**'],
-      dest: build
-    },
-    readme: {
-      src: src + 'readme.md',
-      dest: build
-    },
-    textdomain: {
-      text_domain: project,
-      keywords: [
-        '__:1,2d',
-        '_e:1,2d',
-        '_x:1,2c,3d',
-        'esc_html__:1,2d',
-        'esc_html_e:1,2d',
-        'esc_html_x:1,2c,3d',
-        'esc_attr__:1,2d',
-        'esc_attr_e:1,2d',
-        'esc_attr_x:1,2c,3d',
-        '_ex:1,2c,3d',
-        '_n:1,2,4d',
-        '_nx:1,2,4c,5d',
-        '_n_noop:1,2,3d',
-        '_nx_noop:1,2,3c,4d'
-      ]
-    },
-    // Theme symlink
-    test: {
-      src: build,
-      dest: parent + release
+
+    // -------------------------------------------
+    // Watch
+    // -------------------------------------------
+
+    watch: {
+        src: {
+            theme: theme + 'scss/**/*.scss',
+            core: core + 'scss/**/*.scss',
+            admin: admin + 'scss/**/*.scss',
+            scripts: [
+                theme + 'js/**/*.js',
+                core + 'js/**/*.js',
+                admin + 'js/**/*.js'
+            ],
+            images: src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
+            php: src + '**/*.php',
+            livereload: src + '**/*'
+        },
+        watcher: 'browsersync'
     }
-  },
-
-  // -------------------------------------------
-  // Utils
-  // -------------------------------------------
-
-  utils: {
-    clean: [src + '**/.DS_Store'],
-    wipe: {
-      dist: [dist],
-      build: [build],
-      test: [parent + release]
-    },
-    dist: {
-      src: [build + '**/*', '!' + build + '**/*.map'],
-      dest: './dist',
-      name: release + '.zip',
-    }
-  },
-
-  // -------------------------------------------
-  // Watch
-  // -------------------------------------------
-
-  watch: {
-    src: {
-      theme: theme + 'scss/**/*.scss',
-      core: core + 'scss/**/*.scss',
-      admin: admin + 'scss/**/*.scss',
-      scripts: [theme + 'js/**/*.js', core + 'js/**/*.js', admin + 'js/**/*.js'],
-      images: src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
-      php: src + '**/*.php',
-      livereload: src + '**/*'
-    },
-    watcher: 'browsersync'
-  }
 
 };

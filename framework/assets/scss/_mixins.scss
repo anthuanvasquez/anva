@@ -1,14 +1,14 @@
-// -----------------------------------------------------------------------------------
-// 	mixins.less
-// -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------
+//  Mixins
+// -----------------------------------------------------------------
 
 @mixin size($width, $height) {
-	width: $width;
-	height: $height;
+    width: $width;
+    height: $height;
 }
 
 @mixin square($size) {
-	@include size($size, $size);
+    @include size($size, $size);
 }
 
 
@@ -16,8 +16,8 @@
 // -----------------------------------------------------------------
 
 @mixin portfolio-width($container, $columns, $margin) {
-	$width: floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
-	@return floor( ( $width * 3 ) / 4 );
+    $width: floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
+    @return floor( ( $width * 3 ) / 4 );
 }
 
 @mixin portfolio-height($container, $columns, $margin) {
@@ -25,13 +25,13 @@
 }
 
 @mixin portfolio-item-width($container, $columns, $margin) {
-	width: portfolio-width($container, $columns, $margin);
+    width: portfolio-width($container, $columns, $margin);
 }
 
 @mixin portfolio-item-size($container, $columns, $margin) {
-	$height: portfolio-item-height($container, $columns, $margin);
+    $height: portfolio-item-height($container, $columns, $margin);
     $width: portfolio-item-width($container, $columns, $margin);
-	@include size($width, $height);
+    @include size($width, $height);
 }
 
 
@@ -39,7 +39,7 @@
 // -----------------------------------------------------------------
 
 @function shop-width($container, $columns, $margin) {
-	@return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
+    @return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
 }
 
 @function shop-height($container, $columns, $margin) {
@@ -48,11 +48,11 @@
 }
 
 @mixin shop-item-width($container, $columns, $margin) {
-	width: shop-width($container, $columns, $margin);
+    width: shop-width($container, $columns, $margin);
 }
 
 @mixin shop-item-height($container, $columns, $margin) {
-	height: shop-height($container, $columns, $margin);
+    height: shop-height($container, $columns, $margin);
 }
 
 
@@ -60,7 +60,7 @@
 // -----------------------------------------------------------------
 
 @function blog-grid-width($container, $columns, $margin) {
-	@return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
+    @return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
 }
 
 @function blog-grid-height($container, $columns, $margin) {
@@ -69,11 +69,11 @@
 }
 
 @mixin blog-grid-item-width($container, $columns, $margin) {
-	width: blog-grid-width($container, $columns, $margin);
+    width: blog-grid-width($container, $columns, $margin);
 }
 
 @mixin blog-grid-item-height($container, $columns, $margin) {
-	height: blog-grid-height($container, $columns, $margin);
+    height: blog-grid-height($container, $columns, $margin);
 }
 
 
@@ -81,21 +81,21 @@
 // -----------------------------------------------------------------
 
 @mixin border-radius($radius: 3px) {
-	border-radius: $radius;
+    border-radius: $radius;
 }
 
 @mixin border-radius-custom($topleft: 3px, $topright: 3px, $bottomright: 3px, $bottomleft: 3px) {
-	border-radius: $topleft $topright $bottomright $bottomleft;
+    border-radius: $topleft $topright $bottomright $bottomleft;
 }
 
 @mixin box-shadow($shadow) {
-	box-shadow: $shadow;
+    box-shadow: $shadow;
 }
 
 @mixin transition($transition) {
-	transition: $transition;
+    transition: $transition;
 }
 
 @mixin transition-transform($transition) {
-	transition: transform $transition;
+    transition: transform $transition;
 }

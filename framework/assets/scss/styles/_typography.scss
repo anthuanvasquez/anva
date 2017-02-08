@@ -4,19 +4,11 @@
  * Typography styles.
  */
 
+/* stylelint-disable */
+
 dl, dt, dd, ol, ul, li {
 	margin: 0;
 	padding: 0;
-}
-
-.clear {
-	clear: both;
-	display: block;
-	font-size: 0px;
-	height: 0px;
-	line-height: 0;
-	width: 100%;
-	overflow:hidden;
 }
 
 ::selection {
@@ -47,7 +39,7 @@ dl, dt, dd, ol, ul, li {
 
 
 body {
-    line-height: $line-height-base;
+	line-height: $line-height-base;
 	color: $body-color;
 	font-size: $font-size-base;
 	font-family: $body-font;
@@ -142,6 +134,8 @@ small { font-family: $body-font; }
 	background-color: #FFF;
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+
+/* stylelint-enable */
 
 // body.no-responsive {
 // 	#wrapper {

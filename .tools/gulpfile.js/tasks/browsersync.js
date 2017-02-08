@@ -9,6 +9,6 @@ var gulp        = require('gulp'),
 // Quick start: connect all your devices to the same
 // network (e.g. wifi) and navigate to the address output
 // in the console when you run `gulp`
-gulp.task('browsersync', ['build'], function() {
-  browsersync.init(config);
+gulp.task('browsersync', ['build'], () => {
+    browsersync.init(config);
 });

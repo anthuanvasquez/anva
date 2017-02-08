@@ -233,7 +233,7 @@ class Anva_Options_Page
 				$options = anva_get_options();
 
 			 	printf(
-			 		'<h2 class="anva-page-title"><span class="dashicons dashicons-admin-settings"></span> %1$s <span>%3$s<em>%2$s</em></span></h2>',
+			 		'<h2 class="anva-page-title"> %1$s <span>%3$s<em>%2$s</em></span></h2>',
 			 		esc_html( $menu['page_title'] ),
 			 		anva_get_theme( 'version' ),
 			 		__( 'Version', 'anva' )

@@ -8,10 +8,10 @@
  */
 class Anva_Main_Menu_Walker extends Walker_Nav_Menu {
 
-    private $doing_mega = false;
-    private $mega_col = '';
-    private $count = 0;
-    private $show_headers = false;
+    private $doing_mega     = false;
+    private $mega_col       = '';
+    private $count          = 0;
+    private $show_headers   = false;
     private $current_header = NULL;
 
     /**

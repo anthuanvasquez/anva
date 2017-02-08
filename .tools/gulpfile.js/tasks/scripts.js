@@ -46,7 +46,7 @@ gulp.task('scripts-lint', function() {
 });
 
 // Copy javascripts source files to the `build` folder
-gulp.task('scripts-build', function(){
+gulp.task('scripts-build', function() {
   return gulp.src(config.src)
   .pipe(plugins.changed(config.dest))
   .pipe(gulp.dest(config.dest));

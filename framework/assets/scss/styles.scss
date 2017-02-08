@@ -34,35 +34,21 @@
  * 6.0 - Magnific Popup
  */
 
-// Initialize
-@import "framework";
-
-// Core CSS
-@import "styles/typography";
-@import "styles/helpers";
-@import "styles/layouts";
-
-// Content Blocks
-@import "styles/topbar";
-@import "styles/header";
-@import "styles/sliders";
-@import "styles/pagetitle";
-@import "styles/content";
-@import "styles/portfolio";
-@import "styles/galleries";
-@import "styles/blog";
-@import "styles/shop";
-@import "styles/events";
-
-// Footer
-@import "styles/footer";
-
-// Widgets
-@import "styles/widgets";
-
-// Plugins
-// Magnific Popup
-@import "styles/magnific-popup";
-
-// Extras
-@import "styles/extras";
+@import 'framework';
+@import 'styles/typography';
+@import 'styles/helpers';
+@import 'styles/layouts';
+@import 'styles/topbar';
+@import 'styles/header';
+@import 'styles/sliders';
+@import 'styles/pagetitle';
+@import 'styles/content';
+@import 'styles/portfolio';
+@import 'styles/galleries';
+@import 'styles/blog';
+@import 'styles/shop';
+@import 'styles/events';
+@import 'styles/footer';
+@import 'styles/widgets';
+@import 'styles/magnific-popup';
+@import 'styles/extras';
