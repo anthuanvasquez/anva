@@ -255,7 +255,7 @@ h6 {
 }
 
 table {
-  border: 1px solid #e7e7e7 !important;
+  border: 1px solid #e7e7e7;
   text-align: left;
   margin: 0 -1px 24px 0;
   width: 100%;
@@ -265,7 +265,7 @@ table {
 
 tr th,
 thead th {
-  border: none !important;
+  border: none;
   color: #888;
   font-size: 12px;
   font-weight: bold;
@@ -274,8 +274,8 @@ thead th {
 }
 
 tr td {
-  border: none !important;
-  border-top: 1px solid #e7e7e7 !important;
+  border: none;
+  border-top: 1px solid #e7e7e7;
   padding: 6px 24px;
 }
 
@@ -286,7 +286,6 @@ img {
 
 .alignleft,
 img.alignleft {
-  display: inline;
   float: left;
   margin-right: 24px;
   margin-top: 4px;
@@ -294,7 +293,6 @@ img.alignleft {
 
 .alignright,
 img.alignright {
-  display: inline;
   float: right;
   margin-left: 24px;
   margin-top: 4px;
@@ -323,7 +321,6 @@ img.aligncenter {
   text-align: center;
   margin-bottom: 20px;
   padding: 4px;
-  -webkit-border-radius: 0;
   border-radius: 0;
 }
 
@@ -331,7 +328,7 @@ img.aligncenter {
   margin: 5px;
 }
 
-.wp-caption p.wp-caption-text {
+.wp-caption .wp-caption-text {
   margin: 0 0 4px;
 }
 
