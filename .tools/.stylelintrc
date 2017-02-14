@@ -5,8 +5,8 @@ rules:
     declaration-block-no-ignored-properties: true
     declaration-block-no-shorthand-property-overrides: true
     block-no-empty: true
-    selector-no-attribute: true
-    selector-no-id: true
+    selector-no-attribute: false
+    selector-no-id: false
     no-unknown-animations: true
     no-browser-hacks:
         - true

@@ -11,7 +11,7 @@ var gulp          = require('gulp'),
 ;
 
 // Build SCSS source files from `theme`
-gulp.task('styles-theme', () => {
+gulp.task('sass-theme', () => {
     return gulp.src(config.theme.src)
     .pipe(plugins.plumber({ errorHandler: onError }))
     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
@@ -23,7 +23,7 @@ gulp.task('styles-theme', () => {
 });
 
 // Build SCSS source files from `core`
-gulp.task('styles-core', () => {
+gulp.task('sass-core', () => {
     return gulp.src(config.core.src)
     .pipe(plugins.plumber({ errorHandler: onError }))
     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
@@ -35,33 +35,33 @@ gulp.task('styles-core', () => {
 });
 
 // Build SCSS source files from `admin`
-gulp.task('styles-admin', () => {
-     return gulp.src(config.admin.src)
-     .pipe(plugins.plumber({ errorHandler: onError }))
-     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
-     .pipe(plugins.sass(config.sass))
-     .pipe(plugins.postcss(processors))
-     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
-     .pipe(gulp.dest(config.admin.dest))
-     .pipe(browsersync.stream);
+gulp.task('sass-admin', () => {
+    return gulp.src(config.admin.src)
+    .pipe(plugins.plumber({ errorHandler: onError }))
+    .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
+    .pipe(plugins.sass(config.sass))
+    .pipe(plugins.postcss(processors))
+    .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
+    .pipe(gulp.dest(config.admin.dest))
+    .pipe(browsersync.stream);
 });
 
 // Lint SASS source files
-gulp.task('styles-sass-lint', () => {
+gulp.task('sass-lint', () => {
     return gulp.src([config.sassLint.theme, config.sassLint.core, config.sassLint.admin])
     .pipe(plugins.sassLint())
     .pipe(plugins.sassLint.format());
 });
 
 // Lint CSS source files
-gulp.task('styles-css-lint', () => {
+gulp.task('css-lint', () => {
     return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
     .pipe(plugins.ignore.exclude(config.lint.ignore))
     .pipe(plugins.stylelint(config.lint.options));
 });
 
 // Minify CSS source files and copy to `build` folder
-gulp.task('styles-minify-theme', () => {
+gulp.task('css-min-theme', () => {
     return gulp.src(config.minify.theme.src)
     .pipe(plugins.ignore.exclude(config.minify.ignore))
     .pipe(plugins.cssnano(config.minify.options))
@@ -70,7 +70,7 @@ gulp.task('styles-minify-theme', () => {
     .pipe(gulp.dest(config.minify.theme.dest));
 });
 
-gulp.task('styles-minify-core', () => {
+gulp.task('css-min-core', () => {
     return gulp.src(config.minify.core.src)
     .pipe(plugins.ignore.exclude(config.minify.ignore))
     .pipe(plugins.cssnano(config.minify.options))
@@ -79,7 +79,7 @@ gulp.task('styles-minify-core', () => {
     .pipe(gulp.dest(config.minify.core.dest));
 });
 
-gulp.task('styles-minify-admin', () => {
+gulp.task('css-min-admin', () => {
     return gulp.src(config.minify.admin.src)
     .pipe(plugins.ignore.exclude(config.minify.ignore))
     .pipe(plugins.cssnano(config.minify.options))
@@ -96,6 +96,6 @@ gulp.task('styles-build', () => {
 });
 
 // Master styles tasks
-gulp.task('styles-minify', ['styles-minify-theme', 'styles-minify-core', 'styles-minify-admin']);
-gulp.task('styles-watch', ['styles-theme', 'styles-core', 'styles-admin']);
+gulp.task('css-minify', ['css-min-theme', 'css-min-core', 'css-min-admin']);
+gulp.task('sass', ['sass-theme', 'sass-core', 'sass-admin']);
 gulp.task('styles', ['styles-build', 'styles-minify']);

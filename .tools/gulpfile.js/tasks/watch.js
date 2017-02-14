@@ -10,9 +10,9 @@ var gulp        = require('gulp'),
 // are modified, let BrowserSync figure out when to reload
 // Task chain: build -> browsersync -> watch
 gulp.task('watch-browsersync', ['browsersync'], () => {
-    gulp.watch(config.src.theme, ['styles-theme']);
-    gulp.watch(config.src.core, ['styles-core']);
-    gulp.watch(config.src.admin, ['styles-admin']);
+    gulp.watch(config.src.theme, ['sass-theme']);
+    gulp.watch(config.src.core, ['sass-core']);
+    gulp.watch(config.src.admin, ['sass-admin']);
     gulp.watch(config.src.scripts, reload);
     gulp.watch(config.src.images, reload);
     gulp.watch(config.src.php, reload);
@@ -23,9 +23,9 @@ gulp.task('watch-browsersync', ['browsersync'], () => {
 // Task chain: build -> livereload -> watch
 gulp.task('watch-livereload', ['livereload'], () => {
     // plugins.livereload.listen();
-    gulp.watch(config.src.theme, ['styles-theme']);
-    gulp.watch(config.src.core, ['styles-core']);
-    gulp.watch(config.src.admin, ['styles-admin']);
+    gulp.watch(config.src.theme, ['sass-theme']);
+    gulp.watch(config.src.core, ['sass-core']);
+    gulp.watch(config.src.admin, ['sass-admin']);
     gulp.watch(config.src.livereload).on('change', function(file) {
         plugins.livereload.changed(file.path);
     });

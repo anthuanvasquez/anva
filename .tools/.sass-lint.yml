@@ -23,7 +23,7 @@ rules:
     no-css-comments: 1
     no-debug: 2
     no-empty-rulesets: 1
-    no-ids: 2
+    no-ids: 1
     no-important: 1
     no-invalid-hex: 2
     no-misspelled-properties: 2
