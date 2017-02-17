@@ -1,0 +1,21 @@
+//  Portfolio Item Size Builder
+// -----------------------------------------------------------------
+
+@mixin portfolio-width($container, $columns, $margin) {
+    $width: floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
+    @return floor( ( $width * 3 ) / 4 );
+}
+
+@mixin portfolio-height($container, $columns, $margin) {
+    @return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
+}
+
+@mixin portfolio-item-width($container, $columns, $margin) {
+    width: portfolio-width($container, $columns, $margin);
+}
+
+@mixin portfolio-item-size($container, $columns, $margin) {
+    $height: portfolio-item-height($container, $columns, $margin);
+    $width: portfolio-item-width($container, $columns, $margin);
+    @include size($width, $height);
+}

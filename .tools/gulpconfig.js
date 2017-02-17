@@ -233,7 +233,6 @@ module.exports = {
                 bower,
                 modules
             ],
-            precision: 6,
             // Options: nested, expanded, compact, compressed
             outputStyle: 'expanded'
         },

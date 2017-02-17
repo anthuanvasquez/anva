@@ -1,2 +1,6 @@
-@import 'variables';
-@import 'mixins';
+@import 'config/variables';
+@import 'config/mixin/blog';
+@import 'config/mixin/portfolio';
+@import 'config/mixin/shop';
+@import 'config/mixin/utils';
+

@@ -38,19 +38,10 @@
  *
  * Typography styles.
  */
+/* stylelint-disable */
 dl, dt, dd, ol, ul, li {
   margin: 0;
   padding: 0;
-}
-
-.clear {
-  clear: both;
-  display: block;
-  font-size: 0px;
-  height: 0px;
-  line-height: 0;
-  width: 100%;
-  overflow: hidden;
 }
 
 ::-moz-selection {
@@ -206,11 +197,22 @@ small {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* stylelint-enable */
 /*-----------------------------------------------------------------------------------
 
 	helpers.less
 
 -----------------------------------------------------------------------------------*/
+.clear {
+  clear: both;
+  display: block;
+  font-size: 0px;
+  height: 0px;
+  line-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
 .uppercase {
   text-transform: uppercase !important;
 }

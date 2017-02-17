@@ -19,7 +19,7 @@ gulp.task('sass-theme', () => {
     .pipe(plugins.postcss(processors))
     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
     .pipe(gulp.dest(config.theme.dest))
-    .pipe(browsersync.stream);
+    .pipe(browsersync.stream());
 });
 
 // Build SCSS source files from `core`
@@ -31,7 +31,7 @@ gulp.task('sass-core', () => {
     .pipe(plugins.postcss(processors))
     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
     .pipe(gulp.dest(config.core.dest))
-    .pipe(browsersync.stream);
+    .pipe(browsersync.stream());
 });
 
 // Build SCSS source files from `admin`
@@ -43,7 +43,7 @@ gulp.task('sass-admin', () => {
     .pipe(plugins.postcss(processors))
     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
     .pipe(gulp.dest(config.admin.dest))
-    .pipe(browsersync.stream);
+    .pipe(browsersync.stream());
 });
 
 // Lint SASS source files
