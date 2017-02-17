@@ -373,7 +373,6 @@ module.exports = {
             ],
             images: src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
             php: src + '**/*.php',
-            livereload: src + '**/*'
         },
         watcher: 'browsersync'
     }

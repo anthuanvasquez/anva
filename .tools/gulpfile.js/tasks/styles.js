@@ -96,6 +96,6 @@ gulp.task('styles-build', () => {
 });
 
 // Master styles tasks
-gulp.task('css-minify', ['css-min-theme', 'css-min-core', 'css-min-admin']);
 gulp.task('sass', ['sass-theme', 'sass-core', 'sass-admin']);
-gulp.task('styles', ['styles-build', 'styles-minify']);
+gulp.task('css-minify', ['css-min-theme', 'css-min-core', 'css-min-admin']);
+gulp.task('styles', ['styles-build', 'css-minify']);
