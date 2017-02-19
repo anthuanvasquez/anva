@@ -7,26 +7,26 @@
 /* stylelint-disable */
 
 dl, dt, dd, ol, ul, li {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 ::selection {
-	background: $theme-color;
-	color: #FFF;
-	text-shadow: none;
+    background: $theme-color;
+    color: #FFF;
+    text-shadow: none;
 }
 
 ::-moz-selection {
-	background: $theme-color; /* Firefox */
-	color: #FFF;
-	text-shadow: none;
+    background: $theme-color; /* Firefox */
+    color: #FFF;
+    text-shadow: none;
 }
 
 ::-webkit-selection {
-	background: $theme-color; /* Safari */
-	color: #FFF;
-	text-shadow: none;
+    background: $theme-color; /* Safari */
+    color: #FFF;
+    text-shadow: none;
 }
 
 :active,
@@ -34,28 +34,28 @@ dl, dt, dd, ol, ul, li {
 
 
 /* ----------------------------------------------------------------
-	Typography
+    Typography
 -----------------------------------------------------------------*/
 
 
 body {
-	line-height: $line-height-base;
-	color: $body-color;
-	font-size: $font-size-base;
-	font-family: $body-font;
+    line-height: $line-height-base;
+    color: $body-color;
+    font-size: $font-size-base;
+    font-family: $body-font;
 }
 
 a {
-	text-decoration: none !important;
-	color: $theme-color;
+    text-decoration: none !important;
+    color: $theme-color;
 
-	&:hover {
-		color: #222;
-	}
+    &:hover {
+        color: #222;
+    }
 
-	img {
-		border: none;
-	}
+    img {
+        border: none;
+    }
 }
 
 img { max-width: 100%; height: auto; }
@@ -64,7 +64,7 @@ iframe { border: none !important; }
 
 
 /* ----------------------------------------------------------------
-	Basic Layout Styles
+    Basic Layout Styles
 -----------------------------------------------------------------*/
 
 
@@ -74,11 +74,11 @@ h3,
 h4,
 h5,
 h6 {
-	color: $heading-color;
-	font-weight: $heading-weight;
-	line-height: $line-height-base;
-	margin: 0 0 $margin-small 0;
-	font-family: $heading-font;
+    color: $heading-color;
+    font-weight: $heading-weight;
+    line-height: $line-height-base;
+    margin: 0 0 $margin-small 0;
+    font-family: $heading-font;
 }
 
 h5,
@@ -107,9 +107,9 @@ h3,
 h4,
 h5,
 h6 {
-	> span:not(.nocolor) {
-		color: $theme-color;
-	}
+    > span:not(.nocolor) {
+        color: $theme-color;
+    }
 }
 
 p,
@@ -127,22 +127,22 @@ form { margin-bottom: $margin-small; }
 small { font-family: $body-font; }
 
 #wrapper {
-	position: relative;
-	float: none;
-	width: 1220px;
-	margin: 0 auto;
-	background-color: #FFF;
-	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    float: none;
+    width: 1220px;
+    margin: 0 auto;
+    background-color: #FFF;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 /* stylelint-enable */
 
 // body.no-responsive {
-// 	#wrapper {
-// 		float: none !important;
-// 		margin: 0 auto !important;
-// 		width: 1220px !important;
-// 	}
+//  #wrapper {
+//      float: none !important;
+//      margin: 0 auto !important;
+//      width: 1220px !important;
+//  }
 // }
 
 // body.no-responsive #header.full-header .container {

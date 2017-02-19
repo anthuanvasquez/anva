@@ -17,7 +17,7 @@ indent_style = tab
 indent_style = 4
 
 [*.{css,js,scss,sass,less}]
-indent_style = tab
+indent_style = space
 indent_style = 4
 end_of_line = lf
 

@@ -40,53 +40,53 @@ $client = anva_get_post_meta( '_anva_client' );
 						<div class="portfolio-single-content col_three_fifth nobottommargin">
 							<div class="portfolio-gallery">
 								<?php
-									$display_gallery = get_post_meta( $post->ID, '_anva_gallery', true );
-									if ( $display_gallery ) {
+								$display_gallery = get_post_meta( $post->ID, '_anva_gallery', true );
+								if ( $display_gallery ) {
 
-										$id               = get_the_ID();
-										$gallery_template = anva_get_post_meta( '_anva_gallery_template' );
-										$templates        = anva_gallery_templates();
+									$id               = get_the_ID();
+									$gallery_template = anva_get_post_meta( '_anva_gallery_template' );
+									$templates        = anva_gallery_templates();
 
-										if ( empty( $gallery_template ) ) {
-											$gallery_template = anva_get_option( 'gallery_template' );
-										}
-
-										if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
-											$columns = $templates[$gallery_template]['layout']['col'];
-											$size    = $templates[$gallery_template]['layout']['size'];
-											anva_gallery_masonry( $id, $columns, $size );
-										}
+									if ( empty( $gallery_template ) ) {
+										$gallery_template = anva_get_option( 'gallery_template' );
 									}
+
+									if ( isset( $templates[$gallery_template][ 'id' ] ) && $gallery_template === $templates[$gallery_template][ 'id' ] ) {
+										$columns = $templates[$gallery_template][ 'layout' ][ 'col' ];
+										$size    = $templates[$gallery_template][ 'layout' ][ 'size' ];
+										anva_gallery_masonry( $id, $columns, $size );
+									}
+								}
 								?>
 							</div>
 
 							<div class="portfolio-video">
 								<?php
-									$output = '';
-									$display_video = anva_get_post_meta( '_anva_video' );
+								$output = '';
+								$display_video = anva_get_post_meta( '_anva_video' );
 
-									if ( $display_video ) {
-										$embed = anva_get_post_meta( '_anva_video_embed' );
+								if ( $display_video ) {
+									$embed = anva_get_post_meta( '_anva_video_embed' );
 
-										if ( $embed ) {
-											$output .= html_entity_decode( esc_html( $embed ) );
-										} else {
-											$poster = anva_get_post_meta( '_anva_video_image' );
-											$m4v    = anva_get_post_meta( '_anva_video_m4v' );
-											$ogv    = anva_get_post_meta( '_anva_video_ogv' );
-											$mp4    = anva_get_post_meta( '_anva_video_mp4' );
+									if ( $embed ) {
+										$output .= html_entity_decode( esc_html( $embed ) );
+									} else {
+										$poster = anva_get_post_meta( '_anva_video_image' );
+										$m4v    = anva_get_post_meta( '_anva_video_m4v' );
+										$ogv    = anva_get_post_meta( '_anva_video_ogv' );
+										$mp4    = anva_get_post_meta( '_anva_video_mp4' );
 
-											$attr   = array(
-												'poster' => $poster,
-												'm4v'    => $m4v,
-												'ogv'    => $ogv,
-												'mp4'    => $mp4
-											);
+										$attr   = array(
+											'poster' => $poster,
+											'm4v'    => $m4v,
+											'ogv'    => $ogv,
+											'mp4'    => $mp4
+										);
 
-											$output .= wp_video_shortcode( $attr );
-										}
+										$output .= wp_video_shortcode( $attr );
 									}
-									echo $output;
+								}
+								echo $output;
 								?>
 							</div>
 
@@ -108,14 +108,14 @@ $client = anva_get_post_meta( '_anva_client' );
 										'mp3' => $mp3,
 										'ogg' => $ogg
 									);
-									$output .= wp_audio_shortcode($attr);
+									$output .= wp_audio_shortcode( $attr );
 								}
 								echo $output;
 								?>
 							</div>
 
 							<div class="fancy-title title-dotted-border">
-								<h2><?php _e( 'Project', 'anva' ); ?></h2>
+								<h2><?php esc_html_e( 'Project', 'anva' ); ?></h2>
 							</div>
 
 							<?php the_content(); ?>
@@ -126,12 +126,26 @@ $client = anva_get_post_meta( '_anva_client' );
 							<div class="panel panel-default events-meta">
 								<div class="panel-body">
 									<ul class="portfolio-meta nobottommargin">
-										<li><span><i class="icon-user"></i> Created by:</span> <?php anva_the_post_meta( '_anva_author' ); ?></li>
-										<li><span><i class="icon-calendar"></i> Completed on:</span> <?php anva_the_post_meta( '_anva_date' ); ?></li>
+										<li>
+											<span><i class="icon-user"></i> Created by:</span>
+											<?php anva_the_post_meta( '_anva_author' ); ?>
+										</li>
+										<li>
+											<span><i class="icon-calendar"></i> Completed on:</span>
+											<?php anva_the_post_meta( '_anva_date' ); ?>
+										</li>
 										<?php if ( anva_get_terms_links( 'portfolio_skill' ) ) : ?>
-                                            <li><span><i class="icon-lightbulb"></i> Skills:</span> <?php anva_the_terms_links( 'portfolio_skill', ' / ' ); ?></li>
+											<li>
+												<span><i class="icon-lightbulb"></i> Skills:</span>
+												<?php anva_the_terms_links( 'portfolio_skill', ' / ' ); ?>
+											</li>
 										<?php endif; ?>
-                                        <li><span><i class="icon-link"></i> Client:</span> <a href="<?php anva_the_post_meta( '_anva_client_url' ); ?>"><?php anva_the_post_meta( '_anva_client' ); ?></a></li>
+										<li>
+											<span><i class="icon-link"></i> Client:</span>
+											<a href="<?php anva_the_post_meta( '_anva_client_url' ); ?>">
+												<?php anva_the_post_meta( '_anva_client' ); ?>
+											</a>
+										</li>
 									</ul>
 								</div>
 							</div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Posts List
+ * Template Name: Contact Form
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -15,8 +15,8 @@
  * @package     Anva WordPress Framework
  */
 
- get_header();
- ?>
+get_header();
+?>
 
 <div class="container clearfix">
 
@@ -26,19 +26,25 @@
 
 		<?php do_action( 'anva_posts_content_before' ); ?>
 
-		<div id="posts" class="<?php anva_post_class( 'list' ); ?>">
-			<?php
-				$query = anva_get_posts();
-				if ( $query->have_posts() ) :
-					while ( $query->have_posts() ) : $query->the_post();
-						anva_get_template_part( 'content' );
-					endwhile;
+		<?php while ( have_posts() ) : the_post(); ?>
+			<div class="entry-wrap">
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+					<div class="entry-content">
+						<?php the_content(); ?>
+					</div><!-- .entry-content -->
 
-					anva_num_pagination( $query->max_num_pages );
-					wp_reset_postdata();
-				endif;
-			?>
-		</div><!-- #posts (end) -->
+					<!-- CONTACT FORM (start)-->
+					<?php
+						/**
+						 * Hooked @see anva_contact_form_default
+						 */
+						do_action( 'anva_contact_form' );
+					?>
+					<!-- CONTACT FORM (end) -->
+
+				</article><!-- #post-<?php the_ID(); ?> -->
+			</div><!-- .entry-wrap (end) -->
+		<?php endwhile; ?>
 
 		<?php do_action( 'anva_posts_content_after' ); ?>
 

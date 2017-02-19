@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for woocommerce plugin support.
+ * Template Name: Posts List
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -14,6 +14,7 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
+
 get_header();
 ?>
 
@@ -22,7 +23,25 @@ get_header();
 	<?php get_sidebar( 'left' ); ?>
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
-		<?php woocommerce_content(); ?>
+
+		<?php do_action( 'anva_posts_content_before' ); ?>
+
+		<div id="posts" class="<?php anva_post_class( 'list' ); ?>">
+			<?php
+			$query = anva_get_posts();
+			if ( $query->have_posts() ) :
+				while ( $query->have_posts() ) : $query->the_post();
+					anva_get_template_part( 'content' );
+				endwhile;
+
+				anva_num_pagination( $query->max_num_pages );
+				wp_reset_postdata();
+			endif;
+			?>
+		</div><!-- #posts (end) -->
+
+		<?php do_action( 'anva_posts_content_after' ); ?>
+
 	</div><!-- .postcontent (end) -->
 
 	<?php get_sidebar( 'right' ); ?>

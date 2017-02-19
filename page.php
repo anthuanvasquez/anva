@@ -14,6 +14,7 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
+
 get_header();
 ?>
 

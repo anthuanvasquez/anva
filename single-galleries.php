@@ -29,25 +29,25 @@ get_header();
 				<div class="entry-wrap">
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<?php
-							$id 				= get_the_ID();
-							$gallery_template 	= anva_get_post_meta( '_anva_gallery_template' );
-							$templates			= anva_gallery_templates();
+						$id 				= get_the_ID();
+						$gallery_template 	= anva_get_post_meta( '_anva_gallery_template' );
+						$templates			= anva_gallery_templates();
 
-							if ( empty( $gallery_template ) ) {
-								$gallery_template = anva_get_option( 'gallery_template' );
-							}
+						if ( empty( $gallery_template ) ) {
+							$gallery_template = anva_get_option( 'gallery_template' );
+						}
 						?>
 						<div class="entry-content">
 							<?php
-								the_content();
+							the_content();
 
-								if ( ! post_password_required() ) {
-									if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template == $templates[$gallery_template]['id'] ) {
-										$columns = $templates[ $gallery_template ]['layout']['col'];
-										$size    = $templates[ $gallery_template ]['layout']['size'];
-										anva_gallery_masonry( $id, $columns, $size );
-									}
+							if ( ! post_password_required() ) {
+								if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template === $templates[$gallery_template]['id'] ) {
+									$columns = $templates[$gallery_template]['layout']['col'];
+									$size    = $templates[$gallery_template]['layout']['size'];
+									anva_gallery_masonry( $id, $columns, $size );
 								}
+							}
 							?>
 							<div class="clearfix"></div>
 						</div><!-- .entry-content (end) -->

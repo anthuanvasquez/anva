@@ -28,15 +28,15 @@ get_header();
 
 		<div id="posts" class="<?php anva_post_class( 'archive' ); ?>">
 			<?php
-				if ( have_posts() ) {
-					while ( have_posts() ) {
-						the_post();
-						anva_get_template_part( 'content' );
-					}
-					anva_num_pagination();
-				} else {
-					anva_get_template_part( 'none' );
+			if ( have_posts() ) {
+				while ( have_posts() ) {
+					the_post();
+					anva_get_template_part( 'content' );
 				}
+				anva_num_pagination();
+			} else {
+				anva_get_template_part( 'none' );
+			}
 			?>
 		</div><!-- #posts (end) -->
 

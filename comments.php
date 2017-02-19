@@ -28,17 +28,18 @@ if ( post_password_required() ) {
 	<?php if ( have_comments() ) : ?>
 		<h3 class="comments-title">
 			<?php
-				printf(
-					_nx(
-						'1 response &ldquo;%2$s&rdquo;',
-						'%1$s responses &ldquo;%2$s&rdquo;',
-						get_comments_number(), 
-						'comments title', 'anva'
-					),
-					number_format_i18n(
-						get_comments_number() ),
-						'<span>' . get_the_title() . '</span>'
-					);
+			printf(
+				_nx(
+					'1 response &ldquo;%2$s&rdquo;',
+					'%1$s responses &ldquo;%2$s&rdquo;',
+					get_comments_number(),
+					'comments title', 'anva'
+				),
+				number_format_i18n(
+					get_comments_number()
+				),
+				'<span>' . get_the_title() . '</span>'
+			);
 			?>
 		</h3>
 
@@ -122,7 +123,7 @@ if ( post_password_required() ) {
 					' <code>' . allowed_tags() . '</code>'
 				) . '</p>',
 
-			'comment_field' =>  '
+			'comment_field' => '
 				<div class="col_full comment-form-comment">
 				<label for="comment">' . __( 'Comment', 'anva' ) . '</label>
 				<textarea id="comment" name="comment" class="sm-form-control" cols="45" rows="8" aria-required="true">' . '</textarea>

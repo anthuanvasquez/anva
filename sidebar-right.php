@@ -14,4 +14,5 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
+
 do_action( 'anva_sidebars', 'right' );

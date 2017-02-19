@@ -17,7 +17,7 @@
 
 get_header();
 
-$column       = apply_filters( 'anva_template_grid_columns', 2 );; // Default Column
+$column       = apply_filters( 'anva_template_grid_columns', 2 ); // Default Column.
 $thumbnail    = apply_filters( 'anva_template_grid_thumbnail', 'anva_grid_2' );
 $current_grid = anva_get_post_meta( '_anva_grid_column' );
 $grid_columns = anva_get_grid_columns();
@@ -26,7 +26,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 	$column = $grid_columns[ $current_grid ]['column'];
 }
 
-// Get posts
+// Get posts.
 $query = anva_get_posts();
 ?>
 

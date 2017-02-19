@@ -13,4 +13,4 @@ gulp.task('build', ['images', 'scripts', 'styles', 'theme']);
 gulp.task('dist', ['images-optimize']);
 
 // Tests - Lints
-gulp.task('run-tests', ['sass-lint', 'css-lint', 'scripts-lint', 'php-lint']);
+gulp.task('tests', ['sass-lint', 'css-lint', 'scripts-lint', 'php-lint']);

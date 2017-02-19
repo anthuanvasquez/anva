@@ -14,30 +14,31 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
+
 get_header();
 ?>
 
 <div class="container clearfix">
 
-    <?php get_sidebar( 'left' ); ?>
+	<?php get_sidebar( 'left' ); ?>
 
-    <div class="<?php anva_column_class( 'content' ); ?>">
-        
-        <?php do_action( 'anva_posts_content_before' ); ?>
-        
-        <?php while ( have_posts() ) : the_post(); ?>
-            <?php anva_get_template_part( 'attachment' ); ?>
-            <?php if ( anva_get_area( 'comments', 'attachments' ) ) : ?>
-                <?php do_action( 'anva_posts_comments' ); ?>
-            <?php endif; ?>
-        <?php endwhile; ?>
-        
-        <?php do_action( 'anva_posts_content_after' ); ?>
-    
-    </div><!-- .postcontent (end) -->
+	<div class="<?php anva_column_class( 'content' ); ?>">
 
-    <?php get_sidebar( 'right' ); ?>
-    
+		<?php do_action( 'anva_posts_content_before' ); ?>
+
+		<?php while ( have_posts() ) : the_post(); ?>
+			<?php anva_get_template_part( 'attachment' ); ?>
+			<?php if ( anva_get_area( 'comments', 'attachments' ) ) : ?>
+				<?php do_action( 'anva_posts_comments' ); ?>
+			<?php endif; ?>
+		<?php endwhile; ?>
+
+		<?php do_action( 'anva_posts_content_after' ); ?>
+
+	</div><!-- .postcontent (end) -->
+
+	<?php get_sidebar( 'right' ); ?>
+
 </div><!-- .container (end) -->
 
 <?php get_footer(); ?>

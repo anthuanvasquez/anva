@@ -30,7 +30,7 @@ get_header();
 					<?php rewind_posts(); ?>
 					<?php the_content(); ?>
 
-					<h2><?php _e( 'Latest Posts', 'anva' ); ?></h2>
+					<h2><?php esc_html_e( 'Latest Posts', 'anva' ); ?></h2>
 					<ul>
 						<?php $query = anva_get_posts( array( 'posts_per_page' => 20 ) ); ?>
 						<?php if ( $query->have_posts() ) : ?>
@@ -41,15 +41,15 @@ get_header();
 								</li>
 							<?php endwhile; ?>
 						<?php endif; ?>
-						<?php wp_reset_query(); ?>
+						<?php wp_reset_postdata(); ?>
 					</ul>
 
-					<h2><?php _e( 'Categories', 'anva' ); ?></h2>
+					<h2><?php esc_html_e( 'Categories', 'anva' ); ?></h2>
 					<ul>
 						<?php wp_list_categories( 'title_li=&hierarchical=0&show_count=1' ) ?>
 					</ul>
 
-					<h2><?php _e( 'Monthly Archives', 'anva' ); ?></h2>
+					<h2><?php esc_html_e( 'Monthly Archives', 'anva' ); ?></h2>
 					<ul>
 						<?php wp_get_archives( 'type=monthly&show_post_count=1' ) ?>
 					</ul>

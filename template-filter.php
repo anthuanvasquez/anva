@@ -17,7 +17,7 @@
 
 get_header();
 
-$column       = apply_filters( 'anva_template_filter_columns', 3 );; // Default Column
+$column       = apply_filters( 'anva_template_filter_columns', 3 ); // Default Column.
 $items 		  = apply_filters( 'anva_template_filter_number', 9 );
 $thumbnail    = apply_filters( 'anva_template_filter_thumbnail', 'anva_post_grid' );
 $current_grid = anva_get_post_meta( '_anva_grid_column' );
@@ -27,7 +27,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 	$column = $grid_columns[ $current_grid ]['column'];
 }
 
-// Get posts
+// Get posts.
 $query = anva_get_posts();
 ?>
 
@@ -39,16 +39,20 @@ $query = anva_get_posts();
 
 		<div class="category-blog clearfix">
 			<ul class="category-filter" data-container="#posts" data-items="<?php echo esc_attr( $items ); ?>" data-grid="<?php echo esc_attr( $column ); ?>">
-				<li class="selected"><a href="#" data-category="all"><?php _e( 'All', 'anva' ); ?></a></li>
+				<li class="selected">
+					<a href="#" data-category="all">
+						<?php esc_html_e( 'All', 'anva' ); ?>
+					</a>
+				</li>
 				<?php
-					// Get category terms
-					$terms = get_terms( 'category' );
-					$count = count( $terms );
-					if ( $count > 0 ) {
-						foreach ( $terms as $term ) {
-							printf( '<li><a href="#" data-category="%s">%s</a></li>', $term->slug, $term->name );
-						}
+				// Get category terms.
+				$terms = get_terms( 'category' );
+				$count = count( $terms );
+				if ( $count > 0 ) {
+					foreach ( $terms as $term ) {
+						printf( '<li><a href="#" data-category="%s">%s</a></li>', esc_html( $term->slug ), esc_html( $term->name ) );
 					}
+				}
 				?>
 			</ul>
 		</div>
@@ -63,7 +67,6 @@ $query = anva_get_posts();
 
 	</div><!-- .postcontent (end) -->
 
-	<?php // anva_num_pagination( $query->max_num_pages ); ?>
 	<?php wp_reset_postdata(); ?>
 
 </div><!-- .container (end) -->

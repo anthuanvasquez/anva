@@ -14,6 +14,7 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
+
 			do_action( 'anva_below_layout' );
 		?>
 		</div><!-- .content-wrap (end) -->
@@ -22,17 +23,17 @@
 	<?php do_action( 'anva_content_after' ); ?>
 
 	<?php
-		$class = '';
-		$footer_color = anva_get_option( 'footer_color', 'dark' );
-		if ( $footer_color ) {
-			$class = 'class="' . esc_attr( $footer_color ) . '"';
-		}
+	$class = '';
+	$footer_color = anva_get_option( 'footer_color', 'dark' );
+	if ( $footer_color ) {
+		$class = 'class="' . esc_attr( $footer_color ) . '"';
+	}
 	?>
 
 	<?php do_action( 'anva_footer_above' ); ?>
 
 	<!-- FOOTER (start) -->
-	<footer id="footer" <?php echo $class; ?>>
+	<footer id="footer" <?php echo esc_attr( $class ); ?>>
 
 		<div class="container clearfix">
 			<?php do_action( 'anva_footer_content' ); ?>

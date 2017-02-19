@@ -20,26 +20,26 @@ get_header();
 
 <div class="container clearfix">
 
-    <?php get_sidebar( 'left' ); ?>
+	<?php get_sidebar( 'left' ); ?>
 
-    <div class="<?php anva_column_class( 'content' ); ?>">
-        <div class="single-post nobottommargin">
+	<div class="<?php anva_column_class( 'content' ); ?>">
+		<div class="single-post nobottommargin">
 
-            <?php do_action( 'anva_posts_content_before' ); ?>
+			<?php do_action( 'anva_posts_content_before' ); ?>
 
-            <?php while ( have_posts() ) : the_post(); ?>
-                <?php anva_get_template_part( 'single' ); ?>
-                <?php if ( anva_get_area( 'comments', 'posts' ) ) : ?>
-                    <?php do_action( 'anva_posts_comments' ); ?>
-                <?php endif; ?>
-            <?php endwhile; ?>
+			<?php while ( have_posts() ) : the_post(); ?>
+				<?php anva_get_template_part( 'single' ); ?>
+				<?php if ( anva_get_area( 'comments', 'posts' ) ) : ?>
+					<?php do_action( 'anva_posts_comments' ); ?>
+				<?php endif; ?>
+			<?php endwhile; ?>
 
-            <?php do_action( 'anva_posts_content_after' ); ?>
+			<?php do_action( 'anva_posts_content_after' ); ?>
 
-        </div><!-- .single-post (end) -->
-    </div><!-- .postcontent (end) -->
+		</div><!-- .single-post (end) -->
+	</div><!-- .postcontent (end) -->
 
-    <?php get_sidebar( 'right' ); ?>
+	<?php get_sidebar( 'right' ); ?>
 
 </div><!-- .container (end) -->
 

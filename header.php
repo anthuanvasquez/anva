@@ -14,6 +14,7 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -43,18 +44,18 @@
 	</header><!-- HEADER (end) -->
 
 	<?php
-		// Below Header
+		// Below Header.
 		do_action( 'anva_header_below' );
 
-		// After Top
+		// After Top.
 		do_action( 'anva_top_after' );
 
-		// Featured
+		// Featured.
 		do_action( 'anva_featured_before' );
 		do_action( 'anva_featured' );
 		do_action( 'anva_featured_after' );
 
-		// Content Before
+		// Content Before.
 		do_action( 'anva_content_before' );
 	?>
 

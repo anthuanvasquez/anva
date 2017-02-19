@@ -20,17 +20,17 @@
 get_header();
 ?>
 
-    <?php do_action( 'anva_posts_content_before' ); ?>
+	<?php do_action( 'anva_posts_content_before' ); ?>
 
-    <div class="custom-content-layout clearfix">
-        <?php
-            /**
-             * hooked @see anva_elements
-             */
-            do_action( 'anva_content_builder' );
-        ?>
-    </div>
+	<div class="custom-content-layout clearfix">
+		<?php
+			/**
+			 * Hooked @see anva_elements
+			 */
+			do_action( 'anva_content_builder' );
+		?>
+	</div>
 
-    <?php do_action( 'anva_posts_content_after' ); ?>
+	<?php do_action( 'anva_posts_content_after' ); ?>
 
 <?php get_footer(); ?>

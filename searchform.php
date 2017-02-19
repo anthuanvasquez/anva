@@ -14,6 +14,7 @@
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
+
 ?>
 <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 	<div class="input-group">
