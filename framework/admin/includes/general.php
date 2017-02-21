@@ -1,6 +1,6 @@
 <?php
 
-// Instantiate the import export options
+// Instantiate the import export options.
 Anva_Options_Import_Export::instance();
 
 /**
@@ -11,10 +11,10 @@ Anva_Options_Import_Export::instance();
  */
 function anva_admin_init() {
 
-	// Instantiate the options page
+	// Instantiate the options page.
 	Anva_Options_Page::instance();
 
-	// Instantiate the media uploader class
+	// Instantiate the media uploader class.
 	Anva_Options_Media_Uploader::instance();
 
 }
@@ -28,15 +28,15 @@ function anva_get_option_name() {
 
 	$name = '';
 
-	// Gets option name as defined in the theme
+	// Gets option name as defined in the theme.
 	if ( function_exists( 'anva_option_name' ) ) {
 		$name = anva_option_name();
 	}
 
-	// Fallback
-	if ( '' == $name ) {
+	// Fallback.
+	if ( '' === $name ) {
 		$name = get_option( 'stylesheet' );
-		$name = preg_replace( "/\W/", "_", strtolower( $name ) );
+		$name = preg_replace( '/\W/', '_', strtolower( $name ) );
 	}
 
 	return apply_filters( 'anva_option_name', $name );
@@ -51,10 +51,10 @@ function anva_get_option_name() {
  */
 function anva_get_options() {
 
-	// Get options from api class Anva_Options_API
+	// Get options from api class Anva_Options_API.
 	$options = anva_get_formatted_options();
 
-	// Allow setting/manipulating options via filters
+	// Allow setting/manipulating options via filters.
 	$options = apply_filters( 'anva_options', $options );
 
 	return $options;
@@ -71,17 +71,17 @@ function anva_admin_assets() {
 
 	global $pagenow;
 
-	// Assets for meta boxes
-	if ( $pagenow == 'post-new.php' || $pagenow == 'post.php' ) {
+	// Assets for meta boxes.
+	if ( 'post-new.php' == $pagenow ||  'post.php' == $pagenow ) {
 		wp_enqueue_style( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_CSS . 'meta.css', array(), ANVA_FRAMEWORK_VERSION );
-		wp_enqueue_script( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_JS . 'meta.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
+		wp_enqueue_script( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_JS . 'page-meta.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 	}
 
-	// Sweet Alert
+	// Sweet Alert.
 	wp_enqueue_script( 'sweetalert', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'sweetalert.min.js', array( 'jquery' ), '1.1.3', false );
 	wp_enqueue_style( 'sweetalert', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'sweetalert.min.css', array(), '1.1.3' );
 
-	// Admin Global
+	// Admin Global.
 	wp_enqueue_script( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_JS . 'admin-global.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, false );
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-global.css', array(), ANVA_FRAMEWORK_VERSION );
 

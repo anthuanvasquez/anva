@@ -1,10 +1,23 @@
-// ==== SCRIPTS ==== //
-
 var gulp        = require('gulp'),
     plugins     = require('gulp-load-plugins')({ camelize: true }),
     merge       = require('merge-stream'),
     config      = require('../../gulpconfig').scripts
 ;
+
+// Check scripts for errors on theme, core and admin
+gulp.task('js-lint', () => {
+    return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
+    .pipe(plugins.ignore.exclude(config.lint.ignore))
+    .pipe(plugins.jshint(config.lint.options))
+    .pipe(plugins.jshint.reporter('default'));
+});
+
+gulp.task('jscs-lint', () => {
+    return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
+    .pipe(plugins.jscs(config.jscs.options))
+    .pipe(plugins.jscs.reporter())
+    .pipe(plugins.jscs.reporter('fail'));
+});
 
 // Minify theme scripts
 gulp.task('scripts-min-theme', () => {
@@ -28,21 +41,13 @@ gulp.task('scripts-min-core', () => {
 });
 
 // Concat and minify core vendor scripts
-gulp.task('scripts-core-vendor', () => {
+gulp.task('scripts-plugins', () => {
     return gulp.src(config.minify.core.vendor.files)
     .pipe(plugins.concat(config.minify.core.vendor.name))
     .pipe(gulp.dest(config.minify.core.dest))
     .pipe(plugins.uglify(config.minify.uglify))
     .pipe(plugins.rename(config.minify.rename))
     .pipe(gulp.dest(config.minify.core.dest));
-});
-
-// Check scripts for errors on theme, core and admin
-gulp.task('scripts-lint', () => {
-    return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
-    .pipe(plugins.ignore.exclude(config.lint.ignore))
-    .pipe(plugins.jshint(config.lint.options))
-    .pipe(plugins.jshint.reporter('default'));
 });
 
 // Copy scripts source files to the `build` folder

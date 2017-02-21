@@ -146,6 +146,11 @@ module.exports = {
             ],
             options: '.jshintrc'
         },
+        jscs: {
+            options: {
+                configPath: '.jscsrc'
+            }
+        },
         minify: {
             theme: {
                 src: theme + 'js/**/*.js',
@@ -301,11 +306,12 @@ module.exports = {
                 package: project,
                 bugReport: 'https://anthuanvasquez.net',
                 lastTranslator: 'Anthuan Vásquez <me@anthuanvasquez.net>',
-                team: 'Anthuan Vásquez <me@anthuanvasquez.net>'
+                team: 'Anthuan Vásquez <me@anthuanvasquez.net>',
+                dest: src + 'languages/'
             }
         },
         php: {
-           src: [src + '**/*.php', ignoreTools],
+            src: [src + '**/*.php', ignoreTools],
             dest: build
         },
         readme: {
@@ -371,9 +377,8 @@ module.exports = {
                 admin + 'js/**/*.js'
             ],
             images: src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
-            php: src + '**/*.php',
-        },
-        watcher: 'browsersync'
+            php: src + '**/*.php'
+        }
     }
 
 };

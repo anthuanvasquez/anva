@@ -4,6 +4,10 @@
 .dark h3,
 .dark h4,
 .dark h5,
-.dark h6 { color: #EEE; }
+.dark h6 {
+    color: $gray-color;
+}
 
-.dark a:hover { color: #EEE; }
+.dark a:hover {
+    color: $gray-color;
+}

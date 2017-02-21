@@ -11,8 +11,8 @@ if ( ! class_exists( 'Anva_Content_Builder' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Content_Builder
-{
+class Anva_Content_Builder {
+
 	/**
 	 * ID for meta box and post field.
 	 *
@@ -124,7 +124,7 @@ class Anva_Content_Builder
 				wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
 
 				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'builder.css', array( 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
-				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'builder.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'page-builder.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 				wp_localize_script( 'anva_builder', 'anvaBuilderJs', anva_get_admin_locals( 'metabox_js' ) );
 
 			}
@@ -305,7 +305,7 @@ class Anva_Content_Builder
 					</div>
 				</div><!-- .anva-builder-actions-wrap (end) -->
 
-				<ul id="builder-sortable-items" class="builder-sortable-items sortable-items <?php echo $empty; ?>" data-text="<?php _e( 'Drag items here or Click on Add New Item' ); ?>">
+				<ul id="builder-sortable-items" class="builder-sortable-items sortable-items <?php echo $empty; ?>" data-text="<?php _e( 'Drag items here or Click on Add New Item', 'anva' ); ?>">
 					<?php
 						if ( isset( $items[0] ) && ! empty( $items[0] ) ) :
 

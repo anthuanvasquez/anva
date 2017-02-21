@@ -1,5 +1,3 @@
-// ==== STYLES ==== //
-
 var gulp          = require('gulp'),
     gutil         = require('gulp-util'),
     plugins       = require('gulp-load-plugins')({ camelize: true }),
@@ -9,6 +7,20 @@ var gulp          = require('gulp'),
     browsersync   = require('browser-sync'),
     onError       = plugins.notify.onError("Error: <%= error.message %>")
 ;
+
+// Lint SASS source files
+gulp.task('sass-lint', () => {
+    return gulp.src([config.sassLint.theme,config.sassLint.core,config.sassLint.admin])
+    .pipe(plugins.sassLint())
+    .pipe(plugins.sassLint.format());
+});
+
+// Lint CSS source files
+gulp.task('css-lint', () => {
+    return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
+    .pipe(plugins.ignore.exclude(config.lint.ignore))
+    .pipe(plugins.stylelint(config.lint.options));
+});
 
 // Build SCSS source files from `theme`
 gulp.task('sass-theme', () => {
@@ -44,20 +56,6 @@ gulp.task('sass-admin', () => {
     .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
     .pipe(gulp.dest(config.admin.dest))
     .pipe(browsersync.stream());
-});
-
-// Lint SASS source files
-gulp.task('sass-lint', () => {
-    return gulp.src([config.sassLint.theme, config.sassLint.core, config.sassLint.admin])
-    .pipe(plugins.sassLint())
-    .pipe(plugins.sassLint.format());
-});
-
-// Lint CSS source files
-gulp.task('css-lint', () => {
-    return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
-    .pipe(plugins.ignore.exclude(config.lint.ignore))
-    .pipe(plugins.stylelint(config.lint.options));
 });
 
 // Minify CSS source files and copy to `build` folder

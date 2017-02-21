@@ -42,17 +42,6 @@ body #side-panel.dark {
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-.dark .line,
-.dark .double-line {
-  border-top-color: rgba(255, 255, 255, 0.1);
-}
-
-.dark .section,
-.section.dark {
-  background-color: #282828;
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
 .dark #top-bar,
 #top-bar.dark {
   border-bottom-color: rgba(255, 255, 255, 0.1);
@@ -409,15 +398,6 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 
 .dark.side-header #primary-menu ul ul a {
   color: #AAA !important;
-}
-
-.dark .swiper-pagination span {
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.dark .swiper-pagination span:hover,
-.dark .swiper-pagination span.swiper-pagination-bullet-active {
-  background-color: #333 !important;
 }
 
 .dark .slider-caption,
@@ -797,6 +777,17 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 
 .dark td.actions {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dark .line,
+.dark .double-line {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .section,
+.section.dark {
+  background-color: #282828;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .dark .events .entry,
@@ -1464,6 +1455,12 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
   border-color: #3F3F3F;
 }
 
+.dark #cookie-notification,
+#cookie-notification.dark {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #EEE;
+}
+
 #footer.dark,
 .dark #footer {
   background-color: #333;
@@ -1566,12 +1563,6 @@ body #side-panel.dark #side-panel-trigger-close a {
 
 .dark .nav-tree li a {
   color: #BBB;
-}
-
-.dark #cookie-notification,
-#cookie-notification.dark {
-  background-color: rgba(0, 0, 0, 0.85);
-  color: #EEE;
 }
 
 /* Dark Scheme - Bootstrap
@@ -2062,6 +2053,15 @@ body #side-panel.dark #side-panel-trigger-close a {
   color: #999;
   background-color: rgba(255, 255, 255, 0.2);
   border-color: #777;
+}
+
+.dark .swiper-pagination span {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .swiper-pagination span:hover,
+.dark .swiper-pagination span.swiper-pagination-bullet-active {
+  background-color: #333 !important;
 }
 
 .dark .label-default {

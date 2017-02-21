@@ -5,21 +5,20 @@
 root = true
 
 [*]
-indent_style = tab
-indent_style = 4
-end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
+indent_style = tab
+indent_size = 4
+end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
 
 [*.php]
 indent_style = tab
-indent_style = 4
+indent_size = 4
 
 [*.{css,js,scss,sass,less}]
 indent_style = space
-indent_style = 4
-end_of_line = lf
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false

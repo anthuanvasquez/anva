@@ -2,7 +2,7 @@
 
 /**
  * Sanitization.
- * 
+ *
  * @since 1.0.0
  */
 function anva_add_sanitization() {
@@ -49,7 +49,7 @@ function anva_add_sanitization() {
  * @return $output sanitized string
  */
 function anva_sanitize_url( $input ) {
-	if ( ! preg_match( "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $input ) ) {
+	if ( ! preg_match( '/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i', $input ) ) {
 		$output = '';
 	} else {
 		$output = $input;
@@ -233,7 +233,7 @@ function anva_sanitize_background( $input ) {
 	if ( isset( $input['color'] ) ) {
 		$output['color'] = apply_filters( 'anva_sanitize_hex', $input['color'] );
 	}
-	
+
 	$output['image'] = apply_filters( 'anva_sanitize_upload', $input['image'] );
 	$output['repeat'] = apply_filters( 'anva_background_repeat', $input['repeat'] );
 	$output['position'] = apply_filters( 'anva_background_position', $input['position'] );
@@ -296,7 +296,7 @@ function anva_sanitize_typography( $input, $option ) {
 	) );
 
 	if ( isset( $option['options']['faces'] ) && isset( $input['face'] ) ) {
-		
+
 		if ( ! ( array_key_exists( $input['face'], $option['options']['faces'] ) ) ) {
 			$output['face'] = '';
 		}
@@ -309,7 +309,7 @@ function anva_sanitize_typography( $input, $option ) {
 	$output['style']  = apply_filters( 'anva_font_style', $output['style'] );
 	$output['weight'] = apply_filters( 'anva_font_weight', $output['weight'] );
 	$output['color']  = apply_filters( 'anva_sanitize_color', $output['color'] );
-	
+
 	return $output;
 }
 
@@ -440,7 +440,7 @@ function anva_recognized_font_styles() {
 
 /**
  * Get recognized font weight.
- * 
+ *
  * @return array $default
  */
 function anva_recognized_font_weights() {
@@ -645,18 +645,18 @@ function anva_sanitize_logo( $input ) {
  * @return $output sanitized string
  */
 function anva_sanitize_sidebar( $input ) {
-	
+
 	$output = array();
-	
+
 	if ( ! is_array( $input ) ) {
 		return $output;
 	}
-	
+
 	foreach ( $input as $sidebar ) {
 		$title = sanitize_text_field( $sidebar );
 		$output[] = esc_html( $title );
 	}
-	
+
 	return $output;
 }
 

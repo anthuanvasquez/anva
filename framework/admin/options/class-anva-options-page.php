@@ -11,8 +11,8 @@ if ( ! class_exists( 'Anva_Options_Page' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Options_Page
-{
+class Anva_Options_Page {
+
 	/**
 	 * A single instance of this class.
  	 *
@@ -44,8 +44,7 @@ class Anva_Options_Page
 	 *
 	 * @since 1.0.0
 	 */
-	public static function instance()
-	{
+	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -59,8 +58,7 @@ class Anva_Options_Page
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		if ( is_admin() && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
 
 			// Gets options to load
@@ -94,8 +92,7 @@ class Anva_Options_Page
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function settings_init()
-	{
+	public function settings_init() {
 		global $pagenow;
 
 		// Get the option name
@@ -111,8 +108,7 @@ class Anva_Options_Page
 	 * @since  1.0.0
 	 * @return $menu
 	 */
-	public static function menu_settings()
-	{
+	public static function menu_settings() {
 		// Get option name
 		$name = anva_get_option_name();
 
@@ -136,8 +132,7 @@ class Anva_Options_Page
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_custom_options_page()
-	{
+	public function add_custom_options_page() {
 		$menu = $this->menu_settings();
 
 		$this->options_screen = add_theme_page(
@@ -156,8 +151,7 @@ class Anva_Options_Page
 	 * @param  object $hook
 	 * @return void
 	 */
-	public function enqueue_admin_styles( $hook )
-	{
+	public function enqueue_admin_styles( $hook ) {
 		if ( $this->options_screen != $hook )
 			return;
 
@@ -179,8 +173,7 @@ class Anva_Options_Page
 	 * @param  object $hook
 	 * @return void
 	 */
-	public function enqueue_admin_scripts( $hook )
-	{
+	public function enqueue_admin_scripts( $hook ) {
 		if ( $this->options_screen != $hook )
 			return;
 
@@ -192,7 +185,7 @@ class Anva_Options_Page
 		wp_enqueue_script( 'jquery-selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
-		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'options-page.min.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
+		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'page-options.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
 
 		// Inline scripts from anva-options-interface.php
@@ -205,8 +198,7 @@ class Anva_Options_Page
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function admin_head()
-	{
+	public function admin_head() {
 		do_action( 'anva_options_page_custom_scripts' );
 	}
 
@@ -224,7 +216,7 @@ class Anva_Options_Page
 	 * @return void
 	 */
 	 public function options_page()
-	 {
+ {
 	 ?>
 		<div id="anva-framework-wrap" class="anva-framework-wrap wrap">
 
@@ -308,8 +300,7 @@ class Anva_Options_Page
 	 * @param  array $input
 	 * @return array $clean
 	 */
-	public function validate_options( $input )
-	{
+	public function validate_options( $input ) {
 		// Need it to create log for the changed settings
 		$option_name = anva_get_option_name();
 
@@ -403,8 +394,7 @@ class Anva_Options_Page
 	 *
 	 * @since  1.0.0
 	 */
-	public function save_options_notice( $id, $desc )
-	{
+	public function save_options_notice( $id, $desc ) {
 		add_settings_error( 'anva-options-page-errors', $id, $desc, 'updated fade' );
 	}
 
@@ -421,8 +411,7 @@ class Anva_Options_Page
 	 * @return array $output
 	 *
 	 */
-	public function get_default_values()
-	{
+	public function get_default_values() {
 		$output = array();
 		$config = anva_get_options();
 
@@ -452,8 +441,7 @@ class Anva_Options_Page
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function admin_bar()
-	{
+	public function admin_bar() {
 		$menu = $this->menu_settings();
 
 		global $wp_admin_bar;

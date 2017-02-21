@@ -4,8 +4,8 @@
         ".js"
     ],
     "excludeFiles": [
+        "*.min.js",
         "../framework/assets/js/plugins.js",
-        "../framework/assets/js/plugins.min.js",
         "../framework/assets/js/vendor/**/*"
     ]
 }
