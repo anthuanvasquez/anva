@@ -26,13 +26,15 @@
     }
 }
 
-.gallery-title h2 {
-    font-size: $font-size-h4;
-    font-weight: 400;
-    margin-bottom: 0;
+.gallery-title {
+    h2 {
+        font-size: $font-size-h4;
+        font-weight: 400;
+        margin-bottom: 0;
 
-    a {
-        color: #fff;
+        a {
+            color: #fff;
+        }
     }
 }
 

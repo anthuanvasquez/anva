@@ -55,10 +55,10 @@ jQuery( document ).ready( function( $ ) {
 				frame = wp.media.frames.frame = wp.media({
 					title: $(this).data('title'),
 					button: {
-						text: $(this).data('text'),
+						text: $(this).data('text')
 					},
 					library: {
-						type: 'image',
+						type: 'image'
 					},
 					multiple: true
 				});

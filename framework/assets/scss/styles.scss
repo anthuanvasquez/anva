@@ -10,9 +10,6 @@
 /**
  * Table of Contents
  *
- * 0.0 - Initialize
- *   0.1  - Variables
- *   0.2  - Mixins
  * 1.0 - Core
  *   1.1  - Typography
  *   1.2  - Helpers
@@ -30,8 +27,7 @@
  *   2.10 - Events
  * 3.0 - Footer
  * 4.0 - Widgets
- * 5.0 - Header
- * 6.0 - Magnific Popup
+ * 5.0 - Extras
  */
 
 @import 'framework';
@@ -50,5 +46,4 @@
 @import 'styles/events';
 @import 'styles/footer';
 @import 'styles/widgets';
-@import 'styles/magnific-popup';
 @import 'styles/extras';

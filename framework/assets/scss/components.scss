@@ -31,12 +31,13 @@
  *   1.20 - Dividers
  *   1.21 - Youtube Background
  *   1.22 - Misc
+ *   1.22 - Popup
  */
 
 // Initialize
 @import 'framework';
 
-// Shortcodes
+// Components
 @import 'components/countdown';
 @import 'components/buttons';
 @import 'components/promo';
@@ -59,3 +60,4 @@
 @import 'components/dividers';
 @import 'components/youtubebg';
 @import 'components/misc';
+@import 'components/magnific-popup';

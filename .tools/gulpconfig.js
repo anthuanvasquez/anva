@@ -144,17 +144,17 @@ module.exports = {
                 'components/**',
                 'vmap/**'
             ],
-            options: '.jshintrc'
+            options: src + '.jshintrc'
         },
         jscs: {
             options: {
-                configPath: '.jscsrc'
+                configPath: src + '.jscsrc'
             }
         },
         minify: {
             theme: {
                 src: theme + 'js/**/*.js',
-                dest: theme + 'js/',
+                dest: theme + 'js/'
             },
             core: {
                 src: core + 'js/**/*.js',
@@ -173,7 +173,7 @@ module.exports = {
             },
             admin: {
                 src: admin + 'js/**/*.js',
-                dest: admin + 'js/',
+                dest: admin + 'js/'
             },
             uglify: {},
             rename: {
@@ -239,7 +239,7 @@ module.exports = {
                 modules
             ],
             // Options: nested, expanded, compact, compressed
-            outputStyle: 'expanded'
+            outputStyle: 'nested'
         },
         sassLint: {
             theme: theme + 'scss/**/*.scss',

@@ -22,8 +22,8 @@ rules:
             include: true
     no-css-comments: 0
     no-debug: 2
-    no-empty-rulesets: 1
-    no-ids: 0
+    no-empty-rulesets: 2
+    no-ids: 1
     no-important: 1
     no-invalid-hex: 2
     no-misspelled-properties: 2
