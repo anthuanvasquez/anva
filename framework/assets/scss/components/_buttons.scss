@@ -23,7 +23,7 @@
 }
 
 body:not(.device-touch) .button {
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .button-dark {
@@ -416,7 +416,7 @@ body:not(.device-touch) .button.button-reveal span {
 }
 
 body:not(.device-touch) .button.button-full strong {
-    transition: border .2s ease-in-out;
+    transition: border 0.2s ease-in-out;
 }
 
 .button.button-full.button-light strong {
@@ -576,3 +576,4 @@ body:not(.device-touch) .button.button-full strong {
     color: inherit !important;
     border-color: inherit !important;
 }
+

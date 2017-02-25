@@ -2,15 +2,7 @@
     Retina CSS
 -----------------------------------------------------------------*/
 
-
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (   min--moz-device-pixel-ratio: 2),
-only screen and (     -o-min-device-pixel-ratio: 2/1),
-only screen and (        min-device-pixel-ratio: 2),
-only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) {
-
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     #logo {
         a {
             &.standard-logo {
@@ -21,7 +13,6 @@ only screen and (                min-resolution: 2dppx) {
             }
         }
     }
-
     .owl-carousel.owl-loading,
     .preloader,
     .preloader2,
@@ -29,24 +20,20 @@ only screen and (                min-resolution: 2dppx) {
         background-image: url('../images/preloader@2x.gif');
         background-size: 24px 24px;
     }
-
-    .dark{
+    .dark {
         .owl-carousel.owl-loading,
         .preloader,
         .preloader2,
         .form-process {
             background-image: url('../images/preloader-dark@2x.gif');
         }
-
     }
-
     .widget_recent_comments {
         li {
             background-image: url("../images/icons/widget-comment@2x.png");
             background-size: 15px 26px;
         }
     }
-
     .widget_nav_menu,
     .widget_links,
     .widget_meta,
@@ -55,13 +42,12 @@ only screen and (                min-resolution: 2dppx) {
     .widget_categories,
     .widget_pages,
     .widget_rss,
-    .widget_recent_comments{
-         li a {
+    .widget_recent_comments {
+        li a {
             background-image: url("../images/icons/widget-link@2x.png");
             background-size: 4px 20px;
         }
     }
-
     .dark {
         .widget_recent_comments {
             li {
@@ -69,7 +55,6 @@ only screen and (                min-resolution: 2dppx) {
             }
         }
     }
-
     .dark {
         .widget_nav_menu,
         .widget_links,
@@ -80,20 +65,13 @@ only screen and (                min-resolution: 2dppx) {
         .widget_pages,
         .widget_rss,
         .widget_recent_comments {
-             li a {
+            li a {
                 background-image: url("../images/icons/widget-link-dark@2x.png");
             }
         }
-
     }
 
-    @media
-    only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px),
-    only screen and (   min--moz-device-pixel-ratio: 2) and (max-width: 991px),
-    only screen and (     -o-min-device-pixel-ratio: 2/1) and (max-width: 991px),
-    only screen and (        min-device-pixel-ratio: 2) and (max-width: 991px),
-    only screen and (                min-resolution: 192dpi) and (max-width: 991px),
-    only screen and (                min-resolution: 2dppx) and (max-width: 991px) {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 991px), only screen and (-o-min-device-pixel-ratio: 2 / 1) and (max-width: 991px), only screen and (min-device-pixel-ratio: 2) and (max-width: 991px), only screen and (min-resolution: 192dpi) and (max-width: 991px), only screen and (min-resolution: 2dppx) and (max-width: 991px) {
         #logo {
             a {
                 &.standard-logo {
@@ -104,7 +82,5 @@ only screen and (                min-resolution: 2dppx) {
                 }
             }
         }
-
     }
-
 }

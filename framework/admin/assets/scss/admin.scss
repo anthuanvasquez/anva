@@ -1,16 +1,13 @@
 @import 'config/variables';
 @import 'config/mixins';
+
+@import 'admin/general';
+@import 'admin/sections';
+@import 'admin/options';
+@import 'admin/notices';
+
 @import 'components/switch';
 @import 'components/radio-checkbox';
-
-/*
-/* Admin Global Syles
-/* --------------------------------------------------------- */
-
-@import 'general';
-@import 'sections';
-@import 'options';
-@import 'notices';
 
 /* --------------------------------------------------------- */
 /* Buttons
@@ -84,7 +81,7 @@
             }
 
             .remove-button {
-                bottom: 0px;
+                bottom: 0;
             }
         }
 
@@ -112,8 +109,8 @@
             right: -5px;
             outline: 0;
             background: #eee;
-            box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(black,.15);
-            transition: opacity .1s ease;
+            box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(black, 0.15);
+            transition: opacity 0.1s ease;
             color: #222;
             font-weight: 700;
             text-decoration: none;
@@ -148,8 +145,6 @@
 /* Helpers
 /* --------------------------------------------------------- */
 
-
-
 // .anva-framework .controls .anva-border-width {
 //     width: 80px;
 //     float: left;
@@ -161,7 +156,7 @@
 // }
 
 .anva-framework .hide {
-    display:none;
+    display: none;
 }
 
 .anva-framework .anva-option-image {
@@ -176,7 +171,7 @@
 
 .anva-framework .mini .controls input,
 .anva-framework .mini .controls {
-    min-width:140px;
+    min-width: 140px;
     width: 140px;
 }
 
@@ -190,8 +185,8 @@
 
 .anva-framework .section-editor .explain {
     max-width: 98%;
-    float:none;
-    margin-bottom:5px;
+    float: none;
+    margin-bottom: 5px;
 }
 
 /* --------------------------------------------------------- */
@@ -199,52 +194,61 @@
 /* --------------------------------------------------------- */
 
 @keyframes bounceIn {
-  from, 20%, 40%, 60%, 80%, to {
-    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  }
+    from,
+    20%,
+    40%,
+    60%,
+    80%,
+    to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
 
-  0% {
-    opacity: 0;
-    transform: scale3d(.3, .3, .3);
-  }
+    0% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
 
-  20% {
-    transform: scale3d(1.1, 1.1, 1.1);
-  }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
 
-  40% {
-    transform: scale3d(.9, .9, .9);
-  }
+    40% {
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
 
-  60% {
-    opacity: 1;
-    transform: scale3d(1.03, 1.03, 1.03);
-  }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
 
-  80% {
-    transform: scale3d(.97, .97, .97);
-  }
+    80% {
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
 
-  to {
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
-  }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .animated {
-  animation-duration: 1s;
-  animation-fill-mode: both;
+    animation-duration: 1s;
+    animation-fill-mode: both;
 }
 
 .fadeIn {
-  animation-name: fadeIn;
+    animation-name: fadeIn;
 }
 
 .bounceIn {
-  animation-name: bounceIn;
+    animation-name: bounceIn;
 }

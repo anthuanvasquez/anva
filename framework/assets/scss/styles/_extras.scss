@@ -274,11 +274,9 @@ body:not(.no-transition) #wrapper,
     40%,
     100% {
         transform: scaleY(0.4);
-        -webkit-transform: scaleY(0.4);
     }
     20% {
         transform: scaleY(1.0);
-        -webkit-transform: scaleY(1.0);
     }
 }
 
@@ -289,50 +287,28 @@ body:not(.no-transition) #wrapper,
     @include border-radius(0);
     margin-top: -20px;
     margin-left: -20px;
-    -webkit-animation: cubemove 1.8s infinite ease-in-out;
     animation: cubemove 1.8s infinite ease-in-out;
 }
 
 .css3-spinner > .css3-spinner-cube2 {
-    -webkit-animation-delay: -0.9s;
     animation-delay: -0.9s;
-}
-
-@-webkit-keyframes cubemove {
-    25% {
-        -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5)
-    }
-    50% {
-        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg)
-    }
-    75% {
-        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5)
-    }
-    100% {
-        -webkit-transform: rotate(-360deg)
-    }
 }
 
 @keyframes cubemove {
     25% {
         transform: translateX(42px) rotate(-90deg) scale(0.5);
-        -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
     }
     50% {
         transform: translateX(42px) translateY(42px) rotate(-179deg);
-        -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
     }
     50.1% {
         transform: translateX(42px) translateY(42px) rotate(-180deg);
-        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
     }
     75% {
-        transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+        transform: translateX(0) translateY(42px) rotate(-270deg) scale(0.5);
     }
     100% {
         transform: rotate(-360deg);
-        -webkit-transform: rotate(-360deg);
     }
 }
 
@@ -341,28 +317,15 @@ body:not(.no-transition) #wrapper,
     height: 40px;
     margin-top: -20px;
     margin-left: -20px;
-    -webkit-animation: scaleout 1.0s infinite ease-in-out;
     animation: scaleout 1.0s infinite ease-in-out;
-}
-
-@-webkit-keyframes scaleout {
-    0% {
-        -webkit-transform: scale(0.0)
-    }
-    100% {
-        -webkit-transform: scale(1.0);
-        opacity: 0;
-    }
 }
 
 @keyframes scaleout {
     0% {
         transform: scale(0.0);
-        -webkit-transform: scale(0.0);
     }
     100% {
         transform: scale(1.0);
-        -webkit-transform: scale(1.0);
         opacity: 0;
     }
 }
@@ -373,7 +336,6 @@ body:not(.no-transition) #wrapper,
     margin-top: -24px;
     margin-left: -24px;
     background-color: transparent !important;
-    -webkit-animation: none;
     animation: none;
 }
 
@@ -383,110 +345,68 @@ body:not(.no-transition) #wrapper,
     height: 12px;
     border-radius: 100%;
     margin: 2px;
-    -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
     display: inline-block;
     float: left;
-    -webkit-animation-name: ball-grid-pulse;
     animation-name: ball-grid-pulse;
-    -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
-    -webkit-animation-delay: 0;
     animation-delay: 0;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(1) {
-    -webkit-animation-delay: 0.73s;
     animation-delay: 0.73s;
-    -webkit-animation-duration: 1.3s;
     animation-duration: 1.3s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(2) {
-    -webkit-animation-delay: 0.32s;
     animation-delay: 0.32s;
-    -webkit-animation-duration: 1.3s;
     animation-duration: 1.3s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(3) {
-    -webkit-animation-delay: 0.71s;
     animation-delay: 0.71s;
-    -webkit-animation-duration: 0.88s;
     animation-duration: 0.88s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(4) {
-    -webkit-animation-delay: 0.62s;
     animation-delay: 0.62s;
-    -webkit-animation-duration: 1.06s;
     animation-duration: 1.06s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(5) {
-    -webkit-animation-delay: 0.31s;
     animation-delay: 0.31s;
-    -webkit-animation-duration: 0.62s;
     animation-duration: 0.62s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(6) {
-    -webkit-animation-delay: -0.14s;
     animation-delay: -0.14s;
-    -webkit-animation-duration: 1.48s;
     animation-duration: 1.48s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(7) {
-    -webkit-animation-delay: -0.1s;
     animation-delay: -0.1s;
-    -webkit-animation-duration: 1.47s;
     animation-duration: 1.47s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(8) {
-    -webkit-animation-delay: 0.4s;
     animation-delay: 0.4s;
-    -webkit-animation-duration: 1.49s;
     animation-duration: 1.49s;
 }
 
 .css3-spinner-grid-pulse > div:nth-child(9) {
-    -webkit-animation-delay: 0.73s;
     animation-delay: 0.73s;
-    -webkit-animation-duration: 0.7s;
     animation-duration: 0.7s;
-}
-
-@-webkit-keyframes ball-grid-pulse {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-    50% {
-        -webkit-transform: scale(0.5);
-        transform: scale(0.5);
-        opacity: 0.7;
-    }
-    100% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-    }
 }
 
 @keyframes ball-grid-pulse {
     0% {
-        -webkit-transform: scale(1);
         transform: scale(1);
     }
     50% {
-        -webkit-transform: scale(0.5);
         transform: scale(0.5);
         opacity: 0.7;
     }
     100% {
-        -webkit-transform: scale(1);
         transform: scale(1);
         opacity: 1;
     }
@@ -498,7 +418,6 @@ body:not(.no-transition) #wrapper,
     margin-top: -17px;
     margin-left: -17px;
     background-color: transparent !important;
-    -webkit-animation: none;
     animation: none;
 }
 
@@ -509,21 +428,17 @@ body:not(.no-transition) #wrapper,
     height: 33px;
     width: 33px;
     background: transparent !important;
-    -webkit-animation: rotate 1s 0s linear infinite;
     animation: rotate 1s 0s linear infinite;
 }
 
 @keyframes rotate {
     0% {
-        -webkit-transform: rotate(0deg) scale(1);
         transform: rotate(0deg) scale(1);
     }
     50% {
-        -webkit-transform: rotate(180deg) scale(0.6);
         transform: rotate(180deg) scale(0.6);
     }
     100% {
-        -webkit-transform: rotate(360deg) scale(1);
         transform: rotate(360deg) scale(1);
     }
 }
@@ -534,8 +449,7 @@ body:not(.no-transition) #wrapper,
     margin-top: -6px;
     margin-left: -6px;
     background-color: transparent !important;
-    -webkit-animation: ballrotate 1s 0s cubic-bezier(.7, -.13, 0.22, 0.86) infinite;
-    animation: ballrotate 1s 0s cubic-bezier(.7, -.13, 0.22, 0.86) infinite;
+    animation: ballrotate 1s 0s cubic-bezier(0.7, -0.13, 0.22, 0.86) infinite;
 }
 
 .css3-spinner-ball-rotate > div {
@@ -568,15 +482,12 @@ body:not(.no-transition) #wrapper,
 
 @keyframes ballrotate {
     0% {
-        -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
     50% {
-        -webkit-transform: rotate(180deg);
         transform: rotate(180deg);
     }
     100% {
-        -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
     }
 }
@@ -679,20 +590,6 @@ body:not(.no-transition) #wrapper,
     animation-delay: -0.2s;
 }
 
-@-webkit-keyframes ball-scale-multiple {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    5% {
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0;
-    }
-}
-
 @keyframes ball-scale-multiple {
     0% {
         transform: scale(0);
@@ -747,18 +644,6 @@ body:not(.no-transition) #wrapper,
     left: 50px;
 }
 
-@-webkit-keyframes ball-triangle-path-1 {
-    33% {
-        transform: translate(25px, -50px);
-    }
-    66% {
-        transform: translate(50px, 0);
-    }
-    100% {
-        transform: translate(0px, 0);
-    }
-}
-
 @keyframes ball-triangle-path-1 {
     33% {
         transform: translate(25px, -50px);
@@ -767,19 +652,7 @@ body:not(.no-transition) #wrapper,
         transform: translate(50px, 0);
     }
     100% {
-        transform: translate(0px, 0);
-    }
-}
-
-@-webkit-keyframes ball-triangle-path-2 {
-    33% {
-        transform: translate(25px, 50px);
-    }
-    66% {
-        transform: translate(-25px, 50px);
-    }
-    100% {
-        transform: translate(0px, 0);
+        transform: translate(0, 0);
     }
 }
 
@@ -791,19 +664,7 @@ body:not(.no-transition) #wrapper,
         transform: translate(-25px, 50px);
     }
     100% {
-        transform: translate(0px, 0);
-    }
-}
-
-@-webkit-keyframes ball-triangle-path-3 {
-    33% {
-        transform: translate(-50px, 0);
-    }
-    66% {
-        transform: translate(-25px, -50px);
-    }
-    100% {
-        transform: translate(0px, 0);
+        transform: translate(0, 0);
     }
 }
 
@@ -815,7 +676,7 @@ body:not(.no-transition) #wrapper,
         transform: translate(-25px, -50px);
     }
     100% {
-        transform: translate(0px, 0);
+        transform: translate(0, 0);
     }
 }
 
@@ -852,21 +713,6 @@ body:not(.no-transition) #wrapper,
 
 .css3-spinner-ball-pulse-sync > div:nth-child(3) {
     animation: ball-pulse-sync 0.7s 0s infinite ease-in-out;
-}
-
-@-webkit-keyframes ball-pulse-sync {
-    33% {
-        transform: translateY(10px);
-        opacity: 0.85;
-    }
-    66% {
-        transform: translateY(-10px);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
 }
 
 @keyframes ball-pulse-sync {
@@ -913,39 +759,19 @@ body:not(.no-transition) #wrapper,
 }
 
 .css3-spinner-scale-ripple > div:nth-child(2) {
-    -webkit-animation-delay: -0.4s;
     animation-delay: -0.4s;
 }
 
 .css3-spinner-scale-ripple > div:nth-child(3) {
-    -webkit-animation-delay: -0.2s;
     animation-delay: -0.2s;
-}
-
-@-webkit-keyframes ball-scale-ripple-multiple {
-    0% {
-        -webkit-transform: scale(0.1);
-        transform: scale(0.1);
-        opacity: 1;
-    }
-    70% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 0.7;
-    }
-    100% {
-        opacity: 0.0;
-    }
 }
 
 @keyframes ball-scale-ripple-multiple {
     0% {
-        -webkit-transform: scale(0.1);
         transform: scale(0.1);
         opacity: 1;
     }
     70% {
-        -webkit-transform: scale(1);
         transform: scale(1);
         opacity: 0.7;
     }
@@ -954,10 +780,18 @@ body:not(.no-transition) #wrapper,
     }
 }
 
-$delay: 0.2;
+.not-animated {
+    opacity: 0;
+}
+
+.animated {
+    opacity: 1;
+}
+
 @for $i from 1 through 20 {
     .animated-#{$i} {
-        animation-delay: #{$delay}s;
+        animation-delay: #{$animation-delay-default}s;
     }
-    $delay: $delay + 0.2;
+
+    $animation-delay-default: $animation-delay-default + $animation-delay-count;
 }

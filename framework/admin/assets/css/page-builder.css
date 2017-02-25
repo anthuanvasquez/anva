@@ -67,8 +67,8 @@
     margin: 0 0 10px;
     padding: 0;
     position: relative;
-    -webkit-transition: box-shadow .2s ease;
-    transition: box-shadow .2s ease;
+    -webkit-transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease;
     width: 100%; }
     .builder-sortable-items > li:before, .builder-sortable-items > li:after {
       content: "";
@@ -119,8 +119,8 @@
         text-align: center;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        -webkit-transition: opacity .2s ease;
-        transition: opacity .2s ease; }
+        -webkit-transition: opacity 0.2s ease;
+        transition: opacity 0.2s ease; }
       .builder-sortable-items > li .thumbnail img {
         border: 1px solid #ddd;
         max-height: 30px; }
@@ -345,8 +345,8 @@
       outline: 0;
       background: #eee;
       box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
-      -webkit-transition: opacity .1s ease;
-      transition: opacity .1s ease;
+      -webkit-transition: opacity 0.1s ease;
+      transition: opacity 0.1s ease;
       color: #222;
       font-weight: 700;
       text-decoration: none;
@@ -440,8 +440,8 @@
   position: relative;
   overflow: hidden;
   text-align: center;
-  -webkit-transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
-  transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out; }
+  -webkit-transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out; }
   .element-shortcode:hover span {
     bottom: 0; }
   .element-shortcode img {
@@ -460,8 +460,8 @@
     vertical-align: middle;
     position: absolute;
     bottom: -67px;
-    -webkit-transition: all .2s ease;
-    transition: all .2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
     color: #777; }
   .element-shortcode.selected {
     border-color: rgba(0, 160, 210, 0.9);
@@ -518,7 +518,7 @@
   border: 1px solid #e1e1e1;
   left: -65px;
   top: 38px;
-  box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.15);
   z-index: 9; }
 
 .anva-arrow {

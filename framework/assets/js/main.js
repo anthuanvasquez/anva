@@ -2542,8 +2542,8 @@ var ANVA = ANVA || {};
 
                     element.find('.acctitle').click(function(){
                         if( $(this).next().is(':hidden') ) {
-                            element.find('.acctitle').removeClass('acctitlec').next().slideUp("normal");
-                            $(this).toggleClass('acctitlec').next().slideDown("normal");
+                            element.find('.acctitle').removeClass('acctitlec').next().slideUp('normal');
+                            $(this).toggleClass('acctitlec').next().slideDown('normal');
                         }
                         return false;
                     });
@@ -2674,7 +2674,7 @@ var ANVA = ANVA || {};
                         element.appear( function(){
                             if (!skillsBar.hasClass('skills-animated')) {
                                 element.find('.counter-instant span').countTo();
-                                skillsBar.find('.progress').css({width: skillValue + "%"}).addClass('skills-animated');
+                                skillsBar.find('.progress').css({width: skillValue + '%'}).addClass('skills-animated');
                             }
                         },{accX: 0, accY: -120},'easeInCubic');
                     } else {

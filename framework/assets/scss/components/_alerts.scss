@@ -6,11 +6,13 @@
 .style-msg2 {
     display: block;
     color: #444;
-    border-left: 4px solid rgba(0,0,0,0.1);
+    border-left: 4px solid rgba(black, 0.1);
     margin-bottom: 20px;
 }
 
-.style-msg2 { border-left: 4px solid rgba(0,0,0,0.2); }
+.style-msg2 {
+    border-left: 4px solid rgba(black, 0.2);
+}
 
 .successmsg {
     background: #C5EBD4;
@@ -37,14 +39,14 @@
 .style-msg2 .sb-msg {
     display: block;
     padding: 15px;
-    border-left: 1px solid rgba(255,255,255,0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 13px;
-    text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.6);
 }
 
 .style-msg2 {
     .msgtitle {
-        background: rgba(0,0,0,0.15);
+        background: rgba(black, 0.15);
         border-top: none;
         border-bottom: none;
         font-size: 14px;
@@ -60,11 +62,12 @@
         list-style-type: disc;
     }
 }
+
 .style-msg-light {
     .sb-msg,
     .msgtitle {
         color: #FFF;
-        text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        text-shadow: 1px 1px 1px rgba(black, 0.3);
     }
 }
 

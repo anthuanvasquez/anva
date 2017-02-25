@@ -123,7 +123,7 @@ class Anva_Content_Builder {
 				wp_enqueue_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'js-wp-editor.min.js', array( 'jquery' ), '1.1', false );
 				wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
 
-				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'builder.css', array( 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
+				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'page-builder.css', array( 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
 				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'page-builder.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
 				wp_localize_script( 'anva_builder', 'anvaBuilderJs', anva_get_admin_locals( 'metabox_js' ) );
 

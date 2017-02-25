@@ -29,6 +29,8 @@ $margin-big:                    80px;
 $body-font:                     'Lato', sans-serif;
 $heading-font:                  'Raleway', sans-serif;
 $secondary-font:                'Crete Round', serif;
+$caption-font:                  'Lato', Georgia, "Times New Roman", Times, serif;
+$wedding-font:                  'Times New Roman', serif;
 
 //  ----------------------------------------------------------------
 // 	Font Sizes
@@ -86,7 +88,6 @@ $header-floating-offset:        60px;
 // Side Header
 $side-header-width:             260px;
 $side-header-bg:                #FFF;
-
 
 //  ----------------------------------------------------------------
 // 	Primary Menu
@@ -177,3 +178,10 @@ $blog-3-margin-sb:         25px;
 
 // Columns Margin for Both Sidebar
 $blog-2-margin-bs:         40px;
+
+//  ----------------------------------------------------------------
+//  Animation
+// -----------------------------------------------------------------
+
+$animation-delay-default:  0.2;
+$animation-delay-count:    0.2;

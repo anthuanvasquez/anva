@@ -162,7 +162,7 @@ class Anva_Options_Page {
 		wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
 		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
 		wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
-		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options-page.min.css', array(), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options-page.css', array(), ANVA_FRAMEWORK_VERSION );
 
 	}
 
