@@ -3,30 +3,30 @@
 # Docker image from Docker Hub.
 image: smartapps/bitbucket-pipelines-php-mysql
 pipelines:
-    branches:
-        develop:
-            - step:
-                script:
-                    - mkdir php-codesniffer && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C php-codesniffer
-                    - mkdir wordpress-coding-standards && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wordpress-coding-standards
-                    - cd php-codesniffer
-                    - scripts/phpcs --config-set installed_paths ../wordpress-coding-standards
-                    - cd ..
-                    - cd .tools
-                    - npm install
-                    - gulp tests
-                    - cd ..
-                    - php-codesniffer/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php
-        feature/*:
-        	- step:
-                script:
-                    - mkdir php-codesniffer && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C php-codesniffer
-                    - mkdir wordpress-coding-standards && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wordpress-coding-standards
-                    - cd php-codesniffer
-                    - scripts/phpcs --config-set installed_paths ../wordpress-coding-standards
-                    - cd ..
-                    - cd .tools
-                    - npm install
-                    - gulp tests
-                    - cd ..
-                    - php-codesniffer/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php
+	branches:
+		develop:
+			- step:
+				script:
+					- mkdir php-codesniffer && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C php-codesniffer
+					- mkdir wordpress-coding-standards && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wordpress-coding-standards
+					- cd php-codesniffer
+					- scripts/phpcs --config-set installed_paths ../wordpress-coding-standards
+					- cd ..
+					- cd .tools
+					- npm install
+					- gulp tests
+					- cd ..
+					- php-codesniffer/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php
+		feature/*:
+			- step:
+				script:
+					- mkdir php-codesniffer && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C php-codesniffer
+					- mkdir wordpress-coding-standards && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wordpress-coding-standards
+					- cd php-codesniffer
+					- scripts/phpcs --config-set installed_paths ../wordpress-coding-standards
+					- cd ..
+					- cd .tools
+					- npm install
+					- gulp tests
+					- cd ..
+					- php-codesniffer/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php
