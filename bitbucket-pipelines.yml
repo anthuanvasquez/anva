@@ -9,10 +9,8 @@ pipelines:
                 script:
                     - mkdir phpcs && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C phpcs
                     - mkdir wpcs && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wpcs
-                    - cd phpcs
-                    - scripts/phpcs --config-set installed_paths ../wpcs
-                    - scripts/phpcs -p -s -v -n . --standard=../codesniffer.ruleset.xml --extensions=php --ignore=*/phpcs/*,*/wpcs/*
-                    - cd ..
+                    - phpcs/scripts/phpcs --config-set installed_paths wpcs
+                    - phpcs/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php --ignore=*/phpcs/*,*/wpcs/*
                     - cd .tools
                     - npm install
                     - gulp tests
@@ -21,10 +19,8 @@ pipelines:
                 script:
                     - mkdir phpcs && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C phpcs
                     - mkdir wpcs && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wpcs
-                    - cd phpcs
-                    - scripts/phpcs --config-set installed_paths ../wpcs
-                    - scripts/phpcs -p -s -v -n . --standard=../codesniffer.ruleset.xml --extensions=php --ignore=*/phpcs/*,*/wpcs/*
-                    - cd ..
+                    - phpcs/scripts/phpcs --config-set installed_paths wpcs
+                    - phpcs/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php --ignore=*/phpcs/*,*/wpcs/*
                     - cd .tools
                     - npm install
                     - gulp tests
