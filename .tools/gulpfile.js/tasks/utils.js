@@ -10,24 +10,21 @@ var gulp        = require('gulp'),
 // for a clean build; additionally trigger Bower-related tasks
 // to ensure we have the latest source files
 gulp.task('wipe-dist', () => {
-    return del(config.wipe.dist, {force: true});
+    return del(config.wipe.dist, { force: true });
 });
 
+// Totally wipe the contents of the `build` folder
 gulp.task('wipe-build', () => {
-    return del(config.wipe.build, {force: true});
-});
-
-gulp.task('wipe-test', () => {
-    return del(config.wipe.test, {force: true});
+    return del(config.wipe.build, { force: true });
 });
 
 // Clean out junk files after build
-gulp.task('clean', ['build', 'wipe-dist', 'wipe-test'], () => {
-    return del(config.clean, {force: true});
+gulp.task('clean', ['release', 'wipe-dist'], () => {
+    return del(config.clean, { force: true });
 });
 
 // Copy files from the `build` folder to `dist/[project-version]`
-gulp.task('dist', ['utils-clean'], () => {
+gulp.task('dist', ['clean'], () => {
     return gulp.src(config.dist.src)
     .pipe(plugins.zip(config.dist.name))
     .pipe(gulp.dest(config.dist.dest));

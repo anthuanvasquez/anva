@@ -8,33 +8,34 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
+
 ?>
 <div class="entry-wrap">
 	<article id="page-404" class="page page-404">
 
-        <div class="col_half nobottommargin">
-            <div class="error404 center">404</div>
-        </div>
+		<div class="col_half nobottommargin">
+			<div class="error404 center"><?php esc_html_e( '404' ); ?></div>
+		</div>
 
-        <div class="col_half nobottommargin col_last">
-            <div class="heading-block nobottomborder">
-                <h4><?php anva_local( '404_sub_title' ); ?></h4>
-                <span><?php anva_local( '404_description' ); ?></span>
-            </div>
-            <form action="<?php echo home_url( '/' ); ?>" method="get" role="form" class="nobottommargin">
-                <div class="input-group input-group-lg">
-                    <input type="text" name="s" class="form-control" placeholder="Search for Pages...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-danger" type="button">Search</button>
-                    </span>
-                </div>
-            </form>
-        </div>
+		<div class="col_half nobottommargin col_last">
+			<div class="heading-block nobottomborder">
+				<h4><?php anva_local( '404_sub_title' ); ?></h4>
+				<span><?php anva_local( '404_description' ); ?></span>
+			</div>
+			<form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" role="form" class="nobottommargin">
+				<div class="input-group input-group-lg">
+					<input type="text" name="s" class="form-control" placeholder="Search for Pages...">
+					<span class="input-group-btn">
+						<button class="btn btn-danger" type="button">Search</button>
+					</span>
+				</div>
+			</form>
+		</div>
 	</article><!-- #page-404 (end) -->
 </div><!-- .entry-wrap (end) -->

@@ -8,11 +8,11 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
 
 if ( post_password_required() ) {
@@ -28,16 +28,11 @@ if ( post_password_required() ) {
 	<?php if ( have_comments() ) : ?>
 		<h3 class="comments-title">
 			<?php
+			$numbers   = get_comments_number();
+			$formatted = number_format_i18n( $numbers );
 			printf(
-				_nx(
-					'1 response &ldquo;%2$s&rdquo;',
-					'%1$s responses &ldquo;%2$s&rdquo;',
-					get_comments_number(),
-					'comments title', 'anva'
-				),
-				number_format_i18n(
-					get_comments_number()
-				),
+				_nx( '%1$s comment "%2$s"', '%1$s comments "%2$s"', $numbers, 'comments number', 'anva' ),
+				esc_html( $formatted ),
 				'<span>' . get_the_title() . '</span>'
 			);
 			?>
@@ -53,8 +48,10 @@ if ( post_password_required() ) {
 
 	<?php endif; ?>
 
-	<?php if ( ! comments_open() && '0' != get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
-		<p class="no-comments"><?php anva_get_local( 'no_comment' ); ?></p>
+	<?php if ( ! comments_open() && '0' !== get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
+		<p class="no-comments">
+			<?php anva_get_local( 'no_comment' ); ?>
+		</p>
 	<?php endif; ?>
 
 	<?php
@@ -64,8 +61,8 @@ if ( post_password_required() ) {
 			'id_form'           => 'commentform',
 			'id_submit'         => 'submit',
 			'class_submit'      => 'button butotn-3d no-margin',
-			'title_reply'       => __( 'Leave a Reply', 'anva' ),
-			'title_reply_to'    => __( 'Leave a Reply to %s', 'anva' ),
+			'title_reply'       => sprintf( __( 'Leave a %s', 'anva' ), sprintf( '<span>%s</span>', __( 'Comment', 'anva' ) ) ),
+			'title_reply_to'    => __( 'Leave a Comment to %s', 'anva' ),
 			'cancel_reply_link' => __( 'Cancel Reply', 'anva' ),
 			'label_submit'      => __( 'Post Comment', 'anva' ),
 
@@ -97,23 +94,22 @@ if ( post_password_required() ) {
 					<label for="author">' . __( 'Name', 'anva' ) . '</label> ' .
 					( $req ? '<span class="required">*</span>' : '' ) .
 					'<input id="author" name="author" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author'] ) .
-					'" size="30"' . $aria_req . ' />' .
-					'</div>',
+					'" size="30"' . $aria_req . ' />
+					</div>',
 
 				'email' =>
 					'<div class="col_one_third comment-form-email">
 					<label for="email">' . __( 'Email', 'anva' ) . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
-					'<input id="email" name="email" type="text" class="sm-form-control" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />' .
-					'</div>',
+					'<input id="email" name="email" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />
+					</div>',
 
 				'url' =>
 					'<div class="col_one_third col_last comment-form-url">
-					<label for="url">' . __( 'Website', 'anva' ) . '</label>' .
-					'<input id="url" name="url" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_url'] ) .
-					'" size="30" />' .
-					'</div>' .
-					'<div class="clear"></div>'
-
+					<label for="url">' . __( 'Website', 'anva' ) . '</label>
+					<input id="url" name="url" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_url'] ) .
+					'" size="30" />
+					</div>
+					<div class="clear"></div>',
 				)
 			),
 
@@ -132,7 +128,6 @@ if ( post_password_required() ) {
 			'comment_notes_before' => '<p class="comment-notes">' .
 				__( 'Your email address will not be published.', 'anva' ) . ' ' . ( $req ? $required_text : '' ) .
 				'</p>',
-
 		);
 
 		comment_form( $args );

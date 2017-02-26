@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Content_Builder_API' ) ) :
+if ( ! class_exists( 'Anva_Page_Builder_Options' ) ) :
 
 /**
  * Anva Page Builder Elements API.
@@ -14,8 +14,7 @@ if ( ! class_exists( 'Anva_Content_Builder_API' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Content_Builder_API
-{
+class Anva_Page_Builder_Options {
 	/**
 	 * A single instance of this class.
 	 *

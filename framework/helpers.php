@@ -9,22 +9,22 @@
 function anva_api_init() {
 
 	// Setup Framework Core Options API
-	Anva_Options_API::instance();
+	Anva_Options::instance();
 
 	// Setup Framework Stylesheets API
-	Anva_Stylesheets_API::instance();
+	Anva_Stylesheets::instance();
 
 	// Setup Framework JavaScripts API
-	Anva_Scripts_API::instance();
+	Anva_Scripts::instance();
 
 	// Setup Framework Sidebars Locations API
-	Anva_Sidebars_API::instance();
+	Anva_Sidebars::instance();
 
 	// Setup Framework Core Sliders API
-	Anva_Sliders_API::instance();
+	Anva_Sliders::instance();
 
 	// Setup Framework Page Builder Elements API
-	Anva_Content_Builder_API::instance();
+	Anva_Page_Builder_Options::instance();
 
 	// Setup customizer API
 	$GLOBALS['_anva_customizer_sections'] = array();
@@ -88,7 +88,7 @@ function anva_the_option( $name, $default = false ) {
  * @since 1.0.0
  */
 function anva_get_core_options() {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	return $api->get_raw_options();
 }
 
@@ -99,7 +99,7 @@ function anva_get_core_options() {
  * @since 1.0.0
  */
 function anva_get_formatted_options() {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	return $api->get_formatted_options();
 }
 
@@ -109,7 +109,7 @@ function anva_get_formatted_options() {
  * @since 1.0.0
  */
 function anva_add_option_tab( $tab_id, $tab_name, $top = false, $icon = 's' ) {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	$api->add_tab( $tab_id, $tab_name, $top, $icon );
 }
 
@@ -119,7 +119,7 @@ function anva_add_option_tab( $tab_id, $tab_name, $top = false, $icon = 's' ) {
  * @since 1.0.0
  */
 function anva_remove_option_tab( $tab_id ) {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	$api->remove_tab( $tab_id );
 }
 
@@ -129,7 +129,7 @@ function anva_remove_option_tab( $tab_id ) {
  * @since 1.0.0
  */
 function anva_add_option_section( $tab_id, $section_id, $section_name, $section_desc = null, $options = null, $top = false ) {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	$api->add_section( $tab_id, $section_id, $section_name, $section_desc, $options, $top );
 }
 
@@ -139,7 +139,7 @@ function anva_add_option_section( $tab_id, $section_id, $section_name, $section_
  * @since 1.0.0
  */
 function anva_remove_option_section( $tab_id, $section_id ) {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	$api->remove_section( $tab_id, $section_id );
 }
 
@@ -149,7 +149,7 @@ function anva_remove_option_section( $tab_id, $section_id ) {
  * @since 1.0.0
  */
 function anva_add_option( $tab_id, $section_id, $option_id, $option ) {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	$api->add_option( $tab_id, $section_id, $option_id, $option );
 }
 
@@ -159,7 +159,7 @@ function anva_add_option( $tab_id, $section_id, $option_id, $option ) {
  * @since 1.0.0
  */
 function anva_remove_option( $tab_id, $section_id, $option_id ) {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	$api->remove_option( $tab_id, $section_id, $option_id );
 }
 
@@ -169,7 +169,7 @@ function anva_remove_option( $tab_id, $section_id, $option_id ) {
  * @since 1.0.0
  */
 function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
-	$api = Anva_Options_API::instance();
+	$api = Anva_Options::instance();
 	$api->edit_option( $tab_id, $section_id, $option_id, $att, $value );
 }
 
@@ -179,7 +179,7 @@ function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
  * @since 1.0.0
  */
 function anva_get_core_elements() {
-	$api = Anva_Content_Builder_API::instance();
+	$api = Anva_Page_Builder_Options::instance();
 	return $api->get_core_elements();
 }
 
@@ -190,7 +190,7 @@ function anva_get_core_elements() {
  * @since 1.0.0
  */
 function anva_get_elements() {
-	$api = Anva_Content_Builder_API::instance();
+	$api = Anva_Page_Builder_Options::instance();
 	return $api->get_elements();
 }
 
@@ -205,7 +205,7 @@ function anva_get_elements() {
  */
 function anva_is_element( $element_id ) {
 	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_element_exists() instead.', 'anva' ) );
-	$api = Anva_Content_Builder_API::instance();
+	$api = Anva_Page_Builder_Options::instance();
 	return $api->is_element( $element_id );
 }
 
@@ -217,7 +217,7 @@ function anva_is_element( $element_id ) {
  * @return string $element_id
  */
 function anva_element_exists( $element_id ) {
-	$api = Anva_Content_Builder_API::instance();
+	$api = Anva_Page_Builder_Options::instance();
 	return $api->is_element( $element_id );
 }
 
@@ -227,7 +227,7 @@ function anva_element_exists( $element_id ) {
  * @since 1.0.0
  */
 function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $content ) {
-	$api = Anva_Content_Builder_API::instance();
+	$api = Anva_Page_Builder_Options::instance();
 	$api->add_element( $element_id, $name, $icon, $attr, $desc, $content );
 }
 
@@ -237,7 +237,7 @@ function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $con
  * @since 1.0.0
  */
 function anva_remove_builder_element( $element_id ) {
-	$api = Anva_Content_Builder_API::instance();
+	$api = Anva_Page_Builder_Options::instance();
 	$api->remove_element( $element_id );
 }
 
@@ -247,7 +247,7 @@ function anva_remove_builder_element( $element_id ) {
  * @since 1.0.0
  */
 function anva_add_sidebar_location( $id, $name, $desc = '' ) {
-	$api = Anva_Sidebars_API::instance();
+	$api = Anva_Sidebars::instance();
 	$api->add_location( $id, $name, $desc );
 }
 
@@ -257,7 +257,7 @@ function anva_add_sidebar_location( $id, $name, $desc = '' ) {
  * @since 1.0.0
  */
 function anva_remove_sidebar_location( $id ) {
-	$api = Anva_Sidebars_API::instance();
+	$api = Anva_Sidebars::instance();
 	$api->remove_location( $id );
 }
 
@@ -267,7 +267,7 @@ function anva_remove_sidebar_location( $id ) {
  * @since 1.0.0
  */
 function anva_get_sidebar_locations() {
-	$api = Anva_Sidebars_API::instance();
+	$api = Anva_Sidebars::instance();
 	return $api->get_locations();
 }
 
@@ -277,7 +277,7 @@ function anva_get_sidebar_locations() {
  * @since 1.0.0
  */
 function anva_get_sidebar_location_name( $location, $slug = false ) {
-	$api = Anva_Sidebars_API::instance();
+	$api = Anva_Sidebars::instance();
 	$sidebar = $api->get_locations( $location );
 
 	if ( isset( $sidebar['args']['name'] ) ) {
@@ -296,7 +296,7 @@ function anva_get_sidebar_location_name( $location, $slug = false ) {
  * @since 1.0.0
  */
 function anva_display_sidebar( $location ) {
-	$api = Anva_Sidebars_API::instance();
+	$api = Anva_Sidebars::instance();
 	$api->display( $location );
 }
 
@@ -327,7 +327,7 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
  * @since 1.0.0
  */
 function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = 'all' ) {
-	$api = Anva_Stylesheets_API::instance();
+	$api = Anva_Stylesheets::instance();
 	$api->add( $handle, $src, $level, $ver, $media );
 }
 
@@ -337,7 +337,7 @@ function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = '
  * @since 1.0.0
  */
 function anva_remove_stylesheet( $handle ) {
-	$api = Anva_Stylesheets_API::instance();
+	$api = Anva_Stylesheets::instance();
 	$api->remove( $handle );
 }
 
@@ -347,7 +347,7 @@ function anva_remove_stylesheet( $handle ) {
  * @since 1.0.0
  */
 function anva_get_stylesheets() {
-	$api = Anva_Stylesheets_API::instance();
+	$api = Anva_Stylesheets::instance();
 	$core = $api->get_framework_stylesheets();
 	$custom = $api->get_custom_stylesheets();
 	return array_merge( $core, $custom );
@@ -359,7 +359,7 @@ function anva_get_stylesheets() {
  * @since 1.0.0
  */
 function anva_print_styles( $level ) {
-	$api = Anva_Stylesheets_API::instance();
+	$api = Anva_Stylesheets::instance();
 	$api->print_styles( $level );
 }
 
@@ -369,7 +369,7 @@ function anva_print_styles( $level ) {
  * @since 1.0.0
  */
 function anva_add_script( $handle, $src, $level = 4, $ver = null, $footer = true ) {
-	$api = Anva_Scripts_API::instance();
+	$api = Anva_Scripts::instance();
 	$api->add( $handle, $src, $level, $ver, $footer );
 }
 
@@ -379,7 +379,7 @@ function anva_add_script( $handle, $src, $level = 4, $ver = null, $footer = true
  * @since 1.0.0
  */
 function anva_remove_script( $handle ) {
-	$api = Anva_Scripts_API::instance();
+	$api = Anva_Scripts::instance();
 	$api->remove( $handle );
 }
 
@@ -389,7 +389,7 @@ function anva_remove_script( $handle ) {
  * @since 1.0.0
  */
 function anva_get_scripts() {
-	$api = Anva_Scripts_API::instance();
+	$api = Anva_Scripts::instance();
 	$core = $api->get_framework_scripts();
 	$custom = $api->get_custom_scripts();
 	return array_merge( $core, $custom );
@@ -401,7 +401,7 @@ function anva_get_scripts() {
  * @since 1.0.0
  */
 function anva_print_scripts( $level ) {
-	$api = Anva_Scripts_API::instance();
+	$api = Anva_Scripts::instance();
 	$api->print_scripts( $level );
 }
 
@@ -411,7 +411,7 @@ function anva_print_scripts( $level ) {
  * @since 1.0.0
  */
 function anva_add_slider( $slider_id, $slider_name, $slide_types, $media_positions, $elements, $options ) {
-	$api = Anva_Sliders_API::instance();
+	$api = Anva_Sliders::instance();
 	$api->add( $slider_id, $slider_name, $slide_types, $media_positions, $elements, $options );
 }
 
@@ -421,7 +421,7 @@ function anva_add_slider( $slider_id, $slider_name, $slide_types, $media_positio
  * @since 1.0.0
  */
 function anva_remove_slider( $slider_id ) {
-	$api = Anva_Sliders_API::instance();
+	$api = Anva_Sliders::instance();
 	$api->remove( $slider_id );
 }
 
@@ -431,7 +431,7 @@ function anva_remove_slider( $slider_id ) {
  * @since 1.0.0
  */
 function anva_get_sliders( $slider_id = '' ) {
-	$api = Anva_Sliders_API::instance();
+	$api = Anva_Sliders::instance();
 	return $api->get_sliders( $slider_id );
 }
 
@@ -446,7 +446,7 @@ function anva_get_sliders( $slider_id = '' ) {
  */
 function anva_is_slider( $slider_id ) {
 	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_slider_exists() instead.', 'anva' ) );
-	$api = Anva_Sliders_API::instance();
+	$api = Anva_Sliders::instance();
 	return $api->is_slider( $slider_id );
 }
 
@@ -458,7 +458,7 @@ function anva_is_slider( $slider_id ) {
  * @return string $sldier_id
  */
 function anva_slider_exists( $slider_id ) {
-	$api = Anva_Sliders_API::instance();
+	$api = Anva_Sliders::instance();
 	return $api->is_slider( $slider_id );
 }
 

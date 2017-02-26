@@ -8,11 +8,11 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
 
 get_header();
@@ -35,7 +35,7 @@ $client = anva_get_post_meta( '_anva_client' );
 				<div class="entry-wrap">
 					<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 
-						<?php // anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+						<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 
 						<div class="portfolio-single-content col_three_fifth nobottommargin">
 							<div class="portfolio-gallery">
@@ -51,9 +51,9 @@ $client = anva_get_post_meta( '_anva_client' );
 										$gallery_template = anva_get_option( 'gallery_template' );
 									}
 
-									if ( isset( $templates[$gallery_template][ 'id' ] ) && $gallery_template === $templates[$gallery_template][ 'id' ] ) {
-										$columns = $templates[$gallery_template][ 'layout' ][ 'col' ];
-										$size    = $templates[$gallery_template][ 'layout' ][ 'size' ];
+									if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template === $templates[$gallery_template]['id'] ) {
+										$columns = $templates[$gallery_template]['layout']['col'];
+										$size    = $templates[$gallery_template]['layout']['size'];
 										anva_gallery_masonry( $id, $columns, $size );
 									}
 								}
@@ -80,7 +80,7 @@ $client = anva_get_post_meta( '_anva_client' );
 											'poster' => $poster,
 											'm4v'    => $m4v,
 											'ogv'    => $ogv,
-											'mp4'    => $mp4
+											'mp4'    => $mp4,
 										);
 
 										$output .= wp_video_shortcode( $attr );
@@ -106,7 +106,7 @@ $client = anva_get_post_meta( '_anva_client' );
 									$ogg = get_post_meta( $post->ID, '_anva_audio_ogg', true );
 									$attr = array(
 										'mp3' => $mp3,
-										'ogg' => $ogg
+										'ogg' => $ogg,
 									);
 									$output .= wp_audio_shortcode( $attr );
 								}
@@ -153,7 +153,9 @@ $client = anva_get_post_meta( '_anva_client' );
 						</div>
 
 						<div class="clear"></div>
-						<div class="divider divider-center"><i class="icon-circle"></i></div>
+						<div class="divider divider-center">
+							<i class="icon-circle"></i>
+						</div>
 
 					</article><!-- #post-<?php the_ID(); ?> -->
 				</div><!-- .entry-wrap (end) -->

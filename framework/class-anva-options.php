@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Options_API' ) ) :
+if ( ! class_exists( 'Anva_Options' ) ) :
 
 /**
  * Anva Core Options API.
@@ -14,8 +14,7 @@ if ( ! class_exists( 'Anva_Options_API' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Options_API
-{
+class Anva_Options {
 	/**
 	 * A single instance of this class.
  	 *
@@ -63,7 +62,7 @@ class Anva_Options_API
 	private function __construct()
 	{
 		if ( is_admin() ) {
-			
+
 			// Setup options
 			$this->set_raw_options();
 
@@ -80,7 +79,7 @@ class Anva_Options_API
 		/* ---------------------------------------------------------------- */
 		/* Helpers
 		/* ---------------------------------------------------------------- */
-		
+
 		// Fill layouts array
 		$layouts = array();
 		if ( is_admin() ) {
@@ -162,8 +161,8 @@ class Anva_Options_API
 						)
 					),
 					'social_icons_profiles' => array(
-						"name" => __('Social Media Profiles', 'anva'),  
-						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),  
+						"name" => __('Social Media Profiles', 'anva'),
+						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),
 						"id" => "social_icons_profiles",
 						"type" => "social_media",
 						"std" => $social_media_defaults
@@ -633,7 +632,7 @@ class Anva_Options_API
 	 */
 	public function add_tab( $tab_id, $tab_name, $top = false, $icon = '' ) {
 
-		// Can't create a tab that already exists. 
+		// Can't create a tab that already exists.
 		// Must use remove_tab() first to modify.
 		if ( isset( $this->raw_options[$tab_id] ) ) {
 			return;
@@ -737,7 +736,7 @@ class Anva_Options_API
 	 */
 	public function add_option( $tab_id, $section_id, $option_id, $option ) {
 
-		
+
 
 		if ( ! isset( $this->raw_options[$tab_id] ) ) {
 			return;

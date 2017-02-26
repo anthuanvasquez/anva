@@ -8,12 +8,13 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
+
 ?>
 <div class="entry-wrap">
 	<article id="post-not-found" class="post post-not-found entry clearfix">

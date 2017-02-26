@@ -8,11 +8,11 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
 
 get_header();
@@ -30,8 +30,8 @@ get_header();
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<?php
 						$id 				= get_the_ID();
-						$gallery_template 	= anva_get_post_meta( '_anva_gallery_template' );
 						$templates			= anva_gallery_templates();
+						$gallery_template 	= anva_get_post_meta( '_anva_gallery_template' );
 
 						if ( empty( $gallery_template ) ) {
 							$gallery_template = anva_get_option( 'gallery_template' );

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Sidebars_API' ) ) :
+if ( ! class_exists( 'Anva_Sidebars' ) ) :
 
 /**
  * Anva Sidebars API.
@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Sidebars_API' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Sidebars_API {
+class Anva_Sidebars {
 
 	/**
 	 * A single instance of this class

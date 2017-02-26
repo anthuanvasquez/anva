@@ -101,7 +101,6 @@
 .owl-carousel .owl-nav .owl-next,
 .owl-carousel .owl-dot {
     cursor: pointer;
-    cursor: hand;
     user-select: none;
 }
 
@@ -132,7 +131,6 @@
 
 .owl-carousel.owl-grab {
     cursor: move;
-    cursor: grab;
 }
 
 .owl-carousel.owl-rtl {
@@ -173,7 +171,7 @@
     background: url("images/icons/play.png") no-repeat;
     cursor: pointer;
     z-index: 1;
-    transition: scale 100ms ease;
+    transition: scale 200ms ease;
 }
 
 .owl-carousel .owl-video-play-icon:hover {

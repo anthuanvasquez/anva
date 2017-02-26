@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Scripts_API' ) ) :
+if ( ! class_exists( 'Anva_Scripts' ) ) :
 
 /**
  * Anva Scripts API.
@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Scripts_API' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Scripts_API {
+class Anva_Scripts {
 
     /**
      * Properties

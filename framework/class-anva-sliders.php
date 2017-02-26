@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Sliders_API' ) ) :
+if ( ! class_exists( 'Anva_Sliders' ) ) :
 /**
  * Anva Sliders API.
  *
@@ -10,7 +10,7 @@ if ( ! class_exists( 'Anva_Sliders_API' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Sliders_API {
+class Anva_Sliders {
 
 	/**
 	 * A single instance of this class
@@ -64,7 +64,7 @@ class Anva_Sliders_API {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * Hook everything in.
 	 *
 	 * @since 1.0.0
@@ -76,7 +76,7 @@ class Anva_Sliders_API {
 			// Setup plugin default slider types
 			$this->set_core_sliders();
 			$this->set_sliders();
-			
+
 			// Establish slider types based on custom modifications
 			// combined with plugin defaults
 			add_action( 'after_setup_theme', array( $this, 'set_sliders' ), 1000 );
@@ -466,7 +466,7 @@ class Anva_Sliders_API {
 				'class'		=> 'slider-item nivo hide'
 			),
 		);
-		
+
 		/*--------------------------------------------*/
 		/* Bootstrap Carousel
 		/*--------------------------------------------*/
@@ -593,7 +593,7 @@ class Anva_Sliders_API {
 
 	/**
 	 * Set slider types
-	 * 
+	 *
 	 * Then remove any types that have been set to be removed.
 	 *
 	 * @since 1.0.0

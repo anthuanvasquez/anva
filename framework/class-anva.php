@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Anva is a WordPress Theme Framework.
  *
@@ -7,11 +6,11 @@
  * entire framework. This class should be loaded and initialized before anything else within
  * the theme is called to properly use the framework.
  *
- * @since        1.0.0
+ * @version      1.0.0
  * @author       Anthuan Vásquez
  * @copyright    Copyright (c) Anthuan Vásquez
  * @link         https://anthuanvasquez.net
- * @package      Anva WordPress Framework
+ * @package      AnvaFramework
  */
 class Anva {
 	/**
@@ -34,10 +33,10 @@ class Anva {
 	 * Cloning is forbidden.
 	 *
 	 * @since  1.0.0
-	 * @return error Throw error on object clone.
+	 * @return void Throw error on object clone.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheating Huh?', 'anva' ), self::VERSION );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating Huh?', 'anva' ), self::VERSION );
 	}
 
 	/**
@@ -47,7 +46,7 @@ class Anva {
 	 * @return error Throw error on object unserializing.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheating Huh?', 'anva' ), self::VERSION );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating Huh?', 'anva' ), self::VERSION );
 	}
 
 	/**
@@ -122,13 +121,13 @@ class Anva {
 		}
 
 		// API and Helpers
-		include_once( ANVA_FRAMEWORK_DIR . 'tools/class-anva-options-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'tools/class-anva-sidebars-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'tools/class-anva-stylesheets-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'tools/class-anva-scripts-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'tools/class-anva-content-builder-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'tools/class-anva-sliders-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'tools/helpers.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-options-api.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sidebars-api.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-stylesheets-api.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-scripts-api.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-content-builder-api.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sliders-api.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'helpers.php' );
 		include_once( ANVA_FRAMEWORK_DIR . 'customizer/customizer.php' );
 
 		// General

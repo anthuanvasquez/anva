@@ -8,12 +8,13 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
+
 ?>
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
@@ -23,13 +24,13 @@
 		</div><!-- .entry-title (end) -->
 
 		<?php do_action( 'anva_posts_meta' ); ?>
-			
+
 		<div class="entry-content">
 			<?php do_action( 'anva_posts_content' ); ?>
 			<div class="entry-footer clearfix">
 				<?php do_action( 'anva_posts_footer' ); ?>
 			</div>
 		</div><!-- .entry-content (end) -->
-	
+
 	</article><!-- .entry (end) -->
 </div><!-- .entry-wrap (end) -->

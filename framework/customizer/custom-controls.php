@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Customizer control extensions
  *
@@ -15,7 +14,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Textarea extends WP_Customize_Control {
 
 		public $type = 'textarea';
-		
+
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {
@@ -47,7 +46,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Font_Face extends WP_Customize_Control {
 
 		public $type = 'font_face';
-		
+
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {
@@ -93,7 +92,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Google_Font extends WP_Customize_Control {
 
 		public $type = 'google_font';
-		
+
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {
@@ -132,7 +131,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Anva_Divider extends WP_Customize_Control {
 
 		public $type = 'divider';
-		
+
 		public $statuses;
 
 		public function __construct( $manager, $id, $args = array() ) {

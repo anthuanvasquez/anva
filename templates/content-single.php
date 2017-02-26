@@ -8,12 +8,13 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
+
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 
@@ -25,33 +26,33 @@
 
 	<?php if ( has_post_format( 'gallery' ) ) : ?>
 
-        <div class="entry-image entry-gallery">
-            <?php anva_gallery_content(); ?>
-        </div><!-- .entry-gallery (end) -->
+		<div class="entry-image entry-gallery">
+			<?php anva_gallery_content(); ?>
+		</div><!-- .entry-gallery (end) -->
 
-    <?php elseif ( has_post_format( 'video' ) ) : ?>
+	<?php elseif ( has_post_format( 'video' ) ) : ?>
 
-        <div class="entry-image entry-video">
-            <?php anva_content_video(); ?>
-        </div><!-- .entry-video (end) -->
+		<div class="entry-image entry-video">
+			<?php anva_content_video(); ?>
+		</div><!-- .entry-video (end) -->
 
-    <?php elseif ( has_post_format( 'audio' ) ) : ?>
+	<?php elseif ( has_post_format( 'audio' ) ) : ?>
 
-        <div class="entry-image entry-audio">
-            <?php anva_content_audio(); ?>
-        </div><!-- .entry-audio (end) -->
+		<div class="entry-image entry-audio">
+			<?php anva_content_audio(); ?>
+		</div><!-- .entry-audio (end) -->
 
-    <?php elseif ( has_post_format( 'quote' ) ) : ?>
+	<?php elseif ( has_post_format( 'quote' ) ) : ?>
 
-        <div class="entry-image entry-quote">
-            <?php anva_content_quote(); ?>
-        </div><!-- .entry-quote (end) -->
+		<div class="entry-image entry-quote">
+			<?php anva_content_quote(); ?>
+		</div><!-- .entry-quote (end) -->
 
-    <?php else : ?>
+	<?php else : ?>
 
-        <?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+		<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 
-    <?php endif; ?>
+	<?php endif; ?>
 
 	<div class="entry-content notopmargin">
 		<?php the_content(); ?>

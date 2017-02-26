@@ -8,12 +8,13 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
+
 ?>
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
@@ -21,9 +22,9 @@
 			<?php the_content(); ?>
 		</div><!-- .entry-content -->
 
-        <div class="entry-footer">
-            <?php wp_link_pages( array( 'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-links (end) -->' ) ); ?>
-            <?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
-        </div><!-- .entry-footer (end) -->
+		<div class="entry-footer">
+			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ', 'after' => '</div><!-- .page-links (end) -->' ) ); ?>
+			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
+		</div><!-- .entry-footer (end) -->
 	</article><!-- #post-<?php the_ID(); ?> -->
 </div><!-- .entry-wrap (end) -->

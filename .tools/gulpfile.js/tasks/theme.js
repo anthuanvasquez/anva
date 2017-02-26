@@ -5,7 +5,6 @@ var gulp        = require('gulp'),
     config      = require('../../gulpconfig').theme
 ;
 
-
 // Make POT file for theme translation
 gulp.task('make-pot', () => {
     return gulp.src(config.php.src)
@@ -24,7 +23,7 @@ gulp.task('textdomain-lint', () => {
 // Lint PHP source files
 gulp.task('php-lint', () => {
     return gulp.src(config.php.src)
-    .pipe(plugins.phplint('', {skipPassedFiles: true}))
+    .pipe(plugins.phplint('', { skipPassedFiles: true }))
     .pipe(plugins.phplint.reporter('fail'));
 });
 
@@ -49,12 +48,5 @@ gulp.task('theme-readme', () => {
     .pipe(gulp.dest(config.readme.dest));
 });
 
-// Create parent theme from the `build` folder
-// to test the theme before released
-gulp.task('theme-symlink', () => {
-    return gulp.src(config.test.src)
-    .pipe(plugins.symlink(config.test.dest));
-});
-
 // Master theme task
-gulp.task('theme', ['theme-lang', 'theme-php', 'theme-readme', 'theme-symlink']);
+gulp.task('theme', ['theme-lang', 'theme-php', 'theme-readme']);

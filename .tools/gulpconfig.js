@@ -336,11 +336,6 @@ module.exports = {
                 '_n_noop:1,2,3d',
                 '_nx_noop:1,2,3c,4d'
             ]
-        },
-        // Theme symlink
-        test: {
-            src: build,
-            dest: parent + release
         }
     },
 
@@ -352,8 +347,7 @@ module.exports = {
         clean: [src + '**/.DS_Store', src + '**/.log'],
         wipe: {
             dist: [dist],
-            build: [build],
-            test: [parent + release]
+            build: [build]
         },
         dist: {
             src: [build + '**/*', '!' + build + '**/*.map'],

@@ -8,11 +8,11 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
  */
 
 ?>
@@ -27,7 +27,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); anva_page_transition_data(); ?>>
+<body <?php body_class(); ?> <?php anva_page_transition_data(); ?>>
 
 <?php do_action( 'anva_before' ); ?>
 

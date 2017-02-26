@@ -58,8 +58,8 @@ gulp.task('sass-admin', () => {
     .pipe(browsersync.stream());
 });
 
-// Minify CSS source files and copy to `build` folder
-gulp.task('css-min-theme', () => {
+// Minify CSS theme files and copy to `build` folder
+gulp.task('css-minify-theme', () => {
     return gulp.src(config.minify.theme.src)
     .pipe(plugins.ignore.exclude(config.minify.ignore))
     .pipe(plugins.cssnano(config.minify.options))
@@ -68,7 +68,8 @@ gulp.task('css-min-theme', () => {
     .pipe(gulp.dest(config.minify.theme.dest));
 });
 
-gulp.task('css-min-core', () => {
+// Minify CSS core files and copy to `build` folder
+gulp.task('css-minify-core', () => {
     return gulp.src(config.minify.core.src)
     .pipe(plugins.ignore.exclude(config.minify.ignore))
     .pipe(plugins.cssnano(config.minify.options))
@@ -77,7 +78,8 @@ gulp.task('css-min-core', () => {
     .pipe(gulp.dest(config.minify.core.dest));
 });
 
-gulp.task('css-min-admin', () => {
+// Minify CSS admin files and copy to `build` folder
+gulp.task('css-minify-admin', () => {
     return gulp.src(config.minify.admin.src)
     .pipe(plugins.ignore.exclude(config.minify.ignore))
     .pipe(plugins.cssnano(config.minify.options))
@@ -95,5 +97,5 @@ gulp.task('styles-build', () => {
 
 // Master styles tasks
 gulp.task('sass', ['sass-theme', 'sass-core', 'sass-admin']);
-gulp.task('css-minify', ['css-min-theme', 'css-min-core', 'css-min-admin']);
+gulp.task('css-minify', ['css-minify-theme', 'css-minify-core', 'css-minify-admin']);
 gulp.task('styles', ['styles-build', 'css-minify']);

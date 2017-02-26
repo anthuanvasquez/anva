@@ -19,7 +19,7 @@ gulp.task('jscs-lint', () => {
 });
 
 // Minify theme scripts
-gulp.task('scripts-min-theme', () => {
+gulp.task('js-minify-theme', () => {
     return gulp.src(config.minify.theme.src)
     .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
     .pipe(plugins.uglify(config.minify.uglify))
@@ -29,7 +29,7 @@ gulp.task('scripts-min-theme', () => {
 });
 
 // Minify core scripts
-gulp.task('scripts-min-core', () => {
+gulp.task('js-minify-core', () => {
     return gulp.src(config.minify.core.src)
     .pipe(plugins.ignore.exclude(config.minify.core.ignore))
     .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
@@ -40,7 +40,7 @@ gulp.task('scripts-min-core', () => {
 });
 
 // Concat and minify core vendor scripts
-gulp.task('scripts-plugins', () => {
+gulp.task('js-concat-plugins', () => {
     return gulp.src(config.minify.core.vendor.files)
     .pipe(plugins.concat(config.minify.core.vendor.name))
     .pipe(gulp.dest(config.minify.core.dest))
@@ -57,5 +57,5 @@ gulp.task('scripts-build', () => {
 });
 
 // Master script tasks
-gulp.task('scripts-minify', ['scripts-min-theme', 'scripts-min-core']);
+gulp.task('scripts-minify', ['js-minify-theme', 'js-minify-core']);
 gulp.task('scripts', ['scripts-build']);
