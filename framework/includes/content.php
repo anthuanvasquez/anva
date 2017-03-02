@@ -1,7 +1,7 @@
 <?php
 
-add_action('wp_ajax_anva_blog_posts_filter', 'anva_blog_posts_filter');
-add_action('wp_ajax_nopriv_anva_blog_posts_filter', 'anva_blog_posts_filter');
+add_action( 'wp_ajax_anva_blog_posts_filter', 'anva_blog_posts_filter' );
+add_action( 'wp_ajax_nopriv_anva_blog_posts_filter', 'anva_blog_posts_filter' );
 
 /**
  * Blog posts filter by categories.
@@ -10,8 +10,8 @@ add_action('wp_ajax_nopriv_anva_blog_posts_filter', 'anva_blog_posts_filter');
  */
 function anva_blog_posts_filter() {
 
-	$column = apply_filters( 'anva_template_filter_ajax_columns', 3 );
-	$items = apply_filters( 'anva_template_filter_ajax_items', 6 );
+	$column  = apply_filters( 'anva_template_filter_ajax_columns', 3 );
+	$items   = apply_filters( 'anva_template_filter_ajax_items', 6 );
 	$counter = 0;
 
 	if ( isset( $_POST['items'] ) ) {
@@ -27,10 +27,10 @@ function anva_blog_posts_filter() {
 		'order'       => 'DESC',
 		'orderby'     => 'date',
 		'post_type'   => array( 'post' ),
-		'numberposts' => $items
+		'numberposts' => $items,
 	);
 
-	if ( isset( $_POST['cat'] ) && ! empty( $_POST['cat'] ) && $_POST['cat'] != 'all' ) {
+	if ( isset( $_POST['cat'] ) && ! empty( $_POST['cat'] ) &&  'all' !== $_POST['cat'] ) {
 		$args['category_name'] = $_POST['cat'];
 	}
 

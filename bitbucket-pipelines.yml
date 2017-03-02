@@ -7,20 +7,34 @@ pipelines:
         develop:
             - step:
                 script:
-                    - mkdir phpcs && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C phpcs
-                    - mkdir wpcs && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wpcs
-                    - phpcs/scripts/phpcs --config-set installed_paths wpcs
-                    - phpcs/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php --ignore=*/phpcs/*,*/wpcs/*
-                    - cd .tools
-                    - npm install
-                    - gulp tests
+                    - export PHPCS_DIR=/tmp/phpcs
+                    - export PHPMD_DIR=/tmp/phpmd
+                    - export SNIFFS_DIR=/tmp/sniffs
+                    - export TOOLS_DIR=/.tools/
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/phpmd/phpmd.git $PHPMD_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs --config-set installed_paths $SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=$PHPCS_DIR,$PHPMD_DIR,$SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $PHPMD/src/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude $PHPCS_DIR,PHPMD_DIR,$SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/npm install; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/gulp tests; fi
         feature/*:
             - step:
                 script:
-                    - mkdir phpcs && curl -L https://github.com/squizlabs/PHP_CodeSniffer/archive/master.tar.gz | tar xz --strip-components=1 -C phpcs
-                    - mkdir wpcs && curl -L https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/master.tar.gz | tar xz --strip-components=1 -C wpcs
-                    - phpcs/scripts/phpcs --config-set installed_paths wpcs
-                    - phpcs/scripts/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php --ignore=*/phpcs/*,*/wpcs/*
-                    - cd .tools
-                    - npm install
-                    - gulp tests
+                    - export PHPCS_DIR=/tmp/phpcs
+                    - export PHPMD_DIR=/tmp/phpmd
+                    - export SNIFFS_DIR=/tmp/sniffs
+                    - export TOOLS_DIR=/.tools/
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/phpmd/phpmd.git $PHPMD_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs --config-set installed_paths $SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=$PHPCS_DIR,$PHPMD_DIR,$SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $PHPMD/src/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude $PHPCS_DIR,PHPMD_DIR,$SNIFFS_DIR; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/npm install; fi
+                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/gulp tests; fi

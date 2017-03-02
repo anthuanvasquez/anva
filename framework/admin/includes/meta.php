@@ -73,7 +73,7 @@ function anva_add_meta_boxes_default() {
 			$gallery['options']
 		);
 
-		new Anva_Gallery(
+		new Anva_Page_Gallery(
 			$gallery_media['args']['id'],
 			$gallery_media['args']
 		);

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Meta_Box' ) ) :
+if ( ! class_exists( 'Anva_Page_Meta_Box' ) ) :
 
 /**
  * Adds meta boxes.
@@ -13,7 +13,7 @@ if ( ! class_exists( 'Anva_Meta_Box' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Meta_Box
+class Anva_Page_Meta_Box
 {
 	/**
 	 * ID for meta box and post field saved.

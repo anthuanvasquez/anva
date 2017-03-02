@@ -15,6 +15,11 @@
  * @package      AnvaFramework
  */
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 get_header();
 
 $column       = 2; // Default Column.

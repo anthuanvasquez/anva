@@ -57,7 +57,7 @@ function anva_get_option( $name, $default = false ) {
 	// Fallback option name
 	if ( '' == $option_name ) {
 		$option_name = get_option( 'stylesheet' );
-		$option_name = preg_replace( "/\W/", "_", strtolower( $option_name ) ); // correct name is $option_name
+		$option_name = preg_replace( '/\W/', '_', strtolower( $option_name ) ); // correct name is $option_name
 	}
 
 	// Get option settings from database
@@ -85,7 +85,8 @@ function anva_the_option( $name, $default = false ) {
 /**
  * Get raw options.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return array
  */
 function anva_get_core_options() {
 	$api = Anva_Options::instance();
@@ -347,8 +348,8 @@ function anva_remove_stylesheet( $handle ) {
  * @since 1.0.0
  */
 function anva_get_stylesheets() {
-	$api = Anva_Stylesheets::instance();
-	$core = $api->get_framework_stylesheets();
+	$api    = Anva_Stylesheets::instance();
+	$core   = $api->get_framework_stylesheets();
 	$custom = $api->get_custom_stylesheets();
 	return array_merge( $core, $custom );
 }
@@ -389,8 +390,8 @@ function anva_remove_script( $handle ) {
  * @since 1.0.0
  */
 function anva_get_scripts() {
-	$api = Anva_Scripts::instance();
-	$core = $api->get_framework_scripts();
+	$api    = Anva_Scripts::instance();
+	$core   = $api->get_framework_scripts();
 	$custom = $api->get_custom_scripts();
 	return array_merge( $core, $custom );
 }
@@ -441,7 +442,7 @@ function anva_get_sliders( $slider_id = '' ) {
  * @deprecated use anva_slider_exists()
  *
  * @since  1.0.0
- * @param  string $slider_id
+ * @param  string $slider_id The lisder ID.
  * @return string $sldier_id
  */
 function anva_is_slider( $slider_id ) {
@@ -467,21 +468,21 @@ if ( ! function_exists( 'anva_post_types_is_used' ) ) :
  * Check if post type is used on theme.
  *
  * @since  1.0.0
- * @param  string $post_type
+ * @param  string $post_type The register post type used.
  * @return boolean
  */
 function anva_post_type_used( $post_type ) {
 
-    // Check if post types constant are defined
-    if ( ! defined( 'ANVA_POST_TYPES_USED' ) ) {
-        return false;
-    }
+	// Check if post types constant are defined
+	if ( ! defined( 'ANVA_POST_TYPES_USED' ) ) {
+		return false;
+	}
 
-    // Post types defined in theme level to be used.
-    $post_type_used = unserialize( ANVA_POST_TYPES_USED );
+	// Post types defined in theme level to be used.
+	$post_type_used = unserialize( ANVA_POST_TYPES_USED );
 
-    if ( in_array( $post_type, $post_type_used ) ) {
-        return true;
-    }
+	if ( in_array( $post_type, $post_type_used ) ) {
+		return true;
+	}
 }
 endif;

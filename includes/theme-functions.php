@@ -302,7 +302,7 @@ function theme_stylesheets() {
 	$color = str_replace( '#', '', $color );
 
 	// Get stylesheet API.
-	$api = Anva_Stylesheets_API::instance();
+	$api = Anva_Stylesheets::instance();
 
 	// Register theme stylesheets.
 	wp_register_style( 'theme_styles', get_template_directory_uri() . '/assets/css/theme.css', array(), ANVA_THEME_VERSION, 'all' );
@@ -343,7 +343,7 @@ add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
 function theme_scripts() {
 
 	// Get scripts API
-	$api = Anva_Scripts_API::instance();
+	$api = Anva_Scripts::instance();
 
 	wp_register_script( 'css3-mediaqueries-js', '//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js', array(), '1.0.0' );
 	wp_register_script( 'theme_js', get_template_directory_uri() . '/assets/js/theme.js', $api->get_framework_deps(), ANVA_THEME_VERSION, true );

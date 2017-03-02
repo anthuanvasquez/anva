@@ -79,9 +79,9 @@ class Anva {
 		define( 'ANVA_FRAMEWORK_NAME',           self::NAME );
 		define( 'ANVA_FRAMEWORK_VERSION',        self::VERSION );
 		define( 'ANVA_FRAMEWORK_DIR',            trailingslashit( get_template_directory() . '/framework' ) );
+		define( 'ANVA_FRAMEWORK_URI',            trailingslashit( get_template_directory_uri() . '/framework' ) );
 		define( 'ANVA_FRAMEWORK_INC',            trailingslashit( ANVA_FRAMEWORK_DIR . 'includes' ) );
 		define( 'ANVA_FRAMEWORK_EXT',            trailingslashit( ANVA_FRAMEWORK_DIR . 'extensions' ) );
-		define( 'ANVA_FRAMEWORK_URI',            trailingslashit( get_template_directory_uri() . '/framework' ) );
 		define( 'ANVA_FRAMEWORK_CSS',            trailingslashit( ANVA_FRAMEWORK_URI . 'assets/css' ) );
 		define( 'ANVA_FRAMEWORK_JS',             trailingslashit( ANVA_FRAMEWORK_URI . 'assets/js' ) );
 		define( 'ANVA_FRAMEWORK_IMG',            trailingslashit( ANVA_FRAMEWORK_URI . 'assets/images' ) );
@@ -108,9 +108,9 @@ class Anva {
 			include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-media-uploader.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'options/options-interface.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'options/options-sanitization.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-content-builder.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-gallery.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-meta-box.php' );
+			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-builder.php' );
+			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-gallery.php' );
+			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-meta-box.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/general.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/display.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/meta.php' );
@@ -121,12 +121,12 @@ class Anva {
 		}
 
 		// API and Helpers
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-options-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sidebars-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-stylesheets-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-scripts-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-content-builder-api.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sliders-api.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-options.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sidebars.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-stylesheets.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-scripts.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-page-builder-options.php' );
+		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sliders.php' );
 		include_once( ANVA_FRAMEWORK_DIR . 'helpers.php' );
 		include_once( ANVA_FRAMEWORK_DIR . 'customizer/customizer.php' );
 

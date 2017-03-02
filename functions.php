@@ -13,6 +13,11 @@
  * @package      AnvaFramework
  */
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Get the template directory and make sure it has a trailing slash.
 $anva_base_dir = trailingslashit( get_template_directory() );
 

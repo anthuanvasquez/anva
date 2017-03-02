@@ -129,8 +129,7 @@ function anva_get_text_locals() {
  * Separate local.
  *
  * @since  1.0.0.
- * @param  string $id
- * @return string
+ * @param  string $id The ID for local string.
  */
 function anva_local( $id ) {
 	echo esc_html( anva_get_local( $id ) );
@@ -140,12 +139,12 @@ function anva_local( $id ) {
  * Get separate local.
  *
  * @since  1.0.0
- * @param  string $id
+ * @param  string $id The ID for local string.
  * @return string $text
  */
 function anva_get_local( $id ) {
 
-	$text = null;
+	$text     = null;
 	$localize = anva_get_text_locals();
 
 	if ( isset( $localize[ $id ] ) ) {
@@ -165,8 +164,8 @@ function anva_get_local( $id ) {
 function anva_get_js_locals() {
 
 	$localize = array(
-		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-		'themeUrl' => trailingslashit( get_template_directory_uri() ),
+		'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+		'themeUrl'    => trailingslashit( get_template_directory_uri() ),
 		'themeImages' => trailingslashit( get_template_directory_uri() . '/assets/images' ),
 	);
 

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Gallery' ) ) :
+if ( ! class_exists( 'Anva_Page_Gallery' ) ) :
 
 /**
  * Anva Gallery.
@@ -8,11 +8,10 @@ if ( ! class_exists( 'Anva_Gallery' ) ) :
  * @since  		1.0.0
  * @author      Anthuan Vásquez
  * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
+ * @link        https://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Gallery
-{
+class Anva_Page_Gallery {
 	/**
 	 * ID for meta box and post field saved.
 	 *
@@ -36,8 +35,7 @@ class Anva_Gallery
 	 * @param string $id
 	 * @param array  $args
 	 */
-	public function __construct( $id, $args )
-	{
+	public function __construct( $id, $args ) {
 		$this->id = $id;
 
 		$defaults = array(
@@ -60,8 +58,7 @@ class Anva_Gallery
 	/*
 	 * Admin scripts
 	 */
-	public function scripts()
-	{
+	public function scripts() {
 		global $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
@@ -81,8 +78,7 @@ class Anva_Gallery
 	/*
 	 * Adds the meta box container
 	 */
-	public function add()
-	{
+	public function add() {
 		// Filters
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 
@@ -103,8 +99,7 @@ class Anva_Gallery
 	 *
 	 * @since 1.0.0
 	 */
-	public function display( $post )
-	{
+	public function display( $post ) {
 		$gallery = get_post_meta( $post->ID, $this->id, true );
 
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
@@ -139,8 +134,7 @@ class Anva_Gallery
 	/*
 	 * Save the meta when the post is saved
 	 */
-	public function save( $post_id )
-	{
+	public function save( $post_id ) {
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
@@ -176,8 +170,8 @@ class Anva_Gallery
 		/*
 		 * OK, its safe!
 		 */
-		$id = $this->id;
-		$images = ( isset( $_POST['anva_gallery_thumb'] ) ) ? $_POST['anva_gallery_thumb'] : array();
+		$id         = $this->id;
+		$images     = ( isset( $_POST['anva_gallery_thumb'] ) ) ? $_POST['anva_gallery_thumb'] : array();
 		$images_ids = array();
 
 		if ( count( $images ) > 0 ) {
@@ -192,11 +186,9 @@ class Anva_Gallery
 		}
 
 		delete_post_meta( $post_id, $id );
-
 	}
 
-	private function get_attachment( $attachment_id )
-	{
+	private function get_attachment( $attachment_id ) {
 		$id    = array();
 		$id[]  = $attachment_id;
 		$image = wp_get_attachment_image_src( $attachment_id, 'medium', true );
@@ -207,8 +199,7 @@ class Anva_Gallery
 	/*
 	 * Ajax get thumbnail
 	 */
-	public function ajax_get_thumbnail()
-	{
+	public function ajax_get_thumbnail() {
 		header( 'Cache-Control: no-cache, must-revalidate' );
 		header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' );
 		$this->admin_thumb( $_POST['imageid'] );
@@ -220,8 +211,7 @@ class Anva_Gallery
 	 *
 	 * @since 1.0.0
 	 */
-	private function admin_thumb( $attachment_id )
-	{
+	private function admin_thumb( $attachment_id ) {
 		$image = $this->get_attachment( $attachment_id );
 		$class = 'landscape squre';
 
@@ -229,22 +219,22 @@ class Anva_Gallery
 			$class = 'landscape';
 		}
 
-		if ( $image[2] < $image[3] ){
+		if ( $image[2] < $image[3] ) {
 			$class = 'portrait';
 		}
 		?>
 		<li class="attachment animated fadeIn" data-id="<?php echo esc_attr( $image[0] ); ?>">
-			<a href="<?php echo admin_url( 'post.php?post=' . $image[0] . '&action=edit' ); ?>" target="_blank">
+			<a href="<?php echo esc_url( admin_url( 'post.php?post=' . $image[0] . '&action=edit' ) ); ?>" target="_blank">
 				<div class="attachment-preview <?php echo esc_attr( $class ); ?>">
 					<div class="thumbnail">
 						<div class="centered">
-							<img src="<?php echo esc_url( $image[1] ); ?>" width="<?php echo $image[2]; ?>" height="<?php echo $image[3]; ?>" />
+							<img src="<?php echo esc_url( $image[1] ); ?>" width="<?php echo esc_attr( $image[2] ); ?>" height="<?php echo esc_attr( $image[3] ); ?>" />
 						</div>
 					</div>
 				</div>
 			</a>
 			<a href="#" class="anva_gallery_remove">X</a>
-			<input type="hidden" name="anva_gallery_thumb[]" value="<?php echo $image[0]; ?>" />
+			<input type="hidden" name="anva_gallery_thumb[]" value="<?php echo esc_attr( $image[0] ); ?>" />
 		</li>
 		<?php
 	}

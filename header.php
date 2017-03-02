@@ -14,7 +14,6 @@
  * @link         https://anthuanvasquez.net
  * @package      AnvaFramework
  */
-
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

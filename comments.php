@@ -32,7 +32,7 @@ if ( post_password_required() ) {
 			$formatted = number_format_i18n( $numbers );
 			printf(
 				_nx( '%1$s comment "%2$s"', '%1$s comments "%2$s"', $numbers, 'comments number', 'anva' ),
-				esc_html( $formatted ),
+				$formatted,
 				'<span>' . get_the_title() . '</span>'
 			);
 			?>
@@ -115,14 +115,14 @@ if ( post_password_required() ) {
 
 			'comment_notes_after' => '<p class="form-allowed-tags hidden">' .
 				sprintf(
-					__( 'You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: %s', 'anva' ),
+					__( 'You may use these %1$s tags and attributes: %2$s', 'anva' ),
+					sprintf( '<abbr title="%s">HTML</abbr>', __( 'HyperText Markup Language', 'anva' ) ),
 					' <code>' . allowed_tags() . '</code>'
 				) . '</p>',
 
-			'comment_field' => '
-				<div class="col_full comment-form-comment">
+			'comment_field' => '<div class="col_full comment-form-comment">
 				<label for="comment">' . __( 'Comment', 'anva' ) . '</label>
-				<textarea id="comment" name="comment" class="sm-form-control" cols="45" rows="8" aria-required="true">' . '</textarea>
+				<textarea id="comment" name="comment" class="sm-form-control" cols="45" rows="8" aria-required="true"></textarea>
 				</div>',
 
 			'comment_notes_before' => '<p class="comment-notes">' .

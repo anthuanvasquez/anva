@@ -1,8 +1,9 @@
 <?php
 
-/*-----------------------------------------------------------------------------------*/
-/* General Functions
-/*-----------------------------------------------------------------------------------*/
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Make theme available for translations.

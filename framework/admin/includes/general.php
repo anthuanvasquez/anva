@@ -115,5 +115,5 @@ function anva_get_option_defaults() {
  * @since  1.0.0
  */
 function anva_add_meta_box( $id, $args, $options ) {
-	new Anva_Meta_Box( $id, $args, $options );
+	new Anva_Page_Meta_Box( $id, $args, $options );
 }
