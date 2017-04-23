@@ -138,12 +138,11 @@ class Anva_Page_Builder {
 	 *
 	 * @since  1.0.0
 	 */
-	public function head()
-	{
+	public function head() {
 		global $post, $typenow;
 
 		$output = '';
-		$order = array();
+		$order  = array();
 
 		foreach ( $this->args['page'] as $page ) {
 

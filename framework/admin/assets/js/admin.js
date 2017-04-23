@@ -2,23 +2,23 @@ jQuery( document ).ready( function( $ ) {
 
     'use strict';
 
-    var ANVA_SECTIONS = {
+    var AnvaSectionManager = {
 
         init: function() {
-            ANVA_SECTIONS.colorPicker();
-            ANVA_SECTIONS.radioImages();
-            ANVA_SECTIONS.datePicker();
-            ANVA_SECTIONS.spinner();
-            ANVA_SECTIONS.logo();
-            ANVA_SECTIONS.typography();
-            ANVA_SECTIONS.socialMedia();
-            ANVA_SECTIONS.columns();
-            ANVA_SECTIONS.slider();
-            ANVA_SECTIONS.rangeSlider();
-            ANVA_SECTIONS.select();
-            ANVA_SECTIONS.showHide();
-            ANVA_SECTIONS.sidebars();
-            ANVA_SECTIONS.contactFields();
+            AnvaSectionManager.colorPicker();
+            AnvaSectionManager.radioImages();
+            AnvaSectionManager.datePicker();
+            AnvaSectionManager.spinner();
+            AnvaSectionManager.logo();
+            AnvaSectionManager.typography();
+            AnvaSectionManager.socialMedia();
+            AnvaSectionManager.columns();
+            AnvaSectionManager.slider();
+            AnvaSectionManager.rangeSlider();
+            AnvaSectionManager.select();
+            AnvaSectionManager.showHide();
+            AnvaSectionManager.sidebars();
+            AnvaSectionManager.contactFields();
         },
 
         colorPicker: function() {
@@ -353,6 +353,6 @@ jQuery( document ).ready( function( $ ) {
         }
     };
 
-    ANVA_SECTIONS.init();
+    AnvaSectionManager.init();
 
 });

@@ -6,14 +6,13 @@
 
 if ( class_exists( 'WooCommerce' ) ) :
 
+	function anva_add_woocommerce_support() {
+		add_theme_support( 'woocommerce' );
+	}
 
-    function anva_add_woocommerce_support() {
-        add_theme_support( 'woocommerce' );
-    }
+	add_action( 'after_setup_theme', 'anva_add_woocommerce_support' );
 
-    add_action( 'after_setup_theme', 'anva_add_woocommerce_support' );
+	anva_add_sidebar_location( 'shop', __( 'Shop', 'anva' ), __( 'Woocommerce Shop sidebar.', 'anva' ) );
+	anva_add_sidebar_location( 'product', __( 'Product', 'anva' ), __( 'Woocommerce Product sidebar.', 'anva' ) );
 
-    anva_add_sidebar_location( 'shop', __( 'Shop', 'anva' ), __( 'Woocommerce Shop sidebar.', 'anva' ) );
-    anva_add_sidebar_location( 'product', __( 'Product', 'anva' ), __( 'Woocommerce Product sidebar.', 'anva' ) );
-
-endif; // End Woocommerce Class Exists
+endif;

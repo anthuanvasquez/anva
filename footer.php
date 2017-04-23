@@ -53,5 +53,6 @@
 
 <?php do_action( 'anva_after' ); ?>
 <?php wp_footer(); ?>
+<?php do_action( 'anva_footer_after' ); ?>
 </body>
 </html>

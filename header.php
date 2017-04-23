@@ -14,6 +14,11 @@
  * @link         https://anthuanvasquez.net
  * @package      AnvaFramework
  */
+
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

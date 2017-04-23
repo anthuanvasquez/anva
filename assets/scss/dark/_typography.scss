@@ -1,13 +1,16 @@
-.dark,
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6 {
+.dark {
     color: $gray-color;
-}
 
-.dark a:hover {
-    color: $gray-color;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $gray-color;
+    }
+
+    a:hover {
+        color: $gray-color;
+    }
 }

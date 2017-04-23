@@ -161,8 +161,8 @@ class Anva_Options_Page {
 		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.css', array(), '4.0.1' );
 		wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
 		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
-		wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
-		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'options-page.css', array(), ANVA_FRAMEWORK_VERSION );
+		wp_enqueue_style( 'jquery_ui_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
+		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'page-options.css', array(), ANVA_FRAMEWORK_VERSION );
 
 	}
 
@@ -184,7 +184,7 @@ class Anva_Options_Page {
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.js', array( 'jquery' ), '4.0.1', true );
 		wp_enqueue_script( 'jquery-selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
 		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'jquery-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
+		wp_enqueue_script( 'jquery-ui-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
 		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'page-options.js', array( 'jquery', 'wp-color-picker' ), ANVA_FRAMEWORK_VERSION, true );
 		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
 
@@ -242,7 +242,7 @@ class Anva_Options_Page {
 
 			<?php do_action( 'anva_options_page_before' ); ?>
 
-			<div id="anva-framework-metabox" class="anva-frame-work-metabox metabox-holder">
+			<div id="anva-framework-metabox" class="anva-framework-metabox metabox-holder">
 				<div id="anva-framework" class="anva-framework animsition">
 					<form class="anva-framework-settings options-settings" action="options.php" method="post">
 						<div class="columns-1">
@@ -250,15 +250,16 @@ class Anva_Options_Page {
 							<?php
 								settings_fields( 'anva_options_page_settings' );
 
-								// Settings
+								// Settings.
 								$option_name = anva_get_option_name();
 								$settings    = get_option( $option_name );
 
-								// Fields
+								// Fields.
 								anva_get_options_fields( $option_name, $settings, $options );
 							?>
 							<?php do_action( 'anva_options_page_after_fields' ); ?>
 						</div><!-- .columns-1 (end) -->
+
 						<div class="columns-2">
 							<div class="postbox-wrapper">
 								<?php do_action( 'anva_options_page_side_before' ); ?>
@@ -301,6 +302,7 @@ class Anva_Options_Page {
 	 * @return array $clean
 	 */
 	public function validate_options( $input ) {
+
 		// Need it to create log for the changed settings
 		$option_name = anva_get_option_name();
 
@@ -363,6 +365,11 @@ class Anva_Options_Page {
 				}
 			}
 
+			// Set each item in the multicheck to false if it wasn't sent in the $_POST
+			if ( 'sidebar' == $option['type'] && ! isset( $input[ $id ] ) ) {
+				$input[ $id ] = array();
+			}
+
 			// For a value to be submitted to database it must pass through a sanitization filter
 			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
 				$clean[ $id ] = apply_filters( 'anva_sanitize_' . $option['type'], $input[ $id ], $option );
@@ -419,12 +426,15 @@ class Anva_Options_Page {
 			if ( ! isset( $option['id'] ) ) {
 				continue;
 			}
+
 			if ( ! isset( $option['std'] ) ) {
 				continue;
 			}
+
 			if ( ! isset( $option['type'] ) ) {
 				continue;
 			}
+
 			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
 				$output[$option['id']] = apply_filters( 'anva_sanitize_' . $option['type'], $option['std'], $option );
 			}

@@ -6,15 +6,15 @@ jQuery( document ).ready( function( $ ) {
 	var mediaUpload, mediaSelector;
 
 	//
-	var ANVA_UPLOADER = {
+	var AnvaUploaderManager = {
 
 		init: function() {
 			$('.remove-image, .remove-file').on( 'click', function() {
-				ANVA_UPLOADER.mediaRemoveFile( $(this).closest('.section') );
+				AnvaUploaderManager.mediaRemoveFile( $(this).closest('.section') );
 			});
 
 			$('.upload-button').click( function( e ) {
-				ANVA_UPLOADER.mediaAddFile( e, $(this).closest('.section') );
+				AnvaUploaderManager.mediaAddFile( e, $(this).closest('.section') );
 			});
 
 			// Check if each section upload has image
@@ -74,7 +74,7 @@ jQuery( document ).ready( function( $ ) {
 					mediaSelector.find('.upload-button').unbind().addClass('remove-file').removeClass('upload-button').val( anvaMediaJs.remove );
 					mediaSelector.find('.anva-background-properties').slideDown();
 					mediaSelector.find('.remove-image, .remove-file').on( 'click', function() {
-						ANVA_UPLOADER.mediaRemoveFile( $(this).parents('.section') );
+						AnvaUploaderManager.mediaRemoveFile( $(this).parents('.section') );
 					});
 				});
 			}
@@ -98,12 +98,12 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			selector.find('.upload-button').on( 'click', function( e ) {
-				ANVA_UPLOADER.mediaAddFile( e, $(this).closest('.section') );
+				AnvaUploaderManager.mediaAddFile( e, $(this).closest('.section') );
 			});
 		}
 
 	};
 
-	ANVA_UPLOADER.init();
+	AnvaUploaderManager.init();
 
 });

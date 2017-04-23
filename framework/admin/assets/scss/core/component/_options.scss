@@ -4,7 +4,6 @@
 
 .anva-framework {
 
-    // Description
     .section-description {
         background-color: #F7F7F7;
         border-bottom: 1px solid $color-border;
@@ -13,7 +12,6 @@
         padding: 20px 15px;
     }
 
-    // Checkbox Option
     .section-checkbox {
         &:first-child {
             margin-top: 15px;
@@ -29,9 +27,7 @@
         }
     }
 
-    // Logo Option
     .section-logo {
-
         .logo-item {
             display: none;
         }
@@ -43,17 +39,17 @@
             margin: 0 0 10px 0;
             padding: 12px 15px;
 
+            &:first-child {
+                margin-top: 0;
+            }
+
             label {
                 display: block;
                 margin-bottom: 10px;
             }
-
-            &:first-child {
-                margin-top: 0;
-            }
         }
 
-        p.note {
+        .note {
             color: #999;
             font-size: 12px;
             font-style: italic;
@@ -79,18 +75,7 @@
         }
     }
 
-    // Social Icons Option
     .section-social_media {
-
-        span {
-            display: block;
-            line-height: 20px;
-        }
-
-        input[type="text"] {
-            margin: 10px 0;
-        }
-
         .anva-radio,
         .checkbox {
             margin: 0 5px 0 0;
@@ -108,9 +93,17 @@
             margin-right: 0;
             width: 48%;
         }
+
+        input[type="text"] {
+            margin: 10px 0;
+        }
+
+        span {
+            display: block;
+            line-height: 20px;
+        }
     }
 
-    // Sidebar Option
     .section-sidebar {
         .dynamic-sidebars {
             ul {
@@ -140,22 +133,21 @@
                     padding: 15px;
                     position: relative;
 
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
                     a {
                         position: absolute;
                         right: 15px;
                         top: 15px;
                         text-decoration: none;
                     }
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
                 }
             }
         }
     }
 
-    // Layout Option
     .section-layout {
         .sidebar-layout {
             .item {
@@ -169,7 +161,6 @@
         }
     }
 
-    // Contact Fields Option
     .section-contact_fields {
         .dynamic-contact-fields {
             ul {
@@ -199,24 +190,22 @@
                     padding: 15px;
                     position: relative;
 
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
                     a {
                         position: absolute;
                         right: 15px;
                         top: 15px;
                         text-decoration: none;
                     }
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
                 }
             }
         }
     }
 
-    // Columns Option
     .section-columns {
-
         .select-wrap {
             margin-right: 0;
             width: 100%;
@@ -237,7 +226,6 @@
         }
     }
 
-    // Double Text Option
     .section-double_text {
         .double-inputs {
             .input-col {
@@ -252,60 +240,21 @@
         }
     }
 
-    // Code Editor
-    .section-code {
-        .controls,
-        .explain {
-            float: none !important;
-            max-width: 100% !important;
-            padding-right: 0 !important;
-            width: 100% !important;
-        }
-
-        .explain {
-            margin: 0 0 15px;
-        }
-    }
-}
-
-/* --------------------------------------------------------- */
-/* Background
-/* --------------------------------------------------------- */
-
-.anva-framework {
-    .anva-background-properties {
-        clear: both;
-        margin-top: 18px;
-
-        .anva-input-label {
-            margin: 5px 0;
+    .section-radio,
+    .section-multicheck {
+        label {
+            line-height: 16px;
+            max-width: 90%;
         }
     }
 
-    .anva-background-repeat,
-    .anva-background-position,
-    .anva-background-attachment {
-        margin: 3px 0;
-        width: 100%;
-    }
-
-    .section-background .wp-picker-container {
-        margin-bottom: 10px;
-    }
-}
-
-/* --------------------------------------------------------- */
-/* Radio
-/* --------------------------------------------------------- */
-
-.anva-framework {
-    .controls {
+    .section-images {
         .anva-radio-img-label {
-            margin: 5px 0 0;
             color: #777;
+            display: none;
+            margin: 5px 0 0;
             text-align: center;
             text-transform: capitalize;
-            display: none;
         }
 
         .anva-radio-img-box {
@@ -322,6 +271,10 @@
                 display: none;
                 cursor: pointer;
                 border-radius: 0;
+
+                &:hover {
+                    opacity: 0.8;
+                }
             }
 
             span {
@@ -349,19 +302,113 @@
         }
 
         .anva-radio-img-radio {
-            display: block !important;
+            display: block;
             margin: 8px auto 0;
         }
 
         .anva-radio-img-selected {
+            background-color: rgba(#1e8cbe, 0.2);
             border-color: #1e8cbe;
-            background: rgba(#1e8cbe, 0.2);
             box-shadow: 0 0 0 1px #1e8cbe;
             position: relative;
         }
+    }
 
-        .anva-radio-img-img:hover {
-            opacity: 0.8;
+    .section-background {
+        .anva-background-properties {
+            clear: both;
+            margin-top: 18px;
+
+            .anva-input-label {
+                margin: 5px 0;
+            }
+        }
+
+        .anva-background-repeat,
+        .anva-background-position,
+        .anva-background-attachment {
+            margin: 3px 0;
+            width: 100%;
+        }
+
+        .section-background {
+            .wp-picker-container {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .section-upload,
+    .section-background {
+        .screenshot.has-image {
+            border: 1px solid #ddd;
+            border-radius: 0;
+            padding: 15px;
+            max-width: 100%;
+        }
+    }
+
+    .section-typography {
+        .font-range {
+            margin: 0 0 40px;
+        }
+
+        .anva-select-label {
+            margin-bottom: 0 0 5px;
+        }
+
+        .wp-picker-container {
+            margin-top: 2px;
+        }
+
+        .google-font {
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 0;
+            margin: 10px 0 15px;
+
+            .note {
+                font-style: italic;
+                font-size: 12px;
+                color: #999;
+                padding: 0;
+            }
+
+            h5 {
+                margin: 0 0 1.67em;
+            }
+        }
+
+        .sample-text-font {
+            margin: 15px 0 0;
+            padding: 18px 10px;
+            border-radius: 0;
+            border: 2px dashed #ccc;
+            font-size: 25px;
+            text-align: center;
+        }
+    }
+
+    .section-editor {
+        .explain {
+            max-width: 98%;
+            float: none;
+            margin-bottom: 5px;
+        }
+    }
+
+    .section-code {
+        .controls,
+        .explain {
+            float: none;
+            max-width: 100%;
+            padding-right: 0;
+            width: 100%;
+        }
+
+        .explain {
+            margin: 0 0 15px;
         }
     }
 }

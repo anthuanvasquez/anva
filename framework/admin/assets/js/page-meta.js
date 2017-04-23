@@ -3,17 +3,17 @@ jQuery( document ).ready( function( $ ) {
 	'use strict';
 
 	// Anva Meta Object
-	var ANVA_META = {
+	var AnvaMetaBoxes = {
 
 		init: function() {
-			ANVA_META.sidebarLayout();
+			AnvaMetaBoxes.sidebarLayout();
 		},
 
 		sidebarLayout: function() {
 			var $layout = $('#sidebar_layout');
 			if ( $layout.length > 0 ) {
 				$layout.on( 'change', function() {
-					ANVA_META.checkLayout( $layout.val() );
+					AnvaMetaBoxes.checkLayout( $layout.val() );
 				}).trigger('change');
 			}
 		},
@@ -46,6 +46,6 @@ jQuery( document ).ready( function( $ ) {
 		}
 	};
 
-	ANVA_META.init();
+	AnvaMetaBoxes.init();
 
 });

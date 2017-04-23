@@ -448,7 +448,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 				$output .= '<ul ' . $class . '>';
 
 				// Display every custom sidebar
-				if ( $val ) {
+				if ( is_array( $val ) ) {
 					$i = 0;
 					foreach ( $val as $sidebar ) {
 						$output .= '<li>' . esc_html( $sidebar ) . '<a href="#" class="delete">' . __( 'Delete', 'anva' ) . '</a>';
@@ -502,7 +502,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 				$output .= '<ul class="' . $class . '" data-text="' . __( 'Click on Add button', 'anva' ) . '">';
 
 				// Display every field
-				if ( $val ) {
+				if ( is_array( $val ) ) {
 					foreach ( $val as $field ) {
 						if ( isset( $default_fields[ $field ] ) ) {
 							$output .= '<li id="field-' . esc_attr( $field ) . '">' . esc_html( $default_fields[ $field ] ) . '<a href="#" class="delete">' . __( 'Delete', 'anva' ) . '</a>';

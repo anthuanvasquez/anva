@@ -81,23 +81,7 @@ module.exports = {
     // -------------------------------------------
 
     browsersync: {
-        files: [src + '/**', ignoreTools],
-        notify: true,
-        open: true,
-        proxy: {
-            target: proxy
-        },
-        watchOptions: {
-            debounceDelay: 2000
-        }
-    },
-
-    // -------------------------------------------
-    // Livereload
-    // -------------------------------------------
-
-    livereload: {
-        port: 35729
+        proxy: proxy
     },
 
     // -------------------------------------------

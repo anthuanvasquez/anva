@@ -16,9 +16,9 @@ function anva_ajax_search() {
 
 	if ( strlen( $_POST['s'] ) > 0 ) {
 
-		$limit    = 5;
-		$s        = strtolower( addslashes( $_POST['s'] ) );
-		$query = "
+		$limit  = apply_filters( 'anva_ajax_search_limits', 5 );
+		$search = strtolower( addslashes( $_POST['s'] ) );
+		$query  = "
 			SELECT $wpdb->posts.*
 			FROM $wpdb->posts
 			WHERE 1 = 1 AND ( ( lower( $wpdb->posts.post_title ) like %s ) )
@@ -28,17 +28,17 @@ function anva_ajax_search() {
 			LIMIT $limit;
 		";
 
-		$posts = $wpdb->get_results( $wpdb->prepare( $query, '%'. $wpdb->esc_like( $s ) .'%' ), OBJECT );
-		$html = '';
+		$html  = '';
+		$posts = $wpdb->get_results(
+			$wpdb->prepare( $query, '%' . $wpdb->esc_like( $search ) . '%' ),
+			OBJECT
+		);
 
 		if ( ! empty( $posts ) ) {
 
 			$html .= '<ul>';
 
 			foreach ( $posts as $post ) {
-
-				$post_type  = get_post_type( $post->ID );
-				$post_thumb = array();
 
 				$html .= '<li class="spost clearfix">';
 
@@ -64,7 +64,6 @@ function anva_ajax_search() {
 		}
 
 		echo $html;
-
 	}
 
 	die();

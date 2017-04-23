@@ -9,7 +9,7 @@
 function anva_add_meta_boxes_default() {
 
 	/* ------------------------------------------ */
-	/* Layout
+	/* All post types - Layout
 	/* ------------------------------------------ */
 
 	$layout = anva_setup_layout_meta();
@@ -21,7 +21,7 @@ function anva_add_meta_boxes_default() {
 	);
 
 	/* ------------------------------------------ */
-	/* Page
+	/* Pages
 	/* ------------------------------------------ */
 
 	$page          = anva_setup_page_meta();
@@ -40,7 +40,7 @@ function anva_add_meta_boxes_default() {
 	);
 
 	/* ------------------------------------------ */
-	/* Post
+	/* Posts
 	/* ------------------------------------------ */
 
 	$post        = anva_setup_post_meta();
@@ -59,65 +59,56 @@ function anva_add_meta_boxes_default() {
 	);
 
 	/* ------------------------------------------ */
-	/* Gallery
+	/* Galleries
 	/* ------------------------------------------ */
 
-	if ( anva_post_type_used( 'galleries' ) ) {
+	$gallery       = anva_setup_gallery_meta();
+	$gallery_media = anva_setup_gallery_media_meta();
 
-		$gallery       = anva_setup_gallery_meta();
-		$gallery_media = anva_setup_gallery_media_meta();
+	anva_add_meta_box(
+		$gallery['args']['id'],
+		$gallery['args'],
+		$gallery['options']
+	);
 
-		anva_add_meta_box(
-			$gallery['args']['id'],
-			$gallery['args'],
-			$gallery['options']
-		);
-
-		new Anva_Page_Gallery(
-			$gallery_media['args']['id'],
-			$gallery_media['args']
-		);
-	}
+	new Anva_Page_Gallery(
+		$gallery_media['args']['id'],
+		$gallery_media['args']
+	);
 
 	/* ------------------------------------------ */
-	/* Portfolio
+	/* Portfolio Items
 	/* ------------------------------------------ */
 
-	if ( anva_post_type_used( 'portfolio' ) ) {
+	$portfolio       = anva_setup_portfolio_meta();
+	$portfolio_media = anva_setup_portfolio_media_meta();
 
-		$portfolio       = anva_setup_portfolio_meta();
-		$portfolio_media = anva_setup_portfolio_media_meta();
+	anva_add_meta_box(
+		$portfolio['args']['id'],
+		$portfolio['args'],
+		$portfolio['options']
+	);
 
-		anva_add_meta_box(
-			$portfolio['args']['id'],
-			$portfolio['args'],
-			$portfolio['options']
-		);
-
-		anva_add_meta_box(
-			$portfolio_media['args']['id'],
-			$portfolio_media['args'],
-			$portfolio_media['options']
-		);
-	}
+	anva_add_meta_box(
+		$portfolio_media['args']['id'],
+		$portfolio_media['args'],
+		$portfolio_media['options']
+	);
 
 	/* ------------------------------------------ */
 	/* Slideshows
 	/* ------------------------------------------ */
 
-	if ( anva_post_type_used( 'slideshows' ) ) {
+	$slideshow = anva_setup_slideshow_meta();
 
-		$slideshow = anva_setup_slideshow_meta();
-
-		anva_add_meta_box(
-			$slideshow['args']['id'],
-			$slideshow['args'],
-			$slideshow['options']
-		);
-	}
+	anva_add_meta_box(
+		$slideshow['args']['id'],
+		$slideshow['args'],
+		$slideshow['options']
+	);
 
 	/* ------------------------------------------ */
-	/* Content Builder
+	/* Pages - Content Builder
 	/* ------------------------------------------ */
 
 	$content_builder = anva_setup_content_builder_meta();

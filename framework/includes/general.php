@@ -190,7 +190,7 @@ function anva_get_grid_columns() {
 		'6' => array(
 			'name'   => '6 Columns',
 			'class'  => 'col-md-2', // Extend Boostrap Columns
-			'column' => 5,
+			'column' => 6,
 		),
 	);
 	return apply_filters( 'anva_grid_columns', $columns );
@@ -844,13 +844,13 @@ function anva_column_widths() {
 			array(
 				'name' 	=> '40% | 20% | 20% | 20%',
 				'value' => 'col_two_fifth,col_one_fifth,col_one_fifth,col_one_fifth',
-			)
+			),
 		),
 		'5-col' => array(
 			array(
 				'name' 	=> '20% | 20% | 20% | 20% | 20%',
 				'value' => 'col_one_fifth,col_one_fifth,col_one_fifth,col_one_fifth,col_one_fifth',
-			)
+			),
 		)
 	);
 	return apply_filters( 'anva_column_widths', $widths );
@@ -1312,13 +1312,13 @@ function anva_contact_send_email() {
 		if ( ! isset( $has_error ) ) {
 
 			// Change to dynamic
-			$email_to = '';
+			$email_to = apply_filters( 'anva_email_to', '' );
 
-			if ( ! isset( $email_to ) || ( $email_to == '' ) ) {
+			if ( empty( $email_to ) ) {
 				$email_to = get_option( 'admin_email' );
 			}
 
-			$email_body		 = "";
+			$email_body		 = '';
 			$email_body 	.= "Name: $name\n\n";
 			$email_body 	.= "E-email: $email\n\n";
 			$email_body 	.= "Message: \n\n$message";
@@ -1329,10 +1329,9 @@ function anva_contact_send_email() {
 
 			$email_sent = true;
 		}
-
 	}
 
-	if ( isset( $email_sent ) && $email_sent == true ) :
+	if ( isset( $email_sent ) && $email_sent === true ) :
 
 		$_email_sended_message = anva_get_local( 'submit_message' );
 

@@ -3,35 +3,35 @@ jQuery( document ).ready( function( $ ) {
 	'use strict';
 
 	// Anva Options Object
-	var ANVA_OPTIONS = {
+	var AnvaOptions = {
 
 		init: function() {
-			// ANVA_OPTIONS.settingsChange();
-			ANVA_OPTIONS.extras();
-			ANVA_OPTIONS.stickyActions();
+			// AnvaOptions.settingsChange();
+			AnvaOptions.extras();
+			AnvaOptions.stickyActions();
 		},
 
 		settingsChange: function() {
 			$('input, select, textarea').on( 'change', function() {
-				$('#anva-framework-change').show(400);
+				$('#anva-options-change').show(400);
 			});
 		},
 
 		extras: function() {
 
 			// CSS
-			var $mode = $('#code_editor_mode').val();
-			var code_editor = document.querySelector('.anva-code-editor');
-			var editor = CodeMirror.fromTextArea( code_editor, {
-				mode: $mode,
-        		theme: "mdn-like",
+			var mode        = $('#code_editor_mode').val(),
+			    code_editor = document.querySelector('.anva-code-editor'),
+			    editor      = CodeMirror.fromTextArea( code_editor, {
+				mode: mode,
+        		theme: 'mdn-like',
         		lineNumbers: true
 			});
 
 			// Reset Button
 			$(document).on( 'click', '.reset-button', function(e) {
 				e.preventDefault();
-				var $form = $(this).closest('form');
+				var form = $(this).closest('form');
 				swal({
 					title: anvaJs.save_button_title,
 					text: anvaJs.save_button_text,
@@ -45,8 +45,8 @@ jQuery( document ).ready( function( $ ) {
 					closeOnCancel: true
 				}, function( isConfirm ) {
 					if ( isConfirm ) {
-						$form.append('<input type="hidden" name="reset" value="true" />');
-						$form.submit();
+						form.append('<input type="hidden" name="reset" value="true" />');
+						form.submit();
 					}
 				});
 			});
@@ -54,7 +54,7 @@ jQuery( document ).ready( function( $ ) {
 			// Reset Button
 			$(document).on( 'click', '.import-button', function(e) {
 				e.preventDefault();
-				var $form = $(this).closest('form');
+				var form = $(this).closest('form');
 
 				if ( '' === $('#section-import_settings textarea').val() ) {
 					swal({
@@ -80,8 +80,8 @@ jQuery( document ).ready( function( $ ) {
 					closeOnCancel: true
 				}, function( isConfirm ) {
 					if ( isConfirm ) {
-						$form.append('<input type="hidden" name="import" value="true" />');
-						$form.submit();
+						form.append('<input type="hidden" name="import" value="true" />');
+						form.submit();
 					}
 				});
 			});
@@ -101,10 +101,12 @@ jQuery( document ).ready( function( $ ) {
 				timeoutCountdown: 5000,
 				onLoadEvent: true,
 				browser: [ 'animation-duration', '-webkit-animation-duration'],
-				overlay : false,
-				overlayClass : 'animsition-overlay-slide',
-				overlayParentElement : 'body',
-				transition: function( url ) { window.location.href = url; }
+				overlay: false,
+				overlayClass: 'animsition-overlay-slide',
+				overlayParentElement: 'body',
+				transition: function( url ) {
+                    window.location.href = url;
+                }
 			});
 
 			// Show spinner on submit form
@@ -116,33 +118,33 @@ jQuery( document ).ready( function( $ ) {
 			// Collapse sections
 			$('.inner-group > h3').on( 'click', function(e) {
 				e.preventDefault();
-				var $collapse = $(this), $postbox = $collapse.closest('.postbox');
+				var collapse = $(this),
+                    postbox  = collapse.closest('.postbox');
 
-				// var $collapse = $(this).parent().toggleClass('collapse-close');
-				if ( $postbox.hasClass('collapse-close') ) {
+				if ( postbox.hasClass('collapse-close') ) {
 
 					// Show content
-					$postbox.removeClass('collapse-close');
+					postbox.removeClass('collapse-close');
 
 					// Store data
 					if ( typeof( localStorage ) !== 'undefined' ) {
-						localStorage.removeItem('anva-section-' + $postbox.attr('id'));
+						localStorage.removeItem('anva-section-' + postbox.attr('id'));
 					}
 
 					// Refresh any code editor options
-					$postbox.find('.section-css').each(function() {
-						var $editor = $(this).find('textarea').data('CodeMirrorInstance');
-						if ( $editor ) {
-							$editor.refresh();
+					postbox.find('.section-css').each(function() {
+						var editor = $(this).find('textarea').data('CodeMirrorInstance');
+						if ( editor ) {
+							editor.refresh();
 						}
 					});
 				} else {
 					// Hide content
-					$postbox.addClass('collapse-close');
+					postbox.addClass('collapse-close');
 
 					// Store data
 					if ( typeof( localStorage ) !== 'undefined' ) {
-						localStorage.setItem('anva-section-' + $postbox.attr('id'), true);
+						localStorage.setItem('anva-section-' + postbox.attr('id'), true);
 					}
 				}
 
@@ -150,9 +152,9 @@ jQuery( document ).ready( function( $ ) {
 
 			// Show content
 			$('#anva-framework .postbox').each(function() {
-				var $postbox = $(this);
-				if ( typeof( localStorage ) !== 'undefined' && localStorage.getItem('anva-section-' + $postbox.attr('id')) ) {
-					$postbox.addClass('collapse-close');
+				var postbox = $(this);
+				if ( typeof( localStorage ) !== 'undefined' && localStorage.getItem('anva-section-' + postbox.attr('id')) ) {
+					postbox.addClass('collapse-close');
 				}
 			});
 
@@ -165,18 +167,18 @@ jQuery( document ).ready( function( $ ) {
 			// }
 
 			if ( $('.nav-tab-wrapper').length > 0 ) {
-				ANVA_OPTIONS.tabs();
+				AnvaOptions.tabs();
 			}
 
 		},
 
 		tabs: function() {
-			var $group = $('.group'),
-				$navtabs = $('.nav-tab-wrapper a'),
+			var group      = $('.group'),
+				navtabs    = $('.nav-tab-wrapper a'),
 				active_tab = '';
 
 			// Hides all the .group sections to start
-			$group.hide();
+			group.hide();
 
 			// Find if a selected tab is saved in localStorage
 			if ( typeof(localStorage) !== 'undefined' ) {
@@ -193,19 +195,21 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			// Bind tabs clicks
-			$navtabs.click(function(e) {
+			navtabs.on( 'click', function(e) {
 				e.preventDefault();
 
-				// Remove active class from all tabs
-				$navtabs.removeClass('nav-tab-active');
+                var $this = $(this);
 
-				$(this).addClass('nav-tab-active').blur();
+				// Remove active class from all tabs
+				navtabs.removeClass('nav-tab-active');
+
+				$this.addClass('nav-tab-active').blur();
 
 				if (typeof(localStorage) !== 'undefined' ) {
-					localStorage.setItem('active_tab', $(this).attr('href') );
+					localStorage.setItem('active_tab', $this.attr('href') );
 				}
 
-				var selected = $(this).attr('href');
+				var selected = $this.attr('href');
 
 				// Editor height sometimes needs adjustment when unhidden
 				$('.wp-editor-wrap').each(function() {
@@ -215,41 +219,31 @@ jQuery( document ).ready( function( $ ) {
 					}
 				});
 
-				$group.hide();
+				group.hide();
 				$(selected).fadeIn();
 			});
 		},
 
 		stickyActions: function() {
-			var $cache = $('#anva-framework .options-settings > .columns-2');
-			var $postBox = $('#anva-framework .postbox-wrapper');
+			var wrapper = $('#anva-framework'),
+                column  = wrapper.find('.options-settings > .columns-2'),
+			    postbox = wrapper.find('.postbox-wrapper');
+
 			if ( $(window).scrollTop() > 115 ) {
-				$cache.css({
-					'position': 'absolute',
-					'top': 0,
-					'right': 0,
-					'z-index': 99
-				});
-				$postBox.css({
-					'position': 'fixed',
-					'top': '40px'
-				});
+				column.addClass('is-sticky');
+				postbox.addClass('is-sticky');
 			} else {
-				$cache.css({
-					'position': 'static'
-				});
-				$postBox.css({
-					'position': 'static'
-				});
+				column.removeClass('is-sticky');
+                postbox.removeClass('is-sticky');
 			}
 		}
 	};
 
-	ANVA_OPTIONS.init();
+	AnvaOptions.init();
 
 	// Window scroll change
 	$(window).scroll( function() {
-		ANVA_OPTIONS.stickyActions();
+		AnvaOptions.stickyActions();
 	});
 
 });

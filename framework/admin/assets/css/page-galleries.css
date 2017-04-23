@@ -18,7 +18,7 @@
   width: 24px;
   z-index: 10; }
   .anva_gallery_remove:hover {
-    color: red; }
+    color: #ff0000; }
   .anva_gallery_remove .icon {
     display: block;
     background-position: -1px 0;
@@ -44,10 +44,9 @@
 
 #anva_gallery_thumbs {
   margin: 10px 0; }
-  #anva_gallery_thumbs:before, #anva_gallery_thumbs:after {
-    content: "";
-    display: table; }
-  #anva_gallery_thumbs:after {
+  #anva_gallery_thumbs::after {
+    content: '';
+    display: table;
     clear: both; }
   #anva_gallery_thumbs.empty:before {
     content: attr(data-text);

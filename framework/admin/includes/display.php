@@ -64,7 +64,7 @@ function anva_add_settings_flash() {
  * @since 1.0.0
  */
 function anva_add_settings_change() {
-	printf( '<div id="anva-framework-change" class="section-info">%s</div>', __( 'Settings has changed.', 'anva' ) );
+	printf( '<div id="anva-options-change" class="anva-options-change section-info">%s</div>', __( 'Settings has changed.', 'anva' ) );
 }
 
 /**

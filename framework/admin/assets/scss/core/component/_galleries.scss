@@ -1,8 +1,3 @@
-@import 'config/variables';
-@import 'config/mixins';
-
-// Galleries
-
 .anva_gallery_remove {
     background: #EEE;
     box-shadow: 0 0 0 1px #FFF, 0 0 0 2px rgba(black, 0.15);
@@ -23,7 +18,7 @@
     z-index: 10;
 
     &:hover {
-        color: red;
+        color: #ff0000;
     }
 
     .icon {
@@ -55,7 +50,7 @@
 }
 
 #anva_gallery_thumbs {
-    @include clearfix();
+    @include clearfix;
     margin: 10px 0;
 
     &.empty {

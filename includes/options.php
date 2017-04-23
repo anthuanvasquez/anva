@@ -589,15 +589,15 @@ function anva_options() {
 	);
 
 	anva_add_option_tab( 'styles', __( 'Styles', 'anva'), true, 'admin-appearance' );
-	anva_add_option_section( 'styles', 'main', 			__( 'Main', 'anva' ), 		  NULL, $styles['main'] );
-	anva_add_option_section( 'styles', 'links', 	 	__( 'Links', 'anva' ), 		  NULL, $styles['links'], false );
-	anva_add_option_section( 'styles', 'header',	  	__( 'Header', 'anva' ), 	  NULL, $styles['header'], false  );
-	anva_add_option_section( 'styles', 'navigation',  	__( 'Navigation', 'anva' ),   NULL, $styles['navigation'], false  );
-	anva_add_option_section( 'styles', 'footer', 	 	__( 'Footer', 'anva' ), 	  NULL, $styles['footer'], false );
-	anva_add_option_section( 'styles', 'social_icons',  __( 'Social Icons', 'anva' ), NULL, $styles['social_icons'], false );
-	anva_add_option_section( 'styles', 'background',  	__( 'Background', 'anva' ),   NULL, $styles['background'], false );
-	anva_add_option_section( 'styles', 'typography',  	__( 'Typography', 'anva' ),   NULL, $styles['typography'], false );
-	anva_add_option_section( 'styles', 'custom', 		__( 'Custom', 'anva' ), 	  NULL, $styles['custom'], false );
+	anva_add_option_section( 'styles', 'main', __( 'Main', 'anva' ), NULL, $styles['main'] );
+	anva_add_option_section( 'styles', 'links', __( 'Links', 'anva' ), NULL, $styles['links'], false );
+	anva_add_option_section( 'styles', 'header', __( 'Header', 'anva' ), NULL, $styles['header'], false  );
+	anva_add_option_section( 'styles', 'navigation', __( 'Navigation', 'anva' ), NULL, $styles['navigation'], false  );
+	anva_add_option_section( 'styles', 'footer', __( 'Footer', 'anva' ), NULL, $styles['footer'], false );
+	anva_add_option_section( 'styles', 'social_icons', __( 'Social Icons', 'anva' ), NULL, $styles['social_icons'], false );
+	anva_add_option_section( 'styles', 'background', __( 'Background', 'anva' ), NULL, $styles['background'], false );
+	anva_add_option_section( 'styles', 'typography', __( 'Typography', 'anva' ), NULL, $styles['typography'], false );
+	anva_add_option_section( 'styles', 'custom', __( 'Custom', 'anva' ), NULL, $styles['custom'], false );
 
 	/* ---------------------------------------------------------------- */
 	/* Layout Tab
@@ -945,15 +945,9 @@ function anva_options() {
 	anva_add_option( 'layout', 'footer', 'footer_gototop', 		 $layout['footer_gototop'] );
 	anva_add_option( 'layout', 'footer', 'footer_icons', 		 $layout['footer_icons'] );
 
-	anva_add_option_section( 'layout', 'page_transition', __( 'Page Transition', 'anva' ),  NULL, $layout['page_transition'], false );
-
-	if ( anva_post_type_used( 'galleries' ) ) {
-		anva_add_option_section( 'layout', 'gallery', 		  __( 'Galleries', 'anva' ), 		NULL, $layout['gallery'], false );
-	}
-
-	if ( anva_post_type_used( 'slideshows' ) ) {
-		anva_add_option_section( 'layout', 'slideshows', 	  __( 'Slideshows', 'anva' ), 	 	NULL, $layout['slideshows'], false );
-	}
+	anva_add_option_section( 'layout', 'page_transition', __( 'Page Transition', 'anva' ), NULL, $layout['page_transition'], false );
+	anva_add_option_section( 'layout', 'gallery', __( 'Galleries', 'anva' ), NULL, $layout['gallery'], false );
+	anva_add_option_section( 'layout', 'slideshows', __( 'Slideshows', 'anva' ), NULL, $layout['slideshows'], false );
 
 	// Add slider options
 	foreach ( $sliders as $slider_id => $slider ) {

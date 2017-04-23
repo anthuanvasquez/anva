@@ -36,11 +36,9 @@
 #side-sortables .section .explain {
   margin-top: 10px; }
 
-#side-sortables .section .controls:before, #side-sortables .section .controls:after {
-  content: "";
-  display: table; }
-
-#side-sortables .section .controls:after {
+#side-sortables .section .controls::after {
+  content: '';
+  display: table;
   clear: both; }
 
 #side-sortables .section,

@@ -2,17 +2,17 @@
 /* ----------------------------------------------------------------
     Dark Scheme
 -----------------------------------------------------------------*/
-.dark,
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6 {
+.dark {
   color: #EEE; }
-
-.dark a:hover {
-  color: #EEE; }
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4,
+  .dark h5,
+  .dark h6 {
+    color: #EEE; }
+  .dark a:hover {
+    color: #EEE; }
 
 body.dark,
 .dark #wrapper,
@@ -531,7 +531,7 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 .dark .testimonial.twitter-scroll .testi-meta span a:hover {
   color: #888; }
 
-.dark #comments {
+.dark .dark #comments {
   border-top-color: rgba(255, 255, 255, 0.08); }
 
 .dark .commentlist {
@@ -559,7 +559,7 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 .dark .comment-reply-link:hover {
   color: #888; }
 
-.dark p.wp-caption-text {
+.dark .dark p.wp-caption-text {
   background-color: rgba(0, 0, 0, 0.2); }
 
 .dark .product-title h3 a,

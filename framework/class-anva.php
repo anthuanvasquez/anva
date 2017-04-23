@@ -111,6 +111,7 @@ class Anva {
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-builder.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-gallery.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-meta-box.php' );
+			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-welcome-screen.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/general.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/display.php' );
 			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/meta.php' );
