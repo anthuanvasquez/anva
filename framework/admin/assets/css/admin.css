@@ -864,6 +864,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
     border: 1px solid #EEE;
     border-radius: 0;
     color: #666;
+    cursor: move;
     font-weight: bold;
     padding: 15px;
     position: relative; }
@@ -899,6 +900,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
     border: 1px solid #EEE;
     border-radius: 0;
     color: #666;
+    cursor: move;
     font-weight: bold;
     padding: 15px;
     position: relative; }
@@ -1028,9 +1030,9 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   border-radius: 0;
   margin: 10px 0 15px; }
   .anva-framework .section-typography .google-font .note {
+    color: #999;
     font-style: italic;
     font-size: 12px;
-    color: #999;
     padding: 0; }
   .anva-framework .section-typography .google-font h5 {
     margin: 0 0 1.67em; }
@@ -1082,11 +1084,11 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
     text-decoration: none; }
 
 .about-wrap .theme-plugins .theme {
+  border: none;
+  box-shadow: none;
   margin: 0 0 3% 0;
   padding: 0 1.5%;
-  width: 33.33333%;
-  border: none;
-  box-shadow: none; }
+  width: 33.33333%; }
   .about-wrap .theme-plugins .theme .theme-actions {
     opacity: 1; }
   .about-wrap .theme-plugins .theme .button-primary {
@@ -1103,17 +1105,16 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   position: relative; }
 
 .about-wrap .theme-plugins .theme-name {
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
   font-size: 15px;
   font-weight: 600;
   height: 18px;
   margin: 0;
   padding: 15px;
-  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
-  background: #fff;
-  background: rgba(255, 255, 255, 0.65); }
+  white-space: nowrap; }
 
 .about-wrap .theme-plugins .plugin-info {
   position: absolute;

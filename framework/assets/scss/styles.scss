@@ -30,7 +30,7 @@
  * 5.0 - Extras
  */
 
-@import 'framework';
+@import 'config';
 @import 'styles/typography';
 @import 'styles/helpers';
 @import 'styles/layouts';
@@ -47,3 +47,10 @@
 @import 'styles/footer';
 @import 'styles/widgets';
 @import 'styles/extras';
+
+
+@include phone-m {
+    #content {
+        background: blue;
+    }
+}

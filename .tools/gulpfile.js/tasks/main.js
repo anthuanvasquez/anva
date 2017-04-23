@@ -6,8 +6,7 @@ gulp.task('default', ['browsersync', 'watch']);
 // Build a working copy of the theme
 gulp.task('release', ['images', 'scripts', 'styles', 'theme']);
 
-// Compress images
-// NOTE: this is a resource-intensive task!
+// Compress images - NOTE: this is a resource-intensive task!
 gulp.task('optimize', ['images-optimize']);
 
 // Tests - Lints

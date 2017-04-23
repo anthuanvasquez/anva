@@ -7244,3 +7244,7 @@ body:not(.no-transition) #wrapper,
 .animated-20 {
   -webkit-animation-delay: 4s;
           animation-delay: 4s; }
+
+@media (min-width: 480px) and (max-width: 767px) {
+  #content {
+    background: blue; } }

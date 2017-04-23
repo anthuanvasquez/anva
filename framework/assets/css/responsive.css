@@ -12,7 +12,7 @@
  * 3.0 - Phones (480px)
  * 4.0 - Retina
  */
-@media only screen and (max-width: 1199px) {
+@media (max-width: 1199px) {
   canvas {
     max-width: 100%;
     height: auto !important; }
@@ -27,7 +27,7 @@
   .promo-uppercase > .container > span {
     font-size: 14px; } }
 
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 992px) and (max-width: 1199px) {
   #wrapper {
     width: 1000px; }
   #header.transparent-header.floating-header .container {
@@ -180,7 +180,7 @@
   .landing-form-overlay {
     bottom: -142px; } }
 
-@media only screen and (max-width: 991px) {
+@media (max-width: 1023px) {
   #wrapper {
     width: 100%;
     margin: 0;
@@ -783,7 +783,7 @@
     margin-left: -200px;
     bottom: 0; } }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .swiper_wrapper:not(.full-screen):not(.canvas-slider-grid),
   .swiper_wrapper:not(.full-screen):not(.canvas-slider-grid) .swiper-slide {
     height: 400px !important; }
@@ -803,7 +803,7 @@
     height: 199px;
     margin: 14px 0 0 60px; } }
 
-@media only screen and (max-width: 767px) {
+@media (max-width: 767px) {
   body {
     padding: 0 !important; }
   #wrapper {
@@ -1237,7 +1237,7 @@
     height: 187px;
     margin: 19px 0 0 53px; } }
 
-@media only screen and (max-width: 479px) {
+@media (max-width: 479px) {
   .container,
   #header.full-header .container,
   .container-fullwidth {

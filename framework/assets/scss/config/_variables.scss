@@ -54,13 +54,15 @@ $heading-weight:                600;
 // 	Layouts
 // -----------------------------------------------------------------
 
+$page-width:                    1200px;
+$page-width-container:          ( $page-width - $margin-small );
 $postcontent:                   860px;
 $postcontent-margin:            40px;
-$sidebar:                       1140px - ($postcontent + $postcontent-margin);
+$sidebar:                       1140px - ( $postcontent + $postcontent-margin );
 $bothsidebar:                   1140px - ( ( $sidebar * 2 ) + ( $postcontent-margin * 2 ) );
 $postcontent-md:				690px;
 $postcontent-margin-md:			40px;
-$sidebar-md:					940px - ($postcontent-md + $postcontent-margin-md);
+$sidebar-md:					940px - ( $postcontent-md + $postcontent-margin-md );
 $bothsidebar-md:				940px - ( ( $sidebar-md * 2 ) + ( $postcontent-margin-md * 2 ) );
 $section-padding:				60px;
 $section-margin:				60px;
@@ -71,7 +73,7 @@ $section-bg:					#F9F9F9;
 // -----------------------------------------------------------------
 
 $topbar-height:                 45px;
-$topbar-line-height:            ($topbar-height - 1);
+$topbar-line-height:            ( $topbar-height - 1 );
 
 //  ----------------------------------------------------------------
 // 	Header
@@ -93,14 +95,14 @@ $side-header-bg:                #FFF;
 // 	Primary Menu
 // -----------------------------------------------------------------
 
-$primary-menu-padding:				( $header-height - 22 ) / 2;
-$sticky-menu-padding:				( $sticky-header-height - 22 ) / 2;
-$primary-menu-font:             	$heading-font;
-$primary-menu-font-weight:      	bold;
-$primary-menu-font-size:        	13px;
-$primary-menu-font-tt:          	uppercase;
-$primary-menu-font-color:       	#444;
-$primary-menu-font-spacing:     	1px;
+$sticky-menu-padding:				    ( $sticky-header-height - 22 ) / 2;
+$primary-menu-padding:                  ( $header-height - 22 ) / 2;
+$primary-menu-font:             	    $heading-font;
+$primary-menu-font-weight:      	    bold;
+$primary-menu-font-size:        	    13px;
+$primary-menu-font-tt:          	    uppercase;
+$primary-menu-font-color:       	    #444;
+$primary-menu-font-spacing:     	    1px;
 
 // Primary Menu Sub Menu
 $primary-menu-submenu-width:            220px;
@@ -131,22 +133,22 @@ $page-title-mini-size:					18px;
 // -----------------------------------------------------------------
 
 // Columns Margin
-$portfolio-2-margin:            20px;
-$portfolio-3-margin:            15px;
-$portfolio-4-margin:            12px;
-$portfolio-5-margin:            10px;
-$portfolio-6-margin:            6px;
+$portfolio-2-margin:                    20px;
+$portfolio-3-margin:                    15px;
+$portfolio-4-margin:                    12px;
+$portfolio-5-margin:                    10px;
+$portfolio-6-margin:                    6px;
 
 // Columns Margin for Sidebar
-$portfolio-2-margin-sb:         20px;
-$portfolio-3-margin-sb:         15px;
-$portfolio-4-margin-sb:         12px;
-$portfolio-5-margin-sb:         0;
+$portfolio-2-margin-sb:                 20px;
+$portfolio-3-margin-sb:                 15px;
+$portfolio-4-margin-sb:                 12px;
+$portfolio-5-margin-sb:                 0;
 
 // Columns Margin for Both Sidebar
-$portfolio-2-margin-bs:         20px;
-$portfolio-3-margin-bs:         11px;
-$portfolio-4-margin-bs:         0;
+$portfolio-2-margin-bs:                 20px;
+$portfolio-3-margin-bs:                 11px;
+$portfolio-4-margin-bs:                 0;
 
 //  ----------------------------------------------------------------
 // 	Shop
@@ -178,6 +180,33 @@ $blog-3-margin-sb:         25px;
 
 // Columns Margin for Both Sidebar
 $blog-2-margin-bs:         40px;
+
+// -----------------------------------------------------------------
+// Responsive
+// -----------------------------------------------------------------
+
+$screen--xxl:              1600px !default;
+
+$screen--xl-max:           #{$screen--xxl - 1px} !default; // 1599px
+$screen--xl:               1200px !default;
+
+$screen--lg-max:           #{$screen--xl - 1px} !default; // 1199px;
+$screen--lg:               1024px !default;
+
+$screen--md-max:           #{$screen--lg - 1px} !default; // 1023px;
+$screen--md:               992px !default;
+
+$screen--sm-max:           #{$screen--md - 1px} !default; // 991px
+$screen--sm:               768px !default;
+
+$screen--s-max:            #{$screen--sm - 1px} !default; // 767px
+$screen--s:                640px !default;
+
+$screen--xs-max:           #{$screen--s - 1px} !default; // 639px
+$screen--xs:               480px !default;
+
+$screen--xxs-max:          #{$screen--xs - 1px} !default; // 479px
+$screen--xxs:              320px !default;
 
 //  ----------------------------------------------------------------
 //  Animation

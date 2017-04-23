@@ -14,10 +14,7 @@
  * 4.0 - Retina
  */
 
-// Initialize
-@import "framework";
-
-// Devices
+@import "config";
 @import "responsive/desktop";
 @import "responsive/tablets";
 @import "responsive/phones";

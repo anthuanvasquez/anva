@@ -1,32 +1,37 @@
-@media only screen and (max-width: 1199px) {
+@include desktop {
     canvas {
         max-width: 100%;
         height: auto !important;
     }
+
     .promo {
         h3 {
             font-size: 20px;
         }
     }
+
     .promo > span,
     .promo > .container > span {
         font-size: 15px;
     }
+
     .promo-uppercase {
         h3 {
             font-size: 19px;
         }
     }
+
     .promo-uppercase > span,
     .promo-uppercase > .container > span {
         font-size: 14px;
     }
 }
 
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+@include desktop-s {
     #wrapper {
         width: 1000px;
     }
+
     #header {
         &.transparent-header {
             &.floating-header {
@@ -43,6 +48,7 @@
             }
         }
     }
+
     #primary-menu {
         &.sub-title {
             ul {
@@ -55,10 +61,12 @@
             }
         }
     }
+
     #primary-menu ul li.mega-menu .mega-menu-content,
     .floating-header.sticky-header #primary-menu ul li.mega-menu .mega-menu-content {
         width: 940px;
     }
+
     .floating-header {
         #primary-menu {
             ul {
@@ -72,15 +80,18 @@
             }
         }
     }
+
     .ei-slider {
         height: 450px;
     }
+
     .postcontent {
         width: $postcontent-md;
         &.bothsidebar {
             width: $bothsidebar-md;
         }
     }
+
     .sidebar {
         width: $sidebar-md;
         .widget {
@@ -89,6 +100,7 @@
             }
         }
     }
+
     .team {
         &.team-list {
             .team-image {
@@ -96,6 +108,7 @@
             }
         }
     }
+
     .testi-image,
     .testi-image a,
     .testi-image img,
@@ -104,12 +117,14 @@
         width: 36px;
         height: 36px;
     }
+
     .testi-image {
         i {
             line-height: 36px;
             font-size: 20px;
         }
     }
+
     /* ----------------------------------------------------------------
     Portfolio
     -----------------------------------------------------------------*/
@@ -120,14 +135,17 @@
     .bothsidebar .portfolio-item {
         width: 50%;
     }
+
     /* Portfolio - Both Sidebars - Items - 2 Columns
     -----------------------------------------------------------------*/
     .bothsidebar .portfolio.portfolio-3 {
         margin: 0 -20px -20px 0;
     }
+
     .bothsidebar .portfolio-3 .portfolio-item {
         padding: 0 20px 20px 0;
     }
+
     /* Portfolio - Items - 1 Column
     -----------------------------------------------------------------*/
     .portfolio-1 .portfolio-item .portfolio-image,
@@ -136,51 +154,63 @@
         width: 560px;
         height: 311px;
     }
+
     .portfolio-1 .portfolio-desc {
         width: 340px;
     }
+
     .bothsidebar .portfolio-shuffle,
     .postcontent .portfolio-1 .iconlist {
         display: none;
     }
+
     .postcontent .portfolio-1 .portfolio-item .portfolio-image,
     .postcontent .portfolio-1 .portfolio-item .portfolio-image a,
     .postcontent .portfolio-1 .portfolio-item .portfolio-image img {
         width: 400px;
         height: 222px;
     }
+
     .postcontent .portfolio-1 .portfolio-desc {
         width: 250px;
         padding: 0;
     }
+
     .bothsidebar .portfolio-1 .portfolio-item {
         width: 100% !important;
     }
+
     .bothsidebar .portfolio-1 .portfolio-item .portfolio-image,
     .bothsidebar .portfolio-1 .portfolio-item .portfolio-desc {
         float: none;
         margin: 0 !important;
     }
+
     .bothsidebar .portfolio-1 .portfolio-item .portfolio-image {
         margin-bottom: 20px !important;
     }
+
     .bothsidebar .portfolio-1 .portfolio-item .portfolio-image,
     .bothsidebar .portfolio-1 .portfolio-item .portfolio-image a,
     .bothsidebar .portfolio-1 .portfolio-item .portfolio-image img {
         width: 100%;
         height: auto;
     }
+
     .bothsidebar .portfolio-1 .portfolio-desc {
         width: 100%;
         padding: 0;
     }
+
     .bothsidebar .entry-title h2 {
         font-size: 19px;
         font-weight: 600;
     }
+
     .bothsidebar .entry-meta li {
         margin-right: 10px;
     }
+
     /* ----------------------------------------------------------------
         Blog
     -----------------------------------------------------------------*/
@@ -203,6 +233,7 @@
             }
         }
     }
+
     .bothsidebar {
         .small-thumbs {
             .entry-image {
@@ -217,6 +248,7 @@
             }
         }
     }
+
     .post-grid {
         .entry {
             @include blog-grid-item-width(940px, 4, $blog-4-margin);
@@ -232,6 +264,7 @@
             }
         }
     }
+
     .post-timeline {
         .entry {
             width: 400px !important;
@@ -240,6 +273,7 @@
             }
         }
     }
+
     .mpost .entry-image,
     .mpost .entry-image a,
     .mpost .entry-image img,
@@ -247,6 +281,7 @@
         width: 120px;
         height: 90px;
     }
+
     .mpost {
         .entry-image {
             a {
@@ -256,6 +291,7 @@
             }
         }
     }
+
     .col_one_third {
         .landing-wide-form {
             padding: 36px 30px;
@@ -269,6 +305,7 @@
             }
         }
     }
+
     /* ----------------------------------------------------------------
         Shop
     -----------------------------------------------------------------*/
@@ -280,11 +317,13 @@
             }
         }
     }
+
     .product-title {
         h3 {
             font-size: 18px;
         }
     }
+
     .panel {
         .portfolio-meta {
             li {

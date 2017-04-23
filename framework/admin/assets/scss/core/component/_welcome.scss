@@ -1,11 +1,11 @@
 .about-wrap {
     .theme-plugins {
         .theme {
+            border: none;
+            box-shadow: none;
             margin: 0 0 3% 0;
             padding: 0 1.5%;
             width: 33.33333%;
-            border: none;
-            box-shadow: none;
 
             .theme-actions {
                 opacity: 1;
@@ -29,18 +29,16 @@
         }
 
         .theme-name {
+            background: #fff;
+            box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
             font-size: 15px;
             font-weight: 600;
             height: 18px;
             margin: 0;
             padding: 15px;
-            -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
-            box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
             overflow: hidden;
-            white-space: nowrap;
             text-overflow: ellipsis;
-            background: #fff;
-            background: rgba(255,255,255,.65);
+            white-space: nowrap;
         }
 
         .plugin-info {

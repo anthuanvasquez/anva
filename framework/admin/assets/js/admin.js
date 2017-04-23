@@ -53,13 +53,16 @@ jQuery( document ).ready( function( $ ) {
 
         logo: function() {
             $( '.section-logo' ).each(function() {
-                var el = $( this ), value = el.find( '.select-type select' ).val();
+                var el    = $( this ),
+                    value = el.find( '.select-type select' ).val();
                 el.find( '.logo-item' ).hide();
                 el.find( '.' + value ).show();
             });
 
-            $( '.section-logo .anva-select select' ).on( 'change', function() {
-                var el = $( this ), parent = el.closest( '.section-logo' ), value = el.val();
+            $( '.section-logo .anva-select' ).on( 'change', function() {
+                var el     = $( this ),
+                    parent = el.closest( '.section-logo' ),
+                    value  = el.val();
                 parent.find( '.logo-item' ).hide();
                 parent.find( '.' + value ).show();
             });
@@ -67,7 +70,9 @@ jQuery( document ).ready( function( $ ) {
 
         typography: function() {
             $( '.section-typography .anva-typography-face' ).each(function() {
-                var el = $(this), value = el.val(), text = el.find( 'option[value="' + value + '"]' ).text();
+                var el    = $(this),
+                    value = el.val(),
+                    text  = el.find( 'option[value="' + value + '"]' ).text();
                 if ( value === 'google' ) {
                     el.closest( '.section-typography' ).find( '.google-font' ).fadeIn( 'fast' );
                     el.closest( '.section-typography' ).find( '.sample-text-font' ).hide();
@@ -79,7 +84,9 @@ jQuery( document ).ready( function( $ ) {
             });
 
             $( '.section-typography .anva-typography-face' ).on( 'change', function() {
-                var el = $(this), value = el.val(), text = el.find( 'option[value="' + value + '"]' ).text();
+                var el    = $(this),
+                    value = el.val(),
+                    text  = el.find( 'option[value="' + value + '"]' ).text();
                 if ( value === 'google' ) {
                     el.closest( '.section-typography' ).find( '.google-font' ).fadeIn( 'fast' );
                     el.closest( '.section-typography' ).find( '.sample-text-font' ).hide();
@@ -117,13 +124,18 @@ jQuery( document ).ready( function( $ ) {
 
         columns: function() {
             $( '.section-columns' ).each(function(){
-                var el = $(this), i = 1, num = el.find( '.column-num' ).val();
+                var el  = $(this),
+                    i   = 1,
+                    num = el.find( '.column-num' ).val();
                 el.find( '.column-width' ).hide();
                 el.find( '.column-width-'+num).show();
             });
 
             $( '.section-columns .column-num' ).on( 'change', function(){
-                var el = $(this), i = 1, num = el.val(), parent = el.closest( '.section-columns' );
+                var el     = $(this),
+                    i      = 1,
+                    num    = el.val(),
+                    parent = el.closest( '.section-columns' );
                 parent.find( '.column-width' ).hide();
                 parent.find( '.column-width-'+num).fadeIn( 'fast' );
             });
@@ -131,13 +143,16 @@ jQuery( document ).ready( function( $ ) {
 
         slider: function() {
             $( '.group-slideshows' ).each(function() {
-                var el = $(this), value = el.find( '#slider_id' ).val();
+                var el    = $(this),
+                    value = el.find( '#slider_id' ).val();
                 el.find( '.slider-item' ).hide();
                 el.find( '.' + value).show();
             });
 
             $( '.group-slideshows #slider_id' ).on( 'change', function() {
-                var el = $(this), parent = el.closest( '.group-slideshows' ), value = el.val();
+                var el     = $(this),
+                    parent = el.closest( '.group-slideshows' ),
+                    value  = el.val();
                 parent.find( '.slider-item' ).hide();
                 parent.find( '.' + value).show();
             });
@@ -146,13 +161,14 @@ jQuery( document ).ready( function( $ ) {
         rangeSlider: function() {
 
             $( '.section-range, .section-typography .font-range' ).each(function() {
-                var el = $(this),
-                value = el.find( '.anva-input-range' ).val(),
-                id = el.find( '.anva-input-range' ).attr( 'id' ),
-                min = el.find( '.anva-input-range' ).data( 'min' ),
-                max = el.find( '.anva-input-range' ).data( 'max' ),
-                step = el.find( '.anva-input-range' ).data( 'step' ),
-                units = el.find( '.anva-input-range' ).data( 'units' );
+                var el    = $(this),
+                    range = el.find( '.anva-input-range' ),
+                    value = range.val(),
+                    id    = range.attr( 'id' ),
+                    min   = range.data( 'min' ),
+                    max   = range.data( 'max' ),
+                    step  = range.data( 'step' ),
+                    units = range.data( 'units' );
                 $( '#' + id + '_range' ).slider({
                     min: min,
                     max: max,
@@ -182,8 +198,9 @@ jQuery( document ).ready( function( $ ) {
             $( '.section-select.show-hide select' ).each(function() {
                 var el        = $(this),
                     value     = el.val(),
-                    trigger   = el.closest( '.section' ).data( 'trigger' ),
-                    receivers = el.closest( '.section' ).data( 'receivers' ),
+                    section   = el.closest( '.section' ),
+                    trigger   = section.data( 'trigger' ),
+                    receivers = section.data( 'receivers' ),
                     loop      = receivers.split( ' ' );
                 if ( value === trigger ) {
                     $.each( loop, function(index, el) {
@@ -199,8 +216,9 @@ jQuery( document ).ready( function( $ ) {
             $( '.section-select.show-hide select' ).on( 'change', function() {
                 var el        = $(this),
                     value     = el.val(),
-                    trigger   = el.closest( '.section' ).data( 'trigger' ),
-                    receivers = el.closest( '.section' ).data( 'receivers' ),
+                    section   = el.closest( '.section' ),
+                    trigger   = section.data( 'trigger' ),
+                    receivers = section.data( 'receivers' ),
                     loop      = receivers.split( ' ' );
                 if ( value === trigger ) {
                     $.each( loop, function(index, el) {
@@ -217,8 +235,9 @@ jQuery( document ).ready( function( $ ) {
             $( '.section-checkbox.show-hide input.anva-checkbox' ).each( function() {
                 var el        = $(this),
                     value     = el.val(),
-                    trigger   = el.closest( '.section' ).data( 'trigger' ),
-                    receivers = el.closest( '.section' ).data( 'receivers' ),
+                    section   = el.closest( '.section' ),
+                    trigger   = section.data( 'trigger' ),
+                    receivers = section.data( 'receivers' ),
                     loop      = receivers.split( ' ' );
                 if ( el.is( ':checked' ) ) {
                     $.each( loop, function(index, el) {
@@ -234,8 +253,9 @@ jQuery( document ).ready( function( $ ) {
             $( '.section-checkbox.show-hide input.anva-checkbox' ).on( 'click', function() {
                 var el        = $(this),
                     value     = el.val(),
-                    trigger   = el.closest( '.section' ).data( 'trigger' ),
-                    receivers = el.closest( '.section' ).data( 'receivers' ),
+                    section   = el.closest( '.section' ),
+                    trigger   = section.data( 'trigger' ),
+                    receivers = section.data( 'receivers' ),
                     loop      = receivers.split( ' ' );
                 if ( el.is( ':checked' ) ) {
                     $.each( loop, function(index, el) {
@@ -255,7 +275,7 @@ jQuery( document ).ready( function( $ ) {
             $( '.dynamic-sidebars ul' ).disableSelection();
             $(document).on( 'click', '.dynamic-sidebars .delete', function(e) {
                 e.preventDefault();
-                var $ele = $(this).parent();
+                var ele = $(this).parent();
                 swal({
                     title: anvaJs.sidebar_button_title,
                     text: anvaJs.sidebar_button_text,
@@ -270,9 +290,9 @@ jQuery( document ).ready( function( $ ) {
                 }, function( isConfirm ) {
 
                     if ( isConfirm ) {
-                        $ele.fadeOut();
+                        ele.fadeOut();
                         setTimeout( function() {
-                            $ele.remove();
+                            ele.remove();
                             if ( $( '.dynamic-sidebars ul li' ).length === 0 ) {
                                 $( '.dynamic-sidebars ul' ).addClass( 'empty' );
                             }
