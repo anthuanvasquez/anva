@@ -4,7 +4,8 @@
 
 -----------------------------------------------------------------------------------*/
 
-.clear {
+.clear,
+%clear {
     clear: both;
     display: block;
     font-size: 0;
@@ -14,54 +15,66 @@
     overflow: hidden;
 }
 
-.uppercase {
+.uppercase,
+%uppercase {
     text-transform: uppercase !important;
 }
 
-.lowercase {
+.lowercase,
+%lowercase {
     text-transform: lowercase !important;
 }
 
-.capitalize {
+.capitalize,
+%capitalize {
     text-transform: capitalize !important;
 }
 
-.nott {
+.nott,
+%nott {
     text-transform: none !important;
 }
 
-.tright {
+.tright,
+%tright {
     text-align: right !important;
 }
 
-.tleft {
+.tleft,
+%tleft {
     text-align: left !important;
 }
 
-.fright {
+.fright,
+%fright {
     float: right !important;
 }
 
-.fleft {
+.fleft,
+%fleft {
     float: left !important;
 }
 
-.fnone {
+.fnone,
+%fnone {
     float: none !important;
 }
 
-.ohidden {
+.ohidden,
+%ohidden {
     position: relative;
     overflow: hidden !important;
 }
 
 .line,
-.double-line {
+.double-line,
+%line {
     clear: both;
     position: relative;
     width: 100%;
     margin: ($margin-base + 10) 0;
     border-top: 1px solid #EEE;
+
     &.line-sm {
         margin: $margin-small 0;
     }
@@ -303,10 +316,6 @@ span.middot {
 /* MOVING BG -  TESTIMONIALS */
 
 .bganimate {
-    -webkit-animation: BgAnimated 30s infinite linear;
-    -moz-animation: BgAnimated 30s infinite linear;
-    -ms-animation: BgAnimated 30s infinite linear;
-    -o-animation: BgAnimated 30s infinite linear;
     animation: BgAnimated 30s infinite linear;
 }
 
@@ -359,8 +368,6 @@ span.middot {
     display: block;
     width: 100% !important;
     min-height: 30px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 

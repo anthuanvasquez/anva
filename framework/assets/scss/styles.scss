@@ -1,20 +1,20 @@
 /*!
  * Theme Name: Anva
- * Theme URI: http://themes.anthuanvasquez.net/anva
- * Description: The Multi-Purpose Template
+ * Theme URI: https://themes.anthuanvasquez.net/anva
+ * Description: Anva is a Multi-Purpose focus design tool. It provides responsive clean and minimal WordPress Theme for Creative website and Creative People. Using the latest WordPress Technology and Support various of popular WordPress plugins. Anva support responsive layout so it looks great on all devices.
  * Author: Anthuan Vásquez
- * Author URI: http://themeforest.net/user/oidoperfecto
+ * Author URI: https://themeforest.net/user/oidoperfecto
  * Version: 1.0.0
  */
 
 /**
  * Table of Contents
  *
- * 1.0 - Core
+ * 1.0 - Core Base
  *   1.1  - Typography
  *   1.2  - Helpers
  *   1.3  - Layouts
- * 2.0 - Content Blocks
+ * 2.0 - Core Modules
  *   2.1  - Top Bar
  *   2.2  - Header
  *   2.3  - Sliders
@@ -25,32 +25,25 @@
  *   2.8  - Blog
  *   2.9  - Shop
  *   2.10 - Events
- * 3.0 - Footer
- * 4.0 - Widgets
- * 5.0 - Extras
+ *   2.11 - Footer
+ *   2.12 - Widgets
+ *   2.13 - Extras
  */
 
 @import 'config';
-@import 'styles/typography';
-@import 'styles/helpers';
-@import 'styles/layouts';
-@import 'styles/topbar';
-@import 'styles/header';
-@import 'styles/sliders';
-@import 'styles/pagetitle';
-@import 'styles/content';
-@import 'styles/portfolio';
-@import 'styles/galleries';
-@import 'styles/blog';
-@import 'styles/shop';
-@import 'styles/events';
-@import 'styles/footer';
-@import 'styles/widgets';
-@import 'styles/extras';
-
-
-@include phone-m {
-    #content {
-        background: blue;
-    }
-}
+@import 'core/base/typography';
+@import 'core/base/helpers';
+@import 'core/base/layouts';
+@import 'core/module/topbar';
+@import 'core/module/header';
+@import 'core/module/sliders';
+@import 'core/module/page-title';
+@import 'core/module/content';
+@import 'core/module/portfolio';
+@import 'core/module/galleries';
+@import 'core/module/blog';
+@import 'core/module/shop';
+@import 'core/module/events';
+@import 'core/module/footer';
+@import 'core/module/widgets';
+@import 'core/module/extras';

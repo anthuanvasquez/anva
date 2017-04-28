@@ -1,4 +1,4 @@
-(function( $ ) {
+;(function( $ ) {
 
     'use strict';
 
@@ -89,7 +89,7 @@
         });
 
         searchElement.focus( function() {
-            if (  '' !== instantSearch.html() ) {
+            if ( '' !== instantSearch.html() ) {
                 instantSearch.addClass( 'nothidden' );
                 instantSearch.fadeIn();
             }

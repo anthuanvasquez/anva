@@ -69,13 +69,6 @@
     }
 }
 
-#anva-framework-submit {
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    margin-bottom: 0;
-    padding: 10px 10px 0;
-}
-
 .anva-framework {
     .CodeMirror {
         border: 1px solid #ddd;
@@ -117,7 +110,6 @@
 
         > .columns-1 {
             float: left;
-            min-width: 463px;
             width: 100%;
 
             @include desktop-s {
@@ -162,7 +154,10 @@
             }
 
             .postbox {
+                background-color: #fff;
+                border-top: 1px solid #ddd;
                 margin-bottom: 20px;
+                padding: 10px 10px 0;
                 padding-bottom: 0;
             }
 
@@ -194,6 +189,7 @@
                 box-shadow: none;
                 color: #a00;
                 padding: 0;
+
                 &:hover {
                     color: red;
                 }

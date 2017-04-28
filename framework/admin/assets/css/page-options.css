@@ -44,12 +44,6 @@
 .anva-framework-metabox.metabox-holder {
   padding-top: 20px; }
 
-#anva-framework-submit {
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  margin-bottom: 0;
-  padding: 10px 10px 0; }
-
 .anva-framework .CodeMirror {
   border: 1px solid #ddd; }
   .anva-framework .CodeMirror pre {
@@ -84,7 +78,6 @@
       margin-right: 0; } }
   .anva-framework .options-settings > .columns-1 {
     float: left;
-    min-width: 463px;
     width: 100%; }
     @media (max-width: 1365px) {
       .anva-framework .options-settings > .columns-1 {
@@ -122,7 +115,10 @@
         .anva-framework .options-settings > .columns-2 .postbox-wrapper.is-sticky {
           position: static; } }
     .anva-framework .options-settings > .columns-2 .postbox {
+      background-color: #fff;
+      border-top: 1px solid #ddd;
       margin-bottom: 20px;
+      padding: 10px 10px 0;
       padding-bottom: 0; }
     .anva-framework .options-settings > .columns-2 .inside {
       margin-bottom: 0;

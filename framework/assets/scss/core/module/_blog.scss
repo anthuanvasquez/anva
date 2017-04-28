@@ -45,15 +45,16 @@
             }
         }
     }
+
+    &.filter-loading {
+        background: #fff url('../images/preloader.gif') no-repeat center center;
+        margin-bottom: 40px;
+        min-height: 200px;
+        min-width: 100%;
+        height: auto;
+    }
 }
 
-&.filter-loading {
-    background: #fff url('../images/preloader.gif') no-repeat center center;
-    margin-bottom: 40px;
-    min-height: 200px;
-    min-width: 100%;
-    height: auto;
-}
 
 #posts {
     position: relative;

@@ -23,7 +23,7 @@
         }
 
         .explain {
-            max-width: 94%;
+            max-width: 100%;
         }
     }
 
@@ -80,6 +80,10 @@
         .checkbox {
             margin: 0 5px 0 0;
             float: none;
+        }
+
+        .controls {
+            @include clearfix;
         }
 
         .column-1 {

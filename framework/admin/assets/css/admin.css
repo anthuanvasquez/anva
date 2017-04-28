@@ -548,8 +548,8 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   box-sizing: border-box;
   line-height: normal;
   margin: 4px 0 0;
-  margin-top: 1px \9;
-  padding: 0 !important; }
+  margin-top: 1px;
+  padding: 0; }
 
 .anva-framework select,
 .anva-framework textarea {
@@ -591,12 +591,12 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 
 .anva-framework .anva-checkbox,
 .anva-framework .anva-radio {
-  margin: 0 10px 5px 0;
-  clear: both; }
+  clear: both;
+  margin: 0 10px 5px 0; }
 
 .anva-framework .anva-option-image {
-  max-width: 340px;
-  margin: 3px 0 18px 0; }
+  margin: 3px 0 18px 0;
+  max-width: 340px; }
 
 .anva-framework .anva-input-file {
   background: #fff;
@@ -609,12 +609,10 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   padding: 5px 8px 6px 8px;
   width: 100%; }
 
+.anva-framework .mini .controls input,
 .anva-framework .mini .controls select,
-.anva-framework .section .mini .controls {
-  width: 140px; }
-
-.anva-framework .mini .controls,
-.anva-framework .mini .controls input {
+.anva-framework .mini .controls input,
+.anva-framework .mini .controls select {
   min-width: 140px;
   width: 140px; }
 
@@ -750,7 +748,6 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
     clear: both; }
   .anva-framework .section .controls {
     float: left;
-    min-width: 320px;
     width: 54%;
     padding-right: 4%; }
     @media (max-width: 767px) {
@@ -788,7 +785,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   width: 100%; }
 
 .anva-framework .section-checkbox .explain {
-  max-width: 94%; }
+  max-width: 100%; }
 
 .anva-framework .section-logo .logo-item {
   display: none; }
@@ -828,6 +825,11 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
 .anva-framework .section-social_media .checkbox {
   margin: 0 5px 0 0;
   float: none; }
+
+.anva-framework .section-social_media .controls::after {
+  content: '';
+  display: table;
+  clear: both; }
 
 .anva-framework .section-social_media .column-1 {
   float: left;

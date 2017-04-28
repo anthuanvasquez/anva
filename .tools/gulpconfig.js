@@ -223,7 +223,7 @@ module.exports = {
                 modules
             ],
             // Options: nested, expanded, compact, compressed
-            outputStyle: 'nested'
+            outputStyle: 'expanded'
         },
         sassLint: {
             theme: theme + 'scss/**/*.scss',

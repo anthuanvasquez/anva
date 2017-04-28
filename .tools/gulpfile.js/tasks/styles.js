@@ -29,10 +29,16 @@ gulp.task('css-lint', () => {
 gulp.task('sass-theme', () => {
     return gulp.src(config.theme.src)
         .pipe(plugins.plumber({ errorHandler: onError }))
-        .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
+        .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+        .pipe(plugins.if(gutil.env.debug, plugins.sass({
+            outputStyle: 'expanded',
+            sourceComments: true
+        })))
+        .pipe(plugins.if(!gutil.env.debug, plugins.sass()))
         .pipe(plugins.sass(config.sass))
         .pipe(plugins.postcss(processors))
-        .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
+        .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
+        .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.theme.dest))
         .pipe(plugins.logger({ afterEach: ' Compiled!' }))
         .pipe(browsersync.stream());
@@ -42,10 +48,15 @@ gulp.task('sass-theme', () => {
 gulp.task('sass-core', () => {
     return gulp.src(config.core.src)
         .pipe(plugins.plumber({ errorHandler: onError }))
-        .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
-        .pipe(plugins.sass(config.sass))
+        .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+        .pipe(plugins.if(gutil.env.debug, plugins.sass({
+            outputStyle: 'expanded',
+            sourceComments: true
+        })))
+        .pipe(plugins.if(!gutil.env.debug, plugins.sass()))
         .pipe(plugins.postcss(processors))
-        .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
+        .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
+        .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.core.dest))
         .pipe(plugins.logger({ afterEach: ' Compiled!' }))
         .pipe(browsersync.stream());
@@ -55,10 +66,14 @@ gulp.task('sass-core', () => {
 gulp.task('sass-admin', () => {
     return gulp.src(config.admin.src)
         .pipe(plugins.plumber({ errorHandler: onError }))
-        .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.init()))
-        .pipe(plugins.sass(config.sass))
+        .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.init()))
+        .pipe(plugins.if(gutil.env.debug, plugins.sass({
+            outputStyle: 'expanded',
+            sourceComments: true
+        })))
+        .pipe(plugins.if(!gutil.env.debug, plugins.sass()))
         .pipe(plugins.postcss(processors))
-        .pipe(plugins.if(gutil.env.maps, plugins.sourcemaps.write('./')))
+        .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(gulp.dest(config.admin.dest))
         .pipe(plugins.logger({ afterEach: ' Compiled!' }))
         .pipe(browsersync.stream());

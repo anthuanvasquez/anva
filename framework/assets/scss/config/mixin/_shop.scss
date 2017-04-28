@@ -1,15 +1,6 @@
 //  Shop Item Size Builder
 // -----------------------------------------------------------------
 
-@function shop-width($container, $columns, $margin) {
-    @return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
-}
-
-@function shop-height($container, $columns, $margin) {
-    $width: floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
-    @return floor( ( $width * 4 ) / 3 );
-}
-
 @mixin shop-item-width($container, $columns, $margin) {
     width: shop-width($container, $columns, $margin);
 }
