@@ -1,4 +1,10 @@
 <?php
+
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Anva is a WordPress Theme Framework.
  *
@@ -19,7 +25,7 @@ class Anva {
 	 * @since 1.0.0
 	 * @var   string
 	 */
-	const NAME = 'Anva Framework';
+	public static $name = 'Anva Framework';
 
 	/**
 	 * Framework's Version.
@@ -27,7 +33,23 @@ class Anva {
 	 * @since 1.0.0
 	 * @var   string
 	 */
-	const VERSION = '1.0.0';
+	public static $version = '1.0.0';
+
+	/**
+	 * The framework directory path.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public static $framework_dir_path = '';
+
+	/**
+	 * The framework directory uri.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public static $framework_dir_uri = '';
 
 	/**
 	 * Cloning is forbidden.
@@ -36,7 +58,7 @@ class Anva {
 	 * @return void Throw error on object clone.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating Huh?', 'anva' ), self::VERSION );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating Huh?', 'anva' ), self::$version );
 	}
 
 	/**
@@ -46,7 +68,7 @@ class Anva {
 	 * @return error Throw error on object unserializing.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating Huh?', 'anva' ), self::VERSION );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating Huh?', 'anva' ), self::$version );
 	}
 
 	/**
@@ -57,6 +79,10 @@ class Anva {
 	public function __construct() {
 		// Set up an empty object to work with.
 		$GLOBALS['anva'] = new stdClass;
+
+		// Set framework paths
+		self::$framework_dir_path = trailingslashit( get_template_directory() . '/framework' );
+		self::$framework_dir_uri  = trailingslashit( get_template_directory_uri() . '/framework' );
 
 		// Setup framework constants
 		$this->set_constants();
@@ -73,86 +99,88 @@ class Anva {
 	 * core framework, parent theme, and child theme.
 	 *
 	 * @since  1.0.0
+	 *
 	 * @return void
 	 */
 	public function set_constants() {
-		define( 'ANVA_FRAMEWORK_NAME',           self::NAME );
-		define( 'ANVA_FRAMEWORK_VERSION',        self::VERSION );
-		define( 'ANVA_FRAMEWORK_DIR',            trailingslashit( get_template_directory() . '/framework' ) );
-		define( 'ANVA_FRAMEWORK_URI',            trailingslashit( get_template_directory_uri() . '/framework' ) );
-		define( 'ANVA_FRAMEWORK_INC',            trailingslashit( ANVA_FRAMEWORK_DIR . 'includes' ) );
-		define( 'ANVA_FRAMEWORK_EXT',            trailingslashit( ANVA_FRAMEWORK_DIR . 'extensions' ) );
-		define( 'ANVA_FRAMEWORK_CSS',            trailingslashit( ANVA_FRAMEWORK_URI . 'assets/css' ) );
-		define( 'ANVA_FRAMEWORK_JS',             trailingslashit( ANVA_FRAMEWORK_URI . 'assets/js' ) );
-		define( 'ANVA_FRAMEWORK_IMG',            trailingslashit( ANVA_FRAMEWORK_URI . 'assets/images' ) );
-		define( 'ANVA_FRAMEWORK_ADMIN',          trailingslashit( ANVA_FRAMEWORK_DIR . 'admin' ) );
-		define( 'ANVA_FRAMEWORK_ADMIN_URI',      trailingslashit( get_template_directory_uri() . '/framework/admin' ) );
-		define( 'ANVA_FRAMEWORK_ADMIN_CSS',      trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/css' ) );
-		define( 'ANVA_FRAMEWORK_ADMIN_JS',       trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/js' ) );
-		define( 'ANVA_FRAMEWORK_ADMIN_IMG',      trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/images' ) );
-		define( 'ANVA_FRAMEWORK_ADMIN_PLUGINS',  trailingslashit( ANVA_FRAMEWORK_ADMIN_URI . 'assets/plugins' ) );
+		define( 'ANVA_FRAMEWORK_NAME', self::$name );
+		define( 'ANVA_FRAMEWORK_VERSION', self::$version );
+		define( 'ANVA_FRAMEWORK_DIR', self::$framework_dir_path );
+		define( 'ANVA_FRAMEWORK_URI', self::$framework_dir_uri );
+		define( 'ANVA_FRAMEWORK_INC', trailingslashit( self::$framework_dir_path . 'includes' ) );
+		define( 'ANVA_FRAMEWORK_EXT', trailingslashit( self::$framework_dir_path . 'extensions' ) );
+		define( 'ANVA_FRAMEWORK_CSS', trailingslashit( self::$framework_dir_uri . 'assets/css' ) );
+		define( 'ANVA_FRAMEWORK_JS', trailingslashit( self::$framework_dir_uri . 'assets/js' ) );
+		define( 'ANVA_FRAMEWORK_IMG', trailingslashit( self::$framework_dir_uri . 'assets/images' ) );
+		define( 'ANVA_FRAMEWORK_ADMIN', trailingslashit( self::$framework_dir_path . 'admin' ) );
+		define( 'ANVA_FRAMEWORK_ADMIN_URI', trailingslashit( self::$framework_dir_uri . 'admin' ) );
+		define( 'ANVA_FRAMEWORK_ADMIN_CSS', trailingslashit( self::$framework_dir_uri . 'admin/assets/css' ) );
+		define( 'ANVA_FRAMEWORK_ADMIN_JS', trailingslashit( self::$framework_dir_uri . 'admin/assets/js' ) );
+		define( 'ANVA_FRAMEWORK_ADMIN_IMG', trailingslashit( self::$framework_dir_uri . 'admin/assets/images' ) );
+		define( 'ANVA_FRAMEWORK_ADMIN_PLUGINS', trailingslashit( self::$framework_dir_uri . 'admin/assets/plugins' ) );
 	}
 
 	/**
 	 * Include core framerwork files.
 	 *
 	 * @since  1.0.0
+	 *
 	 * @return void
 	 */
 	public function set_core_files() {
+
 		// Admin
 		if ( is_admin() ) {
-
-			include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-page.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-import-export.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'options/class-anva-options-media-uploader.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'options/options-interface.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'options/options-sanitization.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-builder.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-gallery.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-page-meta-box.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/class-anva-welcome-screen.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/general.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/display.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/meta.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'includes/locals.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'plugins/plugins.php' );
-			include_once( ANVA_FRAMEWORK_ADMIN . 'updates/updates.php' );
-
+			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-page.php' );
+			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-import-export.php' );
+			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-media-uploader.php' );
+			include_once( self::$framework_dir_path . 'admin/options/options-interface.php' );
+			include_once( self::$framework_dir_path . 'admin/options/options-sanitization.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/class-anva-page-builder.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/class-anva-page-gallery.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/class-anva-page-meta-box.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/class-anva-welcome-screen.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/general.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/display.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/meta.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/locals.php' );
+			include_once( self::$framework_dir_path . 'admin/plugins/plugins.php' );
+			include_once( self::$framework_dir_path . 'admin/updates/updates.php' );
 		}
 
 		// API and Helpers
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-options.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sidebars.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-stylesheets.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-scripts.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-page-builder-options.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'class-anva-sliders.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'helpers.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'customizer/customizer.php' );
+		include_once( self::$framework_dir_path . 'class-anva-options.php' );
+		include_once( self::$framework_dir_path . 'class-anva-sidebars.php' );
+		include_once( self::$framework_dir_path . 'class-anva-stylesheets.php' );
+		include_once( self::$framework_dir_path . 'class-anva-scripts.php' );
+		include_once( self::$framework_dir_path . 'class-anva-page-builder-options.php' );
+		include_once( self::$framework_dir_path . 'class-anva-sliders.php' );
+		include_once( self::$framework_dir_path . 'anva-helpers.php' );
+		include_once( self::$framework_dir_path . 'customizer/customizer.php' );
 
 		// General
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/general.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/display.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/post-formats.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/media.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/content.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/parts.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/elements.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/helpers.php' );
-		include_once( ANVA_FRAMEWORK_DIR . 'includes/locals.php' );
+		include_once( self::$framework_dir_path . 'includes/general.php' );
+		include_once( self::$framework_dir_path . 'includes/display.php' );
+		include_once( self::$framework_dir_path . 'includes/post-formats.php' );
+		include_once( self::$framework_dir_path . 'includes/media.php' );
+		include_once( self::$framework_dir_path . 'includes/content.php' );
+		include_once( self::$framework_dir_path . 'includes/parts.php' );
+		include_once( self::$framework_dir_path . 'includes/elements.php' );
+		include_once( self::$framework_dir_path . 'includes/helpers.php' );
+		include_once( self::$framework_dir_path . 'includes/locals.php' );
 	}
 
 	/**
 	 * Initialize core framework hooks.
 	 *
 	 * @since  1.0.0
+	 *
 	 * @return void
 	 */
 	public function set_core_hooks() {
+
 		// Admin Actions / Filters
 		if ( is_admin() ) {
-
 			add_action( 'after_setup_theme', 'anva_plugins' );
 			add_action( 'after_setup_theme', 'anva_envato_updates' );
 			add_action( 'init', 'anva_admin_init', 1 );
@@ -164,7 +192,6 @@ class Anva {
 			add_action( 'anva_options_page_after_fields', 'anva_admin_footer_credits' );
 			add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
 			add_action( 'anva_options_page_before', 'anva_add_settings_change', 10 );
-
 		}
 
 		// Init Filters
@@ -252,5 +279,34 @@ class Anva {
 		// Initialize API
 		do_action( 'anva_api_before' );
 		do_action( 'anva_api' );
+	}
+
+	/**
+	 * Gets the theme version.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	public static function get_theme_version() {
+		return self::$version;
+	}
+
+	/**
+	 * Gets the normalized theme version.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	public static function get_normalized_theme_version() {
+		$theme_version       = self::$version;
+		$theme_version_array = explode( '.', $theme_version );
+
+		if ( isset( $theme_version_array[2] ) && '0' === $theme_version_array[2] ) {
+			$theme_version = $theme_version_array[0] . '.' . $theme_version_array[1];
+		}
+
+		return $theme_version;
 	}
 }

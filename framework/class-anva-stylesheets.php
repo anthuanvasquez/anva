@@ -17,6 +17,14 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 	class Anva_Stylesheets {
 
 		/**
+		 * The theme version.
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		private static $version;
+
+		/**
 		 * A single instance of this class.
 		 *
 		 * @since 1.0.0
@@ -67,8 +75,11 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 		 * Constructor Hook everythin in.
 		 */
 		private function __construct() {
-			// Only front end
-			if ( ! is_admin() ) {
+
+			self::$version = Anva::get_theme_version();
+
+			if ( ! is_admin() && ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
+
 				// Setup stylesheets from Framework and Custom API.
 				// No enqueuing yet.
 				add_action( 'wp_enqueue_scripts', array( $this, 'set_framework_stylesheets' ), 1 );
@@ -89,7 +100,7 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 			// Boostrap 3
 			$this->framework_stylesheets['bootstrap'] = array(
 				'handle'	=> 'bootstrap',
-				'src'		=> anva_get_core_uri() . 'assets/css/bootstrap.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/bootstrap.css',
 				'deps'		=> array(),
 				'ver'		=> '3.3.6',
 				'media'		=> 'all',
@@ -98,7 +109,7 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 			// Swiper
 			$this->framework_stylesheets['swiper'] = array(
 				'handle'	=> 'swiper',
-				'src'		=> anva_get_core_uri() . 'assets/css/swiper.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/swiper.css',
 				'deps'		=> array(),
 				'ver'		=> '3.3.1',
 				'media'		=> 'all',
@@ -107,7 +118,7 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 			// Camera
 			$this->framework_stylesheets['camera'] = array(
 				'handle'	=> 'camera',
-				'src'		=> anva_get_core_uri() . 'assets/css/camera.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/camera.css',
 				'deps'		=> array(),
 				'ver'		=> '1.4.0',
 				'media'		=> 'all',
@@ -116,7 +127,7 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 			// Nivo
 			$this->framework_stylesheets['nivo'] = array(
 				'handle'	=> 'nivo',
-				'src'		=> anva_get_core_uri() . 'assets/css/nivo-slider.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/nivo-slider.css',
 				'deps'		=> array(),
 				'ver'		=> '3.2.0',
 				'media'		=> 'all',
@@ -125,45 +136,45 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 			// Animate
 			$this->framework_stylesheets['animate'] = array(
 				'handle'	=> 'animate',
-				'src'		=> anva_get_core_uri() . 'assets/css/animate.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/animate.css',
 				'deps'		=> array(),
 				'ver'		=> '3.5.1',
 				'media'		=> 'all',
 			);
 
 			// Font Icons
-			$this->framework_stylesheets['font_icons'] = array(
-				'handle'	=> 'font_icons',
-				'src'		=> anva_get_core_uri() . 'assets/css/font-icons.css',
+			$this->framework_stylesheets['anva_font_icons'] = array(
+				'handle'	=> 'anva_font_icons',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/styles-font-icons.css',
 				'deps'		=> array(),
-				'ver'		=> ANVA_FRAMEWORK_VERSION,
+				'ver'		=> self::$version,
 				'media'		=> 'all',
 			);
 
 			// Framework Shortcodes
 			$this->framework_stylesheets['anva_shortcodes'] = array(
 				'handle'	=> 'anva_shortcodes',
-				'src'		=> anva_get_core_uri() . 'assets/css/components.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/styles-shortcodes.css',
 				'deps'		=> array(),
-				'ver'		=> ANVA_FRAMEWORK_VERSION,
+				'ver'		=> self::$version,
 				'media'		=> 'all',
 			);
 
 			// Framework Styles
 			$this->framework_stylesheets['anva_styles'] = array(
 				'handle'	=> 'anva_styles',
-				'src'		=> anva_get_core_uri() . 'assets/css/styles.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/styles.css',
 				'deps'		=> array(),
-				'ver'		=> ANVA_FRAMEWORK_VERSION,
+				'ver'		=> self::$version,
 				'media'		=> 'all',
 			);
 
 			// Framework Responsive Styles
 			$this->framework_stylesheets['anva_responsive'] = array(
 				'handle'	=> 'anva_responsive',
-				'src'		=> anva_get_core_uri() . 'assets/css/responsive.css',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/styles-responsive.css',
 				'deps'		=> array( 'anva_shortcodes', 'anva_styles' ),
-				'ver'		=> ANVA_FRAMEWORK_VERSION,
+				'ver'		=> self::$version,
 				'media'		=> 'all',
 			);
 

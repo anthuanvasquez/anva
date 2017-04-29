@@ -74,6 +74,7 @@ gulp.task('sass-admin', () => {
         .pipe(plugins.if(!gutil.env.debug, plugins.sass()))
         .pipe(plugins.postcss(processors))
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
+        .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.admin.dest))
         .pipe(plugins.logger({ afterEach: ' Compiled!' }))
         .pipe(browsersync.stream());
@@ -117,6 +118,6 @@ gulp.task('styles-build', () => {
 });
 
 // Master styles tasks
-gulp.task('sass', ['sass-theme', 'sass-core', 'sass-admin']);
+gulp.task('sass',       ['sass-theme', 'sass-core', 'sass-admin']);
 gulp.task('css-minify', ['css-minify-theme', 'css-minify-core', 'css-minify-admin']);
-gulp.task('styles', ['styles-build', 'css-minify']);
+gulp.task('styles',     ['styles-build', 'css-minify']);

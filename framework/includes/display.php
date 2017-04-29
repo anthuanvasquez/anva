@@ -282,7 +282,9 @@ function anva_header_default() {
             ?>
             <div id="header-wrap">
                 <div class="container clearfix">
-                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                    <div id="primary-menu-trigger">
+                    	<i class="icon-reorder"></i>
+                    </div>
                     <?php do_action( 'anva_header_logo' ); ?>
                     <?php do_action( 'anva_header_extras' ); ?>
                     <?php do_action( 'anva_header_primary_menu' ); ?>
@@ -404,12 +406,16 @@ function anva_header_primary_menu_addon_default() {
 
     <?php if ( $side_panel_display && 'style_10' != $primary_menu_style ) : ?>
         <div id="side-panel-trigger" class="side-panel-trigger">
-            <a href="#"><i class="icon-reorder"></i></a>
+            <a href="#">
+            	<i class="icon-reorder"></i>
+            </a>
         </div>
     <?php endif; ?>
 
     <?php if ( 'style_10' == $primary_menu_style ) : ?>
-        <a href="#" id="overlay-menu-close" class="visible-lg-block visible-md-block"><i class="icon-line-cross"></i></a>
+        <a href="#" id="overlay-menu-close" class="visible-lg-block visible-md-block">
+        	<i class="icon-line-cross"></i>
+        </a>
     <?php
     endif;
 }

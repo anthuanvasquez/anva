@@ -16,17 +16,47 @@ if ( ! class_exists( 'Anva_Scripts' ) ) :
  */
 class Anva_Scripts {
 
+	/**
+	 * The theme version.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	private static $version;
+
     /**
-     * Properties
-     */
+	 * A single instance of this class.
+	 *
+	 * @since 1.0.0
+	 */
     private static $instance = null;
 
+    /**
+	 * Remove scripts array.
+	 *
+	 * @since 1.0.0
+	 */
     private $remove_scripts = array();
 
+    /**
+	 * Core scripts array.
+	 *
+	 * @since 1.0.0
+	 */
     private $framework_scripts = array();
 
+    /**
+	 * Framework dependencies.
+	 *
+	 * @since 1.0.0
+	 */
     private $framework_deps = array();
 
+    /**
+	 * Custom scripts.
+	 *
+	 * @since 1.0.0
+	 */
     private $custom_scripts = array();
 
     /**
@@ -42,11 +72,12 @@ class Anva_Scripts {
     }
 
     /**
-     * Constructor
-     */
-    private function __construct()
-    {
-        // Only front end
+	 * Constructor Hook everythin in.
+	 */
+    private function __construct() {
+
+        self::$version = Anva::get_theme_version();
+
         if ( ! is_admin() ) {
             // Setup scripts from Framework and Custom API.
             // No enqueuing yet.
@@ -68,7 +99,7 @@ class Anva_Scripts {
         // jQuery Camera
         $this->framework_scripts['jquery_camera'] = array(
             'handle'    => 'jquery_camera',
-            'src'       => anva_get_core_uri() . 'assets/js/vendor/jquery.camera.min.js',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/vendor/jquery.camera.min.js',
             'deps'      => array( 'jquery' ),
             'ver'       => '1.4.0',
             'footer'    => true
@@ -77,7 +108,7 @@ class Anva_Scripts {
         // jQuery Nivo
         $this->framework_scripts['jquery_nivo'] = array(
             'handle'    => 'jquery_nivo',
-            'src'       => anva_get_core_uri() . 'assets/js/vendor/jquery.nivo.min.js',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/vendor/jquery.nivo.min.js',
             'deps'      => array( 'jquery' ),
             'ver'       => '3.2.0',
             'footer'    => true
@@ -86,18 +117,18 @@ class Anva_Scripts {
         // Required Plugins
         $this->framework_scripts['anva_plugins'] = array(
             'handle'    => 'anva_plugins',
-            'src'       => anva_get_core_uri() . 'assets/js/plugins.min.js',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/plugins.js',
             'deps'      => array( 'jquery' ),
-            'ver'       => ANVA_FRAMEWORK_VERSION,
+            'ver'       => self::$version,
             'footer'    => true
         );
 
         // Functions
         $this->framework_scripts['anva_main'] = array(
             'handle'    => 'anva_main',
-            'src'       => anva_get_core_uri() . 'assets/js/main.js',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/main.js',
             'deps'      => array( 'jquery', 'anva_plugins' ),
-            'ver'       => ANVA_FRAMEWORK_VERSION,
+            'ver'       => self::$version,
             'footer'    => true
         );
 

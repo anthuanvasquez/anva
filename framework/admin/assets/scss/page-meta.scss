@@ -1,5 +1,3 @@
-@import 'config/variables';
-@import 'config/mixins/responsive';
-@import 'config/mixins/util';
+@import 'config';
 
-@import 'core/component/page-meta';
+@import 'core/module/page-meta';

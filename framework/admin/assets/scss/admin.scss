@@ -1,16 +1,13 @@
-@import 'config/variables';
-@import 'config/mixins/responsive';
-@import 'config/mixins/util';
+@import 'config';
 
 @import 'component/switch';
 @import 'component/radio-checkbox';
+@import 'component/animations';
 
 @import 'core/base/forms';
 @import 'core/base/typography';
 @import 'core/base/base';
-
-@import 'core/component/sections';
-@import 'core/component/options';
-@import 'core/component/notices';
-@import 'core/component/welcome';
-@import 'core/component/animations'
+@import 'core/module/sections';
+@import 'core/module/options';
+@import 'core/module/notices';
+@import 'core/module/welcome';
