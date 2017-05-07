@@ -24,7 +24,7 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+		<?php do_action( 'anva_post_content_before' ); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<div class="entry-wrap">
@@ -46,7 +46,7 @@ get_header();
 			</div><!-- .entry-wrap (end) -->
 		<?php endwhile; ?>
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+		<?php do_action( 'anva_post_content_after' ); ?>
 
 	</div><!-- .postcontent (end) -->
 

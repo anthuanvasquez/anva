@@ -1,13 +1,13 @@
 <?php
 
 // Customizer Extensions
-include_once ANVA_FRAMEWORK_DIR . 'customizer/custom-controls.php';
+include_once Anva::$framework_dir_path . 'customizer/custom-controls.php';
 
 // Customizer Previews
-include_once ANVA_FRAMEWORK_DIR . 'customizer/preview.php';
+include_once Anva::$framework_dir_path . 'customizer/preview.php';
 
 // Customizer Utilities
-include_once ANVA_FRAMEWORK_DIR . 'customizer/utilities.php';
+include_once Anva::$framework_dir_path . 'customizer/utilities.php';
 
 /**
  * Add option section for theme customizer added in WP 3.4.
@@ -222,6 +222,7 @@ function anva_customizer_init( $wp_customize ) {
 							$defaults = array(
 								'size' 		=> '',
 								'style'		=> '',
+								'weight'    => '',
 								'face' 		=> '',
 								'color' 	=> '',
 								'select' 	=> '',
@@ -271,9 +272,8 @@ function anva_customizer_init( $wp_customize ) {
 
 										case 'size' :
 											$size_options = array();
-											for($i = 9; $i < 71; $i++) {
-												$size = $i . 'px';
-												$size_options[$size] = $size;
+											foreach (anva_recognized_font_sizes() as $size) {
+												$size_options[$size] = $size . 'px';
 											}
 
 											$wp_customize->add_control(
@@ -329,6 +329,21 @@ function anva_customizer_init( $wp_customize ) {
 											);
 
 											$font_counter++;
+
+											break;
+
+										case 'weight' :
+
+											$wp_customize->add_control(
+												$option['id'] . '_' . $attribute, array(
+													'priority'		=> $font_counter,
+													'settings'		=> $option_name . '[' . $option['id'] . '][' . $attribute . ']',
+													'label'   		=> $option['label'] . ' ' . ucfirst( $attribute ),
+													'section'    	=> $section['id'],
+													'type'       	=> 'select',
+													'choices'    	=> anva_recognized_font_weights(),
+												)
+											);
 
 											break;
 

@@ -24,20 +24,20 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+		<?php do_action( 'anva_post_content_before' ); ?>
 
 		<div id= "posts" class="<?php anva_post_class( 'search' ); ?>">
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-					<?php anva_get_template_part( 'content' ); ?>
+					<?php anva_get_template_part( 'post', 'content' ); ?>
 				<?php endwhile; ?>
-				<?php anva_num_pagination(); ?>
+				<?php anva_get_template_part( 'post', 'content-pagination' ); ?>
 			<?php else : ?>
-				<?php anva_get_template_part( 'none' ); ?>
+				<?php anva_get_template_part( 'post', 'content-none' ); ?>
 			<?php endif; ?>
 		</div><!-- #posts (end) -->
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+		<?php do_action( 'anva_post_content_after' ); ?>
 
 	</div><!-- .postcontent (end) -->
 

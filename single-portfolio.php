@@ -29,7 +29,7 @@ $client = anva_get_post_meta( '_anva_client' );
 	<div class="<?php anva_column_class( 'content' ); ?>">
 		<div id="portfolio">
 
-			<?php do_action( 'anva_posts_content_before' ); ?>
+			<?php do_action( 'anva_post_content_before' ); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 				<div class="entry-wrap">
@@ -127,21 +127,21 @@ $client = anva_get_post_meta( '_anva_client' );
 								<div class="panel-body">
 									<ul class="portfolio-meta nobottommargin">
 										<li>
-											<span><i class="icon-user"></i> Created by:</span>
+											<span><i class="icon-user"></i> <?php _e('Created by', 'anva'); ?>:</span>
 											<?php anva_the_post_meta( '_anva_author' ); ?>
 										</li>
 										<li>
-											<span><i class="icon-calendar"></i> Completed on:</span>
+											<span><i class="icon-calendar"></i> <?php _e('Completed on', 'anva'); ?>:</span>
 											<?php anva_the_post_meta( '_anva_date' ); ?>
 										</li>
 										<?php if ( anva_get_terms_links( 'portfolio_skill' ) ) : ?>
 											<li>
-												<span><i class="icon-lightbulb"></i> Skills:</span>
+												<span><i class="icon-lightbulb"></i> <?php _e('Skills', 'anva'); ?>:</span>
 												<?php anva_the_terms_links( 'portfolio_skill', ' / ' ); ?>
 											</li>
 										<?php endif; ?>
 										<li>
-											<span><i class="icon-link"></i> Client:</span>
+											<span><i class="icon-link"></i> <?php _e('Client', 'anva'); ?>:</span>
 											<a href="<?php anva_the_post_meta( '_anva_client_url' ); ?>">
 												<?php anva_the_post_meta( '_anva_client' ); ?>
 											</a>
@@ -149,7 +149,7 @@ $client = anva_get_post_meta( '_anva_client' );
 									</ul>
 								</div>
 							</div>
-							<?php anva_post_share(); ?>
+							<?php anva_get_template_part( 'post', 'content-share' ); ?>
 						</div>
 
 						<div class="clear"></div>
@@ -160,11 +160,11 @@ $client = anva_get_post_meta( '_anva_client' );
 					</article><!-- #post-<?php the_ID(); ?> -->
 				</div><!-- .entry-wrap (end) -->
 
-				<?php do_action( 'anva_posts_comments' ); ?>
+				<?php do_action( 'anva_post_comments' ); ?>
 
 			<?php endwhile; ?>
 
-			<?php do_action( 'anva_posts_content_after' ); ?>
+			<?php do_action( 'anva_post_content_after' ); ?>
 
 		</div><!-- #portfolio (end) -->
 	</div><!-- .postcontent (end) -->

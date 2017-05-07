@@ -11,8 +11,8 @@ if ( ! class_exists( 'Anva_Options_Media_Uploader' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Options_Media_Uploader
-{
+class Anva_Options_Media_Uploader {
+
 	/**
 	 * A single instance of this class.
  	 *
@@ -27,8 +27,7 @@ class Anva_Options_Media_Uploader
 	 *
 	 * @since 1.0.0
 	 */
-	public static function instance()
-	{
+	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -41,8 +40,7 @@ class Anva_Options_Media_Uploader
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'media_scripts' ) );
 	}
 
@@ -56,8 +54,7 @@ class Anva_Options_Media_Uploader
 	 * @param  string $_name
 	 * @return string $output
 	 */
-	public static function uploader( $_id, $_value, $_desc = '', $_name = '' )
-	{
+	public static function uploader( $_id, $_value, $_desc = '', $_name = '' ) {
 		// Gets the unique option id
 		$option_name = anva_get_option_name();
 
@@ -139,8 +136,7 @@ class Anva_Options_Media_Uploader
 	 * @since 1.0.0
 	 * @param object $hook
 	 */
-	public function media_scripts( $hook )
-	{
+	public function media_scripts( $hook ) {
 		$menu = anva_get_options_page_menu();
 
 		// if ( substr( $hook, -strlen( $menu['menu_slug'] ) ) !== $menu['menu_slug'] )

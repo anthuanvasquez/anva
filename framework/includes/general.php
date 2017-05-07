@@ -38,9 +38,9 @@ function anva_add_theme_support() {
  * @since 1.0.0
  */
 function anva_require_theme_supports() {
-	require_if_theme_supports( 'anva-menu', ANVA_FRAMEWORK_EXT . 'menu/menu.php' );
-	require_if_theme_supports( 'anva-instant-search', ANVA_FRAMEWORK_EXT . 'instant-search/search.php' );
-	require_if_theme_supports( 'anva-woocommerce', ANVA_FRAMEWORK_EXT . 'woocommerce/woocommerce.php' );
+	require_if_theme_supports( 'anva-menu', Anva::$framework_dir_path . 'component/navigation/menu.php' );
+	require_if_theme_supports( 'anva-instant-search', Anva::$framework_dir_path . 'component/instant-search.php' );
+	require_if_theme_supports( 'anva-woocommerce', Anva::$framework_dir_path . 'component/woocommerce.php' );
 }
 
 /**

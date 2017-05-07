@@ -15,6 +15,7 @@ if ( ! class_exists( 'Anva_Options' ) ) :
  * @package     Anva WordPress Framework
  */
 class Anva_Options {
+
 	/**
 	 * A single instance of this class.
  	 *
@@ -47,8 +48,7 @@ class Anva_Options {
 	 *
 	 * @since 1.0.0
 	 */
-	public static function instance()
-	{
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self;
 		}
@@ -59,8 +59,7 @@ class Anva_Options {
 	/**
 	 * Constructor Hook everything in.
 	 */
-	private function __construct()
-	{
+	private function __construct() {
 		if ( is_admin() ) {
 
 			// Setup options
@@ -74,8 +73,8 @@ class Anva_Options {
 	/**
 	 * Setup raw options array for the start of the API process.
 	 */
-	public function set_raw_options()
-	{
+	public function set_raw_options() {
+
 		/* ---------------------------------------------------------------- */
 		/* Helpers
 		/* ---------------------------------------------------------------- */

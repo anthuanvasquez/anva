@@ -20,7 +20,7 @@ class Anva_Nav_Menu_Edit extends Walker_Nav_Menu_Edit {
 
         // Get columns
         $columns = array();
-        $columns[''] = __( 'Select Columns', 'anva' );
+        $columns[''] = __( 'Default Columns', 'anva' );
         foreach ( anva_get_grid_columns() as $key => $column ) {
             $columns[ $column['class'] ] = $column['name'];
         }

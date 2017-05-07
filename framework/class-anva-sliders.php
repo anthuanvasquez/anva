@@ -71,17 +71,13 @@ class Anva_Sliders {
 	 */
 	private function __construct() {
 
-		//if ( is_admin() ) {
+		// Setup plugin default slider types
+		$this->set_core_sliders();
+		$this->set_sliders();
 
-			// Setup plugin default slider types
-			$this->set_core_sliders();
-			$this->set_sliders();
-
-			// Establish slider types based on custom modifications
-			// combined with plugin defaults
-			add_action( 'after_setup_theme', array( $this, 'set_sliders' ), 1000 );
-
-		//}
+		// Establish slider types based on custom modifications
+		// combined with plugin defaults
+		add_action( 'after_setup_theme', array( $this, 'set_sliders' ), 1000 );
 
 	}
 
@@ -624,67 +620,63 @@ class Anva_Sliders {
 	 */
 	public function add( $slider_id, $slider_name, $slide_types, $media_positions, $elements, $options ) {
 
-		//if ( is_admin() ) {
+		// Start new slider
+		$new_slider  = array(
+			'name' 	   => $slider_name,
+			'id' 	   => $slider_id,
+			'options'  => $options,
+			'elements' => $elements
+		);
 
-			// Start new slider
-			$new_slider  = array(
-				'name' 		 => $slider_name,
-				'id'			 => $slider_id,
-				'options'	 => $options,
-				'elements' => $elements
-			);
+		// Slide Types
+		// $slide_types should look something like: array( 'image', 'video', 'custom' )
+		$new_slider['types'] = array();
 
-			// Slide Types
-			// $slide_types should look something like: array( 'image', 'video', 'custom' )
-			$new_slider['types'] = array();
+		if ( $slide_types ) {
+			foreach ( $slide_types as $type ) {
+				switch ( $type ) {
 
-			if ( $slide_types ) {
-				foreach ( $slide_types as $type ) {
-					switch ( $type ) {
+					case 'image' :
+						$new_slider['types']['image'] = array(
+							'name' 			=> __( 'Image Slide', 'anva' ),
+							'main_title' 	=> __( 'Setup Image', 'anva' )
+						);
+						break;
 
-						case 'image' :
-							$new_slider['types']['image'] = array(
-								'name' 			=> __( 'Image Slide', 'anva' ),
-								'main_title' 	=> __( 'Setup Image', 'anva' )
-							);
-							break;
+					case 'video' :
+						$new_slider['types']['video'] = array(
+							'name' 			=> __( 'Video Slide', 'anva' ),
+							'main_title' 	=> __( 'Video Link', 'anva' )
+						);
+						break;
 
-						case 'video' :
-							$new_slider['types']['video'] = array(
-								'name' 			=> __( 'Video Slide', 'anva' ),
-								'main_title' 	=> __( 'Video Link', 'anva' )
-							);
-							break;
+					case 'custom' :
+						$new_slider['types']['custom'] = array(
+							'name' 			=> __( 'Custom Slide', 'anva' ),
+							'main_title' 	=> __( 'Setup Custom Content', 'anva' )
+						);
+						break;
 
-						case 'custom' :
-							$new_slider['types']['custom'] = array(
-								'name' 			=> __( 'Custom Slide', 'anva' ),
-								'main_title' 	=> __( 'Setup Custom Content', 'anva' )
-							);
-							break;
-
-					}
 				}
 			}
+		}
 
-			// Slide Media Positions
-			// $media_positions should look something like: array( 'full' => 'crop_size', 'align-left' => 'crop_size', 'align-right' => 'crop_size' )
-			$new_slider['positions'] = array();
+		// Slide Media Positions
+		// $media_positions should look something like: array( 'full' => 'crop_size', 'align-left' => 'crop_size', 'align-right' => 'crop_size' )
+		$new_slider['positions'] = array();
 
-			$positions = apply_filters( 'anva_slider_image_positions', array( 'full', 'align-left', 'align-right' ) );
+		$positions = apply_filters( 'anva_slider_image_positions', array( 'full', 'align-left', 'align-right' ) );
 
-			if ( $media_positions ) {
-				foreach ( $media_positions as $position => $crop_size ) {
-					if ( in_array( $position, $positions ) ) {
-						$new_slider['positions'][$position] = $crop_size;
-					}
+		if ( $media_positions ) {
+			foreach ( $media_positions as $position => $crop_size ) {
+				if ( in_array( $position, $positions ) ) {
+					$new_slider['positions'][$position] = $crop_size;
 				}
 			}
+		}
 
-			// Add new slider
-			$this->custom_sliders[$slider_id] = $new_slider;
-
-		//}
+		// Add new slider
+		$this->custom_sliders[$slider_id] = $new_slider;
 
 		// Add frontend display
 		//add_action( 'anva_slider_' . $slider_id, );

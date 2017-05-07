@@ -23,12 +23,13 @@
 			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 		</div><!-- .entry-title (end) -->
 
-		<?php do_action( 'anva_posts_meta' ); ?>
+		<?php do_action( 'anva_post_meta' ); ?>
 
 		<div class="entry-content">
-			<?php do_action( 'anva_posts_content' ); ?>
+			<?php do_action( 'anva_post_content' ); ?>
+
 			<div class="entry-footer clearfix">
-				<?php do_action( 'anva_posts_footer' ); ?>
+				<?php do_action( 'anva_post_footer' ); ?>
 			</div>
 		</div><!-- .entry-content (end) -->
 

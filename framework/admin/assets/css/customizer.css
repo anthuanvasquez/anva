@@ -2,12 +2,10 @@
   box-sizing: border-box;
   width: 100%; }
 
-/* Titles */
 .customize-control-title {
   margin-top: 5px;
   margin-bottom: 5px; }
 
-/* Disclaimer */
 .anva-disclaimer {
   color: #777;
   display: block;
@@ -15,14 +13,12 @@
   margin: 10px;
   padding: 10px; }
 
-/* Divider */
 .anva-divider {
   display: block;
   border-bottom: 1px dashed #ccc;
   margin: 0 0 20px 0;
   padding: 20px 0 0 0; }
 
-/* Textareas */
 .customize-control-textarea textarea {
   line-height: 18px;
   margin: 0;
@@ -32,7 +28,6 @@
     border-color: #bbb;
     outline: none; }
 
-/* Fonts */
 .customize-section-typography .customize-control-select,
 .customize-section-typography .customize-control-font_face,
 .customize-section-typography .customize-control-color {
@@ -48,3 +43,5 @@
   display: block;
   margin-top: 10px;
   padding: 10px; }
+
+/*# sourceMappingURL=customizer.css.map */

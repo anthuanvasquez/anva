@@ -31,7 +31,7 @@ get_header();
 			$query = anva_get_posts();
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) : $query->the_post();
-					anva_get_template_part( 'small' );
+					anva_get_template_part( 'post', 'content-small' );
 				endwhile;
 
 				anva_num_pagination( $query->max_num_pages );

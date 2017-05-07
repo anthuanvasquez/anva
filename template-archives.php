@@ -54,7 +54,7 @@ get_header();
 						<?php wp_get_archives( 'type=monthly&show_post_count=1' ) ?>
 					</ul>
 				</div><!-- .entry-content (end) -->
-			</article><!-- #post-<?php the_ID(); ?> -->
+			</article><!-- #post-<?php the_ID(); ?> (end) -->
 		</div><!-- .entry-wrap (end) -->
 	</div><!-- .postcontent (end) -->
 

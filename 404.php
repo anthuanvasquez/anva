@@ -25,7 +25,7 @@ get_header();
 
 <div class="container clearfix">
 	<div class="col_full">
-		<?php anva_get_template_part( '404' ); ?>
+		<?php anva_get_template_part( 'page', 'content-404' ); ?>
 	</div><!-- .col_full (end) -->
 </div><!-- .container (end) -->
 

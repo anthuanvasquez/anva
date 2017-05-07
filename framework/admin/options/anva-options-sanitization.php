@@ -317,11 +317,13 @@ function anva_sanitize_typography( $input, $option ) {
  * Sanitization for font size
  */
 function anva_sanitize_font_size( $value ) {
-	$recognized = anva_recognized_font_sizes();
+	$recognized  = anva_recognized_font_sizes();
 	$value_check = preg_replace('/px/','', $value);
+
 	if ( in_array( (int) $value_check, $recognized ) ) {
 		return $value;
 	}
+
 	return apply_filters( 'anva_default_font_size', $recognized );
 }
 

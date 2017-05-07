@@ -24,7 +24,7 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+		<?php do_action( 'anva_post_content_before' ); ?>
 
 		<?php
 			$author = ( isset( $_GET['author_name'] ) ) ? get_user_by( 'slug', $author_name ) : get_userdata( intval( $author ) );
@@ -57,16 +57,16 @@ get_header();
 			if ( have_posts() ) {
 				while ( have_posts() ) {
 					the_post();
-					anva_get_template_part( 'content' );
+					anva_get_template_part( 'post', 'content' );
 				}
 				anva_num_pagination();
 			} else {
-				anva_get_template_part( 'none' );
+				anva_get_template_part( 'post', 'content-none' );
 			}
 			?>
 		</div><!-- #posts (end) -->
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+		<?php do_action( 'anva_post_content_after' ); ?>
 
 	</div><!-- .postcontent (end) -->
 

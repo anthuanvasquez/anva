@@ -318,7 +318,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Radio
 			/* ------------------------------------- */
 
-			case "radio":
+			case 'radio':
 				$name = $option_name .'['. $value['id'] .']';
 				foreach ( $value['options'] as $key => $option ) {
 					$id = $option_name . '-' . $value['id'] .'-'. $key;
@@ -332,7 +332,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Radio Images
 			/* ------------------------------------- */
 
-			case "images":
+			case 'images':
 				$name = $option_name .'['. $value['id'] .']';
 				foreach ( $value['options'] as $key => $option ) {
 					$selected = '';
@@ -368,7 +368,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Multicheck
 			/* ------------------------------------- */
 
-			case "multicheck":
+			case 'multicheck':
 				foreach ( $value['options'] as $key => $option ) {
 					$checked = '';
 					$label = $option;
@@ -592,7 +592,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Color Picker
 			/* ------------------------------------- */
 
-			case "color":
+			case 'color':
 				$default_color = '';
 				if ( isset($value['std']) ) {
 					if ( $val !=  $value['std'] )
@@ -605,7 +605,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Uploader
 			/* ------------------------------------- */
 
-			case "upload":
+			case 'upload':
 				$output .= Anva_Options_Media_Uploader::uploader( $value['id'], $val, NULL, $option_name . '[' . $value['id'] . ']' );
 
 				break;
@@ -614,7 +614,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Range Slider
 			/* ------------------------------------- */
 
-			case "range":
+			case 'range':
 				$max   = $value['options']['max'];
 				$min   = $value['options']['min'];
 				$step  = $value['options']['step'];
@@ -857,7 +857,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Info Notice
 			/* ------------------------------------- */
 
-			case "info":
+			case 'info':
 				$id = '';
 				$class = 'section';
 
@@ -891,7 +891,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 			/* Heading
 			/* ------------------------------------- */
 
-			case "heading":
+			case 'heading':
 				$counter++;
 				if ( $counter >= 2 ) {
 					$output .= '</div><!-- .group (end) -->' . "\n";

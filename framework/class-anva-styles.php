@@ -14,7 +14,7 @@
 
 if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 
-	class Anva_Stylesheets {
+	class Anva_Styles {
 
 		/**
 		 * The theme version.
@@ -202,7 +202,7 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 			}
 
 			// Backwards compat for $deps
-			$GLOBALS['anva_framework_stylesheets'] = apply_filters( 'anva_framework_stylesheets', $this->framework_deps );
+			$GLOBALS['anva_framework_styles'] = apply_filters( 'anva_framework_styles', $this->framework_deps );
 
 		}
 

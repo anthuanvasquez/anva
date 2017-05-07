@@ -38,9 +38,15 @@ $query = anva_get_posts();
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 				<?php anva_the_post_grid_thumbnail( $thumbnail ); ?>
 				<div class="entry-title">
-					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<h2>
+						<a href="<?php the_permalink(); ?>">
+							<?php the_title(); ?>
+						</a>
+					</h2>
 				</div>
-				<?php anva_posted_on_mini(); ?>
+
+				<?php anva_get_template_part( 'post', 'content-meta_mini' ); ?>
+
 				<div class="entry-content">
 					<?php anva_the_excerpt(); ?>
 				</div>

@@ -45,11 +45,11 @@ get_header();
 
 	<div id="portfolio-shuffle" class="portfolio-shuffle" data-container="#portfolio">
 		<i class="icon-random"></i>
-	</div><!-- #portfolio-shuffle -->
+	</div><!-- #portfolio-shuffle (end) -->
 
 	<div class="clear"></div>
 
-	<?php do_action( 'anva_posts_content_before' ); ?>
+	<?php do_action( 'anva_post_content_before' ); ?>
 
 	<div id="portfolio" class="<?php anva_post_class( 'portfolio' ); ?>">
 		<?php
@@ -71,7 +71,11 @@ get_header();
 							</div>
 						</div>
 						<div class="portfolio-desc">
-							<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+							<h3>
+								<a href="<?php the_permalink(); ?>">
+									<?php the_title(); ?>
+								</a>
+							</h3>
 							<?php if ( $terms ) : ?>
 								<span><?php anva_the_terms_links( 'portfolio_type', ', ' ); ?></span>
 							<?php endif; ?>
@@ -80,12 +84,12 @@ get_header();
 				<?php
 			endwhile;
 
-			anva_num_pagination();
+			anva_get_template_part( 'post', 'content-pagination' );
 		endif;
 		?>
 	</div><!-- #portfolio (end) -->
 
-	<?php do_action( 'anva_posts_content_after' ); ?>
+	<?php do_action( 'anva_post_content_after' ); ?>
 
 </div><!-- .container (end) -->
 

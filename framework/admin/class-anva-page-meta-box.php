@@ -13,8 +13,8 @@ if ( ! class_exists( 'Anva_Page_Meta_Box' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Page_Meta_Box
-{
+class Anva_Page_Meta_Box {
+
 	/**
 	 * ID for meta box and post field saved.
 	 *
@@ -60,8 +60,7 @@ class Anva_Page_Meta_Box
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $id, $args, $options )
-	{
+	public function __construct( $id, $args, $options ) {
 		$this->id = $id;
 		$this->options = $options;
 
@@ -92,8 +91,7 @@ class Anva_Page_Meta_Box
 	 * @since  1.0.0
 	 * @param  object $hook
 	 */
-	public function scripts( $hook )
-	{
+	public function scripts( $hook ) {
 		global $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
@@ -127,8 +125,7 @@ class Anva_Page_Meta_Box
 	 *
 	 * @since 1.0.0
 	 */
-	public function add()
-	{
+	public function add() {
 		// Filters
 		$this->args = apply_filters( 'anva_meta_args_' . $this->id, $this->args );
 		$this->options = apply_filters( 'anva_meta_options_' . $this->id, $this->options );
@@ -151,8 +148,7 @@ class Anva_Page_Meta_Box
 	 * @since 1.0.0
 	 * @param object $post
 	 */
-	public function display( $post )
-	{
+	public function display( $post ) {
 		// Make sure options interface exists so we can show the options form
 		if ( ! function_exists( 'anva_get_options_fields' ) ) {
 			echo __( 'Anva Options Interface not found.', 'anva' );
@@ -212,8 +208,7 @@ class Anva_Page_Meta_Box
 	 * @since 1.0.0
 	 * @param integer $post_id
 	 */
-	public function save( $post_id )
-	{
+	public function save( $post_id ) {
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.

@@ -17,7 +17,7 @@ class Anva_Menu_Options {
     /**
      * A single instance of this class.
      *
-     * @since 2.3.0
+     * @since 1.0.0
      */
     private static $instance = null;
 
@@ -28,7 +28,7 @@ class Anva_Menu_Options {
     /**
      * Creates or returns an instance of this class.
      *
-     * @since 2.3.0
+     * @since 1.0.0
      *
      * @return Anva_Menu_Options A single instance of this class.
      */
@@ -44,7 +44,7 @@ class Anva_Menu_Options {
     /**
      * Constructor. Hook everything in.
      *
-     * @since 2.3.0
+     * @since 1.0.0
      */
     public function __construct() {
 
@@ -61,12 +61,12 @@ class Anva_Menu_Options {
     /**
      * Menus Admin page scripts and styles
      *
-     * @since 2.5.0
+     * @since 1.0.0
      */
     public function assets( $hook ) {
         if ( $hook == 'nav-menus.php' ) {
-            wp_enqueue_style( 'anva_menus', esc_url( ANVA_FRAMEWORK_ADMIN_CSS . 'menu.css' ), null, ANVA_FRAMEWORK_VERSION );
-            wp_enqueue_script( 'anva_menus', esc_url( ANVA_FRAMEWORK_ADMIN_JS . 'menu.js' ), array('jquery'), ANVA_FRAMEWORK_VERSION );
+            wp_enqueue_style( 'anva_menus', esc_url( Anva::$framework_dir_uri . 'admin/assets/css/page-menu.css' ), null, Anva::$version );
+            wp_enqueue_script( 'anva_menus', esc_url( Anva::$framework_dir_uri . 'admin/assets/js/page-menu.js' ), array( 'jquery' ), Anva::$version );
         }
     }
 
@@ -74,7 +74,7 @@ class Anva_Menu_Options {
      * Include an extended version of WP's Walker_Nav_Menu_Edit
      * and apply it.
      *
-     * @since 2.5.0
+     * @since 1.0.0
      */
     public function walker() {
         include_once( 'class-anva-nav-menu-edit.php' );
@@ -84,7 +84,7 @@ class Anva_Menu_Options {
     /**
      * Save the options we've added to the menu builder.
      *
-     * @since 2.5.0
+     * @since 1.0.0
      */
     public function save( $menu_id, $item_id, $args ) {
 

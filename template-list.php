@@ -16,6 +16,9 @@
  */
 
 get_header();
+
+// Get posts.
+$query = anva_get_posts();
 ?>
 
 <div class="container clearfix">
@@ -24,14 +27,13 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+		<?php do_action( 'anva_post_content_before' ); ?>
 
 		<div id="posts" class="<?php anva_post_class( 'list' ); ?>">
 			<?php
-			$query = anva_get_posts();
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) : $query->the_post();
-					anva_get_template_part( 'content' );
+					anva_get_template_part( 'post', 'content' );
 				endwhile;
 
 				anva_num_pagination( $query->max_num_pages );
@@ -40,7 +42,7 @@ get_header();
 			?>
 		</div><!-- #posts (end) -->
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+		<?php do_action( 'anva_post_content_after' ); ?>
 
 	</div><!-- .postcontent (end) -->
 

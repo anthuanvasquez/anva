@@ -71,14 +71,14 @@
 				</div><!-- .entry-title (end) -->
 			<?php endif; ?>
 
-			<?php do_action( 'anva_posts_meta' ); ?>
+			<?php do_action( 'anva_post_meta' ); ?>
 
 			<div class="entry-content">
-				<?php do_action( 'anva_posts_content' ); ?>
+				<?php do_action( 'anva_post_content' ); ?>
 			</div><!-- .entry-content (end) -->
 
 			<div class="entry-footer clearfix">
-				<?php do_action( 'anva_posts_footer' ); ?>
+				<?php do_action( 'anva_post_footer' ); ?>
 			</div><!-- .entry-footer (end) -->
 
 		</div><!-- .entry-c (end) -->

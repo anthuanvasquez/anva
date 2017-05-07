@@ -385,7 +385,9 @@ blockquote {
     right: 30px;
     bottom: 50px;
     cursor: pointer;
+    z-index: 1199;
     @include border-radius(2px);
+
     &:hover {
         background-color: $theme-color;
     }

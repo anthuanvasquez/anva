@@ -848,7 +848,7 @@ function anva_get_font_weight( $option ) {
 
 	$weight = 'normal';
 
-	if ( ! empty( $option['weight'] ) ){
+	if ( ! empty( $option['weight'] ) ) {
 		$weight = $option['weight'];
 	}
 
@@ -1075,79 +1075,25 @@ function anva_compress( $buffer ) {
 }
 
 /**
- * Get template framework part.
+ * Get template framework part component.
  *
  * @since 1.0.0
  * @param string $name
  * @param string $slug
  */
-function anva_get_template_part( $slug = 'content' ) {
+function anva_get_template_part( $slug = 'post', $name = 'content' ) {
 
-	// Get template path
-	$path = apply_filters( 'anva_templates_path', trailingslashit( 'templates' ) );
+	$components = apply_filters( 'anva_components_list', array( 'page', 'post', 'header', 'footer' ) );
+	$path = apply_filters( 'anva_components_path', trailingslashit( 'framework/component' ) );
 
-	if ( 'content' == $slug ) {
-		get_template_part( $path . $slug );
+
+	if ( in_array( $slug, $components ) ) {
+		$file = trailingslashit( $path . $slug ) . $name;
+		get_template_part( $file );
 		return;
 	}
 
-	get_template_part( $path . 'content', $slug );
-}
-
-/**
- * Get core framework url.
- *
- * @since  1.0.0
- * @return string $uri
- */
-function anva_get_core_uri() {
-	$uri = trailingslashit( get_template_directory_uri() . '/framework' );
-	if ( defined( 'ANVA_FRAMEWORK_URI' ) ) {
-		$uri = ANVA_FRAMEWORK_URI;
-	}
-	return $uri;
-}
-
-/**
- * Get core framework admin url.
- *
- * @since  1.0.0
- * @return string $uri
- */
-function anva_get_core_admin_uri() {
-	$uri = trailingslashit( get_template_directory_uri() . '/framework/admin' );
-	if ( defined( 'ANVA_FRAMEWORK_ADMIN_URI' ) ) {
-		$uri = ANVA_FRAMEWORK_ADMIN_URI;
-	}
-	return $uri;
-}
-
-/**
- * Get core framework directory.
- *
- * @since  1.0.0
- * @return string $path
- */
-function anva_get_core_directory() {
-	$path = trailingslashit( get_template_directory() . '/framework' );
-	if ( defined( 'ANVA_FRAMEWORK_DIR' ) ) {
-		$path = ANVA_FRAMEWORK_DIR;
-	}
-	return $path;
-}
-
-/**
- * Get core framework admin directory.
- *
- * @since  1.0.0
- * @return string $path
- */
-function anva_get_core_admin_directory() {
-	$path = trailingslashit( get_template_directory() . '/framework/admin' );
-	if ( defined( 'ANVA_FRAMEWORK_ADMIN' ) ) {
-		$path = ANVA_FRAMEWORK_ADMIN;
-	}
-	return $path;
+	get_template_part( $path . $slug );
 }
 
 /**
@@ -1170,24 +1116,20 @@ function anva_insert_array_key( $array, $search_key, $insert_key, $insert_value,
 	$new_array = array();
 
 	foreach ( $array as $key => $value ) {
-
-		// INSERT BEFORE THE CURRENT KEY?
-		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT BEFORE THAT FOUNDED KEY
 		if ( $key === $search_key && ! $insert_after ) {
-			$new_array[ $insert_key ] = $insert_value; }
+			$new_array[ $insert_key ] = $insert_value;
+		}
 
-		// COPY THE CURRENT KEY/VALUE FROM OLD ARRAY TO A NEW ARRAY
 		$new_array[ $key ] = $value;
 
-		// INSERT AFTER THE CURRENT KEY?
-		// ONLY IF CURRENT KEY IS THE KEY WE ARE SEARCHING FOR, AND WE WANT TO INSERT AFTER THAT FOUNDED KEY
 		if ( $key === $search_key && $insert_after ) {
-			$new_array[ $insert_key ] = $insert_value; }
+			$new_array[ $insert_key ] = $insert_value;
+		}
 	}
 
-	// APPEND IF KEY ISNT FOUNDED
 	if ( $append && count( $array ) == count( $new_array ) ) {
-		$new_array[ $insert_key ] = $insert_value; }
+		$new_array[ $insert_key ] = $insert_value;
+	}
 
 	return $new_array;
 
@@ -1204,7 +1146,17 @@ function anva_convert_memory_use( $size ) {
 	return @round( $size / pow( 1024, ( $i = floor( log( $size, 1024 ) ) ) ), 2 ) . ' ' . $unit[ $i ];
 }
 
+/**
+ * Show debug information.
+ *
+ * @param  object $object The object given
+ * @return void
+ */
 function anva_dump( $object ) {
+	if ( ! is_object( $object ) ) {
+		return;
+	}
+
 	echo '<pre>';
 	print_r( $object );
 	echo '</pre>';

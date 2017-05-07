@@ -20,7 +20,7 @@
 get_header();
 ?>
 
-	<?php do_action( 'anva_posts_content_before' ); ?>
+	<?php do_action( 'anva_post_content_before' ); ?>
 
 	<div class="custom-content-layout clearfix">
 		<?php
@@ -31,6 +31,6 @@ get_header();
 		?>
 	</div>
 
-	<?php do_action( 'anva_posts_content_after' ); ?>
+	<?php do_action( 'anva_post_content_after' ); ?>
 
 <?php get_footer(); ?>

@@ -299,14 +299,14 @@ add_action( 'after_setup_theme', 'theme_add_theme_support', 10 );
  * @since  1.0.0
  * @return void
  */
-function theme_stylesheets() {
+function theme_styles() {
 
 	// Get curren color hex from scheme.
 	$color = anva_get_current_color();
 	$color = str_replace( '#', '', $color );
 
 	// Get stylesheet API.
-	$api = Anva_Stylesheets::instance();
+	$api = Anva_Styles::instance();
 
 	// Register theme stylesheets.
 	wp_register_style( 'theme_styles', get_template_directory_uri() . '/assets/css/theme.css', array(), ANVA_THEME_VERSION, 'all' );
@@ -330,13 +330,13 @@ function theme_stylesheets() {
 	wp_enqueue_style( 'theme_ie' );
 
 	// Inline theme styles.
-	wp_add_inline_style( 'theme_colors', theme_styles() );
+	wp_add_inline_style( 'theme_colors', theme_inline_styles() );
 
 	// Level 3.
 	$api->print_styles(3);
 
 }
-add_action( 'wp_enqueue_scripts', 'theme_stylesheets' );
+add_action( 'wp_enqueue_scripts', 'theme_styles' );
 
 /**
  * Include the theme scripts.
@@ -378,7 +378,7 @@ add_action( 'wp_enqueue_scripts', 'theme_scripts' );
  * @since  1.0.0
  * @return string $styles
  */
-function theme_styles() {
+function theme_inline_styles() {
 
 	// Styles output.
 	$styles 			= '';
@@ -466,12 +466,12 @@ function theme_styles() {
 	}
 
 
-	h1 { font-size: <?php echo $heading_h1 . 'px'; ?>; }
-	h2 { font-size: <?php echo $heading_h2 . 'px'; ?>; }
-	h3 { font-size: <?php echo $heading_h3 . 'px'; ?>; }
-	h4 { font-size: <?php echo $heading_h4 . 'px'; ?>; }
-	h5 { font-size: <?php echo $heading_h5 . 'px'; ?>; }
-	h6 { font-size: <?php echo $heading_h6 . 'px'; ?>; }
+	h1 { font-size: <?php echo esc_html( $heading_h1 . 'px' ); ?>; }
+	h2 { font-size: <?php echo esc_html( $heading_h2 . 'px' ); ?>; }
+	h3 { font-size: <?php echo esc_html( $heading_h3 . 'px' ); ?>; }
+	h4 { font-size: <?php echo esc_html( $heading_h4 . 'px' ); ?>; }
+	h5 { font-size: <?php echo esc_html( $heading_h5 . 'px' ); ?>; }
+	h6 { font-size: <?php echo esc_html( $heading_h6 . 'px' ); ?>; }
 
 	/* Meta */
 	.entry-meta li,
@@ -497,10 +497,10 @@ function theme_styles() {
 	body {
 		background-color: <?php echo esc_html( $background_color ); ?>;
 		<?php if ( ! empty( $background_image['image'] ) ) : ?>
-			background-image: url("<?php echo esc_url( $background_image['image'] );?>");
-			background-repeat: <?php echo esc_html( $background_image['repeat'] );?>;
-			background-position: <?php echo esc_html( $background_image['position'] );?>;
-			background-attachment: <?php echo esc_html( $background_image['attachment'] );?>;
+			background-image: url("<?php echo esc_url( $background_image['image'] ); ?>");
+			background-repeat: <?php echo esc_html( $background_image['repeat'] ); ?>;
+			background-position: <?php echo esc_html( $background_image['position'] ); ?>;
+			background-attachment: <?php echo esc_html( $background_image['attachment'] ); ?>;
 		<?php endif; ?>
 	}
 
@@ -550,7 +550,7 @@ function theme_styles() {
 				background-position: top center;
 				-webkit-background-size: cover;
 				-moz-background-size: cover;
-				-o-background-size: cover;
+				-ms-background-size: cover;
 				background-size: cover;
 			}
 		<?php endif; ?>
@@ -577,7 +577,9 @@ function theme_styles() {
 
 	<?php if ( 'custom' == $side_panel_color ) : ?>
 		body.side-panel-has-custom #side-panel,
-		body.side-panel-has-custom #side-panel.dark { background-color: <?php echo $side_panel_bg_color; ?>; }
+		body.side-panel-has-custom #side-panel.dark {
+			background-color: <?php echo $side_panel_bg_color; ?>;
+		}
 	<?php endif; ?>
 
 	<?php
@@ -590,9 +592,9 @@ function theme_styles() {
 	}
 
 	// Compress Output
-	return anva_compress( $styles );
+	return $styles;
 }
-add_action( 'wp_enqueue_scripts', 'theme_styles', 20 );
+add_action( 'wp_enqueue_scripts', 'theme_inline_styles', 20 );
 
 /**
  * Theme colors pallete for scheme.

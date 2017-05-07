@@ -35,7 +35,7 @@ $query = anva_get_posts();
 
 	<div class="col_full">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+		<?php do_action( 'anva_post_content_before' ); ?>
 
 		<div class="category-blog clearfix">
 			<ul class="category-filter" data-container="#posts" data-items="<?php echo esc_attr( $items ); ?>" data-grid="<?php echo esc_attr( $column ); ?>">
@@ -59,11 +59,11 @@ $query = anva_get_posts();
 
 		<div id="posts" class="<?php anva_post_class( 'grid' ); ?> grid-<?php echo esc_attr( $column ); ?> filter-container clearfix" data-layout="fitRows">
 			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
-				<?php anva_get_template_part( 'grid' ); ?>
+				<?php anva_get_template_part( 'post', 'content-grid' ); ?>
 			<?php endwhile; ?>
 		</div><!-- #posts (end) -->
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+		<?php do_action( 'anva_post_content_after' ); ?>
 
 	</div><!-- .postcontent (end) -->
 

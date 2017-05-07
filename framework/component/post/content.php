@@ -63,19 +63,23 @@
 
 		<?php if ( ! has_post_format( anva_post_format_filter() ) ) : ?>
 			<div class="entry-title">
-				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+				<h2>
+					<a href="<?php the_permalink(); ?>">
+						<?php the_title(); ?>
+					</a>
+				</h2>
 			</div><!-- .entry-title (end) -->
 		<?php endif; ?>
 
-		<?php do_action( 'anva_posts_meta' ); ?>
+		<?php do_action( 'anva_post_meta' ); ?>
 
 		<div class="entry-content">
-			<?php do_action( 'anva_posts_content' ); ?>
+			<?php do_action( 'anva_post_content' ); ?>
 		</div><!-- .entry-content (end) -->
 
 		<div class="entry-footer clearfix">
-			<?php do_action( 'anva_posts_footer' ); ?>
+			<?php do_action( 'anva_post_footer' ); ?>
 		</div><!-- .entry-footer (end) -->
 
-	</article><!-- #post-<?php the_ID(); ?> -->
+	</article><!-- #post-<?php the_ID(); ?> (end) -->
 </div><!-- .entry-wrap (end) -->

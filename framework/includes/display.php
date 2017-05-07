@@ -142,85 +142,7 @@ function anva_top_bar_default() {
  * @since 1.0.0
  */
 function anva_header_logo_default() {
-
-    $primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
-    $option             = anva_get_option( 'custom_logo' );
-    $name               = get_bloginfo( 'name' );
-    $classes            = array();
-    $classes[]          = 'logo-' . $option['type'];
-
-    if ( $option['type'] == 'custom' || $option['type'] == 'title' || $option['type'] == 'title_tagline' ) {
-        $classes[] = 'logo-text';
-    }
-
-    if ( $option['type'] == 'custom' && ! empty( $option['custom_tagline'] ) ) {
-        $classes[] = 'logo-has-tagline';
-    }
-
-    if ( $option['type'] == 'title_tagline' ) {
-        $classes[] = 'logo-has-tagline';
-    }
-
-    if ( $option['type'] == 'image' ) {
-        $classes[] = 'logo-has-image';
-    }
-
-    if ( $primary_menu_style == 'style_9' ) {
-        $classes[] = 'divcenter';
-    }
-
-    $classes = implode( ' ', $classes );
-
-    echo '<div id="logo" class="' . esc_attr( $classes ) . '">';
-
-    if ( ! empty( $option['type'] ) ) {
-        switch ( $option['type'] ) {
-
-            case 'title' :
-                echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
-                break;
-
-            case 'title_tagline' :
-                echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
-                echo '<span class="logo-tagline">' . get_bloginfo( 'description' ) . '</span>';
-                break;
-
-            case 'custom' :
-                echo '<div class="text-logo"><a href="' . home_url() . '">' . $option['custom'] . '</a></div>';
-                if ( $option['custom_tagline'] ) {
-                    echo '<span class="logo-tagline">' . $option['custom_tagline'] . '</span>';
-                }
-                break;
-
-            case 'image' :
-                $image_1x  = esc_url( $option['image'] );
-                $image_2x  = '';
-                $logo_2x   = '';
-                $logo_alt  = '';
-                $image_alt = '';
-                $class     = '';
-
-                if ( $primary_menu_style == 'style_9' ) {
-                    $class = 'class="divcenter"';
-                }
-
-                if ( ! empty( $option['image_2x'] ) ) {
-                    $image_2x = $option['image_2x'];
-                    $logo_2x = '<a class="retina-logo" href="' . home_url() . '"><img ' . $class . ' src="' . esc_url( $image_2x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
-                }
-
-                if ( ! empty( $option['image_alternate'] ) ) {
-                    $image_alt = $option['image_alternate'];
-                    $logo_alt  = 'data-sticky-logo="' . esc_url( $image_alt ) . '"';
-                    $logo_alt .= 'data-mobile-logo="' . esc_url( $image_alt ) . '"';
-                }
-
-                echo '<a class="standard-logo" href="' . home_url() . '"' . $logo_alt . '><img ' . $class . ' src="' . esc_url( $image_1x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
-                echo $logo_2x;
-                break;
-        }
-    }
-    echo '</div><!-- #logo (end) -->';
+	anva_get_template_part( 'header', 'site-branding' );
 }
 
 /**
@@ -555,99 +477,7 @@ function anva_featured_after_default() {
  * @return void
  */
 function anva_page_title_default() {
-
-    // Don't show page titles on front page.
-    if ( is_front_page() || is_page_template( 'template_builder.php' ) ) {
-        return;
-    }
-
-    // Hide post and page titles
-    $hide_title = anva_get_post_meta( '_anva_hide_title' );
-
-    if ( 'hide' == $hide_title && ( is_single() || is_page() ) ) {
-        return;
-    }
-
-    $style            = '';
-    $classes          = array();
-    $tagline          = anva_get_post_meta( '_anva_page_tagline' );
-    $title_align      = anva_get_post_meta( '_anva_title_align' );
-    $title_bg         = anva_get_post_meta( '_anva_title_bg' );
-    $title_bg_color   = anva_get_post_meta( '_anva_title_bg_color' );
-    $title_bg_image   = anva_get_post_meta( '_anva_title_bg_image' );
-    $title_bg_cover   = anva_get_post_meta( '_anva_title_bg_cover' );
-    $title_bg_text    = anva_get_post_meta( '_anva_title_bg_text' );
-    $title_bg_padding = anva_get_post_meta( '_anva_title_bg_padding' );
-
-    // Remove title background.
-    if ( 'nobg' == $title_bg ) {
-        $classes[] = 'page-title-nobg';
-    }
-
-    // Add dark background
-    if ( 'dark' == $title_bg || ( 'custom' == $title_bg && $title_bg_text ) ) {
-        $classes[] = 'page-title-dark';
-    }
-
-    // Add background color and parallax image
-    if ( 'custom' == $title_bg ) {
-        $title_bg_padding = $title_bg_padding . 'px';
-
-        $style .= 'padding:' . esc_attr( $title_bg_padding ) . ' 0px;';
-        $style .= 'background-color:' . esc_attr( $title_bg_color ) . ';';
-
-        if ( ! empty( $title_bg_image ) ) {
-            $classes[] = 'page-title-parallax';
-            $style .= 'background-image:url("' . esc_url( $title_bg_image ) . '");';
-        }
-
-        if ( $title_bg_cover ) {
-            $style .= '-webkit-background-size:cover;';
-            $style .= '-moz-background-size:cover;';
-            $style .= 'background-size:cover;';
-        }
-
-        $style = "style='{$style}'";
-    }
-
-    // Align title to the right
-    if ( 'right' == $title_align ) {
-        $classes[] = 'page-title-right';
-    }
-
-    // Title centered
-    if ( 'center' == $title_align ) {
-        $classes[] = 'page-title-center';
-    }
-
-    $classes = implode( ' ', $classes );
-
-    if ( ! empty( $title_align ) || 'nobg' == $title_bg  ) {
-        $classes = 'class="' . esc_attr( $classes ) . '"';
-    }
-
-    ?>
-    <section id="page-title" <?php echo $classes; ?> <?php echo $style; ?>>
-        <div class="container clearfix">
-            <h1><?php anva_the_page_title(); ?></h1>
-            <?php
-                if ( ! empty ( $tagline ) ) {
-                    printf( '<span>%s</span>', esc_html( $tagline ) );
-                }
-
-                // Get post types for top navigation
-                $post_types = array( 'portfolio', 'galleries' );
-                $post_types = apply_filters( 'anva_post_types_top_navigation', $post_types );
-
-                if ( is_singular( $post_types ) ) {
-                    do_action( 'anva_post_type_navigation' );
-                } else {
-                    do_action( 'anva_breadcrumbs' );
-                }
-            ?>
-        </div>
-    </section><!-- #page-title (end) -->
-    <?php
+	anva_get_template_part( 'page', 'title' );
 }
 
 /**
@@ -657,21 +487,7 @@ function anva_page_title_default() {
  * @return void
  */
 function anva_breadcrumbs_default() {
-
-    // Get current breadcrumbs
-    $current_breadcrumb = anva_get_post_meta( '_anva_breadcrumbs' );
-
-    // Set default breadcrumbs
-    if ( empty ( $current_breadcrumb ) ) {
-        $current_breadcrumb = anva_get_option( 'breadcrumbs', 'show' );
-    }
-
-    if ( 'show' != $current_breadcrumb ) {
-        return;
-    }
-
-    // Display breadcrumbs
-    anva_the_breadcrumbs();
+    anva_get_template_part( 'breadcrumbs' );
 }
 
 /**
@@ -918,14 +734,14 @@ function anva_sidebar_below_footer() {
  * @since  1.0.0
  * @return void
  */
-function anva_posts_meta_default() {
+function anva_post_meta_default() {
     if ( is_single() && 'show' == anva_get_option( 'single_meta', 'show' ) ) {
-        anva_posted_on();
+        anva_get_template_part( 'post', 'content-meta' );
         return;
     }
 
     if ( 'show' == anva_get_option( 'prmary_meta', 'show' ) ) {
-        anva_posted_on();
+        anva_get_template_part( 'post', 'content-meta' );
     }
 }
 
@@ -935,7 +751,7 @@ function anva_posts_meta_default() {
  * @since  1.0.0
  * @return void
  */
-function anva_posts_content_default() {
+function anva_post_content_default() {
 
     // Don't show content or excerpt if the post has these formats.
     if ( has_post_format( anva_post_format_filter() ) ) {
@@ -946,11 +762,35 @@ function anva_posts_content_default() {
 
     if ( 'excerpt' == $primary_content ) {
         anva_the_excerpt();
-        printf( '<a class="more-link" href="%s">%s</a>', get_the_permalink(), anva_get_local( 'read_more' ) );
+        printf( '<a class="more-link" href="%1$s">%2$s%3$s</a>',
+        	get_the_permalink(),
+        	anva_get_local( 'read_more' ),
+        	sprintf( ' <span class="screen-reader-text">%s</span>', __('about an interesting article to read', 'anva') )
+        );
         return;
     }
 
     the_content( anva_get_local( 'read_more' ) );
+}
+
+function anva_post_tags_default() {
+	anva_get_template_part( 'post', 'content-tag' );
+}
+
+function anva_post_share_default() {
+	anva_get_template_part( 'post', 'content-share' );
+}
+
+function anva_post_nav_default() {
+	anva_get_template_part( 'post', 'content-nav' );
+}
+
+function anva_post_author_default() {
+	anva_get_template_part( 'post', 'content-author' );
+}
+
+function anva_post_related_default() {
+	anva_get_template_part( 'post', 'content-related' );
 }
 
 /**
@@ -959,7 +799,7 @@ function anva_posts_content_default() {
  * @since  1.0.0
  * @return void
  */
-function anva_posts_comments_default() {
+function anva_post_comments_default() {
     $single_comments = anva_get_option( 'single_comments', 'show' );
     if ( 'show' == $single_comments ) {
         if ( comments_open() || '0' != get_comments_number() ) {
@@ -975,40 +815,7 @@ function anva_posts_comments_default() {
  * @return void
  */
 function anva_post_reading_bar() {
-    $single_post_reading_bar = anva_get_option( 'single_post_reading_bar' );
-    if ( 'show' != $single_post_reading_bar ) {
-        return;
-    }
-
-    if ( is_singular( 'post' ) ) :
-    ?>
-    <div id="post-reading-wrap">
-        <div class="post-reading-bar">
-          <div class="post-reading-indicator-container">
-            <span class="post-reading-indicator-bar"></span>
-          </div>
-
-            <div class="container clearfix">
-                <div class="spost clearfix notopmargin nobottommargin">
-                    <?php if ( has_post_thumbnail() ) : ?>
-                        <div class="entry-image">
-                            <?php the_post_thumbnail( 'thumbnail' ); ?>
-                        </div>
-                    <?php endif; ?>
-                    <div class="entry-c">
-                        <div class="post-reading-label">
-                            <?php _e( 'You Are Reading', 'anva' ); ?>
-                        </div>
-                        <div class="entry-title">
-                            <h4><?php the_title(); ?></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!-- #post-reading-wrap (end) -->
-    <?php
-    endif;
+    anva_get_template_part( 'post', 'reading-bar' );
 }
 
 /**

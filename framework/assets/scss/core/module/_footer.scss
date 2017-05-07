@@ -6,6 +6,7 @@
     position: relative;
     background-color: #EEE;
     border-top: 5px solid rgba(black, 0.2);
+
     .footer-widgets-wrap {
         position: relative;
         padding: 80px 0;
@@ -18,9 +19,11 @@
         #top-bar {
             z-index: 299;
         }
+
         #header {
             z-index: 199;
         }
+
         #slider,
         #page-submenu,
         #page-title,
@@ -31,6 +34,7 @@
         #content {
             z-index: 2;
         }
+
         #footer {
             position: fixed;
             top: auto;
@@ -39,6 +43,7 @@
             width: 100%;
             z-index: 1;
         }
+
         &:not(.stretched) #footer {
             left: 50%;
             margin-left: -610px;
@@ -79,6 +84,7 @@
     background-color: #DDD;
     font-size: $font-size-base;
     line-height: $line-height-content;
+
     i {
         &.footer-icon {
             position: relative;
@@ -89,14 +95,17 @@
             margin-right: 3px;
         }
     }
+
     .col_half {
         margin-bottom: 0 !important;
     }
+
     a {
         &:first-child {
             margin-left: 0;
         }
     }
+
     .tright {
         a {
             &:last-child {
@@ -107,11 +116,31 @@
 }
 
 .copyright-links {
+    ul {
+        margin-bottom: 0;
+    }
+
+    li {
+        display: inline-block;
+
+        &:last-child {
+            a:after {
+                content: none;
+            }
+        }
+    }
+
     a {
         display: inline-block;
         margin: 0 3px;
         color: #333;
         border-bottom: 1px dotted #444;
+
+        &:after {
+            content: " / ";
+            border-bottom: 0;
+        }
+
         &:hover {
             color: #555;
             border-bottom: 1px solid #666;
@@ -123,6 +152,7 @@
     a {
         color: rgba(255, 255, 255, 0.25);
         border-bottom: 1px dotted rgba(255, 255, 255, 0.25);
+
         &:hover {
             color: rgba(255, 255, 255, 0.35);
             border-bottom-color: rgba(255, 255, 255, 0.35);
@@ -132,6 +162,7 @@
 
 .copyrights-menu {
     margin-bottom: 10px;
+
     a {
         font-size: $font-size-base;
         margin: 0 10px;
@@ -152,11 +183,13 @@ body.has-reading-bar {
 
 #debug-info {
     position: relative;
+
     ul {
         list-style: none;
         margin-bottom: 0;
         margin-left: 0;
     }
+
     span {
         display: inline-block;
         font-weight: bold;
@@ -168,21 +201,26 @@ body.has-reading-bar {
     transition: left 0.4s ease;
 }
 
-@media (min-width: 992px) {
+@include tablet {
+
     .side-header:not(.open-header) #debug-info {
         margin: 0 0 0 260px !important;
         width: auto !important;
     }
+
     .side-header:not(.open-header) #debug-info .container {
         width: auto;
         margin: 0 40px;
     }
+
     .side-header.side-header-right:not(.open-header) #debug-info {
         margin: 0 260px 0 0 !important;
     }
+
     .side-header.open-header.push-wrapper.side-header-open #debug-info {
         left: 260px;
     }
+
     .side-header.side-header-right.open-header.push-wrapper.side-header-open #debug-info {
         left: -260px;
     }

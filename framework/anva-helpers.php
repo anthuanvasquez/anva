@@ -12,7 +12,7 @@ function anva_api_init() {
 	Anva_Options::instance();
 
 	// Setup Framework Stylesheets API
-	Anva_Stylesheets::instance();
+	Anva_Styles::instance();
 
 	// Setup Framework JavaScripts API
 	Anva_Scripts::instance();
@@ -102,6 +102,48 @@ function anva_get_core_options() {
 function anva_get_formatted_options() {
 	$api = Anva_Options::instance();
 	return $api->get_formatted_options();
+}
+
+/**
+ * Gets option name.
+ *
+ * @since 1.0.0
+ */
+function anva_get_option_name() {
+
+	$name = '';
+
+	// Gets option name as defined in the theme.
+	if ( function_exists( 'anva_option_name' ) ) {
+		$name = anva_option_name();
+	}
+
+	// Fallback.
+	if ( '' === $name ) {
+		$name = get_option( 'stylesheet' );
+		$name = preg_replace( '/\W/', '_', strtolower( $name ) );
+	}
+
+	return apply_filters( 'anva_option_name', $name );
+
+}
+
+/**
+ * Allows for manipulating or setting options
+ * via 'anva_options' filter.
+ *
+ * @since  1.0.0
+ * @return array $options
+ */
+function anva_get_options() {
+
+	// Get options from api class Anva_Options_API.
+	$options = anva_get_formatted_options();
+
+	// Allow setting/manipulating options via filters.
+	$options = apply_filters( 'anva_options', $options );
+
+	return $options;
 }
 
 /**
@@ -310,6 +352,7 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 	if ( ! empty( $classes ) ) {
 		$classes = ' ' . $classes;
 	}
+
 	$args = array(
 		'id'            => $id,
 		'name'          => $name,
@@ -319,6 +362,7 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
 		'before_title'  => '<h4 class="widget-title">',
 		'after_title'   => '</h4>',
 	);
+
 	return apply_filters( 'anva_add_sidebar_args', $args );
 }
 
@@ -328,7 +372,7 @@ function anva_add_sidebar_args( $id, $name, $desc = '', $classes = '' ) {
  * @since 1.0.0
  */
 function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = 'all' ) {
-	$api = Anva_Stylesheets::instance();
+	$api = Anva_Styles::instance();
 	$api->add( $handle, $src, $level, $ver, $media );
 }
 
@@ -338,7 +382,7 @@ function anva_add_stylesheet( $handle, $src, $level = 4, $ver = null, $media = '
  * @since 1.0.0
  */
 function anva_remove_stylesheet( $handle ) {
-	$api = Anva_Stylesheets::instance();
+	$api = Anva_Styles::instance();
 	$api->remove( $handle );
 }
 
@@ -348,7 +392,7 @@ function anva_remove_stylesheet( $handle ) {
  * @since 1.0.0
  */
 function anva_get_stylesheets() {
-	$api    = Anva_Stylesheets::instance();
+	$api    = Anva_Styles::instance();
 	$core   = $api->get_framework_stylesheets();
 	$custom = $api->get_custom_stylesheets();
 	return array_merge( $core, $custom );
@@ -360,7 +404,7 @@ function anva_get_stylesheets() {
  * @since 1.0.0
  */
 function anva_print_styles( $level ) {
-	$api = Anva_Stylesheets::instance();
+	$api = Anva_Styles::instance();
 	$api->print_styles( $level );
 }
 

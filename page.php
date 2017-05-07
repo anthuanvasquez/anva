@@ -24,16 +24,16 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+		<?php do_action( 'anva_post_content_before' ); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
-			<?php anva_get_template_part( 'page' ); ?>
+			<?php anva_get_template_part( 'page', 'content-page' ); ?>
 			<?php if ( anva_get_area( 'comments', 'pages' ) ) : ?>
-				<?php do_action( 'anva_posts_comments' ); ?>
+				<?php do_action( 'anva_post_comments' ); ?>
 			<?php endif; ?>
 		<?php endwhile; ?>
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+		<?php do_action( 'anva_post_content_after' ); ?>
 
 	</div><!-- .postcontent (end) -->
 

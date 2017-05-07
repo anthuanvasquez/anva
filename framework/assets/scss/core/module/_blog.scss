@@ -9,9 +9,11 @@
     border: 1px solid rgba(black, 0.07);
     float: left;
     @include border-radius(4px);
+
     li {
         float: left;
         position: relative;
+
         a {
             display: block;
             position: relative;
@@ -20,21 +22,25 @@
             line-height: 15px;
             color: #666;
             border-left: 1px solid rgba(black, 0.07);
+
             &:hover {
                 color: $theme-color;
             }
         }
+
         &:first-child {
             a {
                 border-left: none;
                 @include border-radius-custom(4px, 0, 0, 4px);
             }
         }
+
         &:last-child {
             a {
                 @include border-radius-custom(0, 4px, 4px, 0);
             }
         }
+
         &.selected {
             a {
                 color: #FFF !important;
@@ -55,10 +61,10 @@
     }
 }
 
-
 #posts {
     position: relative;
     transition: height 0.4s ease;
+
     .entry-content {
         margin-top: 30px;
     }
@@ -75,6 +81,7 @@
     margin: 0 0 50px;
     padding: 0 0 50px;
     border-bottom: 2px solid #F5F5F5;
+
     blockquote {
         p {
             font-weight: 400;
@@ -92,9 +99,11 @@
 
 .entry-image {
     margin-bottom: 30px;
+
     iframe {
         display: block;
     }
+
     img {
         @include border-radius(3px);
     }
@@ -112,6 +121,7 @@
 
 .entry-audio-image {
     position: relative;
+
     .audio-wrap {
         position: absolute;
         right: 10px;
@@ -122,14 +132,17 @@
 
 .entry-title {
     word-wrap: break-word;
+
     h2 {
         margin: 0;
         font-size: 24px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
+
         a {
             color: #333;
+
             &:hover {
                 color: $theme-color;
             }
@@ -140,6 +153,7 @@
 .entry-meta {
     margin: 10px -10px -15px 0;
     list-style: none;
+
     li {
         float: left;
         font-size: 13px;
@@ -148,12 +162,14 @@
         color: #999;
         font-family: $secondary-font;
         font-style: italic;
+
         &:before {
             content: '/';
             display: inline-block;
             margin-right: 10px;
             opacity: 0.5;
         }
+
         i {
             position: relative;
             top: 1px;
@@ -162,19 +178,24 @@
         }
         a {
             color: #999;
+
             &:hover {
                 color: $theme-color;
             }
         }
+
         &:first-child {
+
             &:before {
                 display: none;
             }
         }
+
         ins {
             font-weight: 600;
             text-decoration: none;
         }
+
         &.posted-on {
             .updated {
                 display: none;
@@ -187,6 +208,7 @@
     .entry-meta {
         margin-bottom: 20px;
     }
+
     .entry-content {
         .entry-image {
             max-width: 350px;
@@ -217,14 +239,17 @@
     font-size: 24px;
     font-weight: 700;
     @include border-radius(3px);
+
     &:hover {
         color: #FFF;
         background-color: $theme-color;
         text-shadow: 1px 1px 1px rgba(black, 0.2);
+
         span {
             color: #EEE;
         }
     }
+
     span {
         display: block;
         margin-top: 5px;
@@ -237,6 +262,7 @@
         color: #AAA;
     }
 }
+
 body {
     &:not(.device-touch) {
         .entry-link {
@@ -254,6 +280,7 @@ body {
         float: left;
         width: 300px;
         margin: 0 30px 0 0;
+
         img {
             @include border-radius(0);
         }
@@ -267,11 +294,13 @@ body {
             float: none;
             width: 100%;
             margin: 0 0 20px 0;
+
             img {
                 @include border-radius(3px);
             }
         }
     }
+
     .entry-title {
         h2 {
             font-size: 20px;
@@ -290,6 +319,7 @@ body {
             float: right;
             margin: 0 0 0 30px;
         }
+
         .entry-c {
             .entry-image {
                 float: none;
@@ -309,17 +339,20 @@ body {
             width: 200px;
             margin: 0 25px 0 0;
         }
+
         &.alt {
             .entry-image {
                 margin: 0 0 0 25px;
             }
         }
+
         .entry-c {
             .entry-image {
                 width: 100%;
                 margin: 0 0 20px 0;
             }
         }
+
         .entry-title {
             h2 {
                 font-size: 18px;
@@ -333,24 +366,29 @@ body {
 
 .post-grid {
     margin-right: (-$blog-4-margin);
+
     .entry {
         float: left;
-        @include blog-grid-item-width(1140px, 4, $blog-4-margin);
         margin-right: $blog-4-margin;
+        @include blog-grid-item-width(1140px, 4, $blog-4-margin);
     }
+
     .entry-image {
         img {
             @include border-radius(0);
         }
     }
+
     .entry-title {
         h2 {
             font-size: 17px;
             font-weight: 600;
         }
     }
+
     .entry-link {
         font-size: 24px;
+
         span {
             font-size: 13px;
         }
@@ -365,10 +403,12 @@ body {
 .post-grid {
     &.grid-3 {
         margin-right: (-$blog-3-margin);
+
         .entry {
-            @include blog-grid-item-width(1140px, 3, $blog-3-margin);
             margin-right: $blog-3-margin;
+            @include blog-grid-item-width(1140px, 3, $blog-3-margin);
         }
+
         .entry-title {
             h2 {
                 font-size: 18px;
@@ -384,10 +424,12 @@ body {
     .post-grid {
         &.grid-3 {
             margin-right: (-$blog-3-margin-sb);
+
             .entry {
-                @include blog-grid-item-width($postcontent, 3, $blog-3-margin-sb);
                 margin-right: $blog-3-margin-sb;
+                @include blog-grid-item-width($postcontent, 3, $blog-3-margin-sb);
             }
+
             .entry-title {
                 h2 {
                     font-size: 16px;
@@ -403,10 +445,12 @@ body {
 .post-grid {
     &.grid-2 {
         margin-right: (-$blog-2-margin);
+
         .entry {
-            @include blog-grid-item-width(1140px, 2, $blog-2-margin);
             margin-right: $blog-2-margin;
+            @include blog-grid-item-width(1140px, 2, $blog-2-margin);
         }
+
         .entry-title {
             h2 {
                 font-size: 20px;
@@ -424,6 +468,7 @@ body {
             .entry {
                 @include blog-grid-item-width($postcontent, 2, $blog-2-margin-sb);
             }
+
             .entry-title {
                 h2 {
                     font-size: 18px;
@@ -442,6 +487,7 @@ body {
             .entry {
                 @include blog-grid-item-width($bothsidebar, 2, $blog-2-margin-bs);
             }
+
             .entry-title {
                 h2 {
                     font-size: 16px;
@@ -467,6 +513,7 @@ body {
 
 .post-masonry-full {
     margin: -80px 0 -80px -1px !important;
+
     .entry {
         width: 24.9% !important;
         margin: 0 !important;
@@ -475,6 +522,7 @@ body {
         border-left: 1px dashed;
         border-color: #E5E5E5;
     }
+
     &.grid-3 {
         .entry {
             width: 33.30% !important;
@@ -497,10 +545,12 @@ body {
 
 .post-timeline {
     margin-right: -140px !important;
+
     .entry {
         width: 500px !important;
         margin-right: 140px !important;
     }
+
     .entry-timeline {
         display: none;
         position: absolute;
@@ -837,9 +887,18 @@ body {
     }
 }
 
+/* ----------------------------------------------------------------
+    Pagination
+-----------------------------------------------------------------*/
+
 .post-navigation {
     & + .line {
         margin: 40px 0 50px;
+    }
+
+    .post-previous,
+    .post-next {
+        word-wrap: break-word;
     }
 }
 
@@ -873,7 +932,6 @@ body {
 /* ----------------------------------------------------------------
     Comments List
 -----------------------------------------------------------------*/
-
 
 #comments {
     position: relative;

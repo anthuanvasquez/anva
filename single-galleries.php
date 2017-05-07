@@ -22,7 +22,7 @@ get_header();
 	<div class="col_full nobottommargin clearfix">
 		<div id="galleries">
 
-			<?php do_action( 'anva_posts_content_before' ); ?>
+			<?php do_action( 'anva_post_content_before' ); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
@@ -51,14 +51,14 @@ get_header();
 							?>
 							<div class="clearfix"></div>
 						</div><!-- .entry-content (end) -->
-					</article><!-- #post-<?php the_ID(); ?> -->
+					</article><!-- #post-<?php the_ID(); ?> (end) -->
 				</div><!-- .entry-wrap (end) -->
 
-				<?php do_action( 'anva_posts_comments' ); ?>
+				<?php do_action( 'anva_post_comments' ); ?>
 
 			<?php endwhile; ?>
 
-			<?php do_action( 'anva_posts_content_after' ); ?>
+			<?php do_action( 'anva_post_content_after' ); ?>
 
 		</div><!-- #galleries (end) -->
 	</div><!-- .postcontent (end) -->

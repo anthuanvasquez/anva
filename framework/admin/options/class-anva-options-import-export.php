@@ -11,8 +11,8 @@ if ( ! class_exists( 'Anva_Options_Import_Export' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Options_Import_Export
-{	
+class Anva_Options_Import_Export {
+
 	/**
 	 * A single instance of this class.
  	 *
@@ -45,20 +45,18 @@ class Anva_Options_Import_Export
 	 *
 	 * @since 1.0.0
 	 */
-	public static function instance()
-	{	
+	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
 
 		return self::$instance;
 	}
-	
+
 	/**
 	 * Constructor.
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		// Get theme option name.
 		$option_name = anva_get_option_name();
 
@@ -74,14 +72,13 @@ class Anva_Options_Import_Export
 		add_action( 'admin_init', array( $this, 'import_settings' ) );
 		add_action( 'appearance_page_' . $option_name, array( $this, 'add_save_notice' ) );
 	}
-	
+
 	/**
 	 * Add import export options to advanced tab.
 	 *
 	 * @since  1.0.0
 	 */
-	public function add_options()
-	{
+	public function add_options() {
 		$import_export_options = array(
 			'export' => array(
 				'name' => __( 'Export', 'anva' ),
@@ -109,27 +106,26 @@ class Anva_Options_Import_Export
 	 * @since  1.0.0
 	 * @return string|html $output
 	 */
-    public function import_option( $output, $value, $option_name, $val )
-    {
-		
+    public function import_option( $output, $value, $option_name, $val ) {
+
 		if ( $value['type'] == 'import' ) {
 
 			$output .= sprintf( '<textarea name="%s[import_settings]" class="anva-input anva-textarea" rows="10"></textarea>', $option_name );
 
 			$option_import = get_option( $this->option_id . '_import' );
-			
+
 			if ( $option_import ) {
 				$time = strtotime( $option_import['time'] );
 				$time = date( 'M d, Y @ g:i A', $time );
-				$output .= sprintf( '<p><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</p>', __( 'Last imported settings', 'anva' ), $time );	
+				$output .= sprintf( '<p><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</p>', __( 'Last imported settings', 'anva' ), $time );
 			}
 
 			$output .= sprintf( '<p><input type="submit" class="button button-secondary import-button" value="%s" />  <input type="submit" class="button button-secondary restore-button" value="%s" /></p>', esc_attr__( 'Import', 'anva' ), esc_attr__( 'Restore Previous', 'anva' ) );
 
 		}
-				
+
 		return $output;
-		 
+
     }
 
 	/**
@@ -139,26 +135,25 @@ class Anva_Options_Import_Export
 	 * @param  array       $options
 	 * @return string|html $output
 	 */
-    public function export_option( $output, $value, $option_name, $val )
-    {
+    public function export_option( $output, $value, $option_name, $val ) {
 		if ( $value['type'] == 'export' ) {
-			
+
 			if ( ! $this->options && ! is_array( $this->options ) ) {
 				$output .= sprintf( '<div class="anva-disclaimer section-info danger"><p>%s</p></div>', __( 'ERROR! You don\'t have any options to export. Trying saving your options first.', 'anva' ) );
 				return $output;
 			}
-			
+
 			// Add the theme name
 			$this->options['theme_name'] = $option_name;
-			
+
 			// Generate the export data.
 			$val = base64_encode( maybe_serialize( (array)$this->options ) );
-			
+
 			$output .= '<textarea disabled="disabled" class="anva-input anva-textarea" rows="10">' . esc_textarea( $val ) . '</textarea>';
 		}
 
 		return $output;
-		
+
     }
 
 	/**
@@ -168,21 +163,20 @@ class Anva_Options_Import_Export
 	 * @param  array $input
 	 * @return void
 	 */
-    public function import_settings()
-    {
+    public function import_settings() {
 		if ( isset( $_POST['import'] ) ) {
-			
+
 			// Decode the pasted data
 			$data = (array) maybe_unserialize( base64_decode( $_POST[ $this->option_id ]['import_settings'] ) );
-			
+
 			if ( is_array( $data ) && isset( $data['theme_name'] ) && $this->option_id == $data['theme_name'] ) {
-	
+
 				unset( $data['theme_name'] );
 
 				$import = array();
 
 				// @TODO sanitize settings before update option
-				
+
 				// Update the settings in the database
 				update_option( $this->option_id, $data );
 				update_option( 'anva_import_happened', 'success' );
@@ -191,7 +185,7 @@ class Anva_Options_Import_Export
 				$import['settings'] = $data;
 
 				update_option( $this->option_id . '_import', $import );
-			
+
 			} else {
 				update_option( 'anva_import_happened', 'fail' );
 			}
@@ -202,7 +196,7 @@ class Anva_Options_Import_Export
 			$goback = add_query_arg( 'settings-imported', 'true',  wp_get_referer() );
 			wp_redirect( $goback );
 			exit;
-		
+
 		}
     }
 
@@ -211,20 +205,19 @@ class Anva_Options_Import_Export
 	 *
 	 * @since  1.0.0
 	 */
-	public function add_save_notice()
-	{
+	public function add_save_notice() {
 		$success = get_option( 'anva_import_happened', false );
-		
+
 		if ( $success ) {
-			
+
 			if ( $success === 'success' ) {
-				add_settings_error( 'anva-options-page-errors', 'import_options', __( 'Options imported successfully.', 'anva' ), 'updated fade' );	
+				add_settings_error( 'anva-options-page-errors', 'import_options', __( 'Options imported successfully.', 'anva' ), 'updated fade' );
 			} else {
 				add_settings_error( 'anva-options-page-errors', 'import_options_fail', __( 'Options could not be imported.', 'anva' ), 'error fade' );
 			}
 
 		}
-		
+
 		delete_option( 'anva_import_happened' );
 	}
 }

@@ -139,8 +139,109 @@ function anva_get_page_title() {
 	endif;
 
 	// Filter page title
-	return apply_filters( 'anva_page_title', $title);
+	return apply_filters( 'anva_page_title', $title );
 
+}
+
+/**
+ * Display page titles.
+ *
+ * @since  1.0.0
+ */
+function anva_display_page_title() {
+	// Don't show page titles on front page.
+    if ( is_front_page() || is_page_template( 'template_builder.php' ) ) {
+        return;
+    }
+
+    // Hide post and page titles
+    $hide_title = anva_get_post_meta( '_anva_hide_title' );
+
+    if ( 'hide' == $hide_title && ( is_single() || is_page() ) ) {
+        return;
+    }
+
+    $style            = '';
+    $classes          = array();
+    $tagline          = anva_get_post_meta( '_anva_page_tagline' );
+    $title_align      = anva_get_post_meta( '_anva_title_align' );
+    $title_bg         = anva_get_post_meta( '_anva_title_bg' );
+    $title_bg_color   = anva_get_post_meta( '_anva_title_bg_color' );
+    $title_bg_image   = anva_get_post_meta( '_anva_title_bg_image' );
+    $title_bg_cover   = anva_get_post_meta( '_anva_title_bg_cover' );
+    $title_bg_text    = anva_get_post_meta( '_anva_title_bg_text' );
+    $title_bg_padding = anva_get_post_meta( '_anva_title_bg_padding' );
+
+    // Remove title background.
+    if ( 'nobg' == $title_bg ) {
+        $classes[] = 'page-title-nobg';
+    }
+
+    // Add dark background
+    if ( 'dark' == $title_bg || ( 'custom' == $title_bg && $title_bg_text ) ) {
+        $classes[] = 'page-title-dark';
+    }
+
+    // Add background color and parallax image
+    if ( 'custom' == $title_bg ) {
+        $title_bg_padding = $title_bg_padding . 'px';
+
+        $style .= 'padding:' . esc_attr( $title_bg_padding ) . ' 0px;';
+        $style .= 'background-color:' . esc_attr( $title_bg_color ) . ';';
+
+        if ( ! empty( $title_bg_image ) ) {
+            $classes[] = 'page-title-parallax';
+            $style .= 'background-image:url("' . esc_url( $title_bg_image ) . '");';
+        }
+
+        if ( $title_bg_cover ) {
+            $style .= '-webkit-background-size:cover;';
+            $style .= '-moz-background-size:cover;';
+            $style .= '-ms-background-size:cover;';
+            $style .= 'background-size:cover;';
+        }
+
+        $style = "style='{$style}'";
+    }
+
+    // Align title to the right
+    if ( 'right' == $title_align ) {
+        $classes[] = 'page-title-right';
+    }
+
+    // Title centered
+    if ( 'center' == $title_align ) {
+        $classes[] = 'page-title-center';
+    }
+
+    $classes = implode( ' ', $classes );
+
+    if ( ! empty( $title_align ) || 'nobg' == $title_bg  ) {
+        $classes = 'class="' . esc_attr( $classes ) . '"';
+    }
+
+    ?>
+    <section id="page-title" <?php echo $classes; ?> <?php echo $style; ?>>
+        <div class="container clearfix">
+            <h1><?php anva_the_page_title(); ?></h1>
+            <?php
+                if ( ! empty ( $tagline ) ) {
+                    printf( '<span>%s</span>', esc_html( $tagline ) );
+                }
+
+                // Get post types for top navigation
+                $post_types = array( 'portfolio', 'galleries' );
+                $post_types = apply_filters( 'anva_post_types_top_navigation', $post_types );
+
+                if ( is_singular( $post_types ) ) {
+                    do_action( 'anva_post_type_navigation' );
+                } else {
+                    do_action( 'anva_breadcrumbs' );
+                }
+            ?>
+        </div>
+    </section><!-- #page-title (end) -->
+    <?php
 }
 
 /**
@@ -181,7 +282,7 @@ function anva_posted_on() {
 		$write_comments = sprintf( '<a href="%s"><span class="leave-reply">%s</span></a>', get_comments_link(), $comments );
 
 	} else {
-		$write_comments =  __( 'Comments closed', 'anva' );
+		$write_comments = __( 'Comments closed', 'anva' );
 	}
 
 	// Get post formats icon
@@ -405,6 +506,92 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 }
 
 /**
+ * Display header logo.
+ *
+ * @since 1.0.0
+ */
+function anva_site_branding() {
+	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
+	$option             = anva_get_option( 'custom_logo' );
+	$name               = get_bloginfo( 'name' );
+	$classes            = array();
+	$classes[]          = 'logo-' . $option['type'];
+
+	if ( $option['type'] == 'custom' || $option['type'] == 'title' || $option['type'] == 'title_tagline' ) {
+	    $classes[] = 'logo-text';
+	}
+
+	if ( $option['type'] == 'custom' && ! empty( $option['custom_tagline'] ) ) {
+	    $classes[] = 'logo-has-tagline';
+	}
+
+	if ( $option['type'] == 'title_tagline' ) {
+	    $classes[] = 'logo-has-tagline';
+	}
+
+	if ( $option['type'] == 'image' ) {
+	    $classes[] = 'logo-has-image';
+	}
+
+	if ( $primary_menu_style == 'style_9' ) {
+	    $classes[] = 'divcenter';
+	}
+
+	$classes = implode( ' ', $classes );
+
+	echo '<div id="logo" class="' . esc_attr( $classes ) . '">';
+
+	if ( ! empty( $option['type'] ) ) {
+	    switch ( $option['type'] ) {
+
+	        case 'title' :
+	            echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
+	            break;
+
+	        case 'title_tagline' :
+	            echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
+	            echo '<span class="logo-tagline">' . get_bloginfo( 'description' ) . '</span>';
+	            break;
+
+	        case 'custom' :
+	            echo '<div class="text-logo"><a href="' . home_url() . '">' . $option['custom'] . '</a></div>';
+	            if ( $option['custom_tagline'] ) {
+	                echo '<span class="logo-tagline">' . $option['custom_tagline'] . '</span>';
+	            }
+	            break;
+
+	        case 'image' :
+	            $image_1x  = esc_url( $option['image'] );
+	            $image_2x  = '';
+	            $logo_2x   = '';
+	            $logo_alt  = '';
+	            $image_alt = '';
+	            $class     = '';
+
+	            if ( $primary_menu_style == 'style_9' ) {
+	                $class = 'class="divcenter"';
+	            }
+
+	            if ( ! empty( $option['image_2x'] ) ) {
+	                $image_2x = $option['image_2x'];
+	                $logo_2x = '<a class="retina-logo" href="' . home_url() . '"><img ' . $class . ' src="' . esc_url( $image_2x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
+	            }
+
+	            if ( ! empty( $option['image_alternate'] ) ) {
+	                $image_alt = $option['image_alternate'];
+	                $logo_alt  = 'data-sticky-logo="' . esc_url( $image_alt ) . '"';
+	                $logo_alt .= 'data-mobile-logo="' . esc_url( $image_alt ) . '"';
+	            }
+
+	            echo '<a class="standard-logo" href="' . home_url() . '"' . $logo_alt . '><img ' . $class . ' src="' . esc_url( $image_1x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
+	            echo $logo_2x;
+	            break;
+	    }
+	}
+	echo '</div><!-- #logo (end) -->';
+}
+
+/**
  * Woocommer top cart products.
  *
  * @since 1.0.0
@@ -571,24 +758,21 @@ function anva_post_author() {
 	$name    = get_the_author_meta( 'display_name', $id );
 	$desc    = get_the_author_meta( 'description', $id );
 	?>
-	<div class="author-wrap">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">
-					<?php printf( '%1$s <span><a href="%2$s">%3$s</a></span>', __( 'Posted by', 'anva' ), esc_url( $url ), esc_html( $name ) ); ?>
-				</h3>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<?php printf( '%1$s <span><a href="%2$s">%3$s</a></span>', __( 'Posted by', 'anva' ), esc_url( $url ), esc_html( $name ) ); ?>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<div class="author-image">
+				<?php echo $avatar ; ?>
 			</div>
-			<div class="panel-body">
-				<div class="author-image">
-					<?php echo $avatar ; ?>
-				</div>
-				<div class="author-description">
-					<?php echo wpautop( esc_html( $desc ) ); ?>
-				</div>
+			<div class="author-description">
+				<?php echo wpautop( esc_html( $desc ) ); ?>
 			</div>
-		</div><!-- .panel (end) -->
-	</div>
-	<div class="line"></div>
+		</div>
+	</div><!-- .panel (end) -->
 	<?php
 }
 
@@ -599,6 +783,7 @@ function anva_post_author() {
  */
 function anva_post_tags() {
 	$classes = 'tagcloud clearfix';
+
 	if ( is_single() )
 		$classes .= ' bottommargin';
 	?>
@@ -681,7 +866,7 @@ function anva_post_related() {
 	}
 
 	?>
-	<h3><?php _e( 'Related Posts', 'anva' ); ?></h3>
+	<h4><?php _e( 'Related Posts', 'anva' ); ?></h4>
 	<div class="related-posts clearfix">
 	<?php
 		$limit         = 4;
@@ -860,8 +1045,12 @@ function anva_comment_pagination() {
 	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
 	?>
 	<nav id="comment-nav" class="pager comment-navigation" role="navigation">
-		<div class="previous nav-previous"><?php previous_comments_link( anva_get_local( 'comment_prev' ) ); ?></div>
-		<div class="next nav-next"><?php next_comments_link( anva_get_local( 'comment_next' ) ); ?></div>
+		<div class="previous nav-previous">
+			<?php previous_comments_link( anva_get_local( 'comment_prev' ) ); ?>
+		</div>
+		<div class="next nav-next">
+			<?php next_comments_link( anva_get_local( 'comment_next' ) ); ?>
+		</div>
 	</nav><!-- #comment-nav-above (end) -->
 	<?php
 	endif;
@@ -1250,9 +1439,9 @@ function anva_get_breadcrumbs( $args = array() ) {
 
 		if ( ! empty( $category ) ) {
 			$category_values = array_values( $category );
-			$last_category = end( $category_values );
-			$cat_parents = rtrim( get_category_parents( $last_category->term_id, true, ',' ), ',' );
-			$cat_parents = explode( ',', $cat_parents );
+			$last_category   = end( $category_values );
+			$cat_parents     = rtrim( get_category_parents( $last_category->term_id, true, ',' ), ',' );
+			$cat_parents     = explode( ',', $cat_parents );
 
 			foreach ( $cat_parents as $parent ) {
 				$html .= '<li class="item-cat">' . wp_kses( $parent, wp_kses_allowed_html( 'a' ) ) . '</li>';
@@ -1262,7 +1451,6 @@ function anva_get_breadcrumbs( $args = array() ) {
 		} else {
 			$html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
 		}
-
 
 	} elseif ( is_singular( 'page' ) ) {
 
@@ -1297,9 +1485,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 		$post_type_archive = get_post_type_archive_link( $post_type );
 
 		$html .= '<li class="item-cat item-custom-post-type-' . esc_attr( $post_type ) . '"><a class="bread-cat bread-custom-post-type-' . esc_attr( $post_type ) . '" href="' . esc_url( $post_type_archive ) . '" title="' . esc_attr( $post_type_object->labels->name ) . '">' . esc_attr( $post_type_object->labels->name ) . '</a></li>';
-
 		$html .= $separator;
-
 		$html .= '<li class="active item-' . $post->ID . '">' . $post->post_title . '</li>';
 
 	} elseif ( is_category() ) {
@@ -1348,8 +1534,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 	}
 
 	$html .= '</ol>';
-
-	$html = apply_filters( 'anva_breadcrumbs_html', $html );
+	$html  = apply_filters( 'anva_breadcrumbs_html', $html );
 
 	return wp_kses_post( $html );
 }

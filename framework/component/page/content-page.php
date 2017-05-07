@@ -1,6 +1,6 @@
 <?php
 /**
- * The default template used for post content.
+ * The default template used for page content.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -18,22 +18,17 @@
 ?>
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
-
-		<?php anva_the_post_thumbnail( anva_get_option( 'primary_thumb' ) ); ?>
-
-		<div class="entry-title">
-			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-		</div><!-- .entry-title (end) -->
-
-		<?php do_action( 'anva_posts_meta' ); ?>
-
 		<div class="entry-content">
-			<?php do_action( 'anva_posts_content' ); ?>
+			<?php the_content(); ?>
 		</div><!-- .entry-content (end) -->
 
-		<div class="entry-footer clearfix">
-			<?php do_action( 'anva_posts_footer' ); ?>
-		</div><!-- .entry-footer (end) -->
+		<div class="entry-footer">
+			<?php wp_link_pages( array(
+				'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ',
+				'after'  => '</div><!-- .page-links (end) -->'
+			) ); ?>
 
-	</article><!-- #post-<?php the_ID(); ?> -->
+			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
+		</div><!-- .entry-footer (end) -->
+	</article><!-- #post-<?php the_ID(); ?> (end) -->
 </div><!-- .entry-wrap (end) -->

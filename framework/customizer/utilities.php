@@ -7,7 +7,7 @@ function anva_customizer_get_options() {
 	if ( $_anva_customizer_sections ) {
 
 		$options = array();
-		
+
 		foreach ( $_anva_customizer_sections as $section ) {
 			foreach ( $section['options'] as $option_id => $option ) {
 				$options[ $option_id ] = $option;
@@ -40,8 +40,6 @@ function anva_customizer_add_panel( $panel, $wp_customize ) {
 			'priority' 			 => $panels['priority'],
 		)
 	);
-
-	var_dump($panels['id']);
 
 }
 
@@ -88,7 +86,7 @@ function anva_customizer_add_setting( $option, $wp_customize ) {
 /**
  * Sanitize a value from a list of allowed values.
  * @todo   Create sanitize validations
- * 
+ *
  * @since  1.0.0.
  * @param  mixed $value    The value to sanitize.
  * @param  mixed $setting  The setting for which the sanitizing is occurring.

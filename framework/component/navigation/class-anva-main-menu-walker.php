@@ -4,7 +4,7 @@
  * Create new walker for WP's wp_nav_menu function.
  * Takes into account mega menus and icons.
  *
- * @since 2.5.0
+ * @since 1.0.0
  */
 class Anva_Main_Menu_Walker extends Walker_Nav_Menu {
 
@@ -12,7 +12,7 @@ class Anva_Main_Menu_Walker extends Walker_Nav_Menu {
     private $mega_col       = '';
     private $count          = 0;
     private $show_headers   = false;
-    private $current_header = NULL;
+    private $current_header = null;
 
     /**
      * Start level
@@ -113,8 +113,14 @@ class Anva_Main_Menu_Walker extends Walker_Nav_Menu {
 
             if ( $args->theme_location == apply_filters('anva_primary_menu_location', 'primary') && get_post_meta($item->ID, '_anva_mega_menu', true) ) {
 
+            	$mega_col = get_post_meta( $item->ID, '_anva_mega_menu_columns', true );
+
+            	if ( empty( $mega_col ) ) {
+            		$mega_col = apply_filters( 'anva_mega_menu_columns_default', 4 );
+            	}
+
                 $this->doing_mega = true;
-                $this->mega_col = get_post_meta( $item->ID, '_anva_mega_menu_columns', true );
+                $this->mega_col = $mega_col;
 
                 if ( ! get_post_meta($item->ID, '_anva_mega_menu_hide_headers', true) ) {
                     $this->show_headers = true;
