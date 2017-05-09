@@ -24,7 +24,7 @@ function anva_api_init() {
 	Anva_Sliders::instance();
 
 	// Setup Framework Page Builder Elements API
-	Anva_Page_Builder_Options::instance();
+	Anva_Builder_Options::instance();
 
 	// Setup customizer API
 	$GLOBALS['_anva_customizer_sections'] = array();
@@ -222,7 +222,7 @@ function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
  * @since 1.0.0
  */
 function anva_get_core_elements() {
-	$api = Anva_Page_Builder_Options::instance();
+	$api = Anva_Builder_Options::instance();
 	return $api->get_core_elements();
 }
 
@@ -233,23 +233,8 @@ function anva_get_core_elements() {
  * @since 1.0.0
  */
 function anva_get_elements() {
-	$api = Anva_Page_Builder_Options::instance();
+	$api = Anva_Builder_Options::instance();
 	return $api->get_elements();
-}
-
-/**
- * Check that the element ID exists.
- *
- * @deprecated use anva_element_exists()
- *
- * @since  1.0.0
- * @param  string $element_id
- * @return string $element_id
- */
-function anva_is_element( $element_id ) {
-	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_element_exists() instead.', 'anva' ) );
-	$api = Anva_Page_Builder_Options::instance();
-	return $api->is_element( $element_id );
 }
 
 /**
@@ -260,7 +245,7 @@ function anva_is_element( $element_id ) {
  * @return string $element_id
  */
 function anva_element_exists( $element_id ) {
-	$api = Anva_Page_Builder_Options::instance();
+	$api = Anva_Builder_Options::instance();
 	return $api->is_element( $element_id );
 }
 
@@ -270,7 +255,7 @@ function anva_element_exists( $element_id ) {
  * @since 1.0.0
  */
 function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $content ) {
-	$api = Anva_Page_Builder_Options::instance();
+	$api = Anva_Builder_Options::instance();
 	$api->add_element( $element_id, $name, $icon, $attr, $desc, $content );
 }
 
@@ -280,7 +265,7 @@ function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $con
  * @since 1.0.0
  */
 function anva_remove_builder_element( $element_id ) {
-	$api = Anva_Page_Builder_Options::instance();
+	$api = Anva_Builder_Options::instance();
 	$api->remove_element( $element_id );
 }
 

@@ -1065,7 +1065,7 @@ var ANVA = ANVA || {};
                 element.parent('li').addClass('selected');
 
                 $.ajax({
-                    url: ANVA_VARS.ajaxUrl,
+                    url: AnvaMainJS.ajaxUrl,
                     type: 'POST',
                     data: 'action=anva_blog_posts_filter&cat=' + filterCat + '&items=' + filterItems + '&grid=' + filterGrid,
                     success: function( results ) {

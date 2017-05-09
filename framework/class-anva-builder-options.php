@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Page_Builder_Options' ) ) :
+if ( ! class_exists( 'Anva_Builder_Options' ) ) :
 
 /**
  * Anva Page Builder Elements API.
@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Page_Builder_Options' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Page_Builder_Options {
+class Anva_Builder_Options {
 	/**
 	 * A single instance of this class.
 	 *
@@ -59,8 +59,7 @@ class Anva_Page_Builder_Options {
 	 *
 	 * @since 1.0.0
 	 */
-	public static function instance()
-	{
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self;
 		}
@@ -73,8 +72,7 @@ class Anva_Page_Builder_Options {
 	 *
 	 * @since 1.0.0
 	 */
-	private function __construct()
-	{
+	private function __construct() {
 		// Setup framework default elements
 		$this->set_core_elements();
 
@@ -91,8 +89,7 @@ class Anva_Page_Builder_Options {
 	 *
 	 * @since 1.0.0
 	 */
-	public function set_core_elements()
-	{
+	public function set_core_elements() {
 		/*--------------------------------------------*/
 		/* Helpers
 		/*--------------------------------------------*/
@@ -296,12 +293,16 @@ class Anva_Page_Builder_Options {
 			'icon' => $image_path . 'text.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => __( 'Slug (Optional)', 'anva' ),
+					'desc' => __( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
+				    'id'   => 'slug',
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
 				),
 				'width' => array(
 					'name' => 'Content Width',
+					'desc' => 'Select width in percentage for this content',
+					'id'   => 'width',
+					'std'  => '80%',
 					'type' => 'select',
 					'options' => array(
 						'100%' 	=> '100%',
@@ -311,30 +312,35 @@ class Anva_Page_Builder_Options {
 						'60%' 	=> '60%',
 						'50%' 	=> '50%',
 					),
-					'desc' => 'Select width in percentage for this content',
 				),
 				'padding' => array(
 					'name' => 'Content Padding',
-					'type' => 'range',
-					'std' => '30',
-					'min' => 0,
-					'max' => 200,
-					'step' => 5,
 					'desc' => 'Select padding top and bottom value for this header block',
+				    'id'   => 'padding',
+					'std'  => 30,
+					'type' => 'range',
+					'options' => array(
+						'min'  => 0,
+						'max'  => 200,
+						'step' => 5,
+					),
 				),
 				'bgcolor' => array(
+				    'id'  => 'bgcolor',
 					'name' => 'Background Color',
 					'type' => 'color',
-					'std' => '#f9f9f9',
+					'std'  => '#f9f9f9',
 					'desc' => 'Select background color for this header block',
 				),
 				'fontcolor' => array(
+				    'id'   => 'fontcolor',
 					'name' => 'Font Color',
 					'type' => 'color',
-					'std' => '#444444',
+					'std'  => '#444444',
 					'desc' => 'Select font color for content on this block',
 				),
 				'custom_css' => array(
+					'id'   => 'custom_css',
 					'name' => 'Custom CSS',
 					'type' => 'text',
 					'desc' => 'You can add custom CSS style for this block (advanced user only)',

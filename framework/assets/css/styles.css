@@ -3131,9 +3131,8 @@ body.stretched .container-fullwidth .breadcrumb {
   #page-title.page-title-mini {
     padding: 20px 0; }
     #page-title.page-title-mini h1 {
-      font-weight: 600;
       font-size: 18px;
-      color: #444; }
+      font-weight: 600; }
     #page-title.page-title-mini span {
       display: none; }
   #page-title.page-title-nobg {

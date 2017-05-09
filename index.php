@@ -33,7 +33,7 @@ get_header();
 					the_post();
 					anva_get_template_part( 'post', 'content' );
 				}
-				anva_pagination();
+				anva_single_pagination();
 			} else {
 				anva_get_template_part( 'post', 'content-none' );
 			}

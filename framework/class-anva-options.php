@@ -501,13 +501,13 @@ class Anva_Options {
 						'desc' => __('Enter the map coordinates. Latitude and Longitude address.', 'anva'),
 						'id' => 'contact_map_type',
 						'std' => 'ROADMAP',
+						'type' => 'select',
 						'options' => array(
 							'HYBRID' => __( 'Hybrid', 'anva' ),
 							'TERRAIN' => __( 'Terrain', 'anva' ),
 							'SATELLITE' => __( 'Satellite', 'anva' ),
 							'ROADMAP' => __( 'Roadmap', 'anva' ),
 						),
-						'type' => 'select',
 					),
 					'contact_map_address' => array(
 						'name' => __('Map Coordinates', 'anva'),

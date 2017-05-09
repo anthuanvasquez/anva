@@ -477,7 +477,19 @@ function anva_featured_after_default() {
  * @return void
  */
 function anva_page_title_default() {
-	anva_get_template_part( 'page', 'title' );
+	// Don't show page titles on front page.
+	if ( is_front_page() || is_page_template( 'template_builder.php' ) ) {
+	    return;
+	}
+
+	// Hide post and page titles
+	$hide_title = anva_get_post_meta( '_anva_hide_title' );
+
+	if ( 'hide' == $hide_title && ( is_single() || is_page() ) ) {
+	    return;
+	}
+
+	anva_get_template_part( 'page', 'page-title' );
 }
 
 /**
@@ -773,23 +785,72 @@ function anva_post_content_default() {
     the_content( anva_get_local( 'read_more' ) );
 }
 
+/**
+ * Display post tags.
+ *
+ * @since 1.0.0
+ */
 function anva_post_tags_default() {
 	anva_get_template_part( 'post', 'content-tag' );
 }
 
+/**
+ * Display posts navigation.
+ *
+ * @since 1.0.0
+ */
 function anva_post_share_default() {
+	$single_share = anva_get_option( 'single_share', 'show' );
+
+	if ( 'show' != $single_share ) {
+		return;
+	}
+
 	anva_get_template_part( 'post', 'content-share' );
 }
 
+/**
+ * Post navigation.
+ *
+ * @since 1.0.0
+ */
 function anva_post_nav_default() {
+	$single_navigation = anva_get_option( 'single_navigation', 'show' );
+
+	if ( 'show' != $single_navigation ) {
+		return;
+	}
+
 	anva_get_template_part( 'post', 'content-nav' );
 }
 
+/**
+ * Display post author information.
+ *
+ * @since 1.0.0
+ */
 function anva_post_author_default() {
+	$single_author = anva_get_option( 'single_author', 'hide' );
+
+	if ( 'show' != $single_author ) {
+		return;
+	}
+
 	anva_get_template_part( 'post', 'content-author' );
 }
 
+/**
+ * Display related posts.
+ *
+ * @since 1.0.0
+ */
 function anva_post_related_default() {
+	$single_related = anva_get_option( 'single_related', 'hide' );
+
+	if ( 'hide' == $single_related ) {
+		return;
+	}
+
 	anva_get_template_part( 'post', 'content-related' );
 }
 
@@ -824,7 +885,7 @@ function anva_post_reading_bar() {
  * @since 1.0.0
  */
 function anva_contact_form_default() {
-    anva_contact_form();
+    anva_get_template_part( 'contact-form' );
 }
 
 /**

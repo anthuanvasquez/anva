@@ -144,107 +144,6 @@ function anva_get_page_title() {
 }
 
 /**
- * Display page titles.
- *
- * @since  1.0.0
- */
-function anva_display_page_title() {
-	// Don't show page titles on front page.
-    if ( is_front_page() || is_page_template( 'template_builder.php' ) ) {
-        return;
-    }
-
-    // Hide post and page titles
-    $hide_title = anva_get_post_meta( '_anva_hide_title' );
-
-    if ( 'hide' == $hide_title && ( is_single() || is_page() ) ) {
-        return;
-    }
-
-    $style            = '';
-    $classes          = array();
-    $tagline          = anva_get_post_meta( '_anva_page_tagline' );
-    $title_align      = anva_get_post_meta( '_anva_title_align' );
-    $title_bg         = anva_get_post_meta( '_anva_title_bg' );
-    $title_bg_color   = anva_get_post_meta( '_anva_title_bg_color' );
-    $title_bg_image   = anva_get_post_meta( '_anva_title_bg_image' );
-    $title_bg_cover   = anva_get_post_meta( '_anva_title_bg_cover' );
-    $title_bg_text    = anva_get_post_meta( '_anva_title_bg_text' );
-    $title_bg_padding = anva_get_post_meta( '_anva_title_bg_padding' );
-
-    // Remove title background.
-    if ( 'nobg' == $title_bg ) {
-        $classes[] = 'page-title-nobg';
-    }
-
-    // Add dark background
-    if ( 'dark' == $title_bg || ( 'custom' == $title_bg && $title_bg_text ) ) {
-        $classes[] = 'page-title-dark';
-    }
-
-    // Add background color and parallax image
-    if ( 'custom' == $title_bg ) {
-        $title_bg_padding = $title_bg_padding . 'px';
-
-        $style .= 'padding:' . esc_attr( $title_bg_padding ) . ' 0px;';
-        $style .= 'background-color:' . esc_attr( $title_bg_color ) . ';';
-
-        if ( ! empty( $title_bg_image ) ) {
-            $classes[] = 'page-title-parallax';
-            $style .= 'background-image:url("' . esc_url( $title_bg_image ) . '");';
-        }
-
-        if ( $title_bg_cover ) {
-            $style .= '-webkit-background-size:cover;';
-            $style .= '-moz-background-size:cover;';
-            $style .= '-ms-background-size:cover;';
-            $style .= 'background-size:cover;';
-        }
-
-        $style = "style='{$style}'";
-    }
-
-    // Align title to the right
-    if ( 'right' == $title_align ) {
-        $classes[] = 'page-title-right';
-    }
-
-    // Title centered
-    if ( 'center' == $title_align ) {
-        $classes[] = 'page-title-center';
-    }
-
-    $classes = implode( ' ', $classes );
-
-    if ( ! empty( $title_align ) || 'nobg' == $title_bg  ) {
-        $classes = 'class="' . esc_attr( $classes ) . '"';
-    }
-
-    ?>
-    <section id="page-title" <?php echo $classes; ?> <?php echo $style; ?>>
-        <div class="container clearfix">
-            <h1><?php anva_the_page_title(); ?></h1>
-            <?php
-                if ( ! empty ( $tagline ) ) {
-                    printf( '<span>%s</span>', esc_html( $tagline ) );
-                }
-
-                // Get post types for top navigation
-                $post_types = array( 'portfolio', 'galleries' );
-                $post_types = apply_filters( 'anva_post_types_top_navigation', $post_types );
-
-                if ( is_singular( $post_types ) ) {
-                    do_action( 'anva_post_type_navigation' );
-                } else {
-                    do_action( 'anva_breadcrumbs' );
-                }
-            ?>
-        </div>
-    </section><!-- #page-title (end) -->
-    <?php
-}
-
-/**
  * Posted on meta.
  *
  * @since 1.0.0
@@ -448,6 +347,7 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 
 	// Start output
 	$output = '';
+
 	if ( is_array( $icons ) && ! empty ( $icons ) ) {
 
 		foreach ( $icons as $id => $url ) {
@@ -588,6 +488,7 @@ function anva_site_branding() {
 	            break;
 	    }
 	}
+
 	echo '</div><!-- #logo (end) -->';
 }
 
@@ -603,7 +504,10 @@ function anva_top_cart() {
 	?>
 	<!-- Top Cart -->
 	<div id="top-cart">
-		<a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
+		<a href="#" id="top-cart-trigger">
+			<i class="icon-shopping-cart"></i>
+			<span>5</span>
+		</a>
 		<div class="top-cart-content">
 			<div class="top-cart-title">
 				<h4><?php _e( 'Shopping Cart', 'anva' ); ?></h4>
@@ -611,7 +515,9 @@ function anva_top_cart() {
 			<div class="top-cart-items">
 				<div class="top-cart-item clearfix">
 					<div class="top-cart-item-image">
-						<a href="#"><img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/1.jpg'; ?>" alt="Blue Round-Neck Tshirt" /></a>
+						<a href="#">
+							<img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/1.jpg'; ?>" alt="Blue Round-Neck Tshirt" />
+						</a>
 					</div>
 					<div class="top-cart-item-desc">
 						<a href="#">Blue Round-Neck Tshirt</a>
@@ -621,7 +527,9 @@ function anva_top_cart() {
 				</div>
 				<div class="top-cart-item clearfix">
 					<div class="top-cart-item-image">
-						<a href="#"><img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/6.jpg'; ?>" alt="Light Blue Denim Dress" /></a>
+						<a href="#">
+							<img src="<?php echo anva_get_core_uri() . 'assets/images/shop/small/6.jpg'; ?>" alt="Light Blue Denim Dress" />
+						</a>
 					</div>
 					<div class="top-cart-item-desc">
 						<a href="#">Light Blue Denim Dress</a>
@@ -636,52 +544,6 @@ function anva_top_cart() {
 			</div>
 		</div>
 	</div><!-- #top-cart end -->
-	<?php
-}
-
-/**
- * Post navigation.
- *
- * @since 1.0.0
- */
-function anva_post_nav() {
-
-	$single_navigation = anva_get_option( 'single_navigation', 'show' );
-	if ( 'show' != $single_navigation ) {
-		return;
-	}
-
-	// Don't print empty markup if there's nowhere to navigate.
-	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
-	$next = get_adjacent_post( false, '', false );
-
-
-	if ( ! $next && ! $previous ) {
-		return;
-	}
-
-	$class = '';
-
-	// Align to right
-	if ( ! $previous ) {
-		$class = ' fright';
-	}
-
-	?>
-	<div class="post-navigation clearfix">
-		<?php
-			if ( $previous ) {
-				$previous_title = $previous->post_title;
-				previous_post_link( '<div class="post-previous col_half nobottommargin">%link</div>', '&lArr; ' . $previous_title );
-			}
-
-			if ( $next ) {
-				$next_title = $next->post_title;
-				next_post_link( '<div class="post-next col_half col_last nobottommargin tright' . esc_attr( $class ) . '">%link</div>', $next_title . ' &rArr;' );
-			}
-		?>
-	</div><!-- .post-navigation (end) -->
-	<div class="line"></div>
 	<?php
 }
 
@@ -739,44 +601,6 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 }
 
 /**
- * Blog post author.
- *
- * @since 1.0.0
- */
-function anva_post_author() {
-
-	$single_author = anva_get_option( 'single_author', 'hide' );
-
-	if ( 'show' != $single_author ) {
-		return;
-	}
-
-	$post_id = get_the_ID();
-	$id      = get_post_field( 'post_author', $post_id );
-	$avatar  = get_avatar( $id, '96' );
-	$url     = get_author_posts_url( $id );
-	$name    = get_the_author_meta( 'display_name', $id );
-	$desc    = get_the_author_meta( 'description', $id );
-	?>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">
-				<?php printf( '%1$s <span><a href="%2$s">%3$s</a></span>', __( 'Posted by', 'anva' ), esc_url( $url ), esc_html( $name ) ); ?>
-			</h3>
-		</div>
-		<div class="panel-body">
-			<div class="author-image">
-				<?php echo $avatar ; ?>
-			</div>
-			<div class="author-description">
-				<?php echo wpautop( esc_html( $desc ) ); ?>
-			</div>
-		</div>
-	</div><!-- .panel (end) -->
-	<?php
-}
-
-/**
  * Blog post tags.
  *
  * @since 1.0.0
@@ -795,180 +619,12 @@ function anva_post_tags() {
 }
 
 /**
- * Blog post share icons.
- *
- * @since 1.0.0
- */
-function anva_post_share() {
-
-	$single_share = anva_get_option( 'single_share', 'show' );
-	if ( 'show' != $single_share ) {
-		return;
-	}
-
-	$url           = get_permalink();
-	$title         = get_the_title();
-	$thumbnail_url = anva_get_featured_image_src( get_the_ID(), 'medium' );
-	$twitter       = anva_get_option( 'social_media' );
-
-	if ( is_single() ) :
-	?>
-	<div class="clear"></div>
-	<div class="si-share noborder clearfix">
-		<span><?php _e( 'Share this Post:', 'anva' ); ?></span>
-		<div>
-			<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_url( $url ); ?>&t=<?php echo esc_attr( $title ); ?>"
-   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="<?php _e( 'Share on Facebook', 'anva' ); ?>" class="social-icon si-borderless si-facebook">
-				<i class="icon-facebook"></i>
-				<i class="icon-facebook"></i>
-			</a>
-			<a href="https://twitter.com/share?url=<?php echo esc_url( $url ); ?>&via=TWITTER_HANDLE&text=<?php echo esc_attr( $title ); ?>"
-   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-   target="_blank" title="<?php _e( 'Share on Twitter', 'anva' ); ?>" class="social-icon si-borderless si-twitter">
-				<i class="icon-twitter"></i>
-				<i class="icon-twitter"></i>
-			</a>
-			<a href="http://pinterest.com/pin/create/button/?url=<?php echo esc_url( $url ); ?>&media=<?php echo esc_url( $thumbnail_url ); ?>&description=<?php echo esc_attr( $title ); ?>" target="_blank" class="social-icon si-borderless si-pinterest">
-				<i class="icon-pinterest"></i>
-				<i class="icon-pinterest"></i>
-			</a>
-			<a href="https://plus.google.com/share?url=<?php echo esc_url( $url ); ?>"
-   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=350,width=480');return false;"
-   target="_blank" title="<?php _e( 'Share on Google+', 'anva' ); ?>" class="social-icon si-borderless si-gplus">
-				<i class="icon-gplus"></i>
-				<i class="icon-gplus"></i>
-			</a>
-			<a href="<?php echo get_feed_link( 'rss2' ); ?>" class="social-icon si-borderless si-rss">
-				<i class="icon-rss"></i>
-				<i class="icon-rss"></i>
-			</a>
-			<a href="#" class="social-icon si-borderless si-email3">
-				<i class="icon-email3"></i>
-				<i class="icon-email3"></i>
-			</a>
-		</div>
-	</div><!-- .si-share (end) -->
-	<?php
-	endif;
-}
-
-/**
- * Blog post related.
- *
- * @since  1.0.0
- * @return Realated posts
- */
-function anva_post_related() {
-
-	$single_related = anva_get_option( 'single_related', 'hide' );
-	if ( 'hide' == $single_related ) {
-		return;
-	}
-
-	?>
-	<h4><?php _e( 'Related Posts', 'anva' ); ?></h4>
-	<div class="related-posts clearfix">
-	<?php
-		$limit         = 4;
-		$count         = 1;
-		$column        = 2;
-		$open_row      = '<div class="col_half nobottommargin">';
-		$open_row_last = '<div class="col_half nobottommargin col_last">';
-		$close_row     = '</div><!-- .col_half (end) -->';
-
-		// IDs
-		$ids = array();
-
-		// Query arguments
-		$query_args = array(
-			'post__not_in'        => array( get_the_ID() ),
-			'posts_per_page'      => $limit,
-			'ignore_sticky_posts' => 1,
-			'orderby'             => 'rand',
-		);
-
-		// Set by categories
-		if ( 'cat' == $single_related ) {
-			$categories = wp_get_post_terms( get_the_ID(), 'category', array( 'fields' => 'ids' ) );
-			$query_args['tax_query'] = array(
-				array(
-					'taxonomy' => 'category',
-					'terms'    => $categories
-				)
-			);
-		}
-
-		// Set by tag
-		if ( 'tag' == $single_related ) {
-			$tags = wp_get_post_terms( get_the_ID(), 'post_tag', array( 'fields' => 'ids') );
-			$query_args['tax_query'] = array(
-				array(
-					'taxonomy' => 'post_tag',
-					'terms'    => $tags
-				)
-			);
-		}
-
-		$query = anva_get_posts( $query_args );
-
-		if ( $query->have_posts() ) : ?>
-
-			<?php while ( $query->have_posts() ) :
-				$query->the_post(); ?>
-
-				<?php if ( 1 == $count ) : echo $open_row; endif ?>
-
-				<div class="mpost clearfix">
-					<?php if ( has_post_thumbnail() ) : ?>
-						<div class="entry-image">
-							<a href="<?php the_permalink(); ?>">
-								<?php the_post_thumbnail( 'anva_xs', array( 'title' => get_the_title() ) ); ?>
-							</a>
-						</div>
-					<?php endif; ?>
-					<div class="entry-c">
-						<div class="entry-title">
-							<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-						</div>
-						<ul class="entry-meta clearfix">
-							<li><i class="icon-calendar3"></i> <?php the_time( 'jS F Y' ); ?></li>
-							<li><a href="<?php the_permalink(); ?>/#comments"><i class="icon-comments"></i> <?php echo get_comments_number(); ?></a></li>
-						</ul>
-						<div class="entry-content">
-							<?php anva_the_excerpt( 90 ); ?>
-						</div>
-					</div>
-				</div><!-- .md-post (end) -->
-
-				<?php if ( 0 == $count % $column ) : echo $close_row; endif ?>
-				<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row_last; endif; ?>
-
-				<?php $count++; ?>
-
-			<?php endwhile; ?>
-
-			<?php if ( ( $count - 1 ) != $limit ) : echo $close_row; endif; ?>
-
-		<?php else :
-
-			_e( 'Not Posts Found', 'anva' );
-
-		endif;
-
-		wp_reset_postdata();
-
-	?>
-	</div><!-- .related-posts (end) -->
-	<?php
-}
-
-/**
  * Blog post pagination.
  *
  * @since 1.0.0
  * @param string $query
  */
-function anva_pagination( $query = '' ) {
+function anva_single_pagination( $query = '' ) {
 
 	if ( empty( $query ) ) :
 	?>
@@ -1057,231 +713,6 @@ function anva_comment_pagination() {
 }
 
 /**
- * Contact form.
- *
- * @global $_email_sended_message
- *
- * @since  1.0.0
- */
-function anva_contact_form() {
-
-	global $_email_sended_message;
-
-	// Set random values to set random questions
-	$a = rand(1, 9);
-	$b = rand(1, 9);
-	$s = $a + $b;
-	$answer = $s;
-
-	?>
-	<div class="contact-form-container">
-
-		<?php if ( ! empty( $_email_sended_message ) ) : ?>
-			<div id="email_message" class="alert alert-warning"><?php echo $_email_sended_message; ?></div>
-		<?php endif; ?>
-
-		<?php wp_nonce_field( 'contact_form', 'contact_form_nonce' ); ?>
-
-		<div id="contactmap"></div>
-
-		<form id="contactform" class="contact-form"  role="form" method="post" action="<?php the_permalink(); ?>#contactform">
-
-			<?php
-				$contact_fields = anva_get_option( 'contact_fields', array( 'name', 'email', 'message' ) );
-				$captcha = anva_get_option( 'contact_captcha' );
-				if ( ! empty( $contact_fields ) ) :
-					foreach ( $contact_fields as $field ) :
-						switch ( $field ) :
-
-							case 'name':
-								?>
-								<div class="form-name form-group">
-									<label for="cname" class="control-label"><?php anva_local( 'name' ); ?>:</label>
-									<input id="name" type="text" placeholder="<?php anva_local( 'name_place' ); ?>" name="cname" class="form-control requiredField" value="<?php if ( isset( $_POST['cname'] ) ) echo esc_attr( $_POST['cname'] ); ?>">
-								</div>
-								<?php
-								break;
-
-							case 'email':
-								?>
-								<div class="form-email form-group">
-									<label for="cemail" class="control-label"><?php anva_local( 'email' ); ?>:</label>
-									<input id="email" type="email" placeholder="<?php anva_local( 'email_place' ); ?>" name="cemail" class="form-control requiredField" value="<?php if ( isset( $_POST['cemail'] ) ) echo esc_attr( $_POST['cemail'] );?>">
-								</div>
-								<?php
-								break;
-
-							case 'subject':
-								?>
-								<div class="form-subject form-group">
-									<label for="csubject" class="control-label"><?php anva_local( 'subject' ); ?>:</label>
-									<input id="subject" type="text" placeholder="<?php anva_local( 'subject' ); ?>" name="csubject" class="form-control requiredField" value="<?php if ( isset( $_POST['csubject'] ) ) echo esc_attr( $_POST['csubject'] ); ?>">
-								</div>
-								<?php
-								break;
-
-							case 'message':
-								?>
-								<div class="form-message form-group">
-									<label for="cmessage" class="control-label"><?php anva_local( 'message' ); ?>:</label>
-									<textarea id="message" name="cmessage" class="form-control" placeholder="<?php anva_local( 'message_place' ); ?>"><?php if ( isset( $_POST['cmessage'] ) ) echo esc_textarea( $_POST['cmessage'] ); ?></textarea>
-								</div>
-								<?php
-								break;
-
-							case 'phone':
-								?>
-								<div class="form-phone form-group">
-									<label for="cphone" class="control-label"><?php anva_local( 'phone' ); ?>:</label>
-									<input id="phone" type="tel" placeholder="<?php anva_local( 'phone' ); ?>" name="cphone" class="form-control requiredField" value="<?php anva_local( 'phone_place' ); ?>"><?php if ( isset( $_POST['cphone'] ) ) echo esc_html( $_POST['cphone'] ); ?>">
-								</div>
-								<?php
-								break;
-
-								case 'mobile':
-								?>
-								<div class="form-mobile form-group">
-									<label for="cmobile" class="control-label"><?php anva_local( 'mobile' ); ?>:</label>
-									<input id="mobile" type="tel" placeholder="<?php anva_local( 'mobile_place' ); ?>" name="cmobile" class="form-control requiredField" value="<?php if ( isset( $_POST['cmobile'] ) ) echo esc_html( $_POST['cmobile'] ); ?>">
-								</div>
-								<?php
-								break;
-
-								case 'company_name':
-								?>
-								<div class="form-company_name form-group">
-									<label for="ccompany_name" class="control-label"><?php anva_local( 'company_name'  ); ?>:</label>
-									<input id="company_name" type="text" placeholder="<?php anva_local( 'company_name_place' ); ?>" name="ccompany_name" class="form-control requiredField" value="<?php if ( isset( $_POST['ccompany_name'] ) ) echo esc_html( $_POST['ccompany_name'] ); ?>">
-								</div>
-								<?php
-								break;
-
-								case 'country':
-								?>
-								<div class="form-country form-group">
-									<label for="ccountry" class="control-label"><?php anva_local( 'country'  ); ?>:</label>
-									<input id="ccountry" type="text" placeholder="<?php anva_local( 'country'  ); ?>" name="ccountry" class="form-control requiredField" value="<?php anva_local( 'country_place' ); ?>"><?php if ( isset( $_POST['ccountry'] ) ) echo esc_html( $_POST['ccountry'] ); ?>">
-								</div>
-								<?php
-								break;
-
-						endswitch;
-					endforeach;
-				else :
-					$name = anva_get_option_name();
-					printf( '<div class="alert alert-info">' . __( 'The contact fields are not defined, verified on the %s.', 'anva' ) . '</div>', sprintf( '<a href="' . esc_url( admin_url('/themes.php?page=' . $name ) ) . '">%s</>', __( 'theme options', 'anva' ) ) );
-				endif;
-			?>
-
-			<?php if ( 'yes' == $captcha ) : ?>
-				<div class="form-captcha form-group">
-					<label for="captcha" class="control-label"><?php echo $a . ' + '. $b . ' = ?'; ?>:</label>
-					<input type="text" name="ccaptcha" placeholder="<?php anva_local( 'captcha_place' ); ?>" class="form-control requiredField" value="<?php if ( isset( $_POST['ccaptcha'] ) ) echo $_POST['ccaptcha'];?>">
-					<input type="hidden" id="answer" name="canswer" value="<?php echo esc_attr( $answer ); ?>">
-				</div>
-			<?php endif; ?>
-
-			<div class="form-submit form-group">
-				<input type="hidden" id="submitted" name="contact-submission" value="1">
-				<input id="submit-contact-form" type="submit" class="button button-3d" value="<?php anva_local( 'submit' ); ?>">
-			</div>
-		</form>
-	</div><!-- .contact-form-wrapper -->
-
-	<?php
-		$latitude = 0;
-		$longitude = 0;
-		$zoom = anva_get_option( 'contact_map_zoom', 10 );
-		$html = anva_get_option( 'contact_map_html' );
-		$contact_map_type = anva_get_option( 'contact_map_type', 'ROADMAP' );
-		$contact_map_address = anva_get_option( 'contact_map_address' );
-
-		if ( isset( $contact_map_address[0] ) && ! empty( $contact_map_address[0] )  ) {
-			$latitude = $contact_map_address[0];
-		}
-
-		if ( isset( $contact_map_address[1] ) && ! empty( $contact_map_address[1] )  ) {
-			$longitude = $contact_map_address[1];
-		}
-	?>
-	<script type="text/javascript">
-		jQuery(document).ready( function($) {
-			var options = {
-				controls: {
-					panControl: true,
-					zoomControl: false,
-					mapTypeControl: false,
-					scaleControl: false,
-					streetViewControl: false,
-					overviewMapControl: true
-				},
-				scrollwheel: false,
-				maptype: '<?php echo esc_js( $contact_map_type ); ?>',
-				markers: [{
-					latitude: <?php echo esc_js( $latitude ); ?>,
-					longitude: <?php echo esc_js( $longitude ); ?>,
-					html: "<?php echo esc_js( $html ); ?>",
-					popup: true
-				}],
-				zoom: <?php echo esc_js( $zoom ); ?>
-			}
-			if ( $('#contactmap').length > 0 ) {
-				// $('#contactmap').gMap( options );
-			}
-		});
-	</script>
-	<script type="text/javascript">
-	jQuery(document).ready( function($) {
-		setTimeout( function() {
-			$("#email_message").fadeOut("slow");
-		}, 3000);
-		$('#contactform input[type="text"]').attr('autocomplete', 'off');
-		$('#contactform').validate({
-			rules: {
-				cname: "required",
-				cmobile: "required",
-				cphone: "required",
-				ccompany_name: "required",
-				ccountry: "required",
-				csubject: "required",
-				cemail: {
-					required: true,
-					email: true
-				},
-				cmessage: {
-					required: true,
-					minlength: 10
-				},
-				ccaptcha: {
-					required: true,
-					number: true,
-					equalTo: "#answer"
-				}
-			},
-			messages: {
-				cname: "<?php anva_local( 'name_required' ); ?>",
-				csubject: "<?php anva_local( 'subject_required' ); ?>",
-				cemail: {
-					required: "<?php anva_local( 'email_required' ); ?>",
-					email: "<?php anva_local( 'email_error' );  ?>"
-				},
-				cmessage: {
-					required: "<?php anva_local( 'message_required' ); ?>",
-					minlength: "<?php anva_local( 'message_min' ); ?>"
-				},
-				ccaptcha: {
-					required: "<?php anva_local( 'captcha_required' ); ?>",
-					number: "<?php anva_local( 'captcha_number' ); ?>",
-					equalTo: "<?php anva_local( 'captcha_equalto' );  ?>"
-				}
-			}
-		});
-	});
-	</script>
-	<?php
-}
-
-/**
  * Password form.
  *
  * @global $post
@@ -1293,8 +724,7 @@ function anva_password_form() {
 
 	global $post;
 
-	$label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
-
+	$label   = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
 	$output  = '<form class="form-inline password-form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
 	$output .= '<i class="icon-lock"></i>';
 	$output .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';

@@ -208,6 +208,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 
 			case 'text':
 				$output .= sprintf( '<input id="%s" class="anva-input anva-input-text" name="%s" type="text" value="%s" %s />', esc_attr( $value['id'] ), esc_attr( $option_name . '[' . $value['id'] . ']' ), esc_attr( $val ), $placeholder );
+
 				break;
 
 			/* ------------------------------------- */
@@ -380,6 +381,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 					if ( isset( $val[$option] ) ) {
 						$checked = checked($val[$option], 1, false);
 					}
+
 					$output .= '<div class="anva-checkbox-input-group">';
 					$output .= '<input id="' . esc_attr( $id ) . '" class="anva-input anva-checkbox checkbox-style" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '" class="checkbox-style-1-label checkbox-small">' . esc_html( $label ) . '</label>';
 					$output .= '</div>';

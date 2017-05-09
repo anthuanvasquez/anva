@@ -29,7 +29,7 @@ class Anva_Page_Builder {
 	 * @access private
 	 * @var    array
 	 */
-	private $args;
+	private $args = array();
 
 	/**
 	 * Options array for page builder elements.
@@ -38,7 +38,7 @@ class Anva_Page_Builder {
 	 * @access private
 	 * @var    array
 	 */
-	private $options;
+	private $options = array();
 
 	/**
 	 * Settings from database.
@@ -47,15 +47,14 @@ class Anva_Page_Builder {
 	 * @access private
 	 * @var    array
 	 */
-	private $settings;
+	private $settings = array();
 
 	/**
 	 * Constructor hook in meta box to start the process.
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $id, $args, $options )
-	{
+	public function __construct( $id, $args, $options ) {
 		if ( current_user_can( anva_admin_module_cap( 'builder' ) ) ) {
 
 			global $post;
@@ -90,8 +89,7 @@ class Anva_Page_Builder {
 	 * @since  1.0.0
 	 * @param  object $hook
 	 */
-	public function scripts( $hook )
-	{
+	public function scripts( $hook ) {
 
 		global $typenow;
 
@@ -114,17 +112,22 @@ class Anva_Page_Builder {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 				wp_enqueue_script( 'jquery-ui-resizable' );
 				wp_enqueue_script( 'jquery-ui-selectable' );
+				wp_enqueue_script( 'jquery-ui-slider' );
 
 				// Media
 				wp_enqueue_media();
+
+				wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
+				wp_enqueue_style( 'jquery_ui_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
+				wp_enqueue_script( 'jquery-ui-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
 
 				wp_enqueue_style( 'tooltipster', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'tooltipster.min.css', array(), '3.3.0' );
 				wp_enqueue_script( 'tooltipster', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'tooltipster.min.js', array( 'jquery' ), '3.3.0', false );
 				wp_enqueue_script( 'js-wp-editor', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'js-wp-editor.min.js', array( 'jquery' ), '1.1', false );
 				wp_localize_script( 'js-wp-editor', 'ap_vars', $wp_editor );
 
-				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'page-builder.css', array( 'tooltipster' ), ANVA_FRAMEWORK_VERSION, 'all' );
-				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'page-builder.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION, false );
+				wp_enqueue_style( 'anva_builder', ANVA_FRAMEWORK_ADMIN_CSS . 'page-builder.css', array( 'tooltipster' ), Anva::$version, 'all' );
+				wp_enqueue_script( 'anva_builder', ANVA_FRAMEWORK_ADMIN_JS . 'page-builder.js', array( 'jquery' ), Anva::$version, false );
 				wp_localize_script( 'anva_builder', 'anvaBuilderJs', anva_get_admin_locals( 'metabox_js' ) );
 
 			}
@@ -139,15 +142,21 @@ class Anva_Page_Builder {
 	 * @since  1.0.0
 	 */
 	public function head() {
-		global $post, $typenow;
 
-		$output = '';
 		$order  = array();
+		$output = '';
+		$screen = get_current_screen();
+
+		if ( 'page' !== $screen->id ) {
+			return;
+		}
+
+		global $post, $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
 
 			// Add scripts only if page match with post type
-			if ( $typenow == $page ) {
+			if ( $typenow === $page ) {
 
 				$settings = get_post_meta( $post->ID, $this->id, true );
 
@@ -183,8 +192,7 @@ class Anva_Page_Builder {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add()
-	{
+	public function add() {
 		// Filters
 		$this->args = apply_filters( 'anva_builder_args_' . $this->id, $this->args );
 
@@ -205,8 +213,7 @@ class Anva_Page_Builder {
 	 *
 	 * @since 1.0.0
 	 */
-	public function display( $post )
-	{
+	public function display( $post ) {
 		$enable		= '';
 		$shortcodes = $this->options;
 		$settings 	= get_post_meta( $post->ID, $this->id, true );
@@ -234,13 +241,13 @@ class Anva_Page_Builder {
 
 		?>
 
-		<input type="hidden" id="anva_post_id" 			name="anva_post_id" value="<?php echo esc_attr( $post->ID ); ?>" />
-		<input type="hidden" id="anva_builder_id" 		name="anva_builder_id" value="<?php echo esc_attr( $this->id ); ?>" />
-		<input type="hidden" id="anva_shortcode" 		name="anva_shortcode" value="" />
-		<input type="hidden" id="anva_shortcode_title"  name="anva_shortcode_title"  value="" />
-		<input type="hidden" id="anva_shortcode_image"  name="anva_shortcode_image" value="" />
-		<input type="hidden" id="anva_shortcode_order"  name="<?php echo esc_attr( $this->id . '[order]' ); ?>" value="" />
-		<input type="hidden" id="anva_current_item" 	name="anva_current_item" value="" />
+		<input type="hidden" id="anva_post_id" name="anva_post_id" value="<?php echo esc_attr( $post->ID ); ?>" />
+		<input type="hidden" id="anva_builder_id" name="anva_builder_id" value="<?php echo esc_attr( $this->id ); ?>" />
+		<input type="hidden" id="anva_shortcode" name="anva_shortcode" value="" />
+		<input type="hidden" id="anva_shortcode_title" name="anva_shortcode_title" value="" />
+		<input type="hidden" id="anva_shortcode_image" name="anva_shortcode_image" value="" />
+		<input type="hidden" id="anva_shortcode_order" name="<?php echo esc_attr( $this->id . '[order]' ); ?>" value="" />
+		<input type="hidden" id="anva_current_item" name="anva_current_item" value="" />
 
 		<div id="anva-framework" class="anva-framework">
 			<div class="anva-builder-wrap">
@@ -277,7 +284,9 @@ class Anva_Page_Builder {
 				<div class="anva-builder-actions-wrap">
 					<div class="anva-builder-action">
 						<div class="anva-backup-container">
-							<a href="#" class="button button-toggle"><?php _e( 'Template', 'anva' ); ?></a>
+							<a href="#" class="button button-toggle">
+								<?php _e( 'Template', 'anva' ); ?>
+							</a>
 							<div class="anva-backup-inner">
 								<span class="anva-arrow"></span>
 								<div class="anva-export-wrap">
@@ -386,8 +395,7 @@ class Anva_Page_Builder {
 	 * @since 1.0.0
 	 * @param integer The post ID
 	 */
-	public function save( $post_id )
-	{
+	public function save( $post_id ) {
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
@@ -446,8 +454,7 @@ class Anva_Page_Builder {
 	 *
 	 * @since 1.0.0
 	 */
-	public function admin_notices()
-	{
+	public function admin_notices() {
 
 		global $typenow;
 
@@ -595,8 +602,7 @@ class Anva_Page_Builder {
 	 *
 	 * @since 1.0.0
 	 */
-	function ajax_get_fields()
-	{
+	function ajax_get_fields() {
 		if ( isset( $_GET['shortcode'] ) && ! empty( $_GET['shortcode'] ) ) :
 
 			$shortcodes = $this->options;
@@ -665,7 +671,7 @@ class Anva_Page_Builder {
 					'use strict';
 
 					var $currentItemData = $('#<?php echo esc_js( $id ); ?>').data( 'anva_builder_settings' ),
-						$currentItemOBJ = $.parseJSON( $currentItemData );
+						$currentItemOBJ  = $.parseJSON( $currentItemData );
 
 					console.log($currentItemData);
 
@@ -689,9 +695,11 @@ class Anva_Page_Builder {
 						e.preventDefault();
 						var itemInner = $('#item-inner-<?php echo esc_js( $id ); ?>');
 						var parentEle = $('#<?php echo esc_js( $id ); ?>');
+
 						if ( parentEle.hasClass('has-inline-content') ) {
 							parentEle.removeClass('has-inline-content');
 						}
+
 						if ( itemInner.length > 0 ) {
 							itemInner.slideToggle();
 							setTimeout( function() {

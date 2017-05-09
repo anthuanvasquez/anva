@@ -215,29 +215,34 @@ class Anva_Page_Meta_Box {
 		 */
 
 		// Check if our nonce is set.
-		if ( ! isset( $_POST[ $this->id . '_nonce' ] ) )
+		if ( ! isset( $_POST[ $this->id . '_nonce' ] ) ) {
 			return $post_id;
+		}
 
 		$nonce = $_POST[ $this->id . '_nonce' ];
 
 		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( $nonce, $this->id ) )
+		if ( ! wp_verify_nonce( $nonce, $this->id ) ) {
 			return $post_id;
+		}
 
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return $post_id;
+		}
 
 		// Check the user's permissions.
 		if ( 'page' == $_POST['post_type'] ) {
 
-			if ( ! current_user_can( 'edit_page', $post_id ) )
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return $post_id;
+			}
 
 		} else {
 
-			if ( ! current_user_can( 'edit_post', $post_id ) )
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return $post_id;
+			}
 		}
 
 		/*

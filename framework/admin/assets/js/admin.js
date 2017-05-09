@@ -239,6 +239,7 @@ jQuery( document ).ready( function( $ ) {
                     trigger   = section.data( 'trigger' ),
                     receivers = section.data( 'receivers' ),
                     loop      = receivers.split( ' ' );
+
                 if ( el.is( ':checked' ) ) {
                     $.each( loop, function(index, el) {
                         $( '#section-' + el).show();

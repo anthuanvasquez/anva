@@ -541,12 +541,11 @@ function anva_get_gallery_slider_content( $gallery = '', $type = 'standard', $si
     }
 
     // Get gallery slider type
-    $gallery_slider_type = anva_get_post_meta( '_anva_gallery_slider_type' );
+    $gallery_slider_type = anva_get_post_meta( '_anva_gallery_slider' );
 
     if ( ! empty( $gallery_slider_type ) ) {
         $type = $gallery_slider_type;
     }
-
 
     // Did user insert a gallery like [gallery ids="1,2,3,4"]
     // via $gallery param or anywhere in post?
@@ -556,7 +555,6 @@ function anva_get_gallery_slider_content( $gallery = '', $type = 'standard', $si
     if ( preg_match( "/$pattern/s", $content, $match ) && 'gallery' == $match[2] ) {
 
         $atts = shortcode_parse_atts( $match[3] );
-
 
         if ( ! empty( $atts['ids'] ) ) {
             $ids = explode( ',', $atts['ids'] );
@@ -581,8 +579,6 @@ function anva_get_gallery_slider_content( $gallery = '', $type = 'standard', $si
         );
         $attachments = get_children( $args );
     }
-
-    //var_dump($attachments);
 
     // Slider needs 2 or more attachments.
     if ( count( $attachments ) <= 1 ) {
@@ -690,8 +686,8 @@ function anva_get_gallery_masonry_content( $gallery = '', $size = 'anva_sm', $co
     $size    = apply_filters( 'anva_gallery_masonry_size', $size, $post_id );
 
     // Get gallery hightlight
-    $gallery_highlight   = anva_get_post_meta( '_anva_gallery_highlight' );
-    $gallery_columns = anva_get_post_meta( '_anva_gallery_columns' );
+    $gallery_highlight = anva_get_post_meta( '_anva_gallery_highlight' );
+    $gallery_columns   = anva_get_post_meta( '_anva_gallery_columns' );
 
     if ( ! empty( $gallery_highlight ) ) {
         $gallery_highlight = "data-big=\"{$gallery_highlight}\"";

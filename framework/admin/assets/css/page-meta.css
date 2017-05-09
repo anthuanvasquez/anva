@@ -1,9 +1,9 @@
-.anva-meta-box {
+.anva-framework.anva-meta-box {
   margin: -6px 0 -12px; }
-  .anva-meta-box .nav-tab-wrapper {
+  .anva-framework.anva-meta-box .nav-tab-wrapper {
     border-bottom: 1px solid #DDD !important;
     padding-bottom: 0 !important; }
-  .anva-meta-box .nav-tab {
+  .anva-framework.anva-meta-box .nav-tab {
     background: #E4E4E4;
     color: #555;
     font-size: 13px;
@@ -11,19 +11,19 @@
     line-height: 24px;
     min-width: 48px;
     text-align: center; }
-    .anva-meta-box .nav-tab:hover {
+    .anva-framework.anva-meta-box .nav-tab:hover {
       background: #FFF; }
-  .anva-meta-box .nav-tab-active {
+  .anva-framework.anva-meta-box .nav-tab-active {
     background: #FFF;
     border-bottom: 1px solid #FFF; }
-  .anva-meta-box .postbox {
+  .anva-framework.anva-meta-box .postbox {
     background: transparent;
     border: 0;
     box-shadow: none;
     min-width: 0; }
-  .anva-meta-box .heading {
+  .anva-framework.anva-meta-box .heading {
     margin-top: 0; }
-  .anva-meta-box .section {
+  .anva-framework.anva-meta-box .section {
     margin: 0 -12px; }
 
 #side-sortables .section .controls,

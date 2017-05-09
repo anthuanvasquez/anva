@@ -1,3 +1,108 @@
 <div class="related-posts-wrap">
-	<?php anva_post_related(); ?>
+	<h4>
+		<?php _e( 'Related Posts', 'anva' ); ?>
+	</h4>
+
+	<div class="related-posts clearfix">
+	<?php
+		$limit          = 4;
+		$count          = 1;
+		$column         = 2;
+		$open_row       = '<div class="col_half nobottommargin">';
+		$open_row_last  = '<div class="col_half nobottommargin col_last">';
+		$close_row      = '</div><!-- .col_half (end) -->';
+		$single_related = anva_get_option( 'single_related', 'hide' );
+
+		// IDs
+		$ids = array();
+
+		// Query arguments
+		$query_args = array(
+			'post__not_in'        => array( get_the_ID() ),
+			'posts_per_page'      => $limit,
+			'ignore_sticky_posts' => 1,
+			'orderby'             => 'rand',
+		);
+
+		// Set by categories
+		if ( 'cat' == $single_related ) {
+			$categories = wp_get_post_terms( get_the_ID(), 'category', array( 'fields' => 'ids' ) );
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'category',
+					'terms'    => $categories
+				)
+			);
+		}
+
+		// Set by tag
+		if ( 'tag' == $single_related ) {
+			$tags = wp_get_post_terms( get_the_ID(), 'post_tag', array( 'fields' => 'ids') );
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'post_tag',
+					'terms'    => $tags
+				)
+			);
+		}
+
+		$query = anva_get_posts( $query_args );
+
+		if ( $query->have_posts() ) : ?>
+
+			<?php while ( $query->have_posts() ) :
+				$query->the_post(); ?>
+
+				<?php if ( 1 == $count ) : echo $open_row; endif ?>
+
+				<div class="mpost clearfix">
+					<?php if ( has_post_thumbnail() ) : ?>
+						<div class="entry-image">
+							<a href="<?php the_permalink(); ?>">
+								<?php the_post_thumbnail( 'anva_xs', array( 'title' => get_the_title() ) ); ?>
+							</a>
+						</div>
+					<?php endif; ?>
+					<div class="entry-c">
+						<div class="entry-title">
+							<h4>
+								<a href="<?php the_permalink(); ?>">
+									<?php the_title(); ?>
+								</a>
+							</h4>
+						</div>
+						<ul class="entry-meta clearfix">
+							<li>
+								<i class="icon-calendar3"></i> <?php the_time( 'jS F Y' ); ?>
+							</li>
+							<li>
+								<a href="<?php the_permalink(); ?>/#comments">
+									<i class="icon-comments"></i> <?php echo get_comments_number(); ?>
+								</a>
+							</li>
+						</ul>
+						<div class="entry-content">
+							<?php anva_the_excerpt( 90 ); ?>
+						</div>
+					</div>
+				</div><!-- .md-post (end) -->
+
+				<?php if ( 0 == $count % $column ) : echo $close_row; endif ?>
+				<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row_last; endif; ?>
+
+				<?php $count++; ?>
+
+			<?php endwhile; ?>
+
+			<?php if ( ( $count - 1 ) != $limit ) : echo $close_row; endif; ?>
+
+		<?php else :
+
+			_e( 'Not Posts Found', 'anva' );
+
+		endif;
+
+		wp_reset_postdata();
+	?>
+	</div><!-- .related-posts (end) -->
 </div><!-- related-posts-wrap (end) -->

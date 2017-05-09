@@ -126,7 +126,7 @@ function anva_body_class( $classes ) {
 		$classes[] = 'has-footer-content';
 	}
 
-	if ( is_page_template( 'template_builder.php' ) ) {
+	if ( is_page_template( 'template-builder.php' ) ) {
 		$classes[] = 'page-has-content-builder';
 	}
 

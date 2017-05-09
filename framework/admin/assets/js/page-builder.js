@@ -93,7 +93,7 @@ jQuery( document ).ready( function( $ ) {
             var $template = $('#page_template');
             AnvaPageBuilderManager.checkTemplate( $template.val() );
             $template.on( 'change', function() {
-                AnvaPageBuilderManager.checkTemplate( $template.val() );
+                AnvaPageBuilderManager.checkTemplate( $(this).val() );
             });
         },
 
@@ -103,7 +103,7 @@ jQuery( document ).ready( function( $ ) {
          * @param object $target
          */
         checkTemplate: function( $target ) {
-            if ( 'template_builder.php' === $target ) {
+            if ( 'template-builder.php' == $target ) {
                 $('#' + s.ID).addClass('anva-builder-active');
             } else {
                 $('#' + s.ID).removeClass('anva-builder-active');

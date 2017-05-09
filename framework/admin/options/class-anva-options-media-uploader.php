@@ -146,7 +146,7 @@ class Anva_Options_Media_Uploader {
 			wp_enqueue_media();
 		}
 
-		wp_register_script( 'anva_media_uploader', ANVA_FRAMEWORK_ADMIN_JS . 'media-uploader.js', array( 'jquery' ), ANVA_FRAMEWORK_VERSION );
+		wp_register_script( 'anva_media_uploader', ANVA_FRAMEWORK_ADMIN_JS . 'media-uploader.js', array( 'jquery' ), Anva::$version );
 		wp_enqueue_script( 'anva_media_uploader' );
 		wp_localize_script( 'anva_media_uploader', 'anvaMediaJs', array(
 			'upload' => __( 'Browse', 'anva' ),

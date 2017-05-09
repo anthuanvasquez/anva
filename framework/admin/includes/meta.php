@@ -377,9 +377,20 @@ function anva_setup_page_meta() {
 					'hide'  => __( 'Hide page\'s title', 'anva' ),
 				)
 			),
+			'page_title_mini'  => array(
+				'name'      => __( 'Page Title Mini', 'anva' ),
+				'desc'      => __( 'Use a mini version of the page titles.', 'anva' ),
+				'id'        => 'page_title_mini',
+				'type'      => 'select',
+				'std'       => 'no',
+				'options'   => array(
+				    'yes'   => __( 'Yes, use mini version of pages title', 'anva' ),
+					'no'    => __( 'Don\'t use the mini version of pages title', 'anva' ),
+				),
+			),
 			'page_tagline'  => array(
 				'name'      => __( 'Page Tagline', 'anva' ),
-				'desc'      => __( 'Enter s ahort page tagline for this page.', 'anva' ),
+				'desc'      => __( 'Enter a ahort page tagline for this page. Note: if page title mini is active, , the tagline will not show.', 'anva' ),
 				'id'        => 'page_tagline',
 				'type'      => 'text',
 				'std'       => '',
