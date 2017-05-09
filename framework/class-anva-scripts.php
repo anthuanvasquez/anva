@@ -315,6 +315,8 @@ class Anva_Scripts {
                 }
             }
 
+            wp_localize_script( 'anva_main', 'AnvaMainJS', anva_get_js_locals() );
+
         }
 
     }

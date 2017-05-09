@@ -1,7 +1,3 @@
-<?php
-$single_post_reading_bar = anva_get_option( 'single_post_reading_bar' );
-if ( is_singular( 'post' ) && 'show' === $single_post_reading_bar ) :
-?>
 <div id="post-reading-wrap">
 	<div class="post-reading-bar">
 		<div class="post-reading-indicator-container">
@@ -28,5 +24,3 @@ if ( is_singular( 'post' ) && 'show' === $single_post_reading_bar ) :
 		</div>
 	</div>
 </div><!-- #post-reading-wrap (end) -->
-<?php
-endif;

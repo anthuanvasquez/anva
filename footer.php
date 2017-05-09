@@ -33,17 +33,13 @@
 	<?php do_action( 'anva_footer_above' ); ?>
 
 	<!-- FOOTER (start) -->
-	<footer id="footer" <?php echo esc_attr( $class ); ?>>
+	<footer id="footer" <?php echo $class; ?>>
 
 		<div class="container clearfix">
 			<?php do_action( 'anva_footer_content' ); ?>
 		</div><!-- .container (end) -->
 
-		<div id="copyrights">
-			<div class="container clearfix">
-				<?php do_action( 'anva_footer_copyrights' ); ?>
-			</div>
-		</div><!-- #copyrights (end) -->
+		<?php do_action( 'anva_footer_copyrights' ); ?>
 
 	</footer><!-- FOOTER (end) -->
 

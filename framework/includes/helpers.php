@@ -111,7 +111,8 @@ function anva_body_class( $classes ) {
 
 	$classes[] = 'has-lang-' . strtolower( get_bloginfo( 'language' ) );
 
- 	// Adds a class of group-blog to blogs with more than 1 published author.
+ 	// Group-blog to blogs  with
+ 	// more than 1 published author.
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
@@ -128,6 +129,16 @@ function anva_body_class( $classes ) {
 
 	if ( is_page_template( 'template-builder.php' ) ) {
 		$classes[] = 'page-has-content-builder';
+	}
+
+	if ( anva_get_config( 'featured' ) ) {
+		$featured  = implode( ' ', anva_get_config( 'featured' ) );
+		$classes[] = $featured;
+	}
+
+	if ( anva_get_config( 'comments' ) ) {
+		$comments  = implode( ' ', anva_get_config( 'comments' ) );
+		$classes[] = $comments;
 	}
 
 	return apply_filters( 'anva_body_classes', $classes );
@@ -1083,7 +1094,7 @@ function anva_compress( $buffer ) {
  */
 function anva_get_template_part( $slug = 'post', $name = 'content' ) {
 
-	$components = apply_filters( 'anva_components_list', array( 'page', 'post', 'header', 'footer' ) );
+	$components = apply_filters( 'anva_components_list', array( 'page', 'post', 'header', 'footer', 'features' ) );
 	$path = apply_filters( 'anva_components_path', trailingslashit( 'framework/component' ) );
 
 

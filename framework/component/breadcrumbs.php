@@ -7,9 +7,7 @@ if ( empty ( $current_breadcrumb ) ) {
     $current_breadcrumb = anva_get_option( 'breadcrumbs', 'show' );
 }
 
-if ( 'show' != $current_breadcrumb ) {
-    return;
-}
-
 // Display breadcrumbs
-anva_the_breadcrumbs();
+if ( 'show' == $current_breadcrumb ) {
+	anva_the_breadcrumbs();
+}

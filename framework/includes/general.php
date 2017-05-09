@@ -39,8 +39,8 @@ function anva_add_theme_support() {
  */
 function anva_require_theme_supports() {
 	require_if_theme_supports( 'anva-menu', Anva::$framework_dir_path . 'component/navigation/menu.php' );
-	require_if_theme_supports( 'anva-instant-search', Anva::$framework_dir_path . 'component/instant-search.php' );
-	require_if_theme_supports( 'anva-woocommerce', Anva::$framework_dir_path . 'component/woocommerce.php' );
+	require_if_theme_supports( 'anva-instant-search', Anva::$framework_dir_path . 'component/features/instant-search.php' );
+	require_if_theme_supports( 'anva-woocommerce', Anva::$framework_dir_path . 'component/features/woocommerce.php' );
 }
 
 /**
@@ -592,27 +592,25 @@ function anva_config() {
 		}
 	}
 
-	if ( is_home() || is_page_template( 'template_list.php' ) ) {
+	if ( is_home() || is_page_template( 'template-list.php' ) ) {
 		if ( anva_get_area( 'featured', 'blog' ) ) {
 			$config['featured'][] = 'has_blog_featured';
 		}
 	}
 
-	if ( is_page_template( 'template_grid.php' ) ) {
+	if ( is_page_template( 'template-grid.php' ) ) {
 		if ( anva_get_area( 'featured', 'grid' ) ) {
 			$config['featured'][] = 'has_grid_featured';
 		}
 	}
 
 	if ( is_archive() || is_search() ) {
-
 		if ( anva_get_area( 'featured', 'archive' ) ) {
 			$config['featured'][] = 'has_archive_featured';
 		}
-
 	}
 
-	if ( is_page() && ! is_page_template( 'template_builder.php' ) ) {
+	if ( is_page() && ! is_page_template( 'template-builder.php' ) ) {
 		if ( anva_get_area( 'featured', 'page' ) ) {
 			$config['featured'][] = 'has_page_featured';
 		}
@@ -621,6 +619,22 @@ function anva_config() {
 	if ( is_single() ) {
 		if ( anva_get_area( 'featured', 'single' ) ) {
 			$config['featured'][] = 'has_single_featured';
+		}
+
+		if ( anva_get_area( 'comments', 'single' ) ) {
+			$config['comments'][] = 'has_single_comments';
+		}
+	}
+
+	if ( is_singular( 'portfolio' ) ) {
+		if ( anva_get_area( 'featured', 'portfolio' ) ) {
+			$config['featured'][] = 'has_portfolio_featured';
+		}
+	}
+
+	if ( is_singular( 'galleries' ) ) {
+		if ( anva_get_area( 'featured', 'galleries' ) ) {
+			$config['featured'][] = 'has_galleries_featured';
 		}
 	}
 
@@ -649,6 +663,26 @@ function anva_get_config( $key = '' ) {
 }
 
 /**
+ * Set default areas.
+ *
+ * @return array $areas
+ */
+function anva_default_areas() {
+	$areas = array(
+		'front'     => __( 'Font Page', 'anva' ),
+		'archive'   => __( 'Archive Page', 'anva' ),
+		'blog'      => __( 'Blog or Home', 'anva' ),
+		'grid'      => __( 'Post Grid', 'anva' ),
+		'page'      => __( 'Pages', 'anva' ),
+		'single'    => __( 'Single Posts', 'anva' ),
+		'portfolio' => __( 'Portfolio Pages', 'anva' ),
+		'galleries' => __( 'Galleries Pages', 'anva' ),
+	);
+
+	return apply_filters( 'anva_default_areas', $areas );
+}
+
+/**
  * Setup page areas for display content.
  *
  * @since  1.0.0
@@ -656,23 +690,36 @@ function anva_get_config( $key = '' ) {
  */
 function anva_setup_areas() {
 
+	// Check areas from DB
+	$slider_area = anva_get_option( 'slider_area' );
+
+	// Defaults slider areas
+	$slider_defaults = apply_filters( 'anva_slider_areas_defaults', array(
+		'front'     => true,
+		'archive'   => false,
+		'blog'      => false,
+		'grid'      => false,
+		'page'      => false,
+		'single'    => false,
+		'portfolio' => true,
+		'galleries' => true,
+	) );
+
+	// Defaults comment areas
+	$comment_defaults = apply_filters( 'anva_comment_areas_defaults', array(
+		'page'       	=> false,
+		'single'       	=> false,
+		'attachments' 	=> false,
+		'portfolio' 	=> false,
+		'galleries' 	=> false,
+	) );
+
+	$slider_args = wp_parse_args( $slider_area, $slider_defaults );
+
 	// Setup array
 	$setup = array(
-		'featured' => array(
-			'front'   		=> true,	// Show/Hide featured area by default
-			'archive' 		=> false,	// Show/Hide featured area by default
-			'blog'    		=> false,	// Show/Hide featured area by default
-			'grid'    		=> false,	// Show/Hide featured area by default
-			'page'    		=> false,	// Show/Hide featured area by default
-			'single'  		=> false,	// Show/Hide featured area by default
-		),
-		'comments' => array(
-			'posts'       	=> true,	// Show/Hide comments on posts
-			'pages'       	=> false,	// Show/Hide comments on pages
-			'attachments' 	=> false,	// Show/Hide comments on attachements
-			'portfolio' 	=> false,	// Show/Hide comments on portfolio items
-			'galleries' 	=> false,	// Show/Hide comments on galleries
-		),
+		'featured' => $slider_args,
+		'comments' => $comment_defaults,
 	);
 
 	return apply_filters( 'anva_setup_areas', $setup );

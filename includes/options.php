@@ -906,6 +906,14 @@ function anva_options() {
 				'type' => 'text',
 				'class' => 'slider-item revslider hide'
 			),
+			'slider_area' => array(
+				'name' => __( 'Slider Area', 'anva' ),
+				'desc' => __( 'Select the slider area.', 'anva' ),
+				'id' => 'slider_area',
+				'std' => 'front',
+				'type' => 'multicheck',
+				'options' => anva_default_areas(),
+			),
 		),
 		'login' => array(
 			'login_style' => array(

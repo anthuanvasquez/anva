@@ -136,64 +136,57 @@ class Anva_Sliders {
 
 		// Slider fields
 		$this->core_sliders['standard']['fields'] = array(
-			'general' => array(
-				'id' 			=> 'general',
-				'name'		=> __( 'General', 'anva' ),
-				'type' 		=> 'heading',
-				'options' => array(
-					'type' => array(
-						'name' 		=> __( 'Slide Type', 'anva' ),
-						'desc'		=> __( 'Select content type.', 'anva' ),
-						'id'			=> 'type',
-						'type' 		=> 'select',
-						'std'			=> '',
-						'options'	=> array(
-							'image' => __( 'Image Slide', 'anva' ),
-							'video' => __( 'Video Slide', 'anva' )
-						)
-					),
-					'link' => array(
-						'name' 		=> __( 'Image Link', 'anva' ),
-						'desc'		=> __( 'Where should the link open?.', 'anva' ),
-						'id'			=> 'link',
-						'type' 		=> 'select',
-						'std'			=> 'same',
-						'options'	=> array(
-							'same' 	=> __( 'Same Windows', 'anva' ),
-							'new' 	=> __( 'New Windows', 'anva' ),
-							'image' => __( 'Lightbox Image', 'anva' ),
-							'video' => __( 'Lightbox Video', 'anva' )
-						)
-					),
-					'url' => array(
-						'name' 		=> __( 'URL', 'anva' ),
-						'desc'		=> __( 'Where should the link go?.', 'anva' ),
-						'id'			=> 'url',
-						'type' 		=> 'text',
-						'std'			=> ''
-					),
-					'description' => array(
-						'name' 		=> __( 'Description', 'anva' ),
-						'desc'		=> __( 'What should the description say?.', 'anva' ),
-						'id'			=> 'description',
-						'type' 		=> 'textarea',
-						'std'			=> ''
-					),
-					'content' => array(
-						'name' 		=> __( 'Content', 'anva' ),
-						'desc'		=> __( 'Select a option to show the content.', 'anva' ),
-						'id'			=> 'content',
-						'type' 		=> 'select',
-						'std'			=> 'hide',
-						'options'	=> array(
-							'title' => anva_get_local( 'slide_title'),
-							'desc' 	=> anva_get_local( 'slide_desc' ),
-							'both' 	=> anva_get_local( 'slide_show' ),
-							'hide' 	=> anva_get_local( 'slide_hide' )
-						)
-					),
+			'type' => array(
+				'name' 		=> __( 'Slide Type', 'anva' ),
+				'desc'		=> __( 'Select content type.', 'anva' ),
+				'id'		=> 'type',
+				'type' 		=> 'select',
+				'std'		=> '',
+				'options'	=> array(
+					'image' => __( 'Image Slide', 'anva' ),
+					'video' => __( 'Video Slide', 'anva' )
 				)
-			)
+			),
+			'link' => array(
+				'name' 		=> __( 'Image Link', 'anva' ),
+				'desc'		=> __( 'Where should the link open?.', 'anva' ),
+				'id'		=> 'link',
+				'type' 		=> 'select',
+				'std'		=> 'same',
+				'options'	=> array(
+					'same' 	=> __( 'Same Windows', 'anva' ),
+					'new' 	=> __( 'New Windows', 'anva' ),
+					'image' => __( 'Lightbox Image', 'anva' ),
+					'video' => __( 'Lightbox Video', 'anva' )
+				)
+			),
+			'url' => array(
+				'name' 		=> __( 'URL', 'anva' ),
+				'desc'		=> __( 'Where should the link go?.', 'anva' ),
+				'id'		=> 'url',
+				'type' 		=> 'text',
+				'std'		=> ''
+			),
+			'description' => array(
+				'name' 		=> __( 'Description', 'anva' ),
+				'desc'		=> __( 'What should the description say?.', 'anva' ),
+				'id'		=> 'description',
+				'type' 		=> 'textarea',
+				'std'		=> ''
+			),
+			'content' => array(
+				'name' 		=> __( 'Content', 'anva' ),
+				'desc'		=> __( 'Select a option to show the content.', 'anva' ),
+				'id'		=> 'content',
+				'type' 		=> 'select',
+				'std'		=> 'hide',
+				'options'	=> array(
+					'title' => anva_get_local( 'slide_title'),
+					'desc' 	=> anva_get_local( 'slide_desc' ),
+					'both' 	=> anva_get_local( 'slide_show' ),
+					'hide' 	=> anva_get_local( 'slide_hide' )
+				)
+			),
 		);
 
 		// Slider options

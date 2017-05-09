@@ -97,43 +97,13 @@ function anva_head_viewport() {
  * @since 1.0.0
  */
 function anva_top_bar_default() {
-    // Hide top bar
     $top_bar = anva_get_option( 'top_bar' );
+
     if ( ! $top_bar ) {
         return;
     }
 
-    $top_bar_color = anva_get_option( 'top_bar_color' );
-    $top_bar_layout = anva_get_option( 'top_bar_layout' );
-
-    $class = '';
-    if ( 'dark' == $top_bar_color ) {
-        $class = 'class="dark"';
-    }
-
-    ?>
-    <!-- Top Bar -->
-    <div id="top-bar"<?php echo $class; ?>>
-        <div class="container clearfix">
-            <div class="col_half nobottommargin">
-                <!-- Top Links -->
-                <div class="top-links">
-                    <?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
-                </div><!-- .top-links end -->
-            </div>
-
-            <div class="col_half fright col_last nobottommargin">
-
-                <!-- Top Social -->
-                <div id="top-social">
-                    <ul>
-                        <?php anva_social_icons( $style = '', $shape = '', $border = '', $size = '', $position = 'top-bar' ); ?>
-                    </ul>
-                </div><!-- #top-social end -->
-            </div>
-        </div>
-    </div><!-- #top-bar end -->
-    <?php
+    anva_get_template_part( 'header', 'top-bar' );
 }
 
 /**
@@ -152,30 +122,12 @@ function anva_header_logo_default() {
  */
 function anva_side_panel_default() {
     $side_panel_display = anva_get_option( 'side_panel_display' );
+
     if ( ! $side_panel_display && 'side' != anva_get_header_type() ) {
         return;
     }
 
-    $class            = '';
-    $side_panel_color = anva_get_option( 'side_panel_color' );
-    if ( 'dark' == $side_panel_color ) {
-        $class = ' class="dark"';
-    }
-
-    if ( 'custom' == $side_panel_color ) {
-        $class = ' class="dark side-panel-has-custom"';
-    }
-    ?>
-    <div class="body-overlay"></div>
-    <div id="side-panel"<?php echo $class; ?>>
-        <div id="side-panel-trigger-close" class="side-panel-trigger">
-            <a href="#"><i class="icon-line-cross"></i></a>
-        </div>
-        <div class="side-panel-wrap">
-            <?php anva_display_sidebar( 'side_panel_sidebar' ); ?>
-        </div>
-    </div>
-    <?php
+    anva_get_template_part( 'header', 'side-panel' );
 }
 
 /**
@@ -194,6 +146,7 @@ function anva_header_default() {
                 <?php do_action( 'anva_header_logo' ); ?>
                 <?php do_action( 'anva_header_extras' ); ?>
             </div><!-- .container (end) -->
+
             <div id="header-wrap">
                 <?php do_action( 'anva_header_primary_menu' ); ?>
             </div><!-- .header-wrap (end) -->
@@ -253,11 +206,19 @@ function anva_header_primary_menu_default() {
 
         <?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
             <div class="container clearfix">
-                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                <div id="primary-menu-trigger">
+                	<i class="icon-reorder"></i>
+                </div>
         <?php endif; ?>
 
         <?php
             wp_nav_menu( anva_get_wp_nav_menu_args( 'primary' ) );
+
+            /**
+             * Hooked
+             *
+             * @see anva_header_primary_menu_addon_default
+             */
             do_action( 'anva_header_primary_menu_addon' );
         ?>
 
@@ -271,7 +232,8 @@ function anva_header_primary_menu_default() {
     // Show social icons in side header
     $side_header_icons = anva_get_option( 'side_header_icons' );
     $header_type = anva_get_header_type();
-    if (  'side' == $header_type && $side_header_icons ) : ?>
+
+    if ( 'side' == $header_type && $side_header_icons ) : ?>
         <div class="clearfix visible-md visible-lg">
             <?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?>
         </div>
@@ -366,31 +328,7 @@ function anva_footer_content_default() {
  * @since 1.0.0
  */
 function anva_footer_copyrights_default() {
-
-    $footer_copyright = anva_get_option( 'footer_copyright' );
-    $footer_copyright = anva_footer_copyright_helpers( $footer_copyright );
-    $display          = anva_get_option( 'footer_extra_display' );
-
-    ?>
-    <div class="col_half">
-        <div class="copyright-text"><?php echo anva_kses( $footer_copyright ); ?></div>
-        <div class="copyright-links">
-            <?php wp_nav_menu( anva_get_wp_nav_menu_args( 'footer' ) ); ?>
-        </div>
-    </div>
-
-    <div class="col_half col_last tright">
-        <div class="fright clearfix"><?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?></div>
-        <div class="clear"></div>
-        <?php
-        if ( $display ) :
-            $text = anva_get_option( 'footer_extra_info' );
-            $text = anva_extract_icon( $text );
-            echo anva_kses( $text );
-        endif;
-        ?>
-    </div>
-    <?php
+	anva_get_template_part( 'footer', 'content-copyrights' );
 }
 
 /**
@@ -603,7 +541,6 @@ function anva_sidebars_default( $position ) {
         $sidebar_left = $left;
     }
 
-
     // Sidebar Left, Sidebar Right, Double Sidebars
     if ( $layout == $position || $layout == 'double' ) {
 
@@ -777,7 +714,7 @@ function anva_post_content_default() {
         printf( '<a class="more-link" href="%1$s">%2$s%3$s</a>',
         	get_the_permalink(),
         	anva_get_local( 'read_more' ),
-        	sprintf( ' <span class="screen-reader-text">%s</span>', __('about an interesting article to read', 'anva') )
+        	sprintf( ' <span class="screen-reader-text">%s</span>', anva_get_local( 'read_more_about' ) )
         );
         return;
     }
@@ -870,13 +807,19 @@ function anva_post_comments_default() {
 }
 
 /**
- * Post reading bar indicator.
+ * Display post reading bar indicator.
  *
  * @since  1.0.0
  * @return void
  */
 function anva_post_reading_bar() {
-    anva_get_template_part( 'post', 'reading-bar' );
+	$single_post_reading_bar = anva_get_option( 'single_post_reading_bar' );
+
+	if ( ! is_singular( 'post' ) || 'show' != $single_post_reading_bar ) {
+		return;
+	}
+
+	anva_get_template_part( 'features', 'reading-bar' );
 }
 
 /**

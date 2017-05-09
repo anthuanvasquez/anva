@@ -601,24 +601,6 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 }
 
 /**
- * Blog post tags.
- *
- * @since 1.0.0
- */
-function anva_post_tags() {
-	$classes = 'tagcloud clearfix';
-
-	if ( is_single() )
-		$classes .= ' bottommargin';
-	?>
-
-	<div class="<?php echo esc_attr( $classes ); ?>">
-		<?php the_tags( '', ' ' ); ?>
-	</div><!-- .tagcloud (end) -->
-	<?php
-}
-
-/**
  * Blog post pagination.
  *
  * @since 1.0.0
@@ -1223,6 +1205,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 	$data .= 'data-arrows="' . esc_attr( $arrows ) . '"';
 	$data .= 'data-speed="' . esc_attr( $speed ) . '"';
 	$data .= 'data-pause="' . esc_attr( $pause ) . '"';
+	$data .= 'data-smooth-height="true"';
 
 	$classes[] = 'fslider';
 

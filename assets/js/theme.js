@@ -3,7 +3,7 @@
     'use strict';
 
     // --------------------------------------------------
-    // Post Reading
+    // Post Reading Feature
     // --------------------------------------------------
 
     var postReading   = $( '#post-reading-wrap' ),
@@ -59,13 +59,13 @@
     }
 
     // --------------------------------------------------
-    // Instant Search Extension
+    // Instant Search Feature
     // --------------------------------------------------
 
     if ( instantSearch.length > 0 ) {
         searchElement.on( 'input', function() {
             $.ajax({
-                url: ANVA_VARS.ajaxUrl,
+                url: AnvaThemeJS.ajaxUrl,
                 type: 'POST',
                 data: 'action=anva_ajax_search&s=' + searchElement.val(),
                 success: function( results ) {

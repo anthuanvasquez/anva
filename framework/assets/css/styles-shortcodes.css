@@ -4515,6 +4515,8 @@ blockquote.pull-right {
   border-radius: 2px; }
   #gotoTop:hover {
     background-color: #3498db; }
+  body.has-reading-bar #gotoTop {
+    bottom: 8px; }
 
 body:not(.device-touch) #gotoTop {
   -webkit-transition: background-color 0.2s linear;

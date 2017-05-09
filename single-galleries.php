@@ -54,7 +54,9 @@ get_header();
 					</article><!-- #post-<?php the_ID(); ?> (end) -->
 				</div><!-- .entry-wrap (end) -->
 
-				<?php do_action( 'anva_post_comments' ); ?>
+				<?php if ( anva_get_area( 'comments', 'galleries' ) ) : ?>
+					<?php do_action( 'anva_post_comments' ); ?>
+				<?php endif; ?>
 
 			<?php endwhile; ?>
 

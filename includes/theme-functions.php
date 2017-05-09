@@ -353,7 +353,7 @@ function theme_scripts() {
 
 	// Enqueue Scripts
 	wp_enqueue_script( 'theme_js' );
-	wp_localize_script( 'anva_main', 'AnvaMainJS', anva_get_js_locals() );
+	wp_localize_script( 'theme_js', 'AnvaThemeJS', anva_get_js_locals() );
 
 	// Enqueue Thread Commens on Single Posts
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

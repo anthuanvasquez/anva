@@ -391,6 +391,10 @@ blockquote {
     &:hover {
         background-color: $theme-color;
     }
+
+    body.has-reading-bar & {
+        bottom: 8px;
+    }
 }
 
 body {
