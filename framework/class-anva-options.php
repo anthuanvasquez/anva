@@ -110,27 +110,27 @@ class Anva_Options {
 
 		// Template defaults
 		$template_defaults = array(
-			'blog' 				=> __( 'Classic Blog', 'anva' ),
-			'search' 			=> __( 'Classic Search', 'anva' ),
-			'2col' 				=> __( '2 Columns', 'anva'),
-			'3col' 				=> __( '3 Columns', 'anva' )
+			'blog'   => __( 'Classic Blog', 'anva' ),
+			'search' => __( 'Classic Search', 'anva' ),
+			'2col'   => __( '2 Columns', 'anva'),
+			'3col'   => __( '3 Columns', 'anva' ),
 		);
 
 		// Social media buttons defautls
 		$social_media_defaults = apply_filters( 'anva_social_icons_defaults', array(
-			'dribbble'		=> 'https://dribbble.com/oidoperfecto',
-			'gplus' 		=> 'https://plus.google.com/+AnthuanVasquez',
-			'twitter' 		=> 'https://twitter.com/oidoperfecto', // Follow Me! :)
-			'rss'			=> get_feed_link()
+			'dribbble' => 'https://dribbble.com/oidoperfecto',
+			'gplus'    => 'https://plus.google.com/+AnthuanVasquez',
+			'twitter'  => 'https://twitter.com/oidoperfecto', // Follow Me! :)
+			'rss'      => get_feed_link(),
 		) );
 
 		// Logo defaults
 		$logo_defaults = apply_filters( 'anva_logo_defaults', array(
-			'type'            => 'image',
-			'custom'          => '',
-			'image'           => ANVA_FRAMEWORK_IMG . 'logo.png',
-			'image_2x'        => ANVA_FRAMEWORK_IMG . 'logo@2x.png',
-			'image_alternate' => ANVA_FRAMEWORK_IMG . 'logo-alternate.png'
+			'type'       => 'image',
+			'custom'     => '',
+			'image'      => get_template_directory_uri() . '/assets/images/logo.png',
+			'image_2x'   => get_template_directory_uri() . '/assets/images/logo@2x.png',
+			'image_mini' => get_template_directory_uri() . '/assets/images/logo-mini.png',
 		) );
 
 		// Author default credtis
@@ -311,16 +311,13 @@ class Anva_Options {
 							'hide' => __( 'Hide featured images', 'anva'),
 						)
 					),
-					'single_comments' => array(
-						'name' => __('Comments', 'anva'),
-						'desc' => __('Select if you\'d like to completely hide comments or not below the post.', 'anva'),
-						'id' => 'single_comments',
-						'std' => 'show',
-						'type' => 'select',
-						'options' => array(
-							'show' => __('Show comments', 'anva'),
-							'hide' => __('Hide comments', 'anva'),
-						)
+					'comments' => array(
+						'name' => __( 'Comments', 'anva' ),
+						'desc' => __('Select if you\'d like to completely hide comments or not below the posts, pages, portfolio or galleries.', 'anva'),
+						'id' => 'comments',
+						'std' => array( 'single' => '1' ),
+						'type' => 'multicheck',
+						'options' => anva_get_default_comment_areas(),
 					),
 					'single_share' => array(
 						'name' => __('Share Icons', 'anva'),

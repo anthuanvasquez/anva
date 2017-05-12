@@ -891,7 +891,7 @@ function anva_options() {
 				),
 			),
 			'slider_thumbnails' => array(
-				'name' => __( 'Parallax', 'anva'),
+				'name' => __( 'Thumbnails Size', 'anva'),
 				'desc' => __( 'Select the image size you want to show in featured content.', 'anva'),
 				'id' => 'slider_thumbnails',
 				'std' => 'anva_xl',
@@ -910,9 +910,15 @@ function anva_options() {
 				'name' => __( 'Slider Area', 'anva' ),
 				'desc' => __( 'Select the slider area.', 'anva' ),
 				'id' => 'slider_area',
-				'std' => 'front',
+				'std' => array( 'front' => '1' ),
 				'type' => 'multicheck',
-				'options' => anva_default_areas(),
+				'options' => anva_get_default_slider_areas(),
+			),
+			'slider_group_area' => array(
+				'name' => __('Slider Group and Areas', 'anva'),
+				'desc' => __( 'Select the slider area and groups slides.', 'anva'  ),
+				'id'   => 'slider_group_area',
+				'type' => 'slider_group_area',
 			),
 		),
 		'login' => array(

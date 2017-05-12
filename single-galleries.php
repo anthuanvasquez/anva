@@ -55,7 +55,14 @@ get_header();
 				</div><!-- .entry-wrap (end) -->
 
 				<?php if ( anva_get_area( 'comments', 'galleries' ) ) : ?>
-					<?php do_action( 'anva_post_comments' ); ?>
+					<?php
+						/**
+						 * Hooked
+						 *
+						 * @see anva_post_comments_default
+						 */
+						do_action( 'anva_post_comments' );
+					?>
 				<?php endif; ?>
 
 			<?php endwhile; ?>

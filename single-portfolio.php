@@ -160,7 +160,16 @@ $client = anva_get_post_meta( '_anva_client' );
 					</article><!-- #post-<?php the_ID(); ?> -->
 				</div><!-- .entry-wrap (end) -->
 
-				<?php do_action( 'anva_post_comments' ); ?>
+				<?php if ( anva_get_area( 'comments', 'portfolio' ) ) : ?>
+					<?php
+						/**
+						 * Hooked
+						 *
+						 * @see anva_post_comments_default
+						 */
+						do_action( 'anva_post_comments' );
+					?>
+				<?php endif; ?>
 
 			<?php endwhile; ?>
 

@@ -29,7 +29,14 @@ get_header();
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php anva_get_template_part( 'post', 'content-attachment' ); ?>
 			<?php if ( anva_get_area( 'comments', 'attachments' ) ) : ?>
-				<?php do_action( 'anva_post_comments' ); ?>
+				<?php
+				/**
+				 * Hooked
+				 *
+				 * @see anva_post_comments_default
+				 */
+				do_action( 'anva_post_comments' );
+				?>
 			<?php endif; ?>
 		<?php endwhile; ?>
 

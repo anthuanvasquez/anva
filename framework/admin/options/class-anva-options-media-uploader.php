@@ -239,16 +239,16 @@ function anva_media_uploader( $args ) {
 			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('2x size of standard image', 'anva') .'" />'."\n";
 			break;
 
-		case 'logo_alternate' :
-			$data['title'] = __('Logo Alternate Image', 'anva');
+		case 'logo_mini' :
+			$data['title'] = __('Logo Mini Image', 'anva');
 			$data['select'] = __('Use for Logo', 'anva');
-			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Alternate standard image', 'anva') .'" />'."\n";
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Mini standard image', 'anva') .'" />'."\n";
 			break;
 
 		/**
 		 * More will come.
 		 *
-		 * @todo Alternate Image 2x
+		 * @todo Mini Image 2x
 		 * @todo Dark Image
 		 * @todo Dark Image 2x
 		 */

@@ -31,7 +31,14 @@ get_header();
 				<?php anva_get_template_part( 'post', 'content-single' ); ?>
 
 				<?php if ( anva_get_area( 'comments', 'single' ) ) : ?>
-					<?php do_action( 'anva_post_comments' ); ?>
+					<?php
+						/**
+						 * Hooked
+						 *
+						 * @see anva_post_comments_default
+						 */
+						do_action( 'anva_post_comments' );
+					?>
 				<?php endif; ?>
 			<?php endwhile; ?>
 

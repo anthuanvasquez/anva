@@ -580,6 +580,7 @@ function anva_config() {
 
 	$config = array(
 		'featured' => array(),
+		'comments' => array(),
 	);
 
 	/*------------------------------------------------------*/
@@ -588,53 +589,65 @@ function anva_config() {
 
 	if ( is_front_page() ) {
 		if ( anva_get_area( 'featured', 'front' ) ) {
-			$config['featured'][] = 'has_front_featured';
+			$config['featured'][] = 'has-front-featured';
 		}
 	}
 
 	if ( is_home() || is_page_template( 'template-list.php' ) ) {
 		if ( anva_get_area( 'featured', 'blog' ) ) {
-			$config['featured'][] = 'has_blog_featured';
+			$config['featured'][] = 'has-blog-featured';
 		}
 	}
 
 	if ( is_page_template( 'template-grid.php' ) ) {
 		if ( anva_get_area( 'featured', 'grid' ) ) {
-			$config['featured'][] = 'has_grid_featured';
+			$config['featured'][] = 'has-grid-featured';
 		}
 	}
 
 	if ( is_archive() || is_search() ) {
 		if ( anva_get_area( 'featured', 'archive' ) ) {
-			$config['featured'][] = 'has_archive_featured';
+			$config['featured'][] = 'has-archive-featured';
 		}
 	}
 
 	if ( is_page() && ! is_page_template( 'template-builder.php' ) ) {
 		if ( anva_get_area( 'featured', 'page' ) ) {
-			$config['featured'][] = 'has_page_featured';
+			$config['featured'][] = 'has-page-featured';
+		}
+
+		if ( anva_get_area( 'comments', 'page' ) ) {
+			$config['comments'][] = 'has-page-comments';
 		}
 	}
 
 	if ( is_single() ) {
 		if ( anva_get_area( 'featured', 'single' ) ) {
-			$config['featured'][] = 'has_single_featured';
+			$config['featured'][] = 'has-single_featured';
 		}
 
 		if ( anva_get_area( 'comments', 'single' ) ) {
-			$config['comments'][] = 'has_single_comments';
+			$config['comments'][] = 'has-single-comments';
 		}
 	}
 
 	if ( is_singular( 'portfolio' ) ) {
 		if ( anva_get_area( 'featured', 'portfolio' ) ) {
-			$config['featured'][] = 'has_portfolio_featured';
+			$config['featured'][] = 'has-portfolio-featured';
+		}
+
+		if ( anva_get_area( 'comments', 'portfolio' ) ) {
+			$config['comments'][] = 'has-portfolio-comments';
 		}
 	}
 
 	if ( is_singular( 'galleries' ) ) {
 		if ( anva_get_area( 'featured', 'galleries' ) ) {
-			$config['featured'][] = 'has_galleries_featured';
+			$config['featured'][] = 'has-galleries-featured';
+		}
+
+		if ( anva_get_area( 'comments', 'galleries' ) ) {
+			$config['comments'][] = 'has-galleries-comments';
 		}
 	}
 
@@ -663,15 +676,15 @@ function anva_get_config( $key = '' ) {
 }
 
 /**
- * Set default areas.
+ * Set default slider areas.
  *
  * @return array $areas
  */
-function anva_default_areas() {
+function anva_get_default_slider_areas() {
 	$areas = array(
-		'front'     => __( 'Font Page', 'anva' ),
+		'front'     => __( 'Front Page', 'anva' ),
 		'archive'   => __( 'Archive Page', 'anva' ),
-		'blog'      => __( 'Blog or Home', 'anva' ),
+		'blog'      => __( 'Blog or Home Page', 'anva' ),
 		'grid'      => __( 'Post Grid', 'anva' ),
 		'page'      => __( 'Pages', 'anva' ),
 		'single'    => __( 'Single Posts', 'anva' ),
@@ -679,7 +692,24 @@ function anva_default_areas() {
 		'galleries' => __( 'Galleries Pages', 'anva' ),
 	);
 
-	return apply_filters( 'anva_default_areas', $areas );
+	return apply_filters( 'anva_default_slider_areas', $areas );
+}
+
+/**
+ * Set default comment areas.
+ *
+ * @return array $areas
+ */
+function anva_get_default_comment_areas() {
+	$areas = array(
+		'page'        => __( 'Pages', 'anva' ),
+		'single'      => __( 'Single Posts', 'anva' ),
+		'attachments' => __( 'Attachments', 'anva' ),
+		'portfolio'   => __( 'Portfolio Items', 'anva' ),
+		'galleries'   => __( 'Gallery Items', 'anva' ),
+	);
+
+	return apply_filters( 'anva_default_comment_areas', $areas );
 }
 
 /**
@@ -691,7 +721,8 @@ function anva_default_areas() {
 function anva_setup_areas() {
 
 	// Check areas from DB
-	$slider_area = anva_get_option( 'slider_area' );
+	$slider_area  = anva_get_option( 'slider_area' );
+	$comment_area = anva_get_option( 'comments' );
 
 	// Defaults slider areas
 	$slider_defaults = apply_filters( 'anva_slider_areas_defaults', array(
@@ -708,18 +739,19 @@ function anva_setup_areas() {
 	// Defaults comment areas
 	$comment_defaults = apply_filters( 'anva_comment_areas_defaults', array(
 		'page'       	=> false,
-		'single'       	=> false,
+		'single'       	=> true,
 		'attachments' 	=> false,
 		'portfolio' 	=> false,
 		'galleries' 	=> false,
 	) );
 
-	$slider_args = wp_parse_args( $slider_area, $slider_defaults );
+	$slider_args  = wp_parse_args( $slider_area, $slider_defaults );
+	$comment_args = wp_parse_args( $comment_area, $comment_defaults );
 
 	// Setup array
 	$setup = array(
 		'featured' => $slider_args,
-		'comments' => $comment_defaults,
+		'comments' => $comment_args,
 	);
 
 	return apply_filters( 'anva_setup_areas', $setup );

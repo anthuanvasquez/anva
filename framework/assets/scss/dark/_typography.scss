@@ -10,7 +10,9 @@
         color: $gray-color;
     }
 
-    a:hover {
-        color: $gray-color;
+    a {
+        &:hover {
+            color: $gray-color;
+        }
     }
 }

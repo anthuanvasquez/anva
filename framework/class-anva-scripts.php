@@ -123,11 +123,20 @@ class Anva_Scripts {
             'footer'    => true
         );
 
+        // Utilities
+        $this->framework_scripts['anva_utils'] = array(
+            'handle'    => 'anva_utils',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/utils.js',
+            'deps'      => array( 'jquery', 'anva_plugins' ),
+            'ver'       => self::$version,
+            'footer'    => true
+        );
+
         // Functions
         $this->framework_scripts['anva_main'] = array(
             'handle'    => 'anva_main',
             'src'       => Anva::$framework_dir_uri . 'assets/js/main.js',
-            'deps'      => array( 'jquery', 'anva_plugins' ),
+            'deps'      => array( 'jquery', 'anva_utils', 'anva_plugins' ),
             'ver'       => self::$version,
             'footer'    => true
         );

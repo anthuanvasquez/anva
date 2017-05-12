@@ -1,163 +1,53 @@
-var $ = jQuery.noConflict();
-
-$.fn.inlineStyle = function (prop) {
-    return this.prop("style")[$.camelCase(prop)];
-};
-
-$.fn.doOnce = function( func ) {
-    this.length && func.apply( this );
-    return this;
-};
-
-if( $().infinitescroll ) {
-
-    $.extend($.infinitescroll.prototype,{
-        _setup_portfolioinfiniteitemsloader: function infscr_setup_portfolioinfiniteitemsloader() {
-            var opts = this.options,
-                instance = this;
-            // Bind nextSelector link to retrieve
-            $(opts.nextSelector).click(function(e) {
-                if (e.which === 1 && !e.metaKey && !e.shiftKey) {
-                    e.preventDefault();
-                    instance.retrieve();
-                }
-            });
-            // Define loadingStart to never hide pager
-            instance.options.loading.start = function (opts) {
-                opts.loading.msg
-                    .appendTo(opts.loading.selector)
-                    .show(opts.loading.speed, function () {
-                        instance.beginAjax(opts);
-                    });
-            };
-        },
-        _showdonemsg_portfolioinfiniteitemsloader: function infscr_showdonemsg_portfolioinfiniteitemsloader () {
-            var opts = this.options,
-                instance = this;
-            //Do all the usual stuff
-            opts.loading.msg
-                .find('img')
-                .hide()
-                .parent()
-                .find('div').html(opts.loading.finishedMsg).animate({ opacity: 1 }, 2000, function () {
-                    $(this).parent().fadeOut('normal');
-                });
-            //And also hide the navSelector
-            $(opts.navSelector).fadeOut('normal');
-            // user provided callback when done
-            opts.errorCallback.call($(opts.contentSelector)[0],'done');
-        }
-    });
-
-} else {
-    console.log('Infinite Scroll not defined.');
-}
-
-(function() {
-    var lastTime = 0;
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
-    }
-
-    if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function(callback, element) {
-            var currTime = new Date().getTime();
-            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-              timeToCall);
-            lastTime = currTime + timeToCall;
-            return id;
-        };
-    }
-
-    if (!window.cancelAnimationFrame) {
-        window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
-        };
-    }
-}());
-
-function debounce(func, wait, immediate) {
-    var timeout, args, context, timestamp, result;
-    return function() {
-        context = this;
-        args = arguments;
-        timestamp = new Date();
-        var later = function() {
-            var last = (new Date()) - timestamp;
-            if (last < wait) {
-                timeout = setTimeout(later, wait - last);
-            } else {
-                timeout = null;
-                if (!immediate) {
-                    result = func.apply(context, args);
-                }
-            }
-        };
-        var callNow = immediate && !timeout;
-        if (!timeout) {
-            timeout = setTimeout(later, wait);
-        }
-        if (callNow) {
-            result = func.apply(context, args);
-        }
-        return result;
-    };
-}
+"use strict";
 
 var requesting = false;
 
-var killRequesting = debounce(function () {
+var killRequesting = debounce( function() {
     requesting = false;
 }, 100);
 
 function onScrollSliderParallax() {
-    if (!requesting) {
+    if ( ! requesting ) {
         requesting = true;
-        requestAnimationFrame(function(){
-            ANVA.slider.sliderParallax();
-            ANVA.slider.sliderElementsFade();
+        requestAnimationFrame( function() {
+            AnvaFramework.slider.sliderParallax();
+            AnvaFramework.slider.sliderElementsFade();
         });
     }
     killRequesting();
 }
 
-var ANVA = ANVA || {};
+var AnvaFramework = AnvaFramework || {};
 
 (function( $ ) {
 
-    // USE STRICT
-    "use strict";
+    AnvaFramework.initialize = {
 
-    ANVA.initialize = {
+        init: function() {
 
-        init: function(){
+            AnvaFramework.initialize.responsiveClasses();
+            AnvaFramework.initialize.imagePreload( '.portfolio-item:not(:has(.fslider)) img' );
+            AnvaFramework.initialize.stickyElements();
+            AnvaFramework.initialize.goToTop();
+            AnvaFramework.initialize.lazyLoad();
+            AnvaFramework.initialize.fullScreen();
+            AnvaFramework.initialize.verticalMiddle();
+            AnvaFramework.initialize.lightbox();
+            AnvaFramework.initialize.resizeVideos();
+            AnvaFramework.initialize.imageFade();
+            AnvaFramework.initialize.pageTransition();
+            AnvaFramework.initialize.dataResponsiveClasses();
+            AnvaFramework.initialize.dataResponsiveHeights();
+            AnvaFramework.initialize.blogFilter();
 
-            ANVA.initialize.responsiveClasses();
-            ANVA.initialize.imagePreload( '.portfolio-item:not(:has(.fslider)) img' );
-            ANVA.initialize.stickyElements();
-            ANVA.initialize.goToTop();
-            ANVA.initialize.lazyLoad();
-            ANVA.initialize.fullScreen();
-            ANVA.initialize.verticalMiddle();
-            ANVA.initialize.lightbox();
-            ANVA.initialize.resizeVideos();
-            ANVA.initialize.imageFade();
-            ANVA.initialize.pageTransition();
-            ANVA.initialize.dataResponsiveClasses();
-            ANVA.initialize.dataResponsiveHeights();
-            ANVA.initialize.blogFilter();
-
-            $('.fslider').addClass('preloader2');
+            $( '.fslider' ).addClass( 'preloader2' );
 
         },
 
-        responsiveClasses: function(){
+        responsiveClasses: function() {
 
-            if( typeof jRespond === 'undefined' ) {
-                console.log('responsiveClasses: jRespond not Defined.');
+            if ( typeof jRespond === 'undefined' ) {
+                console.log( 'responsiveClasses: jRespond not Defined.' );
                 return true;
             }
 
@@ -221,13 +111,13 @@ var ANVA = ANVA || {};
                 var image = $(this);
                 image.css({visibility:'hidden', opacity: 0, display:'block'});
                 image.wrap('<span class="preloader" />');
-                image.one("load", function(evt) {
+                image.one('load', function() {
                     $(this).delay(params.delay).css({visibility:'visible'}).animate({opacity: 1}, params.transition, params.easing, function() {
                         $(this).unwrap('<span class="preloader" />');
                     });
                 }).each(function() {
                     if(this.complete) {
-                        $(this).trigger("load");
+                        $(this).trigger('load');
                     }
                 });
             });
@@ -348,10 +238,10 @@ var ANVA = ANVA || {};
                 $commonHeightEl.each( function(){
                     var element = $(this);
                     if( element.find('.common-height').length > 0 ) {
-                        ANVA.initialize.commonHeight( element.find('.common-height:not(.customjs)') );
+                        AnvaFramework.initialize.commonHeight( element.find('.common-height:not(.customjs)') );
                     }
 
-                    ANVA.initialize.commonHeight( element );
+                    AnvaFramework.initialize.commonHeight( element );
                 });
             }
         },
@@ -379,14 +269,14 @@ var ANVA = ANVA || {};
                 if( $body.hasClass('device-sm') || $body.hasClass('device-md') || $body.hasClass('device-lg') ) {
                     var maxHeight = 0;
                     $testimonialsGridEl.each( function(){
-                        $(this).find("li > .testimonial").each(function(){
+                        $(this).find('li > .testimonial').each(function(){
                            if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
                         });
-                        $(this).find("li").height(maxHeight);
+                        $(this).find('li').height(maxHeight);
                         maxHeight = 0;
                     });
                 } else {
-                    $testimonialsGridEl.find("li").css({ 'height': 'auto' });
+                    $testimonialsGridEl.find('li').css({ 'height': 'auto' });
                 }
             }
         },
@@ -469,10 +359,10 @@ var ANVA = ANVA || {};
                     type: 'ajax',
                     closeBtnInside: false,
                     callbacks: {
-                        ajaxContentAdded: function(mfpResponse) {
-                            ANVA.widget.loadFlexSlider();
-                            ANVA.initialize.resizeVideos();
-                            ANVA.widget.masonryThumbs();
+                        ajaxContentAdded: function() {
+                            AnvaFramework.widget.loadFlexSlider();
+                            AnvaFramework.initialize.resizeVideos();
+                            AnvaFramework.widget.masonryThumbs();
                         },
                         open: function() {
                             $body.addClass('ohidden');
@@ -495,10 +385,10 @@ var ANVA = ANVA || {};
                         navigateByImgClick: false
                     },
                     callbacks: {
-                        ajaxContentAdded: function(mfpResponse) {
-                            ANVA.widget.loadFlexSlider();
-                            ANVA.initialize.resizeVideos();
-                            ANVA.widget.masonryThumbs();
+                        ajaxContentAdded: function() {
+                            AnvaFramework.widget.loadFlexSlider();
+                            AnvaFramework.initialize.resizeVideos();
+                            AnvaFramework.widget.masonryThumbs();
                         },
                         open: function() {
                             $body.addClass('ohidden');
@@ -592,7 +482,7 @@ var ANVA = ANVA || {};
                 return true;
             }
 
-            $("#content,#footer,#slider:not(.revslider-wrap),.landing-offer-media,.portfolio-ajax-modal,.mega-menu-column").fitVids({
+            $('#content,#footer,#slider:not(.revslider-wrap),.landing-offer-media,.portfolio-ajax-modal,.mega-menu-column').fitVids({
                 customSelector: "iframe[src^='http://www.dailymotion.com/embed'], iframe[src*='maps.google.com'], iframe[src*='google.com/maps']",
                 ignore: '.no-fv'
             });
@@ -742,7 +632,7 @@ var ANVA = ANVA || {};
         topScrollOffset: function() {
             var topOffsetScroll = 0;
 
-            if( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !ANVA.isMobile.any() ) {
+            if( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !AnvaFramework.isMobile.any() ) {
                 if( $header.hasClass('sticky-header') ) {
                     if( $pagemenu.hasClass('dots-menu') ) { topOffsetScroll = 100; } else { topOffsetScroll = 144; }
                 } else {
@@ -830,18 +720,18 @@ var ANVA = ANVA || {};
 
             if( element.hasClass('portfolio-full') ) {
 
-                columns = ANVA.initialize.defineColumns( element );
+                columns = AnvaFramework.initialize.defineColumns( element );
                 containerWidth = element.width();
                 if( containerWidth === ( Math.floor(containerWidth/columns) * columns ) ) { containerWidth = containerWidth - 1; }
                 postWidth = Math.floor(containerWidth/columns);
                 if( $body.hasClass('device-xxs') ) { deviceSmallest = 1; } else { deviceSmallest = 0; }
-                element.find(".portfolio-item").each(function(index){
+                element.find('.portfolio-item').each(function(index){
                     if( deviceSmallest === 0 && $(this).hasClass('wide') ) { elementSize = ( postWidth*2 ); } else { elementSize = postWidth; }
-                    $(this).css({"width":elementSize+"px"});
+                    $(this).css({'width':elementSize+'px'});
                 });
 
             } else if( element.hasClass('masonry-thumbs') ) {
-                columns = ANVA.initialize.defineColumns( element );
+                columns = AnvaFramework.initialize.defineColumns( element );
                 containerWidth = element.innerWidth();
 
                 if( containerWidth === windowWidth ){
@@ -866,7 +756,7 @@ var ANVA = ANVA || {};
 
                 var bigImageNumbers = element.attr('data-big');
                 if( bigImageNumbers ) {
-                    bigImageNumbers = bigImageNumbers.split(",");
+                    bigImageNumbers = bigImageNumbers.split(',');
                     var bigImageNumber = '',
                         bigi = '';
                     for( bigi = 0; bigi < bigImageNumbers.length; bigi++ ){
@@ -1071,12 +961,12 @@ var ANVA = ANVA || {};
                     success: function( results ) {
                         $(filterContainer).isotope('layout');
                         $(filterContainer).removeClass('filter-loading').html( results ).show();
-                        ANVA.initialize.lightbox();
-                        ANVA.initialize.resizeVideos();
-                        ANVA.widget.animations();
-                        ANVA.widget.loadFlexSlider();
-                        ANVA.widget.nivoSlider();
-                        ANVA.widget.masonryThumbs();
+                        AnvaFramework.initialize.lightbox();
+                        AnvaFramework.initialize.resizeVideos();
+                        AnvaFramework.widget.animations();
+                        AnvaFramework.widget.loadFlexSlider();
+                        AnvaFramework.widget.nivoSlider();
+                        AnvaFramework.widget.masonryThumbs();
                     }
                 });
             });
@@ -1084,24 +974,24 @@ var ANVA = ANVA || {};
 
     };
 
-    ANVA.header = {
+    AnvaFramework.header = {
 
         init: function(){
 
-            ANVA.header.superfish();
-            ANVA.header.menufunctions();
-            ANVA.header.fullWidthMenu();
-            ANVA.header.overlayMenu();
-            ANVA.header.stickyMenu();
-            ANVA.header.stickyPageMenu();
-            ANVA.header.sideHeader();
-            ANVA.header.sidePanel();
-            ANVA.header.onePageScroll();
-            ANVA.header.onepageScroller();
-            ANVA.header.logo();
-            ANVA.header.topsearch();
-            ANVA.header.toplang();
-            ANVA.header.topcart();
+            AnvaFramework.header.superfish();
+            AnvaFramework.header.menufunctions();
+            AnvaFramework.header.fullWidthMenu();
+            AnvaFramework.header.overlayMenu();
+            AnvaFramework.header.stickyMenu();
+            AnvaFramework.header.stickyPageMenu();
+            AnvaFramework.header.sideHeader();
+            AnvaFramework.header.sidePanel();
+            AnvaFramework.header.onePageScroll();
+            AnvaFramework.header.onepageScroller();
+            AnvaFramework.header.logo();
+            AnvaFramework.header.topsearch();
+            AnvaFramework.header.toplang();
+            AnvaFramework.header.topcart();
 
         },
 
@@ -1109,7 +999,7 @@ var ANVA = ANVA || {};
 
             if( $body.hasClass('device-lg') || $body.hasClass('device-md') ) {
                 $('#primary-menu ul ul, #primary-menu ul .mega-menu-content').css('display', 'block');
-                ANVA.header.menuInvert();
+                AnvaFramework.header.menuInvert();
                 $('#primary-menu ul ul, #primary-menu ul .mega-menu-content').css('display', '');
             }
 
@@ -1130,12 +1020,12 @@ var ANVA = ANVA || {};
                     var megaMenuContent = $(this);
                     if( megaMenuContent.find('.owl-carousel.customjs').length > 0 ) {
                         megaMenuContent.find('.owl-carousel').removeClass('customjs');
-                        ANVA.widget.carousel();
+                        AnvaFramework.widget.carousel();
                     }
 
                     if( megaMenuContent.hasClass('mega-menu-content') && megaMenuContent.find('.widget').length > 0 ) {
                         if( $body.hasClass('device-lg') || $body.hasClass('device-md') ) {
-                            setTimeout( function(){ ANVA.initialize.commonHeight( megaMenuContent ); }, 200);
+                            setTimeout( function(){ AnvaFramework.initialize.commonHeight( megaMenuContent ); }, 200);
                         } else {
                             megaMenuContent.children().height('');
                         }
@@ -1194,7 +1084,7 @@ var ANVA = ANVA || {};
             //  $body.removeClass('mobile-header-active');
             // }
 
-            if( ANVA.isMobile.Android() ) {
+            if( AnvaFramework.isMobile.Android() ) {
                 $( '#primary-menu ul li.sub-menu' ).children('a').on('touchstart', function(e){
                     if( !$(this).parent('li.sub-menu').hasClass('sfHover') ) {
                         e.preventDefault();
@@ -1202,7 +1092,7 @@ var ANVA = ANVA || {};
                 });
             }
 
-            if( ANVA.isMobile.Windows() ) {
+            if( AnvaFramework.isMobile.Windows() ) {
                 if( $().superfish ){
                     $('#primary-menu > ul, #primary-menu > div > ul,.top-links > ul').superfish('destroy').addClass('windows-mobile-menu');
                 } else {
@@ -1247,15 +1137,15 @@ var ANVA = ANVA || {};
                 if( $body.hasClass('device-lg') || $body.hasClass('device-md') ) {
                     $('body:not(.side-header) #header:not(.no-sticky)').addClass('sticky-header');
                     if( !$headerWrap.hasClass('force-not-dark') ) { $headerWrap.removeClass('not-dark'); }
-                    ANVA.header.stickyMenuClass();
+                    AnvaFramework.header.stickyMenuClass();
                 } else if( $body.hasClass('device-xs') || $body.hasClass('device-xxs') || $body.hasClass('device-sm') ) {
                     if( $body.hasClass('sticky-responsive-menu') ) {
                         $('#header:not(.no-sticky)').addClass('responsive-sticky-header');
-                        ANVA.header.stickyMenuClass();
+                        AnvaFramework.header.stickyMenuClass();
                     }
                 }
             } else {
-                ANVA.header.removeStickyness();
+                AnvaFramework.header.removeStickyness();
             }
         },
 
@@ -1279,8 +1169,8 @@ var ANVA = ANVA || {};
                 $header.removeClass().addClass(oldHeaderClasses);
                 $headerWrap.removeClass().addClass(oldHeaderWrapClasses);
                 if( !$headerWrap.hasClass('force-not-dark') ) { $headerWrap.removeClass('not-dark'); }
-                ANVA.slider.swiperSliderMenu();
-                ANVA.slider.revolutionSliderMenu();
+                AnvaFramework.slider.swiperSliderMenu();
+                AnvaFramework.slider.revolutionSliderMenu();
             }
             if( $header.hasClass('responsive-sticky-header') ){
                 $('body.sticky-responsive-menu #header').removeClass('responsive-sticky-header');
@@ -1293,17 +1183,17 @@ var ANVA = ANVA || {};
         },
 
         sideHeader: function(){
-            $("#header-trigger").click(function(){
-                $('body.open-header').toggleClass("side-header-open");
+            $('#header-trigger').click(function(){
+                $('body.open-header').toggleClass('side-header-open');
                 return false;
             });
         },
 
         sidePanel: function(){
-            $(".side-panel-trigger").click(function(){
-                $body.toggleClass("side-panel-open");
+            $('.side-panel-trigger').click(function(){
+                $body.toggleClass('side-panel-open');
                 if( $body.hasClass('device-touch') ) {
-                    $body.toggleClass("ohidden");
+                    $body.toggleClass('ohidden');
                 }
                 return false;
             });
@@ -1329,7 +1219,7 @@ var ANVA = ANVA || {};
                     if( $( divScrollToAnchor ).length > 0 ) {
 
                         if( !onePageOffset ) {
-                            onePageOffsetG = ANVA.initialize.topScrollOffset();
+                            onePageOffsetG = AnvaFramework.initialize.topScrollOffset();
                         } else {
                             onePageOffsetG = onePageOffset;
                         }
@@ -1382,7 +1272,7 @@ var ANVA = ANVA || {};
 
         onepageScroller: function(){
             $onePageMenuEl.find('li').removeClass('current');
-            $onePageMenuEl.find('a[data-href="#' + ANVA.header.onePageCurrentSection() + '"]').parent('li').addClass('current');
+            $onePageMenuEl.find('a[data-href="#' + AnvaFramework.header.onePageCurrentSection() + '"]').parent('li').addClass('current');
         },
 
         onePageCurrentSection: function(){
@@ -1471,7 +1361,7 @@ var ANVA = ANVA || {};
                         }
                     }
                 }
-                ANVA.header.logo();
+                AnvaFramework.header.logo();
             }
         },
 
@@ -1528,11 +1418,11 @@ var ANVA = ANVA || {};
                 if (!$(event.target).closest('#side-panel').length) { $body.toggleClass('side-panel-open', false); }
             });
 
-            $("#top-search-trigger").click(function(e){
+            $('#top-search-trigger').click(function(e){
                 $body.toggleClass('top-search-open');
                 $topLang.toggleClass('top-lang-open', false);
                 $topCart.toggleClass('top-cart-open', false);
-                $( '#primary-menu > ul, #primary-menu > div > ul' ).toggleClass("show", false);
+                $( '#primary-menu > ul, #primary-menu > div > ul' ).toggleClass('show', false);
                 $pagemenu.toggleClass('pagemenu-active', false);
                 if ($body.hasClass('top-search-open')){
                     $topSearch.find('input').focus();
@@ -1545,7 +1435,7 @@ var ANVA = ANVA || {};
 
         toplang: function(){
 
-            $("#top-lang-trigger").click(function(e){
+            $('#top-lang-trigger').click(function(e){
                 $pagemenu.toggleClass('pagemenu-active', false);
                 $topLang.toggleClass('top-lang-open');
                 e.stopPropagation();
@@ -1556,7 +1446,7 @@ var ANVA = ANVA || {};
 
         topcart: function(){
 
-            $("#top-cart-trigger").click(function(e){
+            $('#top-cart-trigger').click(function(e){
                 $pagemenu.toggleClass('pagemenu-active', false);
                 $topCart.toggleClass('top-cart-open');
                 e.stopPropagation();
@@ -1567,15 +1457,15 @@ var ANVA = ANVA || {};
 
     };
 
-    ANVA.slider = {
+    AnvaFramework.slider = {
 
         init: function() {
 
-            ANVA.slider.sliderParallaxDimensions();
-            ANVA.slider.sliderRun();
-            ANVA.slider.sliderParallax();
-            ANVA.slider.sliderElementsFade();
-            ANVA.slider.captionPosition();
+            AnvaFramework.slider.sliderParallaxDimensions();
+            AnvaFramework.slider.sliderRun();
+            AnvaFramework.slider.sliderParallax();
+            AnvaFramework.slider.sliderElementsFade();
+            AnvaFramework.slider.captionPosition();
 
         },
 
@@ -1661,9 +1551,9 @@ var ANVA = ANVA || {};
                     prevButton: elementNavPrev,
                     nextButton: elementNavNext,
                     onInit: function(swiper){
-                        ANVA.slider.sliderParallaxDimensions();
+                        AnvaFramework.slider.sliderParallaxDimensions();
                         element.find('.yt-bg-player').removeClass('customjs');
-                        ANVA.widget.youtubeBgVideo();
+                        AnvaFramework.widget.youtubeBgVideo();
                         $('.swiper-slide-active [data-caption-animate]').each(function(){
                             var $toAnimateElement = $(this),
                                 toAnimateDelay = $toAnimateElement.attr('data-caption-delay'),
@@ -1683,7 +1573,7 @@ var ANVA = ANVA || {};
                             if( $toAnimateElement.parents('.swiper-slide').hasClass('swiper-slide-active') ) { return true; }
                             $toAnimateElement.removeClass('animated').removeClass(elementAnimation).addClass('not-animated');
                         });
-                        ANVA.slider.swiperSliderMenu();
+                        AnvaFramework.slider.swiperSliderMenu();
                     },
                     onSlideChangeStart: function(swiper){
                         if( slideNumberCurrent.length > 0 ){
@@ -1699,7 +1589,7 @@ var ANVA = ANVA || {};
                             if( $toAnimateElement.parents('.swiper-slide').hasClass('swiper-slide-active') ) { return true; }
                             $toAnimateElement.removeClass('animated').removeClass(elementAnimation).addClass('not-animated');
                         });
-                        ANVA.slider.swiperSliderMenu();
+                        AnvaFramework.slider.swiperSliderMenu();
                     },
                     onSlideChangeEnd: function(swiper){
                         element.find('.swiper-slide').each(function(){
@@ -1767,10 +1657,10 @@ var ANVA = ANVA || {};
 
             if( $sliderParallaxEl.length < 1 ) { return true; }
 
-            var parallaxOffsetTop = ANVA.slider.sliderParallaxOffset(),
+            var parallaxOffsetTop = AnvaFramework.slider.sliderParallaxOffset(),
                 parallaxElHeight = $sliderParallaxEl.outerHeight();
 
-            if( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !ANVA.isMobile.any() ) {
+            if( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !AnvaFramework.isMobile.any() ) {
                 if( ( parallaxElHeight + parallaxOffsetTop + 50 ) > $window.scrollTop() ){
                     $sliderParallaxEl.addClass('slider-parallax-visible').removeClass('slider-parallax-invisible');
                     if ($window.scrollTop() > parallaxOffsetTop) {
@@ -1798,8 +1688,8 @@ var ANVA = ANVA || {};
                 }
                 if (requesting) {
                     requestAnimationFrame(function(){
-                        ANVA.slider.sliderParallax();
-                        ANVA.slider.sliderElementsFade();
+                        AnvaFramework.slider.sliderParallax();
+                        AnvaFramework.slider.sliderElementsFade();
                     });
                 }
             } else {
@@ -1815,8 +1705,8 @@ var ANVA = ANVA || {};
 
             if( $sliderParallaxEl.length > 0 ) {
                 var tHeaderOffset;
-                if( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !ANVA.isMobile.any() ) {
-                    var parallaxOffsetTop = ANVA.slider.sliderParallaxOffset(),
+                if( ( $body.hasClass('device-lg') || $body.hasClass('device-md') ) && !AnvaFramework.isMobile.any() ) {
+                    var parallaxOffsetTop = AnvaFramework.slider.sliderParallaxOffset(),
                         parallaxElHeight = $sliderParallaxEl.outerHeight();
                     if( $slider.length > 0 ) {
                         if( $header.hasClass('transparent-header') || $('body').hasClass('side-header') ) { tHeaderOffset = 100; } else { tHeaderOffset = 0; }
@@ -1848,7 +1738,7 @@ var ANVA = ANVA || {};
             onWinLoad = typeof onWinLoad !== 'undefined' ? onWinLoad : false;
             if( $body.hasClass('device-lg') || $body.hasClass('device-md') ) {
                 var activeSlide = $slider.find('.swiper-slide.swiper-slide-active');
-                ANVA.slider.headerSchemeChanger(activeSlide, onWinLoad);
+                AnvaFramework.slider.headerSchemeChanger(activeSlide, onWinLoad);
             }
         },
 
@@ -1856,7 +1746,7 @@ var ANVA = ANVA || {};
             onWinLoad = typeof onWinLoad !== 'undefined' ? onWinLoad : false;
             if( $body.hasClass('device-lg') || $body.hasClass('device-md') ) {
                 var activeSlide = $slider.find('.active-revslide');
-                ANVA.slider.headerSchemeChanger(activeSlide, onWinLoad);
+                AnvaFramework.slider.headerSchemeChanger(activeSlide, onWinLoad);
             }
         },
 
@@ -1892,7 +1782,7 @@ var ANVA = ANVA || {};
                         $headerWrap.removeClass('not-dark');
                     }
                 }
-                ANVA.header.logo();
+                AnvaFramework.header.logo();
             }
         },
 
@@ -1909,11 +1799,11 @@ var ANVA = ANVA || {};
 
     };
 
-    ANVA.portfolio = {
+    AnvaFramework.portfolio = {
 
         init: function(){
 
-            ANVA.portfolio.ajaxload();
+            AnvaFramework.portfolio.ajaxload();
 
         },
 
@@ -2024,7 +1914,7 @@ var ANVA = ANVA || {};
             if( $portfolio.length > 0 ) {
                 $portfolio.each( function(){
                     var element = $(this);
-                    ANVA.initialize.setFullColumnWidth( element );
+                    AnvaFramework.initialize.setFullColumnWidth( element );
                 });
             }
         },
@@ -2033,31 +1923,31 @@ var ANVA = ANVA || {};
             $('.portfolio-ajax .portfolio-item a.center-icon').click( function(e) {
                 var portPostId = $(this).parents('.portfolio-item').attr('id');
                 if( !$(this).parents('.portfolio-item').hasClass('portfolio-active') ) {
-                    ANVA.portfolio.loadItem(portPostId, prevPostPortId);
+                    AnvaFramework.portfolio.loadItem(portPostId, prevPostPortId);
                 }
                 e.preventDefault();
             });
         },
 
         newNextPrev: function( portPostId ){
-            var portNext = ANVA.portfolio.getNextItem(portPostId);
-            var portPrev = ANVA.portfolio.getPrevItem(portPostId);
+            var portNext = AnvaFramework.portfolio.getNextItem(portPostId);
+            var portPrev = AnvaFramework.portfolio.getPrevItem(portPostId);
             $('#next-portfolio').attr('data-id', portNext);
             $('#prev-portfolio').attr('data-id', portPrev);
         },
 
         loadItem: function( portPostId, prevPostPortId, getIt ){
             if(!getIt) { getIt = false; }
-            var portNext = ANVA.portfolio.getNextItem(portPostId);
-            var portPrev = ANVA.portfolio.getPrevItem(portPostId);
+            var portNext = AnvaFramework.portfolio.getNextItem(portPostId);
+            var portPrev = AnvaFramework.portfolio.getPrevItem(portPostId);
             if(getIt === false) {
-                ANVA.portfolio.closeItem();
+                AnvaFramework.portfolio.closeItem();
                 $portfolioAjaxLoader.fadeIn();
                 var portfolioDataLoader = $('#' + portPostId).attr('data-loader');
                 $portfolioDetailsContainer.load(portfolioDataLoader, { portid: portPostId, portnext: portNext, portprev: portPrev },
                 function(){
-                    ANVA.portfolio.initializeAjax(portPostId);
-                    ANVA.portfolio.openItem();
+                    AnvaFramework.portfolio.initializeAjax(portPostId);
+                    AnvaFramework.portfolio.openItem();
                     $portfolioItems.removeClass('portfolio-active');
                     $('#' + portPostId).addClass('portfolio-active');
                 });
@@ -2081,16 +1971,16 @@ var ANVA = ANVA || {};
             if( noOfImages > 0 ) {
                 $portfolioDetails.find('img').on('load', function(){
                     noLoaded++;
-                    var topOffsetScroll = ANVA.initialize.topScrollOffset();
+                    var topOffsetScroll = AnvaFramework.initialize.topScrollOffset();
                     if(noOfImages === noLoaded) {
                         $portfolioDetailsContainer.css({ 'display': 'block' });
                         $portfolioDetails.addClass('portfolio-ajax-opened');
                         $portfolioAjaxLoader.fadeOut();
                         var t=setTimeout(function(){
-                            ANVA.widget.loadFlexSlider();
-                            ANVA.initialize.lightbox();
-                            ANVA.initialize.resizeVideos();
-                            ANVA.widget.masonryThumbs();
+                            AnvaFramework.widget.loadFlexSlider();
+                            AnvaFramework.initialize.lightbox();
+                            AnvaFramework.initialize.resizeVideos();
+                            AnvaFramework.widget.masonryThumbs();
                             $('html,body').stop(true).animate({
                                 'scrollTop': $portfolioDetails.offset().top - topOffsetScroll
                             }, 900, 'easeOutQuad');
@@ -2098,15 +1988,15 @@ var ANVA = ANVA || {};
                     }
                 });
             } else {
-                var topOffsetScroll = ANVA.initialize.topScrollOffset();
+                var topOffsetScroll = AnvaFramework.initialize.topScrollOffset();
                 $portfolioDetailsContainer.css({ 'display': 'block' });
                 $portfolioDetails.addClass('portfolio-ajax-opened');
                 $portfolioAjaxLoader.fadeOut();
                 var t=setTimeout(function(){
-                    ANVA.widget.loadFlexSlider();
-                    ANVA.initialize.lightbox();
-                    ANVA.initialize.resizeVideos();
-                    ANVA.widget.masonryThumbs();
+                    AnvaFramework.widget.loadFlexSlider();
+                    AnvaFramework.initialize.lightbox();
+                    AnvaFramework.initialize.resizeVideos();
+                    AnvaFramework.widget.masonryThumbs();
                     $('html,body').stop(true).animate({
                         'scrollTop': $portfolioDetails.offset().top - topOffsetScroll
                     }, 900, 'easeOutQuad');
@@ -2139,7 +2029,7 @@ var ANVA = ANVA || {};
                 var portPostId = $(this).attr('data-id');
                 $portfolioItems.removeClass('portfolio-active');
                 $('#' + portPostId).addClass('portfolio-active');
-                ANVA.portfolio.loadItem(portPostId,prevPostPortId);
+                AnvaFramework.portfolio.loadItem(portPostId,prevPostPortId);
                 return false;
             });
 
@@ -2155,32 +2045,32 @@ var ANVA = ANVA || {};
 
     };
 
-    ANVA.widget = {
+    AnvaFramework.widget = {
 
         init: function(){
 
-            ANVA.widget.animations();
-            ANVA.widget.youtubeBgVideo();
-            ANVA.widget.tabs();
-            ANVA.widget.tabsJustify();
-            ANVA.widget.toggles();
-            ANVA.widget.accordions();
-            ANVA.widget.counter();
-            ANVA.widget.roundedSkill();
-            ANVA.widget.progress();
-            ANVA.widget.twitterFeed();
-            ANVA.widget.flickrFeed();
-            ANVA.widget.instagramPhotos( '36286274.b9e559e.4824cbc1d0c94c23827dc4a2267a9f6b', 'b9e559ec7c284375bf41e9a9fb72ae01' );
-            ANVA.widget.dribbbleShots( '01530280af335d298e756ed8ef786c8c4e92a50b88e53a185531b1a639e768b8' );
-            ANVA.widget.navTree();
-            ANVA.widget.textRotater();
-            ANVA.widget.carousel();
-            ANVA.widget.linkScroll();
-            ANVA.widget.contactForm();
-            ANVA.widget.subscription();
-            ANVA.widget.quickContact();
-            ANVA.widget.cookieNotify();
-            ANVA.widget.extras();
+            AnvaFramework.widget.animations();
+            AnvaFramework.widget.youtubeBgVideo();
+            AnvaFramework.widget.tabs();
+            AnvaFramework.widget.tabsJustify();
+            AnvaFramework.widget.toggles();
+            AnvaFramework.widget.accordions();
+            AnvaFramework.widget.counter();
+            AnvaFramework.widget.roundedSkill();
+            AnvaFramework.widget.progress();
+            AnvaFramework.widget.twitterFeed();
+            AnvaFramework.widget.flickrFeed();
+            AnvaFramework.widget.instagramPhotos( '36286274.b9e559e.4824cbc1d0c94c23827dc4a2267a9f6b', 'b9e559ec7c284375bf41e9a9fb72ae01' );
+            AnvaFramework.widget.dribbbleShots( '01530280af335d298e756ed8ef786c8c4e92a50b88e53a185531b1a639e768b8' );
+            AnvaFramework.widget.navTree();
+            AnvaFramework.widget.textRotater();
+            AnvaFramework.widget.carousel();
+            AnvaFramework.widget.linkScroll();
+            AnvaFramework.widget.contactForm();
+            AnvaFramework.widget.subscription();
+            AnvaFramework.widget.quickContact();
+            AnvaFramework.widget.cookieNotify();
+            AnvaFramework.widget.extras();
 
         },
 
@@ -2192,7 +2082,7 @@ var ANVA = ANVA || {};
             }
 
             if( $parallaxEl.length > 0 || $parallaxPageTitleEl.length > 0 || $parallaxPortfolioEl.length > 0 ) {
-                if( !ANVA.isMobile.any() ){
+                if( !AnvaFramework.isMobile.any() ){
                     $.stellar({
                         horizontalScrolling: false,
                         verticalOffset: 150
@@ -2305,19 +2195,19 @@ var ANVA = ANVA || {};
                         smoothHeight: flexsSheight,
                         useCSS: flexsUseCSS,
                         start: function(slider){
-                            ANVA.widget.animations();
-                            ANVA.initialize.verticalMiddle();
+                            AnvaFramework.widget.animations();
+                            AnvaFramework.initialize.verticalMiddle();
                             slider.parent().removeClass('preloader2');
                             var t = setTimeout( function(){ $('.grid-container').isotope('layout'); }, 1200 );
-                            ANVA.initialize.lightbox();
+                            AnvaFramework.initialize.lightbox();
                             $('.flex-prev').html('<i class="icon-angle-left"></i>');
                             $('.flex-next').html('<i class="icon-angle-right"></i>');
-                            ANVA.portfolio.portfolioDescMargin();
+                            AnvaFramework.portfolio.portfolioDescMargin();
                         },
                         after: function(){
                             if( $('.grid-container').hasClass('portfolio-full') ) {
                                 $('.grid-container.portfolio-full').isotope('layout');
-                                ANVA.portfolio.portfolioDescMargin();
+                                AnvaFramework.portfolio.portfolioDescMargin();
                             }
                         }
                     });
@@ -2375,7 +2265,7 @@ var ANVA = ANVA || {};
                         elementVideo.css({ 'width': innerVideoWidth+'px', 'height': innerVideoHeight+'px', 'top': -innerVideoPosition+'px' });
                     }
 
-                    if( ANVA.isMobile.any() ) {
+                    if( AnvaFramework.isMobile.any() ) {
                         var placeholderImg = elementVideo.attr('poster');
 
                         if( placeholderImg !== '' ) {
@@ -2513,7 +2403,7 @@ var ANVA = ANVA || {};
                     if( elementState !== 'open' ){
                         element.children('.togglec').hide();
                     } else {
-                        element.children('.togglet').addClass("toggleta");
+                        element.children('.togglet').addClass('toggleta');
                     }
 
                     element.children('.togglet').click(function(){
@@ -2571,13 +2461,13 @@ var ANVA = ANVA || {};
                     if( !counterElementComma ) { counterElementComma = false; } else { counterElementComma = true; }
                     if( $body.hasClass('device-lg') || $body.hasClass('device-md') ){
                         element.appear( function(){
-                            ANVA.widget.runCounter( element, counterElementComma );
+                            AnvaFramework.widget.runCounter( element, counterElementComma );
                             if( element.parents('.common-height') ) {
-                                ANVA.initialize.maxHeight();
+                                AnvaFramework.initialize.maxHeight();
                             }
                         },{accX: 0, accY: -120},'easeInCubic');
                     } else {
-                        ANVA.widget.runCounter( element, counterElementComma );
+                        AnvaFramework.widget.runCounter( element, counterElementComma );
                     }
                 });
             }
@@ -2633,12 +2523,12 @@ var ANVA = ANVA || {};
                         element.appear( function(){
                             if (!element.hasClass('skills-animated')) {
                                 var t = setTimeout( function(){ element.css({opacity: 1}); }, 100 );
-                                ANVA.widget.runRoundedSkills( element, properties );
+                                AnvaFramework.widget.runRoundedSkills( element, properties );
                                 element.addClass('skills-animated');
                             }
                         },{accX: 0, accY: -120},'easeInCubic');
                     } else {
-                        ANVA.widget.runRoundedSkills( element, properties );
+                        AnvaFramework.widget.runRoundedSkills( element, properties );
                     }
                 });
             }
@@ -2711,11 +2601,11 @@ var ANVA = ANVA || {};
 
                     $.getJSON( twitterFeedLoader + '?username='+ twitterFeedUser +'&count='+ twitterFeedCount, function(tweets){
                         if( element.hasClass('fslider') ) {
-                            element.find(".slider-wrap").html(sm_format_twitter3(tweets)).promise().done( function(){
+                            element.find('.slider-wrap').html(sm_format_twitter3(tweets)).promise().done( function(){
                                 var timer = setInterval(function(){
                                     if( element.find('.slide').length > 1 ) {
                                         element.removeClass('customjs');
-                                        var t = setTimeout( function(){ ANVA.widget.loadFlexSlider(); }, 500);
+                                        var t = setTimeout( function(){ AnvaFramework.widget.loadFlexSlider(); }, 500);
                                         clearInterval(timer);
                                     }
                                 },500);
@@ -2756,8 +2646,8 @@ var ANVA = ANVA || {};
                         itemTemplate: '<a href="{{image_b}}" title="{{title}}" data-lightbox="gallery-item">' +
                                             '<img src="{{image_s}}" alt="{{title}}" />' +
                                       '</a>'
-                    }, function(data) {
-                        ANVA.initialize.lightbox();
+                    }, function() {
+                        AnvaFramework.initialize.lightbox();
                     });
                 });
             }
@@ -2774,15 +2664,15 @@ var ANVA = ANVA || {};
             if( $instagramPhotosEl.length > 0 ){
 
                 $instagramPhotosEl.each(function() {
-                    var element = $(this),
-                        instaGramTarget = element.attr('id'),
-                        instaGramUserId = element.attr('data-user'),
-                        instaGramTag = element.attr('data-tag'),
-                        instaGramLocation = element.attr('data-location'),
-                        instaGramCount = element.attr('data-count'),
-                        instaGramType = element.attr('data-type'),
-                        instaGramSortBy = element.attr('data-sortBy'),
-                        instaGramRes = element.attr('data-resolution'),
+                    var element           = $(this),
+                        instaGramTarget   = element.attr('id'),
+                        instaGramUserId   = element.attr('data-user'),
+                        instaGramTag      = element.attr('data-tag'),
+                        //instaGramLocation = element.attr('data-location'),
+                        instaGramCount    = element.attr('data-count'),
+                        instaGramType     = element.attr('data-type'),
+                        instaGramSortBy   = element.attr('data-sortBy'),
+                        instaGramRes      = element.attr('data-resolution'),
                         feed;
 
                     if( !instaGramCount ) { instaGramCount = 9; }
@@ -2889,7 +2779,7 @@ var ANVA = ANVA || {};
 
                             element.imagesLoaded().done( function() {
                                 element.removeClass('customjs');
-                                ANVA.widget.masonryThumbs();
+                                AnvaFramework.widget.masonryThumbs();
                             });
                         });
 
@@ -2910,7 +2800,7 @@ var ANVA = ANVA || {};
 
                             element.imagesLoaded().done( function() {
                                 element.removeClass('customjs');
-                                ANVA.widget.masonryThumbs();
+                                AnvaFramework.widget.masonryThumbs();
                             });
                         });
                     }
@@ -2934,7 +2824,7 @@ var ANVA = ANVA || {};
                     element.find( 'ul li:has(ul) > a' ).append( ' <i class="icon-angle-down"></i>' );
 
                     if( element.hasClass('on-hover') ){
-                        element.find( 'ul li:has(ul):not(.active)' ).hover( function(e){
+                        element.find( 'ul li:has(ul):not(.active)' ).hover( function(){
                             $(this).children('ul').stop(true, true).slideDown( Number(elementSpeed), elementEasing);
                         }, function(){
                             $(this).children('ul').delay(250).slideUp( Number(elementSpeed), elementEasing);
@@ -2964,33 +2854,35 @@ var ANVA = ANVA || {};
             }
 
             var $carousel = $('.carousel-widget:not(.customjs)');
-            if( $carousel.length < 1 ){ return true; }
+            if( $carousel.length < 1 ) {
+                return true;
+            }
 
-            $carousel.each( function(){
-                var element = $(this),
-                    elementItems = element.attr('data-items'),
-                    elementItemsLg = element.attr('data-items-lg'),
-                    elementItemsMd = element.attr('data-items-md'),
-                    elementItemsSm = element.attr('data-items-sm'),
-                    elementItemsXs = element.attr('data-items-xs'),
-                    elementItemsXxs = element.attr('data-items-xxs'),
-                    elementLoop = element.attr('data-loop'),
-                    elementAutoPlay = element.attr('data-autoplay'),
-                    elementSpeed = element.attr('data-speed'),
-                    elementAnimateIn = element.attr('data-animate-in'),
-                    elementAnimateOut = element.attr('data-animate-out'),
-                    elementNav = element.attr('data-nav'),
-                    elementPagi = element.attr('data-pagi'),
-                    elementMargin = element.attr('data-margin'),
-                    elementStage = element.attr('data-stage-padding'),
-                    elementMerge = element.attr('data-merge'),
-                    elementStart = element.attr('data-start'),
-                    elementRewind = element.attr('data-rewind'),
-                    elementSlideBy = element.attr('data-slideby'),
-                    elementCenter = element.attr('data-center'),
-                    elementLazy = element.attr('data-lazyload'),
-                    elementVideo = element.attr('data-video'),
-                    elementRTL = element.attr('data-rtl'),
+            $carousel.each( function() {
+                var element             = $(this),
+                    elementItems        = element.attr('data-items'),
+                    elementItemsLg      = element.attr('data-items-lg'),
+                    elementItemsMd      = element.attr('data-items-md'),
+                    elementItemsSm      = element.attr('data-items-sm'),
+                    elementItemsXs      = element.attr('data-items-xs'),
+                    elementItemsXxs     = element.attr('data-items-xxs'),
+                    elementLoop         = element.attr('data-loop'),
+                    elementAutoPlay     = element.attr('data-autoplay'),
+                    elementSpeed        = element.attr('data-speed'),
+                    elementAnimateIn    = element.attr('data-animate-in'),
+                    elementAnimateOut   = element.attr('data-animate-out'),
+                    elementNav          = element.attr('data-nav'),
+                    elementPagi         = element.attr('data-pagi'),
+                    elementMargin       = element.attr('data-margin'),
+                    elementStage        = element.attr('data-stage-padding'),
+                    elementMerge        = element.attr('data-merge'),
+                    elementStart        = element.attr('data-start'),
+                    elementRewind       = element.attr('data-rewind'),
+                    elementSlideBy      = element.attr('data-slideby'),
+                    elementCenter       = element.attr('data-center'),
+                    elementLazy         = element.attr('data-lazyload'),
+                    elementVideo        = element.attr('data-video'),
+                    elementRTL          = element.attr('data-rtl'),
                     elementAutoPlayTime = 0;
 
                 if( !elementItems ) { elementItems = 4; }
@@ -3060,8 +2952,8 @@ var ANVA = ANVA || {};
                         1200:{ items:Number(elementItemsLg) }
                     },
                     onInitialized: function(){
-                        ANVA.slider.owlCaptionInit();
-                        ANVA.slider.sliderParallaxDimensions();
+                        AnvaFramework.slider.owlCaptionInit();
+                        AnvaFramework.slider.sliderParallaxDimensions();
                     }
                 });
             });
@@ -3072,7 +2964,7 @@ var ANVA = ANVA || {};
             if( $masonryThumbsEl.length > 0 ){
                 $masonryThumbsEl.each( function(){
                     var masonryItemContainer = $(this);
-                    ANVA.widget.masonryThumbsArrange( masonryItemContainer );
+                    AnvaFramework.widget.masonryThumbsArrange( masonryItemContainer );
                 });
             }
         },
@@ -3084,7 +2976,7 @@ var ANVA = ANVA || {};
                 return true;
             }
 
-            ANVA.initialize.setFullColumnWidth( element );
+            AnvaFramework.initialize.setFullColumnWidth( element );
             element.isotope('layout');
         },
 
@@ -3132,16 +3024,16 @@ var ANVA = ANVA || {};
 
             if( $textRotaterEl.length > 0 ){
                 $textRotaterEl.each(function(){
-                    var element = $(this),
-                        trRotate = $(this).attr('data-rotate'),
-                        trSpeed = $(this).attr('data-speed'),
-                        trSeparator = $(this).attr('data-separator');
+                    var element     = $(this),
+                        trRotate    = element.attr('data-rotate'),
+                        trSpeed     = element.attr('data-speed'),
+                        trSeparator = element.attr('data-separator');
 
-                    if( !trRotate ) { trRotate = "fade"; }
+                    if( !trRotate ) { trRotate = 'fade'; }
                     if( !trSpeed ) { trSpeed = 1200; }
-                    if( !trSeparator ) { trSeparator = ","; }
+                    if( !trSeparator ) { trSeparator = ','; }
 
-                    var tRotater = $(this).find('.t-rotate');
+                    var tRotater = element.find('.t-rotate');
 
                     tRotater.Morphext({
                         animation: trRotate,
@@ -3153,7 +3045,7 @@ var ANVA = ANVA || {};
         },
 
         linkScroll: function(){
-            $("a[data-scrollto]").click(function(){
+            $('a[data-scrollto]').click(function(){
                 var element = $(this),
                     divScrollToAnchor = element.attr('data-scrollto'),
                     divScrollSpeed = element.attr('data-speed'),
@@ -3162,7 +3054,7 @@ var ANVA = ANVA || {};
                     divScrollHighlight = element.attr('data-highlight');
 
                     if( !divScrollSpeed ) { divScrollSpeed = 750; }
-                    if( !divScrollOffset ) { divScrollOffset = ANVA.initialize.topScrollOffset(); }
+                    if( !divScrollOffset ) { divScrollOffset = AnvaFramework.initialize.topScrollOffset(); }
                     if( !divScrollEasing ) { divScrollEasing = 'easeOutQuad'; }
 
                 $('html,body').stop(true).animate({
@@ -3240,7 +3132,7 @@ var ANVA = ANVA || {};
                                     elementResult.addClass( 'alert ' + alertType ).html( data.message ).slideDown( 400 );
                                 } else {
                                     elementResult.attr( 'data-notify-type', data.alert ).attr( 'data-notify-msg', data.message ).html('');
-                                    ANVA.widget.notifications( elementResult );
+                                    AnvaFramework.widget.notifications( elementResult );
                                 }
                                 if( $(form).find('.g-recaptcha').children('div').length > 0 ) { grecaptcha.reset(); }
                             }
@@ -3307,7 +3199,7 @@ var ANVA = ANVA || {};
                                     elementResult.addClass( 'alert ' + alertType ).html( data.message ).slideDown( 400 );
                                 } else {
                                     elementResult.attr( 'data-notify-type', data.alert ).attr( 'data-notify-msg', data.message ).html('');
-                                    ANVA.widget.notifications( elementResult );
+                                    AnvaFramework.widget.notifications( elementResult );
                                 }
                             }
                         });
@@ -3375,7 +3267,7 @@ var ANVA = ANVA || {};
                                     elementResult.addClass( 'alert ' + alertType ).html( data.message ).slideDown( 400 );
                                 } else {
                                     elementResult.attr( 'data-notify-type', data.alert ).attr( 'data-notify-msg', data.message ).html('');
-                                    ANVA.widget.notifications( elementResult );
+                                    AnvaFramework.widget.notifications( elementResult );
                                 }
                                 if( $(form).find('.g-recaptcha').children('div').length > 0 ) { grecaptcha.reset(); }
                             }
@@ -3426,31 +3318,31 @@ var ANVA = ANVA || {};
 
             $('#primary-menu-trigger,#overlay-menu-close').click(function() {
                 if( $('#primary-menu').find('ul.mobile-primary-menu').length > 0 ) {
-                    $( '#primary-menu > ul.mobile-primary-menu, #primary-menu > div > ul.mobile-primary-menu' ).toggleClass("show");
+                    $( '#primary-menu > ul.mobile-primary-menu, #primary-menu > div > ul.mobile-primary-menu' ).toggleClass('show');
                 } else {
-                    $( '#primary-menu > ul, #primary-menu > div > ul' ).toggleClass("show");
+                    $( '#primary-menu > ul, #primary-menu > div > ul' ).toggleClass('show');
                 }
                 return false;
             });
             $('#page-submenu-trigger').click(function() {
                 $body.toggleClass('top-search-open', false);
-                $pagemenu.toggleClass("pagemenu-active");
+                $pagemenu.toggleClass('pagemenu-active');
                 return false;
             });
-            $pagemenu.find('nav').click(function(e){
+            $pagemenu.find('nav').click(function() {
                 $body.toggleClass('top-search-open', false);
                 $topLang.toggleClass('top-lang-open', false);
                 $topCart.toggleClass('top-cart-open', false);
             });
-            if( ANVA.isMobile.any() ){
+            if( AnvaFramework.isMobile.any() ){
                 $body.addClass('device-touch');
             }
             // var el = {
-            //     darkLogo : $("<img>", {src: defaultDarkLogo}),
-            //     darkRetinaLogo : $("<img>", {src: retinaDarkLogo})
+            //     darkLogo : $('<img>', {src: defaultDarkLogo}),
+            //     darkRetinaLogo : $('<img>', {src: retinaDarkLogo})
             // };
-            // el.darkLogo.prependTo("body");
-            // el.darkRetinaLogo.prependTo("body");
+            // el.darkLogo.prependTo('body');
+            // el.darkRetinaLogo.prependTo('body');
             // el.darkLogo.css({'position':'absolute','z-index':'-100'});
             // el.darkRetinaLogo.css({'position':'absolute','z-index':'-100'});
         }
@@ -3460,7 +3352,7 @@ var ANVA = ANVA || {};
     /**
      * Check mobile devices
      */
-    ANVA.isMobile = {
+    AnvaFramework.isMobile = {
         Android: function() {
             return navigator.userAgent.match(/Android/i);
         },
@@ -3477,35 +3369,36 @@ var ANVA = ANVA || {};
             return navigator.userAgent.match(/IEMobile/i);
         },
         any: function() {
-            return (ANVA.isMobile.Android() || ANVA.isMobile.BlackBerry() || ANVA.isMobile.iOS() || ANVA.isMobile.Opera() || ANVA.isMobile.Windows());
+            return (AnvaFramework.isMobile.Android() || AnvaFramework.isMobile.BlackBerry() || AnvaFramework.isMobile.iOS() || AnvaFramework.isMobile.Opera() || AnvaFramework.isMobile.Windows());
         }
     };
 
     /**
      * Window resize
      */
-    ANVA.documentOnResize = {
+    AnvaFramework.documentOnResize = {
 
-        init: function(){
+        init: function() {
 
-            var t = setTimeout( function(){
-                ANVA.header.topsocial();
-                ANVA.header.fullWidthMenu();
-                ANVA.header.overlayMenu();
-                ANVA.initialize.fullScreen();
-                ANVA.initialize.verticalMiddle();
-                ANVA.initialize.maxHeight();
-                ANVA.initialize.testimonialsGrid();
-                ANVA.initialize.stickyFooter();
-                ANVA.slider.sliderParallaxDimensions();
-                ANVA.slider.captionPosition();
-                ANVA.portfolio.arrange();
-                ANVA.portfolio.portfolioDescMargin();
-                ANVA.widget.tabsJustify();
-                ANVA.widget.html5Video();
-                ANVA.widget.masonryThumbs();
-                ANVA.initialize.dataResponsiveClasses();
-                ANVA.initialize.dataResponsiveHeights();
+            setTimeout( function() {
+                AnvaFramework.header.topsocial();
+                AnvaFramework.header.fullWidthMenu();
+                AnvaFramework.header.overlayMenu();
+                AnvaFramework.initialize.fullScreen();
+                AnvaFramework.initialize.verticalMiddle();
+                AnvaFramework.initialize.maxHeight();
+                AnvaFramework.initialize.testimonialsGrid();
+                AnvaFramework.initialize.stickyFooter();
+                AnvaFramework.slider.sliderParallaxDimensions();
+                AnvaFramework.slider.captionPosition();
+                AnvaFramework.portfolio.arrange();
+                AnvaFramework.portfolio.portfolioDescMargin();
+                AnvaFramework.widget.tabsJustify();
+                AnvaFramework.widget.html5Video();
+                AnvaFramework.widget.masonryThumbs();
+                AnvaFramework.initialize.dataResponsiveClasses();
+                AnvaFramework.initialize.dataResponsiveHeights();
+
                 if( $gridContainer.length > 0 ) {
                     if( !$gridContainer.hasClass('.customjs') ) {
                         if( $().isotope ) {
@@ -3515,6 +3408,7 @@ var ANVA = ANVA || {};
                         }
                     }
                 }
+
                 if( $body.hasClass('device-lg') || $body.hasClass('device-md') ) {
                     $('#primary-menu').find('ul.mobile-primary-menu').removeClass('show');
                 }
@@ -3529,15 +3423,15 @@ var ANVA = ANVA || {};
     /**
      * Document ready
      */
-    ANVA.documentOnReady = {
+    AnvaFramework.documentOnReady = {
 
         init: function(){
-            ANVA.initialize.init();
-            ANVA.header.init();
-            if( $slider.length > 0 ) { ANVA.slider.init(); }
-            if( $portfolio.length > 0 ) { ANVA.portfolio.init(); }
-            ANVA.widget.init();
-            ANVA.documentOnReady.windowscroll();
+            AnvaFramework.initialize.init();
+            AnvaFramework.header.init();
+            if( $slider.length > 0 ) { AnvaFramework.slider.init(); }
+            if( $portfolio.length > 0 ) { AnvaFramework.portfolio.init(); }
+            AnvaFramework.widget.init();
+            AnvaFramework.documentOnReady.windowscroll();
         },
 
         windowscroll: function(){
@@ -3571,16 +3465,16 @@ var ANVA = ANVA || {};
                 }
             }
 
-            ANVA.header.stickyMenu( headerWrapOffset );
-            ANVA.header.stickyPageMenu( pageMenuOffset );
+            AnvaFramework.header.stickyMenu( headerWrapOffset );
+            AnvaFramework.header.stickyPageMenu( pageMenuOffset );
 
             $window.on( 'scroll', function(){
 
-                ANVA.initialize.goToTopScroll();
-                $('body.open-header.close-header-on-scroll').removeClass("side-header-open");
-                ANVA.header.stickyMenu( headerWrapOffset );
-                ANVA.header.stickyPageMenu( pageMenuOffset );
-                ANVA.header.logo();
+                AnvaFramework.initialize.goToTopScroll();
+                $('body.open-header.close-header-on-scroll').removeClass('side-header-open');
+                AnvaFramework.header.stickyMenu( headerWrapOffset );
+                AnvaFramework.header.stickyPageMenu( pageMenuOffset );
+                AnvaFramework.header.logo();
 
             });
 
@@ -3589,7 +3483,7 @@ var ANVA = ANVA || {};
             if( $onePageMenuEl.length > 0 ){
                 if( $().scrolled ) {
                     $window.scrolled(function() {
-                        ANVA.header.onepageScroller();
+                        AnvaFramework.header.onepageScroller();
                     });
                 } else {
                     console.log('windowscroll: Scrolled Function not defined.');
@@ -3602,30 +3496,30 @@ var ANVA = ANVA || {};
     /**
      * Window Load
      */
-    ANVA.documentOnLoad = {
+    AnvaFramework.documentOnLoad = {
 
-        init: function(){
-            ANVA.slider.captionPosition();
-            ANVA.slider.swiperSliderMenu(true);
-            ANVA.slider.revolutionSliderMenu(true);
-            ANVA.initialize.maxHeight();
-            ANVA.initialize.testimonialsGrid();
-            ANVA.initialize.verticalMiddle();
-            ANVA.initialize.stickFooterOnSmall();
-            ANVA.initialize.stickyFooter();
-            ANVA.portfolio.gridInit( $gridContainer );
-            ANVA.portfolio.filterInit();
-            ANVA.portfolio.shuffleInit();
-            ANVA.portfolio.arrange();
-            ANVA.portfolio.portfolioDescMargin();
-            ANVA.widget.parallax();
-            ANVA.widget.loadFlexSlider();
-            ANVA.widget.nivoSlider();
-            ANVA.widget.html5Video();
-            ANVA.widget.masonryThumbs();
-            ANVA.header.topsocial();
-            ANVA.header.responsiveMenuClass();
-            ANVA.initialize.modal();
+        init: function() {
+            AnvaFramework.slider.captionPosition();
+            AnvaFramework.slider.swiperSliderMenu(true);
+            AnvaFramework.slider.revolutionSliderMenu(true);
+            AnvaFramework.initialize.maxHeight();
+            AnvaFramework.initialize.testimonialsGrid();
+            AnvaFramework.initialize.verticalMiddle();
+            AnvaFramework.initialize.stickFooterOnSmall();
+            AnvaFramework.initialize.stickyFooter();
+            AnvaFramework.portfolio.gridInit( $gridContainer );
+            AnvaFramework.portfolio.filterInit();
+            AnvaFramework.portfolio.shuffleInit();
+            AnvaFramework.portfolio.arrange();
+            AnvaFramework.portfolio.portfolioDescMargin();
+            AnvaFramework.widget.parallax();
+            AnvaFramework.widget.loadFlexSlider();
+            AnvaFramework.widget.nivoSlider();
+            AnvaFramework.widget.html5Video();
+            AnvaFramework.widget.masonryThumbs();
+            AnvaFramework.header.topsocial();
+            AnvaFramework.header.responsiveMenuClass();
+            AnvaFramework.initialize.modal();
         }
 
     };
@@ -3645,7 +3539,7 @@ var ANVA = ANVA || {};
         stickyMenuClasses          = $header.attr('data-sticky-class'),
         responsiveMenuClasses      = $header.attr('data-responsive-class'),
         defaultLogo                = $('#logo').find('.standard-logo'),
-        defaultLogoWidth           = defaultLogo.find('img').outerWidth(),
+        //defaultLogoWidth         = defaultLogo.find('img').outerWidth(),
         retinaLogo                 = $('#logo').find('.retina-logo'),
         defaultLogoImg             = defaultLogo.find('img').attr('src'),
         retinaLogoImg              = retinaLogo.find('img').attr('src'),
@@ -3659,7 +3553,7 @@ var ANVA = ANVA || {};
         $onePageMenuEl             = $('.one-page-menu'),
         onePageGlobalOffset        = 0,
         $portfolio                 = $('.portfolio'),
-        $shop                      = $('.shop'),
+        //$shop                    = $('.shop'),
         $gridContainer             = $('.grid-container'),
         $slider                    = $('#slider'),
         $sliderParallaxEl          = $('.slider-parallax'),
@@ -3692,12 +3586,12 @@ var ANVA = ANVA || {};
         $cookieNotification        = $('#cookie-notification');
 
     // Document Ready
-    $(document).ready( ANVA.documentOnReady.init );
+    $(document).ready( AnvaFramework.documentOnReady.init );
 
     // Window Load
-    $window.load( ANVA.documentOnLoad.init );
+    $window.load( AnvaFramework.documentOnLoad.init );
 
     // Window Resize
-    $window.on( 'resize', ANVA.documentOnResize.init );
+    $window.on( 'resize', AnvaFramework.documentOnResize.init );
 
 })( jQuery );

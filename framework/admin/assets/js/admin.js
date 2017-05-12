@@ -12,6 +12,7 @@ jQuery( document ).ready( function( $ ) {
             AnvaSectionManager.logo();
             AnvaSectionManager.typography();
             AnvaSectionManager.socialMedia();
+            AnvaSectionManager.sliderGroups();
             AnvaSectionManager.columns();
             AnvaSectionManager.slider();
             AnvaSectionManager.rangeSlider();
@@ -118,6 +119,30 @@ jQuery( document ).ready( function( $ ) {
                     checkbox.closest( '.item' ).addClass( 'active' ).find( '.social_media-input' ).fadeIn( 'fast' );
                 } else {
                     checkbox.closest( '.item' ).removeClass( 'active' ).find( '.social_media-input' ).hide();
+                }
+            });
+        },
+
+        sliderGroups: function() {
+            $( '.section-slider_group_area' ).each(function() {
+                var el = $(this);
+                el.find( '.anva-slider-cat-input' ).hide();
+                el.find( '.checkbox' ).each(function() {
+                    var checkbox = $(this);
+                    if ( checkbox.is( ':checked' ) ) {
+                        checkbox.closest( '.anva-slider-cat-item' ).addClass( 'active' ).find( '.anva-slider-cat-input' ).show();
+                    } else {
+                        checkbox.closest( '.anva-slider-cat-item' ).removeClass( 'active' ).find( '.anva-slider-cat-input' ).hide();
+                    }
+                });
+            });
+
+            $( '.section-slider_group_area .checkbox' ).on( 'click', function() {
+                var checkbox = $(this);
+                if ( checkbox.is( ':checked' ) ) {
+                    checkbox.closest( '.anva-slider-cat-item' ).addClass( 'active' ).find( '.anva-slider-cat-input' ).fadeIn( 'fast' );
+                } else {
+                    checkbox.closest( '.anva-slider-cat-item' ).removeClass( 'active' ).find( '.anva-slider-cat-input' ).hide();
                 }
             });
         },

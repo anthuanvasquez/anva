@@ -12,7 +12,7 @@
  * @package     Anva WordPress Framework
  */
 
-if ( ! class_exists( 'Anva_Stylesheets' ) ) :
+if ( ! class_exists( 'Anva_Styles' ) ) :
 
 	class Anva_Styles {
 
@@ -178,6 +178,15 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 				'media'		=> 'all',
 			);
 
+			// Framework Theme Dark
+			$this->framework_stylesheets['anva_dark'] = array(
+				'handle'	=> 'anva_dark',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/styles-dark.css',
+				'deps'		=> array( 'anva_shortcodes', 'anva_styles', 'anva_responsive' ),
+				'ver'		=> self::$version,
+				'media'		=> 'all',
+			);
+
 			// Remove stylesheets
 			if ( $this->remove_stylesheets ) {
 				foreach ( $this->remove_stylesheets as $key => $handle ) {
@@ -189,7 +198,6 @@ if ( ! class_exists( 'Anva_Stylesheets' ) ) :
 						// Now that we've found the stylesheet and removed it,
 						// we don't need to de-register it later.
 						unset( $this->remove_stylesheets[ $key ] );
-
 					}
 				}
 			}

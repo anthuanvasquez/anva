@@ -28,8 +28,15 @@ get_header();
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php anva_get_template_part( 'page', 'content-page' ); ?>
-			<?php if ( anva_get_area( 'comments', 'pages' ) ) : ?>
-				<?php do_action( 'anva_post_comments' ); ?>
+			<?php if ( anva_get_area( 'comments', 'page' ) ) : ?>
+				<?php
+					/**
+					 * Hooked
+					 *
+					 * @see anva_post_comments_default
+					 */
+					do_action( 'anva_post_comments' );
+				?>
 			<?php endif; ?>
 		<?php endwhile; ?>
 

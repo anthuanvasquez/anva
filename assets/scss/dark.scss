@@ -1,17 +1,11 @@
-/* ----------------------------------------------------------------
-    Dark Scheme
------------------------------------------------------------------*/
+.dark {
+    .entry.sticky {
+        background-color: #444;
+        border-color: #555;
+    }
 
-@import 'dark/variables';
-@import 'dark/typography';
-@import 'dark/layout';
-@import 'dark/spinner';
-@import 'dark/header';
-@import 'dark/titles';
-@import 'dark/portfolio';
-@import 'dark/blog';
-@import 'dark/shop';
-@import 'dark/components';
-@import 'dark/footer';
-@import 'dark/widgets';
-@import 'dark/bootstrap';
+    .post-reading-bar {
+        background-color: #282828;
+        border-color: #3F3F3F;
+    }
+}

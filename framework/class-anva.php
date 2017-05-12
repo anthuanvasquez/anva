@@ -134,6 +134,7 @@ class Anva {
 			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-page.php' );
 			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-import-export.php' );
 			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-media-uploader.php' );
+			include_once( self::$framework_dir_path . 'admin/options/anva-options-type.php' );
 			include_once( self::$framework_dir_path . 'admin/options/anva-options-fields.php' );
 			include_once( self::$framework_dir_path . 'admin/options/anva-options-sanitization.php' );
 			include_once( self::$framework_dir_path . 'admin/class-anva-page-builder.php' );

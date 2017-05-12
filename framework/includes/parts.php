@@ -418,23 +418,23 @@ function anva_site_branding() {
 	$classes[]          = 'logo-' . $option['type'];
 
 	if ( $option['type'] == 'custom' || $option['type'] == 'title' || $option['type'] == 'title_tagline' ) {
-	    $classes[] = 'logo-text';
+		$classes[] = 'logo-text';
 	}
 
 	if ( $option['type'] == 'custom' && ! empty( $option['custom_tagline'] ) ) {
-	    $classes[] = 'logo-has-tagline';
+		$classes[] = 'logo-has-tagline';
 	}
 
 	if ( $option['type'] == 'title_tagline' ) {
-	    $classes[] = 'logo-has-tagline';
+		$classes[] = 'logo-has-tagline';
 	}
 
 	if ( $option['type'] == 'image' ) {
-	    $classes[] = 'logo-has-image';
+		$classes[] = 'logo-has-image';
 	}
 
 	if ( $primary_menu_style == 'style_9' ) {
-	    $classes[] = 'divcenter';
+		$classes[] = 'divcenter';
 	}
 
 	$classes = implode( ' ', $classes );
@@ -442,51 +442,64 @@ function anva_site_branding() {
 	echo '<div id="logo" class="' . esc_attr( $classes ) . '">';
 
 	if ( ! empty( $option['type'] ) ) {
-	    switch ( $option['type'] ) {
+		switch ( $option['type'] ) {
 
-	        case 'title' :
-	            echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
-	            break;
+			case 'title' :
+				echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
+				break;
 
-	        case 'title_tagline' :
-	            echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
-	            echo '<span class="logo-tagline">' . get_bloginfo( 'description' ) . '</span>';
-	            break;
+			case 'title_tagline' :
+				echo '<div class="text-logo"><a href="' . home_url() . '">' . $name . '</a></div>';
+				echo '<span class="logo-tagline">' . get_bloginfo( 'description' ) . '</span>';
+				break;
 
-	        case 'custom' :
-	            echo '<div class="text-logo"><a href="' . home_url() . '">' . $option['custom'] . '</a></div>';
-	            if ( $option['custom_tagline'] ) {
-	                echo '<span class="logo-tagline">' . $option['custom_tagline'] . '</span>';
-	            }
-	            break;
+			case 'custom' :
+				echo '<div class="text-logo"><a href="' . home_url() . '">' . $option['custom'] . '</a></div>';
+				if ( $option['custom_tagline'] ) {
+					echo '<span class="logo-tagline">' . $option['custom_tagline'] . '</span>';
+				}
+				break;
 
-	        case 'image' :
-	            $image_1x  = esc_url( $option['image'] );
-	            $image_2x  = '';
-	            $logo_2x   = '';
-	            $logo_alt  = '';
-	            $image_alt = '';
-	            $class     = '';
+			case 'image' :
+				$image_1x   = esc_url( $option['image'] );
+				$image_2x   = '';
+				$logo_2x    = '';
+				$logo_mini  = '';
+				$image_mini = '';
+				$class      = '';
 
-	            if ( $primary_menu_style == 'style_9' ) {
-	                $class = 'class="divcenter"';
-	            }
+				if ( $primary_menu_style == 'style_9' ) {
+					$class = 'class="divcenter"';
+				}
 
-	            if ( ! empty( $option['image_2x'] ) ) {
-	                $image_2x = $option['image_2x'];
-	                $logo_2x = '<a class="retina-logo" href="' . home_url() . '"><img ' . $class . ' src="' . esc_url( $image_2x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
-	            }
+				if ( ! empty( $option['image_2x'] ) ) {
+					$image_2x = $option['image_2x'];
+					$logo_2x = sprintf(
+						'<a class="retina-logo" href="%s"><img %s src="%s" alt="%s" /></a>',
+						home_url(),
+						$class,
+						esc_url( $image_2x ),
+						esc_attr( $name )
+					);
+				}
 
-	            if ( ! empty( $option['image_alternate'] ) ) {
-	                $image_alt = $option['image_alternate'];
-	                $logo_alt  = 'data-sticky-logo="' . esc_url( $image_alt ) . '"';
-	                $logo_alt .= 'data-mobile-logo="' . esc_url( $image_alt ) . '"';
-	            }
+				if ( ! empty( $option['image_mini'] ) ) {
+					$image_mini = $option['image_mini'];
+					$logo_mini  = 'data-sticky-logo="' . esc_url( $image_mini ) . '"';
+					$logo_mini .= 'data-mobile-logo="' . esc_url( $image_mini ) . '"';
+				}
 
-	            echo '<a class="standard-logo" href="' . home_url() . '"' . $logo_alt . '><img ' . $class . ' src="' . esc_url( $image_1x ) . '" alt="' . esc_attr( $name ) . '" /></a>';
-	            echo $logo_2x;
-	            break;
-	    }
+				printf(
+					'<a class="standard-logo" href="%s" %s><img %s src="%s" alt="%s" /></a> %s',
+					home_url(),
+					$logo_mini,
+					$class,
+					esc_url( $image_1x ),
+					esc_attr( $name ),
+					$logo_2x
+				);
+				break;
+		}
 	}
 
 	echo '</div><!-- #logo (end) -->';

@@ -420,6 +420,10 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 				$output .= anva_social_media_option( $value['id'], $option_name, $val );
 				break;
 
+			case 'slider_group_area':
+				$output .= anva_slider_group_area_option( $value['id'], $option_name, $val );
+				break;
+
 			/* ------------------------------------- */
 			/* Columns
 			/* ------------------------------------- */

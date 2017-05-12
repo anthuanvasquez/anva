@@ -108,6 +108,27 @@
         }
     }
 
+    .section-slider_group_area {
+        .anva-radio,
+        .checkbox {
+            margin: 0 5px 0 0;
+            float: none;
+        }
+
+        .controls {
+            @include clearfix;
+        }
+
+        select {
+            margin: 10px 0;
+        }
+
+        span {
+            display: block;
+            line-height: 20px;
+        }
+    }
+
     .section-sidebar {
         .dynamic-sidebars {
             ul {

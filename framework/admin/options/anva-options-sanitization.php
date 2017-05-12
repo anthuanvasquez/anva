@@ -609,35 +609,36 @@ function anva_sanitize_logo( $input ) {
 
 	// Image (standard)
 	if ( isset( $input['image'] ) ) {
-		$filetype = wp_check_filetype( $input['image'] );
-		if ( $filetype["ext"] ) {
-			$output['image'] = $input['image'];
-		} else {
-			$output['image'] = null;
-		}
+		$output['image'] = anva_sanitize_file_type( $input['image'] );
 	}
 
 	// Image (for retina)
 	if ( isset( $input['image_2x'] ) ) {
-		$filetype = wp_check_filetype( $input['image_2x'] );
-		if ( $filetype["ext"] ) {
-			$output['image_2x'] = $input['image_2x'];
-		} else {
-			$output['image_2x'] = null;
-		}
+		$output['image_2x'] = anva_sanitize_file_type( $input['image_2x'] );
 	}
 
-	// Image alternate
-	if ( isset( $input['image_alternate'] ) ) {
-		$filetype = wp_check_filetype( $input['image_alternate'] );
-		if ( $filetype["ext"] ) {
-			$output['image_alternate'] = $input['image_alternate'];
-		} else {
-			$output['image_alternate'] = null;
-		}
+	// Image mini
+	if ( isset( $input['image_mini'] ) ) {
+		$output['image_mini'] = anva_sanitize_file_type( $input['image_mini'] );
 	}
 
 	return $output;
+}
+
+/**
+ * Check file type.
+ *
+ * @param  array  $input The input field.
+ * @return string        The sanitize input.
+ */
+function anva_sanitize_file_type( $input ) {
+	$filetype = wp_check_filetype( $input );
+
+	if ( $filetype['ext'] ) {
+		return $input;
+	}
+
+	return null;
 }
 
 /**

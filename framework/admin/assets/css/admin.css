@@ -938,6 +938,23 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   display: block;
   line-height: 20px; }
 
+.anva-framework .section-slider_group_area .anva-radio,
+.anva-framework .section-slider_group_area .checkbox {
+  margin: 0 5px 0 0;
+  float: none; }
+
+.anva-framework .section-slider_group_area .controls::after {
+  content: '';
+  display: table;
+  clear: both; }
+
+.anva-framework .section-slider_group_area select {
+  margin: 10px 0; }
+
+.anva-framework .section-slider_group_area span {
+  display: block;
+  line-height: 20px; }
+
 .anva-framework .section-sidebar .dynamic-sidebars ul {
   background-color: #F9F9F9;
   border: 1px solid #DDD;
