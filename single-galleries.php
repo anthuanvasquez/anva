@@ -42,9 +42,9 @@ get_header();
 							the_content();
 
 							if ( ! post_password_required() ) {
-								if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template === $templates[$gallery_template]['id'] ) {
-									$columns = $templates[$gallery_template]['layout']['col'];
-									$size    = $templates[$gallery_template]['layout']['size'];
+								if ( isset( $templates[ $gallery_template ]['id'] ) && $gallery_template === $templates[ $gallery_template ]['id'] ) {
+									$columns = $templates[ $gallery_template ]['layout']['col'];
+									$size    = $templates[ $gallery_template ]['layout']['size'];
 									anva_gallery_masonry( $id, $columns, $size );
 								}
 							}

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Builder_Options' ) ) :
+if ( ! class_exists( 'Anva_Builder_Components' ) ) :
 
 /**
  * Anva Page Builder Elements API.
@@ -14,7 +14,7 @@ if ( ! class_exists( 'Anva_Builder_Options' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Builder_Options {
+class Anva_Builder_Components {
 	/**
 	 * A single instance of this class.
 	 *
@@ -90,6 +90,7 @@ class Anva_Builder_Options {
 	 * @since 1.0.0
 	 */
 	public function set_core_elements() {
+
 		/*--------------------------------------------*/
 		/* Helpers
 		/*--------------------------------------------*/
@@ -144,7 +145,7 @@ class Anva_Builder_Options {
 		/* Header
 		/*--------------------------------------------*/
 
-		$this->core_elements['header'] = array(
+		$this->core_elements['header_text'] = array(
 			'name'    => __( 'Header', 'anva' ),
 			'desc'    => __( 'Create a header with some nice text.', 'anva' ),
 			'icon'    => $image_path . 'header.png',
@@ -288,7 +289,7 @@ class Anva_Builder_Options {
 		/* Text
 		/*--------------------------------------------*/
 
-		$this->core_elements['text'] = array(
+		$this->core_elements['text_fullwidth'] = array(
 			'name' =>  'Text Fullwidth',
 			'icon' => $image_path . 'text.png',
 			'attr' => array(

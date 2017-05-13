@@ -99,7 +99,7 @@ class Anva_Scripts {
         // jQuery Camera
         $this->framework_scripts['jquery_camera'] = array(
             'handle'    => 'jquery_camera',
-            'src'       => Anva::$framework_dir_uri . 'assets/js/vendor/jquery.camera.js',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/jquery.camera.js',
             'deps'      => array( 'jquery' ),
             'ver'       => '1.4.0',
             'footer'    => true
@@ -108,7 +108,7 @@ class Anva_Scripts {
         // jQuery Nivo
         $this->framework_scripts['jquery_nivo'] = array(
             'handle'    => 'jquery_nivo',
-            'src'       => Anva::$framework_dir_uri . 'assets/js/vendor/jquery.nivo.js',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/jquery.nivo.js',
             'deps'      => array( 'jquery' ),
             'ver'       => '3.2.0',
             'footer'    => true
@@ -117,7 +117,7 @@ class Anva_Scripts {
         // Required Plugins
         $this->framework_scripts['anva_plugins'] = array(
             'handle'    => 'anva_plugins',
-            'src'       => Anva::$framework_dir_uri . 'assets/js/plugins.js',
+            'src'       => Anva::$framework_dir_uri . 'assets/js/plugins.vendor.js',
             'deps'      => array( 'jquery' ),
             'ver'       => self::$version,
             'footer'    => true

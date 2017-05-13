@@ -161,7 +161,7 @@ class Anva {
 		include_once( self::$framework_dir_path . 'class-anva-styles.php' );
 		include_once( self::$framework_dir_path . 'class-anva-scripts.php' );
 		include_once( self::$framework_dir_path . 'class-anva-sliders.php' );
-		include_once( self::$framework_dir_path . 'class-anva-builder-options.php' );
+		include_once( self::$framework_dir_path . 'class-anva-builder-components.php' );
 		include_once( self::$framework_dir_path . 'anva-helpers.php' );
 
 		// General

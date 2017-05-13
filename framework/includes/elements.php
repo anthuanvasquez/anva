@@ -60,20 +60,28 @@ function anva_display_elements() {
 				$classes[] = 'element-has-content';
 				$content   = urldecode( $obj[ $content ] );
 			} else {
-				$content = NULL;
+				$content = null;
 			}
 
-			$classes = implode( ' ', $classes );
+			$classes = implode( ' ', $classes ); ?>
 
-			echo '<section id="section-' . esc_attr( $counter ) . '" class="section section-element section-' .  esc_attr( $item ) .' section-' .  esc_attr( $shortcode ) . ' ' .  esc_attr( $classes ) . '">';
-			echo '<div id="element-' .  esc_attr( $item ) . '" class="element element-' . esc_attr( $item ) . ' element-' .  esc_attr( $shortcode ) . '">';
+			<!-- #section-<?php echo esc_attr( $counter ); ?> (end) -->
+			<section id="section-<?php echo esc_attr( $counter ); ?>" class="section section-element section-<?php echo esc_attr( $item ); ?> section-<?php echo esc_attr( $shortcode ); ?> <?php echo esc_attr( $classes ); ?>">
+			<div id="element-<?php echo esc_attr( $item ); ?>" class="element element-<?php echo sc_attr( $item ); ?> element-<?php echo esc_attr( $shortcode ); ?>">
 
+			<?php
+			/**
+			 * Hooked
+			 *
+			 * @see anva_add_elements
+			 */
 			do_action( 'anva_element_' . $shortcode, $atts, $content );
+			?>
 
-			echo '</div><!-- #element-' . esc_attr( $item ) . ' (end) -->';
-			echo '</section><!-- #section-' . esc_attr( $counter ) . ' (end) -->';
+			</div><!-- #element-<?php echo esc_attr( $item ); ?> (end) -->
+			</section><!-- #section-<?php echo esc_attr( $counter ); ?> (end) -->
+			<?php
 		}
-
 
 	}
 
@@ -86,34 +94,34 @@ function anva_display_elements() {
  * @since 1.0.0
  */
 function anva_add_elements() {
-	add_action( 'anva_element_divider', 				'anva_divider', 10, 2 );
-	add_action( 'anva_element_header', 					'anva_header_element', 10, 2 );
-	add_action( 'anva_element_header_image', 			'anva_header_image', 10, 2 );
-	add_action( 'anva_element_text', 					'anva_text', 10, 2 );
-	add_action( 'anva_element_text_image', 				'anva_text_image' );
-	add_action( 'anva_element_text_sidebar', 			'anva_text_sidebar', 10, 2 );
-	add_action( 'anva_element_blog_grid', 				'anva_blog_grid', 10, 2 );
-	add_action( 'anva_element_content_half_bg', 		'anva_content_half_bg', 10, 2 );
-	add_action( 'anva_element_contact_sidebar', 		'anva_contact_sidebar', 10, 2 );
-	add_action( 'anva_element_contact_map', 			'anva_contact_map', 10, 2 );
-	add_action( 'anva_element_image_parallax', 			'anva_image_parallax', 10, 2 );
-	add_action( 'anva_element_image_fullwidth', 		'anva_image_fullwidth', 10, 2 );
-	add_action( 'anva_element_image_half_fullwidth', 	'anva_image_half_fullwidth', 10, 2 );
-	add_action( 'anva_element_image_half_fixed_width', 	'anva_image_half_fixed_width', 10, 2 );
-	add_action( 'anva_element_image_fixed_width', 		'anva_image_fixed_width', 10, 2 );
-	add_action( 'anva_element_four_images_block', 		'anva_four_images_block', 10, 2 );
-	add_action( 'anva_element_three_images_block', 		'anva_three_images_block', 10, 2 );
-	add_action( 'anva_element_three_cols_images', 		'anva_three_cols_images, 10, 2');
-	add_action( 'anva_element_two_cols_images', 		'anva_two_cols_images', 10, 2 );
-	// add_action( 'anva_element_gallery_slider', 			'anva_gallery_slider', 10, 2 );
-	// add_action( 'anva_element_gallery_grid', 			'anva_gallery_grid', 10, 2 );
-	// add_action( 'anva_element_gallery_masonry', 		'anva_gallery_masonry', 10, 2 );
-	// add_action( 'anva_element_galleries', 				'anva_galleries', 10, 2 );
-	// add_action( 'anva_element_animated_gallery_grid', 	'anva_animated_gallery_grid', 10, 2 );
-	// add_action( 'anva_element_map', 					'anva_map' );
-	// add_action( 'anva_element_testimonial_column', 	'anva_testimonial_column' );
-	// add_action( 'anva_element_pricing', 				'anva_pricing' );
-	// add_action( 'anva_element_gallery_slider_fixed_width', 'anva_gallery_slider_fixed_width' );
+	add_action( 'anva_element_divider', 						'anva_divider', 10, 2 );
+	add_action( 'anva_element_header_text', 					'anva_header_text', 10, 2 );
+	add_action( 'anva_element_header_image', 					'anva_header_image', 10, 2 );
+	add_action( 'anva_element_text_fullwidth', 					'anva_text_fullwidth', 10, 2 );
+	add_action( 'anva_element_text_image', 						'anva_text_image', 10, 2 );
+	add_action( 'anva_element_text_sidebar', 					'anva_text_sidebar', 10, 2 );
+	add_action( 'anva_element_blog_grid', 						'anva_blog_grid', 10, 2 );
+	add_action( 'anva_element_content_half_bg', 				'anva_content_half_bg', 10, 2 );
+	add_action( 'anva_element_contact_sidebar', 				'anva_contact_sidebar', 10, 2 );
+	add_action( 'anva_element_contact_map', 					'anva_contact_map', 10, 2 );
+	add_action( 'anva_element_image_parallax', 					'anva_image_parallax', 10, 2 );
+	add_action( 'anva_element_image_fullwidth', 				'anva_image_fullwidth', 10, 2 );
+	add_action( 'anva_element_image_half_fullwidth', 			'anva_image_half_fullwidth', 10, 2 );
+	add_action( 'anva_element_image_half_fixed_width', 			'anva_image_half_fixed_width', 10, 2 );
+	add_action( 'anva_element_image_fixed_width', 				'anva_image_fixed_width', 10, 2 );
+	add_action( 'anva_element_four_images_block', 				'anva_four_images_block', 10, 2 );
+	add_action( 'anva_element_three_images_block', 				'anva_three_images_block', 10, 2 );
+	add_action( 'anva_element_three_cols_images', 				'anva_three_cols_images, 10, 2');
+	add_action( 'anva_element_two_cols_images', 				'anva_two_cols_images', 10, 2 );
+	// add_action( 'anva_element_gallery_slider', 				'anva_gallery_slider', 10, 2 );
+	// add_action( 'anva_element_gallery_grid', 				'anva_gallery_grid', 10, 2 );
+	// add_action( 'anva_element_gallery_masonry', 				'anva_gallery_masonry', 10, 2 );
+	// add_action( 'anva_element_galleries', 					'anva_galleries', 10, 2 );
+	// add_action( 'anva_element_animated_gallery_grid',		'anva_animated_gallery_grid', 10, 2 );
+	// add_action( 'anva_element_map', 							'anva_map' );
+	// add_action( 'anva_element_testimonial_column', 			'anva_testimonial_column' );
+	// add_action( 'anva_element_pricing', 						'anva_pricing' );
+	// add_action( 'anva_element_gallery_slider_fixed_width', 	'anva_gallery_slider_fixed_width' );
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -140,7 +148,7 @@ function anva_divider( $atts, $content = NULL ) {
  * @param array  $atts
  * @param string $content
  */
-function anva_header_element( $atts, $content = NULL ) {
+function anva_header_text( $atts, $content = NULL ) {
 
 	extract( shortcode_atts( array(
 		'slug'       => '',
@@ -264,7 +272,7 @@ function anva_header_image( $atts, $content = null ) {
  * @param  string $content
  * @return string $html
  */
-function anva_text( $atts, $content ) {
+function anva_text_fullwidth( $atts, $content ) {
 
 	extract( shortcode_atts( array(
 		'slug' => '',
@@ -425,9 +433,6 @@ function anva_text_sidebar($atts, $content) {
 
 	return $html;
 }
-
-
-
 
 function anva_gallery_slider_fixed_width($atts, $content) {
 
@@ -1993,8 +1998,6 @@ function anva_pricing($atts, $content) {
 	return $html;
 }
 
-
-
 function anva_testimonial_column($atts, $content) {
 	remove_filter('the_content', 'pp_formatter', 99);
 
@@ -2201,8 +2204,6 @@ function anva_testimonial_column($atts, $content) {
 
 	return $html;
 }
-
-
 
 function anva_contact_map($atts, $content) {
 
@@ -2481,7 +2482,6 @@ function anva_contact_map($atts, $content) {
 	return $html;
 }
 
-
 function anva_contact_sidebar( $atts, $content ) {
 
 	//extract short code attr
@@ -2668,9 +2668,6 @@ function anva_contact_sidebar( $atts, $content ) {
 	return $html;
 }
 
-
-
-
 function anva_map($atts) {
 	//extract short code attr
 	extract(shortcode_atts(array(
@@ -2750,7 +2747,6 @@ function anva_map($atts) {
 	return $html;
 
 }
-
 
 function anva_galleries($atts, $content) {
 
@@ -2878,4 +2874,3 @@ function anva_galleries($atts, $content) {
 	return $html;
 
 }
-

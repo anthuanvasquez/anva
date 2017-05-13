@@ -51,9 +51,9 @@ $client = anva_get_post_meta( '_anva_client' );
 										$gallery_template = anva_get_option( 'gallery_template' );
 									}
 
-									if ( isset( $templates[$gallery_template]['id'] ) && $gallery_template === $templates[$gallery_template]['id'] ) {
-										$columns = $templates[$gallery_template]['layout']['col'];
-										$size    = $templates[$gallery_template]['layout']['size'];
+									if ( isset( $templates[ $gallery_template ]['id'] ) && $gallery_template === $templates[ $gallery_template ]['id'] ) {
+										$columns = $templates[ $gallery_template ]['layout']['col'];
+										$size    = $templates[ $gallery_template ]['layout']['size'];
 										anva_gallery_masonry( $id, $columns, $size );
 									}
 								}
@@ -127,21 +127,21 @@ $client = anva_get_post_meta( '_anva_client' );
 								<div class="panel-body">
 									<ul class="portfolio-meta nobottommargin">
 										<li>
-											<span><i class="icon-user"></i> <?php _e('Created by', 'anva'); ?>:</span>
+											<span><i class="icon-user"></i> <?php esc_html_e( 'Created by', 'anva' ); ?>:</span>
 											<?php anva_the_post_meta( '_anva_author' ); ?>
 										</li>
 										<li>
-											<span><i class="icon-calendar"></i> <?php _e('Completed on', 'anva'); ?>:</span>
+											<span><i class="icon-calendar"></i> <?php esc_html_e( 'Completed on', 'anva' ); ?>:</span>
 											<?php anva_the_post_meta( '_anva_date' ); ?>
 										</li>
 										<?php if ( anva_get_terms_links( 'portfolio_skill' ) ) : ?>
 											<li>
-												<span><i class="icon-lightbulb"></i> <?php _e('Skills', 'anva'); ?>:</span>
+												<span><i class="icon-lightbulb"></i> <?php esc_html_e( 'Skills', 'anva' ); ?>:</span>
 												<?php anva_the_terms_links( 'portfolio_skill', ' / ' ); ?>
 											</li>
 										<?php endif; ?>
 										<li>
-											<span><i class="icon-link"></i> <?php _e('Client', 'anva'); ?>:</span>
+											<span><i class="icon-link"></i> <?php esc_html_e( 'Client', 'anva' ); ?>:</span>
 											<a href="<?php anva_the_post_meta( '_anva_client_url' ); ?>">
 												<?php anva_the_post_meta( '_anva_client' ); ?>
 											</a>

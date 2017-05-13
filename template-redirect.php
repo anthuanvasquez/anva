@@ -20,8 +20,7 @@
  * @link         https://anthuanvasquez.net
  * @package      AnvaFramework
  */
-?>
-<?php
+
 if ( have_posts() ) : the_post();
 $url = get_the_content();
 if ( ! preg_match( '/^http:\/\//', $url ) && ! preg_match( '/^https:\/\//', $url ) ) {

@@ -306,7 +306,6 @@ button::-moz-focus-inner {
     background: #000;
 }
 
-
 /* Main image in popup */
 
 img.mfp-img {
@@ -319,7 +318,6 @@ img.mfp-img {
     padding: 40px 0 40px;
     margin: 0 auto;
 }
-
 
 /* The shadow behind the image */
 
@@ -378,10 +376,11 @@ img.mfp-img {
     cursor: pointer;
 }
 
-@media screen and (max-width: 800px) and (orientation: landscape), screen and (max-height: 300px) {
-    /*
-     * Remove all paddings around the image on small screen
-     */
+@media screen and (max-width: 800px) and (orientation: landscape),
+screen and (max-height: 300px) {
+    /**
+             * Remove all paddings around the image on small screen
+             */
     .mfp-img-mobile .mfp-image-holder {
         padding-left: 0;
         padding-right: 0;
@@ -445,7 +444,6 @@ img.mfp-img {
     }
 }
 
-
 /* overlay at start */
 
 .mfp-fade.mfp-bg {
@@ -455,20 +453,17 @@ img.mfp-img {
     transition: all 0.25s ease-out;
 }
 
-
 /* overlay animate in */
 
 .mfp-fade.mfp-bg.mfp-ready {
     opacity: 0.8;
 }
 
-
 /* overlay animate out */
 
 .mfp-fade.mfp-bg.mfp-removing {
     opacity: 0;
 }
-
 
 /* content at start */
 
@@ -479,17 +474,14 @@ img.mfp-img {
     transition: all 0.25s ease-out;
 }
 
-
 /* content animate it */
 
 .mfp-fade.mfp-wrap.mfp-ready .mfp-content {
     opacity: 1;
 }
 
-
 /* content animate out */
 
 .mfp-fade.mfp-wrap.mfp-removing .mfp-content {
     opacity: 0;
 }
-

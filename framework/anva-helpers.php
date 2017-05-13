@@ -24,7 +24,7 @@ function anva_api_init() {
 	Anva_Sliders::instance();
 
 	// Setup Framework Page Builder Elements API
-	Anva_Builder_Options::instance();
+	Anva_Builder_Components::instance();
 
 	// Setup customizer API
 	$GLOBALS['_anva_customizer_sections'] = array();
@@ -222,7 +222,7 @@ function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
  * @since 1.0.0
  */
 function anva_get_core_elements() {
-	$api = Anva_Builder_Options::instance();
+	$api = Anva_Builder_Components::instance();
 	return $api->get_core_elements();
 }
 
@@ -233,7 +233,7 @@ function anva_get_core_elements() {
  * @since 1.0.0
  */
 function anva_get_elements() {
-	$api = Anva_Builder_Options::instance();
+	$api = Anva_Builder_Components::instance();
 	return $api->get_elements();
 }
 
@@ -245,7 +245,7 @@ function anva_get_elements() {
  * @return string $element_id
  */
 function anva_element_exists( $element_id ) {
-	$api = Anva_Builder_Options::instance();
+	$api = Anva_Builder_Components::instance();
 	return $api->is_element( $element_id );
 }
 
@@ -254,8 +254,8 @@ function anva_element_exists( $element_id ) {
  *
  * @since 1.0.0
  */
-function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $content ) {
-	$api = Anva_Builder_Options::instance();
+function anva_add_builder_Components( $element_id, $name, $icon, $attr, $desc, $content ) {
+	$api = Anva_Builder_Components::instance();
 	$api->add_element( $element_id, $name, $icon, $attr, $desc, $content );
 }
 
@@ -264,8 +264,8 @@ function anva_add_builder_element( $element_id, $name, $icon, $attr, $desc, $con
  *
  * @since 1.0.0
  */
-function anva_remove_builder_element( $element_id ) {
-	$api = Anva_Builder_Options::instance();
+function anva_remove_builder_Components( $element_id ) {
+	$api = Anva_Builder_Components::instance();
 	$api->remove_element( $element_id );
 }
 
@@ -463,21 +463,6 @@ function anva_remove_slider( $slider_id ) {
 function anva_get_sliders( $slider_id = '' ) {
 	$api = Anva_Sliders::instance();
 	return $api->get_sliders( $slider_id );
-}
-
-/**
- * Check that the slider ID exists.
- *
- * @deprecated use anva_slider_exists()
- *
- * @since  1.0.0
- * @param  string $slider_id The lisder ID.
- * @return string $sldier_id
- */
-function anva_is_slider( $slider_id ) {
-	anva_deprecated_function( __FUNCTION__, '1.0.0', null, __( 'This function has been deprecated. Use anva_slider_exists() instead.', 'anva' ) );
-	$api = Anva_Sliders::instance();
-	return $api->is_slider( $slider_id );
 }
 
 /**

@@ -35,30 +35,22 @@ var project     = 'anva',
 
 // Vendor Scripts `Plugins`
 var vendor = [
-    core + 'js/vendor/chart-utils.js',
-    core + 'js/vendor/chart.js',
     core + 'js/vendor/jquery.bootstrap.js',
-    core + 'js/vendor/jquery.calendario.js',
-    core + 'js/vendor/jquery.camera.js',
     core + 'js/vendor/jquery.chart.js',
     core + 'js/vendor/jquery.color.js',
     core + 'js/vendor/jquery.cookie.js',
     core + 'js/vendor/jquery.countdown.js',
     core + 'js/vendor/jquery.countto.js',
     core + 'js/vendor/jquery.dribbble.js',
-    core + 'js/vendor/jquery.elastic.js',
     core + 'js/vendor/jquery.fitvids.js',
     core + 'js/vendor/jquery.flexslider.js',
     core + 'js/vendor/jquery.flickrfeed.js',
     core + 'js/vendor/jquery.form.js',
-    core + 'js/vendor/jquery.gmap.js',
     core + 'js/vendor/jquery.important.js',
     core + 'js/vendor/jquery.infinitescroll.js',
     core + 'js/vendor/jquery.instagram.js',
     core + 'js/vendor/jquery.isotope.js',
     core + 'js/vendor/jquery.magnific.js',
-    core + 'js/vendor/jquery.mousewheel.min.js',
-    core + 'js/vendor/jquery.nivo.js',
     core + 'js/vendor/jquery.owlcarousel.js',
     core + 'js/vendor/jquery.pagetransition.js',
     core + 'js/vendor/jquery.paginate.js',
@@ -71,7 +63,6 @@ var vendor = [
     core + 'js/vendor/jquery.toastr.js',
     core + 'js/vendor/jquery.twitterfeed.js',
     core + 'js/vendor/jquery.validation.js',
-    core + 'js/vendor/jquery.vmap.js',
     core + 'js/vendor/jquery.youtube.js'
 ];
 
@@ -338,7 +329,7 @@ module.exports = {
         dist: {
             src: [build + '**/*', '!' + build + '**/*.map'],
             dest: './dist',
-            name: release + '.zip',
+            name: release + '.zip'
         }
     },
 

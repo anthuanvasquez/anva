@@ -142,6 +142,15 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 				'media'		=> 'all',
 			);
 
+			// Magnific Popup
+			$this->framework_stylesheets['magnific_popup'] = array(
+				'handle'	=> 'magnific_popup',
+				'src'		=> Anva::$framework_dir_uri . 'assets/css/magnific-popup.css',
+				'deps'		=> array(),
+				'ver'		=> '3.5.1',
+				'media'		=> 'all',
+			);
+
 			// Font Icons
 			$this->framework_stylesheets['anva_font_icons'] = array(
 				'handle'	=> 'anva_font_icons',
