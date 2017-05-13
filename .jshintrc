@@ -21,6 +21,8 @@
 		"JSON":               false,
 		"wp":                 false,
 		"console":            true,
+		"alert":              true,
+		"confirm":            true,
 		"swal":               true,
 		"ajaxurl":            true,
 		"CodeMirror":         true,

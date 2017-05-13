@@ -12,7 +12,10 @@ var gulp          = require('gulp'),
 gulp.task('sass-lint', () => {
     return gulp.src([config.sassLint.theme,config.sassLint.core,config.sassLint.admin])
         .pipe(plugins.sassLint())
-        .pipe(plugins.sassLint.format());
+        .pipe(plugins.sassLint.format())
+        .pipe(plugins.logger({
+            afterEach : ' - SASS Lint finished'
+        }));
 });
 
 // Lint CSS source files
@@ -22,7 +25,7 @@ gulp.task('css-lint', () => {
         .pipe(plugins.stylelint(config.lint.options))
         .pipe(plugins.logger({
             afterEach : ' - CSS Lint finished'
-        }));;
+        }));
 });
 
 // Build SCSS source files from `theme`
@@ -40,7 +43,7 @@ gulp.task('sass-theme', () => {
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.theme.dest))
-        .pipe(plugins.logger({ afterEach: ' Compiled!' }))
+        .pipe(plugins.logger({ afterEach: ' SASS Compiled!' }))
         .pipe(browsersync.stream());
 });
 
@@ -58,7 +61,7 @@ gulp.task('sass-core', () => {
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.core.dest))
-        .pipe(plugins.logger({ afterEach: ' Compiled!' }))
+        .pipe(plugins.logger({ afterEach: ' SASS Compiled!' }))
         .pipe(browsersync.stream());
 });
 
@@ -76,7 +79,7 @@ gulp.task('sass-admin', () => {
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.admin.dest))
-        .pipe(plugins.logger({ afterEach: ' Compiled!' }))
+        .pipe(plugins.logger({ afterEach: ' SASS Compiled!' }))
         .pipe(browsersync.stream());
 });
 
@@ -87,7 +90,10 @@ gulp.task('css-minify-theme', () => {
         .pipe(plugins.cssnano(config.minify.options))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.changed(config.minify.theme.dest))
-        .pipe(gulp.dest(config.minify.theme.dest));
+        .pipe(gulp.dest(config.minify.theme.dest))
+        .pipe(plugins.logger({
+            afterEach : ' - CSS Minify finished'
+        }));
 });
 
 // Minify CSS core files and copy to `build` folder
@@ -97,7 +103,10 @@ gulp.task('css-minify-core', () => {
         .pipe(plugins.cssnano(config.minify.options))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.changed(config.minify.core.dest))
-        .pipe(gulp.dest(config.minify.core.dest));
+        .pipe(gulp.dest(config.minify.core.dest))
+        .pipe(plugins.logger({
+            afterEach : ' - CSS Minify finished'
+        }));
 });
 
 // Minify CSS admin files and copy to `build` folder
@@ -107,7 +116,10 @@ gulp.task('css-minify-admin', () => {
         .pipe(plugins.cssnano(config.minify.options))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.changed(config.minify.admin.dest))
-        .pipe(gulp.dest(config.minify.admin.dest));
+        .pipe(gulp.dest(config.minify.admin.dest))
+        .pipe(plugins.logger({
+            afterEach : ' - CSS Minify finished'
+        }));
 });
 
 // Copy CSS source files to the `build` folder

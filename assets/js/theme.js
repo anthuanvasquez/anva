@@ -6,17 +6,7 @@
     // Post Reading Feature
     // --------------------------------------------------
 
-    var postReading   = $( '#post-reading-wrap' ),
-        instantSearch = $( '#instantsearch' ),
-        searchElement = $( '#s' );
-
-    function getMax() {
-        return $( document ).height() - $( window ).height();
-    }
-
-    function getValue() {
-        return $( window ).scrollTop();
-    }
+    var postReading = $( '#post-reading-wrap' );
 
     if ( postReading.length > 0 ) {
 
@@ -25,18 +15,26 @@
             value     = 0,
             width     = 0;
 
+        var getMax = function() {
+            return $( document ).height() - $( window ).height();
+        };
+
+        var getValue = function() {
+            return $( window ).scrollTop();
+        };
+
         // Calculate width in percentage
-        function getWidth() {
+        var getWidth = function() {
             value = getValue();
             width = ( value / max ) * 100 + '%';
             return width;
-        }
+        };
 
         // Set the width to indicator
-        function setWidth() {
+        var setWidth = function() {
             max = getMax();
             indicator.css({ width: getWidth() });
-        }
+        };
 
         $( document ).on( 'scroll', setWidth );
         $( window ).on( 'resize', function() {
@@ -62,6 +60,8 @@
     // Instant Search Feature
     // --------------------------------------------------
 
+    var instantSearch = $( '#instantsearch' ),
+        searchElement = $( '#s' );
     if ( instantSearch.length > 0 ) {
         searchElement.on( 'input', function() {
             $.ajax({

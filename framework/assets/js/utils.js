@@ -1,7 +1,7 @@
 var $ = jQuery.noConflict();
 
-$.fn.inlineStyle = function (prop) {
-    return this.prop("style")[$.camelCase(prop)];
+$.fn.inlineStyle = function( prop ) {
+    return this.prop( 'style' )[$.camelCase( prop )];
 };
 
 $.fn.doOnce = function( func ) {
@@ -9,29 +9,31 @@ $.fn.doOnce = function( func ) {
     return this;
 };
 
-if( $().infinitescroll ) {
+if ( $().infinitescroll ) {
 
-    $.extend($.infinitescroll.prototype,{
+    $.extend( $.infinitescroll.prototype, {
         _setup_portfolioinfiniteitemsloader: function infscr_setup_portfolioinfiniteitemsloader() {
             var opts = this.options,
                 instance = this;
+
             // Bind nextSelector link to retrieve
-            $(opts.nextSelector).click(function(e) {
-                if (e.which === 1 && !e.metaKey && !e.shiftKey) {
+            $( opts.nextSelector ).click( function( e ) {
+                if ( e.which === 1 && ! e.metaKey && ! e.shiftKey ) {
                     e.preventDefault();
                     instance.retrieve();
                 }
             });
+
             // Define loadingStart to never hide pager
-            instance.options.loading.start = function (opts) {
+            instance.options.loading.start = function( opts ) {
                 opts.loading.msg
-                    .appendTo(opts.loading.selector)
-                    .show(opts.loading.speed, function () {
-                        instance.beginAjax(opts);
+                    .appendTo( opts.loading.selector )
+                    .show( opts.loading.speed, function() {
+                        instance.beginAjax( opts );
                     });
             };
         },
-        _showdonemsg_portfolioinfiniteitemsloader: function infscr_showdonemsg_portfolioinfiniteitemsloader () {
+        _showdonemsg_portfolioinfiniteitemsloader: function infscr_showdonemsg_portfolioinfiniteitemsloader() {
             var opts = this.options,
                 instance = this;
             //Do all the usual stuff
@@ -79,7 +81,7 @@ if( $().infinitescroll ) {
     }
 }());
 
-function debounce(func, wait, immediate) {
+function debounce( func, wait, immediate ) {
     var timeout, args, context, timestamp, result;
     return function() {
         context = this;
@@ -106,3 +108,31 @@ function debounce(func, wait, immediate) {
         return result;
     };
 }
+
+/**
+ * Helps with accessibility for keyboard only users.
+ */
+(function() {
+    var isIe = /(trident|msie)/i.test( navigator.userAgent );
+
+    if ( isIe && document.getElementById && window.addEventListener ) {
+        window.addEventListener( 'hashchange', function() {
+            var id = location.hash.substring( 1 ),
+                element;
+
+            if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
+                return;
+            }
+
+            element = document.getElementById( id );
+
+            if ( element ) {
+                if ( ! ( /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) ) {
+                    element.tabIndex = -1;
+                }
+
+                element.focus();
+            }
+        }, false );
+    }
+})();

@@ -1,18 +1,7 @@
-// ==== THEME ==== //
-
 var gulp        = require('gulp'),
     plugins     = require('gulp-load-plugins')({ camelize: true }),
     config      = require('../../gulpconfig').theme
 ;
-
-// Make POT file for theme translation
-gulp.task('make-pot', () => {
-    return gulp.src(config.php.src)
-    .pipe(plugins.sort())
-    .pipe(plugins.wpPot(config.lang.pot))
-    .pipe(gulp.dest(config.lang.pot.dest))
-    .pipe(plugins.notify({ message: 'POT file created' }));
-});
 
 // Check textdomain on PHP source files
 gulp.task('textdomain-lint', () => {
@@ -25,6 +14,15 @@ gulp.task('php-lint', () => {
     return gulp.src(config.php.src)
     .pipe(plugins.phplint('', { skipPassedFiles: true }))
     .pipe(plugins.phplint.reporter('fail'));
+});
+
+// Make POT file for theme translation
+gulp.task('make-pot', () => {
+    return gulp.src(config.php.src)
+    .pipe(plugins.sort())
+    .pipe(plugins.wpPot(config.lang.pot))
+    .pipe(gulp.dest(config.lang.pot.dest))
+    .pipe(plugins.notify({ message: 'POT file created' }));
 });
 
 // Copy everything under `../languages` indiscriminately
