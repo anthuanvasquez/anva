@@ -33,12 +33,12 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 				'menu_class'      => '',
 				'menu_id'         => '',
 				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-				'fallback_cb'     => 'anva_primary_menu_fallback'
+				'fallback_cb'     => 'anva_primary_menu_fallback',
 			);
 
 			// Add walker to primary menu if mega menu support.
 			if ( class_exists( 'Anva_Main_Menu_Walker' ) ) {
-				$args['walker']   = new Anva_Main_Menu_Walker();
+				$args['walker'] = new Anva_Main_Menu_Walker();
 			}
 
 			break;
@@ -49,7 +49,17 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 				'container' 		=> '',
 				'fallback_cb' 		=> false,
 				'theme_location'	=> apply_filters( 'anva_top_bar_menu_location', 'top_bar' ),
-				'depth' 			=> 1
+				'depth' 			=> 1,
+			);
+			break;
+
+		case 'side_panel' :
+			$args = array(
+				'menu_class'		=> '',
+				'container_class'   => 'nav-tree',
+				'fallback_cb' 		=> false,
+				'theme_location'	=> apply_filters( 'anva_side_panel_menu_location', 'side_panel' ),
+				'depth' 			=> 3,
 			);
 			break;
 
@@ -59,7 +69,7 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 				'container' 		=> '',
 				'fallback_cb' 		=> false,
 				'theme_location'	=> apply_filters( 'anva_footer_menu_location', 'footer' ),
-				'depth' 			=> 1
+				'depth' 			=> 1,
 			);
 
 	}
@@ -980,7 +990,7 @@ function anva_enqueue_google_fonts() {
 				$font .= sprintf( '&subset=%s', implode( ',', $atts['subset'] ) );
 			}
 
-			wp_enqueue_style( $handle, $protocol . 'fonts.googleapis.com/css?family=' . $font, array(), ANVA_FRAMEWORK_VERSION, 'all' );
+			wp_enqueue_style( $handle, $protocol . 'fonts.googleapis.com/css?family=' . $font, array(), Anva::get_version(), 'all' );
 
 		}
 

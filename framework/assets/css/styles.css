@@ -755,7 +755,7 @@ body.stretched .container-fullwidth {
 /* ----------------------------------------------------------------
     10. Header
 -----------------------------------------------------------------*/
-#wpadminbar #wp-admin-bar-anva_node_optons > .ab-item:before {
+#wp-admin-bar-anva_node_optons > .ab-item:before {
   content: "\f540";
   top: 2px; }
 

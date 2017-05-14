@@ -17,10 +17,10 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 	class Anva_Styles {
 
 		/**
-		 * The theme version.
+		 * The framework version.
 		 *
 		 * @since 1.0.0
-		 * @var string
+		 * @var   string
 		 */
 		private static $version;
 
@@ -28,6 +28,8 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 		 * A single instance of this class.
 		 *
 		 * @since 1.0.0
+		 * @var   object
+		 *
 		 */
 		private static $instance = null;
 
@@ -35,6 +37,7 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 		 * Remove stylesheets array.
 		 *
 		 * @since 1.0.0
+		 * @var	  array
 		 */
 		private $remove_stylesheets = array();
 
@@ -42,6 +45,7 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 		 * Core stylesheets array.
 		 *
 		 * @since 1.0.0
+		 * @var   array
 		 */
 		private $framework_stylesheets = array();
 
@@ -49,6 +53,7 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 		 * Framework dependencies.
 		 *
 		 * @since 1.0.0
+		 * @var   array
 		 */
 		private $framework_deps = array();
 
@@ -56,6 +61,7 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 		 * Custom stylesheets.
 		 *
 		 * @since 1.0.0
+		 * @var   array
 		 */
 		private $custom_stylesheets = array();
 
@@ -76,7 +82,7 @@ if ( ! class_exists( 'Anva_Styles' ) ) :
 		 */
 		private function __construct() {
 
-			self::$version = Anva::get_theme_version();
+			self::$version = Anva::get_version();
 
 			if ( ! is_admin() && ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
 

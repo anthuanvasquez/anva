@@ -25,7 +25,7 @@
 		<div class="entry-footer">
 			<?php wp_link_pages( array(
 				'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ',
-				'after'  => '</div><!-- .page-links (end) -->'
+				'after'  => '</div><!-- .page-links (end) -->',
 			) ); ?>
 
 			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>

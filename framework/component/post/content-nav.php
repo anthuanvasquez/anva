@@ -1,9 +1,26 @@
+<?php
+/**
+ * The default template used for posts navigation.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
+ */
+
+?>
 <div class="post-navigation-wrapp">
 	<?php
 	// Don't print empty markup if there's nowhere to navigate.
 	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
 	$next = get_adjacent_post( false, '', false );
-
 
 	if ( ! $next && ! $previous ) {
 		return;
@@ -11,7 +28,7 @@
 
 	$class = '';
 
-	// Align to right
+	// Align to right.
 	if ( ! $previous ) {
 		$class = ' fright';
 	}

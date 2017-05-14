@@ -46,7 +46,7 @@ class Anva_Welcome_Screen {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	private $version = ANVA_FRAMEWORK_VERSION;
+	private $version;
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -61,6 +61,8 @@ class Anva_Welcome_Screen {
 	}
 
 	private function __construct() {
+		$this->version = Anva::get_version();
+
 		if ( isset( $_GET['activated'] ) && true == $_GET['activated'] ) {
 			set_transient( $this->transient, true, 30 );
 		}

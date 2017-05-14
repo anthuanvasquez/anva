@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for any sidebars to appear right of the main content.
+ * The default template used for read more button.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -15,9 +15,7 @@
  * @package      AnvaFramework
  */
 
-/**
- * Hooked.
- *
- * @see anva_sidebars_default
- */
-do_action( 'anva_sidebars', 'right' );
+?>
+<a class="more-link" href="<?php the_permalink(); ?>">
+	<?php anva_local( 'read_more' ); ?> <span class="screen-reader-text"><?php anva_local( 'read_more_about' ); ?></span>
+</a>

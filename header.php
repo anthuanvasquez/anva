@@ -25,45 +25,108 @@ if ( ! defined( 'ABSPATH' ) ) {
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<?php do_action( 'anva_wp_head' ); ?>
+	<?php
+		/**
+		 * Head not hooked by default.
+		 */
+		do_action( 'anva_wp_head' );
+	?>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-	<?php wp_head(); ?>
+	<?php
+		/**
+		 * Required hooked by WordPress.
+		 */
+		wp_head();
+	?>
 </head>
 
 <body <?php body_class(); ?> <?php anva_page_transition_data(); ?>>
 
-<?php do_action( 'anva_before' ); ?>
+<?php
+	/**
+	 * Before layout not hooked by default.
+	 */
+	do_action( 'anva_before' );
+?>
 
 <!-- WRAPPER (start) -->
 <div id="wrapper" class="clearfix">
 
-	<?php do_action( 'anva_top_before' ); ?>
+	<?php
+		/**
+		 * Top before not hooked by default.
+		 */
+		do_action( 'anva_top_before' );
 
-	<?php do_action( 'anva_header_above' ); ?>
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_top_bar_default, anva_sidebar_above_header
+		 */
+		do_action( 'anva_header_above' );
+	?>
 
 	<!-- HEADER (start) -->
-	<header id="header" <?php anva_header_class(); ?>>
-		<?php do_action( 'anva_header' ); ?>
+	<header id="header" <?php anva_header_class( 'header' ); ?>>
+		<?php
+			/**
+			 * Hooked.
+			 *
+			 * @see anva_header_default
+			 */
+			do_action( 'anva_header' );
+		?>
 	</header><!-- HEADER (end) -->
 
 	<?php
-		// Below Header.
+		/**
+		 * Header below not hooked by default.
+		 */
 		do_action( 'anva_header_below' );
 
-		// After Top.
+		/**
+		 * After top not hooked by default.
+		 */
 		do_action( 'anva_top_after' );
 
-		// Featured.
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_featured_before_default
+		 */
 		do_action( 'anva_featured_before' );
+
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_featured_default
+		 */
 		do_action( 'anva_featured' );
+
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_featured_after_default
+		 */
 		do_action( 'anva_featured_after' );
 
-		// Content Before.
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_page_title_default
+		 */
 		do_action( 'anva_content_before' );
 	?>
 
 	<!-- CONTENT (start) -->
 	<section id="content">
 		<div class="content-wrap">
-			<?php do_action( 'anva_above_layout' ); ?>
+			<?php
+				/**
+				 * Hooked.
+				 *
+				 * @see anva_sidebar_above_content, anva_above_layout_default
+				 */
+				do_action( 'anva_above_layout' );
+			?>

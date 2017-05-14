@@ -61,24 +61,41 @@
 
 		<?php endif; ?>
 
-		<?php if ( ! has_post_format( anva_post_format_filter() ) ) : ?>
-			<div class="entry-title">
-				<h2>
-					<a href="<?php the_permalink(); ?>">
-						<?php the_title(); ?>
-					</a>
-				</h2>
-			</div><!-- .entry-title (end) -->
-		<?php endif; ?>
+		<?php
+		if ( ! has_post_format( anva_post_format_filter() ) ) :
+			anva_get_template_part( 'post', 'entry-title' );
+		endif;
+		?>
 
-		<?php do_action( 'anva_post_meta' ); ?>
+		<?php
+			/**
+			 * Hooked
+			 *
+			 * @see anva_post_meta_default
+			 */
+			do_action( 'anva_post_meta' );
+		?>
 
 		<div class="entry-content">
-			<?php do_action( 'anva_post_content' ); ?>
+			<?php
+				/**
+				 * Hooked
+				 *
+				 * @see anva_post_content_default
+				 */
+				do_action( 'anva_post_content' );
+			?>
 		</div><!-- .entry-content (end) -->
 
 		<div class="entry-footer clearfix">
-			<?php do_action( 'anva_post_footer' ); ?>
+			<?php
+				/**
+				 * Hooked
+				 *
+				 * @see anva_post_tags_default, anva_post_share_default
+				 */
+				do_action( 'anva_post_footer' );
+			?>
 		</div><!-- .entry-footer (end) -->
 
 	</article><!-- #post-<?php the_ID(); ?> (end) -->

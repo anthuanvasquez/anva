@@ -1,6 +1,6 @@
 <?php
 /**
- * The default template used for serach result content.
+ * The default template used for search result content.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -19,17 +19,36 @@
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 
-		<div class="entry-title">
-			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-		</div><!-- .entry-title (end) -->
+		<?php anva_get_tenplate_part( 'post', 'entry-title' ); ?>
 
-		<?php do_action( 'anva_post_meta' ); ?>
+		<?php
+			/**
+			 * Hooked
+			 *
+			 * @see anva_post_meta_default
+			 */
+			do_action( 'anva_post_meta' );
+		?>
 
 		<div class="entry-content">
-			<?php do_action( 'anva_post_content' ); ?>
+			<?php
+				/**
+				 * Hooked.
+				 *
+				 * @see anva_post_content_default
+				 */
+				do_action( 'anva_post_content' );
+			?>
 
 			<div class="entry-footer clearfix">
-				<?php do_action( 'anva_post_footer' ); ?>
+				<?php
+					/**
+					 * Hooked
+					 *
+					 * @see anva_post_tags_default, anva_post_share_default
+					 */
+					do_action( 'anva_post_footer' );
+				?>
 			</div>
 		</div><!-- .entry-content (end) -->
 

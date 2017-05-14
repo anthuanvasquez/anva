@@ -36,7 +36,9 @@ get_header();
 					<!-- CONTACT FORM (start)-->
 					<?php
 						/**
-						 * Hooked @see anva_contact_form_default
+						 * Hooked.
+						 *
+						 * @see anva_contact_form_default
 						 */
 						do_action( 'anva_contact_form' );
 					?>

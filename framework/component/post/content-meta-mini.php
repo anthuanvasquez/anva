@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for any sidebars to appear right of the main content.
+ * The default template used for posts meta info short version.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -15,9 +15,7 @@
  * @package      AnvaFramework
  */
 
-/**
- * Hooked.
- *
- * @see anva_sidebars_default
- */
-do_action( 'anva_sidebars', 'right' );
+?>
+<div class="entry-meta-wrap">
+	<?php anva_posted_on_mini(); ?>
+</div><!-- .entry-meta-wrap -->

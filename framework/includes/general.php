@@ -50,9 +50,10 @@ function anva_require_theme_supports() {
  */
 function anva_register_menus() {
 	register_nav_menus( array(
-		'primary' => anva_get_local( 'menu_primary' ),
-		'top_bar' => anva_get_local( 'menu_top_bar' ),
-		'footer'  => anva_get_local( 'menu_footer' ),
+		'primary'    => anva_get_local( 'menu_primary' ),
+		'top_bar'    => anva_get_local( 'menu_top_bar' ),
+		'side_panel' => anva_get_local( 'menu_side_panel' ),
+		'footer'     => anva_get_local( 'menu_footer' ),
 	) );
 }
 
@@ -71,7 +72,7 @@ function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 )
 	// Add level to menu
 	$classes[] = sprintf( 'level-%s', $depth + 1 );
 
-	//  Change current menu item class
+	// Change current menu item class
 	if ( in_array( 'current-menu-item', $classes ) ) {
 		$classes[] = 'current';
 	}
@@ -106,6 +107,20 @@ function anva_get_theme( $id ) {
 	}
 
 	return $text;
+}
+
+/**
+ * Get theme id.
+ *
+ * @since  1.0.0
+ * @return string $text
+ */
+function anva_get_theme_id() {
+
+	$id  = anva_get_theme( 'name' );
+	$id = preg_replace( '/\W/', '_', strtolower( $id ) );
+
+	return $id;
 }
 
 /**

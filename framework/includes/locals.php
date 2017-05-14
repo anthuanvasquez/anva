@@ -19,6 +19,7 @@ function anva_get_text_locals() {
 		'menu'                 => __( 'Menu', 'anva' ),
 		'menu_primary'         => __( 'Primary Menu', 'anva' ),
 		'menu_top_bar'         => __( 'Top Bar Links', 'anva' ),
+		'menu_side_panel'      => __( 'Side Panel Menu', 'anva' ),
 		'menu_footer'          => __( 'Footer Copyright Links', 'anva' ),
 		'menu_message'         => __( 'Setup a custom menu at Appearance > Menus in your admin panel, and apply it to the "Primary Menu" location.', 'anva' ),
 		'404_title'            => __( 'Whoops! page not found', 'anva' ),

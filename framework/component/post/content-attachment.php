@@ -20,7 +20,11 @@
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 
 		<div class="entry-title">
-			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+			<h2>
+				<a href="<?php the_permalink(); ?>">
+					<?php the_title(); ?>
+				</a>
+			</h2>
 		</div><!-- .entry-title (end) -->
 
 		<div class="bottommargin-sm"></div>
@@ -33,7 +37,6 @@
 			</div><!-- .featured-item(end) -->
 		<?php endif; ?>
 
-
 		<div class="entry-content">
 			<?php the_content(); ?>
 		</div><!-- .entry-content -->
@@ -41,7 +44,7 @@
 		<div class="entry-footer">
 			<?php wp_link_pages( array(
 				'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ',
-				'after'  => '</div><!-- .page-link (end) -->'
+				'after'  => '</div><!-- .page-link (end) -->',
 			) ); ?>
 
 			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>

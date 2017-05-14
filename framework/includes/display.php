@@ -1,8 +1,9 @@
 <?php
-
-/*-----------------------------------------------------------------------------------*/
-/* Display Functions
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Functions for display content.
+ *
+ * @package AnvaFramework
+ */
 
 /**
  * Print favicon and apple touch icons in head.
@@ -35,7 +36,7 @@ function anva_head_apple_touch_icon() {
 		if ( $touch_icon ) {
 			$links[] = array(
 				'rel' => 'apple-touch-icon',
-				'image' => $touch_icon
+				'image' => $touch_icon,
 			);
 		}
 
@@ -62,7 +63,7 @@ function anva_head_apple_touch_icon() {
 				'size' => '152x152',
 			);
 		}
-	}
+	} // End if().
 
 	if ( $links ) {
 		foreach ( $links as $link_id => $link ) {
@@ -71,8 +72,8 @@ function anva_head_apple_touch_icon() {
 			}
 
 			if ( isset( $link['image'] ) ) {
-				$html .= sprintf(  '<link rel="%s" %s href="%s" />', esc_attr( $link['rel'] ), $sizes, esc_url( $link['image'] ) );
-				$sizes = ''; // Reset sizes
+				$html .= sprintf( '<link rel="%s" %s href="%s" />', esc_attr( $link['rel'] ), $sizes, esc_url( $link['image'] ) );
+				$sizes = ''; // Reset sizes.
 			}
 		}
 	}
@@ -86,8 +87,8 @@ function anva_head_apple_touch_icon() {
  * @since 1.0.0
  */
 function anva_head_viewport() {
-	if ( 'yes' == anva_get_option( 'responsive' ) ) {
-		printf ( '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">' );
+	if ( 'yes' === anva_get_option( 'responsive' ) ) {
+		printf( '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">' );
 	}
 }
 
@@ -143,12 +144,32 @@ function anva_header_default() {
 		case 'style_9':
 			?>
 			<div class="container clearfix">
-				<?php do_action( 'anva_header_logo' ); ?>
-				<?php do_action( 'anva_header_extras' ); ?>
+				<?php
+					/**
+					 * Hooked
+					 *
+					 * @see anva_header_logo_default
+					 */
+					do_action( 'anva_header_logo' );
+
+					/**
+					 * Hooked
+					 *
+					 * @see anva_header_extras_default
+					 */
+					do_action( 'anva_header_extras' );
+				?>
 			</div><!-- .container (end) -->
 
 			<div id="header-wrap">
-				<?php do_action( 'anva_header_primary_menu' ); ?>
+				<?php
+					/**
+					 * Hooked
+					 *
+					 * @see anva_header_primary_menu_default
+					 */
+					do_action( 'anva_header_primary_menu' );
+				?>
 			</div><!-- .header-wrap (end) -->
 			<?php
 			break;
@@ -160,9 +181,28 @@ function anva_header_default() {
 					<div id="primary-menu-trigger">
 						<i class="icon-reorder"></i>
 					</div>
-					<?php do_action( 'anva_header_logo' ); ?>
-					<?php do_action( 'anva_header_extras' ); ?>
-					<?php do_action( 'anva_header_primary_menu' ); ?>
+					<?php
+						/**
+						 * Hooked
+						 *
+						 * @see anva_header_logo_default
+						 */
+						do_action( 'anva_header_logo' );
+
+						/**
+						 * Hooked
+						 *
+						 * @see anva_header_extras_default
+						 */
+						do_action( 'anva_header_extras' );
+
+						/**
+						 * Hooked
+						 *
+						 * @see anva_header_primary_menu_default
+						 */
+						do_action( 'anva_header_primary_menu' );
+					?>
 				</div>
 			</div><!-- .header-wrap (end) -->
 			<?php
@@ -178,21 +218,12 @@ function anva_header_default() {
 function anva_header_extras_default() {
 	$primary_menu_style = anva_get_option( 'primary_menu_style' );
 	$header_extras      = anva_get_option( 'header_extras' );
+
 	if ( 'show' != $header_extras || 'style_7' != $primary_menu_style ) {
 		return;
 	}
-	?>
-	<ul class="header-extras">
-		<li>
-			<i class="i-plain icon-email3 nomargin"></i>
-			<div class="he-text">Drop an Email <span>info@anvas.com</span></div>
-		</li>
-		<li id="header-search">
-			<i class="i-plain icon-call nomargin"></i>
-			<div class="he-text">Get in Touch <span>1800-1144-551</span></div>
-		</li>
-	</ul><!-- #header-extras (end) -->
-	<?php
+
+	anva_get_template_part( 'header', 'header-extras' );
 }
 
 /**
@@ -229,13 +260,19 @@ function anva_header_primary_menu_default() {
 	</nav><!-- #primary-menu (end) -->
 
 	<?php
-	// Show social icons in side header
+	// Show social icons in side header.
 	$side_header_icons = anva_get_option( 'side_header_icons' );
-	$header_type = anva_get_header_type();
+	$header_type       = anva_get_header_type();
 
 	if ( 'side' == $header_type && $side_header_icons ) : ?>
 		<div class="clearfix visible-md visible-lg">
-			<?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?>
+			<?php
+				$style  = '';
+				$shape  = '';
+				$border = 'borderless';
+				$size   = 'small';
+				anva_social_icons( $style, $shape, $border, $size );
+			?>
 		</div>
 	<?php
 	endif;
@@ -253,43 +290,16 @@ function anva_header_primary_menu_addon_default() {
 		return;
 	}
 
-	// Get side panel
+	// Get side panel.
 	$side_panel_display = anva_get_option( 'side_panel_display' );
 
-	// Get primary menu style
+	// Get primary menu style.
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 
-	// Display top cart products.
-	anva_top_cart();
+	anva_get_template_part( 'header', 'top-cart' );
+	anva_get_template_part( 'header', 'top-language' );
+	anva_get_template_part( 'header', 'top-search' );
 	?>
-
-	<!-- Top Lang -->
-	<div id="top-lang">
-		<a href="#" id="top-lang-trigger">
-			<i class="icon-flag"></i>
-		</a>
-		<div class="top-lang-content">
-			<ul class="top-lang-switch">
-				<li class="active"><a href="#">English</a></li>
-				<li><a href="#">Spanish</a></li>
-				<li><a href="#">Dutch</a></li>
-			</ul>
-		</div>
-	</div><!-- #top-lang end -->
-
-	<!-- Top Search -->
-	<div id="top-search">
-		<a href="#" id="top-search-trigger">
-			<i class="icon-search3"></i>
-			<i class="icon-line-cross"></i>
-		</a>
-		<form role="search" id="searchform" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-			<input type="text" name="s" id="s" class="form-control" autocomplete="off" value="" placeholder="<?php _e( 'Type & Hit Enter..', 'anva' ); ?>">
-			<?php if ( anva_support_feature( 'anva-instant-search' ) ) : ?>
-				<div id="instantsearch" class="hidden"></div>
-			<?php endif; ?>
-		</form>
-	</div><!-- #top-search end -->
 
 	<?php if ( $side_panel_display && 'style_10' != $primary_menu_style ) : ?>
 		<div id="side-panel-trigger" class="side-panel-trigger">
@@ -475,7 +485,7 @@ function anva_post_type_navigation_default() {
 		?>
 	</div><!-- #portfolio-navigation (end) -->
 	<?php
-	wp_reset_query();
+	wp_reset_postdata();
 }
 
 /**
@@ -547,6 +557,11 @@ function anva_sidebars_default( $position ) {
 	// Sidebar Left, Sidebar Right, Double Sidebars
 	if ( $layout == $position || $layout == 'double' ) {
 
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_before_default
+		 */
 		do_action( 'anva_sidebar_before', $position  );
 
 		if ( 'right' == $position ) {
@@ -555,21 +570,50 @@ function anva_sidebars_default( $position ) {
 			anva_display_sidebar( $sidebar_left );
 		}
 
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_after_default
+		 */
 		do_action( 'anva_sidebar_after', $position );
 
 	}
 
 	// Double Left Sidebars
-	if ( $layout == 'double_left' && $position == 'left' ) {
+	if ( $layout === 'double_left' && $position === 'left' ) {
 
-		// Left Sidebar
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_before_default
+		 */
 		do_action( 'anva_sidebar_before', 'left'  );
+
+		// Left sidebar.
 		anva_display_sidebar( $sidebar_left );
+
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_after_default
+		 */
 		do_action( 'anva_sidebar_after', 'left' );
 
-		// Right Sidebar
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_after_default
+		 */
 		do_action( 'anva_sidebar_before', 'right'  );
+
+		// Right sidebar.
 		anva_display_sidebar( $sidebar_right );
+
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_after_default
+		 */
 		do_action( 'anva_sidebar_after', 'right' );
 
 	}
@@ -577,14 +621,38 @@ function anva_sidebars_default( $position ) {
 	// Double Right Sidebars
 	if ( $layout == 'double_right' && $position == 'right' ) {
 
-		// Left Sidebar
-		do_action( 'anva_sidebar_before', 'left'  );
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_before_default
+		 */
+		do_action( 'anva_sidebar_before', 'left' );
+
+		// Left sidebar.
 		anva_display_sidebar( $sidebar_left );
+
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_after_default
+		 */
 		do_action( 'anva_sidebar_after', 'left' );
 
-		// Right Sidebar
-		do_action( 'anva_sidebar_before', 'right'  );
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_before_default
+		 */
+		do_action( 'anva_sidebar_before', 'right' );
+
+		// Right sidebar.
 		anva_display_sidebar( $sidebar_right );
+
+		/**
+		 * Hooked.
+		 *
+		 * @see anva_sidebar_after_default
+		 */
 		do_action( 'anva_sidebar_after', 'right' );
 
 	}
@@ -714,11 +782,9 @@ function anva_post_content_default() {
 
 	if ( 'excerpt' == $primary_content ) {
 		anva_the_excerpt();
-		printf( '<a class="more-link" href="%1$s">%2$s%3$s</a>',
-			get_the_permalink(),
-			anva_get_local( 'read_more' ),
-			sprintf( ' <span class="screen-reader-text">%s</span>', anva_get_local( 'read_more_about' ) )
-		);
+
+		anva_get_template_part( 'post', 'read-more' );
+
 		return;
 	}
 
@@ -787,7 +853,7 @@ function anva_post_author_default() {
 function anva_post_related_default() {
 	$single_related = anva_get_option( 'single_related', 'hide' );
 
-	if ( 'hide' == $single_related ) {
+	if ( 'hide' === $single_related ) {
 		return;
 	}
 
@@ -847,17 +913,17 @@ function anva_debug() {
 		<div class="container clearfix">
 			<div class="style-msg2 infomsg topmargin bottommargin">
 				<div class="msgtitle">
-					<i class="icon-info-sign"></i>Debug Info
+					<i class="icon-info-sign"></i><?php esc_html_e( 'Debug Info', 'anva' ); ?>
 				</div>
 				<div class="sb-msg">
 					<ul>
-						<li><span>Queries:</span> <?php echo get_num_queries(); ?> database queries.</li>
-						<li><span>Speed:</span> Page generated in <?php timer_stop(1); ?> seconds.</li>
-						<li><span>Memory Usage:</span> <?php echo anva_convert_memory_use( memory_get_usage( true ) ); ?></li>
-						<li><span>Theme Name:</span> <?php echo anva_get_theme( 'name' ); ?></li>
-						<li><span>Theme Version:</span> <?php echo anva_get_theme( 'version' ); ?></li>
-						<li><span>Framework Name:</span> <?php echo ANVA_FRAMEWORK_NAME; ?></li>
-						<li><span>Framework Version:</span> <?php echo ANVA_FRAMEWORK_VERSION; ?></li>
+						<li><span><?php esc_html_e( 'Queries', 'anva' ); ?>:</span> <?php echo get_num_queries(); ?> <?php esc_html_e( 'database queries', 'anva' ); ?>.</li>
+						<li><span><?php esc_html_e( 'Speed', 'anva' ); ?>:</span> <?php printf( __( 'Page generated in %s seconds.', 'anva' ), timer_stop(1) ); ?></li>
+						<li><span><?php esc_html_e( 'Memory Usage', 'anva' ); ?>:</span> <?php echo anva_convert_memory_use( memory_get_usage( true ) ); ?></li>
+						<li><span><?php esc_html_e( 'Theme Name', 'anva' ); ?>:</span> <?php echo anva_get_theme( 'name' ); ?></li>
+						<li><span><?php esc_html_e( 'Theme Version', 'anva' ); ?>:</span> <?php echo anva_get_theme( 'version' ); ?></li>
+						<li><span><?php esc_html_e( 'Framework Name', 'anva' ); ?>:</span> <?php echo Anva::get_name(); ?></li>
+						<li><span><?php esc_html_e( 'Framework Version', 'anva' ); ?>:</span> <?php echo Anva::get_version(); ?></li>
 					</ul>
 				</div>
 			</div>

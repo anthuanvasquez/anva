@@ -101,7 +101,6 @@ class Anva_Builder_Components {
 			$sidebars[$sidebar_id] = $sidebar['name'];
 		}
 
-
 		// Pull all the posts galleries
 		$galleries      = array();
 		$galleries_args = array( 'numberposts' => -1, 'post_type' => array( 'galleries' ) );
@@ -1568,8 +1567,7 @@ class Anva_Builder_Components {
 	 *
 	 * @since 1.0.0
 	 */
-	public function set_elements()
-	{
+	public function set_elements() {
 		// Combine core elements with custom elements
 		$this->elements = array_merge( $this->core_elements, $this->custom_elements );
 
@@ -1592,8 +1590,7 @@ class Anva_Builder_Components {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = false )
-	{
+	public function add_element( $id, $name = '', $icon = '', $attr = array(), $desc = '', $content = false ) {
 		$args = array(
 			'id'      => $id,
 			'name'    => $name,
@@ -1617,7 +1614,7 @@ class Anva_Builder_Components {
 		// Add in element
 		$this->custom_elements[$args['id']] = array(
 			'id'      => $args['id'],
-			'name'   => $args['name'],
+			'name'    => $args['name'],
 			'icon'    => $args['icon'],
 			'attr'    => $args['attr'],
 			'desc'    => $args['desc'],
@@ -1631,8 +1628,7 @@ class Anva_Builder_Components {
 	 *
 	 * @since 1.0.0
 	 */
-	public function remove_element( $element_id )
-	{
+	public function remove_element( $element_id ) {
 		// Add to removal array, and process in set_elements()
 		$this->remove_elements[] = $element_id;
 	}
@@ -1642,8 +1638,7 @@ class Anva_Builder_Components {
 	 *
 	 * @since 1.0.0
 	 */
-	public function is_element( $element_id )
-	{
+	public function is_element( $element_id ) {
 		return array_key_exists( $element_id, $this->elements );
 	}
 
@@ -1652,8 +1647,7 @@ class Anva_Builder_Components {
 	 *
 	 * @since 1.0.0
 	 */
-	public function get_core_elements()
-	{
+	public function get_core_elements() {
 		return $this->core_elements;
 	}
 
@@ -1662,8 +1656,7 @@ class Anva_Builder_Components {
 	 *
 	 * @since 1.0.0
 	 */
-	public function get_custom_elements()
-	{
+	public function get_custom_elements() {
 		return $this->custom_elements;
 	}
 
@@ -1674,8 +1667,7 @@ class Anva_Builder_Components {
 	 *
 	 * @since 1.0.0
 	 */
-	public function get_elements()
-	{
+	public function get_elements() {
 		return $this->elements;
 	}
 

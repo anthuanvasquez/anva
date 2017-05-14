@@ -1,9 +1,25 @@
 <?php
+/**
+ * The default template used for contact form.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
+ */
+
 global $_email_sended_message;
 
-// Set random values to set random questions
-$value_1        = rand(1, 9);
-$value_2        = rand(1, 9);
+// Set random values to set random questions.
+$value_1        = rand( 1, 9 );
+$value_2        = rand( 1, 9 );
 $random_values  = $value_1 + $value_2;
 $answer         = $random_values;
 $contact_fields = anva_get_option( 'contact_fields', array( 'name', 'email', 'message' ) );
@@ -13,7 +29,7 @@ $captcha        = anva_get_option( 'contact_captcha' );
 
 	<?php if ( ! empty( $_email_sended_message ) ) : ?>
 		<div id="email_message" class="alert alert-warning">
-			<?php echo $_email_sended_message; ?>
+			<?php echo esc_html( $_email_sended_message ); ?>
 		</div>
 	<?php endif; ?>
 
@@ -142,11 +158,11 @@ $captcha        = anva_get_option( 'contact_captcha' );
 </div><!-- .contact-form-wrapper -->
 
 <?php
-	$latitude = 0;
-	$longitude = 0;
-	$zoom = anva_get_option( 'contact_map_zoom', 10 );
-	$html = anva_get_option( 'contact_map_html' );
-	$contact_map_type = anva_get_option( 'contact_map_type', 'ROADMAP' );
+	$latitude            = 0;
+	$longitude           = 0;
+	$zoom                = anva_get_option( 'contact_map_zoom', 10 );
+	$html                = anva_get_option( 'contact_map_html' );
+	$contact_map_type    = anva_get_option( 'contact_map_type', 'ROADMAP' );
 	$contact_map_address = anva_get_option( 'contact_map_address' );
 
 	if ( isset( $contact_map_address[0] ) && ! empty( $contact_map_address[0] )  ) {

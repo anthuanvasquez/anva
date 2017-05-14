@@ -61,16 +61,23 @@
 
 		<?php endif; ?>
 
-		<?php if ( ! has_post_format( anva_post_format_filter() ) ) : ?>
-			<div class="entry-title">
-				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-			</div><!-- .entry-title (end) -->
-		<?php endif; ?>
+		<?php
+		if ( ! has_post_format( anva_post_format_filter() ) ) :
+			anva_get_template_part( 'post', 'entry-title' );
+		endif;
+		?>
 
-		<?php anva_posted_on_mini(); ?>
+		<?php anva_get_template_part( 'post', 'content-meta-mini' ); ?>
 
 		<div class="entry-content">
-			<?php do_action( 'anva_posts_content' ); ?>
+			<?php
+				/**
+				 * Hooked.
+				 *
+				 * @see anva_post_content_default
+				 */
+				do_action( 'anva_post_content' );
+			?>
 		</div>
 	</article>
 </div>

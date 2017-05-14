@@ -10,9 +10,9 @@
  */
 
 // Define theme constants.
-define( 'ANVA_THEME_ID', 'anva' );
-define( 'ANVA_THEME_NAME', 'Anva' );
-define( 'ANVA_THEME_VERSION', '1.0.0' );
+define( 'ANVA_THEME_ID', anva_get_theme_id() );
+define( 'ANVA_THEME_NAME', anva_get_theme( 'name' ) );
+define( 'ANVA_THEME_VERSION', anva_get_theme( 'version' ) );
 
 // Modify customizer options.
 require_once( get_template_directory() . '/includes/customizer.php' );

@@ -145,28 +145,28 @@
     .anva-framework .options-settings > .columns-2 h3 {
       margin: -10px -10px 10px; }
 
-#anva-options-page-credit,
-#anva-options-page-links {
+.anva-options-page-credit,
+.anva-options-page-links {
   border: 1px solid #ddd;
   box-sizing: border-box;
   color: #999;
   font-size: 11px;
   padding: 6px 10px; }
 
-#anva-options-page-credit {
-  background: #ffffff; }
+.anva-options-page-credit {
+  background: #fff; }
 
-#anva-options-page-links {
+.anva-options-page-links {
   background: #f7f7f7;
   border-top: 0; }
-  #anva-options-page-links a {
+  .anva-options-page-links a {
     color: #999;
     display: inline-block;
     margin-right: 5px;
     text-decoration: none; }
-    #anva-options-page-links a:hover {
+    .anva-options-page-links a:hover {
       color: #333; }
-    #anva-options-page-links a span {
+    .anva-options-page-links a span {
       font-size: 14px;
       line-height: 1.4; }
 

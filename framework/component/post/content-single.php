@@ -15,6 +15,9 @@
  * @package      AnvaFramework
  */
 
+/**
+ * Single above not hooked by default.
+ */
 do_action( 'anva_post_single_above' );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
@@ -23,7 +26,14 @@ do_action( 'anva_post_single_above' );
 		<h2><?php the_title(); ?></h2>
 	</div><!-- .entry-title (end) -->
 
-	<?php do_action( 'anva_post_meta' ); ?>
+	<?php
+		/**
+		 * Hooked
+		 *
+		 * @see anva_post_meta_default
+		 */
+		do_action( 'anva_post_meta' );
+	?>
 
 	<?php if ( has_post_format( 'gallery' ) ) : ?>
 
@@ -60,15 +70,29 @@ do_action( 'anva_post_single_above' );
 	</div><!-- .entry-content (end) -->
 
 	<div class="entry-footer">
-		<?php do_action( 'anva_post_footer' ); ?>
+		<?php
+			/**
+			 * Hooked
+			 *
+			 * @see anva_post_tags_default, anva_post_share_default
+			 */
+			do_action( 'anva_post_footer' );
+		?>
 
 		<?php wp_link_pages( array(
 			'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ',
-			'after'  => '</div><!-- .page-links (end) -->'
+			'after'  => '</div><!-- .page-links (end) -->',
 		) ); ?>
 
 		<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
 	</div><!-- .entry-footer (end) -->
 </article><!-- .entry (end) -->
 
-<?php do_action( 'anva_post_single_below' ); ?>
+<?php
+	/**
+	 * Hooked
+	 *
+	 * @see anva_post_nav_default, anva_post_author_default, anva_post_related_default
+	 */
+	do_action( 'anva_post_single_below' );
+?>

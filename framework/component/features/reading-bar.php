@@ -1,3 +1,21 @@
+<?php
+/**
+ * The default template used for post reading bar.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
+ */
+
+?>
 <div id="post-reading-wrap">
 	<div class="post-reading-bar">
 		<div class="post-reading-indicator-container">
@@ -14,7 +32,7 @@
 
 				<div class="entry-c">
 					<div class="post-reading-label">
-						<?php _e( 'You Are Reading', 'anva' ); ?>
+						<?php esc_html_e( 'You Are Reading', 'anva' ); ?>
 					</div>
 					<div class="entry-title">
 						<h4><?php the_title(); ?></h4>

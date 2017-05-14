@@ -1,6 +1,24 @@
+<?php
+/**
+ * The default template used for related posts.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
+ */
+
+?>
 <div class="related-posts-wrap">
 	<h4>
-		<?php _e( 'Related Posts', 'anva' ); ?>
+		<?php esc_html_e( 'Related Posts', 'anva' ); ?>
 	</h4>
 
 	<div class="related-posts clearfix">
@@ -13,10 +31,10 @@
 		$close_row      = '</div><!-- .col_half (end) -->';
 		$single_related = anva_get_option( 'single_related', 'hide' );
 
-		// IDs
+		// IDs.
 		$ids = array();
 
-		// Query arguments
+		// Query arguments.
 		$query_args = array(
 			'post__not_in'        => array( get_the_ID() ),
 			'posts_per_page'      => $limit,
@@ -24,25 +42,27 @@
 			'orderby'             => 'rand',
 		);
 
-		// Set by categories
-		if ( 'cat' == $single_related ) {
-			$categories = wp_get_post_terms( get_the_ID(), 'category', array( 'fields' => 'ids' ) );
+		// Set by categories.
+		if ( 'cat' === $single_related ) {
+			$categories = wp_get_post_terms( get_the_ID(), 'category', array(
+				'fields' => 'ids',
+			) );
 			$query_args['tax_query'] = array(
 				array(
 					'taxonomy' => 'category',
-					'terms'    => $categories
-				)
+					'terms'    => $categories,
+				),
 			);
 		}
 
-		// Set by tag
-		if ( 'tag' == $single_related ) {
+		// Set by tag.
+		if ( 'tag' === $single_related ) {
 			$tags = wp_get_post_terms( get_the_ID(), 'post_tag', array( 'fields' => 'ids') );
 			$query_args['tax_query'] = array(
 				array(
 					'taxonomy' => 'post_tag',
-					'terms'    => $tags
-				)
+					'terms'    => $tags,
+				),
 			);
 		}
 
@@ -98,7 +118,7 @@
 
 		<?php else :
 
-			_e( 'Not Posts Found', 'anva' );
+			esc_html_e( 'Not Posts Found', 'anva' );
 
 		endif;
 

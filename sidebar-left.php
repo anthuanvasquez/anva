@@ -15,4 +15,9 @@
  * @package      AnvaFramework
  */
 
+/**
+ * Hooked.
+ *
+ * @see anva_sidebars_default
+ */
 do_action( 'anva_sidebars', 'left' );
