@@ -270,10 +270,10 @@ class Anva {
 		add_action( 'anva_content_before', 'anva_page_title_default' );
 		add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
 		add_action( 'anva_above_layout', 'anva_above_layout_default' );
+		add_action( 'anva_post_type_navigation', 'anva_post_type_navigation_default' );
 		add_action( 'anva_breadcrumbs', 'anva_breadcrumbs_default' );
 		add_action( 'anva_content_builder', 'anva_display_elements' );
 		add_action( 'anva_contact_form', 'anva_contact_form_default' );
-		add_action( 'anva_post_type_navigation', 'anva_post_type_navigation_default' );
 		add_action( 'anva_sidebar_before', 'anva_sidebar_before_default' );
 		add_action( 'anva_sidebar_after', 'anva_sidebar_after_default' );
 		add_action( 'anva_sidebars', 'anva_sidebars_default' );

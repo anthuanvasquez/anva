@@ -4,11 +4,12 @@ include_once( 'class-anva-menu-options.php' );
 include_once( 'class-anva-main-menu-walker.php' );
 
 add_filter( 'walker_nav_menu_start_el', 'anva_nav_menu_start_el', 10, 4 );
+add_filter( 'nav_menu_item_id', 'anva_nav_menu_item_id', 10, 4 );
 add_action( 'after_setup_theme', 'anva_admin_menu_init', 1001 );
 
 /**
  * Initialize the Anva_Menu_Options instance.
- * 
+ *
  * @since 1.0.0
  */
 function anva_admin_menu_init() {
@@ -30,8 +31,6 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 	// Get primary menu style
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' );
 
-	$primary = apply_filters( 'anva_primary_menu_location', 'primary' );
-
 	// Wrap all menu item title with "div" tag
 	if ( is_a( $args->walker, 'Anva_Main_Menu_Walker' ) ) {
 		$item_output = str_replace( $item->title, sprintf( '<div>%s</div>', $item->title ), $item_output );
@@ -43,7 +42,7 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 				$item_output = str_replace( $item->title . '</div>', sprintf( '%s</div><span>%s</span>', $item->title, $item->description ), $item_output );
 			}
 		}
-		
+
 		// Add "menu-btn" to all menu items in main navigation.
 		// Note: If menu item's link was disabled in the walker, the
 		// item will already be setup as <span class="menu-btn">Title</span>,
@@ -62,7 +61,7 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 
 	// Allow bootstrap "nav-header" class in menu items.
 	// Note: For primary navigation will only work on levels 2-3
-	// 
+	//
 	// (1) ".sf-menu li li.nav-header" 	=> Primary nav dropdowns
 	// (2) ".menu li.nav-header" 		=> Standard custom menu widget
 	// (3) ".subnav li.nav-header" 		=> Theme Blvd Horizontal Menu widget
@@ -123,4 +122,8 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 	}
 
 	return $item_output;
+}
+
+function anva_nav_menu_item_id( $menu_id, $item, $args, $depth ) {
+	return $args->theme_location . '-menu-item-'. $item->ID;
 }

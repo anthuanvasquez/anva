@@ -45,30 +45,31 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 
 		case 'top_bar' :
 			$args = array(
-				'menu_class'		=> '',
-				'container' 		=> '',
-				'fallback_cb' 		=> false,
 				'theme_location'	=> apply_filters( 'anva_top_bar_menu_location', 'top_bar' ),
+				'container' 		=> '',
+				'menu_class'		=> '',
+				'fallback_cb' 		=> false,
 				'depth' 			=> 1,
 			);
 			break;
 
 		case 'side_panel' :
 			$args = array(
-				'menu_class'		=> '',
-				'container_class'   => 'nav-tree',
-				'fallback_cb' 		=> false,
 				'theme_location'	=> apply_filters( 'anva_side_panel_menu_location', 'side_panel' ),
+				'container'         => 'nav',
+				'container_class'   => 'nav-tree',
+				'menu_class'		=> '',
+				'fallback_cb' 		=> false,
 				'depth' 			=> 3,
 			);
 			break;
 
 		case 'footer' :
 			$args = array(
-				'menu_class'		=> '',
-				'container' 		=> '',
-				'fallback_cb' 		=> false,
 				'theme_location'	=> apply_filters( 'anva_footer_menu_location', 'footer' ),
+				'container' 		=> '',
+				'menu_class'		=> '',
+				'fallback_cb' 		=> false,
 				'depth' 			=> 1,
 			);
 
