@@ -1180,7 +1180,7 @@ function anva_the_post_meta( $field ) {
 function anva_sort_gallery( $gallery ) {
 
 	$sorted = array();
-	$order = anva_get_option( 'gallery_sort' );
+	$order  = anva_get_option( 'gallery_sort' );
 
 	if ( ! empty( $order ) && ! empty ( $gallery ) ) {
 

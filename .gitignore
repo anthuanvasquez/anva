@@ -24,6 +24,7 @@ Desktop.ini
 .sass-cache
 prepros.cfg
 config.codekit
+/vendor
 /.tools/src
 /.tools/dist
 /.tools/zip

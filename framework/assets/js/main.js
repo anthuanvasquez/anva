@@ -3589,7 +3589,7 @@ var AnvaFramework = AnvaFramework || {};
     $(document).ready( AnvaFramework.documentOnReady.init );
 
     // Window Load
-    $window.load( AnvaFramework.documentOnLoad.init );
+    $window.on( 'load', AnvaFramework.documentOnLoad.init );
 
     // Window Resize
     $window.on( 'resize', AnvaFramework.documentOnResize.init );

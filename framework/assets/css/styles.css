@@ -3152,6 +3152,32 @@ body.stretched .container-fullwidth .breadcrumb {
       #page-title.page-title-video .video-wrap video {
         width: 100%; }
 
+.breadcrumb-wrap {
+  border-bottom: 1px solid #EEE; }
+  .breadcrumb-wrap .breadcrumb {
+    position: relative;
+    width: 100%;
+    top: 0;
+    left: auto;
+    right: auto;
+    margin: 0;
+    background-color: transparent;
+    padding: 10px 0;
+    font-size: 12px; }
+  .dark .breadcrumb-wrap {
+    background-color: #333;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    border-bottom: none; }
+    .dark .breadcrumb-wrap .breadcrumb > .active {
+      color: rgba(255, 255, 255, 0.6); }
+    .dark .breadcrumb-wrap .breadcrumb a {
+      color: rgba(255, 255, 255, 0.8); }
+      .dark .breadcrumb-wrap .breadcrumb a:hover {
+        color: rgba(255, 255, 255, 0.95); }
+
+body.stretched .container-fullwidth .breadcrumb-wrap .breadcrumb {
+  right: 0; }
+
 /* ----------------------------------------------------------------
     Content
 -----------------------------------------------------------------*/
@@ -4356,16 +4382,16 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay, body.device-t
   margin: 10px -10px -15px 0;
   list-style: none; }
   .entry-meta li {
-    float: left;
+    display: inline;
     font-size: 13px;
     line-height: 14px;
-    margin: 0 10px 15px 0;
+    margin: 0 10px 0 0;
     color: #999;
     font-family: "Crete Round", serif;
     font-style: italic; }
     .entry-meta li:before {
       content: '/';
-      display: inline-block;
+      display: inline;
       margin-right: 10px;
       opacity: 0.5; }
     .entry-meta li i {
@@ -5187,6 +5213,17 @@ p.wp-caption-text {
   padding: 5px 10px;
   background-color: #EEE;
   border-radius: 50px; }
+
+figure.wp-caption,
+figcaption.wp-caption-text {
+  max-width: 100%;
+  height: auto; }
+
+figure.wp-caption {
+  margin: 0 0 30px; }
+
+figcaption.wp-caption-text {
+  margin-top: 10px; }
 
 .wp-smiley {
   max-height: 13px;

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Page title templage.
+ *
+ * @package AnvaFramework
+ */
 
 $style            = '';
 $classes          = array();
@@ -12,22 +17,26 @@ $title_bg_cover   = anva_get_post_meta( '_anva_title_bg_cover' );
 $title_bg_text    = anva_get_post_meta( '_anva_title_bg_text' );
 $title_bg_padding = anva_get_post_meta( '_anva_title_bg_padding' );
 
+// Default page title class.
+$classes[] = 'page-title';
+
 // Remove title background.
-if ( 'nobg' == $title_bg ) {
+if ( 'nobg' === $title_bg ) {
 	$classes[] = 'page-title-nobg';
 }
 
-// Add dark background
-if ( 'dark' == $title_bg || ( 'custom' == $title_bg && $title_bg_text && 'yes' != $mini ) ) {
+// Add dark background.
+if ( 'dark' === $title_bg || ( 'custom' === $title_bg && $title_bg_text && 'yes' !== $mini ) ) {
 	$classes[] = 'page-title-dark';
 }
 
-if ( 'yes' == $mini ) {
+// Use page title mini version.
+if ( 'yes' === $mini ) {
 	$classes[] = 'page-title-mini';
 }
 
-// Add background color and parallax image
-if ( 'custom' == $title_bg && 'yes' != $mini ) {
+// Add background color and parallax image.
+if ( 'custom' === $title_bg && 'yes' !== $mini ) {
 	$title_bg_padding = $title_bg_padding . 'px';
 
 	$style .= 'padding:' . esc_attr( $title_bg_padding ) . ' 0;';
@@ -48,27 +57,27 @@ if ( 'custom' == $title_bg && 'yes' != $mini ) {
 	$style = "style='{$style}'";
 }
 
-// Align title to the right
-if ( 'right' == $title_align ) {
+// Align title to the right.
+if ( 'right' === $title_align ) {
 	$classes[] = 'page-title-right';
 }
 
-// Title centered
-if ( 'center' == $title_align ) {
+// Title centered.
+if ( 'center' === $title_align ) {
 	$classes[] = 'page-title-center';
 }
 
 $classes = implode( ' ', $classes );
-$classes = 'class="' . esc_attr( $classes ) . '"';
+$classes = ' class="' . esc_attr( $classes ) . '"';
 
 ?>
-<section id="page-title" <?php echo $classes; ?> <?php echo $style; ?>>
+<section id="page-title"<?php echo $classes; ?> <?php echo $style; ?>>
 	<div class="container clearfix">
 		<h1>
 			<?php anva_the_page_title(); ?>
 		</h1>
 		<?php
-			if ( ! empty ( $tagline ) ) {
+			if ( ! empty( $tagline ) ) {
 				printf( '<span>%s</span>', esc_html( $tagline ) );
 			}
 
@@ -84,12 +93,18 @@ $classes = 'class="' . esc_attr( $classes ) . '"';
 				 */
 				do_action( 'anva_post_type_navigation' );
 			} else {
-				/**
-				 * Hooked.
-				 *
-				 * @see anva_breadcrumbs_default
-				 */
-				do_action( 'anva_breadcrumbs' );
+
+				$breadcrumbs = anva_get_option( 'breadcrumbs', 'inside' );
+
+				if ( 'inside' === $breadcrumbs ) {
+
+					/**
+					 * Hooked.
+					 *
+					 * @see anva_breadcrumbs_default
+					 */
+					do_action( 'anva_breadcrumbs' );
+				}
 			}
 		?>
 	</div>

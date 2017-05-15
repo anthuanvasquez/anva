@@ -1,4 +1,9 @@
 <?php
+/**
+ * Function for content media.
+ *
+ * @package AnvaFramework
+ */
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -94,13 +99,18 @@ function anva_get_image_sizes() {
 	return apply_filters( 'anva_image_sizes', $sizes );
 }
 
+/**
+ * Get thumbnail sizes.
+ *
+ * @return array The thumbnails.
+ */
 function anva_get_image_sizes_thumbnail() {
 
-	$sizes = anva_get_image_sizes();
+	$sizes      = anva_get_image_sizes();
 	$thumbnails = array();
 
-	foreach ( $sizes as $thumbnail_id => $thumbnail) {
-		$crop = ( $thumbnail['crop'] == true ? __( 'Hard Crop', 'anva' ) : __( 'Soft Crop', 'anva' )  );
+	foreach ( $sizes as $thumbnail_id => $thumbnail ) {
+		$crop = ( true === $thumbnail['crop'] ? __( 'Hard Crop', 'anva' ) : __( 'Soft Crop', 'anva' ) );
 
 		if ( 9999 === $thumbnail['height'] ) {
 			$crop = __( 'No Height Crop', 'anva' );
@@ -115,9 +125,9 @@ function anva_get_image_sizes_thumbnail() {
 /**
  * Get media queries.
  *
- * @since 1.0.0
- * @param array $localize
- * @param arra Array merge
+ * @since  1.0.0
+ * @param  array $localize
+ * @return array The merged locals.
  */
 function anva_get_media_queries( $localize ) {
 	$media_queries = array(
@@ -144,20 +154,15 @@ function anva_audio_shortcode( $html ) {
 /**
  * Register image sizes.
  *
- * @global $wp_version
- *
  * @since  1.0.0
  * @return void
  */
 function anva_add_image_sizes() {
 
-	// Compared wp version
-	global $wp_version;
-
-	// Get image sizes
+	// Get image sizes.
 	$sizes = anva_get_image_sizes();
 
-	// Add image sizes
+	// Add image sizes.
 	foreach ( $sizes as $size => $atts ) {
 		add_image_size( $size, $atts['width'], $atts['height'], $atts['crop'] );
 	}
@@ -170,6 +175,7 @@ function anva_add_image_sizes() {
  * added as a filter to WP's image_size_names_choose.
  *
  * @since  1.0.0
+ * @return array The merged image sizes.
  */
 function anva_image_size_names_choose( $sizes ) {
 
@@ -241,18 +247,51 @@ function anva_get_attachment_image_src( $attachment_id, $thumbnail ) {
  */
 function anva_the_post_thumbnail( $option ) {
 
-	if ( 'hide' !== $option && ! has_post_thumbnail() ) {
+	if ( 'hide' === $option || ! has_post_thumbnail() ) {
 		return;
 	}
 
-	// Get post ID
+	$thumb_align    = anva_get_option( 'single_thumb_align', 'left' );
+	$thumb_lightbox = anva_get_option( 'single_thumb_lightbox', '1' );
+
+	$classes  = array();
+	$lightbox = '';
+
+	$classes[] = 'entry-image';
+
+	if ( 'small' === $option ) {
+		$classes[] = 'entry-image-small';
+
+		if ( 'left' === $thumb_align ) {
+			$classes[] = 'alignleft';
+		}
+
+		if ( 'right' === $thumb_align ) {
+			$classes[] = 'alignright';
+		}
+
+		if ( 'center' === $thumb_align ) {
+			$classes[] = 'aligncenter';
+		}
+	}
+
+	if ( $thumb_lightbox ) {
+		$lightbox = ' data-lightbox="image"';
+	}
+
+	$classes = implode( ' ', $classes );
+	$classes = ' class="' . esc_attr( $classes ) . '"';
+
+	// Get post ID.
 	$id = get_the_ID();
 
-	// Default thumbnail size on single posts
-	$thumbnail = apply_filters( 'anva_single_post_thumnail', 'anva_lg' );
+	// Default thumbnail size on single posts.
+	$thumbnail = apply_filters( 'anva_single_post_thumbnail', 'anva_lg' );
 	?>
-	<div class="entry-image">
-		<a href="<?php echo anva_get_featured_image_src( $id, $thumbnail ); ?>" data-lightbox="image"><?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?></a>
+	<div id="entry-image"<?php echo $classes; ?>>
+		<a href="<?php anva_the_featured_image_src( $id, $thumbnail ); ?>"<?php echo $lightbox; ?>>
+			<?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?>
+		</a>
 	</div><!-- .entry-image (end) -->
 	<?php
 

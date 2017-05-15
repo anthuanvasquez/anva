@@ -235,49 +235,50 @@ function anva_post_class( $class, $paged = true ) {
 function anva_get_post_class( $class, $paged = true ) {
 
 	$classes = array();
+	$small_thumb = anva_get_option( 'small_thumb_alt', 'no' );
 
 	// Set default post classes
 	$default_classes = array(
 		'index' => array(
 			'default' => 'primary-post-list post-list',
-			'paged' => 'post-list-paginated',
+			'paged'   => 'post-list-paginated',
 		),
 		'archive' => array(
 			'default' => 'archive-post-list post-list',
-			'paged' => 'post-list-paginated',
+			'paged'   => 'post-list-paginated',
 		),
 		'search' => array(
 			'default' => 'search-post-list post-list',
-			'paged' => 'post-list-paginated',
+			'paged'   => 'post-list-paginated',
 		),
 		'grid' => array(
 			'default' => 'template-post-grid post-grid grid-container',
-			'paged' => 'post-grid-paginated',
+			'paged'   => 'post-grid-paginated',
 		),
 		'list' => array(
 			'default' => 'template-post-list post-list post-list-container',
-			'paged' => 'post-list-paginated',
+			'paged'   => 'post-list-paginated',
 		),
 		'small' => array(
 			'default' => 'template-post-small post-small post-small-container small-thumbs',
-			'paged' => 'post-small-paginated',
+			'paged'   => 'post-small-paginated',
 		),
 		'masonry' => array(
 			'default' => 'template-post-masonry post-masonry post-masonry-container',
-			'paged' => 'post-masonry-paginated',
+			'paged'   => 'post-masonry-paginated',
 		),
         'gallery' => array(
             'default' => 'archive-galleries gallery-list gallery-container post-grid',
-            'paged' => 'gallery-paginated',
+            'paged'   => 'gallery-paginated',
         ),
         'portfolio' => array(
             'default' => 'archive-portfolio portfolio grid-container portfolio-2 clearfix',
-            'paged' => 'portfolio-paginated',
+            'paged'   => 'portfolio-paginated',
         )
 		// @TODO timeline classes
 	);
 
-	// Add default
+	// Add default.
 	if ( isset( $default_classes[ $class ]['default'] ) ) {
 		$classes[] = $default_classes[ $class ]['default'];
 	}
@@ -285,6 +286,10 @@ function anva_get_post_class( $class, $paged = true ) {
 	// Posts using pagination.
 	if ( isset( $default_classes[ $class ]['paged'] ) && $paged ) {
 		$classes[] = $default_classes[ $class ]['paged'];
+	}
+
+	if ( 'yes' === $small_thumb ) {
+		$classes[] = 'alt';
 	}
 
 	$classes = implode( ' ', $classes );

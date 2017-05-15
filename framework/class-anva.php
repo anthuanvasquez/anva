@@ -140,6 +140,7 @@ class Anva {
 			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-box.php' );
 			include_once( self::$framework_dir_path . 'admin/class-anva-welcome-screen.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/general.php' );
+			include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/display.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/meta.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/locals.php' );
@@ -267,6 +268,7 @@ class Anva {
 		add_action( 'anva_featured_before', 'anva_featured_before_default' );
 		add_action( 'anva_featured', 'anva_featured_default' );
 		add_action( 'anva_featured_after', 'anva_featured_after_default' );
+		add_action( 'anva_content_before', 'anva_breadcrumbs_outside_default' );
 		add_action( 'anva_content_before', 'anva_page_title_default' );
 		add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
 		add_action( 'anva_above_layout', 'anva_above_layout_default' );

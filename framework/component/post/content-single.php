@@ -15,6 +15,8 @@
  * @package      AnvaFramework
  */
 
+$single_thumb = anva_get_option( 'single_thumb' );
+
 /**
  * Single above not hooked by default.
  */
@@ -61,12 +63,22 @@ do_action( 'anva_post_single_above' );
 
 	<?php else : ?>
 
-		<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
+		<?php
+			if ( 'small' !== $single_thumb ) {
+				anva_the_post_thumbnail( $single_thumb );
+			}
+		?>
 
 	<?php endif; ?>
 
 	<div class="entry-content notopmargin">
-		<?php the_content(); ?>
+		<?php
+			if ( 'small' == $single_thumb ) {
+				anva_the_post_thumbnail( $single_thumb );
+			}
+
+			the_content();
+		?>
 	</div><!-- .entry-content (end) -->
 
 	<div class="entry-footer">

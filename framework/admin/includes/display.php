@@ -1,4 +1,9 @@
 <?php
+/**
+ * Admin display functions.
+ *
+ * @package AnvaFramework
+ */
 
 /**
  * Show message when the theme is activated.

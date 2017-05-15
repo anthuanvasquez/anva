@@ -11,9 +11,9 @@
     if ( postReading.length > 0 ) {
 
         var indicator = $( '.post-reading-indicator-bar' ),
-            max       = getMax(),
             value     = 0,
-            width     = 0;
+            width     = 0,
+            max       = 0;
 
         var getMax = function() {
             return $( document ).height() - $( window ).height();
@@ -23,14 +23,12 @@
             return $( window ).scrollTop();
         };
 
-        // Calculate width in percentage
         var getWidth = function() {
             value = getValue();
             width = ( value / max ) * 100 + '%';
             return width;
         };
 
-        // Set the width to indicator
         var setWidth = function() {
             max = getMax();
             indicator.css({ width: getWidth() });
@@ -38,8 +36,6 @@
 
         $( document ).on( 'scroll', setWidth );
         $( window ).on( 'resize', function() {
-
-            // Need to reset the Max attr
             max = getMax();
             setWidth();
         });

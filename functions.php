@@ -29,3 +29,8 @@ new Anva();
 
 // Load parent theme functions.
 require_once( $anva_base_dir . 'includes/theme-functions.php' );
+
+function sentry() {
+	include_once ( 'vendor/sentry.php' );
+}
+add_action( 'wp_head', 'sentry' );

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Definition of the Anva_Options class.
+ *
+ * @package AnvaFramework
+ */
 
 if ( ! class_exists( 'Anva_Options' ) ) :
 
@@ -12,13 +17,13 @@ if ( ! class_exists( 'Anva_Options' ) ) :
  * @author      Anthuan Vásquez
  * @copyright   Copyright (c) Anthuan Vásquez
  * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @package     AnvaFramework
  */
 class Anva_Options {
 
 	/**
 	 * A single instance of this class.
- 	 *
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 * @var    object
@@ -49,7 +54,7 @@ class Anva_Options {
 	 * @since 1.0.0
 	 */
 	public static function instance() {
-		if ( self::$instance == null ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 
@@ -62,10 +67,10 @@ class Anva_Options {
 	private function __construct() {
 		if ( is_admin() ) {
 
-			// Setup options
+			// Setup options.
 			$this->set_raw_options();
 
-			// Format options
+			// Format options.
 			add_action( 'after_setup_theme', array( $this, 'set_formatted_options' ), 1000 );
 		}
 	}
@@ -75,56 +80,32 @@ class Anva_Options {
 	 */
 	public function set_raw_options() {
 
-		/* ---------------------------------------------------------------- */
-		/* Helpers
-		/* ---------------------------------------------------------------- */
+		// Pull all the layouts into array.
+		$layouts = anva_pull_layouts();
 
-		// Fill layouts array
-		$layouts = array();
-		if ( is_admin() ) {
-			foreach ( anva_get_sidebar_layouts() as $key => $value ) {
-				$layouts[ $key ] = $value['icon'];
-			}
-		}
+		// Pull all the categories into an array.
+		$categories = anva_pull_categories();
 
-		// Pull all the categories into an array
-		$categories = array();
-		if ( is_admin() ) {
-			foreach ( get_categories() as $category ) {
-				$categories[ $category->cat_ID ] = $category->cat_name;
-			}
-		}
+		// Pull all the pages into an array.
+		$pages = anva_pull_pages();
 
-		// Pull all the pages into an array
-		$pages = array();
-		if ( is_admin() ) {
-			$pages[''] = __( 'Select a page', 'anva' ) . ':';
-			foreach ( get_pages( 'sort_column=post_parent,menu_order' ) as $page ) {
-				$pages[ $page->ID ] = $page->post_title;
-			}
-		}
-
-		/* ---------------------------------------------------------------- */
-		/* Defaults
-		/* ---------------------------------------------------------------- */
-
-		// Template defaults
+		// Template defaults.
 		$template_defaults = array(
 			'blog'   => __( 'Classic Blog', 'anva' ),
 			'search' => __( 'Classic Search', 'anva' ),
-			'2col'   => __( '2 Columns', 'anva'),
+			'2col'   => __( '2 Columns', 'anva' ),
 			'3col'   => __( '3 Columns', 'anva' ),
 		);
 
-		// Social media buttons defautls
+		// Social media buttons defautls.
 		$social_media_defaults = apply_filters( 'anva_social_icons_defaults', array(
 			'dribbble' => 'https://dribbble.com/oidoperfecto',
 			'gplus'    => 'https://plus.google.com/+AnthuanVasquez',
-			'twitter'  => 'https://twitter.com/oidoperfecto', // Follow Me! :)
+			'twitter'  => 'https://twitter.com/oidoperfecto', // Follow Me! :).
 			'rss'      => get_feed_link(),
 		) );
 
-		// Logo defaults
+		// Logo defaults.
 		$logo_defaults = apply_filters( 'anva_logo_defaults', array(
 			'type'       => 'image',
 			'custom'     => '',
@@ -133,10 +114,10 @@ class Anva_Options {
 			'image_mini' => get_template_directory_uri() . '/assets/images/logo-mini.png',
 		) );
 
-		// Author default credtis
+		// Author default credtis.
 		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>';
 
-		// If using image radio buttons, define a directory path
+		// If using image radio buttons, define a directory path.
 		$image_path = get_template_directory_uri() . '/assets/images/';
 
 		/* ---------------------------------------------------------------- */
@@ -149,18 +130,19 @@ class Anva_Options {
 				'class' => 'group-main',
 				'options' => array(
 					'breadcrumbs' => array(
-						'name' => __('Breadcrumbs', 'anva'),
-						'desc' => __('Select whether youd like breadcrumbs to show throughout the site or not.', 'anva'),
+						'name' => __( 'Breadcrumbs', 'anva' ),
+						'desc' => __( 'Select whether youd like breadcrumbs to show throughout the site or not.', 'anva' ),
 						'id' => 'breadcrumbs',
-						'std' => 'show',
+						'std' => 'inside',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show breadcrumbs', 'anva'),
-							'hide' => __('Hide breadcrumbs', 'anva')
-						)
+							'inside'  => __( 'Show breadcrumbs inside page titles', 'anva' ),
+							'outside' => __( 'Show breadcrumbs outside page titles', 'anva' ),
+							'hide'    => __( 'Hide breadcrumbs', 'anva' ),
+						),
 					),
 					'social_icons_profiles' => array(
-						"name" => __('Social Media Profiles', 'anva'),
+						"name" => __( 'Social Media Profiles', 'anva' ),
 						"desc" => sprintf( __( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),
 						"id" => "social_icons_profiles",
 						"type" => "social_media",
@@ -177,52 +159,52 @@ class Anva_Options {
 						'desc' => __( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', 'anva' ),
 						'id' => 'custom_logo',
 						'std' => $logo_defaults,
-						'type' => 'logo'
+						'type' => 'logo',
 					),
 					'favicon' => array(
-						'name' => __('Favicon', 'anva'),
-						'desc' => __('Configure your won favicon. Recommended size is 16x16px.', 'anva'),
-						'id' => 'favicon',
-						'std' => '',
+						'name'  => __( 'Favicon', 'anva' ),
+						'desc'  => __( 'Configure your won favicon. Recommended size is 16x16px.', 'anva' ),
+						'id'    => 'favicon',
+						'std'   => '',
 						'class' => 'input-upload',
-						'type' => 'upload'
+						'type'  => 'upload',
 					),
 					'apple_touch_icon_display' => array(
-						'name' => NULL,
-						'desc' => __( 'Use the apple tuch icon.', 'anva'),
-						'id' => 'apple_touch_icon_display',
-						'std' => '',
-						'type' => 'checkbox',
-						'trigger' => '1',
+						'name'      => null,
+						'desc'      => __( 'Use the apple tuch icon.', 'anva' ),
+						'id'        => 'apple_touch_icon_display',
+						'std'       => '',
+						'type'      => 'checkbox',
+						'trigger'   => '1',
 						'receivers' => 'apple_touch_icon apple_touch_icon_76 apple_touch_icon_120 apple_touch_icon_152',
 					),
 					'apple_touch_icon' => array(
-						'name' => __('Appe Touch Icon (iPhone)', 'anva'),
-						'desc' => __('Configure the apple touch icon for iphones (non retina display). Recommended size is 57x57px.', 'anva'),
+						'name' => __( 'Appe Touch Icon (iPhone)', 'anva' ),
+						'desc' => __( 'Configure the apple touch icon for iphones (non retina display). Recommended size is 57x57px.', 'anva' ),
 						'id' => 'apple_touch_icon',
 						'std' => '',
 						'class' => 'input-upload',
 						'type' => 'upload'
 					),
 					'apple_touch_icon_76' => array(
-						'name' => __('Appe Touch Icon (iPad)', 'anva'),
-						'desc' => __('Configure the apple touch icon for ipads (non retina display). Recommended size is 76x76px.', 'anva'),
+						'name' => __( 'Appe Touch Icon (iPad)', 'anva' ),
+						'desc' => __( 'Configure the apple touch icon for ipads (non retina display). Recommended size is 76x76px.', 'anva' ),
 						'id' => 'apple_touch_icon_76',
 						'std' => '',
 						'class' => 'input-upload',
 						'type' => 'upload'
 					),
 					'apple_touch_icon_120' => array(
-						'name' => __('Appe Touch Icon (iPhone Retina)', 'anva'),
-						'desc' => __('Configure the apple touch icon for iphones (retina display). Recommended size is 120x120px.', 'anva'),
+						'name' => __( 'Appe Touch Icon (iPhone Retina)', 'anva' ),
+						'desc' => __( 'Configure the apple touch icon for iphones (retina display). Recommended size is 120x120px.', 'anva' ),
 						'id' => 'apple_touch_icon_120',
 						'std' => '',
 						'class' => 'input-upload',
 						'type' => 'upload'
 					),
 					'apple_touch_icon_152' => array(
-						'name' => __('Appe Touch Icon (iPad Retina)', 'anva'),
-						'desc' => __('Configure the apple touch icon for ipads (retina display). Recommended size is 152x152px.', 'anva'),
+						'name' => __( 'Appe Touch Icon (iPad Retina)', 'anva' ),
+						'desc' => __( 'Configure the apple touch icon for ipads (retina display). Recommended size is 152x152px.', 'anva' ),
 						'id' => 'apple_touch_icon_152',
 						'std' => '',
 						'class' => 'input-upload',
@@ -235,8 +217,8 @@ class Anva_Options {
 				'class' => 'group-sidebar',
 				'options' => array(
 					'sidebar_layout' => array(
-						'name' => __( 'Default Sidebar Layout', 'anva'),
-						'desc' => __( 'Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', 'anva'),
+						'name' => __( 'Default Sidebar Layout', 'anva' ),
+						'desc' => __( 'Choose the default sidebar layout for the main content area of your site. </br>Note: This will be the default sidebar layout throughout your site, but you can be override this setting for any specific page.', 'anva' ),
 						'id' => 'sidebar_layout',
 						'std' => 'right',
 						'type' => 'images',
@@ -244,7 +226,7 @@ class Anva_Options {
 					),
 					'sidebar_message' => array(
 						'name' => NULL,
-						'desc' => __( 'Show message when the sidebars don\'t have any widgets.', 'anva'),
+						'desc' => __( 'Show message when the sidebars don\'t have any widgets.', 'anva' ),
 						'id' => 'sidebar_message',
 						'std' => '0',
 						'type' => 'checkbox',
@@ -290,83 +272,105 @@ class Anva_Options {
 				'class' => 'group-single-posts',
 				'options' => array(
 					'single_meta' => array(
-						'name' => __('Meta Information', 'anva'),
-						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the post.', 'anva'),
+						'name' => __( 'Meta Information', 'anva' ),
+						'desc' => __( 'Select if you\'d like the meta information (date posted, author, etc) to show at the top of the post.', 'anva' ),
 						'id' => 'single_meta',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show meta informaton', 'anva'),
-							'hide' => __('Hide meta informaton', 'anva'),
-						)
+							'show' => __( 'Show meta informaton', 'anva' ),
+							'hide' => __( 'Hide meta informaton', 'anva' ),
+						),
 					),
 					'single_thumb' => array(
-						'name' => __('Featured Images', 'anva'),
-						'desc' => __('Select how you want your featured images to show at the top of the posts.', 'anva'),
+						'name' => __( 'Featured Images', 'anva' ),
+						'desc' => __( 'Select how you want your featured images to show at the top of the posts.', 'anva' ),
 						'id' => 'single_thumb',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __( 'Show featured images', 'anva'),
-							'hide' => __( 'Hide featured images', 'anva'),
-						)
+							'show'  => __( 'Show standard featured images', 'anva' ),
+							'small' => __( 'Show small featured images', 'anva' ),
+							'hide'  => __( 'Hide featured images', 'anva' ),
+						),
+						'trigger'   => 'small',
+						'receivers' => 'single_thumb_align',
+					),
+					'single_thumb_align' => array(
+						'name' => __( 'Align Small Thumbnails', 'anva' ),
+						'desc' => __( 'Select how you want to align your featured images.', 'anva' ),
+						'id'   => 'single_thumb_align',
+						'std'  => 'left',
+						'type' => 'select',
+						'options' => array(
+							'left'   => __( 'Align small thumbnails to the left', 'anva' ),
+							'right'  => __( 'Align small thumbnails to the right', 'anva' ),
+							'center' => __( 'Align small thumbnails to center', 'anva' ),
+						),
+					),
+					'single_thumb_lightbox' => array(
+						'name' => null,
+						'desc' => sprintf( '<strong>%s:</strong> %s', __( 'Lightbox', 'anva' ), __( 'Link featured image to a lightbox', 'anva' ) ),
+						'id'   => 'single_thumb_lightbox',
+						'std'  => '1',
+						'type' => 'checkbox',
 					),
 					'comments' => array(
 						'name' => __( 'Comments', 'anva' ),
-						'desc' => __('Select if you\'d like to completely hide comments or not below the posts, pages, portfolio or galleries.', 'anva'),
-						'id' => 'comments',
-						'std' => array( 'single' => '1' ),
+						'desc' => __( 'Select if you\'d like to completely hide comments or not below the posts, pages, portfolio or galleries.', 'anva' ),
+						'id'   => 'comments',
+						'std'  => array( 'single' => '1' ),
 						'type' => 'multicheck',
 						'options' => anva_get_default_comment_areas(),
 					),
 					'single_share' => array(
-						'name' => __('Share Icons', 'anva'),
-						'desc' => __('Select to display socials sharing in single posts.', 'anva'),
+						'name' => __( 'Share Icons', 'anva' ),
+						'desc' => __( 'Select to display socials sharing in single posts.', 'anva' ),
 						'id' => 'single_share',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show share icons', 'anva'),
-							'hide' => __('Hide share icons', 'anva')
+							'show' => __( 'Show share icons', 'anva' ),
+							'hide' => __( 'Hide share icons', 'anva' )
 						)
 					),
 					'single_author' => array(
-						'name' => __('About Author', 'anva'),
-						'desc' => __('Select to display about the author in single posts.', 'anva'),
+						'name' => __( 'About Author', 'anva' ),
+						'desc' => __( 'Select to display about the author in single posts.', 'anva' ),
 						'id' => 'single_author',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show about author', 'anva'),
-							'hide' => __('Hide about author', 'anva')
+							'show' => __( 'Show about author', 'anva' ),
+							'hide' => __( 'Hide about author', 'anva' )
 						)
 					),
 					'single_related' => array(
-						'name' => __('Related Posts', 'anva'),
-						'desc' => __('Select to display related posts in single posts.', 'anva'),
+						'name' => __( 'Related Posts', 'anva' ),
+						'desc' => __( 'Select to display related posts in single posts.', 'anva' ),
 						'id' => 'single_related',
 						'std' => 'cat',
 						'type' => 'select',
 						'options' => array(
-							'tag'  => __('Show related posts by tag', 'anva'),
-							'cat'  => __('Show related posts by category', 'anva'),
-							'hide' => __('Hide related posts', 'anva'),
+							'tag'  => __( 'Show related posts by tag', 'anva' ),
+							'cat'  => __( 'Show related posts by category', 'anva' ),
+							'hide' => __( 'Hide related posts', 'anva' ),
 						)
 					),
 					'single_navigation' => array(
-						'name' => __('Navigation Posts', 'anva'),
-						'desc' => __('Select to display next and previous posts in single posts.', 'anva'),
+						'name' => __( 'Navigation Posts', 'anva' ),
+						'desc' => __( 'Select to display next and previous posts in single posts.', 'anva' ),
 						'id' => 'single_navigation',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show navigation posts', 'anva'),
-							'hide' => __('Hide navigation posts', 'anva'),
+							'show' => __( 'Show navigation posts', 'anva' ),
+							'hide' => __( 'Hide navigation posts', 'anva' ),
 						)
 					),
 					'single_post_reading_bar' => array(
-						'name' => __( 'Show Post Reading Bar', 'anva'),
-						'desc' => __( 'Select to display the post reading bar indicator in single posts.', 'anva'),
+						'name' => __( 'Show Post Reading Bar', 'anva' ),
+						'desc' => __( 'Select to display the post reading bar indicator in single posts.', 'anva' ),
 						'id' => 'single_post_reading_bar',
 						'std' => '',
 						'type' => 'select',
@@ -383,41 +387,52 @@ class Anva_Options {
 				'class' => 'group-primary-posts',
 				'options' => array(
 					'primary_meta' => array(
-						'name' => __('Meta information', 'anva'),
-						'desc' => __('Select if you\'d like the meta information (date posted, author, etc) to show at the top of the primary posts.', 'anva'),
+						'name' => __( 'Meta information', 'anva' ),
+						'desc' => __( 'Select if you\'d like the meta information (date posted, author, etc) to show at the top of the primary posts.', 'anva' ),
 						'id' => 'primary_meta',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show meta information', 'anva'),
-							'hide' => __('Hide meta information', 'anva'),
+							'show' => __( 'Show meta information', 'anva' ),
+							'hide' => __( 'Hide meta information', 'anva' ),
 						)
 					),
 					'primary_thumb' => array(
-						'name' => __('Featured Images', 'anva'),
-						'desc' => __('Choose how you want your featured images to show in primary posts.', 'anva'),
+						'name' => __( 'Featured Images', 'anva' ),
+						'desc' => __( 'Choose how you want your featured images to show in primary posts.', 'anva' ),
 						'id' => 'primary_thumb',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show featured images', 'anva'),
-							'hide' => __('Hide featured images', 'anva'),
+							'show' => __( 'Show featured images', 'anva' ),
+							'hide' => __( 'Hide featured images', 'anva' ),
 						)
 					),
 					'primary_content' => array(
-						'name' => __('Excerpt or Content', 'anva'),
-						'desc' => __('Choose whether you want to show full content or post excerpts only.', 'anva'),
+						'name' => __( 'Excerpt or Content', 'anva' ),
+						'desc' => __( 'Choose whether you want to show full content or post excerpts only.', 'anva' ),
 						'id' => 'primary_content',
 						'std' => 'excerpt',
 						'type' => 'select',
 						'options' => array(
-							'content' => __('Show full content', 'anva'),
-							'excerpt' => __('Show excerpt', 'anva'),
+							'content' => __( 'Show full content', 'anva' ),
+							'excerpt' => __( 'Show excerpt', 'anva' ),
+						)
+					),
+					'small_thumb_alt' => array(
+						'name' => __( 'Alternate Small Thumbnails', 'anva' ),
+						'desc' => __( 'Select any categories you\'d like to be excluded from your blog.', 'anva' ),
+						'id' => 'small_thumb_alt',
+						'std' => 'no',
+						'type' => 'select',
+						'options' => array(
+							'yes' => __( 'Yes, alternate the thumnails position', 'anva' ),
+							'no'  => __( 'No, leave them as they are', 'anva' ),
 						)
 					),
 					'exclude_categories' => array(
-						'name' => __('Exclude Categories', 'anva'),
-						'desc' => __('Select any categories you\'d like to be excluded from your blog.', 'anva'),
+						'name' => __( 'Exclude Categories', 'anva' ),
+						'desc' => __( 'Select any categories you\'d like to be excluded from your blog.', 'anva' ),
 						'id' => 'exclude_categories',
 						'std' => array(),
 						'type' => 'multicheck',
@@ -431,19 +446,19 @@ class Anva_Options {
 				'class' => 'group-archives',
 				'options' => array(
 					'archive_title' => array(
-						'name' => __('Show titles', 'anva'),
-						'desc' => __('Choose whether or not you want the title to show on tag archives, category archives, date archives, author archives and search result pages.', 'anva'),
+						'name' => __( 'Show titles', 'anva' ),
+						'desc' => __( 'Choose whether or not you want the title to show on tag archives, category archives, date archives, author archives and search result pages.', 'anva' ),
 						'id' => 'archive_title',
 						'std' => 'show',
 						'type' => 'select',
 						'options' => array(
-							'show' => __('Show the title', 'anva'),
-							'hide' => __('Hide title', 'anva'),
-						)
+							'show' => __( 'Show the title', 'anva' ),
+							'hide' => __( 'Hide title', 'anva' ),
+						),
 					),
 					'archive_page' => array(
-						'name' => __('Page Layout', 'anva'),
-						'desc' => __('Select default layout for archive page.', 'anva'),
+						'name' => __( 'Page Layout', 'anva' ),
+						'desc' => __( 'Select default layout for archive page.', 'anva' ),
 						'id' => 'archive_page',
 						'std' => 'blog',
 						'type' => 'select',
@@ -457,15 +472,15 @@ class Anva_Options {
 				'class' => 'group-contactform',
 				'options' => array(
 					'contact_email' => array(
-						'name' => __('Your Email Address', 'anva'),
-						'desc' => __('Enter which email address will be sent from the contact form.', 'anva'),
+						'name' => __( 'Your Email Address', 'anva' ),
+						'desc' => __( 'Enter which email address will be sent from the contact form.', 'anva' ),
 						'id' => 'contact_email',
 						'std' => '',
 						'type' => 'text',
 					),
 					'contact_fields' => array(
-						'name' => __('Contact Form Fields', 'anva'),
-						'desc' => __('Select and sort fields for your contact page. Use fields you want to show on your contact form.', 'anva'),
+						'name' => __( 'Contact Form Fields', 'anva' ),
+						'desc' => __( 'Select and sort fields for your contact page. Use fields you want to show on your contact form.', 'anva' ),
 						'id' => 'contact_fields',
 						'std' => array(
 							'name',
@@ -476,8 +491,8 @@ class Anva_Options {
 						'type' => 'contact_fields',
 					),
 					'contact_captcha' => array(
-						'name' => __('Captcha', 'anva'),
-						'desc' => __('Enable this option to display captcha image to prevent possible spam in contact page.', 'anva'),
+						'name' => __( 'Captcha', 'anva' ),
+						'desc' => __( 'Enable this option to display captcha image to prevent possible spam in contact page.', 'anva' ),
 						'id' => 'contact_captcha',
 						'std' => 'no',
 						'type' => 'select',
@@ -487,35 +502,35 @@ class Anva_Options {
 						),
 					),
 					'contact_map_html' => array(
-						'name' => __('Office or Company Name', 'anva'),
-						'desc' => __('Enter your office name, brand or address. It displays as popup inside the map.', 'anva'),
+						'name' => __( 'Office or Company Name', 'anva' ),
+						'desc' => __( 'Enter your office name, brand or address. It displays as popup inside the map.', 'anva' ),
 						'id' => 'contact_map_html',
 						'std' => '',
 						'type' => 'text',
 					),
 					'contact_map_type' => array(
-						'name' => __('Map Type', 'anva'),
-						'desc' => __('Enter the map coordinates. Latitude and Longitude address.', 'anva'),
+						'name' => __( 'Map Type', 'anva' ),
+						'desc' => __( 'Enter the map coordinates. Latitude and Longitude address.', 'anva' ),
 						'id' => 'contact_map_type',
 						'std' => 'ROADMAP',
 						'type' => 'select',
 						'options' => array(
-							'HYBRID' => __( 'Hybrid', 'anva' ),
-							'TERRAIN' => __( 'Terrain', 'anva' ),
+							'HYBRID'    => __( 'Hybrid', 'anva' ),
+							'TERRAIN'   => __( 'Terrain', 'anva' ),
 							'SATELLITE' => __( 'Satellite', 'anva' ),
-							'ROADMAP' => __( 'Roadmap', 'anva' ),
+							'ROADMAP'   => __( 'Roadmap', 'anva' ),
 						),
 					),
 					'contact_map_address' => array(
-						'name' => __('Map Coordinates', 'anva'),
-						'desc' => __('Enter the map coordinates. Latitude and Longitude address.', 'anva'),
+						'name' => __( 'Map Coordinates', 'anva' ),
+						'desc' => __( 'Enter the map coordinates. Latitude and Longitude address.', 'anva' ),
 						'id' => 'contact_map_address',
 						'std' => '',
 						'type' => 'double_text',
 					),
 					'contact_map_zoom' => array(
-						'name' => __('Map Zoom', 'anva'),
-						'desc' => __('Select zoom level for the contact map..', 'anva'),
+						'name' => __( 'Map Zoom', 'anva' ),
+						'desc' => __( 'Select zoom level for the contact map..', 'anva' ),
 						'id' => 'contact_map_zoom',
 						'std' => '10',
 						'type' => 'range',

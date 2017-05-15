@@ -28,25 +28,24 @@ function compress_output( $buffer ) {
 }
 
 // Primary Color Scheme.
-if ( isset( $_GET['color'] ) and '' != $_GET['color'] ) {
-	$color = '#' . esc_html( $_GET['color'] );
+if ( isset( $_GET['color'] ) and '' !== $_GET['color'] ) {
+	$color = '#' . $_GET['color'];
 }
 
 // Set default color.
-if ( ! $color or ! check_hex_color( $color ) ) {
+if ( ! $color || ! check_hex_color( $color ) ) {
 	$color = '#3498db';
 }
 
-ob_start();
-?>
+ob_start(); ?>
 
 /*-----------------------------------------------------------------------------------*/
 /* Colors
 /*-----------------------------------------------------------------------------------*/
 
-::selection { background: <?php echo esc_html( $color ); ?>; }
-::-moz-selection { background: <?php echo esc_html( $color ); ?>; }
-::-webkit-selection { background: <?php echo esc_html( $color ); ?>; }
+::selection { background: <?php echo $color; ?>; }
+::-moz-selection { background: <?php echo $color; ?>; }
+::-webkit-selection { background: <?php echo $color; ?>; }
 
 a,
 h1 > span:not(.nocolor),
@@ -98,7 +97,10 @@ h6 > span:not(.nocolor),
 .pagination > li > span:focus,
 .dark .post-timeline .entry:hover .entry-timeline,
 .dark .post-timeline .entry:hover .timeline-divider,
-.clear-rating-active:hover { color: <?php echo esc_html( $color ); ?>; }
+.clear-rating-active:hover,
+.more-link {
+	color: <?php echo $color; ?>;
+}
 
 .color,
 .top-cart-item-desc a:hover,
@@ -112,7 +114,9 @@ h6 > span:not(.nocolor),
 .overlay-menu #primary-menu.dark > ul > li.current > a,
 .nav-tree li:hover > a,
 .nav-tree li.current > a,
-.nav-tree li.active > a { color: <?php echo esc_html( $color ); ?> !important; }
+.nav-tree li.active > a {
+	color: <?php echo $color; ?> !important;
+}
 
 #primary-menu.style-3 > ul > li.current > a,
 #primary-menu.sub-title > ul > li:hover > a,
@@ -167,7 +171,9 @@ input.switch-toggle-flat:checked + label,
 input.switch-toggle-flat:checked + label:after,
 input.switch-toggle-round:checked + label:before,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-themecolor,
-.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-themecolor { background-color: <?php echo esc_html( $color ); ?>; }
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-themecolor {
+	background-color: <?php echo $color; ?>;
+}
 
 .bgcolor,
 .button.button-3d:not(.button-white):not(.button-dark):not(.button-border):not(.button-black):not(.button-red):not(.button-teal):not(.button-yellow):not(.button-green):not(.button-brown):not(.button-aqua):not(.button-purple):not(.button-leaf):not(.button-pink):not(.button-blue):not(.button-dirtygreen):not(.button-amber):not(.button-lime):hover,
@@ -184,7 +190,9 @@ input.switch-toggle-round:checked + label:before,
 .pagination > .active > span:focus,
 .commentlist .bypostauthor .comment-wrap cite,
 .commentlist li ul.children li.bypostauthor .comment-wrap cite,
-.post-reading-indicator-bar { background-color: <?php echo esc_html( $color ); ?> !important; }
+.post-reading-indicator-bar {
+	background-color: <?php echo $color; ?> !important;
+}
 
 #primary-menu.style-4 > ul > li:hover > a,
 #primary-menu.style-4 > ul > li.current > a,
@@ -198,7 +206,9 @@ input.switch-toggle-round:checked + label:before,
 .dark .post-timeline .entry:hover .entry-timeline,
 .dark .post-timeline .entry:hover .timeline-divider,
 .dark .cart-product-thumbnail img:hover,
-.heading-block.border-color:after { border-color: <?php echo esc_html( $color ); ?>; }
+.heading-block.border-color:after {
+	border-color: <?php echo $color; ?>;
+}
 
 .top-links ul ul,
 .top-links ul div.top-link-section,
@@ -218,12 +228,18 @@ input.switch-toggle-round:checked + label:before,
 .tabs.tabs-tb ul.tab-nav li.ui-tabs-active a,
 .irs-from:after,
 .irs-single:after,
-.irs-to:after { border-top-color: <?php echo esc_html( $color ); ?>; }
+.irs-to:after {
+	border-top-color: <?php echo $color; ?>;
+}
 
 #page-menu.dots-menu nav li .dots-menu-caption:after,
-.title-block { border-left-color: <?php echo esc_html( $color ); ?>; }
+.title-block {
+	border-left-color: <?php echo $color; ?>;
+}
 
-.title-block-right { border-right-color: <?php echo esc_html( $color ); ?>; }
+.title-block-right {
+	border-right-color: <?php echo $color; ?>;
+}
 
 .fancy-title.title-bottom-border h1,
 .fancy-title.title-bottom-border h2,
@@ -232,7 +248,9 @@ input.switch-toggle-round:checked + label:before,
 .fancy-title.title-bottom-border h5,
 .fancy-title.title-bottom-border h6,
 .more-link,
-.tabs.tabs-bb ul.tab-nav li.ui-tabs-active a { border-bottom-color: <?php echo esc_html( $color ); ?>; }
+.tabs.tabs-bb ul.tab-nav li.ui-tabs-active a {
+	border-bottom-color: <?php echo $color; ?>;
+}
 
 .border-color,
 .process-steps li.active a,
@@ -243,15 +261,21 @@ input.switch-toggle-round:checked + label:before,
 .pagination > .active > a:hover,
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
-.pagination > .active > span:focus { border-color: <?php echo esc_html( $color ); ?> !important; }
+.pagination > .active > span:focus {
+	border-color: <?php echo $color; ?> !important;
+}
 
 .fbox-effect.fbox-dark .fbox-icon i:after,
-.dark .fbox-effect.fbox-dark .fbox-icon i:after { box-shadow: 0 0 0 2px <?php echo esc_html( $color ); ?>; }
+.dark .fbox-effect.fbox-dark .fbox-icon i:after {
+	box-shadow: 0 0 0 2px <?php echo $color; ?>;
+}
 
 .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
 .fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i,
 .dark .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
-.dark .fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i { box-shadow: 0 0 0 1px <?php echo esc_html( $color ); ?>; }
+.dark .fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i {
+	box-shadow: 0 0 0 1px <?php echo $color; ?>;
+}
 
 @media only screen and (max-width: 991px) {
 	body:not(.dark) #header:not(.dark) #header-wrap:not(.dark) #primary-menu > ul > li:hover a,
@@ -260,13 +284,17 @@ input.switch-toggle-round:checked + label:before,
 	body:not(.dark) #header:not(.dark) #header-wrap:not(.dark) #primary-menu > div > ul > li.current a,
 	#primary-menu ul ul li:hover > a,
 	#primary-menu ul li .mega-menu-content.style-2 > ul > li.mega-menu-title:hover > a,
-	#primary-menu ul li .mega-menu-content.style-2 > ul > li.mega-menu-title > a:hover { color: <?php echo esc_html( $color ); ?> !important; }
+	#primary-menu ul li .mega-menu-content.style-2 > ul > li.mega-menu-title > a:hover {
+		color: <?php echo $color; ?> !important;
+	}
 
-	#page-menu nav { background-color: <?php echo esc_html( $color ); ?>; }
+	#page-menu nav {
+		background-color: <?php echo $color; ?>;
+	}
 }
 
 @media only screen and (max-width: 767px) {
-	.portfolio-filter li a:hover { color: <?php echo esc_html( $color ); ?>; }
+	.portfolio-filter li a:hover { color: <?php echo $color; ?>; }
 }
 
 <?php

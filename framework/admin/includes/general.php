@@ -1,4 +1,9 @@
 <?php
+/**
+ * Admin general functions.
+ *
+ * @package AnvaFramework
+ */
 
 /**
  * Init admin modules.

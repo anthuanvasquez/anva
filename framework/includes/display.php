@@ -422,13 +422,57 @@ function anva_featured_after_default() {
 }
 
 /**
- * Page titles.
+ * Display breadcrumbs outside page titles.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function anva_breadcrumbs_outside_default() {
+	// Don't show breadcrumbs on front page or builder.
+	if ( is_front_page() || is_page_template( 'template_builder.php' ) ) {
+		return;
+	}
+
+	$breadcrumbs = anva_get_option( 'breadcrumbs', 'inside' );
+
+	if ( 'outside' !== $breadcrumbs ) {
+		return;
+	}
+	?>
+	<section id="breadcrumbs" class="breadcrumb-wrap">
+		<div class="container clearfix">
+			<?php
+				/**
+				 * Hooked.
+				 *
+				 * @see anva_breadcrumbs_default
+				 */
+				do_action( 'anva_breadcrumbs' );
+			?>
+		</div>
+	</section><!-- #breadcrumbs (end) -->
+	<?php
+
+}
+
+/**
+ * Display breadcrumbs.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function anva_breadcrumbs_default() {
+	anva_get_template_part( 'breadcrumbs' );
+}
+
+/**
+ * Display page titles.
  *
  * @since  1.0.0
  * @return void
  */
 function anva_page_title_default() {
-	// Don't show page titles on front page.
+	// Don't show page titles on front page or builder.
 	if ( is_front_page() || is_page_template( 'template_builder.php' ) ) {
 		return;
 	}
@@ -444,17 +488,7 @@ function anva_page_title_default() {
 }
 
 /**
- * Display breadcrumbs.
- *
- * @since  1.0.0
- * @return void
- */
-function anva_breadcrumbs_default() {
-	anva_get_template_part( 'breadcrumbs' );
-}
-
-/**
- * Display portfolio navigation.
+ * Display portfolio or galleries navigation.
  *
  * @since 1.0.0
  */
@@ -761,7 +795,11 @@ function anva_post_meta_default() {
 	}
 
 	if ( 'show' == anva_get_option( 'prmary_meta', 'show' ) ) {
-		anva_get_template_part( 'post', 'content-meta' );
+		if ( is_page_template( 'template-grid' ) ) {
+			anva_get_template_part( 'post', 'content-meta-mini' );
+		} else {
+			anva_get_template_part( 'post', 'content-meta' );
+		}
 	}
 }
 

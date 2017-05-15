@@ -117,7 +117,7 @@ class Anva_Scripts {
 		// Required Plugins
 		$this->framework_scripts['anva_plugins'] = array(
 			'handle'    => 'anva_plugins',
-			'src'       => Anva::$framework_dir_uri . 'assets/js/plugins.js',
+			'src'       => Anva::$framework_dir_uri . 'assets/js/plugins.vendor.js',
 			'deps'      => array( 'jquery' ),
 			'ver'       => self::$version,
 			'footer'    => true
