@@ -174,18 +174,25 @@ body:not(.device-touch) {
     padding-left: 5px;
     border-top: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
+
     span {
         line-height: 36px;
         font-weight: bold;
         font-size: 13px;
     }
-    div {
+
+    .si-share-inner {
         float: right;
     }
+
     .social-icon {
         margin: -1px 0;
         @include border-radius(0);
         font-size: 15px;
+    }
+
+    .si-share-button {
+        background-color: transparent;
     }
 }
 

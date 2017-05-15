@@ -33,34 +33,33 @@
 
 	<div class="si-share noborder clearfix">
 		<span>
-			<?php _e( 'Share this Post:', 'anva' ); ?>
+			<?php esc_html_e( 'Share this Post:', 'anva' ); ?>
 		</span>
 		<div class="si-share-inner">
-			<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_url( $url ); ?>&t=<?php echo esc_attr( $title ); ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="<?php _e( 'Share on Facebook', 'anva' ); ?>" class="social-icon si-borderless si-facebook">
+			<button type="button" class="si-share-button social-icon si-borderless si-facebook" data-network="facebook" data-url="<?php echo esc_url( $url ); ?>" title="<?php esc_html_e( 'Share on Facebook', 'anva' ); ?>">
 				<i class="icon-facebook"></i>
 				<i class="icon-facebook"></i>
-			</a>
-			<a href="https://twitter.com/share?url=<?php echo esc_url( $url ); ?>&via=<?php echo $twitter; ?>&text=<?php echo esc_attr( $title ); ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="<?php _e( 'Share on Twitter', 'anva' ); ?>" class="social-icon si-borderless si-twitter">
+			</button>
+			<button type="button" class="si-share-button social-icon si-borderless si-twitter" data-network="twitter" data-url="<?php echo esc_url( $url ); ?>" data-via="<?php echo esc_attr( $twitter ); ?>" data-text="<?php echo esc_attr( $title ); ?>" data-sbg-hashtags="#" title="<?php esc_html_e( 'Share on Twitter', 'anva' ); ?>">
 				<i class="icon-twitter"></i>
 				<i class="icon-twitter"></i>
-			</a>
-			<a href="https://pinterest.com/pin/create/button/?url=<?php echo esc_url( $url ); ?>&media=<?php echo esc_url( $thumbnail_url ); ?>&description=<?php echo esc_attr( $title ); ?>" target="_blank" class="social-icon si-borderless si-pinterest">
+			</button>
+			<button tpye="button" class="si-share-button social-icon si-borderless si-pinterest" data-network="pinterest" data-url="<?php echo esc_url( $url ); ?>" data-media="<?php echo esc_url( $thumbnail_url ); ?>" data-description="<?php echo esc_attr( $title ); ?>" title="<?php esc_html_e( 'Share on Pinterest', 'anva' ); ?>">
 				<i class="icon-pinterest"></i>
 				<i class="icon-pinterest"></i>
-			</a>
-			<a href="https://plus.google.com/share?url=<?php echo esc_url( $url ); ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=350,width=480');return false;" target="_blank" title="<?php _e( 'Share on Google+', 'anva' ); ?>" class="social-icon si-borderless si-gplus">
+			</button>
+			<button type="button" class="si-share-button social-icon si-borderless si-gplus" data-network="googleplus" data-url="<?php echo esc_url( $url ); ?>" data-media="<?php echo esc_url( $thumbnail_url ); ?>" data-description="<?php echo esc_attr( $title ); ?>" title="<?php esc_html_e( 'Share on Google+', 'anva' ); ?>">
 				<i class="icon-gplus"></i>
 				<i class="icon-gplus"></i>
-			</a>
-			<a href="<?php echo get_feed_link( 'rss2' ); ?>" class="social-icon si-borderless si-rss">
+			</button>
+			<button type="button" class="si-share-button social-icon si-borderless si-rss" data-network="rss" data-url="<?php echo esc_url( get_feed_link( 'rss2' ) ); ?>">
 				<i class="icon-rss"></i>
 				<i class="icon-rss"></i>
-			</a>
-			<a href="#" class="social-icon si-borderless si-email3">
+			</button>
+			<button type="button" class="si-share-button social-icon si-borderless si-email3" data-network="email" data-url="#">
 				<i class="icon-email3"></i>
 				<i class="icon-email3"></i>
-			</a>
+			</button>
 		</div><!-- .si-share-inner (end) -->
 	</div><!-- .si-share (end) -->
-
-	</div><!-- .si-share-wrap (end) -->
+</div><!-- .si-share-wrap (end) -->

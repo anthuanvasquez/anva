@@ -1734,12 +1734,14 @@ body:not(.device-touch) .social-icon i {
     line-height: 36px;
     font-weight: bold;
     font-size: 13px; }
-  .si-share div {
+  .si-share .si-share-inner {
     float: right; }
   .si-share .social-icon {
     margin: -1px 0;
     border-radius: 0;
     font-size: 15px; }
+  .si-share .si-share-button {
+    background-color: transparent; }
 
 .si-facebook:hover,
 .si-colored.si-facebook {

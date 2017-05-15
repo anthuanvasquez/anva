@@ -123,7 +123,7 @@ class Anva_Scripts {
 			'footer'    => true
 		);
 
-		// Utilities
+		// Utilities.
 		$this->framework_scripts['anva_utils'] = array(
 			'handle'    => 'anva_utils',
 			'src'       => Anva::$framework_dir_uri . 'assets/js/utils.js',
@@ -132,7 +132,16 @@ class Anva_Scripts {
 			'footer'    => true
 		);
 
-		// Functions
+		// Share buttons.
+		$this->framework_scripts['anva_share_buttons'] = array(
+			'handle'    => 'anva_share_buttons',
+			'src'       => Anva::$framework_dir_uri . 'assets/js/share-buttons.js',
+			'deps'      => array( 'jquery', 'anva_utils' ),
+			'ver'       => self::$version,
+			'footer'    => true
+		);
+
+		// Functions.
 		$this->framework_scripts['anva_main'] = array(
 			'handle'    => 'anva_main',
 			'src'       => Anva::$framework_dir_uri . 'assets/js/main.js',
