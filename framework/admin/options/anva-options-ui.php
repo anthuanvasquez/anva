@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * Print generated tabs.
+ *
+ * @since 1.0.0
+ * @param array $options The global options
+ */
+function anva_the_options_tabs( $options ) {
+	echo anva_get_options_tabs( $options );
+}
+
+/**
  * Generates the tabs that are used in the options menu.
  *
  * Based on "Options Framework" by Devin Price.
@@ -45,6 +55,17 @@ function anva_get_options_tabs( $options ) {
 	return $menu;
 }
 
+/**
+ * Print generated options fields.
+ *
+ * @see anva_get_options_fields
+ *
+ * @since  1.0.0
+ * @param  string $option_name
+ * @param  array  $settings
+ * @param  array  $options
+ * @return string $output
+ */
 function anva_the_options_fields( $option_name, $settings, $options, $prefix = '' ) {
 	anva_get_options_fields( $option_name, $settings, $options, $prefix );
 }

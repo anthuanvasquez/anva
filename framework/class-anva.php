@@ -132,13 +132,13 @@ class Anva {
 			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-page.php' );
 			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-import-export.php' );
 			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-media-uploader.php' );
-			include_once( self::$framework_dir_path . 'admin/options/anva-options-type.php' );
-			include_once( self::$framework_dir_path . 'admin/options/anva-options-fields.php' );
-			include_once( self::$framework_dir_path . 'admin/options/anva-options-sanitization.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-page-builder.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-page-gallery.php' );
+			include_once( self::$framework_dir_path . 'admin/options/anva-options-ui-types.php' );
+			include_once( self::$framework_dir_path . 'admin/options/anva-options-ui.php' );
+			include_once( self::$framework_dir_path . 'admin/options/anva-options-ui-sanitization.php' );
+			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-builder.php' );
+			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-gallery.php' );
 			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-box.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-welcome-screen.php' );
+			include_once( self::$framework_dir_path . 'admin/class-anva-page-welcome.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/general.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/display.php' );
@@ -200,7 +200,7 @@ class Anva {
 			add_action( 'anva_options_page_top', 'anva_admin_check_settings' );
 			add_action( 'anva_options_page_after_fields', 'anva_admin_footer_credits' );
 			add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
-			add_action( 'anva_options_page_before', 'anva_add_settings_change', 10 );
+			add_action( 'anva_options_page_before', 'anva_admin_add_settings_change', 10 );
 		}
 
 		if ( ! is_admin() ) {

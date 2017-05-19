@@ -87,9 +87,10 @@ function anva_head_apple_touch_icon() {
  * @since 1.0.0
  */
 function anva_head_viewport() {
-	if ( 'yes' === anva_get_option( 'responsive' ) ) {
-		printf( '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">' );
-	}
+	if ( 'yes' === anva_get_option( 'responsive' ) ) : ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<?php
+	endif;
 }
 
 /**

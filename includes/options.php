@@ -23,24 +23,24 @@
  */
 function anva_options() {
 
-	// Assets
+	// Assets.
 	$skin_path = trailingslashit( get_template_directory_uri() . '/assets/images/skins' );
 
-	// Skin Colors
+	// Skin Colors.
 	$schemes = array();
 	foreach ( anva_get_colors_scheme( $skin_path, 'jpg' ) as $color_id => $color ) {
 		$schemes[ $color_id ] = $color['image'];
 	}
 
-	// Background defaults
+	// Background defaults.
 	$background_defaults = array(
 		'image' 		=> '',
 		'repeat' 		=> 'repeat',
 		'position' 		=> 'top center',
-		'attachment' 	=> 'scroll'
+		'attachment' 	=> 'scroll',
 	);
 
-	// Transitions
+	// Transitions.
 	$transitions = array();
 	foreach ( range( 0, 14 ) as $key ) {
 		$transitions[ $key ] = __( 'Loader Style', 'anva' ) . ' ' . $key;
@@ -48,7 +48,7 @@ function anva_options() {
 	$transitions[0] = __( 'Disable Transition', 'anva' );
 	$transitions[1] = __( 'Default Loader Style', 'anva' );
 
-	// Animations
+	// Animations.
 	$animations = array();
 	foreach ( anva_get_animations() as $animation_id => $animation ) {
 		$animations[ $animation ] = $animation;

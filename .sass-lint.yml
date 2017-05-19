@@ -20,7 +20,7 @@ rules:
         - 2
         -
             include: true
-    no-css-comments: 0
+    no-css-comments: 1
     no-debug: 2
     no-empty-rulesets: 2
     no-ids: 1
@@ -30,6 +30,12 @@ rules:
     no-vendor-prefixes: 1
     one-declaration-per-line: 1
     single-line-per-selector: 2
+    attribute-quotes: 2
+    url-quotes: 2
+    quotes:
+        - 1
+        -
+            style: 'single'
     space-after-colon: 2
     space-after-comma: 2
     space-around-operator: 2

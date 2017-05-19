@@ -18,11 +18,18 @@ function anva_admin_theme_activate() {
 		$admin_url   = admin_url( 'themes.php?page=' . $option_name );
 
 		printf(
-			'<div class="updated updated fade settings-error notice is-dismissible"><p>%s %s</p></div>',
-			__( 'Anva theme is activated.', 'anva' ),
+			'<div class="updated updated fade settings-error notice is-dismissible"><p>%1$s %2$s</p></div>',
+			sprintf(
+				__( '%s is activated.', 'anva' ),
+				esc_html( anva_get_theme( 'name' ) )
+			),
 			sprintf(
 				__( 'Go to %s', 'anva' ),
-				'<a href="' . esc_url( $admin_url ) . '">' . __( 'Theme Options Page', 'anva' ) . '</a>'
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					esc_url( $admin_url ),
+					__( 'Theme Options Page', 'anva' )
+				)
 			)
 		);
 	}
@@ -47,13 +54,12 @@ function anva_admin_check_settings() {
  * @return void
  */
 function anva_add_settings_flash() {
-	return;
 	if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true ) : ?>
 		<script type="text/javascript">
 		window.onload = function() {
 			swal({
 				title: "<?php echo esc_js( __( 'Done!', 'anva' ) ); ?>",
-				text: "<?php echo esc_js( __( 'Options has been updated.', 'anva' ) ); ?>",
+				text: "<?php echo esc_js( __( 'Options has been updated successfully!', 'anva' ) ); ?>",
 				type: "success",
 				timer: 2000,
 				showConfirmButton: false
@@ -68,7 +74,7 @@ function anva_add_settings_flash() {
  *
  * @since 1.0.0
  */
-function anva_add_settings_change() {
+function anva_admin_add_settings_change() {
 	printf( '<div id="anva-options-change" class="anva-options-change section-info">%s</div>', __( 'Settings has changed.', 'anva' ) );
 }
 
@@ -77,23 +83,32 @@ function anva_add_settings_change() {
  *
  * @since 1.0.0
  */
-function anva_admin_settings_log() {
+function anva_admin_settings_last_save() {
 
 	$html = '';
 
-	// Get current info
-	$option_name = anva_get_option_name();
-	$option_log  = get_option( $option_name . '_log' );
+	// Get current info.
+	$option_name      = anva_get_option_name();
+	$option_last_save = get_option( $option_name . '_last_save' );
 
 	// Check if field exists
-	if ( $option_log ) {
-		$time = strtotime( $option_log );
+	if ( $option_last_save ) {
+		$time = strtotime( $option_last_save );
 		$time = date( 'M d, Y @ g:i A', $time );
-		printf( '<div class="log"><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</div>', __( 'Last changed', 'anva' ), $time );
+
+		printf(
+			'<div class="log"><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</div>',
+			__( 'Last changed', 'anva' ),
+			$time
+		);
+
 		return;
 	}
 
-	printf( '<div class="log"><span class="dashicons dashicons-clock"></span> %s</div>', __( 'Your settings has not changed.', 'anva' ) );
+	printf(
+		'<div class="log"><span class="dashicons dashicons-clock"></span> %s</div>',
+		__( 'Your settings has not changed.', 'anva' )
+	);
 
 }
 

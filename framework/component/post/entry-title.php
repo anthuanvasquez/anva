@@ -17,8 +17,8 @@
 
 ?>
 <div id="entry-title-<?php the_ID(); ?>" class="entry-title">
-	<h2>
-		<a href="<?php the_permalink(); ?>">
+	<h2 class="entry-title-heading">
+		<a class="entry-title-link" href="<?php the_permalink(); ?>">
 			<?php the_title(); ?>
 		</a>
 	</h2>

@@ -8,27 +8,41 @@
  */
 function anva_api_init() {
 
-	// Setup Framework Core Options API
+	// Setup Framework Core Options.
 	Anva_Options::instance();
 
-	// Setup Framework Stylesheets API
+	// Setup Framework Stylesheets.
 	Anva_Styles::instance();
 
-	// Setup Framework JavaScripts API
+	// Setup Framework Scripts.
 	Anva_Scripts::instance();
 
-	// Setup Framework Sidebars Locations API
+	// Setup Framework Sidebars Locations.
 	Anva_Sidebars::instance();
 
-	// Setup Framework Core Sliders API
+	// Setup Framework Core Sliders.
 	Anva_Sliders::instance();
 
-	// Setup Framework Page Builder Elements API
+	// Setup Framework Builder Components.
 	Anva_Builder_Components::instance();
+
+	// Setup import export options.
+	Anva_Options_Import_Export::instance();
 
 	// Setup customizer API
 	$GLOBALS['_anva_customizer_sections'] = array();
 
+}
+
+/**
+ * This is for print theme option value.
+ *
+ * @since 1.0.0
+ * @param string               $name
+ * @param string|array|boolean $default
+ */
+function anva_the_option( $name, $default = false ) {
+	echo anva_get_option( $name, $default );
 }
 
 /**
@@ -47,39 +61,19 @@ function anva_api_init() {
  */
 function anva_get_option( $name, $default = false ) {
 
-	$option_name = '';
+	// Get option name.
+	$option_name = anva_get_option_name();
 
-	// Gets option name as defined in the theme
-	if ( function_exists( 'anva_option_name' ) ) {
-		$option_name = anva_option_name();
-	}
-
-	// Fallback option name
-	if ( '' == $option_name ) {
-		$option_name = get_option( 'stylesheet' );
-		$option_name = preg_replace( '/\W/', '_', strtolower( $option_name ) ); // correct name is $option_name
-	}
-
-	// Get option settings from database
+	// Get settings from database.
 	$options = get_option( $option_name );
 
-	// Return specific option
+	// Return specific option.
 	if ( isset( $options[ $name ] ) ) {
 		return $options[ $name ];
 	}
 
+	// Return default.
 	return $default;
-}
-
-/**
- * This is for print theme option value.
- *
- * @since 1.0.0
- * @param string               $name
- * @param string|array|boolean $default
- */
-function anva_the_option( $name, $default = false ) {
-	echo anva_get_option( $name, $default );
 }
 
 /**
@@ -104,26 +98,18 @@ function anva_get_formatted_options() {
 	return $api->get_formatted_options();
 }
 
+function anva_the_option_name() {
+	echo anva_get_option_name();
+}
+
 /**
  * Gets option name.
  *
  * @since 1.0.0
  */
 function anva_get_option_name() {
-
-	$name = '';
-
-	// Gets option name as defined in the theme.
-	if ( function_exists( 'anva_option_name' ) ) {
-		$name = anva_option_name();
-	}
-
-	// Fallback.
-	if ( '' === $name ) {
-		$name = get_option( 'stylesheet' );
-		$name = preg_replace( '/\W/', '_', strtolower( $name ) );
-	}
-
+	$name = get_option( 'stylesheet' );
+	$name = preg_replace( '/\W/', '_', strtolower( $name ) );
 	return apply_filters( 'anva_option_name', $name );
 
 }

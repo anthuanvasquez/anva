@@ -19,9 +19,6 @@ function anva_admin_init() {
 	// Instantiate the media uploader class.
 	Anva_Options_Media_Uploader::instance();
 
-	// Instantiate the import export options.
-	Anva_Options_Import_Export::instance();
-
 }
 
 /**
@@ -36,7 +33,7 @@ function anva_admin_assets() {
 	global $pagenow;
 
 	// Assets for meta boxes.
-	if ( 'post-new.php' == $pagenow ||  'post.php' == $pagenow ) {
+	if ( 'post-new.php' === $pagenow ||  'post.php' === $pagenow ) {
 		wp_enqueue_style( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_CSS . 'page-meta.css', array(), Anva::get_version() );
 		wp_enqueue_script( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_JS . 'page-meta.js', array( 'jquery' ), Anva::get_version(), false );
 	}
@@ -76,7 +73,10 @@ function anva_get_option_defaults() {
 /**
  * Register a new meta box.
  *
- * @since  1.0.0
+ * @param string $id      The meabox id.
+ * @param array  $args    The metabox page arguments.
+ * @param array  $options The metabox fileds options.
+ * @since 1.0.0
  */
 function anva_add_meta_box( $id, $args, $options ) {
 	new Anva_Page_Meta_Box( $id, $args, $options );

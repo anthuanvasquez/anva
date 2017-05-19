@@ -19,13 +19,7 @@
 <div class="entry-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
 
-		<div class="entry-title">
-			<h2>
-				<a href="<?php the_permalink(); ?>">
-					<?php the_title(); ?>
-				</a>
-			</h2>
-		</div><!-- .entry-title (end) -->
+		<?php anva_get_template_part( 'post', 'entry-title' ); ?>
 
 		<div class="bottommargin-sm"></div>
 

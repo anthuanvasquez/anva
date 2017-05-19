@@ -13,6 +13,7 @@ gulp.task('sass-lint', () => {
     return gulp.src([config.sassLint.theme,config.sassLint.core,config.sassLint.admin])
         .pipe(plugins.sassLint())
         .pipe(plugins.sassLint.format())
+        .pipe(plugins.sassLint.failOnError())
         .pipe(plugins.logger({
             afterEach : ' - SASS Lint finished'
         }));

@@ -1,4 +1,20 @@
 <?php
+/**
+ * The default template used for footer copyrights.
+ *
+ * WARNING: This template file is a core part of the
+ * Anva WordPress Framework. It is advised
+ * that any edits to the way this file displays its
+ * content be done with via hooks, filters, and
+ * template parts.
+ *
+ * @version      1.0.0
+ * @author       Anthuan Vásquez
+ * @copyright    Copyright (c) Anthuan Vásquez
+ * @link         https://anthuanvasquez.net
+ * @package      AnvaFramework
+ */
+
 $footer_copyright = anva_get_option( 'footer_copyright' );
 $footer_copyright = anva_footer_copyright_helpers( $footer_copyright );
 $display          = anva_get_option( 'footer_extra_display' );
@@ -9,14 +25,20 @@ $display          = anva_get_option( 'footer_extra_display' );
 			<div class="copyright-text">
 				<?php echo anva_kses( $footer_copyright ); ?>
 			</div>
-			<div class="copyright-links">
+			<nav id="footer-menu" class="copyright-links">
 				<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'footer' ) ); ?>
-			</div>
+			</nav>
 		</div>
 
 		<div class="col_half col_last tright">
 			<div class="fright clearfix">
-				<?php anva_social_icons( $style = '', $shape = '', $border = 'borderless', $size = 'small' ); ?>
+				<?php
+					$style  = '';
+					$shape  = '';
+					$border = 'borderless';
+					$size   = 'small';
+					anva_social_icons( $style, $shape, $border, $size );
+				?>
 			</div>
 
 			<div class="clear"></div>

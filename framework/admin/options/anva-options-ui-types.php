@@ -165,7 +165,7 @@ function anva_logo_option( $id, $name, $val ) {
 	// Standard Image
 	$image_upload  = '<div class="section image-standard">';
 	$image_upload .= '<label class="inner-label"><strong>'.__( 'Standard Image', 'anva' ).'</strong></label>';
-	$image_upload .= anva_media_uploader( array(
+	$image_upload .= anva_media_uploader_option( array(
 		'option_name' => $name,
 		'type'        => 'logo',
 		'id'          => $id,
@@ -177,7 +177,7 @@ function anva_logo_option( $id, $name, $val ) {
 	// Standard Image Retina (2x)
 	$image_upload .= '<div class="section image-2x">';
 	$image_upload .= '<label class="inner-label"><strong>'.__( '2x Standard Image (optional)', 'anva' ).'</strong></label>';
-	$image_upload .= anva_media_uploader( array(
+	$image_upload .= anva_media_uploader_option( array(
 		'option_name' => $name,
 		'type'        => 'logo_2x',
 		'id'          => $id,
@@ -189,7 +189,7 @@ function anva_logo_option( $id, $name, $val ) {
 	// Standard Image Mini
 	$image_upload .= '<div class="section image-mini">';
 	$image_upload .= '<label class="inner-label"><strong>'.__( 'Mini Standard Image (optional)', 'anva' ).'</strong></label>';
-	$image_upload .= anva_media_uploader( array(
+	$image_upload .= anva_media_uploader_option( array(
 		'option_name' => $name,
 		'type'        => 'logo_mini',
 		'id'          => $id,
@@ -358,6 +358,139 @@ function anva_slider_group_area_option( $id, $name, $val ) {
 	}
 
 	$output .= '</div><!-- .anva-slider-wrap (end) -->';
+
+	return $output;
+}
+
+/**
+ * Media uploader using the WordPress Media Library in 3.5+ tp handle the logo section.
+ *
+ * @since  1.0.0
+ * @param  array $args
+ * @return string $output
+ */
+function anva_media_uploader_option( $args ) {
+
+	$defaults = array(
+		'option_name' 	=> '',			// Prefix for form name attributes
+		'type'			=> 'standard',	// Type of media uploader - standard, logo, logo_2x, background, slider, video
+		'id'			=> '', 			// A token to identify this field, extending onto option_name. -- option_name[id]
+		'value'			=> '',			// The value of the field, if present.
+		'value_id'		=> '',			// Attachment ID used in slider
+		'value_title'	=> '',			// Title of attachment image (used for slider)
+		'name'			=> ''			// Option to extend 'id' token -- option_name[id][name]
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	$output = '';
+	$id     = '';
+	$class  = '';
+	$int    = '';
+	$value  = '';
+	$name   = '';
+
+	$id   = strip_tags( strtolower( $args['id'] ) );
+	$type = $args['type'];
+
+	// If a value is passed and we don't have a stored value, use the value that's passed through.
+	$value = '';
+	if ( $args['value'] ) {
+		$value = $args['value'];
+	}
+
+	// Set name formfield based on type.
+	if ( $type == 'slider' ) {
+		$name = $args['option_name'] . '[image]';
+	} else {
+		$name = $args['option_name'] . '[' . $id . ']';
+	}
+
+	// If passed name, set it.
+	if ( $args['name'] ) {
+		$name = $name . '[' . $args['name'] . ']';
+		$id = $id . '_' . $args['name'];
+	}
+
+	if ( $value ) {
+		$class = ' has-file';
+	}
+
+	// Allow multiple upload options on the same page with
+	// same ID -- This could happen in the Layout Builder, for example.
+	$formfield = uniqid( $id . '_' );
+
+	// Data passed to wp.media
+	$data = array(
+		'title' 	=> __( 'Select Media', 'anva' ),
+		'select'	=> __( 'Select', 'anva' ),
+		'upload'	=> __( 'Browse', 'anva' ),
+		'remove'	=> __( 'Remove', 'anva' ),
+		'class'		=> 'modal-hide-settings'
+	);
+
+	$output .= '<div class="group-button">';
+
+	// Start output
+	switch ( $type ) {
+
+		case 'logo' :
+			$data['title'] = __('Logo Image', 'anva');
+			$data['select'] = __('Use for Logo', 'anva');
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Standard image URL', 'anva').'" />'."\n";
+			break;
+
+		case 'logo_2x' :
+			$data['title'] = __('Logo 2x Image', 'anva');
+			$data['select'] = __('Use for Logo', 'anva');
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('2x size of standard image', 'anva') .'" />'."\n";
+			break;
+
+		case 'logo_mini' :
+			$data['title'] = __('Logo Mini Image', 'anva');
+			$data['select'] = __('Use for Logo', 'anva');
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('Mini standard image', 'anva') .'" />'."\n";
+			break;
+
+		/**
+		 * More will come.
+		 *
+		 * @todo Mini Image 2x
+		 * @todo Dark Image
+		 * @todo Dark Image 2x
+		 */
+
+		default :
+			$output .= '<input id="'.$formfield.'" class="image-url upload'.$class.'" type="text" name="'.$name.'" value="'.$value.'" placeholder="'.__('No file chosen', 'anva') .'" />'."\n";
+	}
+
+	$data = apply_filters( 'anva_media_uploader_data', $data, $type );
+
+	$output .= '<span>';
+	$output .= '<input id="remove-'.$formfield.'" class="trigger remove-file button" type="button" data-type="'.$type.'" data-title="'.$data['title'].'" data-select="'.$data['select'].'" data-class="'.$data['class'].'" data-upload="'.$data['upload'].'" data-remove="'.$data['remove'].'" value="'.$data['remove'].'" />'."\n";
+	$output .= '</span>';
+	$output .= '</div>';
+
+	$output .= '<div class="screenshot" id="' . $formfield . '-image">' . "\n";
+
+	if ( $value && $type != 'video' ) {
+		$remove = '<a class="remove-image">X</a>';
+		$image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $value );
+
+		if ( $image ) {
+			$output .= '<img src="' . $value . '" alt="" />' . $remove;
+		} else {
+			$parts = explode( "/", $value );
+			for ( $i = 0; $i < sizeof( $parts ); ++$i )
+				$title = $parts[$i];
+
+			// Standard generic output if it's not an image.
+			$title = __( 'View File', 'anva' );
+			$output .= '<div class="no-image"><span class="file_link"><a href="' . $value . '" target="_blank" rel="external">'.$title.'</a></span></div>';
+		}
+	}
+
+	$output .= '</div>' . "\n";
 
 	return $output;
 }

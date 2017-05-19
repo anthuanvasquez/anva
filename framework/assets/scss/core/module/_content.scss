@@ -22,6 +22,12 @@
     }
 }
 
+body.stretched .container-fullwidth {
+    position: relative;
+    padding: 0 60px;
+    width: 100%;
+}
+
 body.page-has-content-builder {
     #content .content-wrap {
         padding: 0;

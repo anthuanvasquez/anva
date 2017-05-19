@@ -29,9 +29,9 @@ if ( 'dark' === $top_bar_color ) {
 
 		<!-- Top Links -->
 		<div class="col_half nobottommargin">
-			<div class="top-links">
+			<nav id="top-bar-menu" class="top-links">
 				<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
-			</div><!-- .top-links (end) -->
+			</nav><!-- .top-links (end) -->
 		</div>
 
 		<!-- Top Social -->

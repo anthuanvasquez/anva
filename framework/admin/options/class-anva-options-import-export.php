@@ -5,7 +5,7 @@ if ( ! class_exists( 'Anva_Options_Import_Export' ) ) :
 /**
  * Add import export options to theme options.
  *
- * @since  		1.0.0
+ * @since       1.0.0
  * @author      Anthuan Vásquez
  * @copyright   Copyright (c) Anthuan Vásquez
  * @link        http://anthuanvasquez.net
@@ -15,16 +15,16 @@ class Anva_Options_Import_Export {
 
 	/**
 	 * A single instance of this class.
- 	 *
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 * @var    object
 	 */
-	private static $instance = NULL;
+	private static $instance = null;
 
 	/**
 	 * Theme option ID.
- 	 *
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 * @var    object
@@ -33,12 +33,21 @@ class Anva_Options_Import_Export {
 
 	/**
 	 * Theme options from database.
- 	 *
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 * @var    object
 	 */
 	private $options;
+
+	/**
+	 * Trasient option.
+	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @var string
+	 */
+	private $transient = '_anva_import_happened';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -82,15 +91,15 @@ class Anva_Options_Import_Export {
 		$import_export_options = array(
 			'export' => array(
 				'name' => __( 'Export', 'anva' ),
-				'id' => 'export_settings',
-				'std' => '',
+				'id'   => 'export_settings',
+				'std'  => '',
 				'desc' => __( 'Select all and copy to export your current theme settings.', 'anva'  ),
-				'type' => 'export'
+				'type' => 'export',
 			),
 			'import' => array(
 				'name' => __( 'Import', 'anva' ),
-				'id' => 'import_settings',
-				'std' => '',
+				'id'   => 'import_settings',
+				'std'  => '',
 				'desc' => __( 'Paste your exported settings here. When you click "Import" your settings will be imported to this site. This is useful if you want to experiment on the options but would like to keep the old settings in case you need it back.', 'anva' ) . '<br/><br/>' .  __( 'When you click "Restore Previous", the latest settings will be imported.', 'anva' ),
 				'type' => 'import',
 				'rows' => 10,
@@ -106,7 +115,7 @@ class Anva_Options_Import_Export {
 	 * @since  1.0.0
 	 * @return string|html $output
 	 */
-    public function import_option( $output, $value, $option_name, $val ) {
+	public function import_option( $output, $value, $option_name, $val ) {
 
 		if ( $value['type'] == 'import' ) {
 
@@ -126,7 +135,7 @@ class Anva_Options_Import_Export {
 
 		return $output;
 
-    }
+	}
 
 	/**
 	 * Define the export option.
@@ -135,7 +144,7 @@ class Anva_Options_Import_Export {
 	 * @param  array       $options
 	 * @return string|html $output
 	 */
-    public function export_option( $output, $value, $option_name, $val ) {
+	public function export_option( $output, $value, $option_name, $val ) {
 		if ( $value['type'] == 'export' ) {
 
 			if ( ! $this->options && ! is_array( $this->options ) ) {
@@ -154,7 +163,7 @@ class Anva_Options_Import_Export {
 
 		return $output;
 
-    }
+	}
 
 	/**
 	 * Import the settings.
@@ -163,7 +172,7 @@ class Anva_Options_Import_Export {
 	 * @param  array $input
 	 * @return void
 	 */
-    public function import_settings() {
+	public function import_settings() {
 		if ( isset( $_POST['import'] ) ) {
 
 			// Decode the pasted data
@@ -179,7 +188,7 @@ class Anva_Options_Import_Export {
 
 				// Update the settings in the database
 				update_option( $this->option_id, $data );
-				update_option( 'anva_import_happened', 'success' );
+				set_transient( $this->transient, 'success', 30 );
 
 				$import['time'] = current_time( 'mysql' );
 				$import['settings'] = $data;
@@ -187,7 +196,7 @@ class Anva_Options_Import_Export {
 				update_option( $this->option_id . '_import', $import );
 
 			} else {
-				update_option( 'anva_import_happened', 'fail' );
+				set_transient( $this->transient, 'fail', 30 );
 			}
 
 			/**
@@ -198,7 +207,7 @@ class Anva_Options_Import_Export {
 			exit;
 
 		}
-    }
+	}
 
 	/**
 	 * Add notices for import success/failure.
@@ -206,7 +215,7 @@ class Anva_Options_Import_Export {
 	 * @since  1.0.0
 	 */
 	public function add_save_notice() {
-		$success = get_option( 'anva_import_happened', false );
+		$success = get_transient( $this->transient );
 
 		if ( $success ) {
 
@@ -218,7 +227,7 @@ class Anva_Options_Import_Export {
 
 		}
 
-		delete_option( 'anva_import_happened' );
+		delete_transient( $this->transient );
 	}
 }
 

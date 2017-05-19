@@ -50,22 +50,22 @@ function anva_get_page_title() {
 	/* --------------------------------------- */
 
 	elseif ( is_category() ) :
-		$title = sprintf( '%s <span>%s</span>', anva_get_local( 'category' ), single_cat_title( '', false ) );
+		$title = sprintf( '%s <span class="page-title-tagline">%s</span>', anva_get_local( 'category' ), single_cat_title( '', false ) );
 
 	elseif ( is_tag() ) :
-		$title = sprintf( '%s <span>%s</span>', anva_get_local( 'tag' ), single_tag_title( '', false ) );
+		$title = sprintf( '%s <span class="page-title-tagline">%s</span>', anva_get_local( 'tag' ), single_tag_title( '', false ) );
 
 	elseif ( is_author() ) :
-		$title = sprintf( '%s <span class="vcard">%s</span>', anva_get_local( 'author' ), get_the_author() );
+		$title = sprintf( '%s <span class="page-title-tagline vcard">%s</span>', anva_get_local( 'author' ), get_the_author() );
 
 	elseif ( is_year() ) :
-		$title = sprintf( '%s <span>%s</span>', anva_get_local( 'year' ), get_the_date( 'Y' ) );
+		$title = sprintf( '%s <span class="page-title-tagline">%s</span>', anva_get_local( 'year' ), get_the_date( 'Y' ) );
 
 	elseif ( is_month() ) :
-		$title = sprintf( '%s <span>%s</span>', anva_get_local( 'month' ), get_the_date( 'F Y' ) );
+		$title = sprintf( '%s <span class="page-title-tagline">%s</span>', anva_get_local( 'month' ), get_the_date( 'F Y' ) );
 
 	elseif ( is_day() ) :
-		$title = sprintf( '%s <span>%s</span>', anva_get_local( 'day' ), get_the_date() );
+		$title = sprintf( '%s <span class="page-title-tagline">%s</span>', anva_get_local( 'day' ), get_the_date() );
 
 	/* --------------------------------------- */
 	/* Post Format Archives

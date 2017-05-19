@@ -15,12 +15,28 @@ class Anva_Options_Page {
 
 	/**
 	 * A single instance of this class.
- 	 *
+	 *
 	 * @since  1.0.0
 	 * @access private
 	 * @var    object
 	 */
-	private static $instance = NULL;
+	private static $instance = null;
+
+	/**
+	 * Global option name.
+	 *
+	 * @since 1.0.0
+	 * @var   string
+	 */
+	protected $option_id = '';
+
+	/**
+	 * Global options.
+	 *
+	 * @since 1.0.0
+	 * @var   array
+	 */
+	protected $options = array();
 
 	/**
 	 * Page hook for the options screen.
@@ -28,8 +44,15 @@ class Anva_Options_Page {
 	 * @since 1.0.0
 	 * @var   string
 	 */
-	protected $options_screen = NULL;
+	protected $options_screen = null;
 
+	/**
+	 * Default option id.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	protected $default_id = '';
 	/**
 	 * If sanitization has run yet or not when saving
 	 * options.
@@ -61,23 +84,29 @@ class Anva_Options_Page {
 	public function __construct() {
 		if ( is_admin() && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
 
-			// Gets options to load
-			$options = anva_get_options();
+			// Set option name.
+			$this->option_id = anva_get_option_name();
 
-			// Checks if options are available
-			if ( $options ) {
+			// Get options to load.
+			$this->options = anva_get_options();
 
-				// Add the options page and menu item
+			// Set default id.
+			$this->default_id = $this->option_id . '_defaults';
+
+			// Checks if options are available.
+			if ( $this->options ) {
+
+				// Add the options page and menu item.
 				add_action( 'admin_menu', array( $this, 'add_custom_options_page' ) );
 
-				// Add the required scripts and styles
+				// Add the required scripts and styles.
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ), 10 );
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 10 );
 
-				// Settings need to be registered after admin_init
+				// Settings need to be registered after admin_init.
 				add_action( 'admin_init', array( $this, 'settings_init' ) );
 
-				// Adds options menu to the admin bar
+				// Adds options menu to the admin bar.
 				add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar' ) );
 
 			}
@@ -95,11 +124,14 @@ class Anva_Options_Page {
 	public function settings_init() {
 		global $pagenow;
 
-		// Get the option name
-		$name = anva_get_option_name();
+		// Registers the settings fields and callback.
+		register_setting( 'anva_options_page_settings', $this->option_id, array( $this, 'validate_options' ) );
 
-		// Registers the settings fields and callback
-		register_setting( 'anva_options_page_settings', $name, array( $this, 'validate_options' ) );
+		// Register formatted options for cache settings.
+		$this->set_options();
+
+		// Register defaults options values for cache settings.
+		$this->set_defaults_values();
 	}
 
 	/**
@@ -109,19 +141,16 @@ class Anva_Options_Page {
 	 * @return $menu
 	 */
 	public static function menu_settings() {
-		// Get option name
 		$name = anva_get_option_name();
-
-		// Set default menu settings
 		$menu = array(
 			'mode' 			=> 'submenu',
 			'page_title' 	=> __( 'Theme Options', 'anva' ),
 			'menu_title' 	=> __( 'Theme Options', 'anva' ),
-			'capability' 	=> anva_admin_module_cap( 'options' ), // Role: Administrator
+			'capability' 	=> anva_admin_module_cap( 'options' ),
 			'menu_slug'  	=> $name,
 			'parent_slug' 	=> 'themes.php',
 			'icon_url' 		=> 'dashicons-admin-generic',
-			'position' 		=> '61'
+			'position' 		=> '61',
 		);
 
 		return apply_filters( 'anva_options_page_menu', $menu );
@@ -179,7 +208,7 @@ class Anva_Options_Page {
 			return;
 		}
 
-		// Enqueue custom option panel JS
+		// Enqueue custom option panel JS.
 		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.js', array( 'jquery' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
@@ -190,7 +219,7 @@ class Anva_Options_Page {
 		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'page-options.js', array( 'jquery', 'wp-color-picker' ), Anva::get_version(), true );
 		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
 
-		// Inline scripts from anva-options-interface.php
+		// Inline scripts from anva-options-interface.php.
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
 	}
 
@@ -201,6 +230,9 @@ class Anva_Options_Page {
 	 * @return void
 	 */
 	public function admin_head() {
+		/**
+		 * Admin custom scripts not hooked by default.
+		 */
 		do_action( 'anva_options_page_custom_scripts' );
 	}
 
@@ -217,32 +249,43 @@ class Anva_Options_Page {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	 public function options_page()
- {
-	 ?>
+	public function options_page() {
+	?>
 		<div id="anva-framework-wrap" class="anva-framework-wrap wrap">
 
 			<?php
-				$menu    = $this->menu_settings();
-				$options = anva_get_options();
-
-			 	printf(
-			 		'<h2 class="anva-page-title"> %1$s <span>%3$s<em>%2$s</em></span></h2>',
-			 		esc_html( $menu['page_title'] ),
-			 		anva_get_theme( 'version' ),
-			 		__( 'Version', 'anva' )
-			 	);
+				$menu = $this->menu_settings();
+				printf(
+					'<h2 class="anva-page-title">%1$s <span>%3$s<em>%2$s</em></span></h2>',
+					esc_html( $menu['page_title'] ),
+					anva_get_theme( 'version' ),
+					__( 'Version', 'anva' )
+				);
 			 ?>
 
-			<?php do_action( 'anva_options_page_top' ); ?>
+			<?php
+				/**
+				 * Hooked.
+				 *
+				 * @see anva_admin_check_settings
+				 */
+				do_action( 'anva_options_page_top' );
+			?>
 
 			<?php settings_errors( 'anva-options-page-errors', false, false ); ?>
 
 			<h2 class="nav-tab-wrapper">
-				<?php echo anva_get_options_tabs( $options ); ?>
+				<?php anva_the_options_tabs( $this->options ); ?>
 			</h2>
 
-			<?php do_action( 'anva_options_page_before' ); ?>
+			<?php
+				/**
+				 * Hooked.
+				 *
+				 * @see anva_admin_add_settings_change
+				 */
+				do_action( 'anva_options_page_before' );
+			?>
 
 			<div id="anva-framework-metabox" class="anva-framework-metabox metabox-holder">
 				<div id="anva-framework" class="anva-framework animsition">
@@ -252,25 +295,34 @@ class Anva_Options_Page {
 							<?php
 								settings_fields( 'anva_options_page_settings' );
 
-								// Settings.
-								$option_name = anva_get_option_name();
-								$settings    = get_option( $option_name );
+								// Fields UI.
+								anva_get_options_fields( $this->option_id, get_option( $this->option_id ), $this->get_options() );
 
-								// Fields.
-								anva_get_options_fields( $option_name, $settings, $options );
+								/**
+								 * Hooked.
+								 *
+								 * @see anva_admin_footer_credits, anva_admin_footer_links
+								 */
+								do_action( 'anva_options_page_after_fields' );
 							?>
-							<?php do_action( 'anva_options_page_after_fields' ); ?>
 						</div><!-- .columns-1 (end) -->
 
 						<div class="columns-2">
 							<div class="postbox-wrapper">
-								<?php do_action( 'anva_options_page_side_before' ); ?>
+								<?php
+									/**
+									 * Admin page side before not hooked by default.
+									 */
+									do_action( 'anva_options_page_side_before' );
+								?>
 								<div id="anva-framework-submit" class="postbox">
 									<h3>
-										<span><?php esc_html_e( 'Actions', 'anva' );?></span>
+										<span>
+											<?php esc_html_e( 'Actions', 'anva' ); ?>
+										</span>
 									</h3>
 									<div class="inside">
-										<?php anva_admin_settings_log(); ?>
+										<?php anva_admin_settings_last_save(); ?>
 										<div class="actions">
 											<input type="submit" class="button button-primary update-button" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
 											<span class="spinner"></span>
@@ -279,14 +331,24 @@ class Anva_Options_Page {
 										</div>
 									</div>
 								</div>
-								<?php do_action( 'anva_options_page_side_after' ); ?>
+								<?php
+									/**
+									 * Admin page side after not hooked by default.
+									 */
+									do_action( 'anva_options_page_side_after' );
+								?>
 							</div>
 						</div><!-- .columns-2 (end) -->
 						<div class="clear"></div>
 					</form>
 				</div>
 			</div><!-- #anva-framework-metabox (end) -->
-			<?php do_action( 'anva_options_page_after' ); ?>
+			<?php
+				/**
+				 * Admin page after not hooked by default.
+				 */
+				do_action( 'anva_options_page_after' );
+			?>
 		</div><!-- #anva-framework-wrap (end) -->
 	<?php
 	}
@@ -305,9 +367,6 @@ class Anva_Options_Page {
 	 */
 	public function validate_options( $input ) {
 
-		// Need it to create log for the changed settings
-		$option_name = anva_get_option_name();
-
 		/*
 		 * Restore Defaults
 		 *
@@ -318,10 +377,10 @@ class Anva_Options_Page {
 		 */
 		if ( isset( $_POST['reset'] ) ) {
 
-			// Delete option log
-			delete_option( $option_name . '_log' );
+			// Reset last saved.
+			delete_option( $this->option_id . '_last_save' );
 
-			// Add notice
+			// Add notice.
 			$this->save_options_notice( 'restore_defaults', __( 'Default options restored.', 'anva' ) );
 
 			return $this->get_default_values();
@@ -336,9 +395,7 @@ class Anva_Options_Page {
 
 		$clean = array();
 
-		$options = anva_get_options();
-
-		foreach ( $options as $option ) {
+		foreach ( $this->get_options() as $option ) {
 
 			if ( ! isset( $option['id'] ) ) {
 				continue;
@@ -385,46 +442,52 @@ class Anva_Options_Page {
 		}
 
 		// We know sanitization has happenned at
-		// least once at this point
-		// so set to true.
+		// least once at this point so set to true.
 		$this->sanitized = true;
 
-		// Hook to run after validation
+		/**
+		 * Hook to run after validation.
+		 */
 		do_action( 'anva_options_page_after_validate', $clean );
 
 		// Create or update the last changed settings
-		update_option( $option_name . '_log', current_time( 'mysql' ) );
+		update_option( $this->option_id . '_last_save', current_time( 'mysql' ) );
 
 		return $clean;
 	}
 
-	/**
-	 * Display message when options have been saved.
-	 *
-	 * @since  1.0.0
-	 */
-	public function save_options_notice( $id, $desc ) {
-		add_settings_error( 'anva-options-page-errors', $id, $desc, 'updated fade' );
+	public function get_options() {
+		$options_cache = get_option( $this->option_id . '_formatted_options' );
+		if ( $options_cache ) {
+			return $options_cache;
+		}
+
+		return $this->options;
+	}
+
+	public function set_options() {
+		$options_cache = get_option( $this->option_id . '_formatted_options' );
+		if ( ! $options_cache ) {
+			update_option( $this->option_id . '_formatted_options', $this->options );
+		}
 	}
 
 	/**
-	 * Get the default values for all the theme options
-	 *
-	 * Get an array of all default values as set in
-	 * options.php. The 'id','std' and 'type' keys need
-	 * to be defined in the configuration array. In the
-	 * event that these keys are not present the option
-	 * will not be included in this function's output.
+	 * Get the default options values.
 	 *
 	 * @since  1.0.0
 	 * @return array $output
 	 *
 	 */
 	public function get_default_values() {
-		$output = array();
-		$config = anva_get_options();
+		$default_cache  = get_option( $this->default_id );
+		$default_output = array();
 
-		foreach ( (array) $config as $option ) {
+		if ( $default_cache ) {
+			return $default_cache;
+		}
+
+		foreach ( $this->get_options() as $option ) {
 			if ( ! isset( $option['id'] ) ) {
 				continue;
 			}
@@ -438,12 +501,35 @@ class Anva_Options_Page {
 			}
 
 			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
-				$output[$option['id']] = apply_filters( 'anva_sanitize_' . $option['type'], $option['std'], $option );
+				$default_output[ $option['id'] ] = apply_filters( 'anva_sanitize_' . $option['type'], $option['std'], $option );
 			}
 		}
 
-		return $output;
+		return $default_output;
 	}
+
+	/**
+	 * Set defaults options values.
+	 *
+	 * @since 1.0.0
+	 * @return array $defualt_cache
+	 */
+	public function set_defaults_values() {
+		$default_cache = get_option( $this->default_id );
+		if ( ! $default_cache ) {
+			update_option( $this->default_id, $this->get_default_values() );
+		}
+	}
+
+	/**
+	 * Display message when options have been saved.
+	 *
+	 * @since  1.0.0
+	 */
+	public function save_options_notice( $id, $desc ) {
+		add_settings_error( 'anva-options-page-errors', $id, $desc, 'updated fade' );
+	}
+
 
 	/**
 	 * Add options menu item to admin bar.

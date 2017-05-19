@@ -83,12 +83,12 @@ $classes = ' class="' . esc_attr( $classes ) . '"';
 ?>
 <section id="page-title"<?php echo $classes; ?> <?php echo $style; ?>>
 	<div class="container clearfix">
-		<h1>
+		<h1 class="page-title-heading">
 			<?php anva_the_page_title(); ?>
 		</h1>
 		<?php
 			if ( ! empty( $tagline ) ) {
-				printf( '<span>%s</span>', esc_html( $tagline ) );
+				printf( '<span class="page-title-tagline">%s</span>', esc_html( $tagline ) );
 			}
 
 			// Get post types for top navigation.

@@ -32,8 +32,9 @@
 
 @import 'config';
 @import 'core/base/typography';
-@import 'core/base/helpers';
-@import 'core/base/layouts';
+@import 'core/component/helpers';
+@import 'core/component/layouts';
+@import 'core/component/grid';
 @import 'core/module/topbar';
 @import 'core/module/header';
 @import 'core/module/sliders';
