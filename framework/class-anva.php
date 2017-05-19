@@ -255,7 +255,7 @@ class Anva {
 		add_action( 'customize_preview_init', 'anva_customize_preview_enqueue_scripts' );
 
 		// Framework Filters and Actions.
-		add_filter( 'anva_get_js_locals', 'anva_get_media_queries' );
+		add_filter( 'anva_js_locals', 'anva_get_media_queries' );
 		add_action( 'anva_api', 'anva_api_init' );
 		add_action( 'anva_before', 'anva_side_panel_default' );
 		add_action( 'anva_header_above', 'anva_top_bar_default' );

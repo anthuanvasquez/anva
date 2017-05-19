@@ -1,8 +1,8 @@
-;(function( $ ) {
+;(function() {
 
-    "use strict";
+    'use strict';
 
-    function buildUrl(url, parameters) {
+    function buildUrl( url, parameters ) {
         var qs = '',
             key;
 
@@ -20,7 +20,7 @@
         }
 
         if ( qs.length > 0 ) {
-            qs  = qs.substring( 0, qs.length - 1 ); // chop off last "&"
+            qs  = qs.substring( 0, qs.length - 1 );
             url = url + '?' + qs;
         }
 
@@ -31,51 +31,51 @@
         var url = '';
         switch ( network ) {
             case 'facebook':
-                url = buildUrl( 'http://www.facebook.com/sharer.php', {
+                url = buildUrl( 'https://www.facebook.com/sharer.php', {
                     'p[url]': button.getAttribute( 'data-url' )
                 });
 
                 button.onclick = function() {
-                    var win = window.open( url, '_blank' );
+                    var win = window.open( url, '_blank', 'width=500,height=500' );
                     win.focus();
                 };
 
                 break;
 
             case 'twitter':
-                url = buildUrl( 'http://twitter.com/intent/tweet', {
+                url = buildUrl( 'https://twitter.com/intent/tweet', {
                     'text': button.getAttribute( 'data-text' ),
                     'via': button.getAttribute( 'data-via' ),
-                    'hashtags': button.getAttribute('data-hashtags')
+                    'hashtags': button.getAttribute( 'data-hashtags' )
                 });
 
                 button.onclick = function() {
-                    var win = window.open( url, '_blank' );
+                    var win = window.open( url, '_blank', 'width=500,height=500' );
                     win.focus();
                 };
 
                 break;
 
             case 'pinterest':
-                url = buildUrl('http://www.pinterest.com/pin/create/button/', {
-                    'url': button.getAttribute('data-url'),
-                    'media': button.getAttribute('data-media'),
-                    'description': button.getAttribute('data-description')
+                url = buildUrl( 'https://www.pinterest.com/pin/create/button/', {
+                    'url': button.getAttribute( 'data-url' ),
+                    'media': button.getAttribute( 'data-media' ),
+                    'description': button.getAttribute( 'data-description' )
                 });
                 button.onclick = function() {
-                    var win = window.open(url, '_blank');
+                    var win = window.open( url, '_blank', 'width=500,height=500' );
                     win.focus();
                 };
                 break;
 
             case 'googleplus':
-                url = buildUrl('https://plus.google.com/share', {
-                    'url': button.getAttribute('data-url'),
-                    'media': button.getAttribute('data-media'),
-                    'description': button.getAttribute('data-description')
+                url = buildUrl( 'https://plus.google.com/share', {
+                    'url': button.getAttribute( 'data-url' ),
+                    'media': button.getAttribute( 'data-media' ),
+                    'description': button.getAttribute( 'data-description' )
                 });
                 button.onclick = function() {
-                    var win = window.open(url, '_blank');
+                    var win = window.open( url, '_blank', 'width=500,height=500' );
                     win.focus();
                 };
                 break;
@@ -85,9 +85,10 @@
         }
     }
 
-    var buttons = document.getElementsByClassName('si-share-button');
+    var buttons = document.getElementsByClassName( 'si-share-button' );
+    var i = 0;
 
-    for ( var i = 0; i < buttons.length; i++ ) {
+    for ( i; i < buttons.length; i++ ) {
         var item = buttons[ i ];
 
         if ( item.hasAttribute( 'data-binded' ) ) {
@@ -97,4 +98,4 @@
         item.setAttribute( 'data-binded', 'true' );
         bindButton( item.getAttribute( 'data-network' ), item );
     }
-})( jQuery );
+})();

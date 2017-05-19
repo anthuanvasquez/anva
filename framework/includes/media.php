@@ -251,8 +251,11 @@ function anva_the_post_thumbnail( $option ) {
 		return;
 	}
 
-	$thumb_align    = anva_get_option( 'single_thumb_align', 'left' );
-	$thumb_lightbox = anva_get_option( 'single_thumb_lightbox', '1' );
+	$thumbnail          = apply_filters( 'anva_single_post_thumbnail', 'anva_lg' );
+	$thumbnail_id       = get_the_ID();
+	$thumbnail_link     = get_permalink();
+	$thumbnail_align    = anva_get_option( 'single_thumb_align', 'left' );
+	$thumbnail_lightbox = anva_get_option( 'single_thumb_lightbox', '1' );
 
 	$classes  = array();
 	$lightbox = '';
@@ -262,34 +265,29 @@ function anva_the_post_thumbnail( $option ) {
 	if ( 'small' === $option ) {
 		$classes[] = 'entry-image-small';
 
-		if ( 'left' === $thumb_align ) {
+		if ( 'left' === $thumbnail_align ) {
 			$classes[] = 'alignleft';
 		}
 
-		if ( 'right' === $thumb_align ) {
+		if ( 'right' === $thumbnail_align ) {
 			$classes[] = 'alignright';
 		}
 
-		if ( 'center' === $thumb_align ) {
+		if ( 'center' === $thumbnail_align ) {
 			$classes[] = 'aligncenter';
 		}
 	}
 
-	if ( $thumb_lightbox ) {
-		$lightbox = ' data-lightbox="image"';
+	if ( $thumbnail_lightbox && is_single() ) {
+		$lightbox       = ' data-lightbox="image"';
+		$thumbnail_link = anva_get_featured_image_src( $thumbnail_id, $thumbnail );
 	}
 
 	$classes = implode( ' ', $classes );
 	$classes = ' class="' . esc_attr( $classes ) . '"';
-
-	// Get post ID.
-	$id = get_the_ID();
-
-	// Default thumbnail size on single posts.
-	$thumbnail = apply_filters( 'anva_single_post_thumbnail', 'anva_lg' );
 	?>
-	<div id="entry-image"<?php echo $classes; ?>>
-		<a href="<?php anva_the_featured_image_src( $id, $thumbnail ); ?>"<?php echo $lightbox; ?>>
+	<div id="entry-image-<?php the_ID(); ?>"<?php echo $classes; ?>>
+		<a href="<?php echo esc_url( $thumbnail_link ); ?>"<?php echo $lightbox; ?>>
 			<?php the_post_thumbnail( $thumbnail, array( 'title' => get_the_title() ) ); ?>
 		</a>
 	</div><!-- .entry-image (end) -->

@@ -21,7 +21,12 @@ if ( post_password_required() ) {
 
 ?>
 
-<?php do_action( 'anva_comments_before' ); ?>
+<?php
+	/**
+	 * Comments before not hooked by default.
+	 */
+	do_action( 'anva_comments_before' );
+?>
 
 <div id="comments" class="clearfix">
 
@@ -44,7 +49,12 @@ if ( post_password_required() ) {
 			<?php wp_list_comments( 'type=comment&callback=anva_comment_list' ); ?>
 		</ol><!-- .comment-list (end) -->
 
-		<?php do_action( 'anva_comment_pagination' ); ?>
+		<?php
+			/**
+			 * Comments pagination not hooked by default.
+			 */
+			do_action( 'anva_comment_pagination' );
+		?>
 
 	<?php endif; ?>
 
@@ -135,4 +145,9 @@ if ( post_password_required() ) {
 
 </div><!-- #comments (end) -->
 
-<?php do_action( 'anva_comments_after' ); ?>
+<?php
+	/**
+	 * Comments after not hooked by default.
+	 */
+	do_action( 'anva_comments_after' );
+?>

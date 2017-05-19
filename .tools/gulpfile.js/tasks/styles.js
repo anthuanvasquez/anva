@@ -37,7 +37,9 @@ gulp.task('sass-theme', () => {
             outputStyle: 'expanded',
             sourceComments: true
         })))
-        .pipe(plugins.if(!gutil.env.debug, plugins.sass()))
+        .pipe(plugins.if(!gutil.env.debug, plugins.sass({
+            outputStyle: 'expanded'
+        })))
         .pipe(plugins.sass(config.sass))
         .pipe(plugins.postcss(processors))
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
@@ -56,7 +58,9 @@ gulp.task('sass-core', () => {
             outputStyle: 'expanded',
             sourceComments: true
         })))
-        .pipe(plugins.if(!gutil.env.debug, plugins.sass()))
+        .pipe(plugins.if(!gutil.env.debug, plugins.sass({
+            outputStyle: 'expanded'
+        })))
         .pipe(plugins.postcss(processors))
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
@@ -74,7 +78,9 @@ gulp.task('sass-admin', () => {
             outputStyle: 'expanded',
             sourceComments: true
         })))
-        .pipe(plugins.if(!gutil.env.debug, plugins.sass()))
+        .pipe(plugins.if(!gutil.env.debug, plugins.sass({
+            outputStyle: 'expanded'
+        })))
         .pipe(plugins.postcss(processors))
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))

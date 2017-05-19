@@ -44,7 +44,7 @@
 				<i class="icon-twitter"></i>
 				<i class="icon-twitter"></i>
 			</button>
-			<button tpye="button" class="si-share-button social-icon si-borderless si-pinterest" data-network="pinterest" data-url="<?php echo esc_url( $url ); ?>" data-media="<?php echo esc_url( $thumbnail_url ); ?>" data-description="<?php echo esc_attr( $title ); ?>" title="<?php esc_html_e( 'Share on Pinterest', 'anva' ); ?>">
+			<button type="button" class="si-share-button social-icon si-borderless si-pinterest" data-network="pinterest" data-url="<?php echo esc_url( $url ); ?>" data-media="<?php echo esc_url( $thumbnail_url ); ?>" data-description="<?php echo esc_attr( $title ); ?>" title="<?php esc_html_e( 'Share on Pinterest', 'anva' ); ?>">
 				<i class="icon-pinterest"></i>
 				<i class="icon-pinterest"></i>
 			</button>

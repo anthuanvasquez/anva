@@ -514,16 +514,16 @@ function anva_page_transition_data() {
 	$data          = '';
 
 	if ( $loader ) {
-		$data .= 'data-loader="' . esc_attr( $loader ) . '"';
-		$data .= 'data-loader-color="' . esc_attr( $color ) . '"';
-		$data .= 'data-loader-timeout="' . esc_attr( $timeout ) . '"';
-		$data .= 'data-speed-in="' . esc_attr( $speed_in ) . '"';
-		$data .= 'data-speed-out="' . esc_attr( $speed_out ) . '"';
-		$data .= 'data-animation-in="' . esc_attr( $animation_in ) . '"';
-		$data .= 'data-animation-out="' . esc_attr( $animation_out ) . '"';
+		$data .= ' data-loader="' . esc_attr( $loader ) . '"';
+		$data .= ' data-loader-color="' . esc_attr( $color ) . '"';
+		$data .= ' data-loader-timeout="' . esc_attr( $timeout ) . '"';
+		$data .= ' data-speed-in="' . esc_attr( $speed_in ) . '"';
+		$data .= ' data-speed-out="' . esc_attr( $speed_out ) . '"';
+		$data .= ' data-animation-in="' . esc_attr( $animation_in ) . '"';
+		$data .= ' data-animation-out="' . esc_attr( $animation_out ) . '"';
 
 		if ( $html ) {
-			$data .= 'data-loader-html="' . $html . '"';
+			$data .= ' data-loader-html="' . $html . '"';
 		}
 	}
 

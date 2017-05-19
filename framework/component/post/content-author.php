@@ -18,12 +18,13 @@
 ?>
 <div class="author-wrap">
 	<?php
-	$post_id = get_the_ID();
-	$id      = get_post_field( 'post_author', $post_id );
-	$avatar  = get_avatar( $id, '96' );
-	$url     = get_author_posts_url( $id );
-	$name    = get_the_author_meta( 'display_name', $id );
-	$desc    = get_the_author_meta( 'description', $id );
+	$avatar_size = apply_filters( 'anva_author_avatar_size', '96' );
+	$post_id     = get_the_ID();
+	$id          = get_post_field( 'post_author', $post_id );
+	$avatar      = get_avatar( $id, $avatar_size );
+	$url         = get_author_posts_url( $id );
+	$name        = get_the_author_meta( 'display_name', $id );
+	$desc        = get_the_author_meta( 'description', $id );
 	?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -33,10 +34,10 @@
 		</div>
 		<div class="panel-body">
 			<div class="author-image">
-				<?php echo $avatar ; ?>
+				<?php echo $avatar; ?>
 			</div>
 			<div class="author-description">
-				<?php echo wpautop( esc_html( $desc ) ); ?>
+				<?php echo esc_html( $desc ); ?>
 			</div>
 		</div>
 	</div><!-- .panel (end) -->

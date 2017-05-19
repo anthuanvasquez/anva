@@ -485,8 +485,8 @@ function anva_site_branding() {
 
 				if ( ! empty( $option['image_mini'] ) ) {
 					$image_mini = $option['image_mini'];
-					$logo_mini  = 'data-sticky-logo="' . esc_url( $image_mini ) . '"';
-					$logo_mini .= 'data-mobile-logo="' . esc_url( $image_mini ) . '"';
+					$logo_mini  = ' data-sticky-logo="' . esc_url( $image_mini ) . '"';
+					$logo_mini .= ' data-mobile-logo="' . esc_url( $image_mini ) . '"';
 				}
 
 				printf(
@@ -1158,12 +1158,12 @@ function anva_slider_standard_default( $slider, $settings ) {
 	// Output
 	$html  = '';
 	$data  = '';
-	$data .= 'data-animation="' . esc_attr( $animation ) . '"';
-	$data .= 'data-thumbs="' . esc_attr( $thumbs ) . '"';
-	$data .= 'data-arrows="' . esc_attr( $arrows ) . '"';
-	$data .= 'data-speed="' . esc_attr( $speed ) . '"';
-	$data .= 'data-pause="' . esc_attr( $pause ) . '"';
-	$data .= 'data-smooth-height="true"';
+	$data .= ' data-animation="' . esc_attr( $animation ) . '"';
+	$data .= ' data-thumbs="' . esc_attr( $thumbs ) . '"';
+	$data .= ' data-arrows="' . esc_attr( $arrows ) . '"';
+	$data .= ' data-speed="' . esc_attr( $speed ) . '"';
+	$data .= ' data-pause="' . esc_attr( $pause ) . '"';
+	$data .= ' data-smooth-height="true"';
 
 	$classes[] = 'fslider';
 
@@ -1270,14 +1270,14 @@ function anva_slider_owl_default( $slider, $settings ) {
 	// Output
 	$html  = '';
 	$data  = '';
-	$data .= 'data-margin="' . esc_attr( $margin ) . '"';
-	$data .= 'data-items="' . esc_attr( $items ) . '"';
-	$data .= 'data-pagi="' . esc_attr( $pagi ) . '"';
-	$data .= 'data-loop="' . esc_attr( $loop ) . '"';
-	$data .= 'data-animate-in="' . esc_attr( $animate_in ) . '"';
-	$data .= 'data-animate-out="' . esc_attr( $animate_out ) . '"';
-	$data .= 'data-speed="' . esc_attr( $speed ) . '"';
-	$data .= 'data-autoplay="' . esc_attr( $autoplay ) . '"';
+	$data .= ' data-margin="' . esc_attr( $margin ) . '"';
+	$data .= ' data-items="' . esc_attr( $items ) . '"';
+	$data .= ' data-pagi="' . esc_attr( $pagi ) . '"';
+	$data .= ' data-loop="' . esc_attr( $loop ) . '"';
+	$data .= ' data-animate-in="' . esc_attr( $animate_in ) . '"';
+	$data .= ' data-animate-out="' . esc_attr( $animate_out ) . '"';
+	$data .= ' data-speed="' . esc_attr( $speed ) . '"';
+	$data .= ' data-autoplay="' . esc_attr( $autoplay ) . '"';
 
 	$classes[] = 'owl-carousel';
 	$classes[] = 'carousel-widget';

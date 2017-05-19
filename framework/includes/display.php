@@ -846,7 +846,7 @@ function anva_post_tags_default() {
 function anva_post_share_default() {
 	$single_share = anva_get_option( 'single_share', 'show' );
 
-	if ( 'show' != $single_share ) {
+	if ( 'show' != $single_share || ! is_single() ) {
 		return;
 	}
 
