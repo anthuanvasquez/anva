@@ -1,6 +1,6 @@
 <?php
 /**
- * The default template used posts not found.
+ * The default template used for posts not found.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised

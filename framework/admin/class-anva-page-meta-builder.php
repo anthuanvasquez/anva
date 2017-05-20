@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Page_Builder' ) ) :
+if ( ! class_exists( 'Anva_Page_Meta_Builder' ) ) :
 
 /**
  * Anva Content Builder.
@@ -11,7 +11,7 @@ if ( ! class_exists( 'Anva_Page_Builder' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Page_Builder {
+class Anva_Page_Meta_Builder {
 
 	/**
 	 * ID for meta box and post field.

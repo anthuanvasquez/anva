@@ -239,13 +239,6 @@ class Anva_Options_Page {
 	/**
 	 * Builds out the options panel.
 	 *
-	 * If we were using the Settings API as it was intended we would use
-	 * do_settings_sections here.  But as we don't want the settings wrapped in a table,
-	 * we'll call our own custom fields. See class-anva-options-interface.php
-	 * for specifics on how each individual field is generated.
-	 *
-	 * Nonces are provided using the settings_fields().
-	 *
 	 * @since  1.0.0
 	 * @return void
 	 */
@@ -367,14 +360,7 @@ class Anva_Options_Page {
 	 */
 	public function validate_options( $input ) {
 
-		/*
-		 * Restore Defaults
-		 *
-		 * In the event that the user clicked the "Restore Defaults"
-		 * button, the options defined in the theme's options.php
-		 * file will be added to the option for the active theme.
-		 *
-		 */
+		// Restore Defaults.
 		if ( isset( $_POST['reset'] ) ) {
 
 			// Reset last saved.
@@ -386,13 +372,7 @@ class Anva_Options_Page {
 			return $this->get_default_values();
 		}
 
-		/*
-		 * Update Settings
-		 *
-		 * This used to check for $_POST['update'], but has been updated
-		 * to be compatible with the theme customizer introduced in WordPress 3.4
-		 */
-
+		// Update Settings.
 		$clean = array();
 
 		foreach ( $this->get_options() as $option ) {
@@ -456,8 +436,14 @@ class Anva_Options_Page {
 		return $clean;
 	}
 
+	/**
+	 * Get defined options.
+	 *
+	 * @since  1.0.0
+	 * @return array
+	 */
 	public function get_options() {
-		$options_cache = get_option( $this->option_id . '_formatted_options' );
+		$options_cache = get_transient( $this->option_id . '_formatted_options' );
 		if ( $options_cache ) {
 			return $options_cache;
 		}
@@ -465,10 +451,15 @@ class Anva_Options_Page {
 		return $this->options;
 	}
 
+	/**
+	 * Set defined options transient.
+	 *
+	 * @since 1.0.0
+	 */
 	public function set_options() {
-		$options_cache = get_option( $this->option_id . '_formatted_options' );
+		$options_cache = get_transient( $this->option_id . '_formatted_options' );
 		if ( ! $options_cache ) {
-			update_option( $this->option_id . '_formatted_options', $this->options );
+			set_transient( $this->option_id . '_formatted_options', $this->options, 60 * 60 );
 		}
 	}
 
@@ -480,7 +471,7 @@ class Anva_Options_Page {
 	 *
 	 */
 	public function get_default_values() {
-		$default_cache  = get_option( $this->default_id );
+		$default_cache  = get_transient( $this->default_id );
 		$default_output = array();
 
 		if ( $default_cache ) {
@@ -515,9 +506,9 @@ class Anva_Options_Page {
 	 * @return array $defualt_cache
 	 */
 	public function set_defaults_values() {
-		$default_cache = get_option( $this->default_id );
+		$default_cache = get_transient( $this->default_id );
 		if ( ! $default_cache ) {
-			update_option( $this->default_id, $this->get_default_values() );
+			set_transient( $this->default_id, $this->get_default_values(), 60 * 60 );
 		}
 	}
 

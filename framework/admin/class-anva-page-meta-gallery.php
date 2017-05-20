@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Page_Gallery' ) ) :
+if ( ! class_exists( 'Anva_Page_Meta_Gallery' ) ) :
 
 /**
  * Anva Gallery.
@@ -11,7 +11,7 @@ if ( ! class_exists( 'Anva_Page_Gallery' ) ) :
  * @link        https://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Page_Gallery {
+class Anva_Page_Meta_Gallery {
 	/**
 	 * ID for meta box and post field saved.
 	 *

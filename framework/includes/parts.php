@@ -150,7 +150,7 @@ function anva_get_page_title() {
  */
 function anva_posted_on() {
 
-	// Get the time
+	// Get the time.
 	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="icon-calendar3"></i> %2$s</time>';
 
 	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
@@ -165,12 +165,12 @@ function anva_posted_on() {
 		esc_html( get_the_modified_date( 'jS F Y' ) )
 	);
 
-	// Get comments number
+	// Get comments number.
 	$num_comments = get_comments_number();
 
 	if ( comments_open() ) {
 
-		if ( $num_comments == 0 ) {
+		if ( 0 === $num_comments ) {
 			$comments = __( 'No Comments', 'anva' );
 		} elseif ( $num_comments > 1 ) {
 			$comments = $num_comments . __( ' Comments', 'anva' );
@@ -184,7 +184,7 @@ function anva_posted_on() {
 		$write_comments = __( 'Comments closed', 'anva' );
 	}
 
-	// Get post formats icon
+	// Get post formats icon.
 	$format      = get_post_format();
 	$format_icon = anva_get_post_format_icon( $format, true );
 
@@ -228,7 +228,7 @@ function anva_posted_on() {
  */
 function anva_posted_on_mini() {
 
-	// Get the time
+	// Get the time.
 	$time_string = '<time class="entry-date published" datetime="%1$s"><i class="icon-calendar3"></i> %2$s</time>';
 
 	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
@@ -243,12 +243,12 @@ function anva_posted_on_mini() {
 		esc_html( get_the_modified_date( 'jS F Y' ) )
 	);
 
-	// Get comments number
+	// Get comments number.
 	$num_comments = get_comments_number();
 
 	if ( comments_open() ) {
 
-		if ( $num_comments == 0 ) {
+		if ( 0 === $num_comments ) {
 			$comments = __( 'No Comments', 'anva' );
 		} elseif ( $num_comments > 1 ) {
 			$comments = $num_comments . ' ' . __( 'Comments', 'anva' );
@@ -262,7 +262,7 @@ function anva_posted_on_mini() {
 		$write_comments =  __( 'Comments closed', 'anva' );
 	}
 
-	// Get post formats icon
+	// Get post formats icon.
 	$format      = get_post_format();
 	$format_icon = anva_get_post_format_icon( $format, true );
 
@@ -294,12 +294,12 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 
 	$classes = array();
 
-	// Set up buttons
+	// Set up buttons.
 	if ( ! $icons ) {
 		$icons = anva_get_option( 'social_icons_profiles' );
 	}
 
-	// If buttons haven't been sanitized return nothing
+	// If buttons haven't been sanitized return nothing.
 	if ( is_array( $icons ) && isset( $icons['includes'] ) ) {
 		return;
 	}
@@ -320,64 +320,63 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 		$size = anva_get_option( 'social_icons_size', 'default' );
 	}
 
-	// Set up style
+	// Set up style.
 	if ( 'default' != $style ) {
 		$classes[] = 'si-' . $style;
 	}
 
-	// Set up shape
+	// Set up shape.
 	if ( 'default' != $shape ) {
 		$classes[] = 'si-' . $shape;
 	}
 
-	// Set up border
+	// Set up border.
 	if ( 'default' != $border ) {
 		$classes[] = 'si-' . $border;
 	}
 
-	// Set up size
+	// Set up size.
 	if ( 'default' != $size ) {
 		$classes[] = 'si-' . $size;
 	}
 
 	$classes = implode( ' ', $classes );
 
-	// Social media sources
+	// Social media sources.
 	$profiles = anva_get_social_icons_profiles();
 
-	// Start output
+	// Start output.
 	$output = '';
 
-	if ( is_array( $icons ) && ! empty ( $icons ) ) {
+	if ( is_array( $icons ) && ! empty( $icons ) ) {
 
 		foreach ( $icons as $id => $url ) {
 
-			// Link target
+			// Link target.
 			$target = '_blank';
 
-			// Link Title
+			// Link Title.
 			$title = '';
 			if ( isset( $profiles[ $id ] ) ) {
 				$title = $profiles[ $id ];
 			}
 
+			// Change Titles to URL.
+			switch ( $id ) {
+				case 'call':
+					$title = str_replace( 'tel:', '', $url );
+					break;
+				case 'email3':
+					$title = str_replace( 'mailto:', '', $url );
+					break;
+				case 'skype':
+					$title = str_replace( 'skype:', '', $url );
+					$title = str_replace( '?call', '', $title );
+					break;
+			}
+
 			// Check if position is on top bar.
 			if ( 'top-bar' == $position ) {
-
-				// Change Titles to URL
-				switch ( $id ) {
-					case 'call':
-						$title = str_replace( 'tel:', '', $url );
-						break;
-					case 'email3':
-						$title = str_replace( 'mailto:', '', $url );
-						break;
-					case 'skype':
-						$title = str_replace( 'skype:', '', $url );
-						$title = str_replace( '?call', '', $title );
-						break;
-				}
-
 				$output .= sprintf(
 					'<li><a href="%1$s" class="si-%3$s"><span class="ts-icon"><i class="icon-%3$s"></i></span><span class="ts-text">%2$s</span></a></li>',
 					( 'skype' != $id ? esc_url( $url ) : $url ),

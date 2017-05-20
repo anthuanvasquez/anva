@@ -931,6 +931,62 @@ body {
 }
 
 /* ----------------------------------------------------------------
+    More Story
+------------------------------------------------------------------*/
+
+.more-story-wrap {
+    background-color: #FFF;
+    border: 1px solid #EEE;
+    border-right: 0;
+    bottom: 0;
+    box-shadow: 0 0 15px rgba(black, 0.1);
+    padding-top: 0;
+    padding: 20px;
+    position: fixed;
+    right: -360px;
+    transition: right 0.5s ease-in-out;
+    width: 300px;
+    z-index: 1200;
+
+    &.visible {
+        right: 0;
+    }
+
+    .more-story-close {
+        background-color: transparent;
+        border: 0;
+        font-size: 16px;
+        padding: 0;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .more-story-title {
+        h4 {
+            margin-bottom: 10px;
+        }
+    }
+
+    .more-story-footer {
+        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #EEE;
+        margin-top: 20px;
+        padding: 10px 0;
+
+        .more-story-date {
+            color: #999;
+        }
+
+        .more-link {
+            border: 0;
+            color: #333;
+            float: right;
+        }
+    }
+}
+
+/* ----------------------------------------------------------------
     Comments List
 -----------------------------------------------------------------*/
 

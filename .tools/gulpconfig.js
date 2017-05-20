@@ -63,6 +63,7 @@ var vendor = [
     core + 'js/vendor/jquery.toastr.js',
     core + 'js/vendor/jquery.twitterfeed.js',
     core + 'js/vendor/jquery.validation.js',
+    core + 'js/vendor/jquery.waypoint.js',
     core + 'js/vendor/jquery.youtube.js',
     core + 'js/vendor/jRespond.js'
 ];

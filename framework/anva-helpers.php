@@ -27,9 +27,9 @@ function anva_api_init() {
 	Anva_Builder_Components::instance();
 
 	// Setup import export options.
-	Anva_Options_Import_Export::instance();
+	//Anva_Options_Import_Export::instance();
 
-	// Setup customizer API
+	// Setup customizer API.
 	$GLOBALS['_anva_customizer_sections'] = array();
 
 }
@@ -50,8 +50,8 @@ function anva_the_option( $name, $default = false ) {
  *
  * If no value has been saved, it returns $default.
  * Needed because options are saved as serialized strings.
- *
  * Based on "Options Framework" by Devin Price.
+ *
  * @link http://wptheming.com
  *
  * @since  1.0.0

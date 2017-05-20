@@ -64,6 +64,28 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 			);
 			break;
 
+		case 'split_menu_1' :
+			$args = array(
+				'theme_location'	=> apply_filters( 'anva_split_menu_location', 'split_menu_1' ),
+				'container'         => '',
+				'container_class'   => '',
+				'menu_class'		=> '',
+				'fallback_cb' 		=> false,
+				'depth' 			=> 2,
+			);
+			break;
+
+		case 'split_menu_2' :
+			$args = array(
+				'theme_location'	=> apply_filters( 'anva_split_menu_location', 'split_menu_2' ),
+				'container'         => '',
+				'container_class'   => '',
+				'menu_class'		=> '',
+				'fallback_cb' 		=> false,
+				'depth' 			=> 2,
+			);
+			break;
+
 		case 'footer' :
 			$args = array(
 				'theme_location'	=> apply_filters( 'anva_footer_menu_location', 'footer' ),
@@ -1017,7 +1039,6 @@ function anva_get_social_icons_profiles() {
 		'deviantart' 	=> 'DeviantArt',
 		'digg' 			=> 'Digg',
 		'dribbble' 		=> 'Dribbble',
-		'email3' 		=> 'Email',
 		'facebook' 		=> 'Facebook',
 		'flickr' 		=> 'Flickr',
 		'foursquare' 	=> 'Foursquare',
@@ -1036,6 +1057,7 @@ function anva_get_social_icons_profiles() {
 		'yahoo' 		=> 'Yahoo',
 		'youtube' 		=> 'YouTube',
 		'call'			=> 'Call',
+		'email3' 		=> 'Email',
 		'rss' 			=> 'RSS',
 	);
 

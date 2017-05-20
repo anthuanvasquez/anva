@@ -244,14 +244,22 @@ function anva_header_primary_menu_default() {
 		<?php endif; ?>
 
 		<?php
-			wp_nav_menu( anva_get_wp_nav_menu_args( 'primary' ) );
+			if ( 'split_menu' === $primary_menu_style ) {
 
-			/**
-			 * Hooked
-			 *
-			 * @see anva_header_primary_menu_addon_default
-			 */
-			do_action( 'anva_header_primary_menu_addon' );
+				wp_nav_menu( anva_get_wp_nav_menu_args( 'split_menu_1' ) );
+				wp_nav_menu( anva_get_wp_nav_menu_args( 'split_menu_2' ) );
+
+			} else {
+
+				wp_nav_menu( anva_get_wp_nav_menu_args( 'primary' ) );
+
+				/**
+				 * Hooked
+				 *
+				 * @see anva_header_primary_menu_addon_default
+				 */
+				do_action( 'anva_header_primary_menu_addon' );
+			}
 		?>
 
 		<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
@@ -395,7 +403,7 @@ function anva_featured_before_default() {
 	<!-- SLIDER (start) -->
 	<section id="slider" class="<?php echo esc_attr( $classes ); ?> clearfix">
 		<?php if ( 'slider-boxed' == $slider_style ) : ?>
-		<div class="container clearfix">
+			<div class="container clearfix">
 		<?php endif ?>
 	<?php
 }
@@ -416,7 +424,7 @@ function anva_featured_after_default() {
 	$slider_parallax = anva_get_option( 'slider_parallax' );
 	?>
 		<?php if ( 'slider-boxed' == $slider_style ) : ?>
-		</div><!-- .container (end) -->
+			</div><!-- .container (end) -->
 		<?php endif ?>
 	</section><!-- FEATURED (end) -->
 	<?php
@@ -900,6 +908,22 @@ function anva_post_related_default() {
 }
 
 /**
+ * Display post more stories.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function anva_post_more_stories_default() {
+	$more_story = anva_get_option( 'single_more_story' );
+
+	if ( ! $more_story ) {
+		return;
+	}
+
+	anva_get_template_part( 'post', 'more-stories' );
+}
+
+/**
  * Display posts comments default.
  *
  * @since  1.0.0
@@ -925,6 +949,22 @@ function anva_post_reading_bar() {
 	}
 
 	anva_get_template_part( 'features', 'reading-bar' );
+}
+
+/**
+ * Display breaking news posts.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function anva_breaking_news_default() {
+	$breaking_display = anva_get_option( 'breaking_display' );
+
+	if ( ! $breaking_display ) {
+		return;
+	}
+
+	anva_get_template_part( 'features', 'breaking-news' );
 }
 
 /**

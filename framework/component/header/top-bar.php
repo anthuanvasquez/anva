@@ -16,7 +16,7 @@
  */
 
 $top_bar_color  = anva_get_option( 'top_bar_color' );
-$top_bar_layout = anva_get_option( 'top_bar_layout' );
+$top_bar_layout = anva_get_option( 'top_bar_layout', 'menu_icons' );
 
 $class = '';
 if ( 'dark' === $top_bar_color ) {
@@ -26,29 +26,61 @@ if ( 'dark' === $top_bar_color ) {
 <!-- Top Bar -->
 <div id="top-bar" class="top-bar<?php echo esc_attr( $class ); ?>">
 	<div class="container clearfix">
+		<?php
+		switch ( $top_bar_layout ) :
+			case 'menu_icons':
+			?>
+				<!-- Top Links -->
+				<div class="col_half nobottommargin">
+					<nav id="top-bar-menu" class="top-links">
+						<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
+					</nav><!-- .top-links (end) -->
+				</div>
 
-		<!-- Top Links -->
-		<div class="col_half nobottommargin">
-			<nav id="top-bar-menu" class="top-links">
-				<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
-			</nav><!-- .top-links (end) -->
-		</div>
+				<!-- Top Social -->
+				<div class="col_half fright col_last nobottommargin">
+					<div id="top-social" class="top-social">
+						<ul>
+							<?php
+								$style    = '';
+								$shape    = '';
+								$border   = '';
+								$size     = '';
+								$position = 'top-bar';
+								anva_social_icons( $style, $shape, $border, $size, $position );
+							?>
+						</ul>
+					</div><!-- #top-social (end) -->
+				</div>
+				<?php
+				break;
 
-		<!-- Top Social -->
-		<div class="col_half fright col_last nobottommargin">
-			<div id="top-social" class="top-social">
-				<ul>
-					<?php
-						$style    = '';
-						$shape    = '';
-						$border   = '';
-						$size     = '';
-						$position = 'top-bar';
-						anva_social_icons( $style, $shape, $border, $size, $position );
-					?>
-				</ul>
-			</div><!-- #top-social (end) -->
-		</div>
+			case 'icons_menu':
+			?>
+				<!-- Top Social -->
+				<div class="col_half nobottommargin">
+					<div id="top-social" class="top-social">
+						<ul>
+							<?php
+								$style    = '';
+								$shape    = '';
+								$border   = '';
+								$size     = '';
+								$position = 'top-bar';
+								anva_social_icons( $style, $shape, $border, $size, $position );
+							?>
+						</ul>
+					</div><!-- #top-social (end) -->
+				</div>
 
+				<!-- Top Links -->
+				<div class="col_half fright col_last nobottommargin">
+					<nav id="top-bar-menu" class="top-links">
+						<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
+					</nav><!-- .top-links (end) -->
+				</div>
+				<?php break;
+		endswitch;
+		?>
 	</div>
 </div><!-- #top-bar (end) -->

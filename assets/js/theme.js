@@ -53,6 +53,26 @@
     }
 
     // --------------------------------------------------
+    // More Stories
+    // --------------------------------------------------
+
+    var moreStory = $( '#more-story' );
+
+    if ( moreStory.length > 0 ) {
+        $( '#wrapper' ).waypoint(
+            function( direction ) {
+                moreStory.toggleClass( 'visible' );
+            }, {
+                offset: Waypoint.viewportHeight() - $( '#wrapper' ).height() + 100
+            }
+        );
+
+        $( '.more-story-wrap .more-story-close' ).on( 'click', function() {
+            $( this ).parent().css( 'right', '-360px' );
+        });
+    }
+
+    // --------------------------------------------------
     // Instant Search Feature
     // --------------------------------------------------
 

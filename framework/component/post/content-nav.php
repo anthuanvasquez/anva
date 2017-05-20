@@ -19,8 +19,8 @@
 <div class="post-navigation-wrapp">
 	<?php
 	// Don't print empty markup if there's nowhere to navigate.
-	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
-	$next = get_adjacent_post( false, '', false );
+	$previous = get_previous_post();
+	$next = get_next_post();
 
 	if ( ! $next && ! $previous ) {
 		return;

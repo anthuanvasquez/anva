@@ -129,16 +129,16 @@ class Anva {
 		// Admin files.
 		if ( is_admin() ) {
 
-			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-page.php' );
-			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-import-export.php' );
-			include_once( self::$framework_dir_path . 'admin/options/class-anva-options-media-uploader.php' );
-			include_once( self::$framework_dir_path . 'admin/options/anva-options-ui-types.php' );
-			include_once( self::$framework_dir_path . 'admin/options/anva-options-ui.php' );
-			include_once( self::$framework_dir_path . 'admin/options/anva-options-ui-sanitization.php' );
+			include_once( self::$framework_dir_path . 'admin/class-anva-options-page.php' );
+			include_once( self::$framework_dir_path . 'admin/class-anva-options-import-export.php' );
+			include_once( self::$framework_dir_path . 'admin/class-anva-options-media-uploader.php' );
 			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-builder.php' );
 			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-gallery.php' );
 			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-box.php' );
 			include_once( self::$framework_dir_path . 'admin/class-anva-page-welcome.php' );
+			include_once( self::$framework_dir_path . 'admin/anva-options-ui-types.php' );
+			include_once( self::$framework_dir_path . 'admin/anva-options-ui.php' );
+			include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/general.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
 			include_once( self::$framework_dir_path . 'admin/includes/display.php' );
@@ -147,13 +147,11 @@ class Anva {
 			include_once( self::$framework_dir_path . 'admin/plugins/anva-tgm.php' );
 			include_once( self::$framework_dir_path . 'admin/updates/anva-updates.php' );
 
-		} else {
-
-			// Used in both sides admin and front.
-			include_once( self::$framework_dir_path . 'admin/options/anva-options-sanitization.php' );
-			include_once( self::$framework_dir_path . 'admin/includes/general.php' );
-
 		}
+
+		// Used in both sides admin and front.
+		include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
+		include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
 
 		// Helpers classes and functions.
 		include_once( self::$framework_dir_path . 'class-anva-options.php' );
@@ -212,6 +210,7 @@ class Anva {
 			add_action( 'anva_post_single_below', 'anva_post_nav_default' );
 			add_action( 'anva_post_single_below', 'anva_post_author_default' );
 			add_action( 'anva_post_single_below', 'anva_post_related_default' );
+			add_action( 'anva_post_single_below', 'anva_post_more_stories_default' );
 		}
 
 		// Init filters.
@@ -258,6 +257,7 @@ class Anva {
 		add_filter( 'anva_js_locals', 'anva_get_media_queries' );
 		add_action( 'anva_api', 'anva_api_init' );
 		add_action( 'anva_before', 'anva_side_panel_default' );
+		add_action( 'anva_header_above', 'anva_breaking_news_default' );
 		add_action( 'anva_header_above', 'anva_top_bar_default' );
 		add_action( 'anva_header_above', 'anva_sidebar_above_header' );
 		add_action( 'anva_header', 'anva_header_default' );

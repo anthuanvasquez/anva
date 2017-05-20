@@ -14,7 +14,7 @@
  * @link         https://anthuanvasquez.net
  * @package      AnvaFramework
  */
-class Anva_Welcome_Screen {
+class Anva_Page_Welcome {
 
 	/**
 	 * A single instance of this class.
@@ -176,4 +176,4 @@ class Anva_Welcome_Screen {
 	}
 }
 
-Anva_Welcome_Screen::instance();
+Anva_Page_Welcome::instance();

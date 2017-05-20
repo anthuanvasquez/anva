@@ -761,6 +761,35 @@ body:not(.device-sm):not(.device-xs):not(.device-xxs) #primary-menu.style-2.cent
     padding-bottom: 22px;
 }
 
+/* Primary Menu - Split Menu
+-----------------------------------------------------------------*/
+
+@media (min-width: 992px) {
+
+    #header.split-menu #logo {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        float: none;
+        height: 100px;
+    }
+
+    #header.split-menu #logo a.standard-logo { display: inline-block; }
+
+}
+
+#header.split-menu #primary-menu {
+    float: none;
+    margin: 0;
+}
+
+#header.split-menu #primary-menu > ul { z-index: 199; }
+
+#header.split-menu #primary-menu > ul:first-child { float: left; }
+
+#header.split-menu #primary-menu > ul:last-child { float: right; }
+
 
 /* Primary Menu - Overlay Menu
 -----------------------------------------------------------------*/

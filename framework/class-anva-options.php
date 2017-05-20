@@ -379,6 +379,17 @@ class Anva_Options {
 							'hide' => __( 'Hide the post reading bar', 'anva' ),
 						)
 					),
+					'single_more_story' => array(
+						'name' => __( 'Show More Stories', 'anva' ),
+						'desc' => __( 'Select to display the more stories.', 'anva' ),
+						'id' => 'single_more_story',
+						'std' => 'hide',
+						'type' => 'select',
+						'options' => array(
+							'show' => __( 'Show the more story box', 'anva' ),
+							'hide' => __( 'Hide the more story box', 'anva' ),
+						)
+					),
 				)
 			),
 			'primary' => array(

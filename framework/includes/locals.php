@@ -1,4 +1,9 @@
 <?php
+/**
+ * Localizations functions.
+ *
+ * @package AnvaFramework
+ */
 
 /**
  * Get all theme locals (not admin).
@@ -20,6 +25,8 @@ function anva_get_text_locals() {
 		'menu_primary'         => __( 'Primary Menu', 'anva' ),
 		'menu_top_bar'         => __( 'Top Bar Links', 'anva' ),
 		'menu_side_panel'      => __( 'Side Panel Menu', 'anva' ),
+		'menu_split_1'         => __( 'Split Menu Left', 'anva' ),
+		'menu_split_2'         => __( 'Split Menu Right', 'anva' ),
 		'menu_footer'          => __( 'Footer Copyright Links', 'anva' ),
 		'menu_message'         => __( 'Setup a custom menu at Appearance > Menus in your admin panel, and apply it to the "Primary Menu" location.', 'anva' ),
 		'404_title'            => __( 'Whoops! page not found', 'anva' ),
@@ -28,7 +35,7 @@ function anva_get_text_locals() {
 		'not_found'            => __( 'No posts found', 'anva' ),
 		'not_found_content'    => __( 'No posts found.', 'anva' ),
 		'read_more'            => __( 'Read more', 'anva' ),
-		'read_more_about'      => __( 'about an interesting article to read', 'anva'),
+		'read_more_about'      => __( 'about an interesting article to read', 'anva' ),
 		'prev'                 => __( 'Previous', 'anva' ),
 		'next'                 => __( 'Next', 'anva' ),
 		'comment_prev'         => __( 'Previous Comments', 'anva' ),
@@ -153,7 +160,7 @@ function anva_get_local( $id ) {
 		$text = $localize[ $id ];
 	}
 
-	// Sanitize the output
+	// Sanitize the output.
 	return esc_html( $text );
 }
 

@@ -50,10 +50,12 @@ function anva_require_theme_supports() {
  */
 function anva_register_menus() {
 	register_nav_menus( array(
-		'primary'    => anva_get_local( 'menu_primary' ),
-		'top_bar'    => anva_get_local( 'menu_top_bar' ),
-		'side_panel' => anva_get_local( 'menu_side_panel' ),
-		'footer'     => anva_get_local( 'menu_footer' ),
+		'primary'      => anva_get_local( 'menu_primary' ),
+		'top_bar'      => anva_get_local( 'menu_top_bar' ),
+		'side_panel'   => anva_get_local( 'menu_side_panel' ),
+		'split_menu_1' => anva_get_local( 'menu_split_1' ),
+		'split_menu_2' => anva_get_local( 'menu_split_2' ),
+		'footer'       => anva_get_local( 'menu_footer' ),
 	) );
 }
 
@@ -508,6 +510,14 @@ function anva_get_primary_menu_styles() {
 				'menu' => ''
 			),
 		),
+		'style_2' => array(
+			'name' => __( 'Menu aligns beside the logo', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'style-2'
+			),
+		),
 		'style_3' => array(
 			'name' => __( 'Menu items with background color', 'anva' ),
 			'classes' => array(
@@ -524,14 +534,6 @@ function anva_get_primary_menu_styles() {
 				'menu' => 'style-4'
 			),
 		),
-		'style_6' => array(
-			'name' => __( 'Menu items with a top animating border', 'anva' ),
-			'classes' => array(
-				'body' => '',
-				'header' => '',
-				'menu' => 'style-6'
-			),
-		),
 		'style_5' => array(
 			'name' => __( 'Menu items with large icons on top', 'anva' ),
 			'classes' => array(
@@ -540,20 +542,12 @@ function anva_get_primary_menu_styles() {
 				'menu' => 'style-5'
 			),
 		),
-		'sub_title' => array(
-			'name' => __( 'Menu items with sub titles', 'anva' ),
+		'style_6' => array(
+			'name' => __( 'Menu items with a top animating border', 'anva' ),
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => 'sub-title'
-			),
-		),
-		'style_2' => array(
-			'name' => __( 'Menu aligns beside the logo', 'anva' ),
-			'classes' => array(
-				'body' => '',
-				'header' => '',
-				'menu' => 'style-2'
+				'menu' => 'style-6'
 			),
 		),
 		'style_7' => array(
@@ -578,6 +572,22 @@ function anva_get_primary_menu_styles() {
 				'body' => 'overlay-menu',
 				'header' => '',
 				'menu' => ''
+			),
+		),
+		'sub_title' => array(
+			'name' => __( 'Menu items with sub titles', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => '',
+				'menu' => 'sub-title'
+			),
+		),
+		'split_menu' => array(
+			'name' => __( 'Split Menu', 'anva' ),
+			'classes' => array(
+				'body' => '',
+				'header' => 'split-menu',
+				'menu' => 'with-arrows'
 			),
 		),
 	);

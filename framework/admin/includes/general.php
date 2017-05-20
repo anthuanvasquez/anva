@@ -47,37 +47,3 @@ function anva_admin_assets() {
 	wp_enqueue_style( 'anva_admin_global', ANVA_FRAMEWORK_ADMIN_CSS . 'admin.css', array(), Anva::get_version() );
 
 }
-
-/**
- * Get options page menu settings.
- *
- * @since  1.0.0
- * @return array $options_page
- */
-function anva_get_options_page_menu() {
-	$options_page = new Anva_Options_Page;
-	return $options_page->menu_settings();
-}
-
-/**
- * Get default options.
- *
- * @since  1.0.0
- * @return array Default Options
- */
-function anva_get_option_defaults() {
-	$options_page = new Anva_Options_Page;
-	return $options_page->get_default_values();
-}
-
-/**
- * Register a new meta box.
- *
- * @param string $id      The meabox id.
- * @param array  $args    The metabox page arguments.
- * @param array  $options The metabox fileds options.
- * @since 1.0.0
- */
-function anva_add_meta_box( $id, $args, $options ) {
-	new Anva_Page_Meta_Box( $id, $args, $options );
-}
