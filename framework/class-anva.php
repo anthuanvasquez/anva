@@ -89,11 +89,46 @@ class Anva {
 		// Setup framework constants.
 		$this->set_constants();
 
+		// Autolder classes.
+		spl_autoload_register( array( $this, 'autoloader' ) );
+
 		// Setup framework files.
 		$this->set_core_files();
 
 		// Setup hooks and filters.
 		$this->set_core_hooks();
+
+		// Setup API hooks.
+		$this->set_init();
+	}
+
+	/**
+	 * Autoloads files when requested.
+	 *
+	 * @since 1.0.0
+	 * @param string $class_name Name of the class being requested.
+	 */
+	function autoloader( $class_name ) {
+
+		// If the class being requested does not start with our prefix
+		// we know it's not one in our project.
+		if ( 0 !== strpos( $class_name, 'Anva' ) ) {
+			return;
+		}
+
+		$file_name = 'class-' . str_replace(
+			array( 'Anva_', '_' ),
+			array( '', '-' ),
+			strtolower( $class_name )
+		);
+
+		// Compile our path from the current location.
+		$file = self::$framework_dir_path . $file_name . '.php';
+
+		// If a file is found then load it up!.
+		if ( file_exists( $file ) ) {
+			include_once( $file );
+		}
 	}
 
 	/**
@@ -127,39 +162,18 @@ class Anva {
 	public function set_core_files() {
 
 		// Admin files.
-		if ( is_admin() ) {
-
-			include_once( self::$framework_dir_path . 'admin/class-anva-options-page.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-options-import-export.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-options-media-uploader.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-builder.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-gallery.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-page-meta-box.php' );
-			include_once( self::$framework_dir_path . 'admin/class-anva-page-welcome.php' );
-			include_once( self::$framework_dir_path . 'admin/anva-options-ui-types.php' );
-			include_once( self::$framework_dir_path . 'admin/anva-options-ui.php' );
-			include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
-			include_once( self::$framework_dir_path . 'admin/includes/general.php' );
-			include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
-			include_once( self::$framework_dir_path . 'admin/includes/display.php' );
-			include_once( self::$framework_dir_path . 'admin/includes/meta.php' );
-			include_once( self::$framework_dir_path . 'admin/includes/locals.php' );
-			include_once( self::$framework_dir_path . 'admin/plugins/anva-tgm.php' );
-			include_once( self::$framework_dir_path . 'admin/updates/anva-updates.php' );
-
-		}
-
-		// Used in both sides admin and front.
+		include_once( self::$framework_dir_path . 'admin/anva-options-ui-types.php' );
+		include_once( self::$framework_dir_path . 'admin/anva-options-ui.php' );
 		include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
+		include_once( self::$framework_dir_path . 'admin/includes/general.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
+		include_once( self::$framework_dir_path . 'admin/includes/display.php' );
+		include_once( self::$framework_dir_path . 'admin/includes/meta.php' );
+		include_once( self::$framework_dir_path . 'admin/includes/locals.php' );
 
-		// Helpers classes and functions.
-		include_once( self::$framework_dir_path . 'class-anva-options.php' );
-		include_once( self::$framework_dir_path . 'class-anva-sidebars.php' );
-		include_once( self::$framework_dir_path . 'class-anva-styles.php' );
-		include_once( self::$framework_dir_path . 'class-anva-scripts.php' );
-		include_once( self::$framework_dir_path . 'class-anva-sliders.php' );
-		include_once( self::$framework_dir_path . 'class-anva-builder-components.php' );
+		// Helpers classes functions.
+		include_once( self::$framework_dir_path . 'anva-tgm.php' );
+		include_once( self::$framework_dir_path . 'anva-updates.php' );
 		include_once( self::$framework_dir_path . 'anva-helpers.php' );
 
 		// General functions.
@@ -190,15 +204,16 @@ class Anva {
 		if ( is_admin() ) {
 			add_action( 'after_setup_theme', 'anva_plugins' );
 			add_action( 'after_setup_theme', 'anva_envato_updates' );
+			add_action( 'after_setup_theme', 'anva_admin_menu_init', 1001 );
 			add_action( 'init', 'anva_admin_init', 1 );
 			add_action( 'admin_init', 'anva_add_meta_boxes_default' );
 			add_action( 'admin_init', 'anva_add_sanitization' );
 			add_action( 'admin_enqueue_scripts', 'anva_admin_assets', 20 );
 			add_action( 'admin_notices', 'anva_admin_theme_activate' );
-			add_action( 'anva_options_page_top', 'anva_admin_check_settings' );
-			add_action( 'anva_options_page_after_fields', 'anva_admin_footer_credits' );
-			add_action( 'anva_options_page_after_fields', 'anva_admin_footer_links' );
-			add_action( 'anva_options_page_before', 'anva_admin_add_settings_change', 10 );
+			add_action( 'anva_page_options_top', 'anva_admin_check_settings' );
+			add_action( 'anva_page_options_before', 'anva_admin_add_settings_change', 10 );
+			add_action( 'anva_page_options_after_fields', 'anva_admin_footer_credits' );
+			add_action( 'anva_page_options_after_fields', 'anva_admin_footer_links' );
 		}
 
 		if ( ! is_admin() ) {
@@ -230,6 +245,8 @@ class Anva {
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'wp_link_pages_args', 'anva_link_pages_args' );
 		add_filter( 'wp_link_pages_link', 'anva_link_pages_link', 10, 2 );
+		add_filter( 'walker_nav_menu_start_el', 'anva_nav_menu_start_el', 10, 4 );
+		add_filter( 'nav_menu_item_id', 'anva_nav_menu_item_id', 10, 4 );
 
 		// Init actions.
 		add_action( 'after_setup_theme', 'anva_content_width', 0 );
@@ -254,8 +271,8 @@ class Anva {
 		add_action( 'customize_preview_init', 'anva_customize_preview_enqueue_scripts' );
 
 		// Framework Filters and Actions.
+		add_action( 'anva_init', 'anva_init_api' );
 		add_filter( 'anva_js_locals', 'anva_get_media_queries' );
-		add_action( 'anva_api', 'anva_api_init' );
 		add_action( 'anva_before', 'anva_side_panel_default' );
 		add_action( 'anva_header_above', 'anva_breaking_news_default' );
 		add_action( 'anva_header_above', 'anva_top_bar_default' );
@@ -293,9 +310,14 @@ class Anva {
 		add_action( 'anva_slider_swiper', 'anva_slider_swiper_default', 9, 2 );
 		add_action( 'anva_slider_camera', 'anva_slider_camera_default', 9, 2 );
 
-		// Initialize API.
-		do_action( 'anva_api_before' );
-		do_action( 'anva_api' );
+	}
+
+	/**
+	 * Initialize API Options.
+	 */
+	public function set_init() {
+		do_action( 'anva_init_before' );
+		do_action( 'anva_init' );
 	}
 
 	/**

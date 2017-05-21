@@ -12,7 +12,7 @@
  * @return array $options_page
  */
 function anva_get_options_page_menu() {
-	$options_page = new Anva_Options_Page;
+	$options_page = new Anva_Page_Options;
 	return $options_page->menu_settings();
 }
 
@@ -23,7 +23,7 @@ function anva_get_options_page_menu() {
  * @return array Default Options
  */
 function anva_get_options_defaults() {
-	$options_page = new Anva_Options_Page;
+	$options_page = new Anva_Page_Options;
 	return $options_page->get_default_values();
 }
 

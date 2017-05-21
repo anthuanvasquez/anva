@@ -287,8 +287,7 @@ function theme_add_theme_support() {
 	add_editor_style( '/assets/css/editor-style.css' );
 
 	// Framework support features.
-	//add_theme_support( 'anva-login' );
-	add_theme_support( 'anva-menu' );
+	// add_theme_support( 'anva-login' );
 	add_theme_support( 'anva-instant-search' );
 	add_theme_support( 'anva-woocommerce' );
 }

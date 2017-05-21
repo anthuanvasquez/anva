@@ -21,7 +21,7 @@
  * @since  1.0.0
  * @return void
  */
-function anva_options() {
+function anva_theme_options() {
 
 	// Assets.
 	$skin_path = trailingslashit( get_template_directory_uri() . '/assets/images/skins' );
@@ -1025,4 +1025,4 @@ function anva_options() {
 	anva_add_option_section( 'advanced', 'main', __( 'Main', 'anva' ), NULL, $advanced['main'], false );
 
 }
-add_action( 'after_setup_theme', 'anva_options', 9 );
+add_action( 'after_setup_theme', 'anva_theme_options', 9 );

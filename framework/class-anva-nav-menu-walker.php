@@ -6,35 +6,35 @@
  *
  * @since 1.0.0
  */
-class Anva_Main_Menu_Walker extends Walker_Nav_Menu {
+class Anva_Nav_Menu_Walker extends Walker_Nav_Menu {
 
 	/**
 	 * Mega menu activation.
 	 *
 	 * @var boolean
 	 */
-	private $doing_mega     = false;
+	private $doing_mega = false;
 
 	/**
 	 * Mega menu columns.
 	 *
 	 * @var string
 	 */
-	private $mega_col       = '';
+	private $mega_col = '';
 
 	/**
 	 * Count.
 	 *
 	 * @var integer
 	 */
-	private $count          = 0;
+	private $count = 0;
 
 	/**
 	 * Show mega menu headers.
 	 *
 	 * @var boolean
 	 */
-	private $show_headers   = false;
+	private $show_headers = false;
 
 	/**
 	 * Current header.

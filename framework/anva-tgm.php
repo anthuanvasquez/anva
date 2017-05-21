@@ -1,18 +1,8 @@
 <?php
 /**
- * The template file for 404's.
+ * Register required plugins.
  *
- * WARNING: This template file is a core part of the
- * Anva WordPress Framework. It is advised
- * that any edits to the way this file displays its
- * content be done with via hooks, filters, and
- * template parts.
- *
- * @version      1.0.0
- * @author       Anthuan Vásquez
- * @copyright    Copyright (c) Anthuan Vásquez
- * @link         https://anthuanvasquez.net
- * @package      AnvaFramework
+ * @package AnvaFramework
  */
 
 /**
@@ -22,7 +12,7 @@
  */
 function anva_plugins() {
 
-	if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
+	if ( is_admin() && ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		include_once ANVA_FRAMEWORK_ADMIN . 'plugins/class-tgm-plugin-activation.php';
 		add_action( 'tgmpa_register', 'anva_register_required_plugins' );
 	}
@@ -36,7 +26,7 @@ function anva_plugins() {
  */
 function anva_register_required_plugins() {
 
-	// Required Plugins
+	// Required Plugins.
 	$plugins = array(
 		array(
 			'name'               => 'Anva Post Types',
@@ -75,7 +65,7 @@ function anva_register_required_plugins() {
 
 	$name = anva_get_option_name() . '_plugins';
 
-	// Plugins Config
+	// Plugins Config.
 	$config = array(
 		'id'             => 'anva',   // Unique ID for hashing notices for multiple instances of TGMPA.
 		'default_path'   => '',       // Default absolute path to bundled plugins.

@@ -55,7 +55,7 @@ class Anva_Page_Meta_Builder {
 	 * @since 1.0.0
 	 */
 	public function __construct( $id, $args, $options ) {
-		if ( current_user_can( anva_admin_module_cap( 'builder' ) ) ) {
+		if ( is_admin() && current_user_can( anva_admin_module_cap( 'builder' ) ) ) {
 
 			global $post;
 

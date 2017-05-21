@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Init framework's API.
+ * Framework's API.
  *
  * @since  1.0.0
  * @return void
  */
-function anva_api_init() {
+function anva_init_api() {
 
 	// Setup Framework Core Options.
 	Anva_Options::instance();
@@ -27,7 +27,7 @@ function anva_api_init() {
 	Anva_Builder_Components::instance();
 
 	// Setup import export options.
-	//Anva_Options_Import_Export::instance();
+	Anva_Options_Import_Export::instance();
 
 	// Setup customizer API.
 	$GLOBALS['_anva_customizer_sections'] = array();
@@ -35,11 +35,11 @@ function anva_api_init() {
 }
 
 /**
- * This is for print theme option value.
+ * Print theme option value.
  *
  * @since 1.0.0
- * @param string               $name
- * @param string|array|boolean $default
+ * @param string  $name
+ * @param boolean $default
  */
 function anva_the_option( $name, $default = false ) {
 	echo anva_get_option( $name, $default );
@@ -98,8 +98,13 @@ function anva_get_formatted_options() {
 	return $api->get_formatted_options();
 }
 
+/**
+ * Print option name.
+ *
+ * @since 1.0.0
+ */
 function anva_the_option_name() {
-	echo anva_get_option_name();
+	echo esc_html( anva_get_option_name() );
 }
 
 /**

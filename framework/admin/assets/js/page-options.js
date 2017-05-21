@@ -22,11 +22,15 @@ jQuery( document ).ready( function( $ ) {
 			// CSS
 			var mode        = $('#code_editor_mode').val(),
 			    code_editor = document.querySelector('.anva-code-editor'),
-			    editor      = CodeMirror.fromTextArea( code_editor, {
-				mode: mode,
-        		theme: 'mdn-like',
-        		lineNumbers: true
-			});
+                editor      = '';
+
+            if (code_editor) {
+                editor      = CodeMirror.fromTextArea( code_editor, {
+                    mode: mode,
+                    theme: 'mdn-like',
+                    lineNumbers: true
+                });
+            }
 
 			// Reset Button
 			$(document).on( 'click', '.reset-button', function(e) {

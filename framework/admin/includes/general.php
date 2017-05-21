@@ -13,12 +13,24 @@
  */
 function anva_admin_init() {
 
+	// Welcome screen.
+	Anva_Page_Welcome::instance();
+
 	// Instantiate the options page.
-	Anva_Options_Page::instance();
+	Anva_Page_Options::instance();
 
 	// Instantiate the media uploader class.
 	Anva_Options_Media_Uploader::instance();
 
+}
+
+/**
+ * Initialize the Anva_Menu_Options instance.
+ *
+ * @since 1.0.0
+ */
+function anva_admin_menu_init() {
+	Anva_Nav_Menu_Options::get_instance();
 }
 
 /**

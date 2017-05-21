@@ -669,6 +669,7 @@ class Anva_Options {
 				'sections' => array(),
 				'icon'     => $icon,
 			);
+
 			$this->raw_options = array_merge( $new_options, $this->raw_options );
 
 		} else {
@@ -757,8 +758,6 @@ class Anva_Options {
 	 * Add option
 	 */
 	public function add_option( $tab_id, $section_id, $option_id, $option ) {
-
-
 
 		if ( ! isset( $this->raw_options[$tab_id] ) ) {
 			return;

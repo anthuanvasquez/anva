@@ -175,5 +175,3 @@ class Anva_Page_Welcome {
 		remove_submenu_page( 'index.php', $this->id );
 	}
 }
-
-Anva_Page_Welcome::instance();

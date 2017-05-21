@@ -66,20 +66,22 @@ class Anva_Options_Import_Export {
 	 * Constructor.
 	 */
 	public function __construct() {
-		// Get theme option name.
-		$option_name = anva_get_option_name();
+		if ( is_admin() ) {
+			// Get theme option name.
+			$option_name = anva_get_option_name();
 
-		// Set option name key.
-		$this->option_id = $option_name;
+			// Set option name key.
+			$this->option_id = $option_name;
 
-		// Get options from database.
-		$this->options = get_option( $option_name );
+			// Get options from database.
+			$this->options = get_option( $option_name );
 
-		add_filter( 'anva_option_type', array( $this, 'import_option' ), 10, 4 );
-		add_filter( 'anva_option_type', array( $this, 'export_option' ), 10, 4 );
-		add_action( 'after_setup_theme', array( $this, 'add_options' ) );
-		add_action( 'admin_init', array( $this, 'import_settings' ) );
-		add_action( 'appearance_page_' . $option_name, array( $this, 'add_save_notice' ) );
+			add_filter( 'anva_option_type', array( $this, 'import_option' ), 10, 4 );
+			add_filter( 'anva_option_type', array( $this, 'export_option' ), 10, 4 );
+			add_action( 'after_setup_theme', array( $this, 'add_options' ) );
+			add_action( 'admin_init', array( $this, 'import_settings' ) );
+			add_action( 'appearance_page_' . $option_name, array( $this, 'add_save_notice' ) );
+		}
 	}
 
 	/**

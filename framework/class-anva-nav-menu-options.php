@@ -8,7 +8,7 @@
  * @link        http://themeblvd.com
  * @package     Theme Blvd WordPress Framework
  */
-class Anva_Menu_Options {
+class Anva_Nav_Menu_Options {
 
     /*--------------------------------------------*/
     /* Properties, private

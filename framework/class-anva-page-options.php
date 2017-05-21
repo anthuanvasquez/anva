@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Anva_Options_Page' ) ) :
+if ( ! class_exists( 'Anva_Page_Options' ) ) :
 
 /**
  * Create the options page panel.
@@ -11,7 +11,7 @@ if ( ! class_exists( 'Anva_Options_Page' ) ) :
  * @link        http://anthuanvasquez.net
  * @package     Anva WordPress Framework
  */
-class Anva_Options_Page {
+class Anva_Page_Options {
 
 	/**
 	 * A single instance of this class.
@@ -53,6 +53,15 @@ class Anva_Options_Page {
 	 * @var string
 	 */
 	protected $default_id = '';
+
+	/**
+	 * Enable or disable the cache for options.
+	 *
+	 * @since 1.0.0
+	 * @var boolean
+	 */
+	private $cache = false;
+
 	/**
 	 * If sanitization has run yet or not when saving
 	 * options.
@@ -97,7 +106,7 @@ class Anva_Options_Page {
 			if ( $this->options ) {
 
 				// Add the options page and menu item.
-				add_action( 'admin_menu', array( $this, 'add_custom_options_page' ) );
+				add_action( 'admin_menu', array( $this, 'add_custom_page_options' ) );
 
 				// Add the required scripts and styles.
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ), 10 );
@@ -125,7 +134,7 @@ class Anva_Options_Page {
 		global $pagenow;
 
 		// Registers the settings fields and callback.
-		register_setting( 'anva_options_page_settings', $this->option_id, array( $this, 'validate_options' ) );
+		register_setting( 'anva_page_options_settings', $this->option_id, array( $this, 'validate_options' ) );
 
 		// Register formatted options for cache settings.
 		$this->set_options();
@@ -153,7 +162,7 @@ class Anva_Options_Page {
 			'position' 		=> '61',
 		);
 
-		return apply_filters( 'anva_options_page_menu', $menu );
+		return apply_filters( 'anva_page_options_menu', $menu );
 	}
 
 	/**
@@ -161,7 +170,7 @@ class Anva_Options_Page {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_custom_options_page() {
+	public function add_custom_page_options() {
 		$menu = $this->menu_settings();
 
 		$this->options_screen = add_theme_page(
@@ -169,7 +178,7 @@ class Anva_Options_Page {
 			$menu['menu_title'],
 			$menu['capability'],
 			$menu['menu_slug'],
-			array( $this, 'options_page' )
+			array( $this, 'page_options' )
 		);
 	}
 
@@ -233,7 +242,7 @@ class Anva_Options_Page {
 		/**
 		 * Admin custom scripts not hooked by default.
 		 */
-		do_action( 'anva_options_page_custom_scripts' );
+		do_action( 'anva_page_options_custom_scripts' );
 	}
 
 	/**
@@ -242,7 +251,7 @@ class Anva_Options_Page {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function options_page() {
+	public function page_options() {
 	?>
 		<div id="anva-framework-wrap" class="anva-framework-wrap wrap">
 
@@ -262,7 +271,7 @@ class Anva_Options_Page {
 				 *
 				 * @see anva_admin_check_settings
 				 */
-				do_action( 'anva_options_page_top' );
+				do_action( 'anva_page_options_top' );
 			?>
 
 			<?php settings_errors( 'anva-options-page-errors', false, false ); ?>
@@ -277,7 +286,7 @@ class Anva_Options_Page {
 				 *
 				 * @see anva_admin_add_settings_change
 				 */
-				do_action( 'anva_options_page_before' );
+				do_action( 'anva_page_options_before' );
 			?>
 
 			<div id="anva-framework-metabox" class="anva-framework-metabox metabox-holder">
@@ -286,7 +295,7 @@ class Anva_Options_Page {
 						<div class="columns-1">
 							<input type="hidden" id="option_name" value="<?php echo anva_get_option_name(); ?>" >
 							<?php
-								settings_fields( 'anva_options_page_settings' );
+								settings_fields( 'anva_page_options_settings' );
 
 								// Fields UI.
 								anva_get_options_fields( $this->option_id, get_option( $this->option_id ), $this->get_options() );
@@ -296,7 +305,7 @@ class Anva_Options_Page {
 								 *
 								 * @see anva_admin_footer_credits, anva_admin_footer_links
 								 */
-								do_action( 'anva_options_page_after_fields' );
+								do_action( 'anva_page_options_after_fields' );
 							?>
 						</div><!-- .columns-1 (end) -->
 
@@ -306,7 +315,7 @@ class Anva_Options_Page {
 									/**
 									 * Admin page side before not hooked by default.
 									 */
-									do_action( 'anva_options_page_side_before' );
+									do_action( 'anva_page_options_side_before' );
 								?>
 								<div id="anva-framework-submit" class="postbox">
 									<h3>
@@ -328,7 +337,7 @@ class Anva_Options_Page {
 									/**
 									 * Admin page side after not hooked by default.
 									 */
-									do_action( 'anva_options_page_side_after' );
+									do_action( 'anva_page_options_side_after' );
 								?>
 							</div>
 						</div><!-- .columns-2 (end) -->
@@ -340,7 +349,7 @@ class Anva_Options_Page {
 				/**
 				 * Admin page after not hooked by default.
 				 */
-				do_action( 'anva_options_page_after' );
+				do_action( 'anva_page_options_after' );
 			?>
 		</div><!-- #anva-framework-wrap (end) -->
 	<?php
@@ -428,7 +437,7 @@ class Anva_Options_Page {
 		/**
 		 * Hook to run after validation.
 		 */
-		do_action( 'anva_options_page_after_validate', $clean );
+		do_action( 'anva_page_options_after_validate', $clean );
 
 		// Create or update the last changed settings
 		update_option( $this->option_id . '_last_save', current_time( 'mysql' ) );
@@ -444,7 +453,7 @@ class Anva_Options_Page {
 	 */
 	public function get_options() {
 		$options_cache = get_transient( $this->option_id . '_formatted_options' );
-		if ( $options_cache ) {
+		if ( $options_cache && $this->cache ) {
 			return $options_cache;
 		}
 
@@ -458,7 +467,7 @@ class Anva_Options_Page {
 	 */
 	public function set_options() {
 		$options_cache = get_transient( $this->option_id . '_formatted_options' );
-		if ( ! $options_cache ) {
+		if ( ! $options_cache && $this->cache ) {
 			set_transient( $this->option_id . '_formatted_options', $this->options, 60 * 60 );
 		}
 	}
@@ -474,7 +483,7 @@ class Anva_Options_Page {
 		$default_cache  = get_transient( $this->default_id );
 		$default_output = array();
 
-		if ( $default_cache ) {
+		if ( $default_cache && $this->cache ) {
 			return $default_cache;
 		}
 
@@ -507,7 +516,7 @@ class Anva_Options_Page {
 	 */
 	public function set_defaults_values() {
 		$default_cache = get_transient( $this->default_id );
-		if ( ! $default_cache ) {
+		if ( ! $default_cache && $this->cache ) {
 			set_transient( $this->default_id, $this->get_default_values(), 60 * 60 );
 		}
 	}
@@ -545,10 +554,10 @@ class Anva_Options_Page {
 			'parent' => 'appearance',
 			'id'     => 'anva_theme_options',
 			'title'  => $menu['menu_title'],
-			'href'   => $href
+			'href'   => $href,
 		);
 
-		$wp_admin_bar->add_menu( apply_filters( 'anva_options_page_admin_bar', $args ) );
+		$wp_admin_bar->add_menu( apply_filters( 'anva_page_options_admin_bar', $args ) );
 	}
 
 }
