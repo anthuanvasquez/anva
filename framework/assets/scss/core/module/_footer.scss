@@ -123,23 +123,24 @@
     li {
         display: inline-block;
 
+        &:after {
+            content: " / ";
+            margin: 0 3px;
+        }
+
         &:last-child {
-            a:after {
+            &:after {
                 content: none;
+                margin: 0;
             }
         }
     }
 
     a {
-        display: inline-block;
-        margin: 0 3px;
-        color: #333;
         border-bottom: 1px dotted #444;
-
-        &:after {
-            content: " / ";
-            border-bottom: 0;
-        }
+        color: #333;
+        display: inline-block;
+        margin: 0;
 
         &:hover {
             color: #555;

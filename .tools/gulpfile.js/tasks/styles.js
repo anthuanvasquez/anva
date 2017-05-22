@@ -46,7 +46,7 @@ gulp.task('sass-theme', () => {
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.theme.dest))
-        .pipe(plugins.logger({ afterEach: ' SASS Compiled!' }))
+        .pipe(plugins.logger({ afterEach: ' SASS Theme Compiled!' }))
         .pipe(browsersync.stream());
 });
 
@@ -66,7 +66,7 @@ gulp.task('sass-core', () => {
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.core.dest))
-        .pipe(plugins.logger({ afterEach: ' SASS Compiled!' }))
+        .pipe(plugins.logger({ afterEach: ' SASS Core Compiled!' }))
         .pipe(browsersync.stream());
 });
 
@@ -86,7 +86,7 @@ gulp.task('sass-admin', () => {
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
         .pipe(gulp.dest(config.admin.dest))
-        .pipe(plugins.logger({ afterEach: ' SASS Compiled!' }))
+        .pipe(plugins.logger({ afterEach: ' SASS Admin Compiled!' }))
         .pipe(browsersync.stream());
 });
 
@@ -99,7 +99,7 @@ gulp.task('css-minify-theme', () => {
         .pipe(plugins.changed(config.minify.theme.dest))
         .pipe(gulp.dest(config.minify.theme.dest))
         .pipe(plugins.logger({
-            afterEach : ' - CSS Minify finished'
+            afterEach : ' - CSS Theme Minify Finished!'
         }));
 });
 
@@ -112,7 +112,7 @@ gulp.task('css-minify-core', () => {
         .pipe(plugins.changed(config.minify.core.dest))
         .pipe(gulp.dest(config.minify.core.dest))
         .pipe(plugins.logger({
-            afterEach : ' - CSS Minify finished'
+            afterEach : ' - CSS Minify Core Finished!'
         }));
 });
 
@@ -125,7 +125,7 @@ gulp.task('css-minify-admin', () => {
         .pipe(plugins.changed(config.minify.admin.dest))
         .pipe(gulp.dest(config.minify.admin.dest))
         .pipe(plugins.logger({
-            afterEach : ' - CSS Minify finished'
+            afterEach : ' - CSS Minify Admin Finished!'
         }));
 });
 

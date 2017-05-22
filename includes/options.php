@@ -600,7 +600,7 @@ function anva_theme_options() {
 				'id' => 'custom_css',
 				'std' => '',
 				'type' => 'code',
-				'mode' => 'css', // CSS Code
+				'mode' => 'css',
 			),
 			'custom_css_stylesheet' => array(
 				'name' => NULL,

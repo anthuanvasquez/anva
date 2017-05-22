@@ -26,19 +26,19 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 	switch ( $location ) {
 		case 'primary' :
 			$args = array(
-				'theme_location'  => apply_filters( 'anva_primary_menu_location', 'primary' ),
-				'container'       => '',
-				'container_class' => '',
-				'container_id'    => '',
-				'menu_class'      => '',
-				'menu_id'         => '',
-				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-				'fallback_cb'     => 'anva_primary_menu_fallback',
+				'theme_location'    => apply_filters( 'anva_primary_menu_location', 'primary' ),
+				'container'         => '',
+				'container_class'   => '',
+				'container_id'      => '',
+				'menu_class'        => '',
+				'menu_id'           => '',
+				'items_wrap'        => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+				'fallback_cb'       => 'anva_primary_menu_fallback',
 			);
 
 			// Add walker to primary menu if mega menu support.
-			if ( class_exists( 'Anva_Main_Menu_Walker' ) ) {
-				$args['walker'] = new Anva_Main_Menu_Walker();
+			if ( class_exists( 'Anva_Nav_Menu_Walker' ) ) {
+				$args['walker'] = new Anva_Nav_Menu_Walker();
 			}
 
 			break;
@@ -186,10 +186,10 @@ function anva_browser_class( $classes ) {
 		return $classes;
 	}
 
-	// Get current user agent
+	// Get current user agent.
 	$browser = $_SERVER['HTTP_USER_AGENT'];
 
-	// OS class
+	// OS classes.
 	if ( preg_match( "/Mac/", $browser ) ) {
 		$classes[] = 'mac';
 	} else if ( preg_match( "/Windows/", $browser ) ) {
@@ -200,7 +200,7 @@ function anva_browser_class( $classes ) {
 		$classes[] = 'unknown-os';
 	}
 
-	// Browser class
+	// Browser classes.
 	if ( preg_match( "/Chrome/", $browser ) ) {
 		$classes[] = 'chrome';
 	} else if ( preg_match( "/Safari/", $browser ) ) {
@@ -226,6 +226,8 @@ function anva_browser_class( $classes ) {
 			$classes[] = 'ie11';
 		}
 
+	} else if ( preg_match( "/Windows NT 10/i", $browser ) && preg_match( "/Edge/i", $browser ) ) {
+		$classes[] = 'edge';
 	} else if ( preg_match( "/Firefox/", $browser ) && preg_match( "/Gecko/", $browser ) ) {
 		$classes[] = 'firefox';
 	} else {
@@ -366,7 +368,7 @@ function anva_get_header_class( $class = '' ) {
 * @param string|array $class
 */
 function anva_primary_menu_class( $class = '' ) {
-	echo 'class="' . join( ' ', anva_get_primary_menu_class( $class ) ) . '"';
+	echo 'class="primary-menu ' . join( ' ', anva_get_primary_menu_class( $class ) ) . '"';
 }
 
 /**
@@ -1128,7 +1130,15 @@ function anva_compress( $buffer ) {
  */
 function anva_get_template_part( $slug = 'post', $name = 'content' ) {
 
-	$components = apply_filters( 'anva_components_list', array( 'page', 'post', 'header', 'footer', 'features' ) );
+	$components = apply_filters( 'anva_components_list', array(
+		'page',
+		'post',
+		'header',
+		'footer',
+		'navigation',
+		'features',
+	) );
+
 	$path = apply_filters( 'anva_components_path', trailingslashit( 'framework/component' ) );
 
 

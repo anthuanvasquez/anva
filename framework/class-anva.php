@@ -110,8 +110,7 @@ class Anva {
 	 */
 	function autoloader( $class_name ) {
 
-		// If the class being requested does not start with our prefix
-		// we know it's not one in our project.
+		// If the class being requested does not start with our prefix.
 		if ( 0 !== strpos( $class_name, 'Anva' ) ) {
 			return;
 		}

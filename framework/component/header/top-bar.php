@@ -32,9 +32,7 @@ if ( 'dark' === $top_bar_color ) {
 			?>
 				<!-- Top Links -->
 				<div class="col_half nobottommargin">
-					<nav id="top-bar-menu" class="top-links">
-						<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
-					</nav><!-- .top-links (end) -->
+					<?php anva_get_template_part( 'navigation', 'top-bar-menu' );  ?>
 				</div>
 
 				<!-- Top Social -->
@@ -75,9 +73,7 @@ if ( 'dark' === $top_bar_color ) {
 
 				<!-- Top Links -->
 				<div class="col_half fright col_last nobottommargin">
-					<nav id="top-bar-menu" class="top-links">
-						<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) );  ?>
-					</nav><!-- .top-links (end) -->
+					<?php anva_get_template_part( 'navigation', 'top-bar-menu' );  ?>
 				</div>
 				<?php break;
 		endswitch;

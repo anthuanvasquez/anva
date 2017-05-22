@@ -847,13 +847,14 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
 
 			case 'code':
 				$val = stripslashes( $val );
-				$output .= '<div class="anva-textarea-wrap">';
+				$id  = $value['id'];
+				$output .= '<div class="anva-textarea-wrap anva-code-editor-wrap">';
 				$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags) . '</div>';
 				if ( isset( $value['mode'] ) ) {
 					$mode = $value['mode'];
-					$output .= '<input id="code_editor_mode" type="hidden" value="'.esc_html( $mode ).'" />';
+					$output .= '<input id="code_editor_mode_' . $id . '" class="anva-code-editor-mode" type="hidden" value="' . esc_html( $mode ) . '" />';
 				}
-				$output .= '<textarea id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-code-editor" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '">' . $val . '</textarea>';
+				$output .= '<textarea id="' . esc_attr( $id ) . '" class="anva-input anva-code-editor" name="' . esc_attr( $option_name . '[' . $id . ']' ) . '">' . $val . '</textarea>';
 				$output .= '</div><!-- .anva-textarea-wrap (end) -->';
 				break;
 

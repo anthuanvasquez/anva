@@ -891,7 +891,7 @@
   .product:not(.product-2):not(.product-3) .product-title h3 {
     font-size: 18px;
   }
-  .pricing [class^=col-md-] .pricing-box.best-price {
+  .pricing [class^="col-md-"] .pricing-box.best-price {
     margin-top: 0;
   }
   .pricing.pricing-5 .pricing-box.best-price {

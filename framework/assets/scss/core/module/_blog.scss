@@ -602,6 +602,7 @@ body {
         }
     }
 }
+
 .entry {
     &.entry-date-section {
         width: 100% !important;
@@ -722,6 +723,7 @@ body {
         }
     }
 }
+
 .more-link {
     display: inline-block;
     border-bottom: 1px solid $theme-color;
@@ -912,6 +914,7 @@ body {
     width: 84px;
     height: 84px;
     margin-right: 15px;
+
     img {
         width: 84px;
         height: 84px;
@@ -921,6 +924,7 @@ body {
 .author-description {
     overflow: hidden;
     position: relative;
+
     p:last-child {
         margin-bottom: 0;
     }
@@ -1004,28 +1008,35 @@ body {
     border-bottom: 1px solid #EEE;
     ul {
         list-style: none;
+
         &:first-child {
             margin-top: 0;
         }
+
         .comment-wrap {
             margin-left: 25px;
             padding-left: 20px;
         }
     }
+
     li {
         position: relative;
         margin: 30px 0 0 30px;
+
         .children {
             margin-top: 0;
         }
+
         li {
             .children {
                 margin-left: 30px;
             }
         }
+
         .comment-content {
             padding: 0 0 0 15px;
         }
+
         .comment-meta {
             float: left;
             margin-right: 0;
@@ -1052,10 +1063,12 @@ body {
     .commentlist {
         padding-bottom: 30px;
         margin: 0 0 20px;
+
         li {
             margin-top: 20px;
         }
     }
+
     .comment-wrap {
         border: 0;
         padding: 10px 0 0 35px;
@@ -1071,10 +1084,10 @@ body {
 }
 
 .comment-wrap {
-    position: relative;
     border: 1px solid #E5E5E5;
     @include border-radius(5px);
     padding: 20px 20px 20px 35px;
+    position: relative;
 }
 
 .commentlist > li,
@@ -1089,6 +1102,7 @@ body {
 .pingback {
     position: relative;
     overflow: hidden;
+
     p {
         margin: 20px 0 0 0;
     }
@@ -1122,6 +1136,7 @@ body {
     background: #FFF;
     border: 1px solid #E5E5E5;
     @include border-radius(50%);
+
     img {
         display: block;
         @include border-radius(50%);
@@ -1134,6 +1149,7 @@ body {
             .comment-avatar {
                 left: -25px;
             }
+
             .comment-wrap {
                 padding-left: 45px;
             }
@@ -1147,25 +1163,30 @@ body {
         font-size: 16px;
         font-weight: bold;
         color: #555;
+
         a {
             border: none;
             color: #333;
+
             &:hover {
                 color: $theme-color;
             }
         }
+
         span {
             display: block;
+
             &:hover {
                 color: #888;
             }
-        }
-        span a {
-            font-size: 12px;
-            font-weight: normal;
-            font-family: $secondary-font;
-            font-style: italic;
-            color: #AAA;
+
+            a {
+                font-size: 12px;
+                font-weight: normal;
+                font-family: $secondary-font;
+                font-style: italic;
+                color: #AAA;
+            }
         }
     }
 }
@@ -1205,6 +1226,7 @@ body {
 #respond form {
     margin-bottom: 0;
 }
+
 .commentlist {
     li {
         #respond {
@@ -1217,6 +1239,7 @@ body {
         }
     }
 }
+
 #respond {
     p {
         margin: 10px 0 0 0;
@@ -1224,16 +1247,19 @@ body {
             margin-top: 0;
         }
     }
+
     label {
         small {
             color: #999;
             font-weight: normal;
         }
     }
+
     input[type="text"],
     textarea {
         margin-bottom: 0;
     }
+
     .col_one_third,
     .col_full {
         margin-bottom: 20px;
@@ -1320,7 +1346,6 @@ body {
 .gallery-columns-10,
 .gallery-columns-11,
 .gallery-columns-12 {
-
     .gallery-item {
         padding: 0 1.1400652%;
     }
@@ -1384,6 +1409,7 @@ div {
     margin: 10px 20px 13px 20px;
     font-family: $caption-font;
     font-style: italic;
+
     img,
     img a {
         display: block;
@@ -1429,7 +1455,7 @@ figcaption.wp-caption-text {
     overflow: hidden;
 
     &:focus {
-        background-color: #f1f1f1;
+        background-color: #F1F1F1;
         border-radius: 3px;
         box-shadow: 0 0 2px 2px rgba(black, 0.6);
         clip: auto !important;
@@ -1445,6 +1471,6 @@ figcaption.wp-caption-text {
         text-decoration: none;
         top: 5px;
         width: auto;
-        z-index: 100000; /* Above WP toolbar. */
+        z-index: 100000;
     }
 }

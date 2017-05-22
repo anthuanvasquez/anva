@@ -18,19 +18,17 @@ jQuery( document ).ready( function( $ ) {
 		},
 
 		extras: function() {
-
-			// CSS
-			var mode        = $('#code_editor_mode').val(),
-			    code_editor = document.querySelector('.anva-code-editor'),
-                editor      = '';
-
-            if (code_editor) {
-                editor      = CodeMirror.fromTextArea( code_editor, {
-                    mode: mode,
+            // Code Editor
+			var codeEditor = $('.anva-code-editor-wrap');
+            codeEditor.each(function() {
+                var codeEditorText = $(this).find('.anva-code-editor'),
+                    codeEditorMode = $(this).find('.anva-code-editor-mode').val();
+                codeEditorText.codemirror({
+                    mode: codeEditorMode,
                     theme: 'mdn-like',
                     lineNumbers: true
                 });
-            }
+            });
 
 			// Reset Button
 			$(document).on( 'click', '.reset-button', function(e) {
@@ -126,16 +124,10 @@ jQuery( document ).ready( function( $ ) {
                     postbox  = collapse.closest('.postbox');
 
 				if ( postbox.hasClass('collapse-close') ) {
-
-					// Show content
 					postbox.removeClass('collapse-close');
-
-					// Store data
 					if ( typeof( localStorage ) !== 'undefined' ) {
 						localStorage.removeItem('anva-section-' + postbox.attr('id'));
 					}
-
-					// Refresh any code editor options
 					postbox.find('.section-css').each(function() {
 						var editor = $(this).find('textarea').data('CodeMirrorInstance');
 						if ( editor ) {
@@ -143,10 +135,7 @@ jQuery( document ).ready( function( $ ) {
 						}
 					});
 				} else {
-					// Hide content
 					postbox.addClass('collapse-close');
-
-					// Store data
 					if ( typeof( localStorage ) !== 'undefined' ) {
 						localStorage.setItem('anva-section-' + postbox.attr('id'), true);
 					}

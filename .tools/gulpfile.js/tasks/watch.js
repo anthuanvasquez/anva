@@ -6,7 +6,7 @@ var gulp        = require('gulp'),
 
 // Watch (BrowserSync version): build stuff when source files
 // are modified, let BrowserSync figure out when to reload
-gulp.task('watch', function() {
+gulp.task('watch', () => {
     gulp.watch(config.src.theme, ['sass-theme']);
     gulp.watch(config.src.core, ['sass-core']);
     gulp.watch(config.src.admin, ['sass-admin']);

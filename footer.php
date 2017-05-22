@@ -42,7 +42,7 @@
 		$class        = '';
 
 		if ( $footer_color ) {
-			$class = 'class="' . esc_attr( $footer_color ) . '"';
+			$class = 'class="footer ' . esc_attr( $footer_color ) . '"';
 		}
 	?>
 

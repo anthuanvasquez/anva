@@ -25,9 +25,8 @@ $display          = anva_get_option( 'footer_extra_display' );
 			<div class="copyright-text">
 				<?php echo anva_kses( $footer_copyright ); ?>
 			</div>
-			<nav id="footer-menu" class="copyright-links">
-				<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'footer' ) ); ?>
-			</nav>
+
+			<?php anva_get_template_part( 'navigation', 'footer-menu' ); ?>
 		</div>
 
 		<div class="col_half col_last tright">

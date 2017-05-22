@@ -162,7 +162,7 @@ function anva_header_default() {
 				?>
 			</div><!-- .container (end) -->
 
-			<div id="header-wrap">
+			<div id="header-wrap" class="header-wrap">
 				<?php
 					/**
 					 * Hooked
@@ -177,7 +177,7 @@ function anva_header_default() {
 
 		default:
 			?>
-			<div id="header-wrap">
+			<div id="header-wrap" class="header-wrap">
 				<div class="container clearfix">
 					<div id="primary-menu-trigger">
 						<i class="icon-reorder"></i>
@@ -246,12 +246,11 @@ function anva_header_primary_menu_default() {
 		<?php
 			if ( 'split_menu' === $primary_menu_style ) {
 
-				wp_nav_menu( anva_get_wp_nav_menu_args( 'split_menu_1' ) );
-				wp_nav_menu( anva_get_wp_nav_menu_args( 'split_menu_2' ) );
+				anva_get_template_part( 'navigation', 'split-menu' );
 
 			} else {
 
-				wp_nav_menu( anva_get_wp_nav_menu_args( 'primary' ) );
+				anva_get_template_part( 'navigation', 'primary-menu' );
 
 				/**
 				 * Hooked

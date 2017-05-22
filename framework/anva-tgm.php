@@ -12,7 +12,12 @@
  */
 function anva_plugins() {
 
-	if ( is_admin() && ! class_exists( 'TGM_Plugin_Activation' ) ) {
+	// Return early if not in the admin.
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		include_once ANVA_FRAMEWORK_ADMIN . 'plugins/class-tgm-plugin-activation.php';
 		add_action( 'tgmpa_register', 'anva_register_required_plugins' );
 	}

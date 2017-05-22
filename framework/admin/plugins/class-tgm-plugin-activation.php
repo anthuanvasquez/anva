@@ -1,4 +1,9 @@
 <?php
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Plugin installation and activation for WordPress themes.
  *

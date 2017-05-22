@@ -7,19 +7,24 @@
  */
 function anva_envato_updates() {
 
+	// Return early if not in the admin.
+	if ( ! is_admin() ) {
+		return;
+	}
+
 	global $_envato_updates;
 
-	// Admin page
+	// Include update classes.
+	if ( ! class_exists( 'Envato_Protected_API' ) ) {
+		include_once( ANVA_FRAMEWORK_ADMIN . 'updates/class-envato-protected-api.php' );
+	}
+
+	if ( ! class_exists( 'Anva_Envato_Updates' ) ) {
+		include_once( ANVA_FRAMEWORK_ADMIN  . 'updates/class-anva-envato-updates.php' );
+	}
+
+	// Admin page.
 	if ( is_admin() && current_user_can( anva_admin_module_cap( 'updates' ) ) ) {
-
-		// Include update classes.
-		if ( ! class_exists( 'Envato_Protected_API' ) ) {
-			include_once( ANVA_FRAMEWORK_ADMIN . 'updates/class-envato-protected-api.php' );
-		}
-
-		if ( ! class_exists( 'Anva_Envato_Updates' ) ) {
-			include_once( ANVA_FRAMEWORK_ADMIN  . 'updates/class-anva-envato-updates.php' );
-		}
 
 		// Options to display on page.
 		$update_options = array(
@@ -63,9 +68,9 @@ function anva_envato_updates() {
 
 	// Setup arguments for Anva_Envato_Updates class based on user-configured options.
 	$settings = array(
-		'username' 	 => anva_get_option( 'username' ),
-		'api' 		 => anva_get_option( 'api' ),
-		'backup'	 => anva_get_option( 'backup' ),
+		'username' => anva_get_option( 'username' ),
+		'api'      => anva_get_option( 'api' ),
+		'backup'   => anva_get_option( 'backup' ),
 	);
 
 	$username = '';
@@ -87,7 +92,7 @@ function anva_envato_updates() {
 	$args = array(
 		'envato_username' => $username,
 		'envato_api_key'  => $api_key,
-		'backup'          => $backup
+		'backup'          => $backup,
 	);
 
 	$args = apply_filters( 'anva_envato_update_args', $args );

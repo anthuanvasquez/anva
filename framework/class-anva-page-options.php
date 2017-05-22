@@ -221,6 +221,7 @@ class Anva_Page_Options {
 		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.js', array( 'jquery' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
+		wp_enqueue_script( 'jquery-codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery.codemirror.js', array( 'jquery', 'codemirror_mode_js' ), Anva::get_version(), true );
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.js', array( 'jquery' ), '4.0.1', true );
 		wp_enqueue_script( 'jquery-selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
 		wp_enqueue_script( 'jquery-ui-slider' );
