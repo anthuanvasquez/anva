@@ -35,3 +35,18 @@
         }
     }
 }
+
+.sweet-alert {
+    p {
+        span {
+            color: #bbb;
+            font-size: 14px;
+            display: block;
+        }
+    }
+
+    button {
+        background-color: #008ec2;
+        border: 1px solid #006799;
+    }
+}

@@ -6,6 +6,58 @@
  */
 
 /**
+ * Print generated tabs.
+ *
+ * @since 1.0.0
+ * @param array $options Global formatted options.
+ */
+function anva_the_options_tabs( $options ) {
+	echo anva_get_options_tabs( $options );
+}
+
+/**
+ * Get generated tabs.
+ *
+ * @since 1.0.0
+ * @param array $options Global formatted options.
+ */
+function anva_get_options_tabs( $options ) {
+	$tabs = Anva_Options_UI::instance();
+	return $tabs->get_tabs( $options );
+}
+
+/**
+ * Print generated options fields.
+ *
+ * @see anva_get_options_fields
+ *
+ * @since  1.0.0
+ * @param  string $option_name
+ * @param  array  $settings
+ * @param  array  $options
+ * @return string $output
+ */
+function anva_the_options_fields( $option_name, $settings, $options, $prefix = '' ) {
+	anva_get_options_fields( $option_name, $settings, $options, $prefix );
+}
+
+/**
+ * Get generated options fields.
+ *
+ * @see anva_get_options_fields
+ *
+ * @since  1.0.0
+ * @param  string $option_name
+ * @param  array  $settings
+ * @param  array  $options
+ * @return string $output
+ */
+function anva_get_options_fields( $option_name, $settings, $options, $prefix = '' ) {
+	$fields = Anva_Options_UI::instance();
+	return $fields->get_fields( $option_name, $settings, $options, $prefix );
+}
+
+/**
  * Get options page menu settings.
  *
  * @since  1.0.0

@@ -41,10 +41,19 @@ function anva_admin_theme_activate() {
  * @since 1.0.0
  */
 function anva_admin_check_settings() {
-	$option_name = anva_get_option_name();
-	if ( ! get_option( $option_name ) ) {
-		printf( '<div class="error fade settings-error notice is-dismissible"><p>%s</p></div>', __( 'Options don\'t exists in the database. Please configure and save your theme options page.', 'anva' ) );
+	if ( ! get_option( anva_get_option_name() ) ) {
+		printf( '<div class="error fade settings-error notice is-dismissible"><p>%s</p></div>', esc_html__( 'Options don\'t exists in the database. Please configure and save your theme options page.', 'anva' ) );
 	}
+}
+
+function anva_admin_random_messages() {
+	$messages = array(
+		__( 'Enjoy!', 'anva' ),
+		__( 'Great go and see your website!', 'anva' ),
+		__( 'You always can import old settings!', 'anva' ),
+	);
+
+	return $messages[ rand( 0, count( $messages ) - 1 ) ];
 }
 
 /**
@@ -56,15 +65,17 @@ function anva_admin_check_settings() {
 function anva_add_settings_flash() {
 	if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true ) : ?>
 		<script type="text/javascript">
-		window.onload = function() {
+		(function() {
 			swal({
 				title: "<?php echo esc_js( __( 'Done!', 'anva' ) ); ?>",
-				text: "<?php echo esc_js( __( 'Options has been updated successfully!', 'anva' ) ); ?>",
+				text: "<?php echo sprintf( '%s <span>%s</span>', __( 'Options successfully updated!', 'anva' ), anva_admin_random_messages() ); ?>",
 				type: "success",
-				timer: 2000,
-				showConfirmButton: false
+				timer: 5000,
+				confirmButtonColor: "#008ec2",
+				showConfirmButton: true,
+				html: true
 			});
-		};
+		})();
 		</script>
 	<?php endif;
 }
@@ -75,7 +86,7 @@ function anva_add_settings_flash() {
  * @since 1.0.0
  */
 function anva_admin_add_settings_change() {
-	printf( '<div id="anva-options-change" class="anva-options-change section-info">%s</div>', __( 'Settings has changed.', 'anva' ) );
+	printf( '<div id="anva-options-change" class="anva-options-change section-info">%s</div>', esc_html__( 'Settings has changed.', 'anva' ) );
 }
 
 /**

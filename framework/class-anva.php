@@ -162,7 +162,6 @@ class Anva {
 
 		// Admin files.
 		include_once( self::$framework_dir_path . 'admin/anva-options-ui-types.php' );
-		include_once( self::$framework_dir_path . 'admin/anva-options-ui.php' );
 		include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/general.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
@@ -211,6 +210,7 @@ class Anva {
 			add_action( 'admin_notices', 'anva_admin_theme_activate' );
 			add_action( 'anva_page_options_top', 'anva_admin_check_settings' );
 			add_action( 'anva_page_options_before', 'anva_admin_add_settings_change', 10 );
+			add_action( 'anva_page_options_before', 'anva_add_settings_flash', 10 );
 			add_action( 'anva_page_options_after_fields', 'anva_admin_footer_credits' );
 			add_action( 'anva_page_options_after_fields', 'anva_admin_footer_links' );
 		}

@@ -174,7 +174,11 @@ class Anva_Page_Meta_Builder {
 				foreach ( $items as $item_id => $item ) {
 					if ( ! empty( $item ) ) {
 						$data = $settings[ $item ]['data'];
-						$output .= "$('#" . esc_js( $item ) . "').data( 'anva_builder_settings', '" . addslashes( $data ) . "' );\n";
+						$output .= sprintf(
+							'$( "#%1$s" ).data( "anva_builder_settings", "%2$s" );',
+							esc_js( $item ),
+							addslashes( $data )
+						);
 					}
 				}
 
@@ -238,9 +242,7 @@ class Anva_Page_Meta_Builder {
 
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( $this->id, $this->id . '_nonce' );
-
 		?>
-
 		<input type="hidden" id="anva_post_id" name="anva_post_id" value="<?php echo esc_attr( $post->ID ); ?>" />
 		<input type="hidden" id="anva_builder_id" name="anva_builder_id" value="<?php echo esc_attr( $this->id ); ?>" />
 		<input type="hidden" id="anva_shortcode" name="anva_shortcode" value="" />
@@ -251,21 +253,11 @@ class Anva_Page_Meta_Builder {
 
 		<div id="anva-framework" class="anva-framework">
 			<div class="anva-builder-wrap">
-
-				<div class="anva-tooltip-info-html hidden">
-					<h3><?php _e( 'Quick Info', 'anva' ); ?></h3>
-					<p><?php _e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
-				</div>
-
-				<a href="#" class="anva-tooltip-info">
-					<span class="dashicons dashicons-info"></span>
-				</a>
-
 				<div class="anva-builder-elements-wrap">
 					<ul class="builder-elements">
 						<?php foreach ( $this->options as $element_id => $element ) : ?>
 							<?php if ( isset( $element['icon'] ) && ! empty( $element['icon'] ) ) : ?>
-								<li>
+								<li class="builder-item">
 									<?php
 										printf(
 											'<div class="tooltip element-shortcode" data-element="%1$s" data-title="%2$s" title="%4$s"><img class="icon-thumbnail" src="%3$s" alt="%2$s" /><span class="icon-title">%2$s</span></div>',
@@ -284,36 +276,43 @@ class Anva_Page_Meta_Builder {
 				<div class="anva-builder-actions-wrap">
 					<div class="anva-builder-action">
 						<div class="anva-backup-container">
+							<a href="#" class="anva-tooltip-info">
+								<span class="dashicons dashicons-info"></span>
+							</a>
+							<div class="anva-tooltip-info-html hidden">
+								<h3><?php esc_html_e( 'Quick Info', 'anva' ); ?></h3>
+								<p><?php esc_html_e( 'Select below the item you want to display and click "+ Add Item", it will add inline form for selected element once you finish customizing click "Apply" button. You can Drag & Drop each items to re order them.', 'anva' ); ?></p>
+							</div>
 							<a href="#" class="button button-toggle">
-								<?php _e( 'Template', 'anva' ); ?>
+								<?php esc_html_e( 'Template', 'anva' ); ?>
 							</a>
 							<div class="anva-backup-inner">
 								<span class="anva-arrow"></span>
 								<div class="anva-export-wrap">
 									<input type="hidden" id="anva-export" name="anva_export" />
-									<input type="submit" class="button button-primary button-export" value="<?php _e( 'Export', 'anva' ); ?>" />
+									<input type="submit" class="button button-primary button-export" value="<?php esc_html_e( 'Export', 'anva' ); ?>" />
 								</div>
 								<div class="anva-import-wrap">
 									<input type="hidden" id="anva-import" name="anva_import" />
-									<input type="submit" class="button button-secondary button-import" value="<?php _e( 'Import', 'anva' ); ?>" />
+									<input type="submit" class="button button-secondary button-import" value="<?php esc_html_e( 'Import', 'anva' ); ?>" />
 									<input type="file" id="anva-import-file" name="anva_import_file" />
 								</div>
 							</div>
 						</div>
 
 						<a hef="#" id="add-builder-row" class="button">
-							<?php _e( 'Add Row', 'anva' ); ?>
+							<?php esc_html_e( 'Add Row', 'anva' ); ?>
 						</a>
 						<a id="remove-all-items" class="button button-secondary button-remove-all">
-							<?php _e( 'Remove All Items', 'anva' ); ?>
+							<?php esc_html_e( 'Remove All Items', 'anva' ); ?>
 						</a>
 						<a id="add-builder-item" class="button button-primary button-add-item">
-							<?php _e( 'Add New Item', 'anva' ); ?>
+							<?php esc_html_e( 'Add New Item', 'anva' ); ?>
 						</a>
 					</div>
 				</div><!-- .anva-builder-actions-wrap (end) -->
 
-				<ul id="builder-sortable-items" class="builder-sortable-items sortable-items <?php echo $empty; ?>" data-text="<?php _e( 'Drag items here or Click on Add New Item', 'anva' ); ?>">
+				<ul id="builder-sortable-items" class="builder-sortable-items sortable-items <?php echo $empty; ?>" data-text="<?php esc_html_e( 'Drag items here or Click on Add New Item', 'anva' ); ?>">
 					<?php
 						if ( isset( $items[0] ) && ! empty( $items[0] ) ) :
 
@@ -340,7 +339,7 @@ class Anva_Page_Meta_Builder {
 										}
 
 									} else {
-										$obj_title_name = '<span class="shortcode-type">' . __( 'Divider', 'anva' ) . '</span>';
+										$obj_title_name = '<span class="shortcode-type">' . esc_html__( 'Divider', 'anva' ) . '</span>';
 										$shortcode_type = '';
 									}
 									?>
@@ -376,14 +375,13 @@ class Anva_Page_Meta_Builder {
 							printf(
 								'%s %s <span class="alignright">%s %s</span>',
 								__( 'Anva Content Builder powered by Anva Framework', 'anva' ),
-								ANVA_FRAMEWORK_VERSION,
+								Anva::get_version(),
 								__( 'Develop by', 'anva' ),
-								sprintf( '<a href="' . esc_url( 'http://anthuanvasquez.net/' ) . '">%s</a>', __( 'Anthuan Vasquez', 'anva' ) )
+								sprintf( '<a href="' . esc_url( 'http://anthuanvasquez.net/' ) . '">%s</a>', esc_html__( 'Anthuan Vasquez', 'anva' ) )
 							);
 						?>
 					</div>
 				</div><!-- .anva-builder-footer (end) -->
-
 			</div><!-- .anva-builder-wrap (end) -->
 		</div><!-- .anva-meta-box (end) -->
 	<?php
@@ -463,10 +461,10 @@ class Anva_Page_Meta_Builder {
 		}
 
 		if ( isset( $_GET['imported'] ) && $_GET['imported'] == 'true' ) {
-			printf( '<div id="message" class="updated"><p>%s</p></div>', __( 'Content has successfully imported.', 'anva' ) );
+			printf( '<div id="message" class="updated"><p>%s</p></div>', esc_html__( 'Content has successfully imported.', 'anva' ) );
 
 		} else if ( isset( $_GET['error-import'] ) && $_GET['error-import'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your content. Please Try again.', 'anva' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . esc_html__( 'There was a problem importing your content. Please Try again.', 'anva' ) . '</p></div>';
 		}
 	}
 
@@ -575,10 +573,10 @@ class Anva_Page_Meta_Builder {
 
 		global $post;
 
-		$page_slug = get_the_title( $post->ID );
-		$page_slug = sanitize_title( $page_slug );
+		$page_slug   = get_the_title( $post->ID );
+		$page_slug   = sanitize_title( $page_slug );
 		$option_name = anva_get_option_name();
-		$filename = strtolower( $option_name ) . '_page_builder_' . $page_slug . '_' . date( 'Y-m-d_hia' );
+		$filename    = strtolower( $option_name ) . '_page_builder_' . $page_slug . '_' . date( 'Y-m-d_hia' );
 
 		// Get current content
 		$export_options = get_post_meta( $post->ID, $this->id, true );
@@ -618,10 +616,10 @@ class Anva_Page_Meta_Builder {
 					<div class="section section-header">
 						<h2><?php echo $shortcode_arr['name']; ?></h2>
 						<button type="button" id="save-<?php echo esc_attr( $id ); ?>" class="button button-primary">
-							<?php _e( 'Update', 'anva' ); ?>
+							<?php esc_html_e( 'Update', 'anva' ); ?>
 						</button>
 						<button type="button" id="cancel-<?php echo esc_attr( $id ); ?>" class="button button-secondary">
-							<?php _e( 'Cancel', 'anva' ); ?>
+							<?php esc_html_e( 'Cancel', 'anva' ); ?>
 						</button>
 					</div>
 
@@ -630,13 +628,13 @@ class Anva_Page_Meta_Builder {
 							$value = $shortcode_arr['name']; ?>
 
 						<div class="section section-title">
-							<h4><?php _e( 'Name', 'anva' ); ?></h4>
+							<h4><?php esc_html_e( 'Name', 'anva' ); ?></h4>
 							<div class="option">
 								<div class="controls">
 									<input type="text" id="<?php echo $title; ?>" name="<?php echo $title; ?>" data-attr="title" value="<?php echo $value; ?>" class="anva-input" />
 								</div>
 								<div class="explain">
-									<?php _e( 'Enter the name of the element.', 'anva' ); ?>
+									<?php esc_html_e( 'Enter the name of the element.', 'anva' ); ?>
 								</div>
 							</div>
 						</div>
@@ -651,9 +649,9 @@ class Anva_Page_Meta_Builder {
 						$editor_id = $shortcode . '_content'; ?>
 
 						<div class="section section-content">
-							<h4><?php _e( 'Content', 'anva' ); ?></h4>
+							<h4><?php esc_html_e( 'Content', 'anva' ); ?></h4>
 							<div class="explain">
-								<?php printf( '%s <strong>%s</strong>.', __( 'Enter the text or HTML content to display in this item', 'anva' ), $shortcode_arr['name'] ); ?>
+								<?php printf( '%s <strong>%s</strong>.', esc_html__( 'Enter the text or HTML content to display in this item', 'anva' ), $shortcode_arr['name'] ); ?>
 							</div>
 							<div class="controls">
 								<textarea id="<?php echo esc_attr( $editor_id ); ?>" name="<?php echo esc_attr( $editor_id ); ?>" rows="10" class="anva-input anva-textarea anva-wp-editor"></textarea>

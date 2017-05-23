@@ -5,58 +5,83 @@
  *
  * @since  1.0.0
  */
-function anva_social_media_option( $id, $name, $val ) {
+class Anva_Options_UI_Type_Basic {
 
-	$profiles = anva_get_social_icons_profiles();
-	$counter  = 1;
-	$divider  = round( count( $profiles ) / 2 );
-	$output   = '<div class="column-1">';
+	public static function text( $id, $name, $val ) {
+		$output = sprintf(
+			'<input id="%s" class="anva-input anva-input-text" name="%s" type="text" value="%s" %s />',
+			esc_attr( $id ),
+			esc_attr( $option_name . '[' . $id . ']' ),
+			esc_attr( $val ),
+			$placeholder
+		);
 
-	foreach ( $profiles as $key => $profile ) {
-
-		$checked = false;
-		if ( is_array( $val ) && array_key_exists( $key, $val ) ) {
-			$checked = true;
-		}
-
-		if ( ! empty( $val ) && ! empty( $val[$key] ) ) {
-			$value = $val[$key];
-		} else {
-
-			// Determine if SSL is being on a secure server.
-			$value = is_ssl() ? 'https://' : 'http://';
-
-			if ( 'email3' == $key ) {
-				$value = 'mailto:';
-			}
-
-			if ( 'skype' == $key) {
-				$value = 'skype:username?call';
-			}
-
-			if ( 'call' == $key ) {
-				$value = 'tel:';
-			}
-		}
-
-		$output .= '<div class="item">';
-		$output .= '<span>';
-		$output .= sprintf( '<input id="%s" class="checkbox anva-input anva-checkbox checkbox-style" value="%s" type="checkbox" %s name="%s" />', 'social-' . $key, $key, checked( $checked, true, false ), esc_attr( $name.'['.$id.'][includes][]' ) );
-		$output .= '<label for="' . 'social-' . $key . '" class="checkbox-style-1-label checkbox-small">' . esc_html( $profile ) . '</label>';
-		$output .= '</span>';
-		$output .= sprintf( '<input class="anva-input social_media-input" value="%s" type="text" name="%s" />', esc_attr( $value ), esc_attr( $name.'['.$id.'][profiles]['.$key.']' ) );
-		$output .= '</div>';
-
-		if ( $counter == $divider ) {
-			$output .= '</div><!-- .column-1 (end) -->';
-			$output .= '<div class="column-2">';
-		}
-
-		$counter++;
+		return $output;
 	}
-	$output .= '</div><!-- .column-2 (end) -->';
 
-	return $output;
+}
+
+class Anva_Options_UI_Type_Social {
+
+	/**
+	 * Generates option to edit social media buttons.
+	 *
+	 * @since  1.0.0
+	 */
+	public static function option( $id, $name, $val ) {
+
+		$profiles = anva_get_social_icons_profiles();
+		$counter  = 1;
+		$divider  = round( count( $profiles ) / 2 );
+		$output   = '<div class="column-1">';
+
+		foreach ( $profiles as $key => $profile ) {
+
+			$checked = false;
+			if ( is_array( $val ) && array_key_exists( $key, $val ) ) {
+				$checked = true;
+			}
+
+			if ( ! empty( $val ) && ! empty( $val[$key] ) ) {
+				$value = $val[$key];
+			} else {
+
+				// Determine if SSL is being on a secure server.
+				$value = is_ssl() ? 'https://' : 'http://';
+
+				if ( 'email3' == $key ) {
+					$value = 'mailto:';
+				}
+
+				if ( 'skype' == $key) {
+					$value = 'skype:username?call';
+				}
+
+				if ( 'call' == $key ) {
+					$value = 'tel:';
+				}
+			}
+
+			$output .= '<div class="item">';
+			$output .= '<span>';
+			$output .= sprintf( '<input id="%s" class="checkbox anva-input anva-checkbox checkbox-style" value="%s" type="checkbox" %s name="%s" />', 'social-' . $key, $key, checked( $checked, true, false ), esc_attr( $name.'['.$id.'][includes][]' ) );
+			$output .= '<label for="' . 'social-' . $key . '" class="checkbox-style-1-label checkbox-small">' . esc_html( $profile ) . '</label>';
+			$output .= '</span>';
+			$output .= sprintf( '<input class="anva-input social_media-input" value="%s" type="text" name="%s" />', esc_attr( $value ), esc_attr( $name.'['.$id.'][profiles]['.$key.']' ) );
+			$output .= '</div>';
+
+			if ( $counter == $divider ) {
+				$output .= '</div><!-- .column-1 (end) -->';
+				$output .= '<div class="column-2">';
+			}
+
+			$counter++;
+		}
+
+		$output .= '</div><!-- .column-2 (end) -->';
+
+		return $output;
+	}
 }
 
 /**

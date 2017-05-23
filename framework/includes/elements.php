@@ -23,12 +23,12 @@ function anva_display_elements() {
 
 	foreach ( $items as $key => $item ) {
 
-		$atts 		= array();
-		$classes 	= array();
-		$data 		= $settings[ $item ]['data'];
-		$obj 		= json_decode( $data, true );
-		$content 	= $obj['shortcode'] . '_content';
-		$shortcode 	= $obj['shortcode'];
+		$atts      = array();
+		$classes   = array();
+		$data      = $settings[ $item ]['data'];
+		$obj       = json_decode( $data, true );
+		$content   = $obj['shortcode'] . '_content';
+		$shortcode = $obj['shortcode'];
 
 		$counter++;
 
@@ -42,10 +42,14 @@ function anva_display_elements() {
 
 				$classes[] = 'element-has-attributes';
 
-				// Get shortcode attributes
+				// Get shortcode attributes.
 				$attributes = $shortcodes[ $shortcode ]['attr'];
 
 				foreach ( $attributes as $attribute_id => $attribute ) {
+
+					if ( 'custom_css' == $attribute_id && ! empty( $attribute ) ) {
+						$classes[] = 'element-has-custom-css';
+					}
 
 					$obj_attribute = $obj['shortcode'] . '_' . $attribute_id;
 
@@ -56,7 +60,7 @@ function anva_display_elements() {
 			}
 
 			// Shortcode has content.
-			if ( isset( $obj[ $content ] ) ) {
+			if ( isset( $obj[ $content ] ) && ! empty( $obj[ $content ] ) ) {
 				$classes[] = 'element-has-content';
 				$content   = urldecode( $obj[ $content ] );
 			} else {
@@ -67,7 +71,7 @@ function anva_display_elements() {
 
 			<!-- #section-<?php echo esc_attr( $counter ); ?> (end) -->
 			<section id="section-<?php echo esc_attr( $counter ); ?>" class="section section-element section-<?php echo esc_attr( $item ); ?> section-<?php echo esc_attr( $shortcode ); ?> <?php echo esc_attr( $classes ); ?>">
-			<div id="element-<?php echo esc_attr( $item ); ?>" class="element element-<?php echo sc_attr( $item ); ?> element-<?php echo esc_attr( $shortcode ); ?>">
+			<div id="element-<?php echo esc_attr( $item ); ?>" class="element element-<?php echo esc_attr( $item ); ?> element-<?php echo esc_attr( $shortcode ); ?>">
 
 			<?php
 			/**

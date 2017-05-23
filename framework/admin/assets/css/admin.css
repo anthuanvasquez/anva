@@ -1468,6 +1468,17 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   text-decoration: none;
 }
 
+.sweet-alert p span {
+  color: #bbb;
+  font-size: 14px;
+  display: block;
+}
+
+.sweet-alert button {
+  background-color: #008ec2;
+  border: 1px solid #006799;
+}
+
 .about-wrap .theme-plugins .theme {
   border: none;
   box-shadow: none;

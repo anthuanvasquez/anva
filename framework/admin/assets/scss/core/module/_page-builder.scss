@@ -4,23 +4,29 @@
 
 .anva-builder-active {
     .anva-tooltip-info {
-        display: block;
+        display: inline-block;
+        margin-right: 10px;
     }
+}
+
+.anva-builder-wrap {
+    position: relative;
 }
 
 .anva-tooltip-info {
     display: none;
     color: #999;
-    float: right;
-    margin-left: 10px;
     text-decoration: none;
+
     &:focus {
         color: #999;
         box-shadow: none;
     }
+
     &:hover {
         color: #0073aa;
     }
+
     span {
         font-size: 24px;
         line-height: 30px;
@@ -32,9 +38,11 @@
 .anva-row {
     background-color: #e3eff3;
     padding: 10px;
+
     .ui-selecting {
         background: #FECA40;
     }
+
     .ui-selected {
         background: #F39814;
         color: white;
@@ -56,6 +64,7 @@
     border: 1px solid #ddd;
     border-top: 0;
     box-shadow: 0 0 6px 0 rgba(black, 0.1) inset;
+
     &.empty {
         &:before {
             content: attr(data-text);
@@ -67,6 +76,7 @@
             text-align: center;
         }
     }
+
     > li {
         @include clearfix();
         background: #fff;
@@ -80,20 +90,25 @@
         position: relative;
         transition: box-shadow 0.2s ease;
         width: 100%;
+
         &:hover {
             box-shadow: 0 1px 5px rgba(black, 0.1);
+
             .thumbnail {
                 &:before {
                     opacity: 1;
                 }
             }
         }
+
         &:last-child {
             margin-bottom: 0;
         }
+
         &.ui-sortable-helper {
             border: 1px dashed #ddd;
         }
+
         .actions {
             background: rgba(black, 0.2);
             background: #F2F2F2;
@@ -103,6 +118,7 @@
             padding: 0 15px;
             text-align: right;
         }
+
         .thumbnail {
             cursor: move;
             float: left;
@@ -110,6 +126,7 @@
             border-right: 1px solid #eee;
             padding: 10px 15px 10px 15px;
             position: relative;
+
             &:before {
                 opacity: 0;
                 background: #fff;
@@ -133,11 +150,13 @@
                 -moz-osx-font-smoothing: grayscale;
                 transition: opacity 0.2s ease;
             }
+
             img {
                 border: 1px solid #ddd;
                 max-height: 30px;
             }
         }
+
         .title {
             max-width: 100%;
             color: #777;
@@ -147,19 +166,23 @@
             top: 30px;
             left: 75px;
         }
+
         .shortcode-type {
             color: #23282d;
             display: block;
             font-weight: bold;
         }
+
         .button-move-up {
             &:after {
                 content: "\f142";
             }
+
             &:hover {
                 color: #0073aa;
             }
         }
+
         .button-col-up {
             &:after {
                 content: "\f132";
@@ -168,14 +191,17 @@
                 color: #0073aa;
             }
         }
+
         .button-col-down {
             &:after {
                 content: "\f460";
             }
+
             &:hover {
                 color: #0073aa;
             }
         }
+
         .button-move-down {
             &:after {
                 content: "\f140";
@@ -184,22 +210,27 @@
                 color: #0073aa;
             }
         }
+
         .button-edit {
             &:after {
                 content: "\f464";
             }
+
             &:hover {
                 color: #0073aa;
             }
         }
+
         .button-remove {
             &:after {
                 content: "\f158";
             }
+
             &:hover {
                 color: #a00;
             }
         }
+
         .button-col-up,
         .button-col-down,
         .button-move-down,
@@ -209,9 +240,11 @@
             color: #222;
             display: inline-block;
             margin: 3px 0 3px 5px;
+
             &:focus {
                 box-shadow: none;
             }
+
             &:after {
                 display: inherit;
                 width: 16px;
@@ -228,6 +261,7 @@
                 -moz-osx-font-smoothing: grayscale;
             }
         }
+
         .unsave {
             display: inline-block;
             font-weight: 700;
@@ -235,11 +269,12 @@
             font-size: 13px;
             color: red;
         }
-        // Element Diiver
+
         &.divider {
             .title {
                 top: 40px;
             }
+
             .button-edit {
                 display: none;
             }
@@ -253,6 +288,7 @@
         background: transparent;
         border: 1px dashed #ccc;
     }
+
     .ui-state-default,
     .ui-widget-content .ui-state-default,
     .ui-widget-header .ui-state-default {
@@ -262,27 +298,35 @@
         color: #23282d;
         font-weight: bold;
     }
+
     li.col_full {
         width: 100%;
     }
+
     li.col_half {
         width: 48%;
     }
+
     li.col_one_third {
         width: 30.63%;
     }
+
     li.col_two_third {
         width: 65.33%;
     }
+
     li.col_one_fourth {
         width: 22%;
     }
+
     li.col_three_fourth {
         width: 74%;
     }
+
     li.col_one_fifth {
         width: 16.8%;
     }
+
     li.col_full,
     li.col_half,
     li.col_one_third,
@@ -294,12 +338,14 @@
         margin-right: 4%;
         float: left;
     }
+
     li.col_full,
     li[data-size="col_full"] {
         clear: both;
         float: none;
         margin-right: 0;
     }
+
     li.col_last {
         margin-right: 0 !important;
         clear: right;
@@ -314,6 +360,7 @@
     padding: 10px 15px;
     position: relative;
     margin: 15px -12px -12px;
+
     .message {
         color: #999;
         font-size: 11px;
@@ -325,8 +372,6 @@
 
 
 /* ---------------------------------------------------------------- */
-
-
 /* Ajax Inline Elements
 /* ---------------------------------------------------------------- */
 
@@ -337,6 +382,7 @@
     min-height: 100%;
     padding: 0 12px 15px;
     width: 100%;
+
     .section-header {
         @include clearfix();
         border-bottom: 1px solid #eee;
@@ -489,6 +535,7 @@
     padding: 0;
     text-align: center;
     width: 100%;
+
     &:after {
         content: "";
         display: table;
