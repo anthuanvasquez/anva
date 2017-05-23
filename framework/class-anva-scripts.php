@@ -115,37 +115,28 @@ class Anva_Scripts {
 		);
 
 		// Required Plugins
-		$this->framework_scripts['anva_plugins'] = array(
-			'handle'    => 'anva_plugins',
-			'src'       => Anva::$framework_dir_uri . 'assets/js/plugins.vendor.js',
+		$this->framework_scripts['anva_core_plugins'] = array(
+			'handle'    => 'anva_core_plugins',
+			'src'       => Anva::$framework_dir_uri . 'assets/js/core-plugins.js',
 			'deps'      => array( 'jquery' ),
 			'ver'       => self::$version,
 			'footer'    => true
 		);
 
 		// Utilities.
-		$this->framework_scripts['anva_utils'] = array(
-			'handle'    => 'anva_utils',
-			'src'       => Anva::$framework_dir_uri . 'assets/js/utils.js',
-			'deps'      => array( 'jquery', 'anva_plugins' ),
+		$this->framework_scripts['anva_core_utils'] = array(
+			'handle'    => 'anva_core_utils',
+			'src'       => Anva::$framework_dir_uri . 'assets/js/core-utils.js',
+			'deps'      => array( 'jquery', 'anva_core_plugins' ),
 			'ver'       => self::$version,
 			'footer'    => true
 		);
 
-		// Share buttons.
-		$this->framework_scripts['anva_share_buttons'] = array(
-			'handle'    => 'anva_share_buttons',
-			'src'       => Anva::$framework_dir_uri . 'assets/js/share-buttons.js',
-			'deps'      => array( 'jquery', 'anva_utils' ),
-			'ver'       => self::$version,
-			'footer'    => true
-		);
-
-		// Functions.
-		$this->framework_scripts['anva_main'] = array(
-			'handle'    => 'anva_main',
-			'src'       => Anva::$framework_dir_uri . 'assets/js/main.js',
-			'deps'      => array( 'jquery', 'anva_utils', 'anva_plugins' ),
+		// Core functions.
+		$this->framework_scripts['anva_core'] = array(
+			'handle'    => 'anva_core',
+			'src'       => Anva::$framework_dir_uri . 'assets/js/core.js',
+			'deps'      => array( 'jquery', 'anva_core_utils', 'anva_core_plugins' ),
 			'ver'       => self::$version,
 			'footer'    => true
 		);

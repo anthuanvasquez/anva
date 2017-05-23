@@ -15,9 +15,14 @@
  * @package      AnvaFramework
  */
 
+$reading_bar_position = anva_get_option( 'single_post_reading_bar_position', 'bottom' );
+
+if ( 'top' === $reading_bar_position ) {
+	$class = ' bar-top';
+}
 ?>
 <div id="post-reading-wrap">
-	<div class="post-reading-bar">
+	<div class="post-reading-bar<?php echo esc_attr( $class ); ?>">
 		<div class="post-reading-indicator-container">
 			<span class="post-reading-indicator-bar"></span>
 		</div>

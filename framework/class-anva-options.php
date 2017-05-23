@@ -377,7 +377,20 @@ class Anva_Options {
 						'options' => array(
 							'show' => __( 'Show the post reading bar', 'anva' ),
 							'hide' => __( 'Hide the post reading bar', 'anva' ),
-						)
+						),
+						'trigger' => 'show',
+						'receivers' => 'single_post_reading_bar_position',
+					),
+					'single_post_reading_bar_position' => array(
+						'name' => __( 'Reading Bar Position', 'anva' ),
+						'desc' => __( 'Select the position of the post reading bar in single posts.', 'anva' ),
+						'id' => 'single_post_reading_bar_position',
+						'std' => 'bottom',
+						'type' => 'select',
+						'options' => array(
+							'top' => __( 'Show at the top', 'anva' ),
+							'bottom' => __( 'Show at the bottom', 'anva' ),
+						),
 					),
 					'single_more_story' => array(
 						'name' => __( 'Show More Stories', 'anva' ),

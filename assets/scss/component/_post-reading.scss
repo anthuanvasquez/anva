@@ -27,14 +27,33 @@
     border-bottom: 1px solid #e1e1e1;
     z-index: 1099;
 
-    #post-reading-wrap.visible & {
+    .visible & {
         bottom: 0;
+    }
+
+    &.bar-top {
+        .admin-bar & {
+            margin-top: 32px;
+        }
+
+        .visible & {
+            bottom: auto;
+            top: 0;
+        }
     }
 
     .spost {
         border: 0;
         padding-top: 6px;
     }
+}
+
+#header.sticky-header ~ #post-reading-wrap .post-reading-bar.bar-top {
+    margin-top: 60px;
+}
+
+body.admin-bar #header.sticky-header ~ #post-reading-wrap .post-reading-bar.bar-top {
+    margin-top: 92px;
 }
 
 body.device-lg {
