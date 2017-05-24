@@ -437,6 +437,29 @@ function anva_get_current_color() {
 }
 
 /**
+ * Get button colors.
+ *
+ * @return array $colors The button colors
+ */
+function anva_get_button_colors() {
+	$colors = array(
+		'black'     => __( 'Black', 'anva' ),
+		'white'     => __( 'White', 'anva' ),
+		'grey'      => __( 'Grey', 'anva' ),
+		'blue'      => __( 'Blue', 'anva' ),
+		'yellow'    => __( 'Yellow', 'anva' ),
+		'red'       => __( 'Red', 'anva' ),
+		'orange'    => __( 'Orange', 'anva' ),
+		'dark_blue' => __( 'Dark Blue', 'anva' ),
+		'green'     => __( 'Green', 'anva' ),
+		'teal'      => __( 'Teal', 'anva' ),
+		'pink'      => __( 'Pink', 'anva' ),
+		'purple'    => __( 'Purple', 'anva' ),
+	);
+	return $colors;
+}
+
+/**
  * Add wrapper around embedded videos to allow for responsive videos.
  *
  * @since 1.0.0

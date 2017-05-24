@@ -163,6 +163,7 @@ class Anva {
 		// Admin files.
 		include_once( self::$framework_dir_path . 'admin/anva-options-ui-types.php' );
 		include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
+		include_once( self::$framework_dir_path . 'admin/anva-shortcode-options.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/general.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/display.php' );
@@ -170,6 +171,7 @@ class Anva {
 		include_once( self::$framework_dir_path . 'admin/includes/locals.php' );
 
 		// Helpers classes functions.
+		include_once( self::$framework_dir_path . 'class-anva-shortcodes.php' );
 		include_once( self::$framework_dir_path . 'anva-tgm.php' );
 		include_once( self::$framework_dir_path . 'anva-updates.php' );
 		include_once( self::$framework_dir_path . 'anva-helpers.php' );
@@ -238,6 +240,7 @@ class Anva {
 		add_filter( 'the_content', 'anva_content_format_video', 7 );
 		add_filter( 'the_content', 'anva_content_format_quote', 7 );
 		add_filter( 'the_content', 'anva_content_format_link', 7 );
+		add_filter( 'the_content_more_link', 'anva_read_more_link' );
 		add_filter( 'the_password_form', 'anva_password_form' );
 		add_filter( 'image_size_names_choose', 'anva_image_size_names_choose' );
 		add_filter( 'nav_menu_css_class', 'anva_nav_menu_css_class', 10, 4 );

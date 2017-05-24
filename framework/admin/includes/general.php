@@ -22,6 +22,9 @@ function anva_admin_init() {
 	// Instantiate the media uploader class.
 	Anva_Options_Media_Uploader::instance();
 
+	// Instantiate shortcode generator.
+	Anva_Shortcodes_Generator::instance();
+
 }
 
 /**

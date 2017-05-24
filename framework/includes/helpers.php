@@ -1,7 +1,12 @@
 <?php
+/**
+ * Helper functions.
+ *
+ * @package AnvaFramework
+ */
 
 /**
- * Home page args
+ * Home page args.
  *
  * @since  1.0.0
  * @param  array $args
@@ -244,12 +249,20 @@ function anva_browser_class( $classes ) {
 	return apply_filters( 'anva_browser_classes', $classes, $browser );
 }
 
+/**
+ * Print post classes list.
+ *
+ * @since  1.0.0
+ * @param  string  $class
+ * @param  boolean $paged
+ * @return string  $classes
+ */
 function anva_post_class( $class, $paged = true ) {
 	echo anva_get_post_class( $class, $paged );
 }
 
 /**
- * Get post list classes.
+ * Get post classes list.
  *
  * @since  1.0.0
  * @param  string  $class
@@ -443,7 +456,7 @@ function anva_get_terms_links( $taxonomy, $implode = ' ', $links = true, $type =
     // Get post terms by taxonomy and post ID.
     $terms = wp_get_post_terms( $id, $taxonomy, array( 'fields' => 'all' ) );
 
-    if ( empty ( $terms ) ) {
+    if ( empty( $terms ) ) {
         return false;
     }
 
@@ -633,24 +646,6 @@ function anva_support_feature( $feature ) {
 }
 
 /**
- * Limit chars in string.
- *
- * @since  1.0.0
- * @param  $string
- * @param  $length
- * @return $string
- */
-function anva_truncate_string( $string, $length = 100 ) {
-	$string = trim( $string );
-	if ( strlen( $string ) <= $length ) {
-		return $string;
-	} else {
-		$string = substr( $string, 0, $length ) . '...';
-		return $string;
-	}
-}
-
-/**
  * Convert HEX to RGB.
  *
  * @param  string $hex
@@ -675,6 +670,15 @@ function anva_hex_to_rgb( $hex ) {
 }
 
 /**
+ * Print excerpt.
+ *
+ * @since 1.0.0
+ */
+function anva_the_excerpt( $length = '' ) {
+	echo anva_get_excerpt( $length );
+}
+
+/**
  * Get the excerpt and limit chars.
  *
  * @since 1.0.0
@@ -688,15 +692,6 @@ function anva_get_excerpt( $length = '' ) {
 	$content = get_the_excerpt();
 	$content = wpautop( $content );
 	return $content;
-}
-
-/**
- * Output excerpt.
- *
- * @since 1.0.0
- */
-function anva_the_excerpt( $length = '' ) {
-	echo anva_get_excerpt( $length );
 }
 
 /**
@@ -761,7 +756,7 @@ function anva_extract_icon( $string ) {
  */
 function anva_get_font_stacks() {
 	$stacks = array(
-		'default'     => 'Arial, sans-serif', // Used to chain onto end of google font
+		'default'     => 'Arial, sans-serif', // Used to chain onto end of google font.
 		'arial'       => 'Arial, "Helvetica Neue", Helvetica, sans-serif',
 		'baskerville' => 'Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif',
 		'georgia'     => 'Georgia, Times, "Times New Roman", serif',
@@ -778,6 +773,31 @@ function anva_get_font_stacks() {
 }
 
 /**
+ * Limit chars in string.
+ *
+ * @since  1.0.0
+ * @param  $string
+ * @param  $length
+ * @return $string
+ */
+function anva_truncate_string( $string, $length = 100 ) {
+
+	if ( ! $string ) {
+		return null;
+	}
+
+	$string = trim( $string );
+
+	if ( strlen( $string ) <= $length ) {
+		return $string;
+	}
+
+	$string = substr( $string, 0, $length ) . '...';
+
+	return $string;
+}
+
+/**
  * Remove trailing char.
  *
  * @since  1.0.0
@@ -788,12 +808,12 @@ function anva_get_font_stacks() {
 function anva_remove_trailing_char( $string, $char = ' ' ) {
 
 	if ( ! $string ) {
-		return NULL;
+		return null;
 	}
 
-	$offset = strlen( $string ) - 1;
-
+	$offset        = strlen( $string ) - 1;
 	$trailing_char = strpos( $string, $char, $offset );
+
 	if ( $trailing_char ) {
 		$string = substr( $string, 0, -1 );
 	}
@@ -802,7 +822,18 @@ function anva_remove_trailing_char( $string, $char = ' ' ) {
 }
 
 /**
- * Get font face
+ * Print font face.
+ *
+ * @since  1.0.0
+ * @param  array $option
+ * @return font face name
+ */
+function anva_the_font_face( $option ) {
+	echo anva_get_font_face( $option );
+}
+
+/**
+ * Get font face.
  *
  * @since  1.0.0
  * @param  array $option
@@ -836,8 +867,15 @@ function anva_get_font_face( $option ) {
 	return apply_filters( 'anva_get_font_face', $stack, $option, $stacks );
 }
 
-function anva_the_font_face( $option ) {
-	echo anva_get_font_face( $option );
+/**
+ * Print font size.
+ *
+ * @since  1.0.0
+ * @param  array  $option
+ * @return string $size
+ */
+function anva_the_font_size( $option ) {
+	echo anva_get_font_size( $option );
 }
 
 /**
@@ -858,8 +896,16 @@ function anva_get_font_size( $option ) {
 	return apply_filters( 'anva_get_font_size', $size, $option );
 }
 
-function anva_the_font_size( $option ) {
-	echo anva_get_font_size( $option );
+/**
+ * Print font style.
+ *
+ * @since  1.0.0
+ * @param  array  $option
+ * @return string $style
+ */
+
+function anva_the_font_style( $option ) {
+	echo anva_get_font_style( $option );
 }
 
 /**
@@ -880,8 +926,15 @@ function anva_get_font_style( $option ) {
 	return apply_filters( 'anva_get_font_style', $style, $option );
 }
 
-function anva_the_font_style( $option ) {
-	echo anva_get_font_style( $option );
+/**
+ * Print font weight.
+ *
+ * @since  1.0.0
+ * @param  array  $option
+ * @return string $weight
+ */
+function anva_the_font_weight( $option ) {
+	echo anva_get_font_weight( $option );
 }
 
 /**
@@ -906,8 +959,15 @@ function anva_get_font_weight( $option ) {
 	return apply_filters( 'anva_get_font_weight', $weight, $option );
 }
 
-function anva_the_font_weight( $option ) {
-	echo anva_get_font_weight( $option );
+/**
+ * Print font text transform.
+ *
+ * @since  1.0.0
+ * @param  array  $option
+ * @return string $transform
+ */
+function anva_the_text_transform( $option ) {
+	echo anva_get_text_transform( $option );
 }
 
 /**
@@ -928,8 +988,15 @@ function anva_get_text_transform( $option ) {
 	return apply_filters( 'anva_text_transform', $tranform, $option );
 }
 
-function anva_the_text_transform( $option ) {
-	echo anva_get_text_transform( $option );
+/**
+ * Print background patterns url fron option value.
+ *
+ * @since  1.0.0
+ * @param  string $option
+ * @return string $output
+ */
+function anva_the_background_pattern( $option ) {
+	echo anva_get_background_pattern( $option );
 }
 
 /**
@@ -942,10 +1009,6 @@ function anva_the_text_transform( $option ) {
 function anva_get_background_pattern( $option ) {
 	$image = esc_url( get_template_directory_uri() . '/assets/images/patterns/' . $option . '.png' );
 	return apply_filters( 'anva_background_pattern', $url );
-}
-
-function anva_the_background_pattern( $option ) {
-	echo anva_get_background_pattern( $option );
 }
 
 /**
@@ -999,16 +1062,14 @@ function anva_enqueue_google_fonts() {
 							$fonts[ $name ]['style'] = array_unique( $part );
 						}
 					}
-
 				}
-
 			}
 		}
 
-		// Include each font file from google
+		// Include each font file from google.
 		foreach ( $fonts as $font => $atts ) {
 
-			// Create handle
+			// Create handle.
 			$handle = strtolower( $font );
 			$handle = str_replace( ' ', '-', $handle );
 
@@ -1023,7 +1084,6 @@ function anva_enqueue_google_fonts() {
 			wp_enqueue_style( $handle, $protocol . 'fonts.googleapis.com/css?family=' . $font, array(), Anva::get_version(), 'all' );
 
 		}
-
 	}
 }
 
@@ -1036,9 +1096,9 @@ function anva_enqueue_google_fonts() {
 function anva_get_social_icons_profiles() {
 	$profiles = array(
 		'bitbucket'		=> 'Bitbucket',
-		'codepen'		=> 'Codepen',
+		//'codepen'		=> 'Codepen',
 		'delicious' 	=> 'Delicious',
-		'deviantart' 	=> 'DeviantArt',
+		//'deviantart' 	=> 'DeviantArt',
 		'digg' 			=> 'Digg',
 		'dribbble' 		=> 'Dribbble',
 		'facebook' 		=> 'Facebook',
@@ -1055,7 +1115,7 @@ function anva_get_social_icons_profiles() {
 		'soundcloud' 	=> 'Soundcloud',
 		'tumblr' 		=> 'Tumblr',
 		'twitter' 		=> 'Twitter',
-		'vimeo-square'	=> 'Vimeo',
+		'vimeo'			=> 'Vimeo',
 		'yahoo' 		=> 'Yahoo',
 		'youtube' 		=> 'YouTube',
 		'call'			=> 'Call',
@@ -1063,7 +1123,6 @@ function anva_get_social_icons_profiles() {
 		'rss' 			=> 'RSS',
 	);
 
-	// Backwards compat filter
 	return apply_filters( 'anva_social_icons_profiles', $profiles );
 }
 
@@ -1076,7 +1135,7 @@ function anva_get_social_icons_profiles() {
  */
 function anva_admin_module_cap( $module ) {
 
-	// Setup default capabilities
+	// Setup default capabilities.
 	$module_caps = array(
 		'builder' 	=> 'edit_theme_options', // Role: Administrator
 		'options' 	=> 'edit_theme_options', // Role: Administrator
@@ -1086,7 +1145,7 @@ function anva_admin_module_cap( $module ) {
 
 	$module_caps = apply_filters( 'anva_admin_module_caps', $module_caps );
 
-	// Setup capability
+	// Setup capability.
 	$cap = '';
 	if ( isset( $module_caps[ $module ] ) ) {
 		$cap = $module_caps[ $module ];
@@ -1112,7 +1171,7 @@ function anva_get_current_year( $year ) {
  */
 function anva_compress( $buffer ) {
 
-	// Remove comments
+	// Remove comments.
 	$buffer = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer );
 
 	// Remove tabs, spaces, newlines, etc.
@@ -1140,7 +1199,6 @@ function anva_get_template_part( $slug = 'post', $name = 'content' ) {
 	) );
 
 	$path = apply_filters( 'anva_components_path', trailingslashit( 'framework/component' ) );
-
 
 	if ( in_array( $slug, $components ) ) {
 		$file = trailingslashit( $path . $slug ) . $name;

@@ -119,7 +119,6 @@ function anva_add_meta_boxes_default() {
 		$content_builder['options']
 	);
 
-
 }
 
 /**
@@ -130,7 +129,7 @@ function anva_add_meta_boxes_default() {
  */
 function anva_setup_layout_meta() {
 
-	// Get header types
+	// Get header types.
 	$header_types   = array();
 	$header_types[] = __( 'Default Setting', 'anva' );
 	foreach ( anva_get_header_types() as $type_id => $type ) {
@@ -199,7 +198,7 @@ function anva_setup_post_meta() {
 			'context'  => 'normal',
 			'priority' => 'high',
 			'desc'     => __( 'This is the default placeholder for post options.', 'anva' ),
-			'prefix'   => '_anva_', // Option Prefix
+			'prefix'   => '_anva_',
 		),
 		'options' => array(
 			'hide_title' => array(
@@ -210,8 +209,8 @@ function anva_setup_post_meta() {
 				'std'		=> 'show',
 				'options'	=> array(
 					'show' 	=> __( 'Show post\'s title', 'anva' ),
-					'hide'	=> __( 'Hide post\'s title', 'anva' )
-				)
+					'hide'	=> __( 'Hide post\'s title', 'anva' ),
+				),
 			),
 			'breadcrumbs' 	=> array(
 				'name' 		=> __( 'Breadcrumbs', 'anva' ),
@@ -288,7 +287,7 @@ function anva_setup_post_format_meta() {
 
 	// Get gallery columns.
 	$columns = array();
-	foreach ( range(2, 6) as $col ) {
+	foreach ( range( 2, 6 ) as $col ) {
 		$columns[ $col ] = $col . ' ' . __( 'Columns', 'anva' );
 	}
 
@@ -300,7 +299,7 @@ function anva_setup_post_format_meta() {
 			'context'  => 'side',
 			'priority' => 'high',
 			'desc'     => __( 'This is the default placeholder for post format options.', 'anva' ),
-			'prefix'   => '_anva_', // Option Prefix
+			'prefix'   => '_anva_',
 		),
 		'options' => array(
 			'gallery' => array(
@@ -543,7 +542,7 @@ function anva_setup_page_meta() {
  */
 function anva_setup_page_template_meta() {
 
-	// Fill columns array
+	// Fill columns array.
 	$columns = array();
 	$columns[''] = esc_html__( 'Default Grid Columns', 'anva' );
 	foreach ( anva_get_grid_columns() as $key => $value ) {
@@ -804,7 +803,7 @@ function anva_setup_portfolio_media_meta() {
 				'type'          => 'checkbox',
 				'std'           => '0',
 			),
-		)
+		),
 	);
 
 	return apply_filters( 'anva_portfolio_media_meta', $setup );
@@ -877,7 +876,7 @@ function anva_setup_content_builder_meta() {
 			'context' 	=> 'normal',
 			'priority'	=> 'high',
 		),
-		'options'		=> anva_get_elements() // Get content builder elements
+		'options'		=> anva_get_elements()
 	);
 
 	return apply_filters( 'anva_content_buider_meta', $setup );

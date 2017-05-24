@@ -225,6 +225,13 @@
 .entry-content {
     position: relative;
     word-wrap: break-word;
+
+    .sticky & {
+        ul,
+        ol {
+            margin-left: 20px;
+        }
+    }
 }
 
 .entry-link {

@@ -133,3 +133,23 @@ function anva_pull_pages() {
 	}
 	return $pages;
 }
+
+/**
+ * Pull all galleries into an array.
+ *
+ * @since 1.0.0
+ * @return array The galleries list.
+ */
+function anva_pull_galleries() {
+	$args = array(
+		'numberposts' => -1,
+		'post_type'   => array( 'galleries' ),
+		'orderby'     => 'name',
+	);
+	$galleries = array();
+	$galleries[''] = __( 'Select gallery', 'anva' );
+	foreach ( get_posts( $args ) as $gallery ) {
+		$galleries[ $gallery->ID ] = $gallery->post_title;
+	}
+	return $galleries;
+}

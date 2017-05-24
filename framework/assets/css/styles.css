@@ -5601,6 +5601,11 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay, body.device-t
   word-wrap: break-word;
 }
 
+.sticky .entry-content ul,
+.sticky .entry-content ol {
+  margin-left: 20px;
+}
+
 .entry-link {
   display: block;
   width: 100%;

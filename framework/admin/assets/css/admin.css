@@ -1432,6 +1432,123 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label:after {
   margin: 0 0 15px;
 }
 
+.anva-shcg-wrap {
+  margin-top: -6px;
+  padding: 0 0 12px;
+}
+
+.anva-shcg-wrap .anva-shcg-description {
+  background-color: #F7F7F7;
+  border-bottom: 1px solid #EEE;
+  color: #777;
+  margin: 0 -12px 20px;
+  padding: 20px 15px;
+}
+
+.anva-shcg-wrap > .select-wrapper {
+  max-width: 54%;
+}
+
+@media (max-width: 767px) {
+  .anva-shcg-wrap > .select-wrapper {
+    max-width: 100%;
+  }
+}
+
+.anva-shcg-attr {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+input.anva-shcg-attr {
+  border-radius: 0;
+  box-shadow: 0 0 4px #EEE;
+  box-sizing: border-box;
+  color: #666;
+  height: 33px;
+  margin-bottom: 10px;
+  outline: 0;
+  width: 100%;
+}
+
+.anva-shcg-title h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.anva-shcg-section-title h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.anva-shcg-section-inner .anva-shcg-option {
+  margin-bottom: 15px;
+}
+
+.anva-shcg-section-inner .anva-shcg-option:last-child {
+  margin-bottom: 0;
+}
+
+.anva-shcg-section {
+  margin-top: 20px;
+}
+
+.anva-shcg-section::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.anva-shcg-section .anva-shcg-explain {
+  color: #777;
+  font-size: 13px;
+  line-height: 18px;
+  margin-bottom: 10px;
+}
+
+.anva-shcg-section .anva-shcg-col {
+  box-sizing: border-box;
+  float: left;
+  border: 1px solid #eee;
+  margin-right: 4%;
+  padding: 15px 20px;
+  width: 54%;
+}
+
+@media (max-width: 767px) {
+  .anva-shcg-section .anva-shcg-col {
+    float: none;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
+.anva-shcg-section .anva-shcg-col.anva-shcg-col-last {
+  margin-right: 0;
+  width: 42%;
+}
+
+@media (max-width: 767px) {
+  .anva-shcg-section .anva-shcg-col.anva-shcg-col-last {
+    width: 100%;
+  }
+}
+
+.anva-shcg-section .anva-shcg-col.anva-shcg-col-last .anva-textarea-wrap {
+  margin-bottom: 10px;
+}
+
+.anva-shcg-section .anva-shcg-codearea {
+  background-color: #f8f8f8;
+}
+
+.anva-shcg-section .anva-textarea-wrap textarea {
+  height: 200px;
+  width: 100%;
+  word-wrap: break-word;
+}
+
 .anva-framework .section-info {
   border: 1px solid #DDD;
   border-left: 6px solid #00C8fA;

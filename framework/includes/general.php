@@ -1158,7 +1158,7 @@ function anva_gallery_templates() {
  * @return string
  */
 function anva_the_post_meta( $field ) {
-    echo anva_get_post_meta( $field );
+	echo anva_get_post_meta( $field );
 }
 
 /**
@@ -1178,7 +1178,6 @@ function anva_get_post_meta( $field ) {
 
 	return get_post_meta( $post->ID, $field, true );
 }
-
 
 /**
  * Sort galleries
@@ -1256,14 +1255,14 @@ function anva_get_posts( $query_args = '' ) {
 
 	if ( empty( $query_args ) ) {
 		$query_args = array(
-			'post_type'  			=> array( 'post' ),
-			'post_status' 			=> 'publish',
-			'posts_per_page' 		=> $number,
-			'orderby'    			=> 'date',
-			'order'      			=> 'desc',
-			'number'     			=> $number,
-			'page'       			=> $page,
-			'offset'     			=> $offset
+			'post_type'      => array( 'post' ),
+			'post_status'    => 'publish',
+			'posts_per_page' => $number,
+			'orderby'        => 'date',
+			'order'          => 'desc',
+			'number'         => $number,
+			'page'           => $page,
+			'offset'         => $offset,
 		);
 	}
 
@@ -1460,12 +1459,12 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 
 		if ( ! $args->theme_location ) {
 
-			// Random custom menu, probably sidebar widget, insert icon outside <a>
+			// Random custom menu, probably sidebar widget, insert icon outside <a>.
 			$item_output = $icon_output . $item_output;
 
 		} else {
 
-			// Theme location, insert icon within <a>
+			// Theme location, insert icon within <a>.
 			$item_output = str_replace( $text, $icon_output . $text, $item_output );
 
 		}
@@ -1477,14 +1476,29 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 /**
  * Filter menus ID.
  *
- * @param  string $menu_id Filter menu ID
- * @param  object $item    Item object from nav menu
- * @param  array  $args    Arguments list
- * @param  int    $depth   Depth
- * @return string          Filter menu item
+ * @param  string $menu_id Filter menu ID.
+ * @param  object $item    Item object from nav menu.
+ * @param  array  $args    Arguments list.
+ * @param  int    $depth   Depth.
+ * @return string          Filter menu item.
  */
 function anva_nav_menu_item_id( $menu_id, $item, $args, $depth ) {
 	return $args->theme_location . '-menu-item-'. $item->ID;
+}
+
+/**
+ * Filter the_content().
+ *
+ * @return string The content.
+ */
+function anva_read_more_link() {
+	$more_link = sprintf(
+	    '<div class="more-link-wrap"><a class="more-link" href="%s">%s</a></div><!-- .more-link-wrap (end) -->',
+		get_permalink(),
+		anva_get_local( 'read_more' )
+	);
+
+	return $more_link;
 }
 
 /**

@@ -1,0 +1,113 @@
+.anva-shcg-wrap {
+    margin-top: -6px;
+    padding: 0 0 12px;
+
+    .anva-shcg-description {
+        background-color: #F7F7F7;
+        border-bottom: 1px solid #EEE;
+        color: #777;
+        margin: 0 -12px 20px;
+        padding: 20px 15px;
+    }
+
+    > .select-wrapper {
+        max-width: 54%;
+
+        @include phone {
+            max-width: 100%;
+        }
+    }
+}
+
+.anva-shcg-attr {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input.anva-shcg-attr {
+    border-radius: 0;
+    box-shadow: 0 0 4px #EEE;
+    box-sizing: border-box;
+    color: #666;
+    height: 33px;
+    margin-bottom: 10px;
+    outline: 0;
+    width: 100%;
+}
+
+.anva-shcg-title {
+    h4 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+}
+
+.anva-shcg-section-title {
+    h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+}
+
+.anva-shcg-section-inner {
+    .anva-shcg-option {
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.anva-shcg-section {
+    margin-top: 20px;
+    @include clearfix();
+
+    .anva-shcg-explain {
+        color: #777;
+        font-size: 13px;
+        line-height: 18px;
+        margin-bottom: 10px;
+    }
+
+    .anva-shcg-col {
+        box-sizing: border-box;
+        float: left;
+        border: 1px solid #eee;
+        margin-right: 4%;
+        padding: 15px 20px;
+        width: 54%;
+
+        @include phone {
+            float: none;
+            margin-right: 0;
+            width: 100%;
+        }
+
+        &.anva-shcg-col-last {
+            margin-right: 0;
+            width: 42%;
+
+            @include phone {
+                width: 100%;
+            }
+
+            .anva-textarea-wrap {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .anva-shcg-codearea {
+        background-color: #f8f8f8;
+    }
+
+    .anva-textarea-wrap {
+        textarea {
+            height: 200px;
+            width: 100%;
+            word-wrap: break-word;
+        }
+    }
+}

@@ -67,8 +67,8 @@ function anva_display_elements() {
 				$content = null;
 			}
 
-			$classes = implode( ' ', $classes ); ?>
-
+			$classes = implode( ' ', $classes );
+			?>
 			<!-- #section-<?php echo esc_attr( $counter ); ?> (end) -->
 			<section id="section-<?php echo esc_attr( $counter ); ?>" class="section section-element section-<?php echo esc_attr( $item ); ?> section-<?php echo esc_attr( $shortcode ); ?> <?php echo esc_attr( $classes ); ?>">
 			<div id="element-<?php echo esc_attr( $item ); ?>" class="element element-<?php echo esc_attr( $item ); ?> element-<?php echo esc_attr( $shortcode ); ?>">
@@ -139,7 +139,7 @@ function anva_add_elements() {
  * @param string $atts
  * @param string $content
  */
-function anva_divider( $atts, $content = NULL ) {
+function anva_divider( $atts, $content = null ) {
 	$html  = '<div class="container clearfix">';
 	$html .= '<div class="divider"><i class="icon-circle"></i></div>';
 	$html .= '</div>';
