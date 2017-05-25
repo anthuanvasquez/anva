@@ -22,9 +22,6 @@ function anva_admin_init() {
 	// Instantiate the media uploader class.
 	Anva_Options_Media_Uploader::instance();
 
-	// Instantiate shortcode generator.
-	Anva_Shortcodes_Generator::instance();
-
 }
 
 /**
@@ -51,6 +48,7 @@ function anva_admin_assets() {
 	if ( 'post-new.php' === $pagenow ||  'post.php' === $pagenow ) {
 		wp_enqueue_style( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_CSS . 'page-meta.css', array(), Anva::get_version() );
 		wp_enqueue_script( 'anva_meta_box', ANVA_FRAMEWORK_ADMIN_JS . 'page-meta.js', array( 'jquery' ), Anva::get_version(), false );
+		wp_enqueue_script( 'anva_shortcodes', ANVA_FRAMEWORK_ADMIN_JS . 'page-shortcodes.js', array( 'jquery' ), Anva::get_version(), false );
 	}
 
 	// Sweet Alert.

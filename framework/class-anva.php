@@ -163,7 +163,6 @@ class Anva {
 		// Admin files.
 		include_once( self::$framework_dir_path . 'admin/anva-options-ui-types.php' );
 		include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
-		include_once( self::$framework_dir_path . 'admin/anva-shortcode-options.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/general.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/display.php' );
@@ -171,7 +170,6 @@ class Anva {
 		include_once( self::$framework_dir_path . 'admin/includes/locals.php' );
 
 		// Helpers classes functions.
-		include_once( self::$framework_dir_path . 'class-anva-shortcodes.php' );
 		include_once( self::$framework_dir_path . 'anva-tgm.php' );
 		include_once( self::$framework_dir_path . 'anva-updates.php' );
 		include_once( self::$framework_dir_path . 'anva-helpers.php' );

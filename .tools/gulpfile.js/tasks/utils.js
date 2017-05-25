@@ -5,8 +5,6 @@ var gulp        = require('gulp'),
 ;
 
 // Totally wipe the contents of the `dist` folder to prepare
-// for a clean build; additionally trigger Bower-related tasks
-// to ensure we have the latest source files
 gulp.task('wipe-dist', () => {
     return del(config.wipe.dist, { force: true });
 });
@@ -17,8 +15,15 @@ gulp.task('wipe-build', () => {
 });
 
 // Clean out junk files after build
-gulp.task('clean', ['release', 'wipe-dist'], () => {
+gulp.task('clean', ['wipe-dist'], () => {
     return del(config.clean, { force: true });
+});
+
+// Copy changed fonts from the source folder to `build`
+gulp.task('fonts', () => {
+    return gulp.src(config.fonts.src)
+        .pipe(plugins.changed(config.fonts.dest))
+        .pipe(gulp.dest(config.fonts.dest));
 });
 
 // Copy files from the `build` folder to `dist/[project-version]`

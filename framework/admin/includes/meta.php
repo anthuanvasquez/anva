@@ -876,7 +876,7 @@ function anva_setup_content_builder_meta() {
 			'context' 	=> 'normal',
 			'priority'	=> 'high',
 		),
-		'options'		=> anva_get_elements()
+		'options'		=> anva_get_elements(),
 	);
 
 	return apply_filters( 'anva_content_buider_meta', $setup );

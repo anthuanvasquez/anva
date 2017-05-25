@@ -1,61 +1,73 @@
-'use strict';
-
-function nl2br( str, is_xhtml ) {
-    var breakTag = ( is_xhtml || typeof is_xhtml === 'undefined' ) ? '<br />' : '<br>';
-    return ( str + '' ).replace( /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2' );
-}
-
 jQuery( document ).ready( function( $ ) {
 
-    $( '#shortcode-select' ).on( 'change', function() {
-        var shortcodeEle = $( this ).val();
-        $( '.anva-shcg-section' ).hide();
-        $( '#anva-shcg-' + shortcodeEle ).fadeIn();
-    });
+    'use strict';
 
-    $( '.anva-shcg-codearea' ).on( 'click', function() {
-        document.getElementById( $( this ).attr( 'id' ) ).focus();
-        document.getElementById( $( this ).attr( 'id' ) ).select();
-    });
+    var AnvaShortcodes = {
 
-    $( '.button-shortcode' ).on( 'click', function() {
-        var shortcodeEle  = $( this ).data( 'id' ),
-            shortcodeGen  = '',
-            shortcodeAttr = $( '#' + shortcodeEle + '-attr-option .anva-shcg-attr' ),
-            shortcodeCont = $( '#' + shortcodeEle +  '-content' );
+        init: function() {
+            var shortcodeEle = $( '#shortcode-select' );
 
-        // Init shortcode
-        shortcodeGen += '[' + shortcodeEle;
+            AnvaShortcodes.checkCurrent( shortcodeEle );
 
-        if ( shortcodeAttr.length > 0 ) {
-            shortcodeAttr.each( function() {
-                shortcodeGen += ' ' + $( this ).data( 'attr' ) + '="' + $( this ).val() + '"';
+            shortcodeEle.change( function() {
+                AnvaShortcodes.checkCurrent( $( this ) );
             });
-        }
 
-        // End shortcode
-        shortcodeGen += ']';
+            AnvaShortcodes.showHide();
+        },
 
-        if ( shortcodeCont.length > 0 ) {
+        checkCurrent: function( target ) {
+            var shortcodeEle = $( '#anva-shcg-' + target.val() ),
+                shortcodeSec = $( '.anva-shcg-section' );
+            shortcodeSec.removeClass( 'active' );
+            shortcodeEle.addClass( 'active' ).find('button').trigger('click');
+            console.log(shortcodeEle);
+        },
 
-            shortcodeGen += shortcodeCont.val() + '[/' + shortcodeEle + ']';
-            shortcodeGen += '\n';
+        showHide: function() {
+            $( '.button-shortcode' ).click( function() {
+                var shortcodeEle  = $( this ).data( 'id' ),
+                    shortcodeGen  = '',
+                    shortcodeAttr = $( '#' + shortcodeEle + '-attr-option .anva-shcg-attr' ),
+                    shortcodeCont = $( '#' + shortcodeEle +  '-content' );
 
-            var shortcodeRepeat = $( '#' + shortcodeEle + '-content-repeat' ).val();
+                // Init shortcode
+                shortcodeGen += '[' + shortcodeEle;
 
-            for ( var count = 1; count <= shortcodeRepeat; count = count + 1 ) {
-                if ( count < shortcodeRepeat ) {
-                    shortcodeGen += '[' + shortcodeEle + ']';
+                if ( shortcodeAttr.length > 0 ) {
+                    shortcodeAttr.each( function() {
+                        shortcodeGen += ' ' + $( this ).data( 'attr' ) + '="' + $( this ).val() + '"';
+                    });
+                }
+
+                // End shortcode
+                shortcodeGen += ']';
+
+                if ( shortcodeCont.length > 0 ) {
+
                     shortcodeGen += shortcodeCont.val() + '[/' + shortcodeEle + ']';
                     shortcodeGen += '\n';
-                } else {
-                    shortcodeGen += '[' + shortcodeEle + '_last]';
-                    shortcodeGen += shortcodeCont.val() + '[/' + shortcodeEle + '_last]';
-                    shortcodeGen += '\n';
-                }
-            }
-        }
 
-        $( '#' + shortcodeEle + '-code' ).val( shortcodeGen );
-    });
+                    var shortcodeRepeat = $( '#' + shortcodeEle + '-content-repeat' ).val();
+
+                    for ( var count = 1; count <= shortcodeRepeat; count = count + 1 ) {
+                        if ( count < shortcodeRepeat ) {
+                            shortcodeGen += '[' + shortcodeEle + ']';
+                            shortcodeGen += shortcodeCont.val() + '[/' + shortcodeEle + ']';
+                            shortcodeGen += '\n';
+                        } else {
+                            shortcodeGen += '[' + shortcodeEle + '_last]';
+                            shortcodeGen += shortcodeCont.val() + '[/' + shortcodeEle + '_last]';
+                            shortcodeGen += '\n';
+                        }
+                    }
+                }
+                $( '#' + shortcodeEle + '-code' ).html( shortcodeGen );
+
+                return false;
+            });
+        }
+    };
+
+    AnvaShortcodes.init();
 });

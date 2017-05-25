@@ -18,11 +18,11 @@
 ?>
 <div class="entry-wrap">
 	<article id="page-404" class="page page-404">
-
 		<div class="col_half nobottommargin">
-			<div class="error404 center"><?php esc_html_e( '404' ); ?></div>
+			<div class="error404 center">
+				<?php esc_html_e( '404', 'anva' ); ?>
+			</div>
 		</div>
-
 		<div class="col_half nobottommargin col_last">
 			<div class="heading-block nobottomborder">
 				<h4><?php anva_local( '404_sub_title' ); ?></h4>
@@ -30,9 +30,11 @@
 			</div>
 			<form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" role="form" class="nobottommargin">
 				<div class="input-group input-group-lg">
-					<input type="text" name="s" class="form-control" placeholder="Search for Pages...">
+					<input type="text" name="s" class="form-control" placeholder="<?php esc_attr_e( 'Search for Pages...', 'anva' ); ?>">
 					<span class="input-group-btn">
-						<button class="btn btn-danger" type="button">Search</button>
+						<button class="btn btn-danger" type="button">
+							<?php esc_html_e( 'Search', 'anva' ); ?>
+						</button>
 					</span>
 				</div>
 			</form>

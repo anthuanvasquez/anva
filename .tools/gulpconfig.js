@@ -332,6 +332,13 @@ module.exports = {
             src: [build + '**/*', '!' + build + '**/*.map'],
             dest: './dist',
             name: release + '.zip'
+        },
+        fonts: {
+            src: [
+                src + '**/*(*.eot|*.ttf|*.woff|*.woff2)',
+                ignoreTools
+            ],
+            dest: build
         }
     },
 

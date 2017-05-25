@@ -145,8 +145,8 @@ function anva_body_class( $classes ) {
 
 	$classes[] = 'has-lang-' . strtolower( get_bloginfo( 'language' ) );
 
- 	// Group-blog to blogs  with
- 	// more than 1 published author.
+	// Group-blog to blogs  with
+	// more than 1 published author.
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
 	}
@@ -304,15 +304,18 @@ function anva_get_post_class( $class, $paged = true ) {
 			'default' => 'template-post-masonry post-masonry post-masonry-container',
 			'paged'   => 'post-masonry-paginated',
 		),
-        'gallery' => array(
-            'default' => 'archive-galleries gallery-list gallery-container post-grid',
-            'paged'   => 'gallery-paginated',
-        ),
-        'portfolio' => array(
-            'default' => 'archive-portfolio portfolio grid-container portfolio-2 clearfix',
-            'paged'   => 'portfolio-paginated',
-        )
-		// @TODO timeline classes
+		'gallery' => array(
+			'default' => 'archive-galleries gallery-list gallery-container post-grid',
+			'paged'   => 'gallery-paginated',
+		),
+		'portfolio' => array(
+			'default' => 'archive-portfolio portfolio grid-container portfolio-2 clearfix',
+			'paged'   => 'portfolio-paginated',
+		),
+		/**
+		 * Add post timeline classes to the list.
+		 * @todo timeline classes.
+		 */
 	);
 
 	// Add default.
@@ -438,7 +441,7 @@ function anva_get_header_type() {
  * @return array  $output
  */
 function anva_the_terms_links( $taxonomy, $implode = ' ' ) {
-    echo anva_get_terms_links( $taxonomy, $implode );
+	echo anva_get_terms_links( $taxonomy, $implode );
 }
 
 /**
@@ -450,35 +453,35 @@ function anva_the_terms_links( $taxonomy, $implode = ' ' ) {
  */
 function anva_get_terms_links( $taxonomy, $implode = ' ', $links = true, $type = 'name' ) {
 
-    // Get post ID.
-    $id = get_the_ID();
+	// Get post ID.
+	$id = get_the_ID();
 
-    // Get post terms by taxonomy and post ID.
-    $terms = wp_get_post_terms( $id, $taxonomy, array( 'fields' => 'all' ) );
+	// Get post terms by taxonomy and post ID.
+	$terms = wp_get_post_terms( $id, $taxonomy, array( 'fields' => 'all' ) );
 
-    if ( empty( $terms ) ) {
-        return false;
-    }
+	if ( empty( $terms ) ) {
+		return false;
+	}
 
-    $output = array();
+	$output = array();
 
-    foreach ( $terms as $term ) {
+	foreach ( $terms as $term ) {
 
-        // Set term type, id, name. slug, etc.
-        $term_type = $term->$type;
+		// Set term type, id, name. slug, etc.
+		$term_type = $term->$type;
 
-        // Check if terms will print the links.
-        if ( $links ) {
-            $output[] = sprintf( '<a href="%1$s">%2$s</a>',
-                get_term_link( $term ),
-                $term_type
-            );
-        } else {
-            $output[] = $term_type;
-        }
-    }
+		// Check if terms will print the links.
+		if ( $links ) {
+			$output[] = sprintf( '<a href="%1$s">%2$s</a>',
+				get_term_link( $term ),
+				$term_type
+			);
+		} else {
+			$output[] = $term_type;
+		}
+	}
 
-    return implode( $implode, $output );
+	return implode( $implode, $output );
 
 }
 
@@ -860,9 +863,9 @@ function anva_get_font_face( $option ) {
 	} elseif ( isset( $option['face'] ) && isset( $stacks[ $option['face'] ] ) ) {
 		$stack = $stacks[ $option['face'] ];
 
- 	} else {
+	} else {
 		$stack = $stacks[ $face ];
- 	}
+	}
 
 	return apply_filters( 'anva_get_font_face', $stack, $option, $stacks );
 }
