@@ -20,8 +20,10 @@ jQuery( document ).ready( function( $ ) {
             var shortcodeEle = $( '#anva-shcg-' + target.val() ),
                 shortcodeSec = $( '.anva-shcg-section' );
             shortcodeSec.removeClass( 'active' );
-            shortcodeEle.addClass( 'active' ).find('button').trigger('click');
-            console.log(shortcodeEle);
+            shortcodeEle.addClass( 'active' );
+            setTimeout(function() {
+                shortcodeEle.find( 'button' ).trigger( 'click' );
+            }, 50);
         },
 
         showHide: function() {

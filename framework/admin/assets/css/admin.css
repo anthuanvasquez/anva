@@ -1521,6 +1521,7 @@ input.anva-shcg-attr {
 .anva-shcg-section .anva-shcg-controls textarea {
   height: 200px;
   width: 100%;
+  padding: 10px;
   word-wrap: break-word;
 }
 
