@@ -32,6 +32,9 @@ function anva_theme_post_types() {
 		'portfolio',
 		'galleries',
 		'slideshows',
+		'testimonials',
+		'clients',
+		'team',
 	);
 
 	return $post_types;

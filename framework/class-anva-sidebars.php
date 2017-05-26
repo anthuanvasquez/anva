@@ -304,7 +304,11 @@ class Anva_Sidebars {
 			}
 		}
 
-		$sidebar = $config[$location];
+		if ( ! isset( $config[ $location ] ) ) {
+			return;
+		}
+
+		$sidebar = $config[ $location ];
 
 		if ( ! $sidebar['error'] && ! is_active_sidebar( $sidebar['id'] ) ) {
 			return;

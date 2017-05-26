@@ -6,7 +6,7 @@
  * @since  1.0.0
  * @return void
  */
-function anva_init_api() {
+function anva_init_api_helpers() {
 
 	// Setup Framework Core Options.
 	Anva_Options::instance();

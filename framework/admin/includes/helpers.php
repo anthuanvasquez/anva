@@ -126,8 +126,8 @@ function anva_pull_categories() {
  * @return array The pages list.
  */
 function anva_pull_pages() {
-	$pages = array();
-	$pages[''] = __( 'Select a page', 'anva' ) . ':';
+	$pages     = array();
+	$pages[''] = __( 'Select a page', 'anva' );
 	foreach ( get_pages( 'sort_column=post_parent,menu_order' ) as $page ) {
 		$pages[ $page->ID ] = $page->post_title;
 	}
@@ -146,10 +146,61 @@ function anva_pull_galleries() {
 		'post_type'   => array( 'galleries' ),
 		'orderby'     => 'name',
 	);
-	$galleries = array();
+	$galleries     = array();
 	$galleries[''] = __( 'Select gallery', 'anva' );
 	foreach ( get_posts( $args ) as $gallery ) {
 		$galleries[ $gallery->ID ] = $gallery->post_title;
 	}
 	return $galleries;
 }
+
+/**
+ * Pull all testimonials categories into a array.
+ *
+ * @since 1.0.0
+ * @return array $testimonial_cats
+ */
+function anva_pull_testimonial_cats() {
+	$categories = get_terms( 'testimonial_cat', array(
+		'hide_empty'   => 0,
+		'hierarchical' => 0,
+		'parent'       => 0,
+	) );
+
+	if ( is_wp_error( $categories ) ) {
+		return array();
+	}
+
+	$testimonial_cats     = array();
+	$testimonial_cats[''] = __( 'Select a testimonial category', 'anva' );
+	foreach ( $categories as $category ) {
+		$testimonial_cats[ $category->slug ] = $category->name;
+	}
+	return $testimonial_cats;
+}
+
+/**
+ * Pull all pricing categories into a array.
+ *
+ * @since 1.0.0
+ * @return array $pricing_cats
+ */
+function anva_pull_price_cats() {
+	$categories = get_terms( 'pricing_cat', array(
+		'hide_empty'   => 0,
+		'hierarchical' => 0,
+		'parent'       => 0,
+	) );
+
+	if ( is_wp_error( $categories ) ) {
+		return array();
+	}
+
+	$pricing_cats     = array();
+	$pricing_cats[''] = __( 'Select a pricing category', 'anva' );
+	foreach ( $categories as $category ) {
+		$pricing_cats[ $category->slug ] = $category->name;
+	}
+	return $pricing_cats;
+}
+

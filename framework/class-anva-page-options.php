@@ -60,7 +60,7 @@ class Anva_Page_Options {
 	 * @since 1.0.0
 	 * @var boolean
 	 */
-	private $cache = false;
+	private $cache = true;
 
 	/**
 	 * If sanitization has run yet or not when saving
@@ -96,6 +96,11 @@ class Anva_Page_Options {
 			// Set option name.
 			$this->option_id = anva_get_option_name();
 
+			// If DEBUG is active disable cache.
+			if ( Anva::get_debug() ) {
+				$this->cache = false;
+			}
+
 			// Get options to load.
 			$this->options = anva_get_options();
 
@@ -109,8 +114,7 @@ class Anva_Page_Options {
 				add_action( 'admin_menu', array( $this, 'add_custom_page_options' ) );
 
 				// Add the required scripts and styles.
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ), 10 );
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 10 );
+				add_action( 'admin_enqueue_scripts', array( $this, 'assets' ), 10 );
 
 				// Settings need to be registered after admin_init.
 				add_action( 'admin_init', array( $this, 'settings_init' ) );
@@ -178,31 +182,8 @@ class Anva_Page_Options {
 			$menu['menu_title'],
 			$menu['capability'],
 			$menu['menu_slug'],
-			array( $this, 'page_options' )
+			array( $this, 'display' )
 		);
-	}
-
-	/**
-	 * Loads the required stylesheets.
-	 *
-	 * @since  1.0.0
-	 * @param  object $hook
-	 * @return void
-	 */
-	public function enqueue_admin_styles( $hook ) {
-		if ( $this->options_screen != $hook ) {
-			return;
-		}
-
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.css', array(), '5.13.2' );
-		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
-		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.css', array(), '4.0.1' );
-		wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
-		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
-		wp_enqueue_style( 'jquery_ui_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
-		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'page-options.css', array(), Anva::get_version() );
-
 	}
 
 	/**
@@ -212,12 +193,11 @@ class Anva_Page_Options {
 	 * @param  object $hook
 	 * @return void
 	 */
-	public function enqueue_admin_scripts( $hook ) {
+	public function assets( $hook ) {
 		if ( $this->options_screen != $hook ) {
 			return;
 		}
 
-		// Enqueue custom option panel JS.
 		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.js', array( 'jquery' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
@@ -229,8 +209,17 @@ class Anva_Page_Options {
 		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'page-options.js', array( 'jquery', 'wp-color-picker' ), Anva::get_version(), true );
 		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
 
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.css', array(), '5.13.2' );
+		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
+		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.css', array(), '4.0.1' );
+		wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
+		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
+		wp_enqueue_style( 'jquery_ui_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
+		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'page-options.css', array(), Anva::get_version() );
+
 		// Inline scripts from anva-options-interface.php.
-		add_action( 'admin_head', array( $this, 'admin_head' ) );
+		add_action( 'admin_head', array( $this, 'head' ) );
 	}
 
 	/**
@@ -239,7 +228,7 @@ class Anva_Page_Options {
 	 * @since 1.0.0
 	 * @return void
 	 */
-	public function admin_head() {
+	public function head() {
 		/**
 		 * Admin custom scripts not hooked by default.
 		 */
@@ -247,12 +236,12 @@ class Anva_Page_Options {
 	}
 
 	/**
-	 * Builds out the options panel.
+	 * Display the options panel.
 	 *
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function page_options() {
+	public function display() {
 	?>
 		<div id="anva-framework-wrap" class="anva-framework-wrap wrap">
 
