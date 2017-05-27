@@ -1,7 +1,7 @@
 rules:
     color-no-invalid-hex: true
     time-no-imperceptible: true
-    declaration-block-no-duplicate-properties: true
+    declaration-block-no-duplicate-properties: false
     declaration-block-no-shorthand-property-overrides: true
     block-no-empty: true
     no-unknown-animations: true

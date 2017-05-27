@@ -3931,7 +3931,7 @@ body:not(.device-touch) .team-overlay {
   position: relative;
 }
 
-.pricing [class^=col-] {
+.pricing [class^="col-"] {
   padding: 0;
   margin-top: 20px;
 }
@@ -4614,7 +4614,7 @@ body:not(.device-touch) .rounded-skill {
 
 /* Owl Carousel - Controls - Arrows
 -----------------------------------------------------------------*/
-.owl-carousel .owl-nav [class*=owl-] {
+.owl-carousel .owl-nav [class*="owl-"] {
   position: absolute;
   top: 50%;
   margin-top: -18px;
@@ -4633,11 +4633,11 @@ body:not(.device-touch) .rounded-skill {
   transition: all 0.3s ease;
 }
 
-.owl-carousel.with-carousel-dots .owl-nav [class*=owl-] {
+.owl-carousel.with-carousel-dots .owl-nav [class*="owl-"] {
   margin-top: -38px;
 }
 
-.owl-carousel-full .owl-nav [class*=owl-] {
+.owl-carousel-full .owl-nav [class*="owl-"] {
   margin-top: -30px;
   left: 0 !important;
   height: 60px;
@@ -4649,7 +4649,7 @@ body:not(.device-touch) .rounded-skill {
   border-radius: 0 3px 3px 0;
 }
 
-.owl-carousel-full .with-carousel-dots .owl-nav [class*=owl-] {
+.owl-carousel-full .with-carousel-dots .owl-nav [class*="owl-"] {
   margin-top: -50px;
 }
 
@@ -4664,7 +4664,7 @@ body:not(.device-touch) .rounded-skill {
   border-radius: 3px 0 0 3px;
 }
 
-.owl-carousel:hover .owl-nav [class*=owl-] {
+.owl-carousel:hover .owl-nav [class*="owl-"] {
   opacity: 1;
   left: -18px;
 }
@@ -4674,7 +4674,7 @@ body:not(.device-touch) .rounded-skill {
   right: -18px;
 }
 
-.owl-carousel .owl-nav [class*=owl-]:hover {
+.owl-carousel .owl-nav [class*="owl-"]:hover {
   background-color: #3498db !important;
   color: #FFF !important;
   text-decoration: none;
@@ -5292,14 +5292,14 @@ body:not(.device-touch) .text-overlay {
   display: block;
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   -webkit-perspective: 1000;
           perspective: 1000;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
   -webkit-animation-timing-function: linear;
           animation-timing-function: linear;
 }
@@ -5698,11 +5698,9 @@ blockquote.pull-right {
 -----------------------------------------------------------------*/
 #gotoTop {
   display: none;
-  z-index: 299;
   position: fixed;
   width: 40px;
   height: 40px;
-  background-color: #333;
   background-color: rgba(0, 0, 0, 0.3);
   font-size: 20px;
   line-height: 36px;

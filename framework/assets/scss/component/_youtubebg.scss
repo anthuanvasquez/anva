@@ -5,10 +5,10 @@
 .mb_YTVPlayer {
     display: block;
     transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
     transform-style: preserve-3d;
     perspective: 1000;
     backface-visibility: hidden;
-    transform: translate3d(0, 0, 0);
     animation-timing-function: linear;
     &:focus {
         outline: 0;

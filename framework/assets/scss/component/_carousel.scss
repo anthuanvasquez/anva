@@ -212,7 +212,7 @@
 /* Owl Carousel - Controls - Arrows
 -----------------------------------------------------------------*/
 
-.owl-carousel .owl-nav [class*=owl-] {
+.owl-carousel .owl-nav [class*="owl-"] {
     position: absolute;
     top: 50%;
     margin-top: -18px;
@@ -230,11 +230,11 @@
     transition: all 0.3s ease;
 }
 
-.owl-carousel.with-carousel-dots .owl-nav [class*=owl-] {
+.owl-carousel.with-carousel-dots .owl-nav [class*="owl-"] {
     margin-top: -38px;
 }
 
-.owl-carousel-full .owl-nav [class*=owl-] {
+.owl-carousel-full .owl-nav [class*="owl-"] {
     margin-top: -30px;
     left: 0 !important;
     height: 60px;
@@ -246,7 +246,7 @@
     border-radius: 0 3px 3px 0;
 }
 
-.owl-carousel-full .with-carousel-dots .owl-nav [class*=owl-] {
+.owl-carousel-full .with-carousel-dots .owl-nav [class*="owl-"] {
     margin-top: -50px;
 }
 
@@ -261,7 +261,7 @@
     border-radius: 3px 0 0 3px;
 }
 
-.owl-carousel:hover .owl-nav [class*=owl-] {
+.owl-carousel:hover .owl-nav [class*="owl-"] {
     opacity: 1;
     left: -18px;
 }
@@ -271,7 +271,7 @@
     right: -18px;
 }
 
-.owl-carousel .owl-nav [class*=owl-]:hover {
+.owl-carousel .owl-nav [class*="owl-"]:hover {
     background-color: $theme-color !important;
     color: #FFF !important;
     text-decoration: none;

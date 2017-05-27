@@ -1315,7 +1315,7 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
   background-image: url("../images/preloader-dark.gif");
 }
 
-.dark .owl-carousel .owl-nav [class*=owl-] {
+.dark .owl-carousel .owl-nav [class*="owl-"] {
   border-color: transparent;
   color: #EEE;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1569,7 +1569,7 @@ body #side-panel.dark #side-panel-trigger-close a {
 
 /* Dark Scheme - Bootstrap
 -----------------------------------------------------------------*/
-.dark .show-grid [class^=col-] {
+.dark .show-grid [class^="col-"] {
   background-color: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.1);
 }
