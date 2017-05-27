@@ -7,26 +7,26 @@ pipelines:
         develop:
             - step:
                 script:
-                    - export SNIFFS_DIR=/tmp/sniffs
+                    - export SNIFFS_DIR=/sniffs
                     - export TOOLS_DIR=/.tools/
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
                     - if [[ "$SNIFF" == "1" ]]; then composer install; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=tmp,.tools,vendor; fi
-                    - if [[ "$SNIFF" == "1" ]]; then $vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude tmp,.tools,vendor; fi
-                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/npm install; fi
-                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/gulp tests; fi
+                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude tmp,.tools,vendor; fi
+                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/npm install; fi
+                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/gulp tests; fi
         feature/*:
             - step:
                 script:
-                    - export SNIFFS_DIR=/tmp/sniffs
+                    - export SNIFFS_DIR=/sniffs
                     - export TOOLS_DIR=/.tools/
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
                     - if [[ "$SNIFF" == "1" ]]; then composer install; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=tmp,.tools,vendor; fi
-                    - if [[ "$SNIFF" == "1" ]]; then $vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude tmp,.tools,vendor; fi
-                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/npm install; fi
-                    - if [[ "$SNIFF" == "1" ]]; then $TOOLS_DIR/gulp tests; fi
+                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude tmp,.tools,vendor; fi
+                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/npm install; fi
+                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/gulp tests; fi
