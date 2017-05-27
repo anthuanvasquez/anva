@@ -16,55 +16,55 @@
  */
 
 $previous  = get_previous_post();
-$thumbnail = anva_get_featured_image_src( $previous->ID, 'anva_sm' );
 
 if ( $previous ) :
-?>
-<div id="more-story" class="more-story-wrap">
-	<button type="button" class="more-story-close">
-		<i class="icon-remove"></i>
-	</button>
+	$thumbnail = anva_get_featured_image_src( $previous->ID, 'anva_sm' );
+	?>
+	<div id="more-story" class="more-story-wrap">
+		<button type="button" class="more-story-close">
+			<i class="icon-remove"></i>
+		</button>
 
-	<div class="more-story-title">
-		<h4>
-			<?php esc_html_e( 'More Story', 'anva' ); ?>
-		</h4>
-	</div>
+		<div class="more-story-title">
+			<h4>
+				<?php esc_html_e( 'More Story', 'anva' ); ?>
+			</h4>
+		</div>
 
-	<div class="ipost clearfix">
-		<?php if ( ! empty( $thumbnail ) ) : ?>
-			<div class="entry-image">
-				<a href="<?php the_permalink( $previous->ID ); ?>">
-					<img class="image_fade" src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php the_title(); ?>" />
-				</a>
+		<div class="ipost clearfix">
+			<?php if ( ! empty( $thumbnail ) ) : ?>
+				<div class="entry-image">
+					<a href="<?php the_permalink( $previous->ID ); ?>">
+						<img class="image_fade" src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php the_title(); ?>" />
+					</a>
+				</div>
+			<?php endif; ?>
+
+			<div class="entry-title">
+				<h3>
+					<a href="<?php the_permalink( $previous->ID ); ?>">
+						<?php echo esc_html( $previous->post_title ); ?>
+					</a>
+				</h3>
 			</div>
-		<?php endif; ?>
 
-		<div class="entry-title">
-			<h3>
-				<a href="<?php the_permalink( $previous->ID ); ?>">
-					<?php echo esc_html( $previous->post_title ); ?>
-				</a>
-			</h3>
+			<div class="entry-content">
+				<?php
+					$content = strip_tags( strip_shortcodes( $previous->post_content ) );
+					$content = anva_truncate_string( $content );
+					echo wpautop( $content );
+				?>
+			</div>
 		</div>
 
-		<div class="entry-content">
-			<?php
-				$content = strip_tags( strip_shortcodes( $previous->post_content ) );
-				$content = anva_truncate_string( $content );
-				echo wpautop( $content );
-			?>
+		<div class="more-story-footer">
+			<span class="more-story-date">
+				<?php echo date( 'jS F Y', strtotime( $previous->post_date ) ); ?>
+			</span>
+			<a class="more-link" href="<?php the_permalink(); ?>">
+				<?php anva_local( 'read_more' ); ?> <span class="screen-reader-text"><?php anva_local( 'read_more_about' ); ?></span>
+			</a>
 		</div>
 	</div>
-
-	<div class="more-story-footer">
-		<span class="more-story-date">
-			<?php echo date( 'jS F Y', strtotime( $previous->post_date ) ); ?>
-		</span>
-		<a class="more-link" href="<?php the_permalink(); ?>">
-			<?php anva_local( 'read_more' ); ?> <span class="screen-reader-text"><?php anva_local( 'read_more_about' ); ?></span>
-		</a>
-	</div>
-</div>
 <?php
 endif;

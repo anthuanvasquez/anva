@@ -88,7 +88,7 @@ function anva_head_apple_touch_icon() {
  */
 function anva_head_viewport() {
 	if ( 'yes' === anva_get_option( 'responsive' ) ) : ?>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<?php
 	endif;
 }

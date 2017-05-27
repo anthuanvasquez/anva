@@ -5711,7 +5711,7 @@ blockquote.pull-right {
   top: auto;
   left: auto;
   right: 30px;
-  bottom: 50px;
+  bottom: 30px;
   cursor: pointer;
   z-index: 1199;
   border-radius: 2px;
@@ -5721,7 +5721,7 @@ blockquote.pull-right {
   background-color: #3498db;
 }
 
-body.has-reading-bar #gotoTop {
+body.has-reading-bar-bottom #gotoTop {
   bottom: 8px;
 }
 

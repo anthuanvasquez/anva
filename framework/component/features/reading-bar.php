@@ -16,7 +16,7 @@
  */
 
 $reading_bar_position = anva_get_option( 'single_post_reading_bar_position', 'bottom' );
-
+$class = '';
 if ( 'top' === $reading_bar_position ) {
 	$class = ' bar-top';
 }

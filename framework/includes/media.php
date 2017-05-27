@@ -141,17 +141,6 @@ function anva_get_media_queries( $localize ) {
 }
 
 /**
- * Add 100% width to <audio> tag of WP's built-in
- * audio player to make it responsive.
- *
- * @since 1.0.0
- * @param string $html
- */
-function anva_audio_shortcode( $html ) {
-	return str_replace( '<audio', '<audio width="100%"', $html );
-}
-
-/**
  * Register image sizes.
  *
  * @since  1.0.0
@@ -460,11 +449,22 @@ function anva_get_button_colors() {
 }
 
 /**
+ * Add 100% width to <audio> tag of WP's built-in
+ * audio player to make it responsive.
+ *
+ * @since 1.0.0
+ * @param string $html
+ */
+function anva_audio_shortcode( $html ) {
+	return str_replace( '<audio', '<audio width="100%"', $html );
+}
+
+/**
  * Add wrapper around embedded videos to allow for responsive videos.
  *
  * @since 1.0.0
  */
-function anva_oembed( $html, $url ) {
+function anva_oembed( $html, $url, $args ) {
 
 	// If this is a tweet, keep on movin' fella.
 	if ( strpos( $url, 'twitter.com' ) !== false ) {

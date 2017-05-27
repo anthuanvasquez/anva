@@ -15,6 +15,9 @@
  * @package      AnvaFramework
  */
 
+$tags = the_tags( '', ' ' );
+
+if ( $tags ) :
 ?>
 <div class="tagcloud-wrap">
 	<?php
@@ -25,6 +28,8 @@
 	?>
 
 	<div class="<?php echo esc_attr( $classes ); ?>">
-		<?php the_tags( '', ' ' ); ?>
+		<?php echo $tags; ?>
 	</div><!-- .tagcloud (end) -->
 </div><!-- .tagcloud-wrap (end) -->
+<?php
+endif;

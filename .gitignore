@@ -25,6 +25,7 @@ Desktop.ini
 prepros.cfg
 config.codekit
 /vendor
+/docs
 /.tools/src
 /.tools/dist
 /.tools/zip

@@ -184,12 +184,21 @@ blockquote,
 address,
 table,
 fieldset,
-form {
+form,
+figure {
   margin-bottom: 30px;
 }
 
 small {
   font-family: "Lato", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 14px;
+  line-height: 2;
+  width: 100%;
 }
 
 #wrapper {
@@ -5461,6 +5470,10 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay, body.device-t
   margin-top: 30px;
 }
 
+.post-list .entry-footer:empty {
+  margin-top: 0;
+}
+
 .entry {
   position: relative;
   margin: 0 0 50px;
@@ -6207,7 +6220,7 @@ body:not(.device-touch) .entry-link {
   background-color: #FFF;
   border: 1px solid #EEE;
   border-right: 0;
-  bottom: 0;
+  bottom: 100px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   padding-top: 0;
   padding: 20px;
@@ -6613,7 +6626,8 @@ body:not(.device-touch) .entry-link {
 /* Post Elements
 -----------------------------------------------------------------*/
 img.alignleft,
-div.alignleft {
+div.alignleft,
+figure.alignleft {
   float: left;
   margin: 5px 20px 13px 0;
   max-width: 100%;
@@ -6627,7 +6641,9 @@ div.alignleft > img, div.alignnone > img, div.aligncenter > img, div.alignright 
 img.alignnone,
 img.aligncenter,
 div.alignnone,
-div.aligncenter {
+div.aligncenter,
+figure.alignnone,
+figure.aligncenter {
   display: block;
   margin: 10px 0;
   float: none;
@@ -6635,14 +6651,17 @@ div.aligncenter {
 
 img.aligncenter,
 div.aligncenter,
-div.aligncenter img {
+div.aligncenter img,
+figure.aligncenter,
+figure.aligncenter img {
   margin-left: auto;
   margin-right: auto;
   clear: both;
 }
 
 img.alignright,
-div.alignright {
+div.alignright,
+figure.alignright {
   float: right;
   margin: 5px 0 13px 20px;
 }
@@ -6672,10 +6691,6 @@ figure.wp-caption,
 figcaption.wp-caption-text {
   max-width: 100%;
   height: auto;
-}
-
-figure.wp-caption {
-  margin: 0 0 30px;
 }
 
 figcaption.wp-caption-text {

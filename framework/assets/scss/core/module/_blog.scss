@@ -73,6 +73,10 @@
 .post-list {
     .entry-footer {
         margin-top: 30px;
+
+        &:empty {
+            margin-top: 0;
+        }
     }
 }
 
@@ -949,7 +953,7 @@ body {
     background-color: #FFF;
     border: 1px solid #EEE;
     border-right: 0;
-    bottom: 0;
+    bottom: 100px;
     box-shadow: 0 0 15px rgba(black, 0.1);
     padding-top: 0;
     padding: 20px;
@@ -995,6 +999,10 @@ body {
             float: right;
         }
     }
+}
+
+body.has-post-reading-bar .more-story-wrap {
+
 }
 
 /* ----------------------------------------------------------------
@@ -1366,7 +1374,8 @@ body {
 -----------------------------------------------------------------*/
 
 img,
-div {
+div,
+figure {
     &.alignleft {
         float: left;
         margin: 5px 20px 13px 0;
@@ -1389,7 +1398,9 @@ div {
 img.alignnone,
 img.aligncenter,
 div.alignnone,
-div.aligncenter {
+div.aligncenter,
+figure.alignnone,
+figure.aligncenter {
     display: block;
     margin: 10px 0;
     float: none;
@@ -1397,14 +1408,17 @@ div.aligncenter {
 
 img.aligncenter,
 div.aligncenter,
-div.aligncenter img {
+div.aligncenter img,
+figure.aligncenter,
+figure.aligncenter img {
     margin-left: auto;
     margin-right: auto;
     clear: both;
 }
 
 img,
-div {
+div,
+figure {
     &.alignright {
         float: right;
         margin: 5px 0 13px 20px;
@@ -1438,10 +1452,6 @@ figure.wp-caption,
 figcaption.wp-caption-text {
     max-width: 100%;
     height: auto;
-}
-
-figure.wp-caption {
-    margin: 0 0 30px;
 }
 
 figcaption.wp-caption-text {

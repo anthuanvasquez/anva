@@ -151,12 +151,21 @@ blockquote,
 address,
 table,
 fieldset,
-form {
+form,
+figure {
     margin-bottom: $margin-small;
 }
 
 small {
     font-family: $body-font;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: $font-size-base;
+    line-height: 2;
+    width: 100%;
 }
 
 #wrapper {

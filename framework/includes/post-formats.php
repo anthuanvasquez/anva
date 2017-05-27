@@ -181,7 +181,7 @@ function anva_get_content_link( $content ) {
 
 	if ( preg_match( "/$find_link/siU", $line, $matches ) ) {
 
-		// First line of content is HTML link
+		// First line of content is HTML link.
 		return array( $line, $matches[2] );
 
 	} else if ( stripos( $line, 'http' ) === 0 ) {
@@ -208,7 +208,7 @@ function anva_content_link() {
 	$url = anva_get_content_link( get_the_content(), false );
 
 	if ( $url ) {
-		printf( '<a href="%1$s" class="entry-link" target="_blank">%2$s <span>- %1$s</span></a>', $url[0], get_the_title() );
+		printf( '<a href="%1$s" class="entry-link" target="_blank">%2$s <span>- %1$s</span></a>', $url[1], get_the_title() );
 	}
 
 }
@@ -416,11 +416,18 @@ function anva_content_audio() {
 	}
 
 	$audio = anva_get_content_audio( get_the_content(), false );
-	$img = get_the_post_thumbnail( get_the_ID(), $thumbnail );
+	$img   = get_the_post_thumbnail( get_the_ID(), $thumbnail );
 
 	if ( strpos( $audio, 'http' ) === 0 ) {
 
-		$audio = wp_oembed_get( $audio );
+		$oembed = wp_oembed_get( $audio );
+
+		// If url dosn't have provider pass to audio shortcode.
+		if ( ! $oembed ) {
+			$audio = wp_audio_shortcode( array( 'src' => $audio ) );
+		} else {
+			$audio = $oembed;
+		}
 
 		if ( apply_filters( 'anva_featured_thumb_frame', false ) ) {
 			$audio = sprintf( '<div class="thumbnail">%s</div>', $audio );

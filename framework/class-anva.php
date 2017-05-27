@@ -220,50 +220,7 @@ class Anva {
 		}
 
 		/**
-		 * WordPress Default Hooks.
-		 */
-		add_filter( 'body_class', 'anva_body_class' );
-		add_filter( 'body_class', 'anva_browser_class' );
-		add_filter( 'oembed_result', 'anva_oembed', 10, 2 );
-		add_filter( 'embed_oembed_html', 'anva_oembed', 10, 2 );
-		add_filter( 'wp_audio_shortcode', 'anva_audio_shortcode' );
-		add_filter( 'the_content', 'anva_content_format_gallery', 7 );
-		add_filter( 'the_content', 'anva_content_format_audio', 7 );
-		add_filter( 'the_content', 'anva_content_format_video', 7 );
-		add_filter( 'the_content', 'anva_content_format_quote', 7 );
-		add_filter( 'the_content', 'anva_content_format_link', 7 );
-		add_filter( 'the_content_more_link', 'anva_read_more_link' );
-		add_filter( 'the_password_form', 'anva_password_form' );
-		add_filter( 'image_size_names_choose', 'anva_image_size_names_choose' );
-		add_filter( 'nav_menu_css_class', 'anva_nav_menu_css_class', 10, 4 );
-		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
-		add_filter( 'wp_link_pages_args', 'anva_link_pages_args' );
-		add_filter( 'wp_link_pages_link', 'anva_link_pages_link', 10, 2 );
-		add_filter( 'walker_nav_menu_start_el', 'anva_nav_menu_start_el', 10, 4 );
-		add_filter( 'nav_menu_item_id', 'anva_nav_menu_item_id', 10, 4 );
-		add_filter( 'wp_head', 'anva_wp_title_compat', 5 );
-		add_action( 'after_setup_theme', 'anva_content_width', 0 );
-		add_action( 'after_setup_theme', 'anva_add_image_sizes' );
-		add_action( 'after_setup_theme', 'anva_add_theme_support' );
-		add_action( 'after_setup_theme', 'anva_add_elements' );
-		add_action( 'after_setup_theme', 'anva_require_theme_supports', 12 );
-		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
-		add_action( 'after_setup_theme', 'anva_load_theme_texdomain' );
-		add_action( 'init', 'anva_register_menus' );
-		add_action( 'init', 'anva_contact_send_email' );
-		add_action( 'wp_loaded', 'anva_customizer_preview' );
-		add_action( 'wp', 'anva_setup_author' );
-		add_action( 'wp_head', 'anva_head_apple_touch_icon' );
-		add_action( 'wp_head', 'anva_head_viewport', 1 );
-		add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
-		add_action( 'customize_register', 'anva_customizer_init' );
-		add_action( 'customize_register', 'anva_customizer_register_blog' );
-		add_action( 'customize_controls_print_styles', 'anva_customizer_styles' );
-		add_action( 'customize_controls_enqueue_scripts', 'anva_customizer_scripts' );
-		add_action( 'customize_preview_init', 'anva_customize_preview_enqueue_scripts' );
-
-		/**
-		 * Framework default Hooks.
+		 * Default Hooks.
 		 */
 		if ( ! is_admin() ) {
 			add_filter( 'anva_js_locals', 'anva_get_media_queries' );
@@ -279,12 +236,67 @@ class Anva {
 		}
 
 		/**
+		 * WordPress Default Hooks.
+		 */
+		add_filter( 'body_class', 'anva_body_class' );
+		add_filter( 'body_class', 'anva_browser_class' );
+		add_filter( 'oembed_result', 'anva_oembed', 10, 3 );
+		add_filter( 'embed_oembed_html', 'anva_oembed', 10, 3 );
+		add_filter( 'wp_audio_shortcode', 'anva_audio_shortcode' );
+
+		/**
+		 * Post formats.
+		 */
+		add_filter( 'the_content', 'anva_content_format_gallery', 7 );
+		add_filter( 'the_content', 'anva_content_format_audio', 7 );
+		add_filter( 'the_content', 'anva_content_format_video', 7 );
+		add_filter( 'the_content', 'anva_content_format_quote', 7 );
+		add_filter( 'the_content', 'anva_content_format_link', 7 );
+
+		add_filter( 'the_content', 'anva_do_icon' );
+		add_filter( 'the_content_more_link', 'anva_read_more_link' );
+		add_filter( 'the_password_form', 'anva_password_form' );
+		add_filter( 'image_size_names_choose', 'anva_image_size_names_choose' );
+		add_filter( 'widget_text', 'anva_do_icon' );
+		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
+		add_filter( 'wp_link_pages_args', 'anva_link_pages_args' );
+		add_filter( 'wp_link_pages_link', 'anva_link_pages_link', 10, 2 );
+		add_filter( 'walker_nav_menu_start_el', 'anva_nav_menu_start_el', 10, 4 );
+		add_filter( 'nav_menu_css_class', 'anva_nav_menu_css_class', 10, 4 );
+		add_filter( 'nav_menu_item_id', 'anva_nav_menu_item_id', 10, 4 );
+		add_filter( 'wp_head', 'anva_wp_title_compat', 5 );
+		add_action( 'after_setup_theme', 'anva_content_width', 0 );
+		add_action( 'after_setup_theme', 'anva_add_image_sizes' );
+		add_action( 'after_setup_theme', 'anva_add_theme_support' );
+		add_action( 'after_setup_theme', 'anva_add_elements' );
+		add_action( 'after_setup_theme', 'anva_require_theme_supports', 12 );
+		add_action( 'after_setup_theme', 'anva_register_footer_sidebar_locations' );
+		add_action( 'after_setup_theme', 'anva_load_theme_texdomain' );
+		add_action( 'init', 'anva_register_menus' );
+		add_action( 'init', 'anva_contact_send_email' );
+		add_action( 'wp', 'anva_setup_author' );
+
+		add_action( 'wp_head', 'anva_head_apple_touch_icon' );
+		add_action( 'wp_head', 'anva_head_viewport', 1 );
+		add_action( 'wp_before_admin_bar_render', 'anva_admin_menu_bar', 100 );
+
+		/**
+		 * Customizer.
+		 */
+		add_action( 'wp_loaded', 'anva_customizer_preview' );
+		add_action( 'customize_register', 'anva_customizer_init' );
+		add_action( 'customize_register', 'anva_customizer_register_blog' );
+		add_action( 'customize_controls_print_styles', 'anva_customizer_styles' );
+		add_action( 'customize_controls_enqueue_scripts', 'anva_customizer_scripts' );
+		add_action( 'customize_preview_init', 'anva_customize_preview_enqueue_scripts' );
+
+		/**
 		 * Init API helpers.
 		 */
 		add_action( 'anva_init_api', 'anva_init_api_helpers' );
 
 		/**
-		 * Framework layout hooks
+		 * Header.
 		 */
 		add_action( 'anva_before', 'anva_side_panel_default' );
 		add_action( 'anva_header_above', 'anva_breaking_news_default' );
@@ -295,9 +307,17 @@ class Anva {
 		add_action( 'anva_header_extras', 'anva_header_extras_default' );
 		add_action( 'anva_header_primary_menu', 'anva_header_primary_menu_default' );
 		add_action( 'anva_header_primary_menu_addon', 'anva_header_primary_menu_addon_default' );
+
+		/**
+		 * Featured content.
+		 */
 		add_action( 'anva_featured_before', 'anva_featured_before_default' );
 		add_action( 'anva_featured', 'anva_featured_default' );
 		add_action( 'anva_featured_after', 'anva_featured_after_default' );
+
+		/**
+		 * Main content
+		 */
 		add_action( 'anva_content_before', 'anva_breadcrumbs_outside_default' );
 		add_action( 'anva_content_before', 'anva_page_title_default' );
 		add_action( 'anva_above_layout', 'anva_sidebar_above_content' );
@@ -306,19 +326,27 @@ class Anva {
 		add_action( 'anva_breadcrumbs', 'anva_breadcrumbs_default' );
 		add_action( 'anva_content_builder', 'anva_display_elements' );
 		add_action( 'anva_contact_form', 'anva_contact_form_default' );
+		add_action( 'anva_content_after', 'anva_post_reading_bar', 20 );
+
+		/**
+		 * Sidebars.
+		 */
 		add_action( 'anva_sidebar_before', 'anva_sidebar_before_default' );
 		add_action( 'anva_sidebar_after', 'anva_sidebar_after_default' );
 		add_action( 'anva_sidebars', 'anva_sidebars_default' );
 		add_action( 'anva_below_layout', 'anva_below_layout_default' );
 		add_action( 'anva_below_layout', 'anva_sidebar_below_content' );
-		add_action( 'anva_content_after', 'anva_post_reading_bar', 20 );
+
+		/**
+		 * Footer hooks.
+		 */
 		add_action( 'anva_footer_content', 'anva_footer_content_default' );
 		add_action( 'anva_footer_copyrights', 'anva_footer_copyrights_default' );
 		add_action( 'anva_footer_below', 'anva_sidebar_below_footer' );
 		add_action( 'anva_after', 'anva_debug' );
 
 		/**
-		 * Sliders hooks.
+		 * Sliders.
 		 */
 		add_action( 'anva_slider_standard', 'anva_slider_standard_default', 9, 2 );
 		add_action( 'anva_slider_owl', 'anva_slider_owl_default', 9, 2 );

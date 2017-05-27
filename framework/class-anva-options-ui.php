@@ -46,8 +46,8 @@ class Anva_Options_UI {
 	 * @link http://wptheming.com
 	 *
 	 * @since  1.0.0
-	 * @param  array $options
-	 * @return array $menu
+	 * @param  array $options   Global options array.
+	 * @return array $menu HTML output for tabs UI.
 	 */
 	public function get_tabs( $options ) {
 
@@ -57,7 +57,7 @@ class Anva_Options_UI {
 		foreach ( $options as $value ) {
 
 			// Heading for Navigation.
-			if ( $value['type'] == 'heading' ) {
+			if ( $value['type'] === 'heading' ) {
 
 				// Add icon to group.
 				$icon = '';
@@ -95,13 +95,13 @@ class Anva_Options_UI {
 	 * @global $allowedtags
 	 *
 	 * @since  1.0.0
-	 * @param  string $option_name
-	 * @param  array  $settings
-	 * @param  array  $options
-	 * @param  string $prefix
-	 * @return string $output
+	 * @param  string $option_name Name of the option.
+	 * @param  array  $settings    Settings from database.
+	 * @param  array  $options     Global options array.
+	 * @param  string $prefix      Prefix for option name.
+	 * @return string $output      Html output for options UI.
 	 */
-	function get_fields( $option_name, $settings, $options, $prefix = '' ) {
+	public function get_fields( $option_name, $settings, $options, $prefix = '' ) {
 
 		global $allowedtags;
 
@@ -114,7 +114,8 @@ class Anva_Options_UI {
 			$output       = '';
 			$select_value = '';
 
-			if ( $value['type'] == 'group_start' ) {
+			// Start options group.
+			if ( $value['type'] === 'group_start' ) {
 
 				$class = '';
 
@@ -142,13 +143,14 @@ class Anva_Options_UI {
 
 			}
 
-			if ( $value['type'] == 'group_end' ) {
+			// End options group
+			if ( $value['type'] === 'group_end' ) {
 				$output .= '</div><!-- .inner-group (end) -->';
 			}
 
 			// Wrap all options.
-			if ( ( $value['type'] != 'group_start' ) && ( $value['type'] != 'group_end' ) ) {
-				if ( ( $value['type'] != 'heading' ) && ( $value['type'] != 'info' ) ) {
+			if ( ( $value['type'] !== 'group_start' ) && ( $value['type'] !== 'group_end' ) ) {
+				if ( ( $value['type'] !== 'heading' ) && ( $value['type'] !== 'info' ) ) {
 
 					// Keep all ids lowercase with no spaces.
 					$value['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $value['id'] ) );
@@ -196,7 +198,7 @@ class Anva_Options_UI {
 						$output .= '<h4 class="heading">' . esc_html( $value['name'] ) . '</h4>' . "\n";
 					}
 
-					if ( $value['type'] != 'editor' ) {
+					if ( $value['type'] !== 'editor' ) {
 						$output .= '<div class="option">' . "\n" . '<div class="controls">' . "\n";
 					} else {
 						$output .= '<div class="option">' . "\n" . '<div>' . "\n";
@@ -210,8 +212,8 @@ class Anva_Options_UI {
 			}
 
 			// If the option is already saved, override $val.
-			if ( ( $value['type'] != 'group_start' ) && ( $value['type'] != 'group_end' ) ) {
-				if ( ( $value['type'] != 'heading' ) && ( $value['type'] != 'info') ) {
+			if ( ( $value['type'] !== 'group_start' ) && ( $value['type'] !== 'group_end' ) ) {
+				if ( ( $value['type'] !== 'heading' ) && ( $value['type'] !== 'info') ) {
 					if ( isset( $settings[ ( $value['id'] ) ] ) ) {
 						$val = $settings[ ( $value['id'] ) ];
 
@@ -301,11 +303,11 @@ class Anva_Options_UI {
 				case 'double_text':
 					$val_1 = '';
 					$val_2 = '';
-					if ( isset( $val[ 0 ] ) ) {
-						$val_1 = $val[ 0 ];
+					if ( isset( $val[0] ) ) {
+						$val_1 = $val[0];
 					}
-					if ( isset( $val[ 1 ] ) ) {
-						$val_2 = $val[ 1 ];
+					if ( isset( $val[1] ) ) {
+						$val_2 = $val[1];
 					}
 					$output .= '<div class="double-inputs">';
 					$output .= '<div class="input-col">';
@@ -359,7 +361,8 @@ class Anva_Options_UI {
 					foreach ( $value['options'] as $key => $option ) {
 						$id = $option_name . '-' . $value['id'] .'-'. $key;
 						$output .= '<div class="anva-radio-input-group">';
-						$output .= '<input class="anva-input anva-radio radio-style" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" ' . checked( $val, $key, false) . ' /><label for="' . esc_attr( $id ) . '" class="radio-style-1-label radio-small">' . esc_html( $option ) . '</label>';
+						$output .= '<input class="anva-input anva-radio radio-style" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" ' . checked( $val, $key, false) . ' />';
+						$output .= '<label for="' . esc_attr( $id ) . '" class="radio-style-1-label radio-small">' . esc_html( $option ) . '</label>';
 						$output .= '</div>';
 					}
 					break;
@@ -372,7 +375,7 @@ class Anva_Options_UI {
 					$name = $option_name .'['. $value['id'] .']';
 					foreach ( $value['options'] as $key => $option ) {
 						$selected = '';
-						if ( $val != '' && ($val == $key) ) {
+						if ( $val !== '' && ($val == $key) ) {
 							$selected = ' anva-radio-img-selected';
 						}
 
@@ -407,18 +410,19 @@ class Anva_Options_UI {
 				case 'multicheck':
 					foreach ( $value['options'] as $key => $option ) {
 						$checked = '';
-						$label = $option;
-						$option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $key ) );
+						$label   = $option;
+						$option  = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower( $key ) );
 
 						$id = $option_name . '-' . $value['id'] . '-'. $option;
 						$name = $option_name . '[' . $value['id'] . '][' . $option .']';
 
-						if ( isset( $val[$option] ) ) {
-							$checked = checked($val[$option], 1, false);
+						if ( isset( $val[ $option ] ) ) {
+							$checked = checked( $val[ $option ], 1, false );
 						}
 
 						$output .= '<div class="anva-checkbox-input-group">';
-						$output .= '<input id="' . esc_attr( $id ) . '" class="anva-input anva-checkbox checkbox-style" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '" class="checkbox-style-1-label checkbox-small">' . esc_html( $label ) . '</label>';
+						$output .= '<input id="' . esc_attr( $id ) . '" class="anva-input anva-checkbox checkbox-style" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' />';
+						$output .= '<label for="' . esc_attr( $id ) . '" class="checkbox-style-1-label checkbox-small">' . esc_html( $label ) . '</label>';
 						$output .= '</div>';
 					}
 					break;
@@ -454,6 +458,10 @@ class Anva_Options_UI {
 				case 'social_media':
 					$output .= Anva_Options_UI_Type_Social::option( $value['id'], $option_name, $val );
 					break;
+
+				/* ------------------------------------- */
+				/* Slider Group Areas
+				/* ------------------------------------- */
 
 				case 'slider_group_area':
 					$output .= anva_slider_group_area_option( $value['id'], $option_name, $val );
@@ -565,8 +573,8 @@ class Anva_Options_UI {
 				case 'layout':
 
 					$layout = '';
-					$right = '';
-					$left = '';
+					$right  = '';
+					$left   = '';
 
 					if ( isset( $val['layout'] ) ) {
 						$layout = $val['layout'];
@@ -636,7 +644,7 @@ class Anva_Options_UI {
 				case 'color':
 					$default_color = '';
 					if ( isset($value['std']) ) {
-						if ( $val !=  $value['std'] )
+						if ( $val != $value['std'] )
 							$default_color = ' data-default-color="' .$value['std'] . '" ';
 					}
 					$output .= '<input name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" id="' . esc_attr( $value['id'] ) . '" class="anva-input anva-color" type="text" value="' . esc_attr( $val ) . '"' . $default_color .' />';
@@ -949,13 +957,13 @@ class Anva_Options_UI {
 			// Add your own custom option type.
 			$output = apply_filters( 'anva_option_type', $output, $value, $option_name, $val );
 
-			// Close div and add descriptions
-			if ( ( $value['type'] != "group_start" ) && ( $value['type'] != "group_end" ) ) {
-				if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) ) {
+			// Close div and add descriptions.
+			if ( ( $value['type'] !== 'group_start' ) && ( $value['type'] !== 'group_end' ) ) {
+				if ( ( $value['type'] !== 'heading' ) && ( $value['type'] !== 'info' ) ) {
 
 					$output .= '</div><!-- .controls (end) -->';
 
-					if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) && ( $value['type'] != 'code' ) ) {
+					if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) && ( $value['type'] !== 'code' ) ) {
 						$output .= '<div class="explain">' . $explain_value . '</div><!-- .explain (end) -->'."\n";
 					}
 
@@ -964,13 +972,13 @@ class Anva_Options_UI {
 				}
 			}
 
-			// Print html
+			// Print html.
 			echo $output;
 
 		endforeach;
 
 		// Outputs closing div if there tabs.
-		if ( $this->get_tabs( $options ) != '' ) {
+		if ( '' !== $this->get_tabs( $options ) ) {
 			echo '</div><!-- .group (end) -->';
 		}
 	}

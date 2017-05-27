@@ -76,7 +76,15 @@ module.exports = {
     // -------------------------------------------
 
     browsersync: {
-        proxy: proxy
+        notify: true,
+        open: true,
+        port: 3000,
+        proxy: {
+            target: proxy,
+        },
+        watchOptions: {
+            debounceDelay: 2000
+        }
     },
 
     // -------------------------------------------
@@ -140,11 +148,13 @@ module.exports = {
                 dest: core + 'js/',
                 vendor: {
                     files: vendor,
-                    name: 'plugins.vendor.js'
+                    name: 'core-plugins.js'
                 },
                 ignore: [
                     '*.min.js',
                     'plugins.js',
+                    'core-plugins.js',
+                    'plugins.vendor.js',
                     'vendor/**',
                     'components/**',
                     'vmap/**'
@@ -354,7 +364,8 @@ module.exports = {
             scripts: [
                 theme + 'js/**/*.js',
                 core + 'js/**/*.js',
-                admin + 'js/**/*.js'
+                admin + 'js/**/*.js',
+                ignoreTools
             ],
             images: src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
             php: src + '**/*.php'

@@ -383,7 +383,7 @@ blockquote {
     top: auto;
     left: auto;
     right: 30px;
-    bottom: 50px;
+    bottom: 30px;
     cursor: pointer;
     z-index: 1199;
     @include border-radius(2px);
@@ -392,7 +392,7 @@ blockquote {
         background-color: $theme-color;
     }
 
-    body.has-reading-bar & {
+    body.has-reading-bar-bottom & {
         bottom: 8px;
     }
 }

@@ -113,6 +113,7 @@ body.device-lg .post-reading-bar {
 }
 
 .password-form {
+  margin-top: 50px;
   text-align: center;
 }
 
@@ -120,7 +121,7 @@ body.device-lg .post-reading-bar {
   background: #222;
   width: 144px;
   height: 144px;
-  font-size: 108px;
+  font-size: 70px;
   line-height: 140px;
   display: block;
   font-weight: 500;
@@ -130,10 +131,6 @@ body.device-lg .post-reading-bar {
   cursor: default;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 15%;
-}
-
-.password-form i:before {
-  margin-left: 8px;
 }
 
 .password-form label {

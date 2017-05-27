@@ -151,9 +151,11 @@ function anva_body_class( $classes ) {
 		$classes[] = 'group-blog';
 	}
 
-	$single_post_reading_bar = anva_get_option( 'single_post_reading_bar' );
-	if ( is_singular( 'post' ) && 'show' == $single_post_reading_bar ) {
+	$reading_bar = anva_get_option( 'single_post_reading_bar' );
+	if ( is_single() && 'show' === $reading_bar ) {
+		$reading_bar_position = anva_get_option( 'single_post_reading_position', 'bottom' );
 		$classes[] = 'has-reading-bar';
+		$classes[] = 'has-reading-bar-' . $reading_bar_position;
 	}
 
 	$footer = anva_get_option( 'footer_setup' );
@@ -1088,6 +1090,46 @@ function anva_enqueue_google_fonts() {
 
 		}
 	}
+}
+
+/**
+ * Process any font icons passed in as %icon%.
+ *
+ * @since  1.0.0
+ * @param  string $str String to search
+ * @return string $str Filtered original string
+ */
+function anva_do_icon( $str ) {
+
+	preg_match_all( '/\%(.*?)\%/', $str, $icons );
+
+	if ( ! empty( $icons[0] ) ) {
+
+		$list = true;
+
+		if ( substr_count(trim($str), "\n") ) {
+			$list = false; // If text has more than one line, we won't make into an inline list
+		}
+
+		$total = count($icons[0]);
+
+		if ( $list ) {
+			$str = sprintf("<ul class=\"list-inline\">\n<li>%s</li>\n</ul>", $str);
+		}
+
+		foreach ( $icons[0] as $key => $val ) {
+
+			$html = apply_filters('anva_do_icon_html', '<i class="icon-%s"></i>', $str);
+
+			if ( $list && $key > 0 ) {
+				$html = "<li>\n".$html;
+			}
+
+			$str = str_replace($val, sprintf($html, $icons[1][$key]), $str);
+		}
+	}
+
+	return $str;
 }
 
 /**

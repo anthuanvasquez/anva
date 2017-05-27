@@ -38,21 +38,21 @@ if ( $().infinitescroll ) {
                 instance = this;
             //Do all the usual stuff
             opts.loading.msg
-                .find('img')
+                .find( 'img' )
                 .hide()
                 .parent()
-                .find('div').html(opts.loading.finishedMsg).animate({ opacity: 1 }, 2000, function () {
-                    $(this).parent().fadeOut('normal');
+                .find( 'div' ).html(opts.loading.finishedMsg).animate({ opacity: 1 }, 2000, function () {
+                    $(this).parent().fadeOut( 'normal' );
                 });
             //And also hide the navSelector
-            $(opts.navSelector).fadeOut('normal');
+            $(opts.navSelector).fadeOut( 'normal' );
             // user provided callback when done
-            opts.errorCallback.call($(opts.contentSelector)[0],'done');
+            opts.errorCallback.call($(opts.contentSelector)[0],'done' );
         }
     });
 
 } else {
-    console.log('Infinite Scroll not defined.');
+    console.log( 'Infinite Scroll not defined.' );
 }
 
 (function() {

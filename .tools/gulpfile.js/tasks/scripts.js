@@ -54,7 +54,7 @@ gulp.task('js-plugins', () => {
     .pipe(plugins.rename(config.minify.rename))
     .pipe(gulp.dest(config.minify.core.dest))
     .pipe(plugins.logger({
-        afterEach : ' - Plugins Concatenation finished'
+        afterEach : ' - Plugins Concatenation Finished!'
     }));
 });
 

@@ -1,26 +1,10 @@
 <?php
 
 /**
- * Generates option to edit social media buttons.
+ * Social icons UI.
  *
- * @since  1.0.0
+ * @since 1.0.0
  */
-class Anva_Options_UI_Type_Basic {
-
-	public static function text( $id, $name, $val ) {
-		$output = sprintf(
-			'<input id="%s" class="anva-input anva-input-text" name="%s" type="text" value="%s" %s />',
-			esc_attr( $id ),
-			esc_attr( $option_name . '[' . $id . ']' ),
-			esc_attr( $val ),
-			$placeholder
-		);
-
-		return $output;
-	}
-
-}
-
 class Anva_Options_UI_Type_Social {
 
 	/**
@@ -88,10 +72,10 @@ class Anva_Options_UI_Type_Social {
  * Generates option to edit a logo.
  *
  * @since  1.0.0
- * @param  string      $id
- * @param  string      $name
- * @param  array       $val
- * @return string|html $output
+ * @param  string $id
+ * @param  string $name
+ * @param  array  $val
+ * @return string $output
  */
 function anva_logo_option( $id, $name, $val ) {
 
@@ -391,7 +375,7 @@ function anva_slider_group_area_option( $id, $name, $val ) {
  * Media uploader using the WordPress Media Library in 3.5+ tp handle the logo section.
  *
  * @since  1.0.0
- * @param  array $args
+ * @param  array  $args
  * @return string $output
  */
 function anva_media_uploader_option( $args ) {
