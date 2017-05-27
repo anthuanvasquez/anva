@@ -8,7 +8,7 @@ pipelines:
             - step:
                 script:
                     - export SNIFFS_DIR=/sniffs
-                    - export TOOLS_DIR=/.tools/
+                    - export TOOLS_DIR=/.tools
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
                     - if [[ "$SNIFF" == "1" ]]; then composer install; fi
@@ -21,7 +21,7 @@ pipelines:
             - step:
                 script:
                     - export SNIFFS_DIR=/sniffs
-                    - export TOOLS_DIR=/.tools/
+                    - export TOOLS_DIR=/.tools
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
                     - if [[ "$SNIFF" == "1" ]]; then composer install; fi
