@@ -13,10 +13,11 @@ pipelines:
                     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
                     - if [[ "$SNIFF" == "1" ]]; then composer install; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
-                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=tmp,.tools,vendor; fi
-                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude tmp,.tools,vendor; fi
-                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/npm install; fi
-                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/gulp tests; fi
+                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=sniffs,.tools,vendor; fi
+                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude sniffs,.tools,vendor; fi
+                    - if [[ "$TOOLS" == "1" ]]; then cd $TOOLS_DIR; fi
+                    - if [[ "$TOOLS" == "1" ]]; then npm install; fi
+                    - if [[ "$TOOLS" == "1" ]]; then gulp tests; fi
         feature/*:
             - step:
                 script:
@@ -28,5 +29,6 @@ pipelines:
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=tmp,.tools,vendor; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude tmp,.tools,vendor; fi
-                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/npm install; fi
-                    - if [[ "$TOOLS" == "1" ]]; then $TOOLS_DIR/gulp tests; fi
+                    - if [[ "$TOOLS" == "1" ]]; then cd $TOOLS_DIR; fi
+                    - if [[ "$TOOLS" == "1" ]]; then npm install; fi
+                    - if [[ "$TOOLS" == "1" ]]; then gulp tests; fi

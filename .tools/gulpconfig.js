@@ -17,20 +17,21 @@
 'use_strict';
 
 // Project `Paths`
-var project     = 'anva',
-    version     = '1.0.0',
-    release     = project + '-' + version,
-    proxy       = 'anva.dev',
-    src         = '../',
-    theme       = src + 'assets/',
-    core        = src + 'framework/assets/',
-    admin       = src + 'framework/admin/assets/',
-    build       = './build/',
-    dist        = './dist/' + release + '/',
-    ignoreTools = '!' + src + '.tools',
-    bower       = './bower_components/',
-    modules     = './node_modules/',
-    parent      = '../../'
+var project      = 'anva',
+    version      = '1.0.0',
+    release      = project + '-' + version,
+    proxy        = 'anva.dev',
+    src          = '../',
+    theme        = src + 'assets/',
+    core         = src + 'framework/assets/',
+    admin        = src + 'framework/admin/assets/',
+    build        = './build/',
+    dist         = './dist/' + release + '/',
+    ignoreTools  = '!' + src + '.tools',
+    ignoreVendor = '!' + src + 'vendor',
+    bower        = './bower_components/',
+    modules      = './node_modules/',
+    parent       = '../../'
 ;
 
 // Vendor Scripts `Plugins`
@@ -95,7 +96,8 @@ module.exports = {
         build: {
             src: [
                 src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
-                ignoreTools
+                ignoreTools,
+                ignoreVendor
             ],
             dest: build
         },
@@ -119,7 +121,7 @@ module.exports = {
 
     scripts: {
         dest: build,
-        src: [src + '**/*.js', ignoreTools],
+        src: [src + '**/*.js', ignoreTools, ignoreVendor],
         lint: {
             theme: theme + 'js/**/*.js',
             core: core + 'js/**/*.js',
@@ -177,7 +179,7 @@ module.exports = {
     // -------------------------------------------
 
     styles: {
-        src: [src + '**/*.css', ignoreTools],
+        src: [src + '**/*.css', ignoreTools, ignoreVendor],
         dest: build,
         lint: {
             theme: theme + 'css/**/*.css',
@@ -300,7 +302,7 @@ module.exports = {
             }
         },
         php: {
-            src: [src + '**/*.php', ignoreTools],
+            src: [src + '**/*.php', ignoreTools, ignoreVendor],
             dest: build
         },
         readme: {
@@ -346,7 +348,8 @@ module.exports = {
         fonts: {
             src: [
                 src + '**/*(*.eot|*.ttf|*.woff|*.woff2)',
-                ignoreTools
+                ignoreTools,
+                ignoreVendor
             ],
             dest: build
         }
@@ -365,7 +368,8 @@ module.exports = {
                 theme + 'js/**/*.js',
                 core + 'js/**/*.js',
                 admin + 'js/**/*.js',
-                ignoreTools
+                ignoreTools,
+                ignoreVendor
             ],
             images: src + '**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)',
             php: src + '**/*.php'
