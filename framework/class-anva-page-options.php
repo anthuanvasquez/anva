@@ -47,22 +47,6 @@ class Anva_Page_Options {
 	protected $options_screen = null;
 
 	/**
-	 * Default option id.
-	 *
-	 * @since 1.0.0
-	 * @var string
-	 */
-	protected $default_id = '';
-
-	/**
-	 * Enable or disable the cache for options.
-	 *
-	 * @since 1.0.0
-	 * @var boolean
-	 */
-	private $cache = true;
-
-	/**
 	 * If sanitization has run yet or not when saving
 	 * options.
 	 *
@@ -96,24 +80,16 @@ class Anva_Page_Options {
 			// Set option name.
 			$this->option_id = anva_get_option_name();
 
-			// If DEBUG is active disable cache.
-			if ( Anva::get_debug() ) {
-				$this->cache = false;
-			}
-
 			// Get options to load.
 			$this->options = anva_get_options();
-
-			// Set default id.
-			$this->default_id = $this->option_id . '_defaults';
 
 			// Checks if options are available.
 			if ( $this->options ) {
 
 				// Add the options page and menu item.
-				add_action( 'admin_menu', array( $this, 'add_custom_page_options' ) );
+				add_action( 'admin_menu', array( $this, 'add_page_options' ) );
 
-				// Add the required scripts and styles.
+				// Add the required assets.
 				add_action( 'admin_enqueue_scripts', array( $this, 'assets' ), 10 );
 
 				// Settings need to be registered after admin_init.
@@ -127,24 +103,13 @@ class Anva_Page_Options {
 	}
 
 	/**
-	 * Registers the settings.
-	 *
-	 * @global $pagenow
+	 * Registers the settings fields and callback.
 	 *
 	 * @since  1.0.0
 	 * @return void
 	 */
 	public function settings_init() {
-		global $pagenow;
-
-		// Registers the settings fields and callback.
 		register_setting( 'anva_page_options_settings', $this->option_id, array( $this, 'validate_options' ) );
-
-		// Register formatted options for cache settings.
-		$this->set_options();
-
-		// Register defaults options values for cache settings.
-		$this->set_defaults_values();
 	}
 
 	/**
@@ -153,14 +118,13 @@ class Anva_Page_Options {
 	 * @since  1.0.0
 	 * @return $menu
 	 */
-	public static function menu_settings() {
-		$name = anva_get_option_name();
+	public static function get_menu_settings() {
 		$menu = array(
 			'mode' 			=> 'submenu',
-			'page_title' 	=> __( 'Theme Options', 'anva' ),
-			'menu_title' 	=> __( 'Theme Options', 'anva' ),
+			'page_title' 	=> esc_html__( 'Theme Options', 'anva' ),
+			'menu_title' 	=> esc_html__( 'Theme Options', 'anva' ),
 			'capability' 	=> anva_admin_module_cap( 'options' ),
-			'menu_slug'  	=> $name,
+			'menu_slug'  	=> anva_get_option_name(),
 			'parent_slug' 	=> 'themes.php',
 			'icon_url' 		=> 'dashicons-admin-generic',
 			'position' 		=> '61',
@@ -174,8 +138,8 @@ class Anva_Page_Options {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_custom_page_options() {
-		$menu = $this->menu_settings();
+	public function add_page_options() {
+		$menu = $this->get_menu_settings();
 
 		$this->options_screen = add_theme_page(
 			$menu['page_title'],
@@ -201,24 +165,26 @@ class Anva_Page_Options {
 		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.js', array( 'jquery' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
 		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
-		wp_enqueue_script( 'jquery-codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery.codemirror.js', array( 'jquery', 'codemirror_mode_js' ), Anva::get_version(), true );
-		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.js', array( 'jquery' ), '4.0.1', true );
-		wp_enqueue_script( 'jquery-selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
+		wp_enqueue_script( 'jquery-codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/jquery.codemirror.js', array( 'jquery', 'codemirror_mode_js' ), Anva::get_version(), true );
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'jquery-ui-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
-		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'page-options.js', array( 'jquery', 'wp-color-picker' ), Anva::get_version(), true );
-		wp_localize_script( 'anva_options', 'anvaJs', anva_get_admin_locals( 'js' ) );
+		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition/animsition.min.js', array( 'jquery' ), '4.0.1', true );
+		wp_enqueue_script( 'jquery-selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
+		wp_enqueue_script( 'jquery-select2', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'select2/select2.min.js', array( 'jquery' ), '4.0.3', true );
+		wp_enqueue_script( 'anva_options', ANVA_FRAMEWORK_ADMIN_JS . 'admin-options.js', array( 'jquery', 'wp-color-picker' ), Anva::get_version(), true );
+		wp_localize_script( 'anva_options', 'AnvaOptionsLocal', anva_get_admin_locals( 'js' ) );
 
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.css', array(), '5.13.2' );
 		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
-		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition.min.css', array(), '4.0.1' );
-		wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
 		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
 		wp_enqueue_style( 'jquery_ui_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
-		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'page-options.css', array(), Anva::get_version() );
+		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition/animsition.min.css', array(), '4.0.1' );
+		wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
+		wp_enqueue_style( 'select2', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'select2/select2.min.css', array(), '4.0.3' );
+		wp_enqueue_style( 'anva_options', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-options.css', array(), Anva::get_version() );
 
-		// Inline scripts from anva-options-interface.php.
+		// Inline scripts.
 		add_action( 'admin_head', array( $this, 'head' ) );
 	}
 
@@ -246,12 +212,12 @@ class Anva_Page_Options {
 		<div id="anva-framework-wrap" class="anva-framework-wrap wrap">
 
 			<?php
-				$menu = $this->menu_settings();
+				$menu = $this->get_menu_settings();
 				printf(
 					'<h2 class="anva-page-title">%1$s <span>%3$s<em>%2$s</em></span></h2>',
 					esc_html( $menu['page_title'] ),
 					anva_get_theme( 'version' ),
-					__( 'Version', 'anva' )
+					esc_html__( 'Version', 'anva' )
 				);
 			 ?>
 
@@ -283,12 +249,12 @@ class Anva_Page_Options {
 				<div id="anva-framework" class="anva-framework animsition">
 					<form class="anva-framework-settings options-settings" action="options.php" method="post">
 						<div class="columns-1">
-							<input type="hidden" id="option_name" value="<?php echo anva_get_option_name(); ?>" >
+							<input type="hidden" id="option_name" value="<?php anva_the_option_name(); ?>" >
 							<?php
 								settings_fields( 'anva_page_options_settings' );
 
 								// Fields UI.
-								anva_get_options_fields( $this->option_id, get_option( $this->option_id ), $this->get_options() );
+								anva_the_options_fields( $this->option_id, anva_get_option_all(), $this->options, true );
 
 								/**
 								 * Hooked.
@@ -315,6 +281,11 @@ class Anva_Page_Options {
 									</h3>
 									<div class="inside">
 										<?php anva_admin_settings_last_save(); ?>
+										<div class="show-all">
+											<button type="button" class="button button-secondary">
+												<?php esc_html_e( 'Show All Options' ); ?>
+											</button>
+										</div>
 										<div class="actions">
 											<input type="submit" class="button button-primary update-button" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
 											<span class="spinner"></span>
@@ -366,15 +337,15 @@ class Anva_Page_Options {
 			delete_option( $this->option_id . '_last_save' );
 
 			// Add notice.
-			$this->save_options_notice( 'restore_defaults', __( 'Default options restored.', 'anva' ) );
+			$this->save_options_notice( 'restore_defaults', esc_html__( 'Default options restored.', 'anva' ) );
 
-			return $this->get_default_values();
+			return anva_get_default_options_values();
 		}
 
 		// Update Settings.
 		$clean = array();
 
-		foreach ( $this->get_options() as $option ) {
+		foreach ( $this->options as $option ) {
 
 			if ( ! isset( $option['id'] ) ) {
 				continue;
@@ -386,38 +357,39 @@ class Anva_Page_Options {
 
 			$id = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $option['id'] ) );
 
-			// Set checkbox to false if it wasn't sent in the $_POST
+			// Set checkbox to false if it wasn't sent in the $_POST.
 			if ( 'checkbox' == $option['type'] && ! isset( $input[ $id ] ) ) {
 				$input[ $id ] = false;
 			}
 
-			// Set switch to false if it wasn't sent in the $_POST
+			// Set switch to false if it wasn't sent in the $_POST.
 			if ( 'switch' == $option['type'] && ! isset( $input[ $id ] ) ) {
 				$input[ $id ] = false;
 			}
 
-			// Set each item in the multicheck to false if it wasn't sent in the $_POST
+			// Set each item in the multicheck to false if it wasn't sent in the $_POST.
 			if ( 'multicheck' == $option['type'] && ! isset( $input[ $id ] ) ) {
 				foreach ( $option['options'] as $key => $value ) {
 					$input[ $id ][ $key ] = false;
 				}
 			}
 
-			// Set each item in the multicheck to false if it wasn't sent in the $_POST
+			// Set sidebar to false if it wasn't sent in the $_POST.
 			if ( 'sidebar' == $option['type'] && ! isset( $input[ $id ] ) ) {
 				$input[ $id ] = array();
 			}
 
-			// For a value to be submitted to database it must pass through a sanitization filter
+			// For a value to be submitted to database it
+			// must pass through a sanitization filter.
 			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
 				$clean[ $id ] = apply_filters( 'anva_sanitize_' . $option['type'], $input[ $id ], $option );
 			}
 		}
 
 		// Add update message for page re-fresh
-		// Avoid duplicates
+		// Avoid duplicates.
 		if ( ! $this->sanitized ) {
-			$this->save_options_notice( 'save_options', __( 'Options saved.', 'anva' ) );
+			$this->save_options_notice( 'save_options', esc_html__( 'Options saved.', 'anva' ) );
 		}
 
 		// We know sanitization has happenned at
@@ -429,86 +401,10 @@ class Anva_Page_Options {
 		 */
 		do_action( 'anva_page_options_after_validate', $clean );
 
-		// Create or update the last changed settings
+		// Create or update the last time changed settings.
 		update_option( $this->option_id . '_last_save', current_time( 'mysql' ) );
 
 		return $clean;
-	}
-
-	/**
-	 * Get defined options.
-	 *
-	 * @since  1.0.0
-	 * @return array
-	 */
-	public function get_options() {
-		$options_cache = get_transient( $this->option_id . '_formatted_options' );
-		if ( $options_cache && $this->cache ) {
-			return $options_cache;
-		}
-
-		return $this->options;
-	}
-
-	/**
-	 * Set defined options transient.
-	 *
-	 * @since 1.0.0
-	 */
-	public function set_options() {
-		$options_cache = get_transient( $this->option_id . '_formatted_options' );
-		if ( ! $options_cache && $this->cache ) {
-			set_transient( $this->option_id . '_formatted_options', $this->options, 60 * 60 );
-		}
-	}
-
-	/**
-	 * Get the default options values.
-	 *
-	 * @since  1.0.0
-	 * @return array $output
-	 *
-	 */
-	public function get_default_values() {
-		$default_cache  = get_transient( $this->default_id );
-		$default_output = array();
-
-		if ( $default_cache && $this->cache ) {
-			return $default_cache;
-		}
-
-		foreach ( $this->get_options() as $option ) {
-			if ( ! isset( $option['id'] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $option['std'] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $option['type'] ) ) {
-				continue;
-			}
-
-			if ( has_filter( 'anva_sanitize_' . $option['type'] ) ) {
-				$default_output[ $option['id'] ] = apply_filters( 'anva_sanitize_' . $option['type'], $option['std'], $option );
-			}
-		}
-
-		return $default_output;
-	}
-
-	/**
-	 * Set defaults options values.
-	 *
-	 * @since 1.0.0
-	 * @return array $defualt_cache
-	 */
-	public function set_defaults_values() {
-		$default_cache = get_transient( $this->default_id );
-		if ( ! $default_cache && $this->cache ) {
-			set_transient( $this->default_id, $this->get_default_values(), 60 * 60 );
-		}
 	}
 
 	/**
@@ -530,7 +426,7 @@ class Anva_Page_Options {
 	 * @return void
 	 */
 	public function admin_bar() {
-		$menu = $this->menu_settings();
+		$menu = $this->get_menu_settings();
 
 		global $wp_admin_bar;
 

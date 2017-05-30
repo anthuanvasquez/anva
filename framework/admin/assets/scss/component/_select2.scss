@@ -1,0 +1,36 @@
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid #CCC;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #CCC;
+    border-radius: 0;
+}
+
+.select2-container .select2-selection--single {
+    background-color: #E9E9E9;
+    background-image: linear-gradient(#FFF, #F9F9F9);
+    height: 33px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 33px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    background-color: #f7f7f7;
+    border-left: 1px solid #DDD;
+    height: 31px;
+    width: 31px;
+    top: 1px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    border-radius: 0;
+    padding-right: 31px;
+    padding-left: 6px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    color: #BBB;
+}

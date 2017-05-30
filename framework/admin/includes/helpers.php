@@ -38,7 +38,7 @@ function anva_get_options_tabs( $options ) {
  * @return string $output
  */
 function anva_the_options_fields( $option_name, $settings, $options, $prefix = '' ) {
-	anva_get_options_fields( $option_name, $settings, $options, $prefix );
+	echo anva_get_options_fields( $option_name, $settings, $options, $prefix );
 }
 
 /**
@@ -65,18 +65,7 @@ function anva_get_options_fields( $option_name, $settings, $options, $prefix = '
  */
 function anva_get_options_page_menu() {
 	$options_page = new Anva_Page_Options;
-	return $options_page->menu_settings();
-}
-
-/**
- * Get default options.
- *
- * @since  1.0.0
- * @return array Default Options
- */
-function anva_get_options_defaults() {
-	$options_page = new Anva_Page_Options;
-	return $options_page->get_default_values();
+	return $options_page->get_menu_settings();
 }
 
 /**

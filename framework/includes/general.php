@@ -1180,6 +1180,41 @@ function anva_get_post_meta( $field ) {
 }
 
 /**
+ * Gets the current page ID.
+ *
+ * @since  1.0.0
+ * @return bool|int
+ */
+function anva_get_current_page_id() {
+	$object_id = get_queried_object_id();
+
+	$page_id = false;
+
+	if ( get_option( 'show_on_front' ) && get_option( 'page_for_posts' ) && is_home() ) {
+		$page_id = get_option( 'page_for_posts' );
+	} else {
+		// Use the $object_id if available.
+		if ( isset( $object_id ) ) {
+			$page_id = $object_id;
+		}
+		// If we're not on a singular post, set to false.
+		if ( ! is_singular() ) {
+			$page_id = false;
+		}
+		// Front page is the posts page.
+		if ( isset( $object_id ) && 'posts' == get_option( 'show_on_front' ) && is_home() ) {
+			$page_id = $object_id;
+		}
+		// The woocommerce shop page.
+		if ( class_exists( 'WooCommerce' ) && ( is_shop() || is_tax( 'product_cat' ) || is_tax( 'product_tag' ) ) ) {
+			$page_id = get_option( 'woocommerce_shop_page_id' );
+		}
+	}
+
+	return $page_id;
+}
+
+/**
  * Sort galleries
  *
  * @since  1.0.0

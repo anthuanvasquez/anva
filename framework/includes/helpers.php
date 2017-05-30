@@ -164,17 +164,15 @@ function anva_body_class( $classes ) {
 	}
 
 	if ( is_page_template( 'template-builder.php' ) ) {
-		$classes[] = 'page-has-content-builder';
+		$classes[] = 'has-content-builder';
 	}
 
 	if ( anva_get_config( 'featured' ) ) {
-		$featured  = implode( ' ', anva_get_config( 'featured' ) );
-		$classes[] = $featured;
+		$classes[] = implode( ' ', anva_get_config( 'featured' ) );
 	}
 
 	if ( anva_get_config( 'comments' ) ) {
-		$comments  = implode( ' ', anva_get_config( 'comments' ) );
-		$classes[] = $comments;
+		$classes[] = implode( ' ', anva_get_config( 'comments' ) );
 	}
 
 	return apply_filters( 'anva_body_classes', $classes );

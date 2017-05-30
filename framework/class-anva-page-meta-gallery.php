@@ -67,9 +67,9 @@ class Anva_Page_Meta_Gallery {
 			if ( $typenow == $page ) {
 
 				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( 'anva_media_gallery',ANVA_FRAMEWORK_ADMIN_JS . 'page-galleries.js', array(), Anva::$version, true );
-				wp_localize_script( 'anva_media_gallery', 'anvaGalleryVar', anva_get_admin_locals( 'metabox_js' ) );
-				wp_enqueue_style( 'anva_gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'page-galleries.css', array(), Anva::$version, 'all' );
+				wp_enqueue_script( 'anva_gallery',ANVA_FRAMEWORK_ADMIN_JS . 'admin-galleries.js', array(), Anva::get_version(), true );
+				wp_localize_script( 'anva_gallery', 'AnvaGalleryLocal', anva_get_admin_locals( 'metabox_js' ) );
+				wp_enqueue_style( 'anva_gallery', ANVA_FRAMEWORK_ADMIN_CSS . 'admin-galleries.css', array(), Anva::get_version(), 'all' );
 
 			}
 		}

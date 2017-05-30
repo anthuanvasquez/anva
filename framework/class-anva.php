@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since  1.0.0
  */
 class Anva {
+
 	/**
 	 * Framework's Name.
 	 *
@@ -41,6 +42,7 @@ class Anva {
 	 * The framework directory path.
 	 *
 	 * @since  1.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public static $framework_dir_path = '';
@@ -49,9 +51,19 @@ class Anva {
 	 * The framework directory uri.
 	 *
 	 * @since  1.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public static $framework_dir_uri = '';
+
+	/**
+	 * Enable or disable framework debug mode.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    boolean
+	 */
+	public static $debug = true;
 
 	/**
 	 * Cloning is forbidden.
@@ -84,11 +96,11 @@ class Anva {
 		self::$framework_dir_path = trailingslashit( get_template_directory() . '/framework' );
 		self::$framework_dir_uri  = trailingslashit( get_template_directory_uri() . '/framework' );
 
-		// Autolder classes.
-		spl_autoload_register( array( $this, 'autoloader' ) );
-
 		// Setup framework constants.
 		$this->set_constants();
+
+		// Autolder classes.
+		spl_autoload_register( array( $this, 'autoloader' ) );
 
 		// Setup framework files.
 		$this->set_files();
@@ -139,7 +151,7 @@ class Anva {
 	 */
 	public function set_constants() {
 		define( 'ANVA_FRAMEWORK_VERSION', self::get_version() );
-		define( 'ANVA_FRAMEWORK_DEUB', true );
+		define( 'ANVA_FRAMEWORK_DEBUG', self::get_debug() );
 		define( 'ANVA_FRAMEWORK_CSS', trailingslashit( self::$framework_dir_uri . 'assets/css' ) );
 		define( 'ANVA_FRAMEWORK_JS', trailingslashit( self::$framework_dir_uri . 'assets/js' ) );
 		define( 'ANVA_FRAMEWORK_IMG', trailingslashit( self::$framework_dir_uri . 'assets/images' ) );
@@ -377,6 +389,7 @@ class Anva {
 		do_action( 'anva_init_api' );
 	}
 
+
 	/**
 	 * Get framework name.
 	 *
@@ -404,7 +417,7 @@ class Anva {
 	 * @return boolean
 	 */
 	public static function get_debug() {
-		if ( defined( 'ANVA_FRAMEWORK_DEBUG' ) && true === ANVA_FRAMEWORK_DEBUG ) {
+		if ( self::$debug ) {
 			return true;
 		}
 

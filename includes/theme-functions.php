@@ -26,7 +26,7 @@ require_once( get_template_directory() . '/includes/options.php' );
  * @since  1.0.0
  * @return array
  */
-function anva_theme_post_types() {
+function theme_post_types() {
 
 	$post_types = array(
 		'portfolio',
@@ -39,7 +39,7 @@ function anva_theme_post_types() {
 
 	return $post_types;
 }
-add_filter( 'anva_post_types_list', 'anva_theme_post_types', 1 );
+add_filter( 'anva_post_types_list', 'theme_post_types', 1 );
 
 /**
  * Add theme body classes.
@@ -274,7 +274,8 @@ function theme_google_fonts() {
 	anva_enqueue_google_fonts(
 		anva_get_option( 'body_font' ),
 		anva_get_option( 'heading_font' ),
-		anva_get_option( 'meta_font' )
+		anva_get_option( 'meta_font' ),
+		anva_get_option( 'widget_title_font' )
 	);
 }
 add_action( 'wp_enqueue_scripts', 'theme_google_fonts' );
@@ -309,7 +310,7 @@ function theme_styles() {
 	$color = str_replace( '#', '', $color );
 
 	// Get stylesheet API.
-	$api = Anva_Styles::instance();
+	$styles = Anva_Styles::instance();
 
 	// Register theme stylesheets.
 	wp_register_style( 'theme_styles', get_template_directory_uri() . '/assets/css/theme.css', array(), ANVA_THEME_VERSION, 'all' );
@@ -336,7 +337,7 @@ function theme_styles() {
 	wp_add_inline_style( 'theme_colors', theme_inline_styles() );
 
 	// Level 3.
-	$api->print_styles( 3 );
+	$styles->print_styles( 3 );
 
 }
 add_action( 'wp_enqueue_scripts', 'theme_styles' );

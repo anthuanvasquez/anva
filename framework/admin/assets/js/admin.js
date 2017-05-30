@@ -2,37 +2,39 @@ jQuery( document ).ready( function( $ ) {
 
     'use strict';
 
-    var AnvaSectionManager = {
+    var AnvaSection = {
 
         init: function() {
-            AnvaSectionManager.colorPicker();
-            AnvaSectionManager.radioImages();
-            AnvaSectionManager.datePicker();
-            AnvaSectionManager.spinner();
-            AnvaSectionManager.logo();
-            AnvaSectionManager.typography();
-            AnvaSectionManager.socialMedia();
-            AnvaSectionManager.sliderGroups();
-            AnvaSectionManager.columns();
-            AnvaSectionManager.slider();
-            AnvaSectionManager.rangeSlider();
-            AnvaSectionManager.select();
-            AnvaSectionManager.showHide();
-            AnvaSectionManager.sidebars();
-            AnvaSectionManager.contactFields();
+            AnvaSection.colorPicker();
+            AnvaSection.radioImages();
+            AnvaSection.datePicker();
+            AnvaSection.spinner();
+            AnvaSection.logo();
+            AnvaSection.typography();
+            AnvaSection.socialMedia();
+            AnvaSection.slideshows();
+            AnvaSection.slideshowsGroup();
+            AnvaSection.columns();
+            AnvaSection.rangeSlider();
+            AnvaSection.select();
+            AnvaSection.select2();
+            AnvaSection.showHide();
+            AnvaSection.sidebars();
+            AnvaSection.contactFields();
         },
 
         colorPicker: function() {
-            if ( $( '.anva-color' ).length > 0 ) {
+            if ( $().wpColorPicker() && $( '.anva-color' ).length > 0 ) {
                 $( '.anva-color' ).wpColorPicker();
             }
         },
 
         radioImages: function() {
             $( '.anva-radio-img-box' ).on( 'click', function() {
-                $(this).closest( '.section-images' ).find( '.anva-radio-img-box' ).removeClass( 'anva-radio-img-selected' );
-                $(this).addClass( 'anva-radio-img-selected' );
-                $(this).find( '.anva-radio-img-radio' ).prop( 'checked', true);
+                var el = $( this );
+                el.closest( '.section-images' ).find( '.anva-radio-img-box' ).removeClass( 'anva-radio-img-selected' );
+                el.addClass( 'anva-radio-img-selected' );
+                el.find( '.anva-radio-img-radio' ).prop( 'checked', true );
             });
             $( '.anva-radio-img-img' ).show();
         },
@@ -123,7 +125,24 @@ jQuery( document ).ready( function( $ ) {
             });
         },
 
-        sliderGroups: function() {
+        slideshows: function() {
+            $( '.group-slideshows' ).each(function() {
+                var el    = $(this),
+                    value = el.find( '#slider_id' ).val();
+                el.find( '.slider-item' ).hide();
+                el.find( '.' + value).show();
+            });
+
+            $( '.group-slideshows #slider_id' ).on( 'change', function() {
+                var el     = $(this),
+                    parent = el.closest( '.group-slideshows' ),
+                    value  = el.val();
+                parent.find( '.slider-item' ).hide();
+                parent.find( '.' + value).show();
+            });
+        },
+
+        slideshowsGroup: function() {
             $( '.section-slider_group_area' ).each(function() {
                 var el = $(this);
                 el.find( '.anva-slider-cat-input' ).hide();
@@ -166,61 +185,60 @@ jQuery( document ).ready( function( $ ) {
             });
         },
 
-        slider: function() {
-            $( '.group-slideshows' ).each(function() {
-                var el    = $(this),
-                    value = el.find( '#slider_id' ).val();
-                el.find( '.slider-item' ).hide();
-                el.find( '.' + value).show();
-            });
-
-            $( '.group-slideshows #slider_id' ).on( 'change', function() {
-                var el     = $(this),
-                    parent = el.closest( '.group-slideshows' ),
-                    value  = el.val();
-                parent.find( '.slider-item' ).hide();
-                parent.find( '.' + value).show();
-            });
-        },
-
         rangeSlider: function() {
-
-            $( '.section-range, .section-typography .font-range' ).each(function() {
-                var el    = $(this),
-                    range = el.find( '.anva-input-range' ),
-                    value = range.val(),
-                    id    = range.attr( 'id' ),
-                    min   = range.data( 'min' ),
-                    max   = range.data( 'max' ),
-                    step  = range.data( 'step' ),
-                    units = range.data( 'units' );
-                $( '#' + id + '_range' ).slider({
-                    min: min,
-                    max: max,
-                    step: step,
-                    value: value,
-                    slide: function( e, ui ) {
-                        $( '#' + id).val( ui.value );
-                    }
+            if ( $().slider() ) {
+                $( '.section-range, .section-typography .font-range' ).each(function() {
+                    var el    = $(this),
+                        range = el.find( '.anva-input-range' ),
+                        value = range.val(),
+                        id    = range.attr( 'id' ),
+                        min   = range.data( 'min' ),
+                        max   = range.data( 'max' ),
+                        step  = range.data( 'step' ),
+                        units = range.data( 'units' );
+                    $( '#' + id + '_range' ).slider({
+                        min: min,
+                        max: max,
+                        step: step,
+                        value: value,
+                        slide: function( e, ui ) {
+                            $( '#' + id).val( ui.value );
+                        }
+                    });
+                    $( '#' + id).val( $( '#' + id + '_range' ).slider( 'value' ) );
+                    $( '#' + id + '_range' ).slider( 'pips');
+                    $( '#' + id + '_range' ).slider( 'float', {
+                        pips: true,
+                        suffix: '' + units
+                    });
                 });
-                $( '#' + id).val( $( '#' + id + '_range' ).slider( "value" ) );
-                $( '#' + id + '_range' ).slider("pips");
-                $( '#' + id + '_range' ).slider("float", { pips: true, suffix: "" + units });
-            });
+            }
         },
 
         select: function() {
             if ( $().selectric ) {
-                $( '.select-wrapper select' ).selectric({
+                $( '.select-wrapper .anva-select' ).selectric({
                     arrowButtonMarkup: '<b class="btn">&#x25be;</b>'
                 });
+            }
+        },
+
+        select2: function() {
+            if ( $().select2 ) {
+                $( '.select2-wrapper .anva-select2' ).select2();
+            }
+        },
+
+        multiselect2: function() {
+            if ( $().select2 ) {
+                $( '.select2-wrapper .anva-multiselect2' ).select2();
             }
         },
 
         showHide: function() {
 
             // Select Show Hide
-            $( '.section-select.show-hide select' ).each(function() {
+            $( '.section-select.show-hide .anva-select' ).each(function() {
                 var el        = $(this),
                     value     = el.val(),
                     section   = el.closest( '.section' ),
@@ -238,7 +256,7 @@ jQuery( document ).ready( function( $ ) {
                 }
             });
 
-            $( '.section-select.show-hide select' ).on( 'change', function() {
+            $( '.section-select.show-hide .anva-select' ).on( 'change', function() {
                 var el        = $(this),
                     value     = el.val(),
                     section   = el.closest( '.section' ),
@@ -257,7 +275,7 @@ jQuery( document ).ready( function( $ ) {
             });
 
             // Checkbox Show Hide
-            $( '.section-checkbox.show-hide input.anva-checkbox' ).each( function() {
+            $( '.section-checkbox.show-hide .anva-checkbox' ).each( function() {
                 var el        = $(this),
                     value     = el.val(),
                     section   = el.closest( '.section' ),
@@ -276,7 +294,7 @@ jQuery( document ).ready( function( $ ) {
                 }
             });
 
-            $( '.section-checkbox.show-hide input.anva-checkbox' ).on( 'click', function() {
+            $( '.section-checkbox.show-hide .anva-checkbox' ).on( 'click', function() {
                 var el        = $(this),
                     value     = el.val(),
                     section   = el.closest( '.section' ),
@@ -314,7 +332,6 @@ jQuery( document ).ready( function( $ ) {
                     closeOnConfirm: true,
                     closeOnCancel: true
                 }, function( isConfirm ) {
-
                     if ( isConfirm ) {
                         ele.fadeOut();
                         setTimeout( function() {
@@ -324,24 +341,23 @@ jQuery( document ).ready( function( $ ) {
                             }
                         }, 500 );
                     }
-
                 });
             });
 
             // Add new sidebar
             $( '#add-sidebar' ).on( 'click', function() {
-                var $new = $( '.sidebar' ).val();
+                var $new         = $( '.sidebar' ).val(),
+                    $sidebarName = $( '#dynamic_sidebar_name' ).val(),
+                    $optionName  = $( '#option_name' ).val();
                 if ( '' === $new.trim() ) {
                     swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
                     return false;
                 }
                 if ( $new.length < 3 ) {
-                    swal( 'Error', 'The name must have more than 3 characters.' );
+                    swal( 'Error', anvaJS.sidebar_add_text );
                     return false;
                 }
                 $( '.dynamic-sidebars ul' ).removeClass( 'empty' );
-                var $sidebarName = $( '#dynamic_sidebar_name' ).val();
-                var $optionName = $( '#option_name' ).val();
                 $( '.dynamic-sidebars ul' ).append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
                 $( '.sidebar' ).val( '' );
             });
@@ -399,6 +415,6 @@ jQuery( document ).ready( function( $ ) {
         }
     };
 
-    AnvaSectionManager.init();
+    AnvaSection.init();
 
 });

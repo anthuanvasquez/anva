@@ -20,7 +20,7 @@ function anva_admin_theme_activate() {
 		printf(
 			'<div class="updated updated fade settings-error notice is-dismissible"><p>%1$s %2$s</p></div>',
 			sprintf(
-				__( '%s is activated.', 'anva' ),
+				esc_html__( '%s is activated.', 'anva' ),
 				esc_html( anva_get_theme( 'name' ) )
 			),
 			sprintf(
@@ -28,7 +28,7 @@ function anva_admin_theme_activate() {
 				sprintf(
 					'<a href="%1$s">%2$s</a>',
 					esc_url( $admin_url ),
-					__( 'Theme Options Page', 'anva' )
+					esc_html__( 'Theme Options Page', 'anva' )
 				)
 			)
 		);
@@ -41,16 +41,20 @@ function anva_admin_theme_activate() {
  * @since 1.0.0
  */
 function anva_admin_check_settings() {
-	if ( ! get_option( anva_get_option_name() ) ) {
-		printf( '<div class="error fade settings-error notice is-dismissible"><p>%s</p></div>', esc_html__( 'Options don\'t exists in the database. Please configure and save your theme options page.', 'anva' ) );
+	$options = Anva_Options::instance();
+	if ( ! $options->get_all() ) {
+		printf(
+			'<div class="error fade settings-error notice is-dismissible"><p>%s</p></div>',
+			esc_html__( 'Options don\'t exists in the database. Please configure and save your theme options page.', 'anva' )
+		);
 	}
 }
 
 function anva_admin_random_messages() {
 	$messages = array(
-		__( 'Enjoy!', 'anva' ),
-		__( 'Great go and see your website!', 'anva' ),
-		__( 'You always can import old settings!', 'anva' ),
+		esc_html__( 'Enjoy!', 'anva' ),
+		esc_html__( 'Great go and see your website!', 'anva' ),
+		esc_html__( 'You always can import old settings!', 'anva' ),
 	);
 
 	return $messages[ rand( 0, count( $messages ) - 1 ) ];
@@ -68,7 +72,7 @@ function anva_add_settings_flash() {
 		(function() {
 			swal({
 				title: "<?php echo esc_js( __( 'Done!', 'anva' ) ); ?>",
-				text: "<?php echo sprintf( '%s <span>%s</span>', __( 'Options successfully updated!', 'anva' ), anva_admin_random_messages() ); ?>",
+				text: "<?php printf( '%s <span>%s</span>', __( 'Options successfully updated!', 'anva' ), anva_admin_random_messages() ); ?>",
 				type: "success",
 				timer: 5000,
 				confirmButtonColor: "#008ec2",
@@ -86,7 +90,10 @@ function anva_add_settings_flash() {
  * @since 1.0.0
  */
 function anva_admin_add_settings_change() {
-	printf( '<div id="anva-options-change" class="anva-options-change section-info">%s</div>', esc_html__( 'Settings has changed.', 'anva' ) );
+	printf(
+		'<div id="anva-options-change" class="anva-options-change section-info">%s</div>',
+		esc_html__( 'Settings has changed.', 'anva' )
+	);
 }
 
 /**
@@ -109,7 +116,7 @@ function anva_admin_settings_last_save() {
 
 		printf(
 			'<div class="log"><span class="dashicons dashicons-clock"></span> <strong>%s:</strong> %s</div>',
-			__( 'Last changed', 'anva' ),
+			esc_html__( 'Last changed', 'anva' ),
 			$time
 		);
 
@@ -118,7 +125,7 @@ function anva_admin_settings_last_save() {
 
 	printf(
 		'<div class="log"><span class="dashicons dashicons-clock"></span> %s</div>',
-		__( 'Your settings has not changed.', 'anva' )
+		esc_html__( 'Your settings has not changed.', 'anva' )
 	);
 
 }
@@ -129,22 +136,22 @@ function anva_admin_settings_last_save() {
  * @since 1.0.0
  */
 function anva_admin_footer_credits() {
-	$theme_info 	= anva_get_theme( 'name' ) . ' ' . anva_get_theme( 'version' );
-	$framework_info = Anva::$name . ' ' . Anva::$version;
+	$theme_info 	= anva_get_theme( 'name' ) . ' - ' . anva_get_theme( 'version' );
+	$framework_info = Anva::get_name() . ' - ' . Anva::get_version();
 	$author_info 	= '<a href="' . esc_url( 'https://anthuanvasquez.net/' ) . '">Anthuan Vásquez</a>';
 
 	printf(
 		'<div class="anva-options-page-credit">%1$s %2$s<div class="clear"></div></div>',
 		sprintf(
-			'<span class="alignleft">%2$s %1$s %3$s</span>',
-			__( 'powered by', 'anva' ),
+			'<span class="alignleft">%1$s %2$s %3$s</span>',
 			esc_html( $theme_info ),
+			esc_html__( 'powered by', 'anva' ),
 			esc_html( $framework_info )
 		),
 		sprintf(
 			'<span class="alignright">%1$s %2$s</span>',
-			__( 'Develop by', 'anva' ),
-			esc_html( $author_info )
+			esc_html__( 'Develop by', 'anva' ),
+			$author_info
 		)
 	);
 }
@@ -158,8 +165,20 @@ function anva_admin_footer_links() {
 	$id = anva_get_theme_id();
 	printf(
 		'<div class="anva-options-page-links">%1$s %2$s %3$s</div>',
-		sprintf( '<a href="%1$s"><span class="dashicons dashicons-megaphone"></span> %2$s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Support', 'anva' ) ),
-		sprintf( '<a href="%1$s"><span class="dashicons dashicons-book"></span> %2$s</a>', esc_url( 'https://themes.anthuanvasquez.net/' . $id . '/docs' ), __( 'Theme Documentation', 'anva' ) ),
-		sprintf( '<a href="%1$s"><span class="dashicons dashicons-cart"></span> %2$s</a>', esc_url( 'https://themefores/user/oidoperfecto/porfolio' ), __( 'Buy Themes', 'anva' ) )
+		sprintf(
+			'<a href="%1$s"><span class="dashicons dashicons-megaphone"></span> %2$s</a>',
+			esc_url( 'https://themefores/user/oidoperfecto' ),
+			esc_html__( 'Support', 'anva' )
+		),
+		sprintf(
+			'<a href="%1$s"><span class="dashicons dashicons-book"></span> %2$s</a>',
+			esc_url( 'https://themes.anthuanvasquez.net/docs/' . $id ),
+			esc_html__( 'Theme Documentation', 'anva' )
+		),
+		sprintf(
+			'<a href="%1$s"><span class="dashicons dashicons-cart"></span> %2$s</a>',
+			esc_url( 'https://themefores/user/oidoperfecto/porfolio' ),
+			esc_html__( 'Buy Themes', 'anva' )
+		)
 	);
 }

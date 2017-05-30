@@ -35,13 +35,13 @@ jQuery( document ).ready( function( $ ) {
 				e.preventDefault();
 				var form = $(this).closest('form');
 				swal({
-					title: anvaJs.save_button_title,
-					text: anvaJs.save_button_text,
+					title: AnvaOptionsLocal.save_button_title,
+					text: AnvaOptionsLocal.save_button_text,
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.save_button_confirm,
-					cancelButtonText: anvaJs.save_button_cancel,
+					confirmButtonText: AnvaOptionsLocal.save_button_confirm,
+					cancelButtonText: AnvaOptionsLocal.save_button_cancel,
 					cancelButtonColor: "#f7f7f7",
 					closeOnConfirm: true,
 					closeOnCancel: true
@@ -60,8 +60,8 @@ jQuery( document ).ready( function( $ ) {
 
 				if ( '' === $('#section-import_settings textarea').val() ) {
 					swal({
-						title: anvaJs.import_empty_title,
-						text: anvaJs.import_empty_text,
+						title: AnvaOptionsLocal.import_empty_title,
+						text: AnvaOptionsLocal.import_empty_text,
 						type: "info",
 						showConfirmButton: true,
 						confirmButtonColor: "#0085ba",
@@ -70,13 +70,13 @@ jQuery( document ).ready( function( $ ) {
 				}
 
 				swal({
-					title: anvaJs.import_button_title,
-					text: anvaJs.import_button_text,
+					title: AnvaOptionsLocal.import_button_title,
+					text: AnvaOptionsLocal.import_button_text,
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#0085ba",
-					confirmButtonText: anvaJs.import_button_confirm,
-					cancelButtonText: anvaJs.import_button_cancel,
+					confirmButtonText: AnvaOptionsLocal.import_button_confirm,
+					cancelButtonText: AnvaOptionsLocal.import_button_cancel,
 					cancelButtonColor: "#f7f7f7",
 					closeOnConfirm: true,
 					closeOnCancel: true
@@ -113,7 +113,7 @@ jQuery( document ).ready( function( $ ) {
 
 			// Show spinner on submit form
 			$('#anva-framework-submit input.button-primary').click( function() {
-				$(this).val( anvaJs.save_button );
+				$(this).val( AnvaOptionsLocal.save_button );
 				$('#anva-framework-submit .spinner').addClass('is-active');
 			});
 

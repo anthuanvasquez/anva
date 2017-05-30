@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Framework's API.
+ * Initialization the Framework's API.
  *
  * @since  1.0.0
  * @return void
  */
 function anva_init_api_helpers() {
 
-	// Setup Framework Core Options.
+	// Setup Framework Options.
 	Anva_Options::instance();
 
 	// Setup Framework Stylesheets.
@@ -20,13 +20,13 @@ function anva_init_api_helpers() {
 	// Setup Framework Sidebars Locations.
 	Anva_Sidebars::instance();
 
-	// Setup Framework Core Sliders.
+	// Setup Framework Sliders.
 	Anva_Sliders::instance();
 
-	// Setup Framework Builder Components.
+	// Setup Builder Components.
 	Anva_Builder_Components::instance();
 
-	// Setup import export options.
+	// Setup custom options for import export.
 	Anva_Options_Import_Export::instance();
 
 	// Setup customizer API.
@@ -35,18 +35,23 @@ function anva_init_api_helpers() {
 }
 
 /**
- * Print theme option value.
+ * Print single option value.
  *
  * @since 1.0.0
  * @param string  $name
  * @param boolean $default
  */
-function anva_the_option( $name, $default = false ) {
-	echo anva_get_option( $name, $default );
+function anva_the_option( $id, $default = false ) {
+	// Don't print option with array values.
+	if ( is_array( $default ) ) {
+		return false;
+	}
+
+	echo anva_get_option( $id, $default );
 }
 
 /**
- * Get theme option value.
+ * Get single option value.
  *
  * If no value has been saved, it returns $default.
  * Needed because options are saved as serialized strings.
@@ -55,47 +60,24 @@ function anva_the_option( $name, $default = false ) {
  * @link http://wptheming.com
  *
  * @since  1.0.0
- * @param  string               $name
+ * @param  string               $id
  * @param  string|array|boolean $default
  * @return string|array|boolean $options
  */
-function anva_get_option( $name, $default = false ) {
-
-	// Get option name.
-	$option_name = anva_get_option_name();
-
-	// Get settings from database.
-	$options = get_option( $option_name );
-
-	// Return specific option.
-	if ( isset( $options[ $name ] ) ) {
-		return $options[ $name ];
-	}
-
-	// Return default.
-	return $default;
+function anva_get_option( $id, $default = false ) {
+	$options = Anva_Options::instance();
+	return $options->get_option( $id, $default );
 }
 
 /**
- * Get raw options.
+ * Get all saved options values.
  *
  * @since  1.0.0
- * @return array
+ * @return array $options
  */
-function anva_get_core_options() {
-	$api = Anva_Options::instance();
-	return $api->get_raw_options();
-}
-
-/**
- * Get formatted options. Note that options will not be
- * formatted until after WP's after_setup_theme hook.
- *
- * @since 1.0.0
- */
-function anva_get_formatted_options() {
-	$api = Anva_Options::instance();
-	return $api->get_formatted_options();
+function anva_get_option_all() {
+	$options = Anva_Options::instance();
+	return $options->get_all();
 }
 
 /**
@@ -108,103 +90,116 @@ function anva_the_option_name() {
 }
 
 /**
- * Gets option name.
+ * Get option name.
  *
  * @since 1.0.0
  */
 function anva_get_option_name() {
-	$name = get_option( 'stylesheet' );
-	$name = preg_replace( '/\W/', '_', strtolower( $name ) );
-	return apply_filters( 'anva_option_name', $name );
-
+	$options = Anva_Options::instance();
+	return $options->get_option_name();
 }
 
 /**
- * Allows for manipulating or setting options
- * via 'anva_options' filter.
+ * Get formatted options array.
  *
  * @since  1.0.0
  * @return array $options
  */
 function anva_get_options() {
+	$options = Anva_Options::instance();
+	return $options->get_formatted_options();
+}
 
-	// Get options from api class Anva_Options_API.
-	$options = anva_get_formatted_options();
-
-	// Allow setting/manipulating options via filters.
-	$options = apply_filters( 'anva_options', $options );
-
-	return $options;
+/**
+ * Get default options values.
+ *
+ * @since  1.0.0
+ * @return array $options
+ */
+function anva_get_default_options_values() {
+	$options = Anva_Options::instance();
+	return $options->get_default_values();
 }
 
 /**
  * Add theme option tab.
  *
  * @since 1.0.0
+ * @param string $tab_id
+ * @param string $tab_name
+ * @param boolean $top
+ * @param string $icon
  */
 function anva_add_option_tab( $tab_id, $tab_name, $top = false, $icon = 's' ) {
-	$api = Anva_Options::instance();
-	$api->add_tab( $tab_id, $tab_name, $top, $icon );
+	$options = Anva_Options::instance();
+	$options->add_tab( $tab_id, $tab_name, $top, $icon );
 }
 
 /**
- * Remove theme option tab
+ * Remove theme option tab.
  *
  * @since 1.0.0
+ * @param string $tab_id
  */
 function anva_remove_option_tab( $tab_id ) {
-	$api = Anva_Options::instance();
-	$api->remove_tab( $tab_id );
+	$options = Anva_Options::instance();
+	$options->remove_tab( $tab_id );
 }
 
 /**
- * Add theme option section
+ * Add theme option section.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @param  string  $tab_id       Tab ID.
+ * @param  string  $section_id   Section ID.
+ * @param  string  $section_name Sectio name.
+ * @param  string  $section_desc Section description.
+ * @param  array   $options      Options array group for section.
+ * @param  boolean $top          Move sectopn to the top.
  */
 function anva_add_option_section( $tab_id, $section_id, $section_name, $section_desc = null, $options = null, $top = false ) {
-	$api = Anva_Options::instance();
-	$api->add_section( $tab_id, $section_id, $section_name, $section_desc, $options, $top );
+	$options_section = Anva_Options::instance();
+	$options_section->add_section( $tab_id, $section_id, $section_name, $section_desc, $options, $top );
 }
 
 /**
- * Remove theme option section
+ * Remove theme option section.
  *
  * @since 1.0.0
  */
 function anva_remove_option_section( $tab_id, $section_id ) {
-	$api = Anva_Options::instance();
-	$api->remove_section( $tab_id, $section_id );
+	$options = Anva_Options::instance();
+	$options->remove_section( $tab_id, $section_id );
 }
 
 /**
- * Add theme option
+ * Add theme option.
  *
  * @since 1.0.0
  */
 function anva_add_option( $tab_id, $section_id, $option_id, $option ) {
-	$api = Anva_Options::instance();
-	$api->add_option( $tab_id, $section_id, $option_id, $option );
+	$options = Anva_Options::instance();
+	$options->add_option( $tab_id, $section_id, $option_id, $option );
 }
 
 /**
- * Remove theme option
+ * Remove theme option.
  *
  * @since 1.0.0
  */
 function anva_remove_option( $tab_id, $section_id, $option_id ) {
-	$api = Anva_Options::instance();
-	$api->remove_option( $tab_id, $section_id, $option_id );
+	$options = Anva_Options::instance();
+	$options->remove_option( $tab_id, $section_id, $option_id );
 }
 
 /**
- * Edit theme option
+ * Edit theme option.
  *
  * @since 1.0.0
  */
 function anva_edit_option( $tab_id, $section_id, $option_id, $att, $value ) {
-	$api = Anva_Options::instance();
-	$api->edit_option( $tab_id, $section_id, $option_id, $att, $value );
+	$options = Anva_Options::instance();
+	$options->edit_option( $tab_id, $section_id, $option_id, $att, $value );
 }
 
 /**
@@ -296,8 +291,8 @@ function anva_get_sidebar_locations() {
  * @since 1.0.0
  */
 function anva_get_sidebar_location_name( $location, $slug = false ) {
-	$api = Anva_Sidebars::instance();
-	$sidebar = $api->get_locations( $location );
+	$sidebars = Anva_Sidebars::instance();
+	$sidebar  = $sidebars->get_locations( $location );
 
 	if ( isset( $sidebar['args']['name'] ) ) {
 		if ( $slug ) {
@@ -306,7 +301,7 @@ function anva_get_sidebar_location_name( $location, $slug = false ) {
 		return $sidebar['args']['name'];
 	}
 
-	return __( 'Widget Area', 'anva' );
+	return esc_html__( 'Widget Area', 'anva' );
 }
 
 /**
@@ -315,8 +310,8 @@ function anva_get_sidebar_location_name( $location, $slug = false ) {
  * @since 1.0.0
  */
 function anva_display_sidebar( $location ) {
-	$api = Anva_Sidebars::instance();
-	$api->display( $location );
+	$sidebars = Anva_Sidebars::instance();
+	$sidebars->display( $location );
 }
 
 /**

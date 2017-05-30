@@ -6,6 +6,9 @@
  * @since 1.0.0
  */
 function anva_add_sanitization() {
+	/**
+	 * Text inputs.
+	 */
 	add_filter( 'anva_sanitize_text', 'sanitize_text_field' );
 	add_filter( 'anva_sanitize_tel', 'sanitize_text_field' );
 	add_filter( 'anva_sanitize_password', 'sanitize_text_field' );
@@ -13,32 +16,74 @@ function anva_add_sanitization() {
 	add_filter( 'anva_sanitize_date', 'sanitize_text_field' );
 	add_filter( 'anva_sanitize_email', 'sanitize_email' );
 	add_filter( 'anva_sanitize_number', 'anva_sanitize_number' );
+	add_filter( 'anva_sanitize_url', 'anva_sanitize_url' );
+	add_filter( 'anva_sanitize_code', 'anva_sanitize_textarea' );
+	add_filter( 'anva_sanitize_textarea', 'anva_sanitize_textarea' );
+	add_filter( 'anva_sanitize_editor', 'anva_sanitize_editor' );
+
+	/**
+	 * Select inputs.
+	 */
 	add_filter( 'anva_sanitize_select', 'anva_sanitize_enum', 10, 2 );
+	add_filter( 'anva_sanitize_select2', 'anva_sanitize_enum', 10, 2 );
+	add_filter( 'anva_sanitize_multiselect2', 'anva_sanitize_array', 10, 2 );
 	add_filter( 'anva_sanitize_radio', 'anva_sanitize_enum', 10, 2 );
 	add_filter( 'anva_sanitize_images', 'anva_sanitize_enum', 10, 2 );
+
+	/**
+	 * Check inputs.
+	 */
 	add_filter( 'anva_sanitize_checkbox', 'anva_sanitize_checkbox' );
 	add_filter( 'anva_sanitize_multicheck', 'anva_sanitize_multicheck', 10, 2 );
 	add_filter( 'anva_sanitize_switch', 'anva_sanitize_checkbox' );
-	add_filter( 'anva_sanitize_textarea', 'anva_sanitize_textarea' );
-	add_filter( 'anva_sanitize_code', 'anva_sanitize_textarea' );
-	add_filter( 'anva_sanitize_url', 'anva_sanitize_url' );
+
+	/**
+	 * Upload input.
+	 */
 	add_filter( 'anva_sanitize_upload', 'anva_sanitize_upload' );
-	add_filter( 'anva_sanitize_editor', 'anva_sanitize_editor' );
+
+	/**
+	 * Backgrpund inputs.
+	 */
 	add_filter( 'anva_sanitize_background', 'anva_sanitize_background' );
 	add_filter( 'anva_background_position', 'anva_sanitize_background_position' );
 	add_filter( 'anva_background_attachment', 'anva_sanitize_background_attachment' );
+
+	/**
+	 * Typography inputs.
+	 */
 	add_filter( 'anva_font_size', 'anva_sanitize_font_size' );
 	add_filter( 'anva_font_face', 'anva_sanitize_font_face' );
 	add_filter( 'anva_font_style', 'anva_sanitize_font_style' );
 	add_filter( 'anva_font_weight', 'anva_sanitize_font_weight' );
 	add_filter( 'anva_sanitize_typography', 'anva_sanitize_typography', 10, 2 );
+
+	/**
+	 * Colorpicker input.
+	 */
 	add_filter( 'anva_sanitize_color', 'anva_sanitize_hex' );
+
+	/**
+	 * Social media icons input.
+	 */
 	add_filter( 'anva_sanitize_social_media', 'anva_sanitize_social_media' );
+
+	/**
+	 * Logo inputs.
+	 */
 	add_filter( 'anva_sanitize_logo', 'anva_sanitize_logo' );
+
+	/**
+	 * Columns inputs.
+	 */
 	add_filter( 'anva_sanitize_columns', 'anva_sanitize_columns' );
+
+	/**
+	 * Array values input.
+	 */
 	add_filter( 'anva_sanitize_double_text', 'anva_sanitize_double_text' );
-	add_filter( 'anva_sanitize_sidebar', 'anva_sanitize_sidebar' );
-	add_filter( 'anva_sanitize_contact_fields', 'anva_sanitize_sidebar' );
+	add_filter( 'anva_sanitize_sidebar', 'anva_sanitize_array' );
+	add_filter( 'anva_sanitize_contact_fields', 'anva_sanitize_array' );
 	add_filter( 'anva_sanitize_layout', 'anva_sanitize_layout' );
 }
 
@@ -49,9 +94,8 @@ function anva_add_sanitization() {
  * @return $output sanitized string
  */
 function anva_sanitize_url( $input ) {
-	if ( ! preg_match( '/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i', $input ) ) {
-		$output = '';
-	} else {
+	$output = '';
+	if ( preg_match( '/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i', $input ) ) {
 		$output = $input;
 	}
 	return $output;
@@ -93,10 +137,9 @@ function anva_sanitize_textarea( $input ) {
  * @return $output '1' or false
  */
 function anva_sanitize_checkbox( $input ) {
+	$output = false;
 	if ( $input ) {
 		$output = '1';
-	} else {
-		$output = false;
 	}
 	return $output;
 }
@@ -223,10 +266,10 @@ function anva_sanitize_number( $input ) {
 function anva_sanitize_background( $input ) {
 
 	$output = wp_parse_args( $input, array(
-		'color' => '',
-		'image'  => '',
-		'repeat'  => 'repeat',
-		'position' => 'top center',
+		'color'      => '',
+		'image'      => '',
+		'repeat'     => 'repeat',
+		'position'   => 'top center',
 		'attachment' => 'scroll'
 	) );
 
@@ -234,9 +277,9 @@ function anva_sanitize_background( $input ) {
 		$output['color'] = apply_filters( 'anva_sanitize_hex', $input['color'] );
 	}
 
-	$output['image'] = apply_filters( 'anva_sanitize_upload', $input['image'] );
-	$output['repeat'] = apply_filters( 'anva_background_repeat', $input['repeat'] );
-	$output['position'] = apply_filters( 'anva_background_position', $input['position'] );
+	$output['image']      = apply_filters( 'anva_sanitize_upload', $input['image'] );
+	$output['repeat']     = apply_filters( 'anva_background_repeat', $input['repeat'] );
+	$output['position']   = apply_filters( 'anva_background_position', $input['position'] );
 	$output['attachment'] = apply_filters( 'anva_background_attachment', $input['attachment'] );
 
 	return $output;
@@ -432,10 +475,10 @@ function anva_recognized_font_faces() {
  */
 function anva_recognized_font_styles() {
 	$default = array(
-		'normal'      	   => __( 'Normal', 'anva' ),
-		'uppercase'   	   => __( 'Uppercase', 'anva' ),
-		'italic'      	   => __( 'Italic', 'anva' ),
-		'uppercase-italic' => __( 'Uppercase Italic', 'anva' ),
+		'normal'      	   => esc_attr__( 'Normal', 'anva' ),
+		'uppercase'   	   => esc_attr__( 'Uppercase', 'anva' ),
+		'italic'      	   => esc_attr__( 'Italic', 'anva' ),
+		'uppercase-italic' => esc_attr__( 'Uppercase Italic', 'anva' ),
 	);
 	return apply_filters( 'anva_recognized_font_styles', $default );
 }
@@ -447,13 +490,13 @@ function anva_recognized_font_styles() {
  */
 function anva_recognized_font_weights() {
 	$default = array(
-		'300' => __( '300 (Thin)', 'anva' ),
-		'400' => __( '400 (Normal)', 'anva' ),
-		'500' => __( '500', 'anva' ),
-		'600' => __( '600', 'anva' ),
-		'700' => __( '700 (Bold)', 'anva' ),
-		'800' => __( '800', 'anva' ),
-		'900' => __( '900', 'anva' ),
+		'300' => esc_attr__( '300 (Thin)', 'anva' ),
+		'400' => esc_attr__( '400 (Normal)', 'anva' ),
+		'500' => esc_attr__( '500', 'anva' ),
+		'600' => esc_attr__( '600', 'anva' ),
+		'700' => esc_attr__( '700 (Bold)', 'anva' ),
+		'800' => esc_attr__( '800', 'anva' ),
+		'900' => esc_attr__( '900', 'anva' ),
 	);
 	return apply_filters( 'anva_recognized_font_weights', $default );
 }
@@ -466,10 +509,10 @@ function anva_recognized_font_weights() {
  */
 function anva_recognized_background_repeat() {
 	$default = array(
-		'no-repeat' => __( 'No Repeat', 'anva' ),
-		'repeat-x'  => __( 'Repeat Horizontally', 'anva' ),
-		'repeat-y'  => __( 'Repeat Vertically', 'anva' ),
-		'repeat'    => __( 'Repeat All', 'anva' ),
+		'no-repeat' => esc_attr__( 'No Repeat', 'anva' ),
+		'repeat-x'  => esc_attr__( 'Repeat Horizontally', 'anva' ),
+		'repeat-y'  => esc_attr__( 'Repeat Vertically', 'anva' ),
+		'repeat'    => esc_attr__( 'Repeat All', 'anva' ),
 	);
 	return apply_filters( 'anva_recognized_background_repeat', $default );
 }
@@ -481,15 +524,15 @@ function anva_recognized_background_repeat() {
  */
 function anva_recognized_background_position() {
 	$default = array(
-		'top left'      => __( 'Top Left', 'anva' ),
-		'top center'    => __( 'Top Center', 'anva' ),
-		'top right'     => __( 'Top Right', 'anva' ),
-		'center left'   => __( 'Middle Left', 'anva' ),
-		'center center' => __( 'Middle Center', 'anva' ),
-		'center right'  => __( 'Middle Right', 'anva' ),
-		'bottom left'   => __( 'Bottom Left', 'anva' ),
-		'bottom center' => __( 'Bottom Center', 'anva' ),
-		'bottom right'  => __( 'Bottom Right', 'anva')
+		'top left'      => esc_attr__( 'Top Left', 'anva' ),
+		'top center'    => esc_attr__( 'Top Center', 'anva' ),
+		'top right'     => esc_attr__( 'Top Right', 'anva' ),
+		'center left'   => esc_attr__( 'Middle Left', 'anva' ),
+		'center center' => esc_attr__( 'Middle Center', 'anva' ),
+		'center right'  => esc_attr__( 'Middle Right', 'anva' ),
+		'bottom left'   => esc_attr__( 'Bottom Left', 'anva' ),
+		'bottom center' => esc_attr__( 'Bottom Center', 'anva' ),
+		'bottom right'  => esc_attr__( 'Bottom Right', 'anva'),
 	);
 	return apply_filters( 'anva_recognized_background_position', $default );
 }
@@ -501,8 +544,8 @@ function anva_recognized_background_position() {
  */
 function anva_recognized_background_attachment() {
 	$default = array(
-		'scroll' => __( 'Scroll Normally', 'anva' ),
-		'fixed'  => __( 'Fixed in Place', 'anva')
+		'scroll' => esc_attr__( 'Scroll Normally', 'anva' ),
+		'fixed'  => esc_attr__( 'Fixed in Place', 'anva'),
 	);
 	return apply_filters( 'anva_recognized_background_attachment', $default );
 }
@@ -642,12 +685,12 @@ function anva_sanitize_file_type( $input ) {
 }
 
 /**
- * Sanitization for sidebar field.
+ * Sanitization for array field.
  *
  * @param  $input  string
  * @return $output sanitized string
  */
-function anva_sanitize_sidebar( $input ) {
+function anva_sanitize_array( $input ) {
 
 	$output = array();
 
@@ -655,9 +698,9 @@ function anva_sanitize_sidebar( $input ) {
 		return $output;
 	}
 
-	foreach ( $input as $sidebar ) {
-		$title = sanitize_text_field( $sidebar );
-		$output[] = esc_html( $title );
+	foreach ( $input as $value ) {
+		$value = sanitize_text_field( $value );
+		$output[] = $value;
 	}
 
 	return $output;

@@ -70,15 +70,15 @@ class Anva_Page_Meta_Box {
 		}
 
 		$defaults = array(
-			'page'			=> array( 'post' ),		// Can contain post, page, link, or custom post type's slug
-			'context'		=> 'normal',			// Normal, advanced, or side
-			'priority'		=> 'high'				// Priority
+			'page'     => array( 'post' ),
+			'context'  => 'normal',
+			'priority' => 'high',
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
 
-		// Hooks
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		// Hooks.
+		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add' ) );
 		add_action( 'save_post', array( $this, 'save' ) );
 	}
@@ -91,7 +91,7 @@ class Anva_Page_Meta_Box {
 	 * @since  1.0.0
 	 * @param  object $hook
 	 */
-	public function scripts( $hook ) {
+	public function assets( $hook ) {
 		global $typenow;
 
 		foreach ( $this->args['page'] as $page ) {
@@ -99,21 +99,18 @@ class Anva_Page_Meta_Box {
 			// Add scripts only if page match with post type
 			if ( $typenow == $page ) {
 
-				// Color Picker
-				wp_enqueue_style( 'wp-color-picker' );
-
-				// jQuery UI
 				wp_enqueue_script( 'jquery-ui-spinner' );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 				wp_enqueue_script( 'jquery-ui-slider' );
+				wp_enqueue_script( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery', 'jquery-ui-slider' ), '1.11.3', false );
+				wp_enqueue_script( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
+				wp_enqueue_script( 'select2', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'select2/select2.min.js', array( 'jquery' ), '4.0.3', true );
 
-				wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
-				wp_enqueue_script( 'jquery-selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/jquery.selectric.min.js', array( 'jquery' ), '1.9.6', true );
-
-				// jQuery UI Custom / Pips
+				wp_enqueue_style( 'wp-color-picker' );
 				wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4', 'all' );
 				wp_enqueue_style( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array( 'jquery_ui_custom' ),  '1.11.3' );
-				wp_enqueue_script( 'jquery_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery', 'jquery-ui-slider' ), '1.11.3', false );
+				wp_enqueue_style( 'selectric', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'selectric/selectric.css', array(), '1.9.6' );
+				wp_enqueue_style( 'select2', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'select2/select2.min.css', array(), '4.0.3' );
 
 			}
 		}
@@ -150,7 +147,7 @@ class Anva_Page_Meta_Box {
 	public function display( $post ) {
 		// Make sure options interface exists so we can show the options form
 		if ( ! function_exists( 'anva_get_options_fields' ) ) {
-			echo __( 'Anva Options Interface not found.', 'anva' );
+			echo esc_html__( 'Anva Options Interface not found.', 'anva' );
 			return;
 		}
 
@@ -176,7 +173,7 @@ class Anva_Page_Meta_Box {
 				}
 
 				// Get settings from database
-				foreach ( $this->options as $option ) {
+				foreach ( $this->options as $option_id => $option ) {
 
 		    		if ( empty( $option['id'] ) ) {
 		    			continue;
@@ -195,7 +192,7 @@ class Anva_Page_Meta_Box {
 		    	}
 
 				// Use options interface to display form elements
-				echo anva_get_options_fields( $option_name, $settings, $this->options );
+				anva_the_options_fields( $option_name, $settings, $this->options, false );
 			?>
 		</div><!-- .anva-meta-box (end) -->
 		<?php
