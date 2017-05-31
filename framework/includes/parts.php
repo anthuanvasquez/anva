@@ -14,8 +14,10 @@ function anva_the_page_title() {
 /**
  * Retrieve the page title based on the queried object.
  *
+ * @link https://developer.wordpress.org/reference/functions/the_archive_title/
+ *
  * @since  1.0.0
- * @return string $title
+ * @return string $title The page title.
  */
 function anva_get_page_title() {
 
@@ -24,14 +26,14 @@ function anva_get_page_title() {
 	/* --------------------------------------- */
 
 	if ( is_home() ) :
-		$title = __( 'Blog', 'anva' );
+		$title = esc_html__( 'Blog', 'anva' );
 
 	/* --------------------------------------- */
 	/* Single Pages
 	/* --------------------------------------- */
 
 	elseif ( is_singular( 'post' ) ) :
-		$title = __( 'Blog', 'anva' );
+		$title = esc_html__( 'Blog', 'anva' );
 
 	elseif ( is_singular( 'portfolio' ) ) :
 		$title = get_the_title();
@@ -43,7 +45,7 @@ function anva_get_page_title() {
 		$title = get_the_title();
 
 	elseif ( is_attachment() ) :
-		$title = __( 'Attachment', 'anva' );
+		$title = esc_html__( 'Attachment', 'anva' );
 
 	/* --------------------------------------- */
 	/* Archive Pages
@@ -138,7 +140,7 @@ function anva_get_page_title() {
 		$title = anva_get_local( 'archives' );
 	endif;
 
-	// Filter page title
+	// Filter page title.
 	return apply_filters( 'anva_page_title', $title );
 
 }
@@ -171,17 +173,17 @@ function anva_posted_on() {
 	if ( comments_open() ) {
 
 		if ( 0 === $num_comments ) {
-			$comments = __( 'No Comments', 'anva' );
+			$comments = esc_html__( 'No Comments', 'anva' );
 		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __( ' Comments', 'anva' );
+			$comments = $num_comments . esc_html__( ' Comments', 'anva' );
 		} else {
-			$comments = __( '1 Comment', 'anva' );
+			$comments = esc_html__( '1 Comment', 'anva' );
 		}
 
 		$write_comments = sprintf( '<a href="%s"><span class="leave-reply">%s</span></a>', get_comments_link(), $comments );
 
 	} else {
-		$write_comments = __( 'Comments closed', 'anva' );
+		$write_comments = esc_html__( 'Comments closed', 'anva' );
 	}
 
 	// Get post formats icon.
@@ -249,17 +251,17 @@ function anva_posted_on_mini() {
 	if ( comments_open() ) {
 
 		if ( 0 === $num_comments ) {
-			$comments = __( 'No Comments', 'anva' );
+			$comments = esc_html__( 'No Comments', 'anva' );
 		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . ' ' . __( 'Comments', 'anva' );
+			$comments = $num_comments . ' ' . esc_html__( 'Comments', 'anva' );
 		} else {
-			$comments = __( '1 Comment', 'anva' );
+			$comments = esc_html__( '1 Comment', 'anva' );
 		}
 
 		$write_comments = sprintf( '<a href="%s"><span class="leave-reply">%s</span></a>', get_comments_link(), $comments );
 
 	} else {
-		$write_comments =  __( 'Comments closed', 'anva' );
+		$write_comments =  esc_html__( 'Comments closed', 'anva' );
 	}
 
 	// Get post formats icon.
@@ -283,6 +285,120 @@ function anva_posted_on_mini() {
 		sprintf( '%1$s', $write_comments ),
 		sprintf( '%1$s', $format_icon )
 	);
+}
+
+/**
+ * Print Button.
+ *
+ * @since  1.0.0
+ * @param  array  Arguments list.
+ * @return string HTML to output for button.
+ */
+function anva_button( $args ) {
+	echo anva_get_button( $args );
+}
+
+/**
+ * Button.
+ *
+ * @since  1.0.0
+ * @param  array  Arguments list.
+ * @return string HTML to output for button.
+ */
+function anva_get_button( $args ) {
+
+	$defaults = apply_filters( 'anva_button_default_args', array(
+		'text'        => '',
+		'url'         => '#',
+		'color'       => '',
+		'target'      => '_self',
+		'size'        => null,
+		'classes'     => null,
+		'title'       => null,
+		'icon_before' => null,
+		'icon_after'  => null,
+		'addon'       => null,
+		'block'       => false,
+		'base'        => true,
+	) );
+
+	$args = wp_parse_args( $args, $defaults );
+
+	extract( $args );
+
+	$final_classes = '';
+
+	// Classes for button.
+	if ( $base ) {
+		$final_classes = 'button';
+	}
+
+	if ( ! $color ) {
+		$color = '';
+	}
+
+	$final_classes .= anva_get_button_class( $color, $size, $block );
+
+	if ( $classes ) {
+		$final_classes .= ' ' . $classes;
+	}
+
+	// Title param.
+	if ( ! $title ) {
+		$title = $text;
+	}
+
+	// Add icon before text?.
+	if ( $icon_before ) {
+		$text = sprintf( '<i class="icon-%s before"></i>%s', $icon_before, $text );
+	}
+
+	// Make sure there's a default target.
+	if ( ! $target ) {
+		$target = '_self';
+	}
+
+	// Add icon after text?.
+	if ( $icon_after ) {
+		$text .= sprintf( '<i class="icon-%s after"></i>', $icon_after );
+	}
+
+	// Optional addon to anchor.
+	if ( $addon ) {
+		$addon = ' '. $addon;
+	}
+
+	// Finalize button.
+	if ( $target == 'lightbox' ) {
+
+		// Button linking to lightbox
+		$args = array(
+			'item' 	=> $text,
+			'link' 	=> $url,
+			'title' => $title,
+			'class' => $final_classes,
+			'addon'	=> $addon
+		);
+
+		// $button = anva_get_link_to_lightbox( $args );
+
+	} else {
+
+		// Standard button.
+		$button = sprintf(
+			'<a href="%s" title="%s" class="%s" target="%s"%s>%s</a>',
+			esc_url( $url ),
+			esc_attr( $title ),
+			esc_attr( $final_classes ),
+			esc_attr( $target ),
+			wp_kses( $addon, array() ),
+			anva_kses($text )
+		);
+
+	}
+
+	// Return final button.
+	return apply_filters( 'anva_button', $button, $args );
 }
 
 /**

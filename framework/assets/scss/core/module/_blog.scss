@@ -736,11 +736,13 @@ body {
 }
 
 .more-link {
-    display: inline-block;
     border-bottom: 1px solid $theme-color;
-    padding: 0 2px;
+    display: inline-block;
     font-family: $secondary-font;
     font-style: italic;
+    margin: 0;
+    padding: 0 2px;
+
     &:hover {
         border-bottom-color: #555;
     }

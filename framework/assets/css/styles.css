@@ -6023,11 +6023,12 @@ body:not(.device-touch) .entry-link {
 }
 
 .more-link {
-  display: inline-block;
   border-bottom: 1px solid #3498db;
-  padding: 0 2px;
+  display: inline-block;
   font-family: "Crete Round", serif;
   font-style: italic;
+  margin: 0;
+  padding: 0 2px;
 }
 
 .more-link:hover {

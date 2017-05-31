@@ -171,14 +171,58 @@ function anva_kses( $input ) {
 }
 
 /**
+ * Take in some content and display it with formatting.
+ *
+ * @since  1.0.0
+ * @param  string $content Content to display.
+ * @return string Formatted content.
+ */
+function anva_content( $content ) {
+	echo anva_get_content( $content );
+}
+
+/**
  * Take in some content and return it with formatting.
  *
  * @since  1.0.0
- * @param  array $content Content to display.
+ * @param  string $content Content to display.
  * @return string Formatted content.
  */
 function anva_get_content( $content ) {
 	return apply_filters( 'anva_the_content', $content );
+}
+
+/**
+ * Use themeblvd_button() function for read more links.
+ *
+ * When a WP user uses the more tag <!--more-->, this filter
+ * will add the class "btn" to that link. This will allow
+ * Bootstrap to style the link as one of its buttons.
+ *
+ * @see filter "the_content_more_link"
+ *
+ * @since 1.0.0
+ */
+function anvad_read_more_link( $read_more, $more_link_text ) {
+
+	$args = apply_filters( 'anva_the_content_more_args', array(
+		'text'        => $more_link_text,
+		'url'         => get_permalink() . '#more-' . get_the_ID(),
+		'color'       => '',
+		'target'      => null,
+		'size'        => null,
+		'classes'     => 'more-link',
+		'title'       => null,
+		'icon_before' => null,
+		'icon_after'  => null,
+		'addon'       => null,
+		'base'        => false,
+	) );
+
+	// Construct button based on filterable $args above.
+	$button = anva_get_button( $args );
+
+	return apply_filters( 'anva_read_more_link', $button );
 }
 
 /**
@@ -1559,20 +1603,7 @@ function anva_nav_menu_item_id( $menu_id, $item, $args, $depth ) {
 	return $args->theme_location . '-menu-item-'. $item->ID;
 }
 
-/**
- * Filter the_content().
- *
- * @return string The content.
- */
-function anva_read_more_link() {
-	$more_link = sprintf(
-	    '<div class="more-link-wrap"><a class="more-link" href="%s">%s</a></div><!-- .more-link-wrap (end) -->',
-		get_permalink(),
-		anva_get_local( 'read_more' )
-	);
 
-	return $more_link;
-}
 
 /**
  * Contact email.

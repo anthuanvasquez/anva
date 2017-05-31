@@ -426,26 +426,29 @@ function anva_get_current_color() {
 }
 
 /**
- * Get button colors.
+ * Buttons colors pallete.
  *
- * @return array $colors The button colors
+ * @since  1.0.0
+ * @return array $colors Buttons colors pallete.
  */
 function anva_get_button_colors() {
 	$colors = array(
-		'black'     => __( 'Black', 'anva' ),
-		'white'     => __( 'White', 'anva' ),
-		'grey'      => __( 'Grey', 'anva' ),
-		'blue'      => __( 'Blue', 'anva' ),
-		'yellow'    => __( 'Yellow', 'anva' ),
-		'red'       => __( 'Red', 'anva' ),
-		'orange'    => __( 'Orange', 'anva' ),
-		'dark_blue' => __( 'Dark Blue', 'anva' ),
-		'green'     => __( 'Green', 'anva' ),
-		'teal'      => __( 'Teal', 'anva' ),
-		'pink'      => __( 'Pink', 'anva' ),
-		'purple'    => __( 'Purple', 'anva' ),
+		'red'        => esc_attr__( 'Red', 'anva' ),
+		'teal'       => esc_attr__( 'Teal', 'anva' ),
+		'yellow'     => esc_attr__( 'Yellow', 'anva' ),
+		'green'      => esc_attr__( 'Green', 'anva' ),
+		'brown'      => esc_attr__( 'Brown', 'anva' ),
+		'aqua'       => esc_attr__( 'Aqua', 'anva' ),
+		'purple'     => esc_attr__( 'Purple', 'anva' ),
+		'leaf'       => esc_attr__( 'Leaf', 'anva' ),
+		'pink'       => esc_attr__( 'Pink', 'anva' ),
+		'blue'       => esc_attr__( 'Blue', 'anva' ),
+		'dirtygreen' => esc_attr__( 'Dirtygreen', 'anva' ),
+		'amber'      => esc_attr__( 'Amber', 'anva' ),
+		'black'      => esc_attr__( 'Black', 'anva' ),
+		'white'      => esc_attr__( 'White', 'anva' ),
 	);
-	return $colors;
+	return apply_filters( 'anva_buttons_color', $colors );
 }
 
 /**

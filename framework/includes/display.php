@@ -827,14 +827,41 @@ function anva_post_content_default() {
 	$primary_content = anva_get_option( 'primary_content', 'excerpt' );
 
 	if ( 'excerpt' == $primary_content ) {
+
+		// Show excerpt and read more button.
+		$args = apply_filters( 'anva_the_excerpt_more_args', array(
+			'text'        => anva_get_local( 'read_more' ),
+			'url'         => get_permalink(),
+			'color'       => '',
+			'target'      => '_self',
+			'size'        => null,
+			'classes'     => 'more-link',
+			'title'       => null,
+			'icon_before' => null,
+			'icon_after'  => null,
+			'addon'       => null,
+			'base'        => false,
+			'p'           => false,
+		));
+
+		// Output excerpt
 		anva_the_excerpt();
 
-		anva_get_template_part( 'post', 'read-more' );
+		// Output button
+		$button = anva_get_button( $args );
+
+		if ( $args['p'] ) {
+			$button = '<p>' . $button . '</p>';
+		}
+
+		echo $button;
+
+		// anva_get_template_part( 'post', 'read-more' );
 
 		return;
 	}
 
-	the_content( anva_get_local( 'read_more' ) );
+	the_content( apply_filters( 'anva_the_content_more_text', anva_get_local( 'read_more' ) ) );
 }
 
 /**

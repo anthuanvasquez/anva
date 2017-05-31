@@ -235,6 +235,10 @@ class Anva {
 		 * Default Hooks.
 		 */
 		if ( ! is_admin() ) {
+			add_filter( 'anva_the_content', array( $GLOBALS['wp_embed'], 'run_shortcode' ), 8 );
+			add_filter( 'anva_the_content', array( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
+			add_filter( 'anva_the_content', 'anva_footer_copyright_helpers' );
+			add_filter( 'anva_the_content', 'anva_do_icon' );
 			add_filter( 'anva_the_content', 'wptexturize' );
 			add_filter( 'anva_the_content', 'wpautop' );
 			add_filter( 'anva_the_content', 'shortcode_unautop' );
@@ -269,11 +273,13 @@ class Anva {
 		add_filter( 'the_content', 'anva_content_format_quote', 7 );
 		add_filter( 'the_content', 'anva_content_format_link', 7 );
 
+		add_filter( 'widget_text', 'anva_footer_copyright_helpers' );
+		add_filter( 'widget_text', 'anva_do_icon' );
 		add_filter( 'the_content', 'anva_do_icon' );
-		add_filter( 'the_content_more_link', 'anva_read_more_link' );
+		// add_filter( 'the_content_more_link', 'anva_read_more_link' );
+		add_filter( 'the_content_more_link', 'anva_read_more_link', 10, 2 );
 		add_filter( 'the_password_form', 'anva_password_form' );
 		add_filter( 'image_size_names_choose', 'anva_image_size_names_choose' );
-		add_filter( 'widget_text', 'anva_do_icon' );
 		add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 		add_filter( 'wp_link_pages_args', 'anva_link_pages_args' );
 		add_filter( 'wp_link_pages_link', 'anva_link_pages_link', 10, 2 );

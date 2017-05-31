@@ -687,12 +687,10 @@ function anva_the_excerpt( $length = '' ) {
  * @since 1.0.0
  */
 function anva_get_excerpt( $length = '' ) {
-	if ( ! empty( $length ) ) {
-		$content = get_the_excerpt();
-		$content = anva_truncate_string( $content, $length );
-		return $content;
-	}
 	$content = get_the_excerpt();
+	if ( ! empty( $length ) ) {
+		$content = anva_truncate_string( $content, $length );
+	}
 	$content = wpautop( $content );
 	return $content;
 }
@@ -1128,6 +1126,67 @@ function anva_do_icon( $str ) {
 	}
 
 	return $str;
+}
+
+/**
+ * Get class for buttons.
+ *
+ * @since  1.0.0
+ * @param  string $color Color of button.
+ * @param  string $size Size of button.
+ * @param  bool   $block Whether the button displays as block (true) or inline (false).
+ * @return string $class HTML Class to be outputted into button <a> markup.
+ */
+function anva_get_button_class( $color = '', $size = '', $block = false ) {
+
+	$class = '';
+
+	// Color.
+	if ( ! $color ) {
+		$color = '';
+	}
+
+	$colors = anva_get_button_colors();
+
+	if ( in_array( $color, apply_filters( 'anva_button_colors_classes', $colors ) ) ) {
+		$class .= sprintf( ' button-%s', $color );
+	} else if ( $color == 'custom' ) {
+		$class .= ' anva-custom-button';
+	} else {
+		$class .= sprintf( ' %s', $color );
+	}
+
+	// Size
+	switch ( $size ) {
+		case 'mini' :
+			$size = 'mini';
+			break;
+		case 'small' :
+			$size = 'small';
+			break;
+		case 'medium' :
+			$size = 'medium';
+			break;
+		case 'large' :
+			$size = 'large';
+			break;
+		case 'xlarge' :
+			$size = 'xlarge';
+			break;
+		case 'desc' :
+			$size = 'desc';
+	}
+
+	if ( in_array( $size, apply_filters( 'anva_button_sizes_classes', array( 'mini', 'small', 'medium', 'large', 'xlarge', 'desc' ) ) ) ) {
+		$class .= sprintf( ' button-%s', $size );
+	}
+
+	// Block.
+	if ( $block ) {
+		$class .= ' button-block';
+	}
+
+    return apply_filters( 'anva_get_button_class', $class, $color, $size );
 }
 
 /**
