@@ -81,7 +81,7 @@ function anva_add_sanitization() {
 	/**
 	 * Array values input.
 	 */
-	add_filter( 'anva_sanitize_double_text', 'anva_sanitize_double_text' );
+	add_filter( 'anva_sanitize_double_text', 'anva_sanitize_array' );
 	add_filter( 'anva_sanitize_sidebar', 'anva_sanitize_array' );
 	add_filter( 'anva_sanitize_contact_fields', 'anva_sanitize_array' );
 	add_filter( 'anva_sanitize_layout', 'anva_sanitize_layout' );
@@ -97,23 +97,6 @@ function anva_sanitize_url( $input ) {
 	$output = '';
 	if ( preg_match( '/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i', $input ) ) {
 		$output = $input;
-	}
-	return $output;
-}
-
-/**
- * Sanitization for double text field.
- *
- * @param  $input  string
- * @return $output sanitized string
- */
-function anva_sanitize_double_text( $input ) {
-	$output = array();
-	if ( is_array( $input ) ) {
-		foreach ( $input as $value ) {
-			$text = sanitize_text_field( $value );
-			$output[] = esc_html( $text );
-		}
 	}
 	return $output;
 }

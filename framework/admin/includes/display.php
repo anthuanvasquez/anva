@@ -156,29 +156,39 @@ function anva_admin_footer_credits() {
 	);
 }
 
+function anva_admin_links() {
+	$id = anva_get_theme_id();
+	$links = array(
+		'sup' => sprintf(
+			'<a href="%1$s"><span class="dashicons dashicons-megaphone"></span> %2$s</a>',
+			esc_url( 'https://themefores/user/oidoperfecto' ),
+			esc_html__( 'Support', 'anva' )
+		),
+		'doc' => sprintf(
+			'<a href="%1$s"><span class="dashicons dashicons-book"></span> %2$s</a>',
+			esc_url( 'https://themes.anthuanvasquez.net/docs/' . $id ),
+			esc_html__( 'Theme Documentation', 'anva' )
+		),
+		'buy' => sprintf(
+			'<a href="%1$s"><span class="dashicons dashicons-cart"></span> %2$s</a>',
+			esc_url( 'https://themefores/user/oidoperfecto/porfolio' ),
+			esc_html__( 'Buy Themes', 'anva' )
+		),
+	);
+	return $links;
+}
+
 /**
  * Display footer links.
  *
  * @since 1.0.0
  */
 function anva_admin_footer_links() {
-	$id = anva_get_theme_id();
+	$links = anva_admin_links();
 	printf(
 		'<div class="anva-options-page-links">%1$s %2$s %3$s</div>',
-		sprintf(
-			'<a href="%1$s"><span class="dashicons dashicons-megaphone"></span> %2$s</a>',
-			esc_url( 'https://themefores/user/oidoperfecto' ),
-			esc_html__( 'Support', 'anva' )
-		),
-		sprintf(
-			'<a href="%1$s"><span class="dashicons dashicons-book"></span> %2$s</a>',
-			esc_url( 'https://themes.anthuanvasquez.net/docs/' . $id ),
-			esc_html__( 'Theme Documentation', 'anva' )
-		),
-		sprintf(
-			'<a href="%1$s"><span class="dashicons dashicons-cart"></span> %2$s</a>',
-			esc_url( 'https://themefores/user/oidoperfecto/porfolio' ),
-			esc_html__( 'Buy Themes', 'anva' )
-		)
+		$links['sup'],
+		$links['doc'],
+		$links['buy']
 	);
 }

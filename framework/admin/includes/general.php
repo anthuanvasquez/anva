@@ -56,5 +56,6 @@ function anva_admin_assets( $hook ) {
 	// Admin Global.
 	wp_enqueue_script( 'anva_admin', ANVA_FRAMEWORK_ADMIN_JS . 'admin.js', array( 'jquery', 'wp-color-picker' ), Anva::get_version(), false );
 	wp_enqueue_style( 'anva_admin', ANVA_FRAMEWORK_ADMIN_CSS . 'admin.css', array(), Anva::get_version() );
+	wp_localize_script( 'anva_admin', 'AnvaSectionLocal', anva_get_admin_locals( 'js' ) );
 
 }

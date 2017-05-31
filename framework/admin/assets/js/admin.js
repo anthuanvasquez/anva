@@ -321,13 +321,13 @@ jQuery( document ).ready( function( $ ) {
                 e.preventDefault();
                 var ele = $(this).parent();
                 swal({
-                    title: anvaJs.sidebar_button_title,
-                    text: anvaJs.sidebar_button_text,
+                    title: AnvaSectionLocal.sidebar_button_title,
+                    text: AnvaSectionLocal.sidebar_button_text,
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#0085ba",
-                    confirmButtonText: anvaJs.confirm,
-                    cancelButtonText: anvaJs.cancel,
+                    confirmButtonText: AnvaSectionLocal.confirm,
+                    cancelButtonText: AnvaSectionLocal.cancel,
                     cancelButtonColor: "##f7f7f7",
                     closeOnConfirm: true,
                     closeOnCancel: true
@@ -350,15 +350,15 @@ jQuery( document ).ready( function( $ ) {
                     $sidebarName = $( '#dynamic_sidebar_name' ).val(),
                     $optionName  = $( '#option_name' ).val();
                 if ( '' === $new.trim() ) {
-                    swal( anvaJs.sidebar_error_title, anvaJs.sidebar_error_text );
+                    swal( AnvaSectionLocal.sidebar_error_title, AnvaSectionLocal.sidebar_error_text );
                     return false;
                 }
                 if ( $new.length < 3 ) {
-                    swal( 'Error', anvaJS.sidebar_add_text );
+                    swal( 'Error', AnvaSectionLocal.sidebar_add_text );
                     return false;
                 }
                 $( '.dynamic-sidebars ul' ).removeClass( 'empty' );
-                $( '.dynamic-sidebars ul' ).append( '<li>' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
+                $( '.dynamic-sidebars ul' ).append( '<li>' + $new + ' <a href="#" class="delete">' + AnvaSectionLocal.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $sidebarName + '][]' + '" value="' + $new + '" /></li>' );
                 $( '.sidebar' ).val( '' );
             });
         },
@@ -371,13 +371,13 @@ jQuery( document ).ready( function( $ ) {
                 e.preventDefault();
                 var $ele = $(this).parent();
                 swal({
-                    title: anvaJs.contact_button_title,
-                    text: anvaJs.contact_button_text,
+                    title: AnvaSectionLocal.contact_button_title,
+                    text: AnvaSectionLocal.contact_button_text,
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#0085ba",
-                    confirmButtonText: anvaJs.confirm,
-                    cancelButtonText: anvaJs.cancel,
+                    confirmButtonText: AnvaSectionLocal.confirm,
+                    cancelButtonText: AnvaSectionLocal.cancel,
                     cancelButtonColor: "##f7f7f7",
                     closeOnConfirm: true,
                     closeOnCancel: true
@@ -399,17 +399,17 @@ jQuery( document ).ready( function( $ ) {
                 var $value = $( '#contact_fields option:selected' ).val();
 
                 if ( '' === $new.trim() ) {
-                    swal( anvaJs.contact_error_title, anvaJs.contact_error_text );
+                    swal( AnvaSectionLocal.contact_error_title, AnvaSectionLocal.contact_error_text );
                     return false;
                 }
                 if ( $( '.dynamic-contact-fields ul.contact-fields' ).children( '#field-' + $value ).length > 0 ) {
-                    swal( anvaJs.contact_exists_title, anvaJs.contact_exists_text + ' "' + $new + '".' );
+                    swal( AnvaSectionLocal.contact_exists_title, AnvaSectionLocal.contact_exists_text + ' "' + $new + '".' );
                     return false;
                 }
                 $( '.dynamic-contact-fields ul' ).removeClass( 'empty' );
                 var $contactFieldName = $( '#contact_field_name' ).val();
                 var $optionName = $( '#option_name' ).val();
-                $( '.dynamic-contact-fields ul' ).append( '<li id="field-' + $value + '">' + $new + ' <a href="#" class="delete">' + anvaJs.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $contactFieldName + '][]' + '" value="' + $value + '" /></li>' );
+                $( '.dynamic-contact-fields ul' ).append( '<li id="field-' + $value + '">' + $new + ' <a href="#" class="delete">' + AnvaSectionLocal.delete + '</a> <input type="hidden" name="' + $optionName + '[' + $contactFieldName + '][]' + '" value="' + $value + '" /></li>' );
                 $( '.sidebar' ).val( '' );
             });
         }

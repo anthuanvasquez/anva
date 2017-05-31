@@ -65,11 +65,11 @@
 }
 
 .anva-framework .CodeMirror {
-  border: 1px solid #ddd;
+  border: 1px solid #DDD;
 }
 
 .anva-framework .CodeMirror pre {
-  padding: 0 40px;
+  padding-left: 40px;
 }
 
 .anva-framework .cm-s-mdn-like .CodeMirror-gutters {

@@ -578,7 +578,7 @@ class Anva_Options {
 						'desc' => esc_html__( 'Enter which email address will be sent from the contact form.', 'anva' ),
 						'id' => 'contact_email',
 						'std' => '',
-						'type' => 'text',
+						'type' => 'email',
 					),
 					'contact_fields' => array(
 						'name' => esc_html__( 'Contact Form Fields', 'anva' ),

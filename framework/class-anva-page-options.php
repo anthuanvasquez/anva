@@ -98,6 +98,12 @@ class Anva_Page_Options {
 				// Adds options menu to the admin bar.
 				add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar' ) );
 
+				add_action( 'current_screen', array( $this, 'add_help_tab' ) );
+
+			} else {
+				// Display a notice if options aren't present in the theme.
+				add_action( 'admin_notices', array( $this, 'options_notice' ) );
+				add_action( 'admin_init', array( $this, 'options_notice_ignore' ) );
 			}
 		}
 	}
@@ -141,13 +147,31 @@ class Anva_Page_Options {
 	public function add_page_options() {
 		$menu = $this->get_menu_settings();
 
-		$this->options_screen = add_theme_page(
-			$menu['page_title'],
-			$menu['menu_title'],
-			$menu['capability'],
-			$menu['menu_slug'],
-			array( $this, 'display' )
-		);
+		switch( $menu['mode'] ) {
+
+			case 'menu':
+				$this->options_screen = add_menu_page(
+					$menu['page_title'],
+					$menu['menu_title'],
+					$menu['capability'],
+					$menu['menu_slug'],
+					array( $this, 'display' ),
+					$menu['icon_url'],
+					$menu['position']
+				);
+				break;
+
+			default:
+				$this->options_screen = add_submenu_page(
+					$menu['parent_slug'],
+					$menu['page_title'],
+					$menu['menu_title'],
+					$menu['capability'],
+					$menu['menu_slug'],
+					array( $this, 'display' )
+				);
+				break;
+		}
 	}
 
 	/**
@@ -162,10 +186,14 @@ class Anva_Page_Options {
 			return;
 		}
 
-		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.js', array( 'jquery' ), '5.13.2', true );
-		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.13.2', true );
-		wp_enqueue_script( 'codemirror_mode_js', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/javascript/javascript.js', array( 'codemirror' ), '5.13.2', true );
-		wp_enqueue_script( 'jquery-codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/jquery.codemirror.js', array( 'jquery', 'codemirror_mode_js' ), Anva::get_version(), true );
+		wp_enqueue_script( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/lib/codemirror.js', array( 'jquery' ), '5.26.0', false );
+		wp_enqueue_script( 'codemirror_mode_css', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/mode/css/css.js', array( 'codemirror' ), '5.26.0', false );
+		wp_enqueue_script( 'csslint', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/csslint.js', array( 'codemirror' ), '5.26.0', false );
+		wp_enqueue_script( 'codemirror_lint', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/addon/lint/lint.js', array( 'codemirror' ), '5.26.0', false );
+		wp_enqueue_script( 'codemirror_csslint', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/addon/lint/css-lint.js', array( 'codemirror' ), '5.26.0', false );
+		wp_enqueue_script( 'codemirror_activeline', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/addon/selection/active-line.js', array( 'codemirror' ), '5.26.0', false );
+		wp_enqueue_script( 'codemirror_matchbrackets', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/addon/edit/matchbrackets.js', array( 'codemirror' ), '5.26.0', false );
+		wp_enqueue_script( 'jquery-codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/jquery.codemirror.js', array( 'codemirror' ), '5.26.0', false );
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'jquery-ui-slider-pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.js', array( 'jquery' ), '1.7.2', true );
 		wp_enqueue_script( 'jquery-animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition/animsition.min.js', array( 'jquery' ), '4.0.1', true );
@@ -175,8 +203,9 @@ class Anva_Page_Options {
 		wp_localize_script( 'anva_options', 'AnvaOptionsLocal', anva_get_admin_locals( 'js' ) );
 
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/codemirror.css', array(), '5.13.2' );
-		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/theme/mdn-like.css', array(), '5.13.2' );
+		wp_enqueue_style( 'codemirror', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/lib/codemirror.css', array(), '5.26.0' );
+		wp_enqueue_style( 'codemirror_lint', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/addon/lint/lint.css', array(), '5.26.0' );
+		wp_enqueue_style( 'codemirror_theme', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'codemirror/theme/mdn-like.css', array(), '5.26.0' );
 		wp_enqueue_style( 'jquery_ui_custom', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-custom.min.css', array(), '1.11.4' );
 		wp_enqueue_style( 'jquery_ui_slider_pips', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'jquery-ui/jquery-ui-slider-pips.min.css', array(),  '1.11.3' );
 		wp_enqueue_style( 'animsition', ANVA_FRAMEWORK_ADMIN_PLUGINS . 'animsition/animsition.min.css', array(), '4.0.1' );
@@ -416,6 +445,44 @@ class Anva_Page_Options {
 		add_settings_error( 'anva-options-page-errors', $id, $desc, 'updated fade' );
 	}
 
+	/**
+	 * Let's the user know that options aren't available for their theme.
+	 *
+	 * @global $pagenow, $current_user
+	 */
+	function options_notice() {
+		global $pagenow;
+		if ( ! is_multisite() && ( $pagenow == 'themes.php' ) ) {
+			global $current_user;
+			$user_id = $current_user->ID;
+			if ( ! get_user_meta( $user_id, 'anva_options_ignore_notice' ) ) {
+				printf(
+					'<div class="updated"><p>%s</p></div>',
+					sprintf(
+						'%1$s <a href="%4$s" target="_blank">%2$s</a> | <a href="%5$s">%3$s</a>',
+						esc_html__( 'The theme options are not available.', 'anva' ),
+						esc_html__( 'Learn More', 'anva' ),
+						esc_html__( 'Hide Notice', 'anva' ),
+						'https://themes.anthuanvasquez.net/docs/' . anva_get_theme_id(),
+						'?anva_options_nag_ignore=0'
+					)
+				);
+			}
+		}
+	}
+
+	/**
+	 * Allows the user to hide the options notice.
+	 *
+	 * @global $current_user
+	 */
+	function options_notice_ignore() {
+		global $current_user;
+		$user_id = $current_user->ID;
+		if ( isset( $_GET['anva_options_nag_ignore'] ) && '0' == $_GET['anva_options_nag_ignore'] ) {
+			add_user_meta( $user_id, 'anva_options_ignore_notice', 'true', true );
+		}
+	}
 
 	/**
 	 * Add options menu item to admin bar.
@@ -438,12 +505,44 @@ class Anva_Page_Options {
 
 		$args = array(
 			'parent' => 'appearance',
-			'id'     => 'anva_theme_options',
+			'id'     => $menu['menu_slug'],
 			'title'  => $menu['menu_title'],
 			'href'   => $href,
 		);
 
 		$wp_admin_bar->add_menu( apply_filters( 'anva_page_options_admin_bar', $args ) );
+	}
+
+	/**
+	 * Add help tab to current screen.
+	 */
+	function add_help_tab () {
+		$menu   = $this->get_menu_settings();
+		$screen = get_current_screen();
+		$parent = 'appearance_page_';
+
+		if ( 'menu' === $menu['mode'] ) {
+			$parent = 'toplevel_page_';
+		}
+
+		if ( $screen->id === $parent . $menu['menu_slug'] ) {
+			$id =anva_get_theme_id();
+			$name = anva_get_theme( 'name' );
+			$tabs = array(
+				'main' => array(
+					'id' => $id,
+					'title' => $name,
+					'content' => '<p>Quisque velit nisi, pretium ut lacinia in, elementum id enim. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>',
+				),
+				'started' => array(
+					'id' => $id . '_gettingstarted',
+					'title' => 'Getting Started',
+					'content' => '<p>Quisque velit nisi, pretium ut lacinia in, elementum id enim. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>',
+				),
+			);
+			$screen->add_help_tab( $tabs['main'] );
+			$screen->add_help_tab( $tabs['started'] );
+		}
 	}
 
 }

@@ -23,7 +23,11 @@
  */
 function anva_theme_options() {
 
-	// Assets.
+	/**
+	 * Styles Tab Options.
+	 */
+
+	// Assets theme path.
 	$skin_path = trailingslashit( get_template_directory_uri() . '/assets/images/skins' );
 
 	// Skin Colors.
@@ -66,10 +70,6 @@ function anva_theme_options() {
 		'flipY'     => 'flipY',
 		'zoom'      => 'zoom',
 	);
-
-	/* ---------------------------------------------------------------- */
-	/* Styles Tab
-	/* ---------------------------------------------------------------- */
 
 	$styles = array(
 		'main' => array(
@@ -177,30 +177,6 @@ function anva_theme_options() {
 				'id' => 'top_bar_text_color',
 				'std' => '0',
 				'type' => 'checkbox',
-			),
-			'breaking_display' => array(
-				'name' => null,
-				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Breaking News', 'anva' ), esc_html__( 'Display breaking news above header.', 'anva' ) ),
-				'id' => 'breaking_display',
-				'std' => '0',
-				'type' => 'checkbox',
-				'trigger' => '1',
-				'receivers' => 'breaking_categories breaking_items',
-			),
-			'breaking_items' => array(
-				'name' => esc_html__( 'Breaking News Items', 'anva' ),
-				'desc' => esc_html__( 'Choose the default items to show on breaking news.', 'anva' ),
-				'id'   => 'breaking_items',
-				'std'  => 5,
-				'type' => 'number',
-			),
-			'breaking_categories' => array(
-				'name' => esc_html__( 'Breaking News Categories', 'anva' ),
-				'desc' => esc_html__( 'Select the categories from blog you want to show on breaking news.', 'anva' ),
-				'id' => 'breaking_categories',
-				'std' => array(),
-				'type' => 'multicheck',
-				'options' => anva_pull_categories(),
 			),
 			'header_color' => array(
 				'name' => esc_html__( 'Header Color', 'anva' ),
@@ -651,9 +627,9 @@ function anva_theme_options() {
 	anva_add_option_section( 'styles', 'typography', esc_html__( 'Typography', 'anva' ), null, $styles['typography'], false );
 	anva_add_option_section( 'styles', 'custom', esc_html__( 'Custom', 'anva' ), null, $styles['custom'], false );
 
-	/* ---------------------------------------------------------------- */
-	/* Layout Tab
-	/* ---------------------------------------------------------------- */
+	/**
+	 * Layout Tab Options.
+	 */
 
 	// Get header types
 	$header_types = array();
@@ -777,13 +753,37 @@ function anva_theme_options() {
 			),
 			'class' => 'hidden'
 		),
-		'header_extras_text' => array(
+		'header_extras_info' => array(
 			'name' => esc_html__( 'Header Extra Info Text', 'anva' ),
 			'desc' => esc_html__( 'Enter the text you want show in extra info.', 'anva' ),
 			'id' => 'header_extras_info',
 			'std' => '',
 			'type' => 'text',
 			'class' => 'hidden',
+		),
+		'breaking_display' => array(
+			'name' => null,
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Breaking News', 'anva' ), esc_html__( 'Display breaking news above header.', 'anva' ) ),
+			'id' => 'breaking_display',
+			'std' => '0',
+			'type' => 'checkbox',
+			'trigger' => '1',
+			'receivers' => 'breaking_categories breaking_items',
+		),
+		'breaking_items' => array(
+			'name' => esc_html__( 'Breaking News Items', 'anva' ),
+			'desc' => esc_html__( 'Choose the default items to show on breaking news.', 'anva' ),
+			'id'   => 'breaking_items',
+			'std'  => 5,
+			'type' => 'number',
+		),
+		'breaking_categories' => array(
+			'name' => esc_html__( 'Breaking News Categories', 'anva' ),
+			'desc' => esc_html__( 'Select the categories from blog you want to show on breaking news.', 'anva' ),
+			'id' => 'breaking_categories',
+			'std' => array(),
+			'type' => 'multicheck',
+			'options' => anva_pull_categories(),
 		),
 		'footer_extra_display' => array(
 			'name' => null,
@@ -876,6 +876,69 @@ function anva_theme_options() {
 				'type' => 'editor',
 			),
 		),
+		'login' => array(
+			'login_style' => array(
+				'name' => esc_html__( 'Style', 'anva'),
+				'desc' => esc_html__( 'Select the login style.', 'anva'),
+				'id' => 'login_style',
+				'std' => '',
+				'type' => 'select',
+				'options' => array(
+					'' 	     => esc_attr__( 'None', 'anva' ),
+					'style1' => esc_attr__( 'Style 1', 'anva' ),
+					'style2' => esc_attr__( 'Style 2', 'anva' ),
+					'style3' => esc_attr__( 'Style 3', 'anva' )
+				)
+			),
+			'login_copyright' => array(
+				'name' => esc_html__( 'Copyright Text', 'anva'),
+				'desc' => esc_html__( 'Enter the copyright text you\'d like to show in the footer of your login page.', 'anva'),
+				'id' => 'login_copyright',
+				'std' => sprintf( esc_html__( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>' ),
+				'type' => 'textarea',
+			),
+		),
+	);
+
+	anva_add_option( 'layout', 'header', 'header_type', $layout['header_type'] );
+	anva_add_option( 'layout', 'header', 'header_sticky', $layout['header_sticky'] );
+	anva_add_option( 'layout', 'header', 'header_layout', $layout['header_layout'] );
+	anva_add_option( 'layout', 'header', 'top_bar_layout',$layout['top_bar_layout'] );
+	anva_add_option( 'layout', 'header', 'side_panel_type', $layout['side_panel_type'] );
+	anva_add_option( 'layout', 'header', 'side_header_icons', $layout['side_header_icons'] );
+	anva_add_option( 'layout', 'header', 'primary_menu_style', $layout['primary_menu_style'] );
+	anva_add_option( 'layout', 'header', 'header_extras', $layout['header_extras'] );
+	anva_add_option( 'layout', 'header', 'header_extras_info', $layout['header_extras_info'] );
+	anva_add_option( 'layout', 'header', 'breaking_display', $layout['breaking_display'] );
+	anva_add_option( 'layout', 'header', 'breaking_items', $layout['breaking_items'] );
+	anva_add_option( 'layout', 'header', 'breaking_categories', $layout['breaking_categories'] );
+	anva_add_option( 'layout', 'footer', 'footer_extra_display', $layout['footer_extra_display'] );
+	anva_add_option( 'layout', 'footer', 'footer_extra_info', $layout['footer_extra_info'] );
+	anva_add_option( 'layout', 'footer', 'footer_gototop', $layout['footer_gototop'] );
+	anva_add_option( 'layout', 'footer', 'footer_icons', $layout['footer_icons'] );
+
+	anva_add_option_section( 'layout', 'page_transition', esc_html__( 'Page Transition', 'anva' ), null, $layout['page_transition'], false );
+
+	// Add slider options.
+	foreach ( $sliders as $slider_id => $slider ) {
+		foreach ( $slider['options'] as $option_id => $option ) {
+			anva_add_option( 'layout', 'slideshows', $option_id, $option );
+		}
+	}
+
+	// Login Feature Support.
+	if ( anva_support_feature( 'anva-login' ) ) {
+		anva_add_option_section( 'layout', 'login', esc_html__( 'Login', 'anva' ), null, $layout['login'], false );
+	}
+
+	/**
+	 * Custom Tab Options.
+	 *
+	 * @see anva_add_option_tab, anva_add_section_option
+	 *
+	 * @var array
+	 */
+	$custom = array(
 		'gallery' => array(
 			'gallery_sort' => array(
 				'name' => esc_html__( 'Images Sorting', 'anva'),
@@ -945,8 +1008,8 @@ function anva_theme_options() {
 				'std' => 'false',
 				'type' => 'select',
 				'options'	=> array(
-					'true' 	=> 'Yes, enable parallax',
-					'false'	=> 'No, disable parallax'
+					'true' 	=> esc_attr__( 'Yes, enable parallax', 'anva' ),
+					'false'	=> esc_attr__( 'No, disable parallax', 'anva' ),
 				),
 			),
 			'slider_thumbnails' => array(
@@ -980,63 +1043,17 @@ function anva_theme_options() {
 				'type' => 'slider_group_area',
 			),
 		),
-		'login' => array(
-			'login_style' => array(
-				'name' => esc_html__( 'Style', 'anva'),
-				'desc' => esc_html__( 'Select the login style.', 'anva'),
-				'id' => 'login_style',
-				'std' => '',
-				'type' => 'select',
-				'options' => array(
-					'' 	     => esc_attr__( 'None', 'anva' ),
-					'style1' => esc_attr__( 'Style 1', 'anva' ),
-					'style2' => esc_attr__( 'Style 2', 'anva' ),
-					'style3' => esc_attr__( 'Style 3', 'anva' )
-				)
-			),
-			'login_copyright' => array(
-				'name' => esc_html__( 'Copyright Text', 'anva'),
-				'desc' => esc_html__( 'Enter the copyright text you\'d like to show in the footer of your login page.', 'anva'),
-				'id' => 'login_copyright',
-				'std' => sprintf( esc_html__( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>' ),
-				'type' => 'textarea',
-			),
-		),
 	);
 
-	anva_add_option( 'layout', 'header', 'header_type', $layout['header_type'] );
-	anva_add_option( 'layout', 'header', 'header_sticky', $layout['header_sticky'] );
-	anva_add_option( 'layout', 'header', 'header_layout', $layout['header_layout'] );
-	anva_add_option( 'layout', 'header', 'top_bar_layout',$layout['top_bar_layout'] );
-	anva_add_option( 'layout', 'header', 'side_panel_type', $layout['side_panel_type'] );
-	anva_add_option( 'layout', 'header', 'side_header_icons', $layout['side_header_icons'] );
-	anva_add_option( 'layout', 'header', 'primary_menu_style', $layout['primary_menu_style'] );
-	anva_add_option( 'layout', 'header', 'header_extras', $layout['header_extras'] );
-	anva_add_option( 'layout', 'header', 'header_extras_text', $layout['header_extras_text'] );
-	anva_add_option( 'layout', 'footer', 'footer_extra_display', $layout['footer_extra_display'] );
-	anva_add_option( 'layout', 'footer', 'footer_extra_info', $layout['footer_extra_info'] );
-	anva_add_option( 'layout', 'footer', 'footer_gototop', $layout['footer_gototop'] );
-	anva_add_option( 'layout', 'footer', 'footer_icons', $layout['footer_icons'] );
+	anva_add_option_tab( 'features', esc_html__( 'Features', 'anva'), false, 'pressthis' );
+	anva_add_option_section( 'features', 'gallery', esc_html__( 'Galleries', 'anva' ), null, $custom['gallery'], false );;
+	anva_add_option_section( 'features', 'slideshows', esc_html__( 'Slideshows', 'anva' ), null, $custom['slideshows'], false );
 
-	anva_add_option_section( 'layout', 'page_transition', esc_html__( 'Page Transition', 'anva' ), null, $layout['page_transition'], false );
-	anva_add_option_section( 'layout', 'gallery', esc_html__( 'Galleries', 'anva' ), null, $layout['gallery'], false );
-	anva_add_option_section( 'layout', 'slideshows', esc_html__( 'Slideshows', 'anva' ), null, $layout['slideshows'], false );
-
-	// Add slider options
-	foreach ( $sliders as $slider_id => $slider ) {
-		foreach ( $slider['options'] as $option_id => $option ) {
-			anva_add_option( 'layout', 'slideshows', $option_id, $option );
-		}
-	}
-
-	if ( anva_support_feature( 'anva-login' ) ) {
-		anva_add_option_section( 'layout', 'login', esc_html__( 'Login', 'anva' ), null, $layout['login'], false );
-	}
-
-	/* ---------------------------------------------------------------- */
-	/* Advanced Tab
-	/* ---------------------------------------------------------------- */
-
+	/**
+	 * Advanced Tab Options.
+	 *
+	 * @var array
+	 */
 	$advanced = array(
 		'main' => array(
 			'responsive' => array(
