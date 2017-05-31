@@ -235,6 +235,10 @@ class Anva {
 		 * Default Hooks.
 		 */
 		if ( ! is_admin() ) {
+			add_filter( 'anva_the_content', 'wptexturize' );
+			add_filter( 'anva_the_content', 'wpautop' );
+			add_filter( 'anva_the_content', 'shortcode_unautop' );
+			add_filter( 'anva_the_content', 'do_shortcode' );
 			add_filter( 'anva_js_locals', 'anva_get_media_queries' );
 			add_action( 'anva_post_meta', 'anva_post_meta_default' );
 			add_action( 'anva_post_content', 'anva_post_content_default' );

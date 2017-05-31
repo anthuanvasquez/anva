@@ -171,6 +171,17 @@ function anva_kses( $input ) {
 }
 
 /**
+ * Take in some content and return it with formatting.
+ *
+ * @since  1.0.0
+ * @param  array $content Content to display.
+ * @return string Formatted content.
+ */
+function anva_get_content( $content ) {
+	return apply_filters( 'anva_the_content', $content );
+}
+
+/**
  * Grid columns
  *
  * @since  1.0.0
