@@ -1362,32 +1362,6 @@ function anva_get_posts( $query_args = '' ) {
 	return $query;
 }
 
-/**
- * Get post ID by meta.
- *
- * @global $wpdb
- *
- * @since  1.0.0
- * @param  string $key
- * @param  string $value
- * @return sring|boolean
- */
-function anva_get_post_id_by_meta( $key, $value ) {
-	global $wpdb;
-
-	$meta = $wpdb->get_results( "SELECT * FROM `" . $wpdb->postmeta . "` WHERE meta_key='" . esc_sql( $key ) . "' AND meta_value='" . esc_sql( $value ) . "'" );
-
-	if ( is_array( $meta ) && ! empty( $meta ) && isset( $meta[0] ) ) {
-		$meta = $meta[0];
-	}
-
-	if ( is_object( $meta ) ) {
-		return $meta->post_id;
-	}
-
-	return false;
-}
-
 
 /**
  * Get admin modules.
