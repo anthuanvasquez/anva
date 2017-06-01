@@ -15,7 +15,7 @@
  * @package      AnvaFramework
  */
 
-$tags = the_tags( '', ' ' );
+$tags = get_the_tag_list( '', ' ' );
 
 if ( $tags ) :
 ?>

@@ -33,7 +33,7 @@ $client = anva_get_post_meta( '_anva_client' );
 
 			<?php while ( have_posts() ) : the_post(); ?>
 				<div class="entry-wrap">
-					<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 						<?php anva_the_post_thumbnail( anva_get_option( 'single_thumb' ) ); ?>
 

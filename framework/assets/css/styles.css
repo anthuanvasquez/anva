@@ -5461,6 +5461,10 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay, body.device-t
   margin-top: 30px;
 }
 
+.post-list .entry-content p:last-child {
+  margin-bottom: 0;
+}
+
 .post-list .entry-footer {
   margin-top: 30px;
 }
@@ -8109,6 +8113,10 @@ label.radio, label.checkbox {
 
 .input-group-lg > .input-group-addon {
   line-height: 1;
+}
+
+.search-form .search-submit {
+  max-height: 34px;
 }
 
 /* ----------------------------------------------------------------

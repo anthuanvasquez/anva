@@ -437,6 +437,7 @@ function anva_get_button_colors() {
 		'teal'       => esc_attr__( 'Teal', 'anva' ),
 		'yellow'     => esc_attr__( 'Yellow', 'anva' ),
 		'green'      => esc_attr__( 'Green', 'anva' ),
+		'lime'       => esc_attr__( 'Lime', 'anva' ),
 		'brown'      => esc_attr__( 'Brown', 'anva' ),
 		'aqua'       => esc_attr__( 'Aqua', 'anva' ),
 		'purple'     => esc_attr__( 'Purple', 'anva' ),

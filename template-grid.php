@@ -32,10 +32,17 @@ $query = anva_get_posts();
 
 <div class="container clearfix">
 
-	<div id="posts" class="<?php anva_post_class( 'grid' ); ?> grid-<?php echo esc_attr( $column ); ?> clearfix" data-layout="fitRows">
+	<?php
+		/**
+		 * Before post content not hooked by default.
+		 */
+		do_action( 'anva_post_content_before' );
+	?>
+
+	<div id="posts" class="<?php anva_template_class( 'grid' ); ?> grid-<?php echo esc_attr( $column ); ?> clearfix" data-layout="fitRows">
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-			<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 				<?php anva_the_post_grid_thumbnail( $thumbnail ); ?>
 				<div class="entry-title">
 					<h2>
@@ -45,7 +52,7 @@ $query = anva_get_posts();
 					</h2>
 				</div>
 
-				<?php anva_get_template_part( 'post', 'content-meta_mini' ); ?>
+				<?php anva_get_template_part( 'post', 'content-meta-mini' ); ?>
 
 				<div class="entry-content">
 					<?php anva_the_excerpt(); ?>
@@ -55,6 +62,13 @@ $query = anva_get_posts();
 		<?php endwhile; ?>
 
 	</div><!-- #posts (end) -->
+
+	<?php
+		/**
+		 * After post content not hooked by default.
+		 */
+		do_action( 'anva_post_content_after' );
+	?>
 
 	<?php anva_num_pagination( $query->max_num_pages ); ?>
 	<?php wp_reset_postdata(); ?>

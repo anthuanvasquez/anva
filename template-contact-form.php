@@ -24,11 +24,16 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_post_content_before' ); ?>
+		<?php
+			/**
+			 * Before post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_before' );
+		?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<div class="entry-wrap">
-				<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<div class="entry-content">
 						<?php the_content(); ?>
 					</div><!-- .entry-content -->
@@ -48,7 +53,12 @@ get_header();
 			</div><!-- .entry-wrap (end) -->
 		<?php endwhile; ?>
 
-		<?php do_action( 'anva_post_content_after' ); ?>
+		<?php
+			/**
+			 * After post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_after' );
+		?>
 
 	</div><!-- .postcontent (end) -->
 

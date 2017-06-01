@@ -27,9 +27,14 @@ $query = anva_get_posts();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_post_content_before' ); ?>
+		<?php
+			/**
+			 * Before post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_before' );
+		?>
 
-		<div id="posts" class="<?php anva_post_class( 'list' ); ?>">
+		<div id="posts" class="<?php anva_template_class( 'list' ); ?>">
 			<?php
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) : $query->the_post();
@@ -42,7 +47,12 @@ $query = anva_get_posts();
 			?>
 		</div><!-- #posts (end) -->
 
-		<?php do_action( 'anva_post_content_after' ); ?>
+		<?php
+			/**
+			 * After post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_after' );
+		?>
 
 	</div><!-- .postcontent (end) -->
 

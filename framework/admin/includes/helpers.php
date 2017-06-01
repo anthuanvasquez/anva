@@ -81,6 +81,39 @@ function anva_add_meta_box( $id, $args, $options ) {
 }
 
 /**
+ * Converts a PHP version to 3-part.
+ *
+ * @since  1.0.0
+ * @param  string $version The verion number.
+ * @return string $version The formatted version number.
+ */
+function anva_normalize_version( $version ) {
+	if ( ! is_string( $version ) ) {
+		return $version;
+	}
+
+	$version_parts = explode( '.', $version );
+	$version_count = count( $version_parts );
+
+	// Keep only the 1st 3 parts if longer.
+	if ( 3 < $version_count ) {
+		return absint( $version_parts[0] ) . '.' . absint( $version_parts[1] ) . '.' . absint( $version_parts[2] );
+	}
+
+	// If a single digit, then append '.0.0'.
+	if ( 1 === $version_count ) {
+		return absint( $version_parts[0] ) . '.0.0';
+	}
+
+	// If 2 digits, append '.0'.
+	if ( 2 === $version_count ) {
+		return absint( $version_parts[0] ) . '.' . absint( $version_parts[1] ) . '.0';
+	}
+
+	return $version;
+}
+
+/**
  * Pull all the layouts into array;
  *
  * @since  1.0.0

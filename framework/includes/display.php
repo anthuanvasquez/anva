@@ -832,9 +832,12 @@ function anva_post_content_default() {
 		$args = apply_filters( 'anva_the_excerpt_more_args', array(
 			'text'        => anva_get_local( 'read_more' ),
 			'url'         => get_permalink(),
-			'color'       => '',
 			'target'      => '_self',
+			'color'       => '',
 			'size'        => null,
+			'style'       => null,
+			'effect'      => null,
+			'transition'  => null,
 			'classes'     => 'more-link',
 			'title'       => null,
 			'icon_before' => null,
@@ -842,7 +845,7 @@ function anva_post_content_default() {
 			'addon'       => null,
 			'base'        => false,
 			'p'           => false,
-		));
+		) );
 
 		// Output excerpt
 		anva_the_excerpt();

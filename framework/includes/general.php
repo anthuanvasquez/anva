@@ -203,14 +203,17 @@ function anva_get_content( $content ) {
  *
  * @since 1.0.0
  */
-function anvad_read_more_link( $read_more, $more_link_text ) {
+function anva_read_more_link( $read_more, $more_link_text ) {
 
 	$args = apply_filters( 'anva_the_content_more_args', array(
 		'text'        => $more_link_text,
 		'url'         => get_permalink() . '#more-' . get_the_ID(),
-		'color'       => '',
 		'target'      => null,
+		'color'       => '',
 		'size'        => null,
+		'style'       => null,
+		'effect'      => null,
+		'transition'  => null,
 		'classes'     => 'more-link',
 		'title'       => null,
 		'icon_before' => null,
@@ -1208,9 +1211,8 @@ function anva_gallery_templates() {
 /**
  * Post meta field.
  *
- * @since  1.0.0
- * @param  string $field
- * @return string
+ * @param  string $field Custom field stored.
+ * @return string Custom field content.
  */
 function anva_the_post_meta( $field ) {
 	echo anva_get_post_meta( $field );
@@ -1219,9 +1221,11 @@ function anva_the_post_meta( $field ) {
 /**
  * Get the post meta field.
  *
+ * @global $post
+ *
  * @since  1.0.0
- * @param  string $field
- * @return string
+ * @param  string $field Custom field stored.
+ * @return string Custom field content.
  */
 function anva_get_post_meta( $field ) {
 
@@ -1235,38 +1239,29 @@ function anva_get_post_meta( $field ) {
 }
 
 /**
- * Gets the current page ID.
+ * Print custom post meta by page ID outside the loop.
  *
- * @since  1.0.0
- * @return bool|int
+ * @param  string $field Custom field stored.
+ * @param  string $page_id Current page ID.
+ * @return string Custom field content.
  */
-function anva_get_current_page_id() {
-	$object_id = get_queried_object_id();
+function anva_the_post_meta_by_id( $field, $page_id ) {
+	echo anva_get_post_meta_by_id( $field, $page_id );
+}
 
-	$page_id = false;
-
-	if ( get_option( 'show_on_front' ) && get_option( 'page_for_posts' ) && is_home() ) {
-		$page_id = get_option( 'page_for_posts' );
-	} else {
-		// Use the $object_id if available.
-		if ( isset( $object_id ) ) {
-			$page_id = $object_id;
-		}
-		// If we're not on a singular post, set to false.
-		if ( ! is_singular() ) {
-			$page_id = false;
-		}
-		// Front page is the posts page.
-		if ( isset( $object_id ) && 'posts' == get_option( 'show_on_front' ) && is_home() ) {
-			$page_id = $object_id;
-		}
-		// The woocommerce shop page.
-		if ( class_exists( 'WooCommerce' ) && ( is_shop() || is_tax( 'product_cat' ) || is_tax( 'product_tag' ) ) ) {
-			$page_id = get_option( 'woocommerce_shop_page_id' );
-		}
+/**
+ * Get custom post meta by page ID outside the loop.
+ *
+ * @param  string $field Custom field stored.
+ * @param  string $page_id Current page ID.
+ * @return string Custom field content.
+ */
+function anva_get_post_meta_by_id( $field, $page_id ) {
+	if ( ! empty( $page_id ) ) {
+		return get_post_meta( $page_id, $field, true );
 	}
 
-	return $page_id;
+	return false;
 }
 
 /**
@@ -1344,7 +1339,7 @@ function anva_get_posts( $query_args = '' ) {
 	$offset = ( $page - 1 ) * $number;
 
 	if ( empty( $query_args ) ) {
-		$query_args = array(
+		$query_args = apply_filters( 'anva_posts_query_args', array(
 			'post_type'      => array( 'post' ),
 			'post_status'    => 'publish',
 			'posts_per_page' => $number,
@@ -1353,7 +1348,7 @@ function anva_get_posts( $query_args = '' ) {
 			'number'         => $number,
 			'page'           => $page,
 			'offset'         => $offset,
-		);
+		) );
 	}
 
 	$query_args = apply_filters( 'anva_get_posts_args', $query_args );

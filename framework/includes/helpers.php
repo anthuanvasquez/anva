@@ -139,7 +139,8 @@ function anva_primary_menu_fallback( $args ) {
  * Body classes.
  *
  * @since  1.0.0
- * @return array $classes
+ * @param  array $classes Current classes.
+ * @return array $classes Modified classes.
  */
 function anva_body_class( $classes ) {
 
@@ -179,11 +180,27 @@ function anva_body_class( $classes ) {
 }
 
 /**
+ * Post classes.
+ *
+ * @since 1.0.0
+ *
+ * @param  array $classes Current classes.
+ * @return array $classes Modified classes.
+ */
+function anva_post_class( $classes ) {
+
+	$classes[] = 'entry';
+	$classes[] = 'clearfix';
+
+	return apply_filters( 'anva_post_classes', $classes );
+}
+
+/**
  * Browser classes.
  *
  * @since  1.0.0
- * @param  array $classes
- * @return array $classes
+ * @param  array $classes Current classes.
+ * @return array $classes Modified classes.
  */
 function anva_browser_class( $classes ) {
 
@@ -250,26 +267,26 @@ function anva_browser_class( $classes ) {
 }
 
 /**
- * Print post classes list.
+ * Print templates classes.
  *
  * @since  1.0.0
  * @param  string  $class
  * @param  boolean $paged
  * @return string  $classes
  */
-function anva_post_class( $class, $paged = true ) {
-	echo anva_get_post_class( $class, $paged );
+function anva_template_class( $class, $paged = true ) {
+	echo anva_get_template_class( $class, $paged );
 }
 
 /**
- * Get post classes list.
+ * Get template classes.
  *
  * @since  1.0.0
  * @param  string  $class
  * @param  boolean $paged
  * @return string  $classes
  */
-function anva_get_post_class( $class, $paged = true ) {
+function anva_get_template_class( $class, $paged = true ) {
 
 	$classes = array();
 	$small_thumb = anva_get_option( 'small_thumb_alt', 'no' );
@@ -334,9 +351,7 @@ function anva_get_post_class( $class, $paged = true ) {
 
 	$classes = implode( ' ', $classes );
 
-	$classes = apply_filters( 'anva_post_class', $classes );
-
-	return esc_attr( $classes );
+	return apply_filters( 'anva_template_class', $classes );
 }
 
 /**
@@ -1137,16 +1152,62 @@ function anva_do_icon( $str ) {
  * @param  bool   $block Whether the button displays as block (true) or inline (false).
  * @return string $class HTML Class to be outputted into button <a> markup.
  */
-function anva_get_button_class( $color = '', $size = '', $block = false ) {
+function anva_get_button_class( $color = '', $size = '', $style = '', $effect = '', $transition = '', $block = false ) {
 
 	$class = '';
 
-	// Color.
+	// Button Size.
+	$sizes = apply_filters( 'anva_button_sizes_classes', array(
+		'mini',
+		'small',
+		'medium',
+		'large',
+		'xlarge',
+		'desc'
+	) );
+
+	if ( in_array( $size, $sizes ) ) {
+		$class .= sprintf( ' button-%s', $size );
+	}
+
+	// Buttons styles.
+	$styles = apply_filters( 'anva_button_sizes_classes', array(
+		'3d',
+		'rounded',
+		'circle',
+		'border',
+		'border-thin',
+	) );
+
+	if ( in_array( $style, $styles ) ) {
+		$class .= sprintf( ' button-%s', $style );
+	}
+
+	// Button effects.
+	$effects = apply_filters( 'anva_button_effect_classes', array(
+		'fill',
+		'reveal',
+	) );
+
+	if ( in_array( $effect, $effects ) ) {
+		$class .= sprintf( ' button-%s', $effect );
+	}
+
+	if ( 'fill' === $effect ) {
+		$class .= ' ' . $effect . '-from-' . $transition;
+	} else {
+		if ( 'right' === $transition ) {
+			$class .= ' ' . $transition;
+		}
+	}
+
+	// Button Color.
 	if ( ! $color ) {
 		$color = '';
 	}
 
 	$colors = anva_get_button_colors();
+	$colors = array_keys( $colors );
 
 	if ( in_array( $color, apply_filters( 'anva_button_colors_classes', $colors ) ) ) {
 		$class .= sprintf( ' button-%s', $color );
@@ -1156,32 +1217,12 @@ function anva_get_button_class( $color = '', $size = '', $block = false ) {
 		$class .= sprintf( ' %s', $color );
 	}
 
-	// Size
-	switch ( $size ) {
-		case 'mini' :
-			$size = 'mini';
-			break;
-		case 'small' :
-			$size = 'small';
-			break;
-		case 'medium' :
-			$size = 'medium';
-			break;
-		case 'large' :
-			$size = 'large';
-			break;
-		case 'xlarge' :
-			$size = 'xlarge';
-			break;
-		case 'desc' :
-			$size = 'desc';
+	// Check is contain a light color.
+	if ( in_array( $color, array( 'yellow', 'lime', 'white' ) ) ) {
+		$class .= ' button-light';
 	}
 
-	if ( in_array( $size, apply_filters( 'anva_button_sizes_classes', array( 'mini', 'small', 'medium', 'large', 'xlarge', 'desc' ) ) ) ) {
-		$class .= sprintf( ' button-%s', $size );
-	}
-
-	// Block.
+	// Block Button.
 	if ( $block ) {
 		$class .= ' button-block';
 	}
@@ -1264,6 +1305,44 @@ function anva_admin_module_cap( $module ) {
 function anva_get_current_year( $year ) {
 	$current_year = date( 'Y' );
 	return $year . ( ( $year != $current_year ) ? ' - ' . $current_year : '' );
+}
+
+/**
+ * Gets the current page ID.
+ *
+ * @since  1.0.0
+ * @return bool|int
+ */
+function anva_get_current_page_id() {
+	$object_id = get_queried_object_id();
+
+	$page_id = false;
+
+	if ( get_option( 'show_on_front' ) && get_option( 'page_for_posts' ) && is_home() ) {
+		$page_id = get_option( 'page_for_posts' );
+	} else {
+		// Use the $object_id if available.
+		if ( isset( $object_id ) ) {
+			$page_id = $object_id;
+		}
+
+		// If we're not on a singular post, set to false.
+		if ( ! is_singular() ) {
+			$page_id = false;
+		}
+
+		// Front page is the posts page.
+		if ( isset( $object_id ) && 'posts' == get_option( 'show_on_front' ) && is_home() ) {
+			$page_id = $object_id;
+		}
+
+		// The woocommerce shop page.
+		if ( class_exists( 'WooCommerce' ) && ( is_shop() || is_tax( 'product_cat' ) || is_tax( 'product_tag' ) ) ) {
+			$page_id = get_option( 'woocommerce_shop_page_id' );
+		}
+	}
+
+	return $page_id;
 }
 
 /**

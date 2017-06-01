@@ -24,7 +24,12 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_post_content_before' ); ?>
+		<?php
+			/**
+			 * Before post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_before' );
+		?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php anva_get_template_part( 'post', 'content-attachment' ); ?>
@@ -40,7 +45,12 @@ get_header();
 			<?php endif; ?>
 		<?php endwhile; ?>
 
-		<?php do_action( 'anva_post_content_after' ); ?>
+		<?php
+			/**
+			 * After post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_after' );
+		?>
 
 	</div><!-- .postcontent (end) -->
 

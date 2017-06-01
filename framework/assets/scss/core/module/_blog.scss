@@ -71,6 +71,12 @@
 }
 
 .post-list {
+    .entry-content {
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+
     .entry-footer {
         margin-top: 30px;
 

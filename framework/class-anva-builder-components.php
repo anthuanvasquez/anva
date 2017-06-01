@@ -115,7 +115,7 @@ class Anva_Builder_Components {
 
 		// Pull all the galleries cat
 		$gallery_cats = array();
-		$terms = get_terms( 'gallery_cat', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
+		$terms = get_terms( 'gallery_album', 'hide_empty=0&hierarchical=0&parent=0&orderby=menu_order' );
 
 		// Pull all the blog categories into an array
 		$categories = array();

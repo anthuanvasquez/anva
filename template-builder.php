@@ -20,7 +20,12 @@
 get_header();
 ?>
 
-	<?php do_action( 'anva_post_content_before' ); ?>
+	<?php
+		/**
+		 * Before post content not hooked by default.
+		 */
+		do_action( 'anva_post_content_before' );
+	?>
 
 	<div class="custom-content-layout clearfix">
 		<?php
@@ -29,8 +34,13 @@ get_header();
 			 */
 			do_action( 'anva_content_builder' );
 		?>
-	</div>
+	</div><!-- .custom-content-layout (end) -->
 
-	<?php do_action( 'anva_post_content_after' ); ?>
+	<?php
+		/**
+		 * After post content not hooked by default.
+		 */
+		do_action( 'anva_post_content_after' );
+	?>
 
 <?php get_footer(); ?>

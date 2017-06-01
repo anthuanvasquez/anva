@@ -24,7 +24,7 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 		<div class="entry-wrap">
-			<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 				<div class="entry-content">
 
 					<?php rewind_posts(); ?>

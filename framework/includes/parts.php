@@ -310,9 +310,12 @@ function anva_get_button( $args ) {
 	$defaults = apply_filters( 'anva_button_default_args', array(
 		'text'        => '',
 		'url'         => '#',
-		'color'       => '',
 		'target'      => '_self',
+		'color'       => '',
 		'size'        => null,
+		'style'       => null,
+		'effect'      => null,
+		'transition'  => null,
 		'classes'     => null,
 		'title'       => null,
 		'icon_before' => null,
@@ -337,7 +340,7 @@ function anva_get_button( $args ) {
 		$color = '';
 	}
 
-	$final_classes .= anva_get_button_class( $color, $size, $block );
+	$final_classes .= anva_get_button_class( $color, $size, $style, $effect, $transition, $block );
 
 	if ( $classes ) {
 		$final_classes .= ' ' . $classes;
@@ -384,15 +387,21 @@ function anva_get_button( $args ) {
 
 	} else {
 
+		$button_link = '<a href="%s" title="%s" class="%s" target="%s"%s>%s</a>';
+
+		if ( 'reveal' === $color ) {
+			$button_link = '<a href="%s" title="%s" class="%s" target="%s"%s><span>%s</span></a>';
+		}
+
 		// Standard button.
 		$button = sprintf(
-			'<a href="%s" title="%s" class="%s" target="%s"%s>%s</a>',
+			$button_link,
 			esc_url( $url ),
 			esc_attr( $title ),
 			esc_attr( $final_classes ),
 			esc_attr( $target ),
 			wp_kses( $addon, array() ),
-			anva_kses($text )
+			anva_kses( $text )
 		);
 
 	}

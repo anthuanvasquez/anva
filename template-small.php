@@ -24,9 +24,14 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_posts_content_before' ); ?>
+		<?php
+			/**
+			 * Before post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_before' );
+		?>
 
-		<div id="posts" class="<?php anva_post_class( 'small' ); ?>">
+		<div id="posts" class="<?php anva_template_class( 'small' ); ?>">
 			<?php
 			$query = anva_get_posts();
 			if ( $query->have_posts() ) :
@@ -40,7 +45,12 @@ get_header();
 			?>
 		</div><!-- #posts (end) -->
 
-		<?php do_action( 'anva_posts_content_after' ); ?>
+		<?php
+			/**
+			 * After post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_after' );
+		?>
 
 	</div><!-- .postcontent (end) -->
 

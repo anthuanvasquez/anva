@@ -34,7 +34,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 
 <div class="container clearfix">
 
-	<div id="galleries" class="<?php anva_post_class( 'gallery' ); ?> grid-<?php echo esc_attr( $column ); ?> clearfix" data-layout="fitRows">
+	<div id="galleries" class="<?php anva_template_class( 'gallery' ); ?> grid-<?php echo esc_attr( $column ); ?> clearfix" data-layout="fitRows">
 		<?php while ( have_posts() ) : the_post(); ?>
 
 			<div id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
@@ -52,7 +52,7 @@ if ( isset( $grid_columns[ $current_grid ]['column'] ) ) {
 						</h2>
 					</div>
 					<div class="gallery-category">
-						<?php anva_the_terms_links( 'gallery_cat', ' / ' ); ?>
+						<?php anva_the_terms_links( 'gallery_album', ' / ' ); ?>
 					</div>
 				</div><!-- .gallery-content (end) -->
 			</div>

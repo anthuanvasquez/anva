@@ -16,16 +16,17 @@
  */
 
 $style            = '';
+$page_id          = anva_get_current_page_id();
 $classes          = array();
-$mini             = anva_get_post_meta( '_anva_page_title_mini' );
-$tagline          = anva_get_post_meta( '_anva_page_tagline' );
-$title_align      = anva_get_post_meta( '_anva_title_align' );
-$title_bg         = anva_get_post_meta( '_anva_title_bg' );
-$title_bg_color   = anva_get_post_meta( '_anva_title_bg_color' );
-$title_bg_image   = anva_get_post_meta( '_anva_title_bg_image' );
-$title_bg_cover   = anva_get_post_meta( '_anva_title_bg_cover' );
-$title_bg_text    = anva_get_post_meta( '_anva_title_bg_text' );
-$title_bg_padding = anva_get_post_meta( '_anva_title_bg_padding' );
+$mini             = anva_get_post_meta_by_id( '_anva_page_title_mini', $page_id );
+$tagline          = anva_get_post_meta_by_id( '_anva_page_tagline', $page_id );
+$title_align      = anva_get_post_meta_by_id( '_anva_title_align', $page_id );
+$title_bg         = anva_get_post_meta_by_id( '_anva_title_bg', $page_id );
+$title_bg_color   = anva_get_post_meta_by_id( '_anva_title_bg_color', $page_id );
+$title_bg_image   = anva_get_post_meta_by_id( '_anva_title_bg_image', $page_id );
+$title_bg_cover   = anva_get_post_meta_by_id( '_anva_title_bg_cover', $page_id );
+$title_bg_text    = anva_get_post_meta_by_id( '_anva_title_bg_text', $page_id );
+$title_bg_padding = anva_get_post_meta_by_id( '_anva_title_bg_padding', $page_id );
 
 // Default page title class.
 $classes[] = 'page-title';
@@ -92,8 +93,10 @@ $classes = ' class="' . esc_attr( $classes ) . '"';
 			}
 
 			// Get post types for top navigation.
-			$post_types = array( 'portfolio', 'galleries' );
-			$post_types = apply_filters( 'anva_post_types_top_navigation', $post_types );
+			$post_types = apply_filters( 'anva_post_types_top_navigation', array(
+				'portfolio',
+				'galleries'
+			) );
 
 			if ( is_singular( $post_types ) ) {
 				/**

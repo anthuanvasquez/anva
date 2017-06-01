@@ -26,7 +26,7 @@ get_header();
 
 		<?php do_action( 'anva_post_content_before' ); ?>
 
-		<div id= "posts" class="<?php anva_post_class( 'search' ); ?>">
+		<div id= "posts" class="<?php anva_template_class( 'search' ); ?>">
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php anva_get_template_part( 'post', 'content' ); ?>
