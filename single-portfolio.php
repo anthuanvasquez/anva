@@ -40,7 +40,7 @@ $client = anva_get_post_meta( '_anva_client' );
 						<div class="portfolio-single-content col_three_fifth nobottommargin">
 							<div class="portfolio-gallery">
 								<?php
-								$display_gallery = get_post_meta( $post->ID, '_anva_gallery', true );
+								$display_gallery = anva_get_post_meta_by_id( '_anva_gallery', $post->ID );
 								if ( $display_gallery ) {
 
 									$id               = get_the_ID();
@@ -93,17 +93,17 @@ $client = anva_get_post_meta( '_anva_client' );
 							<div class="portfolio-audio">
 								<?php
 								$output = '';
-								$display_audio = get_post_meta( $post->ID, '_anva_audio', true );
+								$display_audio = anva_get_post_meta_by_id( '_anva_audio', $post->ID );
 
 								if ( $display_audio ) {
-									$poster = get_post_meta( $post->ID, '_anva_audio_image', true );
+									$poster = anva_get_post_meta_by_id( '_anva_audio_image', $post->ID );
 
 									if ( $poster ) {
 										$output .= sprintf( '<img src="%1$s" alt="" />', esc_url( $poster ) );
 									}
 
-									$mp3 = get_post_meta( $post->ID, '_anva_audio_mp3', true );
-									$ogg = get_post_meta( $post->ID, '_anva_audio_ogg', true );
+									$mp3 = anva_get_post_meta_by_id( '_anva_audio_mp3', $post->ID );
+									$ogg = anva_get_post_meta_by_id( '_anva_audio_ogg', $post->ID );
 									$attr = array(
 										'mp3' => $mp3,
 										'ogg' => $ogg,

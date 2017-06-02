@@ -81,16 +81,10 @@
 							<a href="<?php the_permalink(); ?>">
 								<?php the_post_thumbnail( 'anva_xs', array( 'title' => get_the_title() ) ); ?>
 							</a>
-						</div>
+						</div><!-- .entry-image (end) -->
 					<?php endif; ?>
 					<div class="entry-c">
-						<div class="entry-title">
-							<h4>
-								<a href="<?php the_permalink(); ?>">
-									<?php the_title(); ?>
-								</a>
-							</h4>
-						</div>
+						<?php anva_get_template_part( 'post', 'entry-title' ); ?>
 						<ul class="entry-meta clearfix">
 							<li>
 								<i class="icon-calendar3"></i> <?php the_time( 'jS F Y' ); ?>
@@ -100,12 +94,12 @@
 									<i class="icon-comments"></i> <?php echo get_comments_number(); ?>
 								</a>
 							</li>
-						</ul>
+						</ul><!-- entry-meta (end) -->
 						<div class="entry-content">
 							<?php anva_the_excerpt( 90 ); ?>
-						</div>
-					</div>
-				</div><!-- .md-post (end) -->
+						</div><!-- .entru-content (end) -->
+					</div><!-- .entry-c (end) -->
+				</div><!-- .mpost (end) -->
 
 				<?php if ( 0 == $count % $column ) : echo $close_row; endif ?>
 				<?php if ( $count % $column == 0 && $limit != $count ) : echo $open_row_last; endif; ?>

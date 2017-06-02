@@ -21,5 +21,5 @@
 		<div class="entry-content">
 			<?php echo wpautop( anva_get_local( 'not_found' ) ); ?>
 		</div>
-	</article>
+	</article><!-- .entry (end) -->
 </div><!-- .entry-wrap (end) -->

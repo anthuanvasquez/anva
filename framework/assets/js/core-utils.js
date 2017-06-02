@@ -18,7 +18,7 @@ if ( $().infinitescroll ) {
 
             // Bind nextSelector link to retrieve
             $( opts.nextSelector ).click( function( e ) {
-                if ( e.which === 1 && ! e.metaKey && ! e.shiftKey ) {
+                if ( 1 === e.which && ! e.metaKey && ! e.shiftKey ) {
                     e.preventDefault();
                     instance.retrieve();
                 }
@@ -34,20 +34,23 @@ if ( $().infinitescroll ) {
             };
         },
         _showdonemsg_portfolioinfiniteitemsloader: function infscr_showdonemsg_portfolioinfiniteitemsloader() {
-            var opts = this.options,
+            var opts     = this.options,
                 instance = this;
-            //Do all the usual stuff
+
+            // Do all the usual stuff
             opts.loading.msg
                 .find( 'img' )
                 .hide()
                 .parent()
-                .find( 'div' ).html(opts.loading.finishedMsg).animate({ opacity: 1 }, 2000, function () {
-                    $(this).parent().fadeOut( 'normal' );
+                .find( 'div' ).html( opts.loading.finishedMsg ).animate({ opacity: 1 }, 2000, function() {
+                    $( this ).parent().fadeOut( 'normal' );
                 });
-            //And also hide the navSelector
-            $(opts.navSelector).fadeOut( 'normal' );
-            // user provided callback when done
-            opts.errorCallback.call($(opts.contentSelector)[0],'done' );
+
+            // And also hide the navSelector
+            $( opts.navSelector ).fadeOut( 'normal' );
+
+            // User provided callback when done
+            opts.errorCallback.call( $( opts.contentSelector )[0], 'done' );
         }
     });
 
@@ -55,56 +58,63 @@ if ( $().infinitescroll ) {
     console.log( 'Infinite Scroll not defined.' );
 }
 
-(function() {
+( function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+    var x = 0;
+    for ( x = 0; x < vendors.length && ! window.requestAnimationFrame; ++x ) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
     }
 
-    if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function(callback, element) {
-            var currTime = new Date().getTime();
-            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-              timeToCall);
+    if ( ! window.requestAnimationFrame ) {
+        window.requestAnimationFrame = function( callback, element ) {
+            var currTime   = new Date().getTime();
+            var timeToCall = Math.max( 0, 16 - ( currTime - lastTime ) );
+            var id = window.setTimeout( function() {
+                callback( currTime + timeToCall );
+            }, timeToCall );
             lastTime = currTime + timeToCall;
             return id;
         };
     }
 
-    if (!window.cancelAnimationFrame) {
-        window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
+    if ( ! window.cancelAnimationFrame ) {
+        window.cancelAnimationFrame = function( id ) {
+            clearTimeout( id );
         };
     }
-}());
+})();
 
 function debounce( func, wait, immediate ) {
-    var timeout, args, context, timestamp, result;
+    var timeout, args, context, timestamp, result, callNow, later;
     return function() {
-        context = this;
-        args = arguments;
+        context   = this;
+        args      = arguments;
         timestamp = new Date();
-        var later = function() {
-            var last = (new Date()) - timestamp;
-            if (last < wait) {
-                timeout = setTimeout(later, wait - last);
+
+        later = function() {
+            var last = ( new Date() ) - timestamp;
+            if ( last < wait ) {
+                timeout = setTimeout( later, wait - last );
             } else {
                 timeout = null;
-                if (!immediate) {
-                    result = func.apply(context, args);
+                if ( ! immediate ) {
+                    result = func.apply( context, args );
                 }
             }
         };
-        var callNow = immediate && !timeout;
-        if (!timeout) {
-            timeout = setTimeout(later, wait);
+
+        callNow = immediate && ! timeout;
+
+        if ( ! timeout ) {
+            timeout = setTimeout( later, wait );
         }
-        if (callNow) {
-            result = func.apply(context, args);
+
+        if ( callNow ) {
+            result = func.apply( context, args );
         }
+
         return result;
     };
 }
@@ -112,7 +122,7 @@ function debounce( func, wait, immediate ) {
 /**
  * Helps with accessibility for keyboard only users.
  */
-(function() {
+( function() {
     var isIe = /(trident|msie)/i.test( navigator.userAgent );
 
     if ( isIe && document.getElementById && window.addEventListener ) {
@@ -137,98 +147,64 @@ function debounce( func, wait, immediate ) {
     }
 })();
 
-;(function() {
+;( function() {
 
     'use strict';
 
-    function buildUrl( url, parameters ) {
-        var qs = '',
-            key;
-
-        for ( key in parameters ) {
-            if ( parameters.hasOwnProperty( key ) ) {
-                var value = parameters[ key ];
-
-                if ( ! value ) {
-                    continue;
-                }
-
-                value = value.toString().split( '\"' ).join( '"' );
-                qs += key + '=' + encodeURIComponent( value ) + '&';
-            }
-        }
-
-        if ( qs.length > 0 ) {
-            qs  = qs.substring( 0, qs.length - 1 );
-            url = url + '?' + qs;
-        }
-
-        return url;
-    }
+    var buttons = document.getElementsByClassName( 'si-share-button' );
+    var i = 0, item;
 
     function bindButton( network, button ) {
         var url = '';
+        var target = '';
         switch ( network ) {
             case 'facebook':
-                url = buildUrl( 'https://www.facebook.com/sharer.php', {
-                    'p[url]': button.getAttribute( 'data-url' )
-                });
-
+                url = button.getAttribute( 'data-url' );
+                target = button.getAttribute( 'target' );
                 button.onclick = function() {
-                    var win = window.open( url, '_blank', 'width=500,height=500' );
+                    var win = window.open( url, target, 'width=800,height=600' );
                     win.focus();
                 };
-
                 break;
 
             case 'twitter':
-                url = buildUrl( 'https://twitter.com/intent/tweet', {
-                    'text': button.getAttribute( 'data-text' ),
-                    'via': button.getAttribute( 'data-via' ),
-                    'hashtags': button.getAttribute( 'data-hashtags' )
-                });
-
+                url = button.getAttribute( 'data-url' );
+                target = button.getAttribute( 'target' );
                 button.onclick = function() {
-                    var win = window.open( url, '_blank', 'width=500,height=500' );
+                    var win = window.open( url, target, 'width=800,height=600' );
                     win.focus();
                 };
-
                 break;
 
             case 'pinterest':
-                url = buildUrl( 'https://www.pinterest.com/pin/create/button/', {
-                    'url': button.getAttribute( 'data-url' ),
-                    'media': button.getAttribute( 'data-media' ),
-                    'description': button.getAttribute( 'data-description' )
-                });
+                url = button.getAttribute( 'data-url' );
+                target = button.getAttribute( 'target' );
                 button.onclick = function() {
-                    var win = window.open( url, '_blank', 'width=500,height=500' );
+                    var win = window.open( url, target, 'width=800,height=600' );
                     win.focus();
                 };
                 break;
 
             case 'googleplus':
-                url = buildUrl( 'https://plus.google.com/share', {
-                    'url': button.getAttribute( 'data-url' ),
-                    'media': button.getAttribute( 'data-media' ),
-                    'description': button.getAttribute( 'data-description' )
-                });
+                url = button.getAttribute( 'data-url' );
+                target = button.getAttribute( 'target' );
                 button.onclick = function() {
-                    var win = window.open( url, '_blank', 'width=500,height=500' );
+                    var win = window.open( url, target, 'width=800,height=600' );
                     win.focus();
                 };
                 break;
 
-            default:
-                break;
+            case 'email':
+            case 'rss':
+                url = button.getAttribute( 'data-url' );
+                button.onclick = function() {
+                    window.location.href = url;
+                };
         }
     }
 
-    var buttons = document.getElementsByClassName( 'si-share-button' );
-    var i = 0;
-
     for ( i; i < buttons.length; i++ ) {
-        var item = buttons[ i ];
+        item = buttons[ i ];
 
         if ( item.hasAttribute( 'data-binded' ) ) {
             continue;
@@ -238,4 +214,3 @@ function debounce( func, wait, immediate ) {
         bindButton( item.getAttribute( 'data-network' ), item );
     }
 })();
-

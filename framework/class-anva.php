@@ -314,7 +314,6 @@ class Anva {
 			add_filter( 'the_password_form', 'anva_password_form' );
 			add_filter( 'widget_text', 'anva_footer_copyright_helpers' );
 			add_filter( 'widget_text', 'anva_do_icon' );
-			add_filter( 'the_content', 'anva_do_icon' );
 			add_filter( 'anva_js_locals', 'anva_get_media_queries' );
 			add_filter( 'wp_page_menu_args', 'anva_page_menu_args' );
 			add_filter( 'wp_link_pages_args', 'anva_link_pages_args' );

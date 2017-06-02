@@ -19,7 +19,9 @@ get_header();
 ?>
 <div class="container clearfix">
 
-	<div class="col_full nobottommargin clearfix">
+	<?php get_sidebar( 'left' ); ?>
+
+	<div class="<?php anva_column_class( 'content' ); ?>">
 		<div id="galleries">
 
 			<?php do_action( 'anva_post_content_before' ); ?>
@@ -71,6 +73,8 @@ get_header();
 
 		</div><!-- #galleries (end) -->
 	</div><!-- .postcontent (end) -->
+
+	<?php get_sidebar( 'right' ); ?>
 
 </div><!-- .container (end) -->
 

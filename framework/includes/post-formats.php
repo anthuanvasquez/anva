@@ -533,7 +533,7 @@ function anva_content_quote() {
  * @since  1.0.0
  * @return array $post_formats
  */
-function anva_post_format_filter() {
+function anva_post_format_not_titles() {
 
 	$post_formats = array(
 		'quote',
@@ -541,5 +541,5 @@ function anva_post_format_filter() {
 		'status',
 	);
 
-	return apply_filters( 'anva_post_formats_filter', $post_formats );
+	return apply_filters( 'anva_post_format_not_titles', $post_formats );
 }

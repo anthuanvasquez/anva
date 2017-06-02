@@ -23,7 +23,7 @@ $display          = anva_get_option( 'footer_extra_display' );
 	<div class="container clearfix">
 		<div class="col_half">
 			<div class="copyright-text">
-				<?php echo anva_kses( $footer_copyright ); ?>
+				<?php anva_the_kses( $footer_copyright ); ?>
 			</div>
 
 			<?php anva_get_template_part( 'navigation', 'footer-menu' ); ?>
@@ -32,11 +32,15 @@ $display          = anva_get_option( 'footer_extra_display' );
 		<div class="col_half col_last tright">
 			<div class="fright clearfix">
 				<?php
-					$style  = '';
-					$shape  = '';
-					$border = 'borderless';
-					$size   = 'small';
-					anva_social_icons( $style, $shape, $border, $size );
+					$args = apply_filters( 'anva_footer_social_icons', array(
+						'style'    => null,
+						'shape'    => null,
+						'border'   => 'borderless',
+						'size'     => 'small',
+						'position' => null,
+						'icons'    => array(),
+					) );
+					anva_social_icons( $args );
 				?>
 			</div>
 
@@ -45,8 +49,8 @@ $display          = anva_get_option( 'footer_extra_display' );
 			<?php
 			if ( $display ) :
 				$text = anva_get_option( 'footer_extra_info' );
-				$text = anva_extract_icon( $text );
-				echo anva_kses( $text );
+				$text = anva_do_icon( $text );
+				anva_the_kses( $text );
 			endif;
 			?>
 		</div>

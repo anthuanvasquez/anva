@@ -275,11 +275,15 @@ function anva_header_primary_menu_default() {
 	if ( 'side' == $header_type && $side_header_icons ) : ?>
 		<div class="clearfix visible-md visible-lg">
 			<?php
-				$style  = '';
-				$shape  = '';
-				$border = 'borderless';
-				$size   = 'small';
-				anva_social_icons( $style, $shape, $border, $size );
+				$args = apply_filters( 'anva_side_panel_social_icons', array(
+					'style'    => null,
+					'shape'    => null,
+					'border'   => 'borderless',
+					'size'     => 'small',
+					'position' => null,
+					'icons'    => array(),
+				) );
+				anva_social_icons( $args );
 			?>
 		</div>
 	<?php
@@ -820,7 +824,7 @@ function anva_post_meta_default() {
 function anva_post_content_default() {
 
 	// Don't show content or excerpt if the post has these formats.
-	if ( has_post_format( anva_post_format_filter() ) ) {
+	if ( has_post_format( anva_post_format_not_titles() ) ) {
 		return;
 	}
 
@@ -847,10 +851,10 @@ function anva_post_content_default() {
 			'p'           => false,
 		) );
 
-		// Output excerpt
+		// Excerpt.
 		anva_the_excerpt();
 
-		// Output button
+		// Button.
 		$button = anva_get_button( $args );
 
 		if ( $args['p'] ) {
@@ -858,8 +862,6 @@ function anva_post_content_default() {
 		}
 
 		echo $button;
-
-		// anva_get_template_part( 'post', 'read-more' );
 
 		return;
 	}

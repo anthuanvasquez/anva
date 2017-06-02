@@ -17,6 +17,7 @@ gulp.task('js-lint', () => {
 
 gulp.task('jscs-lint', () => {
     return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
+    .pipe(plugins.ignore.exclude(config.lint.ignore))
     .pipe(plugins.jscs(config.jscs.options))
     .pipe(plugins.jscs.reporter())
     .pipe(plugins.logger({

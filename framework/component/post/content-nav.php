@@ -20,7 +20,7 @@
 	<?php
 	// Don't print empty markup if there's nowhere to navigate.
 	$previous = get_previous_post();
-	$next = get_next_post();
+	$next     = get_next_post();
 
 	if ( ! $next && ! $previous ) {
 		return;
@@ -32,7 +32,6 @@
 	if ( ! $previous ) {
 		$class = ' fright';
 	}
-
 	?>
 	<div class="post-navigation clearfix">
 		<?php
@@ -48,5 +47,4 @@
 		?>
 	</div><!-- .post-navigation (end) -->
 	<div class="line"></div>
-
 </div><!-- .post-navigation-wrap -->

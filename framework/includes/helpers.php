@@ -724,13 +724,13 @@ function anva_footer_copyright_helpers( $text ) {
 }
 
 /**
- * Process any icons passed in as %icon%.
+ * Process any font icons passed in as %icon%.
  *
  * @since  1.0.0
- * @param  string $string
- * @return string $string
+ * @param  string $str String to search
+ * @return string $str Filtered original string
  */
-function anva_extract_icon( $string ) {
+function anva_do_icon( $string ) {
 
 	preg_match_all( '/\%(.*?)\%/', $string, $icons );
 
@@ -739,25 +739,24 @@ function anva_extract_icon( $string ) {
 		$list = true;
 
 		if ( substr_count( trim( $string ), "\n" ) ) {
-			// If text has more than one line, we won't make into an inline list
-			$list = false;
+			$list = false; // If text has more than one line, we won't make into an inline list
 		}
 
 		$total = count( $icons[0] );
 
 		if ( $list ) {
-			$string = sprintf( "<ul class=\"list-inline nobottommargin\">\n<li>%s</li>\n</ul>", $string );
+			$str = sprintf( "<ul class=\"list-inline nobottommargin\">\n<li>%s</li>\n</ul>", $string );
 		}
 
 		foreach ( $icons[0] as $key => $val ) {
 
-			$html = apply_filters( 'anva_extract_icon_html', '<i class="icon-%s"></i>', $string );
+			$html = apply_filters( 'anva_do_icon_html', '<i class="icon-%s"></i>', $string );
 
 			if ( $list && $key > 0 ) {
 				$html = "<li>\n" . $html;
 			}
 
-			$string = str_replace( $val, sprintf( $html, $icons[1][ $key ] ), $string );
+			$str = str_replace( $val, sprintf( $html, $icons[1][$key] ), $string );
 		}
 	}
 
@@ -765,7 +764,7 @@ function anva_extract_icon( $string ) {
 }
 
 /**
- * Get font stacks
+ * Get font stacks.
  *
  * @since  1.0.0
  * @return array $stacks
@@ -1104,46 +1103,6 @@ function anva_enqueue_google_fonts() {
 }
 
 /**
- * Process any font icons passed in as %icon%.
- *
- * @since  1.0.0
- * @param  string $str String to search
- * @return string $str Filtered original string
- */
-function anva_do_icon( $str ) {
-
-	preg_match_all( '/\%(.*?)\%/', $str, $icons );
-
-	if ( ! empty( $icons[0] ) ) {
-
-		$list = true;
-
-		if ( substr_count(trim($str), "\n") ) {
-			$list = false; // If text has more than one line, we won't make into an inline list
-		}
-
-		$total = count($icons[0]);
-
-		if ( $list ) {
-			$str = sprintf("<ul class=\"list-inline\">\n<li>%s</li>\n</ul>", $str);
-		}
-
-		foreach ( $icons[0] as $key => $val ) {
-
-			$html = apply_filters('anva_do_icon_html', '<i class="icon-%s"></i>', $str);
-
-			if ( $list && $key > 0 ) {
-				$html = "<li>\n".$html;
-			}
-
-			$str = str_replace($val, sprintf($html, $icons[1][$key]), $str);
-		}
-	}
-
-	return $str;
-}
-
-/**
  * Get class for buttons.
  *
  * @since  1.0.0
@@ -1227,7 +1186,7 @@ function anva_get_button_class( $color = '', $size = '', $style = '', $effect = 
 		$class .= ' button-block';
 	}
 
-    return apply_filters( 'anva_get_button_class', $class, $color, $size );
+    return apply_filters( 'anva_button_class', $class, $color, $size );
 }
 
 /**
@@ -1238,32 +1197,32 @@ function anva_get_button_class( $color = '', $size = '', $style = '', $effect = 
  */
 function anva_get_social_icons_profiles() {
 	$profiles = array(
-		'bitbucket'		=> 'Bitbucket',
-		//'codepen'		=> 'Codepen',
-		'delicious' 	=> 'Delicious',
-		//'deviantart' 	=> 'DeviantArt',
-		'digg' 			=> 'Digg',
-		'dribbble' 		=> 'Dribbble',
-		'facebook' 		=> 'Facebook',
-		'flickr' 		=> 'Flickr',
-		'foursquare' 	=> 'Foursquare',
-		'github' 		=> 'Github',
-		'gplus' 		=> 'Google+',
-		'instagram' 	=> 'Instagram',
-		'linkedin' 		=> 'Linkedin',
-		'paypal' 		=> 'Paypal',
-		'pinterest' 	=> 'Pinterest',
-		'reddit' 		=> 'Reddit',
-		'skype'			=> 'Skype',
-		'soundcloud' 	=> 'Soundcloud',
-		'tumblr' 		=> 'Tumblr',
-		'twitter' 		=> 'Twitter',
-		'vimeo'			=> 'Vimeo',
-		'yahoo' 		=> 'Yahoo',
-		'youtube' 		=> 'YouTube',
-		'call'			=> 'Call',
-		'email3' 		=> 'Email',
-		'rss' 			=> 'RSS',
+		'bitbucket'		=> esc_html__( 'Bitbucket', 'anva' ),
+		//'codepen'		=> esc_html__( 'Codepen', 'anva' ),
+		'delicious' 	=> esc_html__( 'Delicious', 'anva' ),
+		//'deviantart' 	=> esc_html__( 'DeviantArt', 'anva' ),
+		'digg' 			=> esc_html__( 'Digg', 'anva' ),
+		'dribbble' 		=> esc_html__( 'Dribbble', 'anva' ),
+		'facebook' 		=> esc_html__( 'Facebook', 'anva' ),
+		'flickr' 		=> esc_html__( 'Flickr', 'anva' ),
+		'foursquare' 	=> esc_html__( 'Foursquare', 'anva' ),
+		'github' 		=> esc_html__( 'Github', 'anva' ),
+		'gplus' 		=> esc_html__( 'Google+', 'anva' ),
+		'instagram' 	=> esc_html__( 'Instagram', 'anva' ),
+		'linkedin' 		=> esc_html__( 'Linkedin', 'anva' ),
+		'paypal' 		=> esc_html__( 'Paypal', 'anva' ),
+		'pinterest' 	=> esc_html__( 'Pinterest', 'anva' ),
+		'reddit' 		=> esc_html__( 'Reddit', 'anva' ),
+		'skype'			=> esc_html__( 'Skype', 'anva' ),
+		'soundcloud' 	=> esc_html__( 'Soundcloud', 'anva' ),
+		'tumblr' 		=> esc_html__( 'Tumblr', 'anva' ),
+		'twitter' 		=> esc_html__( 'Twitter', 'anva' ),
+		'vimeo'			=> esc_html__( 'Vimeo', 'anva' ),
+		'yahoo' 		=> esc_html__( 'Yahoo', 'anva' ),
+		'youtube' 		=> esc_html__( 'YouTube', 'anva' ),
+		'call'			=> esc_html__( 'Call', 'anva' ),
+		'email3' 		=> esc_html__( 'Email', 'anva' ),
+		'rss' 			=> esc_html__( 'RSS', 'anva' ),
 	);
 
 	return apply_filters( 'anva_social_icons_profiles', $profiles );

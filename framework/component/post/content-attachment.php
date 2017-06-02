@@ -28,12 +28,12 @@
 				<a href="<?php anva_the_attachment_image_src( get_the_ID(), 'full' ); ?>" data-lightbox="image">
 					<img src="<?php anva_the_attachment_image_src( get_the_ID(), 'full' ); ?>" />
 				</a>
-			</div><!-- .featured-item(end) -->
+			</div><!-- .entry-image (end) -->
 		<?php endif; ?>
 
 		<div class="entry-content">
 			<?php the_content(); ?>
-		</div><!-- .entry-content -->
+		</div><!-- .entry-content (end) -->
 
 		<div class="entry-footer">
 			<?php wp_link_pages( array(

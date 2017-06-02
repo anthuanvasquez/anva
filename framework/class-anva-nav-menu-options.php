@@ -10,10 +10,6 @@
  */
 class Anva_Nav_Menu_Options {
 
-	/*--------------------------------------------*/
-	/* Properties, private
-	/*--------------------------------------------*/
-
 	/**
 	 * A single instance of this class.
 	 *
@@ -28,7 +24,7 @@ class Anva_Nav_Menu_Options {
 	 *
 	 * @return Anva_Menu_Options A single instance of this class.
 	 */
-	public static function get_instance() {
+	public static function instance() {
 
 		if ( self::$instance == null ) {
 			self::$instance = new self;
@@ -44,9 +40,9 @@ class Anva_Nav_Menu_Options {
 	 */
 	public function __construct() {
 
-		add_action( 'admin_enqueue_scripts', array($this, 'assets') );
-		add_filter( 'wp_edit_nav_menu_walker', array($this, 'walker') );
-		add_action( 'wp_update_nav_menu_item', array($this, 'save'), 10, 3 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
+		add_filter( 'wp_edit_nav_menu_walker', array( $this, 'walker' ) );
+		add_action( 'wp_update_nav_menu_item', array( $this, 'save' ), 10, 3 );
 
 	}
 
@@ -57,8 +53,8 @@ class Anva_Nav_Menu_Options {
 	 */
 	public function assets( $hook ) {
 		if ( $hook == 'nav-menus.php' ) {
-			wp_enqueue_style( 'anva_menus', esc_url( Anva::$framework_dir_uri . 'admin/assets/css/page-menu.css' ), null, Anva::$version );
-			wp_enqueue_script( 'anva_menus', esc_url( Anva::$framework_dir_uri . 'admin/assets/js/page-menu.js' ), array( 'jquery' ), Anva::$version );
+			wp_enqueue_style( 'anva_menus', esc_url( Anva::$framework_dir_uri . 'admin/assets/css/page-menu.css' ), null, Anva::get_version() );
+			wp_enqueue_script( 'anva_menus', esc_url( Anva::$framework_dir_uri . 'admin/assets/js/page-menu.js' ), array( 'jquery' ), Anva::get_version() );
 		}
 	}
 

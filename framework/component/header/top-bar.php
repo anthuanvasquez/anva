@@ -27,6 +27,14 @@ if ( 'dark' === $top_bar_color ) {
 <div id="top-bar" class="top-bar<?php echo esc_attr( $class ); ?>">
 	<div class="container clearfix">
 		<?php
+		$args = apply_filters( 'anva_top_bar_social_icons', array(
+			'style'    => null,
+			'shape'    => null,
+			'border'   => null,
+			'size'     => null,
+			'position' => 'top-bar',
+			'icons'    => array(),
+		) );
 		switch ( $top_bar_layout ) :
 			case 'menu_icons':
 			?>
@@ -39,14 +47,7 @@ if ( 'dark' === $top_bar_color ) {
 				<div class="col_half fright col_last nobottommargin">
 					<div id="top-social" class="top-social">
 						<ul>
-							<?php
-								$style    = '';
-								$shape    = '';
-								$border   = '';
-								$size     = '';
-								$position = 'top-bar';
-								anva_social_icons( $style, $shape, $border, $size, $position );
-							?>
+							<?php anva_social_icons( $args ); ?>
 						</ul>
 					</div><!-- #top-social (end) -->
 				</div>
@@ -59,14 +60,7 @@ if ( 'dark' === $top_bar_color ) {
 				<div class="col_half nobottommargin">
 					<div id="top-social" class="top-social">
 						<ul>
-							<?php
-								$style    = '';
-								$shape    = '';
-								$border   = '';
-								$size     = '';
-								$position = 'top-bar';
-								anva_social_icons( $style, $shape, $border, $size, $position );
-							?>
+							<?php anva_social_icons( $args ); ?>
 						</ul>
 					</div><!-- #top-social (end) -->
 				</div>

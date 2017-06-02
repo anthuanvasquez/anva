@@ -17,7 +17,7 @@
 
 ?>
 <div class="entry-wrap">
-	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 		<?php if ( has_post_format( 'gallery' ) ) : ?>
 
@@ -47,7 +47,7 @@
 
 			<div class="entry-image entry-link-format">
 				<?php anva_content_link(); ?>
-			</div><!-- .entry-quote (end) -->
+			</div><!-- .entry-link (end) -->
 
 		<?php elseif ( has_post_format( 'status' ) ) : ?>
 
@@ -62,7 +62,7 @@
 		<?php endif; ?>
 
 		<?php
-		if ( ! has_post_format( anva_post_format_filter() ) ) :
+		if ( ! has_post_format( anva_post_format_not_titles() ) ) :
 			anva_get_template_part( 'post', 'entry-title' );
 		endif;
 		?>
@@ -79,5 +79,5 @@
 				do_action( 'anva_post_content' );
 			?>
 		</div>
-	</article>
-</div>
+	</article><!-- .entry (end) -->
+</div><!-- .entry-wrap (end) -->

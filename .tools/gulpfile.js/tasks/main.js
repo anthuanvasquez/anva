@@ -4,7 +4,7 @@ var gulp        = require('gulp'),
 ;
 
 // Default task
-gulp.task('default', ['watch']);
+gulp.task('default', ['watch', 'browsersync']);
 
 // Build a working copy of the theme
 gulp.task('build', ['wipe-build', 'images', 'fonts', 'scripts', 'styles', 'theme']);

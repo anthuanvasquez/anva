@@ -160,6 +160,17 @@ function anva_allowed_tags() {
 }
 
 /**
+ * Print with wp_kses().
+ *
+ * @since  1.0.0
+ * @param  string $input
+ * @return string $input
+ */
+function anva_the_kses( $input ) {
+	echo anva_kses( $input );
+}
+
+/**
  * Apply wp_kses() to content allowed tags.
  *
  * @since  1.0.0
@@ -653,6 +664,74 @@ function anva_get_primary_menu_styles() {
 }
 
 /**
+ * Get social media share buttons.
+ *
+ * @since  1.0.0
+ * @return array $buttons All social media buttons.
+ */
+function anva_get_share_buttons() {
+
+	$buttons = array(
+		'facebook' => array(
+			'text'          => __( 'Share on Facebook', 'anva' ),
+			'url'		    => 'https://www.facebook.com/sharer.php?u=[permalink]&amp;t=[title]',
+			'network'       => 'facebook',
+			'icon'			=> 'facebook',
+			'target'        => '_blank',
+			'encode'		=> true,
+			'encode_urls' 	=> false,
+		),
+		'twitter' => array(
+			'text'          => __( 'Share on Twitter', 'anva' ),
+			'url'		    => 'https://twitter.com/intent/tweet?text=[title]&amp;url=[shortlink]&amp;via=[via]&amp;hashtags[hashtags]',
+			'network'       => 'twitter',
+			'icon'			=> 'twitter',
+			'target'        => '_blank',
+			'encode'		=> true,
+			'encode_urls' 	=> false,
+		),
+		'google' => array(
+			'text'          => __( 'Share on Google+', 'anva' ),
+			'url'		    => 'https://plus.google.com/share?url=[permalink]&amp;description=[title]&amp;media=[thumbnail]',
+			'network'       => 'googleplus',
+			'icon'			=> 'gplus',
+			'target'        => '_blank',
+			'encode'		=> true,
+			'encode_urls' 	=> false,
+		),
+		'pinterest' => array(
+			'text'          => __( 'Share on Pinterest', 'anva' ),
+			'url'		    => 'https://pinterest.com/pin/create/button/?url=[permalink]&amp;description=[title]&amp;media=[thumbnail]',
+			'network'       => 'pinterest',
+			'icon'			=> 'pinterest',
+			'target'        => '_blank',
+			'encode'		=> true,
+			'encode_urls' 	=> true,
+		),
+		'email' => array(
+			'text'          => __( 'Share via Email', 'anva' ),
+			'url'		    => 'mailto:?subject=[title]&amp;body=[permalink]',
+			'network'       => 'email',
+			'icon'			=> 'email3',
+			'target'        => '_blank',
+			'encode'		=> true,
+			'encode_urls' 	=> false,
+		),
+		'rss' => array(
+			'text'          => __( 'Feed RSS', 'anva' ),
+			'url'		    => get_feed_link( 'rss2' ),
+			'network'       => 'rss',
+			'icon'			=> 'rss',
+			'target'        => '_blank',
+			'encode'		=> true,
+			'encode_urls' 	=> false,
+		),
+	);
+
+	return apply_filters( 'anva_share_buttons', $buttons );
+}
+
+/**
  * Setup array classes for content.
  *
  * @since  1.0.0
@@ -666,7 +745,7 @@ function anva_config() {
 	);
 
 	/*------------------------------------------------------*/
-	/* Featured Area
+	/* Areas
 	/*------------------------------------------------------*/
 
 	if ( is_front_page() ) {
@@ -1332,26 +1411,25 @@ function anva_sort_gallery( $gallery ) {
  * @since  1.0.0
  * @return array The post list
  */
-function anva_get_posts( $query_args = '' ) {
+function anva_get_posts( $query_args ) {
 
 	$number = get_option( 'posts_per_page' );
 	$page 	= get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 	$offset = ( $page - 1 ) * $number;
 
-	if ( empty( $query_args ) ) {
-		$query_args = apply_filters( 'anva_posts_query_args', array(
-			'post_type'      => array( 'post' ),
-			'post_status'    => 'publish',
-			'posts_per_page' => $number,
-			'orderby'        => 'date',
-			'order'          => 'desc',
-			'number'         => $number,
-			'page'           => $page,
-			'offset'         => $offset,
-		) );
-	}
+	$defaults = apply_filters( 'anva_posts_query_args_defaults', array(
+		'post_type'      => array( 'post' ),
+		'post_status'    => 'publish',
+		'posts_per_page' => $number,
+		'orderby'        => 'date',
+		'order'          => 'desc',
+		'number'         => $number,
+		'page'           => $page,
+		'offset'         => $offset,
+	) );
 
-	$query_args = apply_filters( 'anva_get_posts_args', $query_args );
+	$query_args = wp_parse_args( $query_args, $defaults );
+
 	$query = new WP_Query( $query_args );
 
 	return $query;
@@ -1366,22 +1444,8 @@ function anva_get_posts( $query_args = '' ) {
  */
 function anva_get_admin_modules() {
 
-	$name = '';
-
-	// Gets option name as defined in the theme
-	if ( function_exists( 'anva_option_name' ) ) {
-		$name = anva_option_name();
-	}
-
-	// Fallback
-	if ( empty( $name ) ) {
-		$name = get_option( 'stylesheet' );
-		$name = preg_replace( "/\W/", "_", strtolower( $name ) );
-	}
-
-	// Options page
-	// $args = anva_get_options_page_menu();
-	$page = sprintf( 'themes.php?page=%s', $name );
+	// Options page.
+	$page = sprintf( 'themes.php?page=%s', anva_get_option_name() );
 
 	// Admin modules
 	$modules = array(
@@ -1409,19 +1473,25 @@ function anva_admin_menu_bar() {
 		return;
 	}
 
-	// Get all admin modules
+	// Get all admin modules.
 	$modules = anva_get_admin_modules();
 
 	if ( ! $modules ) {
 		return;
 	}
 
-	$node = 'anva_node_optons';
+	// Get option name.
+	$name = anva_get_option_name();
+
+	// Node ID.
+	$node = $name . '_node_optons';
 
 	$default_node = array(
 		'id'    => $node,
-		'title' => __( 'Anva Options', 'anva' ),
-		'meta'  => array( 'class' => 'anva-admin-bar-node' )
+		'title' => esc_html__( 'Anva Options', 'anva' ),
+		'meta'  => array(
+			'class' => 'anva-admin-bar-node'
+		),
 	);
 
 	$wp_admin_bar->add_node( $default_node );
@@ -1430,7 +1500,7 @@ function anva_admin_menu_bar() {
 	if ( isset( $modules['options'] ) && current_user_can( anva_admin_module_cap( 'options' ) ) ) {
 		$wp_admin_bar->add_node(
 			array(
-				'id'		=> 'anva_theme_options',
+				'id'		=> $name . '_theme_options',
 				'title'		=> sprintf( '%1$s', __( 'Theme Options', 'anva' ) ),
 				'href'		=> admin_url( $modules['options'] ),
 				'parent' 	=> $node,
@@ -1442,7 +1512,7 @@ function anva_admin_menu_bar() {
 	if ( current_user_can( 'install_plugins' ) ) {
 		$wp_admin_bar->add_node(
 			array(
-				'id'		=> 'anva_theme_plugins',
+				'id'		=> $name . '_theme_plugins',
 				'title'		=> sprintf( '%1$s', __( 'Theme Plugins', 'anva' ) ),
 				'href'		=> admin_url( $modules['plugins'] ),
 				'parent' 	=> $node,
@@ -1571,8 +1641,6 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 function anva_nav_menu_item_id( $menu_id, $item, $args, $depth ) {
 	return $args->theme_location . '-menu-item-'. $item->ID;
 }
-
-
 
 /**
  * Contact email.

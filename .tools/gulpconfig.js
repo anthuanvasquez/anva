@@ -128,7 +128,8 @@ module.exports = {
             admin: admin + 'js/**/*.js',
             ignore: [
                 '*.min.js',
-                'plugins.js',
+                'core-plugins.js',
+                'jquery.*',
                 'vendor/**',
                 'components/**',
                 'vmap/**'

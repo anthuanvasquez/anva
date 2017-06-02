@@ -15,8 +15,11 @@
  * @package      AnvaFramework
  */
 
+// Get current page ID.
+$page_id = anva_get_current_page_id();
+
 // Get current breadcrumbs.
-$current_breadcrumb = anva_get_post_meta( '_anva_breadcrumbs' );
+$current_breadcrumb = anva_get_post_meta_by_id( '_anva_breadcrumbs', $page_id );
 
 // Set default breadcrumbs.
 if ( empty( $current_breadcrumb ) ) {

@@ -411,11 +411,35 @@ function anva_get_button( $args ) {
 }
 
 /**
- * Display social media profiles
+ * Display social media icons.
  *
  * @since 1.0.0
+ * @param array $args Arguments list.
  */
-function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', $position = '', $icons = array() ) {
+function anva_social_icons( $args ) {
+	echo anva_get_social_icons( $args );
+}
+
+/**
+ * Get social media icons.
+ *
+ * @since 1.0.0
+ * @param array $args Arguments list.
+ */
+function anva_get_social_icons( $args ) {
+
+	$defaults = apply_filters( 'anva_social_icons_defaults', array(
+		'style'    => null,
+		'shape'    => null,
+		'border'   => null,
+		'size'     => null,
+		'position' => null,
+		'icons'    => array(),
+	) );
+
+	$argss = wp_parse_args( $args, $defaults );
+
+	extract( $args );
 
 	$classes = array();
 
@@ -446,22 +470,22 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 	}
 
 	// Set up style.
-	if ( 'default' != $style ) {
+	if ( 'default' !== $style ) {
 		$classes[] = 'si-' . $style;
 	}
 
 	// Set up shape.
-	if ( 'default' != $shape ) {
+	if ( 'default' !== $shape ) {
 		$classes[] = 'si-' . $shape;
 	}
 
 	// Set up border.
-	if ( 'default' != $border ) {
+	if ( 'default' !== $border ) {
 		$classes[] = 'si-' . $border;
 	}
 
 	// Set up size.
-	if ( 'default' != $size ) {
+	if ( 'default' !== $size ) {
 		$classes[] = 'si-' . $size;
 	}
 
@@ -475,47 +499,47 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 
 	if ( is_array( $icons ) && ! empty( $icons ) ) {
 
-		foreach ( $icons as $id => $url ) {
+		foreach ( $icons as $icon_id => $icon_url ) {
 
 			// Link target.
 			$target = '_blank';
 
 			// Link Title.
 			$title = '';
-			if ( isset( $profiles[ $id ] ) ) {
-				$title = $profiles[ $id ];
+			if ( isset( $profiles[ $icon_id ] ) ) {
+				$title = $profiles[ $icon_id ];
 			}
 
 			// Change Titles to URL.
-			switch ( $id ) {
+			switch ( $icon_id ) {
 				case 'call':
-					$title = str_replace( 'tel:', '', $url );
+					$title = str_replace( 'tel:', '', $icon_url );
 					break;
 				case 'email3':
-					$title = str_replace( 'mailto:', '', $url );
+					$title = str_replace( 'mailto:', '', $icon_url );
 					break;
 				case 'skype':
-					$title = str_replace( 'skype:', '', $url );
+					$title = str_replace( 'skype:', '', $icon_url );
 					$title = str_replace( '?call', '', $title );
 					break;
 			}
 
 			// Check if position is on top bar.
-			if ( 'top-bar' == $position ) {
+			if ( 'top-bar' === $position ) {
 				$output .= sprintf(
 					'<li><a href="%1$s" class="si-%3$s"><span class="ts-icon"><i class="icon-%3$s"></i></span><span class="ts-text">%2$s</span></a></li>',
-					( 'skype' != $id ? esc_url( $url ) : $url ),
+					( 'skype' != $icon_id ? esc_url( $icon_url ) : $icon_url ),
 					esc_attr( $title ),
-					esc_attr( $id ),
+					esc_attr( $icon_id ),
 					esc_attr( $target ),
 					esc_attr( $classes )
 				);
 			} else {
 				$output .= sprintf(
 					'<a href="%1$s" class="social-icon si-%3$s %5$s" target="%4$s" title="%2$s"><i class="icon-%3$s"></i><i class="icon-%3$s"></i></a>',
-					( 'skype' != $id ? esc_url( $url ) : $url ),
+					( 'skype' != $icon_id ? esc_url( $icon_url ) : $icon_url ),
 					esc_attr( $title ),
-					esc_attr( $id ),
+					esc_attr( $icon_id ),
 					esc_attr( $target ),
 					esc_attr( $classes )
 				);
@@ -524,9 +548,7 @@ function anva_social_icons( $style = '', $shape = '', $border = '', $size = '', 
 		}
 	}
 
-	$output = apply_filters( 'anva_social_icons', $output );
-
-	echo $output;
+	return apply_filters( 'anva_social_icons', $output );
 }
 
 /**

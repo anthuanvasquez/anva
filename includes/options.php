@@ -72,10 +72,10 @@ function anva_theme_options() {
 	);
 
 	$styles = array(
-		'main' => array(
+		'general' => array(
 			'layout_style' => array(
-				'name' => esc_html__( 'Site Layout Style', 'anva'),
-				'desc' => esc_html__( 'Select the layout style of the site, you can use boxed or stretched.', 'anva'),
+				'name' => esc_html__( 'Site Layout Style', 'anva' ),
+				'desc' => esc_html__( 'Select the layout style of the site, you can use boxed or stretched.', 'anva' ),
 				'id' => 'layout_style',
 				'std' => 'stretched',
 				'class' => 'input-select',
@@ -83,19 +83,6 @@ function anva_theme_options() {
 				'options' => array(
 					'boxed'     => esc_attr__( 'Boxed', 'anva' ),
 					'stretched' => esc_attr__( 'Stretched', 'anva' )
-				)
-			),
-			'select2multi' => array(
-				'name' => esc_html__( 'Site Layout Style', 'anva'),
-				'desc' => esc_html__( 'Select the layout style of the site, you can use boxed or stretched.', 'anva'),
-				'id' => 'select2multi',
-				'std' => array( 'value1', 'value3' ),
-				'type' => 'multiselect2',
-				'options' => array(
-					'value1' => esc_attr__( 'Value 1', 'anva' ),
-					'value2' => esc_attr__( 'Value 2', 'anva' ),
-					'value3' => esc_attr__( 'Value 3', 'anva' ),
-					'value4' => esc_attr__( 'Value 4', 'anva' ),
 				)
 			),
 			'base_color' => array(
@@ -141,15 +128,6 @@ function anva_theme_options() {
 			),
 		),
 		'header' => array(
-			'top_bar_display' => array(
-				'name' => null,
-				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Top Bar', 'anva' ), esc_html__( 'Display top bar above header.', 'anva' ) ),
-				'id' => 'top_bar',
-				'std' => '',
-				'type' => 'checkbox',
-				'trigger' => '1',
-				'receivers' => 'top_bar_color',
-			),
 			'top_bar_color' => array(
 				'name' => esc_html__( 'Top Bar Color', 'anva' ),
 				'desc' => esc_html__( 'Select the color of the top bar.', 'anva' ),
@@ -173,7 +151,7 @@ function anva_theme_options() {
 			),
 			'top_bar_text_color' => array(
 				'name' => null,
-				'desc' => esc_html__( 'Use light text color for background.', 'anva' ),
+				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Topbar Text' ), esc_html__( 'Use light text color for background.', 'anva' ) ),
 				'id' => 'top_bar_text_color',
 				'std' => '0',
 				'type' => 'checkbox',
@@ -259,15 +237,6 @@ function anva_theme_options() {
 				),
 				'type' => 'typography',
 				'options' => array( 'style', 'weight', 'face', 'color' )
-			),
-			'side_panel_display' => array(
-				'name' => null,
-				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Side Panel', 'anva' ), esc_html__( 'Display the side panel content.', 'anva' ) ),
-				'id' => 'side_panel_display',
-				'std' => '0',
-				'type' => 'checkbox',
-				'trigger' => '1',
-				'receivers' => 'side_panel_color',
 			),
 			'side_panel_color' => array(
 				'name' => esc_html__( 'Side Panel Color', 'anva' ),
@@ -359,8 +328,8 @@ function anva_theme_options() {
 		),
 		'social_icons' => array(
 			'social_icons_style' => array(
-				'name' => esc_html__( 'Social Icons Style', 'anva'),
-				'desc' => esc_html__( 'choose the style for your social icons.', 'anva'),
+				'name' => esc_html__( 'Social Icons Style', 'anva' ),
+				'desc' => esc_html__( 'choose the style for your social icons.', 'anva' ),
 				'id' => 'social_icons_style',
 				'std' => 'default',
 				'type' => 'select',
@@ -373,51 +342,51 @@ function anva_theme_options() {
 				)
 			),
 			'social_icons_shape' => array(
-				'name' => esc_html__( 'Social Icons Shape', 'anva'),
-				'desc' => esc_html__( 'choose the shape for your social icons.', 'anva'),
+				'name' => esc_html__( 'Social Icons Shape', 'anva' ),
+				'desc' => esc_html__( 'choose the shape for your social icons.', 'anva' ),
 				'id' => 'social_icons_shape',
 				'std' => 'default',
 				'type' => 'select',
 				'options' => array(
-					'default' 	=> esc_html__( 'Default Shape', 'anva'),
-					'rounded' 	=> esc_html__( 'Rounded', 'anva'),
+					'default' 	=> esc_html__( 'Default Shape', 'anva' ),
+					'rounded' 	=> esc_html__( 'Rounded', 'anva' ),
 				)
 			),
 			'social_icons_border' => array(
-				'name' => esc_html__( 'Social Icons Border', 'anva'),
-				'desc' => esc_html__( 'Choose the shape for your social icons.', 'anva'),
+				'name' => esc_html__( 'Social Icons Border', 'anva' ),
+				'desc' => esc_html__( 'Choose the shape for your social icons.', 'anva' ),
 				'id' => 'social_icons_border',
 				'std' => 'default',
 				'type' => 'select',
 				'options' => array(
-					'default' 	=> esc_html__( 'Default Border', 'anva'),
-					'borderless' 	=> esc_html__( 'Without Border', 'anva'),
+					'default' 	=> esc_html__( 'Default Border', 'anva' ),
+					'borderless' 	=> esc_html__( 'Without Border', 'anva' ),
 				)
 			),
 			'social_icons_size' => array(
-				'name' => esc_html__( 'Social Icons Size', 'anva'),
-				'desc' => esc_html__( 'Choose the size for your social icons.', 'anva'),
+				'name' => esc_html__( 'Social Icons Size', 'anva' ),
+				'desc' => esc_html__( 'Choose the size for your social icons.', 'anva' ),
 				'id' => 'social_icons_size',
 				'std' => 'default',
 				'type' => 'select',
 				'options' => array(
-					'default' 	=> esc_html__( 'Default Size', 'anva'),
-					'small' 	=> esc_html__( 'Small', 'anva'),
-					'large' 	=> esc_html__( 'Large', 'anva'),
+					'default' 	=> esc_html__( 'Default Size', 'anva' ),
+					'small' 	=> esc_html__( 'Small', 'anva' ),
+					'large' 	=> esc_html__( 'Large', 'anva' ),
 				)
 			),
 		),
 		'background' => array(
 			'background_color' => array(
-				'name' => esc_html__( 'Background Color', 'anva'),
-				'desc' => esc_html__( 'Choose the background color.', 'anva'),
+				'name' => esc_html__( 'Background Color', 'anva' ),
+				'desc' => esc_html__( 'Choose the background color.', 'anva' ),
 				'id' => 'background_color',
 				'std' => '#dddddd',
 				'type' => 'color'
 			),
 			'background_image' => array(
-				'name' => esc_html__( 'Background Image', 'anva'),
-				'desc' => esc_html__( 'Choose the background image. Note: this option only take effect if layout style is boxed.', 'anva'),
+				'name' => esc_html__( 'Background Image', 'anva' ),
+				'desc' => esc_html__( 'Choose the background image. Note: this option only take effect if layout style is boxed.', 'anva' ),
 				'id' => 'background_image',
 				'std' => $background_defaults,
 				'type' => 'background'
@@ -539,8 +508,8 @@ function anva_theme_options() {
 				)
 			),
 			'heading_h3' => array(
-				'name' => esc_html__( 'H3', 'anva'),
-				'desc' => esc_html__( 'Select the size for H3 tag in px.', 'anva'),
+				'name' => esc_html__( 'H3', 'anva' ),
+				'desc' => esc_html__( 'Select the size for H3 tag in px.', 'anva' ),
 				'id' => 'heading_h3',
 				'std' => '24',
 				'type' => 'range',
@@ -552,8 +521,8 @@ function anva_theme_options() {
 				)
 			),
 			'heading_h4' => array(
-				'name' => esc_html__( 'H4', 'anva'),
-				'desc' => esc_html__( 'Select the size for H4 tag in px.', 'anva'),
+				'name' => esc_html__( 'H4', 'anva' ),
+				'desc' => esc_html__( 'Select the size for H4 tag in px.', 'anva' ),
 				'id' => 'heading_h4',
 				'std' => '18',
 				'type' => 'range',
@@ -565,8 +534,8 @@ function anva_theme_options() {
 				)
 			),
 			'heading_h5' => array(
-				'name' => esc_html__( 'H5', 'anva'),
-				'desc' => esc_html__( 'Select the size for H5 tag in px.', 'anva'),
+				'name' => esc_html__( 'H5', 'anva' ),
+				'desc' => esc_html__( 'Select the size for H5 tag in px.', 'anva' ),
 				'id' => 'heading_h5',
 				'std' => '14',
 				'type' => 'range',
@@ -578,8 +547,8 @@ function anva_theme_options() {
 				)
 			),
 			'heading_h6' => array(
-				'name' => esc_html__( 'H6', 'anva'),
-				'desc' => esc_html__( 'Select the size for H6 tag in px.', 'anva'),
+				'name' => esc_html__( 'H6', 'anva' ),
+				'desc' => esc_html__( 'Select the size for H6 tag in px.', 'anva' ),
 				'id' => 'heading_h6',
 				'std' => '12',
 				'type' => 'range',
@@ -593,14 +562,14 @@ function anva_theme_options() {
 		),
 		'custom' => array(
 			'css_warning' => array(
-				'name' => esc_html__( 'Info', 'anva'),
-				'desc' => esc_html__( 'If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva'),
+				'name' => esc_html__( 'Info', 'anva' ),
+				'desc' => esc_html__( 'If you have some minor CSS changes, you can put them here to override the theme default styles. However, if you plan to make a lot of CSS changes, it would be best to create a child theme.', 'anva' ),
 				'id' => 'css_warning',
 				'type' => 'info',
 			),
 			'custom_css' => array(
-				'name' => esc_html__( 'Custom CSS', 'anva'),
-				'desc' => esc_html__( 'Use custom CSS to override the theme styles.', 'anva'),
+				'name' => esc_html__( 'Custom CSS', 'anva' ),
+				'desc' => esc_html__( 'Use custom CSS to override the theme styles.', 'anva' ),
 				'id' => 'custom_css',
 				'std' => '',
 				'type' => 'code',
@@ -608,7 +577,7 @@ function anva_theme_options() {
 			),
 			'custom_css_stylesheet' => array(
 				'name' => null,
-				'desc' => esc_html__( 'Add a custom css stylesheet to the head, custom.css.', 'anva' ),
+				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Stylesheet' ), esc_html__( 'Add a custom css stylesheet to the head, custom.css.', 'anva' ) ),
 				'id' => 'custom_css_stylesheet',
 				'std' => '0',
 				'type' => 'checkbox',
@@ -616,8 +585,8 @@ function anva_theme_options() {
 		),
 	);
 
-	anva_add_option_tab( 'styles', esc_html__( 'Styles', 'anva'), true, 'admin-appearance' );
-	anva_add_option_section( 'styles', 'main', esc_html__( 'Main', 'anva' ), null, $styles['main'] );
+	anva_add_option_tab( 'styles', esc_html__( 'Styles', 'anva' ), true, 'admin-appearance' );
+	anva_add_option_section( 'styles', 'general', esc_html__( 'General', 'anva' ), null, $styles['general'] );
 	anva_add_option_section( 'styles', 'links', esc_html__( 'Links', 'anva' ), null, $styles['links'], false );
 	anva_add_option_section( 'styles', 'header', esc_html__( 'Header', 'anva' ), null, $styles['header'], false  );
 	anva_add_option_section( 'styles', 'navigation', esc_html__( 'Navigation', 'anva' ), null, $styles['navigation'], false  );
@@ -704,6 +673,15 @@ function anva_theme_options() {
 				'full-header' => esc_attr__( 'Full Header', 'anva' ),
 			),
 		),
+		'top_bar_display' => array(
+			'name' => null,
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Top Bar', 'anva' ), esc_html__( 'Display top bar above header.', 'anva' ) ),
+			'id' => 'top_bar',
+			'std' => '',
+			'type' => 'checkbox',
+			'trigger' => '1',
+			'receivers' => 'top_bar_layout',
+		),
 		'top_bar_layout' => array(
 			'name' => esc_html__( 'Top Bar Layout', 'anva' ),
 			'desc' => esc_html__( 'Select the top bar layout you want to show.', 'anva' ),
@@ -711,9 +689,18 @@ function anva_theme_options() {
 			'std' => 'menu_icons',
 			'type' => 'select',
 			'options' => array(
-				'menu_icons' => esc_attr__( 'Menu + Social Icons', 'anva' ),
-				'icons_menu' => esc_attr__( 'Social Icons + Menu', 'anva' ),
+				'menu_icons' => esc_attr__( 'Menu + Social Icons with Contact Info', 'anva' ),
+				'icons_menu' => esc_attr__( 'Social Icons with Contact Info + Menu', 'anva' ),
 			)
+		),
+		'side_panel_display' => array(
+			'name' => null,
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Side Panel', 'anva' ), esc_html__( 'Display the side panel content.', 'anva' ) ),
+			'id' => 'side_panel_display',
+			'std' => '0',
+			'type' => 'checkbox',
+			'trigger' => '1',
+			'receivers' => 'side_panel_type side_panel_icons',
 		),
 		'side_panel_type' => array(
 			'name' => esc_html__( 'Side Panel', 'anva' ),
@@ -726,7 +713,7 @@ function anva_theme_options() {
 		),
 		'side_header_icons' => array(
 			'name' => null,
-			'desc' => esc_html__( 'Display social media icons below primary menu in side header type.', 'anva' ),
+			'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Icons' ), esc_html__( 'Display social icons below primary menu when header type is side.', 'anva' ) ),
 			'id' => 'side_header_icons',
 			'std' => '1',
 			'type' => 'checkbox',
@@ -787,7 +774,7 @@ function anva_theme_options() {
 		),
 		'footer_extra_display' => array(
 			'name' => null,
-			'desc' => esc_html__( 'Display extra information in footer.', 'anva' ),
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Extra Info' ), esc_html__( 'Display extra information in footer.', 'anva' ) ),
 			'id' => 'footer_extra_display',
 			'std' => '1',
 			'type' => 'checkbox',
@@ -803,14 +790,14 @@ function anva_theme_options() {
 		),
 		'footer_gototop' => array(
 			'name' => null,
-			'desc' => esc_html__( 'Add a Go To Top to allow your users to scroll to the Top of the page.', 'anva' ),
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Go To Top' ), esc_html__( 'Add a Go To Top to allow your users to scroll to the Top of the page.', 'anva' ) ),
 			'id' => 'footer_gototop',
 			'std' => '1',
 			'type' => 'checkbox',
 		),
 		'footer_icons' => array(
 			'name' => null,
-			'desc' => esc_html__( 'Display social icons on the footer.', 'anva' ),
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Icons' ), esc_html__( 'Display social icons on the footer.', 'anva' ) ),
 			'id' => 'footer_icons',
 			'std' => '1',
 			'type' => 'checkbox',
@@ -878,8 +865,8 @@ function anva_theme_options() {
 		),
 		'login' => array(
 			'login_style' => array(
-				'name' => esc_html__( 'Style', 'anva'),
-				'desc' => esc_html__( 'Select the login style.', 'anva'),
+				'name' => esc_html__( 'Style', 'anva' ),
+				'desc' => esc_html__( 'Select the login style.', 'anva' ),
 				'id' => 'login_style',
 				'std' => '',
 				'type' => 'select',
@@ -891,8 +878,8 @@ function anva_theme_options() {
 				)
 			),
 			'login_copyright' => array(
-				'name' => esc_html__( 'Copyright Text', 'anva'),
-				'desc' => esc_html__( 'Enter the copyright text you\'d like to show in the footer of your login page.', 'anva'),
+				'name' => esc_html__( 'Copyright Text', 'anva' ),
+				'desc' => esc_html__( 'Enter the copyright text you\'d like to show in the footer of your login page.', 'anva' ),
 				'id' => 'login_copyright',
 				'std' => sprintf( esc_html__( 'Copyright %s %s. Designed by %s.', 'anva' ), date( 'Y' ), anva_get_theme( 'name' ), '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>' ),
 				'type' => 'textarea',
@@ -903,7 +890,9 @@ function anva_theme_options() {
 	anva_add_option( 'layout', 'header', 'header_type', $layout['header_type'] );
 	anva_add_option( 'layout', 'header', 'header_sticky', $layout['header_sticky'] );
 	anva_add_option( 'layout', 'header', 'header_layout', $layout['header_layout'] );
+	anva_add_option( 'layout', 'header', 'top_bar_display',$layout['top_bar_display'] );
 	anva_add_option( 'layout', 'header', 'top_bar_layout',$layout['top_bar_layout'] );
+	anva_add_option( 'layout', 'header', 'side_panel_display', $layout['side_panel_display'] );
 	anva_add_option( 'layout', 'header', 'side_panel_type', $layout['side_panel_type'] );
 	anva_add_option( 'layout', 'header', 'side_header_icons', $layout['side_header_icons'] );
 	anva_add_option( 'layout', 'header', 'primary_menu_style', $layout['primary_menu_style'] );
@@ -916,7 +905,6 @@ function anva_theme_options() {
 	anva_add_option( 'layout', 'footer', 'footer_extra_info', $layout['footer_extra_info'] );
 	anva_add_option( 'layout', 'footer', 'footer_gototop', $layout['footer_gototop'] );
 	anva_add_option( 'layout', 'footer', 'footer_icons', $layout['footer_icons'] );
-
 	anva_add_option_section( 'layout', 'page_transition', esc_html__( 'Page Transition', 'anva' ), null, $layout['page_transition'], false );
 
 	// Add slider options.
@@ -932,31 +920,27 @@ function anva_theme_options() {
 	}
 
 	/**
-	 * Custom Tab Options.
-	 *
-	 * @see anva_add_option_tab, anva_add_section_option
-	 *
-	 * @var array
+	 * Feature Tab Options.
 	 */
 	$custom = array(
 		'gallery' => array(
 			'gallery_sort' => array(
-				'name' => esc_html__( 'Images Sorting', 'anva'),
-				'desc' => esc_html__( 'Select how you want to sort gallery images.', 'anva'),
+				'name' => esc_html__( 'Images Sorting', 'anva' ),
+				'desc' => esc_html__( 'Select how you want to sort gallery images.', 'anva' ),
 				'id' => 'gallery_sort',
 				'std' => 'drag',
 				'type' => 'select',
 				'options' => array(
-					'drag'  => esc_attr__( 'Drag & Drop', 'anva'),
-					'desc'  => esc_attr__( 'Newest', 'anva'),
-					'asc'   => esc_attr__( 'Oldest', 'anva'),
-					'rand'  => esc_attr__( 'Random', 'anva'),
-					'title' => esc_attr__( 'Title', 'anva')
+					'drag'  => esc_attr__( 'Drag & Drop', 'anva' ),
+					'desc'  => esc_attr__( 'Newest', 'anva' ),
+					'asc'   => esc_attr__( 'Oldest', 'anva' ),
+					'rand'  => esc_attr__( 'Random', 'anva' ),
+					'title' => esc_attr__( 'Title', 'anva' )
 				)
 			),
 			'gallery_template' => array(
-				'name' => esc_html__( 'Default Template', 'anva'),
-				'desc' => esc_html__( 'Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', 'anva'),
+				'name' => esc_html__( 'Default Template', 'anva' ),
+				'desc' => esc_html__( 'Choose the default template for galleries. </br>Note: This will be the default template throughout your galleries, but you can be override this setting for any specific gallery page.', 'anva' ),
 				'id' => 'gallery_template',
 				'std' => '3-col',
 				'type' => 'select',
@@ -983,16 +967,16 @@ function anva_theme_options() {
 		),
 		'slideshows' => array(
 			'slider_id' => array(
-				'name' => esc_html__( 'Slider', 'anva'),
-				'desc' => esc_html__( 'Select the main slider. Based on the slider you select, the options below may change.', 'anva'),
+				'name' => esc_html__( 'Slider', 'anva' ),
+				'desc' => esc_html__( 'Select the main slider. Based on the slider you select, the options below may change.', 'anva' ),
 				'id' => 'slider_id',
 				'std' => 'standard',
 				'type' => 'select',
 				'options' => $slider_select
 			),
 			'slider_style' => array(
-				'name' => esc_html__( 'Style', 'anva'),
-				'desc' => esc_html__( 'Select the slider style.', 'anva'),
+				'name' => esc_html__( 'Style', 'anva' ),
+				'desc' => esc_html__( 'Select the slider style.', 'anva' ),
 				'id' => 'slider_style',
 				'std' => 'full-screen',
 				'type' => 'select',
@@ -1002,8 +986,8 @@ function anva_theme_options() {
 				)
 			),
 			'slider_parallax' => array(
-				'name' => esc_html__( 'Parallax', 'anva'),
-				'desc' => esc_html__( 'If you use the parallax effect for sliders enable this option.', 'anva'),
+				'name' => esc_html__( 'Parallax', 'anva' ),
+				'desc' => esc_html__( 'If you use the parallax effect for sliders enable this option.', 'anva' ),
 				'id' => 'slider_parallax',
 				'std' => 'false',
 				'type' => 'select',
@@ -1013,8 +997,8 @@ function anva_theme_options() {
 				),
 			),
 			'slider_thumbnails' => array(
-				'name' => esc_html__( 'Thumbnails Size', 'anva'),
-				'desc' => esc_html__( 'Select the image size you want to show in featured content.', 'anva'),
+				'name' => esc_html__( 'Thumbnails Size', 'anva' ),
+				'desc' => esc_html__( 'Select the image size you want to show in featured content.', 'anva' ),
 				'id' => 'slider_thumbnails',
 				'std' => 'anva_xl',
 				'type' => 'select',
@@ -1037,7 +1021,7 @@ function anva_theme_options() {
 				'options' => anva_get_default_slider_areas(),
 			),
 			'slider_group_area' => array(
-				'name' => esc_html__( 'Slider Group and Areas', 'anva'),
+				'name' => esc_html__( 'Slider Group and Areas', 'anva' ),
 				'desc' => esc_html__( 'Select the slider area and groups slides.', 'anva'  ),
 				'id'   => 'slider_group_area',
 				'type' => 'slider_group_area',
@@ -1045,17 +1029,15 @@ function anva_theme_options() {
 		),
 	);
 
-	anva_add_option_tab( 'features', esc_html__( 'Features', 'anva'), false, 'pressthis' );
+	anva_add_option_tab( 'features', esc_html__( 'Features', 'anva' ), false, 'pressthis' );
 	anva_add_option_section( 'features', 'gallery', esc_html__( 'Galleries', 'anva' ), null, $custom['gallery'], false );;
 	anva_add_option_section( 'features', 'slideshows', esc_html__( 'Slideshows', 'anva' ), null, $custom['slideshows'], false );
 
 	/**
 	 * Advanced Tab Options.
-	 *
-	 * @var array
 	 */
 	$advanced = array(
-		'main' => array(
+		'general' => array(
 			'responsive' => array(
 				'name' => esc_html__( 'Responsive', 'anva' ),
 				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Responsive', 'anva' ), esc_html__( 'Apply special styles to tablets and mobile devices.', 'anva' ) ),
@@ -1065,7 +1047,7 @@ function anva_theme_options() {
 			),
 			'debug' => array(
 				'name' => null,
-				'desc' => esc_html__( 'Display debug information in the footer.', 'anva' ),
+				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Debug' ), esc_html__( 'Display debug information in the footer.', 'anva' ) ),
 				'id' => 'debug',
 				'std' => '0',
 				'type' => 'checkbox',
@@ -1073,8 +1055,8 @@ function anva_theme_options() {
 		),
 	);
 
-	anva_add_option_tab( 'advanced', esc_html__( 'Advanced', 'anva'), false, 'admin-settings' );
-	anva_add_option_section( 'advanced', 'main', esc_html__( 'Main', 'anva' ), null, $advanced['main'], false );
+	anva_add_option_tab( 'advanced', esc_html__( 'Advanced', 'anva' ), false, 'admin-settings' );
+	anva_add_option_section( 'advanced', 'general', esc_html__( 'General', 'anva' ), null, $advanced['general'], false );
 
 }
 add_action( 'after_setup_theme', 'anva_theme_options', 9 );

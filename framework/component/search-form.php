@@ -28,4 +28,4 @@
 			</button>
 		</span>
 	</div>
-</form>
+</form><!-- .search (end) -->

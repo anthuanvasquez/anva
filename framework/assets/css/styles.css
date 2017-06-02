@@ -5473,6 +5473,11 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay, body.device-t
   margin-top: 0;
 }
 
+.entry-wrap .entry-content ol,
+.entry-wrap .entry-content ul {
+  padding-left: 40px;
+}
+
 .entry {
   position: relative;
   margin: 0 0 50px;

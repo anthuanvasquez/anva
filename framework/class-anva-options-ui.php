@@ -32,10 +32,6 @@ class Anva_Options_UI {
 		return self::$instance;
 	}
 
-	public function __construct() {
-		$this->options = anva_get_options();
-	}
-
 	/**
 	 * Generates the tabs that are used in the options menu.
 	 *
@@ -59,7 +55,7 @@ class Anva_Options_UI {
 				// Add icon to group.
 				$icon = '';
 				if ( isset( $value['icon'] ) && ! empty( $value['icon'] ) ) {
-					$icon = '<span class="dashicons dashicons-' . esc_attr( $value['icon'] ) . '"></span> ';
+					$icon = '<span class="dashicons dashicons-' . esc_attr( $value['icon'] ) . '"></span>';
 				}
 
 				$counter++;
@@ -69,12 +65,12 @@ class Anva_Options_UI {
 				$class = 'tab-' . preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $class ) );
 
 				$menu .= sprintf(
-					'<a id="options-group-%1$s-tab" class="nav-tab %2$s" title="%3$s" href="%4$s">%5$s</a>',
+					'<a id="options-group-%1$s-tab" class="nav-tab %2$s" title="%3$s" href="%4$s">%5$s %3$s</a>',
 					$counter,
 					$class,
 					esc_attr( $value['name'] ),
 					esc_attr( '#options-group-' . $counter ),
-					$icon . esc_html( $value['name'] )
+					$icon
 				);
 			}
 		}
@@ -612,7 +608,7 @@ class Anva_Options_UI {
 						'mobile'       => esc_html__( 'Mobile', 'anva' ),
 						'company_name' => esc_html__( 'Company Name', 'anva' ),
 						'country'      => esc_html__( 'Country', 'anva' ),
-					));
+					) );
 
 					$class = 'contact-fields';
 					if ( ! $val ) {

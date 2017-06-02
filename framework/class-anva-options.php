@@ -159,14 +159,6 @@ class Anva_Options {
 		// Pull all the pages into an array.
 		$pages = anva_pull_pages();
 
-		// Template defaults.
-		$template_defaults = array(
-			'blog'   => esc_attr__( 'Classic Blog', 'anva' ),
-			'search' => esc_attr__( 'Classic Search', 'anva' ),
-			'2col'   => esc_attr__( '2 Columns', 'anva' ),
-			'3col'   => esc_attr__( '3 Columns', 'anva' ),
-		);
-
 		// Social media buttons defautls.
 		$social_media_defaults = apply_filters( 'anva_social_icons_defaults', array(
 			'dribbble' => 'https://dribbble.com/oidoperfecto',
@@ -192,8 +184,11 @@ class Anva_Options {
 			'message',
 		) );
 
-		// Author default credtis.
+		// Author credtis.
 		$author = '<a href="' . esc_url( 'http://anthuanvasquez.net' ) . '" target="_blank">Anthuan Vasquez</a>';
+
+		// WordPress credits.
+		$wordpress = '<a href="' . esc_url( 'http://wordpress.org' ) . '" title="WordPress" target="_blank">WordPress</a>';
 
 		// If using image radio buttons, define a directory path.
 		$image_path = get_template_directory_uri() . '/assets/images/';
@@ -203,9 +198,9 @@ class Anva_Options {
 		/* ---------------------------------------------------------------- */
 
 		$layout_options = array(
-			'main' => array(
-				'name' 	=> esc_html__( 'Main', 'anva' ),
-				'class' => 'group-main',
+			'general' => array(
+				'name' 	=> esc_html__( 'General', 'anva' ),
+				'class' => 'group-general',
 				'options' => array(
 					'breadcrumbs' => array(
 						'name' => esc_html__( 'Breadcrumbs', 'anva' ),
@@ -221,7 +216,16 @@ class Anva_Options {
 					),
 					'social_icons_profiles' => array(
 						"name" => esc_html__( 'Social Media Profiles', 'anva' ),
-						"desc" => sprintf( esc_html__( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Example: %s. <strong>Note:</strong> If youre using the RSS button, your default RSS feed URL is: <strong>%s</strong>.', 'anva' ), esc_url( 'http://twitter.com/oidoperfecto' ), get_feed_link()  ),
+						"desc" => sprintf(
+							esc_html__( 'Enter the full URL you\'d like the button to link to in the corresponding text field that appears. Ex. %s. %s.', 'anva' ),
+							esc_url( 'http://twitter.com/oidoperfecto' ),
+							sprintf(
+								'<strong>%s:</strong> %s: <strong>%s</strong>',
+								esc_html__( 'Note', 'anva' ),
+								esc_html__( 'If you are using the RSS button, your default RSS feed URL is', 'anva' ),
+								get_feed_link()
+							)
+						),
 						"id" => "social_icons_profiles",
 						"type" => "social_media",
 						"std" => $social_media_defaults
@@ -234,7 +238,7 @@ class Anva_Options {
 				'options' => array(
 					'custom_logo' => array(
 						'name' => esc_html__( 'Logo', 'anva' ),
-						'desc' => esc_html__( 'Configure the primary branding logo for the header of your site.<br /><br />Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width.<br /><br />If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', 'anva' ),
+						'desc' => esc_html__( 'Configure the primary branding logo for the header of your site. Use the "Upload" button to either upload an image or select an image from your media library. When inserting an image with the "Upload" button, the URL and width will be inserted for you automatically. You can also type in the URL to an image in the text field along with a manually-entered width. If you\'re inputting a "HiDPI-optimized" image, it needs to be twice as large as you intend it to be displayed. Feel free to leave the HiDPI image field blank if you\'d like it to simply not have any effect.', 'anva' ),
 						'id' => 'custom_logo',
 						'std' => $logo_defaults,
 						'type' => 'logo',
@@ -249,7 +253,7 @@ class Anva_Options {
 					),
 					'apple_touch_icon_display' => array(
 						'name'      => null,
-						'desc'      => esc_html__( 'Use the apple tuch icon.', 'anva' ),
+						'desc'      => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Touch Icons', 'anva' ), esc_html__( 'Use the apple tuch icon.', 'anva' ) ),
 						'id'        => 'apple_touch_icon_display',
 						'std'       => '',
 						'type'      => 'checkbox',
@@ -303,15 +307,15 @@ class Anva_Options {
 						'options' => $layouts
 					),
 					'sidebar_message' => array(
-						'name' => NULL,
-						'desc' => esc_html__( 'Show message when the sidebars don\'t have any widgets.', 'anva' ),
+						'name' => null,
+						'desc' =>sprintf( '<strong>%s:</strong> %s', esc_html__( 'Sidebars Message', 'anva' ), esc_html__( 'Show message when the sidebars don\'t have any widgets.', 'anva' ) ),
 						'id' => 'sidebar_message',
 						'std' => '0',
 						'type' => 'checkbox',
 					),
 					'dynamic_sidebar' => array(
 						'name' => esc_html__( 'Custom Sidebars', 'anva' ),
-						'desc' => esc_html__( 'Add a custom sidebars.', 'anva' ),
+						'desc' => esc_html__( 'Add a custom sidebars, will be register with others sidebars in widgets section.', 'anva' ),
 						'id' => 'dynamic_sidebar',
 						'std' => array(),
 						'type' => 'sidebar'
@@ -330,9 +334,9 @@ class Anva_Options {
 					),
 					'footer_copyright' => array(
 						'name' => esc_html__( 'Copyright Text', 'anva' ),
-						'desc' => esc_html__( 'Enter the copyright text you\'d like to show in the footer of your site. You can use basic HTML. <br /><br /><em>%year%</em> show current year. <br /><em>%site_title%</em> show your site title.', 'anva' ),
+						'desc' => esc_html__( 'Enter the copyright text you\'d like to show in the footer of your site. You can use basic HTML. %year% show current year. %site_title% show your site title.', 'anva' ),
 						'id' => "footer_copyright",
-						'std' => 'Copyright %year% %site_title%. ' . sprintf( esc_html__( 'Powered by %s. Designed by %s.', 'anva' ), '<a href="' . esc_url( 'http://wordpress.org' ) . '" title="WordPress" target="_blank">WordPress</a>', $author ),
+						'std' => 'Copyright %year% %site_title%. ' . sprintf( esc_html__( 'Powered by %s. Designed by %s.', 'anva' ), $wordpress, $author ),
 						'type' => 'textarea'
 					),
 				)
@@ -521,17 +525,6 @@ class Anva_Options {
 							'excerpt' => esc_html__( 'Show excerpt', 'anva' ),
 						)
 					),
-					'small_thumb_alt' => array(
-						'name' => esc_html__( 'Alternate Small Thumbnails', 'anva' ),
-						'desc' => esc_html__( 'Select any categories you\'d like to be excluded from your blog.', 'anva' ),
-						'id' => 'small_thumb_alt',
-						'std' => 'no',
-						'type' => 'select',
-						'options' => array(
-							'yes' => esc_attr__( 'Yes, alternate the thumnails position', 'anva' ),
-							'no'  => esc_attr__( 'No, leave them as they are', 'anva' ),
-						)
-					),
 					'exclude_categories' => array(
 						'name' => esc_html__( 'Exclude Categories', 'anva' ),
 						'desc' => esc_html__( 'Select any categories you\'d like to be excluded from your blog.', 'anva' ),
@@ -543,7 +536,7 @@ class Anva_Options {
 				)
 			),
 			'archives' => array(
-				'name' => esc_html__( 'Archives', 'anva' ),
+				'name' => esc_html__( 'Archives Pages', 'anva' ),
 				'desc' => esc_html__( 'These settings apply any time you\'re viewing search results or posts specific to a category, tag, date, author, format, etc.', 'anva' ),
 				'class' => 'group-archives',
 				'options' => array(
@@ -557,14 +550,6 @@ class Anva_Options {
 							'show' => esc_attr__( 'Show the title', 'anva' ),
 							'hide' => esc_attr__( 'Hide title', 'anva' ),
 						),
-					),
-					'archive_page' => array(
-						'name' => esc_html__( 'Page Layout', 'anva' ),
-						'desc' => esc_html__( 'Select default layout for archive page.', 'anva' ),
-						'id' => 'archive_page',
-						'std' => 'blog',
-						'type' => 'select',
-						'options' => $template_defaults
 					),
 				)
 			),
@@ -632,8 +617,8 @@ class Anva_Options {
 						'std' => '10',
 						'type' => 'range',
 						'options' => array(
-							'min' => 1,
-							'max' => 19,
+							'min'  => 1,
+							'max'  => 19,
 							'step' => 1,
 						)
 					),

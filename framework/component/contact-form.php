@@ -135,8 +135,7 @@ $captcha        = anva_get_option( 'contact_captcha' );
 					endswitch;
 				endforeach;
 			else :
-				$name = anva_get_option_name();
-				printf( '<div class="alert alert-info">' . __( 'The contact fields are not defined, verified on the %s.', 'anva' ) . '</div>', sprintf( '<a href="' . esc_url( admin_url('/themes.php?page=' . $name ) ) . '">%s</>', __( 'theme options', 'anva' ) ) );
+				printf( '<div class="alert alert-info">' . __( 'The contact fields are not defined, verified on the %s.', 'anva' ) . '</div>', sprintf( '<a href="' . esc_url( admin_url('/themes.php?page=' . anva_get_option_name() ) ) . '">%s</>', __( 'theme options', 'anva' ) ) );
 			endif;
 		?>
 

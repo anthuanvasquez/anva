@@ -19,6 +19,13 @@ jQuery( document ).ready( function( $ ) {
             });
         },
 
+        showSpinner: function() {
+            $( '#anva-framework-submit .button-primary' ).on( 'click', function() {
+                $( this ).val( AnvaOptionsLocal.save_button );
+                $( this ).next( '.spinner' ).addClass( 'is-active' );
+            });
+        },
+
         resetSubmit: function() {
             $( document ).on( 'click', '.reset-button', function( e ) {
                 e.preventDefault();
@@ -44,7 +51,7 @@ jQuery( document ).ready( function( $ ) {
         },
 
         importSubmit: function() {
-            $( document ).on( 'click', '.import-button', function(e) {
+            $( document ).on( 'click', '.import-button', function( e ) {
                 e.preventDefault();
                 var form = $( this ).closest( 'form' );
 
@@ -130,12 +137,6 @@ jQuery( document ).ready( function( $ ) {
                 }, 100 );
             });
 
-            // Show spinner on submit form.
-            $( '#anva-framework-submit .button-primary' ).click( function() {
-                $( this ).val( AnvaOptionsLocal.save_button );
-                $( '#anva-framework-submit .spinner' ).addClass( 'is-active' );
-            });
-
             // Collapse sections.
             $( '.inner-group > h3' ).on( 'click', function( e ) {
                 e.preventDefault();
@@ -173,12 +174,12 @@ jQuery( document ).ready( function( $ ) {
             });
 
             // Hide admin notices
-            // var $error = $( '#anva-framework-wrap .settings-error' );
-            // if ( $error.length > 0 ) {
-            //  setTimeout( function() {
-            //      $error.fadeOut(500);
-            //  }, 3000);
-            // }
+            var error = $( '#anva-framework-wrap .settings-error' );
+            if ( error.length > 0 ) {
+                setTimeout( function() {
+                    error.fadeOut( 500 );
+                }, 3000 );
+            }
 
             if ( $( '.nav-tab-wrapper' ).length > 0 ) {
                 AnvaOptions.tabs();
@@ -212,7 +213,8 @@ jQuery( document ).ready( function( $ ) {
             navtabs.on( 'click', function( e ) {
                 e.preventDefault();
 
-                var $this = $( this );
+                var $this = $( this ),
+                    selected = $this.attr( 'href' );
 
                 // Remove active class from all tabs
                 navtabs.removeClass( 'nav-tab-active' );
@@ -222,8 +224,6 @@ jQuery( document ).ready( function( $ ) {
                 if ( typeof( localStorage ) !== 'undefined' ) {
                     localStorage.setItem( 'active_tab', $this.attr( 'href' ) );
                 }
-
-                var selected = $this.attr( 'href' );
 
                 // Editor height sometimes needs adjustment when unhidden
                 $( '.wp-editor-wrap' ).each( function() {

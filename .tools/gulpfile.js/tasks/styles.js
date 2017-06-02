@@ -5,7 +5,7 @@ var gulp          = require('gulp'),
     autoprefixer  = require('autoprefixer'),
     processors    = [autoprefixer(config.autoprefixer)],
     browsersync   = require('browser-sync'),
-    onError       = plugins.notify.onError("Error: <%= error.message %>")
+    onError       = plugins.notify.onError('Error: <%= error.message %>')
 ;
 
 // Lint SASS source files
@@ -29,7 +29,7 @@ gulp.task('css-lint', () => {
         }));
 });
 
-// Build SCSS source files from `theme`
+// Compile SCSS source files `theme`
 gulp.task('sass-theme', () => {
     return gulp.src(config.theme.src)
         .pipe(plugins.plumber({ errorHandler: onError }))
@@ -41,7 +41,6 @@ gulp.task('sass-theme', () => {
         .pipe(plugins.if(!gutil.env.debug, plugins.sass({
             outputStyle: 'expanded'
         })))
-        .pipe(plugins.sass(config.sass))
         .pipe(plugins.postcss(processors))
         .pipe(plugins.if(gutil.env.prod, plugins.cssnano(config.minify.options)))
         .pipe(plugins.if(config.sourcemaps, plugins.sourcemaps.write('./')))
@@ -50,7 +49,7 @@ gulp.task('sass-theme', () => {
         .pipe(plugins.logger({ afterEach: ' SASS Theme Compiled!' }));
 });
 
-// Build SCSS source files from `core`
+// Compile SCSS source files `core`
 gulp.task('sass-core', () => {
     return gulp.src(config.core.src)
         .pipe(plugins.plumber({ errorHandler: onError }))
@@ -70,7 +69,7 @@ gulp.task('sass-core', () => {
         .pipe(plugins.logger({ afterEach: ' SASS Core Compiled!' }));
 });
 
-// Build SCSS source files from `admin`
+// Compile SCSS source files `admin`
 gulp.task('sass-admin', () => {
     return gulp.src(config.admin.src)
         .pipe(plugins.plumber({ errorHandler: onError }))

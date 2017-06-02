@@ -22,83 +22,85 @@ $single_thumb = anva_get_option( 'single_thumb' );
  */
 do_action( 'anva_post_single_above' );
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+<div class="entry-wrap">
+	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<div class="entry-title">
-		<h2><?php the_title(); ?></h2>
-	</div><!-- .entry-title (end) -->
+		<div class="entry-title">
+			<h2><?php the_title(); ?></h2>
+		</div><!-- .entry-title (end) -->
 
-	<?php
-		/**
-		 * Hooked
-		 *
-		 * @see anva_post_meta_default
-		 */
-		do_action( 'anva_post_meta' );
-	?>
-
-	<?php if ( has_post_format( 'gallery' ) ) : ?>
-
-		<div class="entry-image entry-gallery">
-			<?php anva_gallery_content(); ?>
-		</div><!-- .entry-gallery (end) -->
-
-	<?php elseif ( has_post_format( 'video' ) ) : ?>
-
-		<div class="entry-image entry-video">
-			<?php anva_content_video(); ?>
-		</div><!-- .entry-video (end) -->
-
-	<?php elseif ( has_post_format( 'audio' ) ) : ?>
-
-		<div class="entry-image entry-audio">
-			<?php anva_content_audio(); ?>
-		</div><!-- .entry-audio (end) -->
-
-	<?php elseif ( has_post_format( 'quote' ) ) : ?>
-
-		<div class="entry-image entry-quote">
-			<?php anva_content_quote(); ?>
-		</div><!-- .entry-quote (end) -->
-
-	<?php else : ?>
-
-		<?php
-			if ( 'small' !== $single_thumb ) {
-				anva_the_post_thumbnail( $single_thumb );
-			}
-		?>
-
-	<?php endif; ?>
-
-	<div class="entry-content notopmargin">
-		<?php
-			if ( 'small' == $single_thumb ) {
-				anva_the_post_thumbnail( $single_thumb );
-			}
-
-			the_content();
-		?>
-	</div><!-- .entry-content (end) -->
-
-	<div class="entry-footer">
 		<?php
 			/**
 			 * Hooked
 			 *
-			 * @see anva_post_tags_default, anva_post_share_default
+			 * @see anva_post_meta_default
 			 */
-			do_action( 'anva_post_footer' );
+			do_action( 'anva_post_meta' );
 		?>
 
-		<?php wp_link_pages( array(
-			'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ',
-			'after'  => '</div><!-- .page-links (end) -->',
-		) ); ?>
+		<?php if ( has_post_format( 'gallery' ) ) : ?>
 
-		<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
-	</div><!-- .entry-footer (end) -->
-</article><!-- .entry (end) -->
+			<div class="entry-image entry-gallery">
+				<?php anva_gallery_content(); ?>
+			</div><!-- .entry-gallery (end) -->
+
+		<?php elseif ( has_post_format( 'video' ) ) : ?>
+
+			<div class="entry-image entry-video">
+				<?php anva_content_video(); ?>
+			</div><!-- .entry-video (end) -->
+
+		<?php elseif ( has_post_format( 'audio' ) ) : ?>
+
+			<div class="entry-image entry-audio">
+				<?php anva_content_audio(); ?>
+			</div><!-- .entry-audio (end) -->
+
+		<?php elseif ( has_post_format( 'quote' ) ) : ?>
+
+			<div class="entry-image entry-quote">
+				<?php anva_content_quote(); ?>
+			</div><!-- .entry-quote (end) -->
+
+		<?php else : ?>
+
+			<?php
+				if ( 'small' !== $single_thumb ) {
+					anva_the_post_thumbnail( $single_thumb );
+				}
+			?>
+
+		<?php endif; ?>
+
+		<div class="entry-content notopmargin">
+			<?php
+				if ( 'small' == $single_thumb ) {
+					anva_the_post_thumbnail( $single_thumb );
+				}
+
+				the_content();
+			?>
+		</div><!-- .entry-content (end) -->
+
+		<div class="entry-footer">
+			<?php
+				/**
+				 * Hooked
+				 *
+				 * @see anva_post_tags_default, anva_post_share_default
+				 */
+				do_action( 'anva_post_footer' );
+			?>
+
+			<?php wp_link_pages( array(
+				'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ',
+				'after'  => '</div><!-- .page-links (end) -->',
+			) ); ?>
+
+			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
+		</div><!-- .entry-footer (end) -->
+	</article><!-- .entry (end) -->
+</div><!-- .entry-wrap (end) -->
 
 <?php
 	/**

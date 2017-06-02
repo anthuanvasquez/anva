@@ -33,7 +33,12 @@ get_header();
 
 		<div id="posts" class="<?php anva_template_class( 'small' ); ?>">
 			<?php
-			$query = anva_get_posts();
+			$query_args = array(
+				'ignore_sticky_posts' => 1,
+			);
+
+			$query = anva_get_posts( $query_args );
+
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) : $query->the_post();
 					anva_get_template_part( 'post', 'content-small' );

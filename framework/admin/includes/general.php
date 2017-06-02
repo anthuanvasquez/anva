@@ -30,7 +30,7 @@ function anva_admin_init() {
  * @since 1.0.0
  */
 function anva_admin_menu_init() {
-	Anva_Nav_Menu_Options::get_instance();
+	Anva_Nav_Menu_Options::instance();
 }
 
 /**
