@@ -66,22 +66,40 @@ body.device-lg .post-reading-bar {
   left: 0;
   right: 0;
   margin: auto;
-  max-width: 600px;
   position: absolute;
-  width: 600px;
   z-index: 1001;
 }
 
-#instantsearch .entry-meta {
+#instantsearch.loading {
+  padding: 40px;
+}
+
+#instantsearch.loading:before {
+  content: "";
+  background-color: rgba(255, 255, 255, 0.8);
+  background-image: url("../images/preloader.gif");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 12;
+}
+
+#instantsearch .spost .entry-meta {
   margin: 5px 0 0;
 }
 
 #instantsearch .view-all {
-  background: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 15px 0;
 }
 
 #instantsearch .view-all a {
-  color: #fff;
+  color: #FFF;
   text-align: center;
 }
 
@@ -101,6 +119,10 @@ body.device-lg .post-reading-bar {
   margin: 0;
   padding: 10px 15px 10px 15px;
   width: 100%;
+}
+
+#instantsearch ul li:hover {
+  background-color: #F8F8F8;
 }
 
 #instantsearch ul li a {

@@ -84,14 +84,16 @@
                 url: AnvaThemeJS.ajaxUrl,
                 type: 'POST',
                 data: 'action=anva_ajax_search&s=' + searchElement.val(),
+                beforeSend: function() {
+                    instantSearch.addClass( 'loading' );
+                    instantSearch.html('');
+                },
                 success: function( results ) {
-                    instantSearch.html( results );
-
+                    instantSearch.removeClass( 'loading' );
                     if ( '' !== results ) {
+                        instantSearch.html( results );
                         instantSearch.addClass( 'nothidden' );
-                        instantSearch.show();
-                    } else {
-                        instantSearch.hide();
+                        instantSearch.removeClass( 'loading' );
                     }
                 }
             });

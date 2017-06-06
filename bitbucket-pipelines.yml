@@ -7,7 +7,7 @@ pipelines:
         - step:
             script:
                 - export SNIFFS_DIR=/sniffs
-                - export TOOLS_DIR=.tools
+                - export TOOLS_DIR=/.tools
     branches:
         develop:
             - step:

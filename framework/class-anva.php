@@ -287,7 +287,7 @@ class Anva {
 		/**
 		 * Front-End Hooks.
 		 */
-		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+		if ( ! is_admin() ) {
 
 			/**
 			 * WordPress Default Hooks.

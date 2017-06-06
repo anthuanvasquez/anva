@@ -32,17 +32,7 @@ get_header();
 		?>
 
 		<div id="posts" class="<?php anva_template_class( 'archive' ); ?>">
-			<?php
-			if ( have_posts() ) {
-				while ( have_posts() ) {
-					the_post();
-					anva_get_template_part( 'post', 'content' );
-				}
-				anva_num_pagination();
-			} else {
-				anva_get_template_part( 'post', 'content-none' );
-			}
-			?>
+			<?php anva_get_template_part( 'post', 'content-loop' ); ?>
 		</div><!-- #posts (end) -->
 
 		<?php

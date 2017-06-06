@@ -16,9 +16,9 @@ function anva_customizer_styles() {
  * @since  1.0.0
  */
 function anva_customizer_scripts() {
-	wp_register_script( 'anva_customizer', Anva::$framework_dir_uri . 'admin/assets/js/customizer.js', array( 'jquery' ), Anva::$version );
+	wp_register_script( 'anva_customizer', Anva::$framework_dir_uri . 'admin/assets/js/customizer.js', array( 'jquery' ), Anva::get_version() );
 	wp_enqueue_script( 'anva_customizer' );
-	wp_localize_script( 'anva_customizer', 'AnvaCustomizerJs', anva_get_admin_locals( 'customizer_js' ) );
+	wp_localize_script( 'anva_customizer', 'AnvaCustomizerLocal', anva_get_admin_locals( 'customizer_js' ) );
 }
 
 /**
@@ -37,7 +37,7 @@ function my_customize_preview_init() {
  * @since  1.0.0
  */
 function anva_customize_preview_enqueue_scripts() {
-	wp_enqueue_script( 'anva_customizer_preview', Anva::$framework_dir_uri . 'admin/assets/js/customizer-preview.js', array( 'customize-preview' ), Anva::$version, true );
+	wp_enqueue_script( 'anva_customizer_preview', Anva::$framework_dir_uri . 'admin/assets/js/customizer-preview.js', array( 'customize-preview' ), Anva::get_version(), true );
 	wp_localize_script( 'anva_customizer_preview', 'AnvaCustomizerPreview', anva_get_customizer_preview_locals() );
 }
 

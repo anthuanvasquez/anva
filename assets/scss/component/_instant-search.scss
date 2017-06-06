@@ -5,19 +5,40 @@
     left: 0;
     right: 0;
     margin: auto;
-    max-width: 600px;
     position: absolute;
-    width: 600px;
     z-index: 1001;
 
-    .entry-meta {
-        margin: 5px 0 0;
+    &.loading {
+        padding: 40px;
+
+        &:before {
+            content: "";
+            background-color: rgba(#FFF, 0.8);
+            background-image: url('../images/preloader.gif');
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 12;
+        }
+    }
+
+    .spost {
+        .entry-meta {
+            margin: 5px 0 0;
+        }
     }
 
     .view-all {
-        background: rgba(black, 0.4);
+        background-color: rgba(black, 0.4);
+        padding: 15px 0;
+
         a {
-            color: #fff;
+            color: #FFF;
             text-align: center;
         }
     }
@@ -37,6 +58,10 @@
             margin: 0;
             padding: 10px 15px 10px 15px;
             width: 100%;
+
+            &:hover {
+                background-color: #F8F8F8;
+            }
 
             a {
                 display: block;

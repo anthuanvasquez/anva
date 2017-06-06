@@ -24,23 +24,23 @@ get_header();
 
 	<div class="<?php anva_column_class( 'content' ); ?>">
 
-		<?php do_action( 'anva_post_content_before' ); ?>
+		<?php
+			/**
+			 * Before post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_before' );
+		?>
 
 		<div id="posts" class="<?php anva_template_class( 'index' ); ?>">
-			<?php
-			if ( have_posts() ) {
-				while ( have_posts() ) {
-					the_post();
-					anva_get_template_part( 'post', 'content' );
-				}
-				anva_single_pagination();
-			} else {
-				anva_get_template_part( 'post', 'content-none' );
-			}
-			?>
+			<?php anva_get_template_part( 'post', 'content-loop' ); ?>
 		</div><!-- #posts (end) -->
 
-		<?php do_action( 'anva_post_content_after' ); ?>
+		<?php
+			/**
+			 * After post content not hooked by default.
+			 */
+			do_action( 'anva_post_content_after' );
+		?>
 
 	</div><!-- .postcontent (end) -->
 
