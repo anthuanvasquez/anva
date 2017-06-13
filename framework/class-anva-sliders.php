@@ -211,41 +211,41 @@ class Anva_Sliders {
 				'type'		=> 'select',
 				'options'	=> array(
 					'true' 	=> 'Yes, enable thumbnails.',
-					'false'	=> 'No, disable thumbnails.'
+					'false'	=> 'No, disable thumbnails.',
 				),
-				'class'		=> 'slider-item standard hide'
+				'class'		=> 'slider-item standard hide',
 			),
 			'standard_grid' => array(
-				'id'			=> 'standard_grid',
-				'name'		=> __( 'Thumbnails Grid', 'anva' ),
-				'desc'		=> __( 'The columns grid for display the thumbnails.', 'anva' ),
-				'std'			=> 'grid-6',
-				'type'		=> 'select',
-				'options'	=> array(
-					'grid-3' 	=> 'Grid 3',
-					'grid-5' 	=> 'Grid 5',
-					'grid-6' 	=> 'Grid 6',
-					'grid-8' 	=> 'Grid 8',
+				'id'		  => 'standard_grid',
+				'name'		  => __( 'Thumbnails Grid', 'anva' ),
+				'desc'		  => __( 'The columns grid for display the thumbnails.', 'anva' ),
+				'std'		  => 'grid-6',
+				'type'		  => 'select',
+				'options'	  => array(
+					'grid-3'  => 'Grid 3',
+					'grid-5'  => 'Grid 5',
+					'grid-6'  => 'Grid 6',
+					'grid-8'  => 'Grid 8',
 					'grid-10' => 'Grid 10',
-					'grid-12'	=> 'Grid 12',
+					'grid-12' => 'Grid 12',
 				),
-				'class'		=> 'slider-item standard hide'
+				'class'		=> 'slider-item standard hide',
 			),
 			'standard_pause' => array(
-				'id'			=> 'standard_pause',
-				'name'		=> __( 'Pause', 'anva' ),
-				'desc'		=> __( 'Enter the time duration for slider pause.', 'anva' ),
-				'std'			=> 7000,
-				'type'		=> 'number',
-				'class'		=> 'slider-item standard hide'
+				'id'    => 'standard_pause',
+				'name'  => __( 'Pause', 'anva' ),
+				'desc'  => __( 'Enter the time duration for slider pause.', 'anva' ),
+				'std'   => 7000,
+				'type'  => 'number',
+				'class' => 'slider-item standard hide',
 			),
 			'standard_speed' => array(
-				'id'			=> 'standard_speed',
-				'name'		=> __( 'Speed', 'anva' ),
-				'desc'		=> __( 'Enter speed for slides.', 'anva' ),
-				'std'			=> 1000,
-				'type'		=> 'number',
-				'class'		=> 'slider-item standard hide'
+				'id'    => 'standard_speed',
+				'name'  => __( 'Speed', 'anva' ),
+				'desc'  => __( 'Enter speed for slides.', 'anva' ),
+				'std'   => 1000,
+				'type'  => 'number',
+				'class' => 'slider-item standard hide'
 			),
 			'standard_arrows' => array(
 				'id'			=> 'standard_arrows',

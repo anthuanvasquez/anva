@@ -1,8 +1,5 @@
 <?php
 
-add_action( 'wp_ajax_anva_ajax_search', 'anva_ajax_search' );
-add_action( 'wp_ajax_nopriv_anva_ajax_search', 'anva_ajax_search' );
-
 /**
  * Ajax Search Auto Complete.
  *

@@ -29,6 +29,6 @@ gulp.task('fonts', () => {
 // Copy files from the `build` folder to `dist/[project-version]`
 gulp.task('dist', ['clean'], () => {
     return gulp.src(config.dist.src)
-    .pipe(plugins.zip(config.dist.name))
-    .pipe(gulp.dest(config.dist.dest));
+        .pipe(plugins.zip(config.dist.name))
+        .pipe(gulp.dest(config.dist.dest));
 });

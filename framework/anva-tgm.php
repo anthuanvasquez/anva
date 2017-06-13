@@ -31,6 +31,9 @@ function anva_plugins() {
  */
 function anva_register_required_plugins() {
 
+	// Get option name.
+	$name = anva_get_option_name() . '_plugins';
+
 	// Required Plugins.
 	$plugins = array(
 		array(
@@ -48,7 +51,7 @@ function anva_register_required_plugins() {
 			'name'               => 'Anva Shortcodes Pack',
 			'slug'               => 'anva-shortcodes-pack',
 			'source'             => ANVA_FRAMEWORK_ADMIN . '/plugins/packages/anva-shortcodes-pack.zip',
-			'required'           => false,
+			'required'           => true,
 			'version'            => '1.0.0',
 			'force_activation'   => false,
 			'force_deactivation' => false,
@@ -68,11 +71,9 @@ function anva_register_required_plugins() {
 		),
 	);
 
-	$name = anva_get_option_name() . '_plugins';
-
 	// Plugins Config.
 	$config = array(
-		'id'             => 'anva',   // Unique ID for hashing notices for multiple instances of TGMPA.
+		'id'             => $name,    // Unique ID for hashing notices for multiple instances of TGMPA.
 		'default_path'   => '',       // Default absolute path to bundled plugins.
 		'menu'           => $name,    // Menu slug.
 		'has_notices'    => true,     // Show admin notices or not.

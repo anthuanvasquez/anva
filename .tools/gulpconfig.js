@@ -304,7 +304,10 @@ module.exports = {
         },
         php: {
             src: [src + '**/*.php', ignoreTools, ignoreVendor],
-            dest: build
+            dest: build,
+            lint: {
+                ignore: [ignoreTools, ignoreVendor]
+            }
         },
         readme: {
             src: src + 'readme.md',

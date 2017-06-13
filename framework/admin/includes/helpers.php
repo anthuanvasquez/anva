@@ -69,18 +69,6 @@ function anva_get_options_page_menu() {
 }
 
 /**
- * Register a new meta box.
- *
- * @param string $id      The meabox id.
- * @param array  $args    The metabox page arguments.
- * @param array  $options The metabox fileds options.
- * @since 1.0.0
- */
-function anva_add_meta_box( $id, $args, $options ) {
-	new Anva_Page_Meta_Box( $id, $args, $options );
-}
-
-/**
  * Converts a PHP version to 3-part.
  *
  * @since  1.0.0

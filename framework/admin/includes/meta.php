@@ -22,18 +22,18 @@ function anva_add_meta_boxes_default() {
 	$content_builder = anva_setup_content_builder_meta();
 
 	// Setup metaboxes.
-	anva_add_meta_box( $layout['args']['id'], $layout['args'], $layout['options'] );
-	anva_add_meta_box( $page['args']['id'], $page['args'], $page['options'] );
-	anva_add_meta_box( $page_template['args']['id'], $page_template['args'], $page_template['options'] );
-	anva_add_meta_box( $post['args']['id'], $post['args'], $post['options'] );
-	anva_add_meta_box( $post_format['args']['id'], $post_format['args'], $post_format['options'] );
-	anva_add_meta_box( $gallery['args']['id'], $gallery['args'], $gallery['options'] );
-	anva_add_meta_box( $portfolio['args']['id'], $portfolio['args'], $portfolio['options'] );
-	anva_add_meta_box( $portfolio_media['args']['id'], $portfolio_media['args'], $portfolio_media['options'] );
-	anva_add_meta_box( $slideshow['args']['id'], $slideshow['args'], $slideshow['options'] );
+	new Anva_Page_Meta_Box( $layout['args']['id'], $layout['args'], $layout['options'] );
+	new Anva_Page_Meta_Box( $page['args']['id'], $page['args'], $page['options'] );
+	new Anva_Page_Meta_Box( $page_template['args']['id'], $page_template['args'], $page_template['options'] );
+	new Anva_Page_Meta_Box( $post['args']['id'], $post['args'], $post['options'] );
+	new Anva_Page_Meta_Box( $post_format['args']['id'], $post_format['args'], $post_format['options'] );
+	new Anva_Page_Meta_Box( $gallery['args']['id'], $gallery['args'], $gallery['options'] );
+	new Anva_Page_Meta_Box( $portfolio['args']['id'], $portfolio['args'], $portfolio['options'] );
+	new Anva_Page_Meta_Box( $slideshow['args']['id'], $slideshow['args'], $slideshow['options'] );
 
 	// Setup advanced metaboxes.
 	new Anva_Page_Meta_Gallery( $gallery_media['args']['id'], $gallery_media['args'] );
+	new Anva_Page_Meta_Gallery( $portfolio_media['args']['id'], $portfolio_media['args'], $portfolio_media['options'] );
 	new Anva_Page_Meta_Builder( $content_builder['args']['id'], $content_builder['args'], $content_builder['options'] );
 
 }
@@ -59,7 +59,7 @@ function anva_setup_layout_meta() {
 			'title'    => esc_html__( 'Layout Options', 'anva' ),
 			'page'     => array( 'post', 'page', 'portfolio' ),
 			'context'  => 'side',
-			'priority' => 'normal',
+			'priority' => 'default',
 			'desc'     => esc_html__( 'This is the default placeholder for sidebar layout options.', 'anva' ),
 			'prefix'   => '_anva_',
 		),
@@ -113,7 +113,7 @@ function anva_setup_post_meta() {
 			'title'    => esc_html__( 'Post Options', 'anva' ),
 			'page'     => array( 'post' ),
 			'context'  => 'normal',
-			'priority' => 'normal',
+			'priority' => 'default',
 			'desc'     => esc_html__( 'This is the default placeholder for post options.', 'anva' ),
 			'prefix'   => '_anva_',
 		),
@@ -214,7 +214,7 @@ function anva_setup_post_format_meta() {
 			'title'    => esc_html__( 'Post Format Options', 'anva' ),
 			'page'     => array( 'post' ),
 			'context'  => 'side',
-			'priority' => 'normal',
+			'priority' => 'default',
 			'desc'     => esc_html__( 'This is the default placeholder for post format options.', 'anva' ),
 			'prefix'   => '_anva_',
 		),
@@ -277,7 +277,7 @@ function anva_setup_page_meta() {
 			'title' 		=> esc_html__( 'Page Options', 'anva' ),
 			'page'			=> array( 'page' ),
 			'context' 		=> 'normal',
-			'priority'		=> 'normal',
+			'priority'		=> 'default',
 			'desc'			=> esc_html__( 'This is the default placeholder for page options.', 'anva' ),
 			'prefix'		=> '_anva_',
 		),
@@ -472,7 +472,7 @@ function anva_setup_page_template_meta() {
 			'title'         => esc_html__( 'Page Template Options', 'anva' ),
 			'page'          => array( 'page' ),
 			'context'       => 'side',
-			'priority'      => 'normal',
+			'priority'      => 'default',
 			'desc'          => esc_html__( 'This is the default placeholder for page options.', 'anva' ),
 			'prefix'        => '_anva_',
 		),
@@ -512,7 +512,7 @@ function anva_setup_gallery_meta() {
 			'title' 	        => esc_html__( 'Gallery Options', 'anva' ),
 			'page'		        => array( 'galleries' ),
 			'context' 	        => 'normal',
-			'priority'	        => 'normal',
+			'priority'	        => 'default',
 			'desc'		        => esc_html__( 'This is the default placeholder for gallery options.', 'anva' ),
 			'prefix'	        => '_anva_',
 		),
@@ -570,7 +570,7 @@ function anva_setup_portfolio_meta() {
 			'title'         => esc_html__( 'Portfolio Options', 'anva' ),
 			'page'          => array( 'portfolio' ),
 			'context'       => 'normal',
-			'priority'      => 'normal',
+			'priority'      => 'default',
 			'desc'          => esc_html__( 'This is the default placeholder for portfolio options.', 'anva' ),
 			'prefix'        => '_anva_',
 		),
@@ -633,8 +633,8 @@ function anva_setup_portfolio_media_meta() {
 			'id'            => 'anva_portfolio_media',
 			'title'         => esc_html__( 'Portfolio Media', 'anva' ),
 			'page'          => array( 'portfolio' ),
-			'context'       => 'normal',
-			'priority'      => 'normal',
+			'context'       => 'advanced',
+			'priority'      => 'default',
 			'desc'          =>esc_html__( 'Portfolio Media', 'anva' ),
 			'prefix'        => '_anva_',
 		),
@@ -748,7 +748,7 @@ function anva_setup_slideshow_meta() {
 			'title'    => esc_html__( 'Slide Options', 'anva' ),
 			'page'     => array( 'slideshows' ),
 			'context'  => 'normal',
-			'priority' => 'normal',
+			'priority' => 'default',
 		),
 		'options'      => $slider_fields
 	);
@@ -769,8 +769,8 @@ function anva_setup_gallery_media_meta() {
 			'id'       => '_anva_gallery_media',
 			'title'    => esc_html__( 'Gallery', 'anva' ),
 			'page'     => array( 'galleries', 'portfolio' ), // Use gallery in portfolio?
-			'context'  => 'normal',
-			'priority' => 'normal'
+			'context'  => 'advanced',
+			'priority' => 'default'
 		)
 	);
 
@@ -790,8 +790,8 @@ function anva_setup_content_builder_meta() {
 			'id'       => '_anva_builder_options',
 			'title'    => esc_html__( 'Content Builder', 'anva' ),
 			'page'     => array( 'page' ),
-			'context'  => 'normal',
-			'priority' => 'high',
+			'context'  => 'advanced',
+			'priority' => 'default',
 		),
 		'options'	   => anva_get_elements(),
 	);

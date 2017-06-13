@@ -22,7 +22,6 @@ function anva_page_menu_args( $args ) {
  *
  * @since 1.0.0
  * @param string $location
- * @param array  $args
  */
 function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 
@@ -376,9 +375,10 @@ function anva_get_header_class( $class = '' ) {
 	$classes = array();
 
 	if ( ! empty( $class ) ) {
-		if ( ! is_array( $class ) )
+		if ( ! is_array( $class ) )  {
 			$class = preg_split( '#\s+#', $class );
 			$classes = array_merge( $classes, $class );
+		}
 	} else {
 		// Ensure that we always coerce class to being an array.
 		$class = array();
@@ -388,8 +388,9 @@ function anva_get_header_class( $class = '' ) {
 
 	// Filter the header class.
 	$classes = apply_filters( 'anva_header_class', $classes, $class );
+	$classes = array_unique( $classes );
 
-	return array_unique( $classes );
+	return join( ' ', $classes );
 }
 
 /**
@@ -551,13 +552,14 @@ function anva_wp_title( $title, $sep ) {
 }
 
 /**
- * Print page transition data.
+ * Gets page transition data.
  *
  * @return string $data
  */
-function anva_page_transition_data() {
+function anva_get_page_transition() {
 
-	// Get loader data
+	// Get loader data.
+	$data          = '';
 	$loader        = anva_get_option( 'page_loader', 1 );
 	$color         = anva_get_option( 'page_loader_color' );
 	$timeout       = anva_get_option( 'page_loader_timeout', 1000 );
@@ -565,24 +567,23 @@ function anva_page_transition_data() {
 	$speed_out     = anva_get_option( 'page_loader_speed_out', 800 );
 	$animation_in  = anva_get_option( 'page_loader_animation_in', 'fadeIn' );
 	$animation_out = anva_get_option( 'page_loader_animation_out', 'fadeOut' );
-	$html          = anva_get_option( 'page_loader_html' );
-	$data          = '';
+	$html          = anva_get_option( 'page_loader_html', '' );
 
 	if ( $loader ) {
-		$data .= ' data-loader="' . esc_attr( $loader ) . '"';
-		$data .= ' data-loader-color="' . esc_attr( $color ) . '"';
-		$data .= ' data-loader-timeout="' . esc_attr( $timeout ) . '"';
-		$data .= ' data-speed-in="' . esc_attr( $speed_in ) . '"';
-		$data .= ' data-speed-out="' . esc_attr( $speed_out ) . '"';
-		$data .= ' data-animation-in="' . esc_attr( $animation_in ) . '"';
-		$data .= ' data-animation-out="' . esc_attr( $animation_out ) . '"';
+		$data['loader']         = esc_attr( $loader );
+		$data['loader-color']   = esc_attr( $color );
+		$data['loader-timeout'] = esc_attr( $timeout );
+		$data['speed-in']       = esc_attr( $speed_in );
+		$data['speed-out']      = esc_attr( $speed_out );
+		$data['animation-in']   = esc_attr( $animation_in );
+		$data['animation-out']  = esc_attr( $animation_out );
 
 		if ( $html ) {
-			$data .= ' data-loader-html="' . $html . '"';
+			$data['loader-html'] = anva_kses( $html );
 		}
 	}
 
-	echo $data;
+	return $data;
 }
 
 /**
@@ -1350,7 +1351,7 @@ function anva_get_template_part( $slug = 'post', $name = 'content' ) {
 }
 
 /**
- * Insert a key in array.
+ * Insert a key into array.
  *
  * @param  array   $array
  * @param  string  $search_key

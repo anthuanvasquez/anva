@@ -21,16 +21,12 @@ function anva_the_page_title() {
  */
 function anva_get_page_title() {
 
-	/* --------------------------------------- */
-	/* Home
-	/* --------------------------------------- */
+	/* Home */
 
 	if ( is_home() ) :
 		$title = esc_html__( 'Blog', 'anva' );
 
-	/* --------------------------------------- */
-	/* Single Pages
-	/* --------------------------------------- */
+	/* Single Pages */
 
 	elseif ( is_singular( 'post' ) ) :
 		$title = esc_html__( 'Blog', 'anva' );
@@ -47,9 +43,7 @@ function anva_get_page_title() {
 	elseif ( is_attachment() ) :
 		$title = esc_html__( 'Attachment', 'anva' );
 
-	/* --------------------------------------- */
-	/* Archive Pages
-	/* --------------------------------------- */
+	/* Archive Pages */
 
 	elseif ( is_category() ) :
 		$title = sprintf( '%s <span class="page-title-tagline">%s</span>', anva_get_local( 'category' ), single_cat_title( '', false ) );
@@ -69,9 +63,7 @@ function anva_get_page_title() {
 	elseif ( is_day() ) :
 		$title = sprintf( '%s <span class="page-title-tagline">%s</span>', anva_get_local( 'day' ), get_the_date() );
 
-	/* --------------------------------------- */
-	/* Post Format Archives
-	/* --------------------------------------- */
+	/* Post Format Archives */
 
 	elseif ( is_tax( 'post_format' ) ) :
 
@@ -104,38 +96,29 @@ function anva_get_page_title() {
 		endif;
 
 
-	/* --------------------------------------- */
-	/* Post Type Archives
-	/* --------------------------------------- */
+	/* Post Type Archives */
 
 	elseif ( is_post_type_archive() ) :
 		$title = sprintf( '%s <span>%s</span>', anva_get_local( 'archives' ), post_type_archive_title( '', false ) );
 
-	/* --------------------------------------- */
-	/* Taxonomies Archives
-	/* --------------------------------------- */
+	/* Taxonomies Archives */
 
 	elseif ( is_tax() ) :
 		$tax = get_taxonomy( get_queried_object()->taxonomy );
 		$title = sprintf( '%s <span>%s</span>', $tax->labels->singular_name, single_term_title( '', false ) );
 
-	/* --------------------------------------- */
-	/* Search
-	/* --------------------------------------- */
+	/* Search */
 
 	elseif ( is_search() ) :
 		$title = sprintf( '%s <span>%s</span>', __( 'Search results for', 'anva' ), get_search_query() );
 
-	/* --------------------------------------- */
-	/* 404 Error
-	/* --------------------------------------- */
+	/* 404 Error */
 
 	elseif ( is_404() ) :
 		$title = anva_get_local( '404_title' );
 
-	/* --------------------------------------- */
-	/* Default Archives
-	/* --------------------------------------- */
+	/* Default Archives */
+
 	else :
 		$title = anva_get_local( 'archives' );
 	endif;
@@ -561,31 +544,33 @@ function anva_site_branding() {
 	$option             = anva_get_option( 'custom_logo' );
 	$name               = get_bloginfo( 'name' );
 	$classes            = array();
+	$classes[]          = 'site-branding';
 	$classes[]          = 'logo-' . $option['type'];
+	$attrs              = array();
 
-	if ( $option['type'] == 'custom' || $option['type'] == 'title' || $option['type'] == 'title_tagline' ) {
+	if ( $option['type'] === 'custom' || $option['type'] === 'title' || $option['type'] === 'title_tagline' ) {
 		$classes[] = 'logo-text';
 	}
 
-	if ( $option['type'] == 'custom' && ! empty( $option['custom_tagline'] ) ) {
+	if ( $option['type'] === 'custom' && ! empty( $option['custom_tagline'] ) ) {
 		$classes[] = 'logo-has-tagline';
 	}
 
-	if ( $option['type'] == 'title_tagline' ) {
+	if ( $option['type'] === 'title_tagline' ) {
 		$classes[] = 'logo-has-tagline';
 	}
 
-	if ( $option['type'] == 'image' ) {
+	if ( $option['type'] === 'image' ) {
 		$classes[] = 'logo-has-image';
 	}
 
-	if ( $primary_menu_style == 'style_9' ) {
+	if ( $primary_menu_style === 'style_9' ) {
 		$classes[] = 'divcenter';
 	}
 
-	$classes = implode( ' ', $classes );
+	$attrs['class'] = implode( ' ', $classes );
 
-	echo '<div id="logo" class="' . esc_attr( $classes ) . '">';
+	echo '<div ' . anva_get_attr( 'branding', $attrs ) . '>';
 
 	if ( ! empty( $option['type'] ) ) {
 		switch ( $option['type'] ) {
@@ -645,8 +630,8 @@ function anva_site_branding() {
 					$logo_2x
 				);
 				break;
-		}
-	}
+		} // End switch().
+	} // End if().
 
 	echo '</div><!-- #logo (end) -->';
 }
@@ -729,6 +714,20 @@ function anva_single_pagination( $query = '' ) {
 }
 
 /**
+ * Print blog post number pagination.
+ *
+ * @global $paged
+ * @global $wp_query
+ *
+ * @since  1.0.0
+ * @param  string  $pages
+ * @param  integer $range
+ */
+function anva_num_pagination( $pages = '', $range = 2 ) {
+	echo anva_get_num_pagination( $pages, $range );
+}
+
+/**
  * Blog post number pagination.
  *
  * @global $paged
@@ -737,45 +736,60 @@ function anva_single_pagination( $query = '' ) {
  * @param  string  $pages
  * @param  integer $range
  */
-function anva_num_pagination( $pages = '', $range = 2 ) {
+function anva_get_num_pagination( $pages = '', $range = 2 ) {
 
 	$showitems = ( $range * 2) + 1;
 
 	global $paged;
 
-	if ( empty( $paged ) ) $paged = 1;
+	if ( empty( $paged ) ) {
+		$paged = 1;
+	}
 
 	if ( $pages == '' ) {
+
 		global $wp_query;
+
 		$pages = $wp_query->max_num_pages;
+
 		if ( ! $pages ) {
 			$pages = 1;
 		}
 	}
 
+	$output = '';
+
 	if ( 1 != $pages ) {
-		echo "<nav id='pagination'>";
-		echo "<ul class='pagination clearfix'>";
-			if ( $paged > 2 && $paged > $range + 1 && $showitems < $pages )
-				echo "<li><a href='".get_pagenum_link(1)."'>&laquo;</a></li>";
+		$output .= "<nav id='pagination'>";
+		$output .= "<ul class='pagination clearfix'>";
 
-			if ( $paged > 1 && $showitems < $pages )
-				echo "<li><a href='".get_pagenum_link($paged - 1)."'>&lsaquo;</a></li>";
+		if ( $paged > 2 && $paged > $range + 1 && $showitems < $pages ) {
+			$output .= "<li><a href='" . get_pagenum_link( 1 ) . "'>&laquo;</a></li>";
+		}
 
-			for ( $i = 1; $i <= $pages; $i++ ) {
-				if ( 1 != $pages &&( !($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems ) ) {
-					echo ($paged == $i) ? "<li class='active'><a href='#'>".$i."<span class='sr-only'>(current)</span></a></li>" : "<li><a href='".get_pagenum_link( $i )."'>".$i."</a></li>";
-				}
+		if ( $paged > 1 && $showitems < $pages ) {
+			$output .= "<li><a href='" . get_pagenum_link( $paged - 1 ) . "'>&lsaquo;</a></li>";
+		}
+
+		for ( $i = 1; $i <= $pages; $i++ ) {
+			if ( 1 != $pages &&( !($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems ) ) {
+				$output .= ($paged == $i) ? "<li class='active'><a href='#'>" . $i . "<span class='sr-only'>(current)</span></a></li>" : "<li><a href='" . get_pagenum_link( $i ) . "'>" . $i . "</a></li>";
 			}
+		}
 
-			if ( $paged < $pages && $showitems < $pages )
-				echo "<li><a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a></li>";
+		if ( $paged < $pages && $showitems < $pages ) {
+			$output .= "<li><a href='" . get_pagenum_link( $paged + 1 ) . "'>&rsaquo;</a></li>";
+		}
 
-			if ( $paged < $pages - 1 &&  $paged+$range - 1 < $pages && $showitems < $pages )
-				echo "<li><a href='".get_pagenum_link( $pages )."'>&raquo;</a></li>";
-		echo "</ul>\n";
-		echo "</nav>";
+		if ( $paged < $pages - 1 &&  $paged+$range - 1 < $pages && $showitems < $pages ) {
+			$output .= "<li><a href='" . get_pagenum_link( $pages ) . "'>&raquo;</a></li>";
+		}
+
+		$output .= "</ul>\n";
+		$output .= "</nav>";
 	}
+
+	return apply_filters( 'anva_num_pagination_html', $output );
 }
 
 /**

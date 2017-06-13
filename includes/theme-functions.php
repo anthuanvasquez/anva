@@ -18,7 +18,7 @@ define( 'ANVA_THEME_VERSION', anva_get_theme( 'version' ) );
 require_once( get_template_directory() . '/includes/customizer.php' );
 
 // Modify framework's core options.
-require_once( get_template_directory() . '/includes/options.php' );
+require_once( get_template_directory() . '/includes/theme-options.php' );
 
 /**
  * Post types to be used in the theme.

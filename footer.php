@@ -39,15 +39,20 @@
 		do_action( 'anva_footer_above' );
 
 		$footer_color = anva_get_option( 'footer_color', 'dark' );
-		$class        = '';
+		$classes = array();
+		$attrs   = array();
+
+		$classes[] = 'site-footer';
 
 		if ( $footer_color ) {
-			$class = 'class="footer ' . esc_attr( $footer_color ) . '"';
+			$classes[] = $footer_color;
 		}
+
+		$attrs['class'] = implode( ' ', $classes );
 	?>
 
 	<!-- FOOTER (start) -->
-	<footer id="footer" <?php echo $class; ?>>
+	<footer <?php anva_attr( 'footer', $attrs ); ?>>
 
 		<div class="container clearfix">
 			<?php

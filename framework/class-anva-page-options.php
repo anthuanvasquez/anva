@@ -309,7 +309,14 @@ class Anva_Page_Options {
 										</span>
 									</h3>
 									<div class="inside">
-										<?php anva_admin_settings_last_save(); ?>
+										<?php
+											/**
+											 * Hooked
+											 *
+											 * @see anva_admin_settings_last_save, anva_admin_settings_changed
+											 */
+											do_action( 'anva_page_options_actions' );
+										?>
 										<div class="actions">
 											<input type="submit" class="button button-primary update-button" name="update" value="<?php esc_attr_e( 'Save Options', 'anva' ); ?>" />
 											<span class="spinner"></span>

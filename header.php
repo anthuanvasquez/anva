@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-<head>
+<head <?php anva_attr( 'head' ); ?>>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<?php
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 </head>
 
-<body <?php body_class(); ?> <?php anva_page_transition_data(); ?>>
+<body <?php anva_attr( 'body' ); ?>>
 
 <?php
 	/**
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <!-- WRAPPER (start) -->
-<div id="wrapper" class="clearfix">
+<div <?php anva_attr( 'wrapper' ); ?>>
 
 	<?php
 		/**
@@ -68,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 
 	<!-- HEADER (start) -->
-	<header id="header" <?php anva_header_class( 'header' ); ?>>
+	<header <?php anva_attr( 'header' ); ?>>
 		<?php
 			/**
 			 * Hooked.
@@ -120,7 +120,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 
 	<!-- CONTENT (start) -->
-	<section id="content">
+	<section <?php anva_attr( 'content' ); ?>>
 		<div class="content-wrap">
 			<?php
 				/**

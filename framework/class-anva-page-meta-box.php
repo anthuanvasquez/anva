@@ -48,14 +48,6 @@ class Anva_Page_Meta_Box {
 	private $prefix = '_anva_';
 
 	/**
-	 * Formatted options array.
-	 *
-	 * @since 1.0.0
-	 * @var   array
-	 */
-	private $formatted_options;
-
-	/**
 	 * Constructor Hook in meta box to start the process.
 	 *
 	 * @since 1.0.0

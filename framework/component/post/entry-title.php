@@ -16,9 +16,9 @@
  */
 
 ?>
-<div id="entry-title-<?php the_ID(); ?>" class="entry-title">
+<div <?php anva_attr( 'entry-title' ); ?>>
 	<h2 class="entry-title-heading">
-		<a class="entry-title-link" href="<?php the_permalink(); ?>">
+		<a <?php anva_attr( 'entry-title-link' ); ?>>
 			<?php the_title(); ?>
 		</a>
 	</h2>

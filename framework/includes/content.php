@@ -1,8 +1,5 @@
 <?php
 
-add_action( 'wp_ajax_anva_blog_posts_filter', 'anva_blog_posts_filter' );
-add_action( 'wp_ajax_nopriv_anva_blog_posts_filter', 'anva_blog_posts_filter' );
-
 /**
  * Blog posts filter by categories.
  *
@@ -30,7 +27,7 @@ function anva_blog_posts_filter() {
 		'numberposts' => $items,
 	);
 
-	if ( isset( $_POST['cat'] ) && ! empty( $_POST['cat'] ) &&  'all' !== $_POST['cat'] ) {
+	if ( isset( $_POST['cat'] ) && ! empty( $_POST['cat'] ) && 'all' !== $_POST['cat'] ) {
 		$args['category_name'] = $_POST['cat'];
 	}
 

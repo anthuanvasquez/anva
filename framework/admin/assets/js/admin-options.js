@@ -7,6 +7,7 @@ jQuery( document ).ready( function( $ ) {
 
         init: function() {
             AnvaOptions.settingsChange();
+            AnvaOptions.showSpinner();
             AnvaOptions.resetSubmit();
             AnvaOptions.importSubmit();
             AnvaOptions.extras();
@@ -20,7 +21,7 @@ jQuery( document ).ready( function( $ ) {
         },
 
         showSpinner: function() {
-            $( '#anva-framework-submit .button-primary' ).on( 'click', function() {
+            $( '#anva-framework-submit .update-button' ).on( 'click', function() {
                 $( this ).val( AnvaOptionsLocal.save_button );
                 $( this ).next( '.spinner' ).addClass( 'is-active' );
             });

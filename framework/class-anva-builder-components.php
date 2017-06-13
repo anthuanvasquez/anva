@@ -107,7 +107,7 @@ class Anva_Builder_Components {
 		$gallery_posts  = get_posts( $galleries_args );
 
 		if ( count( $gallery_posts ) > 0 ) {
-			$galleries[''] = __( 'Select a Gallery', 'anva' );
+			$galleries[''] = esc_html__( 'Select a Gallery', 'anva' );
 			foreach ( $gallery_posts as $gallery ) {
 				$galleries[ $gallery->ID ] = $gallery->post_title;
 			}
@@ -133,8 +133,8 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['divider'] = array(
-			'name'    => __( 'Divider', 'anva' ),
-			'desc'    => __( 'Separate sections with page break.', 'anva' ),
+			'name'    => esc_html__( 'Divider', 'anva' ),
+			'desc'    => esc_html__( 'Separate sections with page break.', 'anva' ),
 			'icon'    => $image_path . 'divider.png',
 			'content' => false,
 			'attr'    => array(),
@@ -145,28 +145,28 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['header_text'] = array(
-			'name'    => __( 'Header', 'anva' ),
-			'desc'    => __( 'Create a header with some nice text.', 'anva' ),
+			'name'    => esc_html__( 'Header', 'anva' ),
+			'desc'    => esc_html__( 'Create a header with some nice text.', 'anva' ),
 			'icon'    => $image_path . 'header.png',
 			'content' => true,
 			'attr'    => array(
 				'slug' => array(
-					'name' => __( 'Slug (Optional)', 'anva' ),
-					'desc' => __( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 					'id'   => 'slug',
 					'std'  => '',
 					'type' => 'text',
 				),
 				'subtitle' => array(
-					'name' => __( 'Sub Title (Optional)', 'anva' ),
-					'desc' => __( 'Enter short description for this header', 'anva' ),
+					'name' => esc_html__( 'Sub Title (Optional)', 'anva' ),
+					'desc' => esc_html__( 'Enter short description for this header', 'anva' ),
 					'id'   => 'subtitle',
 					'std'  => '',
 					'type' => 'text',
 				),
 				'width' => array(
-					'name'    => __( 'Content Width', 'anva' ),
-					'desc'    => __( 'Select width in percentage for this content', 'anva' ),
+					'name'    => esc_html__( 'Content Width', 'anva' ),
+					'desc'    => esc_html__( 'Select width in percentage for this content', 'anva' ),
 					'id'      => 'width',
 					'std'     => '100%',
 					'type'    => 'select',
@@ -180,8 +180,8 @@ class Anva_Builder_Components {
 					),
 				),
 				'padding' => array(
-					'name'    => __( 'Content Padding', 'anva' ),
-					'desc'    => __( 'Select padding top and bottom value for this header block.', 'anva' ),
+					'name'    => esc_html__( 'Content Padding', 'anva' ),
+					'desc'    => esc_html__( 'Select padding top and bottom value for this header block.', 'anva' ),
 					'type'    => 'range',
 					'id'      => 'padding',
 					'std'     => 30,
@@ -193,22 +193,22 @@ class Anva_Builder_Components {
 					),
 				),
 				'bgcolor' => array(
-					'name' => __( 'Background Color', 'anva' ),
-					'desc' => __( 'Select background color for this this block.', 'anva' ),
+					'name' => esc_html__( 'Background Color', 'anva' ),
+					'desc' => esc_html__( 'Select background color for this this block.', 'anva' ),
 					'id'   => 'bgcolor',
 					'std'  => '#f9f9f9',
 					'type' => 'color',
 				),
 				'fontcolor' => array(
-					'name' => __( 'Text Color', 'anva' ),
-					'desc' => __( 'Select font color for content on this block.', 'anva' ),
+					'name' => esc_html__( 'Text Color', 'anva' ),
+					'desc' => esc_html__( 'Select font color for content on this block.', 'anva' ),
 					'id'   => 'fontcolor',
 					'std'  => '#444444',
 					'type' => 'color',
 				),
 				'custom_css' => array(
-					'name' => __( 'Custom CSS', 'anva' ),
-					'desc' => __( 'You can add custom CSS style for this block (advanced user only).', 'anva' ),
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only).', 'anva' ),
 					'id'   => 'custom_css',
 					'std'  => '',
 					'type' => 'code',
@@ -221,66 +221,66 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['header_image'] = array(
-			'name' =>  'Header With Background Image',
+			'name' => esc_html__( 'Header With Background Image', 'anva' ),
 			'icon' => $image_path . 'header_image.png',
 			'type' => 'media',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'subtitle' => array(
-					'name' => 'Sub Title (Optional)',
+					'name' => esc_html__( 'Sub Title (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter short description for this header',
+					'desc' => esc_html__( 'Enter short description for this header', 'anva' ),
 				),
 				'background' => array(
-					'name' => 'Background Image',
+					'name' => esc_html__( 'Background Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display as background',
+					'desc' => esc_html__( 'Upload image you want to display as background', 'anva' ),
 				),
 				'background_parallax' => array(
-					'name' => 'Background Parallax',
+					'name' => esc_html__( 'Background Parallax', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'' => 'No Parallax',
 						'yes' => 'Yes',
 					),
-					'desc' => 'Select to enable parallax effect to background image',
+					'desc' => esc_html__( 'Select to enable parallax effect to background image', 'anva' ),
 				),
 				'background_position' => array(
-					'name' => 'Background Position (Optional)',
+					'name' => esc_html__( 'Background Position (Optional)', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'top' => 'Top',
 						'center' => 'Center',
 						'bottom' => 'Bottom',
 					),
-					'desc' => 'Select image background position option',
+					'desc' => esc_html__( 'Select image background position option', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'fontcolor' => array(
-					'name' => 'Font Color',
+					'name' => esc_html__( 'Font Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#dd3333',
-					'desc' => 'Select font color for content on this block',
+					'desc' => esc_html__( 'Select font color for content on this block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
-			'desc' => __( 'Create a header with some nice text using a background image.', 'anva' ),
+			'desc' => esc_html__( 'Create a header with some nice text using a background image.', 'anva' ),
 			'content' => true
 		);
 
@@ -289,18 +289,18 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['text_fullwidth'] = array(
-			'name' =>  'Text Fullwidth',
+			'name' => esc_html__( 'Text Fullwidth', 'anva' ),
 			'icon' => $image_path . 'text.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => __( 'Slug (Optional)', 'anva' ),
-					'desc' => __( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				    'id'   => 'slug',
 					'type' => 'text',
 				),
 				'width' => array(
-					'name' => 'Content Width',
-					'desc' => 'Select width in percentage for this content',
+					'name' => esc_html__( 'Content Width', 'anva' ),
+					'desc' => esc_html__( 'Select width in percentage for this content', 'anva' ),
 					'id'   => 'width',
 					'std'  => '80%',
 					'type' => 'select',
@@ -314,8 +314,8 @@ class Anva_Builder_Components {
 					),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
-					'desc' => 'Select padding top and bottom value for this header block',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				    'id'   => 'padding',
 					'std'  => 30,
 					'type' => 'range',
@@ -327,23 +327,23 @@ class Anva_Builder_Components {
 				),
 				'bgcolor' => array(
 				    'id'  => 'bgcolor',
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std'  => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'fontcolor' => array(
 				    'id'   => 'fontcolor',
-					'name' => 'Font Color',
+					'name' => esc_html__( 'Font Color', 'anva' ),
 					'type' => 'color',
 					'std'  => '#444444',
-					'desc' => 'Select font color for content on this block',
+					'desc' => esc_html__( 'Select font color for content on this block', 'anva' ),
 				),
 				'custom_css' => array(
 					'id'   => 'custom_css',
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -355,57 +355,57 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['text_image'] = array(
-			'name' => 'Text With Background Image',
+			'name' => esc_html__( 'Text With Background Image', 'anva' ),
 			'icon' => $image_path . 'text_image.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'background' => array(
-					'name' => 'Background Image',
+					'name' => esc_html__( 'Background Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display as background',
+					'desc' => esc_html__( 'Upload image you want to display as background', 'anva' ),
 				),
 				'background_parallax' => array(
-					'name' => 'Background Parallax',
+					'name' => esc_html__( 'Background Parallax', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'' => 'No Parallax',
 						'yes' => 'Yes',
 					),
-					'desc' => 'Select to enable parallax effect to background image',
+					'desc' => esc_html__( 'Select to enable parallax effect to background image', 'anva' ),
 				),
 				'background_position' => array(
-					'name' => 'Background Position (Optional)',
+					'name' => esc_html__( 'Background Position (Optional)', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'top' => 'Top',
 						'center' => 'Center',
 						'bottom' => 'Bottom',
 					),
-					'desc' => 'Select image background position option',
+					'desc' => esc_html__( 'Select image background position option', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'fontcolor' => array(
-					'name' => 'Font Color',
+					'name' => esc_html__( 'Font Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#444444',
-					'desc' => 'Select font color for content on this block',
+					'desc' => esc_html__( 'Select font color for content on this block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -417,60 +417,60 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['image_fullwidth'] = array(
-			'name' =>  'Image Fullwidth',
+			'name' => esc_html__( 'Image Fullwidth', 'anva' ),
 			'icon' => $image_path . 'image_full.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image' => array(
-					'name' => 'Image',
+					'name' => esc_html__( 'Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'height' => array(
-					'name' => 'Height',
+					'name' => esc_html__( 'Height', 'anva' ),
 					'type' => 'range',
 					'std' => '600',
 					'min' => 30,
 					'max' => 1000,
 					'step' => 5,
-					'desc' => 'Select number of height for this content (in pixel)',
+					'desc' => esc_html__( 'Select number of height for this content (in pixel)', 'anva' ),
 				),
 				'background_position' => array(
-					'name' => 'Background Position',
+					'name' => esc_html__( 'Background Position', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'top' => 'Top',
 						'center' => 'Center',
 						'bottom' => 'Bottom',
 					),
-					'desc' => 'Select image background position option',
+					'desc' => esc_html__( 'Select image background position option', 'anva' ),
 				),
 				'display_caption' => array(
-					'name' => 'Display caption',
+					'name' => esc_html__( 'Display caption', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						1 => 'Yes',
-						0 => 'No'
+						0 => 'No',
 					),
 					'desc' => '',
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
-					'std' => '30',
-					'min' => 0,
-					'max' => 200,
+					'std'  => '30',
+					'min'  => 0,
+					'max'  => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -482,32 +482,32 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['image_parallax'] = array(
-			'name' =>  'Image Parallax',
+			'name' => esc_html__( 'Image Parallax', 'anva' ),
 			'icon' => $image_path . 'image_parallax.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image' => array(
-					'name' => 'Image',
+					'name' => esc_html__( 'Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'height' => array(
-					'name' => 'Height',
+					'name' => esc_html__( 'Height', 'anva' ),
 					'type' => 'range',
 					'std' => '600',
 					'min' => 30,
 					'max' => 1000,
 					'step' => 5,
-					'desc' => 'Select number of height for this content (in pixel)',
+					'desc' => esc_html__( 'Select number of height for this content (in pixel)', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -519,21 +519,21 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['image_fixed_width'] = array(
-			'name' =>  'Image Fixed Width',
+			'name' => esc_html__( 'Image Fixed Width', 'anva' ),
 			'icon' => $image_path . 'image_fixed.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image' => array(
-					'name' => 'Image',
+					'name' => esc_html__( 'Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'display_caption' => array(
-					'name' => 'Display caption and description',
+					'name' => esc_html__( 'Display caption and description', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						1 => 'Yes',
@@ -542,24 +542,24 @@ class Anva_Builder_Components {
 					'desc' => '',
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -571,86 +571,86 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['content_half_bg'] = array(
-			'name' =>  '1/2 Content with Background',
+			'name' => esc_html__( '1/2 Content with Background', 'anva' ),
 			'icon' => $image_path . 'half_content_bg.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'subtitle' => array(
-					'name' => 'Sub Title (Optional)',
+					'name' => esc_html__( 'Sub Title (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter short description for this header',
+					'desc' => esc_html__( 'Enter short description for this header', 'anva' ),
 				),
 				'background' => array(
-					'name' => 'Background Image',
+					'name' => esc_html__( 'Background Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display as background',
+					'desc' => esc_html__( 'Upload image you want to display as background', 'anva' ),
 				),
 				'background_parallax' => array(
-					'name' => 'Background Parallax',
+					'name' => esc_html__( 'Background Parallax', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'' => 'No Parallax',
 						'yes' => 'Yes',
 					),
-					'desc' => 'Select to enable parallax effect to background image',
+					'desc' => esc_html__( 'Select to enable parallax effect to background image', 'anva' ),
 				),
 				'background_position' => array(
-					'name' => 'Background Position (Optional)',
+					'name' => esc_html__( 'Background Position (Optional)', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'top' => 'Top',
 						'center' => 'Center',
 						'bottom' => 'Bottom',
 					),
-					'desc' => 'Select image background position option',
+					'desc' => esc_html__( 'Select image background position option', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 400,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Content Background Color',
+					'name' => esc_html__( 'Content Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this content block',
+					'desc' => esc_html__( 'Select background color for this content block', 'anva' ),
 				),
 				'opacity' => array(
-					'name' => 'Content Background Opacity',
+					'name' => esc_html__( 'Content Background Opacity', 'anva' ),
 					'type' => 'range',
 					'std' => '100',
 					'min' => 10,
 					'max' => 100,
 					'step' => 5,
-					'desc' => 'Select background opacity for this content block',
+					'desc' => esc_html__( 'Select background opacity for this content block', 'anva' ),
 				),
 				'fontcolor' => array(
-					'name' => 'Font Color (Optional)',
+					'name' => esc_html__( 'Font Color (Optional)', 'anva' ),
 					'type' => 'color',
 					'std' => '#444444',
-					'desc' => 'Select font color for this content',
+					'desc' => esc_html__( 'Select font color for this content', 'anva' ),
 				),
 				'align' => array(
-					'name' => 'Content Box alignment',
+					'name' => esc_html__( 'Content Box alignment', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'left' => 'Left',
 						'right' => 'Right'
 					),
-					'desc' => 'Select the alignment for content box',
+					'desc' => esc_html__( 'Select the alignment for content box', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -658,47 +658,47 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['image_half_fixed_width'] = array(
-			'name' =>  'Image 1/2 Width',
+			'name' => esc_html__( 'Image 1/2 Width', 'anva' ),
 			'icon' => $image_path . 'image_half_fixed.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image' => array(
-					'name' => 'Image',
+					'name' => esc_html__( 'Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'align' => array(
-					'name' => 'Image alignment',
+					'name' => esc_html__( 'Image alignment', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'left' => 'Left',
 						'right' => 'Right'
 					),
-					'desc' => 'Select the alignment for image',
+					'desc' => esc_html__( 'Select the alignment for image', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -706,67 +706,67 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['image_half_fullwidth'] = array(
-			'name' =>  'Image 1/2 Fullwidth',
+			'name' => esc_html__( 'Image 1/2 Fullwidth', 'anva' ),
 			'icon' => $image_path . 'image_half_full.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'subtitle' => array(
-					'name' => 'Sub Title (Optional)',
+					'name' => esc_html__( 'Sub Title (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter short description for this header',
+					'desc' => esc_html__( 'Enter short description for this header', 'anva' ),
 				),
 				'image' => array(
-					'name' => 'Image',
+					'name' => esc_html__( 'Image', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'height' => array(
-					'name' => 'Height',
+					'name' => esc_html__( 'Height', 'anva' ),
 					'type' => 'range',
 					'std' => '600',
 					'min' => 30,
 					'max' => 1000,
 					'step' => 5,
-					'desc' => 'Select number of height for this content (in pixel)',
+					'desc' => esc_html__( 'Select number of height for this content (in pixel)', 'anva' ),
 				),
 				'align' => array(
-					'name' => 'Image alignment',
+					'name' => esc_html__( 'Image alignment', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'left' => 'Left',
 						'right' => 'Right'
 					),
-					'desc' => 'Select the alignment for image',
+					'desc' => esc_html__( 'Select the alignment for image', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'fontcolor' => array(
-					'name' => 'Font Color',
+					'name' => esc_html__( 'Font Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#000000',
-					'desc' => 'Select font color for title and subtitle',
+					'desc' => esc_html__( 'Select font color for title and subtitle', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -774,26 +774,26 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['two_cols_images'] = array(
-			'name' =>  'Images Two Columns',
+			'name' => esc_html__( 'Images Two Columns', 'anva' ),
 			'icon' => $image_path . 'images_two_cols.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image1' => array(
-					'name' => 'Image 1',
+					'name' => esc_html__( 'Image 1', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'image2' => array(
-					'name' => 'Image 2',
+					'name' => esc_html__( 'Image 2', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'display_caption' => array(
-					'name' => 'Display caption and description',
+					'name' => esc_html__( 'Display caption and description', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						1 => 'Yes',
@@ -802,24 +802,24 @@ class Anva_Builder_Components {
 					'desc' => '',
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -827,31 +827,31 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['three_cols_images'] = array(
-			'name' =>  'Images Three Columns',
+			'name' => esc_html__( 'Images Three Columns', 'anva' ),
 			'icon' => $image_path . 'images_three_cols.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image1' => array(
-					'name' => 'Image 1',
+					'name' => esc_html__( 'Image 1', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'image2' => array(
-					'name' => 'Image 2',
+					'name' => esc_html__( 'Image 2', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'image3' => array(
-					'name' => 'Image 3',
+					'name' => esc_html__( 'Image 3', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'display_caption' => array(
-					'name' => 'Display caption and description',
+					'name' => esc_html__( 'Display caption and description', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						1 => 'Yes',
@@ -860,24 +860,24 @@ class Anva_Builder_Components {
 					'desc' => '',
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -885,40 +885,40 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['three_images_block'] = array(
-			'name' =>  'Images Three blocks',
+			'name' => esc_html__( 'Images Three blocks', 'anva' ),
 			'icon' => $image_path . 'images_three_block.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image_portrait' => array(
-					'name' => 'Image Portrait',
+					'name' => esc_html__( 'Image Portrait', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content (Portrait image size)',
+					'desc' => esc_html__( 'Upload image you want to display for this content (Portrait image size)', 'anva' ),
 				),
 				'image_portrait_align' => array(
-					'name' => 'Image Portrait alignment',
+					'name' => esc_html__( 'Image Portrait alignment', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'left' => 'Left',
 						'right' => 'Right'
 					),
-					'desc' => 'Select the alignment for image portrait size',
+					'desc' => esc_html__( 'Select the alignment for image portrait size', 'anva' ),
 				),
 				'image2' => array(
-					'name' => 'Image 2',
+					'name' => esc_html__( 'Image 2', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'image3' => array(
-					'name' => 'Image 3',
+					'name' => esc_html__( 'Image 3', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'display_caption' => array(
-					'name' => 'Display caption and description',
+					'name' => esc_html__( 'Display caption and description', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						1 => 'Yes',
@@ -927,24 +927,24 @@ class Anva_Builder_Components {
 					'desc' => '',
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -952,36 +952,37 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['four_images_block'] = array(
-			'name' =>  'Images Four blocks',
+			'name' => esc_html__( 'Images Four blocks', 'anva' ),
+			'desc' => '',
 			'icon' => $image_path . 'images_four_block.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'image1' => array(
-					'name' => 'Image 1',
+					'name' => esc_html__( 'Image 1', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'image2' => array(
-					'name' => 'Image 2',
+					'name' => esc_html__( 'Image 2', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'image3' => array(
-					'name' => 'Image 3',
+					'name' => esc_html__( 'Image 3', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'image4' => array(
-					'name' => 'Image 4',
+					'name' => esc_html__( 'Image 4', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Upload image you want to display for this content',
+					'desc' => esc_html__( 'Upload image you want to display for this content', 'anva' ),
 				),
 				'display_caption' => array(
-					'name' => 'Display caption and description',
+					'name' => esc_html__( 'Display caption and description', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						1 => 'Yes',
@@ -990,39 +991,39 @@ class Anva_Builder_Components {
 					'desc' => '',
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color',
+					'name' => esc_html__( 'Background Color', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this header block',
+					'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
-			'desc' => '',
 			'content' => false
 		);
 
 			$this->core_elements['galleries'] = array(
-				'name' =>  'Gallery Archive',
+				'name' => esc_html__( 'Gallery Archive', 'anva' ),
+				'desc' => '',
 				'icon' => $image_path . 'galleries.png',
 				'attr' => array(
 					'cat' => array(
-						'name' => 'Gallery Category',
+						'name' => esc_html__( 'Gallery Category', 'anva' ),
 						'type' => 'select',
 						'options' => $gallery_cats,
-						'desc' => 'Select the gallery category (optional)',
+						'desc' => esc_html__( 'Select the gallery category (optional)', 'anva' ),
 					),
 					'items' => array(
 						'type' => 'range',
@@ -1030,197 +1031,196 @@ class Anva_Builder_Components {
 						'min' => 1,
 						'max' => 100,
 						'step' => 1,
-						'desc' => 'Enter number of items to display',
+						'desc' => esc_html__( 'Enter number of items to display', 'anva' ),
 					),
 					'bgcolor' => array(
-						'name' => 'Background Color (Optional)',
+						'name' => esc_html__( 'Background Color (Optional)', 'anva' ),
 						'type' => 'color',
 						'std' => '#f9f9f9',
-						'desc' => 'Select background color for this content block',
+						'desc' => esc_html__( 'Select background color for this content block', 'anva' ),
 					),
 					'custom_css' => array(
-						'name' => 'Custom CSS',
+						'name' => esc_html__( 'Custom CSS', 'anva' ),
 						'type' => 'text',
-						'desc' => 'You can add custom CSS style for this block (advanced user only)',
+						'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 					),
 				),
-				'desc' => '',
 				'content' => false
 			);
 
 			$this->core_elements['gallery_slider'] = array(
-				'name' =>  'Gallery Slider Fullwidth',
+				'name' => esc_html__( 'Gallery Slider Fullwidth', 'anva' ),
+				'desc' => '',
 				'icon' => $image_path . 'gallery_slider_full.png',
 				'attr' => array(
 					'slug' => array(
-						'name' => 'Slug (Optional)',
+						'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 						'type' => 'text',
-						'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+						'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 					),
 					'gallery' => array(
-						'name' => 'Gallery',
+						'name' => esc_html__( 'Gallery', 'anva' ),
 						'type' => 'select',
 						'options' => $galleries,
-						'desc' => 'Select the gallery you want to display',
+						'desc' => esc_html__( 'Select the gallery you want to display', 'anva' ),
 					),
 					'autoplay' => array(
-						'name' => 'Auto Play',
+						'name' => esc_html__( 'Auto Play', 'anva' ),
 						'type' => 'select',
 						'options' => array(
 							1 => 'Yes',
 							0 => 'No'
 						),
-						'desc' => 'Auto play gallery image slider',
+						'desc' => esc_html__( 'Auto play gallery image slider', 'anva' ),
 					),
 					'timer' => array(
-						'name' => 'Timer',
+						'name' => esc_html__( 'Timer', 'anva' ),
 						'type' => 'range',
 						'std' => '5',
 						'min' => 1,
 						'max' => 60,
 						'step' => 1,
-						'desc' => 'Select number of seconds for slider timer',
+						'desc' => esc_html__( 'Select number of seconds for slider timer', 'anva' ),
 					),
 					'caption' => array(
-						'name' => 'Display Image Caption',
+						'name' => esc_html__( 'Display Image Caption', 'anva' ),
 						'type' => 'select',
 						'options' => array(
 							1 => 'Yes',
 							0 => 'No'
 						),
-						'desc' => 'Display gallery image caption',
+						'desc' => esc_html__( 'Display gallery image caption', 'anva' ),
 					),
 					'padding' => array(
-						'name' => 'Content Padding',
+						'name' => esc_html__( 'Content Padding', 'anva' ),
 						'type' => 'range',
 						'std' => '30',
 						'min' => 0,
 						'max' => 200,
 						'step' => 5,
-						'desc' => 'Select padding top and bottom value for this header block',
+						'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 					),
 					'custom_css' => array(
-						'name' => 'Custom CSS',
+						'name' => esc_html__( 'Custom CSS', 'anva' ),
 						'type' => 'text',
-						'desc' => 'You can add custom CSS style for this block (advanced user only)',
+						'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 					),
 				),
-				'desc' => '',
 				'content' => false
 			);
 
 			$this->core_elements['gallery_slider_fixed_width'] = array(
-				'name' =>  'Gallery Slider Fixed Width',
+				'name' => esc_html__( 'Gallery Slider Fixed Width', 'anva' ),
+				'desc' => '',
 				'icon' => $image_path . 'gallery_slider_fixed.png',
 				'attr' => array(
 					'slug' => array(
-						'name' => 'Slug (Optional)',
+						'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 						'type' => 'text',
-						'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+						'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 					),
 					'gallery' => array(
-						'name' => 'Gallery',
+						'name' => esc_html__( 'Gallery', 'anva' ),
 						'type' => 'select',
 						'options' => $galleries,
-						'desc' => 'Select the gallery you want to display',
+						'desc' => esc_html__( 'Select the gallery you want to display', 'anva' ),
 					),
 					'autoplay' => array(
-						'name' => 'Auto Play',
+						'name' => esc_html__( 'Auto Play', 'anva' ),
 						'type' => 'select',
 						'options' => array(
 							1 => 'Yes',
 							0 => 'No'
 						),
-						'desc' => 'Auto play gallery image slider',
+						'desc' => esc_html__( 'Auto play gallery image slider', 'anva' ),
 					),
 					'timer' => array(
-						'name' => 'Timer',
+						'name' => esc_html__( 'Timer', 'anva' ),
 						'type' => 'range',
 						'std' => '5',
 						'min' => 1,
 						'max' => 60,
 						'step' => 1,
-						'desc' => 'Select number of seconds for slider timer',
+						'desc' => esc_html__( 'Select number of seconds for slider timer', 'anva' ),
 					),
 					'caption' => array(
-						'name' => 'Display Image Caption',
+						'name' => esc_html__( 'Display Image Caption', 'anva' ),
 						'type' => 'select',
 						'options' => array(
 							1 => 'Yes',
 							0 => 'No'
 						),
-						'desc' => 'Display gallery image caption',
+						'desc' => esc_html__( 'Display gallery image caption', 'anva' ),
 					),
 					'padding' => array(
-						'name' => 'Content Padding',
+						'name' => esc_html__( 'Content Padding', 'anva' ),
 						'type' => 'range',
 						'std' => '30',
 						'min' => 0,
 						'max' => 200,
 						'step' => 5,
-						'desc' => 'Select padding top and bottom value for this header block',
+						'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 					),
 					'bgcolor' => array(
-						'name' => 'Background Color',
+						'name' => esc_html__( 'Background Color', 'anva' ),
 						'type' => 'color',
 						'std' => '#f9f9f9',
-						'desc' => 'Select background color for this header block',
+						'desc' => esc_html__( 'Select background color for this header block', 'anva' ),
 					),
 					'custom_css' => array(
-						'name' => 'Custom CSS',
+						'name' => esc_html__( 'Custom CSS', 'anva' ),
 						'type' => 'text',
-						'desc' => 'You can add custom CSS style for this block (advanced user only)',
+						'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 					),
 				),
-				'desc' => '',
-				'content' => false
+				'content' => false,
 			);
 
 			$this->core_elements['animated_gallery_grid'] = array(
-				'name' =>  'Animated Gallery Grid',
+				'name' => esc_html__( 'Animated Gallery Grid', 'anva' ),
 				'icon' => $image_path . 'animated_grid.png',
 				'attr' => array(
 					'slug' => array(
-						'name' => 'Slug (Optional)',
+						'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 						'type' => 'text',
-						'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+						'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 					),
 					'subtitle' => array(
-						'name' => 'Sub Title (Optional)',
+						'name' => esc_html__( 'Sub Title (Optional)', 'anva' ),
 						'type' => 'text',
-						'desc' => 'Enter short description for this header',
+						'desc' => esc_html__( 'Enter short description for this header', 'anva' ),
 					),
 					'gallery_id' => array(
-						'name' => 'Gallery',
+						'name' => esc_html__( 'Gallery', 'anva' ),
 						'type' => 'select',
 						'options' => $galleries,
-						'desc' => 'Select the gallery you want to display',
+						'desc' => esc_html__( 'Select the gallery you want to display', 'anva' ),
 					),
 					'logo' => array(
-						'name' => 'Retina Logo or Signature Image (Optional)',
+						'name' => esc_html__( 'Retina Logo or Signature Image (Optional)', 'anva' ),
 						'type' => 'file',
-						'desc' => 'Enter custom logo or signature image URL',
+						'desc' => esc_html__( 'Enter custom logo or signature image URL', 'anva' ),
 					),
 					'bgcolor' => array(
-						'name' => 'Background Color (Optional)',
+						'name' => esc_html__( 'Background Color (Optional)', 'anva' ),
 						'type' => 'color',
 						'std' => '#ffffff',
-						'desc' => 'Select background color for this content block',
+						'desc' => esc_html__( 'Select background color for this content block', 'anva' ),
 					),
 					'opacity' => array(
-						'name' => 'Content Background Opacity',
+						'name' => esc_html__( 'Content Background Opacity', 'anva' ),
 						'type' => 'range',
 						'std' => '100',
 						'min' => 10,
 						'max' => 100,
 						'step' => 5,
-						'desc' => 'Select background opacity for this content block',
+						'desc' => esc_html__( 'Select background opacity for this content block', 'anva' ),
 					),
 					'fontcolor' => array(
-						'name' => 'Font Color (Optional)',
+						'name' => esc_html__( 'Font Color (Optional)', 'anva' ),
 						'type' => 'color',
 						'std' => '#444444',
-						'desc' => 'Select font color for this content',
+						'desc' => esc_html__( 'Select font color for this content', 'anva' ),
 					),
 				),
 				'desc' => '',
@@ -1228,25 +1228,25 @@ class Anva_Builder_Components {
 			);
 
 			$this->core_elements['gallery_grid'] = array(
-				'name' =>  __( 'Gallery Grid', 'anva' ),
+				'name' =>  esc_html__( 'Gallery Grid', 'anva' ),
 				'icon' => $image_path . 'gallery_grid.png',
 				'attr' => array(
 					'slug' => array(
-						'name' => 'Slug (Optional)',
+						'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 						'type' => 'text',
-						'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+						'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 					),
 					'gallery_id' => array(
-						'name' => 'Gallery',
+						'name' => esc_html__( 'Gallery', 'anva' ),
 						'type' => 'select',
 						'options' => $galleries,
-						'desc' => 'Select the gallery you want to display',
+						'desc' => esc_html__( 'Select the gallery you want to display', 'anva' ),
 					),
 					'bgcolor' => array(
-						'name' => 'Background Color (Optional)',
+						'name' => esc_html__( 'Background Color (Optional)', 'anva' ),
 						'type' => 'color',
 						'std' => '#ffffff',
-						'desc' => 'Select background color for this content block',
+						'desc' => esc_html__( 'Select background color for this content block', 'anva' ),
 					),
 				),
 				'desc' => '',
@@ -1254,25 +1254,25 @@ class Anva_Builder_Components {
 			);
 
 			$this->core_elements['gallery_masonry'] = array(
-				'name' =>  'Gallery Masonry',
+				'name' => esc_html__( 'Gallery Masonry', 'anva' ),
 				'icon' => $image_path . 'gallery_masonry.png',
 				'attr' => array(
 					'slug' => array(
-						'name' => 'Slug (Optional)',
+						'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 						'type' => 'text',
-						'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+						'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 					),
 					'gallery_id' => array(
-						'name' => 'Gallery',
+						'name' => esc_html__( 'Gallery', 'anva' ),
 						'type' => 'select',
 						'options' => $galleries,
-						'desc' => 'Select the gallery you want to display',
+						'desc' => esc_html__( 'Select the gallery you want to display', 'anva' ),
 					),
 					'bgcolor' => array(
-						'name' => 'Background Color (Optional)',
+						'name' => esc_html__( 'Background Color (Optional)', 'anva' ),
 						'type' => 'color',
 						'std' => '#ffffff',
-						'desc' => 'Select background color for this content block',
+						'desc' => esc_html__( 'Select background color for this content block', 'anva' ),
 					),
 				),
 				'desc' => '',
@@ -1280,19 +1280,19 @@ class Anva_Builder_Components {
 			);
 
 		$this->core_elements['blog_grid'] = array(
-			'name' =>  'Blog Grid',
+			'name' => esc_html__( 'Blog Grid', 'anva' ),
 			'icon' => $image_path . 'blog.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'cat' => array(
-					'name' => 'Filter by category',
+					'name' => esc_html__( 'Filter by category', 'anva' ),
 					'type' => 'select',
 					'options' => $categories,
-					'desc' => 'You can choose to display only some posts from selected category',
+					'desc' => esc_html__( 'You can choose to display only some posts from selected category', 'anva' ),
 				),
 				'items' => array(
 					'type' => 'range',
@@ -1300,31 +1300,31 @@ class Anva_Builder_Components {
 					'min' => 1,
 					'max' => 100,
 					'step' => 1,
-					'desc' => 'Enter number of items to display',
+					'desc' => esc_html__( 'Enter number of items to display', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'link_title' => array(
-					'name' => 'Enter button title (Optional)',
+					'name' => esc_html__( 'Enter button title (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter link button to display link to your blog page for example. Read more',
+					'desc' => esc_html__( 'Enter link button to display link to your blog page for example. Read more', 'anva' ),
 				),
 				'link_url' => array(
-					'name' => 'Button Link URL (Optional)',
+					'name' => esc_html__( 'Button Link URL (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter redirected link URL when button is clicked',
+					'desc' => esc_html__( 'Enter redirected link URL when button is clicked', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -1332,21 +1332,21 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['contact_map'] = array(
-			'name' =>  'Contact Form With Map',
+			'name' => esc_html__( 'Contact Form With Map', 'anva' ),
 			'icon' => $image_path . 'contact_map.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'subtitle' => array(
-					'name' => 'Sub Title (Optional)',
+					'name' => esc_html__( 'Sub Title (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter short description for this header',
+					'desc' => esc_html__( 'Enter short description for this header', 'anva' ),
 				),
 				'type' => array(
-					'name' => 'Map Type',
+					'name' => esc_html__( 'Map Type', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'ROADMAP' => 'Roadmap',
@@ -1354,59 +1354,59 @@ class Anva_Builder_Components {
 						'HYBRID' => 'Hybrid',
 						'TERRAIN' => 'Terrain',
 					),
-					'desc' => 'Select google map type',
+					'desc' => esc_html__( 'Select google map type', 'anva' ),
 				),
 				'lat' => array(
-					'name' => 'Latitude',
+					'name' => esc_html__( 'Latitude', 'anva' ),
 					'type' => 'text',
-					'desc' => __( 'Map latitude.', 'anva' ),
+					'desc' => esc_html__( 'Map latitude.', 'anva' ),
 				),
 				'long' => array(
-					'name' => 'Longtitude',
+					'name' => esc_html__( 'Longtitude', 'anva' ),
 					'type' => 'text',
 					'desc' => __('Map longitude.', 'anva' ),
 				),
 				'zoom' => array(
-					'name' => 'Zoom Level',
+					'name' => esc_html__( 'Zoom Level', 'anva' ),
 					'type' => 'range',
 					'std' => '8',
 					'min' => 1,
 					'max' => 16,
 					'step' => 1,
-					'desc' => 'Enter zoom level',
+					'desc' => esc_html__( 'Enter zoom level', 'anva' ),
 				),
 				'popup' => array(
-					'name' => 'Popup Text',
+					'name' => esc_html__( 'Popup Text', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter text to display as popup above location on map for example. your company name',
+					'desc' => esc_html__( 'Enter text to display as popup above location on map for example. your company name', 'anva' ),
 				),
 				'marker' => array(
-					'name' => 'Custom Marker Icon (Optional)',
+					'name' => esc_html__( 'Custom Marker Icon (Optional)', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Enter custom marker image URL',
+					'desc' => esc_html__( 'Enter custom marker image URL', 'anva' ),
 				),
 				'bgcolor' => array(
-					'name' => 'Background Color (Optional)',
+					'name' => esc_html__( 'Background Color (Optional)', 'anva' ),
 					'type' => 'color',
 					'std' => '#f9f9f9',
-					'desc' => 'Select background color for this content block',
+					'desc' => esc_html__( 'Select background color for this content block', 'anva' ),
 				),
 				'fontcolor' => array(
-					'name' => 'Font Color (Optional)',
+					'name' => esc_html__( 'Font Color (Optional)', 'anva' ),
 					'type' => 'color',
 					'std' => '#444444',
-					'desc' => 'Select font color for this content',
+					'desc' => esc_html__( 'Select font color for this content', 'anva' ),
 				),
 				'buttonbgcolor' => array(
-					'name' => 'Button Background Color (Optional)',
+					'name' => esc_html__( 'Button Background Color (Optional)', 'anva' ),
 					'type' => 'color',
 					'std' => '#000000',
-					'desc' => 'Select background color for contact form button',
+					'desc' => esc_html__( 'Select background color for contact form button', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 			'desc' => '',
@@ -1414,18 +1414,18 @@ class Anva_Builder_Components {
 		);
 
 		$this->core_elements['map'] = array(
-			'name' =>  'Fullwidth Map',
+			'name' => esc_html__( 'Fullwidth Map', 'anva' ),
 			'icon' => $image_path . 'googlemap.png',
 			'desc' => '',
 			'content' => false,
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'type' => array(
-					'name' => 'Map Type',
+					'name' => esc_html__( 'Map Type', 'anva' ),
 					'type' => 'select',
 					'options' => array(
 						'ROADMAP' => 'Roadmap',
@@ -1433,45 +1433,45 @@ class Anva_Builder_Components {
 						'HYBRID' => 'Hybrid',
 						'TERRAIN' => 'Terrain',
 					),
-					'desc' => 'Select google map type',
+					'desc' => esc_html__( 'Select google map type', 'anva' ),
 				),
 				'height' => array(
-					'name' => 'Height',
+					'name' => esc_html__( 'Height', 'anva' ),
 					'type' => 'range',
 					'std' => '600',
 					'min' => 10,
 					'max' => 1000,
 					'step' => 10,
-					'desc' => 'Select map height (in px)',
+					'desc' => esc_html__( 'Select map height (in px)', 'anva' ),
 				),
 				'lat' => array(
-					'name' => 'Latitude',
+					'name' => esc_html__( 'Latitude', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Map latitude.',
+					'desc' => esc_html__( 'Map latitude.', 'anva' ),
 				),
 				'long' => array(
-					'name' => 'Longtitude',
+					'name' => esc_html__( 'Longtitude', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Map longitude.',
+					'desc' => esc_html__( 'Map longitude.', 'anva' ),
 				),
 				'zoom' => array(
-					'name' => 'Zoom Level',
+					'name' => esc_html__( 'Zoom Level', 'anva' ),
 					'type' => 'range',
 					'std' => '8',
 					'min' => 1,
 					'max' => 16,
 					'step' => 1,
-					'desc' => 'Enter zoom level',
+					'desc' => esc_html__( 'Enter zoom level', 'anva' ),
 				),
 				'popup' => array(
-					'name' => 'Popup Text',
+					'name' => esc_html__( 'Popup Text', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter text to display as popup above location on map for example. your company name',
+					'desc' => esc_html__( 'Enter text to display as popup above location on map for example. your company name', 'anva' ),
 				),
 				'marker' => array(
-					'name' => 'Custom Marker Icon (Optional)',
+					'name' => esc_html__( 'Custom Marker Icon (Optional)', 'anva' ),
 					'type' => 'file',
-					'desc' => 'Enter custom marker image URL',
+					'desc' => esc_html__( 'Enter custom marker image URL', 'anva' ),
 				),
 			),
 		);
@@ -1481,35 +1481,35 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['text_sidebart'] = array(
-			'name' => __( 'Text Sidebar', 'anva' ),
-			'desc' => __( 'Create a text block with sidebar.', 'anva' ),
+			'name' => esc_html__( 'Text Sidebar', 'anva' ),
+			'desc' => esc_html__( 'Create a text block with sidebar.', 'anva' ),
 			'content' => false,
 			'icon' => $image_path . '/contact_sidebar.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'anva' ),
 				),
 				'sidebar' => array(
-					'name' => 'Content Sidebar',
+					'name' => esc_html__( 'Content Sidebar', 'anva' ),
 					'type' => 'select',
 					'options' => $sidebars,
-					'desc' => 'You can select sidebar to display next to classic blog content',
+					'desc' => esc_html__( 'You can select sidebar to display next to classic blog content', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				)
 			),
 		);
@@ -1519,40 +1519,40 @@ class Anva_Builder_Components {
 		/*--------------------------------------------*/
 
 		$this->core_elements['contact_sidebar'] = array(
-			'name' => __( 'Contact Sidebar', 'anva' ),
-			'desc' => __( 'Create a contact form with sidebar.', 'anva' ),
+			'name' => esc_html__( 'Contact Sidebar', 'anva' ),
+			'desc' => esc_html__( 'Create a contact form with sidebar.', 'anva' ),
 			'content' => false,
 			'icon' => $image_path . '/contact_sidebar.png',
 			'attr' => array(
 				'slug' => array(
-					'name' => 'Slug (Optional)',
+					'name' => esc_html__( 'Slug (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers and hyphens.',
+					'desc' => esc_html__( 'The slug is the URL-friendly version of this content. It is usually all lowercase and contains only letters, numbers and hyphens.', 'anva' ),
 				),
 				'subtitle' => array(
-					'name' => 'Sub Title (Optional)',
+					'name' => esc_html__( 'Sub Title (Optional)', 'anva' ),
 					'type' => 'text',
-					'desc' => 'Enter short description for this header.',
+					'desc' => esc_html__( 'Enter short description for this header.', 'anva' ),
 				),
 				'sidebar' => array(
-					'name' => 'Content Sidebar',
+					'name' => esc_html__( 'Content Sidebar', 'anva' ),
 					'type' => 'select',
 					'options' => $sidebars,
-					'desc' => 'You can select sidebar to display next to classic blog content.',
+					'desc' => esc_html__( 'You can select sidebar to display next to classic blog content.', 'anva' ),
 				),
 				'padding' => array(
-					'name' => 'Content Padding',
+					'name' => esc_html__( 'Content Padding', 'anva' ),
 					'type' => 'range',
 					'std' => '30',
 					'min' => 0,
 					'max' => 200,
 					'step' => 5,
-					'desc' => 'Select padding top and bottom value for this header block',
+					'desc' => esc_html__( 'Select padding top and bottom value for this header block', 'anva' ),
 				),
 				'custom_css' => array(
-					'name' => 'Custom CSS',
+					'name' => esc_html__( 'Custom CSS', 'anva' ),
 					'type' => 'text',
-					'desc' => 'You can add custom CSS style for this block (advanced user only)',
+					'desc' => esc_html__( 'You can add custom CSS style for this block (advanced user only)', 'anva' ),
 				),
 			),
 		);

@@ -15,7 +15,7 @@
  * @package      AnvaFramework
  */
 
-$previous  = get_previous_post();
+$previous = get_previous_post();
 
 if ( $previous ) :
 	$thumbnail = anva_get_featured_image_src( $previous->ID, 'anva_sm' );
@@ -61,10 +61,12 @@ if ( $previous ) :
 			<span class="more-story-date">
 				<?php echo date( 'jS F Y', strtotime( $previous->post_date ) ); ?>
 			</span>
-			<a class="more-link" href="<?php the_permalink(); ?>">
+			<a class="more-link" href="<?php the_permalink( $previous->ID ); ?>">
 				<?php anva_local( 'read_more' ); ?> <span class="screen-reader-text"><?php anva_local( 'read_more_about' ); ?></span>
 			</a>
 		</div>
 	</div>
 <?php
 endif;
+
+wp_reset_postdata();

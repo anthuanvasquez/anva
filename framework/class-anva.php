@@ -222,6 +222,7 @@ class Anva {
 		include_once( self::$framework_dir_path . 'includes/media.php' );
 		include_once( self::$framework_dir_path . 'includes/content.php' );
 		include_once( self::$framework_dir_path . 'includes/parts.php' );
+		include_once( self::$framework_dir_path . 'includes/attributes.php' );
 		include_once( self::$framework_dir_path . 'includes/elements.php' );
 		include_once( self::$framework_dir_path . 'includes/helpers.php' );
 		include_once( self::$framework_dir_path . 'includes/locals.php' );
@@ -278,16 +279,25 @@ class Anva {
 			 * Page options hooks.
 			 */
 			add_action( 'anva_page_options_top', 'anva_admin_check_settings' );
-			add_action( 'anva_page_options_before', 'anva_admin_add_settings_change' );
 			add_action( 'anva_page_options_before', 'anva_add_settings_flash' );
 			add_action( 'anva_page_options_after_fields', 'anva_admin_footer_credits' );
 			add_action( 'anva_page_options_after_fields', 'anva_admin_footer_links' );
+			add_action( 'anva_page_options_actions', 'anva_admin_settings_last_save' );
+			add_action( 'anva_page_options_actions', 'anva_admin_settings_changed' );
 		}
 
 		/**
 		 * Front-End Hooks.
 		 */
 		if ( ! is_admin() ) {
+
+			/**
+			 * AJAX hooks.
+			 */
+			add_action( 'wp_ajax_anva_blog_posts_filter', 'anva_blog_posts_filter' );
+			add_action( 'wp_ajax_anva_ajax_search', 'anva_ajax_search' );
+			add_action( 'wp_ajax_nopriv_anva_blog_posts_filter', 'anva_blog_posts_filter' );
+			add_action( 'wp_ajax_nopriv_anva_ajax_search', 'anva_ajax_search' );
 
 			/**
 			 * WordPress Default Hooks.
@@ -323,6 +333,7 @@ class Anva {
 			add_filter( 'nav_menu_item_id', 'anva_nav_menu_item_id', 10, 4 );
 			add_filter( 'wp_head', 'anva_wp_title_compat', 5 );
 			add_action( 'after_setup_theme', 'anva_content_width', 0 );
+			add_action( 'after_setup_theme', 'anva_add_attributes' );
 			add_action( 'after_setup_theme', 'anva_add_elements' );
 			add_action( 'init', 'anva_contact_send_email' );
 			add_action( 'wp', 'anva_setup_author' );
@@ -406,8 +417,8 @@ class Anva {
 			add_action( 'anva_slider_bootstrap', 'anva_slider_bootstrap_default', 9, 2 );
 			add_action( 'anva_slider_swiper', 'anva_slider_swiper_default', 9, 2 );
 			add_action( 'anva_slider_camera', 'anva_slider_camera_default', 9, 2 );
-		}
 
+		} // End if().
 	}
 
 	/**

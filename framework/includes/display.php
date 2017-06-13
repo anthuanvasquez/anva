@@ -424,12 +424,11 @@ function anva_featured_after_default() {
 	}
 
 	$slider_style = anva_get_option( 'slider_style' );
-	$slider_parallax = anva_get_option( 'slider_parallax' );
 	?>
 		<?php if ( 'slider-boxed' == $slider_style ) : ?>
 			</div><!-- .container (end) -->
 		<?php endif ?>
-	</section><!-- FEATURED (end) -->
+	</section><!-- SLIDER (end) -->
 	<?php
 }
 
@@ -507,8 +506,8 @@ function anva_page_title_default() {
 function anva_post_type_navigation_default() {
 
 	// Don't print empty markup if there's nowhere to navigate.
-	$previous = get_adjacent_post( false, '', true );
-	$next = get_adjacent_post( false, '', false );
+	$previous = get_previous_post();
+	$next = get_next_post();
 
 	if ( ! $next && ! $previous ) {
 		return;

@@ -50,6 +50,11 @@ function anva_admin_check_settings() {
 	}
 }
 
+/**
+ * Display random messages after save settings.
+ *
+ * @return string $messages Random string.
+ */
 function anva_admin_random_messages() {
 	$messages = array(
 		esc_html__( 'Enjoy!', 'anva' ),
@@ -67,7 +72,7 @@ function anva_admin_random_messages() {
  * @return void
  */
 function anva_add_settings_flash() {
-	if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true ) : ?>
+	if ( isset( $_GET['settings-updated'] ) && true == $_GET['settings-updated'] ) : ?>
 		<script type="text/javascript">
 		(function() {
 			swal({
@@ -89,7 +94,7 @@ function anva_add_settings_flash() {
  *
  * @since 1.0.0
  */
-function anva_admin_add_settings_change() {
+function anva_admin_settings_changed() {
 	printf(
 		'<div id="anva-options-change" class="anva-options-change section-info">%s</div>',
 		esc_html__( 'Settings has changed.', 'anva' )
@@ -156,7 +161,12 @@ function anva_admin_footer_credits() {
 	);
 }
 
-function anva_admin_links() {
+/**
+ * Displat footer links on theme options panel.
+ *
+ * @return array $links Links to display.
+ */
+function anva_get_admin_links() {
 	$id = anva_get_theme_id();
 	$links = array(
 		'sup' => sprintf(
@@ -184,7 +194,7 @@ function anva_admin_links() {
  * @since 1.0.0
  */
 function anva_admin_footer_links() {
-	$links = anva_admin_links();
+	$links = anva_get_admin_links();
 	printf(
 		'<div class="anva-options-page-links">%1$s %2$s %3$s</div>',
 		$links['sup'],
