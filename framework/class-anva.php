@@ -202,8 +202,8 @@ class Anva {
 	public function set_files() {
 
 		// Admin files.
-		include_once( self::$framework_dir_path . 'admin/anva-options-ui-types.php' );
-		include_once( self::$framework_dir_path . 'admin/anva-options-ui-sanitization.php' );
+		include_once( self::$framework_dir_path . 'admin/options-ui-types.php' );
+		include_once( self::$framework_dir_path . 'admin/options-ui-sanitization.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/general.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/helpers.php' );
 		include_once( self::$framework_dir_path . 'admin/includes/display.php' );
@@ -375,7 +375,9 @@ class Anva {
 			add_action( 'anva_post_meta', 'anva_post_meta_default' );
 			add_action( 'anva_post_content', 'anva_post_content_default' );
 			add_action( 'anva_post_comments', 'anva_post_comments_default' );
-			add_action( 'anva_post_footer', 'anva_post_tags_default' );
+			add_action( 'anva_comment_pagination_before', 'anva_comment_pagination' );
+			add_action( 'anva_comment_pagination_after', 'anva_comment_pagination' );
+			add_action( 'anva_post_footer', 'anva_post_terms_default' );
 			add_action( 'anva_post_footer', 'anva_post_share_default' );
 			add_action( 'anva_post_single_below', 'anva_post_nav_default' );
 			add_action( 'anva_post_single_below', 'anva_post_author_default' );

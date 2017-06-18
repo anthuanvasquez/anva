@@ -6,9 +6,11 @@
     position: relative;
     margin-top: 50px;
     word-wrap: break-word;
+
     &:first-child {
         margin-top: 0;
     }
+
     & > h4 {
         margin-bottom: 25px;
         font-size: 15px;
@@ -16,8 +18,10 @@
         letter-spacing: 2px;
         text-transform: uppercase;
     }
+
     p {
         line-height: 1.7;
+
         &:not(.lead) {
             font-size: 14px;
         }
@@ -28,10 +32,12 @@
     .widget {
         padding-top: 50px;
         border-top: 1px solid #EEE;
+
         &:first-child {
             padding-top: 0;
             border-top: 0;
         }
+
         & > h4 {
             letter-spacing: 1px;
         }
@@ -42,8 +48,19 @@
 /* Tag Cloud
 -----------------------------------------------------------------*/
 
-.tagcloud {
-    margin-bottom: -2px;
+.tagcloud,
+.entry-terms.post_tag,
+.entry-terms.category {
+    @extend %clearfix;
+    margin-bottom: 5px;
+
+    span {
+        display: block;
+        margin-right: 4px;
+        margin-top: 3px;
+        float: left;
+    }
+
     a {
         display: block;
         float: left;
@@ -54,6 +71,7 @@
         font-size: 13px !important;
         color: #666;
         @include border-radius(2px);
+
         &:hover {
             border-color: $theme-color !important;
             color: $theme-color !important;
@@ -63,7 +81,9 @@
 
 body {
     &:not(.device-touch) {
-        .tagcloud {
+        .tagcloud,
+        .entry-terms.post_tag,
+        .entry-terms.category {
             a {
                 transition: all 0.3s ease-in-out;
             }

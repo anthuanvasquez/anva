@@ -16,7 +16,7 @@
  */
 
 ?>
-<nav id="top-bar-menu" class="top-links">
+<nav <?php anva_attr( 'menu', array(), 'top-bar' ); ?>>
 	<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'top_bar' ) ); ?>
 </nav><!-- .top-links (end) -->
 <?php

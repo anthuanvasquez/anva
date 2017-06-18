@@ -17,7 +17,7 @@
 
 ?>
 <div class="entry-wrap">
-	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+	<article <?php anva_attr( 'post' ); ?>>
 
 		<?php if ( has_post_format( 'gallery' ) ) : ?>
 
@@ -80,7 +80,7 @@
 				do_action( 'anva_post_meta' );
 			?>
 
-			<div class="entry-content">
+			<div <?php anva_attr( 'entry-content' ); ?>>
 				<?php
 					/**
 					 * Hooked.
@@ -91,7 +91,7 @@
 				?>
 			</div><!-- .entry-content (end) -->
 
-			<div class="entry-footer clearfix">
+			<footer class="entry-footer clearfix">
 				<?php
 					/**
 					 * Hooked
@@ -100,9 +100,8 @@
 					 */
 					do_action( 'anva_post_footer' );
 				?>
-			</div><!-- .entry-footer (end) -->
+			</footer><!-- .entry-footer (end) -->
 
 		</div><!-- .entry-c (end) -->
-
 	</article><!-- #post-<?php the_ID(); ?> (end) -->
 </div><!-- .entry-wrap (end) -->

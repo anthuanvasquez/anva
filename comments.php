@@ -15,7 +15,8 @@
  * @package      AnvaFramework
  */
 
-if ( post_password_required() ) {
+// If a post password is required or no comments are given and comments/pings are closed.
+if ( post_password_required() || ( ! have_comments() && ! comments_open() && ! pings_open() ) ) {
 	return;
 }
 ?>
@@ -42,24 +43,40 @@ if ( post_password_required() ) {
 			?>
 		</h3>
 
-		<?php do_action( 'anva_comment_pagination' ); ?>
+		<?php
+			/**
+			 * Hooked.
+			 *
+			 * @see anva_comment_pagination
+			 */
+			do_action( 'anva_comment_pagination_before' );
+		?>
 
 		<ol class="commentlist clearfix">
-			<?php wp_list_comments( 'type=comment&callback=anva_comment_list' ); ?>
+			<?php
+			wp_list_comments( array(
+				'style'        => 'ul',
+				'type'         => 'comment',
+				'callback'     => 'anva_comment_list_callback',
+				'end-callback' => 'anva_comment_list_end_callback',
+			) );
+			?>
 		</ol><!-- .comment-list (end) -->
 
 		<?php
 			/**
-			 * Comments pagination not hooked by default.
+			 * Hooked.
+			 *
+			 * @see anva_comment_pagination
 			 */
-			do_action( 'anva_comment_pagination' );
+			do_action( 'anva_comment_pagination_after' );
 		?>
 
 	<?php endif; ?>
 
 	<?php if ( ! comments_open() && '0' !== get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
 		<p class="no-comments">
-			<?php anva_get_local( 'no_comment' ); ?>
+			<?php anva_local( 'no_comment' ); ?>
 		</p>
 	<?php endif; ?>
 
@@ -74,8 +91,7 @@ if ( post_password_required() ) {
 			'title_reply_to'    => __( 'Leave a Comment to %s', 'anva' ),
 			'cancel_reply_link' => __( 'Cancel Reply', 'anva' ),
 			'label_submit'      => __( 'Post Comment', 'anva' ),
-
-			'must_log_in' => '<p class="must-log-in">' .
+			'must_log_in'       => '<p class="must-log-in">' .
 				sprintf(
 					__( 'You must be %s to post a comment.', 'anva' ),
 					sprintf(
@@ -84,8 +100,7 @@ if ( post_password_required() ) {
 						__( 'logged in', 'anva' )
 					)
 				) . '</p>',
-
-			'logged_in_as' => '<p class="logged-in-as">' .
+			'logged_in_as'      => '<p class="logged-in-as">' .
 				sprintf(
 					'%1$s <a href="%2$s">%3$s</a>. <a href="%4$s" title="%5$s">%6$s</a>',
 					__( 'Logged in as', 'anva' ),
@@ -97,26 +112,25 @@ if ( post_password_required() ) {
 				) . '</p>',
 
 			'fields' => apply_filters( 'comment_form_default_fields', array(
-
 				'author' =>
 					'<div class="col_one_third comment-form-author">
-					<label for="author">' . __( 'Name', 'anva' ) . '</label> ' .
-					( $req ? '<span class="required">*</span>' : '' ) .
-					'<input id="author" name="author" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author'] ) .
-					'" size="30"' . $aria_req . ' />
+						<label for="author">' . __( 'Name', 'anva' ) . '</label> ' .
+						( $req ? '<span class="required">*</span>' : '' ) .
+						'<input id="author" name="author" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author'] ) .
+						'" size="30"' . $aria_req . ' />
 					</div>',
 
 				'email' =>
 					'<div class="col_one_third comment-form-email">
-					<label for="email">' . __( 'Email', 'anva' ) . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
-					'<input id="email" name="email" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />
+						<label for="email">' . __( 'Email', 'anva' ) . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
+						'<input id="email" name="email" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' />
 					</div>',
 
 				'url' =>
 					'<div class="col_one_third col_last comment-form-url">
-					<label for="url">' . __( 'Website', 'anva' ) . '</label>
-					<input id="url" name="url" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_url'] ) .
-					'" size="30" />
+						<label for="url">' . __( 'Website', 'anva' ) . '</label>
+						<input id="url" name="url" type="text" class="sm-form-control" value="' . esc_attr( $commenter['comment_author_url'] ) .
+						'" size="30" />
 					</div>
 					<div class="clear"></div>',
 				)

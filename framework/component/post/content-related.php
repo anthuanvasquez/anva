@@ -84,7 +84,7 @@
 						</div><!-- .entry-image (end) -->
 					<?php endif; ?>
 					<div class="entry-c">
-						<?php anva_get_template_part( 'post', 'entry-title' ); ?>
+						<?php anva_get_template_part( 'post', 'entry-title-mpost' ); ?>
 						<ul class="entry-meta clearfix">
 							<li>
 								<i class="icon-calendar3"></i> <?php the_time( 'jS F Y' ); ?>

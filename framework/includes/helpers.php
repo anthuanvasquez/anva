@@ -1,16 +1,19 @@
 <?php
 /**
- * Helper functions.
+ * Additional helper functions that the framework or themes may use.
  *
- * @package AnvaFramework
+ * @package    AnvaFramework
+ * @subpackage Includes
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
 /**
  * Home page args.
  *
  * @since  1.0.0
- * @param  array $args
- * @return array $args
+ * @param  array $args Current arguments.
+ * @return array $args Modified arguments.
  */
 function anva_page_menu_args( $args ) {
 	$args['show_home'] = true;
@@ -98,7 +101,6 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 				'fallback_cb' 		=> false,
 				'depth' 			=> 1,
 			);
-
 	}
 
 	return apply_filters( "anva_{$location}_menu_args", $args );
@@ -106,19 +108,22 @@ function anva_get_wp_nav_menu_args( $location = 'primary' ) {
 
 /**
  * Show message on main navigation when user
- * has not set one under Apperance > Menus in the
- * WordPress admin panel.
+ * has not set one.
  *
  * @since  1.0.0
- * @param  array       $args
- * @return string|html $output
+ * @param  array  $args
+ * @return string $output
  */
 function anva_primary_menu_fallback( $args ) {
 
 	$output = '';
 
-	if ( $args['theme_location'] = apply_filters( 'anva_primary_menu_location', 'primary' ) && current_user_can( 'edit_theme_options' ) ) {
-		$output .= sprintf( '<div class="menu-message"><strong>%s</strong>: %s</div>', esc_html__( 'No Custom Menu', 'anva' ), anva_get_local( 'menu_message' ) );
+	if ( $args['theme_location'] == apply_filters( 'anva_primary_menu_location', 'primary' ) && current_user_can( 'edit_theme_options' ) ) {
+		$output .= sprintf(
+			'<div class="menu-message"><strong>%s</strong>: %s</div>',
+			esc_html__( 'No Custom Menu', 'anva' ),
+			anva_get_local( 'menu_message' )
+		);
 	}
 
 	/**
@@ -127,7 +132,7 @@ function anva_primary_menu_fallback( $args ) {
 	 * Note that by default, we only see a message if the admin
 	 * is logged in.
 	 *
-	 * add_filter('anva_menu_fallback', '__return_false');
+	 * @example add_filter( 'anva_menu_fallback', '__return_false' );
 	 */
 	if ( $output = apply_filters( 'anva_menu_fallback', $output, $args ) ) {
 		echo $output;
@@ -213,9 +218,9 @@ function anva_browser_class( $classes ) {
 	// OS classes.
 	if ( preg_match( "/Mac/", $browser ) ) {
 		$classes[] = 'mac';
-	} else if ( preg_match( "/Windows/", $browser ) ) {
+	} elseif ( preg_match( "/Windows/", $browser ) ) {
 		$classes[] = 'windows';
-	} else if ( preg_match( "/Linux/", $browser ) ) {
+	} elseif ( preg_match( "/Linux/", $browser ) ) {
 		$classes[] = 'linux';
 	} else {
 		$classes[] = 'unknown-os';
@@ -224,32 +229,32 @@ function anva_browser_class( $classes ) {
 	// Browser classes.
 	if ( preg_match( "/Chrome/", $browser ) ) {
 		$classes[] = 'chrome';
-	} else if ( preg_match( "/Safari/", $browser ) ) {
+	} elseif ( preg_match( "/Safari/", $browser ) ) {
 		$classes[] = 'safari';
-	} else if ( preg_match( "/Opera/", $browser ) ) {
+	} elseif ( preg_match( "/Opera/", $browser ) ) {
 		$classes[] = 'opera';
-	} else if ( preg_match( "/MSIE/", $browser ) ) {
+	} elseif ( preg_match( "/MSIE/", $browser ) ) {
 
 		// Internet Explorer... fuck IE.
 		$classes[] = 'msie';
 
 		if ( preg_match( "/MSIE 6.0/", $browser ) ) {
 			$classes[] = 'ie6';
-		} else if ( preg_match( "/MSIE 7.0/", $browser ) ) {
+		} elseif ( preg_match( "/MSIE 7.0/", $browser ) ) {
 			$classes[] = 'ie7';
-		} else if ( preg_match( "/MSIE 8.0/", $browser ) ) {
+		} elseif ( preg_match( "/MSIE 8.0/", $browser ) ) {
 			$classes[] = 'ie8';
-		} else if ( preg_match( "/MSIE 9.0/", $browser ) ) {
+		} elseif ( preg_match( "/MSIE 9.0/", $browser ) ) {
 			$classes[] = 'ie9';
-		} else if ( preg_match( "/MSIE 10.0/", $browser ) ) {
+		} elseif ( preg_match( "/MSIE 10.0/", $browser ) ) {
 			$classes[] = 'ie10';
-		} else if ( preg_match( "/MSIE 11.0/", $browser ) ) {
+		} elseif ( preg_match( "/MSIE 11.0/", $browser ) ) {
 			$classes[] = 'ie11';
 		}
 
-	} else if ( preg_match( "/Windows NT 10/i", $browser ) && preg_match( "/Edge/i", $browser ) ) {
+	} elseif ( preg_match( "/Windows NT 10/i", $browser ) && preg_match( "/Edge/i", $browser ) ) {
 		$classes[] = 'edge';
-	} else if ( preg_match( "/Firefox/", $browser ) && preg_match( "/Gecko/", $browser ) ) {
+	} elseif ( preg_match( "/Firefox/", $browser ) && preg_match( "/Gecko/", $browser ) ) {
 		$classes[] = 'firefox';
 	} else {
 		$classes[] = 'unknown-browser';
@@ -375,7 +380,7 @@ function anva_get_header_class( $class = '' ) {
 	$classes = array();
 
 	if ( ! empty( $class ) ) {
-		if ( ! is_array( $class ) )  {
+		if ( ! is_array( $class ) ) {
 			$class = preg_split( '#\s+#', $class );
 			$classes = array_merge( $classes, $class );
 		}
@@ -388,9 +393,8 @@ function anva_get_header_class( $class = '' ) {
 
 	// Filter the header class.
 	$classes = apply_filters( 'anva_header_class', $classes, $class );
-	$classes = array_unique( $classes );
 
-	return join( ' ', $classes );
+	return array_unique( $classes );
 }
 
 /**
@@ -552,6 +556,30 @@ function anva_wp_title( $title, $sep ) {
 }
 
 /**
+ * Grabbing a WP nav menu theme location name.
+ *
+ * @since  1.0.0
+ * @param  string $location
+ * @return string $location
+ */
+function anva_get_menu_location_name( $location ) {
+	$locations = get_registered_nav_menus();
+	return isset( $locations[ $location ] ) ? $locations[ $location ] : '';
+}
+
+/**
+ * Grabbing a WP nav menu name based on theme location.
+ *
+ * @since  1.0.0
+ * @param  string  $location
+ * @return string
+ */
+function anva_get_menu_name( $location ) {
+	$locations = get_nav_menu_locations();
+	return isset( $locations[ $location ] ) ? wp_get_nav_menu_object( $locations[ $location ] )->name : '';
+}
+
+/**
  * Gets page transition data.
  *
  * @return string $data
@@ -679,7 +707,7 @@ function anva_hex_to_rgb( $hex ) {
 		$color['r'] = hexdec( substr( $hex, 0, 1 ) . $r );
 		$color['g'] = hexdec( substr( $hex, 1, 1 ) . $g );
 		$color['b'] = hexdec( substr( $hex, 2, 1 ) . $b );
-	} else if ( strlen( $hex ) == 6 ) {
+	} elseif ( strlen( $hex ) == 6 ) {
 		$color['r'] = hexdec( substr( $hex, 0, 2 ) );
 		$color['g'] = hexdec( substr( $hex, 2, 2 ) );
 		$color['b'] = hexdec( substr( $hex, 4, 2 ) );
@@ -1171,7 +1199,7 @@ function anva_get_button_class( $color = '', $size = '', $style = '', $effect = 
 
 	if ( in_array( $color, apply_filters( 'anva_button_colors_classes', $colors ) ) ) {
 		$class .= sprintf( ' button-%s', $color );
-	} else if ( $color == 'custom' ) {
+	} elseif ( $color == 'custom' ) {
 		$class .= ' anva-custom-button';
 	} else {
 		$class .= sprintf( ' %s', $color );

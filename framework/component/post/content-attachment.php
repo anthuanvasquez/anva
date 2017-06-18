@@ -17,7 +17,7 @@
 
 ?>
 <div class="entry-wrap">
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<article <?php anva_attr( 'post' ); ?>>
 
 		<?php anva_get_template_part( 'post', 'entry-title' ); ?>
 
@@ -31,17 +31,17 @@
 			</div><!-- .entry-image (end) -->
 		<?php endif; ?>
 
-		<div class="entry-content">
+		<div <?php anva_attr( 'entry-content' ); ?>>
 			<?php the_content(); ?>
 		</div><!-- .entry-content (end) -->
 
-		<div class="entry-footer">
+		<footer class="entry-footer">
 			<?php wp_link_pages( array(
 				'before' => '<div class="page-link">' . anva_get_local( 'pages' ) . ': ',
 				'after'  => '</div><!-- .page-link (end) -->',
 			) ); ?>
 
 			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
-		</div><!-- .entry-footer (end) -->
+		</footer><!-- .entry-footer (end) -->
 	</article><!-- #post-<?php the_ID(); ?> (end) -->
 </div><!-- .entry-wrap (end) -->

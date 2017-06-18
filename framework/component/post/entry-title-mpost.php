@@ -1,6 +1,6 @@
 <?php
 /**
- * The default template used for posts tags.
+ * The default template used for posts title.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -15,21 +15,11 @@
  * @package      AnvaFramework
  */
 
-$tags = get_the_tag_list( '', ' ' );
-
-if ( $tags ) :
 ?>
-<div class="tagcloud-wrap">
-	<?php
-	$classes = 'tagcloud clearfix';
-
-	if ( is_single() )
-		$classes .= ' bottommargin';
-	?>
-
-	<div class="<?php echo esc_attr( $classes ); ?>">
-		<?php echo $tags; ?>
-	</div><!-- .tagcloud (end) -->
-</div><!-- .tagcloud-wrap (end) -->
-<?php
-endif;
+<div <?php anva_attr( 'entry-title' ); ?>>
+	<h4 class="entry-title-heading">
+		<a <?php anva_attr( 'entry-title-link' ); ?>>
+			<?php the_title(); ?>
+		</a>
+	</h2>
+</div><!-- .entry-title (end) -->

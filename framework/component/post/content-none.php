@@ -17,8 +17,8 @@
 
 ?>
 <div class="entry-wrap">
-	<article id="post-not-found" class="post post-not-found entry clearfix">
-		<div class="entry-content">
+	<article <?php anva_attr( 'post' ); ?>>
+		<div <?php anva_attr( 'entry-content' ); ?>>
 			<?php echo wpautop( anva_get_local( 'not_found' ) ); ?>
 		</div>
 	</article><!-- .entry (end) -->

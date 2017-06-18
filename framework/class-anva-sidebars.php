@@ -292,7 +292,7 @@ class Anva_Sidebars {
 
 			$sidebar_id = apply_filters( 'anva_custom_sidebar_id', $location_id );
 
-			$config[ $location_id ]['id'] = $sidebar_id;
+			$config[ $location_id ]['id']    = $sidebar_id;
 			$config[ $location_id ]['error'] = false;
 
 			if ( ! is_active_sidebar( $sidebar_id ) ) {
@@ -315,29 +315,34 @@ class Anva_Sidebars {
 		}
 
 		do_action( 'anva_sidebar_' . $location . '_before' );
+		?>
+		<div <?php anva_attr( 'sidebar', array(), $location ); ?>">
 
-		echo '<div class="widget-area widget-area-'. esc_attr( $location ) .' clearfix">';
-
-		if ( $sidebar['error'] ) {
+		<?php
+		if ( $sidebar['error'] ) :
 
 			$message = sprintf(
-				__( 'This is a fixed sidebar with ID, %s, but you haven\'t put any widgets in it yet.', 'anva' ),
+				esc_html__( 'This is a fixed sidebar with ID, %s, but you haven\'t put any widgets in it yet.', 'anva' ),
 				sprintf( '<strong>%s</strong>', $sidebar['id'] )
 			);
+			?>
 
-			echo '<div class="alert alert-warning">';
-			echo '<p>'. $message .'</p>';
-			echo '</div><!-- .alert (end) -->';
+			<div class="alert alert-warning">
+				<p><?php echo $message; ?></p>
+			</div><!-- .alert (end) -->
 
-		} else {
+		<?php
+		else :
 
 			dynamic_sidebar( $sidebar['id'] );
 
-		}
+		endif;
 
-		echo '</div><!-- .widget-area (end) -->';
+		?>
+		</div><!-- .widget-area (end) -->
 
-		do_action( 'anva_sidebar_'. $location .'_after' );
+		<?php
+		do_action( 'anva_sidebar_' . $location . '_after' );
 
 	}
 }

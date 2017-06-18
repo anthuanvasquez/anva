@@ -17,7 +17,7 @@
 
 ?>
 <div class="entry-wrap">
-	<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry clearfix' ); ?>>
+	<article <?php anva_attr( 'post' ); ?>>
 
 		<?php anva_get_tenplate_part( 'post', 'entry-title' ); ?>
 
@@ -30,7 +30,7 @@
 			do_action( 'anva_post_meta' );
 		?>
 
-		<div class="entry-content">
+		<div <?php anva_attr( 'entry-content' ); ?>>
 			<?php
 				/**
 				 * Hooked.
@@ -40,7 +40,7 @@
 				do_action( 'anva_post_content' );
 			?>
 
-			<div class="entry-footer clearfix">
+			<footer class="entry-footer clearfix">
 				<?php
 					/**
 					 * Hooked
@@ -49,7 +49,7 @@
 					 */
 					do_action( 'anva_post_footer' );
 				?>
-			</div>
+			</footer>
 		</div><!-- .entry-content (end) -->
 
 	</article><!-- .entry (end) -->

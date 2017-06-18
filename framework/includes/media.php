@@ -746,6 +746,7 @@ function anva_gallery_masonry_content( $gallery = '', $size = 'anva_sm', $cols =
  * @since  1.0.0
  * @param  string $gallery
  * @param  string $size
+ * @param  string $cols
  * @return string $output
  */
 function anva_get_gallery_masonry_content( $gallery = '', $size = 'anva_sm', $cols = '6' ) {
@@ -847,4 +848,68 @@ function anva_get_gallery_masonry_content( $gallery = '', $size = 'anva_sm', $co
 	$output .= sprintf( $slider_wrap, $slide );
 
 	return apply_filters( 'anva_gallery_masonry_content', $output, $post_id, $attachments );
+}
+
+/**
+ * Splits the attachment mime type into two distinct parts: type / subtype (e.g., image / png).
+ * Returns an array of the parts.
+ *
+ * @since  1.0.0
+ * @param  int    $post_id
+ * @return object
+ */
+function anva_get_attachment_types( $post_id = 0 ) {
+
+	$post_id   = empty( $post_id ) ? get_the_ID() : $post_id;
+	$mime_type = get_post_mime_type( $post_id );
+
+	list( $type, $subtype ) = false !== strpos( $mime_type, '/' ) ? explode( '/', $mime_type ) : array( $mime_type, '' );
+
+	return (object) array( 'type' => $type, 'subtype' => $subtype );
+}
+
+/**
+ * Returns the main attachment mime type.  For example, `image` when the file has an `image / jpeg`
+ * mime type.
+ *
+ * @since  1.0.0
+ * @param  int    $post_id
+ * @return string
+ */
+function anva_get_attachment_type( $post_id = 0 ) {
+	return anva_get_attachment_types( $post_id )->type;
+}
+
+/**
+ * Returns the attachment mime subtype.  For example, `jpeg` when the file has an `image / jpeg`
+ * mime type.
+ *
+ * @since  1.0.0
+ * @param  int    $post_id
+ * @return string
+ */
+function anva_get_attachment_subtype( $post_id = 0 ) {
+	return anva_get_attachment_types( $post_id )->subtype;
+}
+
+/**
+ * Checks if the current post has a mime type of 'audio'.
+ *
+ * @since  1.0.0
+ * @param  int    $post_id
+ * @return bool
+ */
+function anva_attachment_is_audio( $post_id = 0 ) {
+	return 'audio' === anva_get_attachment_type( $post_id );
+}
+
+/**
+ * Checks if the current post has a mime type of 'video'.
+ *
+ * @since  1.0.0
+ * @param  int    $post_id
+ * @return bool
+ */
+function anva_attachment_is_video( $post_id = 0 ) {
+	return 'video' === anva_get_attachment_type( $post_id );
 }

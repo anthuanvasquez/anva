@@ -18,6 +18,7 @@
 $style            = '';
 $page_id          = anva_get_current_page_id();
 $classes          = array();
+$attrs            = array();
 $mini             = anva_get_post_meta_by_id( '_anva_page_title_mini', $page_id );
 $tagline          = anva_get_post_meta_by_id( '_anva_page_tagline', $page_id );
 $title_align      = anva_get_post_meta_by_id( '_anva_title_align', $page_id );
@@ -65,7 +66,7 @@ if ( 'custom' === $title_bg && 'yes' !== $mini ) {
 		$style .= 'background-size:cover;';
 	}
 
-	$style = "style='{$style}'";
+	$attr['style'] = $style;
 }
 
 // Align title to the right.
@@ -78,24 +79,22 @@ if ( 'center' === $title_align ) {
 	$classes[] = 'page-title-center';
 }
 
-$classes = implode( ' ', $classes );
-$classes = ' class="' . esc_attr( $classes ) . '"';
-
+$attr['class'] = implode( ' ', $classes );
 ?>
-<section id="page-title"<?php echo $classes; ?> <?php echo $style; ?>>
+<section <?php anva_attr( 'archive-header' ); ?>>
 	<div class="container clearfix">
-		<h1 class="page-title-heading">
+		<h1 <?php anva_attr( 'archive-title' ); ?>>
 			<?php anva_the_page_title(); ?>
 		</h1>
 		<?php
 			if ( ! empty( $tagline ) ) {
-				printf( '<span class="page-title-tagline">%s</span>', esc_html( $tagline ) );
+				printf( '<span %s>%s</span>', anva_get_attr( 'archive-description' ), esc_html( $tagline ) );
 			}
 
 			// Get post types for top navigation.
 			$post_types = apply_filters( 'anva_post_types_top_navigation', array(
 				'portfolio',
-				'galleries'
+				'galleries',
 			) );
 
 			if ( is_singular( $post_types ) ) {

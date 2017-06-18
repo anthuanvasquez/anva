@@ -1,8 +1,6 @@
-/*-----------------------------------------------------------------------------------
-
+/*------------------------------------------------------------------------
     helpers.less
-
------------------------------------------------------------------------------------*/
+------------------------------------------------------------------------*/
 
 .clear,
 %clear {
@@ -13,6 +11,19 @@
     line-height: 0;
     width: 100%;
     overflow: hidden;
+}
+
+.clearfix,
+%clearfix {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
 }
 
 .uppercase,
@@ -85,20 +96,24 @@ span.middot {
     margin: 0 5px;
 }
 
-.double-line {
+.double-line,
+%double-line {
     border-top: 3px double #E5E5E5;
 }
 
-.emptydiv {
+.emptydiv,
+%emptydiv {
     display: block !important;
     position: relative !important;
 }
 
-.allmargin {
+.allmargin,
+%allmargin {
     margin: $margin-base !important;
 }
 
-.leftmargin {
+.leftmargin
+%leftmargin {
     margin-left: $margin-base !important;
 }
 
@@ -275,7 +290,8 @@ span.middot {
     text-align: center !important;
 }
 
-.divcenter {
+.divcenter ,
+%divcenter {
     position: relative !important;
     float: none !important;
     margin-left: auto !important;

@@ -234,7 +234,7 @@ function anva_header_extras_default() {
  */
 function anva_header_primary_menu_default() {
 	$primary_menu_style = anva_get_option( 'primary_menu_style', 'default' ); ?>
-	<nav id="primary-menu" <?php anva_primary_menu_class(); ?>>
+	<nav <?php anva_attr( 'menu', array(), 'primary' ); ?>>
 
 		<?php if ( 'style_7' == $primary_menu_style || 'style_9' == $primary_menu_style ) : ?>
 			<div class="container clearfix">
@@ -873,8 +873,8 @@ function anva_post_content_default() {
  *
  * @since 1.0.0
  */
-function anva_post_tags_default() {
-	anva_get_template_part( 'post', 'content-tag' );
+function anva_post_terms_default() {
+	anva_get_template_part( 'post', 'content-terms' );
 }
 
 /**

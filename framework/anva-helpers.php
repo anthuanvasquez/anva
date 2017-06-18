@@ -11,6 +11,9 @@ function anva_init_api_helpers() {
 	// Setup Framework Options.
 	Anva_Options::instance();
 
+	// Setup custom options for import export.
+	Anva_Options_Import_Export::instance();
+
 	// Setup Framework Stylesheets.
 	Anva_Styles::instance();
 
@@ -25,9 +28,6 @@ function anva_init_api_helpers() {
 
 	// Setup Builder Components.
 	Anva_Builder_Components::instance();
-
-	// Setup custom options for import export.
-	Anva_Options_Import_Export::instance();
 
 	// Setup customizer API.
 	$GLOBALS['_anva_customizer_sections'] = array();

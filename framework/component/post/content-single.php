@@ -23,7 +23,7 @@ $single_thumb = anva_get_option( 'single_thumb' );
 do_action( 'anva_post_single_above' );
 ?>
 <div class="entry-wrap">
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<article <?php anva_attr( 'post' ); ?>>
 
 		<div class="entry-title">
 			<h2><?php the_title(); ?></h2>
@@ -72,7 +72,7 @@ do_action( 'anva_post_single_above' );
 
 		<?php endif; ?>
 
-		<div class="entry-content notopmargin">
+		<div <?php anva_attr( 'entry-content' ); ?>>
 			<?php
 				if ( 'small' == $single_thumb ) {
 					anva_the_post_thumbnail( $single_thumb );
@@ -82,7 +82,7 @@ do_action( 'anva_post_single_above' );
 			?>
 		</div><!-- .entry-content (end) -->
 
-		<div class="entry-footer">
+		<footer class="entry-footer">
 			<?php
 				/**
 				 * Hooked
@@ -96,9 +96,7 @@ do_action( 'anva_post_single_above' );
 				'before' => '<div class="page-links">' . anva_get_local( 'pages' ) . ': ',
 				'after'  => '</div><!-- .page-links (end) -->',
 			) ); ?>
-
-			<?php edit_post_link( anva_get_local( 'edit_post' ), '<span class="edit-link"><i class="icon-edit"></i> ', '</span>' ); ?>
-		</div><!-- .entry-footer (end) -->
+		</footer><!-- .entry-footer (end) -->
 	</article><!-- .entry (end) -->
 </div><!-- .entry-wrap (end) -->
 

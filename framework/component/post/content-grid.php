@@ -17,7 +17,7 @@
 
 ?>
 <div class="entry-wrap">
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<article <?php anva_attr( 'post' ); ?>>
 
 		<?php if ( has_post_format( 'gallery' ) ) : ?>
 
@@ -69,7 +69,7 @@
 
 		<?php anva_get_template_part( 'post', 'content-meta-mini' ); ?>
 
-		<div class="entry-content">
+		<div <?php anva_attr( 'entry-content' ); ?>>
 			<?php
 				/**
 				 * Hooked.
@@ -79,5 +79,5 @@
 				do_action( 'anva_post_content' );
 			?>
 		</div>
-	</article><!-- .entry (end) -->
+	</article><!-- #post-<?php the_ID(); ?> (end) -->
 </div><!-- .entry-wrap (end) -->

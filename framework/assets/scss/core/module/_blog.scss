@@ -110,7 +110,7 @@
     &.sticky {
         background-color: #f5f5f5;
         border: 1px solid #eee;
-        padding: 20px 20px 0;
+        padding: 20px;
     }
 }
 
@@ -212,12 +212,6 @@
         ins {
             font-weight: 600;
             text-decoration: none;
-        }
-
-        &.posted-on {
-            .updated {
-                display: none;
-            }
         }
     }
 }
@@ -1071,6 +1065,17 @@ body {
     }
 }
 
+.comment-navigation {
+    position: relative;
+
+    .page-numbers {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+}
+
 .commentlist .bypostauthor .comment-wrap,
 .commentlist li ul.children li.bypostauthor .comment-wrap {
     cite {
@@ -1253,6 +1258,10 @@ body {
     margin-bottom: 0;
 }
 
+.comments-title {
+    word-wrap: break-word;
+}
+
 .commentlist {
     li {
         #respond {
@@ -1290,6 +1299,10 @@ body {
     .col_full {
         margin-bottom: 20px;
     }
+}
+
+.comment-respond {
+    margin-top: 30px;
 }
 
 .fb-comments,

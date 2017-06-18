@@ -1,6 +1,6 @@
 <?php
 /**
- * The default template used for footer menu navigation.
+ * The default template used for posts terms.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -15,8 +15,17 @@
  * @package      AnvaFramework
  */
 
-?>
-<nav <?php anva_attr( 'menu', array(), 'footer' ); ?>>
-	<?php wp_nav_menu( anva_get_wp_nav_menu_args( 'footer' ) ); ?>
-</nav><!-- .copyright-links (end) -->
-<?php
+$categories_args = array(
+	'taxonomy' => 'category',
+	'text'     => esc_html__( 'Posted in', 'anva' ),
+	'sep'      => '',
+);
+
+$tags_args = array(
+	'taxonomy' => 'post_tag',
+	'text'     => esc_html__( 'Tagged', 'anva' ),
+	'sep'      => '',
+);
+
+anva_post_terms( $categories_args );
+anva_post_terms( $tags_args );
