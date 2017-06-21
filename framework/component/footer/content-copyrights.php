@@ -50,7 +50,7 @@ $display          = anva_get_option( 'footer_extra_display' );
 			if ( $display ) :
 				$text = anva_get_option( 'footer_extra_info' );
 				$text = anva_do_icon( $text );
-				anva_the_kses( $text );
+				anva_kses( $text );
 			endif;
 			?>
 		</div>

@@ -607,7 +607,7 @@ function anva_get_page_transition() {
 		$data['animation-out']  = esc_attr( $animation_out );
 
 		if ( $html ) {
-			$data['loader-html'] = anva_kses( $html );
+			$data['loader-html'] = anva_get_kses( $html );
 		}
 	}
 

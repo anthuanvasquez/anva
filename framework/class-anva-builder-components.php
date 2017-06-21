@@ -8,11 +8,11 @@ if ( ! class_exists( 'Anva_Builder_Components' ) ) :
  * This sets up the default Builder elements
  * Also, this class adds and API to add/remove these elements.
  *
- * @since  		1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        http://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @since     1.0.0
+ * @author    Anthuan Vásquez
+ * @copyright Copyright (c) Anthuan Vásquez
+ * @link      http://anthuanvasquez.net
+ * @package   AnvaFramework
  */
 class Anva_Builder_Components {
 	/**

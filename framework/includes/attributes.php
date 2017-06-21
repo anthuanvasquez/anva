@@ -47,7 +47,7 @@ function anva_add_attributes() {
 	add_filter( 'anva_attr_entry', 'anva_attr_entry', 5 );
 	add_filter( 'anva_attr_entry-wrap', 'anva_attr_entry_wrap', 5 );
 	add_filter( 'anva_attr_entry-title', 'anva_attr_entry_title', 5 );
-	add_filter( 'anva_attr_entry-title-link', 'anva_attr_entry_title_link', 5 );
+	add_filter( 'anva_attr_entry-permalink', 'anva_attr_entry_permalink', 5 );
 	add_filter( 'anva_attr_entry-author', 'anva_attr_entry_author', 5 );
 	add_filter( 'anva_attr_entry-published', 'anva_attr_entry_published', 5 );
 	add_filter( 'anva_attr_entry-content', 'anva_attr_entry_content', 5 );
@@ -105,8 +105,8 @@ function anva_get_attr( $slug, $attr = array(), $context = '' ) {
  * Main wrapper element attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_wrapper( $attr ) {
 
@@ -120,8 +120,8 @@ function anva_attr_wrapper( $attr ) {
  * <body> element attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_body( $attr ) {
 
@@ -152,8 +152,8 @@ function anva_attr_body( $attr ) {
  * Page <header> element attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_header( $attr ) {
 
@@ -170,8 +170,8 @@ function anva_attr_header( $attr ) {
  * Page <footer> element attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_footer( $attr ) {
 
@@ -188,8 +188,8 @@ function anva_attr_footer( $attr ) {
  * Main content container of the page attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_content( $attr ) {
 
@@ -208,9 +208,9 @@ function anva_attr_content( $attr ) {
  * Sidebar attributes.
  *
  * @since  1.0.0
- * @param  array  $attr
- * @param  string $context
- * @return array
+ * @param  array  $attr Attributes.
+ * @param  string $context A specific context.
+ * @return array  $attr Attributes.
  */
 function anva_attr_sidebar( $attr, $context ) {
 
@@ -240,9 +240,9 @@ function anva_attr_sidebar( $attr, $context ) {
  * Nav menu attributes.
  *
  * @since  1.0.0
- * @param  array  $attr
- * @param  string $context
- * @return array
+ * @param  array  $attr Attributes.
+ * @param  string $context A specific context.
+ * @return array  $attr Attributes.
  */
 function anva_attr_menu( $attr, $context ) {
 
@@ -283,8 +283,8 @@ function anva_attr_menu( $attr, $context ) {
  * <head> attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_head( $attr ) {
 
@@ -298,8 +298,8 @@ function anva_attr_head( $attr ) {
  * Branding (usually a wrapper for logo image, title and tagline) attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_branding( $attr ) {
 
@@ -313,9 +313,8 @@ function anva_attr_branding( $attr ) {
  * Site title attributes.
  *
  * @since  1.0.0
- * @param  array  $attr
- * @param  string $context
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_site_title( $attr ) {
 
@@ -330,10 +329,8 @@ function anva_attr_site_title( $attr ) {
  * Site description attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array  $attr
- * @param  string $context
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_site_description( $attr ) {
 
@@ -348,10 +345,8 @@ function anva_attr_site_description( $attr ) {
  * Archive pages header attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array  $attr
- * @param  string $context
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_archive_header( $attr ) {
 
@@ -367,10 +362,8 @@ function anva_attr_archive_header( $attr ) {
  * Archive pages title attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array  $attr
- * @param  string $context
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_archive_title( $attr ) {
 
@@ -384,10 +377,8 @@ function anva_attr_archive_title( $attr ) {
  * Archive description attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array  $attr
- * @param  string $context
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_archive_description( $attr ) {
 
@@ -401,9 +392,8 @@ function anva_attr_archive_description( $attr ) {
  * Post <article> element attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_post( $attr ) {
 
@@ -426,7 +416,6 @@ function anva_attr_post( $attr ) {
 			if ( is_main_query() && ! is_search() ) {
 				$attr['itemprop'] = 'blogPost';
 			}
-
 		} elseif ( 'attachment' === $post_type && wp_attachment_is_image() ) {
 			$attr['itemtype'] = 'http://schema.org/ImageObject';
 		} elseif ( 'attachment' === $post_type && anva_attachment_is_audio() ) {
@@ -436,7 +425,6 @@ function anva_attr_post( $attr ) {
 		} else {
 			$attr['itemtype']  = 'http://schema.org/CreativeWork';
 		}
-
 	} else {
 
 		$attr['id']    = 'post-0';
@@ -451,9 +439,8 @@ function anva_attr_post( $attr ) {
  * Post wrap attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_entry_wrap( $attr ) {
 
@@ -466,9 +453,8 @@ function anva_attr_entry_wrap( $attr ) {
  * Post title attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_entry_title( $attr ) {
 
@@ -482,15 +468,14 @@ function anva_attr_entry_title( $attr ) {
  * Post link attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
-function anva_attr_entry_title_link() {
+function anva_attr_entry_permalink( $attr ) {
 
 	$attr['href']     = get_the_permalink();
 	$attr['rel']      = 'bookmark';
-	$attr['class']    = 'entry-title-link';
+	$attr['class']    = 'entry-link';
 	$attr['itemprop'] = 'url';
 
 	return $attr;
@@ -500,9 +485,8 @@ function anva_attr_entry_title_link() {
  * Post author attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_entry_author( $attr ) {
 
@@ -518,9 +502,8 @@ function anva_attr_entry_author( $attr ) {
  * Post time/published attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_entry_published( $attr ) {
 
@@ -536,9 +519,8 @@ function anva_attr_entry_published( $attr ) {
  * Post content (not excerpt) attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_entry_content( $attr ) {
 
@@ -561,9 +543,9 @@ function anva_attr_entry_content( $attr ) {
  * Post terms (tags, categories, etc.) attributes.
  *
  * @since  1.0.0
- * @param  array  $attr
- * @param  string $context
- * @return array  $attr
+ * @param  array  $attr Attributes.
+ * @param  string $context A specific context.
+ * @return array  $attr Attributes.
  */
 function anva_attr_entry_terms( $attr, $context ) {
 
@@ -589,9 +571,8 @@ function anva_attr_entry_terms( $attr, $context ) {
  * Comment wrapper attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_comment( $attr ) {
 
@@ -611,8 +592,8 @@ function anva_attr_comment( $attr ) {
  * Comment nav attributes.
  *
  * @since  1.0.0
- * @param  array $attr
- * @return array $attr
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_comment_nav( $attr ) {
 
@@ -630,9 +611,8 @@ function anva_attr_comment_nav( $attr ) {
  * Comment author attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_comment_author( $attr ) {
 
@@ -648,9 +628,8 @@ function anva_attr_comment_author( $attr ) {
  * Comment time/published attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_comment_published( $attr ) {
 
@@ -666,9 +645,8 @@ function anva_attr_comment_published( $attr ) {
  * Comment permalink attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_comment_permalink( $attr ) {
 
@@ -683,9 +661,8 @@ function anva_attr_comment_permalink( $attr ) {
  * Comment content/text attributes.
  *
  * @since  1.0.0
- * @access public
- * @param  array $attr
- * @return array
+ * @param  array $attr Attributes.
+ * @return array $attr Attributes.
  */
 function anva_attr_comment_text( $attr ) {
 

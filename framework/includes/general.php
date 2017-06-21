@@ -1,6 +1,14 @@
 <?php
+/**
+ * General and misc functions.
+ *
+ * @package    AnvaFramework
+ * @subpackage Admin
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
+ */
 
-// Do not allow directly accessing this file.
+// Do not allow directly accessing to this file.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Make theme available for translations.
  *
  * @since 1.0.0
+ * @return void
  */
 function anva_load_theme_texdomain() {
 	load_theme_textdomain( 'anva', get_template_directory() . '/languages' );
@@ -20,6 +29,7 @@ function anva_load_theme_texdomain() {
  * @global $wp_version
  *
  * @since  1.0.0
+ * @return void
  */
 function anva_add_theme_support() {
 	add_theme_support( 'post-thumbnails' );
@@ -35,7 +45,8 @@ function anva_add_theme_support() {
 /**
  * Add custom theme support features
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_require_theme_supports() {
 	require_if_theme_supports( 'anva-instant-search', Anva::$framework_dir_path . 'component/features/instant-search.php' );
@@ -45,7 +56,8 @@ function anva_require_theme_supports() {
 /**
  * Register menus.
  *
- * @since 1.0.0
+ * @since  1.0.0
+ * @return void
  */
 function anva_register_menus() {
 	register_nav_menus( array(
@@ -66,7 +78,7 @@ function anva_register_menus() {
  * @param  object $item
  * @param  array  $args
  * @param  int    $depth
- * @return array $classes
+ * @return array  $classes
  */
 function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 ) {
 
@@ -85,8 +97,8 @@ function anva_nav_menu_css_class( $classes, $item, $args = array(), $depth = 0 )
  * Get theme data.
  *
  * @since  1.0.0
- * @param  string  $id
- * @return string  $text
+ * @param  string $id Theme data ID.
+ * @return string $text The given theme data ID.
  */
 function anva_get_theme( $id ) {
 
@@ -114,11 +126,11 @@ function anva_get_theme( $id ) {
  * Get theme id.
  *
  * @since  1.0.0
- * @return string $text
+ * @return string $id Theme ID name.
  */
 function anva_get_theme_id() {
 
-	$id  = anva_get_theme( 'name' );
+	$id = anva_get_theme( 'name' );
 	$id = preg_replace( '/\W/', '_', strtolower( $id ) );
 
 	return $id;
@@ -132,13 +144,13 @@ function anva_get_theme_id() {
  * @since  1.0.0
  * @return array $tags
  */
-function anva_allowed_tags() {
+function anva_get_allowed_tags() {
 
 	global $allowedposttags;
 
 	$tags = $allowedposttags;
 
-	// iFrame tag
+	// iFrame tag.
 	$tags['iframe'] = array(
 		'style' 				=> true,
 		'width' 				=> true,
@@ -150,7 +162,7 @@ function anva_allowed_tags() {
 		'mozallowfullscreen' 	=> true,
 	);
 
-	// Script tag
+	// Script tag.
 	$tags['script'] = array(
 		'type'					=> true,
 		'src' 					=> true,
@@ -166,8 +178,8 @@ function anva_allowed_tags() {
  * @param  string $input
  * @return string $input
  */
-function anva_the_kses( $input ) {
-	echo anva_kses( $input );
+function anva_kses( $input ) {
+	echo anva_get_kses( $input );
 }
 
 /**
@@ -177,8 +189,8 @@ function anva_the_kses( $input ) {
  * @param  string $input
  * @return string $input
  */
-function anva_kses( $input ) {
-	return wp_kses( $input, anva_allowed_tags() );
+function anva_get_kses( $input ) {
+	return wp_kses( $input, anva_get_allowed_tags() );
 }
 
 /**
@@ -348,7 +360,7 @@ function anva_get_sidebar_layouts() {
 				'right' 	=> 'sidebar nobottommargin clearfix',
 			),
 			'icon'			=> ANVA_FRAMEWORK_ADMIN_IMG . 'sidebar/double_left.png',
-		)
+		),
 	);
 	return apply_filters( 'anva_sidebar_layouts', $layouts );
 }
@@ -358,7 +370,7 @@ function anva_get_sidebar_layouts() {
  *
  * @since  1.0.0
  * @param  string $column
-*/
+ */
 function anva_column_class( $column ) {
 	echo anva_get_column_class( $column );
 }
@@ -369,7 +381,7 @@ function anva_column_class( $column ) {
  * @since  1.0.0
  * @param  string $column
  * @return string $column_class
-*/
+ */
 function anva_get_column_class( $column ) {
 
 	$layout         = '';
@@ -575,7 +587,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => ''
+				'menu' => '',
 			),
 		),
 		'style_2' => array(
@@ -583,7 +595,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => 'style-2'
+				'menu' => 'style-2',
 			),
 		),
 		'style_3' => array(
@@ -591,7 +603,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => 'style-3'
+				'menu' => 'style-3',
 			),
 		),
 		'style_4' => array(
@@ -599,7 +611,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => 'style-4'
+				'menu' => 'style-4',
 			),
 		),
 		'style_5' => array(
@@ -607,7 +619,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => 'style-5'
+				'menu' => 'style-5',
 			),
 		),
 		'style_6' => array(
@@ -615,7 +627,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => 'style-6'
+				'menu' => 'style-6',
 			),
 		),
 		'style_7' => array(
@@ -623,7 +635,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => 'sticky-style-2',
-				'menu' => 'style-2'
+				'menu' => 'style-2',
 			),
 		),
 		'style_9' => array(
@@ -631,7 +643,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => 'sticky-style-2',
-				'menu' => 'style-2'
+				'menu' => 'style-2',
 			),
 		),
 		'style_10' => array(
@@ -639,7 +651,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => 'overlay-menu',
 				'header' => '',
-				'menu' => ''
+				'menu' => '',
 			),
 		),
 		'sub_title' => array(
@@ -647,7 +659,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => '',
-				'menu' => 'sub-title'
+				'menu' => 'sub-title',
 			),
 		),
 		'split_menu' => array(
@@ -655,7 +667,7 @@ function anva_get_primary_menu_styles() {
 			'classes' => array(
 				'body' => '',
 				'header' => 'split-menu',
-				'menu' => 'with-arrows'
+				'menu' => 'with-arrows',
 			),
 		),
 	);
@@ -744,8 +756,10 @@ function anva_config() {
 		'comments' => array(),
 	);
 
-	/*------------------------------------------------------*/
-	/* Areas
+	/*
+	------------------------------------------------------*/
+	/*
+	 Areas
 	/*------------------------------------------------------*/
 
 	if ( is_front_page() ) {
@@ -970,7 +984,7 @@ function anva_column_widths() {
 			array(
 				'name' 	=> '100%',
 				'value' => 'col_full',
-			)
+			),
 		),
 		'2-col' => array(
 			array(
@@ -1008,7 +1022,7 @@ function anva_column_widths() {
 			array(
 				'name' 	=> '80% | 20%',
 				'value' => 'col_five_sixth,col_one_sixth',
-			)
+			),
 		),
 		'3-col' => array(
 			array(
@@ -1062,7 +1076,7 @@ function anva_column_widths() {
 			array(
 				'name' 	=> '40% | 30% | 30%',
 				'value' => 'col_tenth_fourth,col_tenth_three,col_tenth_three',
-			)
+			),
 		),
 		'4-col' => array(
 			array(
@@ -1091,7 +1105,7 @@ function anva_column_widths() {
 				'name' 	=> '20% | 20% | 20% | 20% | 20%',
 				'value' => 'col_one_fifth,col_one_fifth,col_one_fifth,col_one_fifth,col_one_fifth',
 			),
-		)
+		),
 	);
 	return apply_filters( 'anva_column_widths', $widths );
 }
@@ -1108,32 +1122,32 @@ function anva_get_footer_widget_columns() {
 			'id'   => 'footer_1',
 			'name' => __( 'Footer 1', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 1' ),
-			'col'  => 1
+			'col'  => 1,
 		),
 		'footer_2' => array(
 			'id'   => 'footer_2',
 			'name' => __( 'Footer 2', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 2' ),
-			'col'  => 2
+			'col'  => 2,
 		),
 		'footer_3' => array(
 			'id'   => 'footer_3',
 			'name' => __( 'Footer 3', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 3' ),
-			'col'  => 3
+			'col'  => 3,
 		),
 		'footer_4' => array(
 			'id'   => 'footer_4',
 			'name' => __( 'Footer 4', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 4' ),
-			'col'  => 4
+			'col'  => 4,
 		),
 		'footer_5' => array(
 			'id'   => 'footer_5',
 			'name' => __( 'Footer 5', 'anva' ),
 			'desc' => sprintf( __( 'This is default placeholder for the "%s" location.', 'anva' ), 'Footer 5' ),
-			'col'  => 5
-		)
+			'col'  => 5,
+		),
 	);
 	return apply_filters( 'anva_get_footer_widget_columns', $columns );
 }
@@ -1186,7 +1200,7 @@ function anva_display_footer_sidebar_locations() {
 			$columns = array();
 			$num = $footer_setup['num'];
 			while ( $i <= $num ) {
-				if ( isset( $widgets_columns[ 'footer_'. $i ] ) ) {
+				if ( isset( $widgets_columns[ 'footer_' . $i ] ) ) {
 					$columns[] = $widgets_columns[ 'footer_' . $i ]['id'];
 				}
 				$i++;
@@ -1248,41 +1262,41 @@ function anva_gallery_templates() {
 			'id'     => 'grid_2',
 			'layout' => array(
 				'size' => 'anva_grid_2',
-				'col'  => 'col-2'
-			)
+				'col'  => 'col-2',
+			),
 		),
 		'grid_3'  => array(
 			'name' => __( 'Gallery 3 Columns', 'anva' ),
 			'id'	 => 'grid_3',
 			'layout' => array(
 				'size' => 'anva_grid_3',
-				'col'	 => 'col-3'
-			)
+				'col'	 => 'col-3',
+			),
 		),
 		'grid_4'  => array(
 			'name' => __( 'Gallery 4 Columns', 'anva' ),
 			'id'	 => 'grid_4',
 			'layout' => array(
 				'size' => 'anva_sm',
-				'col'	 => 'col-4'
-			)
+				'col'	 => 'col-4',
+			),
 		),
 		'grid_5'  => array(
 			'name' => __( 'Gallery 5 Columns', 'anva' ),
 			'id'	 => 'grid_5',
 			'layout' => array(
 				'size' => 'anva_sm',
-				'col'	 => 'col-5'
-			)
+				'col'	 => 'col-5',
+			),
 		),
 		'grid_6'  => array(
 			'name' => __( 'Gallery 6 Columns', 'anva' ),
 			'id'	 => 'grid_6',
 			'layout' => array(
 				'size' => 'anva_sm',
-				'col'	 => 'col-6'
-			)
-		)
+				'col'	 => 'col-6',
+			),
+		),
 	);
 	return apply_filters( 'anva_gallery_templates', $templates );
 }
@@ -1347,7 +1361,7 @@ function anva_get_post_meta_by_id( $field, $page_id ) {
  * Sort galleries
  *
  * @since  1.0.0
- * @param  array  $gallery
+ * @param  array $gallery
  * @return array  $gallery  The sorted galleries
  */
 function anva_sort_gallery( $gallery ) {
@@ -1355,30 +1369,30 @@ function anva_sort_gallery( $gallery ) {
 	$sorted = array();
 	$order  = anva_get_option( 'gallery_sort' );
 
-	if ( ! empty( $order ) && ! empty ( $gallery ) ) {
+	if ( ! empty( $order ) && ! empty( $gallery ) ) {
 
 		switch ( $order ) {
 
 			case 'drag':
-				foreach( $gallery as $key => $attachment_id ) {
-					$sorted[$key] = $attachment_id;
+				foreach ( $gallery as $key => $attachment_id ) {
+					$sorted[ $key ] = $attachment_id;
 				}
 				break;
 
 			case 'desc':
-				foreach( $gallery as $key => $attachment_id ) {
+				foreach ( $gallery as $key => $attachment_id ) {
 					$meta = get_post( $attachment_id );
 					$date = strtotime( $meta->post_date );
-					$sorted[$date] = $attachment_id;
+					$sorted[ $date ] = $attachment_id;
 					krsort( $sorted );
 				}
 				break;
 
 			case 'asc':
-				foreach( $gallery as $key => $attachment_id ) {
+				foreach ( $gallery as $key => $attachment_id ) {
 					$meta = get_post( $attachment_id );
 					$date = strtotime( $meta->post_date );
-					$sorted[$date] = $attachment_id;
+					$sorted[ $date ] = $attachment_id;
 					ksort( $sorted );
 				}
 				break;
@@ -1389,18 +1403,18 @@ function anva_sort_gallery( $gallery ) {
 				break;
 
 			case 'title':
-				foreach( $gallery as $key => $attachment_id ) {
+				foreach ( $gallery as $key => $attachment_id ) {
 					$meta = get_post( $attachment_id );
 					$title = $meta->post_title;
-					$sorted[$title] = $attachment_id;
+					$sorted[ $title ] = $attachment_id;
 					ksort( $sorted );
 				}
 				break;
-		}
+		}// End switch().
 
 		return $sorted;
 
-	}
+	}// End if().
 
 	return $gallery;
 }
@@ -1490,7 +1504,7 @@ function anva_admin_menu_bar() {
 		'id'    => $node,
 		'title' => esc_html__( 'Anva Options', 'anva' ),
 		'meta'  => array(
-			'class' => 'anva-admin-bar-node'
+			'class' => 'anva-admin-bar-node',
 		),
 	);
 
@@ -1570,7 +1584,7 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 	// (1) ".sf-menu li li.nav-header" 	=> Primary nav dropdowns
 	// (2) ".menu li.nav-header" 		=> Standard custom menu widget
 	// (3) ".subnav li.nav-header" 		=> Theme Blvd Horizontal Menu widget
-	if ( in_array( 'nav-header', $item->classes )  ) {
+	if ( in_array( 'nav-header', $item->classes ) ) {
 
 		$header = sprintf( '<span>%s</span>', apply_filters( 'the_title', $item->title, $item->ID ) );
 
@@ -1586,7 +1600,7 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
 
 	// Allow bootstrap "divider" class in menu items.
 	// Note: For primary navigation will only work on levels 2-3
-	if ( in_array( 'divider', $item->classes )  ) {
+	if ( in_array( 'divider', $item->classes ) ) {
 
 		if ( strpos( $args->menu_class, 'sf-menu' ) !== false ) {
 			// Primary Navigation
@@ -1639,7 +1653,7 @@ function anva_nav_menu_start_el( $item_output, $item, $depth, $args ) {
  * @return string          Filter menu item.
  */
 function anva_nav_menu_item_id( $menu_id, $item, $args, $depth ) {
-	return $args->theme_location . '-menu-item-'. $item->ID;
+	return $args->theme_location . '-menu-item-' . $item->ID;
 }
 
 /**
@@ -1702,14 +1716,14 @@ function anva_contact_send_email() {
 			$email_body 	.= "Name: $name\n\n";
 			$email_body 	.= "E-email: $email\n\n";
 			$email_body 	.= "Message: \n\n$message";
-			$email_subject 	 = '['. $subject . '] From ' . $name;
+			$email_subject 	 = '[' . $subject . '] From ' . $name;
 			$headers 		 = 'From: ' . $name . ' <' . $email_to . '>' . "\r\n" . 'Reply-To: ' . $email;
 
 			wp_mail( $email_to, $email_subject, $email_body, $headers );
 
 			$email_sent = true;
 		}
-	}
+	}// End if().
 
 	if ( isset( $email_sent ) && $email_sent === true ) :
 

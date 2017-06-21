@@ -2,7 +2,10 @@
 /**
  * Functions for display content.
  *
- * @package AnvaFramework
+ * @package    AnvaFramework
+ * @subpackage Admin
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
 /**

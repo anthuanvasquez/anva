@@ -358,7 +358,7 @@ function anva_get_button( $args ) {
 	}
 
 	// Finalize button.
-	if ( $target == 'lightbox' ) {
+	if ( 'lightbox' === $target ) {
 
 		// Button linking to lightbox
 		$args = array(
@@ -366,11 +366,10 @@ function anva_get_button( $args ) {
 			'link' 	=> $url,
 			'title' => $title,
 			'class' => $final_classes,
-			'addon'	=> $addon
+			'addon'	=> $addon,
 		);
 
 		// $button = anva_get_link_to_lightbox( $args );
-
 	} else {
 
 		$button_link = '<a href="%s" title="%s" class="%s" target="%s"%s>%s</a>';
@@ -387,7 +386,7 @@ function anva_get_button( $args ) {
 			esc_attr( $final_classes ),
 			esc_attr( $target ),
 			wp_kses( $addon, array() ),
-			anva_kses( $text )
+			anva_get_kses( $text )
 		);
 
 	}
@@ -530,9 +529,8 @@ function anva_get_social_icons( $args ) {
 					esc_attr( $classes )
 				);
 			}
-
-		}
-	}
+}// End foreach().
+	}// End if().
 
 	return apply_filters( 'anva_social_icons', $output );
 }
@@ -654,7 +652,7 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 		'posts_per_page' => $number,
 		'post_type'      => array( 'post' ),
 		'orderby'        => $orderby,
-		'order'          => $order
+		'order'          => $order,
 	);
 
 	$query = anva_get_posts( $args );
@@ -667,7 +665,7 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 		if ( $thumbnail ) {
 			$output .= '<li class="sm-post small-post clearfix">';
 			$output .= '<div class="entry-image">';
-			$output .= '<a href="'. get_permalink() .'">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</a>';
+			$output .= '<a href="' . get_permalink() . '">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</a>';
 			$output .= '</div><!-- .entry-image (end) -->';
 		} else {
 			$output .= '<li class="sm-post small-post clearfix">';
@@ -675,7 +673,7 @@ function anva_mini_posts_list( $number = 3, $orderby = 'date', $order = 'date', 
 
 		$output .= '<div class="entry-c">';
 		$output .= '<div class="entry-title">';
-		$output .= '<h4><a href="'. get_permalink() .'">' . get_the_title() . '</a></h4>';
+		$output .= '<h4><a href="' . get_permalink() . '">' . get_the_title() . '</a></h4>';
 		$output .= '</div><!-- .entry-title (end) -->';
 		$output .= '<div class="entry-meta">';
 		$output .= '<span class="date">' . get_the_time( 'jS F Y' ) . '</span>';
@@ -709,8 +707,8 @@ function anva_single_pagination( $query = '' ) {
 	<?php
 	else : ?>
 	<ul id="nav-posts" class="pager clearfix">
-		<li class="previous"><?php previous_posts_link( anva_get_local( 'prev'  ), $query->max_num_pages ); ?></li>
-		<li class="next"><?php next_posts_link( anva_get_local( 'next'  ), $query->max_num_pages ); ?></li>
+		<li class="previous"><?php previous_posts_link( anva_get_local( 'prev' ), $query->max_num_pages ); ?></li>
+		<li class="next"><?php next_posts_link( anva_get_local( 'next' ), $query->max_num_pages ); ?></li>
 	</ul>
 	<?php
 	endif;
@@ -722,9 +720,9 @@ function anva_single_pagination( $query = '' ) {
  * @global $paged
  * @global $wp_query
  *
- * @since  1.0.0
- * @param  string  $pages
- * @param  integer $range
+ * @since 1.0.0
+ * @param string  $pages
+ * @param integer $range
  */
 function anva_num_pagination( $pages = '', $range = 2 ) {
 	echo anva_get_num_pagination( $pages, $range );
@@ -735,9 +733,9 @@ function anva_num_pagination( $pages = '', $range = 2 ) {
  *
  * @global $paged
  *
- * @since  1.0.0
- * @param  string  $pages
- * @param  integer $range
+ * @since 1.0.0
+ * @param string  $pages
+ * @param integer $range
  */
 function anva_get_num_pagination( $pages = '', $range = 2 ) {
 
@@ -775,8 +773,8 @@ function anva_get_num_pagination( $pages = '', $range = 2 ) {
 		}
 
 		for ( $i = 1; $i <= $pages; $i++ ) {
-			if ( 1 != $pages &&( !($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems ) ) {
-				$output .= ($paged == $i) ? "<li class='active'><a href='#'>" . $i . "<span class='sr-only'>(current)</span></a></li>" : "<li><a href='" . get_pagenum_link( $i ) . "'>" . $i . "</a></li>";
+			if ( 1 != $pages &&( ! ($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems ) ) {
+				$output .= ($paged == $i) ? "<li class='active'><a href='#'>" . $i . "<span class='sr-only'>(current)</span></a></li>" : "<li><a href='" . get_pagenum_link( $i ) . "'>" . $i . '</a></li>';
 			}
 		}
 
@@ -784,12 +782,12 @@ function anva_get_num_pagination( $pages = '', $range = 2 ) {
 			$output .= "<li><a href='" . get_pagenum_link( $paged + 1 ) . "'>&rsaquo;</a></li>";
 		}
 
-		if ( $paged < $pages - 1 &&  $paged+$range - 1 < $pages && $showitems < $pages ) {
+		if ( $paged < $pages - 1 &&  $paged + $range - 1 < $pages && $showitems < $pages ) {
 			$output .= "<li><a href='" . get_pagenum_link( $pages ) . "'>&raquo;</a></li>";
 		}
 
 		$output .= "</ul>\n";
-		$output .= "</nav>";
+		$output .= '</nav>';
 	}
 
 	return apply_filters( 'anva_num_pagination_html', $output );
@@ -809,11 +807,11 @@ function anva_comment_pagination() {
 		</div>
 
 		<span class="page-numbers">
-		<?php
-		printf(
-			esc_html__( 'Page %1$s of %2$s', 'anva' ),
-			get_query_var( 'cpage' ) ? absint( get_query_var( 'cpage' ) ) : 1, get_comment_pages_count() );
-		?>
+			<?php
+			printf(
+				esc_html__( 'Page %1$s of %2$s', 'anva' ),
+				get_query_var( 'cpage' ) ? absint( get_query_var( 'cpage' ) ) : 1, get_comment_pages_count() );
+			?>
 		</span>
 
 		<div class="next nav-next">
@@ -839,12 +837,12 @@ function anva_password_form() {
 	$label   = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
 	$output  = '<form class="form-inline password-form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">';
 	$output .= '<i class="icon-lock"></i>';
-	$output .= '<p class="lead">' . __( "To view this protected post, enter the password below:", 'anva' ) . '</p>';
+	$output .= '<p class="lead">' . __( 'To view this protected post, enter the password below:', 'anva' ) . '</p>';
 	$output .= '<div class="form-group">';
-	$output .= '<label for="' . $label . '">' . __( "Password", 'anva' ) . ' </label>';
+	$output .= '<label for="' . $label . '">' . __( 'Password', 'anva' ) . ' </label>';
 	$output .= '<input class="form-control" name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" />';
 	$output .= '</div>';
-	$output .= '<input class="btn btn-default" type="submit" name="Submit" value="' . esc_attr__( "Submit", 'anva' ) . '" />';
+	$output .= '<input class="btn btn-default" type="submit" name="Submit" value="' . esc_attr__( 'Submit', 'anva' ) . '" />';
 	$output .= '</form>';
 
 	return $output;
@@ -863,76 +861,75 @@ function anva_password_form() {
 function anva_comment_list_callback( $comment, $args, $depth ) {
 
 	$GLOBALS['comment'] = $comment;
-
 	?>
 	<li <?php anva_attr( 'comment' ); ?>>
-	<div id="comment-wrap-<?php comment_ID() ?>" class="comment-wrap clearfix">
-		<div class="comment-meta">
-			<div class="comment-author vcard">
-				<div class="comment-avatar clearfix">
-					<a href="<?php echo comment_author_url( $comment->comment_ID ); ?>">
-						<?php
-							if ( $args['avatar_size'] != 0 ) {
+		<div id="comment-wrap-<?php comment_ID() ?>" class="comment-wrap clearfix">
+			<div class="comment-meta">
+				<div class="comment-author vcard">
+					<div class="comment-avatar clearfix">
+						<a href="<?php echo comment_author_url( $comment->comment_ID ); ?>">
+							<?php
+								if ( $args['avatar_size'] != 0 ) {
 								echo get_avatar( $comment, 64 );
-							}
-						?>
-					</a>
+								}
+							?>
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="comment-content clearfix">
-			<div <?php anva_attr( 'comment-author' ); ?>>
+			<div class="comment-content clearfix">
+				<div <?php anva_attr( 'comment-author' ); ?>>
 
-				<?php echo get_comment_author_link(); ?>
+					<?php echo get_comment_author_link(); ?>
+
+					<?php
+						if ( $comment->user_id === $GLOBALS['post']->post_author ) {
+						printf( '<cite>%s</cite>', esc_html__( 'Post Author', 'anva' ) );
+						}
+					?>
+
+					<span>
+						<a <?php anva_attr( 'comment-permalink' ); ?>>
+							<?php
+							printf(
+								'<time %4$s>%1$s %2$s %3$s</time>',
+								get_comment_date(),
+								esc_html__( 'at', 'anva' ),
+								get_comment_time(),
+								anva_get_attr( 'comment-published' )
+							);
+
+							edit_comment_link( esc_html__( 'Edit', 'anva' ), ' - ', '' );
+							?>
+						</a>
+					</span>
+				</div><!-- .comment-author (end) -->
+
+				<?php if ( $comment->comment_approved == '0' ) : ?>
+					<em class="comment-awaiting-moderation well well-sm">
+						<?php esc_html_e( 'Your comment is awaiting moderation.', 'anva' ); ?>
+					</em>
+				<?php endif; ?>
+
+				<div <?php anva_attr( 'comment-text' ); ?>>
+					<?php comment_text(); ?>
+				</div><!-- .comment-content (end) -->
 
 				<?php
-					if ( $comment->user_id === $GLOBALS['post']->post_author ) {
-						printf( '<cite>%s</cite>', esc_html__( 'Post Author', 'anva' ) );
-					}
+				$comment_reply = array(
+					'depth'      => intval( $GLOBALS['comment_depth'] ),
+					'max_depth'  => get_option( 'thread_comments_depth' ),
+					'reply_text' => '<i class="icon-reply"></i>',
+				);
+
+				$comment_reply_args = array_merge( $args, $comment_reply );
+
+				comment_reply_link( $comment_reply_args );
 				?>
 
-				<span>
-					<a <?php anva_attr( 'comment-permalink' ); ?>>
-						<?php
-						printf(
-							'<time %4$s>%1$s %2$s %3$s</time>',
-							get_comment_date(),
-							esc_html__( 'at', 'anva' ),
-							get_comment_time(),
-							anva_get_attr( 'comment-published' )
-						);
-
-						edit_comment_link( esc_html__( 'Edit', 'anva' ), ' - ', '' );
-						?>
-					</a>
-				</span>
-			</div><!-- .comment-author (end) -->
-
-			<?php if ( $comment->comment_approved == '0' ) : ?>
-				<em class="comment-awaiting-moderation well well-sm">
-					<?php esc_html_e( 'Your comment is awaiting moderation.', 'anva' ); ?>
-				</em>
-			<?php endif; ?>
-
-			<div <?php anva_attr( 'comment-text' ); ?>>
-				<?php comment_text(); ?>
 			</div><!-- .comment-content (end) -->
-
-			<?php
-			$comment_reply = array(
-				'depth'      => intval( $GLOBALS['comment_depth'] ),
-				'max_depth'  => get_option( 'thread_comments_depth' ),
-				'reply_text' => '<i class="icon-reply"></i>',
-			);
-
-			$comment_reply_args = array_merge( $args, $comment_reply );
-
-			comment_reply_link( $comment_reply_args );
-			?>
-
-		</div><!-- .comment-content (end) -->
-	</div><!-- .comment-wrap (end) -->
+		</div><!-- .comment-wrap (end) -->
 <?php
 }
 
@@ -949,8 +946,8 @@ function anva_comment_list_end_callback() {
 /**
  * Display breadcrumbs.
  *
- * @since  1.0.0.
- * @param  array  $args
+ * @since 1.0.0.
+ * @param array $args
  */
 function anva_the_breadcrumbs( $args = array() ) {
 	echo anva_get_breadcrumbs( $args );
@@ -962,7 +959,7 @@ function anva_the_breadcrumbs( $args = array() ) {
  * @global $post
  *
  * @since  1.0.0.
- * @param  array  $args
+ * @param  array $args
  * @return string $html
  */
 function anva_get_breadcrumbs( $args = array() ) {
@@ -978,7 +975,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 		'separator_icon'      => '/',
 		'breadcrumbs_id'      => 'breadcrumb',
 		'breadcrumbs_classes' => 'breadcrumb',
-		'home_title'          => __( 'Home', 'anva' )
+		'home_title'          => __( 'Home', 'anva' ),
 	);
 
 	$args      = apply_filters( 'anva_get_breadcrumbs_args', wp_parse_args( $args, $defaults ) );
@@ -1006,11 +1003,9 @@ function anva_get_breadcrumbs( $args = array() ) {
 				$html .= '<li class="item-cat">' . wp_kses( $parent, wp_kses_allowed_html( 'a' ) ) . '</li>';
 				$html .= $separator;
 			}
-
 		} else {
 			$html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
 		}
-
 	} elseif ( is_singular( 'page' ) ) {
 
 		if ( $post->post_parent ) {
@@ -1022,8 +1017,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 				$html .= '<li class="item-parent item-parent-' . esc_attr( $parent ) . '"><a class="bread-parent bread-parent-' . esc_attr( $parent ) . '" href="' . esc_url( get_permalink( $parent ) ) . '" title="' . get_the_title( $parent ) . '">' . get_the_title( $parent ) . '</a></li>';
 				$html .= $separator;
 			}
-
-		}
+			}
 
 		$html .= '<li class="active item-' . $post->ID . '">' . get_the_title() . '</li>';
 
@@ -1090,7 +1084,7 @@ function anva_get_breadcrumbs( $args = array() ) {
 
 	} elseif ( is_home() ) {
 		$html .= '<li class="item-home">' . get_the_title( get_option( 'page_for_posts' ) ) . '</li>';
-	}
+	}// End if().
 
 	$html .= '</ol>';
 	$html  = apply_filters( 'anva_breadcrumbs_html', $html );
@@ -1197,7 +1191,7 @@ function anva_gallery_slider( $post_id, $thumbnail ) {
 function anva_get_gallery_slider( $post_id, $thumbnail ) {
 
 	$gallery = anva_get_post_meta( '_anva_gallery_media' );
-	$gallery = anva_sort_gallery( $gallery ); // Sort gallery attachments
+	$gallery = anva_sort_gallery( $gallery ); // Sort gallery attachments.
 	$html    = '';
 
 	// Kill it is not an array.
@@ -1216,13 +1210,13 @@ function anva_get_gallery_slider( $post_id, $thumbnail ) {
 
 	$query = anva_get_posts( $query_args );
 
-	$slider  = "<div class=\"fslider\" data-pagi=\"false\" data-arrows=\"false\" data-speed=\"400\" data-pause=\"4000\" data-lightbox=\"gallery\">";
-	$slider .= "<div class=\"flexslider\">";
-	$slider .= "<div class=\"slider-wrap\">";
+	$slider  = '<div class="fslider" data-pagi="false" data-arrows="false" data-speed="400" data-pause="4000" data-lightbox="gallery">';
+	$slider .= '<div class="flexslider">';
+	$slider .= '<div class="slider-wrap">';
 	$slider .= "%s\n";
-	$slider .= "</div><!-- .slider-wrap (end) -->";
-	$slider .= "</div><!-- .flexslider (end) -->";
-	$slider .= "</div><!-- .fslider (end) -->";
+	$slider .= '</div><!-- .slider-wrap (end) -->';
+	$slider .= '</div><!-- .flexslider (end) -->';
+	$slider .= '</div><!-- .fslider (end) -->';
 
 	$slide = '';
 
@@ -1234,7 +1228,7 @@ function anva_get_gallery_slider( $post_id, $thumbnail ) {
 		$thumb_full = anva_get_attachment_image_src( get_the_ID(), 'full' );
 		$thumb_size = anva_get_attachment_image_src( get_the_ID(), $thumbnail );
 
-		$slide .= "<div class=\"slide\">";
+		$slide .= '<div class="slide">';
 		$slide .= sprintf(
 			"<a href=\"%s\" data-lightbox=\"gallery-item\">%s</a>\n",
 			esc_url( $thumb_full ),
@@ -1244,7 +1238,7 @@ function anva_get_gallery_slider( $post_id, $thumbnail ) {
 				$title
 			)
 		);
-		$slide .= "</div>";
+		$slide .= '</div>';
 
 	}
 
@@ -1290,10 +1284,14 @@ function anva_sliders( $slider ) {
 	} elseif ( 'layerslider' == $slider ) {
 		/**
 		 * anva_layer_slider_default()
+		 *
 		 * @todo create function to support Layer Slider.
 		 */
 	} else {
-		printf( '<div class="container"><div class="alert alert-warning bottommargin-sm topmargin-sm">%s</div></div>', __( 'No slider found.', 'anva' ) );
+		printf(
+			'<div class="container"><div class="alert alert-warning bottommargin-sm topmargin-sm">%s</div></div>',
+			__( 'No slider found.', 'anva' )
+		);
 	}
 
 }
@@ -1307,7 +1305,10 @@ function anva_sliders( $slider ) {
 function anva_revolution_slider_default() {
 
 	if ( ! class_exists( 'RevSliderFront' ) ) {
-		printf( '<div class="container"><div class="alert alert-warning bottommargin-sm topmargin-sm">%s.</div></div>', __( 'Revolution Slider not found, make sure the plugin is installed and activated.', 'anva' ) );
+		printf(
+			'<div class="container"><div class="alert alert-warning bottommargin-sm topmargin-sm">%s.</div></div>',
+			__( 'Revolution Slider not found, make sure the plugin is installed and activated.', 'anva' )
+		);
 		return;
 	}
 
@@ -1338,16 +1339,14 @@ function anva_slider_standard_default( $slider, $settings ) {
 	$thumbnail  = 'anva_lg';
 
 	// $defaults = apply_filters( 'anva_slider_standard_defaults', array(
-	// 	'pause'     => null,
-	// 	'arrow'     => true,
-	// 	'animation' => 'fade',
-	// 	'speed'     => 5000,
-	// 	'thumbs'    => true,
-	// 	'thumbnail' => 'anva_lg'
+	// 'pause'     => null,
+	// 'arrow'     => true,
+	// 'animation' => 'fade',
+	// 'speed'     => 5000,
+	// 'thumbs'    => true,
+	// 'thumbnail' => 'anva_lg'
 	// );
-
 	// $settings = wp_parse_args( $settings, $defaults );
-
 	// Query arguments.
 	$query_args = array(
 		'post_type'         => array( 'slideshows' ),
@@ -1396,7 +1395,7 @@ function anva_slider_standard_default( $slider, $settings ) {
 			$image   = anva_get_featured_image_src( $id, 'anva_sm' );
 			$a_tag   = '<a href="' . esc_url( $url ) . '">';
 
-			$html .= '<div class="slide slide-'. esc_attr( $id ) . '" data-thumb="'. esc_attr( $image ) .'">';
+			$html .= '<div class="slide slide-' . esc_attr( $id ) . '" data-thumb="' . esc_attr( $image ) . '">';
 
 			if ( has_post_thumbnail() ) {
 
@@ -1405,14 +1404,15 @@ function anva_slider_standard_default( $slider, $settings ) {
 					$html .= $a_tag;
 				}
 
-				$html .= get_the_post_thumbnail( $id, $thumbnail , array( 'class' => 'slide-image' ) );
+				$html .= get_the_post_thumbnail( $id, $thumbnail , array(
+					'class' => 'slide-image',
+				) );
 
 				// Close anchor.
 				if ( $url ) {
 					$html .= '</a>';
 				}
-
-			}
+}
 
 			switch ( $content ) {
 				case 'title':
@@ -1429,14 +1429,14 @@ function anva_slider_standard_default( $slider, $settings ) {
 			}
 
 			$html .= '</div>';
-		}
+		}// End while().
 
 		wp_reset_postdata();
 
 		$html .= '</div><!-- .slider-wrap (end) -->';
 		$html .= '</div><!-- .flexslider (end) -->';
 		$html .= '</div><!-- .fslider (end) -->';
-	}
+	}// End if().
 
 	echo $html;
 }
@@ -1508,14 +1508,15 @@ function anva_slider_owl_default( $slider, $settings ) {
 					$html .= $a_tag;
 				}
 
-				$html .= get_the_post_thumbnail( $id, $thumbnail , array( 'class' => 'slide-image' ) );
+				$html .= get_the_post_thumbnail( $id, $thumbnail , array(
+					'class' => 'slide-image',
+				) );
 
 				if ( $url ) {
 					$html .= '</a>';
 				}
 			}
-
-		}
+}
 
 		wp_reset_postdata();
 
@@ -1566,10 +1567,13 @@ function anva_slider_nivo_default( $slider, $settings ) {
 			$count++;
 
 			if ( has_post_thumbnail() ) {
-				$html .= get_the_post_thumbnail( $post_id, $thumbnail , array( 'class' => 'slide-image', 'title' => '#nivocaption' . esc_attr( $count ) ) );
+				$html .= get_the_post_thumbnail( $post_id, $thumbnail , array(
+					'class' => 'slide-image',
+					'title' => '#nivocaption' . esc_attr( $count ),
+				) );
 			}
 
-			$caption .= '<div id="nivocaption' . esc_attr( $count ) . '" class="nivo-html-caption">' . esc_html( $title ) .' </div>';
+			$caption .= '<div id="nivocaption' . esc_attr( $count ) . '" class="nivo-html-caption">' . esc_html( $title ) . ' </div>';
 
 		}
 
@@ -1610,6 +1614,7 @@ function anva_slider_bootstrap_default( $slider, $settings ) {
 	$class = '';
 
 	$post_count = count( $query->posts );
+
 	for ( $i = 0; $i < $post_count; $i++ ) {
 		if ( 0 == $i ) {
 			$class = 'class="' . esc_attr( $class ) . '"';
@@ -1650,11 +1655,9 @@ function anva_slider_bootstrap_default( $slider, $settings ) {
 
 			// $html .= '<div class="carousel-caption">';
 			// $html .= '<h3>' . $title . '</h3>';
-
 			// if ( ! empty( $desc ) ) {
-			//  $html .= '<p>' . $desc . '</p>';
+			// $html .= '<p>' . $desc . '</p>';
 			// }
-
 			// $html .= '</div>';
 			$html .= '</div>';
 
@@ -1680,7 +1683,7 @@ function anva_slider_bootstrap_default( $slider, $settings ) {
 
 		$html .= '</div><!-- .boostrap-carousel (end) -->';
 
-	}
+	}// End if().
 
 	echo $html;
 

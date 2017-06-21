@@ -1,4 +1,12 @@
 <?php
+/**
+ * Inputs sanitizations.
+ *
+ * @package    AnvaFramework
+ * @subpackage Admin
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
+ */
 
 /**
  * Sanitization.
@@ -109,7 +117,7 @@ function anva_sanitize_url( $input ) {
  */
 function anva_sanitize_textarea( $input ) {
 	global $allowedposttags;
-	$output = wp_kses( $input, anva_allowed_tags() );
+	$output = wp_kses( $input, anva_get_allowed_tags() );
 	return $output;
 }
 
