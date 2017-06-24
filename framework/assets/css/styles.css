@@ -5616,6 +5616,11 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay, body.device-t
   max-width: 350px;
 }
 
+.entry-terms > div {
+  position: relative;
+  overflow: hidden;
+}
+
 .entry-c {
   position: relative;
   overflow: hidden;
@@ -7728,7 +7733,7 @@ body.has-reading-bar #footer {
 .entry-terms.post_tag span,
 .entry-terms.category span {
   display: block;
-  margin-right: 4px;
+  margin-right: 8px;
   margin-top: 3px;
   float: left;
 }

@@ -1661,6 +1661,8 @@ function anva_nav_menu_item_id( $menu_id, $item, $args, $depth ) {
  *
  * @todo Move to extensions
  *
+ * @global $_email_sended_message
+ *
  * @since 1.0.0
  */
 function anva_contact_send_email() {

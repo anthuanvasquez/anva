@@ -1,12 +1,20 @@
 <?php
+/**
+ * Post formats functions.
+ *
+ * @package    AnvaFramework
+ * @subpackage Includes
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
+ */
 
 /**
  * Get the icon ID to represent a post format.
  *
  * @since  1.0.0
- * @param  string $format Post format
- * @param  book $force Force icon return, if no post format
- * @return string FontAwesime icon ID
+ * @param  string  $format Post format ID.
+ * @param  boolean $force Force icon return, if no post format.
+ * @return string  $icon Font icon ID.
  */
 function anva_get_post_format_icon( $format = '', $force = false ) {
 
@@ -49,7 +57,7 @@ function anva_get_post_format_icon( $format = '', $force = false ) {
 		'product'    => 'shopping-cart',
 		'quote'      => 'quote-left',
 		'status'     => 'align-justify2',
-		'video'      => 'film'
+		'video'      => 'film',
 	) );
 
 	if ( ! empty( $icons[ $format ] ) ) {
@@ -70,7 +78,7 @@ function anva_get_post_format_icon( $format = '', $force = false ) {
 function anva_content_format_gallery( $content ) {
 
 	// Only continue if this is a "gallery" format post.
-	if ( ! has_post_format('gallery') ) {
+	if ( ! has_post_format( 'gallery' ) ) {
 		return $content;
 	}
 
@@ -94,20 +102,20 @@ function anva_gallery_content() {
 
 	// If not gallery type set show slider content.
 	if ( ! $gallery ) {
-        anva_gallery_slider_content();
-        return;
+		anva_gallery_slider_content();
+		return;
 	}
 
-    if ( 'masonry' == $gallery ) {
-        anva_gallery_masonry_content();
-        return '';
-    }
+	if ( 'masonry' == $gallery ) {
+		anva_gallery_masonry_content();
+		return '';
+	}
 
-    if ( 'slider' == $gallery ) {
-        anva_gallery_slider_content();
-    }
+	if ( 'slider' == $gallery ) {
+		anva_gallery_slider_content();
+	}
 
-    return '';
+	return '';
 
 }
 
@@ -135,8 +143,8 @@ function anva_content_status() {
  * content in a "Link" format post.
  *
  * @since  1.0.0
- * @param  string $content
- * @return string $content
+ * @param  string $content The post content.
+ * @return string $content The post content.
  */
 function anva_content_format_link( $content ) {
 
@@ -164,7 +172,7 @@ function anva_content_format_link( $content ) {
  * content or and <a> tag.
  *
  * @since  1.0.0
- * @param  string $content
+ * @param  string $content The post content.
  * @return string
  */
 function anva_get_content_link( $content ) {
@@ -173,10 +181,9 @@ function anva_get_content_link( $content ) {
 		return '';
 	}
 
-	$trimmed = trim( $content );
-	$lines = explode( "\n", $trimmed );
-	$line = trim( array_shift( $lines ) );
-
+	$trimmed   = trim( $content );
+	$lines     = explode( "\n", $trimmed );
+	$line      = trim( array_shift( $lines ) );
 	$find_link = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
 
 	if ( preg_match( "/$find_link/siU", $line, $matches ) ) {
@@ -184,7 +191,7 @@ function anva_get_content_link( $content ) {
 		// First line of content is HTML link.
 		return array( $line, $matches[2] );
 
-	} else if ( stripos( $line, 'http' ) === 0 ) {
+	} elseif ( stripos( $line, 'http' ) === 0 ) {
 
 		// First line of content is URL
 		return array( $line, esc_url_raw( $line ) );
@@ -218,8 +225,8 @@ function anva_content_link() {
  * content in a "Video" format post.
  *
  * @since  1.0.0
- * @param  string $content
- * @return string $content
+ * @param  string $content The post content.
+ * @return string $content The post content.
  */
 function anva_content_format_video( $content ) {
 
@@ -247,7 +254,8 @@ function anva_content_format_video( $content ) {
  * content or the first encountered href attribute.
  *
  * @since  1.0.0
- * @param  string $content
+ * @param  string  $content
+ * @param  boolean $run
  * @return string
  */
 function anva_get_content_video( $content, $run = true ) {
@@ -257,8 +265,8 @@ function anva_get_content_video( $content, $run = true ) {
 	}
 
 	$trimmed = trim( $content );
-	$lines = explode( "\n", $trimmed );
-	$line = trim( array_shift( $lines ) );
+	$lines   = explode( "\n", $trimmed );
+	$line    = trim( array_shift( $lines ) );
 
 	// Video oembed get
 	if ( strpos( $line, 'http' ) === 0 ) {
@@ -272,7 +280,7 @@ function anva_get_content_video( $content, $run = true ) {
 	// [video]
 	if ( strpos( $trimmed, '[video' ) === 0 ) {
 
-		$end = strpos( $trimmed, '[/video]' ) + 8;
+		$end   = strpos( $trimmed, '[/video]' ) + 8;
 		$video = substr( $trimmed, 0, $end );
 
 		if ( $run ) {
@@ -289,8 +297,7 @@ function anva_get_content_video( $content, $run = true ) {
  * Display first video from current post's content in the loop.
  *
  * @since  1.0.0
- * @param  string $content
- * @return string
+ * @return void
  */
 function anva_content_video() {
 
@@ -351,7 +358,7 @@ function anva_get_content_audio( $content, $run = true ) {
 		return '';
 	}
 
-	$trimmed = trim( $content);
+	$trimmed = trim( $content );
 	$lines   = explode( "\n", $trimmed );
 	$line    = trim( array_shift( $lines ) );
 
@@ -365,7 +372,7 @@ function anva_get_content_audio( $content, $run = true ) {
 	}
 
 	// [audio]
-	if ( strpos( $trimmed, '[audio') === 0 ) {
+	if ( strpos( $trimmed, '[audio' ) === 0 ) {
 
 		$end   = strpos( $trimmed, '[/audio]' ) + 8;
 		$audio = substr( $trimmed, 0, $end );
@@ -378,7 +385,7 @@ function anva_get_content_audio( $content, $run = true ) {
 	}
 
 	// [soundcloud]
-	if ( strpos( $trimmed, '[soundcloud') === 0 ) {
+	if ( strpos( $trimmed, '[soundcloud' ) === 0 ) {
 
 		$end = strpos( $trimmed, '[/soundcloud]' ) + 13;
 		$audio = substr( $trimmed, 0, $end );
@@ -397,8 +404,7 @@ function anva_get_content_audio( $content, $run = true ) {
  * Display first audio from current post's content in the loop.
  *
  * @since  1.0.0
- * @param  string $content
- * @return string
+ * @return void
  */
 function anva_content_audio() {
 
@@ -424,7 +430,9 @@ function anva_content_audio() {
 
 		// If url dosn't have provider pass to audio shortcode.
 		if ( ! $oembed ) {
-			$audio = wp_audio_shortcode( array( 'src' => $audio ) );
+			$audio = wp_audio_shortcode( array(
+				'src' => $audio,
+			) );
 		} else {
 			$audio = $oembed;
 		}
@@ -432,7 +440,6 @@ function anva_content_audio() {
 		if ( apply_filters( 'anva_featured_thumb_frame', false ) ) {
 			$audio = sprintf( '<div class="thumbnail">%s</div>', $audio );
 		}
-
 	} else {
 		$audio = do_shortcode( $audio );
 	}
@@ -488,7 +495,7 @@ function anva_get_content_quote( $content, $run = true ) {
 		return '';
 	}
 
-	$trimmed = trim( $content);
+	$trimmed = trim( $content );
 	$lines   = explode( "\n", $trimmed );
 	$line    = trim( array_shift( $lines ) );
 
@@ -502,7 +509,7 @@ function anva_get_content_quote( $content, $run = true ) {
 	}
 
 	// <blockquote>
-	if ( strpos( $trimmed, '<blockquote') === 0 ) {
+	if ( strpos( $trimmed, '<blockquote' ) === 0 ) {
 		$end = strpos( $trimmed, '</blockquote>' ) + 13;
 		return substr( $trimmed, 0, $end );
 	}
@@ -514,8 +521,7 @@ function anva_get_content_quote( $content, $run = true ) {
  * Display first quote from current post's content in the loop.
  *
  * @since  1.0.0
- * @param  string $content
- * @return string
+ * @return void
  */
 function anva_content_quote() {
 

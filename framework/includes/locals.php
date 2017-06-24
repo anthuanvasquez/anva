@@ -2,7 +2,10 @@
 /**
  * Localizations functions.
  *
- * @package AnvaFramework
+ * @package    AnvaFramework
+ * @subpackage Includes
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
 /**
@@ -136,8 +139,8 @@ function anva_get_text_locals() {
 /**
  * Separate local.
  *
- * @since  1.0.0.
- * @param  string $id The ID for local string.
+ * @since 1.0.0.
+ * @param string $id The ID for local string.
  */
 function anva_local( $id ) {
 	echo esc_html( anva_get_local( $id ) );
@@ -147,8 +150,8 @@ function anva_local( $id ) {
  * Get separate local.
  *
  * @since  1.0.0
- * @param  string $id The ID for local string.
- * @return string $text
+ * @param  string $id The local ID.
+ * @return string $text The given local ID.
  */
 function anva_get_local( $id ) {
 
@@ -167,7 +170,7 @@ function anva_get_local( $id ) {
  * Get all js locals (not admin).
  *
  * @since  1.0.0
- * @return array $localize
+ * @return array $localize Locals used for javascripts.
  */
 function anva_get_js_locals() {
 

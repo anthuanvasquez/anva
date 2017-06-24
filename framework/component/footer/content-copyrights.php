@@ -23,7 +23,7 @@ $display          = anva_get_option( 'footer_extra_display' );
 	<div class="container clearfix">
 		<div class="col_half">
 			<div class="copyright-text">
-				<?php anva_the_kses( $footer_copyright ); ?>
+				<?php anva_kses( $footer_copyright ); ?>
 			</div>
 
 			<?php anva_get_template_part( 'navigation', 'footer-menu' ); ?>

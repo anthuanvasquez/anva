@@ -475,7 +475,7 @@ function anva_attr_entry_permalink( $attr ) {
 
 	$attr['href']     = get_the_permalink();
 	$attr['rel']      = 'bookmark';
-	$attr['class']    = 'entry-link';
+	$attr['class']    = 'entry-title-link';
 	$attr['itemprop'] = 'url';
 
 	return $attr;

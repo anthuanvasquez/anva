@@ -18,7 +18,7 @@
 ?>
 <div <?php anva_attr( 'entry-title' ); ?>>
 	<h2 class="entry-title-heading">
-		<a <?php anva_attr( 'entry-title-link' ); ?>>
+		<a <?php anva_attr( 'entry-permalink' ); ?>>
 			<?php the_title(); ?>
 		</a>
 	</h2>

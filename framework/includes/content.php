@@ -81,7 +81,14 @@ function anva_get_post_terms( $args = array() ) {
 
 	if ( $terms ) {
 		$html .= $args['before'];
-		$html .= sprintf( $args['wrap'], anva_get_attr( 'entry-terms', array(), $args['taxonomy'] ), sprintf( "<span>{$args['text']}</span> %s", $terms ) );
+		$html .= sprintf(
+			$args['wrap'],
+			anva_get_attr( 'entry-terms', array(), $args['taxonomy'] ),
+			sprintf(
+				"<span>{$args['text']}</span> <div class='entry-terms-wrap'>%s</div>",
+				$terms
+			)
+		);
 		$html .= $args['after'];
 	}
 

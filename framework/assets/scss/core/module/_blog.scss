@@ -228,6 +228,13 @@
     }
 }
 
+.entry-terms {
+    > div {
+        position: relative;
+        overflow: hidden;
+    }
+}
+
 .entry-c {
     position: relative;
     overflow: hidden;
@@ -413,8 +420,6 @@ body {
         }
     }
 }
-
-
 
 /* Blog - Grid - 3 Columns
 -----------------------------------------------------------------*/
