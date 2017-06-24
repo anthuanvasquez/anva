@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for footer.
+ * The template for displaying footer content.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -8,20 +8,29 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version      1.0.0
- * @author       Anthuan Vásquez
- * @copyright    Copyright (c) Anthuan Vásquez
- * @link         https://anthuanvasquez.net
- * @package      AnvaFramework
+ * @link       https://anthuanvasquez.net
+ *
+ * @package    AnvaFramework
+ * @subpackage Anva
+ * @version    1.0.0
+ * @since      1.0.0
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
-			/**
-			 * Hooked.
-			 *
-			 * @see anva_below_layout_default, nva_sidebar_below_content
-			 */
-			do_action( 'anva_below_layout' );
-		?>
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Hooked.
+ *
+ * @see anva_below_layout_default, nva_sidebar_below_content
+ */
+do_action( 'anva_below_layout' );
+?>
+
 		</div><!-- .content-wrap (end) -->
 	</section><!-- CONTENT (end) -->
 
@@ -39,10 +48,9 @@
 		do_action( 'anva_footer_above' );
 
 		$footer_color = anva_get_option( 'footer_color', 'dark' );
-		$classes = array();
-		$attrs   = array();
-
-		$classes[] = 'site-footer';
+		$classes      = array();
+		$attrs        = array();
+		$classes[]    = 'site-footer';
 
 		if ( $footer_color ) {
 			$classes[] = $footer_color;

@@ -2,7 +2,10 @@
 /**
  * Function for content media.
  *
- * @package AnvaFramework
+ * @package    AnvaFramework
+ * @subpackage Includes
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
 /**

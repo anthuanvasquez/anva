@@ -294,9 +294,9 @@ class Anva {
 			/**
 			 * AJAX hooks.
 			 */
-			add_action( 'wp_ajax_anva_blog_posts_filter', 'anva_blog_posts_filter' );
+			add_action( 'wp_ajax_anva_blog_post_filters', 'anva_blog_post_filters' );
+			add_action( 'wp_ajax_nopriv_anva_blog_post_filters', 'anva_blog_post_filters' );
 			add_action( 'wp_ajax_anva_ajax_search', 'anva_ajax_search' );
-			add_action( 'wp_ajax_nopriv_anva_blog_posts_filter', 'anva_blog_posts_filter' );
 			add_action( 'wp_ajax_nopriv_anva_ajax_search', 'anva_ajax_search' );
 
 			/**

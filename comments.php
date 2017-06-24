@@ -1,6 +1,6 @@
 <?php
 /**
- * The template file for comments.
+ * The template for displaying comments.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -8,12 +8,20 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version      1.0.0
- * @author       Anthuan Vásquez
- * @copyright    Copyright (c) Anthuan Vásquez
- * @link         https://anthuanvasquez.net
- * @package      AnvaFramework
+ * @link       https://anthuanvasquez.net
+ *
+ * @package    AnvaFramework
+ * @subpackage Anva
+ * @version    1.0.0
+ * @since      1.0.0
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
+
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // If a post password is required or no comments are given and comments/pings are closed.
 if ( post_password_required() || ( ! have_comments() && ! comments_open() && ! pings_open() ) ) {
@@ -159,8 +167,7 @@ if ( post_password_required() || ( ! have_comments() && ! comments_open() && ! p
 </div><!-- #comments (end) -->
 
 <?php
-	/**
-	 * Comments after not hooked by default.
-	 */
-	do_action( 'anva_comments_after' );
-?>
+/**
+ * Comments after not hooked by default.
+ */
+do_action( 'anva_comments_after' );

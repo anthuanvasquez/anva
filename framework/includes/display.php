@@ -3,7 +3,7 @@
  * Functions for display content.
  *
  * @package    AnvaFramework
- * @subpackage Admin
+ * @subpackage Includes
  * @author     Anthuan Vasquez <me@anthuanvasquez.net>
  * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
@@ -31,10 +31,10 @@ function anva_head_apple_touch_icon() {
 
 	if ( $touch_icon_display ) {
 
-		$touch_icon     = anva_get_option( 'apple_touch_icon' );
-		$touch_icon76   = anva_get_option( 'apple_touch_icon_76' );
-		$touch_icon120  = anva_get_option( 'apple_touch_icon_120' );
-		$touch_icon152  = anva_get_option( 'apple_touch_icon_152' );
+		$touch_icon    = anva_get_option( 'apple_touch_icon' );
+		$touch_icon76  = anva_get_option( 'apple_touch_icon_76' );
+		$touch_icon120 = anva_get_option( 'apple_touch_icon_120' );
+		$touch_icon152 = anva_get_option( 'apple_touch_icon_152' );
 
 		if ( $touch_icon ) {
 			$links[] = array(

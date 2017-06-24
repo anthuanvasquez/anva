@@ -1,5 +1,16 @@
 <?php
+/**
+ * Layout options.
+ *
+ * @package AnvaFramework
+ */
 
+/**
+ * Layout options tab.
+ *
+ * @since  1.0.0
+ * @return array $layout Options array,
+ */
 function anva_theme_options_layout() {
 
 	// Transitions.

@@ -10,37 +10,42 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version      1.0.0
- * @author       Anthuan Vásquez
- * @copyright    Copyright (c) Anthuan Vásquez
- * @link         https://anthuanvasquez.net
- * @package      AnvaFramework
+ * @link       https://anthuanvasquez.net
+ *
+ * @package    AnvaFramework
+ * @subpackage Anva
+ * @version    1.0.0
+ * @since      1.0.0
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 get_header();
+
+/**
+ * Before post content not hooked by default.
+ */
+do_action( 'anva_post_content_before' );
 ?>
 
+<div class="custom-content-layout clearfix">
 	<?php
 		/**
-		 * Before post content not hooked by default.
+		 * Hooked @see anva_elements
 		 */
-		do_action( 'anva_post_content_before' );
+		do_action( 'anva_content_builder' );
 	?>
+</div><!-- .custom-content-layout (end) -->
 
-	<div class="custom-content-layout clearfix">
-		<?php
-			/**
-			 * Hooked @see anva_elements
-			 */
-			do_action( 'anva_content_builder' );
-		?>
-	</div><!-- .custom-content-layout (end) -->
+<?php
+/**
+ * After post content not hooked by default.
+ */
+do_action( 'anva_post_content_after' );
 
-	<?php
-		/**
-		 * After post content not hooked by default.
-		 */
-		do_action( 'anva_post_content_after' );
-	?>
-
-<?php get_footer(); ?>
+get_footer();

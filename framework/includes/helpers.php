@@ -1353,12 +1353,13 @@ function anva_compress( $buffer ) {
  * Get template framework part component.
  *
  * @since 1.0.0
- * @param string $name
- * @param string $slug
+ * @param string $type Template component type or compelte path to component.
+ * @param string $name Template name slug.
+ * @param string $data Data passed to template.
  */
-function anva_get_template_part( $slug = 'post', $name = 'content' ) {
+function anva_get_template_part( $type = 'post', $name = 'content', $data = '' ) {
 
-	$components = apply_filters( 'anva_components_list', array(
+	$components = apply_filters( 'anva_components_list_type', array(
 		'page',
 		'post',
 		'header',
@@ -1369,13 +1370,17 @@ function anva_get_template_part( $slug = 'post', $name = 'content' ) {
 
 	$path = apply_filters( 'anva_components_path', trailingslashit( 'framework/component' ) );
 
-	if ( in_array( $slug, $components ) ) {
-		$file = trailingslashit( $path . $slug ) . $name;
+	if ( ! empty( $data ) ) {
+		set_query_var( 'data', $data );
+	}
+
+	if ( in_array( $type, $components ) ) {
+		$file = trailingslashit( $path . $type ) . $name; // ex. path/to/post/content.
 		get_template_part( $file );
 		return;
 	}
 
-	get_template_part( $path . $slug );
+	get_template_part( $path . $type ); // ex. path/to/breadcrumbs.
 }
 
 /**
@@ -1431,7 +1436,7 @@ function anva_convert_memory_use( $size ) {
 /**
  * Show debug information.
  *
- * @param  object $object The object given
+ * @param  object $object The object given.
  * @return void
  */
 function anva_dump( $object ) {

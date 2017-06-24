@@ -2,18 +2,28 @@
 /**
  * Template Name: Posts Grid
  *
+ * The template used for displaying post grid.
+ *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
  * that any edits to the way this file displays its
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version      1.0.0
- * @author       Anthuan Vásquez
- * @copyright    Copyright (c) Anthuan Vásquez
- * @link         https://anthuanvasquez.net
- * @package      AnvaFramework
+ * @link       https://anthuanvasquez.net
+ *
+ * @package    AnvaFramework
+ * @subpackage Anva
+ * @version    1.0.0
+ * @since      1.0.0
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
+
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 get_header();
 
@@ -75,4 +85,4 @@ $query = anva_get_posts();
 
 </div><!-- .container (end) -->
 
-<?php get_footer(); ?>
+<?php get_footer();

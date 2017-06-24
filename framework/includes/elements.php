@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Generate content builder elements.
  *

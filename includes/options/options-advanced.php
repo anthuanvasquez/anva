@@ -1,5 +1,16 @@
 <?php
+/**
+ * Advanced options.
+ *
+ * @package AnvaFramework
+ */
 
+/**
+ * Advanced options tab.
+ *
+ * @since  1.0.0
+ * @return array $advanced Options array.
+ */
 function anva_theme_options_advanced() {
 	$advanced = array(
 		'general' => array(

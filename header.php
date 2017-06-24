@@ -1,6 +1,9 @@
 <?php
 /**
- * The template file for header.
+ * The template for displaying header.
+ *
+ * This is the template that displays all of the <head> section
+ * and everything up until <div id="content">.
  *
  * WARNING: This template file is a core part of the
  * Anva WordPress Framework. It is advised
@@ -8,11 +11,14 @@
  * content be done with via hooks, filters, and
  * template parts.
  *
- * @version      1.0.0
- * @author       Anthuan Vásquez
- * @copyright    Copyright (c) Anthuan Vásquez
- * @link         https://anthuanvasquez.net
- * @package      AnvaFramework
+ * @link       https://anthuanvasquez.net
+ *
+ * @package    AnvaFramework
+ * @subpackage Anva
+ * @version    1.0.0
+ * @since      1.0.0
+ * @author     Anthuan Vasquez <me@anthuanvasquez.net>
+ * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
 // Do not allow directly accessing this file.
@@ -32,7 +38,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'anva_wp_head' );
 	?>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php
 		/**
 		 * Required hooked by WordPress.
@@ -129,4 +134,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 				 * @see anva_sidebar_above_content, anva_above_layout_default
 				 */
 				do_action( 'anva_above_layout' );
-			?>

@@ -1,24 +1,15 @@
 <?php
 /**
- * Theme options.
+ * Styles options.
  *
- * WARNING: This file is a core part of the
- * Anva WordPress Framework. It is advised
- * that any edits to the way this file displays its
- * content be done with via hooks, and filters.
- *
- * @version     1.0.0
- * @author      Anthuan Vásquez
- * @copyright   Copyright (c) Anthuan Vásquez
- * @link        https://anthuanvasquez.net
- * @package     Anva WordPress Framework
+ * @package AnvaFramework
  */
 
 /**
- * Styles options.
+ * Styles options tab.
  *
  * @since  1.0.0
- * @return array $styles Options for styles tab.
+ * @return array $styles Options array.
  */
 function anva_theme_options_styles() {
 

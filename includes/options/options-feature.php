@@ -2,13 +2,14 @@
 /**
  * Feature options.
  *
- * @package  AnvaFramework
+ * @package AnvaFramework
  */
 
 /**
- * Feature Tab Options.
+ * Feature options tab.
  *
- * @return  array $feature Options for feature tab,
+ * @since  1.0.0
+ * @return array $feature Options array,
  */
 function anva_theme_options_feature() {
 
