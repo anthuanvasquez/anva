@@ -24,6 +24,7 @@ Desktop.ini
 .sass-cache
 prepros.cfg
 config.codekit
+.vscode
 /vendor
 /docs
 /.tools/src
