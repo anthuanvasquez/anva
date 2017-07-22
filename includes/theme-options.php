@@ -24,10 +24,10 @@
 function anva_theme_options() {
 
 	// Include options files.
-	include_once( 'options/options-styles.php' );
-	include_once( 'options/options-layout.php' );
-	include_once( 'options/options-feature.php' );
-	include_once( 'options/options-advanced.php' );
+	require_once( get_template_directory() . '/includes/options/options-styles.php' );
+	require_once( get_template_directory() . '/includes/options/options-layout.php' );
+	require_once( get_template_directory() . '/includes/options/options-feature.php' );
+	require_once( get_template_directory() . '/includes/options/options-advanced.php' );
 
 	/**
 	 * Styles Tab Options.

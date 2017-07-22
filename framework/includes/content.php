@@ -66,7 +66,7 @@ function anva_post_terms( $args = array() ) {
  * It uses that to build a better post terms list.
  *
  * @since  1.0.0
- * @param  array   $args
+ * @param  array $args
  * @return string
  */
 function anva_get_post_terms( $args = array() ) {

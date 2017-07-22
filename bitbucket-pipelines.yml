@@ -6,8 +6,8 @@ pipelines:
     default:
         - step:
             script:
-                - export SNIFFS_DIR=/sniffs
-                - export TOOLS_DIR=/.tools
+                - export SNIFFS_DIR=./sniffs
+                - export TOOLS_DIR=./.tools
     branches:
         develop:
             - step:
@@ -18,8 +18,9 @@ pipelines:
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=sniffs,.tools,vendor; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude sniffs,.tools,vendor; fi
+                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcpd . -vv --fuzzy; fi
                     - if [[ "$TOOLS" == "1" ]]; then cd .tools; fi
-                    - if [[ "$TOOLS" == "1" ]]; then yarn; fi
+                    - if [[ "$TOOLS" == "1" ]]; then yarn install; fi
                     - if [[ "$TOOLS" == "1" ]]; then gulp tests; fi
         feature/*:
             - step:
@@ -30,6 +31,7 @@ pipelines:
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=tmp,.tools,vendor; fi
                     - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude tmp,.tools,vendor; fi
+                    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcpd . -vv --fuzzy; fi
                     - if [[ "$TOOLS" == "1" ]]; then cd .tools; fi
-                    - if [[ "$TOOLS" == "1" ]]; then yarn; fi
+                    - if [[ "$TOOLS" == "1" ]]; then yarn install; fi
                     - if [[ "$TOOLS" == "1" ]]; then gulp tests; fi

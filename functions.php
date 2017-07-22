@@ -17,7 +17,7 @@
  * @copyright  Copyright (c) 2017, Anthuan Vasquez
  */
 
-// Do not allow directly accessing this file.
+// Do not allow directly accessing to this file.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

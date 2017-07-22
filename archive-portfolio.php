@@ -15,7 +15,7 @@
  * @package      AnvaFramework
  */
 
-// Do not allow directly accessing this file.
+// Do not allow directly accessing to this file.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -65,7 +65,11 @@ get_header();
 				?>
 					<article id="portfolio-item-<?php the_ID(); ?>" <?php post_class( "portfolio-item {$terms}" ); ?>>
 						<div class="portfolio-image">
-							<?php the_post_thumbnail( 'anva_grid_2', array( 'title' => get_the_title() ) ); ?>
+							<?php
+								the_post_thumbnail( 'anva_grid_2', array(
+									'title' => get_the_title(),
+								) );
+							?>
 							<div class="portfolio-overlay">
 								<a href="<?php anva_the_featured_image_src( get_the_ID(), 'full' ); ?>" class="left-icon" data-lightbox="image">
 									<i class="icon-line-plus"></i>
@@ -103,4 +107,4 @@ get_header();
 
 </div><!-- .container (end) -->
 
-<?php get_footer(); ?>
+<?php get_footer();
