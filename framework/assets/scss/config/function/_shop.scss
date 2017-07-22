@@ -1,8 +1,0 @@
-@function shop-width($container, $columns, $margin) {
-    @return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
-}
-
-@function shop-height($container, $columns, $margin) {
-    $width: floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
-    @return floor( ( $width * 4 ) / 3 );
-}

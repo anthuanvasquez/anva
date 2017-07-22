@@ -1,8 +1,0 @@
-@function blog-grid-width($container, $columns, $margin) {
-    @return floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
-}
-
-@function blog-grid-height($container, $columns, $margin) {
-    $width: floor( ( $container - ( $margin * ( $columns - 1 ) ) ) / $columns );
-    @return floor( ( $width * 37 ) / 66 );
-}
