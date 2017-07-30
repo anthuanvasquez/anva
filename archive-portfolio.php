@@ -59,8 +59,7 @@ get_header();
 	<div id="portfolio" class="<?php anva_template_class( 'portfolio' ); ?>">
 		<?php
 		if ( have_posts() ) :
-			while ( have_posts() ) :
-				the_post();
+			while ( have_posts() ) : the_post();
 				$terms = anva_get_terms_links( 'portfolio_type', ' ', false, 'slug' );
 				?>
 					<article id="portfolio-item-<?php the_ID(); ?>" <?php post_class( "portfolio-item {$terms}" ); ?>>
@@ -93,7 +92,7 @@ get_header();
 				<?php
 			endwhile;
 
-			anva_get_template_part( 'post', 'content-pagination' );
+			anva_get_template_part( 'post', 'pagination' );
 		endif;
 		?>
 	</div><!-- #portfolio (end) -->

@@ -14,6 +14,11 @@
  * @package     Anva WordPress Framework
  */
 
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Use Anva_Options_API to add options onto options already
  * present in framework.

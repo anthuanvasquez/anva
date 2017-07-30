@@ -1,5 +1,10 @@
 <?php
 
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Setup theme options for customizer.
  *

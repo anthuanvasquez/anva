@@ -9,6 +9,11 @@
  * @package     Anva WordPress Framework
  */
 
+// Do not allow directly accessing to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Define theme constants.
 define( 'ANVA_THEME_ID', anva_get_theme_id() );
 define( 'ANVA_THEME_NAME', anva_get_theme( 'name' ) );
