@@ -134,11 +134,8 @@ module.exports = {
                 'components/**',
                 'vmap/**'
             ],
-            options: src + '.jshintrc'
-        },
-        jscs: {
             options: {
-                configPath: src + '.jscsrc'
+                configFile: './.eslintrc.json'
             }
         },
         minify: {
@@ -205,7 +202,9 @@ module.exports = {
                 reporters: [
                     {
                         formatter: 'verbose',
-                        console: true
+                        clearMessages: true,
+                        console: true,
+                        throwError: true
                     }
                 ]
             }

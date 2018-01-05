@@ -8,20 +8,12 @@ var gulp        = require('gulp'),
 gulp.task('js-lint', () => {
     return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
         .pipe(plugins.ignore.exclude(config.lint.ignore))
-        .pipe(plugins.jshint(config.lint.options))
-        .pipe(plugins.jshint.reporter('jshint-stylish'), { beep: true })
+        .pipe(plugins.eslint(config.lint.options))
+        .pipe(plugins.eslint.format())
+        .pipe(eslint.failAfterError())
+        .pipe(plugins.eslint.reporter('jshint-stylish'), { beep: true })
         .pipe(plugins.logger({
             afterEach : ' - JS Lint finished'
-        }));
-});
-
-gulp.task('jscs-lint', () => {
-    return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
-        .pipe(plugins.ignore.exclude(config.lint.ignore))
-        .pipe(plugins.jscs(config.jscs.options))
-        .pipe(plugins.jscs.reporter())
-        .pipe(plugins.logger({
-            afterEach : ' - JSCS Lint finished'
         }));
 });
 

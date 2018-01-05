@@ -5,6 +5,8 @@ var gulp          = require('gulp'),
     autoprefixer  = require('autoprefixer'),
     processors    = [autoprefixer(config.autoprefixer)],
     browsersync   = require('browser-sync'),
+    stylelint     = require('stylelint'),
+    reporter      = require('postcss-reporter'),
     onError       = plugins.notify.onError('Error: <%= error.message %>')
 ;
 
@@ -23,7 +25,16 @@ gulp.task('sass-lint', () => {
 gulp.task('css-lint', () => {
     return gulp.src([config.lint.theme, config.lint.core, config.lint.admin])
         .pipe(plugins.ignore.exclude(config.lint.ignore))
-        .pipe(plugins.stylelint(config.lint.options))
+        .pipe(
+            plugins.postcss([
+                stylelint(),
+                reporter({
+                    clearMessages: true,
+                    throwError: gutil.env.ci || false
+                })
+            ])
+        )
+        //.pipe(plugins.stylelint(config.lint.options))
         .pipe(plugins.logger({
             afterEach : ' - CSS Lint finished'
         }));
