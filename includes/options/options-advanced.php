@@ -28,7 +28,7 @@ function anva_theme_options_advanced() {
 			),
 			'debug' => array(
 				'name' => null,
-				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Debug' ), esc_html__( 'Display debug information in the footer.', 'anva' ) ),
+				'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Debug', 'anva' ), esc_html__( 'Display debug information in the footer.', 'anva' ) ),
 				'id' => 'debug',
 				'std' => '0',
 				'type' => 'checkbox',

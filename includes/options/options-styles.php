@@ -115,7 +115,7 @@ function anva_theme_options_styles() {
 			),
 			'top_bar_text_color' => array(
 				'name' => null,
-				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Topbar Text' ), esc_html__( 'Use light text color for background.', 'anva' ) ),
+				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Topbar Text', 'anva' ), esc_html__( 'Use light text color for background.', 'anva' ) ),
 				'id' => 'top_bar_text_color',
 				'std' => '0',
 				'type' => 'checkbox',
@@ -561,7 +561,7 @@ function anva_theme_options_styles() {
 			),
 			'custom_css_stylesheet' => array(
 				'name' => null,
-				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Stylesheet' ), esc_html__( 'Add a custom css stylesheet to the head, custom.css.', 'anva' ) ),
+				'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Stylesheet', 'anva' ), esc_html__( 'Add a custom css stylesheet to the head, custom.css.', 'anva' ) ),
 				'id' => 'custom_css_stylesheet',
 				'std' => '0',
 				'type' => 'checkbox',

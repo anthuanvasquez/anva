@@ -127,7 +127,7 @@ function anva_theme_options_layout() {
 		),
 		'side_header_icons' => array(
 			'name' => null,
-			'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Icons' ), esc_html__( 'Display social icons below primary menu when header type is side.', 'anva' ) ),
+			'desc' => sprintf( '<strong>%s</strong> %s', esc_html__( 'Icons', 'anva' ), esc_html__( 'Display social icons below primary menu when header type is side.', 'anva' ) ),
 			'id' => 'side_header_icons',
 			'std' => '1',
 			'type' => 'checkbox',
@@ -188,7 +188,7 @@ function anva_theme_options_layout() {
 		),
 		'footer_extra_display' => array(
 			'name' => null,
-			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Extra Info' ), esc_html__( 'Display extra information in footer.', 'anva' ) ),
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Extra Info', 'anva' ), esc_html__( 'Display extra information in footer.', 'anva' ) ),
 			'id' => 'footer_extra_display',
 			'std' => '1',
 			'type' => 'checkbox',
@@ -204,14 +204,14 @@ function anva_theme_options_layout() {
 		),
 		'footer_gototop' => array(
 			'name' => null,
-			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Go To Top' ), esc_html__( 'Add a Go To Top to allow your users to scroll to the Top of the page.', 'anva' ) ),
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Go To Top', 'anva' ), esc_html__( 'Add a Go To Top to allow your users to scroll to the Top of the page.', 'anva' ) ),
 			'id' => 'footer_gototop',
 			'std' => '1',
 			'type' => 'checkbox',
 		),
 		'footer_icons' => array(
 			'name' => null,
-			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Icons' ), esc_html__( 'Display social icons on the footer.', 'anva' ) ),
+			'desc' => sprintf( '<strong>%s:</strong> %s', esc_html__( 'Icons', 'anva' ), esc_html__( 'Display social icons on the footer.', 'anva' ) ),
 			'id' => 'footer_icons',
 			'std' => '1',
 			'type' => 'checkbox',

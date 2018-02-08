@@ -10,7 +10,7 @@ gulp.task('default', ['watch', 'browsersync']);
 gulp.task('build', ['wipe-build', 'images', 'fonts', 'scripts', 'styles', 'theme']);
 
 // Create distribution copy
-gulp.task('release', ['dist']);
+gulp.task('dist', ['dist']);
 
 // Compress images - NOTE: this is a resource-intensive task!
 gulp.task('optimize', ['images-optimize']);
@@ -21,7 +21,7 @@ gulp.task('tests', () => {
 });
 
 // Production
-gulp.task('prod', () => {
+gulp.task('release', () => {
     gutil.env.prod = true;
     runSequence('sass-theme', 'sass-core', 'sass-admin');
 });

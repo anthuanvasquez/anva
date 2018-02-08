@@ -1,5 +1,12 @@
 {
     "main": "gulpfile.js",
+    "scripts": {
+        "sassLint": "node_modules/.bin/gulp sass-lint",
+        "jsLint": "node_modules/.bin/gulp js-lint",
+        "sassCompilation": "node_modules/.bin/gulp sass",
+        "cssLint": "node_modules/.bin/gulp css-lint",
+        "phpLint": "node_modules/.bin/gulp php-lint"
+    },
     "devDependencies": {
         "autoprefixer": "^6.3.3",
         "browser-sync": "~2.18.7",

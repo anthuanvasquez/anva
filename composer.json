@@ -1,6 +1,6 @@
 {
-    "name": "anthuanvasquez/anva-framework",
-    "description": "Anva theme framework",
+    "name": "anthuanvasquez/anva-base",
+    "description": "Anva Theme Base",
     "keywords": ["wordpress"],
     "homepage": "https://anthuanvasquez.net",
     "license": "GPL-2.0+",
@@ -12,7 +12,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/anthuanvasquez/anva-framework/issues"
+        "issues": "https://github.com/anthuanvasquez/anva-base/issues"
     },
     "autoload": {
         "classmap": ["framework/anva.php"]

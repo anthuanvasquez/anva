@@ -1,0 +1,85 @@
+image: node:latest
+
+stages:
+  - setup
+  - source-lint
+  - build
+  - output-lint
+  - deploy
+
+# backend-setup:
+#   stage: setup
+#   script:
+#     - composer install
+#   cache:
+#     key: ${CI_BUILD_REF_NAME}
+#     paths:
+#       - vendor/
+#   artifacts:
+#     paths:
+#       - vendor/
+
+frontend-setup:
+  stage: setup
+  script:
+    - npm install -g node-gyp
+    - cd .tools
+    - ls -la
+    - yarn install
+  cache:
+    key: ${CI_BUILD_REF_NAME}
+    paths:
+      - node_modules/
+  artifacts:
+    paths:
+     - .tools/node_modules/
+
+# static-review-feature:
+#   stage: source-lint
+#   script:
+#     - vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR
+#     - vendor/bin/phpcs -p -s -v -n . --colors --standard=./phpcs.ruleset.xml --extensions=php --ignore=sniffs,.tools,vendor
+#     - vendor/bin/phpmd . text ./phpmd.ruleset.xml --suffixes php --exclude sniffs,.tools,vendor
+#     - vendor/bin/phpcpd . -vv --fuzzy
+
+sass-lint:
+  stage: source-lint
+  script:
+    - cd .tools
+    - npm run sassLint
+
+js-lint:
+  stage: source-lint
+  script:
+    - cd .tools
+    - npm run jsLint
+
+sass-compilation:
+  stage: build
+  script:
+    - cd .tools
+    - npm run sassCompilation
+  cache:
+    key: ${CI_BUILD_REF_NAME}
+    paths:
+      - assets/css/
+  artifacts:
+    paths:
+     - assets/css/
+
+css-lint:
+  stage: output-lint
+  script:
+    - cd .tools
+    - npm run cssLint
+
+pack:
+  stage: deploy
+  only:
+    - master
+  script:
+    - cd .tools
+    - npm run sassCompilation
+  artifacts:
+    paths:
+      - dist/*.tgz

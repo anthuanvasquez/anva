@@ -14,7 +14,7 @@
  * vendor:  All required vendor plugins for use in the theme.
  */
 
-'use_strict';
+'use strict';
 
 // Project `Paths`
 var project      = 'anva',
@@ -81,7 +81,7 @@ module.exports = {
         open: true,
         port: 3000,
         proxy: {
-            target: proxy,
+            target: proxy
         },
         watchOptions: {
             debounceDelay: 2000
@@ -121,7 +121,7 @@ module.exports = {
 
     scripts: {
         dest: build,
-        src: [src + '**/*.js', ignoreTools, ignoreVendor],
+        src: [ src + '**/*.js', ignoreTools, ignoreVendor ],
         lint: {
             theme: theme + 'js/**/*.js',
             core: core + 'js/**/*.js',
@@ -177,7 +177,7 @@ module.exports = {
     // -------------------------------------------
 
     styles: {
-        src: [src + '**/*.css', ignoreTools, ignoreVendor],
+        src: [ src + '**/*.css', ignoreTools, ignoreVendor ],
         dest: build,
         lint: {
             theme: theme + 'css/**/*.css',
@@ -229,8 +229,7 @@ module.exports = {
                 bower,
                 modules
             ],
-            // Options: nested, expanded, compact, compressed
-            outputStyle: 'expanded'
+            outputStyle: 'expanded' // Options: nested, expanded, compact, compressed
         },
         sassLint: {
             theme: theme + 'scss/**/*.scss',
@@ -302,10 +301,10 @@ module.exports = {
             }
         },
         php: {
-            src: [src + '**/*.php', ignoreTools, ignoreVendor],
+            src: [ src + '**/*.php', ignoreTools, ignoreVendor ],
             dest: build,
             lint: {
-                ignore: [ignoreTools, ignoreVendor]
+                ignore: [ ignoreTools, ignoreVendor ]
             }
         },
         readme: {
@@ -338,13 +337,13 @@ module.exports = {
     // -------------------------------------------
 
     utils: {
-        clean: [src + '**/.DS_Store', src + '**/.log'],
+        clean: [ src + '**/.DS_Store', src + '**/.log' ],
         wipe: {
-            dist: [dist],
-            build: [build]
+            dist: [ dist ],
+            build: [ build ]
         },
         dist: {
-            src: [build + '**/*', '!' + build + '**/*.map'],
+            src: [ build + '**/*', '!' + build + '**/*.map' ],
             dest: './dist',
             name: release + '.zip'
         },
@@ -378,5 +377,4 @@ module.exports = {
             php: src + '**/*.php'
         }
     }
-
 };

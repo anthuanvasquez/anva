@@ -30,5 +30,6 @@ gulp.task('fonts', () => {
 gulp.task('dist', ['clean'], () => {
     return gulp.src(config.dist.src)
         .pipe(plugins.zip(config.dist.name))
-        .pipe(gulp.dest(config.dist.dest));
+        .pipe(gulp.dest(config.dist.dest))
+        .pipe(plugins.notify({ message: 'Distribution folder created' }));
 });
