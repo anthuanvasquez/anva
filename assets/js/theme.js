@@ -1,6 +1,6 @@
-;(function( $ ) {
+'use strict';
 
-    'use strict';
+( function( $ ) {
 
     var theme = {
 
@@ -52,7 +52,9 @@
 
                 var setWidth = function() {
                     max = getMax();
-                    indicator.css({ width: getWidth() });
+                    indicator.css({
+                        width: getWidth()
+                    });
                 };
 
                 $( document ).on( 'scroll', setWidth );
@@ -67,7 +69,8 @@
 
                     if ( percentage > 10 ) {
                         this.postReading.addClass( 'visible' );
-                    } else {
+                    }
+                    else {
                         this.postReading.removeClass( 'visible' );
                     }
                 });
@@ -110,7 +113,7 @@
                         data: 'action=anva_ajax_search&s=' + searchElement.val(),
                         beforeSend: function() {
                             this.instantSearch.addClass( 'loading' );
-                            this.instantSearch.html('');
+                            this.instantSearch.html( '' );
                         },
                         success: function( results ) {
                             this.instantSearch.removeClass( 'loading' );
